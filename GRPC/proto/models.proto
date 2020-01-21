@@ -1,0 +1,260 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "se.tink.grpc.v1.models";
+option java_outer_classname = "Protos";
+option go_package = "proto";
+option swift_prefix = "GRPC";
+
+import "google/protobuf/timestamp.proto";
+
+
+message Credential {
+    enum Status {
+        STATUS_UNKNOWN = 0;
+        STATUS_CREATED = 1;
+        STATUS_AUTHENTICATING = 2;
+        STATUS_UPDATING = 3;
+        STATUS_UPDATED = 4;
+        STATUS_TEMPORARY_ERROR = 5;
+        STATUS_AUTHENTICATION_ERROR = 6;
+        STATUS_PERMANENT_ERROR = 7;
+        // Will be deprecated and replaced by "STATUS_AWAITING_THIRD_PARTY_APP_AUTHENTICATION".
+        STATUS_AWAITING_MOBILE_BANKID_AUTHENTICATION = 8 [deprecated = true];
+        STATUS_AWAITING_SUPPLEMENTAL_INFORMATION = 9;
+        STATUS_DISABLED = 10;
+        STATUS_AWAITING_THIRD_PARTY_APP_AUTHENTICATION = 11;
+        STATUS_SESSION_EXPIRED = 12;
+    }
+
+    enum Type {
+        TYPE_UNKNOWN = 0;
+        TYPE_PASSWORD = 1;
+        // Will be deprecated and replaced by "TYPE_THIRD_PARTY_AUTHENTICATION".
+        TYPE_MOBILE_BANKID = 2 [deprecated = true];
+        TYPE_KEYFOB = 3;
+        TYPE_FRAUD = 4;
+        TYPE_THIRD_PARTY_AUTHENTICATION = 5;
+    }
+
+    string id = 1;
+    string provider_name = 2;
+    Type type = 3;
+    Status status = 4;
+    string status_payload = 5;
+    google.protobuf.Timestamp status_updated = 6;
+    google.protobuf.Timestamp updated = 7;
+    map<string, string> fields = 8;
+    repeated ProviderFieldSpecification supplemental_information_fields = 9;
+    ThirdPartyAppAuthentication third_party_app_authentication = 10;
+    google.protobuf.Timestamp sessionExpiryDate = 11;
+}
+
+message Provider {
+    string name = 1;
+    string display_name = 2;
+
+    enum Type {
+        TYPE_UNKNOWN = 0;
+        TYPE_BANK = 1;
+        TYPE_CREDIT_CARD = 2;
+        TYPE_BROKER = 3;
+        TYPE_OTHER = 4;
+        TYPE_TEST = 5;
+        TYPE_FRAUD = 6;
+    }
+
+    Type type = 3;
+
+    enum Status {
+        STATUS_UNKNOWN = 0;
+        STATUS_ENABLED = 1;
+        STATUS_DISABLED = 2;
+        STATUS_TEMPORARY_DISABLED = 3;
+        STATUS_OBSOLETE = 4;
+    }
+
+    Status status = 4;
+    Credential.Type credential_type = 5;
+    string help_text = 6;
+    bool popular = 7;
+    repeated ProviderFieldSpecification fields = 8;
+    string group_display_name = 9;
+    Images images = 10;
+    string display_description = 11;
+
+    enum Capability {
+        CAPABILITY_UNKNOWN = 0;
+        CAPABILITY_TRANSFERS = 1;
+        CAPABILITY_MORTGAGE_AGGREGATION = 2;
+        CAPABILITY_CHECKING_ACCOUNTS = 3;
+        CAPABILITY_SAVINGS_ACCOUNTS = 4;
+        CAPABILITY_CREDIT_CARDS = 5;
+        CAPABILITY_INVESTMENTS = 6;
+        CAPABILITY_LOANS = 7;
+        CAPABILITY_PAYMENTS = 8;
+        CAPABILITY_MORTGAGE_LOAN = 9;
+        CAPABILITY_IDENTITY_DATA = 10;
+    }
+    repeated Capability capabilities = 12;
+
+    string market_code = 13;
+
+    enum AccessType {
+        ACCESS_TYPE_UNKNOWN = 0;
+        ACCESS_TYPE_OPEN_BANKING = 1;
+        ACCESS_TYPE_OTHER = 2;
+    }
+
+    AccessType access_type = 14;
+    // ASS-247: 15 and 16 is removed in favor of 17 and 18
+    string financial_institution_id = 17;
+    string financial_institution_name = 18;
+  
+    enum AuthenticationFlow {
+        AUTHENTICATION_FLOW_UNKNOWN = 0;
+        AUTHENTICATION_FLOW_EMBEDDED = 1;
+        AUTHENTICATION_FLOW_REDIRECT= 2;
+        AUTHENTICATION_FLOW_DECOUPLED = 3;
+    }
+
+    AuthenticationFlow authentication_flow = 19;
+}
+
+message ProviderFieldSpecification {
+    string description = 1;
+    string hint = 2;
+    int32 max_length = 3;
+    int32 min_length = 4;
+    bool masked = 5;
+    bool numeric = 6;
+    bool immutable = 7;
+    bool optional = 8;
+    string name = 9;
+    string value = 10;
+    string pattern = 11;
+    string pattern_error = 12;
+    string help_text = 13;
+
+    //    Type type = 14;
+    //    repeated Field children = 15;
+    //    repeated string options = 16;
+}
+
+message Images {
+    string icon_url = 1;
+    string banner_url = 2;
+}
+
+message UserProfile {
+    string username = 1;
+    string national_id = 2;
+    // The login methods that the user is authorized to use, for example `BANKID`.
+    repeated AuthenticationMethod authorized_login_methods = 3;
+    // The login methods that are available on the market, for example `EMAIL_AND_PASSWORD` and `BANKID`.
+    repeated AuthenticationMethod available_login_methods = 4;
+    google.protobuf.Timestamp created_date = 5;
+    string market = 6;
+    string locale = 7;
+}
+
+enum RateAppStatus {
+    RATE_APP_STATUS_UNKNOWN = 0;
+    RATE_APP_STATUS_CLICKED_IGNORE = 1;
+    RATE_APP_STATUS_CLICKED_RATE_IN_STORE = 2;
+}
+
+message ThirdPartyAppAuthentication {
+    string download_title = 1;
+    string download_message = 2;
+    string upgrade_title = 3;
+    string upgrade_message = 4;
+    Ios ios = 5;
+    Android android = 6;
+    Web web = 7;
+
+    message Ios {
+        string app_store_url = 1;
+        string scheme = 2;
+        string deep_link_url = 3;
+    }
+
+    message Android {
+        string package_name = 1;
+        int32 required_minimum_version = 2;
+        string intent = 3;
+    }
+
+    message Web {
+        string url = 1;
+    }
+}
+message Policy {
+    WhitelistRules whitelist_rules = 1;
+    BlacklistRules blacklist_rules = 2;
+    repeated CanaryRule canary_rules = 3;
+    GraylistPolicy graylist_policy = 4;
+}
+
+message WhitelistRules {
+    repeated FinancialInstitutionRule financial_institution_rules = 1;
+    repeated MarketRule market_rules = 2;
+    repeated AccessTypeRule access_type_rules = 3;
+    AllProvidersRule all_providers_rule = 4;
+    TestProvidersRule test_providers_rule = 5;
+}
+
+message BlacklistRules {
+    repeated FinancialInstitutionRule financial_institution_rules = 1;
+    repeated MarketRule market_rules = 2;
+    repeated AccessTypeRule access_type_rules = 3;
+    AllProvidersRule all_providers_rule = 4;
+    TestProvidersRule test_providers_rule = 5;
+}
+
+message CanaryRule {
+    string financial_institution_id = 1;
+    double percentage = 2;
+}
+
+enum GraylistPolicy {
+    GRAYLIST_POLICY_UNDEFINED = 0;
+    ALL_PROVIDERS = 1;
+    NON_TPP_PROVIDERS = 2;
+    TECHNICALLY_AVAILABLE_PROVIDERS = 3;
+    TINK_APP_PROVIDERS = 4;
+    TINK_STANDARD_POLICY = 5;
+}
+
+message FinancialInstitutionRule {
+    string financial_institution_id = 1;
+    bool is_open_banking = 2;
+}
+
+message MarketRule {
+    string market = 1;
+    AccessTypeRule access_type_rule = 2;
+}
+
+message AccessTypeRule {
+    bool is_open_banking = 1;
+}
+
+message AllProvidersRule {
+    bool enable_all_providers = 1;
+}
+
+message TestProvidersRule {
+    bool enable_test_providers = 1;
+}
+
+enum AuthenticationMethod {
+    AUTHENTICATION_METHOD_UNKNOWN = 0;
+    AUTHENTICATION_METHOD_BANKID = 1;
+    AUTHENTICATION_METHOD_EMAIL_AND_PASSWORD = 2;
+}
+
+message ProviderMarket {
+    string code = 1;
+}
+

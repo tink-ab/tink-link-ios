@@ -1,0 +1,4 @@
+--exclude Sources/TinkLink/GRPC
+--disable unusedArguments,trailingCommas,andOperator
+--self init-only
+--patternlet inline

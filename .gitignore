@@ -1,0 +1,10 @@
+.DS_Store
+.build/
+build/
+docs/
+xcuserdata/
+IDEWorkspaceChecks.plist
+Carthage/
+Pods/
+*.xcworkspace
+GRPC/plugins/

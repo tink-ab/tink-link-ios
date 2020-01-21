@@ -1,0 +1,178 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "se.tink.grpc.v1.rpc";
+option java_outer_classname = "Protos";
+option go_package = "proto";
+option swift_prefix = "GRPC";
+
+import "models.proto";
+import "google/protobuf/wrappers.proto";
+
+// CredentialService
+
+message CreateCredentialRequest {
+    string provider_name = 1;
+    Credential.Type type = 2;
+    map<string, string> fields = 3;
+    string callback_uri = 4;
+    string app_uri = 5;
+}
+
+message CreateCredentialResponse {
+    Credential credential = 1;
+}
+
+message UpdateCredentialRequest {
+    string credential_id = 1;
+    map<string, string> fields = 2;
+    string callback_uri = 3;
+    string app_uri = 4;
+}
+
+message UpdateCredentialResponse {
+    Credential credential = 1;
+}
+
+message RefreshCredentialsRequest {
+    repeated string credential_ids = 1;
+}
+
+message RefreshCredentialsResponse {
+}
+
+message ManualAuthenticationRequest {
+    string credential_ids = 1;
+}
+
+message ManualAuthenticationResponse {
+
+}
+
+message DeleteCredentialRequest {
+    string credential_id = 1;
+}
+
+message DeleteCredentialResponse {
+
+}
+
+message EnableCredentialRequest {
+    string credential_id = 1;
+}
+
+message EnableCredentialResponse {
+
+}
+
+message DisableCredentialRequest {
+    string credential_id = 1;
+}
+
+message DisableCredentialResponse {
+
+}
+
+message SupplementInformationRequest {
+    string credential_id = 1;
+    map<string, string> supplemental_information_fields = 2;
+}
+
+message CancelSupplementInformationRequest {
+    string credential_id = 1;
+}
+
+message CancelSupplementInformationResponse {
+}
+
+message SupplementInformationResponse {
+}
+
+message ListCredentialsRequest {
+}
+
+message ListCredentialsResponse {
+    repeated Credential credentials = 1;
+}
+
+// Provider Service
+
+message ListProvidersResponse {
+    repeated Provider providers = 1;
+}
+
+message ListProvidersForMarketsResponse {
+    message MarketProviders {
+        string market_code = 1 ;
+        repeated Provider providers = 2;
+    }
+
+    repeated MarketProviders providers_by_market = 1;
+}
+
+message ProviderMarketListResponse {
+    repeated ProviderMarket provider_markets = 1;
+}
+
+message ProviderListRequest {
+    Provider.Capability capability = 1;
+    bool include_test_type = 2;
+    string market_code = 3;
+}
+
+message ProviderListForMarketsRequest {
+    Provider.Capability capability = 1;
+    repeated string market_codes = 2;
+}
+
+message ProviderMarketListRequest {
+
+}
+
+message ProviderSuggestRequest {
+
+}
+
+message PolicyListRequest {
+    Policy policy = 1;
+}
+
+message CreateAnonymousRequest {
+    string market = 1;
+    string locale = 2;
+    string origin = 3;
+}
+
+message CreateAnonymousResponse {
+    string access_token = 1;
+}
+
+message GetProfileRequest {
+}
+
+message GetProfileResponse {
+    UserProfile user_profile = 1;
+}
+
+message DeleteUserRequest {
+    repeated string reasons = 1;
+    google.protobuf.StringValue comment = 2;
+}
+
+message DeleteUserResponse {
+}
+
+message RateAppRequest {
+    RateAppStatus status = 1;
+}
+
+message RateAppResponse {
+}
+
+message ThirdPartyCallbackRequest {
+    string state = 1;
+    map<string, string> parameters = 2;
+}
+
+message ThirdPartyCallbackResponse {
+}
