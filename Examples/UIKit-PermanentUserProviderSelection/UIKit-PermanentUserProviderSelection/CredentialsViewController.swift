@@ -14,6 +14,9 @@ class CredentialsViewController: UITableViewController {
     private var providerController: ProviderController?
     private var credentials: [Credential]? {
         didSet {
+            if credentials != nil {
+                tableView.backgroundView = nil
+            }
             tableView.reloadData()
         }
     }
@@ -80,7 +83,6 @@ extension CredentialsViewController {
         guard credentials != nil else {
             return 0
         }
-        tableView.backgroundView = nil
         return 1
     }
 
