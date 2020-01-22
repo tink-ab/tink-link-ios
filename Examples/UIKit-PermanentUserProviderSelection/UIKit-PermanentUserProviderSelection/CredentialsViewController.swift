@@ -25,9 +25,8 @@ class CredentialsViewController: UITableViewController {
 
         title = "Credentials"
         let addBarItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredential))
-        let refreshBarItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshCredentials))
         setToolbarItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), addBarItem], animated: true)
-        navigationItem.rightBarButtonItem = refreshBarItem
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshCredentials))
         navigationItem.leftBarButtonItem = editButtonItem
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
