@@ -79,13 +79,6 @@ class CredentialsViewController: UITableViewController {
 }
 
 extension CredentialsViewController {
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        guard credentials != nil else {
-            return 0
-        }
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return credentials?.count ?? 0
     }
