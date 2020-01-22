@@ -83,20 +83,28 @@ final class CredentialController: ObservableObject {
             thirdPartyAppAuthenticationTask.openThirdPartyApp()
         case .updating(let credential, _):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
+                DispatchQueue.main.async { [weak self] in
+                    self?.credentials[index] = credential
+                }
             }
         case .sessionExpired(let credential):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
+                DispatchQueue.main.async { [weak self] in
+                    self?.credentials[index] = credential
+                }
             }
         case .updated(let credential):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
-                updatedCredentials.append(credential)
+                DispatchQueue.main.async { [weak self] in
+                    self?.credentials[index] = credential
+                    self?.updatedCredentials.append(credential)
+                }
             }
         case .error(let credential, _):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
+                DispatchQueue.main.async { [weak self] in
+                    self?.credentials[index] = credential
+                }
             }
         }
     }
@@ -113,6 +121,8 @@ final class CredentialController: ObservableObject {
         } catch {
             // error
         }
-        updatedCredentials = []
+        DispatchQueue.main.async { [weak self] in
+            self?.updatedCredentials = []
+        }
     }
 }

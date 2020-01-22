@@ -1,7 +1,7 @@
 import TinkLinkSDK
-import SwiftUI
+import Foundation
 
-final class UserController: ObservableObject {
+final class UserController {
     var user: User?
     
     private var userContext = UserContext()
