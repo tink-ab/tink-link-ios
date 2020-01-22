@@ -3,7 +3,6 @@ import GRPC
 
 extension CallOptions {
     enum HeaderKey: String {
-        case clientKey = "X-Tink-Client-Key"
         case deviceID = "X-Tink-Device-ID"
         case authorization = "Authorization"
         case oauthClientID = "X-Tink-OAuth-Client-ID"

@@ -11,7 +11,6 @@ final class Client {
     var restCertificateURL: URL?
     var grpcCertificateURL: URL?
 
-    private let clientKey = "e0e2c59be49f40a2ac3f21ae6893cbe7"
     let tinkLinkName = "Tink Link iOS"
     var tinkLinkVersion: String? {
         let version = Bundle(for: Client.self).object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
@@ -41,7 +40,6 @@ final class Client {
         self.connection = ClientConnection(configuration: configuration)
 
         defaultCallOptions.add(key: CallOptions.HeaderKey.oauthClientID.key, value: clientID)
-        defaultCallOptions.add(key: CallOptions.HeaderKey.clientKey.key, value: clientKey)
         defaultCallOptions.add(key: CallOptions.HeaderKey.sdkName.key, value: tinkLinkName)
         if let tinkLinkVersion = tinkLinkVersion {
             defaultCallOptions.add(key: CallOptions.HeaderKey.sdkVersion.key, value: tinkLinkVersion)
