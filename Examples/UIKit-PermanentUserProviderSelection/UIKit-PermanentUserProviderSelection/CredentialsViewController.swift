@@ -17,16 +17,19 @@ class CredentialsViewController: UITableViewController {
     private var credentials: [Credential]? {
         didSet {
             if credentials != nil {
-                tableView.backgroundView = nil
+                activityIndicator.stopAnimating()
+            } else {
+                activityIndicator.startAnimating()
             }
             tableView.reloadData()
         }
     }
 
+    private let activityIndicator = UIActivityIndicatorView(style: .medium)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.startAnimating()
         tableView.backgroundView = activityIndicator
 
