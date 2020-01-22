@@ -92,13 +92,11 @@ extension CredentialsViewController {
         guard let credential = credentials?[indexPath.row] else {
             fatalError()
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        if let imageViewCell = cell as? FixedImageSizeTableViewCell {
-            let provider = providerController?.provider(providerID: credential.providerID)
-            imageViewCell.setTitle(text: provider?.displayName ?? credential.kind.description)
-            imageViewCell.setSubtitle(text: dateFormatter.string(from: credential.updated ?? Date()))
-            provider?.image.flatMap { imageViewCell.setImage(url: $0) }
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FixedImageSizeTableViewCell
+        let provider = providerController?.provider(providerID: credential.providerID)
+        cell.setTitle(text: provider?.displayName ?? credential.kind.description)
+        cell.setSubtitle(text: dateFormatter.string(from: credential.updated ?? Date()))
+        provider?.image.flatMap { cell.setImage(url: $0) }
         cell.selectionStyle = .none
         return cell
     }
