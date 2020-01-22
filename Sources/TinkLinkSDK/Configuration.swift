@@ -27,7 +27,7 @@ extension TinkLink {
         public init(
             clientID: String,
             redirectURI: URL,
-            environment: Environment,
+            environment: Environment = .production,
             grpcCertificateURL: URL? = nil,
             restCertificateURL: URL? = nil
         ) throws {

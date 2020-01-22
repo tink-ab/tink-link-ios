@@ -18,7 +18,7 @@
 
 Swift Package Manager is used to integrate Tink Link into your project.
 
-Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-ios` when asked for a package repository.
+Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-sdk-ios` when asked for a package repository.
 
 When finished, you should be able to `import TinkLinkSDK` within your project.
 
@@ -29,7 +29,7 @@ To start using Tink Link, you will need to configure a `TinkLink` instance with 
 ### Swift
 
 ```swift
-let configuration = TinkLink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
+let configuration = try! TinkLink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
 TinkLink.configure(with: configuration)
 ```
 
@@ -57,5 +57,5 @@ Follow the instructions at one of these links for how to set this up:
 
 ## Examples
 
-- [Usage Examples](https://github.com/tink-ab/tink-link-ios/blob/master/USAGE.md) This document outlines how to use the different classes and types provided by Tink Link.
-- [Provider Selection](https://github.com/tink-ab/tink-link-ios/blob/master/Examples/ProviderSelection) This example shows how to build a complete aggregation flow using Tink Link.
+- [Usage Examples](USAGE.md) This document outlines how to use the different classes and types provided by Tink Link.
+- [Provider Selection](Examples/PermanentUserProviderSelection) This example shows how to build a complete aggregation flow using Tink Link.
