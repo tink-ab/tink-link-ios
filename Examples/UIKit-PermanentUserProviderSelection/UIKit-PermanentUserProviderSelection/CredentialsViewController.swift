@@ -26,12 +26,15 @@ class CredentialsViewController: UITableViewController {
         tableView.backgroundView = activityIndicator
 
         title = "Credentials"
+
         let addBarItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredential))
         toolbarItems = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), addBarItem]
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshCredentials))
         navigationItem.leftBarButtonItem = editButtonItem
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
+
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .providerControllerDidUpdateProviders, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidUpdateCredentials, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidAddCredential, object: nil)
