@@ -4,7 +4,9 @@ import UIKit
 class CredentialsViewController: UITableViewController {
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm MMM dd, yyyy"
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.doesRelativeDateFormatting = true
         return formatter
     }()
     private let userController = UserController()
