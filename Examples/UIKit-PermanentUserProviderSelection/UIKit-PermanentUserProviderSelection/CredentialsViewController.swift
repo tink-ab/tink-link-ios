@@ -32,7 +32,6 @@ class CredentialsViewController: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AddNewButton")
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .providerControllerDidUpdateProviders, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidUpdateCredentials, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidAddCredential, object: nil)
