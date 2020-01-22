@@ -9,9 +9,11 @@ class CredentialsViewController: UITableViewController {
         formatter.doesRelativeDateFormatting = true
         return formatter
     }()
+
     private let userController = UserController()
     private var credentialController: CredentialController?
     private var providerController: ProviderController?
+
     private var credentials: [Credential]? {
         didSet {
             if credentials != nil {
