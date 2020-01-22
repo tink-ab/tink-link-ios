@@ -26,8 +26,7 @@ class CredentialsViewController: UITableViewController {
         title = "Credentials"
         let addBarItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredential))
         let refreshBarItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshCredentials))
-        let editBarItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(showEditing))
-        let barItems = [refreshBarItem, editBarItem]
+        let barItems = [refreshBarItem, editButtonItem]
         setToolbarItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), addBarItem], animated: true)
         navigationItem.setRightBarButtonItems(barItems, animated: true)
 
@@ -62,10 +61,6 @@ class CredentialsViewController: UITableViewController {
         if let credentials = credentials {
             credentialController?.performRefresh(credentials)
         }
-    }
-
-    @objc func showEditing(sender: UIBarButtonItem) {
-        tableView.isEditing.toggle()
     }
 
     @objc func addCredential(sender: UIBarButtonItem) {
