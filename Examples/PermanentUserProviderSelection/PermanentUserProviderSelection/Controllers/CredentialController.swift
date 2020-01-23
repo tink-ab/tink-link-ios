@@ -66,7 +66,6 @@ final class CredentialController: ObservableObject {
                         }
                     }
                 case .failure(let error):
-                    // TODO: error handling
                     print(error)
                 }
             })
