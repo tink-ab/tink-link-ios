@@ -26,7 +26,7 @@ final class ProviderController: ObservableObject {
                     self?.providers = providers
                 }
             } catch {
-                // error
+                // Handle any errors
             }
         })
     }
