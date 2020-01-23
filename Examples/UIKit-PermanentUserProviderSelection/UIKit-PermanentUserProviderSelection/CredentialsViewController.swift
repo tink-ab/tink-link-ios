@@ -57,7 +57,7 @@ class CredentialsViewController: UITableViewController {
                 self.providerController?.user = user
                 self.providerController?.performFetch()
             } catch {
-                // error
+                // Handle any errors
             }
         }
     }

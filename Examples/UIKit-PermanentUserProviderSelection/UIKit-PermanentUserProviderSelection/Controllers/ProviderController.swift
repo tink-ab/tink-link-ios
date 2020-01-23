@@ -37,7 +37,7 @@ final class ProviderController {
                     self?.providers = providers
                 }
             } catch {
-                // error
+                // Handle any errors
             }
         })
     }

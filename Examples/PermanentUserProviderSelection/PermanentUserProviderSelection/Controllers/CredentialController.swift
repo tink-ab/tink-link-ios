@@ -29,7 +29,7 @@ final class CredentialController: ObservableObject {
                     self?.credentials = credentials
                 }
             } catch {
-                // error
+                // Handle any errors
             }
         })
     }
@@ -66,7 +66,6 @@ final class CredentialController: ObservableObject {
                         }
                     }
                 case .failure(let error):
-                    // TODO: error handling
                     print(error)
                 }
             })
@@ -119,7 +118,7 @@ final class CredentialController: ObservableObject {
                 self?.credentials = groupedCredentials.values.flatMap { $0 }
             }
         } catch {
-            // error
+            // Handle any errors
         }
         DispatchQueue.main.async { [weak self] in
             self?.updatedCredentials = []
