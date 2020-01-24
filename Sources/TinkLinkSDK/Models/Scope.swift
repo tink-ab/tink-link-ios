@@ -3,8 +3,8 @@ public protocol ScopeType: CustomStringConvertible {
     static var name: String { get }
 }
 
-/// Access to Tink is divided into scopes. The available scopes for Tink's APIs can be found in Tink console
 extension TinkLink {
+    /// Access to Tink is divided into scopes. The available scopes for Tink's APIs can be found in Tink console
     public struct Scope: CustomStringConvertible {
         public let scopes: [ScopeType]
         public let description: String
