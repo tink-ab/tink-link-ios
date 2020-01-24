@@ -122,7 +122,7 @@ public final class CredentialContext {
     ///   - completion: The block to execute when the credential has been refreshed successfuly or if it failed.
     ///   - result: A result that either a list of updated credentials when refresh successed or an error if failed.
     /// - Returns: The refresh credential task.
-    public func refreshCredentials(credentials: [Credential],
+    public func refresh(_ credentials: [Credential],
                                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
                                    progressHandler: @escaping (_ status: RefreshCredentialTask.Status) -> Void,
                                    completion: @escaping (_ result: Result<[Credential], Swift.Error>) -> Void) -> RefreshCredentialTask {
