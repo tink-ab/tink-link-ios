@@ -38,7 +38,6 @@ public final class UserContext {
         return nil
     }
 
-
     /// Create a user for a specific market and locale.
     ///
     /// - Parameter market: Register a `Market` for creating the user, will use the default market if nothing is provided.

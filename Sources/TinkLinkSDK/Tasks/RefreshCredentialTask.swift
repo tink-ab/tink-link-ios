@@ -47,7 +47,7 @@ public final class RefreshCredentialTask: Identifiable {
 
     private var credentialStatusPollingTask: CredentialsListStatusPollingTask?
 
-    private(set) public var credentials: [Credential]
+    public private(set) var credentials: [Credential]
 
     private let credentialService: CredentialService
     let progressHandler: (Status) -> Void
@@ -68,7 +68,8 @@ public final class RefreshCredentialTask: Identifiable {
             credentialService: credentialService,
             credentials: credentials,
             updateHandler: { [weak self] result in self?.handleUpdate(for: result) },
-            completion: completion)
+            completion: completion
+        )
 
         credentialStatusPollingTask?.pollStatus()
         // Set the callCanceller to cancel the polling

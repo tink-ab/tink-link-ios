@@ -1,5 +1,5 @@
-import XCTest
 @testable import TinkLinkSDK
+import XCTest
 
 class ThirdPartyCallbackTests: XCTestCase {
     func testValidCallbackURL() {
