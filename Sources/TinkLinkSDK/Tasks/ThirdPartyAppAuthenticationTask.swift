@@ -93,6 +93,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
     #endif
 
+    // MARK: - Controlling the Task
+
     /// Tells the task to stop waiting for third party app authentication.
     ///
     /// Call this method if you have a UI that lets the user choose to open the third party app and the user cancels.
