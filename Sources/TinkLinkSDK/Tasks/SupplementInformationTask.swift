@@ -9,6 +9,8 @@ public final class SupplementInformationTask: Identifiable {
     private let credentialService: CredentialService
     private var callRetryCancellable: RetryCancellable?
 
+    // MARK: Getting the Credential
+
     /// The credential that's awaiting supplemental information.
     public let credential: Credential
 
@@ -20,6 +22,8 @@ public final class SupplementInformationTask: Identifiable {
         self.completionHandler = completionHandler
     }
 
+    // MARK: - Submitting a Form
+
     /// Submits the provided form fields.
     ///
     /// - Parameter form: This is a form with fields from the credential that had status `awaitingSupplementalInformation`.
@@ -29,6 +33,8 @@ public final class SupplementInformationTask: Identifiable {
             self?.callRetryCancellable = nil
         })
     }
+
+    // MARK: - Controlling the Task
 
     /// Tells the credential to stop waiting for supplemental information.
     ///

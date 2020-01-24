@@ -7,6 +7,8 @@ public final class CredentialContext {
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
 
+    // MARK: - Creating a Credential Context
+
     /// Creates a new CredentialContext for the given TinkLink instance.
     ///
     /// - Parameter tinkLink: TinkLink instance, defaults to `shared` if not provided.
@@ -41,6 +43,8 @@ public final class CredentialContext {
     deinit {
         removeObservers()
     }
+
+    // MARK: - Adding Credentials
 
     /// Adds a credential for the user.
     ///
@@ -97,6 +101,8 @@ public final class CredentialContext {
         return service.createCredential(providerID: provider.id, fields: fields, appURI: appURI, completion: completion)
     }
 
+    // MARK: - Fetching Credentials
+
     /// Gets the user's credentials.
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
@@ -113,9 +119,12 @@ public final class CredentialContext {
         }
     }
 
+    // MARK: - Managing Credentials
+
     /// Refresh the user's credentials.
     /// - Parameters:
     ///   - credentials: List fo credential that needs to be refreshed.
+    ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credential being refreshed.
     ///   - completion: The block to execute when the credential has been refreshed successfuly or if it failed.
