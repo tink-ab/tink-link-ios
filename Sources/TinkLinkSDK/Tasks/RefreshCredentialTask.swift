@@ -43,6 +43,8 @@ public final class RefreshCredentialTask: Identifiable {
         case permanentFailure
     }
 
+    // MARK: - Retrieving Failure Requirements
+
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
     private var credentialStatusPollingTask: CredentialsListStatusPollingTask?
@@ -75,6 +77,8 @@ public final class RefreshCredentialTask: Identifiable {
         // Set the callCanceller to cancel the polling
         callCanceller = credentialStatusPollingTask?.callRetryCancellable
     }
+
+    // MARK: - Controlling the Task
 
     /// Cancel the task.
     public func cancel() {

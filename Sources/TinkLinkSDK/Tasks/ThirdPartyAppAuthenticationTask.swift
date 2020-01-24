@@ -57,6 +57,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         self.completionHandler = completionHandler
     }
 
+    // MARK: - Opening an App
+
     #if os(iOS)
         /// Tries to open the third party app.
         ///
