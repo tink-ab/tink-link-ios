@@ -46,8 +46,8 @@ final class CredentialController {
         if credentialContext == nil {
             credentialContext = CredentialContext(user: user)
         }
-        refreshTask = credentialContext?.refreshCredentials(
-            credentials: credentials,
+        refreshTask = credentialContext?.refresh(
+            credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             progressHandler: { [weak self] in self?.refreshProgressHandler(status: $0) },
             completion: { [weak self] in
