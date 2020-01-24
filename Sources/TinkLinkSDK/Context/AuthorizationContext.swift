@@ -27,7 +27,7 @@ final class AuthorizationContext {
     func authorize(scope: TinkLink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tinkLink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
-            completion(result.map({ $0.code }))
+            completion(result.map { $0.code })
         }
     }
 }

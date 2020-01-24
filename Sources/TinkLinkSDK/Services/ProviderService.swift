@@ -3,10 +3,10 @@ import GRPC
 final class ProviderService: TokenConfigurableService {
     let connection: ClientConnection
     var defaultCallOptions: CallOptions {
-       didSet {
-           service.defaultCallOptions = defaultCallOptions
-       }
-   }
+        didSet {
+            service.defaultCallOptions = defaultCallOptions
+        }
+    }
 
     var accessToken: AccessToken? {
         didSet {

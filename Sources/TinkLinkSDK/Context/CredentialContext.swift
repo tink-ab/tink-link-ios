@@ -38,7 +38,6 @@ public final class CredentialContext {
         credentialThirdPartyCallbackObserver = nil
     }
 
-
     deinit {
         removeObservers()
     }
@@ -126,10 +125,9 @@ public final class CredentialContext {
                                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
                                    progressHandler: @escaping (_ status: RefreshCredentialTask.Status) -> Void,
                                    completion: @escaping (_ result: Result<[Credential], Swift.Error>) -> Void) -> RefreshCredentialTask {
-
         let task = RefreshCredentialTask(credentials: credentials, credentialService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.refreshCredentials(credentialIDs: credentials.map({ $0.id }), completion: { result in
+        task.callCanceller = service.refreshCredentials(credentialIDs: credentials.map { $0.id }, completion: { result in
             switch result {
             case .success:
                 task.startObserving()
@@ -142,11 +140,11 @@ public final class CredentialContext {
     }
 
     /// Update the user's credential.
-       /// - Parameters:
-       ///   - credential: Credential that needs to be updated.
-       ///   - completion: The block to execute when the credential has been updated successfuly or if it failed.
-       ///   - result: A result with either an updated credential if the update succeeded or an error if failed.
-       /// - Returns: The update credential task.
+    /// - Parameters:
+    ///   - credential: Credential that needs to be updated.
+    ///   - completion: The block to execute when the credential has been updated successfuly or if it failed.
+    ///   - result: A result with either an updated credential if the update succeeded or an error if failed.
+    /// - Returns: The update credential task.
     @discardableResult
     public func update(_ credential: Credential,
                        completion: @escaping (_ result: Result<Credential, Swift.Error>) -> Void) -> RetryCancellable? {

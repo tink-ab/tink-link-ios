@@ -30,7 +30,7 @@ public final class ProviderContext {
     private let user: User
 
     /// Creates a context to access providers that matches the provided attributes.
-    /// 
+    ///
     /// - Parameter tinkLink: TinkLink instance, will use the shared instance if nothing is provided.
     /// - Parameter user: `User` that will be used for fetching providers with the Tink API.
     public init(tinkLink: TinkLink = .shared, user: User) {
