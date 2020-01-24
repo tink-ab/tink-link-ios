@@ -124,6 +124,7 @@ public final class CredentialContext {
     /// Refresh the user's credentials.
     /// - Parameters:
     ///   - credentials: List fo credential that needs to be refreshed.
+    ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credential being refreshed.
     ///   - completion: The block to execute when the credential has been refreshed successfuly or if it failed.

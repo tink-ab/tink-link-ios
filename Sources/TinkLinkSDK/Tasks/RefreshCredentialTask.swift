@@ -45,6 +45,7 @@ public final class RefreshCredentialTask: Identifiable {
 
     // MARK: - Retrieving Failure Requirements
 
+    /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
     private var credentialStatusPollingTask: CredentialsListStatusPollingTask?
