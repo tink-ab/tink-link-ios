@@ -50,6 +50,8 @@ public final class RefreshCredentialTask: Identifiable {
 
     private var credentialStatusPollingTask: CredentialsListStatusPollingTask?
 
+    // MARK: - Getting the Credentials
+
     public private(set) var credentials: [Credential]
 
     private let credentialService: CredentialService
