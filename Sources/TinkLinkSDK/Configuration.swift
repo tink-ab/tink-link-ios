@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: - Configuring the Tink Link Object
 extension TinkLink {
     /// Configuration used to set up the TinkLink
     public struct Configuration {

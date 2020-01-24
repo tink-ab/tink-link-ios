@@ -11,6 +11,8 @@ import Foundation
 public class TinkLink {
     static var _shared: TinkLink?
 
+    // MARK: - Using the Shared Instance
+
     /// The shared `TinkLink` instance.
     ///
     /// Note: You need to configure the shared instance by calling `TinkLink.configure(with:)`
@@ -22,10 +24,9 @@ public class TinkLink {
         return shared
     }
 
-    /// The current configuration.
-    public let configuration: Configuration
-
     private(set) lazy var client = Client(configuration: configuration)
+
+    // MARK: - Creating a Tink Link Object
 
     private init() {
         do {
@@ -54,6 +55,13 @@ public class TinkLink {
     public static func configure(with configuration: TinkLink.Configuration) {
         _shared = TinkLink(configuration: configuration)
     }
+
+    // MARK: - Getting Configuration Information
+
+    /// The current configuration.
+    public let configuration: Configuration
+
+    // MARK: - Handling Redirects
 
     @available(iOS 9.0, *)
     public func open(_ url: URL, completion: ((Result<Void, Error>) -> Void)? = nil) -> Bool {
