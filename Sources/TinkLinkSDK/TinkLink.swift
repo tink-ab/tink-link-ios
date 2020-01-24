@@ -43,6 +43,8 @@ public class TinkLink {
         self.configuration = configuration
     }
 
+    // MARK: - Configuring the Tink Link Object
+
     /// Configure shared instance with configration description.
     ///
     /// Here's how you could configure TinkLink with a `TinkLink.Configuration`.
@@ -55,8 +57,6 @@ public class TinkLink {
     public static func configure(with configuration: TinkLink.Configuration) {
         _shared = TinkLink(configuration: configuration)
     }
-
-    // MARK: - Getting Configuration Information
 
     /// The current configuration.
     public let configuration: Configuration
