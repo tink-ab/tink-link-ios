@@ -39,8 +39,8 @@ final class CredentialController: ObservableObject {
         if credentialContext == nil {
             credentialContext = CredentialContext(user: user)
         }
-        task = credentialContext?.refreshCredentials(
-            credentials: credentials,
+        task = credentialContext?.refresh(
+            credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             progressHandler: { [weak self] in
                 self?.refreshProgressHandler(status: $0)
