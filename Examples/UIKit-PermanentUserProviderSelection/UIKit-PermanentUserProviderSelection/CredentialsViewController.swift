@@ -69,8 +69,19 @@ class CredentialsViewController: UITableViewController {
     }
 
     @objc private func refreshCredentials(sender: UIBarButtonItem) {
-        if let credentials = credentials {
-            credentialController?.performRefresh(credentials)
+        if let credentialController = credentialController, let providerController = providerController {
+            let refreshCredentialViewController = RefreshCredentialViewController(
+                titleText: "Update banks & services",
+                credentialController: credentialController,
+                providerController: providerController,
+                dismissAction: { refreshCredentialViewController in
+                    refreshCredentialViewController.dismiss(animated: false)
+            }) { credentialsToRefresh in
+                credentialController.performRefresh(credentialsToRefresh)
+            }
+            view.tintAdjustmentMode = .dimmed
+            refreshCredentialViewController.modalPresentationStyle = .overFullScreen
+            present(refreshCredentialViewController, animated: false)
         }
     }
 
@@ -97,7 +108,6 @@ extension CredentialsViewController {
         cell.setTitle(text: provider?.displayName ?? credential.kind.description)
         cell.setSubtitle(text: dateFormatter.string(from: credential.updated ?? Date()))
         provider?.image.flatMap { cell.setImage(url: $0) }
-        cell.selectionStyle = .none
         return cell
     }
 

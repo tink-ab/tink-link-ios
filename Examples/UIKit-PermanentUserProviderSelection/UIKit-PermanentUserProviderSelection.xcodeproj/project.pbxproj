@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F1962DE23D9DE3600BC7C83 /* SelfSizingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1962DD23D9DE3600BC7C83 /* SelfSizingTableView.swift */; };
 		8F39F02423D1F6DF009D785E /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02123D1F6DF009D785E /* UserController.swift */; };
 		8F39F02523D1F6DF009D785E /* CredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02223D1F6DF009D785E /* CredentialController.swift */; };
 		8F39F02623D1F6DF009D785E /* ProviderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02323D1F6DF009D785E /* ProviderController.swift */; };
 		8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02823D5BC79009D785E /* CredentialsViewController.swift */; };
+		8FD3A6F923D89714002E97EF /* RefreshCredentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3A6F823D89714002E97EF /* RefreshCredentialViewController.swift */; };
 		8FDA296623D1EE4D00EC810F /* AddCredentialStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296323D1EE4D00EC810F /* AddCredentialStatusViewController.swift */; };
 		8FDA296723D1EE4D00EC810F /* AddCredentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296423D1EE4D00EC810F /* AddCredentialViewController.swift */; };
 		8FDA296823D1EE4D00EC810F /* SupplementalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */; };
@@ -29,10 +31,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F1962DD23D9DE3600BC7C83 /* SelfSizingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizingTableView.swift; sourceTree = "<group>"; };
 		8F39F02123D1F6DF009D785E /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		8F39F02223D1F6DF009D785E /* CredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialController.swift; sourceTree = "<group>"; };
 		8F39F02323D1F6DF009D785E /* ProviderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderController.swift; sourceTree = "<group>"; };
 		8F39F02823D5BC79009D785E /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
+		8FD3A6F823D89714002E97EF /* RefreshCredentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCredentialViewController.swift; sourceTree = "<group>"; };
 		8FDA296323D1EE4D00EC810F /* AddCredentialStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialStatusViewController.swift; sourceTree = "<group>"; };
 		8FDA296423D1EE4D00EC810F /* AddCredentialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialViewController.swift; sourceTree = "<group>"; };
 		8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementalInformationViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 		8FDA297723D1F5B900EC810F /* RefreshCredential */ = {
 			isa = PBXGroup;
 			children = (
+				8FD3A6F823D89714002E97EF /* RefreshCredentialViewController.swift */,
+				8F1962DD23D9DE3600BC7C83 /* SelfSizingTableView.swift */,
 			);
 			path = RefreshCredential;
 			sourceTree = "<group>";
@@ -234,6 +240,7 @@
 			files = (
 				8FFAE4D923D1E7D100784CBC /* AppDelegate.swift in Sources */,
 				8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */,
+				8F1962DE23D9DE3600BC7C83 /* SelfSizingTableView.swift in Sources */,
 				8F39F02623D1F6DF009D785E /* ProviderController.swift in Sources */,
 				8FDA296823D1EE4D00EC810F /* SupplementalInformationViewController.swift in Sources */,
 				8FDA297223D1EE5300EC810F /* ProviderListViewController.swift in Sources */,
@@ -244,6 +251,7 @@
 				8FDA297023D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift in Sources */,
 				8F39F02523D1F6DF009D785E /* CredentialController.swift in Sources */,
 				8FDA296623D1EE4D00EC810F /* AddCredentialStatusViewController.swift in Sources */,
+				8FD3A6F923D89714002E97EF /* RefreshCredentialViewController.swift in Sources */,
 				8FDA297123D1EE5300EC810F /* FixedImageSizeTableViewCell.swift in Sources */,
 				8FDA296F23D1EE5300EC810F /* TextFieldCell.swift in Sources */,
 			);

@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-final class FixedImageSizeTableViewCell: UITableViewCell {
+class FixedImageSizeTableViewCell: UITableViewCell {
     private let iconView = UIImageView()
     private let stackView = UIStackView()
     private let titleLabel = UILabel()
@@ -21,6 +21,7 @@ final class FixedImageSizeTableViewCell: UITableViewCell {
     private let iconTitleSpacing: CGFloat = 15
 
     private func setup() {
+        selectionStyle = .none
         contentView.addSubview(iconView)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)

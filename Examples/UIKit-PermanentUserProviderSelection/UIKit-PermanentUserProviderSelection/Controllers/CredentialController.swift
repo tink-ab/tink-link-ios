@@ -3,6 +3,7 @@ import Foundation
 
 extension Notification.Name {
     static let credentialControllerDidUpdateCredentials = Notification.Name("CredentialControllerDidUpdateCredentials")
+    static let credentialControllerDidFinishRefreshingCredentials = Notification.Name("credentialControllerDidFinishRefreshingCredentials")
     static let credentialControllerDidAddCredential = Notification.Name("CredentialControllerDidAddCredential")
     static let credentialControllerDidUpdateStatus = Notification.Name("CredentialControllerDidUpdateStatus")
     static let credentialControllerDidSupplementInformation = Notification.Name("CredentialControllerDidSupplementInformation")
@@ -10,7 +11,11 @@ extension Notification.Name {
 }
 
 final class CredentialController {
-    var credentials: [Credential] = []
+    var credentials: [Credential] = [] {
+        didSet {
+            NotificationCenter.default.post(name: .credentialControllerDidUpdateCredentials, object: nil)
+        }
+    }
     var user: User? {
         didSet {
             performFetch()
@@ -34,7 +39,6 @@ final class CredentialController {
             do {
                 let credentials = try result.get()
                 self.credentials = credentials
-                NotificationCenter.default.post(name: .credentialControllerDidUpdateCredentials, object: nil)
             } catch {
                 NotificationCenter.default.post(name: .credentialControllerDidError, object: nil)
             }
@@ -86,7 +90,7 @@ final class CredentialController {
                     }
                 case .failure(let error):
                     let parameters = ["error": error]
-                    NotificationCenter.default.post(name: .credentialControllerDidError, object: parameters)
+                    NotificationCenter.default.post(name: .credentialControllerDidError, object: nil, userInfo: parameters)
                 }
             })
         }
@@ -103,7 +107,7 @@ final class CredentialController {
             thirdPartyAppAuthenticationTask.openThirdPartyApp()
         case .updating(let status):
             let parameters = ["status": status]
-            NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: parameters)
+            NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: nil, userInfo: parameters)
         }
     }
 
@@ -114,7 +118,7 @@ final class CredentialController {
             NotificationCenter.default.post(name: .credentialControllerDidAddCredential, object: nil)
         } catch {
             let parameters = ["error": error]
-            NotificationCenter.default.post(name: .credentialControllerDidError, object: parameters)
+            NotificationCenter.default.post(name: .credentialControllerDidError, object: nil, userInfo: parameters)
         }
     }
 
@@ -130,6 +134,8 @@ final class CredentialController {
         case .updating(let credential, _):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
                 credentials[index] = credential
+                let parameters = ["credential": credential]
+                NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
         case .sessionExpired(let credential):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
@@ -139,6 +145,8 @@ final class CredentialController {
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
                 credentials[index] = credential
                 updatedCredentials.append(credential)
+                let parameters = ["credential": credential]
+                NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
         case .error(let credential, _):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
@@ -154,10 +162,10 @@ final class CredentialController {
             let groupedUpdatedCredentials = Dictionary(grouping: updatedCredentials) { $0.id }
             groupedCredentials.merge(groupedUpdatedCredentials) { (_, new) in return new }
             credentials = groupedCredentials.values.flatMap { $0 }
-            NotificationCenter.default.post(name: .credentialControllerDidUpdateCredentials, object: nil)
+            NotificationCenter.default.post(name: .credentialControllerDidFinishRefreshingCredentials, object: nil)
         } catch {
             let parameters = ["error": error]
-            NotificationCenter.default.post(name: .credentialControllerDidError, object: parameters)
+            NotificationCenter.default.post(name: .credentialControllerDidError, object: nil, userInfo: parameters)
         }
         updatedCredentials = []
     }
