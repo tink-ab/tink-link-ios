@@ -19,7 +19,7 @@ class ConfigurationTests: XCTestCase {
     func testConfigureWithoutRedirectURLHost() {
         let redirectURI = URL(string: "http-my-customer-app://")!
         do {
-            let _ = try TinkLink.Configuration(clientID: "abc", redirectURI: redirectURI, environment: .production)
+            _ = try TinkLink.Configuration(clientID: "abc", redirectURI: redirectURI, environment: .production)
             XCTFail("Cannot configure TinkLink with redriect url without host")
         } catch let urlError as URLError {
             XCTAssert(urlError.code == .cannotFindHost)

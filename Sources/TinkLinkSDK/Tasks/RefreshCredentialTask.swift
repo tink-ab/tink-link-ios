@@ -43,11 +43,16 @@ public final class RefreshCredentialTask: Identifiable {
         case permanentFailure
     }
 
+    // MARK: - Retrieving Failure Requirements
+
+    /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
     private var credentialStatusPollingTask: CredentialsListStatusPollingTask?
 
-    private(set) public var credentials: [Credential]
+    // MARK: - Getting the Credentials
+
+    public private(set) var credentials: [Credential]
 
     private let credentialService: CredentialService
     let progressHandler: (Status) -> Void
@@ -68,12 +73,15 @@ public final class RefreshCredentialTask: Identifiable {
             credentialService: credentialService,
             credentials: credentials,
             updateHandler: { [weak self] result in self?.handleUpdate(for: result) },
-            completion: completion)
+            completion: completion
+        )
 
         credentialStatusPollingTask?.pollStatus()
         // Set the callCanceller to cancel the polling
         callCanceller = credentialStatusPollingTask?.callRetryCancellable
     }
+
+    // MARK: - Controlling the Task
 
     /// Cancel the task.
     public func cancel() {

@@ -57,6 +57,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         self.completionHandler = completionHandler
     }
 
+    // MARK: - Opening an App
+
     #if os(iOS)
         /// Tries to open the third party app.
         ///
@@ -82,7 +84,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                             if didOpen {
                                 self.completionHandler(.success(()))
                             } else {
-                                // TODO: Maybe we should not return failure, to keep the polling, since the third party app can be in another device
                                 self.completionHandler(.failure(downloadRequiredError))
                             }
                         })
@@ -91,6 +92,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             }
         }
     #endif
+
+    // MARK: - Controlling the Task
 
     /// Tells the task to stop waiting for third party app authentication.
     ///

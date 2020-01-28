@@ -82,7 +82,11 @@ struct AlertView<Content: View>: View {
                         if offset != 0 {
                             Divider()
                         }
-                        SwiftUI.Button(action: button.action, label: { button.label.fontWeight(button.isPrimary ? .semibold : nil) })
+                        SwiftUI.Button(action: button.action, label: {
+                            button.label
+                                .fontWeight(button.isPrimary ? .semibold : nil)
+                                .frame(maxWidth: .infinity)
+                        })
                             .disabled(!button.isEnabled)
                             .frame(maxWidth: .infinity)
                     }

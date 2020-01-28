@@ -5,6 +5,8 @@ final class AuthorizationContext {
     private let tinkLink: TinkLink
     private let service: AuthenticationService
 
+    // MARK: - Creating a Context
+
     /// Creates a context to authorize for an authorization code for a user with requested scopes.
     ///
     /// - Parameter tinkLink: TinkLink instance, will use the shared instance if nothing is provided.
@@ -13,6 +15,8 @@ final class AuthorizationContext {
         self.tinkLink = tinkLink
         self.service = AuthenticationService(tinkLink: tinkLink, accessToken: user.accessToken)
     }
+
+    // MARK: - Authorizing a User
 
     /// Creates an authorization code with the requested scopes for the current user
     ///
@@ -27,7 +31,7 @@ final class AuthorizationContext {
     func authorize(scope: TinkLink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tinkLink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
-            completion(result.map({ $0.code }))
+            completion(result.map { $0.code })
         }
     }
 }

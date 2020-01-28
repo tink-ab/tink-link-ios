@@ -5,11 +5,15 @@ public final class UserContext {
     private let userService: UserService
     private var retryCancellable: RetryCancellable?
 
+    // MARK: - Creating a Context
+
     /// Creates a context to register for an access token that will be used in other TinkLink APIs.
     /// - Parameter tinkLink: TinkLink instance, will use the shared instance if nothing is provided.
     public init(tinkLink: TinkLink = .shared) {
         self.userService = UserService(tinkLink: tinkLink)
     }
+
+    // MARK: - Authenticating a User
 
     /// Authenticate a permanent user with authorization code.
     ///
@@ -37,7 +41,6 @@ public final class UserContext {
         completion(.success(User(accessToken: accessToken)))
         return nil
     }
-
 
     /// Create a user for a specific market and locale.
     ///

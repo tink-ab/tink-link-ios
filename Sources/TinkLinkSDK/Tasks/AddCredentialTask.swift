@@ -38,6 +38,8 @@ public final class AddCredentialTask: Identifiable {
 
     private(set) var credential: Credential?
 
+    // MARK: - Evaluating Completion
+
     /// Cases to evaluate when credential status changes.
     ///
     /// Use with `CredentialContext.addCredential(for:form:completionPredicate:progressHandler:completion:)` to set when add credential task should call completion handler if successful.
@@ -86,6 +88,8 @@ public final class AddCredentialTask: Identifiable {
 
         credentialStatusPollingTask?.pollStatus()
     }
+
+    // MARK: - Controlling the Task
 
     /// Cancel the task.
     public func cancel() {

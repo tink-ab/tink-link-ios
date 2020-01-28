@@ -29,7 +29,7 @@ final class CredentialController: ObservableObject {
                     self?.credentials = credentials
                 }
             } catch {
-                // error
+                // Handle any errors
             }
         })
     }
@@ -39,8 +39,8 @@ final class CredentialController: ObservableObject {
         if credentialContext == nil {
             credentialContext = CredentialContext(user: user)
         }
-        task = credentialContext?.refreshCredentials(
-            credentials: credentials,
+        task = credentialContext?.refresh(
+            credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             progressHandler: { [weak self] in
                 self?.refreshProgressHandler(status: $0)
@@ -66,7 +66,6 @@ final class CredentialController: ObservableObject {
                         }
                     }
                 case .failure(let error):
-                    // TODO: error handling
                     print(error)
                 }
             })
@@ -83,20 +82,28 @@ final class CredentialController: ObservableObject {
             thirdPartyAppAuthenticationTask.openThirdPartyApp()
         case .updating(let credential, _):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
+                DispatchQueue.main.async { [weak self] in
+                    self?.credentials[index] = credential
+                }
             }
         case .sessionExpired(let credential):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
+                DispatchQueue.main.async { [weak self] in
+                    self?.credentials[index] = credential
+                }
             }
         case .updated(let credential):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
-                updatedCredentials.append(credential)
+                DispatchQueue.main.async { [weak self] in
+                    self?.credentials[index] = credential
+                    self?.updatedCredentials.append(credential)
+                }
             }
         case .error(let credential, _):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
+                DispatchQueue.main.async { [weak self] in
+                    self?.credentials[index] = credential
+                }
             }
         }
     }
@@ -111,8 +118,10 @@ final class CredentialController: ObservableObject {
                 self?.credentials = groupedCredentials.values.flatMap { $0 }
             }
         } catch {
-            // error
+            // Handle any errors
         }
-        updatedCredentials = []
+        DispatchQueue.main.async { [weak self] in
+            self?.updatedCredentials = []
+        }
     }
 }

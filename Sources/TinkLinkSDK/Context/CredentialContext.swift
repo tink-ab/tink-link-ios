@@ -7,6 +7,8 @@ public final class CredentialContext {
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
 
+    // MARK: - Creating a Credential Context
+
     /// Creates a new CredentialContext for the given TinkLink instance.
     ///
     /// - Parameter tinkLink: TinkLink instance, defaults to `shared` if not provided.
@@ -38,10 +40,11 @@ public final class CredentialContext {
         credentialThirdPartyCallbackObserver = nil
     }
 
-
     deinit {
         removeObservers()
     }
+
+    // MARK: - Adding Credentials
 
     /// Adds a credential for the user.
     ///
@@ -98,6 +101,8 @@ public final class CredentialContext {
         return service.createCredential(providerID: provider.id, fields: fields, appURI: appURI, completion: completion)
     }
 
+    // MARK: - Fetching Credentials
+
     /// Gets the user's credentials.
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
@@ -114,22 +119,24 @@ public final class CredentialContext {
         }
     }
 
+    // MARK: - Managing Credentials
+
     /// Refresh the user's credentials.
     /// - Parameters:
     ///   - credentials: List fo credential that needs to be refreshed.
+    ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credential being refreshed.
     ///   - completion: The block to execute when the credential has been refreshed successfuly or if it failed.
     ///   - result: A result that either a list of updated credentials when refresh successed or an error if failed.
     /// - Returns: The refresh credential task.
-    public func refreshCredentials(credentials: [Credential],
+    public func refresh(_ credentials: [Credential],
                                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
                                    progressHandler: @escaping (_ status: RefreshCredentialTask.Status) -> Void,
                                    completion: @escaping (_ result: Result<[Credential], Swift.Error>) -> Void) -> RefreshCredentialTask {
-
         let task = RefreshCredentialTask(credentials: credentials, credentialService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.refreshCredentials(credentialIDs: credentials.map({ $0.id }), completion: { result in
+        task.callCanceller = service.refreshCredentials(credentialIDs: credentials.map { $0.id }, completion: { result in
             switch result {
             case .success:
                 task.startObserving()
@@ -142,11 +149,11 @@ public final class CredentialContext {
     }
 
     /// Update the user's credential.
-       /// - Parameters:
-       ///   - credential: Credential that needs to be updated.
-       ///   - completion: The block to execute when the credential has been updated successfuly or if it failed.
-       ///   - result: A result with either an updated credential if the update succeeded or an error if failed.
-       /// - Returns: The update credential task.
+    /// - Parameters:
+    ///   - credential: Credential that needs to be updated.
+    ///   - completion: The block to execute when the credential has been updated successfuly or if it failed.
+    ///   - result: A result with either an updated credential if the update succeeded or an error if failed.
+    /// - Returns: The update credential task.
     @discardableResult
     public func update(_ credential: Credential,
                        completion: @escaping (_ result: Result<Credential, Swift.Error>) -> Void) -> RetryCancellable? {

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Form Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/Form" class="dashAnchor"></a>
+    <a title="Form Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">TinkLinkSDK 0.9.0 Docs</a> (66% documented)</p>
+        <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">TinkLinkSDK Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Form Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialTask.html">AddCredentialTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialTask/CompletionPredicate.html">– CompletionPredicate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CredentialContext.html">CredentialContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ProviderContext.html">ProviderContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ProviderContext/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RefreshCredentialTask.html">RefreshCredentialTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RefreshCredentialTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RefreshCredentialTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SupplementInformationTask.html">SupplementInformationTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask.html">ThirdPartyAppAuthenticationTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TinkLink.html">TinkLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TinkLink/Configuration.html">– Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TinkLink/Scope.html">– Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserContext.html">UserContext</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Environment.html">Environment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Set.html">Set</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Cancellable.html">Cancellable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Retriable.html">Retriable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ScopeType.html">ScopeType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AccessToken.html">AccessToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credential.html">Credential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credential/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credential/Kind.html">– Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credential/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credential/ThirdPartyAppAuthentication.html">– ThirdPartyAppAuthentication</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form.html">Form</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form/Fields.html">– Fields</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form/Field.html">– Field</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form/ValidationError.html">– ValidationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Market.html">Market</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider.html">Provider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/Kind.html">– Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/Capabilities.html">– Capabilities</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/AccessType.html">– AccessType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/FinancialInstitution.html">– FinancialInstitution</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree.html">ProviderTree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/CredentialKindNode.html">– CredentialKindNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/FinancialInstitutionNode.html">– FinancialInstitutionNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:11TinkLinkSDK4UserV">User</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11TinkLinkSDK16RetryCancellablea">RetryCancellable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Form</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Form</span></code></pre>
+
+                </div>
+              </div>
+            <p>A Form is used to create, manage and validate fields for creating credentials or supplementing information for a credential.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK4FormV6FieldsV"></a>
+                    <a name="//apple_ref/swift/Struct/Fields" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK4FormV6FieldsV">Fields</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A collection of fields.</p>
+
+<p>Represents a list of fields and provides access to the fields. Each field in can be accessed either by index or by field name.</p>
+
+                        <a href="../Structs/Form/Fields.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Fields</span> <span class="p">:</span> <span class="kt">MutableCollection</span><span class="p">,</span> <span class="kt">RandomAccessCollection</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Models/Form.swift#L8-L46">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK4FormV6fieldsAC6FieldsVvp"></a>
+                    <a name="//apple_ref/swift/Property/fields" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK4FormV6fieldsAC6FieldsVvp">fields</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The fields associated with this form.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">fields</span><span class="p">:</span> <span class="kt"><a href="../Structs/Form/Fields.html">Fields</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Models/Form.swift#L49">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK4FormV14areFieldsValidSbvp"></a>
+                    <a name="//apple_ref/swift/Property/areFieldsValid" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK4FormV14areFieldsValidSbvp">areFieldsValid</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a Boolean value indicating whether every field in the form are valid.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">areFieldsValid</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>true</code> if all fields in the form have valid text; otherwise, <code>false</code>.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Models/Form.swift#L58-L60">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK4FormV14validateFieldsyyKF"></a>
+                    <a name="//apple_ref/swift/Method/validateFields()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK4FormV14validateFieldsyyKF">validateFields()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Validate all fields.</p>
+
+<p>Use this method to validate all fields in the form or catch the value if one or more field are invalid.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    A <code><a href="../Structs/Form/ValidationError.html">Form.ValidationError</a></code> if one or more fields are invalid.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">validateFields</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>true</code> if all fields in the form have valid text; otherwise, <code>false</code>.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Models/Form.swift#L68-L70">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK4FormV5FieldV"></a>
+                    <a name="//apple_ref/swift/Struct/Field" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK4FormV5FieldV">Field</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>Field</code> represent one specific input (usually a text field) that the user need to enter in order to add a credential.</p>
+
+                        <a href="../Structs/Form/Field.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Field</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Models/Form.swift#L81-L241">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK4FormV15ValidationErrorV"></a>
+                    <a name="//apple_ref/swift/Struct/ValidationError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK4FormV15ValidationErrorV">ValidationError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Describes a form validation error.</p>
+
+                        <a href="../Structs/Form/ValidationError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ValidationError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Models/Form.swift#L244-L257">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK4FormV8providerAcA8ProviderV_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(provider:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK4FormV8providerAcA8ProviderV_tcfc">init(provider:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a form for the given provider.</p>
+
+<p>This creates a form to use for creating a credential for a specific provider.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">provider</span><span class="p">:</span> <span class="kt"><a href="../Structs/Provider.html">Provider</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>provider</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The provider to create a form for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Models/Form.swift#L266-L268">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK4FormV10credentialAcA10CredentialV_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(credential:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK4FormV10credentialAcA10CredentialV_tcfc">init(credential:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a form for the given credential.</p>
+
+<p>This creates a form to use for supplementing information for a credential.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">credential</span><span class="p">:</span> <span class="kt"><a href="../Structs/Credential.html">Credential</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>credential</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The credential to create a form for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Models/Form.swift#L275-L277">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-01-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

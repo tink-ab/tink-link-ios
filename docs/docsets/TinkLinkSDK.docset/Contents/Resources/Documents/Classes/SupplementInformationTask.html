@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SupplementInformationTask Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/SupplementInformationTask" class="dashAnchor"></a>
+    <a title="SupplementInformationTask Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">TinkLinkSDK 0.9.0 Docs</a> (66% documented)</p>
+        <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">TinkLinkSDK Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        SupplementInformationTask Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialTask.html">AddCredentialTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialTask/CompletionPredicate.html">– CompletionPredicate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CredentialContext.html">CredentialContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ProviderContext.html">ProviderContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ProviderContext/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RefreshCredentialTask.html">RefreshCredentialTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RefreshCredentialTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RefreshCredentialTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SupplementInformationTask.html">SupplementInformationTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask.html">ThirdPartyAppAuthenticationTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TinkLink.html">TinkLink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TinkLink/Configuration.html">– Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TinkLink/Scope.html">– Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserContext.html">UserContext</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Environment.html">Environment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Set.html">Set</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Cancellable.html">Cancellable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Retriable.html">Retriable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ScopeType.html">ScopeType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AccessToken.html">AccessToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credential.html">Credential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credential/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credential/Kind.html">– Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credential/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credential/ThirdPartyAppAuthentication.html">– ThirdPartyAppAuthentication</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form.html">Form</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form/Fields.html">– Fields</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form/Field.html">– Field</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form/ValidationError.html">– ValidationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Market.html">Market</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider.html">Provider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/Kind.html">– Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/Capabilities.html">– Capabilities</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/AccessType.html">– AccessType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/FinancialInstitution.html">– FinancialInstitution</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree.html">ProviderTree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/CredentialKindNode.html">– CredentialKindNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/FinancialInstitutionNode.html">– FinancialInstitutionNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:11TinkLinkSDK4UserV">User</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11TinkLinkSDK16RetryCancellablea">RetryCancellable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>SupplementInformationTask</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">SupplementInformationTask</span> <span class="p">:</span> <span class="kt">Identifiable</span></code></pre>
+
+                </div>
+              </div>
+            <p>A task that handles submitting supplemental information for a credential.</p>
+
+<p>This task is provided when an <code><a href="../Classes/AddCredentialTask.html">AddCredentialTask</a></code>&lsquo;s status changes to <code>awaitingSupplementalInformation</code>.</p>
+
+<p>When a credential&rsquo;s status is <code>awaitingSupplementalInformation</code> the user needs to provide additional information to finish adding the credential.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    If the user dismiss supplementing information, by e.g. closing the form, you need to call <code>cancel()</code> to stop adding the credential.
+
+</div>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Getting%20the%20Credential"></a>
+                <a name="//apple_ref/swift/Section/Getting the Credential" class="dashAnchor"></a>
+                <a href="#/Getting%20the%20Credential">
+                  <h3 class="section-name">Getting the Credential</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK25SupplementInformationTaskC10credentialAA10CredentialVvp"></a>
+                    <a name="//apple_ref/swift/Property/credential" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK25SupplementInformationTaskC10credentialAA10CredentialVvp">credential</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The credential that&rsquo;s awaiting supplemental information.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">credential</span><span class="p">:</span> <span class="kt"><a href="../Structs/Credential.html">Credential</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Tasks/SupplementInformationTask.swift#L15">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Submitting%20a%20Form"></a>
+                <a name="//apple_ref/swift/Section/Submitting a Form" class="dashAnchor"></a>
+                <a href="#/Submitting%20a%20Form">
+                  <h3 class="section-name">Submitting a Form</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK25SupplementInformationTaskC6submityyAA4FormVF"></a>
+                    <a name="//apple_ref/swift/Method/submit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK25SupplementInformationTaskC6submityyAA4FormVF">submit(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Submits the provided form fields.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">submit</span><span class="p">(</span><span class="n">_</span> <span class="nv">form</span><span class="p">:</span> <span class="kt"><a href="../Structs/Form.html">Form</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>form</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>This is a form with fields from the credential that had status <code>awaitingSupplementalInformation</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Tasks/SupplementInformationTask.swift#L30-L35">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Controlling%20the%20Task"></a>
+                <a name="//apple_ref/swift/Section/Controlling the Task" class="dashAnchor"></a>
+                <a href="#/Controlling%20the%20Task">
+                  <h3 class="section-name">Controlling the Task</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11TinkLinkSDK25SupplementInformationTaskC6cancelyyF"></a>
+                    <a name="//apple_ref/swift/Method/cancel()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11TinkLinkSDK25SupplementInformationTaskC6cancelyyF">cancel()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tells the credential to stop waiting for supplemental information.</p>
+
+<p>Call this method if the user dismiss the form to supplement information.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cancel</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.0/Sources/TinkLinkSDK/Tasks/SupplementInformationTask.swift#L42-L47">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-01-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

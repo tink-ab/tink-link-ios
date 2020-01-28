@@ -22,7 +22,7 @@ struct ContentView: View {
                     self.credentialController.user = user
                     self.providerController.user = user
                 } catch {
-                    // error
+                    // Handle any errors
                 }
             }
         }
