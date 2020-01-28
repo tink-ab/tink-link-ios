@@ -188,7 +188,7 @@ final class RefreshCredentialViewController: UIViewController {
 
     @objc private func primaryActionPressed(sender: UIButton) {
         refreshCredentialList.isUserInteractionEnabled = false
-        primaryButtonConstraints.forEach { $0.isActive = false }
+        NSLayoutConstraint.deactivate(primaryButtonConstraints)
         primiaryButton.removeFromSuperview()
         verticalSeparator.removeFromSuperview()
         primaryAction?(credentialsToRefresh)
