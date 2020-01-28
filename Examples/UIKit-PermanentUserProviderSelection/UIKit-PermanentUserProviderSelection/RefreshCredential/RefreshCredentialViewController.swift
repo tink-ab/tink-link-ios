@@ -25,6 +25,8 @@ final class RefreshCredentialViewController: UIViewController {
     private let titleText: String
     private let dismissAction: (UIViewController) -> Void
     private let primaryAction: (([Credential]) -> Void)?
+    private let verticalSeparator = UIView()
+    private var primaryButtonConstraints = [NSLayoutConstraint]()
 
     private var credentialController: CredentialController
     private var providerController: ProviderController
@@ -42,7 +44,6 @@ final class RefreshCredentialViewController: UIViewController {
             }.map { $0.credential }
             credentialsToRefresh = credentials
             DispatchQueue.main.async {
-                self.primiaryButton.isEnabled = !credentials.isEmpty
                 self.refreshCredentialList.reloadData()
             }
         }
@@ -95,7 +96,7 @@ final class RefreshCredentialViewController: UIViewController {
 
         let horizontalStackView = UIStackView()
         horizontalStackView.alignment = .center
-        horizontalStackView.distribution = .fillProportionally
+        horizontalStackView.distribution = .fill
         dismissButton.setTitle("Cancel", for: .normal)
         dismissButton.addTarget(self, action: #selector(dismissActionPressed), for: .touchUpInside)
         dismissButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
@@ -106,30 +107,31 @@ final class RefreshCredentialViewController: UIViewController {
             primiaryButton.setTitle("Update", for: .normal)
             primiaryButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
             primiaryButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
-            let separator = UIView()
-            separator.translatesAutoresizingMaskIntoConstraints = false
-            separator.backgroundColor = .separator
-            horizontalStackView.addArrangedSubview(separator)
+            verticalSeparator.translatesAutoresizingMaskIntoConstraints = false
+            verticalSeparator.backgroundColor = .separator
+            horizontalStackView.addArrangedSubview(verticalSeparator)
             horizontalStackView.addArrangedSubview(primiaryButton)
-            NSLayoutConstraint.activate([
-                separator.widthAnchor.constraint(equalToConstant: 1),
-                separator.heightAnchor.constraint(equalTo: horizontalStackView.heightAnchor)
-            ])
+            primaryButtonConstraints = [
+                primiaryButton.widthAnchor.constraint(equalTo: dismissButton.widthAnchor),
+                verticalSeparator.widthAnchor.constraint(equalToConstant: 1),
+                verticalSeparator.heightAnchor.constraint(equalTo: horizontalStackView.heightAnchor)
+            ]
+            NSLayoutConstraint.activate(primaryButtonConstraints)
         }
-        let separator = UIView()
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        separator.backgroundColor = .separator
+        let horizontalSeparator = UIView()
+        horizontalSeparator.translatesAutoresizingMaskIntoConstraints = false
+        horizontalSeparator.backgroundColor = .separator
 
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(refreshCredentialList)
-        stackView.addArrangedSubview(separator)
+        stackView.addArrangedSubview(horizontalSeparator)
         stackView.addArrangedSubview(horizontalStackView)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.alignment = .center
-        stackView.setCustomSpacing(0, after: separator)
+        stackView.setCustomSpacing(0, after: horizontalSeparator)
 
         contentView.backgroundColor = .white
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -140,8 +142,8 @@ final class RefreshCredentialViewController: UIViewController {
         view.addSubview(contentView)
 
         NSLayoutConstraint.activate([
-            separator.heightAnchor.constraint(equalToConstant: 1),
-            separator.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+            horizontalSeparator.heightAnchor.constraint(equalToConstant: 1),
+            horizontalSeparator.widthAnchor.constraint(equalTo: stackView.widthAnchor),
 
             blurEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -186,6 +188,9 @@ final class RefreshCredentialViewController: UIViewController {
 
     @objc private func primaryActionPressed(sender: UIButton) {
         refreshCredentialList.isUserInteractionEnabled = false
+        primaryButtonConstraints.forEach { $0.isActive = false }
+        primiaryButton.removeFromSuperview()
+        verticalSeparator.removeFromSuperview()
         primaryAction?(credentialsToRefresh)
     }
 }
