@@ -1,5 +1,6 @@
 ![Platform](https://img.shields.io/badge/platform-iOS-orange.svg)
 ![Languages](https://img.shields.io/badge/languages-swift-orange.svg)
+[![Build Status](https://travis-ci.org/tink-ab/tink-link-ios.svg?branch=master)](https://travis-ci.org/tink-ab/tink-link-ios)
 
 # Tink Link iOS
 
@@ -59,3 +60,6 @@ Follow the instructions at one of these links for how to set this up:
 
 - [Usage Examples](USAGE.md) This document outlines how to use the different classes and types provided by Tink Link.
 - [Provider Selection](Examples/PermanentUserProviderSelection) This example shows how to build a complete aggregation flow using Tink Link.
+
+## Developer Documentation
+- [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios) 
