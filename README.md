@@ -1,5 +1,6 @@
 ![Platform](https://img.shields.io/badge/platform-iOS-orange.svg)
 ![Languages](https://img.shields.io/badge/languages-swift-orange.svg)
+[![Build Status](https://travis-ci.org/tink-ab/tink-link-ios.svg?branch=master)](https://travis-ci.org/tink-ab/tink-link-ios)
 
 # Tink Link iOS
 
