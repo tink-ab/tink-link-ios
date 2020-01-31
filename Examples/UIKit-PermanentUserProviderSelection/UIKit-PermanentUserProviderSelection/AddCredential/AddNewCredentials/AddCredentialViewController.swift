@@ -185,9 +185,9 @@ extension AddCredentialViewController {
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let field = form.fields[section]
-        let titleSubfix = field.validationRules.isOptional ? " - optional" : ""
+        let suffix = field.validationRules.isOptional ? " - optional" : ""
         
-        return field.attributes.description + titleSubfix
+        return field.attributes.description + suffix
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
