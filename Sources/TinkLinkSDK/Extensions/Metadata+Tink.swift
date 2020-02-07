@@ -19,7 +19,7 @@ extension CallOptions {
     }
 
     mutating func addAccessToken(_ token: String? = nil) {
-        if let accessToken = token {
+        if !hasAuthorization, let accessToken = token {
             add(key: HeaderKey.authorization.key, value: "Bearer \(accessToken)")
         }
     }
