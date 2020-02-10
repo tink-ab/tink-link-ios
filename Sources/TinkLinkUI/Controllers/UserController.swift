@@ -20,7 +20,8 @@ final class UserController {
         }
     }
 
-    func createTemporaryUser(for market: Market, locale: Locale = TinkLink.defaultLocale, completion: @escaping (Result<User, Error>) -> Void) -> RetryCancellable? {
+
+    func createTemporaryUser(for market: Market, locale: Locale = TinkLink.defaultLocale, completion: @escaping (Result<User, Error>) -> Void) {
         userContext.createTemporaryUser(for: market, locale: locale) { [weak self] result in
             self?.user = try? result.get()
             completion(result)

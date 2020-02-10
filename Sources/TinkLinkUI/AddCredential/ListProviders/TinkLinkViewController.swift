@@ -7,6 +7,7 @@ public class TinkLinkViewController: UINavigationController {
 
     override public func viewDidLoad() {
         super.viewDidLoad()
+        navigationBar.tintColor = Color.accent
         view.backgroundColor = Color.background
 
         userController.createTemporaryUser(for: .init(code: "SE")) { [weak self] result in
@@ -16,7 +17,7 @@ public class TinkLinkViewController: UINavigationController {
                     let user = try result.get()
                     self.providerController.user = user
                     self.credentialController.user = user
-                    let providerListViewController = ProviderListViewController(s≈tyle: .grouped, providerController: self.providerController, credentialController: self.credentialController)
+                    let providerListViewController = ProviderListViewController(style: .grouped, providerController: self.providerController, credentialController: self.credentialController)
                     self.setViewControllers([providerListViewController], animated: false)
                 } catch {
                     // TODO: Error handling
