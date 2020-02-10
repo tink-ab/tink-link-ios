@@ -88,11 +88,8 @@ public class CredentialsViewController: UITableViewController {
     }
 
     @objc func addCredential(sender: UIBarButtonItem) {
-        if let providerController = providerController, let credentialController = credentialController {
-            let providerListViewController = ProviderListViewController(style: .plain, providerController: providerController, credentialController: credentialController)
-            let navigationController = UINavigationController(rootViewController: providerListViewController)
-            present(navigationController, animated: true)
-        }
+        let viewController = TinkLinkViewController()
+        present(viewController, animated: true)
     }
 }
 

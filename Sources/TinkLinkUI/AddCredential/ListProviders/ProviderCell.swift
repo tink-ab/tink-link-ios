@@ -20,6 +20,9 @@ class ProviderCell: UITableViewCell {
 
     private func setup() {
         selectionStyle = .none
+
+        contentView.backgroundColor = Color.background
+
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
 
@@ -30,7 +33,8 @@ class ProviderCell: UITableViewCell {
 
         titleLabel.numberOfLines = 0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        titleLabel.font = Font.regular(.hecto)
+        titleLabel.textColor = Color.label
 
         separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = layoutMargins.right 
