@@ -47,7 +47,7 @@ extension ProviderListViewController {
 
         title = "Choose Bank"
 
-        tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(ProviderCell.self, forCellReuseIdentifier: "Cell")
     }
 
     @objc private func updateProviders() {
@@ -66,9 +66,8 @@ extension ProviderListViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.accessoryType = .disclosureIndicator
         let group = financialInstitutionGroupNodes[indexPath.row]
-        if let imageViewCell = cell as? FixedImageSizeTableViewCell {
+        if let imageViewCell = cell as? ProviderCell {
             imageViewCell.setTitle(text: group.displayName)
             if let url = group.imageURL {
                 imageViewCell.setImage(url: url)
