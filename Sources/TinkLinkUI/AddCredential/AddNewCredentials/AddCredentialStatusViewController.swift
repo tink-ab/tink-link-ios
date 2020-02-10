@@ -3,7 +3,7 @@ import UIKit
 final class AddCredentialStatusViewController: UIViewController {
     private lazy var shadowLayer = CAShapeLayer()
     private lazy var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-    private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
+    private lazy var activityIndicator = UIActivityIndicatorView(style: .gray)
     private lazy var statusLabelView = UILabel()
 
     var status: String? {

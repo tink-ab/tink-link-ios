@@ -1,7 +1,7 @@
 import TinkLinkSDK
 import UIKit
 
-class CredentialsViewController: UITableViewController {
+public class CredentialsViewController: UITableViewController {
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -25,9 +25,11 @@ class CredentialsViewController: UITableViewController {
         }
     }
 
-    private let activityIndicator = UIActivityIndicatorView(style: .medium)
+    private let activityIndicator = UIActivityIndicatorView(style: .gray)
 
-    override func viewDidLoad() {
+    public var accessToken: AccessToken!
+
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         activityIndicator.startAnimating()
@@ -47,7 +49,7 @@ class CredentialsViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidUpdateCredentials, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidAddCredential, object: nil)
 
-        userController.authenticateUser(accessToken: AccessToken(rawValue: <#String#>)!) { [weak self] result in
+        userController.authenticateUser(accessToken: accessToken) { [weak self] result in
             guard let self = self else { return }
             do {
                 let user = try result.get()
@@ -95,11 +97,11 @@ class CredentialsViewController: UITableViewController {
 }
 
 extension CredentialsViewController {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return credentials?.count ?? 0
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let credential = credentials?[indexPath.row] else {
             fatalError()
         }
@@ -111,11 +113,11 @@ extension CredentialsViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    override public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete, let credentialToDelete = credentials?[indexPath.item] {
             credentialController?.deleteCredential([credentialToDelete])
             credentials?.remove(at: indexPath.item)

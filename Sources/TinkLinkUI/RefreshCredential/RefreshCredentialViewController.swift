@@ -108,7 +108,7 @@ final class RefreshCredentialViewController: UIViewController {
             primiaryButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
             primiaryButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
             verticalSeparator.translatesAutoresizingMaskIntoConstraints = false
-            verticalSeparator.backgroundColor = .separator
+            verticalSeparator.backgroundColor = .lightGray
             horizontalStackView.addArrangedSubview(verticalSeparator)
             horizontalStackView.addArrangedSubview(primiaryButton)
             primaryButtonConstraints = [
@@ -120,7 +120,7 @@ final class RefreshCredentialViewController: UIViewController {
         }
         let horizontalSeparator = UIView()
         horizontalSeparator.translatesAutoresizingMaskIntoConstraints = false
-        horizontalSeparator.backgroundColor = .separator
+        horizontalSeparator.backgroundColor = .lightGray
 
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(refreshCredentialList)
@@ -229,7 +229,7 @@ extension RefreshCredentialViewController: UITableViewDelegate, UITableViewDataS
             switchView.isOn = selected
             cell.accessoryView = switchView
         case .updating:
-            let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+            let activityIndicatorView = UIActivityIndicatorView(style: .gray)
             cell.accessoryView = activityIndicatorView
             activityIndicatorView.startAnimating()
         case .updated:
