@@ -13,6 +13,10 @@ let package = Package(
             name: "TinkLinkSDK",
             targets: ["TinkLinkSDK"]
         ),
+        .library(
+            name: "TinkLinkUI",
+            targets: ["TinkLinkUI"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-protobuf.git", .upToNextMajor(from: "1.7.0")),
@@ -21,7 +25,13 @@ let package = Package(
     targets: [
         .target(
             name: "TinkLinkSDK",
-            dependencies: ["SwiftProtobuf", "GRPC"]
+            dependencies: ["SwiftProtobuf", "GRPC"],
+            exclude: ["TinkLinkUI"]
+        ),
+        .target(
+            name: "TinkLinkUI",
+            dependencies: ["TinkLinkSDK"],
+            exclude: ["TinkLinkSDK"]
         ),
         .testTarget(
             name: "TinkLinkSDKTests",
