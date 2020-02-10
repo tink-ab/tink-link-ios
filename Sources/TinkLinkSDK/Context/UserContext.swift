@@ -48,7 +48,7 @@ public final class UserContext {
     /// - Parameter locale: Register a `Locale` for creating the user, will use the default locale in TinkLink if nothing is provided.
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
-    func createTemporaryUser(for market: Market, locale: Locale = TinkLink.defaultLocale, completion: @escaping (Result<User, Error>) -> Void) -> RetryCancellable? {
+    public func createTemporaryUser(for market: Market, locale: Locale = TinkLink.defaultLocale, completion: @escaping (Result<User, Error>) -> Void) -> RetryCancellable? {
         return userService.createAnonymous(market: market, locale: locale) { result in
             do {
                 let accessToken = try result.get()
