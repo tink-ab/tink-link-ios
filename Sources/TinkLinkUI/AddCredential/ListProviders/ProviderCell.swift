@@ -64,6 +64,22 @@ class ProviderCell: UITableViewCell {
         separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing
     }
 
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+
+        let applyHighlight = {
+            self.contentView.backgroundColor = highlighted ? Color.accentBackground : Color.background
+        }
+
+        if animated {
+            UIView.animate(withDuration: 0.15) {
+                applyHighlight()
+            }
+        } else {
+            applyHighlight()
+        }
+    }
+
     func setImage(url: URL) {
         iconView.kf.setImage(with: ImageResource(downloadURL: url))
     }
