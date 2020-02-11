@@ -26,10 +26,10 @@ extension FinancialInstitutionPickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.prompt = "Choose Financial Institution"
         navigationItem.largeTitleDisplayMode = .never
 
-        tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(ProviderCell.self, forCellReuseIdentifier: "Cell")
+        tableView.tableFooterView = UIView(frame: .zero)
     }
 }
 
@@ -43,11 +43,11 @@ extension FinancialInstitutionPickerViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let node = financialInstitutionNodes[indexPath.row]
-        if let imageTableViewCell = cell as? FixedImageSizeTableViewCell {
+        if let providerCell = cell as? ProviderCell {
             if let url = node.imageURL {
-                imageTableViewCell.setImage(url: url)
+                providerCell.setImage(url: url)
             }
-            imageTableViewCell.setTitle(text: node.financialInstitution.name)
+            providerCell.setTitle(text: node.financialInstitution.name)
         }
         return cell
     }
