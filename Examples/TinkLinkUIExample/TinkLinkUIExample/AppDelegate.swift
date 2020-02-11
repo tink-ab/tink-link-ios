@@ -1,4 +1,3 @@
-import TinkLinkUI
 import TinkLinkSDK
 import UIKit
 
@@ -11,12 +10,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         TinkLink.configure(with: configuration)
         window = UIWindow(frame: UIScreen.main.bounds)
-        let credentialsViewController = CredentialsViewController(style: .grouped)
-        let navigationController = UINavigationController(rootViewController: credentialsViewController)
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.isToolbarHidden = false
-
-        window?.rootViewController = navigationController
+        let viewController = ViewController()
+        window?.rootViewController = viewController
         window?.makeKeyAndVisible()
 
         return true
