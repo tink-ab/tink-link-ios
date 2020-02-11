@@ -6,6 +6,8 @@ final class CredentialKindPickerViewController: UITableViewController {
     typealias CompletionHandler = (Result<Credential, Error>) -> Void
     var onCompletion: CompletionHandler?
     var credentialKindNodes: [ProviderTree.CredentialKindNode] = []
+
+    weak var addCredentialNavigator: AddCredentialFlowNavigating?
     
     private let credentialController: CredentialController
 
@@ -55,16 +57,6 @@ extension CredentialKindPickerViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let credentialKindNode = credentialKindNodes[indexPath.row]
-        showAddCredential(for: credentialKindNode.provider)
-    }
-}
-
-// MARK: - Navigation
-
-extension CredentialKindPickerViewController {
-    func showAddCredential(for provider: Provider) {
-        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController)
-        addCredentialViewController.onCompletion = onCompletion
-        show(addCredentialViewController, sender: nil)
+        addCredentialNavigator?.showAddCredential(for: credentialKindNode.provider)
     }
 }

@@ -6,7 +6,9 @@ final class FinancialInstitutionPickerViewController: UITableViewController {
     typealias CompletionHandler = (Result<Credential, Error>) -> Void
     var onCompletion: CompletionHandler?
     var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
-    
+
+    weak var addCredentialNavigator: AddCredentialFlowNavigating?
+
     private let credentialController: CredentialController
 
     init(credentialController: CredentialController) {
@@ -56,37 +58,11 @@ extension FinancialInstitutionPickerViewController {
         let financialInstitutionNode = financialInstitutionNodes[indexPath.row]
         switch financialInstitutionNode {
         case .accessTypes(let accessTypeGroups):
-            showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionNode.financialInstitution.name)
+            addCredentialNavigator?.showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionNode.financialInstitution.name)
         case .credentialKinds(let groups):
-            showCredentialKindPicker(for: groups, title: financialInstitutionNode.financialInstitution.name)
+            addCredentialNavigator?.showCredentialKindPicker(for: groups, title: financialInstitutionNode.financialInstitution.name)
         case .provider(let provider):
-            showAddCredential(for: provider)
+            addCredentialNavigator?.showAddCredential(for: provider)
         }
-    }
-}
-
-// MARK: - Navigation
-
-extension FinancialInstitutionPickerViewController {
-    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
-        let viewController = AccessTypePickerViewController(credentialController: credentialController)
-        viewController.onCompletion = onCompletion
-        viewController.title = title
-        viewController.accessTypeNodes = accessTypeNodes
-        show(viewController, sender: nil)
-    }
-
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
-        let viewController = CredentialKindPickerViewController(credentialController: credentialController)
-        viewController.onCompletion = onCompletion
-        viewController.title = title
-        viewController.credentialKindNodes = credentialKindNodes
-        show(viewController, sender: nil)
-    }
-
-    func showAddCredential(for provider: Provider) {
-        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController)
-        addCredentialViewController.onCompletion = onCompletion
-        show(addCredentialViewController, sender: nil)
     }
 }

@@ -4,6 +4,9 @@ import UIKit
 /// Example of how to use the provider grouped by access type
 final class AccessTypePickerViewController: UITableViewController {
     typealias CompletionHandler = (Result<Credential, Error>) -> Void
+
+    weak var addCredentialNavigator: AddCredentialFlowNavigating?
+
     var onCompletion: CompletionHandler?
     var accessTypeNodes: [ProviderTree.AccessTypeNode] = []
     
@@ -58,26 +61,9 @@ extension AccessTypePickerViewController {
         let accessTypeNode = accessTypeNodes[indexPath.row]
         switch accessTypeNode {
         case .credentialKinds(let groups):
-            showCredentialKindPicker(for: groups)
+            addCredentialNavigator?.showCredentialKindPicker(for: groups, title: nil)
         case .provider(let provider):
-            showAddCredential(for: provider)
+            addCredentialNavigator?.showAddCredential(for: provider)
         }
-    }
-}
-
-// MARK: - Navigation
-
-extension AccessTypePickerViewController {
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
-        let viewController = CredentialKindPickerViewController(credentialController: credentialController)
-        viewController.onCompletion = onCompletion
-        viewController.credentialKindNodes = credentialKindNodes
-        show(viewController, sender: nil)
-    }
-
-    func showAddCredential(for provider: Provider) {
-        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController)
-        addCredentialViewController.onCompletion = onCompletion
-        show(addCredentialViewController, sender: nil)
     }
 }
