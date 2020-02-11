@@ -101,7 +101,17 @@ class AccessTypeCell: UITableViewCell {
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-        cardView.backgroundColor = Color.accentBackground
+        let applyHighlight = {
+            self.cardView.backgroundColor = highlighted ? Color.accentBackground : Color.background
+        }
+
+        if animated {
+            UIView.animate(withDuration: 0.15) {
+                applyHighlight()
+            }
+        } else {
+            applyHighlight()
+        }
     }
 
     override func prepareForReuse() {
