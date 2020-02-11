@@ -17,7 +17,7 @@ public class TinkLinkViewController: UINavigationController {
                     let user = try result.get()
                     self.providerController.user = user
                     self.credentialController.user = user
-                    let providerListViewController = ProviderListViewController(style: .grouped, providerController: self.providerController, credentialController: self.credentialController)
+                    let providerListViewController = ProviderListViewController(providerController: self.providerController, credentialController: self.credentialController)
                     self.setViewControllers([providerListViewController], animated: false)
                 } catch {
                     // TODO: Error handling

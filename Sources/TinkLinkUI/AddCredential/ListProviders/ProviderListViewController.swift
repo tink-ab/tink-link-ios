@@ -15,12 +15,12 @@ final class ProviderListViewController: UITableViewController {
         }
     }
 
-    init(style: UITableView.Style, providerController: ProviderController, credentialController: CredentialController) {
+    init(providerController: ProviderController, credentialController: CredentialController) {
         self.providerController = providerController
         self.credentialController = credentialController
         financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
 
-        super.init(style: style)
+        super.init(style: .plain)
     }
 
     required init?(coder aDecoder: NSCoder) {
