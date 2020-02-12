@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-public class CredentialSuccessfullyAddedViewController: UIViewController {
+class CredentialSuccessfullyAddedViewController: UIViewController {
     private let iconView = CheckmarkView(style: .large)
     private let containerView = UIView()
     private let titleLabel = UILabel()
@@ -13,15 +13,11 @@ public class CredentialSuccessfullyAddedViewController: UIViewController {
     private let subtitleText = "Your account has successfully connected to Company_Name. You'll be redirected back in a few seconds..."
     
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = Color.background
         
-        setup()
-    }
-    
-    func setup() {
         view.addSubview(containerView)
         containerView.addSubview(iconView)
         containerView.addSubview(titleLabel)
@@ -81,7 +77,7 @@ public class CredentialSuccessfullyAddedViewController: UIViewController {
         //TODO: End AIS-process and proceed to app?
     }
 
-    public override func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         doneButton.layer.cornerRadius = doneButton.bounds.height / 2
     }
