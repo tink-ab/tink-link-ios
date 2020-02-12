@@ -2,14 +2,13 @@ import UIKit
 import Kingfisher
 
 public class CredentialSuccessfullyAddedViewController: UIViewController {
-    private let iconView = UIImageView()
+    private let iconView = CheckmarkView(style: .large)
     private let containerView = UIView()
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
     private let doneButton = UIButton(type: .system)
     
-    private let iconSize: CGFloat = 34
-    
+    //TODO: Use real strings
     private let titleText = "Connection successfull"
     private let subtitleText = "Your account has successfully connected to Company_Name. You'll be redirected back in a few seconds..."
     
@@ -23,13 +22,16 @@ public class CredentialSuccessfullyAddedViewController: UIViewController {
     }
     
     func setup() {
-        view.addSubview(iconView)
         view.addSubview(containerView)
+        containerView.addSubview(iconView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(detailLabel)
-        containerView.addSubview(doneButton)
+        view.addSubview(doneButton)
         
-        iconView.backgroundColor = Color.accent
+        iconView.isBorderHidden = true
+        iconView.isChecked = true
+        iconView.tintColor = .white
+        iconView.strokeTintColor = Color.accent
         
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
@@ -46,7 +48,6 @@ public class CredentialSuccessfullyAddedViewController: UIViewController {
         doneButton.backgroundColor = Color.accent
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
         doneButton.contentEdgeInsets = UIEdgeInsets(top: 13, left: 68, bottom: 16, right: 68)
-        doneButton.layer.cornerRadius = 24
         
         iconView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,12 +60,10 @@ public class CredentialSuccessfullyAddedViewController: UIViewController {
             containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
             containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
             
-            iconView.widthAnchor.constraint(equalToConstant: iconSize),
-            iconView.heightAnchor.constraint(equalToConstant: iconSize),
             iconView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             iconView.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 24),
+            titleLabel.topAnchor.constraint(equalTo: iconView.centerYAnchor, constant: 24),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor, constant: -24),
             titleLabel.trailingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.trailingAnchor, constant: 24),
             
@@ -79,11 +78,11 @@ public class CredentialSuccessfullyAddedViewController: UIViewController {
     }
     
     @objc func doneActionPressed() {
-        
+        //TODO: End AIS-process and proceed to app?
     }
-    
-    func setImage(url: URL) {
-        iconView.kf.setImage(with: ImageResource(downloadURL: url))
+
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        doneButton.layer.cornerRadius = doneButton.bounds.height / 2
     }
-    
 }
