@@ -17,6 +17,8 @@ final class AuthenticationService: TokenConfigurableService {
         }
     }
 
+    internal lazy var service = AuthenticationServiceServiceClient(connection: connection, defaultCallOptions: defaultCallOptions)
+
     convenience init(tinkLink: TinkLink = .shared, accessToken: AccessToken? = nil) {
         var defaultCallOptions = tinkLink.client.defaultCallOptions
         if let accessToken = accessToken {
@@ -44,6 +46,24 @@ final class AuthenticationService: TokenConfigurableService {
             self.sessionDelegate = CertificatePinningDelegate(certificates: certificates)
             self.session = URLSession(configuration: .ephemeral, delegate: sessionDelegate, delegateQueue: nil)
         }
+    }
+
+    func scopeDescriptions(scope: TinkLink.Scope, redirectURI: URL, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
+        guard let clientID = defaultCallOptions.customMetadata[CallOptions.HeaderKey.oauthClientID.key].first else {
+            preconditionFailure("No client id")
+        }
+
+        var request = GRPCDescribeOAuth2ClientRequest()
+        request.clientID = clientID
+        request.scopes = scope.scopes.map { $0.description }
+        request.redirectUri = redirectURI.absoluteString
+
+        return CallHandler(
+            for: request,
+            method: service.describeOAuth2Client,
+            responseMap: { $0.scopes.map(ScopeDescription.init(grpcOAuth2ScopeDescription:)) },
+            completion: completion
+        )
     }
 }
 
