@@ -9,12 +9,8 @@ final class AccessTypePickerViewController: UITableViewController {
 
     var onCompletion: CompletionHandler?
     var accessTypeNodes: [ProviderTree.AccessTypeNode] = []
-    
-    private let credentialController: CredentialController
 
-    init(credentialController: CredentialController) {
-        self.credentialController = credentialController
-
+    init() {
         super.init(style: .plain)
     }
 

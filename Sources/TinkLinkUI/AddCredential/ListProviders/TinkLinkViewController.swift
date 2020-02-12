@@ -41,7 +41,7 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     }
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
-        let viewController = AccessTypePickerViewController(credentialController: credentialController)
+        let viewController = AccessTypePickerViewController()
         viewController.title = title
         viewController.accessTypeNodes = accessTypeNodes
         viewController.addCredentialNavigator = self
