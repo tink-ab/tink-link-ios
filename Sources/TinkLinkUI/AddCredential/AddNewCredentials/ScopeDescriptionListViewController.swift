@@ -26,6 +26,8 @@ extension ScopeDescriptionListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.backgroundColor = Color.background
+
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
 
@@ -56,10 +58,10 @@ extension ScopeDescriptionListViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ScopeDescriptionCell
         let scopeDescription = scopeDescriptions[indexPath.row]
-        cell.textLabel?.text = scopeDescription.title
-        cell.detailTextLabel?.text = scopeDescription.description
+        cell.titleLabel.text = scopeDescription.title
+        cell.descriptionLabel.text = scopeDescription.description
         return cell
     }
 }
