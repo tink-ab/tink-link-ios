@@ -7,6 +7,8 @@ final class ScopeDescriptionListViewController: UITableViewController {
 
     private let scope: TinkLink.Scope
 
+    private lazy var activityIndicatorView = UIActivityIndicatorView(style: .gray)
+
     private enum Section {
         case intro(title: String, description: String)
         case scopeDescriptions([ScopeDescription])
@@ -42,13 +44,19 @@ extension ScopeDescriptionListViewController {
 
         tableView.backgroundColor = Color.background
 
+        tableView.backgroundView = activityIndicatorView
+
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
 
         tableView.register(ScopeDescriptionCell.self, forCellReuseIdentifier: "Cell")
 
+        activityIndicatorView.startAnimating()
+
         authorizationContext.scopeDescriptions(scope: scope) { [weak self] result in
             DispatchQueue.main.async {
+                self?.activityIndicatorView.stopAnimating()
+
                 do {
                     let scopeDescriptions = try result.get()
                     self?.sections.append(.scopeDescriptions(scopeDescriptions))
