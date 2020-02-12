@@ -7,7 +7,6 @@ final class ProviderListViewController: UITableViewController {
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
     private var providerController: ProviderController?
-    private var user: User?
 
     private let searchController = UISearchController(searchResultsController: nil)
     private var originalFinancialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
