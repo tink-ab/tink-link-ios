@@ -13,6 +13,7 @@ class ScopeDescriptionCell: UITableViewCell {
         titleLabel.font = Font.semibold(.mega)
         titleLabel.textColor = Color.label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.numberOfLines = 0
 
         descriptionLabel.font = Font.regular(.deci)
         descriptionLabel.textColor = Color.label
