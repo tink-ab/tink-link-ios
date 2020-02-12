@@ -8,12 +8,8 @@ final class CredentialKindPickerViewController: UITableViewController {
     var credentialKindNodes: [ProviderTree.CredentialKindNode] = []
 
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
-    
-    private let credentialController: CredentialController
 
-    init(credentialController: CredentialController) {
-        self.credentialController = credentialController
-
+    init() {
         super.init(style: .plain)
     }
 

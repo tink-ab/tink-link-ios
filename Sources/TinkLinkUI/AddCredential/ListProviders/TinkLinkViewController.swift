@@ -49,7 +49,7 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     }
 
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
-        let viewController = CredentialKindPickerViewController(credentialController: credentialController)
+        let viewController = CredentialKindPickerViewController()
         viewController.title = title
         viewController.credentialKindNodes = credentialKindNodes
         viewController.addCredentialNavigator = self
