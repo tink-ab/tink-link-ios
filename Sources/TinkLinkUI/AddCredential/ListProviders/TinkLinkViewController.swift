@@ -3,6 +3,7 @@ import TinkLinkSDK
 
 public class TinkLinkViewController: UINavigationController {
     private let tinkLink: TinkLink
+    private let market: Market
     public let scope: TinkLink.Scope
 
     private lazy var userController = UserController(tinkLink: tinkLink)
@@ -10,8 +11,9 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var credentialController = CredentialController(tinkLink: tinkLink)
     private lazy var authorizationController = AuthorizationController(tinkLink: tinkLink)
 
-    public init(tinkLink: TinkLink = .shared, scope: TinkLink.Scope) {
+    public init(tinkLink: TinkLink = .shared, market: Market, scope: TinkLink.Scope) {
         self.tinkLink = tinkLink
+        self.market = market
         self.scope = scope
 
         super.init(nibName: nil, bundle: nil)
@@ -27,7 +29,7 @@ public class TinkLinkViewController: UINavigationController {
         view.backgroundColor = Color.background
         setViewControllers([UIViewController()], animated: false)
 
-        userController.createTemporaryUser(for: .init(code: "SE")) { [weak self] result in
+        userController.createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 do {
