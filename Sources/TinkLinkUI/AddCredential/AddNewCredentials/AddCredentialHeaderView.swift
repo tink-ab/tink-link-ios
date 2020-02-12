@@ -2,7 +2,7 @@ import UIKit
 import TinkLinkSDK
 import Kingfisher
 
-class AddCredentialHeaderView: UIView {
+final class AddCredentialHeaderView: UIView {
     private let bankIconView = UIImageView()
     private let bankLabel = UILabel()
     private let userInfoIconView = UIImageView()
@@ -13,8 +13,6 @@ class AddCredentialHeaderView: UIView {
 
     convenience init() {
         self.init(frame: .zero)
-
-        setup()
     }
 
     override init(frame: CGRect) {
@@ -99,6 +97,10 @@ class AddCredentialHeaderView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+
+        // TODO: remove this when we know how to add icons
+        userInfoIconView.backgroundColor = .black
+        userInfoIconView.layer.cornerRadius = userInfoIconView.frame.height / 2
 
         dashLayer.frame = dashLine.bounds
         let path = CGMutablePath()
