@@ -19,6 +19,120 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+struct GRPCDescribeOAuth2ClientRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var clientID: String = String()
+
+  var scopes: [String] = []
+
+  var redirectUri: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct GRPCDescribeOAuth2ClientResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var clientIconURL: String = String()
+
+  var clientName: String = String()
+
+  var clientURL: String = String()
+
+  var embeddedAllowed: Bool = false
+
+  var scopes: [GRPCOAuth2ScopeDescription] = []
+
+  var verified: Bool = false
+
+  var aggregator: Bool = false
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct GRPCLoginRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var authenticationToken: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct GRPCLoginResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var sessionID: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct GRPCRegisterRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var authenticationToken: String = String()
+
+  var email: String = String()
+
+  var locale: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct GRPCRegisterResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var sessionID: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct GRPCLogoutRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var autologout: Bool = false
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct GRPCLogoutResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 struct GRPCCreateCredentialRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -540,6 +654,288 @@ struct GRPCThirdPartyCallbackResponse {
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+extension GRPCDescribeOAuth2ClientRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "DescribeOAuth2ClientRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "client_id"),
+    2: .same(proto: "scopes"),
+    3: .standard(proto: "redirect_uri"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.clientID)
+      case 2: try decoder.decodeRepeatedStringField(value: &self.scopes)
+      case 3: try decoder.decodeSingularStringField(value: &self.redirectUri)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.clientID.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientID, fieldNumber: 1)
+    }
+    if !self.scopes.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.scopes, fieldNumber: 2)
+    }
+    if !self.redirectUri.isEmpty {
+      try visitor.visitSingularStringField(value: self.redirectUri, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: GRPCDescribeOAuth2ClientRequest, rhs: GRPCDescribeOAuth2ClientRequest) -> Bool {
+    if lhs.clientID != rhs.clientID {return false}
+    if lhs.scopes != rhs.scopes {return false}
+    if lhs.redirectUri != rhs.redirectUri {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GRPCDescribeOAuth2ClientResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "DescribeOAuth2ClientResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "client_icon_url"),
+    2: .standard(proto: "client_name"),
+    3: .standard(proto: "client_url"),
+    4: .standard(proto: "embedded_allowed"),
+    5: .same(proto: "scopes"),
+    6: .same(proto: "verified"),
+    7: .same(proto: "aggregator"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.clientIconURL)
+      case 2: try decoder.decodeSingularStringField(value: &self.clientName)
+      case 3: try decoder.decodeSingularStringField(value: &self.clientURL)
+      case 4: try decoder.decodeSingularBoolField(value: &self.embeddedAllowed)
+      case 5: try decoder.decodeRepeatedMessageField(value: &self.scopes)
+      case 6: try decoder.decodeSingularBoolField(value: &self.verified)
+      case 7: try decoder.decodeSingularBoolField(value: &self.aggregator)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.clientIconURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientIconURL, fieldNumber: 1)
+    }
+    if !self.clientName.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientName, fieldNumber: 2)
+    }
+    if !self.clientURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientURL, fieldNumber: 3)
+    }
+    if self.embeddedAllowed != false {
+      try visitor.visitSingularBoolField(value: self.embeddedAllowed, fieldNumber: 4)
+    }
+    if !self.scopes.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.scopes, fieldNumber: 5)
+    }
+    if self.verified != false {
+      try visitor.visitSingularBoolField(value: self.verified, fieldNumber: 6)
+    }
+    if self.aggregator != false {
+      try visitor.visitSingularBoolField(value: self.aggregator, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: GRPCDescribeOAuth2ClientResponse, rhs: GRPCDescribeOAuth2ClientResponse) -> Bool {
+    if lhs.clientIconURL != rhs.clientIconURL {return false}
+    if lhs.clientName != rhs.clientName {return false}
+    if lhs.clientURL != rhs.clientURL {return false}
+    if lhs.embeddedAllowed != rhs.embeddedAllowed {return false}
+    if lhs.scopes != rhs.scopes {return false}
+    if lhs.verified != rhs.verified {return false}
+    if lhs.aggregator != rhs.aggregator {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GRPCLoginRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "LoginRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "authentication_token"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.authenticationToken)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.authenticationToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.authenticationToken, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: GRPCLoginRequest, rhs: GRPCLoginRequest) -> Bool {
+    if lhs.authenticationToken != rhs.authenticationToken {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GRPCLoginResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "LoginResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "session_id"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.sessionID)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.sessionID.isEmpty {
+      try visitor.visitSingularStringField(value: self.sessionID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: GRPCLoginResponse, rhs: GRPCLoginResponse) -> Bool {
+    if lhs.sessionID != rhs.sessionID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GRPCRegisterRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "RegisterRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "authentication_token"),
+    2: .same(proto: "email"),
+    3: .same(proto: "locale"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.authenticationToken)
+      case 2: try decoder.decodeSingularStringField(value: &self.email)
+      case 3: try decoder.decodeSingularStringField(value: &self.locale)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.authenticationToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.authenticationToken, fieldNumber: 1)
+    }
+    if !self.email.isEmpty {
+      try visitor.visitSingularStringField(value: self.email, fieldNumber: 2)
+    }
+    if !self.locale.isEmpty {
+      try visitor.visitSingularStringField(value: self.locale, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: GRPCRegisterRequest, rhs: GRPCRegisterRequest) -> Bool {
+    if lhs.authenticationToken != rhs.authenticationToken {return false}
+    if lhs.email != rhs.email {return false}
+    if lhs.locale != rhs.locale {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GRPCRegisterResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "RegisterResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "session_id"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.sessionID)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.sessionID.isEmpty {
+      try visitor.visitSingularStringField(value: self.sessionID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: GRPCRegisterResponse, rhs: GRPCRegisterResponse) -> Bool {
+    if lhs.sessionID != rhs.sessionID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GRPCLogoutRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "LogoutRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "autologout"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularBoolField(value: &self.autologout)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.autologout != false {
+      try visitor.visitSingularBoolField(value: self.autologout, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: GRPCLogoutRequest, rhs: GRPCLogoutRequest) -> Bool {
+    if lhs.autologout != rhs.autologout {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GRPCLogoutResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "LogoutResponse"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: GRPCLogoutResponse, rhs: GRPCLogoutResponse) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
 
 extension GRPCCreateCredentialRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = "CreateCredentialRequest"
