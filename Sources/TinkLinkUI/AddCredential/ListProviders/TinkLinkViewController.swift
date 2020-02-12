@@ -27,14 +27,20 @@ public class TinkLinkViewController: UINavigationController {
             }
         }
     }
+
+    @objc func cancel() {
+        dismiss(animated: true)
+    }
 }
 
 // MARK: - AddCredentialFlowNavigating
 
 extension TinkLinkViewController: AddCredentialFlowNavigating {
+
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
         let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes)
         viewController.title = title
+        viewController.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         viewController.addCredentialNavigator = self
         show(viewController, sender: nil)
     }
@@ -42,6 +48,7 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
         viewController.title = title
+        viewController.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         viewController.addCredentialNavigator = self
         show(viewController, sender: nil)
     }
@@ -49,12 +56,14 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
         let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
         viewController.title = title
+        viewController.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         viewController.addCredentialNavigator = self
         show(viewController, sender: nil)
     }
 
     func showAddCredential(for provider: Provider) {
         let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController)
+        addCredentialViewController.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         show(addCredentialViewController, sender: nil)
     }
 }

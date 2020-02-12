@@ -43,8 +43,6 @@ extension ProviderListViewController {
         // TODO: navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-
         definesPresentationContext = true
 
         title = "Choose Bank"
@@ -59,10 +57,6 @@ extension ProviderListViewController {
         DispatchQueue.main.async {
             self.financialInstitutionGroupNodes = self.providerController?.financialInstitutionGroupNodes ?? []
         }
-    }
-
-    @objc private func cancel(_ sender: Any) {
-        dismiss(animated: true)
     }
 }
 
