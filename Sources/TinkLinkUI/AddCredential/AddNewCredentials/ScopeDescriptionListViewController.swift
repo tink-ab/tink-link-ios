@@ -5,6 +5,7 @@ final class ScopeDescriptionListViewController: UITableViewController {
 
     private let authorizationContext: AuthorizationContext
 
+    private let scope: TinkLink.Scope
 
     enum Section {
         case intro(title: String, description: String)
@@ -17,8 +18,9 @@ final class ScopeDescriptionListViewController: UITableViewController {
         }
     }
 
-    init(user: User) {
+    init(user: User, scope: TinkLink.Scope) {
         self.authorizationContext = AuthorizationContext(user: user)
+        self.scope = scope
         self.sections = [
             .intro(
                 title: "We’ll collect the following data from you",
@@ -45,12 +47,6 @@ extension ScopeDescriptionListViewController {
 
         tableView.register(ScopeDescriptionCell.self, forCellReuseIdentifier: "Cell")
 
-        let scope = TinkLink.Scope(scopes: [
-            TinkLink.Scope.Statistics.read,
-            TinkLink.Scope.Transactions.read,
-            TinkLink.Scope.Categories.read,
-            TinkLink.Scope.Accounts.read
-        ])
         authorizationContext.scopeDescriptions(scope: scope) { [weak self] result in
             DispatchQueue.main.async {
                 do {
