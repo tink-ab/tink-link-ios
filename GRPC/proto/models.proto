@@ -8,6 +8,10 @@ option swift_prefix = "GRPC";
 
 import "google/protobuf/timestamp.proto";
 
+message OAuth2ScopeDescription {
+    string title = 1;
+    string description = 2;
+}
 
 message Credential {
     enum Status {
