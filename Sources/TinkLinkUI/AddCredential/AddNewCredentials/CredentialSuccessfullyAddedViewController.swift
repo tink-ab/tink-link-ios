@@ -1,5 +1,4 @@
 import UIKit
-import Kingfisher
 
 class CredentialSuccessfullyAddedViewController: UIViewController {
     private let iconView = CheckmarkView(style: .large)
