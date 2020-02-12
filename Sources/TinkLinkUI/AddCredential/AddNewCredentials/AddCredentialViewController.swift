@@ -26,12 +26,7 @@ final class AddCredentialViewController: UITableViewController {
         self.provider = provider
         self.form = Form(provider: provider)
         self.credentialController = credentialController
-
-        if #available(iOS 13.0, *) {
-            super.init(style: .insetGrouped)
-        } else {
-            super.init(style: .grouped)
-        }
+        super.init(style: .plain)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -50,7 +45,7 @@ extension AddCredentialViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialControllerDidSupplementInformation, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialControllerDidError, object: nil)
 
-        tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
+        tableView.register(FormFieldTableViewCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
         tableView.allowsSelection = false
 
         navigationItem.prompt = "Enter Credentials"
@@ -162,40 +157,21 @@ extension AddCredentialViewController {
 
 extension AddCredentialViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return form.fields.count
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return form.fields.count
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath)
-        let field = form.fields[indexPath.section]
-        if let textFieldCell = cell as? TextFieldCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FormFieldTableViewCell.reuseIdentifier, for: indexPath)
+        let field = form.fields[indexPath.item]
+        if let textFieldCell = cell as? FormFieldTableViewCell {
+            textFieldCell.configure(field: field)
             textFieldCell.delegate = self
-            textFieldCell.textField.placeholder = field.attributes.placeholder
-            textFieldCell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
-            textFieldCell.textField.isEnabled = field.attributes.isEditable
-            textFieldCell.textField.text = field.text
         }
         return cell
-    }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let field = form.fields[section]
-        let suffix = field.validationRules.isOptional ? " - optional" : ""
-        
-        return field.attributes.description + suffix
-    }
-
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        let field = form.fields[section]
-        if let error = formError, let fieldError = error[fieldName: field.name] {
-            return fieldError.errorDescription
-        } else {
-            return field.attributes.helpText
-        }
     }
 }
 
@@ -292,14 +268,14 @@ extension AddCredentialViewController {
 }
 
 // MARK: - TextFieldCellDelegate
-extension AddCredentialViewController: TextFieldCellDelegate {
-    func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
+extension AddCredentialViewController: FormFieldTableViewCellDelegate {
+    func textFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
         navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
     }
 
-    func textFieldCellDidEndEditing(_ cell: TextFieldCell) {
+    func textFieldCellDidEndEditing(_ cell: FormFieldTableViewCell) {
         do {
             try form.validateFields()
         } catch {
