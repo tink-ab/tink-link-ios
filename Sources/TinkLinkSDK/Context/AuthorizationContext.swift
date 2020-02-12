@@ -1,7 +1,7 @@
 import Foundation
 
 /// An object that you use to authorize for a user with requested scopes.
-final class AuthorizationContext {
+public final class AuthorizationContext {
     private let tinkLink: TinkLink
     private let service: AuthenticationService
 
