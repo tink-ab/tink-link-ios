@@ -27,6 +27,78 @@ import NIOHTTP1
 import SwiftProtobuf
 
 
+/// Usage: instantiate AuthenticationServiceServiceClient, then call methods of this protocol to make API calls.
+internal protocol AuthenticationServiceService {
+  func login(_ request: GRPCLoginRequest, callOptions: CallOptions?) -> UnaryCall<GRPCLoginRequest, GRPCLoginResponse>
+  func register(_ request: GRPCRegisterRequest, callOptions: CallOptions?) -> UnaryCall<GRPCRegisterRequest, GRPCRegisterResponse>
+  func logout(_ request: GRPCLogoutRequest, callOptions: CallOptions?) -> UnaryCall<GRPCLogoutRequest, GRPCLogoutResponse>
+  func describeOAuth2Client(_ request: GRPCDescribeOAuth2ClientRequest, callOptions: CallOptions?) -> UnaryCall<GRPCDescribeOAuth2ClientRequest, GRPCDescribeOAuth2ClientResponse>
+}
+
+internal final class AuthenticationServiceServiceClient: GRPCClient, AuthenticationServiceService {
+  internal let connection: ClientConnection
+  internal var defaultCallOptions: CallOptions
+
+  /// Creates a client for the AuthenticationService service.
+  ///
+  /// - Parameters:
+  ///   - connection: `ClientConnection` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(connection: ClientConnection, defaultCallOptions: CallOptions = CallOptions()) {
+    self.connection = connection
+    self.defaultCallOptions = defaultCallOptions
+  }
+
+  /// Asynchronous unary call to Login.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Login.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func login(_ request: GRPCLoginRequest, callOptions: CallOptions? = nil) -> UnaryCall<GRPCLoginRequest, GRPCLoginResponse> {
+    return self.makeUnaryCall(path: "/AuthenticationService/Login",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Asynchronous unary call to Register.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Register.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func register(_ request: GRPCRegisterRequest, callOptions: CallOptions? = nil) -> UnaryCall<GRPCRegisterRequest, GRPCRegisterResponse> {
+    return self.makeUnaryCall(path: "/AuthenticationService/Register",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Asynchronous unary call to Logout.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Logout.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func logout(_ request: GRPCLogoutRequest, callOptions: CallOptions? = nil) -> UnaryCall<GRPCLogoutRequest, GRPCLogoutResponse> {
+    return self.makeUnaryCall(path: "/AuthenticationService/Logout",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Asynchronous unary call to DescribeOAuth2Client.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to DescribeOAuth2Client.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func describeOAuth2Client(_ request: GRPCDescribeOAuth2ClientRequest, callOptions: CallOptions? = nil) -> UnaryCall<GRPCDescribeOAuth2ClientRequest, GRPCDescribeOAuth2ClientResponse> {
+    return self.makeUnaryCall(path: "/AuthenticationService/DescribeOAuth2Client",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+}
+
 /// Usage: instantiate CredentialServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol CredentialServiceService {
   func listCredentials(_ request: GRPCListCredentialsRequest, callOptions: CallOptions?) -> UnaryCall<GRPCListCredentialsRequest, GRPCListCredentialsResponse>
