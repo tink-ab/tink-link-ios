@@ -20,6 +20,7 @@ public class TinkLinkViewController: UINavigationController {
                     self.providerController.user = user
                     self.credentialController.user = user
                     let providerListViewController = ProviderListViewController(providerController: self.providerController)
+                    providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
                     providerListViewController.addCredentialNavigator = self
                     self.setViewControllers([providerListViewController], animated: false)
                 } catch {
