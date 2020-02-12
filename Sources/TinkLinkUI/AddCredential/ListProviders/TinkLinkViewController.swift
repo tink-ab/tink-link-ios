@@ -9,6 +9,7 @@ public class TinkLinkViewController: UINavigationController {
         super.viewDidLoad()
         navigationBar.tintColor = Color.accent
         view.backgroundColor = Color.background
+        setViewControllers([UIViewController()], animated: false)
 
         userController.createTemporaryUser(for: .init(code: "SE")) { [weak self] result in
             guard let self = self else { return }
