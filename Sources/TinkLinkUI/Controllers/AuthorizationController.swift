@@ -1,10 +1,12 @@
 import TinkLinkSDK
 
 final class AuthorizationController {
+    let tinkLink: TinkLink
+
     var user: User? {
         didSet {
             if let user = user {
-                authorizationContext = AuthorizationContext(user: user)
+                authorizationContext = AuthorizationContext(tinkLink: tinkLink, user: user)
             } else {
                 authorizationContext = nil
             }
@@ -12,6 +14,10 @@ final class AuthorizationController {
     }
 
     private var authorizationContext: AuthorizationContext?
+
+    init(tinkLink: TinkLink) {
+        self.tinkLink = tinkLink
+    }
 
     @discardableResult
     public func scopeDescriptions(scope: TinkLink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable? {

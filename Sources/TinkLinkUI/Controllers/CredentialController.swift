@@ -11,6 +11,8 @@ extension Notification.Name {
 }
 
 final class CredentialController {
+    let tinkLink: TinkLink
+
     var credentials: [Credential] = [] {
         didSet {
             NotificationCenter.default.post(name: .credentialControllerDidUpdateCredentials, object: nil)
@@ -29,10 +31,14 @@ final class CredentialController {
     private var refreshTask: RefreshCredentialTask?
     private var addCredentialTask: AddCredentialTask?
 
+    init(tinkLink: TinkLink) {
+        self.tinkLink = tinkLink
+    }
+
     func performFetch() {
         guard let user = user else { return }
         if credentialContext == nil {
-            credentialContext = CredentialContext(user: user)
+            credentialContext = CredentialContext(tinkLink: tinkLink, user: user)
         }
         credentialContext?.fetchCredentials(completion: { [weak self] result in
             guard let self = self else { return }

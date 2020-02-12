@@ -6,6 +6,8 @@ extension Notification.Name {
 }
 
 final class ProviderController {
+    let tinkLink: TinkLink
+
     var providers: [Provider] = [] {
         didSet {
             NotificationCenter.default.post(name: .providerControllerDidUpdateProviders, object: nil)
@@ -24,10 +26,14 @@ final class ProviderController {
     
     private var providerContext: ProviderContext?
 
+    init(tinkLink: TinkLink) {
+        self.tinkLink = tinkLink
+    }
+
     func performFetch() {
         guard let user = user else { return }
         if providerContext == nil {
-            providerContext = ProviderContext(user: user)
+            providerContext = ProviderContext(tinkLink: tinkLink, user: user)
         }
         let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
         providerContext?.fetchProviders(attributes: attributes, completion: { [weak self] result in
