@@ -38,12 +38,12 @@ class AddCredentialHeaderView: UIView {
         userInfoLabel.font = Font.semibold(.deci)
         userInfoLabel.textColor = Color.label
         userInfoLabel.numberOfLines = 0
+        // TODO: Update after know more abuot how to handle user info
         userInfoLabel.text = "Test User"
 
         userInfoDescription.font = Font.regular(.micro)
         userInfoDescription.textColor = Color.label
         userInfoDescription.numberOfLines = 0
-        userInfoDescription.text = "PayPal will obtain some of your financial information. Read More"
 
         dashLine.backgroundColor = .clear
         dashLine.layer.addSublayer(dashLayer)
@@ -112,5 +112,11 @@ class AddCredentialHeaderView: UIView {
             bankIconView.kf.setImage(with: ImageResource(downloadURL: $0))
         }
         bankLabel.text = provider.displayName
+        let text = String(format: "%@ will obtain some of your financial information. Read More", provider.displayName)
+        let attributeText = NSMutableAttributedString(string: text)
+        let readMoreText = "Read More"
+        let range = attributeText.mutableString.range(of: readMoreText)
+        attributeText.addAttributes([NSAttributedString.Key.font: Font.bold(.micro), NSAttributedString.Key.foregroundColor: Color.accent], range: range)
+        userInfoDescription.attributedText = attributeText
     }
 }
