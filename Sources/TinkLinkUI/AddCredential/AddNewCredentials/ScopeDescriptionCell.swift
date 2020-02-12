@@ -8,7 +8,7 @@ class ScopeDescriptionCell: UITableViewCell {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 
         contentView.backgroundColor = Color.background
-        contentView.layoutMargins = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
+        contentView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
 
         titleLabel.font = Font.semibold(.mega)
         titleLabel.textColor = Color.label
