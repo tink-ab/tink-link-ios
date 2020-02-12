@@ -7,6 +7,8 @@ final class AddCredentialViewController: UITableViewController {
     
     let provider: Provider
 
+    weak var addCredentialNavigator: AddCredentialFlowNavigating?
+
     private let credentialController: CredentialController
     private var form: Form
     private var formError: Form.ValidationError? {
@@ -221,21 +223,7 @@ extension AddCredentialViewController {
     }
 
     @objc private func showMoreInfo(_ sender: UIBarButtonItem) {
-        let scope = TinkLink.Scope(scopes: [
-            TinkLink.Scope.Statistics.read,
-            TinkLink.Scope.Transactions.read,
-            TinkLink.Scope.Categories.read,
-            TinkLink.Scope.Accounts.read
-        ])
-
-        let viewController = ScopeDescriptionListViewController(user: credentialController.user!, scope: scope)
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
-        let navigationController = UINavigationController(rootViewController: viewController)
-        present(navigationController, animated: true)
-    }
-
-    @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
+        addCredentialNavigator?.showScopeDescriptions()
     }
 }
 

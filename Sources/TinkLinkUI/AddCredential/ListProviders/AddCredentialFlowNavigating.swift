@@ -6,4 +6,5 @@ protocol AddCredentialFlowNavigating: AnyObject {
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?)
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?)
     func showAddCredential(for provider: Provider)
+    func showScopeDescriptions()
 }
