@@ -9,11 +9,7 @@ final class FinancialInstitutionPickerViewController: UITableViewController {
 
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
-    private let credentialController: CredentialController
-
-    init(credentialController: CredentialController) {
-        self.credentialController = credentialController
-
+    init() {
         super.init(style: .plain)
     }
 

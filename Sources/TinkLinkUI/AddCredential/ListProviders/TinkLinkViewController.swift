@@ -33,7 +33,7 @@ public class TinkLinkViewController: UINavigationController {
 
 extension TinkLinkViewController: AddCredentialFlowNavigating {
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
-        let viewController = FinancialInstitutionPickerViewController(credentialController: credentialController)
+        let viewController = FinancialInstitutionPickerViewController()
         viewController.title = title
         viewController.financialInstitutionNodes = financialInstitutionNodes
         viewController.addCredentialNavigator = self
