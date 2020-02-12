@@ -41,6 +41,7 @@
 		8F0C9CBC23F1974600BD9913 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8FC06D3523F196BD00CD7B88 /* tink-link-ios */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -50,7 +51,6 @@
 			children = (
 				8FC06D2023F196A700CD7B88 /* TinkLinkUIExample */,
 				8FC06D1F23F196A700CD7B88 /* Products */,
-				8FC06D3523F196BD00CD7B88 /* tink-link-ios */,
 				8F0C9CBC23F1974600BD9913 /* Frameworks */,
 			);
 			sourceTree = "<group>";
