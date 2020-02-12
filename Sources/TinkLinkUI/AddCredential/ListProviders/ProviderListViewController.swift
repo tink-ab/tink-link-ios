@@ -7,7 +7,6 @@ final class ProviderListViewController: UITableViewController {
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
     private var providerController: ProviderController?
-    private var credentialController: CredentialController?
     private var user: User?
 
     private let searchController = UISearchController(searchResultsController: nil)
@@ -18,9 +17,8 @@ final class ProviderListViewController: UITableViewController {
         }
     }
 
-    init(providerController: ProviderController, credentialController: CredentialController) {
+    init(providerController: ProviderController) {
         self.providerController = providerController
-        self.credentialController = credentialController
         financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
 
         super.init(style: .plain)
