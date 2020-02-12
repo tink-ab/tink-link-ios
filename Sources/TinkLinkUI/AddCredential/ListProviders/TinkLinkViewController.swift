@@ -2,10 +2,10 @@ import UIKit
 import TinkLinkSDK
 
 public class TinkLinkViewController: UINavigationController {
-    private let userController: UserController
-    private let providerController: ProviderController
-    private let credentialController: CredentialController
-    private let authorizationController: AuthorizationController
+    private lazy var userController = UserController(tinkLink: tinkLink)
+    private lazy var providerController = ProviderController(tinkLink: tinkLink)
+    private lazy var credentialController = CredentialController(tinkLink: tinkLink)
+    private lazy var authorizationController = AuthorizationController(tinkLink: tinkLink)
 
     private let tinkLink: TinkLink
     public let scope: TinkLink.Scope
@@ -13,11 +13,6 @@ public class TinkLinkViewController: UINavigationController {
     public init(tinkLink: TinkLink = .shared, scope: TinkLink.Scope) {
         self.tinkLink = tinkLink
         self.scope = scope
-
-        self.userController = UserController(tinkLink: tinkLink)
-        self.providerController = ProviderController(tinkLink: tinkLink)
-        self.credentialController = CredentialController(tinkLink: tinkLink)
-        self.authorizationController = AuthorizationController(tinkLink: tinkLink)
 
         super.init(nibName: nil, bundle: nil)
     }
