@@ -6,6 +6,17 @@ public class TinkLinkViewController: UINavigationController {
     private let providerController = ProviderController()
     private let credentialController = CredentialController()
 
+    public let scope: TinkLink.Scope
+
+    public init(scope: TinkLink.Scope) {
+        self.scope = scope
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.tintColor = Color.accent
@@ -76,12 +87,6 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     }
 
     func showScopeDescriptions() {
-        let scope = TinkLink.Scope(scopes: [
-            TinkLink.Scope.Statistics.read,
-            TinkLink.Scope.Transactions.read,
-            TinkLink.Scope.Categories.read,
-            TinkLink.Scope.Accounts.read
-        ])
         let viewController = ScopeDescriptionListViewController(user: credentialController.user!, scope: scope)
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
         let navigationController = UINavigationController(rootViewController: viewController)

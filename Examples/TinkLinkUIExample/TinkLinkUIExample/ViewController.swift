@@ -1,4 +1,5 @@
 import UIKit
+import TinkLinkSDK
 import TinkLinkUI
 
 class ViewController: UIViewController {
@@ -21,6 +22,12 @@ class ViewController: UIViewController {
     }
 
     @objc private func showTinkLink() {
-        present(TinkLinkViewController(), animated: true)
+        let scope = TinkLink.Scope(scopes: [
+            TinkLink.Scope.Statistics.read,
+            TinkLink.Scope.Transactions.read,
+            TinkLink.Scope.Categories.read,
+            TinkLink.Scope.Accounts.read
+        ])
+        present(TinkLinkViewController(scope: scope), animated: true)
     }
 }
