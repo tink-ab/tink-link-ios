@@ -3,11 +3,9 @@ import UIKit
 
 /// Example of how to use the provider grouped by access type
 final class AccessTypePickerViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credential, Error>) -> Void
 
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
-    var onCompletion: CompletionHandler?
     var accessTypeNodes: [ProviderTree.AccessTypeNode] = []
 
     init() {

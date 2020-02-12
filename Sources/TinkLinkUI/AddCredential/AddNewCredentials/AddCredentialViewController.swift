@@ -4,8 +4,7 @@ import UIKit
 
 /// Example of how to use the provider field specification to add credential
 final class AddCredentialViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credential, Error>) -> Void
-    var onCompletion: CompletionHandler?
+    
     let provider: Provider
 
     private let credentialController: CredentialController
@@ -261,9 +260,7 @@ extension AddCredentialViewController {
 
     private func showCredentialUpdated(for credential: Credential) {
         hideUpdatingView()
-        dismiss(animated: true) {
-            self.onCompletion?(.success(credential))
-        }
+        dismiss(animated: true)
     }
 
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
