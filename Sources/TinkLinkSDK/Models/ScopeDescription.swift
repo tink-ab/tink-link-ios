@@ -1,4 +1,4 @@
-struct ScopeDescription {
-    let title: String
-    let description: String
+public struct ScopeDescription {
+    public let title: String
+    public let description: String
 }
