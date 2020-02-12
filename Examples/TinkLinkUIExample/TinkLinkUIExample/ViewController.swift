@@ -7,10 +7,9 @@ class ViewController: UIViewController {
 
         view.backgroundColor = .white
 
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.addTarget(self, action: #selector(showTinkLink), for: .touchUpInside)
         button.setTitle("Start TinkLink", for: .normal)
-        button.setTitleColor(.black, for: .normal)
         view.addSubview(button)
 
         button.translatesAutoresizingMaskIntoConstraints = false
