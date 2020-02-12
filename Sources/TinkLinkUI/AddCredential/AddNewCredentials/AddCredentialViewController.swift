@@ -24,6 +24,7 @@ final class AddCredentialViewController: UITableViewController {
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
+    private lazy var headerView = AddCredentialHeaderView()
 
     init(provider: Provider, credentialController: CredentialController) {
         self.provider = provider
@@ -55,6 +56,12 @@ extension AddCredentialViewController {
 
         tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
         tableView.allowsSelection = false
+        headerView.configure(provider)
+        let height = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
+        var frame = headerView.frame
+        frame.size.height = height
+        tableView.tableHeaderView = headerView
+        tableView.tableHeaderView?.frame = frame
 
         navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
