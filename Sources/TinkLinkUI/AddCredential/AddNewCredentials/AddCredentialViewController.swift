@@ -57,7 +57,7 @@ extension AddCredentialViewController {
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = addBarButtonItem
-        navigationItem.rightBarButtonItem?.isEnabled = form.fields.isEmpty
+        addBarButtonItem.isEnabled = form.fields.isEmpty
 
         setupHelpFootnote()
         layoutHelpFootnote()
@@ -296,7 +296,7 @@ extension AddCredentialViewController: TextFieldCellDelegate {
     func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
-        navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
+        addBarButtonItem.isEnabled = form.areFieldsValid
     }
 
     func textFieldCellDidEndEditing(_ cell: TextFieldCell) {
