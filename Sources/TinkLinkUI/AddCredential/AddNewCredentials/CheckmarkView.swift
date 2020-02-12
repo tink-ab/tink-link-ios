@@ -1,8 +1,8 @@
 import UIKit
 
-public final class CheckmarkView: UIView {
+final class CheckmarkView: UIView {
 
-    public enum Style {
+    enum Style {
         case `default`
         case large
 
