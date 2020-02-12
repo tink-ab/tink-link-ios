@@ -5,6 +5,7 @@ public class TinkLinkViewController: UINavigationController {
     private let userController = UserController()
     private let providerController = ProviderController()
     private let credentialController = CredentialController()
+    private let authorizationController = AuthorizationController()
 
     public let scope: TinkLink.Scope
 
@@ -30,6 +31,7 @@ public class TinkLinkViewController: UINavigationController {
                     let user = try result.get()
                     self.providerController.user = user
                     self.credentialController.user = user
+                    self.authorizationController.user = user
                     let providerListViewController = ProviderListViewController(providerController: self.providerController)
                     providerListViewController.addCredentialNavigator = self
                     self.setViewControllers([providerListViewController], animated: false)
@@ -87,7 +89,7 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     }
 
     func showScopeDescriptions() {
-        let viewController = ScopeDescriptionListViewController(user: credentialController.user!, scope: scope)
+        let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scope: scope)
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
         let navigationController = UINavigationController(rootViewController: viewController)
         present(navigationController, animated: true)

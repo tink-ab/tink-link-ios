@@ -3,7 +3,7 @@ import TinkLinkSDK
 
 final class ScopeDescriptionListViewController: UITableViewController {
 
-    private let authorizationContext: AuthorizationContext
+    private let authorizationController: AuthorizationController
 
     private let scope: TinkLink.Scope
 
@@ -20,8 +20,8 @@ final class ScopeDescriptionListViewController: UITableViewController {
         }
     }
 
-    init(user: User, scope: TinkLink.Scope) {
-        self.authorizationContext = AuthorizationContext(user: user)
+    init(authorizationController: AuthorizationController, scope: TinkLink.Scope) {
+        self.authorizationController = authorizationController
         self.scope = scope
         self.sections = [
             .intro(
@@ -53,7 +53,7 @@ extension ScopeDescriptionListViewController {
 
         activityIndicatorView.startAnimating()
 
-        authorizationContext.scopeDescriptions(scope: scope) { [weak self] result in
+        authorizationController.scopeDescriptions(scope: scope) { [weak self] result in
             DispatchQueue.main.async {
                 self?.activityIndicatorView.stopAnimating()
 
