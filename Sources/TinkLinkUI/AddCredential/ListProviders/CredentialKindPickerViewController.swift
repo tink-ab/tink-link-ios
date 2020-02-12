@@ -3,10 +3,12 @@ import UIKit
 
 /// Example of how to use the provider grouped by credential type
 final class CredentialKindPickerViewController: UITableViewController {
-    var credentialKindNodes: [ProviderTree.CredentialKindNode] = []
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
-    init() {
+    let credentialKindNodes: [ProviderTree.CredentialKindNode]
+
+    init(credentialKindNodes: [ProviderTree.CredentialKindNode]) {
+        self.credentialKindNodes = credentialKindNodes
         super.init(style: .plain)
     }
 

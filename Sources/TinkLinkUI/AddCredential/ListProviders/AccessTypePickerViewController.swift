@@ -6,9 +6,10 @@ final class AccessTypePickerViewController: UITableViewController {
 
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
-    var accessTypeNodes: [ProviderTree.AccessTypeNode] = []
+    let accessTypeNodes: [ProviderTree.AccessTypeNode]
 
-    init() {
+    init(accessTypeNodes: [ProviderTree.AccessTypeNode]) {
+        self.accessTypeNodes = accessTypeNodes
         super.init(style: .plain)
     }
 

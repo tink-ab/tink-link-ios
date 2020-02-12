@@ -33,25 +33,22 @@ public class TinkLinkViewController: UINavigationController {
 
 extension TinkLinkViewController: AddCredentialFlowNavigating {
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
-        let viewController = FinancialInstitutionPickerViewController()
+        let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes)
         viewController.title = title
-        viewController.financialInstitutionNodes = financialInstitutionNodes
         viewController.addCredentialNavigator = self
         show(viewController, sender: nil)
     }
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
-        let viewController = AccessTypePickerViewController()
+        let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
         viewController.title = title
-        viewController.accessTypeNodes = accessTypeNodes
         viewController.addCredentialNavigator = self
         show(viewController, sender: nil)
     }
 
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
-        let viewController = CredentialKindPickerViewController()
+        let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
         viewController.title = title
-        viewController.credentialKindNodes = credentialKindNodes
         viewController.addCredentialNavigator = self
         show(viewController, sender: nil)
     }

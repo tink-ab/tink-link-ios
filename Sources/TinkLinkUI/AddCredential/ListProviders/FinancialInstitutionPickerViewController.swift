@@ -3,11 +3,13 @@ import UIKit
 
 /// Example of how to use the provider grouped by financialInstitution
 final class FinancialInstitutionPickerViewController: UITableViewController {
-    var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
 
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
-    init() {
+    let financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode]
+
+    init(financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode]) {
+        self.financialInstitutionNodes = financialInstitutionNodes
         super.init(style: .plain)
     }
 
