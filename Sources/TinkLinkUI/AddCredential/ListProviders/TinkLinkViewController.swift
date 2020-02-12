@@ -93,6 +93,5 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
         let navigationController = UINavigationController(rootViewController: viewController)
         present(navigationController, animated: true)
-
     }
 }
