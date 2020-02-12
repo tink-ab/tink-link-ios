@@ -7,12 +7,12 @@ final class ScopeDescriptionListViewController: UITableViewController {
 
     private let scope: TinkLink.Scope
 
-    enum Section {
+    private enum Section {
         case intro(title: String, description: String)
         case scopeDescriptions([ScopeDescription])
     }
 
-    var sections: [Section] {
+    private var sections: [Section] {
         didSet {
             tableView.reloadData()
         }
