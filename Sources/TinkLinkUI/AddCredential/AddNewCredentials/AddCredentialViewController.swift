@@ -18,6 +18,7 @@ final class AddCredentialViewController: UITableViewController {
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
     private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
+    private lazy var moreInfoBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(showMoreInfo))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
@@ -56,7 +57,7 @@ extension AddCredentialViewController {
         navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItem = addBarButtonItem
+        navigationItem.rightBarButtonItems = [addBarButtonItem, moreInfoBarButtonItem]
         addBarButtonItem.isEnabled = form.fields.isEmpty
 
         setupHelpFootnote()
@@ -217,6 +218,17 @@ extension AddCredentialViewController {
         } catch {
             formError = error as? Form.ValidationError
         }
+    }
+
+    @objc private func showMoreInfo(_ sender: UIBarButtonItem) {
+        let viewController = ScopeDescriptionListViewController(user: credentialController.user!)
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true)
+    }
+
+    @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
 }
 
