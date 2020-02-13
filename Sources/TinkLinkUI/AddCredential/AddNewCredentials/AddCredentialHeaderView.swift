@@ -7,13 +7,50 @@ protocol AddCredentialHeaderViewDelegate: AnyObject {
 }
 
 final class AddCredentialHeaderView: UIView {
-    private let bankIconView = UIImageView()
-    private let bankLabel = UILabel()
+    private lazy var bankIconView = UIImageView()
+    private lazy var bankLabel: UILabel = {
+        let bankLabel = UILabel()
+        bankLabel.font = Font.semibold(.deci)
+        bankLabel.textColor = Color.label
+        bankLabel.numberOfLines = 0
+        return bankLabel
+    }()
     private let userInfoIconView = UIImageView()
-    private let userInfoLabel = UILabel()
-    private let userInfoDescription = UITextView()
-    private let dashLine = UIView()
-    private let dashLayer = CAShapeLayer()
+    private let userInfoLabel: UILabel = {
+        let userInfoLabel = UILabel()
+        userInfoLabel.font = Font.semibold(.deci)
+        userInfoLabel.textColor = Color.label
+        userInfoLabel.numberOfLines = 0
+
+        // TODO: Update after know more abuot how to handle user info
+        userInfoLabel.text = "Test User"
+        
+        return userInfoLabel
+    }()
+    private lazy var userInfoDescription: UITextView = {
+        let userInfoDescription = UITextView()
+        userInfoDescription.font = Font.regular(.micro)
+        userInfoDescription.textColor = Color.label
+        userInfoDescription.isScrollEnabled = false
+        userInfoDescription.backgroundColor = .clear
+        userInfoDescription.isEditable = false
+        userInfoDescription.delegate = self
+        return userInfoDescription
+    }()
+    private lazy var dashLine: UIView = {
+        let dashLine = UIView()
+        dashLine.backgroundColor = .clear
+        dashLine.layer.addSublayer(dashLayer)
+        return dashLine
+    }()
+    private lazy var dashLayer: CAShapeLayer = {
+        let dashLayer = CAShapeLayer()
+        dashLayer.fillColor = UIColor.clear.cgColor
+        dashLayer.strokeColor = UIColor.darkGray.cgColor
+        dashLayer.lineWidth = 1
+        dashLayer.lineDashPattern = [1,3]
+        return dashLayer
+    }()
 
     private var readMoreRange: NSRange?
 
@@ -34,32 +71,8 @@ final class AddCredentialHeaderView: UIView {
     }
 
     private func setup() {
-        backgroundColor = Color.expenses.withAlphaComponent(0.05)
+        backgroundColor = Color.accentBackground
         layoutMargins = .init(top: 24, left: 16, bottom: 24, right: 16)
-
-        bankLabel.font = Font.semibold(.deci)
-        bankLabel.textColor = Color.label
-        bankLabel.numberOfLines = 0
-
-        userInfoLabel.font = Font.semibold(.deci)
-        userInfoLabel.textColor = Color.label
-        userInfoLabel.numberOfLines = 0
-        // TODO: Update after know more abuot how to handle user info
-        userInfoLabel.text = "Test User"
-
-        userInfoDescription.font = Font.regular(.micro)
-        userInfoDescription.textColor = Color.label
-        userInfoDescription.isScrollEnabled = false
-        userInfoDescription.backgroundColor = .clear
-        userInfoDescription.isEditable = false
-        userInfoDescription.delegate = self
-
-        dashLine.backgroundColor = .clear
-        dashLine.layer.addSublayer(dashLayer)
-        dashLayer.fillColor = UIColor.clear.cgColor
-        dashLayer.strokeColor = UIColor.darkGray.cgColor
-        dashLayer.lineWidth = 1
-        dashLayer.lineDashPattern = [1,3]
 
         bankLabel.translatesAutoresizingMaskIntoConstraints = false
         bankIconView.translatesAutoresizingMaskIntoConstraints = false

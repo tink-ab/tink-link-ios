@@ -2,42 +2,25 @@ import UIKit
 import TinkLinkSDK
 
 final class AddCredentialFooterView: UIView {
-    let button = UIButton()
-    private let bankIdAnotherDeviceButton = UIButton()
-    private let descriptionLabel = UILabel()
-    private let stackView = UIStackView()
-
-    convenience init() {
-        self.init(frame: .zero)
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-
-        setup()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setup() {
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = .init(top: 20, left: 20, bottom: 20, right: 20)
-
+    lazy var button: UIButton = {
+        let button = UIButton()
         button.titleLabel?.font = Font.semibold(.hecto)
         button.setTitle("Continue", for: .normal)
         button.setTitleColor(Color.background, for: .normal)
         button.backgroundColor = Color.accent
-        button.layer.cornerRadius = 24
         button.contentEdgeInsets = .init(top: 12, left: 24, bottom: 12, right: 24)
-
+        return button
+    }()
+    private lazy var bankIdAnotherDeviceButton: UIButton = {
+        // TODO: handle using another deivce for BankID?
+        let bankIdAnotherDeviceButton = UIButton()
         bankIdAnotherDeviceButton.setTitle("Open Mobile BankID on another device", for: .normal)
         bankIdAnotherDeviceButton.titleLabel?.font = Font.bold(.hecto)
         bankIdAnotherDeviceButton.setTitleColor(Color.accent, for: .normal)
-
+        return bankIdAnotherDeviceButton
+    }()
+    private lazy var descriptionLabel: UILabel = {
+        let descriptionLabel = UILabel()
         descriptionLabel.font = Font.regular(.micro)
         descriptionLabel.textColor = Color.secondaryLabel
         descriptionLabel.numberOfLines = 0
@@ -54,7 +37,38 @@ final class AddCredentialFooterView: UIView {
             .underlineStyle: NSUnderlineStyle.single.rawValue,
         ], range: termsAndConditionsRange)
         descriptionLabel.attributedText = attributeText
+        return descriptionLabel
+    }()
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = .init(top: 20, left: 20, bottom: 20, right: 20)
+        return stackView
+    }()
 
+    convenience init() {
+        self.init(frame: .zero)
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        button.layer.cornerRadius = button.frame.height / 2
+    }
+
+    private func setup() {
         addSubview(button)
         addSubview(stackView)
         stackView.addArrangedSubview(descriptionLabel)
