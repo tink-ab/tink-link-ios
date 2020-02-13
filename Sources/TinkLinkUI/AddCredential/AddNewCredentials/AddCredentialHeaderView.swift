@@ -2,14 +2,22 @@ import UIKit
 import TinkLinkSDK
 import Kingfisher
 
+protocol AddCredentialHeaderViewDelegate: AnyObject {
+    func readMoreTapped(_ textView: UITextView, in characterRange: NSRange)
+}
+
 final class AddCredentialHeaderView: UIView {
     private let bankIconView = UIImageView()
     private let bankLabel = UILabel()
     private let userInfoIconView = UIImageView()
     private let userInfoLabel = UILabel()
-    private let userInfoDescription = UILabel()
+    private let userInfoDescription = UITextView()
     private let dashLine = UIView()
     private let dashLayer = CAShapeLayer()
+
+    private var readMoreRange: NSRange?
+
+    weak var delegate: AddCredentialHeaderViewDelegate?
 
     convenience init() {
         self.init(frame: .zero)
@@ -41,7 +49,10 @@ final class AddCredentialHeaderView: UIView {
 
         userInfoDescription.font = Font.regular(.micro)
         userInfoDescription.textColor = Color.label
-        userInfoDescription.numberOfLines = 0
+        userInfoDescription.isScrollEnabled = false
+        userInfoDescription.backgroundColor = .clear
+        userInfoDescription.isEditable = false
+        userInfoDescription.delegate = self
 
         dashLine.backgroundColor = .clear
         dashLine.layer.addSublayer(dashLayer)
@@ -117,8 +128,29 @@ final class AddCredentialHeaderView: UIView {
         let text = String(format: "%@ will obtain some of your financial information. Read More", provider.displayName)
         let attributeText = NSMutableAttributedString(string: text)
         let readMoreText = "Read More"
-        let range = attributeText.mutableString.range(of: readMoreText)
-        attributeText.addAttributes([NSAttributedString.Key.font: Font.bold(.micro), NSAttributedString.Key.foregroundColor: Color.accent], range: range)
+        let readMoreRange = attributeText.mutableString.range(of: readMoreText)
+        self.readMoreRange = readMoreRange
+        attributeText.addAttributes([
+            NSAttributedString.Key.font: Font.bold(.micro),
+            NSAttributedString.Key.foregroundColor: Color.accent,
+            NSAttributedString.Key.link: "",
+        ], range: readMoreRange)
         userInfoDescription.attributedText = attributeText
+        userInfoDescription.linkTextAttributes = [
+            NSAttributedString.Key.font: Font.bold(.micro),
+            NSAttributedString.Key.foregroundColor: Color.accent
+        ]
+        userInfoDescription.sizeToFit()
+    }
+}
+
+extension AddCredentialHeaderView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        if characterRange == readMoreRange {
+            delegate?.readMoreTapped(textView, in: characterRange)
+            return false
+        } else {
+            return true
+        }
     }
 }

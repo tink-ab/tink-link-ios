@@ -18,7 +18,6 @@ final class AddCredentialViewController: UIViewController {
 
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
-    private lazy var moreInfoBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(showMoreInfo))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
@@ -56,6 +55,7 @@ extension AddCredentialViewController {
         tableView.dataSource = self
 
         headerView.configure(provider)
+        headerView.delegate = self
         let height = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
         var frame = headerView.frame
         frame.size.height = height
@@ -88,7 +88,6 @@ extension AddCredentialViewController {
         navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItems = [moreInfoBarButtonItem]
         addCredentialFooterView.button.isEnabled = form.fields.isEmpty
 
         setupHelpFootnote()
@@ -246,7 +245,7 @@ extension AddCredentialViewController {
         }
     }
 
-    @objc private func showMoreInfo(_ sender: UIBarButtonItem) {
+    @objc private func showMoreInfo(_ textView: UITextView) {
         addCredentialNavigator?.showScopeDescriptions()
     }
 }
@@ -335,6 +334,14 @@ extension AddCredentialViewController: TextFieldCellDelegate {
         } catch {
             formError = error as? Form.ValidationError
         }
+    }
+}
+
+// MARK: - AddCredentialHeaderViewDelegate
+
+extension AddCredentialViewController: AddCredentialHeaderViewDelegate {
+    func readMoreTapped(_ textView: UITextView, in characterRange: NSRange) {
+        showMoreInfo(textView)
     }
 }
 
