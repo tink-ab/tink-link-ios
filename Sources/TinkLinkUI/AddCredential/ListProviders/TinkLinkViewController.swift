@@ -5,6 +5,18 @@ public class TinkLinkViewController: UINavigationController {
     private let userController = UserController()
     private let providerController = ProviderController()
     private let credentialController = CredentialController()
+    private let authorizationController = AuthorizationController()
+
+    public let scope: TinkLink.Scope
+
+    public init(scope: TinkLink.Scope) {
+        self.scope = scope
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +31,7 @@ public class TinkLinkViewController: UINavigationController {
                     let user = try result.get()
                     self.providerController.user = user
                     self.credentialController.user = user
+                    self.authorizationController.user = user
                     let providerListViewController = ProviderListViewController(providerController: self.providerController)
                     providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
                     providerListViewController.addCredentialNavigator = self
@@ -31,6 +44,10 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     @objc func cancel() {
+        dismiss(animated: true)
+    }
+
+    @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
 }
@@ -68,6 +85,14 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     func showAddCredential(for provider: Provider) {
         let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController)
         addCredentialViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+        addCredentialViewController.addCredentialNavigator = self
         show(addCredentialViewController, sender: nil)
+    }
+
+    func showScopeDescriptions() {
+        let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scope: scope)
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true)
     }
 }

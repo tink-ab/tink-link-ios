@@ -7,6 +7,8 @@ final class AddCredentialViewController: UITableViewController {
     
     let provider: Provider
 
+    weak var addCredentialNavigator: AddCredentialFlowNavigating?
+
     private let credentialController: CredentialController
     private var form: Form
     private var formError: Form.ValidationError? {
@@ -18,6 +20,7 @@ final class AddCredentialViewController: UITableViewController {
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
     private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
+    private lazy var moreInfoBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(showMoreInfo))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
@@ -56,8 +59,8 @@ extension AddCredentialViewController {
         navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItem = addBarButtonItem
-        navigationItem.rightBarButtonItem?.isEnabled = form.fields.isEmpty
+        navigationItem.rightBarButtonItems = [addBarButtonItem, moreInfoBarButtonItem]
+        addBarButtonItem.isEnabled = form.fields.isEmpty
 
         setupHelpFootnote()
         layoutHelpFootnote()
@@ -218,6 +221,10 @@ extension AddCredentialViewController {
             formError = error as? Form.ValidationError
         }
     }
+
+    @objc private func showMoreInfo(_ sender: UIBarButtonItem) {
+        addCredentialNavigator?.showScopeDescriptions()
+    }
 }
 
 // MARK: - Navigation
@@ -296,7 +303,7 @@ extension AddCredentialViewController: TextFieldCellDelegate {
     func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
-        navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
+        addBarButtonItem.isEnabled = form.areFieldsValid
     }
 
     func textFieldCellDidEndEditing(_ cell: TextFieldCell) {

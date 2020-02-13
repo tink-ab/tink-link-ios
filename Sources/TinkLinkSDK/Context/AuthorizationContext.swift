@@ -1,7 +1,7 @@
 import Foundation
 
 /// An object that you use to authorize for a user with requested scopes.
-final class AuthorizationContext {
+public final class AuthorizationContext {
     private let tinkLink: TinkLink
     private let service: AuthenticationService
 
@@ -32,6 +32,14 @@ final class AuthorizationContext {
         let redirectURI = tinkLink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
             completion(result.map { $0.code })
+        }
+    }
+
+    @discardableResult
+    public func scopeDescriptions(scope: TinkLink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
+        let redirectURI = tinkLink.configuration.redirectURI
+        return service.scopeDescriptions(scope: scope, redirectURI: redirectURI) { (result) in
+            completion(result)
         }
     }
 }
