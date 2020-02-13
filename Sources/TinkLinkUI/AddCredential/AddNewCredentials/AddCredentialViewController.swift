@@ -244,7 +244,7 @@ extension AddCredentialViewController {
             navigationItem.setRightBarButton(addBarButtonItem, animated: true)
             let statusViewController = AddCredentialStatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
-            statusViewController.modalPresentationStyle = .overFullScreen
+            statusViewController.modalPresentationStyle = .custom
             statusViewController.transitioningDelegate = statusPresentationManager
             present(statusViewController, animated: true)
             UIView.animate(withDuration: 0.3) {
