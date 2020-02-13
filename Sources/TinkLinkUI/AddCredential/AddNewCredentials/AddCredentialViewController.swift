@@ -19,6 +19,7 @@ final class AddCredentialViewController: UITableViewController {
 
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
+    private var statusPresentationManager = AddCredentialStatusPresentationManager()
     private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private lazy var moreInfoBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(showMoreInfo))
     private var didFirstFieldBecomeFirstResponder = false
@@ -244,6 +245,7 @@ extension AddCredentialViewController {
             let statusViewController = AddCredentialStatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
+            statusViewController.transitioningDelegate = statusPresentationManager
             present(statusViewController, animated: true)
             UIView.animate(withDuration: 0.3) {
                 self.view.tintAdjustmentMode = .dimmed
