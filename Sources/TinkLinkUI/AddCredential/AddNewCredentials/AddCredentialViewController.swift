@@ -45,7 +45,7 @@ extension AddCredentialViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialControllerDidSupplementInformation, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialControllerDidError, object: nil)
 
-        tableView.register(FormFieldTableViewCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
+        tableView.register(FormFieldTableViewCell.self, forCellReuseIdentifier: FormFieldTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
 
         navigationItem.prompt = "Enter Credentials"
@@ -61,7 +61,7 @@ extension AddCredentialViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {
+        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FormFieldTableViewCell {
             cell.textField.becomeFirstResponder()
             didFirstFieldBecomeFirstResponder = true
         }
