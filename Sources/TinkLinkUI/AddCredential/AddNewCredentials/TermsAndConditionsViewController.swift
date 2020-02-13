@@ -1,6 +1,6 @@
 import UIKit
 
-class TermsAndConditionsViewController: UIViewController {
+final class TermsAndConditionsViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
 
@@ -10,7 +10,7 @@ class TermsAndConditionsViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
