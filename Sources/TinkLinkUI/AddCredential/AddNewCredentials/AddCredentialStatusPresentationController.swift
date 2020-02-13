@@ -35,7 +35,7 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
         presentedViewController.view.frame = frameOfPresentedViewInContainerView
 
         shadowLayer.frame = containerView?.bounds ?? UIScreen.main.bounds
-        let path = UIBezierPath(rect: containerView?.bounds ?? UIScreen.main.bounds)
+        let path = UIBezierPath(rect: shadowLayer.frame)
         path.append(UIBezierPath(roundedRect: visualEffectView.frame, cornerRadius: visualEffectView.layer.cornerRadius))
         shadowLayer.path = path.cgPath
 
@@ -90,7 +90,7 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
         super.containerViewWillLayoutSubviews()
 
         shadowLayer.frame = containerView?.bounds ?? .zero
-        let path = UIBezierPath(rect: containerView?.bounds ?? UIScreen.main.bounds)
+        let path = UIBezierPath(rect: shadowLayer.frame)
         path.append(UIBezierPath(roundedRect: visualEffectView.frame, cornerRadius: visualEffectView.layer.cornerRadius))
         shadowLayer.path = path.cgPath
 
