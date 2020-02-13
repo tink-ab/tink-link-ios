@@ -103,7 +103,6 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     func showTermsAndConditions() {
         let url = URL(string: "https://link.tink.com/terms-and-conditions")!
         let viewController = TermsAndConditionsViewController(url: url)
-        viewController.title = "Terms & Conditions"
         present(viewController, animated: true)
     }
 }
