@@ -63,7 +63,8 @@ extension AddCredentialViewController {
         addBarButtonItem.isEnabled = form.fields.isEmpty
 
         toolbarItems = [
-            UIBarButtonItem(title: "Terms & Conditions", style: .plain, target: self, action: #selector(showTermsAndConditions))
+            UIBarButtonItem(title: "Terms & Conditions", style: .plain, target: self, action: #selector(showTermsAndConditions)),
+            UIBarButtonItem(title: "Privacy Policy", style: .plain, target: self, action: #selector(showPrivacyPolicy))
         ]
 
         setupHelpFootnote()
@@ -243,6 +244,11 @@ extension AddCredentialViewController {
     @objc private func showTermsAndConditions(_ sender: UIBarButtonItem) {
         addCredentialNavigator?.showTermsAndConditions()
     }
+
+    @objc private func showPrivacyPolicy(_ sender: UIBarButtonItem) {
+        addCredentialNavigator?.showPrivacyPolicy()
+    }
+
 }
 
 // MARK: - Navigation

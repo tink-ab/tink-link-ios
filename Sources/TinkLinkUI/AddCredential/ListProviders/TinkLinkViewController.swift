@@ -101,4 +101,10 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         let viewController = LegalViewController(url: url)
         present(viewController, animated: true)
     }
+
+    func showPrivacyPolicy() {
+        let url = URL(string: "https://link.tink.com/privacy-policy")!
+        let viewController = LegalViewController(url: url)
+        present(viewController, animated: true)
+    }
 }
