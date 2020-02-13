@@ -50,10 +50,6 @@ public class TinkLinkViewController: UINavigationController {
     @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
-
-    @objc private func closeTermsAndConditions(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
-    }
 }
 
 // MARK: - AddCredentialFlowNavigating
