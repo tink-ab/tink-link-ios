@@ -8,6 +8,8 @@ final class LegalViewController: UIViewController {
 
     private let url: URL
 
+    private var retryDelay: TimeInterval = 0.5
+
     init(url: URL) {
         self.url = url
         super.init(nibName: nil, bundle: nil)
@@ -61,6 +63,14 @@ extension LegalViewController {
         let js = """
             document.querySelector("button").addEventListener("click", function() { window.close() }, null);
             """
-        webView.evaluateJavaScript(js)
+        webView.evaluateJavaScript(js, completionHandler: { [weak self, retryDelay] (a, error) in
+            if case WKError.javaScriptExceptionOccurred? = error {
+                DispatchQueue.main.asyncAfter(deadline: .now() + retryDelay) {
+                    self?.setupCloseButtonHandler()
+                }
+            }
+        })
+
+        retryDelay *= 2
     }
 }
