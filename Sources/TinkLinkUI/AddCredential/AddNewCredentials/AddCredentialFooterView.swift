@@ -51,7 +51,7 @@ final class AddCredentialFooterView: UIView {
         let termsAndConditionsText = "Terms and Conditions"
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
         attributeText.addAttributes([
-            NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
+            .underlineStyle: NSUnderlineStyle.single.rawValue,
         ], range: termsAndConditionsRange)
         descriptionLabel.attributedText = attributeText
 
