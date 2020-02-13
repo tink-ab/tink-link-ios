@@ -50,6 +50,10 @@ public class TinkLinkViewController: UINavigationController {
     @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
+
+    @objc private func closeTermsAndConditions(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
 }
 
 // MARK: - AddCredentialFlowNavigating
@@ -92,6 +96,13 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     func showScopeDescriptions() {
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scope: scope)
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true)
+    }
+
+    func showTermsAndConditions() {
+        let viewController = TermsAndConditionsViewController()
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeTermsAndConditions))
         let navigationController = UINavigationController(rootViewController: viewController)
         present(navigationController, animated: true)
     }

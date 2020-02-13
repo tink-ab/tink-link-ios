@@ -241,7 +241,7 @@ extension AddCredentialViewController {
     }
 
     @objc private func showTermsAndConditions(_ sender: UIBarButtonItem) {
-
+        addCredentialNavigator?.showTermsAndConditions()
     }
 }
 
