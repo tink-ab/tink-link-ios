@@ -77,7 +77,7 @@ extension AddCredentialViewController {
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: addCredentialFooterView.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
