@@ -73,7 +73,7 @@ final class AddCredentialHeaderView: UIView {
             bankIconView.bottomAnchor.constraint(equalTo: dashLine.topAnchor),
 
             bankLabel.centerYAnchor.constraint(equalTo: bankIconView.centerYAnchor),
-            bankLabel.trailingAnchor.constraint(lessThanOrEqualTo: layoutMarginsGuide.trailingAnchor),
+            bankLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
 
             dashLine.heightAnchor.constraint(equalToConstant: 16),
             dashLine.widthAnchor.constraint(equalToConstant: 1),
@@ -86,11 +86,11 @@ final class AddCredentialHeaderView: UIView {
             userInfoIconView.trailingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor, constant: -8),
 
             userInfoLabel.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor),
-            userInfoLabel.trailingAnchor.constraint(lessThanOrEqualTo: layoutMarginsGuide.trailingAnchor),
+            userInfoLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
 
             userInfoDescription.topAnchor.constraint(equalTo: userInfoLabel.lastBaselineAnchor, constant: 4),
             userInfoDescription.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor),
-            userInfoDescription.trailingAnchor.constraint(lessThanOrEqualTo: layoutMarginsGuide.trailingAnchor),
+            userInfoDescription.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             userInfoDescription.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
     }
