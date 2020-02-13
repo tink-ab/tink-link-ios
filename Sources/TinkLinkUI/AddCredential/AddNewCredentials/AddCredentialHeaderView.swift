@@ -145,11 +145,16 @@ final class AddCredentialHeaderView: UIView {
 }
 
 extension AddCredentialHeaderView: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        if characterRange == readMoreRange {
-            delegate?.readMoreTapped(textView, in: characterRange)
-            return false
-        } else {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        switch interaction {
+        case .invokeDefaultAction:
+            if characterRange == readMoreRange {
+                delegate?.readMoreTapped(textView, in: characterRange)
+                return false
+            } else {
+                return true
+            }
+        default:
             return true
         }
     }
