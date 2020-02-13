@@ -11,7 +11,7 @@ class FormFieldTableViewCell: UITableViewCell {
 
     static var reuseIdentifier: String { "TextFieldCell" }
 
-    lazy var textField = UITextField()
+    lazy var textField = FormFieldTextField()
     let headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,14 +43,8 @@ class FormFieldTableViewCell: UITableViewCell {
     }
 
     private func setup() {
-        textField.autocorrectionType = .no
-        textField.autocapitalizationType = .none
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
-        textField.layer.borderColor = Color.accentBackground.cgColor
-        textField.layer.borderWidth = 1.0
-        textField.layer.cornerRadius = 4.0
-        textField.textColor = Color.label
 
         contentView.layoutMargins = .init(top: 4, left: 20, bottom: 4, right: 20)
         contentView.addSubview(textField)
@@ -77,22 +71,9 @@ class FormFieldTableViewCell: UITableViewCell {
     }
 
     func configure(field: Form.Field) {
-        textField.placeholder = field.attributes.placeholder
-        textField.isSecureTextEntry = field.attributes.isSecureTextEntry
-        textField.isEnabled = field.attributes.isEditable
-        if !field.attributes.isEditable {
-            textField.backgroundColor = .clear
-            textField.textAlignment = .left
-            textField.font = Font.regular(.hecto)
-        } else {
-            textField.backgroundColor = Color.accentBackground
-            textField.textAlignment = .center
-            textField.font = Font.regular(.mega)
-        }
-        textField.text = field.text
-
+        textField.configure(field: field)
         headerLabel.text = field.attributes.description
-        footerLabel.text = "Footer"
+        footerLabel.text = field.attributes.helpText
     }
 }
 
@@ -105,6 +86,16 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderColor = Color.accentBackground.cgColor
         delegate?.textFieldCellDidEndEditing(self)
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = Color.accent.cgColor
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        resignFirstResponder()
+        return true
     }
 }
