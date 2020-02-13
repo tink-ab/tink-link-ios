@@ -2,8 +2,8 @@ import UIKit
 import TinkLinkSDK
 
 protocol FormFieldTableViewCellDelegate: AnyObject {
-    func textFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String)
-    func textFieldCellDidEndEditing(_ cell: FormFieldTableViewCell)
+    func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String)
+    func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell)
 }
 
 class FormFieldTableViewCell: UITableViewCell {
@@ -79,13 +79,13 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
-        delegate?.textFieldCell(self, willChangeToText: text)
+        delegate?.formFieldCell(self, willChangeToText: text)
         return true
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.borderColor = Color.accentBackground.cgColor
-        delegate?.textFieldCellDidEndEditing(self)
+        delegate?.formFieldCellDidEndEditing(self)
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {

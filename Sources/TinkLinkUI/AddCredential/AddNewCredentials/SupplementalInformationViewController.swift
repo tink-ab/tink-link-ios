@@ -108,14 +108,14 @@ extension SupplementalInformationViewController {
 // MARK: - TextFieldCellDelegate
 
 extension SupplementalInformationViewController: FormFieldTableViewCellDelegate {
-    func textFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
+    func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
         if let indexPath = tableView.indexPath(for: cell) {
             form.fields[indexPath.section].text = text
             navigationItem.rightBarButtonItem?.isEnabled = form.fields[indexPath.section].isValid
         }
     }
 
-    func textFieldCellDidEndEditing(_ cell: FormFieldTableViewCell) {
+    func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell) {
         do {
             try form.validateFields()
         } catch {
