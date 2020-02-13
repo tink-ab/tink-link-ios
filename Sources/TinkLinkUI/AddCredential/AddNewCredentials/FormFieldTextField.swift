@@ -23,7 +23,7 @@ final class FormFieldTextField: UITextField {
         layoutMargins = .init(top: 0, left: 16, bottom: 0, right: 16)
     }
 
-    func configure(field: Form.Field) {
+    func configure(with field: Form.Field) {
         placeholder = field.attributes.placeholder
         isSecureTextEntry = field.attributes.isSecureTextEntry
         isEnabled = field.attributes.isEditable

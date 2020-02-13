@@ -168,7 +168,7 @@ extension AddCredentialViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: FormFieldTableViewCell.reuseIdentifier, for: indexPath)
         let field = form.fields[indexPath.item]
         if let textFieldCell = cell as? FormFieldTableViewCell {
-            textFieldCell.configure(field: field)
+            textFieldCell.configure(with: field)
             textFieldCell.delegate = self
         }
         return cell

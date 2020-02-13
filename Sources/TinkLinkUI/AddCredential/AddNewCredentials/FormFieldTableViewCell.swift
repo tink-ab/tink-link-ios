@@ -68,8 +68,8 @@ class FormFieldTableViewCell: UITableViewCell {
         ])
     }
 
-    func configure(field: Form.Field) {
-        textField.configure(field: field)
+    func configure(with field: Form.Field) {
+        textField.configure(with: field)
         headerLabel.text = field.attributes.description
         footerLabel.text = field.attributes.helpText
     }

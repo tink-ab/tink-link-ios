@@ -79,7 +79,7 @@ extension SupplementalInformationViewController {
             let field = form.fields[indexPath.section]
 
             textFieldCell.delegate = self
-            textFieldCell.configure(field: field)
+            textFieldCell.configure(with: field)
         }
         return cell
     }
