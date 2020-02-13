@@ -51,19 +51,19 @@ final class CheckmarkView: UIView {
     private let checkboxLayer = CAShapeLayer()
     private let checkmarkLayer = CAShapeLayer()
 
-    convenience public init(style: Style = .default) {
+    convenience init(style: Style = .default) {
         self.init(frame: CGRect(origin: .zero, size: style.size))
         self.style = style
         checkmarkLayer.lineWidth = 1 * style.scale
     }
 
-    override public init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
 
         setup()
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         setup()
@@ -98,7 +98,7 @@ final class CheckmarkView: UIView {
         layer.addSublayer(checkboxLayer)
     }
 
-    override public func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
 
         let path = UIBezierPath()
@@ -124,9 +124,9 @@ final class CheckmarkView: UIView {
         checkboxLayer.frame = circleFrame
     }
     
-    override public var intrinsicContentSize: CGSize { style.size }
+    override var intrinsicContentSize: CGSize { style.size }
 
-    public override func tintColorDidChange() {
+    override func tintColorDidChange() {
         super.tintColorDidChange()
 
         checkboxLayer.fillColor = tintColor.cgColor
