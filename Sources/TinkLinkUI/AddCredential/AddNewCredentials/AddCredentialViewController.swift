@@ -3,8 +3,7 @@ import TinkLinkSDK
 import UIKit
 
 /// Example of how to use the provider field specification to add credential
-final class AddCredentialViewController: UITableViewController {
-    
+final class AddCredentialViewController: UIViewController {
     let provider: Provider
 
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
@@ -23,6 +22,7 @@ final class AddCredentialViewController: UITableViewController {
     private lazy var moreInfoBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(showMoreInfo))
     private var didFirstFieldBecomeFirstResponder = false
 
+    private lazy var tableView = UITableView(frame: .zero, style: .grouped)
     private lazy var helpLabel = UITextView()
     private lazy var headerView = AddCredentialHeaderView()
 
@@ -31,11 +31,7 @@ final class AddCredentialViewController: UITableViewController {
         self.form = Form(provider: provider)
         self.credentialController = credentialController
 
-        if #available(iOS 13.0, *) {
-            super.init(style: .insetGrouped)
-        } else {
-            super.init(style: .grouped)
-        }
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -49,19 +45,45 @@ extension AddCredentialViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = Color.background
+
         NotificationCenter.default.addObserver(self, selector: #selector(updatedStatus), name: .credentialControllerDidUpdateStatus, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(credentialAdded), name: .credentialControllerDidAddCredential, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialControllerDidSupplementInformation, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialControllerDidError, object: nil)
 
-        tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
-        tableView.allowsSelection = false
+        tableView.delegate = self
+        tableView.dataSource = self
+
         headerView.configure(provider)
         let height = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
         var frame = headerView.frame
         frame.size.height = height
+
+        tableView.backgroundColor = .clear
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame = frame
+        tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
+        tableView.allowsSelection = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
+        let addCredentialFooterView = AddCredentialFooterView()
+        addCredentialFooterView.configure(provider)
+        addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(tableView)
+        view.addSubview(addCredentialFooterView)
+
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
 
         navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
@@ -170,16 +192,16 @@ extension AddCredentialViewController {
 
 // MARK: - UITableViewDataSource
 
-extension AddCredentialViewController {
-    override func numberOfSections(in tableView: UITableView) -> Int {
+extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return form.fields.count
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath)
         let field = form.fields[indexPath.section]
         if let textFieldCell = cell as? TextFieldCell {
@@ -192,14 +214,14 @@ extension AddCredentialViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let field = form.fields[section]
         let suffix = field.validationRules.isOptional ? " - optional" : ""
         
         return field.attributes.description + suffix
     }
 
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let field = form.fields[section]
         if let error = formError, let fieldError = error[fieldName: field.name] {
             return fieldError.errorDescription
