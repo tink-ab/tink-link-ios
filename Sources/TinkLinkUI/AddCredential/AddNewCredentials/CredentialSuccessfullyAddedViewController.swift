@@ -2,7 +2,7 @@ import UIKit
 import TinkLinkSDK
 
 class CredentialSuccessfullyAddedViewController: UIViewController {
-    let provider: Provider
+    let companyName: String
     
     private let iconView = CheckmarkView(style: .large)
     private let containerView = UIView()
@@ -10,8 +10,8 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
     private let detailLabel = UILabel()
     private let doneButton = UIButton(type: .system)
     
-    public init(provider: Provider) {
-        self.provider = provider
+    init(companyName: String) {
+        self.companyName = companyName
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -43,7 +43,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         titleLabel.textAlignment = .center
         titleLabel.font = Font.semibold(.mega)
         
-        detailLabel.text = String(format: subtitleText, provider.displayName)
+        detailLabel.text = String(format: subtitleText, companyName)
         detailLabel.textAlignment = .center
         detailLabel.numberOfLines = 0
         detailLabel.font = Font.regular(.deci)
