@@ -6,10 +6,11 @@ final class TermsAndConditionsViewController: UIViewController {
     private var webView: WKWebView { view as! WKWebView }
     private lazy var activityIndicator = UIActivityIndicatorView(style: .gray)
 
-    init() {
-        super.init(nibName: nil, bundle: nil)
+    private let url: URL
 
-        title = "Terms & Conditions"
+    init(url: URL) {
+        self.url = url
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -32,7 +33,6 @@ final class TermsAndConditionsViewController: UIViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
 
-        let url = URL(string: "https://link.tink.com/terms-and-conditions")!
         let request = URLRequest(url: url)
 
         webView.uiDelegate = self
