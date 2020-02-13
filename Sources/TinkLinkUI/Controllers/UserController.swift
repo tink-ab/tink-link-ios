@@ -2,9 +2,15 @@ import TinkLinkSDK
 import Foundation
 
 final class UserController {
+    let tinkLink: TinkLink
+    
     var user: User?
     
-    private var userContext = UserContext()
+    private lazy var userContext = UserContext(tinkLink: tinkLink)
+
+    init(tinkLink: TinkLink) {
+        self.tinkLink = tinkLink
+    }
 
     func authenticateUser(authorizationCode: AuthorizationCode, completion: @escaping (Result<User, Error>) -> Void) {
         userContext.authenticateUser(authorizationCode: authorizationCode) { [weak self] result in
