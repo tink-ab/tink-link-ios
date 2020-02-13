@@ -1,16 +1,27 @@
 import UIKit
+import TinkLinkSDK
 
 class CredentialSuccessfullyAddedViewController: UIViewController {
+    let provider: Provider
+    
     private let iconView = CheckmarkView(style: .large)
     private let containerView = UIView()
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
     private let doneButton = UIButton(type: .system)
     
-    //TODO: Use real strings
-    private let titleText = "Connection successfull"
-    private let subtitleText = "Your account has successfully connected to Company_Name. You'll be redirected back in a few seconds..."
+    public init(provider: Provider) {
+        self.provider = provider
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
+    //TODO: Use real strings
+    private let titleText = "Connection successful"
+    private let subtitleText = "Your account has successfully connected to ‰@. You'll be redirected back in a few seconds..."
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +43,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         titleLabel.textAlignment = .center
         titleLabel.font = Font.semibold(.mega)
         
-        detailLabel.text = subtitleText
+        detailLabel.text = String(format: subtitleText, provider.displayName)
         detailLabel.textAlignment = .center
         detailLabel.numberOfLines = 0
         detailLabel.font = Font.regular(.deci)
