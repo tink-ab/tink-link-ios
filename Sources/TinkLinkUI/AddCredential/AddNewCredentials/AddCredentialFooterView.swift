@@ -24,6 +24,8 @@ final class AddCredentialFooterView: UIView {
     private func setup() {
         stackView.axis = .vertical
         stackView.spacing = 20
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = .init(top: 20, left: 20, bottom: 20, right: 20)
 
         button.titleLabel?.font = Font.semibold(.hecto)
         button.setTitle("Continue", for: .normal)
@@ -68,10 +70,10 @@ final class AddCredentialFooterView: UIView {
             button.heightAnchor.constraint(equalToConstant: 48),
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            stackView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.topAnchor.constraint(equalTo: button.bottomAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 
