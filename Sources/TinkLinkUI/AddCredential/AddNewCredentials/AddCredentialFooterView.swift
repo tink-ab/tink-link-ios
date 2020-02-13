@@ -46,7 +46,7 @@ final class AddCredentialFooterView: UIView {
         let privacyPolicyText = "Privacy Policy"
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
         attributeText.addAttributes([
-            NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
+            .underlineStyle: NSUnderlineStyle.single.rawValue,
         ], range: privacyPolicyRange)
         let termsAndConditionsText = "Terms and Conditions"
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
