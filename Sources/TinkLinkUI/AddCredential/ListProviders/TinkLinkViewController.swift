@@ -97,13 +97,15 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     }
 
     func showTermsAndConditions() {
-        let url = URL(string: "https://link.tink.com/terms-and-conditions")!
+        let languageCode = Locale.current.languageCode ?? ""
+        let url = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
         let viewController = LegalViewController(url: url)
         present(viewController, animated: true)
     }
 
     func showPrivacyPolicy() {
-        let url = URL(string: "https://link.tink.com/privacy-policy")!
+        let languageCode = Locale.current.languageCode ?? ""
+        let url = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
         let viewController = LegalViewController(url: url)
         present(viewController, animated: true)
     }
