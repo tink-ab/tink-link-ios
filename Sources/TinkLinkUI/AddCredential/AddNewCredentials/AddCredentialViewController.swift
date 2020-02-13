@@ -54,7 +54,7 @@ extension AddCredentialViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        headerView.configure(provider)
+        headerView.configure(with: provider)
         headerView.delegate = self
         let height = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
         var frame = headerView.frame
@@ -67,7 +67,7 @@ extension AddCredentialViewController {
         tableView.allowsSelection = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
-        addCredentialFooterView.configure(provider)
+        addCredentialFooterView.configure(with: provider)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         addCredentialFooterView.button.addTarget(self, action: #selector(addCredential), for: .touchUpInside)
         
@@ -245,7 +245,7 @@ extension AddCredentialViewController {
         }
     }
 
-    @objc private func showMoreInfo(_ textView: UITextView) {
+    @objc private func showMoreInfo() {
         addCredentialNavigator?.showScopeDescriptions()
     }
 }
@@ -340,8 +340,8 @@ extension AddCredentialViewController: TextFieldCellDelegate {
 // MARK: - AddCredentialHeaderViewDelegate
 
 extension AddCredentialViewController: AddCredentialHeaderViewDelegate {
-    func readMoreTapped(_ textView: UITextView, in characterRange: NSRange) {
-        showMoreInfo(textView)
+    func readMoreTapped(_ addCredentialHeaderView: AddCredentialHeaderView) {
+        showMoreInfo()
     }
 }
 

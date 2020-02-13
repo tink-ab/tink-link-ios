@@ -91,7 +91,7 @@ final class AddCredentialFooterView: UIView {
         ])
     }
 
-    func configure(_ provider: Provider) {
+    func configure(with provider: Provider) {
         switch provider.credentialKind {
         case .mobileBankID:
             button.setTitle("Open BankID", for: .normal)

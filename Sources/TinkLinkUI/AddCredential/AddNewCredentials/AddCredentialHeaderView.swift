@@ -3,7 +3,7 @@ import TinkLinkSDK
 import Kingfisher
 
 protocol AddCredentialHeaderViewDelegate: AnyObject {
-    func readMoreTapped(_ textView: UITextView, in characterRange: NSRange)
+    func readMoreTapped(_ addCredentialHeaderView: AddCredentialHeaderView)
 }
 
 final class AddCredentialHeaderView: UIView {
@@ -133,7 +133,7 @@ final class AddCredentialHeaderView: UIView {
         dashLayer.path = path
     }
 
-    func configure(_ provider: Provider) {
+    func configure(with provider: Provider) {
         provider.image.flatMap {
             bankIconView.kf.setImage(with: ImageResource(downloadURL: $0))
         }
@@ -162,7 +162,7 @@ extension AddCredentialHeaderView: UITextViewDelegate {
         switch interaction {
         case .invokeDefaultAction:
             if characterRange == readMoreRange {
-                delegate?.readMoreTapped(textView, in: characterRange)
+                delegate?.readMoreTapped(self)
                 return false
             } else {
                 return true
