@@ -3,7 +3,7 @@ import TinkLinkSDK
 import Kingfisher
 
 protocol AddCredentialHeaderViewDelegate: AnyObject {
-    func readMoreTapped(_ addCredentialHeaderView: AddCredentialHeaderView)
+    func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialHeaderView)
 }
 
 final class AddCredentialHeaderView: UIView {
@@ -162,7 +162,7 @@ extension AddCredentialHeaderView: UITextViewDelegate {
         switch interaction {
         case .invokeDefaultAction:
             if characterRange == readMoreRange {
-                delegate?.readMoreTapped(self)
+                delegate?.addCredentialHeaderViewDidTapReadMore(self)
                 return false
             } else {
                 return true

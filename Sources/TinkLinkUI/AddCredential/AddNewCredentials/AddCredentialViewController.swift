@@ -370,7 +370,7 @@ extension AddCredentialViewController: TextFieldCellDelegate {
 // MARK: - AddCredentialHeaderViewDelegate
 
 extension AddCredentialViewController: AddCredentialHeaderViewDelegate {
-    func readMoreTapped(_ addCredentialHeaderView: AddCredentialHeaderView) {
+    func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialHeaderView) {
         showMoreInfo()
     }
 }
