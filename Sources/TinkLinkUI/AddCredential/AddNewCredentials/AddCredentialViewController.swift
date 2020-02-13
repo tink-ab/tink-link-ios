@@ -247,9 +247,6 @@ extension AddCredentialViewController {
             statusViewController.modalPresentationStyle = .custom
             statusViewController.transitioningDelegate = statusPresentationManager
             present(statusViewController, animated: true)
-            UIView.animate(withDuration: 0.3) {
-                self.view.tintAdjustmentMode = .dimmed
-            }
             self.statusViewController = statusViewController
         }
         statusViewController?.status = status
@@ -259,9 +256,6 @@ extension AddCredentialViewController {
         guard statusViewController != nil else {
             completion?()
             return
-        }
-        UIView.animate(withDuration: 0.3) {
-            self.view.tintAdjustmentMode = .automatic
         }
         dismiss(animated: animated, completion: completion)
         statusViewController = nil
