@@ -1,7 +1,7 @@
 import UIKit
 import WebKit
 
-final class TermsAndConditionsViewController: UIViewController {
+final class LegalViewController: UIViewController {
 
     private var webView: WKWebView { view as! WKWebView }
     private lazy var activityIndicator = UIActivityIndicatorView(style: .gray)
@@ -43,20 +43,20 @@ final class TermsAndConditionsViewController: UIViewController {
     }
 }
 
-extension TermsAndConditionsViewController: WKUIDelegate {
+extension LegalViewController: WKUIDelegate {
     func webViewDidClose(_ webView: WKWebView) {
         dismiss(animated: true)
     }
 }
 
-extension TermsAndConditionsViewController: WKNavigationDelegate {
+extension LegalViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
         setupCloseButtonHandler()
     }
 }
 
-extension TermsAndConditionsViewController {
+extension LegalViewController {
     private func setupCloseButtonHandler() {
         let js = """
             document.querySelector("button").addEventListener("click", function() { window.close() }, null);
