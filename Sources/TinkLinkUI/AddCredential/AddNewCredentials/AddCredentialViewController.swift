@@ -45,11 +45,24 @@ extension AddCredentialViewController {
         super.viewDidLoad()
 
         view.backgroundColor = Color.background
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updatedStatus), name: .credentialControllerDidUpdateStatus, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(credentialAdded), name: .credentialControllerDidAddCredential, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialControllerDidSupplementInformation, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialControllerDidError, object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillhide(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -77,7 +90,7 @@ extension AddCredentialViewController {
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: addCredentialFooterView.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -101,6 +114,12 @@ extension AddCredentialViewController {
             cell.textField.becomeFirstResponder()
             didFirstFieldBecomeFirstResponder = true
         }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        tableView.contentInset = .init(top: tableView.contentInset.top, left: tableView.contentInset.left, bottom: addCredentialFooterView.frame.height, right: tableView.contentInset.right)
     }
 
     override func viewLayoutMarginsDidChange() {
@@ -185,6 +204,17 @@ extension AddCredentialViewController {
                 }
             }
         }
+    }
+}
+
+// MARK: - Keyboard Helper
+extension AddCredentialViewController {
+    @objc func keyboardWillShow(_ notification: Notification) {
+        addCredentialFooterView.keyboardWillShow(notification)
+    }
+
+    @objc func keyboardWillhide(_ notification: Notification) {
+        addCredentialFooterView.keyboardWillHide(notification)
     }
 }
 

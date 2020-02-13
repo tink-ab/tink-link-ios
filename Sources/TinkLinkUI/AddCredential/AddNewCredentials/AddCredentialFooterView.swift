@@ -47,6 +47,7 @@ final class AddCredentialFooterView: UIView {
         stackView.layoutMargins = .init(top: 20, left: 20, bottom: 20, right: 20)
         return stackView
     }()
+    private var buttonBottomConstraint: NSLayoutConstraint?
 
     convenience init() {
         self.init(frame: .zero)
@@ -68,6 +69,18 @@ final class AddCredentialFooterView: UIView {
         button.layer.cornerRadius = button.frame.height / 2
     }
 
+    func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            buttonBottomConstraint?.constant = keyboardHeight - stackView.frame.height - stackView.layoutMargins.top
+        }
+    }
+
+    func keyboardWillHide(_ notification: Notification) {
+        buttonBottomConstraint?.constant = 0
+    }
+
     private func setup() {
         addSubview(button)
         addSubview(stackView)
@@ -78,6 +91,8 @@ final class AddCredentialFooterView: UIView {
         bankIdAnotherDeviceButton.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
+        let buttonBottomConstraint = stackView.topAnchor.constraint(equalTo: button.bottomAnchor)
+        self.buttonBottomConstraint = buttonBottomConstraint
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: topAnchor),
             button.widthAnchor.constraint(greaterThanOrEqualToConstant: 200),
@@ -85,7 +100,7 @@ final class AddCredentialFooterView: UIView {
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.topAnchor.constraint(equalTo: button.bottomAnchor),
+            buttonBottomConstraint,
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
