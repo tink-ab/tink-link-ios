@@ -102,8 +102,6 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
 
     func showTermsAndConditions() {
         let viewController = TermsAndConditionsViewController()
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeTermsAndConditions))
-        let navigationController = UINavigationController(rootViewController: viewController)
-        present(navigationController, animated: true)
+        present(viewController, animated: true)
     }
 }
