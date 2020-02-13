@@ -27,6 +27,30 @@ final class TermsAndConditionsViewController: UIViewController {
         let url = URL(string: "https://link.tink.com/terms-and-conditions")!
         let request = URLRequest(url: url)
 
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+
         webView.load(request)
+    }
+}
+
+extension TermsAndConditionsViewController: WKUIDelegate {
+    func webViewDidClose(_ webView: WKWebView) {
+        dismiss(animated: true)
+    }
+}
+
+extension TermsAndConditionsViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        setupCloseButtonHandler()
+    }
+}
+
+extension TermsAndConditionsViewController {
+    private func setupCloseButtonHandler() {
+        let js = """
+            document.querySelector("button").addEventListener("click", function() { window.close() }, null);
+            """
+        webView.evaluateJavaScript(js)
     }
 }
