@@ -62,8 +62,23 @@ extension AddCredentialViewController {
         navigationItem.rightBarButtonItems = [addBarButtonItem, moreInfoBarButtonItem]
         addBarButtonItem.isEnabled = form.fields.isEmpty
 
+        toolbarItems = [
+            UIBarButtonItem(title: "Terms & Conditions", style: .plain, target: self, action: #selector(showTermsAndConditions)),
+            UIBarButtonItem(title: "Privacy Policy", style: .plain, target: self, action: #selector(showPrivacyPolicy))
+        ]
+
         setupHelpFootnote()
         layoutHelpFootnote()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setToolbarHidden(false, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setToolbarHidden(true, animated: animated)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -225,6 +240,15 @@ extension AddCredentialViewController {
     @objc private func showMoreInfo(_ sender: UIBarButtonItem) {
         addCredentialNavigator?.showScopeDescriptions()
     }
+
+    @objc private func showTermsAndConditions(_ sender: UIBarButtonItem) {
+        addCredentialNavigator?.showTermsAndConditions()
+    }
+
+    @objc private func showPrivacyPolicy(_ sender: UIBarButtonItem) {
+        addCredentialNavigator?.showPrivacyPolicy()
+    }
+
 }
 
 // MARK: - Navigation
