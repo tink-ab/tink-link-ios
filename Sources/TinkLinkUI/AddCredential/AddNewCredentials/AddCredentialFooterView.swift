@@ -80,7 +80,7 @@ final class AddCredentialFooterView: UIView {
     func configure(_ provider: Provider) {
         switch provider.credentialKind {
         case .mobileBankID:
-            button.setTitle("OpenBankID", for: .normal)
+            button.setTitle("Open BankID", for: .normal)
             if bankIdAnotherDeviceButton.superview == nil {
                 stackView.insertArrangedSubview(bankIdAnotherDeviceButton, at: 0)
             }
