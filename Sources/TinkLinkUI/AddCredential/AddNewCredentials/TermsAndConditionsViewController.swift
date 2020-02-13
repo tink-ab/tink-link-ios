@@ -4,6 +4,7 @@ import WebKit
 final class TermsAndConditionsViewController: UIViewController {
 
     private var webView: WKWebView { view as! WKWebView }
+    private lazy var activityIndicator = UIActivityIndicatorView(style: .gray)
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -24,12 +25,20 @@ final class TermsAndConditionsViewController: UIViewController {
 
         view.backgroundColor = Color.background
 
+        view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+
         let url = URL(string: "https://link.tink.com/terms-and-conditions")!
         let request = URLRequest(url: url)
 
         webView.uiDelegate = self
         webView.navigationDelegate = self
 
+        activityIndicator.startAnimating()
         webView.load(request)
     }
 }
@@ -42,6 +51,7 @@ extension TermsAndConditionsViewController: WKUIDelegate {
 
 extension TermsAndConditionsViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        activityIndicator.stopAnimating()
         setupCloseButtonHandler()
     }
 }
