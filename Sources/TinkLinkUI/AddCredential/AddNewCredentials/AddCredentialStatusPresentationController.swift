@@ -105,9 +105,4 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
         }
         return super.presentedView
     }
-
-    override func containerViewDidLayoutSubviews() {
-        super.containerViewDidLayoutSubviews()
-
-    }
 }
