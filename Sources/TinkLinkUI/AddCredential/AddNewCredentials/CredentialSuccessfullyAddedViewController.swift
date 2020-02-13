@@ -59,12 +59,12 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
             iconView.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor),
             
             titleLabel.topAnchor.constraint(equalTo: iconView.centerYAnchor, constant: 24),
-            titleLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor, constant: -24),
-            titleLabel.trailingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.trailingAnchor, constant: 24),
+            titleLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor, constant: 24),
+            titleLabel.trailingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.trailingAnchor, constant: -24),
             
             detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-            detailLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor, constant: -24),
-            detailLabel.trailingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.trailingAnchor, constant: 24),
+            detailLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor, constant: 24),
+            detailLabel.trailingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.trailingAnchor, constant: -24),
             detailLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             
             doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
