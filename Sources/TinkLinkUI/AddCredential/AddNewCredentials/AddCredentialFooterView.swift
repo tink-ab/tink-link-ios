@@ -29,7 +29,7 @@ final class AddCredentialFooterView: UIView {
 
         button.titleLabel?.font = Font.semibold(.hecto)
         button.setTitle("Continue", for: .normal)
-        button.setTitleColor(Color.secondaryGroupedBackground, for: .normal)
+        button.setTitleColor(Color.background, for: .normal)
         button.backgroundColor = Color.accent
         button.layer.cornerRadius = 24
         button.contentEdgeInsets = .init(top: 12, left: 24, bottom: 12, right: 24)
