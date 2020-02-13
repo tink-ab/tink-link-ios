@@ -2,7 +2,7 @@ import UIKit
 import TinkLinkSDK
 
 final class AddCredentialFooterView: UIView {
-    private let button = UIButton()
+    let button = UIButton()
     private let bankIdAnotherDeviceButton = UIButton()
     private let descriptionLabel = UILabel()
     private let stackView = UIStackView()

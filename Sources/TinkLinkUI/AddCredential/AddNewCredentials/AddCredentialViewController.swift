@@ -18,13 +18,13 @@ final class AddCredentialViewController: UIViewController {
 
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
-    private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private lazy var moreInfoBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(showMoreInfo))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
     private lazy var helpLabel = UITextView()
     private lazy var headerView = AddCredentialHeaderView()
+    private lazy var addCredentialFooterView = AddCredentialFooterView()
 
     init(provider: Provider, credentialController: CredentialController) {
         self.provider = provider
@@ -67,9 +67,9 @@ extension AddCredentialViewController {
         tableView.allowsSelection = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
-        let addCredentialFooterView = AddCredentialFooterView()
         addCredentialFooterView.configure(provider)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
+        addCredentialFooterView.button.addTarget(self, action: #selector(addCredential), for: .touchUpInside)
         
         view.addSubview(tableView)
         view.addSubview(addCredentialFooterView)
@@ -88,8 +88,8 @@ extension AddCredentialViewController {
         navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItems = [addBarButtonItem, moreInfoBarButtonItem]
-        addBarButtonItem.isEnabled = form.fields.isEmpty
+        navigationItem.rightBarButtonItems = [moreInfoBarButtonItem]
+        addCredentialFooterView.button.isEnabled = form.fields.isEmpty
 
         setupHelpFootnote()
         layoutHelpFootnote()
@@ -159,7 +159,6 @@ extension AddCredentialViewController {
 
     @objc private func credentialAdded() {
         DispatchQueue.main.async {
-            self.navigationItem.rightBarButtonItem = self.addBarButtonItem
             let addedCredential = self.credentialController.credentials.first(where: { $0.providerID == self.provider.id })
             addedCredential.flatMap { self.showCredentialUpdated(for: $0) }
         }
@@ -236,10 +235,6 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
 extension AddCredentialViewController {
     @objc private func addCredential(_ sender: UIBarButtonItem) {
         view.endEditing(false)
-
-        let activityIndicator = UIActivityIndicatorView(style: .gray)
-        activityIndicator.startAnimating()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         do {
             try form.validateFields()
             credentialController.addCredential(
@@ -269,7 +264,6 @@ extension AddCredentialViewController {
 
     private func showUpdating(status: String) {
         if statusViewController == nil {
-            navigationItem.setRightBarButton(addBarButtonItem, animated: true)
             let statusViewController = AddCredentialStatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
@@ -332,7 +326,7 @@ extension AddCredentialViewController: TextFieldCellDelegate {
     func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
-        addBarButtonItem.isEnabled = form.areFieldsValid
+        addCredentialFooterView.button.isEnabled = form.areFieldsValid
     }
 
     func textFieldCellDidEndEditing(_ cell: TextFieldCell) {
