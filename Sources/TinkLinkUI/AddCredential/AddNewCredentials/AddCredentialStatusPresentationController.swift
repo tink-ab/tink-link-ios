@@ -34,13 +34,11 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
 
         shadowLayer.opacity = 0
         visualEffectView.alpha = 0
-        presentedView?.alpha = 0
 
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
             self.presentingViewController.view.tintAdjustmentMode = .dimmed
             self.shadowLayer.opacity = 1
             self.visualEffectView.alpha = 1
-            self.presentedView?.alpha = 1
         })
     }
 
@@ -56,7 +54,6 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
             self.presentingViewController.view.tintAdjustmentMode = .automatic
             self.shadowLayer.opacity = 0
             self.visualEffectView.alpha = 0
-            self.presentedView?.alpha = 0
         })
     }
 
