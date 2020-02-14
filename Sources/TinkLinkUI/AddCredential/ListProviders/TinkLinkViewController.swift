@@ -28,7 +28,9 @@ public class TinkLinkViewController: UINavigationController {
         setupNavigationBarAppearance()
 
         view.backgroundColor = Color.background
-        setViewControllers([UIViewController()], animated: false)
+        let loadingViewController = LoadingViewController()
+        loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+        setViewControllers([loadingViewController], animated: false)
 
         userController.createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
