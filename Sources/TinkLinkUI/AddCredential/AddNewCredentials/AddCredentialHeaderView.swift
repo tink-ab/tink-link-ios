@@ -133,7 +133,7 @@ final class AddCredentialHeaderView: UIView {
         dashLayer.path = path
     }
 
-    func configure(with provider: Provider) {
+    func configure(with provider: Provider, isAggregator: Bool) {
         provider.image.flatMap {
             bankIconView.kf.setImage(with: ImageResource(downloadURL: $0))
         }
@@ -154,6 +154,7 @@ final class AddCredentialHeaderView: UIView {
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
         userInfoDescription.sizeToFit()
+        userInfoDescription.isHidden = isAggregator
     }
 }
 

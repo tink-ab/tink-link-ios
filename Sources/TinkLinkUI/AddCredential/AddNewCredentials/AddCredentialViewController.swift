@@ -65,7 +65,7 @@ extension AddCredentialViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        headerView.configure(with: provider)
+        headerView.configure(with: provider, isAggregator: authorizationController.isAggregator!)
         headerView.delegate = self
 
         tableView.backgroundColor = .clear
