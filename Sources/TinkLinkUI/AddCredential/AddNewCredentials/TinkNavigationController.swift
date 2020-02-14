@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Pontus Orraryd on 2020-02-14.
-//
-
 import UIKit
 
 class TinkNavigationController: UINavigationController {
