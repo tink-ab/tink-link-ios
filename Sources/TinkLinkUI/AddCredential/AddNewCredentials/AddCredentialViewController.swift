@@ -232,6 +232,7 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
         let field = form.fields[indexPath.item]
         if let textFieldCell = cell as? FormFieldTableViewCell {
             textFieldCell.configure(with: field)
+            textFieldCell.delegate = self
         }
         return cell
     }
