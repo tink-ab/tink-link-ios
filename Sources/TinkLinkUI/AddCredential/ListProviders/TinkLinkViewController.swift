@@ -32,6 +32,8 @@ public class TinkLinkViewController: UINavigationController {
         loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         setViewControllers([loadingViewController], animated: false)
 
+        presentationController?.delegate = self
+
         userController.createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -150,5 +152,31 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     func showWebContent(with url: URL) {
         let viewController = LegalViewController(url: url)
         present(viewController, animated: true)
+    }
+}
+
+// MARK: - Helpers
+extension TinkLinkViewController {
+    private func showDiscardActionSheet() {
+        let alert = UIAlertController(title: "Are you sure you want to discard this new credential?", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { _ in
+            self.dismiss(animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+@available(iOS 13.0, *)
+extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
+    public func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        showDiscardActionSheet()
+    }
+
+    public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        // TODO: Check if user has started filling out fields or a credential is in the process of being added.
+        return false
     }
 }
