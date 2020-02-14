@@ -9,6 +9,7 @@ final class FloatingButton: UIControl {
     private let contentView = UIView()
     private let imageView = UIImageView()
     private var imageWidthConstraint: NSLayoutConstraint?
+    private var imageTrailingConstraint: NSLayoutConstraint?
 
     var minimumWidth: CGFloat = 169 {
         didSet {
@@ -37,8 +38,10 @@ final class FloatingButton: UIControl {
         didSet {
             if let image = image {
                 imageWidthConstraint?.constant = image.size.width + 8
+                imageTrailingConstraint?.constant = 8
             } else {
                 imageWidthConstraint?.constant = 0
+                imageTrailingConstraint?.constant = 0
             }
             imageView.image = image?.withRenderingMode(.alwaysTemplate)
         }
@@ -74,9 +77,9 @@ final class FloatingButton: UIControl {
     }
     
     override var intrinsicContentSize: CGSize {
-            let titleLabelSize = titleLabel.intrinsicContentSize
-            let imageWidth = imageWidthConstraint?.constant ?? 0
-            return CGSize(width: max(minimumWidth, titleLabelSize.width + Constants.insets.left + Constants.insets.right + imageWidth),
+        let titleLabelSize = titleLabel.intrinsicContentSize
+        let imageWidth = imageWidthConstraint?.constant ?? 0
+        return CGSize(width: max(minimumWidth, titleLabelSize.width + Constants.insets.left + Constants.insets.right + imageWidth),
                           height: 52)
     }
 
@@ -109,6 +112,9 @@ final class FloatingButton: UIControl {
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: 0)
         self.imageWidthConstraint = imageWidthConstraint
         
+        let imageConstraint = titleLabel.leadingAnchor.constraint(equalTo: imageView.layoutMarginsGuide.trailingAnchor, constant: 0)
+        self.imageTrailingConstraint = imageConstraint
+        
         NSLayoutConstraint.activate([
             widthAnchor.constraint(greaterThanOrEqualToConstant: minimumWidth),
             imageWidthConstraint,
@@ -116,7 +122,7 @@ final class FloatingButton: UIControl {
             contentView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            imageConstraint,
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             ])
