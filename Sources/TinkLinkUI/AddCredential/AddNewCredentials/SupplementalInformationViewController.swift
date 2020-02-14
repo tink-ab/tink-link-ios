@@ -7,29 +7,25 @@ protocol SupplementalInformationViewControllerDelegate: AnyObject {
 }
 
 /// Example of how to use the credential field supplemental information to update credential
-final class SupplementalInformationViewController: UITableViewController {
-    let supplementInformationTask: SupplementInformationTask
+final class SupplementalInformationViewController: UIViewController {
 
     weak var delegate: SupplementalInformationViewControllerDelegate?
 
-    private var form: Form
-    private var formError: Form.ValidationError? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    // TODO: Replace with new button by Mani
+    private let button = UIButton(type: .system)
+    private let tableView = UITableView(frame: .zero, style: .plain)
 
+    let supplementInformationTask: SupplementInformationTask
+    private var form: Form
+    private var formError: Form.ValidationError?
+
+    private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
     private var didFirstFieldBecomeFirstResponder = false
 
     init(supplementInformationTask: SupplementInformationTask) {
         self.supplementInformationTask = supplementInformationTask
         self.form = Form(credential: supplementInformationTask.credential)
-
-        if #available(iOS 13.0, *) {
-            super.init(style: .insetGrouped)
-        } else {
-            super.init(style: .grouped)
-        }
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -44,12 +40,44 @@ extension SupplementalInformationViewController {
         super.viewDidLoad()
 
         tableView.register(FormFieldTableViewCell.self, forCellReuseIdentifier: FormFieldTableViewCell.reuseIdentifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+        tableView.dataSource = self
+        tableView.delegate = self
 
-        navigationItem.title = "Enter Supplemental Information"
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
+        button.setTitle("Done", for: .normal)
+
+        navigationItem.title = "Supplemental Information"
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed(_:)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .done, target: self, action: #selector(doneButtonPressed(_:)))
-        navigationItem.rightBarButtonItem?.isEnabled = form.fields.isEmpty
+
+        view.addSubview(tableView)
+        view.addSubview(button)
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            buttonBottomConstraint,
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -64,19 +92,19 @@ extension SupplementalInformationViewController {
 
 // MARK: - UITableViewDataSource
 
-extension SupplementalInformationViewController {
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return form.fields.count
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension SupplementalInformationViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return form.fields.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FormFieldTableViewCell.reuseIdentifier, for: indexPath)
         if let textFieldCell = cell as? FormFieldTableViewCell {
-            let field = form.fields[indexPath.section]
+            let field = form.fields[indexPath.row]
 
             textFieldCell.delegate = self
             textFieldCell.configure(with: field)
@@ -126,5 +154,20 @@ extension SupplementalInformationViewController: FormFieldTableViewCellDelegate 
         } catch {
             formError = error as? Form.ValidationError
         }
+    }
+}
+
+// MARK: - Keyboard Helper
+extension SupplementalInformationViewController {
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            buttonBottomConstraint.constant = keyboardHeight + 4 - view.safeAreaInsets.bottom
+        }
+    }
+
+    @objc func keyboardWillHide(_ notification: Notification) {
+        buttonBottomConstraint.constant = 4
     }
 }
