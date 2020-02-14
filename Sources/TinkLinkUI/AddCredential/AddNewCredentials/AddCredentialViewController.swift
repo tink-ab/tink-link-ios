@@ -75,7 +75,7 @@ extension AddCredentialViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         addCredentialFooterView.delegate = self
-        addCredentialFooterView.configure(with: provider)
+        addCredentialFooterView.configure(with: provider, isAggregator: authorizationController.isAggregator!)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         addCredentialFooterView.button.addTarget(self, action: #selector(addCredential), for: .touchUpInside)
         

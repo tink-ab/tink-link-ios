@@ -118,7 +118,7 @@ final class AddCredentialFooterView: UIView {
         ])
     }
 
-    func configure(with provider: Provider) {
+    func configure(with provider: Provider, isAggregator: Bool) {
         switch provider.credentialKind {
         case .mobileBankID:
             button.setTitle("Open BankID", for: .normal)
@@ -131,6 +131,7 @@ final class AddCredentialFooterView: UIView {
                 bankIdAnotherDeviceButton.removeFromSuperview()
             }
         }
+        descriptionTextView.isHidden = isAggregator
     }
 }
 
