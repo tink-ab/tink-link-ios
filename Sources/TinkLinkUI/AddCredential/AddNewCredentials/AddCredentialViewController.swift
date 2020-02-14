@@ -75,6 +75,7 @@ extension AddCredentialViewController {
         tableView.allowsSelection = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
+        addCredentialFooterView.delegate = self
         addCredentialFooterView.configure(with: provider)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         addCredentialFooterView.button.addTarget(self, action: #selector(addCredential), for: .touchUpInside)
@@ -264,11 +265,11 @@ extension AddCredentialViewController {
         addCredentialNavigator?.showScopeDescriptions()
     }
 
-    @objc private func showTermsAndConditions(_ sender: UIBarButtonItem) {
+    @objc private func showTermsAndConditions() {
         addCredentialNavigator?.showTermsAndConditions()
     }
 
-    @objc private func showPrivacyPolicy(_ sender: UIBarButtonItem) {
+    @objc private func showPrivacyPolicy() {
         addCredentialNavigator?.showPrivacyPolicy()
     }
 
@@ -361,6 +362,18 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
 extension AddCredentialViewController: AddCredentialHeaderViewDelegate {
     func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialHeaderView) {
         showMoreInfo()
+    }
+}
+
+// MARK: - AddCredentialFooterViewDelegate
+
+extension AddCredentialViewController: AddCredentialFooterViewDelegate {
+    func addCredentialFooterViewDidTapPrivacyPolicy(_ addCredentialFooterView: AddCredentialFooterView) {
+        showPrivacyPolicy()
+    }
+
+    func addCredentialFooterViewDidTapTermsAndConditions(_ addCredentialFooterView: AddCredentialFooterView) {
+        showTermsAndConditions()
     }
 }
 

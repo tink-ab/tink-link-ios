@@ -1,7 +1,14 @@
 import UIKit
 import TinkLinkSDK
 
+protocol AddCredentialFooterViewDelegate: AnyObject {
+    func addCredentialFooterViewDidTapTermsAndConditions(_ addCredentialFooterView: AddCredentialFooterView)
+    func addCredentialFooterViewDidTapPrivacyPolicy(_ addCredentialFooterView: AddCredentialFooterView)
+}
+
 final class AddCredentialFooterView: UIView {
+    weak var delegate: AddCredentialFooterViewDelegate?
+
     lazy var button: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = Font.semibold(.hecto)
@@ -19,25 +26,33 @@ final class AddCredentialFooterView: UIView {
         bankIdAnotherDeviceButton.setTitleColor(Color.accent, for: .normal)
         return bankIdAnotherDeviceButton
     }()
-    private lazy var descriptionLabel: UILabel = {
-        let descriptionLabel = UILabel()
-        descriptionLabel.font = Font.regular(.micro)
-        descriptionLabel.textColor = Color.secondaryLabel
-        descriptionLabel.numberOfLines = 0
+    private lazy var descriptionTextView: UITextView = {
+        let descriptionTextView = UITextView()
+        descriptionTextView.delegate = self
+        descriptionTextView.isScrollEnabled = false
+        descriptionTextView.isEditable = false
+        descriptionTextView.font = Font.regular(.micro)
+        descriptionTextView.textColor = Color.secondaryLabel
         let text = "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy"
         let attributeText = NSMutableAttributedString(string: text)
         let privacyPolicyText = "Privacy Policy"
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
+        self.privacyPolicyRange = privacyPolicyRange
         attributeText.addAttributes([
+            .foregroundColor: Color.secondaryLabel,
+            .link: "",
             .underlineStyle: NSUnderlineStyle.single.rawValue,
         ], range: privacyPolicyRange)
         let termsAndConditionsText = "Terms and Conditions"
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
+        self.termsAndConditionsRange = termsAndConditionsRange
         attributeText.addAttributes([
+            .foregroundColor: Color.secondaryLabel,
+            .link: "",
             .underlineStyle: NSUnderlineStyle.single.rawValue,
         ], range: termsAndConditionsRange)
-        descriptionLabel.attributedText = attributeText
-        return descriptionLabel
+        descriptionTextView.attributedText = attributeText
+        return descriptionTextView
     }()
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -48,6 +63,8 @@ final class AddCredentialFooterView: UIView {
         return stackView
     }()
     private var buttonBottomConstraint: NSLayoutConstraint?
+    private var privacyPolicyRange: NSRange?
+    private var termsAndConditionsRange: NSRange?
 
     convenience init() {
         self.init(frame: .zero)
@@ -80,12 +97,12 @@ final class AddCredentialFooterView: UIView {
     private func setup() {
         addSubview(button)
         addSubview(stackView)
-        stackView.addArrangedSubview(descriptionLabel)
+        stackView.addArrangedSubview(descriptionTextView)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
         bankIdAnotherDeviceButton.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
 
         let buttonBottomConstraint = stackView.topAnchor.constraint(equalTo: button.bottomAnchor)
         self.buttonBottomConstraint = buttonBottomConstraint
@@ -114,6 +131,25 @@ final class AddCredentialFooterView: UIView {
             if bankIdAnotherDeviceButton.superview != nil {
                 bankIdAnotherDeviceButton.removeFromSuperview()
             }
+        }
+    }
+}
+
+extension AddCredentialFooterView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        switch interaction {
+        case .invokeDefaultAction:
+            if characterRange == termsAndConditionsRange {
+                delegate?.addCredentialFooterViewDidTapTermsAndConditions(self)
+                return false
+            } else if characterRange == privacyPolicyRange {
+                delegate?.addCredentialFooterViewDidTapPrivacyPolicy(self)
+                return false
+            } else {
+                return true
+            }
+        default:
+            return true
         }
     }
 }
