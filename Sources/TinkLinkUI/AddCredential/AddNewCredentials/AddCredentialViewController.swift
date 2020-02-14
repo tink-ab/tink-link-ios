@@ -18,6 +18,7 @@ final class AddCredentialViewController: UIViewController {
 
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
+    private var statusPresentationManager = AddCredentialStatusPresentationManager()
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
@@ -303,11 +304,9 @@ extension AddCredentialViewController {
         if statusViewController == nil {
             let statusViewController = AddCredentialStatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
-            statusViewController.modalPresentationStyle = .overFullScreen
+            statusViewController.modalPresentationStyle = .custom
+            statusViewController.transitioningDelegate = statusPresentationManager
             present(statusViewController, animated: true)
-            UIView.animate(withDuration: 0.3) {
-                self.view.tintAdjustmentMode = .dimmed
-            }
             self.statusViewController = statusViewController
         }
         statusViewController?.status = status
@@ -317,9 +316,6 @@ extension AddCredentialViewController {
         guard statusViewController != nil else {
             completion?()
             return
-        }
-        UIView.animate(withDuration: 0.3) {
-            self.view.tintAdjustmentMode = .automatic
         }
         dismiss(animated: animated, completion: completion)
         statusViewController = nil
