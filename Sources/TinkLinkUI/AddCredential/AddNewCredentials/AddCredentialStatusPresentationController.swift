@@ -20,7 +20,7 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
     override var frameOfPresentedViewInContainerView: CGRect {
         let bounds = containerView?.bounds ?? UIScreen.main.bounds
 
-        let presentedViewSize = presentedViewController.view.systemLayoutSizeFitting(bounds.size)
+        let presentedViewSize = presentedViewController.view.systemLayoutSizeFitting(CGSize(width: 270, height: bounds.height), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
 
         return CGRect(
             origin: .init(
