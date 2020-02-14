@@ -9,7 +9,6 @@ final class FloatingButton: UIControl {
     private let contentView = UIView()
     private let imageView = UIImageView()
     private var imageWidthConstraint: NSLayoutConstraint?
-    private var titleCenterXConstraint: NSLayoutConstraint?
 
     var minimumWidth: CGFloat = 169 {
         didSet {
@@ -38,18 +37,11 @@ final class FloatingButton: UIControl {
         didSet {
             if let image = image {
                 imageWidthConstraint?.constant = image.size.width + 8
-                titleCenterXConstraint?.constant = image.size.width / 2
             } else {
                 imageWidthConstraint?.constant = 0
-                titleCenterXConstraint?.constant = 0
             }
             imageView.image = image?.withRenderingMode(.alwaysTemplate)
         }
-    }
-
-    var font: UIFont! {
-        get { titleLabel.font }
-        set { titleLabel.font = newValue }
     }
 
     override init(frame: CGRect) {
@@ -64,7 +56,6 @@ final class FloatingButton: UIControl {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = bounds
         layer.cornerRadius = bounds.height / 2
     }
     
@@ -95,17 +86,19 @@ final class FloatingButton: UIControl {
         isAccessibilityElement = true
         accessibilityTraits = .button
         
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.isUserInteractionEnabled = false
         addSubview(contentView)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = font
+        titleLabel.font = Font.bold(.hecto)
         titleLabel.textColor = Color.background
         titleLabel.textAlignment = .center
+        titleLabel.setContentHuggingPriority(.required, for: .horizontal)
         contentView.addSubview(titleLabel)
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .left
+        imageView.contentMode = .center
         contentView.addSubview(imageView)
         
         layer.shadowColor = UIColor.black.cgColor
@@ -115,17 +108,17 @@ final class FloatingButton: UIControl {
 
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: 0)
         self.imageWidthConstraint = imageWidthConstraint
-
-        let titleCenterXConstraint = titleLabel.centerXAnchor.constraint(lessThanOrEqualTo: contentView.centerXAnchor)
-        self.titleCenterXConstraint = titleCenterXConstraint
         
         NSLayoutConstraint.activate([
-            titleCenterXConstraint,
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            widthAnchor.constraint(greaterThanOrEqualToConstant: minimumWidth),
+            imageWidthConstraint,
+            contentView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            contentView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            imageView.rightAnchor.constraint(equalTo: titleLabel.leftAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 44),
-            imageWidthConstraint
+            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             ])
     }
 }
