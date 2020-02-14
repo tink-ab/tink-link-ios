@@ -245,7 +245,7 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
 // MARK: - Actions
 
 extension AddCredentialViewController {
-    @objc private func addCredential(_ sender: UIBarButtonItem) {
+    @objc private func addCredential() {
         view.endEditing(false)
         do {
             try form.validateFields()
@@ -344,6 +344,11 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
             return true
         }
 
+        let lastIndexItem = form.fields.count - 1
+        if lastIndexItem == indexPath.item {
+            addCredential()
+        }
+
         let nextIndexPath = IndexPath(row: indexPath.item + 1, section: indexPath.section)
         _ = cell.resignFirstResponder()
 
@@ -353,6 +358,7 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
             else { return true }
 
         nextCell.becomeFirstResponder()
+
         return false
     }
 
