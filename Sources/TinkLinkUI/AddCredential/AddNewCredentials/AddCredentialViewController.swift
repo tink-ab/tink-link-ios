@@ -275,7 +275,7 @@ extension AddCredentialViewController {
         hideUpdatingView()
         let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
         supplementalInformationViewController.delegate = self
-        let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
+        let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
         show(navigationController, sender: nil)
     }
 
