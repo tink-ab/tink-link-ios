@@ -10,11 +10,7 @@ final class AddCredentialViewController: UIViewController {
 
     private let credentialController: CredentialController
     private var form: Form
-    private var formError: Form.ValidationError? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    private var formError: Form.ValidationError?
 
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
@@ -95,7 +91,6 @@ extension AddCredentialViewController {
             addCredentialFooterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
 
-        navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
         addCredentialFooterView.button.isEnabled = form.fields.isEmpty
@@ -172,8 +167,8 @@ extension AddCredentialViewController {
 
     @objc private func updatedStatus(notification: Notification) {
         DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: Credential], let credential = userInfo["credential"] {
-                self.showUpdating(status: credential.statusPayload)
+            if let userInfo = notification.userInfo as? [String: String], let status = userInfo["status"] {
+                self.showUpdating(status: status)
             }
         }
     }
@@ -228,12 +223,8 @@ extension AddCredentialViewController {
 // MARK: - UITableViewDataSource
 
 extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return form.fields.count
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return form.fields.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -249,7 +240,7 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
 // MARK: - Actions
 
 extension AddCredentialViewController {
-    @objc private func addCredential(_ sender: UIBarButtonItem) {
+    @objc private func addCredential() {
         view.endEditing(false)
         do {
             try form.validateFields()
@@ -343,9 +334,32 @@ extension AddCredentialViewController {
 
 // MARK: - TextFieldCellDelegate
 extension AddCredentialViewController: FormFieldTableViewCellDelegate {
+    func formFieldCellShouldReturn(_ cell: FormFieldTableViewCell) -> Bool {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return true
+        }
+
+        let lastIndexItem = form.fields.count - 1
+        if lastIndexItem == indexPath.item {
+            addCredential()
+        }
+
+        let nextIndexPath = IndexPath(row: indexPath.item + 1, section: indexPath.section)
+        _ = cell.resignFirstResponder()
+
+        guard form.fields.count > nextIndexPath.item,
+            form.fields[indexPath.item + 1].attributes.isEditable,
+            let nextCell = tableView.cellForRow(at: nextIndexPath)
+            else { return true }
+
+        nextCell.becomeFirstResponder()
+
+        return false
+    }
+
     func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        form.fields[indexPath.section].text = text
+        form.fields[indexPath.item].text = text
         addCredentialFooterView.button.isEnabled = form.areFieldsValid
     }
 

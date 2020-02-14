@@ -108,6 +108,11 @@ extension SupplementalInformationViewController {
 // MARK: - TextFieldCellDelegate
 
 extension SupplementalInformationViewController: FormFieldTableViewCellDelegate {
+    func formFieldCellShouldReturn(_ cell: FormFieldTableViewCell) -> Bool {
+        // TODO: Fix this
+        return true
+    }
+
     func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
         if let indexPath = tableView.indexPath(for: cell) {
             form.fields[indexPath.section].text = text

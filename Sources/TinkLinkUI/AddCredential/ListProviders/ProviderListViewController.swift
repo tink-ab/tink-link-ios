@@ -19,6 +19,7 @@ final class ProviderListViewController: UITableViewController {
     init(providerController: ProviderController) {
         self.providerController = providerController
         financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
+        originalFinancialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
 
         super.init(style: .plain)
     }
@@ -37,10 +38,10 @@ extension ProviderListViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
 
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.placeholder = "Search for a bank or card"
         searchController.searchResultsUpdater = self
 
-        // TODO: navigationItem.searchController = searchController
+        navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
 
         definesPresentationContext = true
@@ -56,6 +57,7 @@ extension ProviderListViewController {
     @objc private func updateProviders() {
         DispatchQueue.main.async {
             self.financialInstitutionGroupNodes = self.providerController?.financialInstitutionGroupNodes ?? []
+            self.originalFinancialInstitutionGroupNodes = self.providerController?.financialInstitutionGroupNodes ?? []
         }
     }
 }
