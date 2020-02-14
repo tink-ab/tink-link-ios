@@ -58,7 +58,7 @@ extension AddCredentialViewController {
         )
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardWillhide(_:)),
+            selector: #selector(keyboardWillHide(_:)),
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
@@ -88,8 +88,8 @@ extension AddCredentialViewController {
 
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -133,7 +133,7 @@ extension AddCredentialViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        tableView.contentInset = .init(top: tableView.contentInset.top, left: tableView.contentInset.left, bottom: addCredentialFooterView.frame.height, right: tableView.contentInset.right)
+        tableView.contentInset.bottom = addCredentialFooterView.frame.height
     }
 
     override func viewLayoutMarginsDidChange() {
@@ -224,11 +224,15 @@ extension AddCredentialViewController {
 // MARK: - Keyboard Helper
 extension AddCredentialViewController {
     @objc func keyboardWillShow(_ notification: Notification) {
-        addCredentialFooterView.keyboardWillShow(notification)
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            addCredentialFooterView.updateButtonBottomConstraint(keyboardHeight)
+        }
     }
 
-    @objc func keyboardWillhide(_ notification: Notification) {
-        addCredentialFooterView.keyboardWillHide(notification)
+    @objc func keyboardWillHide(_ notification: Notification) {
+        addCredentialFooterView.resetButtonBottomConstraint()
     }
 }
 

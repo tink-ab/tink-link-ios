@@ -69,15 +69,11 @@ final class AddCredentialFooterView: UIView {
         button.layer.cornerRadius = button.frame.height / 2
     }
 
-    func keyboardWillShow(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            buttonBottomConstraint?.constant = keyboardHeight - stackView.frame.height - stackView.layoutMargins.top
-        }
+    func updateButtonBottomConstraint(_ frameHeight: CGFloat) {
+        buttonBottomConstraint?.constant = frameHeight - stackView.frame.height - stackView.layoutMargins.top
     }
 
-    func keyboardWillHide(_ notification: Notification) {
+    func resetButtonBottomConstraint() {
         buttonBottomConstraint?.constant = 0
     }
 
