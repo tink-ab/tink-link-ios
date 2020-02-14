@@ -32,25 +32,22 @@ final class AddCredentialFooterView: UIView {
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.font = Font.regular(.micro)
-        descriptionTextView.textColor = Color.secondaryLabel
+        descriptionTextView.linkTextAttributes = [
+            .foregroundColor: Color.secondaryLabel,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
         let text = "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy"
-        let attributeText = NSMutableAttributedString(string: text)
+        let attributeText = NSMutableAttributedString(
+            string: text,
+            attributes: [.foregroundColor: Color.secondaryLabel])
         let privacyPolicyText = "Privacy Policy"
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
         self.privacyPolicyRange = privacyPolicyRange
-        attributeText.addAttributes([
-            .foregroundColor: Color.secondaryLabel,
-            .link: "",
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-        ], range: privacyPolicyRange)
+        attributeText.addAttributes([.link: "",], range: privacyPolicyRange)
         let termsAndConditionsText = "Terms and Conditions"
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
         self.termsAndConditionsRange = termsAndConditionsRange
-        attributeText.addAttributes([
-            .foregroundColor: Color.secondaryLabel,
-            .link: "",
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-        ], range: termsAndConditionsRange)
+        attributeText.addAttributes([.link: ""], range: termsAndConditionsRange)
         descriptionTextView.attributedText = attributeText
         return descriptionTextView
     }()
