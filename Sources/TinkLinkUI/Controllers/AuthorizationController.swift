@@ -7,11 +7,19 @@ final class AuthorizationController {
         didSet {
             if let user = user {
                 authorizationContext = AuthorizationContext(tinkLink: tinkLink, user: user)
+                authorizationContext?.isAggregator { result in
+                    self.isAggregator = try? result.get()
+                    // TODO: Error handling
+                    // Should flow be able to continue without this information?
+                }
             } else {
                 authorizationContext = nil
+                isAggregator = nil
             }
         }
     }
+
+    var isAggregator: Bool?
 
     private var authorizationContext: AuthorizationContext?
 
