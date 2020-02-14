@@ -65,7 +65,7 @@ extension SupplementalInformationViewController {
 
         navigationItem.title = "Supplemental Information"
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed(_:)))
 
         view.addSubview(tableView)
         view.addSubview(button)
