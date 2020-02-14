@@ -91,7 +91,6 @@ extension AddCredentialViewController {
             addCredentialFooterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
 
-        navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
         addCredentialFooterView.button.isEnabled = form.fields.isEmpty
