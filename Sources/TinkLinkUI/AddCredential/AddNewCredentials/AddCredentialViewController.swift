@@ -73,8 +73,10 @@ extension AddCredentialViewController {
         tableView.backgroundColor = .clear
         tableView.register(FormFieldTableViewCell.self, forCellReuseIdentifier: FormFieldTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
+        addCredentialFooterView.delegate = self
         addCredentialFooterView.configure(with: provider)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         addCredentialFooterView.button.addTarget(self, action: #selector(addCredential), for: .touchUpInside)
@@ -98,23 +100,8 @@ extension AddCredentialViewController {
         navigationItem.largeTitleDisplayMode = .never
         addCredentialFooterView.button.isEnabled = form.fields.isEmpty
 
-        toolbarItems = [
-            UIBarButtonItem(title: "Terms & Conditions", style: .plain, target: self, action: #selector(showTermsAndConditions)),
-            UIBarButtonItem(title: "Privacy Policy", style: .plain, target: self, action: #selector(showPrivacyPolicy))
-        ]
-
         setupHelpFootnote()
         layoutHelpFootnote()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setToolbarHidden(false, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setToolbarHidden(true, animated: animated)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -275,16 +262,16 @@ extension AddCredentialViewController {
         }
     }
 
-    @objc private func showMoreInfo() {
+    private func showMoreInfo() {
         addCredentialNavigator?.showScopeDescriptions()
     }
 
-    @objc private func showTermsAndConditions(_ sender: UIBarButtonItem) {
-        addCredentialNavigator?.showTermsAndConditions()
+    private func showTermsAndConditions(_ url: URL) {
+        addCredentialNavigator?.showWebContent(with: url)
     }
 
-    @objc private func showPrivacyPolicy(_ sender: UIBarButtonItem) {
-        addCredentialNavigator?.showPrivacyPolicy()
+    private func showPrivacyPolicy(_ url: URL) {
+        addCredentialNavigator?.showWebContent(with: url)
     }
 
 }
@@ -376,6 +363,14 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
 extension AddCredentialViewController: AddCredentialHeaderViewDelegate {
     func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialHeaderView) {
         showMoreInfo()
+    }
+}
+
+// MARK: - AddCredentialFooterViewDelegate
+
+extension AddCredentialViewController: AddCredentialFooterViewDelegate {
+    func addCredentialFooterViewDidTapLink(_ addCredentialFooterView: AddCredentialFooterView, url: URL) {
+        showPrivacyPolicy(url)
     }
 }
 
