@@ -48,7 +48,7 @@ final class AuthenticationService: TokenConfigurableService {
         }
     }
 
-    func scopeDescriptions(scope: TinkLink.Scope, redirectURI: URL, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
+    func clientDescription(scope: TinkLink.Scope, redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable {
         guard let clientID = defaultCallOptions.customMetadata[CallOptions.HeaderKey.oauthClientID.key].first else {
             preconditionFailure("No client id")
         }
@@ -61,7 +61,7 @@ final class AuthenticationService: TokenConfigurableService {
         return CallHandler(
             for: request,
             method: service.describeOAuth2Client,
-            responseMap: { $0.scopes.map(ScopeDescription.init(grpcOAuth2ScopeDescription:)) },
+            responseMap: ClientDescription.init(grpcDescribeOAuth2ClientResponse:),
             completion: completion
         )
     }

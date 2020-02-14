@@ -38,8 +38,8 @@ public final class AuthorizationContext {
     @discardableResult
     public func scopeDescriptions(scope: TinkLink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
         let redirectURI = tinkLink.configuration.redirectURI
-        return service.scopeDescriptions(scope: scope, redirectURI: redirectURI) { (result) in
-            completion(result)
+        return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
+            completion(result.map({ $0.scopes }))
         }
     }
 }
