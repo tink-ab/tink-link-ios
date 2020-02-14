@@ -4,8 +4,8 @@ struct ClientDescription {
     let iconURL: URL?
     let name: String
     let url: URL?
-    let embeddedAllowed: Bool
+    let isEmbeddedAllowed: Bool
     let scopes: [ScopeDescription]
-    let verified: Bool
-    let aggregator: Bool
+    let isVerified: Bool
+    let isAggregator: Bool
 }
