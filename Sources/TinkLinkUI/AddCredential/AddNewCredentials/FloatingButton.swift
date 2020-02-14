@@ -11,20 +11,20 @@ final class FloatingButton: UIControl {
     private var imageWidthConstraint: NSLayoutConstraint?
     private var titleCenterXConstraint: NSLayoutConstraint?
 
-    public var minimumWidth: CGFloat = 169 {
+    var minimumWidth: CGFloat = 169 {
         didSet {
             invalidateIntrinsicContentSize()
             setNeedsLayout()
         }
     }
     
-    public var textColor: UIColor = .white {
+    var textColor: UIColor = .white {
         didSet {
             titleLabel.textColor = textColor
         }
     }
     
-    public var text: String? {
+    var text: String? {
         set {
             accessibilityLabel = newValue
             titleLabel.text = newValue
@@ -34,7 +34,7 @@ final class FloatingButton: UIControl {
         }
     }
 
-    public var image: UIImage? = nil {
+    var image: UIImage? = nil {
         didSet {
             if let image = image {
                 imageWidthConstraint?.constant = image.size.width + 8
@@ -47,7 +47,7 @@ final class FloatingButton: UIControl {
         }
     }
 
-    @objc dynamic public var font: UIFont! {
+    var font: UIFont! {
         get { titleLabel.font }
         set { titleLabel.font = newValue }
     }
