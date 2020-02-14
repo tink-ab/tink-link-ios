@@ -369,12 +369,8 @@ extension AddCredentialViewController: AddCredentialHeaderViewDelegate {
 // MARK: - AddCredentialFooterViewDelegate
 
 extension AddCredentialViewController: AddCredentialFooterViewDelegate {
-    func addCredentialFooterViewDidTapPrivacyPolicy(_ addCredentialFooterView: AddCredentialFooterView, url: URL) {
+    func addCredentialFooterViewDidTapLink(_ addCredentialFooterView: AddCredentialFooterView, url: URL) {
         showPrivacyPolicy(url)
-    }
-
-    func addCredentialFooterViewDidTapTermsAndConditions(_ addCredentialFooterView: AddCredentialFooterView, url: URL) {
-        showTermsAndConditions(url)
     }
 }
 

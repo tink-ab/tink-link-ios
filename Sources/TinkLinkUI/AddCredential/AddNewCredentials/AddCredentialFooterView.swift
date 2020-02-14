@@ -2,8 +2,7 @@ import UIKit
 import TinkLinkSDK
 
 protocol AddCredentialFooterViewDelegate: AnyObject {
-    func addCredentialFooterViewDidTapTermsAndConditions(_ addCredentialFooterView: AddCredentialFooterView, url: URL)
-    func addCredentialFooterViewDidTapPrivacyPolicy(_ addCredentialFooterView: AddCredentialFooterView, url: URL)
+    func addCredentialFooterViewDidTapLink(_ addCredentialFooterView: AddCredentialFooterView, url: URL)
 }
 
 final class AddCredentialFooterView: UIView {
@@ -139,11 +138,8 @@ extension AddCredentialFooterView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         switch interaction {
         case .invokeDefaultAction:
-            if characterRange == termsAndConditionsRange {
-                delegate?.addCredentialFooterViewDidTapTermsAndConditions(self, url: URL)
-                return false
-            } else if characterRange == privacyPolicyRange {
-                delegate?.addCredentialFooterViewDidTapPrivacyPolicy(self, url: URL)
+            if characterRange == termsAndConditionsRange || characterRange == privacyPolicyRange {
+                delegate?.addCredentialFooterViewDidTapLink(self, url: URL)
                 return false
             } else {
                 return true
