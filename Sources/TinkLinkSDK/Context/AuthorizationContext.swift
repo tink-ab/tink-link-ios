@@ -36,10 +36,11 @@ public final class AuthorizationContext {
     }
 
     @discardableResult
-    public func isAggregator(scope: TinkLink.Scope, completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable {
+    public func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable {
+        let scope = TinkLink.Scope(scopes: [TinkLink.Scope.User.read])
         let redirectURI = tinkLink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
-            completion(result.map({ $0.isAggregator }))
+            completion(result.map({ !$0.isAggregator }))
         }
     }
 
