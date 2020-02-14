@@ -1,10 +1,11 @@
 import UIKit
 
-private enum Constants {
-    static let insets = UIEdgeInsets(top: 0, left: 52, bottom: 0, right: 52)
-}
-
 final class FloatingButton: UIControl {
+    
+    private enum Constants {
+        static let insets = UIEdgeInsets(top: 0, left: 52, bottom: 0, right: 52)
+    }
+    
     private let titleLabel = UILabel()
     private let contentView = UIView()
     private let imageView = UIImageView()
@@ -34,7 +35,7 @@ final class FloatingButton: UIControl {
         }
     }
 
-    var image: UIImage? = nil {
+    var image: UIImage? {
         didSet {
             if let image = image {
                 imageWidthConstraint?.constant = image.size.width + 8
@@ -64,15 +65,13 @@ final class FloatingButton: UIControl {
     
     override var isHighlighted: Bool {
         didSet {
-            self.titleLabel.textColor = self.isHighlighted ? self.textColor.withAlphaComponent(0.5) : self.textColor
+            titleLabel.textColor = isHighlighted ? textColor.withAlphaComponent(0.5) : textColor
         }
     }
     
     override var isEnabled: Bool {
         didSet {
-            let titleAlpha: CGFloat = isEnabled ? 1.0 : 0.2
-            self.titleLabel.alpha = titleAlpha
-            
+            titleLabel.alpha = isEnabled ? 1.0 : 0.2
         }
     }
     
@@ -97,7 +96,7 @@ final class FloatingButton: UIControl {
         titleLabel.font = Font.bold(.hecto)
         titleLabel.textColor = Color.background
         titleLabel.textAlignment = .center
-        titleLabel.setContentHuggingPriority(.required, for: .horizontal)
+        titleLabel.setContentHuggingPriority( .defaultHigh, for: .horizontal)
         contentView.addSubview(titleLabel)
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -112,8 +111,8 @@ final class FloatingButton: UIControl {
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: 0)
         self.imageWidthConstraint = imageWidthConstraint
         
-        let imageConstraint = titleLabel.leadingAnchor.constraint(equalTo: imageView.layoutMarginsGuide.trailingAnchor, constant: 0)
-        self.imageTrailingConstraint = imageConstraint
+        let imageTrailingConstraint = titleLabel.leadingAnchor.constraint(equalTo: imageView.layoutMarginsGuide.trailingAnchor, constant: 0)
+        self.imageTrailingConstraint = imageTrailingConstraint
         
         NSLayoutConstraint.activate([
             widthAnchor.constraint(greaterThanOrEqualToConstant: minimumWidth),
@@ -122,7 +121,7 @@ final class FloatingButton: UIControl {
             contentView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            imageConstraint,
+            imageTrailingConstraint,
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             ])
