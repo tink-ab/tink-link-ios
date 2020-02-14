@@ -73,6 +73,7 @@ extension AddCredentialViewController {
         tableView.backgroundColor = .clear
         tableView.register(FormFieldTableViewCell.self, forCellReuseIdentifier: FormFieldTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         addCredentialFooterView.delegate = self
