@@ -14,9 +14,6 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
         return visualEffectView
     }()
 
-    private var calculatedFrameOfPresentedViewInContainerView = CGRect.zero
-    private var shouldSetFrameWhenAccessingPresentedView = false
-
     override var frameOfPresentedViewInContainerView: CGRect {
         let bounds = containerView?.bounds ?? UIScreen.main.bounds
 
@@ -32,15 +29,6 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
     }
 
     override func presentationTransitionWillBegin() {
-        presentedViewController.view.frame = frameOfPresentedViewInContainerView
-
-        shadowLayer.frame = containerView?.bounds ?? UIScreen.main.bounds
-        let path = UIBezierPath(rect: shadowLayer.frame)
-        path.append(UIBezierPath(roundedRect: visualEffectView.frame, cornerRadius: visualEffectView.layer.cornerRadius))
-        shadowLayer.path = path.cgPath
-
-        visualEffectView.frame = frameOfPresentedViewInContainerView
-
         containerView?.layer.addSublayer(shadowLayer)
         containerView?.addSubview(visualEffectView)
 
@@ -61,8 +49,6 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
             shadowLayer.removeFromSuperlayer()
             visualEffectView.removeFromSuperview()
         }
-
-        shouldSetFrameWhenAccessingPresentedView = completed
     }
 
     override func dismissalTransitionWillBegin() {
@@ -72,8 +58,6 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
             self.visualEffectView.alpha = 0
             self.presentedView?.alpha = 0
         })
-
-        shouldSetFrameWhenAccessingPresentedView = false
     }
 
     override func dismissalTransitionDidEnd(_ completed: Bool) {
@@ -81,28 +65,20 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
             shadowLayer.removeFromSuperlayer()
             visualEffectView.removeFromSuperview()
         }
-
-        presentedViewController.view.frame = frameOfPresentedViewInContainerView
-        visualEffectView.frame = frameOfPresentedViewInContainerView
     }
 
-    override func containerViewWillLayoutSubviews() {
-        super.containerViewWillLayoutSubviews()
+    override func containerViewDidLayoutSubviews() {
+        super.containerViewDidLayoutSubviews()
+
+        let contentFrame = frameOfPresentedViewInContainerView
 
         shadowLayer.frame = containerView?.bounds ?? .zero
         let path = UIBezierPath(rect: shadowLayer.frame)
-        path.append(UIBezierPath(roundedRect: visualEffectView.frame, cornerRadius: visualEffectView.layer.cornerRadius))
+        path.append(UIBezierPath(roundedRect: contentFrame, cornerRadius: visualEffectView.layer.cornerRadius))
         shadowLayer.path = path.cgPath
 
-        visualEffectView.frame = frameOfPresentedViewInContainerView
-        presentedView?.frame = frameOfPresentedViewInContainerView
-        calculatedFrameOfPresentedViewInContainerView = frameOfPresentedViewInContainerView
-    }
+        visualEffectView.frame = contentFrame
+        presentedView?.frame = contentFrame
 
-    override var presentedView: UIView? {
-        if shouldSetFrameWhenAccessingPresentedView {
-            super.presentedView?.frame = calculatedFrameOfPresentedViewInContainerView
-        }
-        return super.presentedView
     }
 }
