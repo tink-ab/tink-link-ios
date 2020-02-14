@@ -68,13 +68,8 @@ extension AddCredentialViewController {
 
         headerView.configure(with: provider)
         headerView.delegate = self
-        let height = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
-        var frame = headerView.frame
-        frame.size.height = height
 
         tableView.backgroundColor = .clear
-        tableView.tableHeaderView = headerView
-        tableView.tableHeaderView?.frame = frame
         tableView.register(FormFieldTableViewCell.self, forCellReuseIdentifier: FormFieldTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -132,6 +127,12 @@ extension AddCredentialViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+
+        let headerHeight = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
+        var frame = headerView.frame
+        frame.size.height = headerHeight
+        tableView.tableHeaderView = headerView
+        tableView.tableHeaderView?.frame = frame
 
         tableView.contentInset.bottom = addCredentialFooterView.frame.height
     }
