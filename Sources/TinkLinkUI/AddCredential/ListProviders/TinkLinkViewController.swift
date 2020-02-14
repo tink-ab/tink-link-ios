@@ -12,6 +12,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var authorizationController = AuthorizationController(tinkLink: tinkLink)
 
     private var isAggregator: Bool?
+    private let isAggregatorLoadingGroup = DispatchGroup()
 
     public init(tinkLink: TinkLink = .shared, market: Market, scope: TinkLink.Scope) {
         self.tinkLink = tinkLink
@@ -43,14 +44,17 @@ public class TinkLinkViewController: UINavigationController {
                     self.credentialController.user = user
                     self.authorizationController.user = user
 
+                    let providerListViewController = ProviderListViewController(providerController: self.providerController)
+                    providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
+                    providerListViewController.addCredentialNavigator = self
+                    self.setViewControllers([providerListViewController], animated: false)
+
+                    self.isAggregatorLoadingGroup.enter()
                     self.authorizationController.isAggregator { (aggregatorResult) in
                         DispatchQueue.main.async {
                             do {
                                 self.isAggregator = try aggregatorResult.get()
-                                let providerListViewController = ProviderListViewController(providerController: self.providerController)
-                                providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
-                                providerListViewController.addCredentialNavigator = self
-                                self.setViewControllers([providerListViewController], animated: false)
+                                self.isAggregatorLoadingGroup.leave()
                             } catch {
                                 // TODO: Error handling
                             }
@@ -147,7 +151,10 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
 
     func showAddCredential(for provider: Provider) {
         guard let isAggregator = isAggregator else {
-            fatalError("Need `isAggregator` value to show form for adding a credential.")
+            isAggregatorLoadingGroup.notify(queue: .main) { [weak self] in
+                self?.showAddCredential(for: provider)
+            }
+            show(LoadingViewController(), sender: nil)
             return
         }
         let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController, isAggregator: isAggregator)
