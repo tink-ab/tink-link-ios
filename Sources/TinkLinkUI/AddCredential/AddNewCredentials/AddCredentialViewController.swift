@@ -261,16 +261,16 @@ extension AddCredentialViewController {
         }
     }
 
-    @objc private func showMoreInfo() {
+    private func showMoreInfo() {
         addCredentialNavigator?.showScopeDescriptions()
     }
 
-    @objc private func showTermsAndConditions() {
-        addCredentialNavigator?.showTermsAndConditions()
+    private func showTermsAndConditions(_ url: URL) {
+        addCredentialNavigator?.showWebContent(with: url)
     }
 
-    @objc private func showPrivacyPolicy() {
-        addCredentialNavigator?.showPrivacyPolicy()
+    private func showPrivacyPolicy(_ url: URL) {
+        addCredentialNavigator?.showWebContent(with: url)
     }
 
 }
