@@ -1,8 +1,6 @@
 import UIKit
 
 final class AddCredentialStatusViewController: UIViewController {
-    private lazy var shadowLayer = CAShapeLayer()
-    private lazy var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private lazy var activityIndicator = UIActivityIndicatorView(style: .gray)
     private lazy var statusLabelView = UILabel()
 
@@ -20,24 +18,13 @@ final class AddCredentialStatusViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .clear
-
-        shadowLayer.fillColor = UIColor(white: 0.0, alpha: 0.25).cgColor
-        shadowLayer.fillRule = .evenOdd
-        view.layer.addSublayer(shadowLayer)
-
-        visualEffectView.layer.cornerRadius = 10
-        visualEffectView.clipsToBounds = true
-        visualEffectView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(visualEffectView)
-
         let stackView = UIStackView(arrangedSubviews: [activityIndicator, statusLabelView])
         stackView.axis = .vertical
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 32, left: 24, bottom: 24, right: 24)
         stackView.spacing = 16
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        visualEffectView.contentView.addSubview(stackView)
+        view.addSubview(stackView)
 
         statusLabelView.font = UIFont.preferredFont(forTextStyle: .headline)
         statusLabelView.numberOfLines = 0
@@ -48,26 +35,12 @@ final class AddCredentialStatusViewController: UIViewController {
         activityIndicator.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         NSLayoutConstraint.activate([
-            visualEffectView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            visualEffectView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-
             statusLabelView.widthAnchor.constraint(equalToConstant: 240),
 
-            stackView.topAnchor.constraint(equalTo: visualEffectView.contentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: visualEffectView.contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: visualEffectView.contentView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: visualEffectView.contentView.bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: view.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        shadowLayer.frame = view.bounds
-
-        let path = UIBezierPath(rect: view.bounds)
-        path.append(UIBezierPath(roundedRect: visualEffectView.frame, cornerRadius: visualEffectView.layer.cornerRadius))
-
-        shadowLayer.path = path.cgPath
     }
 }
