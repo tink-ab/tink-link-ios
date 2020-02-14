@@ -40,7 +40,7 @@ extension ProviderListViewController {
         searchController.searchBar.placeholder = "Search"
         searchController.searchResultsUpdater = self
 
-        // TODO: navigationItem.searchController = searchController
+        navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
 
         definesPresentationContext = true
