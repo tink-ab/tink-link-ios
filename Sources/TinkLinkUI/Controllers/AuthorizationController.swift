@@ -7,24 +7,21 @@ final class AuthorizationController {
         didSet {
             if let user = user {
                 authorizationContext = AuthorizationContext(tinkLink: tinkLink, user: user)
-                authorizationContext?.isAggregator { result in
-                    self.isAggregator = try? result.get()
-                    // TODO: Error handling
-                    // Should flow be able to continue without this information?
-                }
             } else {
                 authorizationContext = nil
-                isAggregator = nil
             }
         }
     }
-
-    private(set) var isAggregator: Bool?
 
     private var authorizationContext: AuthorizationContext?
 
     init(tinkLink: TinkLink) {
         self.tinkLink = tinkLink
+    }
+
+    @discardableResult
+    func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable? {
+        return authorizationContext?.isAggregator(completion: completion)
     }
 
     @discardableResult
