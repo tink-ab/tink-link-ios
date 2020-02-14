@@ -2,6 +2,7 @@ import UIKit
 import TinkLinkSDK
 
 protocol FormFieldTableViewCellDelegate: AnyObject {
+    func formFieldCellShouldReturn(_ cell: FormFieldTableViewCell) -> Bool
     func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String)
     func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell)
 }
@@ -38,10 +39,15 @@ class FormFieldTableViewCell: UITableViewCell {
     }
 
     override func resignFirstResponder() -> Bool {
-        textField.resignFirstResponder()
-        return super.resignFirstResponder()
+        return textField.resignFirstResponder()
     }
 
+    override func becomeFirstResponder() -> Bool {
+        return textField.becomeFirstResponder()
+    }
+
+    override var canBecomeFirstResponder: Bool { true }
+    
     private func setup() {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
@@ -93,6 +99,6 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return resignFirstResponder()
+        return delegate?.formFieldCellShouldReturn(self) ?? true
     }
 }

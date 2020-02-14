@@ -339,6 +339,23 @@ extension AddCredentialViewController {
 
 // MARK: - TextFieldCellDelegate
 extension AddCredentialViewController: FormFieldTableViewCellDelegate {
+    func formFieldCellShouldReturn(_ cell: FormFieldTableViewCell) -> Bool {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return true
+        }
+
+        let nextIndexPath = IndexPath(row: indexPath.item + 1, section: indexPath.section)
+        _ = cell.resignFirstResponder()
+
+        guard form.fields.count > nextIndexPath.item,
+            form.fields[indexPath.item + 1].attributes.isEditable,
+            let nextCell = tableView.cellForRow(at: nextIndexPath)
+            else { return true }
+
+        nextCell.becomeFirstResponder()
+        return false
+    }
+
     func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.item].text = text
