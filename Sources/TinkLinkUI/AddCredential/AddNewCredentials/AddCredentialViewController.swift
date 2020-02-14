@@ -98,23 +98,8 @@ extension AddCredentialViewController {
         navigationItem.largeTitleDisplayMode = .never
         addCredentialFooterView.button.isEnabled = form.fields.isEmpty
 
-        toolbarItems = [
-            UIBarButtonItem(title: "Terms & Conditions", style: .plain, target: self, action: #selector(showTermsAndConditions)),
-            UIBarButtonItem(title: "Privacy Policy", style: .plain, target: self, action: #selector(showPrivacyPolicy))
-        ]
-
         setupHelpFootnote()
         layoutHelpFootnote()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setToolbarHidden(false, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setToolbarHidden(true, animated: animated)
     }
 
     override func viewDidAppear(_ animated: Bool) {
