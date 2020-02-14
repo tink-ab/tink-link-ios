@@ -28,12 +28,19 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
         )
     }
 
+
+    override var presentedView: UIView? {
+        return visualEffectView
+    }
+
     override func presentationTransitionWillBegin() {
         containerView?.layer.addSublayer(shadowLayer)
         containerView?.addSubview(visualEffectView)
 
         shadowLayer.opacity = 0
         visualEffectView.alpha = 0
+
+        visualEffectView.contentView.addSubview(presentedViewController.view)
 
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
             self.presentingViewController.view.tintAdjustmentMode = .dimmed
@@ -75,7 +82,6 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
         shadowLayer.path = path.cgPath
 
         visualEffectView.frame = contentFrame
-        presentedView?.frame = contentFrame
-
+        presentedViewController.view.frame = CGRect(origin: .zero, size: contentFrame.size)
     }
 }
