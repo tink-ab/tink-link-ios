@@ -2,8 +2,8 @@ import UIKit
 import TinkLinkSDK
 
 protocol AddCredentialFooterViewDelegate: AnyObject {
-    func addCredentialFooterViewDidTapTermsAndConditions(_ addCredentialFooterView: AddCredentialFooterView)
-    func addCredentialFooterViewDidTapPrivacyPolicy(_ addCredentialFooterView: AddCredentialFooterView)
+    func addCredentialFooterViewDidTapTermsAndConditions(_ addCredentialFooterView: AddCredentialFooterView, url: URL)
+    func addCredentialFooterViewDidTapPrivacyPolicy(_ addCredentialFooterView: AddCredentialFooterView, url: URL)
 }
 
 final class AddCredentialFooterView: UIView {
@@ -40,14 +40,17 @@ final class AddCredentialFooterView: UIView {
         let attributeText = NSMutableAttributedString(
             string: text,
             attributes: [.foregroundColor: Color.secondaryLabel])
+        let languageCode = Locale.current.languageCode ?? ""
+        let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
         let privacyPolicyText = "Privacy Policy"
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
         self.privacyPolicyRange = privacyPolicyRange
-        attributeText.addAttributes([.link: "",], range: privacyPolicyRange)
+        attributeText.addAttributes([.link: privacyPolicyUrl,], range: privacyPolicyRange)
         let termsAndConditionsText = "Terms and Conditions"
+        let termsAndConditionsUrl = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
         self.termsAndConditionsRange = termsAndConditionsRange
-        attributeText.addAttributes([.link: ""], range: termsAndConditionsRange)
+        attributeText.addAttributes([.link: termsAndConditionsUrl], range: termsAndConditionsRange)
         descriptionTextView.attributedText = attributeText
         return descriptionTextView
     }()
@@ -137,10 +140,10 @@ extension AddCredentialFooterView: UITextViewDelegate {
         switch interaction {
         case .invokeDefaultAction:
             if characterRange == termsAndConditionsRange {
-                delegate?.addCredentialFooterViewDidTapTermsAndConditions(self)
+                delegate?.addCredentialFooterViewDidTapTermsAndConditions(self, url: URL)
                 return false
             } else if characterRange == privacyPolicyRange {
-                delegate?.addCredentialFooterViewDidTapPrivacyPolicy(self)
+                delegate?.addCredentialFooterViewDidTapPrivacyPolicy(self, url: URL)
                 return false
             } else {
                 return true
