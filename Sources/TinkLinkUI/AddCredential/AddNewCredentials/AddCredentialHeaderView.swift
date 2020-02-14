@@ -153,7 +153,6 @@ final class AddCredentialHeaderView: UIView {
             NSAttributedString.Key.font: Font.bold(.micro),
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
-        userInfoDescription.sizeToFit()
         userInfoDescription.isHidden = isAggregator
     }
 }
