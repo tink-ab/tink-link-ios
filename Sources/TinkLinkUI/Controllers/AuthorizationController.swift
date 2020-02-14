@@ -19,7 +19,7 @@ final class AuthorizationController {
         }
     }
 
-    var isAggregator: Bool?
+    private(set) var isAggregator: Bool?
 
     private var authorizationContext: AuthorizationContext?
 
