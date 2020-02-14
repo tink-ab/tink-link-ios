@@ -33,6 +33,18 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
         return visualEffectView
     }
 
+    private func show() {
+        presentingViewController.view.tintAdjustmentMode = .dimmed
+        shadowLayer.opacity = 1
+        visualEffectView.alpha = 1
+    }
+
+    private func hide() {
+        presentingViewController.view.tintAdjustmentMode = .automatic
+        shadowLayer.opacity = 0
+        visualEffectView.alpha = 0
+    }
+
     override func presentationTransitionWillBegin() {
         containerView?.layer.addSublayer(shadowLayer)
         containerView?.addSubview(visualEffectView)
@@ -42,11 +54,13 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
 
         visualEffectView.contentView.addSubview(presentedViewController.view)
 
-        presentingViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
-            self.presentingViewController.view.tintAdjustmentMode = .dimmed
-            self.shadowLayer.opacity = 1
-            self.visualEffectView.alpha = 1
-        })
+        if let transitionCoordinator = presentingViewController.transitionCoordinator {
+            transitionCoordinator.animate(alongsideTransition: { _ in
+                self.show()
+            })
+        } else {
+            show()
+        }
     }
 
     override func presentationTransitionDidEnd(_ completed: Bool) {
@@ -57,11 +71,14 @@ final class AddCredentialStatusPresentationController: UIPresentationController 
     }
 
     override func dismissalTransitionWillBegin() {
-        presentingViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
-            self.presentingViewController.view.tintAdjustmentMode = .automatic
-            self.shadowLayer.opacity = 0
-            self.visualEffectView.alpha = 0
-        })
+
+        if let transitionCoordinator = presentingViewController.transitionCoordinator {
+            transitionCoordinator.animate(alongsideTransition: { _ in
+                self.hide()
+            })
+        } else {
+            hide()
+        }
     }
 
     override func dismissalTransitionDidEnd(_ completed: Bool) {
