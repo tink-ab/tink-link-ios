@@ -29,6 +29,8 @@ final class AddCredentialHeaderView: UIView {
     }()
     private lazy var userInfoDescription: UITextView = {
         let userInfoDescription = UITextView()
+        userInfoDescription.textContainerInset = .zero
+        userInfoDescription.textContainer.lineFragmentPadding = 0
         userInfoDescription.font = Font.regular(.micro)
         userInfoDescription.textColor = Color.label
         userInfoDescription.isScrollEnabled = false
@@ -120,7 +122,7 @@ final class AddCredentialHeaderView: UIView {
             userInfoLabel.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor),
             userInfoLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
 
-            userInfoDescription.topAnchor.constraint(equalTo: userInfoLabel.lastBaselineAnchor, constant: 4),
+            userInfoDescription.topAnchor.constraint(equalTo: userInfoLabel.lastBaselineAnchor, constant: 8),
             userInfoDescription.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor),
             userInfoDescription.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             userInfoDescriptionBottomSpace
