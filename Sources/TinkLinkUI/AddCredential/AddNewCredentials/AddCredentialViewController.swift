@@ -10,11 +10,7 @@ final class AddCredentialViewController: UIViewController {
 
     private let credentialController: CredentialController
     private var form: Form
-    private var formError: Form.ValidationError? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    private var formError: Form.ValidationError?
 
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
