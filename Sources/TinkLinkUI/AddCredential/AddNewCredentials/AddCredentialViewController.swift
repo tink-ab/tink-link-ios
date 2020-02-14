@@ -9,6 +9,7 @@ final class AddCredentialViewController: UIViewController {
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
     private let credentialController: CredentialController
+    private let authorizationController: AuthorizationController
     private var form: Form
     private var formError: Form.ValidationError?
 
@@ -22,10 +23,11 @@ final class AddCredentialViewController: UIViewController {
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
 
-    init(provider: Provider, credentialController: CredentialController) {
+    init(provider: Provider, credentialController: CredentialController, authorizationController: AuthorizationController) {
         self.provider = provider
         self.form = Form(provider: provider)
         self.credentialController = credentialController
+        self.authorizationController = authorizationController
 
         super.init(nibName: nil, bundle: nil)
     }

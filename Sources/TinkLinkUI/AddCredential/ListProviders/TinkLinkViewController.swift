@@ -134,7 +134,7 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     }
 
     func showAddCredential(for provider: Provider) {
-        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController)
+        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController, authorizationController: authorizationController)
         addCredentialViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         addCredentialViewController.addCredentialNavigator = self
         show(addCredentialViewController, sender: nil)
