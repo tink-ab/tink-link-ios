@@ -50,7 +50,6 @@ extension AddCredentialViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(credentialAdded), name: .credentialControllerDidAddCredential, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialControllerDidSupplementInformation, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialControllerDidError, object: nil)
-
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
@@ -76,7 +75,7 @@ extension AddCredentialViewController {
         tableView.backgroundColor = .clear
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame = frame
-        tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
+        tableView.register(FormFieldTableViewCell.self, forCellReuseIdentifier: FormFieldTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -103,14 +102,29 @@ extension AddCredentialViewController {
         navigationItem.largeTitleDisplayMode = .never
         addCredentialFooterView.button.isEnabled = form.fields.isEmpty
 
+        toolbarItems = [
+            UIBarButtonItem(title: "Terms & Conditions", style: .plain, target: self, action: #selector(showTermsAndConditions)),
+            UIBarButtonItem(title: "Privacy Policy", style: .plain, target: self, action: #selector(showPrivacyPolicy))
+        ]
+
         setupHelpFootnote()
         layoutHelpFootnote()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setToolbarHidden(false, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setToolbarHidden(true, animated: animated)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {
+        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FormFieldTableViewCell {
             cell.textField.becomeFirstResponder()
             didFirstFieldBecomeFirstResponder = true
         }
@@ -230,32 +244,12 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath)
-        let field = form.fields[indexPath.section]
-        if let textFieldCell = cell as? TextFieldCell {
-            textFieldCell.delegate = self
-            textFieldCell.textField.placeholder = field.attributes.placeholder
-            textFieldCell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
-            textFieldCell.textField.isEnabled = field.attributes.isEditable
-            textFieldCell.textField.text = field.text
+        let cell = tableView.dequeueReusableCell(withIdentifier: FormFieldTableViewCell.reuseIdentifier, for: indexPath)
+        let field = form.fields[indexPath.item]
+        if let textFieldCell = cell as? FormFieldTableViewCell {
+            textFieldCell.configure(with: field)
         }
         return cell
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let field = form.fields[section]
-        let suffix = field.validationRules.isOptional ? " - optional" : ""
-        
-        return field.attributes.description + suffix
-    }
-
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        let field = form.fields[section]
-        if let error = formError, let fieldError = error[fieldName: field.name] {
-            return fieldError.errorDescription
-        } else {
-            return field.attributes.helpText
-        }
     }
 }
 
@@ -278,6 +272,15 @@ extension AddCredentialViewController {
     @objc private func showMoreInfo() {
         addCredentialNavigator?.showScopeDescriptions()
     }
+
+    @objc private func showTermsAndConditions(_ sender: UIBarButtonItem) {
+        addCredentialNavigator?.showTermsAndConditions()
+    }
+
+    @objc private func showPrivacyPolicy(_ sender: UIBarButtonItem) {
+        addCredentialNavigator?.showPrivacyPolicy()
+    }
+
 }
 
 // MARK: - Navigation
@@ -351,14 +354,14 @@ extension AddCredentialViewController {
 }
 
 // MARK: - TextFieldCellDelegate
-extension AddCredentialViewController: TextFieldCellDelegate {
-    func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
+extension AddCredentialViewController: FormFieldTableViewCellDelegate {
+    func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
         addCredentialFooterView.button.isEnabled = form.areFieldsValid
     }
 
-    func textFieldCellDidEndEditing(_ cell: TextFieldCell) {
+    func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell) {
         do {
             try form.validateFields()
         } catch {
