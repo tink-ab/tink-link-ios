@@ -128,6 +128,13 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
     }
 
+    private func replaceTopViewController(with viewController: UIViewController, animated: Bool) {
+        var newViewControllers = viewControllers
+        _ = newViewControllers.popLast()
+        newViewControllers.append(viewController)
+        setViewControllers(newViewControllers, animated: animated)
+    }
+
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
         let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes)
         setupNavigationItem(for: viewController, title: title)
@@ -161,10 +168,7 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         addCredentialViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         addCredentialViewController.addCredentialNavigator = self
         if viewControllers.last is LoadingViewController {
-            var newViewControllers = viewControllers
-            _ = newViewControllers.popLast()
-            newViewControllers.append(addCredentialViewController)
-            setViewControllers(newViewControllers, animated: true)
+            replaceTopViewController(with: addCredentialViewController, animated: true)
         } else {
             show(addCredentialViewController, sender: nil)
         }
