@@ -52,6 +52,9 @@ final class AddCredentialHeaderView: UIView {
         return dashLayer
     }()
 
+    private var userInfoLabelBottomSpace: NSLayoutConstraint?
+    private var userInfoDescriptionBottomSpace: NSLayoutConstraint?
+
     private var readMoreRange: NSRange?
 
     weak var delegate: AddCredentialHeaderViewDelegate?
@@ -88,6 +91,11 @@ final class AddCredentialHeaderView: UIView {
         addSubview(userInfoLabel)
         addSubview(userInfoDescription)
 
+        userInfoLabelBottomSpace = userInfoLabel.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+
+        let userInfoDescriptionBottomSpace = userInfoDescription.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+        self.userInfoDescriptionBottomSpace = userInfoDescriptionBottomSpace
+
         NSLayoutConstraint.activate([
             bankIconView.widthAnchor.constraint(equalToConstant: 30),
             bankIconView.heightAnchor.constraint(equalToConstant: 30),
@@ -115,7 +123,7 @@ final class AddCredentialHeaderView: UIView {
             userInfoDescription.topAnchor.constraint(equalTo: userInfoLabel.lastBaselineAnchor, constant: 4),
             userInfoDescription.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor),
             userInfoDescription.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            userInfoDescription.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+            userInfoDescriptionBottomSpace
         ])
     }
 
@@ -154,6 +162,21 @@ final class AddCredentialHeaderView: UIView {
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
         userInfoDescription.isHidden = isAggregator
+        if isAggregator {
+            if let constraint = userInfoLabelBottomSpace {
+                NSLayoutConstraint.activate([constraint])
+            }
+            if let constraint = userInfoDescriptionBottomSpace {
+                NSLayoutConstraint.deactivate([constraint])
+            }
+        } else {
+            if let constraint = userInfoLabelBottomSpace {
+                NSLayoutConstraint.deactivate([constraint])
+            }
+            if let constraint = userInfoDescriptionBottomSpace {
+                NSLayoutConstraint.activate([constraint])
+            }
+        }
     }
 }
 
