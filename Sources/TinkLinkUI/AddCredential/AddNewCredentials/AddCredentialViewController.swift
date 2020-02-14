@@ -228,12 +228,8 @@ extension AddCredentialViewController {
 // MARK: - UITableViewDataSource
 
 extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return form.fields.count
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return form.fields.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -345,7 +341,7 @@ extension AddCredentialViewController {
 extension AddCredentialViewController: FormFieldTableViewCellDelegate {
     func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        form.fields[indexPath.section].text = text
+        form.fields[indexPath.item].text = text
         addCredentialFooterView.button.isEnabled = form.areFieldsValid
     }
 
