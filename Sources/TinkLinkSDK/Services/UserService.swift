@@ -3,7 +3,7 @@ import GRPC
 
 final class UserService {
     let connection: ClientConnection
-    let defaultCallOptions: CallOptions
+    var defaultCallOptions: CallOptions
     let restURL: URL
 
     private var session: URLSession
