@@ -48,22 +48,6 @@ final class CredentialController {
         addCredentialTask?.cancel()
     }
 
-    func deleteCredential(_ credentials: [Credential]) {
-        credentials.forEach { credential in
-            credentialContext?.delete(credential, completion: { [weak self] result in
-                switch result {
-                case .success:
-                    self?.credentials.removeAll { removedCredential -> Bool in
-                        credential.id == removedCredential.id
-                    }
-                case .failure(let error):
-                    let parameters = ["error": error]
-                    NotificationCenter.default.post(name: .credentialControllerDidError, object: nil, userInfo: parameters)
-                }
-            })
-        }
-    }
-
     private func createProgressHandler(for status: AddCredentialTask.Status) {
         switch status {
         case .authenticating, .created:
