@@ -11,7 +11,6 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var credentialController = CredentialController(tinkLink: tinkLink)
     private lazy var authorizationController = AuthorizationController(tinkLink: tinkLink)
 
-    private var user: User?
     private var isAggregator: Bool?
     private let isAggregatorLoadingGroup = DispatchGroup()
 
