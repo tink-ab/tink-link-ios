@@ -35,8 +35,6 @@ final class AddCredentialStatusViewController: UIViewController {
         activityIndicator.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         NSLayoutConstraint.activate([
-            statusLabelView.widthAnchor.constraint(equalToConstant: 240),
-
             stackView.topAnchor.constraint(equalTo: view.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
