@@ -1,18 +1,18 @@
 import UIKit
 
-public final class NumericCodeInputFormatter: InputFormatter {
+final class NumericCodeInputFormatter: InputFormatter {
     private var numberFormatter = NumberFormatter()
     private var maxDigits: Int?
 
     let textField: UITextField
 
-    public init(textField: UITextField, maxDigits: Int? = nil) {
+    init(textField: UITextField, maxDigits: Int? = nil) {
         self.textField = textField
         self.maxDigits = maxDigits
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 
-    required public init(textField: UITextField) {
+    required init(textField: UITextField) {
         self.textField = textField
 
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
