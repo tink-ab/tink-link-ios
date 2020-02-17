@@ -177,8 +177,8 @@ extension AddCredentialViewController {
 
     @objc private func credentialAdded() {
         DispatchQueue.main.async {
-            let addedCredential = self.credentialController.credentials.first(where: { $0.providerID == self.provider.id })
-            addedCredential.flatMap { self.showCredentialUpdated(for: $0) }
+            // TODO: Check that the credential added is referring to the credential that was added by this view controller.
+            self.showCredentialUpdated()
         }
     }
 
@@ -302,7 +302,7 @@ extension AddCredentialViewController {
         statusViewController = nil
     }
 
-    private func showCredentialUpdated(for credential: Credential) {
+    private func showCredentialUpdated() {
         hideUpdatingView()
         dismiss(animated: true)
     }
