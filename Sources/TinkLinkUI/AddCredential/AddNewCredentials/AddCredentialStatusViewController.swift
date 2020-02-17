@@ -12,7 +12,7 @@ final class AddCredentialStatusViewController: UIViewController {
         set {
             guard isViewLoaded else { return }
             statusLabelView.text = newValue
-            presentationController?.containerViewDidLayoutSubviews()
+            presentationController?.containerView?.setNeedsLayout()
         }
     }
 
