@@ -165,36 +165,6 @@ extension AddCredentialViewController {
             )
         )
     }
-
-    private func createProgressHandler(for status: AddCredentialTask.Status) {
-        switch status {
-        case .authenticating, .created:
-            break
-        case .awaitingSupplementalInformation(let supplementInformationTask):
-            showSupplementalInformation(for: supplementInformationTask)
-        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-            thirdPartyAppAuthenticationTask.openThirdPartyApp()
-        case .updating(let status):
-            showUpdating(status: status)
-        }
-    }
-
-    private func createCompletionHandler(result: Result<Credential, Error>) {
-        do {
-            _ = try result.get()
-            showCredentialUpdated()
-        } catch {
-            if let error = error as? ThirdPartyAppAuthenticationTask.Error {
-                self.hideUpdatingView(animated: true) {
-                    self.showDownloadPrompt(for: error)
-                }
-            } else {
-                self.hideUpdatingView(animated: true) {
-                    self.showAlert(for: error)
-                }
-            }
-        }
-    }
 }
 
 // MARK: - Keyboard Helper
@@ -242,12 +212,12 @@ extension AddCredentialViewController {
                 form: form,
                 progressHandler: { [unowned self] status in
                     DispatchQueue.main.async {
-                        self.createProgressHandler(for: status)
+                        self.addCredentialProgressHandler(for: status)
                     }
                 },
                 completion: { [unowned self] result in
                     DispatchQueue.main.async {
-                        self.createCompletionHandler(result: result)
+                        self.addCredentialCompletionHandler(result)
                     }
                 }
             )
@@ -267,7 +237,40 @@ extension AddCredentialViewController {
     private func showPrivacyPolicy(_ url: URL) {
         addCredentialNavigator?.showWebContent(with: url)
     }
+}
 
+// MARK: - Handlers
+
+extension AddCredentialViewController {
+    private func addCredentialProgressHandler(for status: AddCredentialTask.Status) {
+        switch status {
+        case .authenticating, .created:
+            break
+        case .awaitingSupplementalInformation(let supplementInformationTask):
+            showSupplementalInformation(for: supplementInformationTask)
+        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
+            thirdPartyAppAuthenticationTask.openThirdPartyApp()
+        case .updating(let status):
+            showUpdating(status: status)
+        }
+    }
+
+    private func addCredentialCompletionHandler(_ result: Result<Credential, Error>) {
+        do {
+            _ = try result.get()
+            showCredentialUpdated()
+        } catch {
+            if let error = error as? ThirdPartyAppAuthenticationTask.Error {
+                self.hideUpdatingView(animated: true) {
+                    self.showDownloadPrompt(for: error)
+                }
+            } else {
+                self.hideUpdatingView(animated: true) {
+                    self.showAlert(for: error)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Navigation
