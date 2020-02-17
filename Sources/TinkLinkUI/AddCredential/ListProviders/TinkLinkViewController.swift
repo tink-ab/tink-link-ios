@@ -11,7 +11,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var credentialController = CredentialController(tinkLink: tinkLink)
     private lazy var authorizationController = AuthorizationController(tinkLink: tinkLink)
 
-    private var userProfile: UserProfile?
+    private var user: User?
 
     public init(tinkLink: TinkLink = .shared, market: Market, scope: TinkLink.Scope) {
         self.tinkLink = tinkLink
@@ -39,12 +39,10 @@ public class TinkLinkViewController: UINavigationController {
             DispatchQueue.main.async {
                 do {
                     let user = try result.get()
+                    self.user = user
                     self.providerController.user = user
                     self.credentialController.user = user
                     self.authorizationController.user = user
-                    self.userController.userProfile { result in
-                        self.userProfile = try? result.get()
-                    }
                     let providerListViewController = ProviderListViewController(providerController: self.providerController)
                     providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
                     providerListViewController.addCredentialNavigator = self
@@ -139,7 +137,7 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     }
 
     func showAddCredential(for provider: Provider) {
-        let addCredentialViewController = AddCredentialViewController(provider: provider, userProfile: userProfile, credentialController: credentialController)
+        let addCredentialViewController = AddCredentialViewController(provider: provider, userProfile: user?.userProfile, credentialController: credentialController)
         addCredentialViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         addCredentialViewController.addCredentialNavigator = self
         show(addCredentialViewController, sender: nil)
