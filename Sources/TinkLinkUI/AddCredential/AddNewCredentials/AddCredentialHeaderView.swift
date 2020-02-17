@@ -149,7 +149,11 @@ final class AddCredentialHeaderView: UIView {
         }
         bankLabel.text = provider.displayName
         let text = String(format: "%@ will obtain some of your financial information. Read More", provider.displayName)
-        let attributeText = NSMutableAttributedString(string: text)
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: Color.label,
+            .font: Font.regular(.micro)
+        ]
+        let attributeText = NSMutableAttributedString(string: text, attributes: attributes)
         let readMoreText = "Read More"
         let readMoreRange = attributeText.mutableString.range(of: readMoreText)
         self.readMoreRange = readMoreRange
