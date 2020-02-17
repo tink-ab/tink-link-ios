@@ -24,7 +24,6 @@ final class CredentialController {
     private(set) var supplementInformationTask: SupplementInformationTask?
 
     private(set) var credentialContext: CredentialContext?
-    private var refreshTask: RefreshCredentialTask?
     private var addCredentialTask: AddCredentialTask?
 
     init(tinkLink: TinkLink) {
