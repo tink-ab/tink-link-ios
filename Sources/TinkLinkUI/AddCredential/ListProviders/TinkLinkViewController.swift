@@ -157,6 +157,10 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
 
 // MARK: - Helpers
 extension TinkLinkViewController {
+    private var didShowAddCredentialForm: Bool {
+        viewControllers.contains(where: { $0 is AddCredentialViewController })
+    }
+
     private func showDiscardActionSheet() {
         let alert = UIAlertController(title: "Are you sure you want to discard this new credential?", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Discard Changes", style: .destructive, handler: { _ in
@@ -175,7 +179,6 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
     }
 
     public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        // TODO: Check if user has started filling out fields or a credential is in the process of being added.
-        return false
+        return !didShowAddCredentialForm
     }
 }
