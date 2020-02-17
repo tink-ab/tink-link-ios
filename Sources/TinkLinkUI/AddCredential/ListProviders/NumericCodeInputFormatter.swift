@@ -4,7 +4,7 @@ final class NumericCodeInputFormatter: InputFormatter {
     private var numberFormatter = NumberFormatter()
     private var maxDigits: Int?
 
-    let textField: UITextField
+    weak var textField: UITextField?
 
     init(textField: UITextField, maxDigits: Int? = nil) {
         self.textField = textField
@@ -19,6 +19,11 @@ final class NumericCodeInputFormatter: InputFormatter {
     }
 
     func format(text: String) {
+
+        guard let textField = textField else {
+            return
+        }
+        
         var text = text
 
         if text.isEmpty {

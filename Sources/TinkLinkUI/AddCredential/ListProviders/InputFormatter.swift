@@ -1,7 +1,7 @@
 import UIKit
 
 protocol InputFormatter {
-    var textField: UITextField { get }
+    var textField: UITextField? { get }
     init(textField: UITextField)
 
     func update()
@@ -10,6 +10,6 @@ protocol InputFormatter {
 
 extension InputFormatter {
     func update() {
-        format(text: textField.text ?? "")
+        format(text: textField?.text ?? "")
     }
 }

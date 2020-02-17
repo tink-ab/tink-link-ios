@@ -1,7 +1,7 @@
 import UIKit
 
 final class TextInputFormatter: InputFormatter {
-    let textField: UITextField
+    weak var textField: UITextField?
 
     required init(textField: UITextField) {
         self.textField = textField
