@@ -136,8 +136,8 @@ final class AddCredentialHeaderView: UIView {
         dashLayer.path = path
     }
 
-    func configure(with provider: Provider, userProfile: UserProfile? = nil) {
-        if let username = userProfile?.username, !username.isEmpty {
+    func configure(with provider: Provider, username: String? = nil) {
+        if let username = username, !username.isEmpty {
             userInfoLabel.text = username
             userInfoLabel.isHidden = false
             userInfoDescriptionTopConstraint?.isActive = true

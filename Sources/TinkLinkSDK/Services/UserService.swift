@@ -68,7 +68,7 @@ final class UserService {
         return serviceRetryCanceller
     }
 
-    func getUserProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
+    func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
         let request = GRPCGetProfileRequest()
         return CallHandler(for: request, method: service.getProfile, responseMap: {UserProfile(grpcUserProfile: $0.userProfile)}, completion: completion)
     }

@@ -3,7 +3,11 @@ import Foundation
 /// A user in the Tink API.
 public struct User {
     let accessToken: AccessToken
-    public let userProfile: UserProfile?
+    let userProfile: UserProfile?
+
+    public var username: String? {
+        return userProfile?.username
+    }
 
     init(accessToken: AccessToken, userProfile: UserProfile? = nil) {
         self.accessToken = accessToken

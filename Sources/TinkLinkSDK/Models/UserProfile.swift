@@ -1,6 +1,6 @@
 import Foundation
 
-public struct UserProfile {
+struct UserProfile {
     public var username: String
     public var nationalID: String
 }
