@@ -25,8 +25,6 @@ class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    private let helpLabel = UILabel()
-
     var lineWidth: CGFloat = 2.0 {
         didSet {
             underlineLayer.lineWidth = lineWidth
@@ -39,20 +37,6 @@ class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    private lazy var prefixLabel = UILabel()
-    var prefix: String? {
-        didSet {
-            updatePrefix()
-        }
-    }
-
-    private lazy var suffixLabel = UILabel()
-    var suffix: String? {
-        didSet {
-            updateSuffix()
-        }
-    }
-
     override var text: String? {
         didSet {
             updatePlaceholderLayer()
@@ -62,20 +46,7 @@ class FloatingPlaceholderTextField: UITextField {
 
     override var font: UIFont? {
         didSet {
-            if prefix != nil {
-                prefixLabel.font = font
-            }
-            if suffix != nil {
-                suffixLabel.font = font
-            }
             placeholderLayer.font = font as CFTypeRef
-        }
-    }
-
-    var helpText: String? {
-        didSet {
-            helpLabel.text = helpText
-            setNeedsLayout()
         }
     }
 
@@ -108,18 +79,6 @@ class FloatingPlaceholderTextField: UITextField {
         path.addLine(to: CGPoint(x: underlineLayer.bounds.maxX, y: underlineLayer.bounds.midY))
         underlineLayer.path = path.cgPath
         updatePlaceholderLayer()
-
-        helpLabel.sizeToFit()
-        helpLabel.frame = CGRect(x: 0, y: underlineLayer.frame.maxY + 4, width: frame.width, height: helpLabel.frame.height)
-
-        if let range = textRange(from: beginningOfDocument, to: endOfDocument) {
-            let textFrame = firstRect(for: range)
-            suffixLabel.sizeToFit()
-            suffixLabel.frame.origin = CGPoint(x: textFrame.maxX, y: textFrame.minY)
-            suffixLabel.frame.size.height = textFrame.height
-        } else {
-            suffixLabel.frame = rightViewRect(forBounds: bounds)
-        }
     }
 
     override var canBecomeFirstResponder: Bool { true }
@@ -192,13 +151,7 @@ private extension FloatingPlaceholderTextField {
         underlineLayer.strokeColor = tintColor.cgColor
         underlineLayer.strokeEnd = 0.5
         underlineLayer.strokeStart = 0.5
-
         layer.addSublayer(underlineLayer)
-
-        helpLabel.numberOfLines = 2
-        helpLabel.textColor = Color.secondaryLabel
-        helpLabel.font = Font.regular(.micro)
-        addSubview(helpLabel)
 
         updateInputType()
 
@@ -215,7 +168,7 @@ private extension FloatingPlaceholderTextField {
             !placeholderLayer.frame.isEmpty else { return }
 
         let value = text ?? ""
-        let placeholderUpTop = prefix != nil || !value.isEmpty || suffix != nil
+        let placeholderUpTop = !value.isEmpty
         let targetSize: CGFloat = placeholderUpTop ? 13.0 : font.pointSize
 
         placeholderLayer.fontSize = targetSize
@@ -233,32 +186,6 @@ private extension FloatingPlaceholderTextField {
             inputFormatter = NumberInputFormatter(textField: self)
         case .amount(let digits):
             inputFormatter = NumberInputFormatter(textField: self, maxDigits: digits)
-        }
-    }
-
-    func updatePrefix() {
-        if let prefix = prefix, !prefix.isEmpty {
-            prefixLabel.font = font
-            prefixLabel.text = prefix
-            prefixLabel.textColor = textColor
-            prefixLabel.sizeToFit()
-
-            leftView = prefixLabel
-            leftViewMode = .always
-        } else {
-            leftView = nil
-            leftViewMode = .never
-        }
-    }
-
-    func updateSuffix() {
-        if let suffix = suffix, !suffix.isEmpty {
-            suffixLabel.font = font
-            suffixLabel.text = suffix
-            suffixLabel.textColor = textColor
-            addSubview(suffixLabel)
-        } else {
-            suffixLabel.removeFromSuperview()
         }
     }
 }
