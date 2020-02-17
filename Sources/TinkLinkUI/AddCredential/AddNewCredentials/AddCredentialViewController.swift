@@ -210,14 +210,14 @@ extension AddCredentialViewController {
             task = credentialController.addCredential(
                 provider,
                 form: form,
-                progressHandler: { [unowned self] status in
+                progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
-                        self.addCredentialProgressHandler(for: status)
+                        self?.addCredentialProgressHandler(for: status)
                     }
                 },
-                completion: { [unowned self] result in
+                completion: { [weak self] result in
                     DispatchQueue.main.async {
-                        self.addCredentialCompletionHandler(result)
+                        self?.addCredentialCompletionHandler(result)
                     }
                 }
             )
