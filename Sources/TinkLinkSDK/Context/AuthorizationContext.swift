@@ -1,7 +1,7 @@
 import Foundation
 
 /// An object that you use to authorize for a user with requested scopes.
-final class AuthorizationContext {
+public final class AuthorizationContext {
     private let tinkLink: TinkLink
     private let service: AuthenticationService
 
@@ -32,6 +32,21 @@ final class AuthorizationContext {
         let redirectURI = tinkLink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
             completion(result.map { $0.code })
+        }
+    }
+
+    /// Lists scope descriptions for the provided scopes.
+    ///
+    /// - Parameters:
+    ///   - scope: A `TinkLink.Scope` list of OAuth scopes to be requested.
+    ///            The Scope array should never be empty.
+    ///   - completion: The block to execute when the scope descriptions are received or if an error occurred.
+    /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
+    @discardableResult
+    public func scopeDescriptions(scope: TinkLink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
+        let redirectURI = tinkLink.configuration.redirectURI
+        return service.scopeDescriptions(scope: scope, redirectURI: redirectURI) { (result) in
+            completion(result)
         }
     }
 }

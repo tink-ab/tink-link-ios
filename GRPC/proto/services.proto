@@ -8,6 +8,14 @@ option swift_prefix = "GRPC";
 
 import "rpc.proto";
 
+service AuthenticationService {
+    rpc Login (LoginRequest) returns (LoginResponse) {}
+    rpc Register (RegisterRequest) returns (RegisterResponse) {}
+    rpc Logout (LogoutRequest) returns (LogoutResponse) {}
+    // Used by Tink Link when it starts, as a precondition to displaying any Tink Link UI
+    rpc DescribeOAuth2Client (DescribeOAuth2ClientRequest) returns (DescribeOAuth2ClientResponse) {}
+}
+
 service CredentialService {
     rpc ListCredentials (ListCredentialsRequest) returns (ListCredentialsResponse) {}
     rpc CreateCredential (CreateCredentialRequest) returns (CreateCredentialResponse) {}

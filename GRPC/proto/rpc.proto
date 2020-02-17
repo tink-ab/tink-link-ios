@@ -9,6 +9,47 @@ option swift_prefix = "GRPC";
 import "models.proto";
 import "google/protobuf/wrappers.proto";
 
+message DescribeOAuth2ClientRequest {
+    string client_id = 1;
+    repeated string scopes = 2;
+    string redirect_uri = 3;
+}
+
+message DescribeOAuth2ClientResponse {
+    string client_icon_url = 1;
+    string client_name = 2;
+    string client_url = 3;
+    bool embedded_allowed = 4;
+    repeated OAuth2ScopeDescription scopes = 5;
+    bool verified = 6;
+    bool aggregator = 7;
+}
+
+message LoginRequest {
+    string authentication_token = 1;
+}
+
+message LoginResponse {
+    string session_id = 1;
+}
+
+message RegisterRequest {
+    string authentication_token = 1;
+    string email = 2;
+    string locale = 3;
+}
+
+message RegisterResponse {
+    string session_id = 1;
+}
+
+message LogoutRequest {
+    bool autologout = 1;
+}
+
+message LogoutResponse {
+}
+
 // CredentialService
 
 message CreateCredentialRequest {
