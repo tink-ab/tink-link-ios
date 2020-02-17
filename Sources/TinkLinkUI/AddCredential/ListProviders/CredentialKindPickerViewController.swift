@@ -26,7 +26,7 @@ extension CredentialKindPickerViewController {
         navigationItem.title = credentialKindNodes.first?.provider.displayName
         navigationItem.largeTitleDisplayMode = .never
 
-        tableView.register(ProviderCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(CredentialKindCell.self, forCellReuseIdentifier: "Cell")
         tableView.tableFooterView = UIView(frame: .zero)
     }
 }
@@ -41,11 +41,10 @@ extension CredentialKindPickerViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let node = credentialKindNodes[indexPath.row]
-        if let providerCell = cell as? ProviderCell {
-            if let url = node.imageURL {
-                providerCell.setImage(url: url)
-            }
-            providerCell.setTitle(text: node.credentialKind.description)
+        let icon: Icon = node.credentialKind == .mobileBankID ? .bankID : .password
+        if let credentialKindCell = cell as? CredentialKindCell {
+            credentialKindCell.setIcon(icon)
+            credentialKindCell.setTitle(text: node.credentialKind.description)
         }
         return cell
     }
