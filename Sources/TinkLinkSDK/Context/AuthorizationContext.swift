@@ -49,4 +49,26 @@ public final class AuthorizationContext {
             completion(result)
         }
     }
+
+    /// Get a link to the Terms & Conditions for TinkLink.
+    ///
+    /// - Parameter locale: The locale with the language to use.
+    /// - Returns: A URL to the Terms & Conditions.
+    /// - Note: Not all languages are supported.
+    ///         The link will display the page in English if the requested language is not available.
+    public func termsAndConditions(for locale: Locale = .current) -> URL {
+         let languageCode = locale.languageCode ?? ""
+         return URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
+    }
+
+    /// Get a link to the Privacy Policy for TinkLink.
+    ///
+    /// - Parameter locale: The locale with the language to use.
+    /// - Returns: A URL to the Privacy Policy.
+    /// - Note: Not all languages are supported.
+    ///         The link will display the page in English if the requested language is not available.
+    public func privacyPolicy(for locale: Locale = .current) -> URL {
+         let languageCode = locale.languageCode ?? ""
+         return URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
+    }
 }
