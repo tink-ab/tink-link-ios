@@ -3,7 +3,7 @@ import UIKit
 final class FloatingButton: UIControl {
     
     private enum Constants {
-        static let insets = UIEdgeInsets(top: 0, left: 52, bottom: 0, right: 52)
+        static let insets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
     }
     
     private let titleLabel = UILabel()
@@ -11,10 +11,12 @@ final class FloatingButton: UIControl {
     private let imageView = UIImageView()
     private var imageWidthConstraint: NSLayoutConstraint?
     private var imageTrailingConstraint: NSLayoutConstraint?
+    private var minimumWidthConstraint: NSLayoutConstraint?
 
     var minimumWidth: CGFloat = 169 {
         didSet {
             invalidateIntrinsicContentSize()
+            minimumWidthConstraint?.constant = minimumWidth
             setNeedsLayout()
         }
     }
@@ -79,7 +81,7 @@ final class FloatingButton: UIControl {
         let titleLabelSize = titleLabel.intrinsicContentSize
         let imageWidth = imageWidthConstraint?.constant ?? 0
         return CGSize(width: max(minimumWidth, titleLabelSize.width + Constants.insets.left + Constants.insets.right + imageWidth),
-                          height: 52)
+                          height: 48)
     }
 
     private func setup() {
@@ -114,8 +116,11 @@ final class FloatingButton: UIControl {
         let imageTrailingConstraint = titleLabel.leadingAnchor.constraint(equalTo: imageView.layoutMarginsGuide.trailingAnchor, constant: 0)
         self.imageTrailingConstraint = imageTrailingConstraint
         
+        let minimumWidthConstraint = widthAnchor.constraint(greaterThanOrEqualToConstant: minimumWidth)
+        self.minimumWidthConstraint = minimumWidthConstraint
+        
         NSLayoutConstraint.activate([
-            widthAnchor.constraint(greaterThanOrEqualToConstant: minimumWidth),
+            minimumWidthConstraint,
             imageWidthConstraint,
             contentView.centerYAnchor.constraint(equalTo: centerYAnchor),
             contentView.centerXAnchor.constraint(equalTo: centerXAnchor),
