@@ -1,6 +1,6 @@
 import UIKit
 
-public final class NumberInputFormatter: InputFormatter {
+public final class NumericCodeInputFormatter: InputFormatter {
     private var numberFormatter = NumberFormatter()
     private var maxDigits: Int?
 
@@ -29,16 +29,7 @@ public final class NumberInputFormatter: InputFormatter {
             text = String(text.prefix(maxDigits))
         }
 
-        var index = (text as NSString).range(of: numberFormatter.decimalSeparator).location
-        if index == NSNotFound {
-            index = (text as NSString).length
-        }
-
-        let attributedString = NSMutableAttributedString(string: text)
-
-        stride(from: index - 3, to: 0, by: -3).forEach { i in
-            attributedString.addAttributes([.kern: 6.0], range: NSRange(location: i - 1, length: 1))
-        }
+        let attributedString = NSMutableAttributedString(string: text, attributes: [.kern: 6.0])
 
         let location = textField.selectedTextRange
         textField.attributedText = attributedString

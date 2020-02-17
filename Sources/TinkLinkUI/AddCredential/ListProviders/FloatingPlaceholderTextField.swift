@@ -183,9 +183,9 @@ private extension FloatingPlaceholderTextField {
         case .text:
             inputFormatter = TextInputFormatter(textField: self)
         case .number:
-            inputFormatter = NumberInputFormatter(textField: self)
+            inputFormatter = NumericCodeInputFormatter(textField: self)
         case .amount(let digits):
-            inputFormatter = NumberInputFormatter(textField: self, maxDigits: digits)
+            inputFormatter = NumericCodeInputFormatter(textField: self, maxDigits: digits)
         }
     }
 }
