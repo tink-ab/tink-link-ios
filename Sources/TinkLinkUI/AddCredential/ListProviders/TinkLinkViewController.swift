@@ -159,10 +159,10 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
 extension TinkLinkViewController {
     private func showDiscardActionSheet() {
         let alert = UIAlertController(title: "Are you sure you want to discard this new credential?", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Discard Changes", style: .destructive, handler: { _ in
             self.dismiss(animated: true)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Continue Editing", style: .cancel, handler: nil))
         present(alert, animated: true)
     }
 }
