@@ -113,7 +113,7 @@ public final class AuthorizationContext {
         let scope = TinkLink.Scope(scopes: [TinkLink.Scope.User.read])
         let redirectURI = tinkLink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
-            completion(result.map({ !$0.isAggregator }))
+            completion(result.map({ $0.isAggregator }))
         }
     }
 
