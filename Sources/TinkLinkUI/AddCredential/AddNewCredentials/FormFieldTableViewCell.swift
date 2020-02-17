@@ -12,14 +12,6 @@ class FormFieldTableViewCell: UITableViewCell {
 
     static var reuseIdentifier: String { "TextFieldCell" }
 
-    lazy var textField = FormFieldTextField()
-    let headerLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Font.regular(.hecto)
-        label.textColor = Color.label
-        return label
-    }()
     let footerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,6 +20,7 @@ class FormFieldTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         return label
     }()
+    lazy var textField = FloatingPlaceholderTextField()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -51,25 +44,21 @@ class FormFieldTableViewCell: UITableViewCell {
     
     private func setup() {
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.tintColor = Color.accent
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
         textField.delegate = self
 
+        contentView.layoutMargins = .init(top: 16, left: 20, bottom: 4, right: 20)
         contentView.backgroundColor = Color.background
-        contentView.layoutMargins = .init(top: 4, left: 20, bottom: 4, right: 20)
         contentView.addSubview(textField)
-        contentView.addSubview(headerLabel)
         contentView.addSubview(footerLabel)
 
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            headerLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            headerLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-
-            textField.topAnchor.constraint(equalTo: headerLabel.lastBaselineAnchor, constant: 12),
+            textField.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             textField.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            textField.bottomAnchor.constraint(equalTo: footerLabel.topAnchor, constant: -8),
             textField.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
-
+            textField.bottomAnchor.constraint(equalTo: footerLabel.topAnchor, constant: -8),
             footerLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             footerLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
             footerLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
@@ -78,7 +67,6 @@ class FormFieldTableViewCell: UITableViewCell {
 
     func configure(with field: Form.Field) {
         textField.configure(with: field)
-        headerLabel.text = field.attributes.description
         footerLabel.text = field.attributes.helpText
     }
 }
@@ -92,15 +80,42 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.layer.borderColor = Color.accentBackground.cgColor
         delegate?.formFieldCellDidEndEditing(self)
-    }
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = Color.accent.cgColor
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return delegate?.formFieldCellShouldReturn(self) ?? true
+    }
+}
+
+extension FloatingPlaceholderTextField {
+    func configure(with field: Form.Field) {
+        switch field.attributes.inputType {
+        case .default:
+            inputType = .text
+        case .numeric:
+            if let maxLength = field.validationRules.maxLength {
+                inputType = .amount(maxLength)
+            } else {
+                inputType = .number
+            }
+        }
+
+        if field.attributes.isEditable {
+            isEnabled = true
+            backgroundColor = nil
+            textAlignment = .natural
+            heightPadding = 8
+        } else {
+            isEnabled = false
+            inputType = .number
+            backgroundColor = Color.accentBackground
+            textAlignment = .center
+            heightPadding = 16
+        }
+
+        text = field.text
+        placeholder = field.attributes.description
+        isSecureTextEntry = field.attributes.isSecureTextEntry
     }
 }
