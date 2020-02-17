@@ -38,6 +38,10 @@ final class AddCredentialViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    deinit {
+        task?.cancel()
+    }
 }
 
 // MARK: - View Lifecycle
