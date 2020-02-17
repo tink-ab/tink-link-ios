@@ -232,6 +232,7 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
         let field = form.fields[indexPath.item]
         if let textFieldCell = cell as? FormFieldTableViewCell {
             textFieldCell.configure(with: field)
+            textFieldCell.delegate = self
         }
         return cell
     }
@@ -274,7 +275,7 @@ extension AddCredentialViewController {
         hideUpdatingView()
         let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
         supplementalInformationViewController.delegate = self
-        let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
+        let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
         show(navigationController, sender: nil)
     }
 

@@ -25,6 +25,7 @@ class FormFieldTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.regular(.nano)
         label.textColor = Color.secondaryLabel
+        label.numberOfLines = 0
         return label
     }()
 
