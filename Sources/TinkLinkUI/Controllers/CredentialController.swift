@@ -15,7 +15,6 @@ final class CredentialController {
 
     var user: User?
 
-    var updatedCredentials: [Credential] = []
     private(set) var supplementInformationTask: SupplementInformationTask?
 
     private(set) var credentialContext: CredentialContext?
