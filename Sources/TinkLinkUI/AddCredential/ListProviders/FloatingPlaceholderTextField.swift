@@ -1,14 +1,14 @@
 import UIKit
 
-public class FloatingPlaceholderTextField: UITextField {
+class FloatingPlaceholderTextField: UITextField {
 
-    public enum InputType {
+    enum InputType {
         case text
         case number
         case amount(Int)
     }
 
-    public var inputType: InputType = .text {
+    var inputType: InputType = .text {
         didSet {
             updateInputType()
             inputFormatter?.update()
@@ -19,7 +19,7 @@ public class FloatingPlaceholderTextField: UITextField {
 
     private let underlineLayer = CAShapeLayer()
     private let placeholderLayer = CATextLayer()
-    override public var placeholder: String? {
+    override var placeholder: String? {
         didSet {
             placeholderLayer.string = placeholder
         }
@@ -27,51 +27,40 @@ public class FloatingPlaceholderTextField: UITextField {
 
     private let helpLabel = UILabel()
 
-    public var placeholderTextColor: UIColor! {
-        set {
-            placeholderLayer.foregroundColor = newValue.cgColor
-        }
-        get {
-            return UIColor(cgColor: placeholderLayer.foregroundColor ?? UIColor.lightText.cgColor)
-        }
-    }
-
-    public var string: String? { attributedText?.string ?? text }
-
-    public var lineWidth: CGFloat = 2.0 {
+    var lineWidth: CGFloat = 2.0 {
         didSet {
             underlineLayer.lineWidth = lineWidth
         }
     }
 
-    public var heightPadding: CGFloat = 0.0 {
+    var heightPadding: CGFloat = 8.0 {
         didSet {
             invalidateIntrinsicContentSize()
         }
     }
 
     private lazy var prefixLabel = UILabel()
-    public var prefix: String? {
+    var prefix: String? {
         didSet {
             updatePrefix()
         }
     }
 
     private lazy var suffixLabel = UILabel()
-    public var suffix: String? {
+    var suffix: String? {
         didSet {
             updateSuffix()
         }
     }
 
-    public override var text: String? {
+    override var text: String? {
         didSet {
             updatePlaceholderLayer()
             inputFormatter?.update()
         }
     }
 
-    public override var font: UIFont? {
+    override var font: UIFont? {
         didSet {
             if prefix != nil {
                 prefixLabel.font = font
@@ -83,28 +72,11 @@ public class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    public var helpFont: UIFont? {
-        didSet {
-            helpLabel.font = helpFont
-            setNeedsLayout()
-        }
-    }
-
-    public var helpColor: UIColor? {
-        didSet {
-            helpLabel.textColor = helpColor
-        }
-    }
-
-    public var helpText: String? {
+    var helpText: String? {
         didSet {
             helpLabel.text = helpText
             setNeedsLayout()
         }
-    }
-
-    convenience init() {
-        self.init(frame: .zero)
     }
 
     override init(frame: CGRect) {
@@ -119,13 +91,13 @@ public class FloatingPlaceholderTextField: UITextField {
         setup()
     }
 
-    override public func drawPlaceholder(in rect: CGRect) {
+    override func drawPlaceholder(in rect: CGRect) {
         if placeholderLayer.frame.isEmpty {
             placeholderLayer.frame = rect
         }
     }
 
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         placeholderLayer.frame = placeholderRect(forBounds: bounds)
 
@@ -150,10 +122,10 @@ public class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    public override var canBecomeFirstResponder: Bool { true }
+    override var canBecomeFirstResponder: Bool { true }
 
     @discardableResult
-    public override func becomeFirstResponder() -> Bool {
+    override func becomeFirstResponder() -> Bool {
         let result = super.becomeFirstResponder()
         if result {
             underlineLayer.strokeStart = 0.0
@@ -162,9 +134,9 @@ public class FloatingPlaceholderTextField: UITextField {
         return result
     }
 
-    public override var canResignFirstResponder: Bool { true }
+    override var canResignFirstResponder: Bool { true }
 
-    public override func resignFirstResponder() -> Bool {
+    override func resignFirstResponder() -> Bool {
         let result = super.resignFirstResponder()
         if result {
             underlineLayer.strokeStart = 0.5
@@ -173,21 +145,21 @@ public class FloatingPlaceholderTextField: UITextField {
         return result
     }
 
-    public override var intrinsicContentSize: CGSize {
+    override var intrinsicContentSize: CGSize {
         var size = super.intrinsicContentSize
         size.height += heightPadding * 2
         size.height = size.height.rounded()
         return size
     }
 
-    public override func tintColorDidChange() {
+    override func tintColorDidChange() {
         super.tintColorDidChange()
 
         underlineLayer.strokeColor = tintColor.cgColor
         underlineLayer.backgroundColor = Color.separator.cgColor
     }
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
         if #available(iOS 13.0, *) {
@@ -205,10 +177,12 @@ private extension FloatingPlaceholderTextField {
         clipsToBounds = false
         backgroundColor = .clear
 
+        font = Font.regular(.hecto)
+        textColor = Color.label
         placeholderLayer.font = font as CFTypeRef
         placeholderLayer.contentsScale = UIScreen.main.scale
         placeholderLayer.string = placeholder
-        placeholderLayer.foregroundColor = UIColor.lightText.cgColor
+        placeholderLayer.foregroundColor = Color.secondaryLabel.cgColor
         placeholderLayer.anchorPoint = .zero
         layer.addSublayer(placeholderLayer)
 
@@ -222,6 +196,8 @@ private extension FloatingPlaceholderTextField {
         layer.addSublayer(underlineLayer)
 
         helpLabel.numberOfLines = 2
+        helpLabel.textColor = Color.secondaryLabel
+        helpLabel.font = Font.regular(.micro)
         addSubview(helpLabel)
 
         updateInputType()
