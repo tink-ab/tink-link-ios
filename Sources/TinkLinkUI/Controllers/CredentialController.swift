@@ -35,20 +35,6 @@ final class CredentialController {
         self.tinkLink = tinkLink
     }
 
-    func performRefresh(_ credentials: [Credential]) {
-        guard let user = user else { return }
-        if credentialContext == nil {
-            credentialContext = CredentialContext(user: user)
-        }
-        refreshTask = credentialContext?.refresh(
-            credentials,
-            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
-            progressHandler: { [weak self] in self?.refreshProgressHandler(status: $0) },
-            completion: { [weak self] in
-                self?.refreshCompletionHandler(result: $0)
-        })
-    }
-
     func addCredential(_ provider: Provider, form: Form) {
         guard let user = user else { return }
         if credentialContext == nil {
@@ -60,10 +46,6 @@ final class CredentialController {
             progressHandler: { [weak self] in self?.createProgressHandler(for: $0) },
             completion: { [weak self] in self?.createCompletionHandler(result: $0) }
         )
-    }
-
-    func cancelRefresh() {
-        refreshTask?.cancel()
     }
 
     func cancelAddCredential() {
