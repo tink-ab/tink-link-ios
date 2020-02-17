@@ -25,6 +25,8 @@ final class AddCredentialHeaderView: UIView {
     }()
     private lazy var userInfoDescription: UITextView = {
         let userInfoDescription = UITextView()
+        userInfoDescription.textContainerInset = .zero
+        userInfoDescription.textContainer.lineFragmentPadding = 0
         userInfoDescription.font = Font.regular(.micro)
         userInfoDescription.textColor = Color.label
         userInfoDescription.isScrollEnabled = false
@@ -47,6 +49,9 @@ final class AddCredentialHeaderView: UIView {
         dashLayer.lineDashPattern = [1,3]
         return dashLayer
     }()
+
+    private var userInfoLabelBottomSpace: NSLayoutConstraint?
+    private var userInfoDescriptionBottomSpace: NSLayoutConstraint?
 
     private var readMoreRange: NSRange?
     private var userInfoDescriptionTopConstraint: NSLayoutConstraint?
@@ -86,10 +91,15 @@ final class AddCredentialHeaderView: UIView {
         addSubview(userInfoLabel)
         addSubview(userInfoDescription)
 
-        let userInfoDescriptionTopConstraint = userInfoDescription.topAnchor.constraint(equalTo: userInfoLabel.lastBaselineAnchor, constant: 4)
+        let userInfoDescriptionTopConstraint = userInfoDescription.topAnchor.constraint(equalTo: userInfoLabel.lastBaselineAnchor, constant: 8)
         self.userInfoDescriptionTopConstraint = userInfoDescriptionTopConstraint
         let userInfoDescriptionEmptyUsernameConstraint = userInfoDescription.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor)
         self.userInfoDescriptionEmptyUsernameConstraint = userInfoDescriptionEmptyUsernameConstraint
+
+        userInfoLabelBottomSpace = userInfoLabel.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+
+        let userInfoDescriptionBottomSpace = userInfoDescription.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+        self.userInfoDescriptionBottomSpace = userInfoDescriptionBottomSpace
 
         NSLayoutConstraint.activate([
             bankIconView.widthAnchor.constraint(equalToConstant: 30),
@@ -118,7 +128,7 @@ final class AddCredentialHeaderView: UIView {
             userInfoDescriptionTopConstraint,
             userInfoDescription.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor),
             userInfoDescription.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            userInfoDescription.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+            userInfoDescriptionBottomSpace
         ])
     }
 
@@ -136,7 +146,7 @@ final class AddCredentialHeaderView: UIView {
         dashLayer.path = path
     }
 
-    func configure(with provider: Provider, username: String? = nil) {
+    func configure(with provider: Provider, username: String? = nil, isAggregator: Bool) {
         if let username = username, !username.isEmpty {
             userInfoLabel.text = username
             userInfoLabel.isHidden = false
@@ -166,7 +176,22 @@ final class AddCredentialHeaderView: UIView {
             NSAttributedString.Key.font: Font.bold(.micro),
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
-        userInfoDescription.sizeToFit()
+        userInfoDescription.isHidden = isAggregator
+        if isAggregator {
+            if let constraint = userInfoLabelBottomSpace {
+                NSLayoutConstraint.activate([constraint])
+            }
+            if let constraint = userInfoDescriptionBottomSpace {
+                NSLayoutConstraint.deactivate([constraint])
+            }
+        } else {
+            if let constraint = userInfoLabelBottomSpace {
+                NSLayoutConstraint.deactivate([constraint])
+            }
+            if let constraint = userInfoDescriptionBottomSpace {
+                NSLayoutConstraint.activate([constraint])
+            }
+        }
     }
 }
 

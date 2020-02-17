@@ -20,6 +20,11 @@ final class AuthorizationController {
     }
 
     @discardableResult
+    func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable? {
+        return authorizationContext?.isAggregator(completion: completion)
+    }
+
+    @discardableResult
     public func scopeDescriptions(scope: TinkLink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable? {
         return authorizationContext?.scopeDescriptions(scope: scope, completion: completion)
     }

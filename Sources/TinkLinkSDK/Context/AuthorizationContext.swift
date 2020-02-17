@@ -35,11 +35,27 @@ public final class AuthorizationContext {
         }
     }
 
+    /// Lists scope descriptions for the provided scopes.
+    ///
+    /// - Parameters:
+    ///   - scope: A `TinkLink.Scope` list of OAuth scopes to be requested.
+    ///            The Scope array should never be empty.
+    ///   - completion: The block to execute when the scope descriptions are received or if an error occurred.
+    /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
+    @discardableResult
+    public func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable {
+        let scope = TinkLink.Scope(scopes: [TinkLink.Scope.User.read])
+        let redirectURI = tinkLink.configuration.redirectURI
+        return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
+            completion(result.map({ !$0.isAggregator }))
+        }
+    }
+
     @discardableResult
     public func scopeDescriptions(scope: TinkLink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
         let redirectURI = tinkLink.configuration.redirectURI
-        return service.scopeDescriptions(scope: scope, redirectURI: redirectURI) { (result) in
-            completion(result)
+        return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
+            completion(result.map({ $0.scopes }))
         }
     }
 }

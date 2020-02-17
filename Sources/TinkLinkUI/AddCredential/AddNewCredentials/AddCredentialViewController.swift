@@ -10,6 +10,7 @@ final class AddCredentialViewController: UIViewController {
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
     private let credentialController: CredentialController
+    private let isAggregator: Bool
     private var form: Form
     private var formError: Form.ValidationError?
 
@@ -23,11 +24,12 @@ final class AddCredentialViewController: UIViewController {
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
 
-    init(provider: Provider, username: String?, credentialController: CredentialController) {
+    init(provider: Provider, username: String?, credentialController: CredentialController, isAggregator: Bool) {
         self.provider = provider
         self.form = Form(provider: provider)
         self.credentialController = credentialController
         self.username = username
+        self.isAggregator = isAggregator
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -65,7 +67,7 @@ extension AddCredentialViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        headerView.configure(with: provider, username: username)
+        headerView.configure(with: provider, username: username, isAggregator: isAggregator)
         headerView.delegate = self
 
         tableView.backgroundColor = .clear
@@ -75,7 +77,7 @@ extension AddCredentialViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         addCredentialFooterView.delegate = self
-        addCredentialFooterView.configure(with: provider)
+        addCredentialFooterView.configure(with: provider, isAggregator: isAggregator)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         addCredentialFooterView.button.addTarget(self, action: #selector(addCredential), for: .touchUpInside)
         
