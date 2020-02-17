@@ -18,11 +18,7 @@ final class CredentialController {
             NotificationCenter.default.post(name: .credentialControllerDidUpdateCredentials, object: nil)
         }
     }
-    var user: User? {
-        didSet {
-            performFetch()
-        }
-    }
+    var user: User?
 
     var updatedCredentials: [Credential] = []
     private(set) var supplementInformationTask: SupplementInformationTask?
