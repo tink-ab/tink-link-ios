@@ -52,6 +52,7 @@ class FormFieldTableViewCell: UITableViewCell {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
 
+        contentView.backgroundColor = Color.background
         contentView.layoutMargins = .init(top: 4, left: 20, bottom: 4, right: 20)
         contentView.addSubview(textField)
         contentView.addSubview(headerLabel)
