@@ -8,13 +8,9 @@ protocol AddCredentialFooterViewDelegate: AnyObject {
 final class AddCredentialFooterView: UIView {
     weak var delegate: AddCredentialFooterViewDelegate?
 
-    lazy var button: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = Font.semibold(.hecto)
-        button.setTitle("Continue", for: .normal)
-        button.setTitleColor(Color.background, for: .normal)
-        button.backgroundColor = Color.accent
-        button.contentEdgeInsets = .init(top: 12, left: 24, bottom: 12, right: 24)
+    lazy var button: FloatingButton = {
+        let button = FloatingButton()
+        button.text = "Continue"
         return button
     }()
     private lazy var bankIdAnotherDeviceButton: UIButton = {
@@ -121,12 +117,12 @@ final class AddCredentialFooterView: UIView {
     func configure(with provider: Provider) {
         switch provider.credentialKind {
         case .mobileBankID:
-            button.setTitle("Open BankID", for: .normal)
+            button.text = "Open BankID"
             if bankIdAnotherDeviceButton.superview == nil {
                 stackView.insertArrangedSubview(bankIdAnotherDeviceButton, at: 0)
             }
         default:
-            button.setTitle("Continue", for: .normal)
+            button.text = "Continue"
             if bankIdAnotherDeviceButton.superview != nil {
                 bankIdAnotherDeviceButton.removeFromSuperview()
             }
