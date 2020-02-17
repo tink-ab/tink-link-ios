@@ -123,7 +123,7 @@ final class FloatingButton: UIControl {
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             imageTrailingConstraint,
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
             ])
     }
 }
