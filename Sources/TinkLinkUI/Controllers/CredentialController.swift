@@ -13,11 +13,6 @@ extension Notification.Name {
 final class CredentialController {
     let tinkLink: TinkLink
 
-    var credentials: [Credential] = [] {
-        didSet {
-            NotificationCenter.default.post(name: .credentialControllerDidUpdateCredentials, object: nil)
-        }
-    }
     var user: User?
 
     var updatedCredentials: [Credential] = []
@@ -64,8 +59,6 @@ final class CredentialController {
 
     private func createCompletionHandler(result: Result<Credential, Error>) {
         do {
-            let credential = try result.get()
-            credentials.append(credential)
             NotificationCenter.default.post(name: .credentialControllerDidAddCredential, object: nil)
         } catch {
             let parameters = ["error": error]
