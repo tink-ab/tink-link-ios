@@ -40,8 +40,8 @@ final class FloatingButton: UIControl {
     var image: UIImage? {
         didSet {
             if let image = image {
-                imageWidthConstraint?.constant = image.size.width + 8
-                imageTrailingConstraint?.constant = 8
+                imageWidthConstraint?.constant = image.size.width + 4
+                imageTrailingConstraint?.constant = 4
             } else {
                 imageWidthConstraint?.constant = 0
                 imageTrailingConstraint?.constant = 0
@@ -113,7 +113,7 @@ final class FloatingButton: UIControl {
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: 0)
         self.imageWidthConstraint = imageWidthConstraint
         
-        let imageTrailingConstraint = titleLabel.leadingAnchor.constraint(equalTo: imageView.layoutMarginsGuide.trailingAnchor, constant: 0)
+        let imageTrailingConstraint = titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 0)
         self.imageTrailingConstraint = imageTrailingConstraint
         
         let minimumWidthConstraint = widthAnchor.constraint(greaterThanOrEqualToConstant: minimumWidth)
