@@ -42,7 +42,6 @@ public class TinkLinkViewController: UINavigationController {
             DispatchQueue.main.async {
                 do {
                     let user = try result.get()
-                    self.user = user
                     self.providerController.user = user
                     self.credentialController.user = user
                     self.authorizationController.user = user
