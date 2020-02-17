@@ -170,6 +170,7 @@ extension AddCredentialViewController {
     @objc private func updatedStatus(notification: Notification) {
         DispatchQueue.main.async {
             if let userInfo = notification.userInfo as? [String: String], let status = userInfo["status"] {
+                // TODO: Check that the credential added is referring to the credential that was added by this view controller.
                 self.showUpdating(status: status)
             }
         }
