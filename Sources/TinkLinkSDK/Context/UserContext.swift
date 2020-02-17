@@ -58,4 +58,9 @@ public final class UserContext {
             }
         }
     }
+
+    @discardableResult
+    public func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
+        return userService.getUserProfile(completion: completion)
+    }
 }
