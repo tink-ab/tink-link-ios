@@ -67,7 +67,7 @@ class FormFieldTableViewCell: UITableViewCell {
 
     func configure(with field: Form.Field) {
         textField.configure(with: field)
-        footerLabel.text = "TEST"
+        footerLabel.text = field.attributes.helpText
     }
 }
 
@@ -100,9 +100,22 @@ extension FloatingPlaceholderTextField {
                 inputType = .number
             }
         }
+
+        if field.attributes.isEditable {
+            isEnabled = true
+            backgroundColor = nil
+            textAlignment = .natural
+            heightPadding = 8
+        } else {
+            isEnabled = false
+            inputType = .number
+            backgroundColor = Color.accentBackground
+            textAlignment = .center
+            heightPadding = 16
+        }
+
         text = field.text
         placeholder = field.attributes.description
-        isEnabled = field.attributes.isEditable
         isSecureTextEntry = field.attributes.isSecureTextEntry
     }
 }
