@@ -33,4 +33,8 @@ final class UserController {
             completion(result)
         }
     }
+
+    func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) {
+        userContext.userProfile(user, completion: completion)
+    }
 }
