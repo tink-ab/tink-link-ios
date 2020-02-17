@@ -58,7 +58,8 @@ final class CredentialController {
 
     private func createCompletionHandler(result: Result<Credential, Error>) {
         do {
-            NotificationCenter.default.post(name: .credentialControllerDidAddCredential, object: nil)
+            let credential = try result.get()
+            NotificationCenter.default.post(name: .credentialControllerDidAddCredential, object: nil, userInfo: ["id": credential.id.value])
         } catch {
             let parameters = ["error": error]
             NotificationCenter.default.post(name: .credentialControllerDidError, object: nil, userInfo: parameters)
