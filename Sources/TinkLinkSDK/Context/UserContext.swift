@@ -25,7 +25,8 @@ public final class UserContext {
             do {
                 let authenticateResponse = try result.get()
                 let accessToken = authenticateResponse.accessToken
-                completion(.success(User(accessToken: accessToken)))
+                let user = User(accessToken: accessToken)
+                self.userProfile(user, completion: completion)
             } catch {
                 completion(.failure(error))
             }
@@ -38,8 +39,8 @@ public final class UserContext {
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
     public func authenticateUser(accessToken: AccessToken, completion: @escaping (Result<User, Error>) -> Void) -> RetryCancellable? {
-        completion(.success(User(accessToken: accessToken)))
-        return nil
+        let user = User(accessToken: accessToken)
+        return userProfile(user, completion: completion)
     }
 
     /// Create a user for a specific market and locale.
@@ -53,6 +54,19 @@ public final class UserContext {
             do {
                 let accessToken = try result.get()
                 completion(.success(User(accessToken: accessToken)))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
+    @discardableResult
+    func userProfile(_ user: User, completion: @escaping (Result<User, Error>) -> Void) -> RetryCancellable? {
+        userService.defaultCallOptions.addAccessToken(user.accessToken.rawValue)
+        return userService.userProfile { result in
+            do {
+                let userProfile = try result.get()
+                completion(.success(User(accessToken: user.accessToken, userProfile: userProfile)))
             } catch {
                 completion(.failure(error))
             }

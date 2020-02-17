@@ -3,7 +3,7 @@ import GRPC
 
 final class UserService {
     let connection: ClientConnection
-    let defaultCallOptions: CallOptions
+    var defaultCallOptions: CallOptions
     let restURL: URL
 
     private var session: URLSession
@@ -68,11 +68,8 @@ final class UserService {
         return serviceRetryCanceller
     }
 
-    func marketAndLocale(completion: @escaping (Result<(Market, Locale), Error>) -> Void) -> RetryCancellable? {
+    func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
         let request = GRPCGetProfileRequest()
-        return CallHandler(for: request, method: service.getProfile, responseMap: { response -> (Market, Locale) in
-            let profile = response.userProfile
-            return (Market(code: profile.market), Locale(identifier: profile.locale))
-        }, completion: completion)
+        return CallHandler(for: request, method: service.getProfile, responseMap: {UserProfile(grpcUserProfile: $0.userProfile)}, completion: completion)
     }
 }

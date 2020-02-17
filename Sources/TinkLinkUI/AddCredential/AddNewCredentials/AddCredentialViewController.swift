@@ -5,6 +5,9 @@ import UIKit
 /// Example of how to use the provider field specification to add credential
 final class AddCredentialViewController: UIViewController {
     let provider: Provider
+    var username: String? {
+        credentialController.user?.username
+    }
 
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
@@ -65,7 +68,7 @@ extension AddCredentialViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        headerView.configure(with: provider, isAggregator: isAggregator)
+        headerView.configure(with: provider, username: username, isAggregator: isAggregator)
         headerView.delegate = self
 
         tableView.backgroundColor = .clear
