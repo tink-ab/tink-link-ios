@@ -6,7 +6,7 @@ class AccessTypeCell: UITableViewCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
-    private let button = UIButton()
+    private let button = FloatingButton()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -62,12 +62,9 @@ class AccessTypeCell: UITableViewCell {
         detailLabel.textColor = Color.label
 
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = Font.semibold(.hecto)
-        button.setTitle("Add", for: .normal)
-        button.setTitleColor(Color.secondaryGroupedBackground, for: .normal)
-        button.backgroundColor = Color.accent
-        button.layer.cornerRadius = 20
-        button.contentEdgeInsets = .init(top: 12, left: 24, bottom: 12, right: 24)
+        button.text = "Add"
+        button.minimumWidth = 125
+        button.textColor = Color.secondaryGroupedBackground
 
         separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = layoutMargins.right
@@ -92,8 +89,8 @@ class AccessTypeCell: UITableViewCell {
             detailLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
 
             button.trailingAnchor.constraint(equalTo: cardView.layoutMarginsGuide.trailingAnchor),
-            button.widthAnchor.constraint(greaterThanOrEqualToConstant: 125),
             button.topAnchor.constraint(equalTo: detailLabel.lastBaselineAnchor, constant: 24),
+            button.heightAnchor.constraint(greaterThanOrEqualToConstant: 40),
             button.bottomAnchor.constraint(equalTo: cardView.layoutMarginsGuide.bottomAnchor)
 
         ])
