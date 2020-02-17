@@ -32,6 +32,8 @@ public class TinkLinkViewController: UINavigationController {
         loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         setViewControllers([loadingViewController], animated: false)
 
+        presentationController?.delegate = self
+
         userController.createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -95,7 +97,11 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     @objc func cancel() {
-        dismiss(animated: true)
+        if didShowAddCredentialForm {
+            showDiscardActionSheet()
+        } else {
+            dismiss(animated: true)
+        }
     }
 
     @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
@@ -150,5 +156,33 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     func showWebContent(with url: URL) {
         let viewController = LegalViewController(url: url)
         present(viewController, animated: true)
+    }
+}
+
+// MARK: - Helpers
+extension TinkLinkViewController {
+    private var didShowAddCredentialForm: Bool {
+        viewControllers.contains(where: { $0 is AddCredentialViewController })
+    }
+
+    private func showDiscardActionSheet() {
+        let alert = UIAlertController(title: "Are you sure you want to discard this new credential?", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Discard Changes", style: .destructive, handler: { _ in
+            self.dismiss(animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Continue Editing", style: .cancel, handler: nil))
+        present(alert, animated: true)
+    }
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+@available(iOS 13.0, *)
+extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
+    public func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        showDiscardActionSheet()
+    }
+
+    public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        return !didShowAddCredentialForm
     }
 }
