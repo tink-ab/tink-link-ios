@@ -12,6 +12,14 @@ class FormFieldTableViewCell: UITableViewCell {
 
     static var reuseIdentifier: String { "TextFieldCell" }
 
+    let footerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Font.regular(.nano)
+        label.textColor = Color.secondaryLabel
+        label.numberOfLines = 0
+        return label
+    }()
     lazy var textField = FloatingPlaceholderTextField()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -44,17 +52,22 @@ class FormFieldTableViewCell: UITableViewCell {
         contentView.layoutMargins = .init(top: 16, left: 20, bottom: 4, right: 20)
         contentView.backgroundColor = Color.background
         contentView.addSubview(textField)
+        contentView.addSubview(footerLabel)
 
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             textField.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            textField.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
-            textField.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
+            textField.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            textField.bottomAnchor.constraint(equalTo: footerLabel.topAnchor, constant: -8),
+            footerLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            footerLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+            footerLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
         ])
     }
 
     func configure(with field: Form.Field) {
         textField.configure(with: field)
+        footerLabel.text = "TEST"
     }
 }
 
