@@ -2,8 +2,6 @@ import TinkLinkSDK
 import Foundation
 
 extension Notification.Name {
-    static let credentialControllerDidUpdateCredentials = Notification.Name("CredentialControllerDidUpdateCredentials")
-    static let credentialControllerDidFinishRefreshingCredentials = Notification.Name("credentialControllerDidFinishRefreshingCredentials")
     static let credentialControllerDidAddCredential = Notification.Name("CredentialControllerDidAddCredential")
     static let credentialControllerDidUpdateStatus = Notification.Name("CredentialControllerDidUpdateStatus")
     static let credentialControllerDidSupplementInformation = Notification.Name("CredentialControllerDidSupplementInformation")
