@@ -49,4 +49,14 @@ public final class AuthorizationContext {
             completion(result)
         }
     }
+
+    public func termsAndConditions(for locale: Locale = .current) -> URL {
+         let languageCode = locale.languageCode ?? ""
+         return URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
+    }
+
+    public func privacyPolicy(for locale: Locale = .current) -> URL {
+         let languageCode = locale.languageCode ?? ""
+         return URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
+    }
 }
