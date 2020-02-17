@@ -81,8 +81,6 @@ class FloatingPlaceholderTextField: UITextField {
         updatePlaceholderLayer()
     }
 
-    override var canBecomeFirstResponder: Bool { true }
-
     @discardableResult
     override func becomeFirstResponder() -> Bool {
         let result = super.becomeFirstResponder()
@@ -92,8 +90,6 @@ class FloatingPlaceholderTextField: UITextField {
         }
         return result
     }
-
-    override var canResignFirstResponder: Bool { true }
 
     override func resignFirstResponder() -> Bool {
         let result = super.resignFirstResponder()
