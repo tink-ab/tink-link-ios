@@ -97,7 +97,11 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     @objc func cancel() {
-        dismiss(animated: true)
+        if didShowAddCredentialForm {
+            showDiscardActionSheet()
+        } else {
+            dismiss(animated: true)
+        }
     }
 
     @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
