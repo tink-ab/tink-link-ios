@@ -5,7 +5,9 @@ import UIKit
 /// Example of how to use the provider field specification to add credential
 final class AddCredentialViewController: UIViewController {
     let provider: Provider
-    let username: String?
+    var username: String? {
+        credentialController.user?.username
+    }
 
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
@@ -24,11 +26,10 @@ final class AddCredentialViewController: UIViewController {
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
 
-    init(provider: Provider, username: String?, credentialController: CredentialController, isAggregator: Bool) {
+    init(provider: Provider, credentialController: CredentialController, isAggregator: Bool) {
         self.provider = provider
         self.form = Form(provider: provider)
         self.credentialController = credentialController
-        self.username = username
         self.isAggregator = isAggregator
 
         super.init(nibName: nil, bundle: nil)
