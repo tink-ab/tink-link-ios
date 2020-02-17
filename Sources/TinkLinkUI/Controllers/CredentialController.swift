@@ -35,22 +35,6 @@ final class CredentialController {
         self.tinkLink = tinkLink
     }
 
-    func performFetch() {
-        guard let user = user else { return }
-        if credentialContext == nil {
-            credentialContext = CredentialContext(tinkLink: tinkLink, user: user)
-        }
-        credentialContext?.fetchCredentials(completion: { [weak self] result in
-            guard let self = self else { return }
-            do {
-                let credentials = try result.get()
-                self.credentials = credentials
-            } catch {
-                NotificationCenter.default.post(name: .credentialControllerDidError, object: nil)
-            }
-        })
-    }
-
     func performRefresh(_ credentials: [Credential]) {
         guard let user = user else { return }
         if credentialContext == nil {
