@@ -14,7 +14,7 @@ final class AddCredentialViewController: UIViewController {
     private let credentialController: CredentialController
     private let isAggregator: Bool
     private var form: Form
-    private var formError: Form.ValidationError?
+    private var errors: [IndexPath: Form.Field.ValidationError] = [:]
 
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
@@ -195,6 +195,7 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
         if let textFieldCell = cell as? FormFieldTableViewCell {
             textFieldCell.configure(with: field)
             textFieldCell.delegate = self
+            textFieldCell.setError(with: errors[indexPath]?.localizedDescription)
         }
         return cell
     }
@@ -205,6 +206,8 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
 extension AddCredentialViewController {
     @objc private func addCredential() {
         view.endEditing(false)
+
+        errors = [:]
         do {
             try form.validateFields()
             task = credentialController.addCredential(
@@ -221,9 +224,19 @@ extension AddCredentialViewController {
                     }
                 }
             )
+        } catch let error as Form.ValidationError {
+            for (index, field) in form.fields.enumerated() {
+                guard let error = error[fieldName: field.name] else {
+                    continue
+                }
+
+                errors[IndexPath(row: index, section: 0)] = error
+            }
         } catch {
-            formError = error as? Form.ValidationError
+
         }
+
+        tableView.reloadSections([0], with: .automatic)
     }
 
     private func showMoreInfo() {
@@ -366,15 +379,29 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
     func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.item].text = text
+        errors[indexPath] = nil
+        tableView.beginUpdates()
+        cell.setError(with: nil)
+        tableView.endUpdates()
         addCredentialFooterView.button.isEnabled = form.areFieldsValid
     }
 
     func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell) {
-        do {
-            try form.validateFields()
-        } catch {
-            formError = error as? Form.ValidationError
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
         }
+
+        let field = form.fields[indexPath.item]
+
+        do {
+            try field.validate()
+            errors[indexPath] = nil
+        } catch let error as Form.Field.ValidationError {
+            errors[indexPath] = error
+        } catch {
+            print("Unknown error \(error).")
+        }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 
