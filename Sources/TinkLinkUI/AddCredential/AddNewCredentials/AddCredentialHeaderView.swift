@@ -7,7 +7,11 @@ protocol AddCredentialHeaderViewDelegate: AnyObject {
 }
 
 final class AddCredentialHeaderView: UIView {
-    private lazy var bankIconView = UIImageView()
+    private lazy var bankIconView: UIImageView = {
+        let bankIconView = UIImageView()
+        bankIconView.contentMode = .scaleAspectFit
+        return bankIconView
+    }()
     private lazy var bankLabel: UILabel = {
         let bankLabel = UILabel()
         bankLabel.font = Font.semibold(.deci)
