@@ -11,8 +11,7 @@ final class SupplementalInformationViewController: UIViewController {
 
     weak var delegate: SupplementalInformationViewControllerDelegate?
 
-    // TODO: Replace with new button by Mani
-    private let button = UIButton(type: .system)
+    private let button = FloatingButton()
     private let tableView = UITableView(frame: .zero, style: .plain)
 
     let supplementInformationTask: SupplementInformationTask
@@ -61,7 +60,7 @@ extension SupplementalInformationViewController {
 
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
-        button.setTitle("Done", for: .normal)
+        button.text = "Done"
 
         navigationItem.title = "Supplemental Information"
         navigationItem.largeTitleDisplayMode = .never

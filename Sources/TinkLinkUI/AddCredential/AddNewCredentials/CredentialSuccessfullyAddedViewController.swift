@@ -8,7 +8,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
     private let containerView = UIView()
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
-    private let doneButton = UIButton(type: .system)
+    private let doneButton = FloatingButton()
     
     init(companyName: String) {
         self.companyName = companyName
@@ -48,12 +48,8 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         detailLabel.numberOfLines = 0
         detailLabel.font = Font.regular(.deci)
         
-        doneButton.setTitle("Done", for: .normal)
-        doneButton.titleLabel?.font = Font.semibold(.hecto)
-        doneButton.setTitleColor(Color.background, for: .normal)
-        doneButton.backgroundColor = Color.accent
+        doneButton.text = "Done"
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
-        doneButton.contentEdgeInsets = UIEdgeInsets(top: 13, left: 68, bottom: 16, right: 68)
         
         iconView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
