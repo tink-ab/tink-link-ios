@@ -137,8 +137,8 @@ final class AddCredentialHeaderView: UIView {
             userInfoIconBackgroundView.heightAnchor.constraint(equalToConstant: 30),
             userInfoIconBackgroundView.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor),
             userInfoIconBackgroundView.centerXAnchor.constraint(equalTo: userInfoIconView.centerXAnchor),
-            userInfoIconView.widthAnchor.constraint(equalToConstant: 16),
-            userInfoIconView.heightAnchor.constraint(equalToConstant: 16),
+            userInfoIconView.widthAnchor.constraint(equalToConstant: 18),
+            userInfoIconView.heightAnchor.constraint(equalToConstant: 18),
             userInfoIconView.centerXAnchor.constraint(equalTo: dashLine.centerXAnchor),
 
             userInfoLabel.leadingAnchor.constraint(equalTo: userInfoIconBackgroundView.trailingAnchor, constant: 8),
