@@ -13,7 +13,7 @@ final class AddCredentialFooterView: UIView {
         button.text = "Continue"
         return button
     }()
-    private lazy var bankIdAnotherDeviceButton: UIButton = {
+    lazy var bankIdAnotherDeviceButton: UIButton = {
         // TODO: handle using another deivce for BankID?
         let bankIdAnotherDeviceButton = UIButton()
         bankIdAnotherDeviceButton.setTitle("Open Mobile BankID on another device", for: .normal)

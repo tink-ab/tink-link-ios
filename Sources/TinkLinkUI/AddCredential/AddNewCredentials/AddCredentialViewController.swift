@@ -18,6 +18,7 @@ final class AddCredentialViewController: UIViewController {
 
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
+    private var qrImageViewController: QRImageViewController?
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
     private var didFirstFieldBecomeFirstResponder = false
 
@@ -51,6 +52,7 @@ extension AddCredentialViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updatedStatus), name: .credentialControllerDidUpdateStatus, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(credentialAdded), name: .credentialControllerDidAddCredential, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialControllerDidSupplementInformation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(openQRCode), name: .credentialControllerDidUpdateQRCode, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialControllerDidError, object: nil)
         NotificationCenter.default.addObserver(
             self,
@@ -81,6 +83,7 @@ extension AddCredentialViewController {
         addCredentialFooterView.configure(with: provider, isAggregator: isAggregator)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         addCredentialFooterView.button.addTarget(self, action: #selector(addCredential), for: .touchUpInside)
+        addCredentialFooterView.bankIdAnotherDeviceButton.addTarget(self, action: #selector(addBankIDCredentialOnAnotherDevice), for: .touchUpInside)
         
         view.addSubview(tableView)
         view.addSubview(addCredentialFooterView)
@@ -190,6 +193,14 @@ extension AddCredentialViewController {
         }
     }
 
+    @objc private func openQRCode() {
+        DispatchQueue.main.async {
+            if let data = self.credentialController.qrCodeData, let qrImage = UIImage(data: data) {
+                self.showQRCodeView(qrImage: qrImage)
+            }
+        }
+    }
+
     @objc private func receivedError(notification: Notification) {
         DispatchQueue.main.async {
             if let userInfo = notification.userInfo as? [String: Error], let error = userInfo["error"] {
@@ -256,6 +267,20 @@ extension AddCredentialViewController {
         }
     }
 
+    @objc private func addBankIDCredentialOnAnotherDevice() {
+        view.endEditing(false)
+        do {
+            try form.validateFields()
+            credentialController.addCredential(
+                provider,
+                form: form,
+                shouldAuthenticateInAnotherDevice: true
+            )
+        } catch {
+            formError = error as? Form.ValidationError
+        }
+    }
+
     private func showMoreInfo() {
         addCredentialNavigator?.showScopeDescriptions()
     }
@@ -282,6 +307,7 @@ extension AddCredentialViewController {
     }
 
     private func showUpdating(status: String) {
+        hideQRCodeView()
         if statusViewController == nil {
             let statusViewController = AddCredentialStatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
@@ -294,12 +320,29 @@ extension AddCredentialViewController {
     }
 
     private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
+        hideQRCodeView()
         guard statusViewController != nil else {
             completion?()
             return
         }
         dismiss(animated: animated, completion: completion)
         statusViewController = nil
+    }
+
+    private func showQRCodeView(qrImage: UIImage) {
+        hideUpdatingView()
+        let qrImageViewController = QRImageViewController(qrImage: qrImage)
+        self.qrImageViewController = qrImageViewController
+        present(qrImageViewController, animated: true)
+    }
+
+    private func hideQRCodeView(animated: Bool = false, completion: (() -> Void)? = nil) {
+        guard qrImageViewController != nil else {
+            completion?()
+            return
+        }
+        dismiss(animated: animated, completion: completion)
+        qrImageViewController = nil
     }
 
     private func showCredentialUpdated() {
