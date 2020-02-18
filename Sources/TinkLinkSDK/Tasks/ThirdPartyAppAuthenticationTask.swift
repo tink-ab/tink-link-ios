@@ -54,8 +54,9 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         thirdPartyAppAuthentication.deepLinkURL?.query?.contains("autostartToken") ?? false
     }
 
-    let credentialID: Credential.ID
-    let credentialService: CredentialService
+    private let credentialID: Credential.ID
+    private let credentialService: CredentialService
+    private var callRetryCancellable: RetryCancellable?
 
     init(credentialID: Credential.ID, thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication, credentialService: CredentialService, completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
         self.credentialID = credentialID
@@ -101,7 +102,16 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     #endif
 
     public func qr(completion: @escaping (Result<Data, Swift.Error>) -> Void) {
-        credentialService.qr(credentialID: credentialID, completion: completion)
+        completionHandler(.success(()))
+        callRetryCancellable = credentialService.qr(credentialID: credentialID) { [weak self] result in
+            do {
+                let qrData = try result.get()
+                completion(.success(qrData))
+            } catch {
+                completion(.failure(error))
+            }
+            self?.callRetryCancellable = nil
+        }
     }
 
     // MARK: - Controlling the Task
