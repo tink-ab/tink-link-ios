@@ -16,7 +16,7 @@ final class SupplementalInformationViewController: UIViewController {
 
     let supplementInformationTask: SupplementInformationTask
     private var form: Form
-    private var formError: Form.ValidationError?
+    private var errors: [IndexPath: Form.Field.ValidationError] = [:]
 
     private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
     private var didFirstFieldBecomeFirstResponder = false
@@ -107,6 +107,7 @@ extension SupplementalInformationViewController: UITableViewDataSource, UITableV
 
             textFieldCell.delegate = self
             textFieldCell.configure(with: field)
+            textFieldCell.setError(with: errors[indexPath]?.localizedDescription)
         }
         return cell
     }
@@ -122,12 +123,21 @@ extension SupplementalInformationViewController {
 
     @objc private func doneButtonPressed(_ sender: UIBarButtonItem) {
         tableView.resignFirstResponder()
+        errors = [:]
         do {
             try form.validateFields()
             supplementInformationTask.submit(form)
             delegate?.supplementalInformationViewController(self, didSupplementInformationForCredential: supplementInformationTask.credential)
+        } catch let error as Form.ValidationError {
+            for (index, field) in form.fields.enumerated() {
+                guard let error = error[fieldName: field.name] else {
+                    continue
+                }
+
+                errors[IndexPath(row: index, section: 0)] = error
+            }
         } catch {
-            formError = error as? Form.ValidationError
+            assertionFailure("validateFields should only throw Form.ValidationError")
         }
     }
 }
@@ -141,18 +151,31 @@ extension SupplementalInformationViewController: FormFieldTableViewCellDelegate 
     }
 
     func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
-        if let indexPath = tableView.indexPath(for: cell) {
-            form.fields[indexPath.item].text = text
-            button.isEnabled = form.fields[indexPath.section].isValid
-        }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        form.fields[indexPath.item].text = text
+        errors[indexPath] = nil
+        tableView.beginUpdates()
+        cell.setError(with: nil)
+        tableView.endUpdates()
+        button.isEnabled = form.fields[indexPath.item].isValid
     }
 
     func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell) {
-        do {
-            try form.validateFields()
-        } catch {
-            formError = error as? Form.ValidationError
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
         }
+
+        let field = form.fields[indexPath.item]
+
+        do {
+            try field.validate()
+            errors[indexPath] = nil
+        } catch let error as Form.Field.ValidationError {
+            errors[indexPath] = error
+        } catch {
+            print("Unknown error \(error).")
+        }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 
