@@ -15,7 +15,17 @@ final class AddCredentialHeaderView: UIView {
         bankLabel.numberOfLines = 0
         return bankLabel
     }()
-    private let userInfoIconView = UIImageView()
+    private let userInfoIconBackgroundView: UIView = {
+        let userInfoIconBackgroundView = UIView()
+        userInfoIconBackgroundView.backgroundColor = Color.accent.withAlphaComponent(0.1)
+        return userInfoIconBackgroundView
+    }()
+    private let userInfoIconView: UIImageView = {
+        let userInfoIconView = UIImageView()
+        userInfoIconView.tintColor = Color.accent
+        userInfoIconView.image = Icon.profile.makeImage()
+        return userInfoIconView
+    }()
     private let userInfoLabel: UILabel = {
         let userInfoLabel = UILabel()
         userInfoLabel.font = Font.semibold(.deci)
@@ -80,6 +90,7 @@ final class AddCredentialHeaderView: UIView {
         bankLabel.translatesAutoresizingMaskIntoConstraints = false
         bankIconView.translatesAutoresizingMaskIntoConstraints = false
         dashLine.translatesAutoresizingMaskIntoConstraints = false
+        userInfoIconBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         userInfoIconView.translatesAutoresizingMaskIntoConstraints = false
         userInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         userInfoDescription.translatesAutoresizingMaskIntoConstraints = false
@@ -87,6 +98,7 @@ final class AddCredentialHeaderView: UIView {
         addSubview(bankLabel)
         addSubview(bankIconView)
         addSubview(dashLine)
+        addSubview(userInfoIconBackgroundView)
         addSubview(userInfoIconView)
         addSubview(userInfoLabel)
         addSubview(userInfoDescription)
@@ -115,10 +127,14 @@ final class AddCredentialHeaderView: UIView {
             dashLine.heightAnchor.constraint(equalToConstant: 16),
             dashLine.widthAnchor.constraint(equalToConstant: 1),
             dashLine.centerXAnchor.constraint(equalTo: bankIconView.centerXAnchor),
-            dashLine.bottomAnchor.constraint(equalTo: userInfoIconView.topAnchor),
+            dashLine.bottomAnchor.constraint(equalTo: userInfoIconBackgroundView.topAnchor),
 
-            userInfoIconView.widthAnchor.constraint(equalToConstant: 30),
-            userInfoIconView.heightAnchor.constraint(equalToConstant: 30),
+            userInfoIconBackgroundView.widthAnchor.constraint(equalToConstant: 30),
+            userInfoIconBackgroundView.heightAnchor.constraint(equalToConstant: 30),
+            userInfoIconBackgroundView.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor),
+            userInfoIconBackgroundView.centerXAnchor.constraint(equalTo: userInfoIconView.centerXAnchor),
+            userInfoIconView.widthAnchor.constraint(equalToConstant: 16),
+            userInfoIconView.heightAnchor.constraint(equalToConstant: 16),
             userInfoIconView.centerXAnchor.constraint(equalTo: dashLine.centerXAnchor),
 
             userInfoLabel.leadingAnchor.constraint(equalTo: userInfoIconView.trailingAnchor, constant: 8),
@@ -135,9 +151,7 @@ final class AddCredentialHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        // TODO: remove this when we know how to add icons
-        userInfoIconView.backgroundColor = .black
-        userInfoIconView.layer.cornerRadius = userInfoIconView.frame.height / 2
+        userInfoIconBackgroundView.layer.cornerRadius = userInfoIconBackgroundView.frame.height / 2
 
         dashLayer.frame = dashLine.bounds
         let path = CGMutablePath()
