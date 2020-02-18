@@ -13,13 +13,11 @@ final class QRImageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setup()
     }
-
 
     private func setup() {
         imageView.translatesAutoresizingMaskIntoConstraints = false

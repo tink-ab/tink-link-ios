@@ -50,13 +50,9 @@ final class CredentialController {
             NotificationCenter.default.post(name: .credentialControllerDidSupplementInformation, object: nil)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             if shouldAuthenticateInAnotherDevice {
-                if thirdPartyAppAuthenticationTask.canAuthenticateInAnotherDevice {
-                    thirdPartyAppAuthenticationTask.qr { [weak self] result in
-                        self?.qrCodeData = try? result.get()
-                        NotificationCenter.default.post(name: .credentialControllerDidUpdateQRCode, object: nil)
-                    }
-                } else {
-                    // TODO: Show popup for not supporting authenticate in another device
+                thirdPartyAppAuthenticationTask.qr { [weak self] result in
+                    self?.qrCodeData = try? result.get()
+                    NotificationCenter.default.post(name: .credentialControllerDidUpdateQRCode, object: nil)
                 }
             } else {
                 thirdPartyAppAuthenticationTask.thirdPartyAppAuthentication.deepLinkURL
