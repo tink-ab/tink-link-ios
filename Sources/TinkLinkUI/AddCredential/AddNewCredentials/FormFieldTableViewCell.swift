@@ -12,7 +12,7 @@ class FormFieldTableViewCell: UITableViewCell {
 
     static var reuseIdentifier: String { "TextFieldCell" }
 
-    private var initialField: Form.Field?
+    private var field: Form.Field?
 
     let footerLabel: UILabel = {
         let label = UILabel()
@@ -68,7 +68,7 @@ class FormFieldTableViewCell: UITableViewCell {
     }
 
     func configure(with field: Form.Field) {
-        initialField = field
+        self.field = field
         textField.configure(with: field)
         footerLabel.text = field.attributes.helpText
     }
@@ -76,9 +76,9 @@ class FormFieldTableViewCell: UITableViewCell {
     func setError(with errorText: String?) {
         if let errorText = errorText {
             footerLabel.text = errorText
-            footerLabel.textColor = Color.secondaryLabel
+            footerLabel.textColor = Color.warning
         } else {
-            footerLabel.text = initialField?.attributes.helpText
+            footerLabel.text = field?.attributes.helpText
             footerLabel.textColor = Color.secondaryLabel
         }
     }
