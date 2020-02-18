@@ -90,7 +90,6 @@ class AccessTypeCell: UITableViewCell {
 
             button.trailingAnchor.constraint(equalTo: cardView.layoutMarginsGuide.trailingAnchor),
             button.topAnchor.constraint(equalTo: detailLabel.lastBaselineAnchor, constant: 24),
-            button.heightAnchor.constraint(greaterThanOrEqualToConstant: 40),
             button.bottomAnchor.constraint(equalTo: cardView.layoutMarginsGuide.bottomAnchor)
 
         ])
