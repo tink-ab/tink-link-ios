@@ -212,12 +212,12 @@ extension AddCredentialViewController {
                 form: form,
                 progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
-                        self?.addCredentialProgressHandler(for: status)
+                        self?.handleAddCredentialStatus(status)
                     }
                 },
                 completion: { [weak self] result in
                     DispatchQueue.main.async {
-                        self?.addCredentialCompletionHandler(result)
+                        self?.handleAddCredentialCompletion(result)
                     }
                 }
             )
@@ -242,7 +242,7 @@ extension AddCredentialViewController {
 // MARK: - Handlers
 
 extension AddCredentialViewController {
-    private func addCredentialProgressHandler(for status: AddCredentialTask.Status) {
+    private func handleAddCredentialStatus(_ status: AddCredentialTask.Status) {
         switch status {
         case .authenticating, .created:
             break
@@ -255,7 +255,7 @@ extension AddCredentialViewController {
         }
     }
 
-    private func addCredentialCompletionHandler(_ result: Result<Credential, Error>) {
+    private func handleAddCredentialCompletion(_ result: Result<Credential, Error>) {
         do {
             _ = try result.get()
             showCredentialUpdated()
