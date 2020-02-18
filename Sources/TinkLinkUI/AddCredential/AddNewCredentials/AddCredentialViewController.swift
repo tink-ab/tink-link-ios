@@ -233,7 +233,7 @@ extension AddCredentialViewController {
                 errors[IndexPath(row: index, section: 0)] = error
             }
         } catch {
-
+            assertionFailure("validateFields should only throw Form.ValidationError")
         }
 
         tableView.reloadSections([0], with: .automatic)
