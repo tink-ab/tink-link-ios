@@ -49,10 +49,17 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
     /// Information about how to open or download the third party application app.
     public private(set) var thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication
-
     private let completionHandler: (Result<Void, Swift.Error>) -> Void
+    public var canAcuthenticateInAnotherDevice: Bool {
+        thirdPartyAppAuthentication.deepLinkURL?.query?.contains("autostartToken") ?? false
+    }
 
-    init(thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication, completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
+    let credentialID: Credential.ID
+    let credentialService: CredentialService
+
+    init(credentialID: Credential.ID, thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication, credentialService: CredentialService, completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
+        self.credentialID = credentialID
+        self.credentialService = credentialService
         self.thirdPartyAppAuthentication = thirdPartyAppAuthentication
         self.completionHandler = completionHandler
     }
@@ -92,6 +99,10 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             }
         }
     #endif
+
+    public func qr(completion: @escaping (Result<Data, Swift.Error>) -> Void) {
+        credentialService.qr(credentialID: credentialID, completion: completion)
+    }
 
     // MARK: - Controlling the Task
 
