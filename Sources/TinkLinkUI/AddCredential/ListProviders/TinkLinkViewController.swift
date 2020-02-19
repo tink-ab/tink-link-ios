@@ -67,9 +67,9 @@ public class TinkLinkViewController: UINavigationController {
                         }
                     }
                 } catch {
-                    self.showCreateTemporaryUserAlert(for: error)
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
+                    self.showCreateTemporaryUserAlert(for: error)
                 }
             }
         }
