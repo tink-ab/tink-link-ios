@@ -320,6 +320,21 @@ class ScopeDescriptionsViewController: UITableViewController {
 }
 ```
 
+## Links
+Presenting terms and conditions.
+```swift
+let url = authorizationContext.termsAndConditions()
+let safariViewController = SFSafariViewController(url: url)
+present(safariViewController, animated: true)
+```
+
+Presenting privacy policy.
+```swift
+let url = authorizationContext.privacyPolicy()
+let safariViewController = SFSafariViewController(url: url)
+present(safariViewController, animated: true)
+```
+
 ## Advanced usage 
 In some cases, you may want to have multiple `TinkLink` instances, you can create your custom `TinkLink` instance like this:
 
