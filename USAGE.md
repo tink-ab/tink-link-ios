@@ -321,14 +321,14 @@ class ScopeDescriptionsViewController: UITableViewController {
 ```
 
 ## Links
-Presenting terms and conditions.
+Presenting Terms and Conditions.
 ```swift
 let url = authorizationContext.termsAndConditions(locale: <#appLocale#>)
 let safariViewController = SFSafariViewController(url: url)
 present(safariViewController, animated: true)
 ```
 
-Presenting privacy policy.
+Presenting Privacy Policy.
 ```swift
 let url = authorizationContext.privacyPolicy(locale: <#appLocale#>)
 let safariViewController = SFSafariViewController(url: url)
