@@ -7,10 +7,17 @@ final class ProviderListViewController: UITableViewController {
     weak var addCredentialNavigator: AddCredentialFlowNavigating?
 
     private var providerController: ProviderController?
+    private var isSearching: Bool = false
 
     private let searchController = UISearchController(searchResultsController: nil)
     private var originalFinancialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
     private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = [] {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    private var originalFinancialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
+    private var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = [] {
         didSet {
             self.tableView.reloadData()
         }
@@ -20,6 +27,8 @@ final class ProviderListViewController: UITableViewController {
         self.providerController = providerController
         financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
         originalFinancialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
+        financialInstitutionNodes = providerController.financialInstitutionNodes
+        originalFinancialInstitutionNodes = providerController.financialInstitutionNodes
 
         super.init(style: .plain)
     }
@@ -79,6 +88,8 @@ extension ProviderListViewController {
         DispatchQueue.main.async {
             self.financialInstitutionGroupNodes = self.providerController?.financialInstitutionGroupNodes ?? []
             self.originalFinancialInstitutionGroupNodes = self.providerController?.financialInstitutionGroupNodes ?? []
+            self.financialInstitutionNodes = self.providerController?.financialInstitutionNodes ?? []
+            self.originalFinancialInstitutionNodes = self.providerController?.financialInstitutionNodes ?? []
         }
     }
 }
@@ -87,16 +98,31 @@ extension ProviderListViewController {
 
 extension ProviderListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return financialInstitutionGroupNodes.count
+        if isSearching == true {
+            return financialInstitutionNodes.count
+        } else {
+            return financialInstitutionGroupNodes.count
+        }
+        
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let group = financialInstitutionGroupNodes[indexPath.row]
-        if let imageViewCell = cell as? ProviderCell {
-            imageViewCell.setTitle(text: group.displayName)
-            if let url = group.imageURL {
-                imageViewCell.setImage(url: url)
+        if isSearching {
+            let group = financialInstitutionNodes[indexPath.row]
+            if let imageViewCell = cell as? ProviderCell {
+                imageViewCell.setTitle(text: group.financialInstitution.name)
+                if let url = group.imageURL {
+                    imageViewCell.setImage(url: url)
+                }
+            }
+        } else {
+            let group = financialInstitutionGroupNodes[indexPath.row]
+            if let imageViewCell = cell as? ProviderCell {
+                imageViewCell.setTitle(text: group.displayName)
+                if let url = group.imageURL {
+                    imageViewCell.setImage(url: url)
+                }
             }
         }
         return cell
@@ -122,9 +148,12 @@ extension ProviderListViewController {
 extension ProviderListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text, !text.isEmpty {
-            financialInstitutionGroupNodes = originalFinancialInstitutionGroupNodes.filter { $0.displayName.localizedCaseInsensitiveContains(text) }
+            isSearching = false
+            financialInstitutionNodes = originalFinancialInstitutionNodes.filter { $0.financialInstitution.name.localizedCaseInsensitiveContains(text) }
         } else {
             financialInstitutionGroupNodes = originalFinancialInstitutionGroupNodes
+            isSearching = false
+            financialInstitutionNodes = originalFinancialInstitutionNodes
         }
     }
 }

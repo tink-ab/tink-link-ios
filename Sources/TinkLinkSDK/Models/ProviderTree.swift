@@ -4,11 +4,16 @@ import Foundation
 /// This tree eventually leads to a leaf of type `Provider` that contains more detailed data about a provider.
 public struct ProviderTree {
     public let financialInstitutionGroups: [FinancialInstitutionGroupNode]
+    public let financialInstitutions: [FinancialInstitutionNode]
 
     public init(providers: [Provider]) {
         self.financialInstitutionGroups = Dictionary(grouping: providers, by: { $0.groupDisplayName.isEmpty ? $0.financialInstitution.id.value : $0.groupDisplayName })
             .sorted(by: { $0.key < $1.key })
             .map { FinancialInstitutionGroupNode(providers: $0.value) }
+        
+        self.financialInstitutions = Dictionary(grouping: providers, by: { $0.displayName.isEmpty ? $0.financialInstitution.name : $0.displayName })
+        .sorted(by: { $0.key < $1.key })
+        .map { FinancialInstitutionNode(providers: $0.value) }
     }
 
     /// A parent node of the tree structure, with a `Provider` as it's leaf node.
