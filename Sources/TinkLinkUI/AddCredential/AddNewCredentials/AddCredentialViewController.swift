@@ -303,6 +303,7 @@ extension AddCredentialViewController {
                 }
             }
         }
+        task = nil
     }
 }
 

@@ -114,15 +114,20 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
     #endif
 
-    public func qr(completion: @escaping (Result<Data, Swift.Error>) -> Void) {
+    public func qr(completion: @escaping (UIImage) -> Void) {
         if canAuthenticateInAnotherDevice {
             completionHandler(.success(()))
             callRetryCancellable = credentialService.qr(credentialID: credentialID) { [weak self] result in
                 do {
                     let qrData = try result.get()
-                    completion(.success(qrData))
+                    // Handle the borken data as not support error
+                    guard let qrImage = UIImage(data: qrData) else {
+                        throw Error.notSupportAnotherDeviceAuthentication
+                    }
+
+                    completion(qrImage)
                 } catch {
-                    completion(.failure(error))
+                    self?.completionHandler(.failure(error))
                 }
                 self?.callRetryCancellable = nil
             }
