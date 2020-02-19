@@ -37,6 +37,10 @@ public class TinkLinkViewController: UINavigationController {
 
         presentationController?.delegate = self
 
+        start()
+    }
+
+    private func start() {
         userController.createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
