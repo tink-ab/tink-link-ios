@@ -207,7 +207,9 @@ extension AddCredentialViewController {
     @objc private func addCredential() {
         view.endEditing(false)
 
+        var indexPathsToUpdate = Set(errors.keys)
         errors = [:]
+
         do {
             try form.validateFields()
             task = credentialController.addCredential(
@@ -229,14 +231,15 @@ extension AddCredentialViewController {
                 guard let error = error[fieldName: field.name] else {
                     continue
                 }
-
-                errors[IndexPath(row: index, section: 0)] = error
+                let indexPath = IndexPath(row: index, section: 0)
+                errors[indexPath] = error
+                indexPathsToUpdate.insert(indexPath)
             }
         } catch {
             assertionFailure("validateFields should only throw Form.ValidationError")
         }
 
-        tableView.reloadSections([0], with: .automatic)
+        tableView.reloadRows(at: Array(indexPathsToUpdate), with: .automatic)
     }
 
     private func showMoreInfo() {
