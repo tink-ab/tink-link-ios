@@ -3,6 +3,17 @@ import GRPC
 
 public enum UserError: Error {
     case invalidMarketOrLocale(String)
+
+    init?(_ error: Error) {
+        guard let status = error as? GRPC.GRPCStatus else { return nil }
+        switch status.code {
+        case .invalidArgument:
+            assertionFailure("Could not create temporary user:" + (status.message ?? "Invalid argument!"))
+            self = .invalidMarketOrLocale(status.message ?? "")
+        default:
+            return nil
+        }
+    }
 }
 
 final class UserService {
@@ -46,19 +57,7 @@ final class UserService {
         request.origin = origin ?? ""
 
         return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: { result in
-            let mapped = result.mapError { (error) -> Error in
-                if let status = error as? GRPC.GRPCStatus {
-                    switch status.code {
-                    case .invalidArgument:
-                        assertionFailure("Could not create temporary user:" + status.message ?? "Invalid argument!")
-                        return UserError.invalidMarketOrLocale(status.message ?? "")
-                    default:
-                        return status
-                    }
-                } else {
-                    return error
-                }
-            }
+            let mapped = result.mapError { UserError($0) ?? $0 }
             completion(mapped)
         })
     }
