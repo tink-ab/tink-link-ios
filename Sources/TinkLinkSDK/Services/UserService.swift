@@ -50,6 +50,7 @@ final class UserService {
                 if let status = error as? GRPC.GRPCStatus {
                     switch status.code {
                     case .invalidArgument:
+                        assertionFailure("Could not create temporary user:" + status.message ?? "Invalid argument!")
                         return UserError.invalidMarketOrLocale(status.message ?? "")
                     default:
                         return status
