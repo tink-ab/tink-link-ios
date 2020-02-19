@@ -78,7 +78,7 @@ public final class AuthorizationContext {
     ///                 TinkLink.Scope.Transactions.read
     ///             ])
     ///
-    ///             authorizationContext.scopeDescriptions(scope: scope) { result in
+    ///             authorizationContext.scopeDescriptions(scope: scope) { [weak self] result in
     ///                 DispatchQueue.main.async {
     ///                     do {
     ///                         self?.scopeDescriptions = try result.get()
