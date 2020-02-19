@@ -39,6 +39,10 @@ final class AddCredentialViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    deinit {
+        task?.cancel()
+    }
 }
 
 // MARK: - View Lifecycle
@@ -48,12 +52,7 @@ extension AddCredentialViewController {
         super.viewDidLoad()
 
         view.backgroundColor = Color.background
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(updatedStatus), name: .credentialControllerDidUpdateStatus, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(credentialAdded), name: .credentialControllerDidAddCredential, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialControllerDidSupplementInformation, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(openQRCode), name: .credentialControllerDidUpdateQRCode, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialControllerDidError, object: nil)
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
@@ -168,54 +167,6 @@ extension AddCredentialViewController {
             )
         )
     }
-
-    @objc private func updatedStatus(notification: Notification) {
-        DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: String], let status = userInfo["status"] {
-                // TODO: Check that the credential added is referring to the credential that was added by this view controller.
-                self.showUpdating(status: status)
-            }
-        }
-    }
-
-    @objc private func credentialAdded() {
-        DispatchQueue.main.async {
-            // TODO: Check that the credential added is referring to the credential that was added by this view controller.
-            self.showCredentialUpdated()
-        }
-    }
-
-    @objc private func supplementInformationTask() {
-        DispatchQueue.main.async {
-            if let task = self.credentialController.supplementInformationTask {
-                self.showSupplementalInformation(for: task)
-            }
-        }
-    }
-
-    @objc private func openQRCode() {
-        DispatchQueue.main.async {
-            if let data = self.credentialController.qrCodeData, let qrImage = UIImage(data: data) {
-                self.showQRCodeView(qrImage: qrImage)
-            }
-        }
-    }
-
-    @objc private func receivedError(notification: Notification) {
-        DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: Error], let error = userInfo["error"] {
-                if let error = error as? ThirdPartyAppAuthenticationTask.Error {
-                    self.hideUpdatingView(animated: true) {
-                        self.showDownloadPrompt(for: error)
-                    }
-                } else {
-                    self.hideUpdatingView(animated: true) {
-                        self.showAlert(for: error)
-                    }
-                }
-            }
-        }
-    }
 }
 
 // MARK: - Keyboard Helper
@@ -258,9 +209,19 @@ extension AddCredentialViewController {
         view.endEditing(false)
         do {
             try form.validateFields()
-            credentialController.addCredential(
+            task = credentialController.addCredential(
                 provider,
-                form: form
+                form: form,
+                progressHandler: { [weak self] status in
+                    DispatchQueue.main.async {
+                        self?.handleAddCredentialStatus(status)
+                    }
+                },
+                completion: { [weak self] result in
+                    DispatchQueue.main.async {
+                        self?.handleAddCredentialCompletion(result)
+                    }
+                }
             )
         } catch {
             formError = error as? Form.ValidationError
@@ -271,10 +232,19 @@ extension AddCredentialViewController {
         view.endEditing(false)
         do {
             try form.validateFields()
-            credentialController.addCredential(
+            task = credentialController.addCredential(
                 provider,
                 form: form,
-                shouldAuthenticateInAnotherDevice: true
+                progressHandler: { [weak self] status in
+                    DispatchQueue.main.async {
+                        self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: true)
+                    }
+                },
+                completion: { [weak self] result in
+                    DispatchQueue.main.async {
+                        self?.handleAddCredentialCompletion(result)
+                    }
+                }
             )
         } catch {
             formError = error as? Form.ValidationError
@@ -292,7 +262,48 @@ extension AddCredentialViewController {
     private func showPrivacyPolicy(_ url: URL) {
         addCredentialNavigator?.showWebContent(with: url)
     }
+}
 
+// MARK: - Handlers
+
+extension AddCredentialViewController {
+    private func handleAddCredentialStatus(_ status: AddCredentialTask.Status, shouldAuthenticateInAnotherDevice: Bool = false) {
+        switch status {
+        case .authenticating, .created:
+            break
+        case .awaitingSupplementalInformation(let supplementInformationTask):
+            showSupplementalInformation(for: supplementInformationTask)
+        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
+            if shouldAuthenticateInAnotherDevice {
+                thirdPartyAppAuthenticationTask.qr { [weak self] qrImage in
+                    DispatchQueue.main.async {
+                        self?.showQRCodeView(qrImage: qrImage)
+                    }
+                }
+            } else {
+                 thirdPartyAppAuthenticationTask.openThirdPartyApp()
+            }
+        case .updating(let status):
+            showUpdating(status: status)
+        }
+    }
+
+    private func handleAddCredentialCompletion(_ result: Result<Credential, Error>) {
+        do {
+            _ = try result.get()
+            showCredentialUpdated()
+        } catch {
+            if let error = error as? ThirdPartyAppAuthenticationTask.Error {
+                self.hideUpdatingView(animated: true) {
+                    self.showDownloadPrompt(for: error)
+                }
+            } else {
+                self.hideUpdatingView(animated: true) {
+                    self.showAlert(for: error)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Navigation
