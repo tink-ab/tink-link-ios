@@ -56,10 +56,12 @@ public final class UserContext {
     @discardableResult
     func createTemporaryUser(for market: Market, locale: Locale = TinkLink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
         return userService.createAnonymous(market: market, locale: locale) { result in
-            let mappedResult = result.mapError { Error($0) ?? $0 }
+            let mappedResult = result
+                .map { User(accessToken: $0) }
+                .mapError { Error($0) ?? $0 }
             do {
-                let accessToken = try mappedResult.get()
-                completion(.success(User(accessToken: accessToken)))
+                let user = try mappedResult.get()
+                completion(.success(user))
             } catch Error.invalidMarketOrLocale(let message) {
                 assertionFailure("Could not create temporary user:" + message)
                 completion(.failure(Error.invalidMarketOrLocale(message)))
