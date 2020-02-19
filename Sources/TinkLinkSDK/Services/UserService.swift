@@ -1,6 +1,10 @@
 import Foundation
 import GRPC
 
+public enum UserError: Error {
+    case invalidMarketOrLocale(String)
+}
+
 final class UserService {
     let connection: ClientConnection
     let defaultCallOptions: CallOptions
@@ -41,7 +45,21 @@ final class UserService {
         request.locale = locale.identifier
         request.origin = origin ?? ""
 
-        return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: completion)
+        return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: { result in
+            let mapped = result.mapError { (error) -> Error in
+                if let status = error as? GRPC.GRPCStatus {
+                    switch status.code {
+                    case .invalidArgument:
+                        return UserError.invalidMarketOrLocale(status.message ?? "")
+                    default:
+                        return status
+                    }
+                } else {
+                    return error
+                }
+            }
+            completion(mapped)
+        })
     }
 
     func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
