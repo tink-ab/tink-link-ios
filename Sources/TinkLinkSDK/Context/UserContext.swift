@@ -5,7 +5,9 @@ public final class UserContext {
     private let userService: UserService
     private var retryCancellable: RetryCancellable?
 
+    /// Error that the `UserContext` can throw.
     public enum Error: Swift.Error {
+        /// The market and/or locale was invalid. The payload from the backend can be found in the associated value.
         case invalidMarketOrLocale(String)
     }
 
