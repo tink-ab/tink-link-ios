@@ -80,7 +80,9 @@ public class TinkLinkViewController: UINavigationController {
             preferredStyle: .alert
         )
 
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            self.presentingViewController?.dismiss(animated: true)
+        }
         alertController.addAction(okAction)
         present(alertController, animated: true)
     }
