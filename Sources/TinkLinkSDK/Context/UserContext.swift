@@ -1,5 +1,4 @@
 import Foundation
-import GRPC
 
 /// An object that you use to create a user that will be used in other TinkLink APIs.
 public final class UserContext {
