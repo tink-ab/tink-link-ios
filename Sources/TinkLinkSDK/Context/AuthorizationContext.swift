@@ -37,6 +37,72 @@ public final class AuthorizationContext {
 
     /// Lists scope descriptions for the provided scopes.
     ///
+    /// If aggregating under Tink's license the user must be informed and fully understand what kind of data will be aggregated before aggregating any data.
+    ///
+    /// ## Showing Scope Descriptions
+    /// Here's how you can list the scope descriptions for requesing access to accounts and transactions.
+    ///
+    ///     class ScopeDescriptionCell: UITableViewCell {
+    ///         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    ///             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    ///             textLabel?.numberOfLines = 0
+    ///             detailTextLabel?.numberOfLines = 0
+    ///         }
+    ///
+    ///         required init?(coder: NSCoder) {
+    ///             fatalError("init(coder:) has not been implemented")
+    ///         }
+    ///     }
+    ///
+    ///     class ScopeDescriptionsViewController: UITableViewController {
+    ///         private let authorizationContext: AuthorizationContext
+    ///
+    ///         private var scopeDescriptions: [ScopeDescription] = []
+    ///
+    ///         init(user: User) {
+    ///             self.authorizationContext = AuthorizationContext(user: user)
+    ///             super.init(nibName: nil, bundle: nil)
+    ///         }
+    ///
+    ///         required init?(coder aDecoder: NSCoder) {
+    ///             fatalError("init(coder:) has not been implemented")
+    ///         }
+    ///
+    ///         override func viewDidLoad() {
+    ///             super.viewDidLoad()
+    ///
+    ///             tableView.register(ScopeDescriptionCell.self, forCellReuseIdentifier: "Cell")
+    ///
+    ///             let scope = TinkLink.Scope(scopes: [
+    ///                 TinkLink.Scope.Accounts.read,
+    ///                 TinkLink.Scope.Transactions.read
+    ///             ])
+    ///
+    ///             authorizationContext.scopeDescriptions(scope: scope) { [weak self] result in
+    ///                 DispatchQueue.main.async {
+    ///                     do {
+    ///                         self?.scopeDescriptions = try result.get()
+    ///                         self?.tableView.reloadData()
+    ///                     } catch {
+    ///                         <#Error Handling#>
+    ///                     }
+    ///                 }
+    ///             }
+    ///         }
+    ///
+    ///         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    ///             return scopeDescriptions.count
+    ///         }
+    ///
+    ///         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    ///             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    ///             let scopeDescription = scopeDescriptions[indexPath.row]
+    ///             cell.textLabel?.text = scopeDescription.title
+    ///             cell.detailTextLabel?.text = scopeDescription.description
+    ///             return cell
+    ///         }
+    ///     }
+    ///
     /// - Parameters:
     ///   - scope: A `TinkLink.Scope` list of OAuth scopes to be requested.
     ///            The Scope array should never be empty.
