@@ -144,9 +144,14 @@ final class CredentialService: TokenConfigurableService {
         guard var urlComponents = URLComponents(url: restURL, resolvingAgainstBaseURL: false) else {
             preconditionFailure("Invalid restURL")
         }
-        urlComponents.path = String(format: "/api/v1/credentials/%@/qr", credentialID.value)
 
-        var urlRequest = URLRequest(url: urlComponents.url!)
+        urlComponents.path = "/api/v1/credentials/\(credentialID.value)/qr"
+
+        guard let url = urlComponents.url else {
+            preconditionFailure("Invalid request url")
+        }
+
+        var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"
         urlRequest.setValue(authorization, forHTTPHeaderField: "Authorization")
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")

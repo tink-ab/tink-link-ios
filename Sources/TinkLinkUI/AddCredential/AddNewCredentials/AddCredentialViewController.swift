@@ -307,19 +307,20 @@ extension AddCredentialViewController {
     }
 
     private func showUpdating(status: String) {
-        hideQRCodeView()
-        if statusViewController == nil {
-            let statusViewController = AddCredentialStatusViewController()
-            statusViewController.modalTransitionStyle = .crossDissolve
-            statusViewController.modalPresentationStyle = .custom
-            statusViewController.transitioningDelegate = statusPresentationManager
-            present(statusViewController, animated: true)
-            self.statusViewController = statusViewController
+        hideQRCodeView {
+            if self.statusViewController == nil {
+                let statusViewController = AddCredentialStatusViewController()
+                statusViewController.modalTransitionStyle = .crossDissolve
+                statusViewController.modalPresentationStyle = .custom
+                statusViewController.transitioningDelegate = self.statusPresentationManager
+                self.present(statusViewController, animated: true)
+                self.statusViewController = statusViewController
+            }
+            self.statusViewController?.status = status
         }
-        statusViewController?.status = status
     }
 
-    private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
+    private func hideUpdatingView(animated: Bool = true, completion: (() -> Void)? = nil) {
         hideQRCodeView()
         guard statusViewController != nil else {
             completion?()
@@ -330,10 +331,11 @@ extension AddCredentialViewController {
     }
 
     private func showQRCodeView(qrImage: UIImage) {
-        hideUpdatingView()
-        let qrImageViewController = QRImageViewController(qrImage: qrImage)
-        self.qrImageViewController = qrImageViewController
-        present(qrImageViewController, animated: true)
+        hideUpdatingView {
+            let qrImageViewController = QRImageViewController(qrImage: qrImage)
+            self.qrImageViewController = qrImageViewController
+            self.present(qrImageViewController, animated: true)
+        }
     }
 
     private func hideQRCodeView(animated: Bool = false, completion: (() -> Void)? = nil) {

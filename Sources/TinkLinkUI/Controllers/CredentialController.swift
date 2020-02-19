@@ -55,7 +55,7 @@ final class CredentialController {
                     NotificationCenter.default.post(name: .credentialControllerDidUpdateQRCode, object: nil)
                 }
             } else {
-                thirdPartyAppAuthenticationTask.thirdPartyAppAuthentication.deepLinkURL
+                 thirdPartyAppAuthenticationTask.openThirdPartyApp()
             }
         case .updating(let status):
             let parameters = ["status": status]
