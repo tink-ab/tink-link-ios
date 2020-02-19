@@ -1,5 +1,4 @@
 import UIKit
-import Kingfisher
 
 class CredentialKindCell: UITableViewCell {
     private let iconBackgroundView = UIView()
