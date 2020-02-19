@@ -110,7 +110,7 @@ public final class AuthorizationContext {
     /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
     @discardableResult
     public func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable {
-        let scope = TinkLink.Scope(scopes: [TinkLink.Scope.User.read])
+        let scope = TinkLink.Scope()
         let redirectURI = tinkLink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
             completion(result.map({ $0.isAggregator }))
