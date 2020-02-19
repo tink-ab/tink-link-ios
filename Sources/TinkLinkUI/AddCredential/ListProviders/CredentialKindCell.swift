@@ -94,7 +94,7 @@ class CredentialKindCell: UITableViewCell {
     }
 
     func setIcon(_ icon: Icon) {
-        iconView.image = icon.makeImage()
+        iconView.image = UIImage(icon: icon)?.withRenderingMode(.alwaysTemplate)
     }
 
     func setTitle(text: String) {

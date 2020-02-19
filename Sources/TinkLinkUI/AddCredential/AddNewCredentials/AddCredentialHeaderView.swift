@@ -27,7 +27,7 @@ final class AddCredentialHeaderView: UIView {
     private let userInfoIconView: UIImageView = {
         let userInfoIconView = UIImageView()
         userInfoIconView.tintColor = Color.accent
-        userInfoIconView.image = Icon.profile.makeImage()
+        userInfoIconView.image = UIImage(icon: .profile)?.withRenderingMode(.alwaysTemplate)
         return userInfoIconView
     }()
     private let userInfoLabel: UILabel = {
