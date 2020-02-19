@@ -142,7 +142,7 @@ extension SupplementalInformationViewController: FormFieldTableViewCellDelegate 
 
     func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
         if let indexPath = tableView.indexPath(for: cell) {
-            form.fields[indexPath.section].text = text
+            form.fields[indexPath.item].text = text
             button.isEnabled = form.fields[indexPath.section].isValid
         }
     }
