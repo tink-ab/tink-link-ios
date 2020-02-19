@@ -320,19 +320,25 @@ class ScopeDescriptionsViewController: UITableViewController {
 }
 ```
 
-## Links
-Presenting Terms and Conditions.
-```swift
-let url = authorizationContext.termsAndConditions(locale: <#appLocale#>)
-let safariViewController = SFSafariViewController(url: url)
-present(safariViewController, animated: true)
-```
+## Showing Terms and Conditions and Privacy Policy
+The user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before aggregating any data.
 
-Presenting Privacy Policy.
+Here's how you can get the url for the Terms and Conditions and present it with the SFSafariViewController.
+
 ```swift
-let url = authorizationContext.privacyPolicy(locale: <#appLocale#>)
-let safariViewController = SFSafariViewController(url: url)
-present(safariViewController, animated: true)
+import SafariServices
+
+func showTermsAndConditions() {
+    let url = authorizationContext.termsAndConditions(locale: <#appLocale#>)
+    let safariViewController = SFSafariViewController(url: url)
+    present(safariViewController, animated: true)
+}
+
+func showPrivacyPolicy() {
+    let url = authorizationContext.privacyPolicy(locale: <#appLocale#>)
+    let safariViewController = SFSafariViewController(url: url)
+    present(safariViewController, animated: true)
+}
 ```
 
 ## Advanced usage 
