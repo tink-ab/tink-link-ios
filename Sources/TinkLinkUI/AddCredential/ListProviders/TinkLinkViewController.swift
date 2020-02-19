@@ -63,7 +63,7 @@ public class TinkLinkViewController: UINavigationController {
                         }
                     }
                 } catch {
-                    self.showAlert(for: error)
+                    self.showCreateTemporaryUserAlert(for: error)
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
                 }
@@ -71,7 +71,7 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
-    private func showAlert(for error: Error) {
+    private func showCreateTemporaryUserAlert(for error: Error) {
         let localizedError = error as? LocalizedError
 
         let alertController = UIAlertController(
