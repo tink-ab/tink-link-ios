@@ -62,7 +62,7 @@ public class TinkLinkViewController: UINavigationController {
                                 self.isAggregator = try aggregatorResult.get()
                                 self.isAggregatorLoadingGroup.leave()
                             } catch {
-                                // TODO: Error handling
+                                self.showUnknownAggregatorAlert(for: error)
                             }
                         }
                     }
@@ -91,6 +91,22 @@ public class TinkLinkViewController: UINavigationController {
             self.start()
         }
         alertController.addAction(retryAction)
+
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
+            self.presentingViewController?.dismiss(animated: true)
+        }
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
+    }
+
+    private func showUnknownAggregatorAlert(for error: Error) {
+        let localizedError = error as? LocalizedError
+
+        let alertController = UIAlertController(
+            title: localizedError?.errorDescription ?? "Could not determine aggregator",
+            message: localizedError?.failureReason ?? error.localizedDescription,
+            preferredStyle: .alert
+        )
 
         let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
