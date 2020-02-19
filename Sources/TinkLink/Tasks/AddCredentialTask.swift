@@ -32,6 +32,16 @@ public final class AddCredentialTask: Identifiable {
         case temporaryFailure
         /// A permanent failure occurred.
         case permanentFailure
+        /// An unknown error. More details can be found in the associated Error value.
+        case other(Swift.Error)
+
+        init(error: Swift.Error) {
+            if let credentialError = error as? AddCredentialTask.Error {
+                self = credentialError
+            } else {
+                self = .other(error)
+            }
+        }
     }
 
     private var credentialStatusPollingTask: CredentialStatusPollingTask?
@@ -96,7 +106,7 @@ public final class AddCredentialTask: Identifiable {
         callCanceller?.cancel()
     }
 
-    private func handleUpdate(for result: Result<Credential, Swift.Error>) {
+    private func handleUpdate(for result: Result<Credential, Error>) {
         do {
             let credential = try result.get()
             switch credential.status {
@@ -163,7 +173,7 @@ public final class AddCredentialTask: Identifiable {
                 assertionFailure("Unknown credential status!")
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(AddCredentialTask.Error(error: error)))
         }
     }
 }

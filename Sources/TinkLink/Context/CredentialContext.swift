@@ -76,12 +76,12 @@ public final class CredentialContext {
     public func addCredential(for provider: Provider, form: Form,
                               completionPredicate: AddCredentialTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                               progressHandler: @escaping (_ status: AddCredentialTask.Status) -> Void,
-                              completion: @escaping (_ result: Result<Credential, Error>) -> Void) -> AddCredentialTask {
+                              completion: @escaping (_ result: Result<Credential, AddCredentialTask.Error>) -> Void) -> AddCredentialTask {
         let task = AddCredentialTask(
             credentialService: service,
             completionPredicate: completionPredicate,
             progressHandler: progressHandler,
-            completion: completion
+            completion: { completion($0.mapError(AddCredentialTask.Error.init)) }
         )
 
         let appURI = tink.configuration.redirectURI
@@ -91,7 +91,7 @@ public final class CredentialContext {
                 let credential = try result.get()
                 task?.startObserving(credential)
             } catch {
-                completion(.failure(error))
+                completion(.failure(AddCredentialTask.Error(error: error)))
             }
         }
         return task
