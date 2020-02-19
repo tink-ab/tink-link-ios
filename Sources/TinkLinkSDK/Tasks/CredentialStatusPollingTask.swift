@@ -6,7 +6,7 @@ class CredentialStatusPollingTask {
     var callRetryCancellable: RetryCancellable?
     private var retryInterval: TimeInterval = 1
     private(set) var credential: Credential
-    private var updateHandler: (Result<Credential, Error>) -> Void
+    private var updateHandler: (Result<Credential, AddCredentialTask.Error>) -> Void
     private let backoffStrategy: PollingBackoffStrategy
 
     enum PollingBackoffStrategy {
@@ -26,7 +26,7 @@ class CredentialStatusPollingTask {
         }
     }
 
-    init(credentialService: CredentialService, credential: Credential, backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credential, Error>) -> Void) {
+    init(credentialService: CredentialService, credential: Credential, backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credential, AddCredentialTask.Error>) -> Void) {
         self.service = credentialService
         self.credential = credential
         self.backoffStrategy = backoffStrategy
@@ -66,7 +66,7 @@ class CredentialStatusPollingTask {
                         fatalError("No such credential with " + self.credential.id.value)
                     }
                 } catch {
-                    self.updateHandler(.failure(error))
+                    self.updateHandler(.failure(AddCredentialTask.Error(error: error)))
                 }
             }
         }
