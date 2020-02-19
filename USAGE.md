@@ -257,8 +257,10 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 }
 ```
 
-## Scope Descriptions
-Here's how you can list scope descriptions for reading accounts and transactions.
+## Showing Scope Descriptions
+If aggregating under Tink's license the user must be informed and fully understand what kind of data will be aggregated before aggregating any data.
+
+Here's how you can list the scope descriptions for requesing access to accounts and transactions.
 
 ```swift
 class ScopeDescriptionCell: UITableViewCell {
@@ -321,7 +323,7 @@ class ScopeDescriptionsViewController: UITableViewController {
 ```
 
 ## Showing Terms and Conditions and Privacy Policy
-The user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before aggregating any data.
+If aggregating under Tink's license the user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before aggregating any data.
 
 Here's how you can get the url for the Terms and Conditions and present it with the SFSafariViewController.
 
