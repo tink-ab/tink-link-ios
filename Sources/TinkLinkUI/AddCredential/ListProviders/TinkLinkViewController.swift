@@ -64,6 +64,8 @@ public class TinkLinkViewController: UINavigationController {
                     }
                 } catch {
                     // TODO: Error handling
+                    let viewController = UIViewController()
+                    self.setViewControllers([viewController], animated: false)
                 }
             }
         }
