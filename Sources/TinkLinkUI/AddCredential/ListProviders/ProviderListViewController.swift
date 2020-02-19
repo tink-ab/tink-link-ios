@@ -21,6 +21,7 @@ final class ProviderListViewController: UITableViewController {
     init(providerController: ProviderController) {
         self.providerController = providerController
         financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
+        searchViewController.originalFinancialInstitutionNodes = providerController.financialInstitutionNodes
         
         super.init(style: .plain)
     }
