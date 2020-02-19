@@ -80,10 +80,10 @@ public class TinkLinkViewController: UINavigationController {
             preferredStyle: .alert
         )
 
-        let okAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
         }
-        alertController.addAction(okAction)
+        alertController.addAction(dismissAction)
         present(alertController, animated: true)
     }
 
