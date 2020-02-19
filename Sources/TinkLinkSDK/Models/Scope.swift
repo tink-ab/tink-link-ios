@@ -15,6 +15,11 @@ extension TinkLink {
 
             self.description = scopes.map { $0.description }.joined(separator: ",")
         }
+
+        init() {
+            self.scopes = []
+            self.description = ""
+        }
     }
 }
 
