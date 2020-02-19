@@ -80,6 +80,7 @@ public final class AuthorizationContext {
     ///                 DispatchQueue.main.async {
     ///                     do {
     ///                         self?.scopeDescriptions = try result.get()
+    ///                         self?.tableView.reloadData()
     ///                     } catch {
     ///                         <#Error Handling#>
     ///                     }
