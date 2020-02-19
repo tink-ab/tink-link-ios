@@ -1,21 +1,6 @@
 import Foundation
 import GRPC
 
-public enum UserError: Error {
-    case invalidMarketOrLocale(String)
-
-    init?(_ error: Error) {
-        guard let status = error as? GRPC.GRPCStatus else { return nil }
-        switch status.code {
-        case .invalidArgument:
-            assertionFailure("Could not create temporary user:" + (status.message ?? "Invalid argument!"))
-            self = .invalidMarketOrLocale(status.message ?? "")
-        default:
-            return nil
-        }
-    }
-}
-
 final class UserService {
     let connection: ClientConnection
     let defaultCallOptions: CallOptions
@@ -56,10 +41,7 @@ final class UserService {
         request.locale = locale.identifier
         request.origin = origin ?? ""
 
-        return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: { result in
-            let mapped = result.mapError { UserError($0) ?? $0 }
-            completion(mapped)
-        })
+        return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: completion)
     }
 
     func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
