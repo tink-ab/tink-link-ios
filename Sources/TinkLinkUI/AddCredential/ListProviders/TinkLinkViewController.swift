@@ -75,7 +75,7 @@ public class TinkLinkViewController: UINavigationController {
         let localizedError = error as? LocalizedError
 
         let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? "Error",
+            title: localizedError?.errorDescription ?? "Could not create a temporary user",
             message: localizedError?.failureReason ?? error.localizedDescription,
             preferredStyle: .alert
         )
