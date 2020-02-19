@@ -37,7 +37,7 @@ public final class AuthorizationContext {
     func authorize(scope: Tink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
-            completion(result.map { $0.code })
+            completion(result.map({ $0.code }).mapError({ Error($0) ?? $0 }))
         }
     }
 
@@ -51,7 +51,7 @@ public final class AuthorizationContext {
         let scope = Tink.Scope()
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
-            completion(result.map({ $0.isAggregator }))
+            completion(result.map({ $0.isAggregator }).mapError({ Error($0) ?? $0 }))
         }
     }
 
@@ -134,7 +134,7 @@ public final class AuthorizationContext {
     public func scopeDescriptions(scope: Tink.Scope, completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable {
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
-            completion(result.map({ $0.scopes }))
+            completion(result.map({ $0.scopes }).mapError({ Error($0) ?? $0 }))
         }
     }
 
