@@ -257,6 +257,69 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 }
 ```
 
+## Scope Descriptions
+Here's how you can list scope descriptions for reading accounts and transactions.
+
+```swift
+class ScopeDescriptionCell: UITableViewCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class ScopeDescriptionsViewController: UITableViewController {
+    private let authorizationContext: AuthorizationContext
+    
+    private var scopeDescriptions: [ScopeDescription] = []
+    
+    init(user: User) {
+        self.authorizationContext = AuthorizationContext(user: user)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.register(ScopeDescriptionCell.self, forCellReuseIdentifier: "Cell")
+        
+        let scope = TinkLink.Scope(scopes: [
+            TinkLink.Scope.Accounts.read,
+            TinkLink.Scope.Transactions.read
+        ])
+        
+        authorizationContext.scopeDescriptions(scope: scope) { result in
+            DispatchQueue.main.async {
+                do {
+                    self?.scopeDescriptions = try result.get()
+                } catch {
+                    <#Error Handling#>
+                }
+            }
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return scopeDescriptions.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let scopeDescription = scopeDescriptions[indexPath.row]
+        cell.textLabel?.text = scopeDescription.title
+        cell.detailTextLabel?.text = scopeDescription.description
+        return cell
+    }
+}
+```
+
 ## Advanced usage 
 In some cases, you may want to have multiple `TinkLink` instances, you can create your custom `TinkLink` instance like this:
 
