@@ -39,6 +39,7 @@ public final class AuthorizationContext {
     ///
     /// If aggregating under Tink's license the user must be informed and fully understand what kind of data will be aggregated before aggregating any data.
     ///
+    /// ## Showing Scope Descriptions
     /// Here's how you can list the scope descriptions for requesing access to accounts and transactions.
     ///
     ///     class ScopeDescriptionCell: UITableViewCell {
