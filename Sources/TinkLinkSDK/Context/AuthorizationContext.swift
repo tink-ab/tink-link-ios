@@ -45,6 +45,8 @@ public final class AuthorizationContext {
     ///     class ScopeDescriptionCell: UITableViewCell {
     ///         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     ///             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    ///             textLabel?.numberOfLines = 0
+    ///             detailTextLabel?.numberOfLines = 0
     ///         }
     ///
     ///         required init?(coder: NSCoder) {
