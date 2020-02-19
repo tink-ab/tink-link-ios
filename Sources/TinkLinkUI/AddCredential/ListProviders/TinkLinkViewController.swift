@@ -84,6 +84,14 @@ public class TinkLinkViewController: UINavigationController {
             preferredStyle: .alert
         )
 
+        let retryAction = UIAlertAction(title: "Retry", style: .default) { _ in
+            let loadingViewController = LoadingViewController()
+            loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
+            self.setViewControllers([loadingViewController], animated: false)
+            self.start()
+        }
+        alertController.addAction(retryAction)
+
         let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
         }
