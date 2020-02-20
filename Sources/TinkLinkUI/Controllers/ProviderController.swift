@@ -10,8 +10,6 @@ extension Notification.Name {
 final class ProviderController {
     let tinkLink: TinkLink
 
-    private var providers: [Provider] = []
-    var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
     var user: User? {
         didSet {
             if user != nil {
@@ -19,10 +17,11 @@ final class ProviderController {
             }
         }
     }
-    
-    private var providerContext: ProviderContext?
 
-    var isFetching = false
+    private(set) var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
+    private(set) var isFetching = false
+    private var providers: [Provider] = []
+    private var providerContext: ProviderContext?
 
     init(tinkLink: TinkLink) {
         self.tinkLink = tinkLink
@@ -37,15 +36,15 @@ final class ProviderController {
         NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)
         isFetching = true
         providerContext?.fetchProviders(attributes: attributes, completion: { [weak self] result in
-            NotificationCenter.default.post(name: .providerControllerDidFetchProviders, object: self)
             self?.isFetching = false
+            NotificationCenter.default.post(name: .providerControllerDidFetchProviders, object: self)
             do {
                 let providers = try result.get()
                 let tree = ProviderTree(providers: providers)
                 DispatchQueue.main.async {
                     self?.providers = providers
                     self?.financialInstitutionGroupNodes = tree.financialInstitutionGroups
-                    NotificationCenter.default.post(name: .providerControllerDidUpdateProviders, object: nil)
+                    NotificationCenter.default.post(name: .providerControllerDidUpdateProviders, object: self)
                 }
             } catch {
                 // Handle any errors
