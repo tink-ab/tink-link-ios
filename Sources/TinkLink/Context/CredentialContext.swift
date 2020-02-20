@@ -76,12 +76,12 @@ public final class CredentialContext {
     public func addCredential(for provider: Provider, form: Form,
                               completionPredicate: AddCredentialTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                               progressHandler: @escaping (_ status: AddCredentialTask.Status) -> Void,
-                              completion: @escaping (_ result: Result<Credential, AddCredentialTask.Error>) -> Void) -> AddCredentialTask {
+                              completion: @escaping (_ result: Result<Credential, Swift.Error>) -> Void) -> AddCredentialTask {
         let task = AddCredentialTask(
             credentialService: service,
             completionPredicate: completionPredicate,
             progressHandler: progressHandler,
-            completion: { completion($0.mapError(AddCredentialTask.Error.init)) }
+            completion: completion
         )
 
         let appURI = tink.configuration.redirectURI
@@ -91,13 +91,13 @@ public final class CredentialContext {
                 let credential = try result.get()
                 task?.startObserving(credential)
             } catch {
-                completion(.failure(AddCredentialTask.Error(error: error)))
+                completion(.failure(error))
             }
         }
         return task
     }
 
-    private func addCredentialAndAuthenticateIfNeeded(for provider: Provider, fields: [String: String], appURI: URL, completion: @escaping (Result<Credential, Error>) -> Void) -> RetryCancellable? {
+    private func addCredentialAndAuthenticateIfNeeded(for provider: Provider, fields: [String: String], appURI: URL, completion: @escaping (Result<Credential, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.createCredential(providerID: provider.id, fields: fields, appURI: appURI, completion: completion)
     }
 
@@ -107,7 +107,7 @@ public final class CredentialContext {
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
     @discardableResult
-    public func fetchCredentials(completion: @escaping (_ result: Result<[Credential], Error>) -> Void) -> RetryCancellable? {
+    public func fetchCredentials(completion: @escaping (_ result: Result<[Credential], Swift.Error>) -> Void) -> RetryCancellable? {
         return service.credentials { result in
             do {
                 let credentials = try result.get()

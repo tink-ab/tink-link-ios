@@ -25,46 +25,13 @@ public final class AddCredentialTask: Identifiable {
     }
 
     /// Error that the `AddCredentialTask` can throw.
-    public enum Error: Swift.Error, LocalizedError {
+    public enum Error: Swift.Error {
         /// The authentication failed. The payload from the backend can be found in the associated value.
         case authenticationFailed(String)
         /// A temporary failure occurred. The payload from the backend can be found in the associated value.
         case temporaryFailure(String)
         /// A permanent failure occurred. The payload from the backend can be found in the associated value.
         case permanentFailure(String)
-        /// An unknown error. More details can be found in the associated Error value.
-        case other(Swift.Error)
-
-        init(error: Swift.Error) {
-            switch error {
-            case let error as AddCredentialTask.Error:
-                self = error
-            default:
-                self = .other(error)
-            }
-        }
-
-        public var errorDescription: String? {
-            switch self {
-            case .permanentFailure:
-                return "Permanent error"
-            case .temporaryFailure:
-                return "Temporary error"
-            case .authenticationFailed:
-                return "Authentication failed"
-            case .other:
-                return "Error"
-            }
-        }
-
-        public var failureReason: String? {
-            switch self {
-            case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload):
-                return payload
-            case .other:
-                return "Unknown error."
-            }
-        }
     }
 
     private var credentialStatusPollingTask: CredentialStatusPollingTask?
@@ -129,7 +96,7 @@ public final class AddCredentialTask: Identifiable {
         callCanceller?.cancel()
     }
 
-    private func handleUpdate(for result: Result<Credential, Error>) {
+    private func handleUpdate(for result: Result<Credential, Swift.Error>) {
         do {
             let credential = try result.get()
             switch credential.status {
@@ -196,7 +163,7 @@ public final class AddCredentialTask: Identifiable {
                 assertionFailure("Unknown credential status!")
             }
         } catch {
-            completion(.failure(AddCredentialTask.Error(error: error)))
+            completion(.failure(error))
         }
     }
 }
