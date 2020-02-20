@@ -72,7 +72,7 @@ public final class UserContext {
                 let user = try mappedResult.get()
                 completion(.success(user))
             } catch Error.invalidMarketOrLocale(let message) {
-                assertionFailure("Could not create temporary user:" + message)
+                assertionFailure("Could not create temporary user: " + message)
                 completion(.failure(Error.invalidMarketOrLocale(message)))
             } catch {
                 completion(.failure(error))
