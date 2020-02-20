@@ -9,6 +9,15 @@ public final class AuthorizationContext {
     public enum Error: Swift.Error {
         /// The redirect URI was invalid. The payload from the backend can be found in the associated value.
         case invalidRedirectURI(String)
+
+        init?(_ error: Swift.Error) {
+            switch error {
+            case ServiceError.invalidArgument(let message):
+                self = .invalidRedirectURI(message)
+            default:
+                return nil
+            }
+        }
     }
 
     // MARK: - Creating a Context
