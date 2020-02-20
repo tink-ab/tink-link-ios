@@ -8,8 +8,10 @@ final class ProviderListViewController: UITableViewController {
 
     private var providerController: ProviderController?
 
-    private let searchController = UISearchController(searchResultsController: nil)
-    private var originalFinancialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
+    private let searchViewController = FinancialInstitutionSearchViewController()
+    
+    private lazy var searchController = UISearchController(searchResultsController: searchViewController)
+    
     private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = [] {
         didSet {
             self.tableView.reloadData()
@@ -19,8 +21,8 @@ final class ProviderListViewController: UITableViewController {
     init(providerController: ProviderController) {
         self.providerController = providerController
         financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
-        originalFinancialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
-
+        searchViewController.originalFinancialInstitutionNodes = providerController.financialInstitutionNodes
+        
         super.init(style: .plain)
     }
 
@@ -34,19 +36,19 @@ final class ProviderListViewController: UITableViewController {
 extension ProviderListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
         NotificationCenter.default.addObserver(self, selector: #selector(showLoadingIndicator), name: .providerControllerWillFetchProviders, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(hideLoadingIndicator), name: .providerControllerDidFetchProviders, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
-
-        searchController.obscuresBackgroundDuringPresentation = false
+        
+        extendedLayoutIncludesOpaqueBars = true
+        
+        searchViewController.addCredentialNavigator = addCredentialNavigator
+        searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search for a bank or card"
-        searchController.searchResultsUpdater = self
-
+        searchController.searchResultsUpdater = searchViewController
+ 
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-
-        definesPresentationContext = true
 
         title = "Choose Bank"
 
@@ -78,7 +80,7 @@ extension ProviderListViewController {
     @objc private func updateProviders() {
         DispatchQueue.main.async {
             self.financialInstitutionGroupNodes = self.providerController?.financialInstitutionGroupNodes ?? []
-            self.originalFinancialInstitutionGroupNodes = self.providerController?.financialInstitutionGroupNodes ?? []
+            self.searchViewController.originalFinancialInstitutionNodes = self.providerController?.financialInstitutionNodes ?? []
         }
     }
 }
@@ -113,18 +115,6 @@ extension ProviderListViewController {
             addCredentialNavigator?.showCredentialKindPicker(for: groups, title: nil)
         case .provider(let provider):
             addCredentialNavigator?.showAddCredential(for: provider)
-        }
-    }
-}
-
-// MARK: - UISearchResultsUpdating
-
-extension ProviderListViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        if let text = searchController.searchBar.text, !text.isEmpty {
-            financialInstitutionGroupNodes = originalFinancialInstitutionGroupNodes.filter { $0.displayName.localizedCaseInsensitiveContains(text) }
-        } else {
-            financialInstitutionGroupNodes = originalFinancialInstitutionGroupNodes
         }
     }
 }
