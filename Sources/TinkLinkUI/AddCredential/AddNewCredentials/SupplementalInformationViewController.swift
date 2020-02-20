@@ -123,7 +123,10 @@ extension SupplementalInformationViewController {
 
     @objc private func doneButtonPressed(_ sender: UIBarButtonItem) {
         tableView.resignFirstResponder()
+
+        var indexPathsToUpdate = Set(errors.keys)
         errors = [:]
+
         do {
             try form.validateFields()
             supplementInformationTask.submit(form)
@@ -133,12 +136,15 @@ extension SupplementalInformationViewController {
                 guard let error = error[fieldName: field.name] else {
                     continue
                 }
-
-                errors[IndexPath(row: index, section: 0)] = error
+                let indexPath = IndexPath(row: index, section: 0)
+                errors[indexPath] = error
+                indexPathsToUpdate.insert(indexPath)
             }
         } catch {
             assertionFailure("validateFields should only throw Form.ValidationError")
         }
+
+        tableView.reloadRows(at: Array(indexPathsToUpdate), with: .automatic)
     }
 }
 
