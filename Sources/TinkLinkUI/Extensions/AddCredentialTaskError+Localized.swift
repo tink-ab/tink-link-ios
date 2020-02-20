@@ -20,7 +20,7 @@ extension AddCredentialTask.Error: LocalizedError {
         case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload):
             return payload
         case .credentialAlreadyExists:
-            "You already have a connection to this bank or service."
+            return "You already have a connection to this bank or service."
         }
     }
 }
