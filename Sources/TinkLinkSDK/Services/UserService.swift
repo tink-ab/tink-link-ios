@@ -41,7 +41,9 @@ final class UserService {
         request.locale = locale.identifier
         request.origin = origin ?? ""
 
-        return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: completion)
+        return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {

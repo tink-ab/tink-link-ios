@@ -5,6 +5,21 @@ public final class UserContext {
     private let userService: UserService
     private var retryCancellable: RetryCancellable?
 
+    /// Error that the `UserContext` can throw.
+    public enum Error: Swift.Error {
+        /// The market and/or locale was invalid. The payload from the backend can be found in the associated value.
+        case invalidMarketOrLocale(String)
+
+        init?(createTemporaryUserError error: Swift.Error) {
+            switch error {
+            case ServiceError.invalidArgument(let message):
+                self = .invalidMarketOrLocale(message)
+            default:
+                return nil
+            }
+        }
+    }
+
     // MARK: - Creating a Context
 
     /// Creates a context to register for an access token that will be used in other TinkLink APIs.
@@ -20,7 +35,7 @@ public final class UserContext {
     /// - Parameter authorizationCode: Authenticate with a `AuthorizationCode` that delegated from Tink to exchanged for a user object.
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
-    public func authenticateUser(authorizationCode: AuthorizationCode, completion: @escaping (Result<User, Error>) -> Void) -> RetryCancellable? {
+    public func authenticateUser(authorizationCode: AuthorizationCode, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
         return userService.authenticate(code: authorizationCode, completion: { result in
             do {
                 let authenticateResponse = try result.get()
@@ -37,7 +52,7 @@ public final class UserContext {
     /// - Parameter accessToken: Authenticate with an accessToken `String` that generated for the permanent user.
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
-    public func authenticateUser(accessToken: AccessToken, completion: @escaping (Result<User, Error>) -> Void) -> RetryCancellable? {
+    public func authenticateUser(accessToken: AccessToken, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
         completion(.success(User(accessToken: accessToken)))
         return nil
     }
@@ -48,11 +63,17 @@ public final class UserContext {
     /// - Parameter locale: Register a `Locale` for creating the user, will use the default locale in TinkLink if nothing is provided.
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
-    func createTemporaryUser(for market: Market, locale: Locale = TinkLink.defaultLocale, completion: @escaping (Result<User, Error>) -> Void) -> RetryCancellable? {
+    func createTemporaryUser(for market: Market, locale: Locale = TinkLink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
         return userService.createAnonymous(market: market, locale: locale) { result in
+            let mappedResult = result
+                .map { User(accessToken: $0) }
+                .mapError { Error(createTemporaryUserError: $0) ?? $0 }
             do {
-                let accessToken = try result.get()
-                completion(.success(User(accessToken: accessToken)))
+                let user = try mappedResult.get()
+                completion(.success(user))
+            } catch Error.invalidMarketOrLocale(let message) {
+                assertionFailure("Could not create temporary user: " + message)
+                completion(.failure(Error.invalidMarketOrLocale(message)))
             } catch {
                 completion(.failure(error))
             }
