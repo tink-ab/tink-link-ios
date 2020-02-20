@@ -35,6 +35,22 @@ public final class AuthorizationContext {
         }
     }
 
+    // MARK: - Getting Information About the Client
+
+    /// Checks if the client is the aggregator.
+    ///
+    /// - Parameter completion: The block to execute when the aggregator status is received or if an error occurred.
+    @discardableResult
+    public func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable {
+        let scope = TinkLink.Scope()
+        let redirectURI = tinkLink.configuration.redirectURI
+        return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
+            completion(result.map({ $0.isAggregator }))
+        }
+    }
+
+    // MARK: - Getting Descriptions for Requested Scopes
+
     /// Lists scope descriptions for the provided scopes.
     ///
     /// If aggregating under Tink's license the user must be informed and fully understand what kind of data will be aggregated before aggregating any data.
@@ -111,10 +127,12 @@ public final class AuthorizationContext {
     @discardableResult
     public func scopeDescriptions(scope: TinkLink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
         let redirectURI = tinkLink.configuration.redirectURI
-        return service.scopeDescriptions(scope: scope, redirectURI: redirectURI) { (result) in
-            completion(result)
+        return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
+            completion(result.map({ $0.scopes }))
         }
     }
+
+    // MARK: - Getting Links to Terms and Conditions and Privacy Policy
 
     /// Get a link to the Terms & Conditions for TinkLink.
     ///
