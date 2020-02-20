@@ -35,6 +35,8 @@ public final class AuthorizationContext {
         }
     }
 
+    // MARK: - Getting Information About the Client
+
     /// Checks if the client is the aggregator.
     ///
     /// - Parameter completion: The block to execute when the aggregator status is received or if an error occurred.
@@ -46,6 +48,8 @@ public final class AuthorizationContext {
             completion(result.map({ $0.isAggregator }))
         }
     }
+
+    // MARK: - Getting Descriptions for Requested Scopes
 
     /// Lists scope descriptions for the provided scopes.
     ///
@@ -127,6 +131,8 @@ public final class AuthorizationContext {
             completion(result.map({ $0.scopes }))
         }
     }
+
+    // MARK: - Getting Links to Terms and Conditions and Privacy Policy
 
     /// Get a link to the Terms & Conditions for TinkLink.
     ///
