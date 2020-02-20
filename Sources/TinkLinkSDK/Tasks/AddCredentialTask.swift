@@ -26,12 +26,23 @@ public final class AddCredentialTask: Identifiable {
 
     /// Error that the `AddCredentialTask` can throw.
     public enum Error: Swift.Error {
-        /// The authentication failed.
-        case authenticationFailed
-        /// A temporary failure occurred.
-        case temporaryFailure
-        /// A permanent failure occurred.
-        case permanentFailure
+        /// The authentication failed. The payload from the backend can be found in the associated value.
+        case authenticationFailed(String)
+        /// A temporary failure occurred. The payload from the backend can be found in the associated value.
+        case temporaryFailure(String)
+        /// A permanent failure occurred. The payload from the backend can be found in the associated value.
+        case permanentFailure(String)
+        /// The credential is already exists.
+        case credentialAlreadyExists(String)
+
+        init?(addCredentialError error: Swift.Error) {
+            switch error {
+            case ServiceError.alreadyExists(let payload):
+                self = . credentialAlreadyExists(payload)
+            default:
+                return nil
+            }
+        }
     }
 
     private var credentialStatusPollingTask: CredentialStatusPollingTask?
@@ -156,11 +167,11 @@ public final class AddCredentialTask: Identifiable {
                     completion(.success(credential))
                 }
             case .permanentError:
-                completion(.failure(AddCredentialTask.Error.permanentFailure))
+                completion(.failure(AddCredentialTask.Error.permanentFailure(credential.statusPayload)))
             case .temporaryError:
-                completion(.failure(AddCredentialTask.Error.temporaryFailure))
+                completion(.failure(AddCredentialTask.Error.temporaryFailure(credential.statusPayload)))
             case .authenticationError:
-                completion(.failure(AddCredentialTask.Error.authenticationFailed))
+                completion(.failure(AddCredentialTask.Error.authenticationFailed(credential.statusPayload)))
             case .disabled:
                 fatalError("Credential shouldn't be disabled during creation.")
             case .sessionExpired:

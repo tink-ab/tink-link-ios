@@ -406,7 +406,17 @@ extension AddCredentialViewController {
     }
 
     private func showAlert(for error: Error) {
-        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        let title: String?
+        let message: String?
+        if let error = error as? LocalizedError {
+            title = error.errorDescription
+            message = error.failureReason
+        } else {
+            title = "Error"
+            message = error.localizedDescription
+        }
+
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
