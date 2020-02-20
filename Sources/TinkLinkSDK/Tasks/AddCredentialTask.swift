@@ -35,6 +35,8 @@ public final class AddCredentialTask: Identifiable {
     }
 
     private var credentialStatusPollingTask: CredentialStatusPollingTask?
+    private var supplementInformationTask: SupplementInformationTask?
+    private var thirdPartyAppAuthenticationTask: ThirdPartyAppAuthenticationTask?
 
     private(set) var credential: Credential?
 
@@ -114,14 +116,16 @@ public final class AddCredentialTask: Identifiable {
                     } catch {
                         self.completion(.failure(error))
                     }
+                    self.supplementInformationTask = nil
                 }
+                self.supplementInformationTask = supplementInformationTask
                 progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 guard let thirdPartyAppAuthentication = credential.thirdPartyAppAuthentication else {
                     assertionFailure("Missing third pary app authentication deeplink URL!")
                     return
                 }
-                let task = ThirdPartyAppAuthenticationTask(thirdPartyAppAuthentication: thirdPartyAppAuthentication) { [weak self] result in
+                let thirdPartyAppAuthenticationTask = ThirdPartyAppAuthenticationTask(credentialID: credential.id, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialService: credentialService) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
@@ -137,8 +141,10 @@ public final class AddCredentialTask: Identifiable {
                             self.completion(.failure(error))
                         }
                     }
+                    self.thirdPartyAppAuthenticationTask = nil
                 }
-                progressHandler(.awaitingThirdPartyAppAuthentication(task))
+                self.thirdPartyAppAuthenticationTask = thirdPartyAppAuthenticationTask
+                progressHandler(.awaitingThirdPartyAppAuthentication(thirdPartyAppAuthenticationTask))
             case .updating:
                 if completionPredicate.successPredicate == .updating {
                     completion(.success(credential))

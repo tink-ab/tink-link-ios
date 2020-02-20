@@ -3,6 +3,7 @@ import GRPC
 
 final class CredentialService: TokenConfigurableService {
     let connection: ClientConnection
+    let restURL: URL
     var defaultCallOptions: CallOptions {
         didSet {
             service.defaultCallOptions = defaultCallOptions
@@ -17,18 +18,36 @@ final class CredentialService: TokenConfigurableService {
         }
     }
 
+    private var session: URLSession
+    private var sessionDelegate: URLSessionDelegate?
+
     convenience init(tinkLink: TinkLink = .shared, accessToken: AccessToken? = nil) {
         var defaultCallOptions = tinkLink.client.defaultCallOptions
         if let accessToken = accessToken {
             defaultCallOptions.addAccessToken(accessToken.rawValue)
         }
-        self.init(connection: tinkLink.client.connection, defaultCallOptions: defaultCallOptions)
+        let client = tinkLink.client
+        self.init(
+            connection: client.connection,
+            defaultCallOptions: defaultCallOptions,
+            restURL: client.restURL,
+            certificates: client.restCertificateURL
+                .flatMap { try? Data(contentsOf: $0) }
+                .map { [$0] } ?? []
+        )
         self.accessToken = accessToken
     }
 
-    init(connection: ClientConnection, defaultCallOptions: CallOptions) {
+    init(connection: ClientConnection, defaultCallOptions: CallOptions, restURL: URL, certificates: [Data]) {
         self.connection = connection
         self.defaultCallOptions = defaultCallOptions
+        self.restURL = restURL
+        if certificates.isEmpty {
+            self.session = .shared
+        } else {
+            self.sessionDelegate = CertificatePinningDelegate(certificates: certificates)
+            self.session = URLSession(configuration: .ephemeral, delegate: sessionDelegate, delegateQueue: nil)
+        }
     }
 
     internal lazy var service = CredentialServiceServiceClient(connection: connection, defaultCallOptions: defaultCallOptions)
@@ -115,5 +134,38 @@ final class CredentialService: TokenConfigurableService {
         request.credentialIds = credentialID.value
 
         return CallHandler(for: request, method: service.manualAuthentication, responseMap: { _ in }, completion: completion)
+    }
+
+    func qr(credentialID: Credential.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable? {
+        guard let authorization = defaultCallOptions.customMetadata[CallOptions.HeaderKey.authorization.key].first else {
+            preconditionFailure("Not authorized")
+        }
+        
+        guard var urlComponents = URLComponents(url: restURL, resolvingAgainstBaseURL: false) else {
+            preconditionFailure("Invalid restURL")
+        }
+
+        urlComponents.path = "/api/v1/credentials/\(credentialID.value)/qr"
+
+        guard let url = urlComponents.url else {
+            preconditionFailure("Invalid request url")
+        }
+
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        urlRequest.setValue(authorization, forHTTPHeaderField: "Authorization")
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+
+        if let sdkName = defaultCallOptions.customMetadata[CallOptions.HeaderKey.sdkName.key].first {
+            urlRequest.setValue(sdkName, forHTTPHeaderField: CallOptions.HeaderKey.sdkName.key)
+        }
+        if let sdkVersion = defaultCallOptions.customMetadata[CallOptions.HeaderKey.sdkVersion.key].first {
+            urlRequest.setValue(sdkVersion, forHTTPHeaderField: CallOptions.HeaderKey.sdkVersion.key)
+        }
+
+        let serviceRetryCanceller = URLSessionRequestRetryCancellable<Data, AuthorizationError>(session: session, request: urlRequest, completion: completion)
+        serviceRetryCanceller.start()
+
+        return serviceRetryCanceller
     }
 }

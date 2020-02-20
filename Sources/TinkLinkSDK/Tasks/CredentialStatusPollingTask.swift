@@ -42,8 +42,12 @@ class CredentialStatusPollingTask {
                     if let updatedCredential = credentials.first(where: { $0.id == self.credential.id }) {
                         switch updatedCredential.status {
                         case .awaitingSupplementalInformation, .awaitingMobileBankIDAuthentication, .awaitingThirdPartyAppAuthentication:
-                            self.updateHandler(.success(updatedCredential))
-                            self.callRetryCancellable = nil
+                            if self.credential.statusUpdated != updatedCredential.statusUpdated {
+                                self.callRetryCancellable = nil
+                                self.updateHandler(.success(updatedCredential))
+                            } else {
+                                self.retry()
+                            }
                         case .created, .authenticating, .updating:
                             self.updateHandler(.success(updatedCredential))
                             self.retry()

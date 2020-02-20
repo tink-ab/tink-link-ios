@@ -13,7 +13,7 @@ final class AddCredentialFooterView: UIView {
         button.text = "Continue"
         return button
     }()
-    private lazy var bankIdAnotherDeviceButton: UIButton = {
+    lazy var bankIdAnotherDeviceButton: UIButton = {
         // TODO: handle using another deivce for BankID?
         let bankIdAnotherDeviceButton = UIButton()
         bankIdAnotherDeviceButton.setTitle("Open Mobile BankID on another device", for: .normal)
@@ -119,7 +119,7 @@ final class AddCredentialFooterView: UIView {
         switch provider.credentialKind {
         case .mobileBankID:
             button.text = "Open BankID"
-            if bankIdAnotherDeviceButton.superview == nil {
+            if ProcessInfo.processInfo.tinkEnableBankIDOnAnotherDevice, bankIdAnotherDeviceButton.superview == nil {
                 stackView.insertArrangedSubview(bankIdAnotherDeviceButton, at: 0)
             }
         default:

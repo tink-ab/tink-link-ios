@@ -18,6 +18,7 @@ final class AddCredentialViewController: UIViewController {
 
     private var task: AddCredentialTask?
     private var statusViewController: AddCredentialStatusViewController?
+    private var qrImageViewController: QRImageViewController?
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
     private var didFirstFieldBecomeFirstResponder = false
 
@@ -51,7 +52,7 @@ extension AddCredentialViewController {
         super.viewDidLoad()
 
         view.backgroundColor = Color.background
-        
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
@@ -81,6 +82,7 @@ extension AddCredentialViewController {
         addCredentialFooterView.configure(with: provider, isAggregator: isAggregator)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         addCredentialFooterView.button.addTarget(self, action: #selector(addCredential), for: .touchUpInside)
+        addCredentialFooterView.bankIdAnotherDeviceButton.addTarget(self, action: #selector(addBankIDCredentialOnAnotherDevice), for: .touchUpInside)
         
         view.addSubview(tableView)
         view.addSubview(addCredentialFooterView)
@@ -242,6 +244,29 @@ extension AddCredentialViewController {
         tableView.reloadRows(at: Array(indexPathsToUpdate), with: .automatic)
     }
 
+    @objc private func addBankIDCredentialOnAnotherDevice() {
+        view.endEditing(false)
+        do {
+            try form.validateFields()
+            task = credentialController.addCredential(
+                provider,
+                form: form,
+                progressHandler: { [weak self] status in
+                    DispatchQueue.main.async {
+                        self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: true)
+                    }
+                },
+                completion: { [weak self] result in
+                    DispatchQueue.main.async {
+                        self?.handleAddCredentialCompletion(result)
+                    }
+                }
+            )
+        } catch {
+            formError = error as? Form.ValidationError
+        }
+    }
+
     private func showMoreInfo() {
         addCredentialNavigator?.showScopeDescriptions()
     }
@@ -258,14 +283,22 @@ extension AddCredentialViewController {
 // MARK: - Handlers
 
 extension AddCredentialViewController {
-    private func handleAddCredentialStatus(_ status: AddCredentialTask.Status) {
+    private func handleAddCredentialStatus(_ status: AddCredentialTask.Status, shouldAuthenticateInAnotherDevice: Bool = false) {
         switch status {
         case .authenticating, .created:
             break
         case .awaitingSupplementalInformation(let supplementInformationTask):
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-            thirdPartyAppAuthenticationTask.openThirdPartyApp()
+            if shouldAuthenticateInAnotherDevice {
+                thirdPartyAppAuthenticationTask.qr { [weak self] qrImage in
+                    DispatchQueue.main.async {
+                        self?.showQRCodeView(qrImage: qrImage)
+                    }
+                }
+            } else {
+                 thirdPartyAppAuthenticationTask.openThirdPartyApp()
+            }
         case .updating(let status):
             showUpdating(status: status)
         }
@@ -286,6 +319,7 @@ extension AddCredentialViewController {
                 }
             }
         }
+        task = nil
     }
 }
 
@@ -301,24 +335,44 @@ extension AddCredentialViewController {
     }
 
     private func showUpdating(status: String) {
-        if statusViewController == nil {
-            let statusViewController = AddCredentialStatusViewController()
-            statusViewController.modalTransitionStyle = .crossDissolve
-            statusViewController.modalPresentationStyle = .custom
-            statusViewController.transitioningDelegate = statusPresentationManager
-            present(statusViewController, animated: true)
-            self.statusViewController = statusViewController
+        hideQRCodeView {
+            if self.statusViewController == nil {
+                let statusViewController = AddCredentialStatusViewController()
+                statusViewController.modalTransitionStyle = .crossDissolve
+                statusViewController.modalPresentationStyle = .custom
+                statusViewController.transitioningDelegate = self.statusPresentationManager
+                self.present(statusViewController, animated: true)
+                self.statusViewController = statusViewController
+            }
+            self.statusViewController?.status = status
         }
-        statusViewController?.status = status
     }
 
     private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
+        hideQRCodeView(animated: animated)
         guard statusViewController != nil else {
             completion?()
             return
         }
         dismiss(animated: animated, completion: completion)
         statusViewController = nil
+    }
+
+    private func showQRCodeView(qrImage: UIImage) {
+        hideUpdatingView {
+            let qrImageViewController = QRImageViewController(qrImage: qrImage)
+            self.qrImageViewController = qrImageViewController
+            self.present(qrImageViewController, animated: true)
+        }
+    }
+
+    private func hideQRCodeView(animated: Bool = false, completion: (() -> Void)? = nil) {
+        guard qrImageViewController != nil else {
+            completion?()
+            return
+        }
+        dismiss(animated: animated, completion: completion)
+        qrImageViewController = nil
     }
 
     private func showCredentialUpdated() {

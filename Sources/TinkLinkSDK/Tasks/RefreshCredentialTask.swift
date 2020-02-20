@@ -114,7 +114,7 @@ public final class RefreshCredentialTask: Identifiable {
                     return
                 }
                 credentialStatusPollingTask?.pausePolling()
-                let task = ThirdPartyAppAuthenticationTask(thirdPartyAppAuthentication: thirdPartyAppAuthentication) { [weak self] result in
+                let task = ThirdPartyAppAuthenticationTask(credentialID: credential.id, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialService: credentialService) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
