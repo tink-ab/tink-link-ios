@@ -376,8 +376,9 @@ extension AddCredentialViewController {
     }
 
     private func showCredentialUpdated() {
-        hideUpdatingView()
-        dismiss(animated: true)
+        hideUpdatingView(animated: true) {
+            self.addCredentialNavigator?.showAddCredentialSuccess()
+        }
     }
 
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {

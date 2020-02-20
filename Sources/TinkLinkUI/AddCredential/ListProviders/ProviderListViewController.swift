@@ -35,6 +35,8 @@ extension ProviderListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(showLoadingIndicator), name: .providerControllerWillFetchProviders, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideLoadingIndicator), name: .providerControllerDidFetchProviders, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
 
         searchController.obscuresBackgroundDuringPresentation = false
@@ -52,6 +54,25 @@ extension ProviderListViewController {
 
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
+
+        if providerController?.isFetching == true {
+            showLoadingIndicator()
+        }
+
+    }
+
+    @objc private func showLoadingIndicator() {
+        DispatchQueue.main.async {
+            let activityIndicatorView = UIActivityIndicatorView()
+            activityIndicatorView.startAnimating()
+            self.tableView.backgroundView = activityIndicatorView
+        }
+    }
+
+    @objc private func hideLoadingIndicator() {
+        DispatchQueue.main.async {
+            self.tableView.backgroundView = nil
+        }
     }
 
     @objc private func updateProviders() {

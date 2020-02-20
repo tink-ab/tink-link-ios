@@ -8,4 +8,5 @@ protocol AddCredentialFlowNavigating: AnyObject {
     func showAddCredential(for provider: Provider)
     func showScopeDescriptions()
     func showWebContent(with url: URL)
+    func showAddCredentialSuccess()
 }
