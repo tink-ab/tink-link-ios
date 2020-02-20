@@ -142,6 +142,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     ///
     /// Call this method if you have a UI that lets the user choose to open the third party app and the user cancels.
     public func cancel() {
+        callRetryCancellable?.cancel()
         callRetryCancellable = nil
         completionHandler(.failure(CocoaError(.userCancelled)))
     }
