@@ -19,7 +19,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
         case downloadRequired(title: String, message: String, appStoreURL: URL?)
 
-        case notSupportAnotherDeviceAuthentication
+        case doesNotSupportAuthenticatingOnAnotherDevice
 
         public var errorDescription: String? {
             switch self {
@@ -27,7 +27,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 return nil
             case .downloadRequired(let title, _, _):
                 return title
-            case .notSupportAnotherDeviceAuthentication:
+            case .doesNotSupportAuthenticatingOnAnotherDevice:
                 // TODO: Copy
                 return "This bank does not support authenticate on another device"
             }
@@ -39,7 +39,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 return nil
             case .downloadRequired(_, let message, _):
                 return message
-            case .notSupportAnotherDeviceAuthentication:
+            case .doesNotSupportAuthenticatingOnAnotherDevice:
                 // TODO: Copy
                 return "This bank does not support authenticate on another device"
             }
@@ -51,7 +51,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 return nil
             case .downloadRequired(_, _, let url):
                 return url
-            case .notSupportAnotherDeviceAuthentication:
+            case .doesNotSupportAuthenticatingOnAnotherDevice:
                 return nil
             }
         }
@@ -60,7 +60,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Information about how to open or download the third party application app.
     public private(set) var thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication
     private let completionHandler: (Result<Void, Swift.Error>) -> Void
-    public var canAuthenticateInAnotherDevice: Bool {
+    private var canAuthenticateOnAnotherDevice: Bool {
         // TODO: Double check the logic.
         // Not sure about this part, but maybe because of grpc, the supplemental info is always empty for bankid credential kind, so has to check the deeplink URL instead.
         // Also maybe this is not even the case, for the bank that does not have autostart token, seems it will just trigger the bankID on another device with personal number
@@ -122,7 +122,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     let qrData = try result.get()
                     // Handle the borken data as not support error
                     guard let qrImage = UIImage(data: qrData) else {
-                        throw Error.notSupportAnotherDeviceAuthentication
+                        throw Error.doesNotSupportAuthenticatingOnAnotherDevice
                     }
 
                     completion(qrImage)
@@ -132,7 +132,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 self?.callRetryCancellable = nil
             }
         } else {
-            completionHandler(.failure(Error.notSupportAnotherDeviceAuthentication))
+            completionHandler(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
         }
     }
 
