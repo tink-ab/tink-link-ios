@@ -37,6 +37,10 @@ public class TinkLinkViewController: UINavigationController {
 
         presentationController?.delegate = self
 
+        start()
+    }
+
+    private func start() {
         userController.createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -63,10 +67,36 @@ public class TinkLinkViewController: UINavigationController {
                         }
                     }
                 } catch {
-                    // TODO: Error handling
+                    let viewController = UIViewController()
+                    self.setViewControllers([viewController], animated: false)
+                    self.showCreateTemporaryUserAlert(for: error)
                 }
             }
         }
+    }
+
+    private func showCreateTemporaryUserAlert(for error: Error) {
+        let localizedError = error as? LocalizedError
+
+        let alertController = UIAlertController(
+            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
+            message: localizedError?.failureReason ?? error.localizedDescription,
+            preferredStyle: .alert
+        )
+
+        let retryAction = UIAlertAction(title: "Retry", style: .default) { _ in
+            let loadingViewController = LoadingViewController()
+            loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
+            self.setViewControllers([loadingViewController], animated: false)
+            self.start()
+        }
+        alertController.addAction(retryAction)
+
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
+            self.presentingViewController?.dismiss(animated: true)
+        }
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
     }
 
     private func setupNavigationBarAppearance() {
