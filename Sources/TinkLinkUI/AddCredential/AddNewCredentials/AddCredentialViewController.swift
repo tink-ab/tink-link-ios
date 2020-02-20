@@ -332,8 +332,8 @@ extension AddCredentialViewController {
         }
     }
 
-    private func hideUpdatingView(animated: Bool = true, completion: (() -> Void)? = nil) {
-        hideQRCodeView()
+    private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
+        hideQRCodeView(animated: animated)
         guard statusViewController != nil else {
             completion?()
             return
