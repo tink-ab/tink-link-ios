@@ -9,6 +9,16 @@ public final class UserContext {
     public enum Error: Swift.Error {
         /// The market and/or locale was invalid. The payload from the backend can be found in the associated value.
         case invalidMarketOrLocale(String)
+
+        init?(_ error: Swift.Error) {
+            guard let serviceError = error as? UserService.Error else { return nil }
+            switch serviceError {
+            case .invalidMarketOrLocale(let message):
+                self = .invalidMarketOrLocale(message)
+            default:
+                return nil
+            }
+        }
     }
 
     // MARK: - Creating a Context

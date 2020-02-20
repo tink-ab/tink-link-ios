@@ -9,6 +9,20 @@ final class UserService {
     private var session: URLSession
     private var sessionDelegate: URLSessionDelegate?
 
+    enum Error: Swift.Error {
+        case invalidMarketOrLocale(String)
+
+        init?(_ error: Swift.Error) {
+            guard let status = error as? GRPC.GRPCStatus else { return nil }
+            switch status.code {
+            case .invalidArgument:
+                self = .invalidMarketOrLocale(status.message ?? "")
+            default:
+                return nil
+            }
+        }
+    }
+
     convenience init(tinkLink: TinkLink = .shared) {
         let client = tinkLink.client
         self.init(
@@ -35,16 +49,18 @@ final class UserService {
 
     private lazy var service = UserServiceServiceClient(connection: connection, defaultCallOptions: defaultCallOptions)
 
-    func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable {
+    func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Swift.Error>) -> Void) -> RetryCancellable {
         var request = GRPCCreateAnonymousRequest()
         request.market = market?.code ?? ""
         request.locale = locale.identifier
         request.origin = origin ?? ""
 
-        return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: completion)
+        return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: { result in
+            completion(result.mapError({ Error($0) ?? $0 }))
+        })
     }
 
-    func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
+    func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Swift.Error>) -> Void) -> RetryCancellable? {
         guard var urlComponents = URLComponents(url: restURL, resolvingAgainstBaseURL: false) else {
             preconditionFailure("Invalid restURL")
         }
@@ -68,7 +84,7 @@ final class UserService {
         return serviceRetryCanceller
     }
 
-    func marketAndLocale(completion: @escaping (Result<(Market, Locale), Error>) -> Void) -> RetryCancellable? {
+    func marketAndLocale(completion: @escaping (Result<(Market, Locale), Swift.Error>) -> Void) -> RetryCancellable? {
         let request = GRPCGetProfileRequest()
         return CallHandler(for: request, method: service.getProfile, responseMap: { response -> (Market, Locale) in
             let profile = response.userProfile
