@@ -191,6 +191,12 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         let viewController = LegalViewController(url: url)
         present(viewController, animated: true)
     }
+
+    func showAddCredentialSuccess() {
+        //TODO: Get proper company name
+        let viewController = CredentialSuccessfullyAddedViewController(companyName: "Test")
+        show(viewController, sender: self)
+    }
 }
 
 // MARK: - Helpers
