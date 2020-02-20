@@ -48,14 +48,18 @@ final class CredentialService: TokenConfigurableService {
             request.appUri = appURI.absoluteString
         }
 
-        return CallHandler(for: request, method: service.createCredential, responseMap: { Credential(grpcCredential: $0.credential) }, completion: completion)
+        return CallHandler(for: request, method: service.createCredential, responseMap: { Credential(grpcCredential: $0.credential) }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     func deleteCredential(credentialID: Credential.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable {
         var request = GRPCDeleteCredentialRequest()
         request.credentialID = credentialID.value
 
-        return CallHandler(for: request, method: service.deleteCredential, responseMap: { _ in }, completion: completion)
+        return CallHandler(for: request, method: service.deleteCredential, responseMap: { _ in }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     func updateCredential(credentialID: Credential.ID, fields: [String: String] = [:], completion: @escaping (Result<Credential, Error>) -> Void) -> RetryCancellable {
@@ -63,14 +67,18 @@ final class CredentialService: TokenConfigurableService {
         request.credentialID = credentialID.value
         request.fields = fields
 
-        return CallHandler(for: request, method: service.updateCredential, responseMap: { Credential(grpcCredential: $0.credential) }, completion: completion)
+        return CallHandler(for: request, method: service.updateCredential, responseMap: { Credential(grpcCredential: $0.credential) }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     func refreshCredentials(credentialIDs: [Credential.ID], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable {
         var request = GRPCRefreshCredentialsRequest()
         request.credentialIds = credentialIDs.map { $0.value }
 
-        return CallHandler(for: request, method: service.refreshCredentials, responseMap: { _ in }, completion: completion)
+        return CallHandler(for: request, method: service.refreshCredentials, responseMap: { _ in }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     func supplementInformation(credentialID: Credential.ID, fields: [String: String] = [:], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable {
@@ -78,28 +86,36 @@ final class CredentialService: TokenConfigurableService {
         request.credentialID = credentialID.value
         request.supplementalInformationFields = fields
 
-        return CallHandler(for: request, method: service.supplementInformation, responseMap: { _ in }, completion: completion)
+        return CallHandler(for: request, method: service.supplementInformation, responseMap: { _ in }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     func cancelSupplementInformation(credentialID: Credential.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable {
         var request = GRPCCancelSupplementInformationRequest()
         request.credentialID = credentialID.value
 
-        return CallHandler(for: request, method: service.cancelSupplementInformation, responseMap: { _ in }, completion: completion)
+        return CallHandler(for: request, method: service.cancelSupplementInformation, responseMap: { _ in }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     func enableCredential(credentialID: Credential.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable {
         var request = GRPCEnableCredentialRequest()
         request.credentialID = credentialID.value
 
-        return CallHandler(for: request, method: service.enableCredential, responseMap: { _ in }, completion: completion)
+        return CallHandler(for: request, method: service.enableCredential, responseMap: { _ in }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     func disableCredential(credentialID: Credential.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable {
         var request = GRPCDisableCredentialRequest()
         request.credentialID = credentialID.value
 
-        return CallHandler(for: request, method: service.disableCredential, responseMap: { _ in }, completion: completion)
+        return CallHandler(for: request, method: service.disableCredential, responseMap: { _ in }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     func thirdPartyCallback(state: String, parameters: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable {
@@ -107,7 +123,9 @@ final class CredentialService: TokenConfigurableService {
         request.state = state
         request.parameters = parameters
 
-        return CallHandler(for: request, method: service.thirdPartyCallback, responseMap: { _ in }, completion: completion)
+        return CallHandler(for: request, method: service.thirdPartyCallback, responseMap: { _ in }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     func manualAuthentication(credentialID: Credential.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable {
