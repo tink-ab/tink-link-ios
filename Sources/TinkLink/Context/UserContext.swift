@@ -23,9 +23,9 @@ public final class UserContext {
     // MARK: - Creating a Context
 
     /// Creates a context to register for an access token that will be used in other Tink APIs.
-    /// - Parameter tinkLink: Tink instance, will use the shared instance if nothing is provided.
-    public init(tinkLink: Tink = .shared) {
-        self.userService = UserService(tinkLink: tinkLink)
+    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
+    public init(tink: Tink = .shared) {
+        self.userService = UserService(tink: TinkLink)
     }
 
     // MARK: - Authenticating a User

@@ -2,18 +2,18 @@ import Foundation
 
 /// An object that you use to authorize for a user with requested scopes.
 public final class AuthorizationContext {
-    private let tinkLink: Tink
+    private let tink: Tink
     private let service: AuthenticationService
 
     // MARK: - Creating a Context
 
     /// Creates a context to authorize for an authorization code for a user with requested scopes.
     ///
-    /// - Parameter tinkLink: Tink instance, will use the shared instance if nothing is provided.
+    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     /// - Parameter user: `User` that will be used for authorizing scope with the Tink API.
-    public init(tinkLink: Tink = .shared, user: User) {
+    public init(tink: Tink = .shared, user: User) {
         self.tinkLink = tinkLink
-        self.service = AuthenticationService(tinkLink: tinkLink, accessToken: user.accessToken)
+        self.service = AuthenticationService(tink: TinkLink, accessToken: user.accessToken)
     }
 
     // MARK: - Authorizing a User

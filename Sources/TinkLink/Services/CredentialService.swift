@@ -17,7 +17,7 @@ final class CredentialService: TokenConfigurableService {
         }
     }
 
-    convenience init(tinkLink: Tink = .shared, accessToken: AccessToken? = nil) {
+    convenience init(tink: Tink = .shared, accessToken: AccessToken? = nil) {
         var defaultCallOptions = tinkLink.client.defaultCallOptions
         if let accessToken = accessToken {
             defaultCallOptions.addAccessToken(accessToken.rawValue)

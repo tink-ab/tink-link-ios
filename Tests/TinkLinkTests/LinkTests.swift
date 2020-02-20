@@ -3,7 +3,7 @@ import XCTest
 
 class LinkTests: XCTestCase {
     let context = AuthorizationContext(
-        tinkLink: TinkLink(
+        tink: TinkLink(
             configuration: try! .init(
                 clientID: "abcdefgh",
                 redirectURI: URL(string: "tink://test")!
