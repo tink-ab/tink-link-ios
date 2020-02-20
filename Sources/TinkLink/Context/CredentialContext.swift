@@ -91,7 +91,8 @@ public final class CredentialContext {
                 let credential = try result.get()
                 task?.startObserving(credential)
             } catch {
-                completion(.failure(error))
+                let mappedError = AddCredentialTask.Error(addCredentialError: error) ?? error
+                completion(.failure(mappedError))
             }
         }
         return task
