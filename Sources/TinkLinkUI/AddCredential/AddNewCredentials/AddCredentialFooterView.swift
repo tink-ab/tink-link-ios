@@ -26,7 +26,7 @@ final class AddCredentialFooterView: UIView {
         descriptionTextView.delegate = self
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
-        descriptionTextView.backgroundColor = .clear
+        descriptionTextView.backgroundColor = Color.background
         descriptionTextView.font = Font.regular(.micro)
         descriptionTextView.linkTextAttributes = [
             .foregroundColor: Color.secondaryLabel,
@@ -91,9 +91,9 @@ final class AddCredentialFooterView: UIView {
     }
 
     private func setup() {
-        addSubview(button)
-        addSubview(stackView)
         stackView.addArrangedSubview(descriptionTextView)
+        addSubview(stackView)
+        addSubview(button)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
