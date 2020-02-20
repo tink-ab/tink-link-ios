@@ -106,15 +106,6 @@ extension AddCredentialViewController {
         layoutHelpFootnote()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FormFieldTableViewCell {
-            cell.textField.becomeFirstResponder()
-            didFirstFieldBecomeFirstResponder = true
-        }
-    }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
