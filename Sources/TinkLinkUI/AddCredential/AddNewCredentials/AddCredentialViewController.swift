@@ -496,10 +496,8 @@ extension AddCredentialViewController: SupplementalInformationViewControllerDele
     }
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credential) {
-        dismiss(animated: true)
-
-        let activityIndicator = UIActivityIndicatorView(style: .gray)
-        activityIndicator.startAnimating()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        dismiss(animated: true) {
+            self.showUpdating(status: "Sending...")
+        }
     }
 }
