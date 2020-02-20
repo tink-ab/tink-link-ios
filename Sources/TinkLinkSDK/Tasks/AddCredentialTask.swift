@@ -116,6 +116,7 @@ public final class AddCredentialTask: Identifiable {
                     } catch {
                         self.completion(.failure(error))
                     }
+                    self.supplementInformationTask = nil
                 }
                 self.supplementInformationTask = supplementInformationTask
                 progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
@@ -140,6 +141,7 @@ public final class AddCredentialTask: Identifiable {
                             self.completion(.failure(error))
                         }
                     }
+                    self.thirdPartyAppAuthenticationTask = nil
                 }
                 self.thirdPartyAppAuthenticationTask = thirdPartyAppAuthenticationTask
                 progressHandler(.awaitingThirdPartyAppAuthentication(thirdPartyAppAuthenticationTask))
