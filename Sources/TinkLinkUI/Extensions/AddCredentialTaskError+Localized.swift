@@ -11,7 +11,7 @@ extension AddCredentialTask.Error: LocalizedError {
         case .authenticationFailed:
             return "Authentication failed"
         case .credentialAlreadyExists:
-            return "Can not proceed"
+            return "Error"
         }
     }
 
