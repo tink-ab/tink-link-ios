@@ -115,8 +115,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     #endif
 
     public func qr(completion: @escaping (UIImage) -> Void) {
-        if canAuthenticateInAnotherDevice {
             completionHandler(.success(()))
+        if canAuthenticateOnAnotherDevice {
             callRetryCancellable = credentialService.qr(credentialID: credentialID) { [weak self] result in
                 do {
                     let qrData = try result.get()
