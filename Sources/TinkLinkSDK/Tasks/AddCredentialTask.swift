@@ -33,7 +33,16 @@ public final class AddCredentialTask: Identifiable {
         /// A permanent failure occurred. The payload from the backend can be found in the associated value.
         case permanentFailure(String)
         /// The credential is already exists.
-        case credentialAlreadyExists
+        case credentialAlreadyExists(String)
+
+        init?(addCredentialError error: Swift.Error) {
+            switch error {
+            case ServiceError.alreadyExists(let payload):
+                self = . credentialAlreadyExists(payload)
+            default:
+                return nil
+            }
+        }
     }
 
     private var credentialStatusPollingTask: CredentialStatusPollingTask?
