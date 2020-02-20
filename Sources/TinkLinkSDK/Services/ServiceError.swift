@@ -1,3 +1,5 @@
+import GRPC
+
 enum ServiceError: Error {
     case cancelled
     case unknown(String)

@@ -82,7 +82,7 @@ public final class UserContext {
     }
 
     @discardableResult
-    func userProfile(_ user: User, completion: @escaping (Result<User, Error>) -> Void) -> RetryCancellable? {
+    func userProfile(_ user: User, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
         userService.defaultCallOptions.addAccessToken(user.accessToken.rawValue)
         return userService.userProfile { result in
             do {
