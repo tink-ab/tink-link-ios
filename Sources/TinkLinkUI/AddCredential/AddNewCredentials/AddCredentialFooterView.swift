@@ -91,9 +91,9 @@ final class AddCredentialFooterView: UIView {
     }
 
     private func setup() {
-        addSubview(button)
-        addSubview(stackView)
         stackView.addArrangedSubview(descriptionTextView)
+        addSubview(stackView)
+        addSubview(button)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
