@@ -11,7 +11,7 @@ final class ProviderController {
     let tinkLink: TinkLink
     
     var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] {
-        return ProviderTree(providers: providers).financialInstitutions
+        return ProviderTree(providers: providers).makeFinancialInstitutions()
     }
     
     var user: User? {
