@@ -10,10 +10,10 @@ public final class UserContext {
         /// The market and/or locale was invalid. The payload from the backend can be found in the associated value.
         case invalidMarketOrLocale(String)
 
-        init?(_ error: Swift.Error) {
-            guard let serviceError = error as? UserService.Error else { return nil }
+        init?(createTemporaryUserError error: Swift.Error) {
+            guard let serviceError = error as? ServiceError else { return nil }
             switch serviceError {
-            case .invalidMarketOrLocale(let message):
+            case .invalidArgument(let message):
                 self = .invalidMarketOrLocale(message)
             default:
                 return nil
@@ -68,7 +68,7 @@ public final class UserContext {
         return userService.createAnonymous(market: market, locale: locale) { result in
             let mappedResult = result
                 .map { User(accessToken: $0) }
-                .mapError { Error($0) ?? $0 }
+                .mapError { Error(createTemporaryUserError: $0) ?? $0 }
             do {
                 let user = try mappedResult.get()
                 completion(.success(user))
