@@ -12,6 +12,8 @@ class FormFieldTableViewCell: UITableViewCell {
 
     static var reuseIdentifier: String { "TextFieldCell" }
 
+    private var field: Form.Field?
+
     let footerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -66,8 +68,19 @@ class FormFieldTableViewCell: UITableViewCell {
     }
 
     func configure(with field: Form.Field) {
+        self.field = field
         textField.configure(with: field)
         footerLabel.text = field.attributes.helpText
+    }
+
+    func setError(with errorText: String?) {
+        if let errorText = errorText {
+            footerLabel.text = errorText
+            footerLabel.textColor = Color.warning
+        } else {
+            footerLabel.text = field?.attributes.helpText
+            footerLabel.textColor = Color.secondaryLabel
+        }
     }
 }
 
