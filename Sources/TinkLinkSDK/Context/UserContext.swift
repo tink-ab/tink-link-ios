@@ -11,9 +11,8 @@ public final class UserContext {
         case invalidMarketOrLocale(String)
 
         init?(createTemporaryUserError error: Swift.Error) {
-            guard let serviceError = error as? ServiceError else { return nil }
-            switch serviceError {
-            case .invalidArgument(let message):
+            switch error {
+            case ServiceError.invalidArgument(let message):
                 self = .invalidMarketOrLocale(message)
             default:
                 return nil
