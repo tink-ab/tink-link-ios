@@ -12,7 +12,7 @@ final class UserService {
     enum Error: Swift.Error {
         case invalidMarketOrLocale(String)
 
-        init?(_ error: Swift.Error) {
+        init?(createAnonymousError error: Swift.Error) {
             guard let status = error as? GRPC.GRPCStatus else { return nil }
             switch status.code {
             case .invalidArgument:
@@ -56,7 +56,7 @@ final class UserService {
         request.origin = origin ?? ""
 
         return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: { result in
-            completion(result.mapError({ Error($0) ?? $0 }))
+            completion(result.mapError({ Error(createAnonymousError: $0) ?? $0 }))
         })
     }
 
