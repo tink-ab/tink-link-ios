@@ -69,7 +69,7 @@ extension FinancialInstitutionSearchViewController {
 extension FinancialInstitutionSearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text, !text.isEmpty {
-            financialInstitutionNodes = originalFinancialInstitutionNodes.filter { $0.financialInstitution.name.localizedStandardContains(text) }
+            financialInstitutionNodes = originalFinancialInstitutionNodes.filter { $0.financialInstitution.name.localizedCaseInsensitiveContains(text) }
         } else {
             financialInstitutionNodes = originalFinancialInstitutionNodes
         }
