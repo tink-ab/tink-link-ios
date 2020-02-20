@@ -21,6 +21,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
         case doesNotSupportAuthenticatingOnAnotherDevice
 
+        case decodingQRCodeImageFailed
+
         public var errorDescription: String? {
             switch self {
             case .deeplinkURLNotFound:
@@ -30,6 +32,9 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             case .doesNotSupportAuthenticatingOnAnotherDevice:
                 // TODO: Copy
                 return "This bank does not support authenticate on another device"
+            case .decodingQRCodeImageFailed:
+                // TODO: Copy
+                return "Failed to decod the QR code image"
             }
         }
 
@@ -41,7 +46,10 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 return message
             case .doesNotSupportAuthenticatingOnAnotherDevice:
                 // TODO: Copy
-                return "This bank does not support authenticate on another device"
+                return nil
+            case .decodingQRCodeImageFailed:
+                // TODO: Copy
+                return nil
             }
         }
 
@@ -52,6 +60,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             case .downloadRequired(_, _, let url):
                 return url
             case .doesNotSupportAuthenticatingOnAnotherDevice:
+                return nil
+            case .decodingQRCodeImageFailed:
                 return nil
             }
         }
@@ -119,9 +129,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             callRetryCancellable = credentialService.qr(credentialID: credentialID) { [weak self] result in
                 do {
                     let qrData = try result.get()
-                    // Handle the borken data as not support error
                     guard let qrImage = UIImage(data: qrData) else {
-                        throw Error.doesNotSupportAuthenticatingOnAnotherDevice
+                        throw Error.decodingQRCodeImageFailed
                     }
                     self?.completionHandler(.success(()))
                     completion(qrImage)
