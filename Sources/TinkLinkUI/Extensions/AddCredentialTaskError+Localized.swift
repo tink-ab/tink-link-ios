@@ -10,6 +10,8 @@ extension AddCredentialTask.Error: LocalizedError {
             return "Temporary error"
         case .authenticationFailed:
             return "Authentication failed"
+        case .credentialAlreadyExists:
+            return "Can not proceed"
         }
     }
 
@@ -17,6 +19,8 @@ extension AddCredentialTask.Error: LocalizedError {
         switch self {
         case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload):
             return payload
+        case .credentialAlreadyExists:
+            "You already have a connection to this bank or service."
         }
     }
 }
