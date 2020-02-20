@@ -219,6 +219,8 @@ extension AddCredentialViewController {
                     }
                 }
             )
+            showUpdating(status: "Authenticating...")
+
         } catch let error as Form.ValidationError {
             for (index, field) in form.fields.enumerated() {
                 guard let error = error[fieldName: field.name] else {
@@ -333,11 +335,12 @@ extension AddCredentialViewController {
 
 extension AddCredentialViewController {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
-        hideUpdatingView()
-        let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
-        supplementalInformationViewController.delegate = self
-        let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
-        show(navigationController, sender: nil)
+        hideUpdatingView(animated: true) {
+            let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
+            supplementalInformationViewController.delegate = self
+            let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
+            self.show(navigationController, sender: nil)
+        }
     }
 
     private func showUpdating(status: String) {
