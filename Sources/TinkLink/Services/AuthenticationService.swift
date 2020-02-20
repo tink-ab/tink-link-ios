@@ -19,7 +19,7 @@ final class AuthenticationService: TokenConfigurableService {
 
     internal lazy var service = AuthenticationServiceServiceClient(connection: connection, defaultCallOptions: defaultCallOptions)
 
-    convenience init(tinkLink: TinkLink = .shared, accessToken: AccessToken? = nil) {
+    convenience init(tinkLink: Tink = .shared, accessToken: AccessToken? = nil) {
         var defaultCallOptions = tinkLink.client.defaultCallOptions
         if let accessToken = accessToken {
             defaultCallOptions.addAccessToken(accessToken.rawValue)
@@ -48,7 +48,7 @@ final class AuthenticationService: TokenConfigurableService {
         }
     }
 
-    func clientDescription(scope: TinkLink.Scope, redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable {
+    func clientDescription(scope: Tink.Scope, redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable {
         guard let clientID = defaultCallOptions.customMetadata[CallOptions.HeaderKey.oauthClientID.key].first else {
             preconditionFailure("No client id")
         }
@@ -68,7 +68,7 @@ final class AuthenticationService: TokenConfigurableService {
 }
 
 extension AuthenticationService {
-    func authorize(redirectURI: URL, scope: TinkLink.Scope, completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable? {
+    func authorize(redirectURI: URL, scope: Tink.Scope, completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable? {
         guard let clientID = defaultCallOptions.customMetadata[CallOptions.HeaderKey.oauthClientID.key].first else {
             preconditionFailure("No client id")
         }

@@ -1,6 +1,6 @@
 import Foundation
 
-/// An object that you use to create a user that will be used in other TinkLink APIs.
+/// An object that you use to create a user that will be used in other Tink APIs.
 public final class UserContext {
     private let userService: UserService
     private var retryCancellable: RetryCancellable?
@@ -22,9 +22,9 @@ public final class UserContext {
 
     // MARK: - Creating a Context
 
-    /// Creates a context to register for an access token that will be used in other TinkLink APIs.
-    /// - Parameter tinkLink: TinkLink instance, will use the shared instance if nothing is provided.
-    public init(tinkLink: TinkLink = .shared) {
+    /// Creates a context to register for an access token that will be used in other Tink APIs.
+    /// - Parameter tinkLink: Tink instance, will use the shared instance if nothing is provided.
+    public init(tinkLink: Tink = .shared) {
         self.userService = UserService(tinkLink: tinkLink)
     }
 
@@ -60,10 +60,10 @@ public final class UserContext {
     /// Create a user for a specific market and locale.
     ///
     /// - Parameter market: Register a `Market` for creating the user, will use the default market if nothing is provided.
-    /// - Parameter locale: Register a `Locale` for creating the user, will use the default locale in TinkLink if nothing is provided.
+    /// - Parameter locale: Register a `Locale` for creating the user, will use the default locale in Tink if nothing is provided.
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
-    func createTemporaryUser(for market: Market, locale: Locale = TinkLink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
+    func createTemporaryUser(for market: Market, locale: Locale = Tink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
         return userService.createAnonymous(market: market, locale: locale) { result in
             let mappedResult = result
                 .map { User(accessToken: $0) }
