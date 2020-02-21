@@ -21,6 +21,7 @@ final class AddCredentialViewController: UIViewController {
     private var qrImageViewController: QRImageViewController?
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
     private var didFirstFieldBecomeFirstResponder = false
+    private let keyboardObserver = KeyboardObserver()
 
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
     private lazy var helpLabel = UITextView()
@@ -53,18 +54,12 @@ extension AddCredentialViewController {
 
         view.backgroundColor = Color.background
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide(_:)),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
+        keyboardObserver.willShow = { [weak self] notification in
+            self?.keyboardWillShow(notification)
+        }
+        keyboardObserver.willHide = { [weak self] notification in
+            self?.keyboardWillHide(notification)
+        }
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -162,15 +157,13 @@ extension AddCredentialViewController {
 
 // MARK: - Keyboard Helper
 extension AddCredentialViewController {
-    @objc func keyboardWillShow(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            addCredentialFooterView.updateButtonBottomConstraint(keyboardHeight)
-        }
+    private func keyboardWillShow(_ notification: KeyboardNotification) {
+        let keyboardRectangle = notification.frame
+        let keyboardHeight = keyboardRectangle.height
+        addCredentialFooterView.updateButtonBottomConstraint(keyboardHeight)
     }
 
-    @objc func keyboardWillHide(_ notification: Notification) {
+    private func keyboardWillHide(_ notification: KeyboardNotification) {
         addCredentialFooterView.resetButtonBottomConstraint()
     }
 }

@@ -13,6 +13,7 @@ final class SupplementalInformationViewController: UIViewController {
 
     private let button = FloatingButton()
     private let tableView = UITableView(frame: .zero, style: .plain)
+    private let keyboardObserver = KeyboardObserver()
 
     let supplementInformationTask: SupplementInformationTask
     private var form: Form
@@ -45,18 +46,12 @@ extension SupplementalInformationViewController {
         tableView.dataSource = self
         tableView.delegate = self
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide(_:)),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
+        keyboardObserver.willShow = { [weak self] notification in
+            self?.keyboardWillShow(notification)
+        }
+        keyboardObserver.willHide = { [weak self] notification in
+            self?.keyboardWillHide(notification)
+        }
 
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
@@ -184,15 +179,12 @@ extension SupplementalInformationViewController: FormFieldTableViewCellDelegate 
 
 // MARK: - Keyboard Helper
 extension SupplementalInformationViewController {
-    @objc func keyboardWillShow(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            buttonBottomConstraint.constant = keyboardHeight + 4 - view.safeAreaInsets.bottom
-        }
+    private func keyboardWillShow(_ notification: KeyboardNotification) {
+        let keyboardHeight = notification.frame.height
+        buttonBottomConstraint.constant = keyboardHeight + 4 - view.safeAreaInsets.bottom
     }
 
-    @objc func keyboardWillHide(_ notification: Notification) {
+    private func keyboardWillHide(_ notification: KeyboardNotification) {
         buttonBottomConstraint.constant = 4
     }
 }
