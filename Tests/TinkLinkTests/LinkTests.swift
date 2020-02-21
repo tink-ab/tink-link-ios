@@ -1,5 +1,5 @@
 import XCTest
-@testable import TinkLinkSDK
+@testable import TinkLink
 
 class LinkTests: XCTestCase {
     let context = AuthorizationContext(
