@@ -1,5 +1,5 @@
 import UIKit
-import TinkLinkSDK
+import TinkLink
 
 protocol AddCredentialFooterViewDelegate: AnyObject {
     func addCredentialFooterViewDidTapLink(_ addCredentialFooterView: AddCredentialFooterView, url: URL)

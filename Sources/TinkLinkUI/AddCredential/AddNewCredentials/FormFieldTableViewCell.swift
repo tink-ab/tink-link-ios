@@ -1,5 +1,5 @@
 import UIKit
-import TinkLinkSDK
+import TinkLink
 
 protocol FormFieldTableViewCellDelegate: AnyObject {
     func formFieldCellShouldReturn(_ cell: FormFieldTableViewCell) -> Bool

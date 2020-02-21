@@ -1,5 +1,5 @@
 import UIKit
-import TinkLinkSDK
+import TinkLink
 
 public class TinkLinkViewController: UINavigationController {
     private let tinkLink: TinkLink

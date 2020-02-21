@@ -1,4 +1,4 @@
-import TinkLinkSDK
+import TinkLink
 
 final class AuthorizationController {
     let tinkLink: TinkLink

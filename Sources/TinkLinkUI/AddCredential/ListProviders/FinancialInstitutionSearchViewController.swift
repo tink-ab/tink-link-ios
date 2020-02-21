@@ -1,5 +1,5 @@
 import UIKit
-import TinkLinkSDK
+import TinkLink
 
 final class FinancialInstitutionSearchViewController: UITableViewController {
 
