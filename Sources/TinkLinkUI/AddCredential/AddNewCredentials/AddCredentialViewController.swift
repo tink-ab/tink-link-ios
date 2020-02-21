@@ -219,6 +219,8 @@ extension AddCredentialViewController {
                     }
                 }
             )
+            showUpdating(status: "Authenticating...")
+
         } catch let error as Form.ValidationError {
             for (index, field) in form.fields.enumerated() {
                 guard let error = error[fieldName: field.name] else {
@@ -333,11 +335,12 @@ extension AddCredentialViewController {
 
 extension AddCredentialViewController {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
-        hideUpdatingView()
-        let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
-        supplementalInformationViewController.delegate = self
-        let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
-        show(navigationController, sender: nil)
+        hideUpdatingView(animated: true) {
+            let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
+            supplementalInformationViewController.delegate = self
+            let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
+            self.show(navigationController, sender: nil)
+        }
     }
 
     private func showUpdating(status: String) {
@@ -503,10 +506,8 @@ extension AddCredentialViewController: SupplementalInformationViewControllerDele
     }
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credential) {
-        dismiss(animated: true)
-
-        let activityIndicator = UIActivityIndicatorView(style: .gray)
-        activityIndicator.startAnimating()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        dismiss(animated: true) {
+            self.showUpdating(status: "Sending...")
+        }
     }
 }
