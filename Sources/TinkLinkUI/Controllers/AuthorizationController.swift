@@ -1,12 +1,12 @@
 import TinkLink
 
 final class AuthorizationController {
-    let tinkLink: TinkLink
+    let tink: Tink
 
     var user: User? {
         didSet {
             if let user = user {
-                authorizationContext = AuthorizationContext(tinkLink: tinkLink, user: user)
+                authorizationContext = AuthorizationContext(tink: tink, user: user)
             } else {
                 authorizationContext = nil
             }
@@ -15,8 +15,8 @@ final class AuthorizationController {
 
     private var authorizationContext: AuthorizationContext?
 
-    init(tinkLink: TinkLink) {
-        self.tinkLink = tinkLink
+    init(tink: Tink) {
+        self.tink = tink
     }
 
     @discardableResult
@@ -25,7 +25,7 @@ final class AuthorizationController {
     }
 
     @discardableResult
-    public func scopeDescriptions(scope: TinkLink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable? {
+    public func scopeDescriptions(scope: Tink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable? {
         return authorizationContext?.scopeDescriptions(scope: scope, completion: completion)
     }
 }

@@ -2,14 +2,14 @@ import TinkLink
 import Foundation
 
 final class CredentialController {
-    let tinkLink: TinkLink
+    let tink: Tink
 
     var user: User?
 
     private(set) var credentialContext: CredentialContext?
 
-    init(tinkLink: TinkLink) {
-        self.tinkLink = tinkLink
+    init(tink: Tink) {
+        self.tink = tink
     }
 
     func addCredential(_ provider: Provider, form: Form, progressHandler: @escaping (AddCredentialTask.Status) -> Void, completion: @escaping (_ result: Result<Credential, Error>) -> Void) -> AddCredentialTask? {

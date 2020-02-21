@@ -2,14 +2,14 @@ import TinkLink
 import Foundation
 
 final class UserController {
-    let tinkLink: TinkLink
+    let tink: Tink
     
     var user: User?
     
-    private lazy var userContext = UserContext(tinkLink: tinkLink)
+    private lazy var userContext = UserContext(tink: tink)
 
-    init(tinkLink: TinkLink) {
-        self.tinkLink = tinkLink
+    init(tink: Tink) {
+        self.tink = tink
     }
 
     func authenticateUser(authorizationCode: AuthorizationCode, completion: @escaping (Result<User, Error>) -> Void) {
@@ -27,7 +27,7 @@ final class UserController {
     }
 
 
-    func createTemporaryUser(for market: Market, locale: Locale = TinkLink.defaultLocale, completion: @escaping (Result<User, Error>) -> Void) {
+    func createTemporaryUser(for market: Market, locale: Locale = Tink.defaultLocale, completion: @escaping (Result<User, Error>) -> Void) {
         userContext.createTemporaryUser(for: market, locale: locale) { [weak self] result in
             self?.user = try? result.get()
             completion(result)
