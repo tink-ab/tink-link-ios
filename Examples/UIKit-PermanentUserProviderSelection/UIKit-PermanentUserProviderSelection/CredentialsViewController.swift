@@ -1,4 +1,4 @@
-import TinkLinkSDK
+import TinkLink
 import UIKit
 
 class CredentialsViewController: UITableViewController {
