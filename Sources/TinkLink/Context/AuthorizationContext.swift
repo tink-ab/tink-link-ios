@@ -2,18 +2,18 @@ import Foundation
 
 /// An object that you use to authorize for a user with requested scopes.
 public final class AuthorizationContext {
-    private let tinkLink: TinkLink
+    private let tink: Tink
     private let service: AuthenticationService
 
     // MARK: - Creating a Context
 
     /// Creates a context to authorize for an authorization code for a user with requested scopes.
     ///
-    /// - Parameter tinkLink: TinkLink instance, will use the shared instance if nothing is provided.
+    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     /// - Parameter user: `User` that will be used for authorizing scope with the Tink API.
-    public init(tinkLink: TinkLink = .shared, user: User) {
-        self.tinkLink = tinkLink
-        self.service = AuthenticationService(tinkLink: tinkLink, accessToken: user.accessToken)
+    public init(tink: Tink = .shared, user: User) {
+        self.tink = tink
+        self.service = AuthenticationService(tink: tink, accessToken: user.accessToken)
     }
 
     // MARK: - Authorizing a User
@@ -23,13 +23,13 @@ public final class AuthorizationContext {
     /// Once you have received the authorization code, you can exchange it for an access token on your backend and use the access token to access the user's data.
     /// Exchanging the authorization code for an access token requires the use of the client secret associated with your client identifier.
     ///
-    /// - Parameter scope: A `TinkLink.Scope` list of OAuth scopes to be requested.
+    /// - Parameter scope: A `Tink.Scope` list of OAuth scopes to be requested.
     ///                    The Scope array should never be empty.
     /// - Parameter completion: The block to execute when the authorization is complete.
     /// - Parameter result: Represents either an authorization code if authorization was successful or an error if authorization failed.
     @discardableResult
-    func authorize(scope: TinkLink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
-        let redirectURI = tinkLink.configuration.redirectURI
+    func authorize(scope: Tink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
+        let redirectURI = tink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
             completion(result.map { $0.code })
         }
@@ -42,8 +42,8 @@ public final class AuthorizationContext {
     /// - Parameter completion: The block to execute when the aggregator status is received or if an error occurred.
     @discardableResult
     public func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable {
-        let scope = TinkLink.Scope()
-        let redirectURI = tinkLink.configuration.redirectURI
+        let scope = Tink.Scope()
+        let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
             completion(result.map({ $0.isAggregator }))
         }
@@ -89,9 +89,9 @@ public final class AuthorizationContext {
     ///
     ///             tableView.register(ScopeDescriptionCell.self, forCellReuseIdentifier: "Cell")
     ///
-    ///             let scope = TinkLink.Scope(scopes: [
-    ///                 TinkLink.Scope.Accounts.read,
-    ///                 TinkLink.Scope.Transactions.read
+    ///             let scope = Tink.Scope(scopes: [
+    ///                 Tink.Scope.Accounts.read,
+    ///                 Tink.Scope.Transactions.read
     ///             ])
     ///
     ///             authorizationContext.scopeDescriptions(scope: scope) { [weak self] result in
@@ -120,13 +120,13 @@ public final class AuthorizationContext {
     ///     }
     ///
     /// - Parameters:
-    ///   - scope: A `TinkLink.Scope` list of OAuth scopes to be requested.
+    ///   - scope: A `Tink.Scope` list of OAuth scopes to be requested.
     ///            The Scope array should never be empty.
     ///   - completion: The block to execute when the scope descriptions are received or if an error occurred.
     /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
     @discardableResult
-    public func scopeDescriptions(scope: TinkLink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
-        let redirectURI = tinkLink.configuration.redirectURI
+    public func scopeDescriptions(scope: Tink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
+        let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
             completion(result.map({ $0.scopes }))
         }
