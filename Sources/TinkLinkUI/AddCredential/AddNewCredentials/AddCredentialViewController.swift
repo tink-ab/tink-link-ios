@@ -76,7 +76,7 @@ extension AddCredentialViewController {
         addCredentialFooterView.delegate = self
         addCredentialFooterView.configure(with: provider, isAggregator: isAggregator)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
-        addCredentialFooterView.button.addTarget(self, action: #selector(addCredential), for: .touchUpInside)
+        addCredentialFooterView.button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
         addCredentialFooterView.bankIdAnotherDeviceButton.addTarget(self, action: #selector(addBankIDCredentialOnAnotherDevice), for: .touchUpInside)
         
         view.addSubview(tableView)
@@ -189,7 +189,15 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
 // MARK: - Actions
 
 extension AddCredentialViewController {
-    @objc private func addCredential() {
+    @objc private func startAddCredentialFlow() {
+        addCredential(allowAnotherDevice: false)
+    }
+
+    @objc private func addBankIDCredentialOnAnotherDevice() {
+        addCredential(allowAnotherDevice: true)
+    }
+
+    private func addCredential(allowAnotherDevice: Bool) {
         view.endEditing(false)
 
         var indexPathsToUpdate = Set(errors.keys)
@@ -202,7 +210,7 @@ extension AddCredentialViewController {
                 form: form,
                 progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
-                        self?.handleAddCredentialStatus(status)
+                        self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: allowAnotherDevice)
                     }
                 },
                 completion: { [weak self] result in
@@ -213,44 +221,6 @@ extension AddCredentialViewController {
             )
             showUpdating(status: "Authenticating...")
 
-        } catch let error as Form.ValidationError {
-            for (index, field) in form.fields.enumerated() {
-                guard let error = error[fieldName: field.name] else {
-                    continue
-                }
-                let indexPath = IndexPath(row: index, section: 0)
-                errors[indexPath] = error
-                indexPathsToUpdate.insert(indexPath)
-            }
-        } catch {
-            assertionFailure("validateFields should only throw Form.ValidationError")
-        }
-
-        tableView.reloadRows(at: Array(indexPathsToUpdate), with: .automatic)
-    }
-
-    @objc private func addBankIDCredentialOnAnotherDevice() {
-        view.endEditing(false)
-
-        var indexPathsToUpdate = Set(errors.keys)
-        errors = [:]
-
-        do {
-            try form.validateFields()
-            task = credentialController.addCredential(
-                provider,
-                form: form,
-                progressHandler: { [weak self] status in
-                    DispatchQueue.main.async {
-                        self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: true)
-                    }
-                },
-                completion: { [weak self] result in
-                    DispatchQueue.main.async {
-                        self?.handleAddCredentialCompletion(result)
-                    }
-                }
-            )
         } catch let error as Form.ValidationError {
             for (index, field) in form.fields.enumerated() {
                 guard let error = error[fieldName: field.name] else {
@@ -429,7 +399,7 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
 
         let lastIndexItem = form.fields.count - 1
         if lastIndexItem == indexPath.item {
-            addCredential()
+            addCredential(allowAnotherDevice: false)
         }
 
         let nextIndexPath = IndexPath(row: indexPath.item + 1, section: indexPath.section)
