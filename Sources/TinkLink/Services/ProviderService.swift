@@ -17,11 +17,11 @@ final class ProviderService: TokenConfigurableService {
     }
 
     convenience init(tink: Tink = .shared, accessToken: AccessToken? = nil) {
-        var defaultCallOptions = tinkLink.client.defaultCallOptions
+        var defaultCallOptions = tink.client.defaultCallOptions
         if let accessToken = accessToken {
             defaultCallOptions.addAccessToken(accessToken.rawValue)
         }
-        self.init(connection: tinkLink.client.connection, defaultCallOptions: defaultCallOptions)
+        self.init(connection: tink.client.connection, defaultCallOptions: defaultCallOptions)
         self.accessToken = accessToken
     }
 

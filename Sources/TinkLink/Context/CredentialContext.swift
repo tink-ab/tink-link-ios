@@ -84,7 +84,7 @@ public final class CredentialContext {
             completion: completion
         )
 
-        let appURI = tinkLink.configuration.redirectURI
+        let appURI = tink.configuration.redirectURI
 
         task.callCanceller = addCredentialAndAuthenticateIfNeeded(for: provider, fields: form.makeFields(), appURI: appURI) { [weak task] result in
             do {

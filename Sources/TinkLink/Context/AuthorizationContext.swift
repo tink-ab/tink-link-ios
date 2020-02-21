@@ -29,7 +29,7 @@ public final class AuthorizationContext {
     /// - Parameter result: Represents either an authorization code if authorization was successful or an error if authorization failed.
     @discardableResult
     func authorize(scope: Tink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
-        let redirectURI = tinkLink.configuration.redirectURI
+        let redirectURI = tink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
             completion(result.map { $0.code })
         }
@@ -43,7 +43,7 @@ public final class AuthorizationContext {
     @discardableResult
     public func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable {
         let scope = Tink.Scope()
-        let redirectURI = tinkLink.configuration.redirectURI
+        let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
             completion(result.map({ $0.isAggregator }))
         }
@@ -126,7 +126,7 @@ public final class AuthorizationContext {
     /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
     @discardableResult
     public func scopeDescriptions(scope: Tink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
-        let redirectURI = tinkLink.configuration.redirectURI
+        let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
             completion(result.map({ $0.scopes }))
         }
