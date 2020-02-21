@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		202E5FDA2400140000E0C405 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 202E5FD92400140000E0C405 /* TinkLink */; };
 		2071952423F2B7A20042B2FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2071952323F2B7A20042B2FB /* ViewController.swift */; };
 		20E6AEF023FA79AC00070B1E /* AppearanceProvider+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E6AEEF23FA79AC00070B1E /* AppearanceProvider+Presets.swift */; };
 		8F0C9CBE23F1974600BD9913 /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F0C9CBD23F1974600BD9913 /* TinkLinkUI */; };
-		8F0C9CC023F1980900BD9913 /* TinkLinkSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 8F0C9CBF23F1980900BD9913 /* TinkLinkSDK */; };
 		8FC06D2223F196A700CD7B88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC06D2123F196A700CD7B88 /* AppDelegate.swift */; };
 		8FC06D2B23F196A900CD7B88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC06D2A23F196A900CD7B88 /* Assets.xcassets */; };
 		8FC06D2E23F196A900CD7B88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC06D2C23F196A900CD7B88 /* LaunchScreen.storyboard */; };
@@ -32,8 +32,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				202E5FDA2400140000E0C405 /* TinkLink in Frameworks */,
 				8F0C9CBE23F1974600BD9913 /* TinkLinkUI in Frameworks */,
-				8F0C9CC023F1980900BD9913 /* TinkLinkSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +96,7 @@
 			name = TinkLinkUIExample;
 			packageProductDependencies = (
 				8F0C9CBD23F1974600BD9913 /* TinkLinkUI */,
-				8F0C9CBF23F1980900BD9913 /* TinkLinkSDK */,
+				202E5FD92400140000E0C405 /* TinkLink */,
 			);
 			productName = TinkLinkUIExample;
 			productReference = 8FC06D1E23F196A700CD7B88 /* TinkLinkUIExample.app */;
@@ -346,13 +346,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		202E5FD92400140000E0C405 /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
+		};
 		8F0C9CBD23F1974600BD9913 /* TinkLinkUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TinkLinkUI;
-		};
-		8F0C9CBF23F1980900BD9913 /* TinkLinkSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TinkLinkSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
