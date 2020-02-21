@@ -243,6 +243,16 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         let viewController = CredentialSuccessfullyAddedViewController(companyName: "Test")
         show(viewController, sender: self)
     }
+    
+    func showMissingNetworkConnectionAlert() {
+        let alertController = UIAlertController(title: "Error", message: "No internet connection", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: { _ in
+            self.dismiss(animated: true)
+        })
+        alertController.addAction(dismissAction)
+        
+        present(alertController, animated: true)
+    }
 }
 
 // MARK: - Helpers
