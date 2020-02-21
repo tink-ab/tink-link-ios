@@ -21,7 +21,7 @@ final class AddCredentialViewController: UIViewController {
     private var qrImageViewController: QRImageViewController?
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
     private var didFirstFieldBecomeFirstResponder = false
-    private var keyboardObserver = KeyboardObserver()
+    private let keyboardObserver = KeyboardObserver()
 
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
     private lazy var helpLabel = UITextView()
