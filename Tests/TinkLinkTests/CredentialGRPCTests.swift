@@ -1,4 +1,4 @@
-@testable import TinkLinkSDK
+@testable import TinkLink
 import XCTest
 
 class CredentialGRPCTests: XCTestCase {

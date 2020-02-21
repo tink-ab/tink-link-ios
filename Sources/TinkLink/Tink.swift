@@ -3,13 +3,13 @@ import Foundation
     import UIKit
 #endif
 
-/// The `TinkLink` class encapsulates a connection to the Tink API.
+/// The `Tink` class encapsulates a connection to the Tink API.
 ///
-/// By default a shared `TinkLink` instance will be used, but you can also create your own
-/// instance and use that instead. This allows you to use multiple `TinkLink` instances at the
+/// By default a shared `Tink` instance will be used, but you can also create your own
+/// instance and use that instead. This allows you to use multiple `Tink` instances at the
 /// same time.
-public class TinkLink {
-    static var _shared: TinkLink?
+public class Tink {
+    static var _shared: Tink?
 
     // MARK: - Using the Shared Instance
 
@@ -17,7 +17,7 @@ public class TinkLink {
     ///
     /// Note: You need to configure the shared instance by calling `TinkLink.configure(with:)`
     /// before accessing the shared instance. Not doing so will cause a run-time error.
-    public static var shared: TinkLink {
+    public static var shared: Tink {
         guard let shared = _shared else {
             fatalError("Configure Tink Link by calling `TinkLink.configure(with:)` before accessing the shared instance")
         }
@@ -36,7 +36,7 @@ public class TinkLink {
         }
     }
 
-    /// Create a TinkLink instance with a custom configuration.
+    /// Create a Tink instance with a custom configuration.
     /// - Parameters:
     ///   - configuration: The configuration to be used.
     public init(configuration: Configuration) {
@@ -47,15 +47,15 @@ public class TinkLink {
 
     /// Configure shared instance with configration description.
     ///
-    /// Here's how you could configure TinkLink with a `TinkLink.Configuration`.
+    /// Here's how you could configure Tink with a `Tink.Configuration`.
     ///
     ///     let configuration = Configuration(clientID: "<#clientID#>", redirectURI: <#URL#>, market: "<#SE#>", locale: .current)
-    ///     TinkLink.configure(with: configuration)
+    ///     Tink.configure(with: configuration)
     ///
     /// - Parameters:
     ///   - configuration: The configuration to be used for the shared instance.
-    public static func configure(with configuration: TinkLink.Configuration) {
-        _shared = TinkLink(configuration: configuration)
+    public static func configure(with configuration: Tink.Configuration) {
+        _shared = Tink(configuration: configuration)
     }
 
     /// The current configuration.

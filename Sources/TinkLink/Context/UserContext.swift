@@ -22,10 +22,10 @@ public final class UserContext {
 
     // MARK: - Creating a Context
 
-    /// Creates a context to register for an access token that will be used in other TinkLink APIs.
-    /// - Parameter tinkLink: TinkLink instance, will use the shared instance if nothing is provided.
-    public init(tinkLink: TinkLink = .shared) {
-        self.userService = UserService(tinkLink: tinkLink)
+    /// Creates a context to register for an access token that will be used in other Tink APIs.
+    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
+    public init(tink: Tink = .shared) {
+        self.userService = UserService(tink: tink)
     }
 
     // MARK: - Authenticating a User
@@ -64,7 +64,7 @@ public final class UserContext {
     /// - Parameter locale: Register a `Locale` for creating the user, will use the default locale in TinkLink if nothing is provided.
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
-    public func createTemporaryUser(for market: Market, locale: Locale = TinkLink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func createTemporaryUser(for market: Market, locale: Locale = Tink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
         return userService.createAnonymous(market: market, locale: locale) { result in
             let mappedResult = result
                 .map { User(accessToken: $0) }

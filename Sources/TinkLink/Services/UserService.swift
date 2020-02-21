@@ -9,8 +9,8 @@ final class UserService {
     private var session: URLSession
     private var sessionDelegate: URLSessionDelegate?
 
-    convenience init(tinkLink: TinkLink = .shared) {
-        let client = tinkLink.client
+    convenience init(tink: Tink = .shared) {
+        let client = tink.client
         self.init(
             connection: client.connection,
             defaultCallOptions: client.defaultCallOptions,

@@ -21,12 +21,12 @@ final class CredentialService: TokenConfigurableService {
     private var session: URLSession
     private var sessionDelegate: URLSessionDelegate?
 
-    convenience init(tinkLink: TinkLink = .shared, accessToken: AccessToken? = nil) {
-        var defaultCallOptions = tinkLink.client.defaultCallOptions
+    convenience init(tink: Tink = .shared, accessToken: AccessToken? = nil) {
+        var defaultCallOptions = tink.client.defaultCallOptions
         if let accessToken = accessToken {
             defaultCallOptions.addAccessToken(accessToken.rawValue)
         }
-        let client = tinkLink.client
+        let client = tink.client
         self.init(
             connection: client.connection,
             defaultCallOptions: defaultCallOptions,
