@@ -37,8 +37,8 @@ public final class ProviderContext {
     /// - Parameter user: `User` that will be used for fetching providers with the Tink API.
     public init(tink: Tink = .shared, user: User) {
         self.user = user
-        self.tinkLink = tinkLink
-        self.service = ProviderService(tink: TinkLink, accessToken: user.accessToken)
+        self.tink = tink
+        self.service = ProviderService(tink: tink, accessToken: user.accessToken)
     }
 
     // MARK: - Fetching Providers

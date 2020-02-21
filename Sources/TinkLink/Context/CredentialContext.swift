@@ -14,8 +14,8 @@ public final class CredentialContext {
     /// - Parameter tink: Tink instance, defaults to `shared` if not provided.
     /// - Parameter user: `User` that will be used for adding credentials with the Tink API.
     public init(tink: Tink = .shared, user: User) {
-        self.tinkLink = tinkLink
-        self.service = CredentialService(tink: TinkLink, accessToken: user.accessToken)
+        self.tink = tink
+        self.service = CredentialService(tink: tink, accessToken: user.accessToken)
         service.accessToken = user.accessToken
         addStoreObservers()
     }

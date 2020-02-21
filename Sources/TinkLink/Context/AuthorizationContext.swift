@@ -12,8 +12,8 @@ public final class AuthorizationContext {
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     /// - Parameter user: `User` that will be used for authorizing scope with the Tink API.
     public init(tink: Tink = .shared, user: User) {
-        self.tinkLink = tinkLink
-        self.service = AuthenticationService(tink: TinkLink, accessToken: user.accessToken)
+        self.tink = tink
+        self.service = AuthenticationService(tink: tink, accessToken: user.accessToken)
     }
 
     // MARK: - Authorizing a User
