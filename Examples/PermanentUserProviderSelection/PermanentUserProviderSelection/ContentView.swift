@@ -1,5 +1,5 @@
 import SwiftUI
-import TinkLinkSDK
+import TinkLink
 
 struct ContentView: View {
     @ObservedObject var userController = UserController()

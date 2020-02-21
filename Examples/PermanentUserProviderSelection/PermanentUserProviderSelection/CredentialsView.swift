@@ -1,5 +1,5 @@
 import SwiftUI
-import TinkLinkSDK
+import TinkLink
 
 struct CredentialsView: View {
     @ObservedObject var credentialController: CredentialController
