@@ -73,7 +73,7 @@ extension AddCredentialViewController {
         headerView.delegate = self
 
         tableView.backgroundColor = .clear
-        tableView.register(FormFieldTableViewCell.self, forCellReuseIdentifier: FormFieldTableViewCell.reuseIdentifier)
+        tableView.registerReusableCell(ofType: FormFieldTableViewCell.self)
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -183,13 +183,12 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FormFieldTableViewCell.reuseIdentifier, for: indexPath)
         let field = form.fields[indexPath.item]
-        if let textFieldCell = cell as? FormFieldTableViewCell {
-            textFieldCell.configure(with: field)
-            textFieldCell.delegate = self
-            textFieldCell.setError(with: errors[indexPath]?.localizedDescription)
-        }
+
+        let cell = tableView.dequeueReusableCell(ofType: FormFieldTableViewCell.self, for: indexPath)
+        cell.configure(with: field)
+        cell.delegate = self
+        cell.setError(with: errors[indexPath]?.localizedDescription)
         return cell
     }
 }

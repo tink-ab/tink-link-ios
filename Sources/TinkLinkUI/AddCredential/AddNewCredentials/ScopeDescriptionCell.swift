@@ -1,6 +1,6 @@
 import UIKit
 
-class ScopeDescriptionCell: UITableViewCell {
+class ScopeDescriptionCell: UITableViewCell, ReusableCell {
     let titleLabel = UILabel()
     let descriptionLabel = UILabel()
 

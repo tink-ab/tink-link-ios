@@ -27,7 +27,7 @@ extension FinancialInstitutionSearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.background
-        tableView.register(ProviderCell.self, forCellReuseIdentifier: "Cell")
+        tableView.registerReusableCell(ofType: ProviderCell.self)
         tableView.tableFooterView = UIView(frame: .zero)
     }
 }
@@ -40,13 +40,12 @@ extension FinancialInstitutionSearchViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let node = financialInstitutionNodes[indexPath.row]
-        if let providerCell = cell as? ProviderCell {
-            if let url = node.imageURL {
-                providerCell.setImage(url: url)
-            }
-            providerCell.setTitle(text: node.financialInstitution.name)
+
+        let cell = tableView.dequeueReusableCell(ofType: ProviderCell.self, for: indexPath)
+        cell.setTitle(text: node.financialInstitution.name)
+        if let url = node.imageURL {
+            cell.setImage(url: url)
         }
         return cell
     }

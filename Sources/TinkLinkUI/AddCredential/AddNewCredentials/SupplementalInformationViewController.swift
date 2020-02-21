@@ -38,7 +38,7 @@ extension SupplementalInformationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(FormFieldTableViewCell.self, forCellReuseIdentifier: FormFieldTableViewCell.reuseIdentifier)
+        tableView.registerReusableCell(ofType: FormFieldTableViewCell.self)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
@@ -101,14 +101,11 @@ extension SupplementalInformationViewController: UITableViewDataSource, UITableV
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FormFieldTableViewCell.reuseIdentifier, for: indexPath)
-        if let textFieldCell = cell as? FormFieldTableViewCell {
-            let field = form.fields[indexPath.row]
-
-            textFieldCell.delegate = self
-            textFieldCell.configure(with: field)
-            textFieldCell.setError(with: errors[indexPath]?.localizedDescription)
-        }
+        let field = form.fields[indexPath.row]
+        let cell = tableView.dequeueReusableCell(ofType: FormFieldTableViewCell.self, for: indexPath)
+        cell.delegate = self
+        cell.configure(with: field)
+        cell.setError(with: errors[indexPath]?.localizedDescription)
         return cell
     }
 }

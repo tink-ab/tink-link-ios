@@ -7,10 +7,8 @@ protocol FormFieldTableViewCellDelegate: AnyObject {
     func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell)
 }
 
-class FormFieldTableViewCell: UITableViewCell {
+class FormFieldTableViewCell: UITableViewCell, ReusableCell {
     weak var delegate: FormFieldTableViewCellDelegate?
-
-    static var reuseIdentifier: String { "TextFieldCell" }
 
     private var field: Form.Field?
 
