@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-class ProviderCell: UITableViewCell {
+class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
 

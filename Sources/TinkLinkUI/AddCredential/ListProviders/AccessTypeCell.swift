@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-class AccessTypeCell: UITableViewCell {
+class AccessTypeCell: UITableViewCell, ReusableCell {
     private let cardView = UIView()
     private let iconView = UIImageView()
     private let titleLabel = UILabel()

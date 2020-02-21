@@ -49,7 +49,7 @@ extension ScopeDescriptionListViewController {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
 
-        tableView.register(ScopeDescriptionCell.self, forCellReuseIdentifier: "Cell")
+        tableView.registerReusableCell(ofType: ScopeDescriptionCell.self)
 
         activityIndicatorView.startAnimating()
 
@@ -84,7 +84,7 @@ extension ScopeDescriptionListViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ScopeDescriptionCell
+        let cell = tableView.dequeueReusableCell(ofType: ScopeDescriptionCell.self, for: indexPath)
         switch sections[indexPath.section] {
         case .intro(let title, let description):
             cell.titleLabel.text = title

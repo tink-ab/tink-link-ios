@@ -52,7 +52,7 @@ extension ProviderListViewController {
 
         title = "Choose Bank"
 
-        tableView.register(ProviderCell.self, forCellReuseIdentifier: "Cell")
+        tableView.registerReusableCell(ofType: ProviderCell.self)
 
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
@@ -93,13 +93,12 @@ extension ProviderListViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let group = financialInstitutionGroupNodes[indexPath.row]
-        if let imageViewCell = cell as? ProviderCell {
-            imageViewCell.setTitle(text: group.displayName)
-            if let url = group.imageURL {
-                imageViewCell.setImage(url: url)
-            }
+
+        let cell = tableView.dequeueReusableCell(ofType: ProviderCell.self, for: indexPath)
+        cell.setTitle(text: group.displayName)
+        if let url = group.imageURL {
+            cell.setImage(url: url)
         }
         return cell
     }

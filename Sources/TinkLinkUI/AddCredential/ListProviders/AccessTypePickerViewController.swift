@@ -27,7 +27,7 @@ extension AccessTypePickerViewController {
         navigationItem.largeTitleDisplayMode = .never
 
         tableView.separatorStyle = .none
-        tableView.register(AccessTypeCell.self, forCellReuseIdentifier: "Cell")
+        tableView.registerReusableCell(ofType: AccessTypeCell.self)
         tableView.backgroundColor = Color.groupedBackground
     }
 }
@@ -40,15 +40,14 @@ extension AccessTypePickerViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let node = accessTypeNodes[indexPath.row]
-        if let accessTypeCell = cell as? AccessTypeCell {
-            if let url = node.imageURL {
-                accessTypeCell.setImage(url: url)
-            }
-            accessTypeCell.setTitle(text: node.accessType.description)
-            accessTypeCell.setDetail(text: "Including everyday accounts, such as your salary account")
+        
+        let cell = tableView.dequeueReusableCell(ofType: AccessTypeCell.self, for: indexPath)
+        if let url = node.imageURL {
+            cell.setImage(url: url)
         }
+        cell.setTitle(text: node.accessType.description)
+        cell.setDetail(text: "Including everyday accounts, such as your salary account")
         return cell
     }
 
