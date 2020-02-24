@@ -288,6 +288,8 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
                 self?.showAddCredentialSuccess()
             } catch let error as ThirdPartyAppAuthenticationTask.Error {
                 self?.showDownloadPrompt(for: error)
+            } catch ServiceError.cancelled {
+                // No-op
             } catch {
                 self?.showAlert(for: error)
             }

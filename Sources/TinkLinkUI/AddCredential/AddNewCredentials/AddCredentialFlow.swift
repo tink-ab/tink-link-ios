@@ -8,6 +8,8 @@ final class AddCredentialSession {
     private let credentialController: CredentialController
 
     private var task: AddCredentialTask?
+    private var supplementInfoTask: SupplementInformationTask?
+
     private var statusViewController: AddCredentialStatusViewController?
     private var qrImageViewController: QRImageViewController?
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
@@ -77,6 +79,7 @@ final class AddCredentialSession {
 
 extension AddCredentialSession {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
+        self.supplementInfoTask = supplementInformationTask
         hideUpdatingView(animated: true) {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
@@ -131,11 +134,15 @@ extension AddCredentialSession {
 
 extension AddCredentialSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
-        parentViewController?.dismiss(animated: true)
+        parentViewController?.dismiss(animated: true) {
+            self.supplementInfoTask?.cancel()
+            self.showUpdating(status: "Canceling...")
+        }
     }
 
-    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credential) {
+    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
         parentViewController?.dismiss(animated: true) {
+            self.supplementInfoTask?.submit(form)
             self.showUpdating(status: "Sending...")
         }
     }

@@ -1,6 +1,6 @@
 import GRPC
 
-enum ServiceError: Error {
+public enum ServiceError: Error {
     case cancelled
     case unknown(String)
     case invalidArgument(String)
