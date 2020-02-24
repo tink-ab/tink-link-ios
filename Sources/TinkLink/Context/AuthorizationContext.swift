@@ -5,6 +5,12 @@ public final class AuthorizationContext {
     private let tink: Tink
     private let service: AuthenticationService
 
+    /// Error that the `AuthorizationContext` can throw.
+    public enum Error: Swift.Error {
+        /// The redirect URI was invalid. The payload from the backend can be found in the associated value.
+        case invalidRedirectURI(String)
+    }
+
     // MARK: - Creating a Context
 
     /// Creates a context to authorize for an authorization code for a user with requested scopes.
@@ -28,7 +34,7 @@ public final class AuthorizationContext {
     /// - Parameter completion: The block to execute when the authorization is complete.
     /// - Parameter result: Represents either an authorization code if authorization was successful or an error if authorization failed.
     @discardableResult
-    func authorize(scope: Tink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
+    func authorize(scope: Tink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
             completion(result.map { $0.code })
@@ -41,7 +47,7 @@ public final class AuthorizationContext {
     ///
     /// - Parameter completion: The block to execute when the aggregator status is received or if an error occurred.
     @discardableResult
-    public func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable {
+    public func isAggregator(completion: @escaping (Result<Bool, Swift.Error>) -> Void) -> RetryCancellable {
         let scope = Tink.Scope()
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
@@ -125,7 +131,7 @@ public final class AuthorizationContext {
     ///   - completion: The block to execute when the scope descriptions are received or if an error occurred.
     /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
     @discardableResult
-    public func scopeDescriptions(scope: Tink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
+    public func scopeDescriptions(scope: Tink.Scope, completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable {
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
             completion(result.map({ $0.scopes }))
