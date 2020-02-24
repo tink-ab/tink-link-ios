@@ -4,9 +4,9 @@ import UIKit
 /// Example of how to use the provider grouped by names
 final class ProviderListViewController: UITableViewController {
 
-    weak var addCredentialNavigator: AddCredentialFlowNavigating?
+    weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
-    private var providerController: ProviderController?
+    private let providerController: ProviderController
 
     private let searchViewController = FinancialInstitutionSearchViewController()
     
@@ -20,9 +20,6 @@ final class ProviderListViewController: UITableViewController {
 
     init(providerController: ProviderController) {
         self.providerController = providerController
-        financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
-        searchViewController.originalFinancialInstitutionNodes = providerController.financialInstitutionNodes
-        
         super.init(style: .plain)
     }
 
@@ -36,13 +33,17 @@ final class ProviderListViewController: UITableViewController {
 extension ProviderListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
+        searchViewController.originalFinancialInstitutionNodes = providerController.financialInstitutionNodes
+
         NotificationCenter.default.addObserver(self, selector: #selector(showLoadingIndicator), name: .providerControllerWillFetchProviders, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(hideLoadingIndicator), name: .providerControllerDidFetchProviders, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
         
         extendedLayoutIncludesOpaqueBars = true
         
-        searchViewController.addCredentialNavigator = addCredentialNavigator
+        searchViewController.providerPickerCoordinator = providerPickerCoordinator
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search for a bank or card"
         searchController.searchResultsUpdater = searchViewController
@@ -57,7 +58,7 @@ extension ProviderListViewController {
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
 
-        if providerController?.isFetching == true {
+        if providerController.isFetching == true {
             showLoadingIndicator()
         }
 
@@ -79,8 +80,8 @@ extension ProviderListViewController {
 
     @objc private func updateProviders() {
         DispatchQueue.main.async {
-            self.financialInstitutionGroupNodes = self.providerController?.financialInstitutionGroupNodes ?? []
-            self.searchViewController.originalFinancialInstitutionNodes = self.providerController?.financialInstitutionNodes ?? []
+            self.financialInstitutionGroupNodes = self.providerController.financialInstitutionGroupNodes
+            self.searchViewController.originalFinancialInstitutionNodes = self.providerController.financialInstitutionNodes
         }
     }
 }
@@ -107,13 +108,13 @@ extension ProviderListViewController {
         let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
         switch financialInstitutionGroupNode {
         case .financialInstitutions(let financialInstitutionGroups):
-            addCredentialNavigator?.showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
+            providerPickerCoordinator?.showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
         case .accessTypes(let accessTypeGroups):
-            addCredentialNavigator?.showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
+            providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
         case .credentialKinds(let groups):
-            addCredentialNavigator?.showCredentialKindPicker(for: groups, title: nil)
+            providerPickerCoordinator?.showCredentialKindPicker(for: groups, title: nil)
         case .provider(let provider):
-            addCredentialNavigator?.showAddCredential(for: provider)
+            providerPickerCoordinator?.didSelectProvider(provider)
         }
     }
 }

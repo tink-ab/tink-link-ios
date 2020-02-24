@@ -2,24 +2,24 @@ import Down
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider field specification to add credential
+protocol AddCredentialViewControllerDelegate: AnyObject {
+    func showScopeDescriptions()
+    func showWebContent(with url: URL)
+    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool)
+}
+
 final class AddCredentialViewController: UIViewController {
     let provider: Provider
     var username: String? {
         credentialController.user?.username
     }
 
-    weak var addCredentialNavigator: AddCredentialFlowNavigating?
+    weak var delegate: AddCredentialViewControllerDelegate?
 
     private let credentialController: CredentialController
     private let isAggregator: Bool
     private var form: Form
     private var errors: [IndexPath: Form.Field.ValidationError] = [:]
-
-    private var task: AddCredentialTask?
-    private var statusViewController: AddCredentialStatusViewController?
-    private var qrImageViewController: QRImageViewController?
-    private var statusPresentationManager = AddCredentialStatusPresentationManager()
     private var didFirstFieldBecomeFirstResponder = false
     private let keyboardObserver = KeyboardObserver()
 
@@ -39,10 +39,6 @@ final class AddCredentialViewController: UIViewController {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    deinit {
-        task?.cancel()
     }
 }
 
@@ -205,22 +201,7 @@ extension AddCredentialViewController {
 
         do {
             try form.validateFields()
-            task = credentialController.addCredential(
-                provider,
-                form: form,
-                progressHandler: { [weak self] status in
-                    DispatchQueue.main.async {
-                        self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: allowAnotherDevice)
-                    }
-                },
-                completion: { [weak self] result in
-                    DispatchQueue.main.async {
-                        self?.handleAddCredentialCompletion(result)
-                    }
-                }
-            )
-            showUpdating(status: "Authenticating...")
-
+            delegate?.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice)
         } catch let error as Form.ValidationError {
             for (index, field) in form.fields.enumerated() {
                 guard let error = error[fieldName: field.name] else {
@@ -238,155 +219,15 @@ extension AddCredentialViewController {
     }
 
     private func showMoreInfo() {
-        addCredentialNavigator?.showScopeDescriptions()
+        delegate?.showScopeDescriptions()
     }
 
     private func showTermsAndConditions(_ url: URL) {
-        addCredentialNavigator?.showWebContent(with: url)
+        delegate?.showWebContent(with: url)
     }
 
     private func showPrivacyPolicy(_ url: URL) {
-        addCredentialNavigator?.showWebContent(with: url)
-    }
-}
-
-// MARK: - Handlers
-
-extension AddCredentialViewController {
-    private func handleAddCredentialStatus(_ status: AddCredentialTask.Status, shouldAuthenticateInAnotherDevice: Bool = false) {
-        switch status {
-        case .authenticating, .created:
-            break
-        case .awaitingSupplementalInformation(let supplementInformationTask):
-            showSupplementalInformation(for: supplementInformationTask)
-        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-            if shouldAuthenticateInAnotherDevice {
-                thirdPartyAppAuthenticationTask.qr { [weak self] qrImage in
-                    DispatchQueue.main.async {
-                        self?.showQRCodeView(qrImage: qrImage)
-                    }
-                }
-            } else {
-                 thirdPartyAppAuthenticationTask.openThirdPartyApp()
-            }
-        case .updating(let status):
-            showUpdating(status: status)
-        }
-    }
-
-    private func handleAddCredentialCompletion(_ result: Result<Credential, Error>) {
-        do {
-            _ = try result.get()
-            showCredentialUpdated()
-        } catch {
-            if let error = error as? ThirdPartyAppAuthenticationTask.Error {
-                self.hideUpdatingView(animated: true) {
-                    self.showDownloadPrompt(for: error)
-                }
-            } else {
-                self.hideUpdatingView(animated: true) {
-                    self.showAlert(for: error)
-                }
-            }
-        }
-        task = nil
-    }
-}
-
-// MARK: - Navigation
-
-extension AddCredentialViewController {
-    private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
-        hideUpdatingView(animated: true) {
-            let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
-            supplementalInformationViewController.delegate = self
-            let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
-            self.show(navigationController, sender: nil)
-        }
-    }
-
-    private func showUpdating(status: String) {
-        hideQRCodeView {
-            if self.statusViewController == nil {
-                let statusViewController = AddCredentialStatusViewController()
-                statusViewController.modalTransitionStyle = .crossDissolve
-                statusViewController.modalPresentationStyle = .custom
-                statusViewController.transitioningDelegate = self.statusPresentationManager
-                self.present(statusViewController, animated: true)
-                self.statusViewController = statusViewController
-            }
-            self.statusViewController?.status = status
-        }
-    }
-
-    private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
-        hideQRCodeView(animated: animated)
-        guard statusViewController != nil else {
-            completion?()
-            return
-        }
-        dismiss(animated: animated, completion: completion)
-        statusViewController = nil
-    }
-
-    private func showQRCodeView(qrImage: UIImage) {
-        hideUpdatingView {
-            let qrImageViewController = QRImageViewController(qrImage: qrImage)
-            self.qrImageViewController = qrImageViewController
-            self.present(qrImageViewController, animated: true)
-        }
-    }
-
-    private func hideQRCodeView(animated: Bool = false, completion: (() -> Void)? = nil) {
-        guard qrImageViewController != nil else {
-            completion?()
-            return
-        }
-        dismiss(animated: animated, completion: completion)
-        qrImageViewController = nil
-    }
-
-    private func showCredentialUpdated() {
-        hideUpdatingView(animated: true) {
-            self.addCredentialNavigator?.showAddCredentialSuccess()
-        }
-    }
-
-    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
-        let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
-
-        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-            let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
-                UIApplication.shared.open(appStoreURL)
-            })
-            alertController.addAction(cancelAction)
-            alertController.addAction(downloadAction)
-        } else {
-            let okAction = UIAlertAction(title: "OK", style: .default)
-            alertController.addAction(okAction)
-        }
-
-        present(alertController, animated: true)
-    }
-
-    private func showAlert(for error: Error) {
-        let title: String?
-        let message: String?
-        if let error = error as? LocalizedError {
-            title = error.errorDescription
-            message = error.failureReason
-        } else {
-            title = "Error"
-            message = error.localizedDescription
-        }
-
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-
-        present(alertController, animated: true)
+        delegate?.showWebContent(with: url)
     }
 }
 
@@ -457,19 +298,5 @@ extension AddCredentialViewController: AddCredentialHeaderViewDelegate {
 extension AddCredentialViewController: AddCredentialFooterViewDelegate {
     func addCredentialFooterViewDidTapLink(_ addCredentialFooterView: AddCredentialFooterView, url: URL) {
         showPrivacyPolicy(url)
-    }
-}
-
-// MARK: - SupplementalInformationViewControllerDelegate
-
-extension AddCredentialViewController: SupplementalInformationViewControllerDelegate {
-    func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
-        dismiss(animated: true)
-    }
-
-    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credential) {
-        dismiss(animated: true) {
-            self.showUpdating(status: "Sending...")
-        }
     }
 }

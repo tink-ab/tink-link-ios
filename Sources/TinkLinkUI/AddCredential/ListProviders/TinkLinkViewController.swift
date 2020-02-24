@@ -10,6 +10,8 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var providerController = ProviderController(tink: tink)
     private lazy var credentialController = CredentialController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
+    private lazy var addCredentialSession = AddCredentialSession(credentialController: self.credentialController, parentViewController: self)
+    private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
 
     private var isAggregator: Bool?
     private let isAggregatorLoadingGroup = DispatchGroup()
@@ -50,10 +52,8 @@ public class TinkLinkViewController: UINavigationController {
                     self.credentialController.user = user
                     self.authorizationController.user = user
 
-                    let providerListViewController = ProviderListViewController(providerController: self.providerController)
-                    providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
-                    providerListViewController.addCredentialNavigator = self
-                    self.setViewControllers([providerListViewController], animated: false)
+                    self.providerController.performFetch()
+                    self.showProviderPicker()
 
                     self.isAggregatorLoadingGroup.enter()
                     self.authorizationController.isAggregator { (aggregatorResult) in
@@ -73,46 +73,6 @@ public class TinkLinkViewController: UINavigationController {
                 }
             }
         }
-    }
-
-    private func showCreateTemporaryUserAlert(for error: Error) {
-        let localizedError = error as? LocalizedError
-
-        let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
-            message: localizedError?.failureReason ?? error.localizedDescription,
-            preferredStyle: .alert
-        )
-
-        let retryAction = UIAlertAction(title: "Retry", style: .default) { _ in
-            let loadingViewController = LoadingViewController()
-            loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
-            self.setViewControllers([loadingViewController], animated: false)
-            self.start()
-        }
-        alertController.addAction(retryAction)
-
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
-            self.presentingViewController?.dismiss(animated: true)
-        }
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true)
-    }
-
-    private func showUnknownAggregatorAlert(for error: Error) {
-        let localizedError = error as? LocalizedError
-
-        let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
-            message: localizedError?.failureReason ?? error.localizedDescription,
-            preferredStyle: .alert
-        )
-
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
-            self.presentingViewController?.dismiss(animated: true)
-        }
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true)
     }
 
     private func setupNavigationBarAppearance() {
@@ -171,14 +131,92 @@ public class TinkLinkViewController: UINavigationController {
     }
 }
 
-// MARK: - AddCredentialFlowNavigating
+// MARK: - Alerts
 
-extension TinkLinkViewController: AddCredentialFlowNavigating {
+extension TinkLinkViewController {
 
-    private func setupNavigationItem(for viewController: UIViewController, title: String?) {
-        viewController.title = title
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+    private func showCreateTemporaryUserAlert(for error: Error) {
+        let localizedError = error as? LocalizedError
+
+        let alertController = UIAlertController(
+            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
+            message: localizedError?.failureReason ?? error.localizedDescription,
+            preferredStyle: .alert
+        )
+
+        let retryAction = UIAlertAction(title: "Retry", style: .default) { _ in
+            let loadingViewController = LoadingViewController()
+            loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
+            self.setViewControllers([loadingViewController], animated: false)
+            self.start()
+        }
+        alertController.addAction(retryAction)
+
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
+            self.presentingViewController?.dismiss(animated: true)
+        }
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
     }
+
+    private func showUnknownAggregatorAlert(for error: Error) {
+        let localizedError = error as? LocalizedError
+
+        let alertController = UIAlertController(
+            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
+            message: localizedError?.failureReason ?? error.localizedDescription,
+            preferredStyle: .alert
+        )
+
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
+            self.presentingViewController?.dismiss(animated: true)
+        }
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
+    }
+
+    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
+        let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
+
+        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
+                UIApplication.shared.open(appStoreURL)
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(downloadAction)
+        } else {
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alertController.addAction(okAction)
+        }
+
+        present(alertController, animated: true)
+    }
+
+    private func showAlert(for error: Error) {
+        let title: String?
+        let message: String?
+        if let error = error as? LocalizedError {
+            title = error.errorDescription
+            message = error.failureReason
+        } else {
+            title = "Error"
+            message = error.localizedDescription
+        }
+
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+
+        present(alertController, animated: true)
+    }
+
+}
+
+//MARK: - Navigation
+
+extension TinkLinkViewController {
 
     private func replaceTopViewController(with viewController: UIViewController, animated: Bool) {
         var newViewControllers = viewControllers
@@ -187,25 +225,18 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         setViewControllers(newViewControllers, animated: animated)
     }
 
-    func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
-        let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes)
-        setupNavigationItem(for: viewController, title: title)
-        viewController.addCredentialNavigator = self
-        show(viewController, sender: nil)
-    }
-
-    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
-        let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
-        setupNavigationItem(for: viewController, title: title)
-        viewController.addCredentialNavigator = self
-        show(viewController, sender: nil)
-    }
-
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
-        let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
-        setupNavigationItem(for: viewController, title: title)
-        viewController.addCredentialNavigator = self
-        show(viewController, sender: nil)
+    func showProviderPicker() {
+        setViewControllers([], animated: false)
+        providerPickerCoordinator.start { [weak self] (result) in
+            do {
+                let provider = try result.get()
+                self?.showAddCredential(for: provider)
+            } catch CocoaError.userCancelled {
+                self?.cancel()
+            } catch {
+                self?.showAlert(for: error)
+            }
+        }
     }
 
     func showAddCredential(for provider: Provider) {
@@ -218,13 +249,24 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         }
         let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController, isAggregator: isAggregator)
         addCredentialViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-        addCredentialViewController.addCredentialNavigator = self
+        addCredentialViewController.delegate = self
         if viewControllers.last is LoadingViewController {
             replaceTopViewController(with: addCredentialViewController, animated: true)
         } else {
             show(addCredentialViewController, sender: nil)
         }
     }
+
+    func showAddCredentialSuccess() {
+        //TODO: Get proper company name
+        let viewController = CredentialSuccessfullyAddedViewController(companyName: "Test")
+        show(viewController, sender: self)
+    }
+}
+
+// MARK: - AddCredentialViewControllerDelegate
+
+extension TinkLinkViewController: AddCredentialViewControllerDelegate {
 
     func showScopeDescriptions() {
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scope: scope)
@@ -238,10 +280,18 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         present(viewController, animated: true)
     }
 
-    func showAddCredentialSuccess() {
-        //TODO: Get proper company name
-        let viewController = CredentialSuccessfullyAddedViewController(companyName: "Test")
-        show(viewController, sender: self)
+
+    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool) {
+        addCredentialSession.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
+            do {
+                _ = try result.get()
+                self?.showAddCredentialSuccess()
+            } catch let error as ThirdPartyAppAuthenticationTask.Error {
+                self?.showDownloadPrompt(for: error)
+            } catch {
+                self?.showAlert(for: error)
+            }
+        }
     }
 }
 

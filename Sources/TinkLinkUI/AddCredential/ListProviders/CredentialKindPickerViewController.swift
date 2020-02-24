@@ -3,7 +3,7 @@ import UIKit
 
 /// Example of how to use the provider grouped by credential type
 final class CredentialKindPickerViewController: UITableViewController {
-    weak var addCredentialNavigator: AddCredentialFlowNavigating?
+    weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let credentialKindNodes: [ProviderTree.CredentialKindNode]
 
@@ -50,6 +50,6 @@ extension CredentialKindPickerViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let credentialKindNode = credentialKindNodes[indexPath.row]
-        addCredentialNavigator?.showAddCredential(for: credentialKindNode.provider)
+        providerPickerCoordinator?.didSelectProvider(credentialKindNode.provider)
     }
 }
