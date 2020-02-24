@@ -2,14 +2,19 @@ import Down
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider field specification to add credential
+protocol AddCredentialViewControllerDelegate: AnyObject {
+    func showScopeDescriptions()
+    func showWebContent(with url: URL)
+    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool)
+}
+
 final class AddCredentialViewController: UIViewController {
     let provider: Provider
     var username: String? {
         credentialController.user?.username
     }
 
-    weak var addCredentialFlowCoordinator: AddCredentialFlowCoordinating?
+    weak var delegate: AddCredentialViewControllerDelegate?
 
     private let credentialController: CredentialController
     private let isAggregator: Bool
@@ -196,7 +201,7 @@ extension AddCredentialViewController {
 
         do {
             try form.validateFields()
-            addCredentialFlowCoordinator?.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice)
+            delegate?.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice)
         } catch let error as Form.ValidationError {
             for (index, field) in form.fields.enumerated() {
                 guard let error = error[fieldName: field.name] else {
@@ -214,15 +219,15 @@ extension AddCredentialViewController {
     }
 
     private func showMoreInfo() {
-        addCredentialFlowCoordinator?.showScopeDescriptions()
+        delegate?.showScopeDescriptions()
     }
 
     private func showTermsAndConditions(_ url: URL) {
-        addCredentialFlowCoordinator?.showWebContent(with: url)
+        delegate?.showWebContent(with: url)
     }
 
     private func showPrivacyPolicy(_ url: URL) {
-        addCredentialFlowCoordinator?.showWebContent(with: url)
+        delegate?.showWebContent(with: url)
     }
 }
 

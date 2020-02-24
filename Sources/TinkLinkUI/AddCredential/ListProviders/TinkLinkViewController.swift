@@ -171,9 +171,9 @@ public class TinkLinkViewController: UINavigationController {
     }
 }
 
-// MARK: - AddCredentialFlowNavigating
+// MARK: - AddCredentialViewControllerDelegate
 
-extension TinkLinkViewController: AddCredentialFlowCoordinating {
+extension TinkLinkViewController: AddCredentialViewControllerDelegate {
 
 
     private func setupNavigationItem(for viewController: UIViewController, title: String?) {
@@ -212,7 +212,7 @@ extension TinkLinkViewController: AddCredentialFlowCoordinating {
         }
         let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController, isAggregator: isAggregator)
         addCredentialViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-        addCredentialViewController.addCredentialFlowCoordinator = self
+        addCredentialViewController.delegate = self
         if viewControllers.last is LoadingViewController {
             replaceTopViewController(with: addCredentialViewController, animated: true)
         } else {
