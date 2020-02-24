@@ -4,7 +4,7 @@ import UIKit
 /// Example of how to use the provider grouped by financialInstitution
 final class FinancialInstitutionPickerViewController: UITableViewController {
 
-    weak var addCredentialNavigator: ProviderPickerCoordinating?
+    weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode]
 
@@ -53,11 +53,11 @@ extension FinancialInstitutionPickerViewController {
         let financialInstitutionNode = financialInstitutionNodes[indexPath.row]
         switch financialInstitutionNode {
         case .accessTypes(let accessTypeGroups):
-            addCredentialNavigator?.showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionNode.financialInstitution.name)
+            providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionNode.financialInstitution.name)
         case .credentialKinds(let groups):
-            addCredentialNavigator?.showCredentialKindPicker(for: groups, title: financialInstitutionNode.financialInstitution.name)
+            providerPickerCoordinator?.showCredentialKindPicker(for: groups, title: financialInstitutionNode.financialInstitution.name)
         case .provider(let provider):
-            addCredentialNavigator?.didSelectProvider(provider)
+            providerPickerCoordinator?.didSelectProvider(provider)
         }
     }
 }

@@ -41,21 +41,21 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
         let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes)
         setupNavigationItem(for: viewController, title: title)
-        viewController.addCredentialNavigator = self
+        viewController.providerPickerCoordinator = self
         parentViewController.show(viewController, sender: nil)
     }
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
         setupNavigationItem(for: viewController, title: title)
-        viewController.addCredentialNavigator = self
+        viewController.providerPickerCoordinator = self
         parentViewController.show(viewController, sender: nil)
     }
 
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
         let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
         setupNavigationItem(for: viewController, title: title)
-        viewController.addCredentialNavigator = self
+        viewController.providerPickerCoordinator = self
         parentViewController.show(viewController, sender: nil)
     }
 

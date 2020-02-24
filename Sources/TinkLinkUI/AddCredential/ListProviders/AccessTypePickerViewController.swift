@@ -4,7 +4,7 @@ import UIKit
 /// Example of how to use the provider grouped by access type
 final class AccessTypePickerViewController: UITableViewController {
 
-    weak var addCredentialNavigator: ProviderPickerCoordinating?
+    weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let accessTypeNodes: [ProviderTree.AccessTypeNode]
 
@@ -55,9 +55,9 @@ extension AccessTypePickerViewController {
         let accessTypeNode = accessTypeNodes[indexPath.row]
         switch accessTypeNode {
         case .credentialKinds(let groups):
-            addCredentialNavigator?.showCredentialKindPicker(for: groups, title: nil)
+            providerPickerCoordinator?.showCredentialKindPicker(for: groups, title: nil)
         case .provider(let provider):
-            addCredentialNavigator?.didSelectProvider(provider)
+            providerPickerCoordinator?.didSelectProvider(provider)
         }
     }
 }
