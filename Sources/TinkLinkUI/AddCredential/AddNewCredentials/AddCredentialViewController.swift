@@ -15,8 +15,6 @@ final class AddCredentialViewController: UIViewController {
     private let isAggregator: Bool
     private var form: Form
     private var errors: [IndexPath: Form.Field.ValidationError] = [:]
-
-    private lazy var addCredentialFlow: AddCredentialFlow = AddCredentialFlow(credentialController: credentialController, parentViewController: self)
     private var didFirstFieldBecomeFirstResponder = false
     private let keyboardObserver = KeyboardObserver()
 
@@ -198,7 +196,7 @@ extension AddCredentialViewController {
 
         do {
             try form.validateFields()
-            addCredentialFlow.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice)
+            addCredentialNavigator?.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice)
         } catch let error as Form.ValidationError {
             for (index, field) in form.fields.enumerated() {
                 guard let error = error[fieldName: field.name] else {

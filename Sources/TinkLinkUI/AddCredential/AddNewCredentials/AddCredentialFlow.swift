@@ -1,10 +1,10 @@
 import UIKit
-import TinkLinkSDK
+import TinkLink
 
-class AddCredentialFlow {
+final class AddCredentialFlow {
 
     weak var parentViewController: UIViewController?
-    weak var addCredentialNavigator: AddCredentialFlowNavigating?
+
     private let credentialController: CredentialController
 
     private var task: AddCredentialTask?
@@ -21,7 +21,7 @@ class AddCredentialFlow {
         task?.cancel()
     }
 
-    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool) {
+    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool, onCompletion: @escaping ((Result<Void, Error>) -> Void)) {
 
         task = credentialController.addCredential(
             provider,
@@ -33,7 +33,7 @@ class AddCredentialFlow {
             },
             completion: { [weak self] result in
                 DispatchQueue.main.async {
-                    self?.handleAddCredentialCompletion(result)
+                    self?.handleAddCredentialCompletion(result, onCompletion: onCompletion)
                 }
             }
         )
@@ -60,19 +60,15 @@ class AddCredentialFlow {
         }
     }
 
-    private func handleAddCredentialCompletion(_ result: Result<Credential, Error>) {
+    private func handleAddCredentialCompletion(_ result: Result<Credential, Error>, onCompletion: @escaping ((Result<Void, Error>) -> Void)) {
         do {
             _ = try result.get()
-            showCredentialUpdated()
+            hideUpdatingView(animated: true) {
+                onCompletion(.success(()))
+            }
         } catch {
-            if let error = error as? ThirdPartyAppAuthenticationTask.Error {
-                self.hideUpdatingView(animated: true) {
-                    self.showDownloadPrompt(for: error)
-                }
-            } else {
-                self.hideUpdatingView(animated: true) {
-                    self.showAlert(for: error)
-                }
+            self.hideUpdatingView(animated: true) {
+                onCompletion(.failure(error))
             }
         }
         task = nil
@@ -128,49 +124,6 @@ extension AddCredentialFlow {
         }
         parentViewController?.dismiss(animated: animated, completion: completion)
         qrImageViewController = nil
-    }
-
-    private func showCredentialUpdated() {
-        hideUpdatingView(animated: true) {
-            self.addCredentialNavigator?.showAddCredentialSuccess()
-        }
-    }
-
-    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
-        let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
-
-        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-            let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
-                UIApplication.shared.open(appStoreURL)
-            })
-            alertController.addAction(cancelAction)
-            alertController.addAction(downloadAction)
-        } else {
-            let okAction = UIAlertAction(title: "OK", style: .default)
-            alertController.addAction(okAction)
-        }
-
-        parentViewController?.present(alertController, animated: true)
-    }
-
-    private func showAlert(for error: Error) {
-        let title: String?
-        let message: String?
-        if let error = error as? LocalizedError {
-            title = error.errorDescription
-            message = error.failureReason
-        } else {
-            title = "Error"
-            message = error.localizedDescription
-        }
-
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-
-        parentViewController?.present(alertController, animated: true)
     }
 }
 

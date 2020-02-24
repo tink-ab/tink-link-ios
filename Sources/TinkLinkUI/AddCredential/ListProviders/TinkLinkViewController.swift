@@ -10,6 +10,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var providerController = ProviderController(tink: tink)
     private lazy var credentialController = CredentialController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
+    private lazy var addCredentialFlow = AddCredentialFlow(credentialController: self.credentialController, parentViewController: self)
 
     private var isAggregator: Bool?
     private let isAggregatorLoadingGroup = DispatchGroup()
@@ -175,6 +176,7 @@ public class TinkLinkViewController: UINavigationController {
 
 extension TinkLinkViewController: AddCredentialFlowNavigating {
 
+
     private func setupNavigationItem(for viewController: UIViewController, title: String?) {
         viewController.title = title
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
@@ -242,6 +244,56 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         //TODO: Get proper company name
         let viewController = CredentialSuccessfullyAddedViewController(companyName: "Test")
         show(viewController, sender: self)
+    }
+
+    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool) {
+        addCredentialFlow.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
+            do {
+                _ = try result.get()
+                self?.showAddCredentialSuccess()
+            } catch let error as ThirdPartyAppAuthenticationTask.Error {
+                self?.showDownloadPrompt(for: error)
+            } catch {
+                self?.showAlert(for: error)
+            }
+        }
+    }
+
+    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
+        let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
+
+        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
+                UIApplication.shared.open(appStoreURL)
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(downloadAction)
+        } else {
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alertController.addAction(okAction)
+        }
+
+        present(alertController, animated: true)
+    }
+    
+    private func showAlert(for error: Error) {
+        let title: String?
+        let message: String?
+        if let error = error as? LocalizedError {
+            title = error.errorDescription
+            message = error.failureReason
+        } else {
+            title = "Error"
+            message = error.localizedDescription
+        }
+
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+
+        present(alertController, animated: true)
     }
 }
 
