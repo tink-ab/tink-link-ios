@@ -75,46 +75,6 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
-    private func showCreateTemporaryUserAlert(for error: Error) {
-        let localizedError = error as? LocalizedError
-
-        let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
-            message: localizedError?.failureReason ?? error.localizedDescription,
-            preferredStyle: .alert
-        )
-
-        let retryAction = UIAlertAction(title: "Retry", style: .default) { _ in
-            let loadingViewController = LoadingViewController()
-            loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
-            self.setViewControllers([loadingViewController], animated: false)
-            self.start()
-        }
-        alertController.addAction(retryAction)
-
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
-            self.presentingViewController?.dismiss(animated: true)
-        }
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true)
-    }
-
-    private func showUnknownAggregatorAlert(for error: Error) {
-        let localizedError = error as? LocalizedError
-
-        let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
-            message: localizedError?.failureReason ?? error.localizedDescription,
-            preferredStyle: .alert
-        )
-
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
-            self.presentingViewController?.dismiss(animated: true)
-        }
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true)
-    }
-
     private func setupNavigationBarAppearance() {
         navigationBar.tintColor = Color.accent
         if #available(iOS 13.0, *) {
@@ -171,15 +131,92 @@ public class TinkLinkViewController: UINavigationController {
     }
 }
 
-// MARK: - AddCredentialViewControllerDelegate
+// MARK: - Alerts
 
-extension TinkLinkViewController: AddCredentialViewControllerDelegate {
+extension TinkLinkViewController {
 
+    private func showCreateTemporaryUserAlert(for error: Error) {
+        let localizedError = error as? LocalizedError
 
-    private func setupNavigationItem(for viewController: UIViewController, title: String?) {
-        viewController.title = title
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+        let alertController = UIAlertController(
+            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
+            message: localizedError?.failureReason ?? error.localizedDescription,
+            preferredStyle: .alert
+        )
+
+        let retryAction = UIAlertAction(title: "Retry", style: .default) { _ in
+            let loadingViewController = LoadingViewController()
+            loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
+            self.setViewControllers([loadingViewController], animated: false)
+            self.start()
+        }
+        alertController.addAction(retryAction)
+
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
+            self.presentingViewController?.dismiss(animated: true)
+        }
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
     }
+
+    private func showUnknownAggregatorAlert(for error: Error) {
+        let localizedError = error as? LocalizedError
+
+        let alertController = UIAlertController(
+            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
+            message: localizedError?.failureReason ?? error.localizedDescription,
+            preferredStyle: .alert
+        )
+
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
+            self.presentingViewController?.dismiss(animated: true)
+        }
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
+    }
+
+    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
+        let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
+
+        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
+                UIApplication.shared.open(appStoreURL)
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(downloadAction)
+        } else {
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alertController.addAction(okAction)
+        }
+
+        present(alertController, animated: true)
+    }
+
+    private func showAlert(for error: Error) {
+        let title: String?
+        let message: String?
+        if let error = error as? LocalizedError {
+            title = error.errorDescription
+            message = error.failureReason
+        } else {
+            title = "Error"
+            message = error.localizedDescription
+        }
+
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+
+        present(alertController, animated: true)
+    }
+
+}
+
+//MARK: - Navigation
+
+extension TinkLinkViewController {
 
     private func replaceTopViewController(with viewController: UIViewController, animated: Bool) {
         var newViewControllers = viewControllers
@@ -220,6 +257,17 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
         }
     }
 
+    func showAddCredentialSuccess() {
+        //TODO: Get proper company name
+        let viewController = CredentialSuccessfullyAddedViewController(companyName: "Test")
+        show(viewController, sender: self)
+    }
+}
+
+// MARK: - AddCredentialViewControllerDelegate
+
+extension TinkLinkViewController: AddCredentialViewControllerDelegate {
+
     func showScopeDescriptions() {
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scope: scope)
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
@@ -232,11 +280,6 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
         present(viewController, animated: true)
     }
 
-    func showAddCredentialSuccess() {
-        //TODO: Get proper company name
-        let viewController = CredentialSuccessfullyAddedViewController(companyName: "Test")
-        show(viewController, sender: self)
-    }
 
     func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool) {
         addCredentialSession.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
@@ -249,43 +292,6 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
                 self?.showAlert(for: error)
             }
         }
-    }
-
-    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
-        let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
-
-        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-            let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
-                UIApplication.shared.open(appStoreURL)
-            })
-            alertController.addAction(cancelAction)
-            alertController.addAction(downloadAction)
-        } else {
-            let okAction = UIAlertAction(title: "OK", style: .default)
-            alertController.addAction(okAction)
-        }
-
-        present(alertController, animated: true)
-    }
-    
-    private func showAlert(for error: Error) {
-        let title: String?
-        let message: String?
-        if let error = error as? LocalizedError {
-            title = error.errorDescription
-            message = error.failureReason
-        } else {
-            title = "Error"
-            message = error.localizedDescription
-        }
-
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-
-        present(alertController, animated: true)
     }
 }
 
