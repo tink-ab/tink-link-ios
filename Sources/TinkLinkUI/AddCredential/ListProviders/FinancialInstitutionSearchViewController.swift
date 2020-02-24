@@ -3,7 +3,7 @@ import TinkLink
 
 final class FinancialInstitutionSearchViewController: UITableViewController {
 
-    weak var addCredentialNavigator: AddCredentialFlowNavigating?
+    weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     var originalFinancialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
     
@@ -54,11 +54,11 @@ extension FinancialInstitutionSearchViewController {
         let financialInstitutionNode = financialInstitutionNodes[indexPath.row]
         switch financialInstitutionNode {
         case .accessTypes(let accessTypeGroups):
-            addCredentialNavigator?.showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionNode.financialInstitution.name)
+            providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionNode.financialInstitution.name)
         case .credentialKinds(let groups):
-            addCredentialNavigator?.showCredentialKindPicker(for: groups, title: financialInstitutionNode.financialInstitution.name)
+            providerPickerCoordinator?.showCredentialKindPicker(for: groups, title: financialInstitutionNode.financialInstitution.name)
         case .provider(let provider):
-            addCredentialNavigator?.showAddCredential(for: provider)
+            providerPickerCoordinator?.didSelectProvider(provider)
         }
     }
 }

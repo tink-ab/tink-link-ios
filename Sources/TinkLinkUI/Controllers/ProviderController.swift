@@ -40,6 +40,7 @@ final class ProviderController {
         NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)
         isFetching = true
         providerContext?.fetchProviders(attributes: attributes, completion: { [weak self] result in
+
             self?.isFetching = false
             NotificationCenter.default.post(name: .providerControllerDidFetchProviders, object: self)
             do {

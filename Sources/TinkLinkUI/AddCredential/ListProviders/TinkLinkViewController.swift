@@ -11,6 +11,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var credentialController = CredentialController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
     private lazy var addCredentialFlow = AddCredentialFlow(credentialController: self.credentialController, parentViewController: self)
+    private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
 
     private var isAggregator: Bool?
     private let isAggregatorLoadingGroup = DispatchGroup()
@@ -51,10 +52,8 @@ public class TinkLinkViewController: UINavigationController {
                     self.credentialController.user = user
                     self.authorizationController.user = user
 
-                    let providerListViewController = ProviderListViewController(providerController: self.providerController)
-                    providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
-                    providerListViewController.addCredentialNavigator = self
-                    self.setViewControllers([providerListViewController], animated: false)
+                    self.providerController.performFetch()
+                    self.showProviderPicker()
 
                     self.isAggregatorLoadingGroup.enter()
                     self.authorizationController.isAggregator { (aggregatorResult) in
@@ -189,25 +188,18 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
         setViewControllers(newViewControllers, animated: animated)
     }
 
-    func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
-        let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes)
-        setupNavigationItem(for: viewController, title: title)
-        viewController.addCredentialNavigator = self
-        show(viewController, sender: nil)
-    }
-
-    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
-        let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
-        setupNavigationItem(for: viewController, title: title)
-        viewController.addCredentialNavigator = self
-        show(viewController, sender: nil)
-    }
-
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
-        let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
-        setupNavigationItem(for: viewController, title: title)
-        viewController.addCredentialNavigator = self
-        show(viewController, sender: nil)
+    func showProviderPicker() {
+        setViewControllers([], animated: false)
+        providerPickerCoordinator.start { [weak self] (result) in
+            do {
+                let provider = try result.get()
+                self?.showAddCredential(for: provider)
+            } catch CocoaError.userCancelled {
+                self?.cancel()
+            } catch {
+                self?.showAlert(for: error)
+            }
+        }
     }
 
     func showAddCredential(for provider: Provider) {
