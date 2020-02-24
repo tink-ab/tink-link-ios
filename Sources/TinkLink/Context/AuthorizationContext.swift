@@ -7,13 +7,13 @@ public final class AuthorizationContext {
 
     /// Error that the `AuthorizationContext` can throw.
     public enum Error: Swift.Error {
-        /// The redirect URI was invalid. The payload from the backend can be found in the associated value.
-        case invalidRedirectURI(String)
+        /// The scope or redirect URI was invalid. The payload from the backend can be found in the associated value.
+        case invalidScopeOrRedirectURI(String)
 
         init?(_ error: Swift.Error) {
             switch error {
             case ServiceError.invalidArgument(let message):
-                self = .invalidRedirectURI(message)
+                self = .invalidScopeOrRedirectURI(message)
             default:
                 return nil
             }
@@ -47,7 +47,7 @@ public final class AuthorizationContext {
         let redirectURI = tink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
             let mappedResult = result.map({ $0.scopes }).mapError({ Error($0) ?? $0 })
-            if case .failure(Error.invalidRedirectURI(let message)) = mappedResult {
+            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not authorize: " + message)
             }
             completion(mappedResult))
@@ -65,7 +65,7 @@ public final class AuthorizationContext {
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
             let mappedResult = result.map({ $0.scopes }).mapError({ Error($0) ?? $0 })
-            if case .failure(Error.invalidRedirectURI(let message)) = mappedResult {
+            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not check aggregator status: " + message)
             }
             completion(mappedResult))
@@ -152,7 +152,7 @@ public final class AuthorizationContext {
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
             let mappedResult = result.map({ $0.scopes }).mapError({ Error($0) ?? $0 })
-            if case .failure(Error.invalidRedirectURI(let message)) = mappedResult {
+            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not fetch scope descriptions: " + message)
             }
             completion(mappedResult))
