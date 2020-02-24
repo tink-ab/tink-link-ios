@@ -17,6 +17,7 @@ enum ServiceError: Error {
     case internalError(String)
     case unavailable(String)
     case dataLoss(String)
+    case missingInternetConnection(String)
 
     init?(_ error: Swift.Error) {
         guard let status = error as? GRPC.GRPCStatus else { return nil }
