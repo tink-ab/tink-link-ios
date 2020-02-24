@@ -1,5 +1,5 @@
 import UIKit
-import TinkLinkSDK
+import TinkLink
 import Kingfisher
 
 protocol AddCredentialHeaderViewDelegate: AnyObject {

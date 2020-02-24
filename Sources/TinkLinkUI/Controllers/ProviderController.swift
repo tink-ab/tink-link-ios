@@ -1,4 +1,4 @@
-import TinkLinkSDK
+import TinkLink
 import Foundation
 
 extension Notification.Name {
@@ -8,7 +8,7 @@ extension Notification.Name {
 }
 
 final class ProviderController {
-    let tinkLink: TinkLink
+    let tink: Tink
     
     var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] {
         return ProviderTree(providers: providers).makeFinancialInstitutions()
@@ -27,14 +27,14 @@ final class ProviderController {
     private var providers: [Provider] = []
     private var providerContext: ProviderContext?
 
-    init(tinkLink: TinkLink) {
-        self.tinkLink = tinkLink
+    init(tink: Tink) {
+        self.tink = tink
     }
 
     func performFetch() {
         guard let user = user else { return }
         if providerContext == nil {
-            providerContext = ProviderContext(tinkLink: tinkLink, user: user)
+            providerContext = ProviderContext(tink: tink, user: user)
         }
         let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
         NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)

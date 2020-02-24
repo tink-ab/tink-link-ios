@@ -279,9 +279,9 @@ func showPrivacyPolicy() {
 ```
 
 ## Advanced usage 
-In some cases, you may want to have multiple `TinkLink` instances, you can create your custom `TinkLink` instance like this:
+In some cases, you may want to have multiple `Tink` instances, you can create your custom `Tink` instance like this:
 
 ```swift
-let configuration = TinkLink.Configuration(clientID: <#T##String#>, redirectURI: <#T##URL#>)
-let customTinkLink = TinkLink(configuration: configuration)
+let configuration = Tink.Configuration(clientID: <#T##String#>, redirectURI: <#T##URL#>)
+let customTink = Tink(configuration: configuration)
 ```

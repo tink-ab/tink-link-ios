@@ -1,5 +1,5 @@
 import Foundation
-import TinkLinkSDK
+import TinkLink
 
 extension AddCredentialTask.Error: LocalizedError {
     public var errorDescription: String? {

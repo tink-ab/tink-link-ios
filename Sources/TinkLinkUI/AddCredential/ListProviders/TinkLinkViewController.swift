@@ -1,21 +1,21 @@
 import UIKit
-import TinkLinkSDK
+import TinkLink
 
 public class TinkLinkViewController: UINavigationController {
-    private let tinkLink: TinkLink
+    private let tink: Tink
     private let market: Market
-    public let scope: TinkLink.Scope
+    public let scope: Tink.Scope
 
-    private lazy var userController = UserController(tinkLink: tinkLink)
-    private lazy var providerController = ProviderController(tinkLink: tinkLink)
-    private lazy var credentialController = CredentialController(tinkLink: tinkLink)
-    private lazy var authorizationController = AuthorizationController(tinkLink: tinkLink)
+    private lazy var userController = UserController(tink: tink)
+    private lazy var providerController = ProviderController(tink: tink)
+    private lazy var credentialController = CredentialController(tink: tink)
+    private lazy var authorizationController = AuthorizationController(tink: tink)
 
     private var isAggregator: Bool?
     private let isAggregatorLoadingGroup = DispatchGroup()
 
-    public init(tinkLink: TinkLink = .shared, market: Market, scope: TinkLink.Scope) {
-        self.tinkLink = tinkLink
+    public init(tink: Tink = .shared, market: Market, scope: Tink.Scope) {
+        self.tink = tink
         self.market = market
         self.scope = scope
 

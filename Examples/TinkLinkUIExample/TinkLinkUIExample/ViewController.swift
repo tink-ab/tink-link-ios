@@ -1,5 +1,5 @@
 import UIKit
-import TinkLinkSDK
+import TinkLink
 import TinkLinkUI
 
 class ViewController: UIViewController {
@@ -21,11 +21,11 @@ class ViewController: UIViewController {
     }
 
     @objc private func showTinkLink() {
-        let scope = TinkLink.Scope(scopes: [
-            TinkLink.Scope.Statistics.read,
-            TinkLink.Scope.Transactions.read,
-            TinkLink.Scope.Categories.read,
-            TinkLink.Scope.Accounts.read
+        let scope = Tink.Scope(scopes: [
+            Tink.Scope.Statistics.read,
+            Tink.Scope.Transactions.read,
+            Tink.Scope.Categories.read,
+            Tink.Scope.Accounts.read
         ])
         present(TinkLinkViewController(market: "SE", scope: scope), animated: true)
     }

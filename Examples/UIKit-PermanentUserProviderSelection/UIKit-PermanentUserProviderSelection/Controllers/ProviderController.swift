@@ -1,4 +1,4 @@
-import TinkLinkSDK
+import TinkLink
 import Foundation
 
 extension Notification.Name {

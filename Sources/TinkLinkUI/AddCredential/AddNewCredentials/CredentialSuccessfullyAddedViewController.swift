@@ -1,5 +1,5 @@
 import UIKit
-import TinkLinkSDK
+import TinkLink
 
 class CredentialSuccessfullyAddedViewController: UIViewController {
     let companyName: String

@@ -1,5 +1,5 @@
 import Foundation
-import TinkLinkSDK
+import TinkLink
 
 protocol AddCredentialFlowNavigating: AnyObject {
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?)

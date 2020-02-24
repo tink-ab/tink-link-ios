@@ -20,22 +20,22 @@ Swift Package Manager is used to integrate Tink Link into your project.
 
 Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-sdk-ios` when asked for a package repository.
 
-When finished, you should be able to `import TinkLinkSDK` within your project.
+When finished, you should be able to `import TinkLink` within your project.
 
 ## Configuration
 
-To start using Tink Link, you will need to configure a `TinkLink` instance with your client ID and redirect URI.
+To start using Tink Link, you will need to configure a `Tink` instance with your client ID and redirect URI.
 
 ### Swift
 
 ```swift
-let configuration = try! TinkLink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
-TinkLink.configure(with: configuration)
+let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
+Tink.configure(with: configuration)
 ```
 
 ### Environment Variables
 
-The shared instance of TinkLink can also be configured using environment variables defined in your application's target run scheme.
+The shared instance of Tink can also be configured using environment variables defined in your application's target run scheme.
 
 | Key                         | Value      |
 | --------------------------- | ---------- |

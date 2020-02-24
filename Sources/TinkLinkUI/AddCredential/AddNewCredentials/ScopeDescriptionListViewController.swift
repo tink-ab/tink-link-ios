@@ -1,11 +1,11 @@
 import UIKit
-import TinkLinkSDK
+import TinkLink
 
 final class ScopeDescriptionListViewController: UITableViewController {
 
     private let authorizationController: AuthorizationController
 
-    private let scope: TinkLink.Scope
+    private let scope: Tink.Scope
 
     private lazy var activityIndicatorView = UIActivityIndicatorView(style: .gray)
 
@@ -20,7 +20,7 @@ final class ScopeDescriptionListViewController: UITableViewController {
         }
     }
 
-    init(authorizationController: AuthorizationController, scope: TinkLink.Scope) {
+    init(authorizationController: AuthorizationController, scope: Tink.Scope) {
         self.authorizationController = authorizationController
         self.scope = scope
         self.sections = [
