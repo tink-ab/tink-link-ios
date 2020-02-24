@@ -9,7 +9,7 @@ final class AddCredentialViewController: UIViewController {
         credentialController.user?.username
     }
 
-    weak var addCredentialNavigator: AddCredentialFlowNavigating?
+    weak var addCredentialFlowCoordinator: AddCredentialFlowCoordinating?
 
     private let credentialController: CredentialController
     private let isAggregator: Bool
@@ -196,7 +196,7 @@ extension AddCredentialViewController {
 
         do {
             try form.validateFields()
-            addCredentialNavigator?.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice)
+            addCredentialFlowCoordinator?.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice)
         } catch let error as Form.ValidationError {
             for (index, field) in form.fields.enumerated() {
                 guard let error = error[fieldName: field.name] else {
@@ -214,15 +214,15 @@ extension AddCredentialViewController {
     }
 
     private func showMoreInfo() {
-        addCredentialNavigator?.showScopeDescriptions()
+        addCredentialFlowCoordinator?.showScopeDescriptions()
     }
 
     private func showTermsAndConditions(_ url: URL) {
-        addCredentialNavigator?.showWebContent(with: url)
+        addCredentialFlowCoordinator?.showWebContent(with: url)
     }
 
     private func showPrivacyPolicy(_ url: URL) {
-        addCredentialNavigator?.showWebContent(with: url)
+        addCredentialFlowCoordinator?.showWebContent(with: url)
     }
 }
 
