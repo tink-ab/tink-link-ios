@@ -35,7 +35,6 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     @objc func cancel() {
         self.completion?(.failure(CocoaError(.userCancelled)))
-        self.completion = nil
     }
 
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
@@ -61,7 +60,6 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func didSelectProvider(_ provider: Provider) {
         completion?(.success(provider))
-        self.completion = nil
     }
 }
 
