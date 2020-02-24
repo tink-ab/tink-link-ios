@@ -10,7 +10,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var providerController = ProviderController(tink: tink)
     private lazy var credentialController = CredentialController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
-    private lazy var addCredentialFlow = AddCredentialFlow(credentialController: self.credentialController, parentViewController: self)
+    private lazy var addCredentialSession = AddCredentialSession(credentialController: self.credentialController, parentViewController: self)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
 
     private var isAggregator: Bool?
@@ -239,7 +239,7 @@ extension TinkLinkViewController: AddCredentialFlowNavigating {
     }
 
     func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool) {
-        addCredentialFlow.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
+        addCredentialSession.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
             do {
                 _ = try result.get()
                 self?.showAddCredentialSuccess()

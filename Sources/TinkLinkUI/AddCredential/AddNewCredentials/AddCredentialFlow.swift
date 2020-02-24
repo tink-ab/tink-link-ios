@@ -1,7 +1,7 @@
 import UIKit
 import TinkLink
 
-final class AddCredentialFlow {
+final class AddCredentialSession {
 
     weak var parentViewController: UIViewController?
 
@@ -75,7 +75,7 @@ final class AddCredentialFlow {
     }
 }
 
-extension AddCredentialFlow {
+extension AddCredentialSession {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
         hideUpdatingView(animated: true) {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
@@ -129,7 +129,7 @@ extension AddCredentialFlow {
 
 // MARK: - SupplementalInformationViewControllerDelegate
 
-extension AddCredentialFlow: SupplementalInformationViewControllerDelegate {
+extension AddCredentialSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         parentViewController?.dismiss(animated: true)
     }
