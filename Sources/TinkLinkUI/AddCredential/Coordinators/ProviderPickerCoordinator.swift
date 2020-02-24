@@ -11,7 +11,7 @@ protocol ProviderPickerCoordinating: AnyObject {
 class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     private let providerController: ProviderController
-    private let parentViewController: UIViewController
+    private weak var parentViewController: UIViewController?
     private var completion: ((Result<Provider, Error>) -> Void)?
 
     init(parentViewController: UIViewController, providerController: ProviderController) {
@@ -24,7 +24,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
         providerListViewController.providerPickerCoordinator = self
         
-        parentViewController.show(providerListViewController, sender: self)
+        parentViewController?.show(providerListViewController, sender: self)
         self.completion = completion
     }
 
@@ -41,21 +41,21 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes)
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
-        parentViewController.show(viewController, sender: nil)
+        parentViewController?.show(viewController, sender: nil)
     }
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
-        parentViewController.show(viewController, sender: nil)
+        parentViewController?.show(viewController, sender: nil)
     }
 
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
         let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
-        parentViewController.show(viewController, sender: nil)
+        parentViewController?.show(viewController, sender: nil)
     }
 
     func didSelectProvider(_ provider: Provider) {
