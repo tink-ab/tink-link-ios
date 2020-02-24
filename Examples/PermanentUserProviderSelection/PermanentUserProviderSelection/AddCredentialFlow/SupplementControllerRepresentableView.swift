@@ -1,5 +1,5 @@
 import SwiftUI
-import TinkLinkSDK
+import TinkLink
 
 struct SupplementControllerRepresentableView: View, UIViewControllerRepresentable {
     private var supplementInformationTask: SupplementInformationTask

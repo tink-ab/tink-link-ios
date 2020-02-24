@@ -1,6 +1,6 @@
 import UIKit
 import SwiftUI
-import TinkLinkSDK
+import TinkLink
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
