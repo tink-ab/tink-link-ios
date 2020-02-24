@@ -7,7 +7,11 @@ public final class AuthorizationContext {
 
     /// Error that the `AuthorizationContext` can throw.
     public enum Error: Swift.Error {
-        /// The scope or redirect URI was invalid. The payload from the backend can be found in the associated value.
+        /// The scope or redirect URI was invalid.
+        ///
+        /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
+        ///
+        /// - Note: The payload from the backend can be found in the associated value.
         case invalidScopeOrRedirectURI(String)
 
         init?(_ error: Swift.Error) {
