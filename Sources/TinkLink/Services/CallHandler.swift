@@ -31,7 +31,7 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
 
     private func startCall() {
         guard NetworkReachability.isConnectedToNetwork() else {
-            completion(.failure(ServiceError.missingInternetConnection("No internet connection found")))
+            completion(.failure(ServiceError.missingInternetConnection))
             return
         }
         let call = method(request, nil)
