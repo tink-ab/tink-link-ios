@@ -1,5 +1,5 @@
 import SwiftUI
-import TinkLinkSDK
+import TinkLink
 
 struct RefreshCredentialListRow: View {
     enum ViewState {

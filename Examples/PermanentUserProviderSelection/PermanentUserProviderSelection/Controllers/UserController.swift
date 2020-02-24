@@ -1,4 +1,4 @@
-import TinkLinkSDK
+import TinkLink
 import SwiftUI
 
 final class UserController: ObservableObject {
