@@ -59,9 +59,10 @@ final class AddCredentialFooterView: UIView {
         stackView.layoutMargins = .init(top: 20, left: 20, bottom: 20, right: 20)
         return stackView
     }()
-    private var buttonBottomConstraint: NSLayoutConstraint?
+    private lazy var buttonBottomConstraint = stackView.topAnchor.constraint(equalTo: button.bottomAnchor)
     private var privacyPolicyRange: NSRange?
     private var termsAndConditionsRange: NSRange?
+    private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
 
     convenience init() {
         self.init(frame: .zero)
@@ -77,18 +78,23 @@ final class AddCredentialFooterView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        button.layer.cornerRadius = button.frame.height / 2
+    func updateButtonBottomConstraint(_ notification: KeyboardNotification) {
+        let frameHeight = notification.frame.height
+        buttonBottomConstraint.constant = frameHeight - stackView.bounds.height - safeAreaInsets.bottom
+        buttonWidthConstraint.constant = frame.size.width
+        button.rounded = false
+        UIView.animate(withDuration: notification.duration) {
+            self.layoutIfNeeded()
+        }
     }
 
-    func updateButtonBottomConstraint(_ frameHeight: CGFloat) {
-        buttonBottomConstraint?.constant = frameHeight - stackView.frame.height - stackView.layoutMargins.top
-    }
-
-    func resetButtonBottomConstraint() {
-        buttonBottomConstraint?.constant = 0
+    func resetButtonBottomConstraint(_ notification: KeyboardNotification) {
+        buttonBottomConstraint.constant = 0
+        buttonWidthConstraint.constant = button.minimumWidth
+        button.rounded = true
+        UIView.animate(withDuration: notification.duration) {
+            self.layoutIfNeeded()
+        }
     }
 
     private func setup() {
@@ -100,19 +106,16 @@ final class AddCredentialFooterView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         bankIdAnotherDeviceButton.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-
-        let buttonBottomConstraint = stackView.topAnchor.constraint(equalTo: button.bottomAnchor)
-        self.buttonBottomConstraint = buttonBottomConstraint
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: topAnchor),
-            button.widthAnchor.constraint(greaterThanOrEqualToConstant: 200),
+            buttonWidthConstraint,
             button.heightAnchor.constraint(equalToConstant: 48),
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             buttonBottomConstraint,
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 

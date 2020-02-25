@@ -19,6 +19,7 @@ final class SupplementalInformationViewController: UIViewController {
     private var errors: [IndexPath: Form.Field.ValidationError] = [:]
 
     private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
+    private lazy var buttonWidthConstraint = button.widthAnchor.constraint(equalToConstant: button.minimumWidth)
     private var didFirstFieldBecomeFirstResponder = false
 
     init(supplementInformationTask: SupplementInformationTask) {
@@ -68,6 +69,7 @@ extension SupplementalInformationViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             buttonBottomConstraint,
+            buttonWidthConstraint,
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
@@ -177,10 +179,16 @@ extension SupplementalInformationViewController: FormFieldTableViewCellDelegate 
 extension SupplementalInformationViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
         let keyboardHeight = notification.frame.height
-        buttonBottomConstraint.constant = keyboardHeight + 4 - view.safeAreaInsets.bottom
+        buttonBottomConstraint.constant = keyboardHeight - view.safeAreaInsets.bottom
+        buttonWidthConstraint.constant = view.frame.size.width
+        button.rounded = false
+        view.layoutIfNeeded()
     }
 
     private func keyboardWillHide(_ notification: KeyboardNotification) {
         buttonBottomConstraint.constant = 4
+        button.rounded = true
+        buttonWidthConstraint.constant = button.minimumWidth
+        view.layoutIfNeeded()
     }
 }

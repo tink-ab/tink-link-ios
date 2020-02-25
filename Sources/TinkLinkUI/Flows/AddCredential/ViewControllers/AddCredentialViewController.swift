@@ -88,7 +88,7 @@ extension AddCredentialViewController {
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
         navigationItem.title = "Authenticate"
@@ -156,13 +156,11 @@ extension AddCredentialViewController {
 // MARK: - Keyboard Helper
 extension AddCredentialViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
-        let keyboardRectangle = notification.frame
-        let keyboardHeight = keyboardRectangle.height
-        addCredentialFooterView.updateButtonBottomConstraint(keyboardHeight)
+        addCredentialFooterView.updateButtonBottomConstraint(notification)
     }
 
     private func keyboardWillHide(_ notification: KeyboardNotification) {
-        addCredentialFooterView.resetButtonBottomConstraint()
+        addCredentialFooterView.resetButtonBottomConstraint(notification)
     }
 }
 
@@ -246,7 +244,6 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
         }
 
         let nextIndexPath = IndexPath(row: indexPath.item + 1, section: indexPath.section)
-        _ = cell.resignFirstResponder()
 
         guard form.fields.count > nextIndexPath.item,
             form.fields[indexPath.item + 1].attributes.isEditable,
