@@ -33,13 +33,13 @@ plugins:
 	cp .build/release/protoc-gen-grpc-swift ./GRPC/plugins/
 
 generate:
-	mkdir ./Sources/TinkLinkSDK/GRPC/
+	mkdir ./Sources/TinkLink/GRPC/
 	protoc \
 		--proto_path=./GRPC/proto \
 		--proto_path=./GRPC/third-party \
 		./GRPC/proto/*.proto \
-		--swift_out=./Sources/TinkLinkSDK/GRPC/ \
-		--grpc-swift_out=./Sources/TinkLinkSDK/GRPC/ \
+		--swift_out=./Sources/TinkLink/GRPC/ \
+		--grpc-swift_out=./Sources/TinkLink/GRPC/ \
 		--swift_opt=Visibility=Internal \
 		--grpc-swift_opt=Visibility=Internal,Client=true,Server=false \
 		--plugin=protoc-gen-swift=./GRPC/plugins/protoc-gen-swift \
@@ -53,7 +53,7 @@ docs:
 		--github_url https://github.com/tink-ab/tink-link-ios \
 		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
 		--module-version $(VERSION) \
-		--module TinkLinkSDK \
+		--module TinkLink \
 		--swift-build-tool spm \
 		--build-tool-arguments -Xswiftc,-swift-version,-Xswiftc,5 \
 		--output docs
