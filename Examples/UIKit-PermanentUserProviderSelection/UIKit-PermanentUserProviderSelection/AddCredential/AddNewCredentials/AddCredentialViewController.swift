@@ -1,5 +1,5 @@
 import Down
-import TinkLinkSDK
+import TinkLink
 import UIKit
 
 /// Example of how to use the provider field specification to add credential
@@ -120,8 +120,8 @@ extension AddCredentialViewController {
 
     @objc private func updatedStatus(notification: Notification) {
         DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: Credential], let credential = userInfo["credential"] {
-                self.showUpdating(status: credential.statusPayload)
+            if let userInfo = notification.userInfo as? [String: String], let status = userInfo["status"] {
+                self.showUpdating(status: status)
             }
         }
     }

@@ -257,10 +257,31 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 }
 ```
 
-## Advanced usage 
-In some cases, you may want to have multiple `TinkLink` instances, you can create your custom `TinkLink` instance like this:
+## Showing Terms and Conditions and Privacy Policy
+If aggregating under Tink's license the user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before aggregating any data.
+
+Here's how you can get the url for the Terms and Conditions and present it with the SFSafariViewController.
 
 ```swift
-let configuration = TinkLink.Configuration(clientID: <#T##String#>, redirectURI: <#T##URL#>)
-let customTinkLink = TinkLink(configuration: configuration)
+import SafariServices
+
+func showTermsAndConditions() {
+    let url = authorizationContext.termsAndConditions(locale: <#appLocale#>)
+    let safariViewController = SFSafariViewController(url: url)
+    present(safariViewController, animated: true)
+}
+
+func showPrivacyPolicy() {
+    let url = authorizationContext.privacyPolicy(locale: <#appLocale#>)
+    let safariViewController = SFSafariViewController(url: url)
+    present(safariViewController, animated: true)
+}
+```
+
+## Advanced usage 
+In some cases, you may want to have multiple `Tink` instances, you can create your custom `Tink` instance like this:
+
+```swift
+let configuration = Tink.Configuration(clientID: <#T##String#>, redirectURI: <#T##URL#>)
+let customTink = Tink(configuration: configuration)
 ```
