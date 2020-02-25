@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Scope Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/Scope" class="dashAnchor"></a>
+    <a title="Scope Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html">TinkLink 0.9.2 Docs</a> (67% documented)</p>
+        <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html">TinkLink Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        Scope Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Classes/AddCredentialTask.html">AddCredentialTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/AddCredentialTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/AddCredentialTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/AddCredentialTask/CompletionPredicate.html">– CompletionPredicate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/AuthorizationContext.html">AuthorizationContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/CredentialContext.html">CredentialContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ProviderContext.html">ProviderContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ProviderContext/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/RefreshCredentialTask.html">RefreshCredentialTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/RefreshCredentialTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/RefreshCredentialTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/SupplementInformationTask.html">SupplementInformationTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ThirdPartyAppAuthenticationTask.html">ThirdPartyAppAuthenticationTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Tink.html">Tink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Tink/Configuration.html">– Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Tink/Scope.html">– Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/UserContext.html">UserContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/UserContext/Error.html">– Error</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Enums/Environment.html">Environment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/Set.html">Set</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Protocols/Cancellable.html">Cancellable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/Retriable.html">Retriable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ScopeType.html">ScopeType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/AccessToken.html">AccessToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Credential.html">Credential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Credential/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Credential/Kind.html">– Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Credential/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Credential/ThirdPartyAppAuthentication.html">– ThirdPartyAppAuthentication</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Form.html">Form</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Form/Fields.html">– Fields</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Form/Field.html">– Field</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Form/ValidationError.html">– ValidationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Market.html">Market</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Provider.html">Provider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Provider/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Provider/Kind.html">– Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Provider/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Provider/Capabilities.html">– Capabilities</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Provider/AccessType.html">– AccessType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Provider/FinancialInstitution.html">– FinancialInstitution</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ProviderTree.html">ProviderTree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ProviderTree/CredentialKindNode.html">– CredentialKindNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ProviderTree/FinancialInstitutionNode.html">– FinancialInstitutionNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ScopeDescription.html">ScopeDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs.html#/s:8TinkLink4UserV">User</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Typealiases.html#/s:8TinkLink16RetryCancellablea">RetryCancellable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Scope</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Scope</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                </div>
+              </div>
+            <p>Access to Tink is divided into scopes. The available scopes for Tink&rsquo;s APIs can be found in Tink console</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV6scopesSayAA0C4Type_pGvp"></a>
+                    <a name="//apple_ref/swift/Property/scopes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV6scopesSayAA0C4Type_pGvp">scopes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">scopes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV6scopesAESayAA0C4Type_pG_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(scopes:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV6scopesAESayAA0C4Type_pG_tcfc">init(scopes:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">scopes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L12-L17">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Defining%20Access%20Scopes"></a>
+                <a name="//apple_ref/swift/Section/Defining Access Scopes" class="dashAnchor"></a>
+                <a href="#/Defining%20Access%20Scopes">
+                  <h3 class="section-name">Defining Access Scopes</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV8AccountsV"></a>
+                    <a name="//apple_ref/swift/Struct/Accounts" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV8AccountsV">Accounts</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access to all the user&rsquo;s account information, including balances.</p>
+
+                        <a href="../../Classes/Tink/Scope/Accounts.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Accounts</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L32-L42">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV10ActivitiesV"></a>
+                    <a name="//apple_ref/swift/Struct/Activities" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV10ActivitiesV">Activities</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Activities.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Activities</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L44-L53">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV13AuthorizationV"></a>
+                    <a name="//apple_ref/swift/Struct/Authorization" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV13AuthorizationV">Authorization</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Authorization.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Authorization</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L55-L66">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV7BudgetsV"></a>
+                    <a name="//apple_ref/swift/Struct/Budgets" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV7BudgetsV">Budgets</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Budgets.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Budgets</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L68-L78">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV8CalendarV"></a>
+                    <a name="//apple_ref/swift/Struct/Calendar" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV8CalendarV">Calendar</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Calendar.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Calendar</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L80-L89">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV10CategoriesV"></a>
+                    <a name="//apple_ref/swift/Struct/Categories" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV10CategoriesV">Categories</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Categories.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Categories</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L91-L100">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV8ContactsV"></a>
+                    <a name="//apple_ref/swift/Struct/Contacts" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV8ContactsV">Contacts</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Contacts.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Contacts</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L102-L111">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV11CredentialsV"></a>
+                    <a name="//apple_ref/swift/Struct/Credentials" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV11CredentialsV">Credentials</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access to the information describing the user&rsquo;s different bank credentials connected to Tink.</p>
+
+                        <a href="../../Classes/Tink/Scope/Credentials.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Credentials</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L114-L125">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV11DataExportsV"></a>
+                    <a name="//apple_ref/swift/Struct/DataExports" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV11DataExportsV">DataExports</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/DataExports.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DataExports</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L127-L137">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV9DocumentsV"></a>
+                    <a name="//apple_ref/swift/Struct/Documents" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV9DocumentsV">Documents</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Documents.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Documents</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L139-L149">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV6FollowV"></a>
+                    <a name="//apple_ref/swift/Struct/Follow" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV6FollowV">Follow</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Follow.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Follow</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L151-L161">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV8IdentityV"></a>
+                    <a name="//apple_ref/swift/Struct/Identity" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV8IdentityV">Identity</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access to the user&rsquo;s personal information that can be used for identification purposes.</p>
+
+                        <a href="../../Classes/Tink/Scope/Identity.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Identity</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L164-L174">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV8InsightsV"></a>
+                    <a name="//apple_ref/swift/Struct/Insights" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV8InsightsV">Insights</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Insights.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Insights</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L176-L186">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV11InvestmentsV"></a>
+                    <a name="//apple_ref/swift/Struct/Investments" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV11InvestmentsV">Investments</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access to the user&rsquo;s portfolios and underlying financial instruments.</p>
+
+                        <a href="../../Classes/Tink/Scope/Investments.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Investments</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L189-L198">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV7PaymentV"></a>
+                    <a name="//apple_ref/swift/Struct/Payment" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV7PaymentV">Payment</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Payment.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Payment</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L200-L210">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV10PropertiesV"></a>
+                    <a name="//apple_ref/swift/Struct/Properties" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV10PropertiesV">Properties</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Properties.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Properties</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L212-L222">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV9ProvidersV"></a>
+                    <a name="//apple_ref/swift/Struct/Providers" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV9ProvidersV">Providers</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Providers.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Providers</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L224-L233">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV10StatisticsV"></a>
+                    <a name="//apple_ref/swift/Struct/Statistics" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV10StatisticsV">Statistics</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access to all the user&rsquo;s statistics, which can include filters on statistic.type.</p>
+
+                        <a href="../../Classes/Tink/Scope/Statistics.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Statistics</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L236-L245">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV11SuggestionsV"></a>
+                    <a name="//apple_ref/swift/Struct/Suggestions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV11SuggestionsV">Suggestions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Suggestions.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Suggestions</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L247-L256">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV12TransactionsV"></a>
+                    <a name="//apple_ref/swift/Struct/Transactions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV12TransactionsV">Transactions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access to all the user&rsquo;s transactional data.</p>
+
+                        <a href="../../Classes/Tink/Scope/Transactions.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Transactions</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L259-L270">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV8TransferV"></a>
+                    <a name="//apple_ref/swift/Struct/Transfer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV8TransferV">Transfer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../../Classes/Tink/Scope/Transfer.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Transfer</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L272-L282">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C5ScopeV4UserV"></a>
+                    <a name="//apple_ref/swift/Struct/User" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C5ScopeV4UserV">User</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access to user profile data such as e-mail, date of birth, etc.</p>
+
+                        <a href="../../Classes/Tink/Scope/User.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">User</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ScopeType.html">ScopeType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Scope.swift#L285-L298">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-02-25)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
