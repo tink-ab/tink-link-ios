@@ -42,7 +42,6 @@ final class UserService {
         request.origin = origin ?? ""
 
         return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: completion)
-        })
     }
 
     func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
