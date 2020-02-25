@@ -49,7 +49,9 @@ final class ProviderService: TokenConfigurableService {
         request.capability = .unknown
         request.includeTestType = includeTestProviders
 
-        return CallHandler(for: request, method: service.listProviders, queue: queue, responseMap: { $0.providers.map { Provider(grpcProvider: $0) }.filter { !$0.capabilities.isDisjoint(with: capabilities) } }, completion: completion)
+        return CallHandler(for: request, method: service.listProviders, queue: queue, responseMap: { $0.providers.map { Provider(grpcProvider: $0) }.filter { !$0.capabilities.isDisjoint(with: capabilities) } }, completion: { result in
+            completion(result.mapError({ ServiceError($0) ?? $0 }))
+        })
     }
 
     /// Lists all markets where there are providers available.
