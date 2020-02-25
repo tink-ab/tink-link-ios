@@ -34,6 +34,6 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
         self.call = call
         call.response
             .map(responseMap)
-            .whenComplete { completion($0.mapError { ServiceError($0) ?? $0 }) }
+            .whenComplete { self.completion($0.mapError { ServiceError($0) ?? $0 }) }
     }
 }
