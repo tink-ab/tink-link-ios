@@ -4,6 +4,7 @@ import GRPC
 final class AuthenticationService: TokenConfigurableService {
     let connection: ClientConnection
     var defaultCallOptions: CallOptions
+    private let queue: DispatchQueue
     let restURL: URL
 
     private var session: URLSession
@@ -28,6 +29,7 @@ final class AuthenticationService: TokenConfigurableService {
         self.init(
             connection: client.connection,
             defaultCallOptions: defaultCallOptions,
+            queue: client.queue,
             restURL: client.restURL,
             certificates: client.restCertificateURL
                 .flatMap { try? Data(contentsOf: $0) }
@@ -36,9 +38,10 @@ final class AuthenticationService: TokenConfigurableService {
         self.accessToken = accessToken
     }
 
-    init(connection: ClientConnection, defaultCallOptions: CallOptions, restURL: URL, certificates: [Data]) {
+    init(connection: ClientConnection, defaultCallOptions: CallOptions, queue: DispatchQueue, restURL: URL, certificates: [Data]) {
         self.connection = connection
         self.defaultCallOptions = defaultCallOptions
+        self.queue = queue
         self.restURL = restURL
         if certificates.isEmpty {
             self.session = .shared

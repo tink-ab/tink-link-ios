@@ -1,4 +1,5 @@
 import GRPC
+import Dispatch
 
 final class ProviderService: TokenConfigurableService {
     let connection: ClientConnection
@@ -7,6 +8,7 @@ final class ProviderService: TokenConfigurableService {
             service.defaultCallOptions = defaultCallOptions
         }
     }
+    private let queue: DispatchQueue
 
     var accessToken: AccessToken? {
         didSet {
@@ -21,13 +23,14 @@ final class ProviderService: TokenConfigurableService {
         if let accessToken = accessToken {
             defaultCallOptions.addAccessToken(accessToken.rawValue)
         }
-        self.init(connection: tink.client.connection, defaultCallOptions: defaultCallOptions)
+        self.init(connection: tink.client.connection, defaultCallOptions: defaultCallOptions, queue: tink.client.queue)
         self.accessToken = accessToken
     }
 
-    init(connection: ClientConnection, defaultCallOptions: CallOptions) {
+    init(connection: ClientConnection, defaultCallOptions: CallOptions, queue: DispatchQueue) {
         self.connection = connection
         self.defaultCallOptions = defaultCallOptions
+        self.queue = queue
     }
 
     internal lazy var service = ProviderServiceServiceClient(connection: connection, defaultCallOptions: defaultCallOptions)
