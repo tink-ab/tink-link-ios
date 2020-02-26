@@ -14,7 +14,7 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
     private let queue: DispatchQueue
 
     private var backoffInSeconds: Int = 1
-    private var retryCount = 0
+    private var automaticRetryCount = 0
     private var maxRetryCount = 5
 
     init(for request: Request, method: @escaping Method<Request, Response>, queue: DispatchQueue, responseMap: @escaping ResponseMap, completion: @escaping CallCompletionHandler<Model>) {
@@ -52,14 +52,14 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
                     let response = try mappedResult.get()
                     self.completion(.success(response))
                 } catch ServiceError.unavailable(let message) {
-                    guard self.retryCount < self.maxRetryCount else {
+                    guard self.automaticRetryCount < self.maxRetryCount else {
                         let error = ServiceError.unavailable(message)
                         self.completion(.failure(error))
                         return
                     }
                     self.queue.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(self.backoffInSeconds)) {
                         self.backoffInSeconds *= 2
-                        self.retryCount += 1
+                        self.automaticRetryCount += 1
                         self.retry()
                     }
                 } catch {
