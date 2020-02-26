@@ -14,6 +14,8 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
 
     private lazy var queue = DispatchQueue(label: "com.tink.link.service.call.retry", qos: .userInitiated)
     private var backoffInSeconds: Int = 1
+    private var retryCount = 0
+    private var maxRetryCount = 5
 
     init(for request: Request, method: @escaping Method<Request, Response>, responseMap: @escaping ResponseMap, completion: @escaping CallCompletionHandler<Model>) {
         self.request = request
@@ -43,15 +45,16 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
         self.call = call
         call.response
             .map(responseMap)
-            .whenComplete { [completion, queue, backoffInSeconds, weak self] result in
+            .whenComplete { [completion, queue, backoffInSeconds] result in
                 let mappedResult = result.mapError { ServiceError($0) ?? $0 }
                 do {
                     let response = try mappedResult.get()
                     completion(.success(response))
                 } catch ServiceError.unavailable(let message) {
                     queue.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(backoffInSeconds)) {
-                        guard let self = self else {
-                            completion(.failure(ServiceError.unavailable(message)))
+                        guard self.retryCount < self.maxRetryCount else {
+                            let error = ServiceError.unavailable(message)
+                            completion(.failure(error))
                             return
                         }
                         self.backoffInSeconds *= 2
