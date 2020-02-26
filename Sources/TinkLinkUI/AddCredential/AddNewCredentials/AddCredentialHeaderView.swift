@@ -46,6 +46,7 @@ final class AddCredentialHeaderView: UIView {
         userInfoDescription.isScrollEnabled = false
         userInfoDescription.backgroundColor = .clear
         userInfoDescription.isEditable = false
+        userInfoDescription.clipsToBounds = false
         userInfoDescription.delegate = self
         return userInfoDescription
     }()

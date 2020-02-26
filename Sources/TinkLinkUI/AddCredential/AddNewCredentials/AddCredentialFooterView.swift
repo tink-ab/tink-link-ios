@@ -26,6 +26,7 @@ final class AddCredentialFooterView: UIView {
         descriptionTextView.delegate = self
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
+        descriptionTextView.clipsToBounds = false
         descriptionTextView.backgroundColor = Color.background
         descriptionTextView.font = Font.regular(.micro)
         descriptionTextView.linkTextAttributes = [
