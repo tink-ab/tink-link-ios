@@ -6,35 +6,35 @@ extension ServiceError: LocalizedError {
         switch self {
         case .cancelled:
             return "Cancelled"
-        case .unknown(_):
+        case .unknown:
             return "Unknown error"
-        case .invalidArgument(_):
+        case .invalidArgument:
             return "Invalid argument"
-        case .deadlineExceeded(_):
+        case .deadlineExceeded:
             return "Deadline Exceeded"
-        case .notFound(_):
+        case .notFound:
             return "Not found"
-        case .alreadyExists(_):
+        case .alreadyExists:
             return "Already exists"
-        case .permissionDenied(_):
+        case .permissionDenied:
             return "Permission denied"
-        case .unauthenticated(_):
+        case .unauthenticated:
             return "Unauthenticated"
-        case .resourceExhausted(_):
+        case .resourceExhausted:
             return "Resource exhausted"
-        case .failedPrecondition(_):
+        case .failedPrecondition:
             return "Failed precondition"
-        case .aborted(_):
+        case .aborted:
             return "Aborted"
-        case .outOfRange(_):
+        case .outOfRange:
             return "Out of range"
-        case .unimplemented(_):
+        case .unimplemented:
             return "Unimplemented"
-        case .internalError(_):
+        case .internalError:
             return "Internal error"
-        case .unavailable(_):
+        case .unavailable:
             return "Unavailable"
-        case .dataLoss(_):
+        case .dataLoss:
             return "Data loss"
         case .missingInternetConnection:
             return "Missing internet connection"
