@@ -71,7 +71,7 @@ final class AddCredentialHeaderView: UIView {
 
     private var readMoreRange: NSRange?
 
-    private var emptyUserInfoLabelBottomSpace: NSLayoutConstraint?
+    private var emptyDescriptionUserInfoLabelBottomSpace: NSLayoutConstraint?
     private var userInfoDescriptionBottomSpace: NSLayoutConstraint?
 
     private var userInfoDescriptionTopConstraint: NSLayoutConstraint?
@@ -125,7 +125,7 @@ final class AddCredentialHeaderView: UIView {
 
         let userInfoDescriptionBottomSpace = userInfoDescription.bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
         self.userInfoDescriptionBottomSpace = userInfoDescriptionBottomSpace
-        emptyUserInfoLabelBottomSpace = userInfoLabel.bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
+        emptyDescriptionUserInfoLabelBottomSpace = userInfoLabel.bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
 
         let userInfoContainerBottomConstraint = userInfoContainerView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         self.userInfoContainerBottomConstraint = userInfoContainerBottomConstraint
@@ -186,32 +186,31 @@ final class AddCredentialHeaderView: UIView {
     }
 
     func configure(with provider: Provider, username: String? = nil, isAggregator: Bool) {
+        configure(provider)
+        
+        let shouldHideUserInfoContainer = isAggregator && (username?.isEmpty ?? true)
+        guard !shouldHideUserInfoContainer else {
+            userInfoContainerView.isHidden = true
+            emptyUserInfoContainerBottomConstraint?.isActive = true
+
+            userInfoDescriptionTopConstraint?.isActive = false
+            emptyUsernameDescriptionCenterYConstraint?.isActive = false
+            userInfoDescriptionBottomSpace?.isActive = false
+            emptyDescriptionUserInfoLabelBottomSpace?.isActive = false
+            userInfoContainerBottomConstraint?.isActive = false
+            return
+        }
+
+        configure(username)
+        configure(isAggregator)
+    }
+
+    private func configure(_ provider: Provider) {
         provider.image.flatMap {
             bankIconView.kf.setImage(with: ImageResource(downloadURL: $0))
         }
         bankLabel.text = provider.displayName
 
-        if username?.isEmpty ?? true, isAggregator {
-            userInfoContainerView.isHidden = true
-            emptyUserInfoContainerBottomConstraint?.isActive = true
-            userInfoDescriptionTopConstraint?.isActive = false
-            emptyUsernameDescriptionCenterYConstraint?.isActive = false
-            userInfoDescriptionBottomSpace?.isActive = false
-            emptyUserInfoLabelBottomSpace?.isActive = false
-            userInfoContainerBottomConstraint?.isActive = false
-            return
-        }
-
-        if let username = username, !username.isEmpty {
-            userInfoLabel.text = username
-            userInfoLabel.isHidden = false
-            userInfoDescriptionTopConstraint?.isActive = true
-            emptyUsernameDescriptionCenterYConstraint?.isActive = false
-        } else {
-            userInfoLabel.isHidden = true
-            userInfoDescriptionTopConstraint?.isActive = false
-            emptyUsernameDescriptionCenterYConstraint?.isActive = true
-        }
         let text = String(format: "%@ will obtain some of your financial information. Read More", provider.displayName)
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: Color.label,
@@ -226,27 +225,26 @@ final class AddCredentialHeaderView: UIView {
             NSAttributedString.Key.foregroundColor: Color.accent,
             NSAttributedString.Key.link: "",
         ], range: readMoreRange)
-        userInfoDescription.attributedText = attributeText
         userInfoDescription.linkTextAttributes = [
             NSAttributedString.Key.font: Font.bold(.micro),
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
-        userInfoDescription.isHidden = isAggregator
-        if isAggregator {
-            if let constraint = emptyUserInfoLabelBottomSpace {
-                NSLayoutConstraint.activate([constraint])
-            }
-            if let constraint = userInfoDescriptionBottomSpace {
-                NSLayoutConstraint.deactivate([constraint])
-            }
-        } else {
-            if let constraint = emptyUserInfoLabelBottomSpace {
-                NSLayoutConstraint.deactivate([constraint])
-            }
-            if let constraint = userInfoDescriptionBottomSpace {
-                NSLayoutConstraint.activate([constraint])
-            }
-        }
+        userInfoDescription.attributedText = attributeText
+    }
+
+    private func configure(_ username: String?) {
+        let isUsernameEmpty = username?.isEmpty ?? true
+
+        userInfoLabel.text = username
+        userInfoLabel.isHidden = isUsernameEmpty
+        userInfoDescriptionTopConstraint?.isActive = !isUsernameEmpty
+        emptyUsernameDescriptionCenterYConstraint?.isActive = isUsernameEmpty
+    }
+
+    private func configure(_ isDescriptionHidden: Bool) {
+        userInfoDescription.isHidden = isDescriptionHidden
+        emptyDescriptionUserInfoLabelBottomSpace?.isActive = isDescriptionHidden
+        userInfoDescriptionBottomSpace?.isActive = !isDescriptionHidden
     }
 }
 
