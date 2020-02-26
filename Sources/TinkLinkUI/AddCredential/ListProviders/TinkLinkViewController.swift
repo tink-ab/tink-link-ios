@@ -16,6 +16,8 @@ public class TinkLinkViewController: UINavigationController {
     private var isAggregator: Bool?
     private let isAggregatorLoadingGroup = DispatchGroup()
 
+    private var clientName: String?
+
     public init(tink: Tink = .shared, market: Market, scope: Tink.Scope) {
         self.tink = tink
         self.market = market
@@ -64,6 +66,12 @@ public class TinkLinkViewController: UINavigationController {
                             } catch {
                                 self.showUnknownAggregatorAlert(for: error)
                             }
+                        }
+                    }
+
+                    self.authorizationController.clientName { (clientNameResult) in
+                        DispatchQueue.main.async {
+                            self.clientName = try? clientNameResult.get()
                         }
                     }
                 } catch {
@@ -258,8 +266,7 @@ extension TinkLinkViewController {
     }
 
     func showAddCredentialSuccess() {
-        //TODO: Get proper company name
-        let viewController = CredentialSuccessfullyAddedViewController(companyName: "Test")
+        let viewController = CredentialSuccessfullyAddedViewController(companyName: clientName ?? "Unknown")
         show(viewController, sender: self)
     }
 }
