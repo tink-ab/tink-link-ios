@@ -65,7 +65,8 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
         button.text = "Add"
         button.minimumWidth = 125
         button.textColor = Color.secondaryGroupedBackground
-
+        button.isUserInteractionEnabled = false
+        
         separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = layoutMargins.right
 
