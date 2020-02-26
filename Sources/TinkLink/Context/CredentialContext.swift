@@ -66,6 +66,7 @@ public final class CredentialContext {
     /// - Parameters:
     ///   - provider: The provider (financial institution) that the credentials is connected to.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
+    ///   - currentCredential: TODO
     ///   - completionPredicate: Predicate for when credential task should complete.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credential being added.
@@ -74,6 +75,7 @@ public final class CredentialContext {
     /// - Returns: The add credential task.
     @discardableResult
     public func addCredential(for provider: Provider, form: Form,
+                              currentCredential: Credential? = nil,
                               completionPredicate: AddCredentialTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                               progressHandler: @escaping (_ status: AddCredentialTask.Status) -> Void,
                               completion: @escaping (_ result: Result<Credential, Error>) -> Void) -> AddCredentialTask {
@@ -86,13 +88,25 @@ public final class CredentialContext {
 
         let appURI = tink.configuration.redirectURI
 
-        task.callCanceller = addCredentialAndAuthenticateIfNeeded(for: provider, fields: form.makeFields(), appURI: appURI) { [weak task] result in
-            do {
-                let credential = try result.get()
-                task?.startObserving(credential)
-            } catch {
-                let mappedError = AddCredentialTask.Error(addCredentialError: error) ?? error
-                completion(.failure(mappedError))
+        if let current = current {
+            task.callCanceller = update(current, form: form) { (result) in
+                do {
+                    let credential = try result.get()
+                    task.startObserving(credential)
+                } catch {
+                    let mappedError = AddCredentialTask.Error(addCredentialError: error) ?? error
+                    completion(.failure(mappedError))
+                }
+            }
+        } else {
+            task.callCanceller = addCredentialAndAuthenticateIfNeeded(for: provider, fields: form.makeFields(), appURI: appURI) { [weak task] result in
+                do {
+                    let credential = try result.get()
+                    task?.startObserving(credential)
+                } catch {
+                    let mappedError = AddCredentialTask.Error(addCredentialError: error) ?? error
+                    completion(.failure(mappedError))
+                }
             }
         }
         return task

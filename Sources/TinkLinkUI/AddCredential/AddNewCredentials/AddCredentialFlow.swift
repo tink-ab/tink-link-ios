@@ -28,6 +28,7 @@ final class AddCredentialSession {
         task = credentialController.addCredential(
             provider,
             form: form,
+            current: task?.credential, 
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
                     self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: allowAnotherDevice)
@@ -73,7 +74,7 @@ final class AddCredentialSession {
                 onCompletion(.failure(error))
             }
         }
-        task = nil
+//        task = nil
     }
 }
 

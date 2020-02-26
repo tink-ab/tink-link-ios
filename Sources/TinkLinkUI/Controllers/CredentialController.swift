@@ -12,7 +12,7 @@ final class CredentialController {
         self.tink = tink
     }
 
-    func addCredential(_ provider: Provider, form: Form, progressHandler: @escaping (AddCredentialTask.Status) -> Void, completion: @escaping (_ result: Result<Credential, Error>) -> Void) -> AddCredentialTask? {
+    func addCredential(_ provider: Provider, form: Form, current: Credential? = nil, progressHandler: @escaping (AddCredentialTask.Status) -> Void, completion: @escaping (_ result: Result<Credential, Error>) -> Void) -> AddCredentialTask? {
         guard let user = user else { return nil }
         if credentialContext == nil {
             credentialContext = CredentialContext(user: user)
@@ -20,6 +20,7 @@ final class CredentialController {
         return credentialContext?.addCredential(
             for: provider,
             form: form,
+            current: current,
             progressHandler: progressHandler,
             completion: completion
         )
