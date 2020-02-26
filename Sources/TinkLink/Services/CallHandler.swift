@@ -51,12 +51,12 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
                     let response = try mappedResult.get()
                     completion(.success(response))
                 } catch ServiceError.unavailable(let message) {
+                    guard self.retryCount < self.maxRetryCount else {
+                        let error = ServiceError.unavailable(message)
+                        completion(.failure(error))
+                        return
+                    }
                     queue.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(backoffInSeconds)) {
-                        guard self.retryCount < self.maxRetryCount else {
-                            let error = ServiceError.unavailable(message)
-                            completion(.failure(error))
-                            return
-                        }
                         self.backoffInSeconds *= 2
                         self.retry()
                     }
