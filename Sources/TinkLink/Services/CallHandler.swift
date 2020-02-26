@@ -29,6 +29,7 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
     var call: UnaryCall<Request, Response>?
 
     func retry() {
+        retryCount += 1
         _ = call?.cancel()
         startCall()
     }
