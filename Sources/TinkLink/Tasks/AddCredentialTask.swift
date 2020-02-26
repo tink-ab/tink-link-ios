@@ -133,7 +133,7 @@ public final class AddCredentialTask: Identifiable {
                 progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 guard let thirdPartyAppAuthentication = credential.thirdPartyAppAuthentication else {
-                    assertionFailure("Missing third pary app authentication deeplink URL!")
+                    assertionFailure("Missing third party app authentication deeplink URL!")
                     return
                 }
                 let thirdPartyAppAuthenticationTask = ThirdPartyAppAuthenticationTask(credentialID: credential.id, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialService: credentialService) { [weak self] result in
