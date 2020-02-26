@@ -165,7 +165,7 @@ final class AddCredentialHeaderView: UIView {
         dashLayer.path = path
     }
 
-    func configure(with provider: Provider, username: String? = nil, isAggregator: Bool) {
+    func configure(with provider: Provider, username: String? = nil, clientName: String, isAggregator: Bool) {
         if let username = username, !username.isEmpty {
             userInfoLabel.text = username
             userInfoLabel.isHidden = false
@@ -180,7 +180,7 @@ final class AddCredentialHeaderView: UIView {
             bankIconView.kf.setImage(with: ImageResource(downloadURL: $0))
         }
         bankLabel.text = provider.displayName
-        let text = String(format: "%@ will obtain some of your financial information. Read More", provider.displayName)
+        let text = String(format: "%@ will obtain some of your financial information. Read More", clientName)
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: Color.label,
             .font: Font.regular(.micro)
