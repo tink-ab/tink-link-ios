@@ -270,7 +270,7 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
     func showScopeDescriptions() {
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scope: scope)
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
-        let navigationController = UINavigationController(rootViewController: viewController)
+        let navigationController = TinkNavigationController(rootViewController: viewController)
         present(navigationController, animated: true)
     }
 
