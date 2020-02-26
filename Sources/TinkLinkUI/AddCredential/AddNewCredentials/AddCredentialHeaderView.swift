@@ -19,14 +19,12 @@ final class AddCredentialHeaderView: UIView {
         bankLabel.numberOfLines = 0
         return bankLabel
     }()
-    private let userInfoContainerView: UIView = {
-        let userInfoContainerView = UIView()
-        userInfoContainerView.backgroundColor = .clear
-        return userInfoContainerView
-    }()
+    private let userInfoContainerView = UIView()
     private let userInfoIconBackgroundView: UIView = {
         let userInfoIconBackgroundView = UIView()
         userInfoIconBackgroundView.backgroundColor = Color.accent.withAlphaComponent(0.1)
+        userInfoIconBackgroundView.layer.cornerRadius = 15
+
         return userInfoIconBackgroundView
     }()
     private let userInfoIconView: UIImageView = {
@@ -58,6 +56,14 @@ final class AddCredentialHeaderView: UIView {
         let dashLine = UIView()
         dashLine.backgroundColor = .clear
         dashLine.layer.addSublayer(dashLayer)
+
+        dashLayer.frame = CGRect(origin: dashLine.bounds.origin, size: CGSize(width: 1, height: 16))
+
+        let path = CGMutablePath()
+        path.move(to: dashLine.bounds.origin)
+        path.addLine(to: CGPoint(x: dashLayer.frame.origin.x, y: dashLayer.bounds.maxY))
+        dashLayer.path = path
+
         return dashLine
     }()
     private lazy var dashLayer: CAShapeLayer = {
@@ -169,20 +175,6 @@ final class AddCredentialHeaderView: UIView {
             userInfoDescription.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor),
             userInfoDescriptionBottomSpace
         ])
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        userInfoContainerView.layoutIfNeeded()
-
-        userInfoIconBackgroundView.layer.cornerRadius = userInfoIconBackgroundView.frame.height / 2
-
-        dashLayer.frame = dashLine.bounds
-        let path = CGMutablePath()
-        path.move(to: dashLine.bounds.origin)
-        path.addLine(to: CGPoint(x: dashLine.bounds.origin.x, y: dashLine.bounds.maxY))
-        dashLayer.path = path
     }
 
     func configure(with provider: Provider, username: String? = nil, isAggregator: Bool) {
