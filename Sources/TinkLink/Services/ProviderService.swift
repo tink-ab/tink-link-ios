@@ -49,7 +49,7 @@ final class ProviderService: TokenConfigurableService {
         request.capability = .unknown
         request.includeTestType = includeTestProviders
 
-        return CallHandler(for: request, method: service.listProviders, responseMap: { $0.providers.map { Provider(grpcProvider: $0) }.filter { !$0.capabilities.isDisjoint(with: capabilities) } }, completion: completion)
+        return CallHandler(for: request, method: service.listProviders, queue: queue, responseMap: { $0.providers.map { Provider(grpcProvider: $0) }.filter { !$0.capabilities.isDisjoint(with: capabilities) } }, completion: completion)
     }
 
     /// Lists all markets where there are providers available.
@@ -59,6 +59,6 @@ final class ProviderService: TokenConfigurableService {
     func providerMarkets(completion: @escaping (Result<[Market], Error>) -> Void) -> RetryCancellable {
         let request = GRPCProviderMarketListRequest()
 
-        return CallHandler(for: request, method: service.listProviderMarkets, responseMap: { $0.providerMarkets.map { Market(code: $0.code) } }, completion: completion)
+        return CallHandler(for: request, method: service.listProviderMarkets, queue: queue, responseMap: { $0.providerMarkets.map { Market(code: $0.code) } }, completion: completion)
     }
 }

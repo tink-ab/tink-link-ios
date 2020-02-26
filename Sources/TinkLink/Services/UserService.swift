@@ -44,7 +44,7 @@ final class UserService {
         request.locale = locale.identifier
         request.origin = origin ?? ""
 
-        return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: completion)
+        return CallHandler(for: request, method: service.createAnonymous, queue: queue, responseMap: { AccessToken($0.accessToken) }, completion: completion)
     }
 
     func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
@@ -73,6 +73,6 @@ final class UserService {
 
     func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
         let request = GRPCGetProfileRequest()
-        return CallHandler(for: request, method: service.getProfile, responseMap: {UserProfile(grpcUserProfile: $0.userProfile)}, completion: completion)
+        return CallHandler(for: request, method: service.getProfile, queue: queue, responseMap: {UserProfile(grpcUserProfile: $0.userProfile)}, completion: completion)
     }
 }

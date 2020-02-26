@@ -64,6 +64,7 @@ final class AuthenticationService: TokenConfigurableService {
         return CallHandler(
             for: request,
             method: service.describeOAuth2Client,
+            queue: queue,
             responseMap: ClientDescription.init(grpcDescribeOAuth2ClientResponse:),
             completion: completion
         )

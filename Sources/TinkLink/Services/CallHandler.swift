@@ -11,15 +11,16 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
     var method: Method<Request, Response>
     var responseMap: ResponseMap
     var completion: CallCompletionHandler<Model>
+    private let queue: DispatchQueue
 
-    private lazy var queue = DispatchQueue(label: "com.tink.link.service.call.retry", qos: .userInitiated)
     private var backoffInSeconds: Int = 1
     private var retryCount = 0
     private var maxRetryCount = 5
 
-    init(for request: Request, method: @escaping Method<Request, Response>, responseMap: @escaping ResponseMap, completion: @escaping CallCompletionHandler<Model>) {
+    init(for request: Request, method: @escaping Method<Request, Response>, queue: DispatchQueue, responseMap: @escaping ResponseMap, completion: @escaping CallCompletionHandler<Model>) {
         self.request = request
         self.method = method
+        self.queue = queue
         self.responseMap = responseMap
         self.completion = completion
         startCall()
