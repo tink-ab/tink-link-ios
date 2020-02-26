@@ -29,7 +29,6 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
     var call: UnaryCall<Request, Response>?
 
     func retry() {
-        retryCount += 1
         _ = call?.cancel()
         startCall()
     }
@@ -60,6 +59,7 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
                     }
                     self.queue.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(self.backoffInSeconds)) {
                         self.backoffInSeconds *= 2
+                        self.retryCount += 1
                         self.retry()
                     }
                 } catch {
