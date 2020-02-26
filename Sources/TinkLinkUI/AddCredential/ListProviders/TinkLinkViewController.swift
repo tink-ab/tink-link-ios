@@ -13,11 +13,9 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var addCredentialSession = AddCredentialSession(credentialController: self.credentialController, parentViewController: self)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
 
-    private var isAggregator: Bool?
+    private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
-
-    private var clientName: String?
-
+``
     public init(tink: Tink = .shared, market: Market, scope: Tink.Scope) {
         self.tink = tink
         self.market = market
@@ -61,9 +59,7 @@ public class TinkLinkViewController: UINavigationController {
                     self.authorizationController.clientDescription { (clientDescriptionResult) in
                         DispatchQueue.main.async {
                             do {
-                                let clientDescription = try clientDescriptionResult.get()
-                                self.clientName = clientDescription.name
-                                self.isAggregator = clientDescription.isAggregator
+                                self.clientDescription = try clientDescriptionResult.get()
                                 self.clientDescriptorLoadingGroup.leave()
                             } catch {
                                 self.showUnknownAggregatorAlert(for: error)
@@ -244,14 +240,14 @@ extension TinkLinkViewController {
     }
 
     func showAddCredential(for provider: Provider) {
-        guard let isAggregator = isAggregator else {
+        guard let clientDescription = clientDescription else {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.showAddCredential(for: provider)
             }
             show(LoadingViewController(), sender: nil)
             return
         }
-        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController, clientName: clientName ?? "Unknown", isAggregator: isAggregator)
+        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator)
         addCredentialViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         addCredentialViewController.delegate = self
         if viewControllers.last is LoadingViewController {
@@ -262,7 +258,14 @@ extension TinkLinkViewController {
     }
 
     func showAddCredentialSuccess() {
-        let viewController = CredentialSuccessfullyAddedViewController(companyName: clientName ?? "Unknown")
+        guard let clientDescription = clientDescription else {
+            clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
+                self?.showAddCredentialSuccess()
+            }
+            show(LoadingViewController(), sender: nil)
+            return
+        }
+        let viewController = CredentialSuccessfullyAddedViewController(companyName: clientDescription.name)
         show(viewController, sender: self)
     }
 }
