@@ -38,7 +38,7 @@ final class AddCredentialHeaderView: UIView {
         return userInfoLabel
     }()
     private lazy var userInfoDescription: UITextView = {
-        let userInfoDescription = UITextView()
+        let userInfoDescription = UnselectableTextView()
         userInfoDescription.textContainerInset = .zero
         userInfoDescription.textContainer.lineFragmentPadding = 0
         userInfoDescription.font = Font.regular(.micro)
@@ -46,6 +46,7 @@ final class AddCredentialHeaderView: UIView {
         userInfoDescription.isScrollEnabled = false
         userInfoDescription.backgroundColor = .clear
         userInfoDescription.isEditable = false
+        userInfoDescription.clipsToBounds = false
         userInfoDescription.delegate = self
         return userInfoDescription
     }()
