@@ -24,7 +24,7 @@ final class AddCredentialViewController: UIViewController {
     private let keyboardObserver = KeyboardObserver()
 
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
-    private lazy var helpLabel = UITextView()
+    private lazy var helpLabel = UnselectableTextView()
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
 
