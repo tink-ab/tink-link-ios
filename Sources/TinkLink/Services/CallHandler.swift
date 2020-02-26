@@ -1,3 +1,4 @@
+import Dispatch
 import GRPC
 import SwiftProtobuf
 
@@ -10,6 +11,10 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
     var method: Method<Request, Response>
     var responseMap: ResponseMap
     var completion: CallCompletionHandler<Model>
+
+    private lazy var queue = DispatchQueue(label: "com.tink.link.service.call.retry", qos: .userInitiated)
+    private var backoffInSeconds: Int = 1
+
     init(for request: Request, method: @escaping Method<Request, Response>, responseMap: @escaping ResponseMap, completion: @escaping CallCompletionHandler<Model>) {
         self.request = request
         self.method = method
@@ -38,8 +43,23 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
         self.call = call
         call.response
             .map(responseMap)
-            .whenComplete { [completion] result in
-                completion(result.mapError { ServiceError($0) ?? $0 })
+            .whenComplete { [completion, queue, backoffInSeconds, weak self] result in
+                let mappedResult = result.mapError { ServiceError($0) ?? $0 }
+                do {
+                    let response = try mappedResult.get()
+                    completion(.success(response))
+                } catch ServiceError.unavailable(let message) {
+                    queue.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(backoffInSeconds)) {
+                        guard let self = self else {
+                            completion(.failure(ServiceError.unavailable(message)))
+                            return
+                        }
+                        self.backoffInSeconds *= 2
+                        self.retry()
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
             }
     }
 }
