@@ -14,7 +14,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
 
     private var isAggregator: Bool?
-    private let isAggregatorLoadingGroup = DispatchGroup()
+    private let clientDescriptorLoadingGroup = DispatchGroup()
 
     private var clientName: String?
 
@@ -57,21 +57,17 @@ public class TinkLinkViewController: UINavigationController {
                     self.providerController.performFetch()
                     self.showProviderPicker()
 
-                    self.isAggregatorLoadingGroup.enter()
-                    self.authorizationController.isAggregator { (aggregatorResult) in
+                    self.clientDescriptorLoadingGroup.enter()
+                    self.authorizationController.clientDescription { (clientDescriptionResult) in
                         DispatchQueue.main.async {
                             do {
-                                self.isAggregator = try aggregatorResult.get()
-                                self.isAggregatorLoadingGroup.leave()
+                                let clientDescription = try clientDescriptionResult.get()
+                                self.clientName = clientDescription.name
+                                self.isAggregator = clientDescription.isAggregator
+                                self.clientDescriptorLoadingGroup.leave()
                             } catch {
                                 self.showUnknownAggregatorAlert(for: error)
                             }
-                        }
-                    }
-
-                    self.authorizationController.clientName { (clientNameResult) in
-                        DispatchQueue.main.async {
-                            self.clientName = try? clientNameResult.get()
                         }
                     }
                 } catch {
@@ -249,7 +245,7 @@ extension TinkLinkViewController {
 
     func showAddCredential(for provider: Provider) {
         guard let isAggregator = isAggregator else {
-            isAggregatorLoadingGroup.notify(queue: .main) { [weak self] in
+            clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.showAddCredential(for: provider)
             }
             show(LoadingViewController(), sender: nil)
