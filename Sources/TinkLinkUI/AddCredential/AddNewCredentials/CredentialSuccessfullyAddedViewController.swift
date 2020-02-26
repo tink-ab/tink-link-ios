@@ -22,7 +22,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
     
     //TODO: Use real strings
     private let titleText = "Connection successful"
-    private let subtitleText = "Your account has successfully connected to ‰@. You'll be redirected back in a few seconds..."
+    private let subtitleText = "Your account has successfully connected to %@. You'll be redirected back in a few seconds..."
     
     override func viewDidLoad() {
         super.viewDidLoad()
