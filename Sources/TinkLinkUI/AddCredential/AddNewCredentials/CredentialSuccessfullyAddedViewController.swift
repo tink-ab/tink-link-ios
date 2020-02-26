@@ -13,6 +13,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
     init(companyName: String) {
         self.companyName = companyName
         super.init(nibName: nil, bundle: nil)
+        navigationItem.hidesBackButton = true
     }
 
     required init?(coder: NSCoder) {
