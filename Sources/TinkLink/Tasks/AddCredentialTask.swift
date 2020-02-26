@@ -32,7 +32,7 @@ public final class AddCredentialTask: Identifiable {
         case temporaryFailure(String)
         /// A permanent failure occurred. The payload from the backend can be found in the associated value.
         case permanentFailure(String)
-        /// The credential already exists.
+        /// The credential already exists. The payload from the backend can be found in the associated value.
         case credentialAlreadyExists(String)
 
         init?(addCredentialError error: Swift.Error) {
