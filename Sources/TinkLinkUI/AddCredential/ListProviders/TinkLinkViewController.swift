@@ -267,7 +267,6 @@ extension TinkLinkViewController {
 // MARK: - AddCredentialViewControllerDelegate
 
 extension TinkLinkViewController: AddCredentialViewControllerDelegate {
-
     func showScopeDescriptions() {
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scope: scope)
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
@@ -279,7 +278,6 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
         let viewController = LegalViewController(url: url)
         present(viewController, animated: true)
     }
-
 
     func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool) {
         addCredentialSession.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
