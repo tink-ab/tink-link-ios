@@ -86,7 +86,12 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
 extension FormFieldTableViewCell: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
+        guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
+
+        let maxLength = field?.validationRules.maxLength ?? .max
+        guard text.count <= maxLength else {
+            return false
+        }
         delegate?.formFieldCell(self, willChangeToText: text)
         return true
     }
