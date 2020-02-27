@@ -85,3 +85,9 @@ final class ProviderLoadingViewController: UIViewController {
     }
 }
 
+extension ProviderLoadingViewController: ProviderLoadingErrorViewDelegate {
+    func reloadProviderList(providerLoadingErrorView: ProviderLoadingErrorView) {
+        showLoadingIndicator()
+        providerController.performFetch()
+    }
+}
