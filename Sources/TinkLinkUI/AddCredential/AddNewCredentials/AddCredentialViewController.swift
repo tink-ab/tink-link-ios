@@ -91,7 +91,7 @@ extension AddCredentialViewController {
             addCredentialFooterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
 
-        navigationItem.title = provider.displayName
+        navigationItem.title = "Authenticate"
         navigationItem.largeTitleDisplayMode = .never
         addCredentialFooterView.button.isEnabled = form.fields.isEmpty
 
