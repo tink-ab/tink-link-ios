@@ -106,11 +106,7 @@ extension FloatingPlaceholderTextField {
         case .default:
             inputType = .text
         case .numeric:
-            if let maxLength = field.validationRules.maxLength {
-                inputType = .amount(maxLength)
-            } else {
-                inputType = .number
-            }
+            inputType = .number
         }
 
         if field.attributes.isEditable {

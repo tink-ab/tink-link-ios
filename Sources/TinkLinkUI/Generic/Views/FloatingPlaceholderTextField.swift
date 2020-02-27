@@ -5,7 +5,6 @@ class FloatingPlaceholderTextField: UITextField {
     enum InputType {
         case text
         case number
-        case amount(Int)
     }
 
     var inputType: InputType = .text {
@@ -182,9 +181,6 @@ private extension FloatingPlaceholderTextField {
         case .number:
             keyboardType = .numberPad
             inputFormatter = NumericCodeInputFormatter(textField: self)
-        case .amount(let digits):
-            keyboardType = .numberPad
-            inputFormatter = NumericCodeInputFormatter(textField: self, maxDigits: digits)
         }
     }
 }
