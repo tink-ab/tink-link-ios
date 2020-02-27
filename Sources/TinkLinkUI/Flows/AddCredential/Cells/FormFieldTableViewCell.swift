@@ -32,6 +32,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    @discardableResult
     override func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
     }
