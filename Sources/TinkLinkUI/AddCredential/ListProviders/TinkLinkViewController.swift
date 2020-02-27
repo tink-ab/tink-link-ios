@@ -15,7 +15,7 @@ public class TinkLinkViewController: UINavigationController {
 
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
-``
+
     public init(tink: Tink = .shared, market: Market, scope: Tink.Scope) {
         self.tink = tink
         self.market = market
