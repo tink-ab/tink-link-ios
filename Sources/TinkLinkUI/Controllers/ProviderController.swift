@@ -4,10 +4,26 @@ import Foundation
 extension Notification.Name {
     static let providerControllerWillFetchProviders = Notification.Name("providerControllerWillFetchProviders")
     static let providerControllerDidFetchProviders = Notification.Name("providerControllerDidFetchProviders")
+    static let providerControllerDidFailWithError = Notification.Name("providerControllerDidFailWithError")
     static let providerControllerDidUpdateProviders = Notification.Name("ProviderControllerDidUpdateProviders")
 }
 
 final class ProviderController {
+
+    enum Error: Swift.Error, LocalizedError {
+        case emptyProviderList
+        case missingInternetConnection
+
+        init?(fetchProviderError error: Swift.Error) {
+            switch error {
+            case ServiceError.missingInternetConnection:
+                self = .missingInternetConnection
+            default:
+                return nil
+            }
+        }
+    }
+
     let tink: Tink
     
     var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] {
@@ -24,6 +40,7 @@ final class ProviderController {
 
     private(set) var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
     private(set) var isFetching = false
+    private(set) var error: Swift.Error?
     private var providers: [Provider] = []
     private var providerContext: ProviderContext?
 
@@ -32,7 +49,7 @@ final class ProviderController {
     }
 
     func performFetch() {
-        guard let user = user else { return }
+        guard let user = user, !isFetching else { return }
         if providerContext == nil {
             providerContext = ProviderContext(tink: tink, user: user)
         }
@@ -42,9 +59,10 @@ final class ProviderController {
         providerContext?.fetchProviders(attributes: attributes, completion: { [weak self] result in
 
             self?.isFetching = false
-            NotificationCenter.default.post(name: .providerControllerDidFetchProviders, object: self)
             do {
                 let providers = try result.get()
+                guard !providers.isEmpty else { throw Error.emptyProviderList }
+                NotificationCenter.default.post(name: .providerControllerDidFetchProviders, object: self)
                 let tree = ProviderTree(providers: providers)
                 DispatchQueue.main.async {
                     self?.providers = providers
@@ -52,7 +70,8 @@ final class ProviderController {
                     NotificationCenter.default.post(name: .providerControllerDidUpdateProviders, object: self)
                 }
             } catch {
-                // Handle any errors
+                self?.error = Error(fetchProviderError: error) ?? error
+                NotificationCenter.default.post(name: .providerControllerDidFailWithError, object: self)
             }
         })
     }
