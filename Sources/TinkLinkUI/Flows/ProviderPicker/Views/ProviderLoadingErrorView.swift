@@ -35,8 +35,8 @@ final class ProviderLoadingErrorView: UIView {
         stackView.alignment = .center
         stackView.spacing = 24
 
-        // TODO: REPLACE THIS
-        iconView.image = UIImage(icon: .profile)
+        iconView.image = UIImage(icon: .warning)?.withRenderingMode(.alwaysTemplate)
+        iconView.tintColor = Color.warning
         iconBackgroundView.layer.cornerRadius = 32
         iconBackgroundView.layer.backgroundColor = Color.warningBackground.cgColor
 
