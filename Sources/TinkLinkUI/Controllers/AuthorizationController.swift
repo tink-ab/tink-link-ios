@@ -20,8 +20,8 @@ final class AuthorizationController {
     }
 
     @discardableResult
-    func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable? {
-        return authorizationContext?.isAggregator(completion: completion)
+    func clientDescription(completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable? {
+        return authorizationContext?.clientDescription(completion: completion)
     }
 
     @discardableResult

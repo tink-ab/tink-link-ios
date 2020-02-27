@@ -17,6 +17,7 @@ final class AddCredentialViewController: UIViewController {
     weak var delegate: AddCredentialViewControllerDelegate?
 
     private let credentialController: CredentialController
+    private let clientName: String
     private let isAggregator: Bool
     private var form: Form
     private var errors: [IndexPath: Form.Field.ValidationError] = [:]
@@ -28,10 +29,11 @@ final class AddCredentialViewController: UIViewController {
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
 
-    init(provider: Provider, credentialController: CredentialController, isAggregator: Bool) {
+    init(provider: Provider, credentialController: CredentialController, clientName: String, isAggregator: Bool) {
         self.provider = provider
         self.form = Form(provider: provider)
         self.credentialController = credentialController
+        self.clientName = clientName
         self.isAggregator = isAggregator
 
         super.init(nibName: nil, bundle: nil)
@@ -60,7 +62,7 @@ extension AddCredentialViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        headerView.configure(with: provider, username: username, isAggregator: isAggregator)
+        headerView.configure(with: provider, username: username, clientName: clientName, isAggregator: isAggregator)
         headerView.delegate = self
 
         tableView.backgroundColor = .clear
