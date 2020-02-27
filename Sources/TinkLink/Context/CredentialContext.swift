@@ -68,7 +68,6 @@ public final class CredentialContext {
     /// - Parameters:
     ///   - provider: The provider (financial institution) that the credentials is connected to.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
-    ///   - currentCredential: TODO
     ///   - completionPredicate: Predicate for when credential task should complete.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credential being added.
