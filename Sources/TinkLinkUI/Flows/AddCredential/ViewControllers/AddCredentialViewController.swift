@@ -295,7 +295,10 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
         guard form.fields.count > nextIndexPath.item,
             form.fields[indexPath.item + 1].attributes.isEditable,
             let nextCell = tableView.cellForRow(at: nextIndexPath)
-            else { return true }
+            else {
+                cell.resignFirstResponder()
+                return true
+        }
 
         nextCell.becomeFirstResponder()
 
