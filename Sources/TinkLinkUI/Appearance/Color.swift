@@ -36,4 +36,6 @@ extension Color {
 
     static var expensesChartBackground: UIColor { expenses.mixedWith(color: Color.background, factor: 0.85) }
     static var incomeChartBackground: UIColor { income.mixedWith(color: Color.background, factor: 0.8) }
+
+    static var warningBackground: UIColor { warning.mixedWith(color: Color.background, factor: 0.8)}
 }
