@@ -177,10 +177,13 @@ private extension FloatingPlaceholderTextField {
     func updateInputType() {
         switch inputType {
         case .text:
+            keyboardType = .default
             inputFormatter = TextInputFormatter(textField: self)
         case .number:
+            keyboardType = .numberPad
             inputFormatter = NumericCodeInputFormatter(textField: self)
         case .amount(let digits):
+            keyboardType = .numberPad
             inputFormatter = NumericCodeInputFormatter(textField: self, maxDigits: digits)
         }
     }
