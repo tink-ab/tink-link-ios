@@ -6,20 +6,15 @@ final class ProviderListViewController: UITableViewController {
 
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
-    private let providerController: ProviderController
-
     private let searchViewController = FinancialInstitutionSearchViewController()
     
     private lazy var searchController = UISearchController(searchResultsController: searchViewController)
     
-    private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = [] {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
+    private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode]
 
-    init(providerController: ProviderController) {
-        self.providerController = providerController
+    init(financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode]) {
+        self.financialInstitutionGroupNodes = financialInstitutionGroupNodes
+        searchViewController.originalFinancialInstitutionNodes = financialInstitutionGroupNodes.makeFinancialInstitutions()
         super.init(style: .plain)
     }
 
@@ -33,13 +28,6 @@ final class ProviderListViewController: UITableViewController {
 extension ProviderListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
-        searchViewController.originalFinancialInstitutionNodes = providerController.financialInstitutionNodes
-
-        NotificationCenter.default.addObserver(self, selector: #selector(showLoadingIndicator), name: .providerControllerWillFetchProviders, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(hideLoadingIndicator), name: .providerControllerDidFetchProviders, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
         
         extendedLayoutIncludesOpaqueBars = true
         
@@ -55,31 +43,6 @@ extension ProviderListViewController {
 
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
-
-        if providerController.isFetching {
-            showLoadingIndicator()
-        }
-    }
-
-    @objc private func showLoadingIndicator() {
-        DispatchQueue.main.async {
-            let activityIndicatorView = UIActivityIndicatorView()
-            activityIndicatorView.startAnimating()
-            self.tableView.backgroundView = activityIndicatorView
-        }
-    }
-
-    @objc private func hideLoadingIndicator() {
-        DispatchQueue.main.async {
-            self.tableView.backgroundView = nil
-        }
-    }
-
-    @objc private func updateProviders() {
-        DispatchQueue.main.async {
-            self.financialInstitutionGroupNodes = self.providerController.financialInstitutionGroupNodes
-            self.searchViewController.originalFinancialInstitutionNodes = self.providerController.financialInstitutionNodes
-        }
     }
 }
 

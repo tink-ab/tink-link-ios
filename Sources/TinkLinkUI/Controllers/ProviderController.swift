@@ -26,10 +26,6 @@ final class ProviderController {
 
     let tink: Tink
     
-    var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] {
-        return ProviderTree(providers: providers).makeFinancialInstitutions()
-    }
-    
     var user: User? {
         didSet {
             if user != nil {

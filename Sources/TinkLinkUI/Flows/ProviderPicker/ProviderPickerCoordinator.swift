@@ -39,7 +39,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?) {
-        let providerListViewController = ProviderListViewController(providerController: self.providerController)
+        let providerListViewController = ProviderListViewController(financialInstitutionGroupNodes: financialInstitutionGroupNodes)
         providerListViewController.navigationItem.hidesBackButton = true
         setupNavigationItem(for: providerListViewController, title: title)
         providerListViewController.providerPickerCoordinator = self
