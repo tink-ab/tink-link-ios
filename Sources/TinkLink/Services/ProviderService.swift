@@ -1,4 +1,5 @@
 import GRPC
+import Dispatch
 
 final class ProviderService: TokenConfigurableService {
     let connection: ClientConnection
@@ -7,6 +8,7 @@ final class ProviderService: TokenConfigurableService {
             service.defaultCallOptions = defaultCallOptions
         }
     }
+    private let queue: DispatchQueue
 
     var accessToken: AccessToken? {
         didSet {
@@ -21,13 +23,14 @@ final class ProviderService: TokenConfigurableService {
         if let accessToken = accessToken {
             defaultCallOptions.addAccessToken(accessToken.rawValue)
         }
-        self.init(connection: tink.client.connection, defaultCallOptions: defaultCallOptions)
+        self.init(connection: tink.client.connection, defaultCallOptions: defaultCallOptions, queue: tink.client.queue)
         self.accessToken = accessToken
     }
 
-    init(connection: ClientConnection, defaultCallOptions: CallOptions) {
+    init(connection: ClientConnection, defaultCallOptions: CallOptions, queue: DispatchQueue) {
         self.connection = connection
         self.defaultCallOptions = defaultCallOptions
+        self.queue = queue
     }
 
     internal lazy var service = ProviderServiceServiceClient(connection: connection, defaultCallOptions: defaultCallOptions)
@@ -46,7 +49,7 @@ final class ProviderService: TokenConfigurableService {
         request.capability = .unknown
         request.includeTestType = includeTestProviders
 
-        return CallHandler(for: request, method: service.listProviders, responseMap: { $0.providers.map { Provider(grpcProvider: $0) }.filter { !$0.capabilities.isDisjoint(with: capabilities) } }, completion: completion)
+        return CallHandler(for: request, method: service.listProviders, queue: queue, responseMap: { $0.providers.map { Provider(grpcProvider: $0) }.filter { !$0.capabilities.isDisjoint(with: capabilities) } }, completion: completion)
     }
 
     /// Lists all markets where there are providers available.
@@ -56,6 +59,6 @@ final class ProviderService: TokenConfigurableService {
     func providerMarkets(completion: @escaping (Result<[Market], Error>) -> Void) -> RetryCancellable {
         let request = GRPCProviderMarketListRequest()
 
-        return CallHandler(for: request, method: service.listProviderMarkets, responseMap: { $0.providerMarkets.map { Market(code: $0.code) } }, completion: completion)
+        return CallHandler(for: request, method: service.listProviderMarkets, queue: queue, responseMap: { $0.providerMarkets.map { Market(code: $0.code) } }, completion: completion)
     }
 }

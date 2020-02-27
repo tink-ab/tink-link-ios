@@ -22,10 +22,11 @@ final class AddCredentialFooterView: UIView {
         return bankIdAnotherDeviceButton
     }()
     private lazy var descriptionTextView: UITextView = {
-        let descriptionTextView = UITextView()
+        let descriptionTextView = UnselectableTextView()
         descriptionTextView.delegate = self
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
+        descriptionTextView.clipsToBounds = false
         descriptionTextView.backgroundColor = Color.background
         descriptionTextView.font = Font.regular(.micro)
         descriptionTextView.linkTextAttributes = [

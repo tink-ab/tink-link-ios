@@ -3,7 +3,7 @@ import UIKit
 
 protocol SupplementalInformationViewControllerDelegate: AnyObject {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController)
-    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credential)
+    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form)
 }
 
 /// Example of how to use the credential field supplemental information to update credential
@@ -15,7 +15,6 @@ final class SupplementalInformationViewController: UIViewController {
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let keyboardObserver = KeyboardObserver()
 
-    let supplementInformationTask: SupplementInformationTask
     private var form: Form
     private var errors: [IndexPath: Form.Field.ValidationError] = [:]
 
@@ -23,7 +22,6 @@ final class SupplementalInformationViewController: UIViewController {
     private var didFirstFieldBecomeFirstResponder = false
 
     init(supplementInformationTask: SupplementInformationTask) {
-        self.supplementInformationTask = supplementInformationTask
         self.form = Form(credential: supplementInformationTask.credential)
         super.init(nibName: nil, bundle: nil)
     }
@@ -109,7 +107,6 @@ extension SupplementalInformationViewController: UITableViewDataSource, UITableV
 
 extension SupplementalInformationViewController {
     @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        supplementInformationTask.cancel()
         delegate?.supplementalInformationViewControllerDidCancel(self)
     }
 
@@ -121,8 +118,7 @@ extension SupplementalInformationViewController {
 
         do {
             try form.validateFields()
-            supplementInformationTask.submit(form)
-            delegate?.supplementalInformationViewController(self, didSupplementInformationForCredential: supplementInformationTask.credential)
+            delegate?.supplementalInformationViewController(self, didPressSubmitWithForm: form)
         } catch let error as Form.ValidationError {
             for (index, field) in form.fields.enumerated() {
                 guard let error = error[fieldName: field.name] else {

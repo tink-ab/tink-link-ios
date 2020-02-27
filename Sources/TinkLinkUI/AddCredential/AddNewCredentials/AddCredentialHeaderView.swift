@@ -41,7 +41,7 @@ final class AddCredentialHeaderView: UIView {
         return userInfoLabel
     }()
     private lazy var userInfoDescription: UITextView = {
-        let userInfoDescription = UITextView()
+        let userInfoDescription = UnselectableTextView()
         userInfoDescription.textContainerInset = .zero
         userInfoDescription.textContainer.lineFragmentPadding = 0
         userInfoDescription.font = Font.regular(.micro)
@@ -49,6 +49,7 @@ final class AddCredentialHeaderView: UIView {
         userInfoDescription.isScrollEnabled = false
         userInfoDescription.backgroundColor = .clear
         userInfoDescription.isEditable = false
+        userInfoDescription.clipsToBounds = false
         userInfoDescription.delegate = self
         return userInfoDescription
     }()
@@ -177,7 +178,7 @@ final class AddCredentialHeaderView: UIView {
         ])
     }
 
-    func configure(with provider: Provider, username: String? = nil, isAggregator: Bool) {
+    func configure(with provider: Provider, username: String? = nil, clientName: String, isAggregator: Bool) {
         configure(provider)
         
         let shouldHideUserInfoContainer = isAggregator && (username?.isEmpty ?? true)
@@ -194,7 +195,7 @@ final class AddCredentialHeaderView: UIView {
         }
 
         configure(username)
-        configure(isAggregator)
+        configure(clientName, isDescriptionHidden: isAggregator)
     }
 
     private func configure(_ provider: Provider) {
@@ -202,8 +203,23 @@ final class AddCredentialHeaderView: UIView {
             bankIconView.kf.setImage(with: ImageResource(downloadURL: $0))
         }
         bankLabel.text = provider.displayName
+    }
 
-        let text = String(format: "%@ will obtain some of your financial information. Read More", provider.displayName)
+    private func configure(_ username: String?) {
+        let isUsernameEmpty = username?.isEmpty ?? true
+
+        userInfoLabel.text = username
+        userInfoLabel.isHidden = isUsernameEmpty
+        userInfoDescriptionTopConstraint?.isActive = !isUsernameEmpty
+        emptyUsernameDescriptionCenterYConstraint?.isActive = isUsernameEmpty
+    }
+
+    private func configure(_ clientName: String, isDescriptionHidden: Bool) {
+        userInfoDescription.isHidden = isDescriptionHidden
+        emptyDescriptionUserInfoLabelBottomSpace?.isActive = isDescriptionHidden
+        userInfoDescriptionBottomSpace?.isActive = !isDescriptionHidden
+
+        let text = String(format: "%@ will obtain some of your financial information. Read More", clientName)
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: Color.label,
             .font: Font.regular(.micro)
@@ -222,21 +238,6 @@ final class AddCredentialHeaderView: UIView {
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
         userInfoDescription.attributedText = attributeText
-    }
-
-    private func configure(_ username: String?) {
-        let isUsernameEmpty = username?.isEmpty ?? true
-
-        userInfoLabel.text = username
-        userInfoLabel.isHidden = isUsernameEmpty
-        userInfoDescriptionTopConstraint?.isActive = !isUsernameEmpty
-        emptyUsernameDescriptionCenterYConstraint?.isActive = isUsernameEmpty
-    }
-
-    private func configure(_ isDescriptionHidden: Bool) {
-        userInfoDescription.isHidden = isDescriptionHidden
-        emptyDescriptionUserInfoLabelBottomSpace?.isActive = isDescriptionHidden
-        userInfoDescriptionBottomSpace?.isActive = !isDescriptionHidden
     }
 }
 

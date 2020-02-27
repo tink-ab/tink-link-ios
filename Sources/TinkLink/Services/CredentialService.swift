@@ -9,6 +9,7 @@ final class CredentialService: TokenConfigurableService {
             service.defaultCallOptions = defaultCallOptions
         }
     }
+    private let queue: DispatchQueue
 
     var accessToken: AccessToken? {
         didSet {
@@ -30,6 +31,7 @@ final class CredentialService: TokenConfigurableService {
         self.init(
             connection: client.connection,
             defaultCallOptions: defaultCallOptions,
+            queue: client.queue,
             restURL: client.restURL,
             certificates: client.restCertificateURL
                 .flatMap { try? Data(contentsOf: $0) }
@@ -38,9 +40,10 @@ final class CredentialService: TokenConfigurableService {
         self.accessToken = accessToken
     }
 
-    init(connection: ClientConnection, defaultCallOptions: CallOptions, restURL: URL, certificates: [Data]) {
+    init(connection: ClientConnection, defaultCallOptions: CallOptions, queue: DispatchQueue, restURL: URL, certificates: [Data]) {
         self.connection = connection
         self.defaultCallOptions = defaultCallOptions
+        self.queue = queue
         self.restURL = restURL
         if certificates.isEmpty {
             self.session = .shared
@@ -55,7 +58,7 @@ final class CredentialService: TokenConfigurableService {
     func credentials(completion: @escaping (Result<[Credential], Error>) -> Void) -> RetryCancellable {
         let request = GRPCListCredentialsRequest()
 
-        return CallHandler(for: request, method: service.listCredentials, responseMap: { $0.credentials.map(Credential.init(grpcCredential:)) }, completion: completion)
+        return CallHandler(for: request, method: service.listCredentials, queue: queue, responseMap: { $0.credentials.map(Credential.init(grpcCredential:)) }, completion: completion)
     }
 
     func createCredential(providerID: Provider.ID, kind: Credential.Kind = .unknown, fields: [String: String] = [:], appURI: URL?, completion: @escaping (Result<Credential, Error>) -> Void) -> RetryCancellable {
@@ -67,7 +70,7 @@ final class CredentialService: TokenConfigurableService {
             request.appUri = appURI.absoluteString
         }
 
-        return CallHandler(for: request, method: service.createCredential, responseMap: { Credential(grpcCredential: $0.credential) }, completion: { result in
+        return CallHandler(for: request, method: service.createCredential, queue: queue, responseMap: { Credential(grpcCredential: $0.credential) }, completion: { result in
             completion(result.mapError({ ServiceError($0) ?? $0 }))
         })
     }
@@ -76,7 +79,7 @@ final class CredentialService: TokenConfigurableService {
         var request = GRPCDeleteCredentialRequest()
         request.credentialID = credentialID.value
 
-        return CallHandler(for: request, method: service.deleteCredential, responseMap: { _ in }, completion: { result in
+        return CallHandler(for: request, method: service.deleteCredential, queue: queue, responseMap: { _ in }, completion: { result in
             completion(result.mapError({ ServiceError($0) ?? $0 }))
         })
     }
@@ -86,7 +89,7 @@ final class CredentialService: TokenConfigurableService {
         request.credentialID = credentialID.value
         request.fields = fields
 
-        return CallHandler(for: request, method: service.updateCredential, responseMap: { Credential(grpcCredential: $0.credential) }, completion: { result in
+        return CallHandler(for: request, method: service.updateCredential, queue: queue, responseMap: { Credential(grpcCredential: $0.credential) }, completion: { result in
             completion(result.mapError({ ServiceError($0) ?? $0 }))
         })
     }
@@ -95,7 +98,7 @@ final class CredentialService: TokenConfigurableService {
         var request = GRPCRefreshCredentialsRequest()
         request.credentialIds = credentialIDs.map { $0.value }
 
-        return CallHandler(for: request, method: service.refreshCredentials, responseMap: { _ in }, completion: { result in
+        return CallHandler(for: request, method: service.refreshCredentials, queue: queue, responseMap: { _ in }, completion: { result in
             completion(result.mapError({ ServiceError($0) ?? $0 }))
         })
     }
@@ -105,7 +108,7 @@ final class CredentialService: TokenConfigurableService {
         request.credentialID = credentialID.value
         request.supplementalInformationFields = fields
 
-        return CallHandler(for: request, method: service.supplementInformation, responseMap: { _ in }, completion: { result in
+        return CallHandler(for: request, method: service.supplementInformation, queue: queue, responseMap: { _ in }, completion: { result in
             completion(result.mapError({ ServiceError($0) ?? $0 }))
         })
     }
@@ -114,7 +117,7 @@ final class CredentialService: TokenConfigurableService {
         var request = GRPCCancelSupplementInformationRequest()
         request.credentialID = credentialID.value
 
-        return CallHandler(for: request, method: service.cancelSupplementInformation, responseMap: { _ in }, completion: { result in
+        return CallHandler(for: request, method: service.cancelSupplementInformation, queue: queue, responseMap: { _ in }, completion: { result in
             completion(result.mapError({ ServiceError($0) ?? $0 }))
         })
     }
@@ -123,7 +126,7 @@ final class CredentialService: TokenConfigurableService {
         var request = GRPCEnableCredentialRequest()
         request.credentialID = credentialID.value
 
-        return CallHandler(for: request, method: service.enableCredential, responseMap: { _ in }, completion: { result in
+        return CallHandler(for: request, method: service.enableCredential, queue: queue, responseMap: { _ in }, completion: { result in
             completion(result.mapError({ ServiceError($0) ?? $0 }))
         })
     }
@@ -132,7 +135,7 @@ final class CredentialService: TokenConfigurableService {
         var request = GRPCDisableCredentialRequest()
         request.credentialID = credentialID.value
 
-        return CallHandler(for: request, method: service.disableCredential, responseMap: { _ in }, completion: { result in
+        return CallHandler(for: request, method: service.disableCredential, queue: queue, responseMap: { _ in }, completion: { result in
             completion(result.mapError({ ServiceError($0) ?? $0 }))
         })
     }
@@ -142,7 +145,7 @@ final class CredentialService: TokenConfigurableService {
         request.state = state
         request.parameters = parameters
 
-        return CallHandler(for: request, method: service.thirdPartyCallback, responseMap: { _ in }, completion: { result in
+        return CallHandler(for: request, method: service.thirdPartyCallback, queue: queue, responseMap: { _ in }, completion: { result in
             completion(result.mapError({ ServiceError($0) ?? $0 }))
         })
     }
@@ -151,7 +154,7 @@ final class CredentialService: TokenConfigurableService {
         var request = GRPCManualAuthenticationRequest()
         request.credentialIds = credentialID.value
 
-        return CallHandler(for: request, method: service.manualAuthentication, responseMap: { _ in }, completion: completion)
+        return CallHandler(for: request, method: service.manualAuthentication, queue: queue, responseMap: { _ in }, completion: completion)
     }
 
     func qr(credentialID: Credential.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable? {

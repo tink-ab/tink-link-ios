@@ -32,7 +32,7 @@ public final class AddCredentialTask: Identifiable {
         case temporaryFailure(String)
         /// A permanent failure occurred. The payload from the backend can be found in the associated value.
         case permanentFailure(String)
-        /// The credential is already exists.
+        /// The credential already exists. The payload from the backend can be found in the associated value.
         case credentialAlreadyExists(String)
 
         init?(addCredentialError error: Swift.Error) {
@@ -133,7 +133,7 @@ public final class AddCredentialTask: Identifiable {
                 progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 guard let thirdPartyAppAuthentication = credential.thirdPartyAppAuthentication else {
-                    assertionFailure("Missing third pary app authentication deeplink URL!")
+                    assertionFailure("Missing third party app authentication deeplink URL!")
                     return
                 }
                 let thirdPartyAppAuthenticationTask = ThirdPartyAppAuthenticationTask(credentialID: credential.id, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialService: credentialService) { [weak self] result in
