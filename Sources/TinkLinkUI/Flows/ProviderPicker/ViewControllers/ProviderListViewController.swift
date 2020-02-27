@@ -51,17 +51,14 @@ extension ProviderListViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
 
-        title = "Choose Bank"
-
         tableView.registerReusableCell(ofType: ProviderCell.self)
 
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
 
-        if providerController.isFetching == true {
+        if providerController.isFetching {
             showLoadingIndicator()
         }
-
     }
 
     @objc private func showLoadingIndicator() {
