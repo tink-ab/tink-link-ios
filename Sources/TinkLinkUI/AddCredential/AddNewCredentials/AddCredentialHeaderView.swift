@@ -60,8 +60,8 @@ final class AddCredentialHeaderView: UIView {
         dashLayer.frame = CGRect(origin: dashLine.bounds.origin, size: CGSize(width: 1, height: 16))
 
         let path = CGMutablePath()
-        path.move(to: dashLine.bounds.origin)
-        path.addLine(to: CGPoint(x: dashLayer.frame.origin.x, y: dashLayer.bounds.maxY))
+        path.move(to: .zero)
+        path.addLine(to: CGPoint(x: 0, y: 16))
         dashLayer.path = path
 
         return dashLine
