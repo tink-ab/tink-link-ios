@@ -37,16 +37,14 @@ public final class AuthorizationContext {
 
     // MARK: - Getting Information About the Client
 
-    /// Checks if the client is the aggregator.
+    /// Get a description of the client.
     ///
-    /// - Parameter completion: The block to execute when the aggregator status is received or if an error occurred.
+    /// - Parameter completion: The block to execute when the client description is received or if an error occurred.
     @discardableResult
-    public func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable {
+    public func clientDescription(completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable {
         let scope = Tink.Scope()
         let redirectURI = tink.configuration.redirectURI
-        return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
-            completion(result.map({ $0.isAggregator }))
-        }
+        return service.clientDescription(scope: scope, redirectURI: redirectURI, completion: completion)
     }
 
     // MARK: - Getting Descriptions for Requested Scopes

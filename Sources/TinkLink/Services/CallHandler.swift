@@ -1,3 +1,4 @@
+import Dispatch
 import GRPC
 import SwiftProtobuf
 
@@ -10,9 +11,16 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
     var method: Method<Request, Response>
     var responseMap: ResponseMap
     var completion: CallCompletionHandler<Model>
-    init(for request: Request, method: @escaping Method<Request, Response>, responseMap: @escaping ResponseMap, completion: @escaping CallCompletionHandler<Model>) {
+    private let queue: DispatchQueue
+
+    private var backoffInSeconds: Int = 1
+    private var automaticRetryCount = 0
+    private var maximumAutomaticRetryCount = 5
+
+    init(for request: Request, method: @escaping Method<Request, Response>, queue: DispatchQueue, responseMap: @escaping ResponseMap, completion: @escaping CallCompletionHandler<Model>) {
         self.request = request
         self.method = method
+        self.queue = queue
         self.responseMap = responseMap
         self.completion = completion
         startCall()
@@ -38,8 +46,25 @@ final class CallHandler<Request: Message, Response: Message, Model>: Cancellable
         self.call = call
         call.response
             .map(responseMap)
-            .whenComplete { [completion] result in
-                completion(result.mapError { ServiceError($0) ?? $0 })
+            .whenComplete { result in
+                let mappedResult = result.mapError { ServiceError($0) ?? $0 }
+                do {
+                    let response = try mappedResult.get()
+                    self.completion(.success(response))
+                } catch ServiceError.unavailable(let message) {
+                    guard self.automaticRetryCount < self.maximumAutomaticRetryCount else {
+                        let error = ServiceError.unavailable(message)
+                        self.completion(.failure(error))
+                        return
+                    }
+                    self.queue.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(self.backoffInSeconds)) {
+                        self.backoffInSeconds *= 2
+                        self.automaticRetryCount += 1
+                        self.retry()
+                    }
+                } catch {
+                    self.completion(.failure(error))
+                }
             }
     }
 }

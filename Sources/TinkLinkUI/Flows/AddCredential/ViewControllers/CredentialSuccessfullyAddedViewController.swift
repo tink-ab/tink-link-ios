@@ -3,16 +3,19 @@ import TinkLink
 
 class CredentialSuccessfullyAddedViewController: UIViewController {
     let companyName: String
-    
+    let doneActionHandler: () -> Void
+
     private let iconView = CheckmarkView(style: .large)
     private let containerView = UIView()
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
     private let doneButton = FloatingButton()
     
-    init(companyName: String) {
+    init(companyName: String, doneActionHandler: @escaping () -> Void) {
         self.companyName = companyName
+        self.doneActionHandler = doneActionHandler
         super.init(nibName: nil, bundle: nil)
+        navigationItem.hidesBackButton = true
     }
 
     required init?(coder: NSCoder) {
@@ -21,7 +24,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
     
     //TODO: Use real strings
     private let titleText = "Connection successful"
-    private let subtitleText = "Your account has successfully connected to ‰@. You'll be redirected back in a few seconds..."
+    private let subtitleText = "Your account has successfully connected to %@. You'll be redirected back in a few seconds..."
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +83,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
     }
     
     @objc func doneActionPressed() {
-        //TODO: End AIS-process and proceed to app?
+        doneActionHandler()
     }
 
     override func viewDidLayoutSubviews() {

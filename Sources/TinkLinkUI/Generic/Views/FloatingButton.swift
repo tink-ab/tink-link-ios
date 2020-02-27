@@ -27,6 +27,12 @@ final class FloatingButton: UIControl {
         }
     }
     
+    var rounded: Bool = true {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     var text: String? {
         set {
             accessibilityLabel = newValue
@@ -62,7 +68,7 @@ final class FloatingButton: UIControl {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = bounds.height / 2
+        layer.cornerRadius = rounded ? bounds.height / 2 : 0
     }
     
     override var isHighlighted: Bool {
