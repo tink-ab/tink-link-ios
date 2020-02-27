@@ -14,10 +14,8 @@ final class ProviderLoadingErrorView: UIView {
     private let descriptionLabel =  UILabel()
     private let retryButton = FloatingButton()
 
-    init() {
-        super.init(frame: .zero)
-
-        setup()
+    convenience init() {
+        self.init(frame: .zero)
     }
 
     override init(frame: CGRect) {
