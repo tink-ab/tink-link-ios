@@ -28,6 +28,14 @@ final class AddCredentialViewController: UIViewController {
     private lazy var helpLabel = UnselectableTextView()
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
+    private lazy var button: FloatingButton = {
+        let button = FloatingButton()
+        button.text = "Continue"
+        return button
+    }()
+
+    private lazy var buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor)
+    private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
 
     init(provider: Provider, credentialController: CredentialController, clientName: String, isAggregator: Bool) {
         self.provider = provider
@@ -74,7 +82,7 @@ extension AddCredentialViewController {
         addCredentialFooterView.delegate = self
         addCredentialFooterView.configure(with: provider, isAggregator: isAggregator)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
-        addCredentialFooterView.button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
+        button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
         addCredentialFooterView.bankIdAnotherDeviceButton.addTarget(self, action: #selector(addBankIDCredentialOnAnotherDevice), for: .touchUpInside)
         
         view.addSubview(tableView)
@@ -93,12 +101,32 @@ extension AddCredentialViewController {
 
         navigationItem.title = "Authenticate"
         navigationItem.largeTitleDisplayMode = .never
-        addCredentialFooterView.button.isEnabled = form.fields.isEmpty
+        button.isEnabled = form.fields.isEmpty
 
         setupHelpFootnote()
         layoutHelpFootnote()
+        setupButton()
     }
 
+    func setupButton() {
+        view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            buttonWidthConstraint,
+            button.heightAnchor.constraint(equalToConstant: 48),
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonBottomConstraint,
+        ])
+        
+        switch provider.credentialKind {
+        case .mobileBankID:
+            button.text = "Open BankID"
+        default:
+            button.text = "Continue"
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
@@ -156,11 +184,30 @@ extension AddCredentialViewController {
 // MARK: - Keyboard Helper
 extension AddCredentialViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
-        addCredentialFooterView.updateButtonBottomConstraint(notification)
+        updateButtonBottomConstraint(notification)
     }
 
     private func keyboardWillHide(_ notification: KeyboardNotification) {
-        addCredentialFooterView.resetButtonBottomConstraint(notification)
+        resetButtonBottomConstraint(notification)
+    }
+
+    private func updateButtonBottomConstraint(_ notification: KeyboardNotification) {
+        let frameHeight = notification.frame.height
+        buttonBottomConstraint.constant = max(0, frameHeight - addCredentialFooterView.bounds.height)
+        buttonWidthConstraint.constant = view.frame.size.width
+        button.rounded = false
+        UIView.animate(withDuration: notification.duration) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func resetButtonBottomConstraint(_ notification: KeyboardNotification) {
+        buttonBottomConstraint.constant = 0
+        buttonWidthConstraint.constant = button.minimumWidth
+        button.rounded = true
+        UIView.animate(withDuration: notification.duration) {
+            self.view.layoutIfNeeded()
+        }
     }
 }
 
@@ -262,7 +309,7 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
         tableView.beginUpdates()
         cell.setError(with: nil)
         tableView.endUpdates()
-        addCredentialFooterView.button.isEnabled = form.areFieldsValid
+        button.isEnabled = form.areFieldsValid
     }
 
     func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell) {

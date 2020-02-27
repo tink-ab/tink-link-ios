@@ -8,11 +8,6 @@ protocol AddCredentialFooterViewDelegate: AnyObject {
 final class AddCredentialFooterView: UIView {
     weak var delegate: AddCredentialFooterViewDelegate?
 
-    lazy var button: FloatingButton = {
-        let button = FloatingButton()
-        button.text = "Continue"
-        return button
-    }()
     lazy var bankIdAnotherDeviceButton: UIButton = {
         // TODO: handle using another deivce for BankID?
         let bankIdAnotherDeviceButton = UIButton()
@@ -59,10 +54,8 @@ final class AddCredentialFooterView: UIView {
         stackView.layoutMargins = .init(top: 20, left: 20, bottom: 20, right: 20)
         return stackView
     }()
-    private lazy var buttonBottomConstraint = stackView.topAnchor.constraint(equalTo: button.bottomAnchor)
     private var privacyPolicyRange: NSRange?
     private var termsAndConditionsRange: NSRange?
-    private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
 
     convenience init() {
         self.init(frame: .zero)
@@ -78,42 +71,17 @@ final class AddCredentialFooterView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func updateButtonBottomConstraint(_ notification: KeyboardNotification) {
-        let frameHeight = notification.frame.height
-        buttonBottomConstraint.constant = frameHeight - stackView.bounds.height - safeAreaInsets.bottom
-        buttonWidthConstraint.constant = frame.size.width
-        button.rounded = false
-        UIView.animate(withDuration: notification.duration) {
-            self.layoutIfNeeded()
-        }
-    }
-
-    func resetButtonBottomConstraint(_ notification: KeyboardNotification) {
-        buttonBottomConstraint.constant = 0
-        buttonWidthConstraint.constant = button.minimumWidth
-        button.rounded = true
-        UIView.animate(withDuration: notification.duration) {
-            self.layoutIfNeeded()
-        }
-    }
 
     private func setup() {
         stackView.addArrangedSubview(descriptionTextView)
         addSubview(stackView)
-        addSubview(button)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        button.translatesAutoresizingMaskIntoConstraints = false
         bankIdAnotherDeviceButton.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: topAnchor),
-            buttonWidthConstraint,
-            button.heightAnchor.constraint(equalToConstant: 48),
-            button.centerXAnchor.constraint(equalTo: centerXAnchor),
-
+            stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            buttonBottomConstraint,
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
@@ -122,12 +90,10 @@ final class AddCredentialFooterView: UIView {
     func configure(with provider: Provider, isAggregator: Bool) {
         switch provider.credentialKind {
         case .mobileBankID:
-            button.text = "Open BankID"
             if ProcessInfo.processInfo.tinkEnableBankIDOnAnotherDevice, bankIdAnotherDeviceButton.superview == nil {
                 stackView.insertArrangedSubview(bankIdAnotherDeviceButton, at: 0)
             }
         default:
-            button.text = "Continue"
             if bankIdAnotherDeviceButton.superview != nil {
                 bankIdAnotherDeviceButton.removeFromSuperview()
             }
