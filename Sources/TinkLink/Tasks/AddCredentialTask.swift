@@ -32,6 +32,8 @@ public final class AddCredentialTask: Identifiable {
         case temporaryFailure(String)
         /// A permanent failure occurred. The payload from the backend can be found in the associated value.
         case permanentFailure(String)
+        /// The credential is already exists.
+        case credentialAlreadyExists
     }
 
     private var credentialStatusPollingTask: CredentialStatusPollingTask?
