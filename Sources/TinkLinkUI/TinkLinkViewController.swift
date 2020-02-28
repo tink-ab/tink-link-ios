@@ -268,7 +268,7 @@ extension TinkLinkViewController {
         let viewController = CredentialSuccessfullyAddedViewController(companyName: clientDescription.name) { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
-        show(viewController, sender: self)
+        setViewControllers([viewController], animated: true)
     }
 }
 

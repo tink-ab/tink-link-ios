@@ -15,7 +15,6 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         self.companyName = companyName
         self.doneActionHandler = doneActionHandler
         super.init(nibName: nil, bundle: nil)
-        navigationItem.hidesBackButton = true
     }
 
     required init?(coder: NSCoder) {
