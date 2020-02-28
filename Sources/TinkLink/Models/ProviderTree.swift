@@ -100,7 +100,7 @@ public struct ProviderTree {
             }
         }
 
-        public var accessType: Provider.AccessType { significantProvider.accessType }
+        public var accessType: Provider.AccessType { providers[0].accessType }
 
         public var imageURL: URL? { significantProvider.image }
     }
@@ -163,7 +163,7 @@ public struct ProviderTree {
             }
         }
 
-        public var financialInstitution: Provider.FinancialInstitution { significantProvider.financialInstitution }
+        public var financialInstitution: Provider.FinancialInstitution { providers[0].financialInstitution }
 
         public var imageURL: URL? { significantProvider.image }
     }
