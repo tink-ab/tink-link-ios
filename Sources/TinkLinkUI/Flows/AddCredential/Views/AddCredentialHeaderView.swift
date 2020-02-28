@@ -238,6 +238,7 @@ final class AddCredentialHeaderView: UIView {
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
         userInfoDescription.attributedText = attributeText
+        userInfoDescription.setLineHeight(lineHeight: 20)
     }
 }
 
