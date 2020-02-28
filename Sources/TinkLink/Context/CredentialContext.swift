@@ -151,13 +151,14 @@ public final class CredentialContext {
     /// Update the user's credential.
     /// - Parameters:
     ///   - credential: Credential that needs to be updated.
+    ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
     ///   - completion: The block to execute when the credential has been updated successfuly or if it failed.
     ///   - result: A result with either an updated credential if the update succeeded or an error if failed.
     /// - Returns: The update credential task.
     @discardableResult
-    public func update(_ credential: Credential,
+    public func update(_ credential: Credential, form: Form? = nil,
                        completion: @escaping (_ result: Result<Credential, Swift.Error>) -> Void) -> RetryCancellable? {
-        service.updateCredential(credentialID: credential.id, completion: completion)
+        service.updateCredential(credentialID: credential.id, fields: form?.makeFields() ?? [:], completion: completion)
     }
 
     /// Delete the user's credential.
