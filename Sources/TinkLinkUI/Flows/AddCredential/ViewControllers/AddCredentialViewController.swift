@@ -152,7 +152,15 @@ extension AddCredentialViewController {
     private func setupHelpFootnote() {
 
         let markdown = Down(markdownString: provider.helpText)
-        helpLabel.attributedText = try? markdown.toAttributedString()
+        if let attributString = try? markdown.toAttributedString() {
+            let mutableAttributeString = NSMutableAttributedString(attributedString: attributString)
+            mutableAttributeString.addAttributes([.font: Font.regular(.nano)], range: NSRange(location: 0, length: attributString.length))
+            helpLabel.attributedText = mutableAttributeString
+            helpLabel.linkTextAttributes = [
+                NSAttributedString.Key.font: Font.bold(.micro),
+                NSAttributedString.Key.foregroundColor: Color.accent
+            ]
+        }
         helpLabel.backgroundColor = .clear
         helpLabel.isScrollEnabled = false
         helpLabel.isEditable = false
