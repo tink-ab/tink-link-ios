@@ -49,7 +49,8 @@ public final class AddCredentialTask: Identifiable {
     private var supplementInformationTask: SupplementInformationTask?
     private var thirdPartyAppAuthenticationTask: ThirdPartyAppAuthenticationTask?
 
-    private(set) var credential: Credential?
+    /// The credential that is being added.
+    public private(set) var credential: Credential?
 
     // MARK: - Evaluating Completion
 
@@ -112,6 +113,7 @@ public final class AddCredentialTask: Identifiable {
     private func handleUpdate(for result: Result<Credential, Swift.Error>) {
         do {
             let credential = try result.get()
+            self.credential = credential    
             switch credential.status {
             case .created:
                 progressHandler(.created)
