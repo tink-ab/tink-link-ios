@@ -80,7 +80,7 @@ public struct ProviderTree {
             }
         }
 
-        public var id: ID { ID(firstProvider.id.value) }
+        public var id: ID { ID(significantProvider.id.value) }
 
         public var providers: [Provider] {
             switch self {
@@ -91,18 +91,18 @@ public struct ProviderTree {
             }
         }
 
-        fileprivate var firstProvider: Provider {
+        fileprivate var significantProvider: Provider {
             switch self {
             case .credentialKinds(let nodes):
-                return nodes[0].provider
+                return (nodes.first { $0.imageURL != nil } ?? nodes[0]).provider
             case .provider(let provider):
                 return provider
             }
         }
 
-        public var accessType: Provider.AccessType { firstProvider.accessType }
+        public var accessType: Provider.AccessType { significantProvider.accessType }
 
-        public var imageURL: URL? { firstProvider.image }
+        public var imageURL: URL? { significantProvider.image }
     }
 
     /// A parent node of the tree structure, with a list of either `AccessTypeNode`, `CredentialKindNode` children or a single `Provider`.
@@ -139,7 +139,7 @@ public struct ProviderTree {
             }
         }
 
-        public var id: ID { ID(firstProvider.id.value) }
+        public var id: ID { ID(significantProvider.id.value) }
 
         public var providers: [Provider] {
             switch self {
@@ -152,20 +152,20 @@ public struct ProviderTree {
             }
         }
 
-        fileprivate var firstProvider: Provider {
+        fileprivate var significantProvider: Provider {
             switch self {
             case .accessTypes(let accessTypeGroups):
-                return accessTypeGroups[0].firstProvider
+                return (accessTypeGroups.first { $0.imageURL != nil} ?? accessTypeGroups[0]).significantProvider
             case .credentialKinds(let groups):
-                return groups[0].provider
+                return (groups.first { $0.imageURL != nil } ?? groups[0]).provider
             case .provider(let provider):
                 return provider
             }
         }
 
-        public var financialInstitution: Provider.FinancialInstitution { firstProvider.financialInstitution }
+        public var financialInstitution: Provider.FinancialInstitution { significantProvider.financialInstitution }
 
-        public var imageURL: URL? { firstProvider.image }
+        public var imageURL: URL? { significantProvider.image }
     }
 
     /// A parent node of the tree structure, with a list of either `FinancialInstitutionNode`, `AccessTypeNode`, `CredentialKindNode` children or a single `Provider`.
@@ -209,7 +209,7 @@ public struct ProviderTree {
             }
         }
 
-        public var id: ID { ID(firstProvider.id.value) }
+        public var id: ID { ID(significantProvider.id.value) }
 
         public var providers: [Provider] {
             switch self {
@@ -224,27 +224,27 @@ public struct ProviderTree {
             }
         }
 
-        private var firstProvider: Provider {
+        private var significantProvider: Provider {
             switch self {
             case .financialInstitutions(let nodes):
-                return nodes[0].firstProvider
-            case .accessTypes(let nodes):
-                return nodes[0].firstProvider
-            case .credentialKinds(let nodes):
-                return nodes[0].provider
+                return (nodes.first { $0.imageURL != nil } ?? nodes[0]).significantProvider
+            case .accessTypes(let accessTypeGroups):
+                return (accessTypeGroups.first { $0.imageURL != nil} ?? accessTypeGroups[0]).significantProvider
+            case .credentialKinds(let groups):
+                return (groups.first { $0.imageURL != nil } ?? groups[0]).provider
             case .provider(let provider):
                 return provider
             }
         }
 
         public var displayName: String {
-            if firstProvider.groupDisplayName.isEmpty {
-                return firstProvider.financialInstitution.name
+            if significantProvider.groupDisplayName.isEmpty {
+                return significantProvider.financialInstitution.name
             } else {
-                return firstProvider.groupDisplayName
+                return significantProvider.groupDisplayName
             }
         }
 
-        public var imageURL: URL? { firstProvider.image }
+        public var imageURL: URL? { significantProvider.image }
     }
 }
