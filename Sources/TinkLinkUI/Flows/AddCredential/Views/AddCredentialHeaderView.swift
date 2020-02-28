@@ -173,7 +173,7 @@ final class AddCredentialHeaderView: UIView {
 
             userInfoDescriptionTopConstraint,
             userInfoDescription.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor),
-            userInfoDescription.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor),
+            userInfoDescription.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor, constant: -40),
             userInfoDescriptionBottomSpace
         ])
     }
