@@ -156,6 +156,7 @@ extension AddCredentialViewController {
         helpLabel.backgroundColor = .clear
         helpLabel.isScrollEnabled = false
         helpLabel.isEditable = false
+        helpLabel.adjustsFontForContentSizeCategory = true
         helpLabel.textColor = Color.label
 
         let helpStackView = UIStackView(arrangedSubviews: [helpLabel])

@@ -44,6 +44,7 @@ final class AddCredentialFooterView: UIView {
         self.termsAndConditionsRange = termsAndConditionsRange
         attributeText.addAttributes([.link: termsAndConditionsUrl], range: termsAndConditionsRange)
         descriptionTextView.attributedText = attributeText
+        descriptionTextView.adjustsFontForContentSizeCategory = true
         descriptionTextView.setLineHeight(lineHeight: 20)
         return descriptionTextView
     }()
