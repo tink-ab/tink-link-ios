@@ -138,7 +138,7 @@ public final class AddCredentialTask: Identifiable {
                     assertionFailure("Missing third party app authentication deeplink URL!")
                     return
                 }
-                let thirdPartyAppAuthenticationTask = ThirdPartyAppAuthenticationTask(credentialID: credential.id, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialService: credentialService) { [weak self] result in
+                let thirdPartyAppAuthenticationTask = ThirdPartyAppAuthenticationTask(credential: credential, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialService: credentialService) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
@@ -148,6 +148,9 @@ public final class AddCredentialTask: Identifiable {
                         let taskError = error as? ThirdPartyAppAuthenticationTask.Error
                         switch taskError {
                         case .downloadRequired where !self.completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired:
+                            self.credentialStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialService, credential: credential, updateHandler: self.handleUpdate)
+                            self.credentialStatusPollingTask?.pollStatus()
+                        case .shouldOpenAuthencationAppOnAnotherDevice:
                             self.credentialStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialService, credential: credential, updateHandler: self.handleUpdate)
                             self.credentialStatusPollingTask?.pollStatus()
                         default:
