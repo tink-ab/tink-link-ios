@@ -5,7 +5,7 @@ final class ProviderLoadingViewController: UIViewController {
 
     private let providerController: ProviderController
 
-    private let activityIndicatorView = UIActivityIndicatorView(style: .gray)
+    private let activityIndicatorView = ActivityIndicatorView()
     private let errorView = ProviderLoadingErrorView()
 
     init(providerController: ProviderController) {
@@ -27,6 +27,7 @@ final class ProviderLoadingViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
 
         view.backgroundColor = Color.background
+        activityIndicatorView.tintColor = Color.secondaryLabel
 
         activityIndicatorView.startAnimating()
         errorView.delegate = self

@@ -2,13 +2,13 @@ import UIKit
 
 final class LoadingViewController: UIViewController {
 
-    let activityIndicator = UIActivityIndicatorView(style: .gray)
+    let activityIndicator = ActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = Color.background
-        activityIndicator.color = Color.secondaryLabel
+        activityIndicator.tintColor = Color.secondaryLabel
 
         view.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
