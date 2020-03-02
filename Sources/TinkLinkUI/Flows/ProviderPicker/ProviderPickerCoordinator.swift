@@ -44,7 +44,9 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         setupNavigationItem(for: providerListViewController, title: title)
         providerListViewController.providerPickerCoordinator = self
 
-        parentViewController?.show(providerListViewController, sender: self)
+        UIView.performWithoutAnimation {
+            self.parentViewController?.show(providerListViewController, sender: self)
+        }
     }
 
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
