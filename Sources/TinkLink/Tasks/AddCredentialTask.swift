@@ -153,6 +153,9 @@ public final class AddCredentialTask: Identifiable {
                         case .shouldOpenAuthencationAppOnAnotherDevice:
                             self.credentialStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialService, credential: credential, updateHandler: self.handleUpdate)
                             self.credentialStatusPollingTask?.pollStatus()
+                            if let errorDescription = ThirdPartyAppAuthenticationTask.Error.shouldOpenAuthencationAppOnAnotherDevice.errorDescription {
+                                self.progressHandler(.updating(status: errorDescription))
+                            }
                         default:
                             self.completion(.failure(error))
                         }
