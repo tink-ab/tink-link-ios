@@ -2,6 +2,7 @@ import UIKit
 import TinkLink
 
 protocol ProviderPickerCoordinating: AnyObject {
+    func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?)
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?)
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?)
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?)
@@ -20,11 +21,11 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func start(completion: @escaping ((Result<Provider, Error>) -> Void)) {
-        let providerListViewController = ProviderListViewController(providerController: self.providerController)
-        providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
-        providerListViewController.providerPickerCoordinator = self
+        let providerLoadingViewController = ProviderLoadingViewController(providerController: providerController)
+        providerLoadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
+        providerLoadingViewController.providerPickerCoordinator = self
         
-        parentViewController?.show(providerListViewController, sender: self)
+        parentViewController?.show(providerLoadingViewController, sender: self)
         self.completion = completion
     }
 
@@ -35,6 +36,17 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     @objc func cancel() {
         self.completion?(.failure(CocoaError(.userCancelled)))
+    }
+
+    func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?) {
+        let providerListViewController = ProviderListViewController(financialInstitutionGroupNodes: financialInstitutionGroupNodes)
+        providerListViewController.navigationItem.hidesBackButton = true
+        setupNavigationItem(for: providerListViewController, title: title)
+        providerListViewController.providerPickerCoordinator = self
+
+        UIView.performWithoutAnimation {
+            self.parentViewController?.show(providerListViewController, sender: self)
+        }
     }
 
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {

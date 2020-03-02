@@ -248,3 +248,21 @@ public struct ProviderTree {
         public var imageURL: URL? { firstProvider.image }
     }
 }
+
+extension Array where Element == ProviderTree.FinancialInstitutionGroupNode {
+    public func makeFinancialInstitutions() -> [ProviderTree.FinancialInstitutionNode] {
+        let institutions: [ProviderTree.FinancialInstitutionNode] = self.flatMap { node -> [ProviderTree.FinancialInstitutionNode] in
+            switch node {
+            case .accessTypes(let accessType):
+                return [ProviderTree.FinancialInstitutionNode(providers: accessType.flatMap { $0.providers }) ]
+            case .credentialKinds(let kinds):
+                return [ProviderTree.FinancialInstitutionNode(providers: kinds.map { $0.provider })]
+            case .provider(let provider):
+                return [ProviderTree.FinancialInstitutionNode(providers: [provider])]
+            case .financialInstitutions(let nodes):
+                return nodes
+            }
+        }
+        return institutions
+    }
+}
