@@ -150,7 +150,7 @@ public final class AddCredentialTask: Identifiable {
                         case .downloadRequired where !self.completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired:
                             self.credentialStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialService, credential: credential, updateHandler: self.handleUpdate)
                             self.credentialStatusPollingTask?.pollStatus()
-                        case .shouldOpenBankIDOnAnotherDevice where !self.completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired:
+                        case .shouldOpenBankIDOnAnotherDevice:
                             self.credentialStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialService, credential: credential, updateHandler: self.handleUpdate)
                             self.credentialStatusPollingTask?.pollStatus()
                             if let errorDescription = ThirdPartyAppAuthenticationTask.Error.shouldOpenBankIDOnAnotherDevice.errorDescription {
