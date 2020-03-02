@@ -21,7 +21,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
         case doesNotSupportAuthenticatingOnAnotherDevice
 
-        case shouldOpenAuthencationAppOnAnotherDevice
+        case shouldOpenBankIDOnAnotherDevice
 
         case decodingQRCodeImageFailed
 
@@ -34,7 +34,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             case .doesNotSupportAuthenticatingOnAnotherDevice:
                 // TODO: Copy
                 return "This bank does not support authenticating on another device"
-            case .shouldOpenAuthencationAppOnAnotherDevice:
+            case .shouldOpenBankIDOnAnotherDevice:
                 // TODO: Copy
                 return "Waiting to authenticating on another device"
             case .decodingQRCodeImageFailed:
@@ -52,7 +52,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             case .doesNotSupportAuthenticatingOnAnotherDevice:
                 // TODO: Copy
                 return nil
-            case .shouldOpenAuthencationAppOnAnotherDevice:
+            case .shouldOpenBankIDOnAnotherDevice:
                 // TODO: Copy
                 return nil
             case .decodingQRCodeImageFailed:
@@ -69,7 +69,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 return url
             case .doesNotSupportAuthenticatingOnAnotherDevice:
                 return nil
-            case .shouldOpenAuthencationAppOnAnotherDevice:
+            case .shouldOpenBankIDOnAnotherDevice:
                 // TODO: Copy
                 return nil
             case .decodingQRCodeImageFailed:
@@ -85,14 +85,14 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         // TODO: Double check the logic.
         // Not sure about this part, but maybe because of grpc, the supplemental info is always empty for bankid credential kind, so has to check the deeplink URL instead.
         // Also maybe this is not even the case, for the bank that does not have autostart token, seems it will just trigger the bankID on another device with personal number
-        if case .mobileBankID = credential.kind && thirdPartyAppAuthentication.deepLinkURL?.query?.contains("autostartToken") {
-            return true
+        if case .mobileBankID = credential.kind {
+            return thirdPartyAppAuthentication.deepLinkURL?.query?.contains("autostartToken") ?? false
         }
         return false
     }
     private var canAuthenticateWithBankIDDirectlyOnAnotherDevice: Bool {
-        if case .mobileBankID = credential.kind && !thirdPartyAppAuthentication.deepLinkURL?.query?.contains("autostartToken") {
-            return true
+        if case .mobileBankID = credential.kind {
+            return !(thirdPartyAppAuthentication.deepLinkURL?.query?.contains("autostartToken") ?? false)
         }
         return false
     }
@@ -135,8 +135,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                             if didOpen {
                                 self.completionHandler(.success(()))
                             } else {
-                                if canAuthenticateWithBankIDDirectlyOnAnotherDevice {
-                                    self.completionHandler(.failure(shouldOpenAuthencationAppOnAnotherDevice))
+                                if self.canAuthenticateWithBankIDDirectlyOnAnotherDevice {
+                                    self.completionHandler(.failure(Error.shouldOpenBankIDOnAnotherDevice))
                                 } else {
                                     self.completionHandler(.failure(downloadRequiredError))
                                 }
