@@ -7,7 +7,7 @@ final class ScopeDescriptionListViewController: UITableViewController {
 
     private let scope: Tink.Scope
 
-    private lazy var activityIndicatorView = UIActivityIndicatorView(style: .gray)
+    private lazy var activityIndicatorView = ActivityIndicatorView()
 
     private enum Section {
         case intro(title: String, description: String)
@@ -51,6 +51,7 @@ extension ScopeDescriptionListViewController {
 
         tableView.registerReusableCell(ofType: ScopeDescriptionCell.self)
 
+        activityIndicatorView.tintColor = Color.secondaryLabel
         activityIndicatorView.startAnimating()
 
         authorizationController.scopeDescriptions(scope: scope) { [weak self] result in

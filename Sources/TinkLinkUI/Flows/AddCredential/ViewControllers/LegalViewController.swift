@@ -4,7 +4,7 @@ import WebKit
 final class LegalViewController: UIViewController {
 
     private var webView: WKWebView { view as! WKWebView }
-    private lazy var activityIndicator = UIActivityIndicatorView(style: .gray)
+    private lazy var activityIndicator = ActivityIndicatorView()
 
     private let url: URL
 
@@ -29,6 +29,7 @@ final class LegalViewController: UIViewController {
         view.backgroundColor = Color.background
 
         view.addSubview(activityIndicator)
+        activityIndicator.tintColor = Color.secondaryLabel
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),

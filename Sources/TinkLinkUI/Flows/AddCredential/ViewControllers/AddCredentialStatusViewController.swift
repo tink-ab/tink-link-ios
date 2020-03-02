@@ -1,7 +1,7 @@
 import UIKit
 
 final class AddCredentialStatusViewController: UIViewController {
-    private lazy var activityIndicator = UIActivityIndicatorView(style: .gray)
+    private lazy var activityIndicator = ActivityIndicatorView()
     private lazy var statusLabelView = UILabel()
 
     var status: String? {
@@ -32,6 +32,7 @@ final class AddCredentialStatusViewController: UIViewController {
         statusLabelView.preferredMaxLayoutWidth = 220
         statusLabelView.textAlignment = .center
 
+        activityIndicator.tintColor = Color.secondaryLabel
         activityIndicator.startAnimating()
         activityIndicator.setContentHuggingPriority(.defaultLow, for: .vertical)
 
