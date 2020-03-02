@@ -80,14 +80,13 @@ final class ProviderLoadingViewController: UIViewController {
         DispatchQueue.main.async {
             self.hideLoadingIndicator()
             self.errorView.isHidden = false
-            self.errorView.show(self.providerController.error)
+            self.errorView.configure(with: self.providerController.error)
         }
     }
 }
 
 extension ProviderLoadingViewController: ProviderLoadingErrorViewDelegate {
     func reloadProviderList(providerLoadingErrorView: ProviderLoadingErrorView) {
-        showLoadingIndicator()
         providerController.performFetch()
     }
 }

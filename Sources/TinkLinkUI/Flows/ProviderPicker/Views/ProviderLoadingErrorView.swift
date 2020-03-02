@@ -36,6 +36,7 @@ final class ProviderLoadingErrorView: UIView {
         stackView.spacing = 24
 
         iconView.image = UIImage(icon: .warning)?.withRenderingMode(.alwaysTemplate)
+        iconView.contentMode = .scaleAspectFit
         iconView.tintColor = Color.warning
         iconBackgroundView.layer.cornerRadius = 32
         iconBackgroundView.layer.backgroundColor = Color.warningBackground.cgColor
@@ -86,7 +87,7 @@ final class ProviderLoadingErrorView: UIView {
         ])
     }
 
-    func show(_ error: Error?) {
+    func configure(with error: Error?) {
         textLabel.text = "We’re sorry, but we couldn't load any banks at the moment"
         descriptionLabel.text = "Please try again, or contact %@ if the problem persists."
         if let providerControllerError = error as? ProviderController.Error {
