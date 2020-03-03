@@ -11,7 +11,7 @@ final class AddCredentialSession {
     private var supplementInfoTask: SupplementInformationTask?
 
     private var statusViewController: AddCredentialStatusViewController?
-    private var qrImageViewController: QRImageViewController?
+    private weak var qrImageViewController: QRImageViewController?
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
 
     init(credentialController: CredentialController, parentViewController: UIViewController) {
@@ -124,7 +124,7 @@ extension AddCredentialSession {
         hideUpdatingView {
             let qrImageViewController = QRImageViewController(qrImage: qrImage)
             self.qrImageViewController = qrImageViewController
-            self.parentViewController?.present(qrImageViewController, animated: true)
+            self.parentViewController?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true)
         }
     }
 
