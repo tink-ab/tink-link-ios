@@ -20,6 +20,7 @@ final class CredentialController {
         return credentialContext?.addCredential(
             for: provider,
             form: form,
+            completionPredicate: AddCredentialTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false),
             progressHandler: progressHandler,
             completion: completion
         )
