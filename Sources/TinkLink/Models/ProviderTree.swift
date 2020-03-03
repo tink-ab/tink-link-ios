@@ -91,16 +91,25 @@ public struct ProviderTree {
             }
         }
 
-        fileprivate var significantProvider: Provider {
+        fileprivate var firstProvider: Provider {
             switch self {
             case .credentialKinds(let nodes):
-                return (nodes.first { $0.imageURL != nil } ?? nodes[0]).provider
+                return nodes[0].provider
             case .provider(let provider):
                 return provider
             }
         }
 
-        public var accessType: Provider.AccessType { providers[0].accessType }
+        fileprivate var significantProvider: Provider {
+            switch self {
+            case .credentialKinds(let nodes):
+                return (nodes.first { $0.imageURL != nil })?.provider ?? firstProvider
+            case .provider(let provider):
+                return provider
+            }
+        }
+
+        public var accessType: Provider.AccessType { firstProvider.accessType }
 
         public var imageURL: URL? { significantProvider.image }
     }
@@ -152,18 +161,29 @@ public struct ProviderTree {
             }
         }
 
-        fileprivate var significantProvider: Provider {
+        fileprivate var firstProvider: Provider {
             switch self {
             case .accessTypes(let accessTypeGroups):
-                return (accessTypeGroups.first { $0.imageURL != nil} ?? accessTypeGroups[0]).significantProvider
+                return accessTypeGroups[0].firstProvider
             case .credentialKinds(let groups):
-                return (groups.first { $0.imageURL != nil } ?? groups[0]).provider
+                return groups[0].provider
             case .provider(let provider):
                 return provider
             }
         }
 
-        public var financialInstitution: Provider.FinancialInstitution { providers[0].financialInstitution }
+        fileprivate var significantProvider: Provider {
+            switch self {
+            case .accessTypes(let accessTypeGroups):
+                return (accessTypeGroups.first { $0.imageURL != nil})?.significantProvider ?? firstProvider
+            case .credentialKinds(let groups):
+                return (groups.first { $0.imageURL != nil })?.provider ?? firstProvider
+            case .provider(let provider):
+                return provider
+            }
+        }
+
+        public var financialInstitution: Provider.FinancialInstitution { firstProvider.financialInstitution }
 
         public var imageURL: URL? { significantProvider.image }
     }
@@ -224,14 +244,27 @@ public struct ProviderTree {
             }
         }
 
+        private var firstProvider: Provider {
+            switch self {
+            case .financialInstitutions(let nodes):
+                return nodes[0].firstProvider
+            case .accessTypes(let nodes):
+                return nodes[0].firstProvider
+            case .credentialKinds(let nodes):
+                return nodes[0].provider
+            case .provider(let provider):
+                return provider
+            }
+        }
+
         private var significantProvider: Provider {
             switch self {
             case .financialInstitutions(let nodes):
-                return (nodes.first { $0.imageURL != nil } ?? nodes[0]).significantProvider
+                return (nodes.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
             case .accessTypes(let accessTypeGroups):
-                return (accessTypeGroups.first { $0.imageURL != nil} ?? accessTypeGroups[0]).significantProvider
+                return (accessTypeGroups.first { $0.imageURL != nil})?.significantProvider ?? firstProvider
             case .credentialKinds(let groups):
-                return (groups.first { $0.imageURL != nil } ?? groups[0]).provider
+                return (groups.first { $0.imageURL != nil })?.provider ?? firstProvider
             case .provider(let provider):
                 return provider
             }
