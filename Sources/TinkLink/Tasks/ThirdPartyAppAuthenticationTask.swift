@@ -86,13 +86,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         // Not sure about this part, but maybe because of grpc, the supplemental info is always empty for bankid credential kind, so has to check the deeplink URL instead.
         // Also maybe this is not even the case, for the bank that does not have autostart token, seems it will just trigger the bankID on another device with personal number
         if case .mobileBankID = credential.kind {
-            return thirdPartyAppAuthentication.deepLinkURL?.query?.contains("autostartToken") ?? false
+            return thirdPartyAppAuthentication.hasAutoStartToken
         }
         return false
     }
     private var canAuthenticateWithBankIDDirectlyOnAnotherDevice: Bool {
         if case .mobileBankID = credential.kind {
-            return !(thirdPartyAppAuthentication.deepLinkURL?.query?.contains("autostartToken") ?? false)
+            return !(thirdPartyAppAuthentication.hasAutoStartToken)
         }
         return false
     }
