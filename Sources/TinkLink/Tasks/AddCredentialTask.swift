@@ -12,7 +12,7 @@ public final class AddCredentialTask: Identifiable {
         case created
 
         /// When starting the authentication process
-        case authenticating
+        case authenticating(payload: String?)
 
         /// User has been successfully authenticated, now downloading data.
         case updating(status: String)
@@ -118,7 +118,7 @@ public final class AddCredentialTask: Identifiable {
             case .created:
                 progressHandler(.created)
             case .authenticating:
-                progressHandler(.authenticating)
+                progressHandler(.authenticating(payload: nil))
             case .awaitingSupplementalInformation:
                 let supplementInformationTask = SupplementInformationTask(credentialService: credentialService, credential: credential) { [weak self] result in
                     guard let self = self else { return }
@@ -154,7 +154,7 @@ public final class AddCredentialTask: Identifiable {
                             self.credentialStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialService, credential: credential, updateHandler: self.handleUpdate)
                             self.credentialStatusPollingTask?.pollStatus()
                             if let errorDescription = ThirdPartyAppAuthenticationTask.Error.shouldOpenBankIDOnAnotherDevice.errorDescription {
-                                self.progressHandler(.updating(status: errorDescription))
+                                self.progressHandler(.authenticating(payload: errorDescription))
                             }
                         default:
                             self.completion(.failure(error))

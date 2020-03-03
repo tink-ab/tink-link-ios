@@ -39,12 +39,17 @@ final class AddCredentialSession {
                 }
             }
         )
+        // TODO: Copy
         self.showUpdating(status: "Authorizing...")
     }
     private func handleAddCredentialStatus(_ status: AddCredentialTask.Status, shouldAuthenticateInAnotherDevice: Bool = false) {
         switch status {
-        case .authenticating, .created:
+        case .created:
             break
+        case .authenticating(let payload):
+            if let authenticatingPayload = payload {
+                self.showUpdating(status: authenticatingPayload)
+            }
         case .awaitingSupplementalInformation(let supplementInformationTask):
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
