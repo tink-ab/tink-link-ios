@@ -1,11 +1,17 @@
 import UIKit
 
+protocol QRImageViewControllerDelegate: AnyObject {
+    func qrImageViewControllerDidCancel(_ viewController: QRImageViewController)
+}
+
 final class QRImageViewController: UIViewController {
     private let imageContainerView = UIView()
     private let imageView = BorderCornerRadiusImageView()
     private let subtitleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let stackView = UIStackView()
+
+    weak var delegate: QRImageViewControllerDelegate?
 
     init(qrImage: UIImage) {
         imageView.image = qrImage
@@ -75,6 +81,6 @@ final class QRImageViewController: UIViewController {
     }
 
     @objc private func cancelButtonPressed() {
-        dismiss(animated: true)
+        delegate?.qrImageViewControllerDidCancel(self)
     }
 }
