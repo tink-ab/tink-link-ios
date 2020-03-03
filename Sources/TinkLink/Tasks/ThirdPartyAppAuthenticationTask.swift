@@ -21,8 +21,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
         case doesNotSupportAuthenticatingOnAnotherDevice
 
-        case shouldOpenBankIDOnAnotherDevice
-
         case decodingQRCodeImageFailed
 
         public var errorDescription: String? {
@@ -34,9 +32,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             case .doesNotSupportAuthenticatingOnAnotherDevice:
                 // TODO: Copy
                 return "This bank does not support authenticating on another device"
-            case .shouldOpenBankIDOnAnotherDevice:
-                // TODO: Copy
-                return "Waiting for authentication on another device"
             case .decodingQRCodeImageFailed:
                 // TODO: Copy
                 return "Failed to decode the QR code image"
@@ -52,9 +47,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             case .doesNotSupportAuthenticatingOnAnotherDevice:
                 // TODO: Copy
                 return nil
-            case .shouldOpenBankIDOnAnotherDevice:
-                // TODO: Copy
-                return nil
             case .decodingQRCodeImageFailed:
                 // TODO: Copy
                 return nil
@@ -68,9 +60,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             case .downloadRequired(_, _, let url):
                 return url
             case .doesNotSupportAuthenticatingOnAnotherDevice:
-                return nil
-            case .shouldOpenBankIDOnAnotherDevice:
-                // TODO: Copy
                 return nil
             case .decodingQRCodeImageFailed:
                 return nil
