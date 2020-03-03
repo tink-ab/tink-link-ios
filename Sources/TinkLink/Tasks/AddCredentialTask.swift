@@ -12,7 +12,7 @@ public final class AddCredentialTask: Identifiable {
         case created
 
         /// When starting the authentication process
-        case authenticating(payload: String?)
+        case authenticating
 
         /// User has been successfully authenticated, now downloading data.
         case updating(status: String)
@@ -118,7 +118,7 @@ public final class AddCredentialTask: Identifiable {
             case .created:
                 progressHandler(.created)
             case .authenticating:
-                progressHandler(.authenticating(payload: nil))
+                progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
                 let supplementInformationTask = SupplementInformationTask(credentialService: credentialService, credential: credential) { [weak self] result in
                     guard let self = self else { return }
@@ -138,27 +138,14 @@ public final class AddCredentialTask: Identifiable {
                     assertionFailure("Missing third party app authentication deeplink URL!")
                     return
                 }
-                let thirdPartyAppAuthenticationTask = ThirdPartyAppAuthenticationTask(credential: credential, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialService: credentialService) { [weak self] result in
+                let thirdPartyAppAuthenticationTask = ThirdPartyAppAuthenticationTask(credential: credential, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialService: credentialService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
                         self.credentialStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialService, credential: credential, updateHandler: self.handleUpdate)
                         self.credentialStatusPollingTask?.pollStatus()
                     } catch {
-                        let taskError = error as? ThirdPartyAppAuthenticationTask.Error
-                        switch taskError {
-                        case .downloadRequired where !self.completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired:
-                            self.credentialStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialService, credential: credential, updateHandler: self.handleUpdate)
-                            self.credentialStatusPollingTask?.pollStatus()
-                        case .shouldOpenBankIDOnAnotherDevice:
-                            self.credentialStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialService, credential: credential, updateHandler: self.handleUpdate)
-                            self.credentialStatusPollingTask?.pollStatus()
-                            if let errorDescription = ThirdPartyAppAuthenticationTask.Error.shouldOpenBankIDOnAnotherDevice.errorDescription {
-                                self.progressHandler(.authenticating(payload: errorDescription))
-                            }
-                        default:
-                            self.completion(.failure(error))
-                        }
+                        self.completion(.failure(error))
                     }
                     self.thirdPartyAppAuthenticationTask = nil
                 }

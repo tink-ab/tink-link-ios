@@ -69,8 +69,9 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
     /// Information about how to open or download the third party application app.
     public private(set) var thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication
+    public private(set) var shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
     private let completionHandler: (Result<Void, Swift.Error>) -> Void
-    private var hasQRCode: Bool {
+    private var hasBankIDQRCode: Bool {
         // TODO: Double check the logic.
         // Not sure about this part, but maybe because of grpc, the supplemental info is always empty for bankid credential kind, so has to check the deeplink URL instead.
         // Also maybe this is not even the case, for the bank that does not have autostart token, seems it will just trigger the bankID on another device with personal number
@@ -79,21 +80,20 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
         return false
     }
-    private var canAuthenticateWithBankIDDirectlyOnAnotherDevice: Bool {
-        if case .mobileBankID = credential.kind {
-            return !(thirdPartyAppAuthentication.hasAutoStartToken)
-        }
-        return false
-    }
 
     private let credential: Credential
     private let credentialService: CredentialService
     private var callRetryCancellable: RetryCancellable?
 
-    init(credential: Credential, thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication, credentialService: CredentialService, completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
+    init(credential: Credential,
+         thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication,
+         credentialService: CredentialService,
+         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
+         completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
         self.credential = credential
         self.credentialService = credentialService
         self.thirdPartyAppAuthentication = thirdPartyAppAuthentication
+        self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired
         self.completionHandler = completionHandler
     }
 
@@ -103,7 +103,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         /// Tries to open the third party app.
         ///
         /// - Parameter application: The object that controls and coordinates your app. Defaults to the shared instance.
-        public func openThirdPartyApp(with application: UIApplication = .shared) {
+        /// - Parameter waitingAuthenticationOnAnotherDevice: A block will be called when allow to directly use the third part app for authentication on another device.
+        public func openThirdPartyApp(with application: UIApplication = .shared, waitingAuthenticationOnAnotherDevice completion: (() -> Void)? = nil) {
             guard let url = thirdPartyAppAuthentication.deepLinkURL else {
                 completionHandler(.failure(Error.deeplinkURLNotFound))
                 return
@@ -124,12 +125,17 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                             if didOpen {
                                 self.completionHandler(.success(()))
                             } else {
-                                if self.canAuthenticateWithBankIDDirectlyOnAnotherDevice {
-                                    self.completionHandler(.failure(Error.shouldOpenBankIDOnAnotherDevice))
+                                if !self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
+                                    if self.hasBankIDQRCode {
+                                        // Fail if the QR code is needed for authentication with BankID on another device
+                                        self.completionHandler(.failure(downloadRequiredError))
+                                    } else {
+                                        completion?()
+                                        self.completionHandler(.success(()))
+                                    }
                                 } else {
                                     self.completionHandler(.failure(downloadRequiredError))
                                 }
-
                             }
                         })
                     }
@@ -139,7 +145,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     #endif
 
     public func qr(completion: @escaping (UIImage) -> Void) {
-        if hasQRCode {
+        if hasBankIDQRCode {
             callRetryCancellable = credentialService.qr(credentialID: credential.id) { [weak self] result in
                 do {
                     let qrData = try result.get()

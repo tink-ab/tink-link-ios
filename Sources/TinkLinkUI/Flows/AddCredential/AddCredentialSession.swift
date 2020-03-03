@@ -44,12 +44,8 @@ final class AddCredentialSession {
     }
     private func handleAddCredentialStatus(_ status: AddCredentialTask.Status, shouldAuthenticateInAnotherDevice: Bool = false) {
         switch status {
-        case .created:
+        case .created, .authenticating:
             break
-        case .authenticating(let payload):
-            if let authenticatingPayload = payload {
-                self.showUpdating(status: authenticatingPayload)
-            }
         case .awaitingSupplementalInformation(let supplementInformationTask):
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
@@ -60,7 +56,11 @@ final class AddCredentialSession {
                     }
                 }
             } else {
-                 thirdPartyAppAuthenticationTask.openThirdPartyApp()
+                thirdPartyAppAuthenticationTask.openThirdPartyApp { [weak self] in
+                    DispatchQueue.main.async {
+                        self?.showUpdating(status: "Waiting for authentication on another device")
+                    }
+                }
             }
         case .updating(let status):
             showUpdating(status: status)
@@ -114,7 +114,6 @@ extension AddCredentialSession {
             return
         }
         parentViewController?.dismiss(animated: animated, completion: completion)
-        statusViewController = nil
     }
 
     private func showQRCodeView(qrImage: UIImage) {
