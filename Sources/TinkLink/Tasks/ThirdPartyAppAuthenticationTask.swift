@@ -36,7 +36,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 return "This bank does not support authenticating on another device"
             case .shouldOpenBankIDOnAnotherDevice:
                 // TODO: Copy
-                return "Waiting for authenticating on another device"
+                return "Waiting for authentication on another device"
             case .decodingQRCodeImageFailed:
                 // TODO: Copy
                 return "Failed to decode the QR code image"
