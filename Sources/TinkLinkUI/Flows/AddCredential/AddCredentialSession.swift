@@ -135,7 +135,6 @@ extension AddCredentialSession {
             return
         }
         parentViewController?.dismiss(animated: animated, completion: completion)
-        qrImageViewController = nil
     }
 }
 
