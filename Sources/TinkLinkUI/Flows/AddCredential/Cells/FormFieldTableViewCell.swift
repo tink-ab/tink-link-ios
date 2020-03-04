@@ -52,7 +52,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
 
         footerLabel.font = Font.regular(.nano)
 
-        contentView.layoutMargins = .init(top: 16, left: 20, bottom: 4, right: 20)
+        contentView.layoutMargins = .init(top: 20, left: 20, bottom: 0, right: 20)
         contentView.backgroundColor = Color.background
         contentView.addSubview(textField)
         contentView.addSubview(footerLabel)

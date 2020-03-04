@@ -166,7 +166,7 @@ private extension FloatingPlaceholderTextField {
 
         let placeholderFrame = placeholderRect(forBounds: bounds)
         placeholderLayer.position.x = placeholderUpTop ? 0 : placeholderLayer.frame.origin.x
-        placeholderLayer.position.y = placeholderUpTop ? -targetSize : placeholderFrame.origin.y
+        placeholderLayer.position.y = placeholderUpTop ? -targetSize / 2 : placeholderFrame.origin.y
     }
 
     func updateInputType() {
