@@ -293,7 +293,7 @@ extension TinkLinkViewController {
                     self?.authorizationCode = try result.get()
                     self?.authorizationGroup.leave()
                 } catch {
-                    // Error
+                    self?.showUnknownAggregatorAlert(for: error)
                 }
             }
         }
