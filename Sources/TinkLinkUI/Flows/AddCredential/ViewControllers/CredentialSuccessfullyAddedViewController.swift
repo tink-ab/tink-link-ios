@@ -60,9 +60,9 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -48),
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             iconView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             iconView.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor),
