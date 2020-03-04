@@ -2,6 +2,10 @@ import UIKit
 
 class FloatingPlaceholderTextField: UITextField {
 
+    private struct Constants {
+        static let placeholderTextSize: CGFloat = 13.0
+    }
+
     enum InputType {
         case text
         case number
@@ -13,8 +17,15 @@ class FloatingPlaceholderTextField: UITextField {
         }
     }
 
+    var textFieldBackgroundColor: UIColor? {
+        didSet {
+            textFieldBackgroundColorLayer.backgroundColor = textFieldBackgroundColor?.cgColor
+        }
+    }
+
     private let underlineLayer = CAShapeLayer()
     private let placeholderLayer = CATextLayer()
+    private let textFieldBackgroundColorLayer = CALayer()
     override var placeholder: String? {
         didSet {
             placeholderLayer.string = placeholder
@@ -65,6 +76,7 @@ class FloatingPlaceholderTextField: UITextField {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        textFieldBackgroundColorLayer.frame = CGRect(x: 0, y: Constants.placeholderTextSize / 2, width: bounds.width, height: bounds.height - Constants.placeholderTextSize / 2)
         placeholderLayer.frame = placeholderRect(forBounds: bounds)
 
         underlineLayer.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: lineWidth)
@@ -129,6 +141,8 @@ private extension FloatingPlaceholderTextField {
 
         font = Font.regular(.hecto)
         textColor = Color.label
+        layer.addSublayer(textFieldBackgroundColorLayer)
+
         placeholderLayer.font = font as CFTypeRef
         placeholderLayer.contentsScale = UIScreen.main.scale
         placeholderLayer.string = placeholder
@@ -160,7 +174,7 @@ private extension FloatingPlaceholderTextField {
 
         let value = text ?? ""
         let placeholderUpTop = !value.isEmpty
-        let targetSize: CGFloat = placeholderUpTop ? 13.0 : font.pointSize
+        let targetSize: CGFloat = placeholderUpTop ? Constants.placeholderTextSize : font.pointSize
 
         placeholderLayer.fontSize = targetSize
 
