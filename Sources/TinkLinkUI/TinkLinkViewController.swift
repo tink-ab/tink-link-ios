@@ -12,7 +12,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var authorizationController = AuthorizationController(tink: tink)
     private lazy var addCredentialSession = AddCredentialSession(credentialController: self.credentialController, parentViewController: self)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
-    private lazy var loadingViewController = ProviderLoadingViewController(providerController: providerController)
+    private lazy var loadingViewController = LoadingViewController(providerController: providerController)
 
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
@@ -250,7 +250,7 @@ extension TinkLinkViewController {
         let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator)
         addCredentialViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         addCredentialViewController.delegate = self
-        if viewControllers.last is ProviderLoadingViewController {
+        if viewControllers.last is LoadingViewController {
             replaceTopViewController(with: addCredentialViewController, animated: true)
         } else {
             show(addCredentialViewController, sender: nil)

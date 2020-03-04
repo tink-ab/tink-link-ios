@@ -1,6 +1,6 @@
 import UIKit
 
-final class ProviderLoadingViewController: UIViewController {
+final class LoadingViewController: UIViewController {
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     private let providerController: ProviderController
@@ -73,7 +73,7 @@ final class ProviderLoadingViewController: UIViewController {
     }
 }
 
-extension ProviderLoadingViewController: ProviderLoadingErrorViewDelegate {
+extension LoadingViewController: ProviderLoadingErrorViewDelegate {
     func reloadProviderList(providerLoadingErrorView: ProviderLoadingErrorView) {
         providerController.performFetch()
     }
