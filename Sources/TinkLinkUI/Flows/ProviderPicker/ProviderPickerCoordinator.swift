@@ -12,6 +12,7 @@ protocol ProviderPickerCoordinating: AnyObject {
 protocol ProviderPickerCoordinatorDelegate: AnyObject {
     func providerPickerCoordinatorShowLoading(_ coordinator: ProviderPickerCoordinator)
     func providerPickerCoordinatorHideLoading(_ coordinator: ProviderPickerCoordinator)
+    func providerPickerCoordinatorUpdateProviders(_ coordinator: ProviderPickerCoordinator)
     func providerPickerCoordinatorShowError(_ coordinator: ProviderPickerCoordinator, error: Error?)
 }
 
@@ -33,12 +34,6 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func start(completion: @escaping ((Result<Provider, Error>) -> Void)) {
-//        let providerLoadingViewController = ProviderLoadingViewController(providerController: providerController)
-//        providerLoadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
-//        providerLoadingViewController.providerPickerCoordinator = self
-//        
-//        parentViewController?.show(providerLoadingViewController, sender: self)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(showLoadingIndicator), name: .providerControllerWillFetchProviders, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(hideLoadingIndicator), name: .providerControllerDidFetchProviders, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updatedWithError), name: .providerControllerDidFailWithError, object: nil)
@@ -94,20 +89,14 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     @objc private func showLoadingIndicator() {
         delegate?.providerPickerCoordinatorShowLoading(self)
-//        DispatchQueue.main.async {
-//            self.activityIndicatorView.startAnimating()
-//            self.errorView.isHidden = true
-//        }
     }
 
     @objc private func hideLoadingIndicator() {
         delegate?.providerPickerCoordinatorHideLoading(self)
-//        DispatchQueue.main.async {
-//            self.activityIndicatorView.stopAnimating()
-//        }
     }
 
     @objc private func updateProviders() {
+        delegate?.providerPickerCoordinatorUpdateProviders(self)
         DispatchQueue.main.async {
             self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: "Choose Bank")
         }
@@ -115,11 +104,6 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     @objc private func updatedWithError() {
         delegate?.providerPickerCoordinatorShowError(self, error: providerController.error)
-//        DispatchQueue.main.async {
-//            self.hideLoadingIndicator()
-//            self.errorView.isHidden = false
-//            self.errorView.configure(with: self.providerController.error)
-//        }
     }
 }
 

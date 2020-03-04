@@ -21,11 +21,6 @@ final class ProviderLoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(showLoadingIndicator), name: .providerControllerWillFetchProviders, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(hideLoadingIndicator), name: .providerControllerDidFetchProviders, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updatedWithError), name: .providerControllerDidFailWithError, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
-
         view.backgroundColor = Color.background
         activityIndicatorView.tintColor = Color.secondaryLabel
 
@@ -33,12 +28,10 @@ final class ProviderLoadingViewController: UIViewController {
         errorView.delegate = self
         errorView.isHidden = true
 
-        if !providerController.isFetching {
-            if providerController.error != nil {
-                updatedWithError()
-            } else {
-                updateProviders()
-            }
+        if !providerController.isFetching, providerController.error != nil {
+            updatedWithError()
+        } else {
+            showLoadingIndicator()
         }
 
         errorView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,26 +51,20 @@ final class ProviderLoadingViewController: UIViewController {
         ])
     }
 
-    @objc private func showLoadingIndicator() {
+    func showLoadingIndicator() {
         DispatchQueue.main.async {
             self.activityIndicatorView.startAnimating()
             self.errorView.isHidden = true
         }
     }
 
-    @objc private func hideLoadingIndicator() {
+    func hideLoadingIndicator() {
         DispatchQueue.main.async {
             self.activityIndicatorView.stopAnimating()
         }
     }
 
-    @objc private func updateProviders() {
-        DispatchQueue.main.async {
-            self.providerPickerCoordinator?.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: "Choose Bank")
-        }
-    }
-
-    @objc private func updatedWithError() {
+    func updatedWithError() {
         DispatchQueue.main.async {
             self.hideLoadingIndicator()
             self.errorView.isHidden = false
