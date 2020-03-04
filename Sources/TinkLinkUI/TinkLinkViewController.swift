@@ -17,10 +17,15 @@ public class TinkLinkViewController: UINavigationController {
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
 
-    public init(tink: Tink = .shared, market: Market, scope: Tink.Scope) {
+    private var authorizationCode: AuthorizationCode?
+    private let authorizationGroup = DispatchGroup()
+    private let completion: (AuthorizationCode) -> Void
+
+    public init(tink: Tink = .shared, market: Market, scope: Tink.Scope, authorization completion: @escaping (AuthorizationCode) -> Void) {
         self.tink = tink
         self.market = market
         self.scope = scope
+        self.completion = completion
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -258,6 +263,13 @@ extension TinkLinkViewController {
     }
 
     func showAddCredentialSuccess() {
+        guard let authorizationCode = authorizationCode else {
+            authorizationGroup.notify(queue: .main) { [weak self] in
+                self?.showAddCredentialSuccess()
+            }
+            show(LoadingViewController(), sender: nil)
+            return
+        }
         guard let clientDescription = clientDescription else {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.showAddCredentialSuccess()
@@ -270,6 +282,21 @@ extension TinkLinkViewController {
             self?.dismiss(animated: true, completion: nil)
         }
         setViewControllers([viewController], animated: true)
+        completion(authorizationCode)
+    }
+
+    private func authorize() {
+        authorizationGroup.enter()
+        authorizationController.authorize(scope: scope) { [weak self] result in
+            DispatchQueue.main.async {
+                do {
+                    self?.authorizationCode = try result.get()
+                    self?.authorizationGroup.leave()
+                } catch {
+                    // Error
+                }
+            }
+        }
     }
 }
 
@@ -313,6 +340,7 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
         addCredentialSession.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
             do {
                 _ = try result.get()
+                self?.authorize()
                 self?.showAddCredentialSuccess()
             } catch let error as ThirdPartyAppAuthenticationTask.Error {
                 self?.showDownloadPrompt(for: error)
