@@ -95,7 +95,11 @@ extension AddCredentialSession {
 
     private func showUpdating(status: String) {
         hideQRCodeView {
-            if self.statusViewController == nil {
+            if let statusViewController = self.statusViewController {
+                if statusViewController.presentingViewController == nil {
+                    self.parentViewController?.present(statusViewController, animated: true)
+                }
+            } else {
                 let statusViewController = AddCredentialStatusViewController()
                 statusViewController.modalTransitionStyle = .crossDissolve
                 statusViewController.modalPresentationStyle = .custom
@@ -109,7 +113,7 @@ extension AddCredentialSession {
 
     private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
         hideQRCodeView(animated: animated)
-        guard statusViewController != nil, statusViewController?.parent != nil else {
+        guard statusViewController != nil, statusViewController?.presentingViewController != nil else {
             completion?()
             return
         }
