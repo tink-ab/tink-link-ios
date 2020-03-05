@@ -109,7 +109,7 @@ extension AddCredentialSession {
 
     private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
         hideQRCodeView(animated: animated)
-        guard statusViewController != nil else {
+        guard statusViewController != nil, statusViewController?.parent != nil else {
             completion?()
             return
         }
