@@ -58,14 +58,14 @@ public class TinkLinkViewController: UINavigationController {
 
                     self.clientDescriptorLoadingGroup.enter()
                     self.authorizationController.clientDescription { (clientDescriptionResult) in
-//                        DispatchQueue.main.async {
-//                            do {
-//                                self.clientDescription = try clientDescriptionResult.get()
-//                                self.clientDescriptorLoadingGroup.leave()
-//                            } catch {
-//                                self.showUnknownAggregatorAlert(for: error)
-//                            }
-//                        }
+                        DispatchQueue.main.async {
+                            do {
+                                self.clientDescription = try clientDescriptionResult.get()
+                                self.clientDescriptorLoadingGroup.leave()
+                            } catch {
+                                self.showUnknownAggregatorAlert(for: error)
+                            }
+                        }
                     }
                 } catch {
                     let viewController = UIViewController()
