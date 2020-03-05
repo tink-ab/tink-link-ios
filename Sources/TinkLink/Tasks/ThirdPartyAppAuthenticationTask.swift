@@ -103,8 +103,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         /// Tries to open the third party app.
         ///
         /// - Parameter application: The object that controls and coordinates your app. Defaults to the shared instance.
-        /// - Parameter waitingAuthenticationOnAnotherDevice: A block will be called when allow to directly use the third part app for authentication on another device.
-        public func openThirdPartyApp(with application: UIApplication = .shared, waitingAuthenticationOnAnotherDevice completion: (() -> Void)? = nil) {
+        /// - Parameter willAwaitAuthenticationOnAnotherDevice: A block will be called when allow to directly use the third part app for authentication on another device.
+        public func openThirdPartyApp(with application: UIApplication = .shared, willAwaitAuthenticationOnAnotherDevice wait: (() -> Void)? = nil) {
             guard let url = thirdPartyAppAuthentication.deepLinkURL else {
                 completionHandler(.failure(Error.deeplinkURLNotFound))
                 return
@@ -130,7 +130,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                                         // Fail if no BankID was found and the QR code is needed for authentication with BankID on another device
                                         self.completionHandler(.failure(downloadRequiredError))
                                     } else {
-                                        completion?()
+                                        wait?()
                                         self.completionHandler(.success(()))
                                     }
                                 } else {
