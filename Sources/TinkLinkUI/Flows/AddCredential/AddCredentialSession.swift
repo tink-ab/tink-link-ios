@@ -6,6 +6,8 @@ final class AddCredentialSession {
     weak var parentViewController: UIViewController?
 
     private let credentialController: CredentialController
+    private let authorizationController: AuthorizationController
+    private let scope: Tink.Scope
 
     private var task: AddCredentialTask?
     private var supplementInfoTask: SupplementInformationTask?
@@ -13,17 +15,21 @@ final class AddCredentialSession {
     private var statusViewController: AddCredentialStatusViewController?
     private var qrImageViewController: QRImageViewController?
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
+    private var authorizationCode: AuthorizationCode?
+    private var isAuthorizing = false
 
-    init(credentialController: CredentialController, parentViewController: UIViewController) {
+    init(credentialController: CredentialController, authorizationController: AuthorizationController, scope: Tink.Scope, parentViewController: UIViewController) {
         self.parentViewController = parentViewController
         self.credentialController = credentialController
+        self.scope = scope
+        self.authorizationController = authorizationController
     }
 
     deinit {
         task?.cancel()
     }
 
-    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool, onCompletion: @escaping ((Result<Void, Error>) -> Void)) {
+    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
 
         task = credentialController.addCredential(
             provider,
@@ -64,21 +70,48 @@ final class AddCredentialSession {
             }
         case .updating(let status):
             showUpdating(status: status)
+            authorize()
         }
     }
 
-    private func handleAddCredentialCompletion(_ result: Result<Credential, Error>, onCompletion: @escaping ((Result<Void, Error>) -> Void)) {
+    private func handleAddCredentialCompletion(_ result: Result<Credential, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
         do {
             _ = try result.get()
-            hideUpdatingView(animated: true) {
-                onCompletion(.success(()))
+            if let authorizationCode = authorizationCode {
+                hideUpdatingView(animated: true) {
+                    onCompletion(.success(authorizationCode))
+                }
+            } else {
+                authorize { [weak self] result in
+                    self?.hideUpdatingView(animated: true) {
+                        onCompletion(result)
+                    }
+                }
             }
         } catch {
-            self.hideUpdatingView(animated: true) {
+            hideUpdatingView(animated: true) {
                 onCompletion(.failure(error))
             }
         }
         task = nil
+    }
+
+    private func authorize(completion: ((Result<AuthorizationCode, Error>) -> Void)? = nil) {
+        guard !isAuthorizing else {
+            return
+        }
+
+        isAuthorizing = true
+        authorizationController.authorize(scope: scope) { [weak self] result in
+            do {
+                let authorizationCode = try result.get()
+                self?.authorizationCode = authorizationCode
+                completion?(.success(authorizationCode))
+            } catch {
+                completion?(.failure(AddCredentialTask.Error.temporaryFailure("A temporary error has occurred")))
+            }
+            self?.isAuthorizing = false
+        }
     }
 }
 
