@@ -1,8 +1,18 @@
 import UIKit
 
+protocol QRImageViewControllerDelegate: AnyObject {
+    func qrImageViewControllerDidCancel(_ viewController: QRImageViewController)
+}
+
 final class QRImageViewController: UIViewController {
+    private let imageContainerView = UIView()
+    private let borderedCornersView = BorderedCornersView()
     private let imageView = UIImageView()
-    private let closeButton = UIButton(type: .system)
+    private let subtitleLabel = UILabel()
+    private let descriptionLabel = UILabel()
+    private let stackView = UIStackView()
+
+    weak var delegate: QRImageViewControllerDelegate?
 
     init(qrImage: UIImage) {
         imageView.image = qrImage
@@ -21,42 +31,63 @@ final class QRImageViewController: UIViewController {
     }
 
     private func setup() {
-        let separatorLine = UIView()
-        separatorLine.backgroundColor = Color.separator
+        navigationItem.title = "Supplemental Information"
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
 
-        closeButton.backgroundColor = Color.background
-        closeButton.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        closeButton.layer.cornerRadius = 10
-        closeButton.setTitle("Close", for: .normal)
-        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        view.backgroundColor = Color.background
 
-        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        borderedCornersView.tintColor = Color.separator
+        borderedCornersView.translatesAutoresizingMaskIntoConstraints = false
+        imageContainerView.translatesAutoresizingMaskIntoConstraints = false
 
-        view.addSubview(imageView)
-        view.addSubview(separatorLine)
-        view.addSubview(closeButton)
+        subtitleLabel.font = Font.semibold(.mega)
+        subtitleLabel.textColor = Color.label
+        subtitleLabel.numberOfLines = 0
+        subtitleLabel.textAlignment = .center
+        subtitleLabel.text = "Open the BankID app"
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        descriptionLabel.font = Font.regular(.deci)
+        descriptionLabel.textColor = Color.label
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.text = "Open the Mobile Bank ID app and scan this QR code to authenticate"
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        stackView.axis = .vertical
+        stackView.spacing = 12
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(imageContainerView)
+        stackView.setCustomSpacing(32, after: imageContainerView)
+        imageContainerView.addSubview(imageView)
+        imageContainerView.addSubview(borderedCornersView)
+        stackView.addArrangedSubview(subtitleLabel)
+        stackView.addArrangedSubview(descriptionLabel)
 
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 172),
+            imageView.widthAnchor.constraint(equalToConstant: 172),
+            imageView.centerXAnchor.constraint(equalTo: imageContainerView.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor),
 
-            separatorLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            separatorLine.topAnchor.constraint(equalTo: imageView.bottomAnchor),
-            separatorLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: 1),
+            borderedCornersView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            borderedCornersView.topAnchor.constraint(equalTo: imageView.topAnchor),
+            borderedCornersView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            borderedCornersView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
 
-            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            closeButton.topAnchor.constraint(equalTo: separatorLine.bottomAnchor),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            closeButton.heightAnchor.constraint(equalToConstant: 48),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -40)
         ])
     }
 
-    @objc private func close() {
-        dismiss(animated: true)
+    @objc private func cancelButtonPressed() {
+        delegate?.qrImageViewControllerDidCancel(self)
     }
 }
