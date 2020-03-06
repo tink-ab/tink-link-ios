@@ -15,8 +15,10 @@ final class AddCredentialSession {
     private var statusViewController: AddCredentialStatusViewController?
     private var qrImageViewController: QRImageViewController?
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
+
     private var authorizationCode: AuthorizationCode?
     private var isAuthorizing = false
+    private var authorizationGroup = DispatchGroup()
 
     init(credentialController: CredentialController, authorizationController: AuthorizationController, scope: Tink.Scope, parentViewController: UIViewController) {
         self.parentViewController = parentViewController
@@ -36,7 +38,16 @@ final class AddCredentialSession {
             form: form,
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
-                    self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: allowAnotherDevice)
+                    self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: allowAnotherDevice) {
+                        [weak self] error in
+                        DispatchQueue.main.async {
+                            self?.hideUpdatingView(animated: true) {
+                                onCompletion(.failure(error))
+                            }
+                            self?.task?.cancel()
+                            self?.task = nil
+                        }
+                    }
                 }
             },
             completion: { [weak self] result in
@@ -48,7 +59,7 @@ final class AddCredentialSession {
         // TODO: Copy
         self.showUpdating(status: "Authorizing...")
     }
-    private func handleAddCredentialStatus(_ status: AddCredentialTask.Status, shouldAuthenticateInAnotherDevice: Bool = false) {
+    private func handleAddCredentialStatus(_ status: AddCredentialTask.Status, shouldAuthenticateInAnotherDevice: Bool = false, onError: @escaping (Error) -> Void) {
         switch status {
         case .created, .authenticating:
             break
@@ -70,21 +81,17 @@ final class AddCredentialSession {
             }
         case .updating(let status):
             showUpdating(status: status)
-            authorize()
+            authorize(onError: onError)
         }
     }
 
     private func handleAddCredentialCompletion(_ result: Result<Credential, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
         do {
             _ = try result.get()
-            if let authorizationCode = authorizationCode {
-                hideUpdatingView(animated: true) {
-                    onCompletion(.success(authorizationCode))
-                }
-            } else {
-                authorize { [weak self] result in
+            authorizationGroup.notify(queue: .main) { [weak self] in
+                if let authorizationCode = self?.authorizationCode {
                     self?.hideUpdatingView(animated: true) {
-                        onCompletion(result)
+                        onCompletion(.success(authorizationCode))
                     }
                 }
             }
@@ -96,21 +103,22 @@ final class AddCredentialSession {
         task = nil
     }
 
-    private func authorize(completion: ((Result<AuthorizationCode, Error>) -> Void)? = nil) {
+    private func authorize(onError: @escaping (Error) -> Void) {
         guard !isAuthorizing else {
             return
         }
 
         isAuthorizing = true
+        authorizationGroup.enter()
         authorizationController.authorize(scope: scope) { [weak self] result in
             do {
                 let authorizationCode = try result.get()
                 self?.authorizationCode = authorizationCode
-                completion?(.success(authorizationCode))
             } catch {
-                completion?(.failure(AddCredentialTask.Error.temporaryFailure("A temporary error has occurred")))
+                onError(AddCredentialTask.Error.temporaryFailure("A temporary error has occurred"))
             }
             self?.isAuthorizing = false
+            self?.authorizationGroup.leave()
         }
     }
 }
