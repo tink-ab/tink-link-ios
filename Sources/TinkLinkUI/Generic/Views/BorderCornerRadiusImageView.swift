@@ -1,18 +1,17 @@
 import UIKit
 
-class BorderCornerRadiusView: UIView {
+class BorderedCornersView: UIView {
     var cornerDashLineLength: CGFloat = 50
     var cornerRadius: CGFloat = 5
 
-    var radiusCorner: UIRectCorner = .allCorners {
+    var corners: UIRectCorner = .allCorners {
         didSet {
             setupCornerLayers()
             setNeedsLayout()
         }
     }
 
-    private var cornerLayersToUpdate = [CAShapeLayer]()
-    private var updatedCornerLayers = [CAShapeLayer]()
+    private var cornerLayers = [UIRectCorner.RawValue: CAShapeLayer]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,68 +26,62 @@ class BorderCornerRadiusView: UIView {
     override func tintColorDidChange() {
         super.tintColorDidChange()
 
-        updatedCornerLayers.forEach { $0.strokeColor = tintColor.cgColor }
+
+        cornerLayers.values.forEach { $0.strokeColor = tintColor.cgColor }
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        guard !cornerLayersToUpdate.isEmpty else {
+        guard !cornerLayers.isEmpty else {
             return
         }
 
-        if radiusCorner.contains(.topLeft) {
-            let layer = cornerLayersToUpdate.removeFirst()
-            layer.path = generateTopLeftTemplatePath()
-            updatedCornerLayers.append(layer)
+        if corners.contains(.topLeft) {
+            let layer = cornerLayers[UIRectCorner.topLeft.rawValue]
+            layer?.path = generateTopLeftTemplatePath()
         }
-        if radiusCorner.contains(.topRight) {
-            let layer = cornerLayersToUpdate.removeFirst()
-            layer.path = generateTopLeftTemplatePath()
+        if corners.contains(.topRight) {
+            let layer = cornerLayers[UIRectCorner.topRight.rawValue]
+            layer?.path = generateTopLeftTemplatePath()
             let topRightLayerTransform = CGAffineTransform(translationX: frame.width, y: 0).rotated(by: 0.5 * .pi)
-            layer.setAffineTransform(topRightLayerTransform)
-            updatedCornerLayers.append(layer)
+            layer?.setAffineTransform(topRightLayerTransform)
         }
-        if radiusCorner.contains(.bottomLeft) {
-            let layer = cornerLayersToUpdate.removeFirst()
-            layer.path = generateTopLeftTemplatePath()
+        if corners.contains(.bottomLeft) {
+            let layer = cornerLayers[UIRectCorner.bottomLeft.rawValue]
+            layer?.path = generateTopLeftTemplatePath()
             let bottomLeftLayerTransform = CGAffineTransform(translationX: 0, y: frame.height).rotated(by: -0.5 * .pi)
-            layer.setAffineTransform(bottomLeftLayerTransform)
-            updatedCornerLayers.append(layer)
+            layer?.setAffineTransform(bottomLeftLayerTransform)
         }
-        if radiusCorner.contains(.bottomRight) {
-            let layer = cornerLayersToUpdate.removeFirst()
-            layer.path = generateTopLeftTemplatePath()
+        if corners.contains(.bottomRight) {
+            let layer = cornerLayers[UIRectCorner.bottomRight.rawValue]
+            layer?.path = generateTopLeftTemplatePath()
             let bottomRightLayerTransform = CGAffineTransform(translationX: frame.width, y: frame.height).rotated(by: .pi)
-            layer.setAffineTransform(bottomRightLayerTransform)
-            updatedCornerLayers.append(layer)
+            layer?.setAffineTransform(bottomRightLayerTransform)
         }
     }
 
     private func setupCornerLayers() {
-        updatedCornerLayers.forEach { $0.removeFromSuperlayer() }
 
-        cornerLayersToUpdate.removeAll()
-        updatedCornerLayers.removeAll()
-
-        if radiusCorner.contains(.topLeft) {
-            let cornerLayer = generateBorderLayer()
-            cornerLayersToUpdate.append(cornerLayer)
+        cornerLayers.removeAll()
+        if corners.contains(.topLeft) {
+            let cornerLayer = makeBorderLayer()
+            cornerLayers[UIRectCorner.topLeft.rawValue] = cornerLayer
             layer.addSublayer(cornerLayer)
         }
-        if radiusCorner.contains(.topRight) {
-            let cornerLayer = generateBorderLayer()
-            cornerLayersToUpdate.append(cornerLayer)
+        if corners.contains(.topRight) {
+            let cornerLayer = makeBorderLayer()
+            cornerLayers[UIRectCorner.topRight.rawValue] = cornerLayer
             layer.addSublayer(cornerLayer)
         }
-        if radiusCorner.contains(.bottomLeft) {
-            let cornerLayer = generateBorderLayer()
-            cornerLayersToUpdate.append(cornerLayer)
+        if corners.contains(.bottomLeft) {
+            let cornerLayer = makeBorderLayer()
+            cornerLayers[UIRectCorner.bottomLeft.rawValue] = cornerLayer
             layer.addSublayer(cornerLayer)
         }
-        if radiusCorner.contains(.bottomRight) {
-            let cornerLayer = generateBorderLayer()
-            cornerLayersToUpdate.append(cornerLayer)
+        if corners.contains(.bottomRight) {
+            let cornerLayer = makeBorderLayer()
+            cornerLayers[UIRectCorner.bottomRight.rawValue] = cornerLayer
             layer.addSublayer(cornerLayer)
         }
     }
@@ -105,7 +98,7 @@ class BorderCornerRadiusView: UIView {
         return topLeftPath
     }
 
-    private func generateBorderLayer() -> CAShapeLayer {
+    private func makeBorderLayer() -> CAShapeLayer {
         let templateLayer = CAShapeLayer()
         templateLayer.fillColor = UIColor.clear.cgColor
         templateLayer.strokeColor = tintColor.cgColor

@@ -6,7 +6,7 @@ protocol QRImageViewControllerDelegate: AnyObject {
 
 final class QRImageViewController: UIViewController {
     private let imageContainerView = UIView()
-    private let borderCornerView = BorderCornerRadiusView()
+    private let borderedCornersView = BorderedCornersView()
     private let imageView = UIImageView()
     private let subtitleLabel = UILabel()
     private let descriptionLabel = UILabel()
@@ -39,8 +39,8 @@ final class QRImageViewController: UIViewController {
 
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        borderCornerView.tintColor = Color.separator
-        borderCornerView.translatesAutoresizingMaskIntoConstraints = false
+        borderedCornersView.tintColor = Color.separator
+        borderedCornersView.translatesAutoresizingMaskIntoConstraints = false
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
 
         subtitleLabel.font = Font.semibold(.mega)
@@ -65,7 +65,7 @@ final class QRImageViewController: UIViewController {
         stackView.addArrangedSubview(imageContainerView)
         stackView.setCustomSpacing(32, after: imageContainerView)
         imageContainerView.addSubview(imageView)
-        imageContainerView.addSubview(borderCornerView)
+        imageContainerView.addSubview(borderedCornersView)
         stackView.addArrangedSubview(subtitleLabel)
         stackView.addArrangedSubview(descriptionLabel)
 
@@ -76,10 +76,10 @@ final class QRImageViewController: UIViewController {
             imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor),
 
-            borderCornerView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            borderCornerView.topAnchor.constraint(equalTo: imageView.topAnchor),
-            borderCornerView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
-            borderCornerView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+            borderedCornersView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            borderedCornersView.topAnchor.constraint(equalTo: imageView.topAnchor),
+            borderedCornersView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            borderedCornersView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
 
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
