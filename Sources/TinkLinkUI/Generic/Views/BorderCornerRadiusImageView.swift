@@ -62,26 +62,10 @@ class BorderedCornersView: UIView {
     }
 
     private func setupCornerLayers() {
-
         cornerLayers.removeAll()
-        if corners.contains(.topLeft) {
+        for corner in [UIRectCorner.topLeft, UIRectCorner.topRight, UIRectCorner.bottomLeft, UIRectCorner.bottomRight] where corners.contains(corner) {
             let cornerLayer = makeBorderLayer()
-            cornerLayers[UIRectCorner.topLeft.rawValue] = cornerLayer
-            layer.addSublayer(cornerLayer)
-        }
-        if corners.contains(.topRight) {
-            let cornerLayer = makeBorderLayer()
-            cornerLayers[UIRectCorner.topRight.rawValue] = cornerLayer
-            layer.addSublayer(cornerLayer)
-        }
-        if corners.contains(.bottomLeft) {
-            let cornerLayer = makeBorderLayer()
-            cornerLayers[UIRectCorner.bottomLeft.rawValue] = cornerLayer
-            layer.addSublayer(cornerLayer)
-        }
-        if corners.contains(.bottomRight) {
-            let cornerLayer = makeBorderLayer()
-            cornerLayers[UIRectCorner.bottomRight.rawValue] = cornerLayer
+            cornerLayers[corner.rawValue] = cornerLayer
             layer.addSublayer(cornerLayer)
         }
     }
