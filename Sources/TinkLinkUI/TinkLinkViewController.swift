@@ -12,6 +12,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var authorizationController = AuthorizationController(tink: tink)
     private lazy var addCredentialSession = AddCredentialSession(credentialController: self.credentialController, parentViewController: self)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
+    private lazy var loadingViewController = LoadingViewController(providerController: providerController)
 
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
@@ -33,11 +34,11 @@ public class TinkLinkViewController: UINavigationController {
         setupNavigationBarAppearance()
 
         view.backgroundColor = Color.background
-        let loadingViewController = LoadingViewController()
         loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         setViewControllers([loadingViewController], animated: false)
 
         presentationController?.delegate = self
+        providerPickerCoordinator.delegate = self
 
         start()
     }
@@ -143,11 +144,10 @@ extension TinkLinkViewController {
             message: localizedError?.failureReason ?? error.localizedDescription,
             preferredStyle: .alert
         )
-
+        loadingViewController.hideLoadingIndicator()
         let retryAction = UIAlertAction(title: "Retry", style: .default) { _ in
-            let loadingViewController = LoadingViewController()
-            loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
-            self.setViewControllers([loadingViewController], animated: false)
+            self.loadingViewController.showLoadingIndicator()
+            self.setViewControllers([self.loadingViewController], animated: false)
             self.start()
         }
         alertController.addAction(retryAction)
@@ -226,7 +226,6 @@ extension TinkLinkViewController {
     }
 
     func showProviderPicker() {
-        setViewControllers([], animated: false)
         providerPickerCoordinator.start { [weak self] (result) in
             do {
                 let provider = try result.get()
@@ -244,7 +243,8 @@ extension TinkLinkViewController {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.showAddCredential(for: provider)
             }
-            show(LoadingViewController(), sender: nil)
+            loadingViewController.showLoadingIndicator()
+            show(loadingViewController, sender: nil)
             return
         }
         let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator)
@@ -262,13 +262,35 @@ extension TinkLinkViewController {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.showAddCredentialSuccess()
             }
-            show(LoadingViewController(), sender: nil)
+            loadingViewController.showLoadingIndicator()
+            show(loadingViewController, sender: nil)
             return
         }
         let viewController = CredentialSuccessfullyAddedViewController(companyName: clientDescription.name) { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
         setViewControllers([viewController], animated: true)
+    }
+}
+
+// MARK: - ProviderPickerCoordinatorDelegate
+extension TinkLinkViewController: ProviderPickerCoordinatorDelegate {
+    func providerPickerCoordinatorShowLoading(_ coordinator: ProviderPickerCoordinator) {
+        loadingViewController.showLoadingIndicator()
+    }
+
+    func providerPickerCoordinatorHideLoading(_ coordinator: ProviderPickerCoordinator) {
+        loadingViewController.hideLoadingIndicator()
+    }
+
+    func providerPickerCoordinatorUpdateProviders(_ coordinator: ProviderPickerCoordinator) {
+        DispatchQueue.main.async {
+            self.loadingViewController.removeFromParent()
+        }
+    }
+
+    func providerPickerCoordinatorShowError(_ coordinator: ProviderPickerCoordinator, error: Error?) {
+        loadingViewController.updatedWithError()
     }
 }
 

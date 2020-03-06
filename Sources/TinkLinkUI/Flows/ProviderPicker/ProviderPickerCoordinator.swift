@@ -9,7 +9,16 @@ protocol ProviderPickerCoordinating: AnyObject {
     func didSelectProvider(_ provider: Provider)
 }
 
+protocol ProviderPickerCoordinatorDelegate: AnyObject {
+    func providerPickerCoordinatorShowLoading(_ coordinator: ProviderPickerCoordinator)
+    func providerPickerCoordinatorHideLoading(_ coordinator: ProviderPickerCoordinator)
+    func providerPickerCoordinatorUpdateProviders(_ coordinator: ProviderPickerCoordinator)
+    func providerPickerCoordinatorShowError(_ coordinator: ProviderPickerCoordinator, error: Error?)
+}
+
 class ProviderPickerCoordinator: ProviderPickerCoordinating {
+
+    weak var delegate: ProviderPickerCoordinatorDelegate?
 
     private let providerController: ProviderController
     private weak var parentViewController: UIViewController?
@@ -20,12 +29,16 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         self.parentViewController = parentViewController
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     func start(completion: @escaping ((Result<Provider, Error>) -> Void)) {
-        let providerLoadingViewController = ProviderLoadingViewController(providerController: providerController)
-        providerLoadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancel))
-        providerLoadingViewController.providerPickerCoordinator = self
+        NotificationCenter.default.addObserver(self, selector: #selector(showLoadingIndicator), name: .providerControllerWillFetchProviders, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideLoadingIndicator), name: .providerControllerDidFetchProviders, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updatedWithError), name: .providerControllerDidFailWithError, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
         
-        parentViewController?.show(providerLoadingViewController, sender: self)
         self.completion = completion
     }
 
@@ -72,6 +85,25 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func didSelectProvider(_ provider: Provider) {
         completion?(.success(provider))
+    }
+
+    @objc private func showLoadingIndicator() {
+        delegate?.providerPickerCoordinatorShowLoading(self)
+    }
+
+    @objc private func hideLoadingIndicator() {
+        delegate?.providerPickerCoordinatorHideLoading(self)
+    }
+
+    @objc private func updateProviders() {
+        delegate?.providerPickerCoordinatorUpdateProviders(self)
+        DispatchQueue.main.async {
+            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: "Choose Bank")
+        }
+    }
+
+    @objc private func updatedWithError() {
+        delegate?.providerPickerCoordinatorShowError(self, error: providerController.error)
     }
 }
 
