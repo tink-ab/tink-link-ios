@@ -39,9 +39,11 @@ final class ProviderController {
     private(set) var error: Swift.Error?
     private var providers: [Provider] = []
     private var providerContext: ProviderContext?
+    private var providerKinds: Set<Provider.Kind>
 
-    init(tink: Tink) {
+    init(tink: Tink, providerKinds: Set<Provider.Kind>) {
         self.tink = tink
+        self.providerKinds = providerKinds
     }
 
     func performFetch() {
@@ -49,7 +51,7 @@ final class ProviderController {
         if providerContext == nil {
             providerContext = ProviderContext(tink: tink, user: user)
         }
-        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
+        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: providerKinds, accessTypes: .all)
         NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)
         isFetching = true
         providerContext?.fetchProviders(attributes: attributes, completion: { [weak self] result in
