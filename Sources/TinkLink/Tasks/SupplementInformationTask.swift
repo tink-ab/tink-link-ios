@@ -6,7 +6,7 @@
 
 /// - Note: If the user dismiss supplementing information, by e.g. closing the form, you need to call `cancel()` to stop adding the credential.
 public final class SupplementInformationTask: Identifiable {
-    private let credentialService: CredentialService
+    private let credentialService: CredentialsService
     private var callRetryCancellable: RetryCancellable?
 
     // MARK: Getting the Credential
@@ -16,7 +16,7 @@ public final class SupplementInformationTask: Identifiable {
 
     private let completionHandler: (Result<Void, Error>) -> Void
 
-    init(credentialService: CredentialService, credential: Credentials, completionHandler: @escaping (Result<Void, Error>) -> Void) {
+    init(credentialService: CredentialsService, credential: Credentials, completionHandler: @escaping (Result<Void, Error>) -> Void) {
         self.credentialService = credentialService
         self.credential = credential
         self.completionHandler = completionHandler

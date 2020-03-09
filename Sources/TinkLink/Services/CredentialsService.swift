@@ -1,7 +1,7 @@
 import Foundation
 import GRPC
 
-final class CredentialService: TokenConfigurableService {
+final class CredentialsService: TokenConfigurableService {
     let connection: ClientConnection
     var defaultCallOptions: CallOptions {
         didSet {

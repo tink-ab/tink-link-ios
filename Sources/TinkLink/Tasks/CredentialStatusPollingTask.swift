@@ -2,7 +2,7 @@ import Foundation
 import GRPC
 
 class CredentialStatusPollingTask {
-    private var service: CredentialService
+    private var service: CredentialsService
     var callRetryCancellable: RetryCancellable?
     private var retryInterval: TimeInterval = 1
     private(set) var credential: Credentials
@@ -26,7 +26,7 @@ class CredentialStatusPollingTask {
         }
     }
 
-    init(credentialService: CredentialService, credential: Credentials, backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
+    init(credentialService: CredentialsService, credential: Credentials, backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
         self.service = credentialService
         self.credential = credential
         self.backoffStrategy = backoffStrategy

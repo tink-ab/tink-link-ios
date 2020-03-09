@@ -76,13 +76,13 @@ public final class AddCredentialTask: Identifiable {
     /// Task will execute it's completion handler if the credential's status changes to match this predicate.
     public let completionPredicate: CompletionPredicate
 
-    private let credentialService: CredentialService
+    private let credentialService: CredentialsService
     let progressHandler: (Status) -> Void
     let completion: (Result<Credentials, Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
 
-    init(credentialService: CredentialService, completionPredicate: CompletionPredicate, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
+    init(credentialService: CredentialsService, completionPredicate: CompletionPredicate, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
         self.credentialService = credentialService
         self.completionPredicate = completionPredicate
         self.progressHandler = progressHandler

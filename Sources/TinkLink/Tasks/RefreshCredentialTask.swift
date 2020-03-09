@@ -54,13 +54,13 @@ public final class RefreshCredentialTask: Identifiable {
 
     public private(set) var credentials: [Credentials]
 
-    private let credentialService: CredentialService
+    private let credentialService: CredentialsService
     let progressHandler: (Status) -> Void
     let completion: (Result<[Credentials], Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
 
-    init(credentials: [Credentials], credentialService: CredentialService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<[Credentials], Swift.Error>) -> Void) {
+    init(credentials: [Credentials], credentialService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<[Credentials], Swift.Error>) -> Void) {
         self.credentials = credentials
         self.credentialService = credentialService
         self.progressHandler = progressHandler
