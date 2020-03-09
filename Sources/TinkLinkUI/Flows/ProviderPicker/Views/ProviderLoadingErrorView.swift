@@ -89,10 +89,11 @@ final class ProviderLoadingErrorView: UIView {
 
     func configure(with error: Error?) {
         textLabel.text = "We’re sorry, but we couldn't load any banks at the moment"
-        descriptionLabel.text = "Please try again, or contact %@ if the problem persists."
         if let providerControllerError = error as? ProviderController.Error {
+            descriptionLabel.text = "This could be a temporary error, please try again and see if the problem persists."
             retryButton.isHidden = false
         } else {
+            descriptionLabel.text = "We are informed of this error and are working hard to resolve it. Bear with us, and try again a bit later."
             retryButton.isHidden = true
         }
     }
