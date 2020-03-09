@@ -6,8 +6,8 @@ public class TinkLinkViewController: UINavigationController {
     private let market: Market
     public let scope: Tink.Scope
 
-    private lazy var userController = UserController(tink: tink)
-    private lazy var providerController = ProviderController(tink: tink)
+    private var userController: UserController
+    private var providerController: ProviderController
     private lazy var credentialController = CredentialController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
     private lazy var addCredentialSession = AddCredentialSession(credentialController: self.credentialController, parentViewController: self)
@@ -17,10 +17,12 @@ public class TinkLinkViewController: UINavigationController {
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
 
-    public init(tink: Tink = .shared, market: Market, scope: Tink.Scope) {
+    public init(tink: Tink = .shared, market: Market, scope: Tink.Scope, providerKinds: Set<Provider.Kind> = .defaultKinds) {
         self.tink = tink
         self.market = market
         self.scope = scope
+        self.userController = UserController(tink: tink)
+        self.providerController = ProviderController(tink: tink, providerKinds: providerKinds)
 
         super.init(nibName: nil, bundle: nil)
     }
