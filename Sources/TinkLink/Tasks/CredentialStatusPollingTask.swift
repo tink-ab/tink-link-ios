@@ -5,8 +5,8 @@ class CredentialStatusPollingTask {
     private var service: CredentialService
     var callRetryCancellable: RetryCancellable?
     private var retryInterval: TimeInterval = 1
-    private(set) var credential: Credential
-    private var updateHandler: (Result<Credential, Error>) -> Void
+    private(set) var credential: Credentials
+    private var updateHandler: (Result<Credentials, Error>) -> Void
     private let backoffStrategy: PollingBackoffStrategy
 
     enum PollingBackoffStrategy {
@@ -26,7 +26,7 @@ class CredentialStatusPollingTask {
         }
     }
 
-    init(credentialService: CredentialService, credential: Credential, backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credential, Error>) -> Void) {
+    init(credentialService: CredentialService, credential: Credentials, backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
         self.service = credentialService
         self.credential = credential
         self.backoffStrategy = backoffStrategy

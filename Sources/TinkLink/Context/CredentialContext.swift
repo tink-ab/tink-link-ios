@@ -76,7 +76,7 @@ public final class CredentialContext {
     public func addCredential(for provider: Provider, form: Form,
                               completionPredicate: AddCredentialTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                               progressHandler: @escaping (_ status: AddCredentialTask.Status) -> Void,
-                              completion: @escaping (_ result: Result<Credential, Error>) -> Void) -> AddCredentialTask {
+                              completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialTask {
         let task = AddCredentialTask(
             credentialService: service,
             completionPredicate: completionPredicate,
@@ -98,7 +98,7 @@ public final class CredentialContext {
         return task
     }
 
-    private func addCredentialAndAuthenticateIfNeeded(for provider: Provider, fields: [String: String], appURI: URL, completion: @escaping (Result<Credential, Error>) -> Void) -> RetryCancellable? {
+    private func addCredentialAndAuthenticateIfNeeded(for provider: Provider, fields: [String: String], appURI: URL, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         return service.createCredential(providerID: provider.id, fields: fields, appURI: appURI, completion: completion)
     }
 
@@ -108,7 +108,7 @@ public final class CredentialContext {
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
     @discardableResult
-    public func fetchCredentials(completion: @escaping (_ result: Result<[Credential], Error>) -> Void) -> RetryCancellable? {
+    public func fetchCredentials(completion: @escaping (_ result: Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
         return service.credentials { result in
             do {
                 let credentials = try result.get()
@@ -131,10 +131,10 @@ public final class CredentialContext {
     ///   - completion: The block to execute when the credential has been refreshed successfuly or if it failed.
     ///   - result: A result that either a list of updated credentials when refresh successed or an error if failed.
     /// - Returns: The refresh credential task.
-    public func refresh(_ credentials: [Credential],
+    public func refresh(_ credentials: [Credentials],
                                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
                                    progressHandler: @escaping (_ status: RefreshCredentialTask.Status) -> Void,
-                                   completion: @escaping (_ result: Result<[Credential], Swift.Error>) -> Void) -> RefreshCredentialTask {
+                                   completion: @escaping (_ result: Result<[Credentials], Swift.Error>) -> Void) -> RefreshCredentialTask {
         let task = RefreshCredentialTask(credentials: credentials, credentialService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, progressHandler: progressHandler, completion: completion)
 
         task.callCanceller = service.refreshCredentials(credentialIDs: credentials.map { $0.id }, completion: { result in
@@ -157,8 +157,8 @@ public final class CredentialContext {
     ///   - result: A result with either an updated credential if the update succeeded or an error if failed.
     /// - Returns: The update credential task.
     @discardableResult
-    public func update(_ credential: Credential, form: Form? = nil,
-                       completion: @escaping (_ result: Result<Credential, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func update(_ credential: Credentials, form: Form? = nil,
+                       completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RetryCancellable? {
         service.updateCredential(credentialID: credential.id, fields: form?.makeFields() ?? [:], completion: completion)
     }
 
@@ -169,7 +169,7 @@ public final class CredentialContext {
     ///   - result: A result representing that the delete succeeded or an error if failed.
     /// - Returns: The delete credential task.
     @discardableResult
-    public func delete(_ credential: Credential,
+    public func delete(_ credential: Credentials,
                        completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.deleteCredential(credentialID: credential.id, completion: completion)
     }

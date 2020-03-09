@@ -47,7 +47,7 @@ public final class AddCredentialTask: Identifiable {
 
     private var credentialStatusPollingTask: CredentialStatusPollingTask?
 
-    private(set) var credential: Credential?
+    private(set) var credential: Credentials?
 
     // MARK: - Evaluating Completion
 
@@ -78,18 +78,18 @@ public final class AddCredentialTask: Identifiable {
 
     private let credentialService: CredentialService
     let progressHandler: (Status) -> Void
-    let completion: (Result<Credential, Swift.Error>) -> Void
+    let completion: (Result<Credentials, Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
 
-    init(credentialService: CredentialService, completionPredicate: CompletionPredicate, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credential, Swift.Error>) -> Void) {
+    init(credentialService: CredentialService, completionPredicate: CompletionPredicate, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
         self.credentialService = credentialService
         self.completionPredicate = completionPredicate
         self.progressHandler = progressHandler
         self.completion = completion
     }
 
-    func startObserving(_ credential: Credential) {
+    func startObserving(_ credential: Credentials) {
         self.credential = credential
 
         handleUpdate(for: .success(credential))
@@ -107,7 +107,7 @@ public final class AddCredentialTask: Identifiable {
         callCanceller?.cancel()
     }
 
-    private func handleUpdate(for result: Result<Credential, Swift.Error>) {
+    private func handleUpdate(for result: Result<Credentials, Swift.Error>) {
         do {
             let credential = try result.get()
             switch credential.status {

@@ -30,7 +30,7 @@ public struct ProviderTree {
 
         public let provider: Provider
 
-        public var credentialKind: Credential.Kind { provider.credentialKind }
+        public var credentialKind: Credentials.Kind { provider.credentialKind }
 
         public var displayDescription: String { provider.displayDescription.isEmpty ? provider.credentialKind.description : provider.displayDescription }
 

@@ -1,7 +1,7 @@
 import Foundation
 
 /// The credentials model represents users connected providers from where financial data is accessed.
-public struct Credential: Identifiable {
+public struct Credentials: Identifiable {
     /// A unique identifier of a `Credential`.
     public struct ID: Hashable, ExpressibleByStringLiteral {
         public init(stringLiteral value: String) {
@@ -59,7 +59,7 @@ public struct Credential: Identifiable {
     }
 
     /// Indicates how Tink authenticates the user to the financial institution.
-    public let kind: Credential.Kind
+    public let kind: Credentials.Kind
 
     /// The status indicates the state of a credential.
     public enum Status {

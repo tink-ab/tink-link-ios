@@ -12,11 +12,11 @@ public final class SupplementInformationTask: Identifiable {
     // MARK: Getting the Credential
 
     /// The credential that's awaiting supplemental information.
-    public let credential: Credential
+    public let credential: Credentials
 
     private let completionHandler: (Result<Void, Error>) -> Void
 
-    init(credentialService: CredentialService, credential: Credential, completionHandler: @escaping (Result<Void, Error>) -> Void) {
+    init(credentialService: CredentialService, credential: Credentials, completionHandler: @escaping (Result<Void, Error>) -> Void) {
         self.credentialService = credentialService
         self.credential = credential
         self.completionHandler = completionHandler

@@ -5,10 +5,10 @@ class CredentialsListStatusPollingTask {
     private var service: CredentialService
     var callRetryCancellable: RetryCancellable?
     private var retryInterval: TimeInterval = 1
-    private(set) var credentialsToUpdate: [Credential]
-    private(set) var updatedCredentials: [Credential] = []
-    private var updateHandler: (Result<Credential, Error>) -> Void
-    private var completion: (Result<[Credential], Error>) -> Void
+    private(set) var credentialsToUpdate: [Credentials]
+    private(set) var updatedCredentials: [Credentials] = []
+    private var updateHandler: (Result<Credentials, Error>) -> Void
+    private var completion: (Result<[Credentials], Error>) -> Void
     private let backoffStrategy: PollingBackoffStrategy
     private var hasPaused = false
 
@@ -29,7 +29,7 @@ class CredentialsListStatusPollingTask {
         }
     }
 
-    init(credentialService: CredentialService, credentials: [Credential], backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credential, Error>) -> Void, completion: @escaping (Result<[Credential], Error>) -> Void) {
+    init(credentialService: CredentialService, credentials: [Credentials], backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credentials, Error>) -> Void, completion: @escaping (Result<[Credentials], Error>) -> Void) {
         self.service = credentialService
         self.credentialsToUpdate = credentials
         self.backoffStrategy = backoffStrategy
@@ -77,7 +77,7 @@ class CredentialsListStatusPollingTask {
         }
     }
 
-    private func checkCredentialsToUpdate(_ fetchedCredentials: [Credential]) -> [Credential] {
+    private func checkCredentialsToUpdate(_ fetchedCredentials: [Credentials]) -> [Credentials] {
         // Remove the credentials that have been updated
         return credentialsToUpdate.filter { credential -> Bool in
             if let updatedCredential = fetchedCredentials.first(where: { $0.id == credential.id }) {

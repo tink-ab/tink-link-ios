@@ -9,28 +9,28 @@ public final class RefreshCredentialTask: Identifiable {
     /// - Note: For some states there are actions which need to be performed on the credentials.
     public enum Status {
         /// When the credential has just been created
-        case created(credential: Credential)
+        case created(credential: Credentials)
 
         /// When starting the authentication process
-        case authenticating(credential: Credential)
+        case authenticating(credential: Credentials)
 
         /// User has been successfully authenticated, now downloading data.
-        case updating(credential: Credential, status: String)
+        case updating(credential: Credentials, status: String)
 
         /// Trigger for the client to prompt the user to fill out supplemental information.
         case awaitingSupplementalInformation(task: SupplementInformationTask)
 
         /// Trigger for the client to prompt the user to open the third party authentication flow
-        case awaitingThirdPartyAppAuthentication(credential: Credential, task: ThirdPartyAppAuthenticationTask)
+        case awaitingThirdPartyAppAuthentication(credential: Credentials, task: ThirdPartyAppAuthenticationTask)
 
         /// The session has expired.
-        case sessionExpired(credential: Credential)
+        case sessionExpired(credential: Credentials)
 
         /// The status has been updated.
-        case updated(credential: Credential)
+        case updated(credential: Credentials)
 
         /// The refresh error.
-        case error(credential: Credential, error: Error)
+        case error(credential: Credentials, error: Error)
     }
 
     /// Error that the `RefreshCredentialTask` can throw.
@@ -52,15 +52,15 @@ public final class RefreshCredentialTask: Identifiable {
 
     // MARK: - Getting the Credentials
 
-    public private(set) var credentials: [Credential]
+    public private(set) var credentials: [Credentials]
 
     private let credentialService: CredentialService
     let progressHandler: (Status) -> Void
-    let completion: (Result<[Credential], Swift.Error>) -> Void
+    let completion: (Result<[Credentials], Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
 
-    init(credentials: [Credential], credentialService: CredentialService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<[Credential], Swift.Error>) -> Void) {
+    init(credentials: [Credentials], credentialService: CredentialService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<[Credentials], Swift.Error>) -> Void) {
         self.credentials = credentials
         self.credentialService = credentialService
         self.progressHandler = progressHandler
@@ -88,7 +88,7 @@ public final class RefreshCredentialTask: Identifiable {
         callCanceller?.cancel()
     }
 
-    private func handleUpdate(for result: Result<Credential, Swift.Error>) {
+    private func handleUpdate(for result: Result<Credentials, Swift.Error>) {
         do {
             let credential = try result.get()
             switch credential.status {
