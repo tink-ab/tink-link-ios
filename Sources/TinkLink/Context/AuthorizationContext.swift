@@ -50,11 +50,11 @@ public final class AuthorizationContext {
     func authorize(scope: Tink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
-            let mappedResult = result.map({ $0.scopes }).mapError({ Error($0) ?? $0 })
+            let mappedResult = result.map({ $0.code }).mapError({ Error($0) ?? $0 })
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not authorize: " + message)
             }
-            completion(mappedResult))
+            completion(mappedResult)
         }
     }
 
@@ -68,11 +68,11 @@ public final class AuthorizationContext {
         let scope = Tink.Scope()
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
-            let mappedResult = result.map({ $0.scopes }).mapError({ Error($0) ?? $0 })
+            let mappedResult = result.map({ $0.isAggregator }).mapError({ Error($0) ?? $0 })
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not check aggregator status: " + message)
             }
-            completion(mappedResult))
+            completion(mappedResult)
         }
     }
 
@@ -159,7 +159,7 @@ public final class AuthorizationContext {
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not fetch scope descriptions: " + message)
             }
-            completion(mappedResult))
+            completion(mappedResult)
         }
     }
 
