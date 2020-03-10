@@ -7,4 +7,4 @@ Carthage/
 Pods/
 *.xcworkspace
 GRPC/plugins/
-*.swiftpm
+.swiftpm/
