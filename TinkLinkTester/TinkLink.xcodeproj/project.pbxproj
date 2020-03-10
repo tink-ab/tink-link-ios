@@ -32,7 +32,7 @@
 		8F38295C2417A29F007C418C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F38295F2417A29F007C418C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F3829612417A29F007C418C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8F6889022417EB2B00402A3B /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
+		8F499D332417F43000DEAFC1 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
 		8F6889072417EB3E00402A3B /* TinkLinkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkLinkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F6889112417EBCE00402A3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,8 +59,8 @@
 		8F3829472417A29D007C418C = {
 			isa = PBXGroup;
 			children = (
+				8F499D322417F41A00DEAFC1 /* Frameworks */,
 				8F6889082417EB3E00402A3B /* TinkLinkTests */,
-				8F3829962417B1E2007C418C /* Frameworks */,
 				8F3829522417A29D007C418C /* TinkLinkTester */,
 				8F3829512417A29D007C418C /* Products */,
 			);
@@ -87,10 +87,10 @@
 			path = TinkLinkTester;
 			sourceTree = "<group>";
 		};
-		8F3829962417B1E2007C418C /* Frameworks */ = {
+		8F499D322417F41A00DEAFC1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8F6889022417EB2B00402A3B /* tink-link-ios */,
+				8F499D332417F43000DEAFC1 /* tink-link-ios */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
