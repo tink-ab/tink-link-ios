@@ -144,6 +144,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
     #endif
 
+    #if os(iOS)
     public func qr(completion: @escaping (UIImage) -> Void) {
         if hasBankIDQRCode {
             callRetryCancellable = credentialService.qr(credentialID: credential.id) { [weak self] result in
@@ -163,6 +164,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             completionHandler(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
         }
     }
+    #endif
 
     // MARK: - Controlling the Task
 
