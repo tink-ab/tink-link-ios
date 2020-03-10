@@ -6,7 +6,7 @@ let package = Package(
     name: "TinkLink",
     platforms: [
         .iOS(.v11),
-        .macOS(.v10_12)
+        .macOS(.v10_13)
     ],
     products: [
         .library(
