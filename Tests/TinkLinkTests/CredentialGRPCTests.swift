@@ -15,7 +15,7 @@ class CredentialGRPCTests: XCTestCase {
         grpcCredential.clearThirdPartyAppAuthentication()
         grpcCredential.clearSessionExpiryDate()
 
-        let credential = Credential(grpcCredential: grpcCredential)
+        let credential = Credentials(grpcCredential: grpcCredential)
 
         XCTAssertEqual(credential.id.value, grpcCredential.id)
         XCTAssertEqual(credential.providerID.value, grpcCredential.providerName)
@@ -44,7 +44,7 @@ class CredentialGRPCTests: XCTestCase {
         grpcCredential.clearThirdPartyAppAuthentication()
         grpcCredential.clearSessionExpiryDate()
 
-        let credential = Credential(grpcCredential: grpcCredential)
+        let credential = Credentials(grpcCredential: grpcCredential)
 
         XCTAssertEqual(credential.id.value, grpcCredential.id)
         XCTAssertEqual(credential.providerID.value, grpcCredential.providerName)
@@ -84,7 +84,7 @@ class CredentialGRPCTests: XCTestCase {
         grpcCredential.thirdPartyAppAuthentication = thirdPartyAppAuthentication
         grpcCredential.clearSessionExpiryDate()
 
-        let credential = Credential(grpcCredential: grpcCredential)
+        let credential = Credentials(grpcCredential: grpcCredential)
 
         XCTAssertEqual(credential.id.value, grpcCredential.id)
         XCTAssertEqual(credential.providerID.value, grpcCredential.providerName)

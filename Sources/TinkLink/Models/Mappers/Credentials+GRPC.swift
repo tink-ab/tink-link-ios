@@ -1,6 +1,6 @@
 import Foundation
 
-extension Credential {
+extension Credentials {
     init(grpcCredential: GRPCCredential) {
         self.id = .init(grpcCredential.id)
         self.providerID = .init(grpcCredential.providerName)
@@ -16,7 +16,7 @@ extension Credential {
     }
 }
 
-extension Credential.Kind {
+extension Credentials.Kind {
     init(grpcCredentialType: GRPCCredential.TypeEnum) {
         switch grpcCredentialType {
         case .unknown:
@@ -55,7 +55,7 @@ extension Credential.Kind {
     }
 }
 
-extension Credential.Status {
+extension Credentials.Status {
     init(grpcCredentialStatus: GRPCCredential.Status) {
         switch grpcCredentialStatus {
         case .unknown:
@@ -91,7 +91,7 @@ extension Credential.Status {
     }
 }
 
-extension Credential.ThirdPartyAppAuthentication {
+extension Credentials.ThirdPartyAppAuthentication {
     init(grpcThirdPartyAppAuthentication: GRPCThirdPartyAppAuthentication) {
         self.downloadTitle = grpcThirdPartyAppAuthentication.downloadTitle
         self.downloadMessage = grpcThirdPartyAppAuthentication.downloadMessage

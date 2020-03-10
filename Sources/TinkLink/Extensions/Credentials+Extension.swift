@@ -1,6 +1,6 @@
 import Foundation
 
-extension Credential {
+extension Credentials {
     var isManuallyUpdatable: Bool {
         switch kind {
         case .mobileBankID:

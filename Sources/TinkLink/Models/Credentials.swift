@@ -1,8 +1,8 @@
 import Foundation
 
 /// The credentials model represents users connected providers from where financial data is accessed.
-public struct Credential: Identifiable {
-    /// A unique identifier of a `Credential`.
+public struct Credentials: Identifiable {
+    /// A unique identifier of a `Credentials`.
     public struct ID: Hashable, ExpressibleByStringLiteral {
         public init(stringLiteral value: String) {
             self.value = value
@@ -15,7 +15,7 @@ public struct Credential: Identifiable {
         public let value: String
     }
 
-    /// The unique identifier of the credential.
+    /// The unique identifier of the credentials.
     public let id: ID
 
     /// The provider (financial institution) that the credentials is connected to.
@@ -25,19 +25,19 @@ public struct Credential: Identifiable {
     public enum Kind: CustomStringConvertible {
         case unknown
 
-        /// The user will authenticate the credential with a password.
+        /// The user will authenticate the credentials with a password.
         case password
 
-        /// The user will authenticate the credential with Mobile BankID.
+        /// The user will authenticate the credentials with Mobile BankID.
         case mobileBankID
 
-        /// The user will authenticate the credential with a Key Fob.
+        /// The user will authenticate the credentials with a Key Fob.
         case keyfob
 
         /// Fraud
         case fraud
 
-        /// The user will authenticate the credential with a third party app.
+        /// The user will authenticate the credentials with a third party app.
         case thirdPartyAuthentication
 
         public var description: String {
@@ -59,22 +59,22 @@ public struct Credential: Identifiable {
     }
 
     /// Indicates how Tink authenticates the user to the financial institution.
-    public let kind: Credential.Kind
+    public let kind: Credentials.Kind
 
-    /// The status indicates the state of a credential.
+    /// The status indicates the state of a credentials.
     public enum Status {
         case unknown
 
-        /// The credential was just created.
+        /// The credentials was just created.
         case created
 
-        /// The credential is in the process of authenticating.
+        /// The credentials is in the process of authenticating.
         case authenticating
 
-        /// The credential is done authenticating and is updating accounts and transactions.
+        /// The credentials is done authenticating and is updating accounts and transactions.
         case updating
 
-        /// The credential has finished authenticating and updating accounts and transactions.
+        /// The credentials has finished authenticating and updating accounts and transactions.
         case updated
 
         /// There was a temporary error, see `statusPayload` for text describing the error.
@@ -86,25 +86,25 @@ public struct Credential: Identifiable {
         /// There was a permanent error, see `statusPayload` for text describing the error.
         case permanentError
 
-        /// The credential is awaiting authentication with Mobile BankID.
+        /// The credentials is awaiting authentication with Mobile BankID.
         /// - Note: Will be deprecated and replaced with `awaitingThirdPartyAppAuthentication`
         case awaitingMobileBankIDAuthentication
 
-        /// The credential is awaiting supplemental information.
+        /// The credentials is awaiting supplemental information.
         ///
         /// If the authentication flow requires multiple steps with input from the user, as for example a SMS OTP authentication flow,
         /// the client should expect the `awaitingSupplementalInformation` status on the credential.
         ///
-        /// Create a `Form` with this credential to let the user supplement the required information.
+        /// Create a `Form` with this credentials to let the user supplement the required information.
         case awaitingSupplementalInformation
 
-        /// The credential has been disabled.
+        /// The credentials has been disabled.
         case disabled
 
-        /// The credential is awaiting authentication with a third party app.
+        /// The credentials is awaiting authentication with a third party app.
         ///
         /// If a provider is using third party services in their authentication flow, the client
-        /// should expect the `awaitingThirdPartyAppAuthentication` status on the credential.
+        /// should expect the `awaitingThirdPartyAppAuthentication` status on the credentials.
         /// In order for the aggregation of data to be successful, the system expects the third
         /// party authentication flow to be successful as well.
         ///
@@ -112,17 +112,17 @@ public struct Credential: Identifiable {
         /// If the app can't open the deeplink, ask the user to to download or upgrade the app from the AppStore.
         case awaitingThirdPartyAppAuthentication
 
-        /// The credential's session has expired, check `sessionExpiryDate` to see when it expired.
+        /// The credentials' session has expired, check `sessionExpiryDate` to see when it expired.
         case sessionExpired
     }
 
-    /// The status indicates the state of a credential. For some states there are actions which need to be performed on the credentials.
+    /// The status indicates the state of a credentials. For some states there are actions which need to be performed on the credentials.
     public let status: Status
 
     /// A user-friendly message connected to the status. Could be an error message or text describing what is currently going on in the refresh process.
     public let statusPayload: String
 
-    /// A timestamp of when the credential's status was last modified.
+    /// A timestamp of when the credentials' status was last modified.
     public let statusUpdated: Date?
 
     /// A timestamp of when the credentials was the last time in status `.updated`.

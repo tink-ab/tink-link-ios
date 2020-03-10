@@ -5,9 +5,9 @@ import Foundation
 
 /// A task that handles opening third party apps.
 ///
-/// This task is provided when an `AddCredentialTask`'s status changes to `awaitingThirdPartyAppAuthentication`.
+/// This task is provided when an `AddCredentialsTask`'s status changes to `awaitingThirdPartyAppAuthentication`.
 ///
-/// When a credential's status is `awaitingThirdPartyAppAuthentication` the user needs to authenticate in a third party app to finish adding the credential.
+/// When a credentials' status is `awaitingThirdPartyAppAuthentication` the user needs to authenticate in a third party app to finish adding the credentials.
 ///
 /// - Note: If the app couldn't be opened you need to handle the `AddCredentialTask` completion result and check for a `ThirdPartyAppAuthenticationTask.Error`.
 /// This error can tell you if the user needs to download the app.
@@ -48,11 +48,11 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     }
 
     /// Information about how to open or download the third party application app.
-    public private(set) var thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication
+    public private(set) var thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication
 
     private let completionHandler: (Result<Void, Swift.Error>) -> Void
 
-    init(thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication, completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
+    init(thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication, completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
         self.thirdPartyAppAuthentication = thirdPartyAppAuthentication
         self.completionHandler = completionHandler
     }
