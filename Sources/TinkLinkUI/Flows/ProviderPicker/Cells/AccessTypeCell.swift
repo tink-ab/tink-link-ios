@@ -91,6 +91,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
 
             button.trailingAnchor.constraint(equalTo: cardView.layoutMarginsGuide.trailingAnchor),
             button.topAnchor.constraint(equalTo: detailLabel.lastBaselineAnchor, constant: 24),
+            button.heightAnchor.constraint(equalToConstant: 40),
             button.bottomAnchor.constraint(equalTo: cardView.layoutMarginsGuide.bottomAnchor)
 
         ])
