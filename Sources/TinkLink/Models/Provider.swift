@@ -66,7 +66,7 @@ public struct Provider: Identifiable {
     public let status: Status
 
     /// When creating a new credentials connected to the provider this will be the credential's kind.
-    public let credentialKind: Credentials.Kind
+    public let credentialsKind: Credentials.Kind
 
     /// Short description of how to authenticate when creating a new credentials for connected to the provider.
     public let helpText: String
