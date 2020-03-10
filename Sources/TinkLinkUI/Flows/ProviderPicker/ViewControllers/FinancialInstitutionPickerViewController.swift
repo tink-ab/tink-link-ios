@@ -30,6 +30,7 @@ extension FinancialInstitutionPickerViewController {
         tableView.tableFooterView = UIView(frame: .zero)
 
         tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
     }
 }
 
