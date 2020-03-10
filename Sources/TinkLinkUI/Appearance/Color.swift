@@ -27,7 +27,7 @@ extension Color {
 extension Color {
     static var highlight: UIColor { accent.withAlphaComponent(0.1) }
 
-    static var accentBackground: UIColor { accent.mixedWith(color: Color.background, factor: 0.85) }
+    static var accentBackground: UIColor { accent.mixedWith(color: Color.background, factor: 0.95) }
 
     static var expensesIconBackground: UIColor { expenses.mixedWith(color: Color.background, factor: 0.85) }
     static var incomeIconBackground: UIColor { income.mixedWith(color: Color.background, factor: 0.8) }

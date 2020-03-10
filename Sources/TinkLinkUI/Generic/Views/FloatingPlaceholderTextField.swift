@@ -110,7 +110,7 @@ class FloatingPlaceholderTextField: UITextField {
         super.tintColorDidChange()
 
         underlineLayer.strokeColor = tintColor.cgColor
-        underlineLayer.backgroundColor = Color.separator.cgColor
+        underlineLayer.backgroundColor = Color.secondaryLabel.cgColor
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
