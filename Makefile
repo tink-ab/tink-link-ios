@@ -65,7 +65,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-	xcodebuild -project ./TinkLinkTester/TinkLink.xcodeproj -scheme TinkLinkTester -allowProvisioningUpdates
+	xcodebuild -project ./TinkLinkTester/TinkLink.xcodeproj -scheme TinkLinkTester -destination="iOS Simulator"
 
 clean: 
 	rm -rf ./GRPC/plugins/
