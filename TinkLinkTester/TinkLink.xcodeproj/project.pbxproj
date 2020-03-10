@@ -12,7 +12,18 @@
 		8F38295D2417A29F007C418C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F38295C2417A29F007C418C /* Assets.xcassets */; };
 		8F3829602417A29F007C418C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F38295E2417A29F007C418C /* LaunchScreen.storyboard */; };
 		8F38298E2417A56B007C418C /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F38298D2417A56B007C418C /* TinkLinkUI */; };
+		8F6889132417EBCE00402A3B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F6889112417EBCE00402A3B /* Info.plist */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8F68890C2417EB3E00402A3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F3829482417A29D007C418C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F38294F2417A29D007C418C;
+			remoteInfo = TinkLinkTester;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8F3829502417A29D007C418C /* TinkLinkTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkLinkTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -21,7 +32,9 @@
 		8F38295C2417A29F007C418C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F38295F2417A29F007C418C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F3829612417A29F007C418C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8F3829972417B1EC007C418C /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ..; sourceTree = "<group>"; };
+		8F6889022417EB2B00402A3B /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
+		8F6889072417EB3E00402A3B /* TinkLinkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkLinkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F6889112417EBCE00402A3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,12 +46,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8F6889042417EB3E00402A3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		8F3829472417A29D007C418C = {
 			isa = PBXGroup;
 			children = (
+				8F6889082417EB3E00402A3B /* TinkLinkTests */,
 				8F3829962417B1E2007C418C /* Frameworks */,
 				8F3829522417A29D007C418C /* TinkLinkTester */,
 				8F3829512417A29D007C418C /* Products */,
@@ -49,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				8F3829502417A29D007C418C /* TinkLinkTester.app */,
+				8F6889072417EB3E00402A3B /* TinkLinkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,9 +90,17 @@
 		8F3829962417B1E2007C418C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8F3829972417B1EC007C418C /* tink-link-ios */,
+				8F6889022417EB2B00402A3B /* tink-link-ios */,
 			);
 			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		8F6889082417EB3E00402A3B /* TinkLinkTests */ = {
+			isa = PBXGroup;
+			children = (
+				8F6889112417EBCE00402A3B /* Info.plist */,
+			);
+			path = TinkLinkTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +126,24 @@
 			productReference = 8F3829502417A29D007C418C /* TinkLinkTester.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8F6889062417EB3E00402A3B /* TinkLinkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F68890E2417EB3E00402A3B /* Build configuration list for PBXNativeTarget "TinkLinkTests" */;
+			buildPhases = (
+				8F6889032417EB3E00402A3B /* Sources */,
+				8F6889042417EB3E00402A3B /* Frameworks */,
+				8F6889052417EB3E00402A3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8F68890D2417EB3E00402A3B /* PBXTargetDependency */,
+			);
+			name = TinkLinkTests;
+			productName = TinkLinkTests;
+			productReference = 8F6889072417EB3E00402A3B /* TinkLinkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -108,6 +156,10 @@
 				TargetAttributes = {
 					8F38294F2417A29D007C418C = {
 						CreatedOnToolsVersion = 11.3.1;
+					};
+					8F6889062417EB3E00402A3B = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 8F38294F2417A29D007C418C;
 					};
 				};
 			};
@@ -125,6 +177,7 @@
 			projectRoot = "";
 			targets = (
 				8F38294F2417A29D007C418C /* TinkLinkTester */,
+				8F6889062417EB3E00402A3B /* TinkLinkTests */,
 			);
 		};
 /* End PBXProject section */
@@ -136,6 +189,14 @@
 			files = (
 				8F3829602417A29F007C418C /* LaunchScreen.storyboard in Resources */,
 				8F38295D2417A29F007C418C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F6889052417EB3E00402A3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F6889132417EBCE00402A3B /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +212,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8F6889032417EB3E00402A3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8F68890D2417EB3E00402A3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F38294F2417A29D007C418C /* TinkLinkTester */;
+			targetProxy = 8F68890C2417EB3E00402A3B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8F38295E2417A29F007C418C /* LaunchScreen.storyboard */ = {
@@ -319,6 +395,50 @@
 			};
 			name = Release;
 		};
+		8F68890F2417EB3E00402A3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = TinkLinkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TinkLinkTester.app/TinkLinkTester";
+			};
+			name = Debug;
+		};
+		8F6889102417EB3E00402A3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = TinkLinkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TinkLinkTester.app/TinkLinkTester";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -336,6 +456,15 @@
 			buildConfigurations = (
 				8F3829652417A29F007C418C /* Debug */,
 				8F3829662417A29F007C418C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F68890E2417EB3E00402A3B /* Build configuration list for PBXNativeTarget "TinkLinkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F68890F2417EB3E00402A3B /* Debug */,
+				8F6889102417EB3E00402A3B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
