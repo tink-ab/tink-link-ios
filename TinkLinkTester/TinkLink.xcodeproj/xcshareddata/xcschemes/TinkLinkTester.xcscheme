@@ -38,6 +38,16 @@
                ReferencedContainer = "container:..">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8F6889062417EB3E00402A3B"
+               BuildableName = "TinkLinkTests.xctest"
+               BlueprintName = "TinkLinkTests"
+               ReferencedContainer = "container:TinkLink.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
