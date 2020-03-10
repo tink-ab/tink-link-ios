@@ -74,11 +74,11 @@ public final class CredentialsContext {
     /// - Returns: The add credential task.
     @discardableResult
     public func addCredential(for provider: Provider, form: Form,
-                              completionPredicate: AddCredentialTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
-                              progressHandler: @escaping (_ status: AddCredentialTask.Status) -> Void,
-                              completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialTask {
-        let task = AddCredentialTask(
-            credentialService: service,
+                              completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
+                              progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
+                              completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
+        let task = AddCredentialsTask(
+            credentialsService: service,
             completionPredicate: completionPredicate,
             progressHandler: progressHandler,
             completion: completion
@@ -91,7 +91,7 @@ public final class CredentialsContext {
                 let credential = try result.get()
                 task?.startObserving(credential)
             } catch {
-                let mappedError = AddCredentialTask.Error(addCredentialError: error) ?? error
+                let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
                 completion(.failure(mappedError))
             }
         }
