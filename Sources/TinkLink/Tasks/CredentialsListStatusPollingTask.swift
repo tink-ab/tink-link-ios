@@ -83,7 +83,7 @@ class CredentialsListStatusPollingTask {
             if let updatedCredential = fetchedCredentials.first(where: { $0.id == credential.id }) {
                 if credential.statusUpdated != updatedCredential.statusUpdated || credential.status != updatedCredential.status {
                     switch updatedCredential.status {
-                    // When status is updated, or changed to error, move the credential to updated credential list
+                    // When status is updated, or changed to error, move the credentials to updated credentials list
                     case .updated, .permanentError, .temporaryError, .authenticationError, .unknown, .disabled, .sessionExpired:
                         updateHandler(.success(updatedCredential))
                         updatedCredentials.append(updatedCredential)
@@ -96,7 +96,7 @@ class CredentialsListStatusPollingTask {
                 }
                 return true
             } else {
-                fatalError("No such credential with " + credential.id.value)
+                fatalError("No such credentials with " + credential.id.value)
             }
         }
     }
