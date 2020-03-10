@@ -65,7 +65,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-	xcodebuild -project ./TinkLinkTester/TinkLink.xcodeproj -scheme TinkLinkTester
+	xcodebuild -project ./TinkLinkTester/TinkLink.xcodeproj -scheme TinkLinkTester -allowProvisioningUpdates
 
 clean: 
 	rm -rf ./GRPC/plugins/
