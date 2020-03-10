@@ -4,11 +4,11 @@ import Foundation
 ///
 /// Use `CredentialContext` to create a task.
 public final class RefreshCredentialTask: Identifiable {
-    /// Indicates the state of a credential being refreshed.
+    /// Indicates the state of a credentials being refreshed.
     ///
     /// - Note: For some states there are actions which need to be performed on the credentials.
     public enum Status {
-        /// When the credential has just been created
+        /// When the credentials has just been created
         case created(credentials: Credentials)
 
         /// When starting the authentication process
