@@ -93,7 +93,7 @@ public final class AddCredentialsTask: Identifiable {
         self.credentials = credentials
 
         handleUpdate(for: .success(credentials))
-        credentialsStatusPollingTask = CredentialStatusPollingTask(credentialService: credentialsService, credential: credentials) { [weak self] result in
+        credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
             self?.handleUpdate(for: result)
         }
 
@@ -120,7 +120,7 @@ public final class AddCredentialsTask: Identifiable {
                     guard let self = self else { return }
                     do {
                         try result.get()
-                        self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialsService, credential: credentials, updateHandler: self.handleUpdate)
+                        self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
                         self.credentialsStatusPollingTask?.pollStatus()
                     } catch {
                         self.completion(.failure(error))
@@ -136,13 +136,13 @@ public final class AddCredentialsTask: Identifiable {
                     guard let self = self else { return }
                     do {
                         try result.get()
-                        self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialsService, credential: credentials, updateHandler: self.handleUpdate)
+                        self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
                         self.credentialsStatusPollingTask?.pollStatus()
                     } catch {
                         let taskError = error as? ThirdPartyAppAuthenticationTask.Error
                         switch taskError {
                         case .downloadRequired where !self.completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired:
-                            self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialService: self.credentialsService, credential: credentials, updateHandler: self.handleUpdate)
+                            self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
                             self.credentialsStatusPollingTask?.pollStatus()
                         default:
                             self.completion(.failure(error))

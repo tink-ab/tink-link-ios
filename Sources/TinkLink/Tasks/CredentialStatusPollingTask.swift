@@ -5,7 +5,7 @@ class CredentialStatusPollingTask {
     private var service: CredentialsService
     var callRetryCancellable: RetryCancellable?
     private var retryInterval: TimeInterval = 1
-    private(set) var credential: Credentials
+    private(set) var credentials: Credentials
     private var updateHandler: (Result<Credentials, Error>) -> Void
     private let backoffStrategy: PollingBackoffStrategy
 
@@ -26,9 +26,9 @@ class CredentialStatusPollingTask {
         }
     }
 
-    init(credentialService: CredentialsService, credential: Credentials, backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
-        self.service = credentialService
-        self.credential = credential
+    init(credentialsService: CredentialsService, credentials: Credentials, backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
+        self.service = credentialsService
+        self.credentials = credentials
         self.backoffStrategy = backoffStrategy
         self.updateHandler = updateHandler
     }
@@ -38,28 +38,28 @@ class CredentialStatusPollingTask {
             self.callRetryCancellable = self.service.credentials { [weak self] result in
                 guard let self = self else { return }
                 do {
-                    let credentials = try result.get()
-                    if let updatedCredential = credentials.first(where: { $0.id == self.credential.id }) {
-                        switch updatedCredential.status {
+                    let credentialsList = try result.get()
+                    if let updatedCredentials = credentialsList.first(where: { $0.id == self.credentials.id }) {
+                        switch updatedCredentials.status {
                         case .awaitingSupplementalInformation, .awaitingMobileBankIDAuthentication, .awaitingThirdPartyAppAuthentication:
-                            self.updateHandler(.success(updatedCredential))
+                            self.updateHandler(.success(updatedCredentials))
                             self.callRetryCancellable = nil
                         case .created, .authenticating, .updating:
-                            self.updateHandler(.success(updatedCredential))
+                            self.updateHandler(.success(updatedCredentials))
                             self.retry()
-                        case self.credential.status where self.credential.kind == .thirdPartyAuthentication || self.credential.kind == .mobileBankID:
-                            if self.credential.statusUpdated != updatedCredential.statusUpdated {
-                                self.updateHandler(.success(updatedCredential))
+                        case self.credentials.status where self.credentials.kind == .thirdPartyAuthentication || self.credentials.kind == .mobileBankID:
+                            if self.credentials.statusUpdated != updatedCredentials.statusUpdated {
+                                self.updateHandler(.success(updatedCredentials))
                                 self.callRetryCancellable = nil
                             } else {
                                 self.retry()
                             }
                         default:
-                            self.updateHandler(.success(updatedCredential))
+                            self.updateHandler(.success(updatedCredentials))
                             self.callRetryCancellable = nil
                         }
                     } else {
-                        fatalError("No such credential with " + self.credential.id.value)
+                        fatalError("No such credentials with " + self.credentials.id.value)
                     }
                 } catch {
                     self.updateHandler(.failure(error))

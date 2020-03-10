@@ -1,17 +1,17 @@
-/// A task that handles submitting supplemental information for a credential.
+/// A task that handles submitting supplemental information for a credentials.
 ///
-/// This task is provided when an `AddCredentialTask`'s status changes to `awaitingSupplementalInformation`.
+/// This task is provided when an `AddCredentialsTask`'s status changes to `awaitingSupplementalInformation`.
 ///
-/// When a credential's status is `awaitingSupplementalInformation` the user needs to provide additional information to finish adding the credential.
+/// When a credentials' status is `awaitingSupplementalInformation` the user needs to provide additional information to finish adding the credentials.
 
-/// - Note: If the user dismiss supplementing information, by e.g. closing the form, you need to call `cancel()` to stop adding the credential.
+/// - Note: If the user dismiss supplementing information, by e.g. closing the form, you need to call `cancel()` to stop adding the credentials.
 public final class SupplementInformationTask: Identifiable {
     private let credentialsService: CredentialsService
     private var callRetryCancellable: RetryCancellable?
 
-    // MARK: Getting the Credential
+    // MARK: Getting the Credentials
 
-    /// The credential that's awaiting supplemental information.
+    /// The credentials that's awaiting supplemental information.
     public let credentials: Credentials
 
     private let completionHandler: (Result<Void, Error>) -> Void
@@ -26,7 +26,7 @@ public final class SupplementInformationTask: Identifiable {
 
     /// Submits the provided form fields.
     ///
-    /// - Parameter form: This is a form with fields from the credential that had status `awaitingSupplementalInformation`.
+    /// - Parameter form: This is a form with fields from the credentials that had status `awaitingSupplementalInformation`.
     public func submit(_ form: Form) {
         callRetryCancellable = credentialsService.supplementInformation(credentialID: credentials.id, fields: form.makeFields(), completion: { [weak self] result in
             self?.completionHandler(result)
@@ -36,7 +36,7 @@ public final class SupplementInformationTask: Identifiable {
 
     // MARK: - Controlling the Task
 
-    /// Tells the credential to stop waiting for supplemental information.
+    /// Tells the credentials to stop waiting for supplemental information.
     ///
     /// Call this method if the user dismiss the form to supplement information.
     public func cancel() {
