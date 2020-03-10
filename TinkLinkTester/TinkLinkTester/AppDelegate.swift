@@ -1,5 +1,4 @@
 import UIKit
-import TinkLinkUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
