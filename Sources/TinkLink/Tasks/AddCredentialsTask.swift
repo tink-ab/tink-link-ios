@@ -116,7 +116,7 @@ public final class AddCredentialsTask: Identifiable {
             case .authenticating:
                 progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
-                let supplementInformationTask = SupplementInformationTask(credentialService: credentialsService, credential: credentials) { [weak self] result in
+                let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()

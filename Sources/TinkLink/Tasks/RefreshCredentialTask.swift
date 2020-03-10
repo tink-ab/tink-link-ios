@@ -90,15 +90,15 @@ public final class RefreshCredentialTask: Identifiable {
 
     private func handleUpdate(for result: Result<Credentials, Swift.Error>) {
         do {
-            let credential = try result.get()
-            switch credential.status {
+            let credentials = try result.get()
+            switch credentials.status {
             case .created:
-                progressHandler(.created(credential: credential))
+                progressHandler(.created(credential: credentials))
             case .authenticating:
-                progressHandler(.authenticating(credential: credential))
+                progressHandler(.authenticating(credential: credentials))
             case .awaitingSupplementalInformation:
                 credentialStatusPollingTask?.pausePolling()
-                let supplementInformationTask = SupplementInformationTask(credentialService: credentialService, credential: credential) { [weak self] result in
+                let supplementInformationTask = SupplementInformationTask(credentialsService: credentialService, credentials: credentials) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
@@ -109,7 +109,7 @@ public final class RefreshCredentialTask: Identifiable {
                 }
                 progressHandler(.awaitingSupplementalInformation(task: supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
-                guard let thirdPartyAppAuthentication = credential.thirdPartyAppAuthentication else {
+                guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
                     assertionFailure("Missing third pary app authentication deeplink URL!")
                     return
                 }
@@ -129,23 +129,23 @@ public final class RefreshCredentialTask: Identifiable {
                         }
                     }
                 }
-                progressHandler(.awaitingThirdPartyAppAuthentication(credential: credential, task: task))
+                progressHandler(.awaitingThirdPartyAppAuthentication(credential: credentials, task: task))
             case .updating:
-                progressHandler(.updating(credential: credential, status: credential.statusPayload))
+                progressHandler(.updating(credential: credentials, status: credentials.statusPayload))
             case .updated:
-                progressHandler(.updated(credential: credential))
+                progressHandler(.updated(credential: credentials))
             case .sessionExpired:
-                progressHandler(.sessionExpired(credential: credential))
+                progressHandler(.sessionExpired(credential: credentials))
             case .authenticationError:
-                progressHandler(.error(credential: credential, error: .authenticationFailed))
+                progressHandler(.error(credential: credentials, error: .authenticationFailed))
             case .permanentError:
-                progressHandler(.error(credential: credential, error: .permanentFailure))
+                progressHandler(.error(credential: credentials, error: .permanentFailure))
             case .temporaryError:
-                progressHandler(.error(credential: credential, error: .temporaryFailure))
+                progressHandler(.error(credential: credentials, error: .temporaryFailure))
             case .disabled:
-                fatalError("Credential shouldn't be disabled during creation.")
+                fatalError("credentials shouldn't be disabled during creation.")
             case .unknown:
-                assertionFailure("Unknown credential status!")
+                assertionFailure("Unknown credentials status!")
             }
         } catch {
             completion(.failure(error))

@@ -6,19 +6,19 @@
 
 /// - Note: If the user dismiss supplementing information, by e.g. closing the form, you need to call `cancel()` to stop adding the credential.
 public final class SupplementInformationTask: Identifiable {
-    private let credentialService: CredentialsService
+    private let credentialsService: CredentialsService
     private var callRetryCancellable: RetryCancellable?
 
     // MARK: Getting the Credential
 
     /// The credential that's awaiting supplemental information.
-    public let credential: Credentials
+    public let credentials: Credentials
 
     private let completionHandler: (Result<Void, Error>) -> Void
 
-    init(credentialService: CredentialsService, credential: Credentials, completionHandler: @escaping (Result<Void, Error>) -> Void) {
-        self.credentialService = credentialService
-        self.credential = credential
+    init(credentialsService: CredentialsService, credentials: Credentials, completionHandler: @escaping (Result<Void, Error>) -> Void) {
+        self.credentialsService = credentialsService
+        self.credentials = credentials
         self.completionHandler = completionHandler
     }
 
@@ -28,7 +28,7 @@ public final class SupplementInformationTask: Identifiable {
     ///
     /// - Parameter form: This is a form with fields from the credential that had status `awaitingSupplementalInformation`.
     public func submit(_ form: Form) {
-        callRetryCancellable = credentialService.supplementInformation(credentialID: credential.id, fields: form.makeFields(), completion: { [weak self] result in
+        callRetryCancellable = credentialsService.supplementInformation(credentialID: credentials.id, fields: form.makeFields(), completion: { [weak self] result in
             self?.completionHandler(result)
             self?.callRetryCancellable = nil
         })
@@ -40,7 +40,7 @@ public final class SupplementInformationTask: Identifiable {
     ///
     /// Call this method if the user dismiss the form to supplement information.
     public func cancel() {
-        callRetryCancellable = credentialService.cancelSupplementInformation(credentialID: credential.id, completion: { [weak self] result in
+        callRetryCancellable = credentialsService.cancelSupplementInformation(credentialID: credentials.id, completion: { [weak self] result in
             self?.completionHandler(result)
             self?.callRetryCancellable = nil
         })
