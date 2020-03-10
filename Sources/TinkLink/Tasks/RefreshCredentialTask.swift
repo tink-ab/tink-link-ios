@@ -9,28 +9,28 @@ public final class RefreshCredentialTask: Identifiable {
     /// - Note: For some states there are actions which need to be performed on the credentials.
     public enum Status {
         /// When the credential has just been created
-        case created(credential: Credentials)
+        case created(credentials: Credentials)
 
         /// When starting the authentication process
-        case authenticating(credential: Credentials)
+        case authenticating(credentials: Credentials)
 
         /// User has been successfully authenticated, now downloading data.
-        case updating(credential: Credentials, status: String)
+        case updating(credentials: Credentials, status: String)
 
         /// Trigger for the client to prompt the user to fill out supplemental information.
         case awaitingSupplementalInformation(task: SupplementInformationTask)
 
         /// Trigger for the client to prompt the user to open the third party authentication flow
-        case awaitingThirdPartyAppAuthentication(credential: Credentials, task: ThirdPartyAppAuthenticationTask)
+        case awaitingThirdPartyAppAuthentication(credentials: Credentials, task: ThirdPartyAppAuthenticationTask)
 
         /// The session has expired.
-        case sessionExpired(credential: Credentials)
+        case sessionExpired(credentials: Credentials)
 
         /// The status has been updated.
-        case updated(credential: Credentials)
+        case updated(credentials: Credentials)
 
         /// The refresh error.
-        case error(credential: Credentials, error: Error)
+        case error(credentials: Credentials, error: Error)
     }
 
     /// Error that the `RefreshCredentialTask` can throw.
@@ -93,9 +93,9 @@ public final class RefreshCredentialTask: Identifiable {
             let credentials = try result.get()
             switch credentials.status {
             case .created:
-                progressHandler(.created(credential: credentials))
+                progressHandler(.created(credentials: credentials))
             case .authenticating:
-                progressHandler(.authenticating(credential: credentials))
+                progressHandler(.authenticating(credentials: credentials))
             case .awaitingSupplementalInformation:
                 credentialStatusPollingTask?.pausePolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialService, credentials: credentials) { [weak self] result in
@@ -129,19 +129,19 @@ public final class RefreshCredentialTask: Identifiable {
                         }
                     }
                 }
-                progressHandler(.awaitingThirdPartyAppAuthentication(credential: credentials, task: task))
+                progressHandler(.awaitingThirdPartyAppAuthentication(credentials: credentials, task: task))
             case .updating:
-                progressHandler(.updating(credential: credentials, status: credentials.statusPayload))
+                progressHandler(.updating(credentials: credentials, status: credentials.statusPayload))
             case .updated:
-                progressHandler(.updated(credential: credentials))
+                progressHandler(.updated(credentials: credentials))
             case .sessionExpired:
-                progressHandler(.sessionExpired(credential: credentials))
+                progressHandler(.sessionExpired(credentials: credentials))
             case .authenticationError:
-                progressHandler(.error(credential: credentials, error: .authenticationFailed))
+                progressHandler(.error(credentials: credentials, error: .authenticationFailed))
             case .permanentError:
-                progressHandler(.error(credential: credentials, error: .permanentFailure))
+                progressHandler(.error(credentials: credentials, error: .permanentFailure))
             case .temporaryError:
-                progressHandler(.error(credential: credentials, error: .temporaryFailure))
+                progressHandler(.error(credentials: credentials, error: .temporaryFailure))
             case .disabled:
                 fatalError("credentials shouldn't be disabled during creation.")
             case .unknown:
