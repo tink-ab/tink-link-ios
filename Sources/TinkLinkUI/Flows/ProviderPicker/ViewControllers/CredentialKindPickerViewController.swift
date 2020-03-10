@@ -28,6 +28,8 @@ extension CredentialKindPickerViewController {
 
         tableView.registerReusableCell(ofType: CredentialKindCell.self)
         tableView.tableFooterView = UIView(frame: .zero)
+
+        tableView.backgroundColor = Color.background
     }
 }
 
