@@ -10,19 +10,21 @@ public class TinkLinkViewController: UINavigationController {
     private var providerController: ProviderController
     private lazy var credentialController = CredentialController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
-    private lazy var addCredentialSession = AddCredentialSession(credentialController: self.credentialController, parentViewController: self)
+    private lazy var addCredentialSession = AddCredentialSession(credentialController: self.credentialController, authorizationController: self.authorizationController, scope: scope, parentViewController: self)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
     private lazy var loadingViewController = LoadingViewController(providerController: providerController)
 
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
+    private let completion: (AuthorizationCode) -> Void
 
-    public init(tink: Tink = .shared, market: Market, scope: Tink.Scope, providerKinds: Set<Provider.Kind> = .defaultKinds) {
+    public init(tink: Tink = .shared, market: Market, scope: Tink.Scope, providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (AuthorizationCode) -> Void) {
         self.tink = tink
         self.market = market
         self.scope = scope
         self.userController = UserController(tink: tink)
         self.providerController = ProviderController(tink: tink, providerKinds: providerKinds)
+        self.completion = completion
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -314,7 +316,8 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
     func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool) {
         addCredentialSession.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
             do {
-                _ = try result.get()
+                let authorizationCode = try result.get()
+                self?.completion(authorizationCode)
                 self?.showAddCredentialSuccess()
             } catch let error as ThirdPartyAppAuthenticationTask.Error {
                 self?.showDownloadPrompt(for: error)
