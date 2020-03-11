@@ -1,12 +1,17 @@
 import UIKit
 import Kingfisher
 
+protocol AccessTypeCellDelegate: AnyObject {
+    func accessTypeCellAddButtonTapped(_ accessTypeCell: AccessTypeCell)
+}
+
 class AccessTypeCell: UITableViewCell, ReusableCell {
     private let cardView = UIView()
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
     private let button = FloatingButton()
+    weak var delegate: AccessTypeCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -65,7 +70,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
         button.text = "Add"
         button.minimumWidth = 125
         button.textColor = Color.secondaryGroupedBackground
-        button.isUserInteractionEnabled = false
+        button.addTarget(self, action: #selector(add), for: .touchUpInside)
         
         separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = layoutMargins.right
@@ -140,6 +145,10 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
 
     func setDetail(text: String) {
         detailLabel.text = text
+    }
+
+    @objc func add() {
+        delegate?.accessTypeCellAddButtonTapped(self)
     }
 
 }
