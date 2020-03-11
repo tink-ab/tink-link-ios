@@ -3,7 +3,8 @@
 ## Users
 
 ### Permanent user
-Creating permanent users in Tink database is limited to our Enterprise customers.
+Creating permanent users in Tink is limited to our Enterprise customers. 
+
 1. If you use the access token directly, you can authenticate your permanent user and use it in a `ProviderContext` like this:
 ```swift
 let userContext = UserContext()
@@ -34,9 +35,7 @@ let userCanceller = userContext.authenticateUser(authorizationCode: <#Authorizat
 ### Creating temporary users
 Currently, only Enterprise customers that can create permanent users are able to use the Headless TinkLink SDK.
 
-## How to list and select providers
-
-### Listing and responding to changes
+## Listing providers
 
 As mentioned at the first section, before fetching providers, you need to have a permanent user via TinkLink first, then use it to fetch the providers. 
 Here's how you can list all providers with a `UITableViewController` subclass.  
@@ -85,84 +84,7 @@ class ProviderListViewController: UITableViewController {
 }
 ```
 
-### Provider groups
-
-Use the `ProviderTree` to group providers by financial institution, access type and credentials kind.
-```swift
-let providerTree = ProviderTree(providers: <#T##Providers#>)
-```
-
-Handle selection of a provider group by switching on the group to decide which screen should be shown next.
-
-```swift
-override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
-    switch financialInstitutionGroupNode {
-    case .financialInstitutions(let financialInstitutionGroups):
-        showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
-    case .accessTypes(let accessTypeGroups):
-        showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
-    case .credentialKinds(let groups):
-        showCredentialKindPicker(for: groups)
-    case .provider(let provider):
-        showAddCredential(for: provider)
-    }
-}
-```
-
-## Add credential
-
-### Creating and updating a form
-
-A `Form` is used to determine what a user needs to input in order to proceed. For example it could be a username and a password field.
-
-Here's how to create a form for a provider with a username and password field and how to update the fields.
-
-```swift
-var form = Form(provider: <#Provider#>)
-form.fields[name: "username"]?.text = <#String#>
-form.fields[name: "password"]?.text = <#String#>
-...
-```
-
-### Configuring UITextFields from form fields
-
-```swift
-for field in form.fields {
-    let textField = UITextField()
-    textField.placeholder = field.attributes.placeholder
-    textField.isSecureTextEntry = field.attributes.isSecureTextEntry
-    textField.isEnabled = field.attributes.isEditable
-    textField.text = field.text
-    <#Add to view#>
-}
-```
-
-### Form validation
-
-Validate before you submit a request to add credentials or supplement information.
-
-Use `areFieldsValid` to check if all form fields are valid. For example, you can use this to enable a submit button when text fields change.
-
-```swift
-@objc func textFieldDidChange(_ notification: Notification) {
-    submitButton.isEnabled = form.areFieldsValid
-}
-```
-
-Use validateFields() to validate all fields. If not valid, it will throw an error that contains more information about which fields are not valid and why.
-
-```swift
-do {
-    try form.validateFields()
-} catch let error as Form.Fields.ValidationError {
-    if let usernameFieldError = error[fieldName: "username"] {
-        usernameValidationErrorLabel.text = usernameFieldError.errorDescription
-    }
-}
-```
-
-### Add Credential with form fields
+## Adding a Credentials
 
 To add a credentials for the current user, call `addCredentials` with the provider you want to add a credentials for and a form with valid fields for that provider.
 Then handle status changes in the `progressHandler` closure and the `result` from the completion handler.
@@ -217,27 +139,8 @@ if let deepLinkURL = thirdPartyAppAuthentication.deepLinkURL, UIApplication.shar
 }
 ```
 
-Here's how you can ask the user to download the third party app via an alert:
-
-```swift
-let alertController = UIAlertController(title: thirdPartyAppAuthentication.downloadTitle, message: thirdPartyAppAuthentication.downloadMessage, preferredStyle: .alert)
-
-if let appStoreURL = thirdPartyAppAuthentication.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
-    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-    let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
-        UIApplication.shared.open(appStoreURL)
-    })
-    alertController.addAction(cancelAction)
-    alertController.addAction(downloadAction)
-} else {
-    let okAction = UIAlertAction(title: "OK", style: .default)
-    alertController.addAction(okAction)
-}
-
-present(alertController, animated: true)
-```
-
 After the redirect to the third party app, some providers requires additional information to be sent to Tink after the user authenticates with the third party app for the credentials to be added successfully. This information is passed to your app via the redirect URI. Use the open method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
+
 ```swift
 func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
     return TinkLink.shared.open(url)
