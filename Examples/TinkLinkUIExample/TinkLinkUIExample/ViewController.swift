@@ -27,6 +27,6 @@ class ViewController: UIViewController {
             Tink.Scope.Categories.read,
             Tink.Scope.Accounts.read
         ])
-        present(TinkLinkViewController(market: "SE", scope: scope), animated: true)
+        present(TinkLinkViewController(market: "SE", scope: scope, providerKinds: .all), animated: true)
     }
 }
