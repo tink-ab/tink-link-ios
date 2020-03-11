@@ -87,7 +87,7 @@ class ProviderListViewController: UITableViewController {
 
 ### Provider groups
 
-Use the `ProviderTree` to group providers by financial institution, access type and credential kind.
+Use the `ProviderTree` to group providers by financial institution, access type and credentials kind.
 ```swift
 let providerTree = ProviderTree(providers: <#T##Providers#>)
 ```
@@ -140,7 +140,7 @@ for field in form.fields {
 
 ### Form validation
 
-Validate before you submit a request to add credential or supplement information.
+Validate before you submit a request to add credentials or supplement information.
 
 Use `areFieldsValid` to check if all form fields are valid. For example, you can use this to enable a submit button when text fields change.
 
@@ -164,11 +164,11 @@ do {
 
 ### Add Credential with form fields
 
-To add a credential for the current user, call `addCredential` with the provider you want to add a credential for and a form with valid fields for that provider.
+To add a credentials for the current user, call `addCredentials` with the provider you want to add a credentials for and a form with valid fields for that provider.
 Then handle status changes in the `progressHandler` closure and the `result` from the completion handler.
 
 ```swift
-credentialContext.addCredential(for: provider, form: form, progressHandler: { status in
+credentialContext.addCredentials(for: provider, form: form, progressHandler: { status in
     switch status {
     case .awaitingSupplementalInformation(let supplementInformationTask):
         <#Present form for supplemental information task#>
@@ -184,7 +184,7 @@ credentialContext.addCredential(for: provider, form: form, progressHandler: { st
 
 ### Handling awaiting supplemental information
 
-Creates a form for the given credential. Usually you get the credential from `SupplementInformationTask`.
+Create a form for the provided credentials.
 
 ```swift
 let form = Form(credential: supplementInformationTask.credential)
@@ -237,7 +237,7 @@ if let appStoreURL = thirdPartyAppAuthentication.appStoreURL, UIApplication.shar
 present(alertController, animated: true)
 ```
 
-After the redirect to the third party app, some providers requires additional information to be sent to Tink after the user authenticates with the third party app for the credential to be added successfully. This information is passed to your app via the redirect URI. Use the open method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
+After the redirect to the third party app, some providers requires additional information to be sent to Tink after the user authenticates with the third party app for the credentials to be added successfully. This information is passed to your app via the redirect URI. Use the open method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
 ```swift
 func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
     return TinkLink.shared.open(url)
