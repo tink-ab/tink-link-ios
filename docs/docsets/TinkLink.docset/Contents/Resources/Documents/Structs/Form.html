@@ -14,7 +14,7 @@
     <a title="Form Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TinkLink 0.9.2 Docs</a> (67% documented)</p>
+        <p><a href="../index.html">TinkLink 0.9.1 Docs</a> (68% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,22 +32,25 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes/AddCredentialTask.html">AddCredentialTask</a>
+                <a href="../Classes/AddCredentialsTask.html">AddCredentialsTask</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/AddCredentialTask/Status.html">– Status</a>
+                <a href="../Classes/AddCredentialsTask/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/AddCredentialTask/Error.html">– Error</a>
+                <a href="../Classes/AddCredentialsTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/AddCredentialTask/CompletionPredicate.html">– CompletionPredicate</a>
+                <a href="../Classes/AddCredentialsTask/CompletionPredicate.html">– CompletionPredicate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/AuthorizationContext.html">AuthorizationContext</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/CredentialContext.html">CredentialContext</a>
+                <a href="../Classes/AuthorizationContext/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CredentialsContext.html">CredentialsContext</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ProviderContext.html">ProviderContext</a>
@@ -130,19 +133,19 @@
                 <a href="../Structs/AuthorizationCode.html">AuthorizationCode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Credential.html">Credential</a>
+                <a href="../Structs/Credentials.html">Credentials</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Credential/ID.html">– ID</a>
+                <a href="../Structs/Credentials/ID.html">– ID</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Credential/Kind.html">– Kind</a>
+                <a href="../Structs/Credentials/Kind.html">– Kind</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Credential/Status.html">– Status</a>
+                <a href="../Structs/Credentials/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Credential/ThirdPartyAppAuthentication.html">– ThirdPartyAppAuthentication</a>
+                <a href="../Structs/Credentials/ThirdPartyAppAuthentication.html">– ThirdPartyAppAuthentication</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Form.html">Form</a>
@@ -223,7 +226,45 @@
 
                 </div>
               </div>
-            <p>A Form is used to create, manage and validate fields for creating credentials or supplementing information for a credential.</p>
+            <p>A <code>Form</code> is used to determine what a user needs to input in order to proceed. For example it could be a username and a password field.</p>
+
+<p>Here&rsquo;s how to create a form for a provider with a username and password field and how to update the fields.</p>
+<pre class="highlight swift"><code><span class="k">var</span> <span class="nv">form</span> <span class="o">=</span> <span class="kt">Form</span><span class="p">(</span><span class="nv">provider</span><span class="p">:</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">Provider</span><span class="err">#</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">form</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="nv">name</span><span class="p">:</span> <span class="s">"username"</span><span class="p">]?</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">String</span><span class="err">#</span><span class="o">&gt;</span>
+<span class="n">form</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="nv">name</span><span class="p">:</span> <span class="s">"password"</span><span class="p">]?</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">String</span><span class="err">#</span><span class="o">&gt;</span>
+<span class="o">...</span>
+</code></pre>
+<h3 id='configuring-uitextfields-from-form-fields' class='heading'>Configuring UITextFields from form fields</h3>
+
+<p>The <code>Field</code> within a <code>Form</code> contains attributes that map well to <code>UITextField</code>.</p>
+<pre class="highlight swift"><code><span class="k">for</span> <span class="n">field</span> <span class="k">in</span> <span class="n">form</span><span class="o">.</span><span class="n">fields</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">textField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
+    <span class="n">textField</span><span class="o">.</span><span class="n">placeholder</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">placeholder</span>
+    <span class="n">textField</span><span class="o">.</span><span class="n">isSecureTextEntry</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">isSecureTextEntry</span>
+    <span class="n">textField</span><span class="o">.</span><span class="n">isEnabled</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">isEditable</span>
+    <span class="n">textField</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">text</span>
+    <span class="o">&lt;</span><span class="err">#</span><span class="kt">Add</span> <span class="n">to</span> <span class="n">view</span><span class="err">#</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='form-validation' class='heading'>Form validation</h3>
+
+<p>Validate before you submit a request to add credentials or supplement information.</p>
+
+<p>Use <code>areFieldsValid</code> to check if all form fields are valid. For example, you can use this to enable a submit button when text fields change.</p>
+<pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">func</span> <span class="nf">textFieldDidChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">notification</span><span class="p">:</span> <span class="kt">Notification</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">submitButton</span><span class="o">.</span><span class="n">isEnabled</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">areFieldsValid</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Use validateFields() to validate all fields. If not valid, it will throw an error that contains more information about which fields are not valid and why.</p>
+<pre class="highlight swift"><code><span class="k">do</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="n">form</span><span class="o">.</span><span class="nf">validateFields</span><span class="p">()</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="k">let</span> <span class="nv">error</span> <span class="k">as</span> <span class="kt">Form</span><span class="o">.</span><span class="kt">Fields</span><span class="o">.</span><span class="kt">ValidationError</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">usernameFieldError</span> <span class="o">=</span> <span class="n">error</span><span class="p">[</span><span class="nv">fieldName</span><span class="p">:</span> <span class="s">"username"</span><span class="p">]</span> <span class="p">{</span>
+        <span class="n">usernameValidationErrorLabel</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">usernameFieldError</span><span class="o">.</span><span class="n">errorDescription</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
 
           </section>
           <section class="section task-group-section">
@@ -257,7 +298,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Form.swift#L8-L46">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.1/Sources/TinkLink/Models/Form.swift#L55-L93">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -287,7 +328,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Form.swift#L49">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.1/Sources/TinkLink/Models/Form.swift#L96">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -321,7 +362,7 @@
                         <p><code>true</code> if all fields in the form have valid text; otherwise, <code>false</code>.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Form.swift#L58-L60">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.1/Sources/TinkLink/Models/Form.swift#L105-L107">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -362,7 +403,7 @@
                         <p><code>true</code> if all fields in the form have valid text; otherwise, <code>false</code>.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Form.swift#L68-L70">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.1/Sources/TinkLink/Models/Form.swift#L115-L117">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -393,7 +434,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Form.swift#L81-L241">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.1/Sources/TinkLink/Models/Form.swift#L128-L288">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -424,7 +465,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Form.swift#L244-L257">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.1/Sources/TinkLink/Models/Form.swift#L291-L304">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -448,7 +489,7 @@
                       <div class="abstract">
                         <p>Creates a form for the given provider.</p>
 
-<p>This creates a form to use for creating a credential for a specific provider.</p>
+<p>This creates a form to use for creating a credentials for a specific provider.</p>
 
                       </div>
                       <div class="declaration">
@@ -479,7 +520,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Form.swift#L266-L268">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.1/Sources/TinkLink/Models/Form.swift#L313-L315">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -487,9 +528,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8TinkLink4FormV10credentialAcA10CredentialV_tcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(credential:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink4FormV10credentialAcA10CredentialV_tcfc">init(credential:)</a>
+                    <a name="/s:8TinkLink4FormV11credentialsAcA11CredentialsV_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(credentials:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink4FormV11credentialsAcA11CredentialsV_tcfc">init(credentials:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -497,16 +538,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a form for the given credential.</p>
+                        <p>Creates a form for the given credentials.</p>
 
-<p>This creates a form to use for supplementing information for a credential.</p>
+<p>This creates a form to use for supplementing information for a credentials.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">credential</span><span class="p">:</span> <span class="kt"><a href="../Structs/Credential.html">Credential</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">credentials</span><span class="p">:</span> <span class="kt"><a href="../Structs/Credentials.html">Credentials</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -522,7 +563,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The credential to create a form for.</p>
+                                  <p>The credentials to create a form for.</p>
                                 </div>
                               </td>
                             </tr>
@@ -530,7 +571,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.2/Sources/TinkLink/Models/Form.swift#L275-L277">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.1/Sources/TinkLink/Models/Form.swift#L322-L324">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -540,7 +581,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-02-25)</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-03-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
