@@ -3,7 +3,28 @@
 /// This task is provided when an `AddCredentialsTask`'s status changes to `awaitingSupplementalInformation`.
 ///
 /// When a credentials' status is `awaitingSupplementalInformation` the user needs to provide additional information to finish adding the credentials.
-
+///
+/// Create a form for the provided credential.
+///
+/// ```swift
+/// let form = Form(credential: supplementInformationTask.credential)
+/// form.fields[0].text = <#String#>
+/// form.fields[1].text = <#String#>
+/// ```
+///
+/// Submit update supplement information after validating like this:
+///
+/// ```swift
+/// do {
+///   try form.validateFields()
+///    supplementInformationTask.submit(form)
+/// } catch {
+///    <#Handle error#>
+/// }
+/// ```
+///
+/// After submitting the form new status updates will sent to the `progressHandler` in the `addCredential` call.
+///
 /// - Note: If the user dismiss supplementing information, by e.g. closing the form, you need to call `cancel()` to stop adding the credentials.
 public final class SupplementInformationTask: Identifiable {
     private let credentialsService: CredentialsService
