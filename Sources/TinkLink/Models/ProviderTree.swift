@@ -1,7 +1,30 @@
 import Foundation
-// This type represents a tree structure of providers.
+
+/// Use the `ProviderTree` to group providers by financial institution, access type and credentials kind.
 ///
-/// This tree eventually leads to a leaf of type `Provider` that contains more detailed data about a provider.
+/// You initialize a `ProviderTree` with a list of providers.
+///
+/// ```swift
+/// let providerTree = ProviderTree(providers: <#T##Providers#>)
+/// ```
+///
+/// Handle selection of a provider group by switching on the group to decide which screen should be shown next.
+///
+/// ```swift
+/// override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+///     let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
+///     switch financialInstitutionGroupNode {
+///     case .financialInstitutions(let financialInstitutionGroups):
+///         showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
+///     case .accessTypes(let accessTypeGroups):
+///         showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
+///     case .credentialKinds(let groups):
+///         showCredentialKindPicker(for: groups)
+///     case .provider(let provider):
+///         showAddCredential(for: provider)
+///     }
+/// }
+/// ```
 public struct ProviderTree {
     public let financialInstitutionGroups: [FinancialInstitutionGroupNode]
 
