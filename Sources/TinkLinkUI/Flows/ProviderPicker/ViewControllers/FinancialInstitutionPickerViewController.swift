@@ -28,6 +28,9 @@ extension FinancialInstitutionPickerViewController {
 
         tableView.registerReusableCell(ofType: ProviderCell.self)
         tableView.tableFooterView = UIView(frame: .zero)
+
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
     }
 }
 

@@ -13,7 +13,7 @@ final class AddCredentialSession {
     private var supplementInfoTask: SupplementInformationTask?
 
     private var statusViewController: AddCredentialStatusViewController?
-    private var qrImageViewController: QRImageViewController?
+    private weak var qrImageViewController: QRImageViewController?
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
 
     private var authorizationCode: AuthorizationCode?
@@ -165,7 +165,8 @@ extension AddCredentialSession {
         hideUpdatingView {
             let qrImageViewController = QRImageViewController(qrImage: qrImage)
             self.qrImageViewController = qrImageViewController
-            self.parentViewController?.present(qrImageViewController, animated: true)
+            qrImageViewController.delegate = self
+            self.parentViewController?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true)
         }
     }
 
@@ -175,7 +176,6 @@ extension AddCredentialSession {
             return
         }
         parentViewController?.dismiss(animated: animated, completion: completion)
-        qrImageViewController = nil
     }
 }
 
@@ -193,6 +193,14 @@ extension AddCredentialSession: SupplementalInformationViewControllerDelegate {
         parentViewController?.dismiss(animated: true) {
             self.supplementInfoTask?.submit(form)
             self.showUpdating(status: "Sending...")
+        }
+    }
+}
+
+extension AddCredentialSession: QRImageViewControllerDelegate {
+    func qrImageViewControllerDidCancel(_ viewController: QRImageViewController) {
+        parentViewController?.dismiss(animated: true) {
+            self.task?.cancel()
         }
     }
 }
