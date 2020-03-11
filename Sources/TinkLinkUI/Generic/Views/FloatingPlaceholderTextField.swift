@@ -10,11 +10,8 @@ class FloatingPlaceholderTextField: UITextField {
     var inputType: InputType = .text {
         didSet {
             updateInputType()
-            inputFormatter?.update()
         }
     }
-
-    private var inputFormatter: InputFormatter?
 
     private let underlineLayer = CAShapeLayer()
     private let placeholderLayer = CATextLayer()
@@ -39,7 +36,6 @@ class FloatingPlaceholderTextField: UITextField {
     override var text: String? {
         didSet {
             updatePlaceholderLayer()
-            inputFormatter?.update()
         }
     }
 
@@ -177,10 +173,8 @@ private extension FloatingPlaceholderTextField {
         switch inputType {
         case .text:
             keyboardType = .default
-            inputFormatter = TextInputFormatter(textField: self)
         case .number:
             keyboardType = .numberPad
-            inputFormatter = NumericCodeInputFormatter(textField: self)
         }
     }
 }
