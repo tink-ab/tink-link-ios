@@ -53,6 +53,7 @@ extension SupplementalInformationViewController {
         }
 
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
         button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
         button.text = "Done"
 
