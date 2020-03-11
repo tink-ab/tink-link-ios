@@ -58,6 +58,9 @@ extension AddCredentialViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGestureRecognizer.delegate = self
+        view.addGestureRecognizer(tapGestureRecognizer)
         view.backgroundColor = Color.background
 
         keyboardObserver.willShow = { [weak self] notification in
@@ -218,6 +221,10 @@ extension AddCredentialViewController {
             self.view.layoutIfNeeded()
         }
     }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -356,5 +363,13 @@ extension AddCredentialViewController: AddCredentialHeaderViewDelegate {
 extension AddCredentialViewController: AddCredentialFooterViewDelegate {
     func addCredentialFooterViewDidTapLink(_ addCredentialFooterView: AddCredentialFooterView, url: URL) {
         showPrivacyPolicy(url)
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension AddCredentialViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return !button.frame.contains(gestureRecognizer.location(in: view))
     }
 }

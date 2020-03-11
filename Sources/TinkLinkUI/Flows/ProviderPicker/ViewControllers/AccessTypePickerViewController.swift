@@ -29,6 +29,7 @@ extension AccessTypePickerViewController {
         tableView.separatorStyle = .none
         tableView.registerReusableCell(ofType: AccessTypeCell.self)
         tableView.backgroundColor = Color.groupedBackground
+        tableView.allowsSelection = false
     }
 }
 
@@ -48,11 +49,20 @@ extension AccessTypePickerViewController {
         }
         cell.setTitle(text: node.accessType.description)
         cell.setDetail(text: "Including everyday accounts, such as your salary account")
+        cell.delegate = self
         return cell
     }
+}
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension AccessTypePickerViewController: AccessTypeCellDelegate {
+    func accessTypeCellAddButtonTapped(_ accessTypeCell: AccessTypeCell) {
+
+        guard let indexPath = tableView.indexPath(for: accessTypeCell) else {
+            return
+        }
+
         let accessTypeNode = accessTypeNodes[indexPath.row]
+
         switch accessTypeNode {
         case .credentialKinds(let groups):
             providerPickerCoordinator?.showCredentialKindPicker(for: groups, title: nil)

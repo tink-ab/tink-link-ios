@@ -38,6 +38,10 @@ extension SupplementalInformationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGestureRecognizer.delegate = self
+        view.addGestureRecognizer(tapGestureRecognizer)
+
         tableView.registerReusableCell(ofType: FormFieldTableViewCell.self)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
@@ -190,5 +194,17 @@ extension SupplementalInformationViewController {
         button.rounded = true
         buttonWidthConstraint.constant = button.minimumWidth
         view.layoutIfNeeded()
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension SupplementalInformationViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return !button.frame.contains(gestureRecognizer.location(in: view))
     }
 }
