@@ -9,7 +9,7 @@ import Foundation
 ///
 /// When a credentials' status is `awaitingThirdPartyAppAuthentication` the user needs to authenticate in a third party app to finish adding the credentials.
 ///
-/// When progressHandler get a `awaitingThirdPartyAppAuthentication` status you need to try to open the url provided by `ThirdPartyAppAuthentication`. Check if the system can open the url or ask the user to download the app like this:
+/// When you receive a `awaitingThirdPartyAppAuthentication` status you should try to open the url provided in the  `ThirdPartyAppAuthentication` object. Check if the system can open the url or ask the user to download the app like this:
 ///
 /// ```swift
 /// if let deepLinkURL = thirdPartyAppAuthentication.deepLinkURL, UIApplication.shared.canOpenURL(deepLinkURL) {
