@@ -104,7 +104,7 @@ extension AddCredentialViewController {
 
         navigationItem.title = "Authenticate"
         navigationItem.largeTitleDisplayMode = .never
-        button.isEnabled = form.fields.isEmpty
+        button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
 
         setupHelpFootnote()
         layoutHelpFootnote()
