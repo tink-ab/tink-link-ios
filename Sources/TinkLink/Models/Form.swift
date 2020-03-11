@@ -327,7 +327,19 @@ extension Form {
 extension Form.Fields {
     /// Validate fields.
     ///
-    /// Use this method to validate all fields in the form or to catch the values if invalid.
+    /// Use this method to validate all fields. If any field is not valid, it will throw an error that contains
+    /// more information about which fields are not valid and why.
+    ///
+    /// ```swift
+    /// do {
+    ///     try form.validateFields()
+    /// } catch let error as Form.Fields.ValidationError {
+    ///     if let usernameFieldError = error[fieldName: "username"] {
+    ///         usernameValidationErrorLabel.text = usernameFieldError.errorDescription
+    ///     }
+    /// }
+    /// ```
+    ///
     /// - Throws: A `Form.ValidationError` if any of the fields' `text` value is invalid.
     func validateFields() throws {
         var fieldsValidationError = Form.ValidationError(errors: [])
@@ -345,7 +357,13 @@ extension Form.Fields {
 
     /// A Boolean value indicating whether all fields have valid values.
     ///
-    /// If which field and what validation rule has failed are needed, use `validateFields()` instead.
+    /// Use `areFieldsValid` to check if all form fields are valid. For example, you can use this to enable a submit button when text fields change.
+    ///
+    /// ```swift
+    /// @objc func textFieldDidChange(_ notification: Notification) {
+    ///     submitButton.isEnabled = form.areFieldsValid
+    /// }
+    /// ```
     ///
     /// - Returns: `true` if all fields in the form have valid text; otherwise, `false`.
     var areFieldsValid: Bool {
