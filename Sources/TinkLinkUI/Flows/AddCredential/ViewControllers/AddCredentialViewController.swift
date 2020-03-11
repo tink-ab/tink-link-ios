@@ -59,6 +59,8 @@ extension AddCredentialViewController {
         super.viewDidLoad()
 
         view.backgroundColor = Color.background
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGestureRecognizer)
 
         keyboardObserver.willShow = { [weak self] notification in
             self?.keyboardWillShow(notification)
@@ -217,6 +219,10 @@ extension AddCredentialViewController {
         UIView.animate(withDuration: notification.duration) {
             self.view.layoutIfNeeded()
         }
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
