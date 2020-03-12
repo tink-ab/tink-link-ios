@@ -144,7 +144,10 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
     }
 
     func setDetail(text: String) {
-        detailLabel.text = text
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 6
+        let attributedText = NSAttributedString(string: text, attributes: [.paragraphStyle: paragraphStyle])
+        detailLabel.attributedText = attributedText
     }
 
     @objc func add() {
