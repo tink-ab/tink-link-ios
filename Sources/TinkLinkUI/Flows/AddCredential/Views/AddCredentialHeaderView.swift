@@ -60,11 +60,11 @@ final class AddCredentialHeaderView: UIView {
         dashLine.backgroundColor = .clear
         dashLine.layer.addSublayer(dashLayer)
 
-        dashLayer.frame = CGRect(origin: dashLine.bounds.origin, size: CGSize(width: 1, height: 16))
+        dashLayer.frame = CGRect(origin: dashLine.bounds.origin, size: CGSize(width: 1, height: 20))
 
         let path = CGMutablePath()
         path.move(to: .zero)
-        path.addLine(to: CGPoint(x: 0, y: 16))
+        path.addLine(to: CGPoint(x: 0, y: 20))
         dashLayer.path = path
 
         return dashLine
@@ -145,7 +145,7 @@ final class AddCredentialHeaderView: UIView {
             bankIconView.heightAnchor.constraint(equalToConstant: 30),
             bankIconView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             bankIconView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            bankIconView.trailingAnchor.constraint(equalTo: bankLabel.leadingAnchor, constant: -8),
+            bankIconView.trailingAnchor.constraint(equalTo: bankLabel.leadingAnchor, constant: -10),
 
             bankLabel.centerYAnchor.constraint(equalTo: bankIconView.centerYAnchor),
             bankLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
@@ -156,7 +156,7 @@ final class AddCredentialHeaderView: UIView {
             userInfoContainerBottomConstraint,
 
             dashLine.topAnchor.constraint(equalTo: userInfoContainerView.topAnchor),
-            dashLine.heightAnchor.constraint(equalToConstant: 16),
+            dashLine.heightAnchor.constraint(equalToConstant: 20),
             dashLine.widthAnchor.constraint(equalToConstant: 1),
             dashLine.centerXAnchor.constraint(equalTo: bankIconView.centerXAnchor),
             dashLine.bottomAnchor.constraint(equalTo: userInfoIconBackgroundView.topAnchor),
@@ -169,13 +169,13 @@ final class AddCredentialHeaderView: UIView {
             userInfoIconView.heightAnchor.constraint(equalToConstant: 18),
             userInfoIconView.centerXAnchor.constraint(equalTo: dashLine.centerXAnchor),
 
-            userInfoLabel.leadingAnchor.constraint(equalTo: userInfoIconBackgroundView.trailingAnchor, constant: 8),
+            userInfoLabel.leadingAnchor.constraint(equalTo: userInfoIconBackgroundView.trailingAnchor, constant: 10),
             userInfoLabel.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor),
             userInfoLabel.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor),
 
             userInfoDescriptionTopConstraint,
             userInfoDescription.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor),
-            userInfoDescription.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor, constant: -40),
+            userInfoDescription.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor),
             userInfoDescriptionBottomSpace
         ])
     }
