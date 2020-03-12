@@ -13,11 +13,11 @@ class AggregationTest: XCTestCase {
     }
 
     func testCreateAnonymousUser() {
-        let completedCalled = expectation(description: "completed should be called")
+        let completionCalled = expectation(description: "completion should be called")
 
         let userContext = UserContext(tink: tink)
         userContext.createTemporaryUser(for: "SE") { [weak self] result in
-            completedCalled.fulfill()
+            completionCalled.fulfill()
             do {
                 self?.user = try result.get()
             } catch {
@@ -41,12 +41,12 @@ class AggregationTest: XCTestCase {
             return
         }
 
-        let completedCalled = expectation(description: "completed should be called")
+        let completionCalled = expectation(description: "completion should be called")
 
         let providerContext = ProviderContext(tink: tink, user: temporaryUser)
         let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
         providerContext.fetchProviders(attributes: attributes) { result in
-            completedCalled.fulfill()
+            completionCalled.fulfill()
             do {
                 let providers = try result.get()
                 if let passwordTestProvider = providers.first(where: { $0.id == "se-test-password" }) {
