@@ -88,12 +88,10 @@ extension ScopeDescriptionListViewController {
         let cell = tableView.dequeueReusableCell(ofType: ScopeDescriptionCell.self, for: indexPath)
         switch sections[indexPath.section] {
         case .intro(let title, let description):
-            cell.titleLabel.text = title
-            cell.descriptionLabel.text = description
+            cell.configure(title: title, description: description)
         case .scopeDescriptions(let scopeDescriptions):
             let scopeDescription = scopeDescriptions[indexPath.row]
-            cell.titleLabel.text = scopeDescription.title
-            cell.descriptionLabel.text = scopeDescription.description
+            cell.configure(title: scopeDescription.title, description: scopeDescription.description)
         }
         return cell
     }

@@ -1,8 +1,8 @@
 import UIKit
 
 class ScopeDescriptionCell: UITableViewCell, ReusableCell {
-    let titleLabel = UILabel()
-    let descriptionLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let descriptionLabel = UILabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -32,6 +32,14 @@ class ScopeDescriptionCell: UITableViewCell, ReusableCell {
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
             descriptionLabel.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
         ])
+    }
+
+    func configure(title: String, description: String) {
+        titleLabel.text = title
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 6
+        let attributedText = NSAttributedString(string: description, attributes: [.paragraphStyle: paragraphStyle])
+        descriptionLabel.attributedText = attributedText
     }
 
     required init?(coder: NSCoder) {
