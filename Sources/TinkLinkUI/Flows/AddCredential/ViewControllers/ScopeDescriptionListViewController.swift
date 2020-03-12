@@ -51,7 +51,7 @@ extension ScopeDescriptionListViewController {
 
         tableView.registerReusableCell(ofType: ScopeDescriptionCell.self)
 
-        activityIndicatorView.tintColor = Color.secondaryLabel
+        activityIndicatorView.tintColor = Color.accent
         activityIndicatorView.startAnimating()
 
         authorizationController.scopeDescriptions(scope: scope) { [weak self] result in

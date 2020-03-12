@@ -29,7 +29,7 @@ final class LegalViewController: UIViewController {
         view.backgroundColor = Color.background
 
         view.addSubview(activityIndicator)
-        activityIndicator.tintColor = Color.secondaryLabel
+        activityIndicator.tintColor = Color.accent
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
