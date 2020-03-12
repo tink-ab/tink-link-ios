@@ -1,7 +1,7 @@
 @testable import TinkLink
 import XCTest
 
-class FormFieldTests: XCTestCase {
+class SupplementalInfoFieldTests: XCTestCase {
     func testSupplementalInfoFieldValidation() {
         let firstFieldSpecification = Provider.FieldSpecification(
             fieldDescription: "Security Code",
