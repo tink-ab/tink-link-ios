@@ -13,16 +13,51 @@ class AggregationTest: XCTestCase {
     }
 
     func testCreateAnonymousUser() {
-        var completedCalled = expectation(description: "completed should be called")
+        let completedCalled = expectation(description: "completed should be called")
 
         let userContext = UserContext(tink: tink)
-        userContext.createTemporaryUser(for: "SE") { result in
+        userContext.createTemporaryUser(for: "SE") { [weak self] result in
             completedCalled.fulfill()
             do {
-                let user = try result.get()
-                self.user = user
+                self?.user = try result.get()
             } catch {
                 XCTFail("Failed to get user with: \(error)")
+            }
+        }
+
+        waitForExpectations(timeout: 5) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }
+    }
+
+    func testFetchProviders() {
+        if user == nil {
+            testCreateAnonymousUser()
+        }
+
+        guard let temporaryUser = user else {
+            return
+        }
+
+        let completedCalled = expectation(description: "completed should be called")
+
+        let providerContext = ProviderContext(tink: tink, user: temporaryUser)
+        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
+        providerContext.fetchProviders(attributes: attributes) { result in
+            completedCalled.fulfill()
+            do {
+                let providers = try result.get()
+                if let passwordTestProvider = providers.first(where: { $0.id == "se-test-password" }) {
+                    XCTAssertEqual(passwordTestProvider.displayName, "Test Password")
+                    XCTAssertEqual(passwordTestProvider.kind, Provider.Kind.test)
+                    XCTAssertEqual(passwordTestProvider.credentialKind, Credential.Kind.password)
+                } else {
+                    XCTFail("Failed to get test provider")
+                }
+            } catch {
+                XCTFail("Failed to get provider list with: \(error)")
             }
         }
 
