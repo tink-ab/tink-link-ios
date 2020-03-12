@@ -29,6 +29,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
     private func setup() {
         selectionStyle = .none
 
+        backgroundColor = .clear
         contentView.backgroundColor = .clear
         contentView.addSubview(cardView)
         contentView.layer.shadowRadius = 15
