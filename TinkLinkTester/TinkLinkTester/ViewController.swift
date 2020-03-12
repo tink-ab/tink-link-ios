@@ -18,6 +18,7 @@ class ViewController: UIViewController {
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+        
     }
 
     @objc private func showTinkLink() {
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
             Tink.Scope.Categories.read,
             Tink.Scope.Accounts.read
         ])
+
         let tinkLinkViewController = TinkLinkViewController(market: "SE", scope: scope, providerKinds: .all) { _ in }
         present(tinkLinkViewController, animated: true)
     }

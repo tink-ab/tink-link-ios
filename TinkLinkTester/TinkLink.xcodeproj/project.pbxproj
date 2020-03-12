@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		8F3829542417A29D007C418C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3829532417A29D007C418C /* AppDelegate.swift */; };
 		8F3829582417A29D007C418C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3829572417A29D007C418C /* ViewController.swift */; };
-		8F38295D2417A29F007C418C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F38295C2417A29F007C418C /* Assets.xcassets */; };
 		8F3829602417A29F007C418C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F38295E2417A29F007C418C /* LaunchScreen.storyboard */; };
 		8F38298E2417A56B007C418C /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F38298D2417A56B007C418C /* TinkLinkUI */; };
+		9D10EE57241A5332007E9822 /* AppearanceProvider+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D10EE56241A5332007E9822 /* AppearanceProvider+Presets.swift */; };
+		9D10EE5B241A5339007E9822 /* IcecreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D10EE59241A5339007E9822 /* IcecreamViewController.swift */; };
+		9D10EE5C241A5339007E9822 /* IcecreamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D10EE5A241A5339007E9822 /* IcecreamModel.swift */; };
+		9D10EE5E241A534C007E9822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D10EE5D241A534C007E9822 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,12 +31,15 @@
 		8F3829502417A29D007C418C /* TinkLinkTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkLinkTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3829532417A29D007C418C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F3829572417A29D007C418C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8F38295C2417A29F007C418C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F38295F2417A29F007C418C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F3829612417A29F007C418C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F499D332417F43000DEAFC1 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ..; sourceTree = "<group>"; };
 		8F6889072417EB3E00402A3B /* TinkLinkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkLinkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F6889112417EBCE00402A3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D10EE56241A5332007E9822 /* AppearanceProvider+Presets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceProvider+Presets.swift"; sourceTree = "<group>"; };
+		9D10EE59241A5339007E9822 /* IcecreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IcecreamViewController.swift; sourceTree = "<group>"; };
+		9D10EE5A241A5339007E9822 /* IcecreamModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IcecreamModel.swift; sourceTree = "<group>"; };
+		9D10EE5D241A534C007E9822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +83,11 @@
 		8F3829522417A29D007C418C /* TinkLinkTester */ = {
 			isa = PBXGroup;
 			children = (
+				9D10EE58241A5339007E9822 /* Icecream */,
+				9D10EE56241A5332007E9822 /* AppearanceProvider+Presets.swift */,
 				8F3829532417A29D007C418C /* AppDelegate.swift */,
 				8F3829572417A29D007C418C /* ViewController.swift */,
-				8F38295C2417A29F007C418C /* Assets.xcassets */,
+				9D10EE5D241A534C007E9822 /* Assets.xcassets */,
 				8F38295E2417A29F007C418C /* LaunchScreen.storyboard */,
 				8F3829612417A29F007C418C /* Info.plist */,
 			);
@@ -100,6 +108,15 @@
 				8F6889112417EBCE00402A3B /* Info.plist */,
 			);
 			path = TinkLinkTests;
+			sourceTree = "<group>";
+		};
+		9D10EE58241A5339007E9822 /* Icecream */ = {
+			isa = PBXGroup;
+			children = (
+				9D10EE59241A5339007E9822 /* IcecreamViewController.swift */,
+				9D10EE5A241A5339007E9822 /* IcecreamModel.swift */,
+			);
+			path = Icecream;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,8 +203,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D10EE5E241A534C007E9822 /* Assets.xcassets in Resources */,
 				8F3829602417A29F007C418C /* LaunchScreen.storyboard in Resources */,
-				8F38295D2417A29F007C418C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,7 +223,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F3829582417A29D007C418C /* ViewController.swift in Sources */,
+				9D10EE57241A5332007E9822 /* AppearanceProvider+Presets.swift in Sources */,
 				8F3829542417A29D007C418C /* AppDelegate.swift in Sources */,
+				9D10EE5C241A5339007E9822 /* IcecreamModel.swift in Sources */,
+				9D10EE5B241A5339007E9822 /* IcecreamViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
