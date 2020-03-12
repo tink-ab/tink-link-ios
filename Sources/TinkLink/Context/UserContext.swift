@@ -2,7 +2,7 @@ import Foundation
 
 /// An object that you use to create a user that will be used in other TinkLink APIs.
 public final class UserContext {
-    private let userService: UserService
+    private let userService: UserService & TokenConfigurableService
     private var retryCancellable: RetryCancellable?
 
     /// Error that the `UserContext` can throw.
@@ -25,7 +25,12 @@ public final class UserContext {
     /// Creates a context to register for an access token that will be used in other Tink APIs.
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
-        self.userService = UserService(tink: tink)
+        self.userService = TinkUserService(tink: tink)
+    }
+
+    // Init used for test
+    init(userService: UserService & TokenConfigurableService) {
+        self.userService = userService
     }
 
     // MARK: - Authenticating a User
@@ -65,7 +70,7 @@ public final class UserContext {
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
     public func createTemporaryUser(for market: Market, locale: Locale = Tink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        return userService.createAnonymous(market: market, locale: locale) { result in
+        return userService.createAnonymous(market: market, locale: locale, origin: nil) { result in
             let mappedResult = result
                 .map { User(accessToken: $0) }
                 .mapError { Error(createTemporaryUserError: $0) ?? $0 }
@@ -73,7 +78,6 @@ public final class UserContext {
                 let user = try mappedResult.get()
                 completion(.success(user))
             } catch Error.invalidMarketOrLocale(let message) {
-                assertionFailure("Could not create temporary user: " + message)
                 completion(.failure(Error.invalidMarketOrLocale(message)))
             } catch {
                 completion(.failure(error))

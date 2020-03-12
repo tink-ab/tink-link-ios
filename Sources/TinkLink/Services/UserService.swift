@@ -1,7 +1,13 @@
 import Foundation
 import GRPC
 
-final class UserService {
+protocol UserService {
+    func createAnonymous(market: Market?, locale: Locale, origin: String?, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable?
+    func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable?
+    func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable?
+}
+
+final class TinkUserService: UserService, TokenConfigurableService {
     let connection: ClientConnection
     var defaultCallOptions: CallOptions
     private let queue: DispatchQueue
@@ -38,7 +44,7 @@ final class UserService {
 
     private lazy var service = UserServiceServiceClient(connection: connection, defaultCallOptions: defaultCallOptions)
 
-    func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable {
+    func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         var request = GRPCCreateAnonymousRequest()
         request.market = market?.code ?? ""
         request.locale = locale.identifier
