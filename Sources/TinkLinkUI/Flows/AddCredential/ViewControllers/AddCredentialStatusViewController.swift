@@ -32,7 +32,7 @@ final class AddCredentialStatusViewController: UIViewController {
         statusLabelView.preferredMaxLayoutWidth = 220
         statusLabelView.textAlignment = .center
 
-        activityIndicator.tintColor = Color.secondaryLabel
+        activityIndicator.tintColor = Color.accent
         activityIndicator.startAnimating()
         activityIndicator.setContentHuggingPriority(.defaultLow, for: .vertical)
 

@@ -22,7 +22,7 @@ final class LoadingViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = Color.background
-        activityIndicatorView.tintColor = Color.secondaryLabel
+        activityIndicatorView.tintColor = Color.accent
 
         activityIndicatorView.startAnimating()
         errorView.delegate = self
