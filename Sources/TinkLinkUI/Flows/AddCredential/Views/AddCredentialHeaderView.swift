@@ -201,8 +201,8 @@ final class AddCredentialHeaderView: UIView {
     }
 
     private func configure(_ provider: Provider) {
-        provider.image.flatMap {
-            bankIconView.kf.setImage(with: ImageResource(downloadURL: $0))
+        if let image = provider.image {
+            bankIconView.kf.setImage(with: ImageResource(downloadURL: image))
         }
         bankLabel.text = provider.displayName
     }

@@ -5,7 +5,7 @@ extension UITextView {
         guard let font = font else { return }
 
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = max(lineHeight - (font.lineHeight ?? 0), 0)
+        paragraphStyle.lineSpacing = max(lineHeight - font.lineHeight, 0)
         paragraphStyle.alignment = textAlignment
 
         let attrString: NSMutableAttributedString
