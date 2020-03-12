@@ -44,9 +44,12 @@ class FormFieldTests: XCTestCase {
         do {
             try form.validateFields()
         } catch let error as Form.ValidationError {
+            XCTAssertEqual(error.errors.count, 1)
             let fieldError = error.errors.first
-            if case .requiredFieldEmptyValue(fieldName: String) = fieldError {
+            if case .requiredFieldEmptyValue(let fieldName) = fieldError {
                 XCTAssertEqual(fieldName, edtiableForm.name)
+            } else {
+                XCTFail("The Field error should be requiredFieldEmptyValue")
             }
         } catch {
             XCTFail("Should only have Form ValidationError")
@@ -58,6 +61,5 @@ class FormFieldTests: XCTestCase {
         } catch {
             XCTFail("Should not have ValidationError")
         }
-        try field.validate()
     }
 }
