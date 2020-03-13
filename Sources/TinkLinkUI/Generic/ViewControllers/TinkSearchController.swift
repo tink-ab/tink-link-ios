@@ -5,26 +5,6 @@ final class TinkSearchController: UISearchController {
     private lazy var tinkSearchBar = TinkSearchBar()
 
     override var searchBar: UISearchBar { tinkSearchBar }
-
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-
-    override init(searchResultsController: UIViewController?) {
-        super.init(searchResultsController: searchResultsController)
-        setup()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-
-    private func setup() {
-        let appearance = UITextField.appearance(whenContainedInInstancesOf: [TinkSearchBar.self])
-        appearance.defaultTextAttributes = [.foregroundColor: Color.label, .font: Font.regular(.deci)]
-    }
 }
 
 final private class TinkSearchBar: UISearchBar {
@@ -62,5 +42,12 @@ final private class TinkSearchBar: UISearchBar {
             imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         }
         textField?.backgroundColor = Color.secondaryBackground
+        textField?.textColor = Color.label
+        textField?.font = Font.regular(.deci)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        textField?.textColor = Color.label
     }
 }
