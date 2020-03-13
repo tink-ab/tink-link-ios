@@ -1,0 +1,53 @@
+import UIKit
+
+final class TinkSearchController: UISearchController {
+
+    private lazy var tinkSearchBar = TinkSearchBar()
+
+    override var searchBar: UISearchBar { tinkSearchBar }
+}
+
+final private class TinkSearchBar: UISearchBar {
+
+    var textField: UITextField? {
+        if #available(iOS 13.0, *) {
+            return searchTextField
+        } else {
+            return subviews.first?.subviews.first { $0 is UITextField } as? UITextField
+        }
+    }
+
+    override var placeholder: String? {
+        didSet {
+            // Hack: You need the async call here to have the color apply properly. 
+            DispatchQueue.main.async {
+                self.textField?.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.regular(.deci)])
+            }
+        }
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    private func setup() {
+        if let imageView = textField?.leftView as? UIImageView {
+            imageView.tintColor = Color.secondaryLabel
+            imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        }
+        textField?.backgroundColor = Color.secondaryBackground
+        textField?.textColor = Color.label
+        textField?.font = Font.regular(.deci)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        textField?.textColor = Color.label
+    }
+}
