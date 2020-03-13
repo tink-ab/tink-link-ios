@@ -5,7 +5,7 @@ public struct ScopeType {
     let access: [String]
 }
 
-extension ScopeType {
+public extension ScopeType {
     var scopeDescription: String {
         access.map { "\(name):\($0)" }.joined(separator: ",")
     }
