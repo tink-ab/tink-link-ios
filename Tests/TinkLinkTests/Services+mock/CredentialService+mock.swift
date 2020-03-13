@@ -8,7 +8,7 @@ class MockedSuccessCredentialService: CredentialService, TokenConfigurableServic
     private var credentials = [Credential]()
     
     func credentials(completion: @escaping (Result<[Credential], Error>) -> Void) -> RetryCancellable? {
-        credentials = credentials.map { Credential(credential: $0, status: $0.nextCredentialStatus) }
+        credentials = credentials.map { Credential(credential: $0, status: $0.nextCredentialStatus()) }
         completion(.success(credentials))
         return nil
     }
