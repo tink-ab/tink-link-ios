@@ -24,11 +24,12 @@ public final class UserContext {
 
     /// Creates a context to register for an access token that will be used in other Tink APIs.
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
-    public init(tink: Tink = .shared) {
-        self.userService = TinkUserService(tink: tink)
+    public convenience init(tink: Tink = .shared) {
+        let userService = TinkUserService(tink: tink)
+        self.init(userService: userService)
     }
 
-    // Init used for test
+    /// Internal init taht should only be used for test
     init(userService: UserService & TokenConfigurableService) {
         self.userService = userService
     }
