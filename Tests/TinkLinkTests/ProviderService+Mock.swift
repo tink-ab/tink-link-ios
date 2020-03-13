@@ -2,7 +2,7 @@ import Foundation
 @testable import TinkLink
 @testable import GRPC
 
-struct MockerProvider: {
+struct MockedProvider {
     static let nordeaBankID = Provider(
         id: "nordea-bankid",
         displayName: "Nordea",
@@ -135,29 +135,12 @@ class MockedSuccessProviderService: ProviderService, TokenConfigurableService {
 
     func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
         let providers = [
-            MockerProvider.nordeaBankID,
-            MockerProvider.nordeaPassword,
-            MockerProvider.sparbankernaBankID,
-            MockerProvider.sparbankernaPassword,
-            MockerProvider.swedbankBankID,
-            MockerProvider.swedbankPassword
-        ]
-        completion(.success(providers))
-        return nil
-    }
-}
-
-class MockedSuccessProviderService: ProviderService, TokenConfigurableService {
-    var defaultCallOptions = CallOptions()
-
-    func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
-        let providers = [
-            MockerProvider.nordeaBankID,
-            MockerProvider.nordeaPassword,
-            MockerProvider.sparbankernaBankID,
-            MockerProvider.sparbankernaPassword,
-            MockerProvider.swedbankBankID,
-            MockerProvider.swedbankPassword
+            MockedProvider.nordeaBankID,
+            MockedProvider.nordeaPassword,
+            MockedProvider.sparbankernaBankID,
+            MockedProvider.sparbankernaPassword,
+            MockedProvider.swedbankBankID,
+            MockedProvider.swedbankPassword
         ]
         completion(.success(providers))
         return nil
