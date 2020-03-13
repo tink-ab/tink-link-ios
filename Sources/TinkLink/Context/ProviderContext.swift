@@ -34,14 +34,14 @@ public final class ProviderContext {
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     /// - Parameter user: `User` that will be used for fetching providers with the Tink API.
-    public init(tink: Tink = .shared, user: User) {
-        self.tink = tink
-        self.service = TinkProviderService(tink: tink, accessToken: user.accessToken)
+    public convenience init(tink: Tink = .shared, user: User) {
+        let service = TinkProviderService(tink: tink, accessToken: user.accessToken)
+        self.init(tink: tink, providerService: service)
     }
 
     /// Internal init taht should only be used for test
-    init(providerService: ProviderService & TokenConfigurableService) {
-        self.tink = Tink.shared
+    init(tink: Tink, providerService: ProviderService & TokenConfigurableService) {
+        self.tink = tink
         self.service = providerService
     }
 
