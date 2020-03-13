@@ -1,6 +1,7 @@
 import Foundation
+import GRPC
 @testable import TinkLink
-@testable import GRPC
+
 
 struct MockedProvider {
     static let nordeaBankID = Provider(
