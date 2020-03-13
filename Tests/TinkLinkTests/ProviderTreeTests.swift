@@ -3,7 +3,7 @@ import XCTest
 
 class ProviderTreeTests: XCTestCase {
     func testCredentialTypesGrouping() {
-        let providers = [MockedProvider.nordeaBankID, MockedProvider.nordeaPassword]
+        let providers = [Provider.nordeaBankID, Provider.nordeaPassword]
 
         let tree = ProviderTree(providers: providers)
         let groups = tree.financialInstitutionGroups
@@ -21,9 +21,9 @@ class ProviderTreeTests: XCTestCase {
 
     func testAccessTypeGrouping() {
         let providers = [
-            MockedProvider.nordeaOpenBanking,
-            MockedProvider.nordeaBankID,
-            MockedProvider.nordeaPassword
+            Provider.nordeaOpenBanking,
+            Provider.nordeaBankID,
+            Provider.nordeaPassword
         ]
 
         let tree = ProviderTree(providers: providers)
@@ -37,7 +37,7 @@ class ProviderTreeTests: XCTestCase {
                 if let openBankingAccessTypeGroup = accessTypeGroups.first(where: { $0.accessType == .openBanking }) {
                     switch openBankingAccessTypeGroup {
                     case .provider(let provider):
-                        XCTAssertEqual(provider.id, MockedProvider.nordeaOpenBanking.id)
+                        XCTAssertEqual(provider.id, Provider.nordeaOpenBanking.id)
                     default:
                         XCTFail("Expected provider group.")
                     }
@@ -60,10 +60,10 @@ class ProviderTreeTests: XCTestCase {
 
     func testGroupDisplayNameGrouping() {
         let providers = [
-            MockedProvider.nordeaBankID,
-            MockedProvider.nordeaPassword,
-            MockedProvider.swedbankBankID,
-            MockedProvider.swedbankPassword
+            Provider.nordeaBankID,
+            Provider.nordeaPassword,
+            Provider.swedbankBankID,
+            Provider.swedbankPassword
         ]
 
         let tree = ProviderTree(providers: providers)
@@ -90,12 +90,12 @@ class ProviderTreeTests: XCTestCase {
 
     func testGroupDisplayNameAndFinancialInstitutionGrouping() {
         let providers = [
-            MockedProvider.nordeaBankID,
-            MockedProvider.nordeaPassword,
-            MockedProvider.sparbankernaBankID,
-            MockedProvider.sparbankernaPassword,
-            MockedProvider.swedbankBankID,
-            MockedProvider.swedbankPassword
+            Provider.nordeaBankID,
+            Provider.nordeaPassword,
+            Provider.sparbankernaBankID,
+            Provider.sparbankernaPassword,
+            Provider.swedbankBankID,
+            Provider.swedbankPassword
         ]
 
         let tree = ProviderTree(providers: providers)

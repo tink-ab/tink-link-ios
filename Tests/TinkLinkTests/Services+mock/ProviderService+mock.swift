@@ -7,12 +7,12 @@ class MockedSuccessProviderService: ProviderService, TokenConfigurableService {
 
     func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
         let providers = [
-            MockedProvider.nordeaBankID,
-            MockedProvider.nordeaPassword,
-            MockedProvider.sparbankernaBankID,
-            MockedProvider.sparbankernaPassword,
-            MockedProvider.swedbankBankID,
-            MockedProvider.swedbankPassword
+            Provider.nordeaBankID,
+            Provider.nordeaPassword,
+            Provider.sparbankernaBankID,
+            Provider.sparbankernaPassword,
+            Provider.swedbankBankID,
+            Provider.swedbankPassword
         ]
         completion(.success(providers))
         return nil
@@ -23,7 +23,7 @@ class MockedUnauthenticatedErrorProviderService: ProviderService, TokenConfigura
     var defaultCallOptions = CallOptions()
 
     func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 }

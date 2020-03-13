@@ -26,17 +26,17 @@ class MockedInvalidArgumentFailurefulUserService: UserService, TokenConfigurable
     var defaultCallOptions = CallOptions()
     
     func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.invalidArgumentError))
+        completion(.failure(ServiceError.invalidArgumentError))
         return nil
     }
 
     func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.invalidArgumentError))
+        completion(.failure(ServiceError.invalidArgumentError))
         return nil
     }
 
     func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.invalidArgumentError))
+        completion(.failure(ServiceError.invalidArgumentError))
         return nil
     }
 }
@@ -45,17 +45,17 @@ class MockedUnauthenticatedErrorUserService: UserService, TokenConfigurableServi
     var defaultCallOptions = CallOptions()
 
     func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 }

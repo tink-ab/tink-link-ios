@@ -91,22 +91,22 @@ class MockedUnauthenticatedErrorCredentialService: CredentialService, TokenConfi
     var defaultCallOptions = CallOptions()
 
     func credentials(completion: @escaping (Result<[Credential], Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func createCredential(providerID: Provider.ID, kind: Credential.Kind, fields: [String : String], appURI: URL?, completion: @escaping (Result<Credential, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func deleteCredential(credentialID: Credential.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func updateCredential(credentialID: Credential.ID, fields: [String : String], completion: @escaping (Result<Credential, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
@@ -115,37 +115,37 @@ class MockedUnauthenticatedErrorCredentialService: CredentialService, TokenConfi
     }
 
     func supplementInformation(credentialID: Credential.ID, fields: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func cancelSupplementInformation(credentialID: Credential.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func enableCredential(credentialID: Credential.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func disableCredential(credentialID: Credential.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func thirdPartyCallback(state: String, parameters: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func manualAuthentication(credentialID: Credential.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
     func qr(credentialID: Credential.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(MockedServiceError.unauthenticatedError))
+        completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 }
