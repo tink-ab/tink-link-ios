@@ -55,7 +55,7 @@ final class AuthenticationService: TokenConfigurableService {
 
         var request = GRPCDescribeOAuth2ClientRequest()
         request.clientID = clientID
-        request.scopes = scope.scopes.map { $0.description }
+        request.scopes = scope.scopes.map { $0.scopeDescription }
         request.redirectUri = redirectURI.absoluteString
 
         return CallHandler(
