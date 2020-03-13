@@ -29,7 +29,6 @@ public final class UserContext {
         self.init(userService: userService)
     }
 
-    /// Internal init taht should only be used for test
     init(userService: UserService & TokenConfigurableService) {
         self.userService = userService
     }

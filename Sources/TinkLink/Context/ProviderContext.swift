@@ -39,7 +39,6 @@ public final class ProviderContext {
         self.init(tink: tink, providerService: service)
     }
 
-    /// Internal init taht should only be used for test
     init(tink: Tink, providerService: ProviderService & TokenConfigurableService) {
         self.tink = tink
         self.service = providerService

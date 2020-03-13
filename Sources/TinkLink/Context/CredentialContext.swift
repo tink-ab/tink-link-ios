@@ -20,7 +20,6 @@ public final class CredentialContext {
         self.init(tink: tink, credentialService: service)
     }
 
-    /// Internal init taht should only be used for test
     init(tink: Tink, credentialService: CredentialService & TokenConfigurableService) {
         self.tink = tink
         self.service = credentialService
