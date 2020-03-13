@@ -1,7 +1,7 @@
 import UIKit
 import TinkLink
 
-public class TinkLinkViewController: TinkNavigationController {
+public class TinkLinkViewController: UINavigationController {
     private let tink: Tink
     private let market: Market
     public let scope: Tink.Scope
