@@ -8,7 +8,7 @@ final class ProviderListViewController: UITableViewController {
 
     private let searchViewController = FinancialInstitutionSearchViewController()
     
-    private lazy var searchController = UISearchController(searchResultsController: searchViewController)
+    private lazy var searchController = TinkSearchController(searchResultsController: searchViewController)
     
     private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode]
 
@@ -28,7 +28,8 @@ final class ProviderListViewController: UITableViewController {
 extension ProviderListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        definesPresentationContext = true
         extendedLayoutIncludesOpaqueBars = true
         
         searchViewController.providerPickerCoordinator = providerPickerCoordinator
