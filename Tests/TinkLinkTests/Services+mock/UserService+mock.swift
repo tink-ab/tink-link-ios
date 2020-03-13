@@ -2,11 +2,6 @@ import Foundation
 import GRPC
 @testable import TinkLink
 
-struct MockedServiceError {
-    static let invalidArgumentError = ServiceError.invalidArgument("Invalid Argument")
-    static let unauthenticatedError = ServiceError.unauthenticated("Unauthenticated User")
-}
-
 class MockedSuccessUserService: UserService, TokenConfigurableService {
     var defaultCallOptions = CallOptions()
 
