@@ -1,32 +1,32 @@
 import UIKit
 
-public enum ChevronDirection {
+enum ChevronDirection {
     case right
     case left
     case up
     case down
 }
 
-public enum ChevronSize {
+enum ChevronSize {
     case small
     case large
 }
 
-public class ChevronLayer: CAShapeLayer {
+class ChevronLayer: CAShapeLayer {
 
-    public var size: ChevronSize = .large {
+    var size: ChevronSize = .large {
         didSet {
             updatePath()
         }
     }
 
-    public var direction: ChevronDirection = .left {
+    var direction: ChevronDirection = .left {
         didSet {
             updatePath()
         }
     }
 
-    public var boundingBox: CGRect {
+    var boundingBox: CGRect {
         if let path = path {
             return path.boundingBox
         }
@@ -34,19 +34,19 @@ public class ChevronLayer: CAShapeLayer {
         return .zero
     }
 
-    override public init() {
+    override init() {
         super.init()
 
         setup()
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         setup()
     }
 
-    public override init(layer: Any) {
+    override init(layer: Any) {
         super.init(layer: layer)
 
         setup()
