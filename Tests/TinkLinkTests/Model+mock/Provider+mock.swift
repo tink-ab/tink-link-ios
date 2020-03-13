@@ -1,6 +1,6 @@
 @testable import TinkLink
 
-struct MockedProvider {
+extension Provider {
     static let nordeaBankID = Provider(
         id: "nordea-bankid",
         displayName: "Nordea",
@@ -126,9 +126,4 @@ struct MockedProvider {
         marketCode: "SE",
         financialInstitution: .init(id: "6c1749b4475e5677a83e9fa4bb60a18a", name: "Swedbank")
     )
-}
-
-struct MockedServiceError {
-    static let invalidArgumentError = ServiceError.invalidArgument("Invalid Argument")
-    static let unauthenticatedError = ServiceError.unauthenticated("Unauthenticated User")
 }
