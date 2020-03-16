@@ -5,8 +5,8 @@
 
 ## Prerequisites
 
-1. Create your developer account at [Tink Console](https://console.tink.com).
-2. Follow the [getting started guide](https://docs.tink.com/resources/getting-started/set-up-your-account) to retrieve your `client_id` and `client_secret`.
+1. Follow the [getting started guide](https://docs.tink.com/resources/getting-started/set-up-your-account) to retrieve your `client_id`.
+2. Make sure you are an Enterprise customer with permanent users enabled.
 3. Add a deep link with scheme and host to your app (`yourapp://host`) to the [list of redirect URIs under your app's settings](https://console.tink.com/overview).
 
 ## Requirements
@@ -58,7 +58,7 @@ Follow the instructions at one of these links for how to set this up:
 ## Examples
 
 - [Usage Examples](USAGE.md) This document outlines how to use the different classes and types provided by Tink Link.
-- [Provider Selection](Examples/PermanentUserProviderSelection) This example shows how to build a complete aggregation flow using Tink Link.
+- [Provider Selection](Examples) These examples shows how to build a complete aggregation flow using Tink Link.
 
 ## Developer Documentation
 - [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios).
