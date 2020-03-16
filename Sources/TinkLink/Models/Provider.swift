@@ -142,7 +142,18 @@ public struct Provider: Identifiable {
     public let capabilities: Capabilities
 
     /// What Tink uses to access data.
-    public enum AccessType: CustomStringConvertible, Hashable {
+    public enum AccessType: CustomStringConvertible, Hashable, Comparable {
+        public static func < (lhs: AccessType, rhs: AccessType) -> Bool {
+            switch (lhs, rhs) {
+            case (.openBanking, _):
+                return true
+            case (_, .unknown):
+                return true
+            default:
+                return false
+            }
+        }
+
         case unknown
         case openBanking
         case other

@@ -140,7 +140,8 @@ public struct ProviderTree {
                 if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
                     self = .credentialKinds(providers.map(CredentialKindNode.init(provider:)))
                 } else {
-                    let providersGroupedByAccessType = providersGroupedByAccessTypes.values.map(AccessTypeNode.init(providers:)).sorted { $0.accessType.description > $1.accessType.description }
+                    let providersGroupedByAccessType = providersGroupedByAccessTypes.values.map(AccessTypeNode.init(providers:)).sorted {
+                        $0.accessType < $1.accessType }
                     self = .accessTypes(providersGroupedByAccessType)
                 }
             }
