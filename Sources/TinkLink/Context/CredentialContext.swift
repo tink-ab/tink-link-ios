@@ -15,10 +15,14 @@ public final class CredentialContext {
     ///
     /// - Parameter tink: Tink instance, defaults to `shared` if not provided.
     /// - Parameter user: `User` that will be used for adding credentials with the Tink API.
-    public init(tink: Tink = .shared, user: User) {
+    public convenience init(tink: Tink = .shared, user: User) {
+        let service = TinkCredentialService(tink: tink, accessToken: user.accessToken)
+        self.init(tink: tink, credentialService: service)
+    }
+
+    init(tink: Tink, credentialService: CredentialService & TokenConfigurableService) {
         self.tink = tink
-        self.service = CredentialService(tink: tink, accessToken: user.accessToken)
-        service.accessToken = user.accessToken
+        self.service = credentialService
         addStoreObservers()
     }
 
@@ -114,7 +118,7 @@ public final class CredentialContext {
     }
 
     private func addCredentialAndAuthenticateIfNeeded(for provider: Provider, fields: [String: String], appURI: URL, completion: @escaping (Result<Credential, Error>) -> Void) -> RetryCancellable? {
-        return service.createCredential(providerID: provider.id, fields: fields, appURI: appURI, completion: completion)
+        return service.createCredential(providerID: provider.id, kind: provider.credentialKind, fields: fields, appURI: appURI, completion: completion)
     }
 
     // MARK: - Fetching Credentials
