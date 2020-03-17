@@ -1,7 +1,7 @@
 import XCTest
 @testable import TinkLink
 
-class CredentialContextTest: XCTestCase {
+class CredentialsContextTests: XCTestCase {
     var mockedSuccessCredentialService: MockedSuccessCredentialService!
     var mockedUnauthenticatedErrorCredentialService: MockedUnauthenticatedErrorCredentialService!
 
@@ -13,17 +13,6 @@ class CredentialContextTest: XCTestCase {
     func testAddingPasswordCredential() {
         try! Tink.configure(with: .init(clientID: "testID", redirectURI: URL(string: "app://callback")!))
         let credentialContextUnderTest = CredentialContext(tink: .shared, credentialService: mockedSuccessCredentialService)
-        let firstFetchCredentialsCompletionCalled = expectation(description: "first fetch credentials completion should be called")
-
-        credentialContextUnderTest.fetchCredentials { result in
-            do {
-                let credentialsList = try result.get()
-                firstFetchCredentialsCompletionCalled.fulfill()
-                XCTAssertEqual(credentialsList.count, 0)
-            } catch {
-                XCTFail("Failed to fetch credentials with: \(error)")
-            }
-        }
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
