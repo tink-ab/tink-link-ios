@@ -3,7 +3,7 @@
 ## Users
 
 ### Permanent user
-Creating permanent users in Tink database is limited to our Enterprise customers.
+Creating permanent users is limited to our Enterprise customers.
 1. If you use the access token directly, you can authenticate your permanent user and use it in a `ProviderContext` like this:
 ```swift
 let userContext = UserContext()
