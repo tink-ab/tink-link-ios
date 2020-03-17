@@ -32,7 +32,7 @@ let userCanceller = userContext.authenticateUser(authorizationCode: <#Authorizat
 ```
 
 ### Creating temporary users
-Currently, only Enterprise customers that can create permanent users are able to use the Headless Tink Link SDK.
+Currently, only Enterprise customers that can create permanent users are able to use Tink Link.
 
 ## How to list and select providers
 
