@@ -52,7 +52,7 @@ extension Font {
         case giga = 25
         
         /// 21
-        case mega = 20
+        case mega = 21
         
         /// 17
         case hecto = 17

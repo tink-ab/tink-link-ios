@@ -10,12 +10,10 @@ class ScopeDescriptionCell: UITableViewCell, ReusableCell {
         contentView.backgroundColor = Color.background
         contentView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
 
-        titleLabel.font = Font.semibold(.mega)
         titleLabel.textColor = Color.label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.numberOfLines = 0
 
-        descriptionLabel.font = Font.regular(.deci)
         descriptionLabel.textColor = Color.label
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.numberOfLines = 0
@@ -34,12 +32,14 @@ class ScopeDescriptionCell: UITableViewCell, ReusableCell {
         ])
     }
 
-    func configure(title: String, description: String) {
+    func configure(title: String, titleFont: UIFont = Font.semibold(.deci), description: String, descriptionFont: UIFont = Font.regular(.deci)) {
         titleLabel.text = title
+        titleLabel.font = titleFont
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
         let attributedText = NSAttributedString(string: description, attributes: [.paragraphStyle: paragraphStyle])
         descriptionLabel.attributedText = attributedText
+        descriptionLabel.font = descriptionFont
     }
 
     required init?(coder: NSCoder) {
