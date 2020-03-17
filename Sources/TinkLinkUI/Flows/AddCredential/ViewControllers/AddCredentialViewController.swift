@@ -164,6 +164,8 @@ extension AddCredentialViewController {
                 NSAttributedString.Key.foregroundColor: Color.accent
             ]
         }
+        helpLabel.textContainer.lineFragmentPadding = 0
+        helpLabel.textContainerInset = .zero
         helpLabel.backgroundColor = .clear
         helpLabel.isScrollEnabled = false
         helpLabel.isEditable = false
