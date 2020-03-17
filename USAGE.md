@@ -140,7 +140,7 @@ for field in form.fields {
 
 ### Form validation
 
-Validate before you submit a request to add credential or supplement information.
+Validate before you submit a request to add credentials or supplement information.
 
 Use `areFieldsValid` to check if all form fields are valid. For example, you can use this to enable a submit button when text fields change.
 
