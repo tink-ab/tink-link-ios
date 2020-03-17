@@ -110,7 +110,7 @@ override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: Inde
 }
 ```
 
-## Add credential
+## Add credentials
 
 ### Creating and updating a form
 
