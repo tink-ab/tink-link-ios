@@ -10,12 +10,25 @@ class MockedSuccessCredentialService: CredentialService, TokenConfigurableServic
     func credentials(completion: @escaping (Result<[Credential], Error>) -> Void) -> RetryCancellable? {
         credentials = credentials.map { Credential(credential: $0, status: $0.nextCredentialStatus()) }
         completion(.success(credentials))
-        return nil
+        let retryCancellable = TestRetryCanceller { [weak self] in
+            guard let self = self else { return }
+            self.credentials(completion: completion)
+        }
+        return retryCancellable
     }
 
     func createCredential(providerID: Provider.ID, kind: Credential.Kind, fields: [String : String], appURI: URL?, completion: @escaping (Result<Credential, Error>) -> Void) -> RetryCancellable? {
         let credentialID = String(credentials.count)
-        let addedCredential = Credential(id: .init(credentialID), providerID: providerID, kind: kind, status: .created, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: [], thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
+        let thirdPartyAppAuthentication = Credential.ThirdPartyAppAuthentication(
+            downloadTitle: "test downloadTitle",
+            downloadMessage: "test downloadMessage",
+            upgradeTitle: "test upgradeTitle",
+            upgradeMessage: "test upgradeMessage",
+            appStoreURL: URL(string: "app://test")!,
+            scheme: "app",
+            deepLinkURL: URL(string: "app://test")!
+        )
+        let addedCredential = Credential(id: .init(credentialID), providerID: providerID, kind: kind, status: .created, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: [], thirdPartyAppAuthentication: thirdPartyAppAuthentication, sessionExpiryDate: nil)
         credentials.append(addedCredential)
         completion(.success(addedCredential))
         return nil
