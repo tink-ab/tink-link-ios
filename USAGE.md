@@ -87,7 +87,7 @@ class ProviderListViewController: UITableViewController {
 
 ### Provider groups
 
-Use the `ProviderTree` to group providers by financial institution, access type and credential kind.
+Use the `ProviderTree` to group providers by financial institution, access type and credentials kind.
 ```swift
 let providerTree = ProviderTree(providers: <#T##Providers#>)
 ```
