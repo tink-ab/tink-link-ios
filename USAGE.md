@@ -114,7 +114,7 @@ override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: Inde
 
 ### Creating and updating a form
 
-A `Form` is used to determine what a user needs to input in order to proceed. For example it could be a username and a password field.
+A `Form` is used to determine what a user needs to input in order to proceed. For example, it could be a username and a password field.
 
 Here's how to create a form for a provider with a username and password field and how to update the fields.
 
@@ -164,11 +164,11 @@ do {
 
 ### Add Credential with form fields
 
-To add a credential for the current user, call `addCredential` with the provider you want to add a credential for and a form with valid fields for that provider.
+To add a credential for the current user, call `addCredentials` with the provider you want to add a credential for and a form with valid fields for that provider.
 Then handle status changes in the `progressHandler` closure and the `result` from the completion handler.
 
 ```swift
-credentialContext.addCredential(for: provider, form: form, progressHandler: { status in
+credentialContext.addCredentials(for: provider, form: form, progressHandler: { status in
     switch status {
     case .awaitingSupplementalInformation(let supplementInformationTask):
         <#Present form for supplemental information task#>
@@ -203,7 +203,7 @@ do {
 }
 ```
 
-After submitting the form new status updates will sent to the `progressHandler` in the `addCredential` call.
+After submitting the form new status updates will sent to the `progressHandler` in the `addCredentials` call.
 
 ### Handling third party app authentication
 
@@ -237,7 +237,7 @@ if let appStoreURL = thirdPartyAppAuthentication.appStoreURL, UIApplication.shar
 present(alertController, animated: true)
 ```
 
-After the redirect to the third-party app, some providers requires additional information to be sent to Tink after the user authenticates with the third-party app for the credentials to be added successfully. This information is passed to your app via the redirect URI. Use the open method in your `UIApplicationDelegate` to let `Tink` send the information to Tink if needed.
+After the redirect to the third party app, some providers requires additional information to be sent to Tink after the user authenticates with the third party app, for the credential to be added successfully. This information is passed to your app via the redirect URI. Use the open method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
 ```swift
 func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
     return Tink.shared.open(url)
@@ -260,7 +260,7 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 ## Showing Terms and Conditions and Privacy Policy
 If aggregating under Tink's license the user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before aggregating any data.
 
-Here's how you can get the url for the Terms and Conditions and present it with the SFSafariViewController.
+Here's how you can get the url for the Terms and Conditions and present it with the `SFSafariViewController`.
 
 ```swift
 import SafariServices
