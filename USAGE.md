@@ -184,7 +184,7 @@ credentialContext.addCredential(for: provider, form: form, progressHandler: { st
 
 ### Handling awaiting supplemental information
 
-Creates a form for the given credential. Usually you get the credential from `SupplementInformationTask`.
+Creates a form for the given credentials. Usually you get the credentials from `SupplementInformationTask`.
 
 ```swift
 let form = Form(credential: supplementInformationTask.credential)
