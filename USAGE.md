@@ -237,7 +237,7 @@ if let appStoreURL = thirdPartyAppAuthentication.appStoreURL, UIApplication.shar
 present(alertController, animated: true)
 ```
 
-After the redirect to the third party app, some providers requires additional information to be sent to Tink after the user authenticates with the third party app for the credential to be added successfully. This information is passed to your app via the redirect URI. Use the open method in your `UIApplicationDelegate` to let `Tink` send the information to Tink if needed.
+After the redirect to the third-party app, some providers requires additional information to be sent to Tink after the user authenticates with the third-party app for the credentials to be added successfully. This information is passed to your app via the redirect URI. Use the open method in your `UIApplicationDelegate` to let `Tink` send the information to Tink if needed.
 ```swift
 func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
     return Tink.shared.open(url)
