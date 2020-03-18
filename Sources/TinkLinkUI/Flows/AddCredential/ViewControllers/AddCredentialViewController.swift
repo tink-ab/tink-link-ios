@@ -160,15 +160,17 @@ extension AddCredentialViewController {
             mutableAttributeString.addAttributes([.font: Font.regular(.nano)], range: NSRange(location: 0, length: attributString.length))
             helpLabel.attributedText = mutableAttributeString
             helpLabel.linkTextAttributes = [
-                NSAttributedString.Key.font: Font.bold(.micro),
+                NSAttributedString.Key.font: Font.bold(.nano),
                 NSAttributedString.Key.foregroundColor: Color.accent
             ]
         }
+        helpLabel.textContainer.lineFragmentPadding = 0
+        helpLabel.textContainerInset = .zero
         helpLabel.backgroundColor = .clear
         helpLabel.isScrollEnabled = false
         helpLabel.isEditable = false
         helpLabel.adjustsFontForContentSizeCategory = true
-        helpLabel.textColor = Color.label
+        helpLabel.textColor = Color.secondaryLabel
 
         let helpStackView = UIStackView(arrangedSubviews: [helpLabel])
         helpStackView.isLayoutMarginsRelativeArrangement = true

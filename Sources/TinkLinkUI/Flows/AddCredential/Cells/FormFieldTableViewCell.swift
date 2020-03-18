@@ -50,6 +50,8 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         textField.autocorrectionType = .no
         textField.delegate = self
 
+        footerLabel.font = Font.regular(.nano)
+
         contentView.layoutMargins = .init(top: 16, left: 20, bottom: 4, right: 20)
         contentView.backgroundColor = Color.background
         contentView.addSubview(textField)
@@ -70,6 +72,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         self.field = field
         textField.configure(with: field)
         footerLabel.text = field.attributes.helpText
+        footerLabel.textColor = Color.secondaryLabel
     }
 
     func setError(with errorText: String?) {
