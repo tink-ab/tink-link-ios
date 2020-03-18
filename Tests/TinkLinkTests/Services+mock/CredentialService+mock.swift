@@ -19,22 +19,7 @@ class MockedSuccessCredentialService: CredentialService, TokenConfigurableServic
 
     func createCredential(providerID: Provider.ID, kind: Credential.Kind, fields: [String : String], appURI: URL?, completion: @escaping (Result<Credential, Error>) -> Void) -> RetryCancellable? {
         let credentialID = String(credentials.count)
-        let thirdPartyAppAuthentication: Credential.ThirdPartyAppAuthentication? = {
-            if kind == .mobileBankID || kind == .thirdPartyAuthentication {
-                return Credential.ThirdPartyAppAuthentication(
-                    downloadTitle: "test downloadTitle",
-                    downloadMessage: "test downloadMessage",
-                    upgradeTitle: "test upgradeTitle",
-                    upgradeMessage: "test upgradeMessage",
-                    appStoreURL: URL(string: "app://test")!,
-                    scheme: "app",
-                    deepLinkURL: URL(string: "app://test")!
-                )
-            } else {
-                return nil
-            }
-        }()
-        let addedCredential = Credential(id: .init(credentialID), providerID: providerID, kind: kind, status: .created, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: [], thirdPartyAppAuthentication: thirdPartyAppAuthentication, sessionExpiryDate: nil)
+        let addedCredential = Credential(id: .init(credentialID), providerID: providerID, kind: kind, status: .created, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: [], thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
         credentials.append(addedCredential)
         completion(.success(addedCredential))
         return nil
