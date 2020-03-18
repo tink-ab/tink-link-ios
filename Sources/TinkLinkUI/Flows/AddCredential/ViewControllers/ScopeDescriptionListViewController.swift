@@ -5,7 +5,7 @@ final class ScopeDescriptionListViewController: UITableViewController {
 
     private let authorizationController: AuthorizationController
 
-    private let scope: Tink.Scope
+    private let scopes: [Scope]
 
     private lazy var activityIndicatorView = ActivityIndicatorView()
 
@@ -20,9 +20,9 @@ final class ScopeDescriptionListViewController: UITableViewController {
         }
     }
 
-    init(authorizationController: AuthorizationController, scope: Tink.Scope) {
+    init(authorizationController: AuthorizationController, scopes: [Scope]) {
         self.authorizationController = authorizationController
-        self.scope = scope
+        self.scopes = scopes
         self.sections = [
             .intro(
                 title: "We’ll collect the following data from you",
@@ -54,7 +54,7 @@ extension ScopeDescriptionListViewController {
         activityIndicatorView.tintColor = Color.accent
         activityIndicatorView.startAnimating()
 
-        authorizationController.scopeDescriptions(scope: scope) { [weak self] result in
+        authorizationController.scopeDescriptions(scopes: scopes) { [weak self] result in
             DispatchQueue.main.async {
                 self?.activityIndicatorView.stopAnimating()
 

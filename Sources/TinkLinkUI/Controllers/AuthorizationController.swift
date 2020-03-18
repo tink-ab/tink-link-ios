@@ -20,8 +20,8 @@ final class AuthorizationController {
     }
 
     @discardableResult
-    func authorize(scope: Tink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
-        return authorizationContext?.authorize(scope: scope, completion: completion)
+    func authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
+        return authorizationContext?.authorize(scopes: scopes, completion: completion)
     }
 
     @discardableResult
@@ -30,7 +30,7 @@ final class AuthorizationController {
     }
 
     @discardableResult
-    public func scopeDescriptions(scope: Tink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable? {
-        return authorizationContext?.scopeDescriptions(scope: scope, completion: completion)
+    public func scopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable? {
+        return authorizationContext?.scopeDescriptions(scopes: scopes, completion: completion)
     }
 }

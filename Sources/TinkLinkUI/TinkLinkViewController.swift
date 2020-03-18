@@ -4,13 +4,13 @@ import TinkLink
 public class TinkLinkViewController: UINavigationController {
     private let tink: Tink
     private let market: Market
-    public let scope: Tink.Scope
+    public let scopes: [Scope]
 
     private var userController: UserController
     private var providerController: ProviderController
     private lazy var credentialController = CredentialController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
-    private lazy var addCredentialSession = AddCredentialSession(credentialController: self.credentialController, authorizationController: self.authorizationController, scope: scope, parentViewController: self)
+    private lazy var addCredentialSession = AddCredentialSession(credentialController: self.credentialController, authorizationController: self.authorizationController, scopes: scopes, parentViewController: self)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
     private lazy var loadingViewController = LoadingViewController(providerController: providerController)
 
@@ -18,10 +18,10 @@ public class TinkLinkViewController: UINavigationController {
     private let clientDescriptorLoadingGroup = DispatchGroup()
     private let completion: (AuthorizationCode) -> Void
 
-    public init(tink: Tink = .shared, market: Market, scope: Tink.Scope, providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (AuthorizationCode) -> Void) {
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (AuthorizationCode) -> Void) {
         self.tink = tink
         self.market = market
-        self.scope = scope
+        self.scopes = scopes
         self.userController = UserController(tink: tink)
         self.providerController = ProviderController(tink: tink, providerKinds: providerKinds)
         self.completion = completion
@@ -259,7 +259,7 @@ extension TinkLinkViewController: ProviderPickerCoordinatorDelegate {
 
 extension TinkLinkViewController: AddCredentialViewControllerDelegate {
     func showScopeDescriptions() {
-        let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scope: scope)
+        let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scopes: scopes)
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
         let navigationController = TinkNavigationController(rootViewController: viewController)
         present(navigationController, animated: true)

@@ -7,7 +7,7 @@ final class AddCredentialSession {
 
     private let credentialController: CredentialController
     private let authorizationController: AuthorizationController
-    private let scope: Tink.Scope
+    private let scopes: [Scope]
 
     private var task: AddCredentialsTask?
     private var supplementInfoTask: SupplementInformationTask?
@@ -20,10 +20,10 @@ final class AddCredentialSession {
     private var isAuthorizing = false
     private var authorizationGroup = DispatchGroup()
 
-    init(credentialController: CredentialController, authorizationController: AuthorizationController, scope: Tink.Scope, parentViewController: UIViewController) {
+    init(credentialController: CredentialController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
         self.parentViewController = parentViewController
         self.credentialController = credentialController
-        self.scope = scope
+        self.scopes = scopes
         self.authorizationController = authorizationController
     }
 
@@ -110,7 +110,7 @@ final class AddCredentialSession {
 
         isAuthorizing = true
         authorizationGroup.enter()
-        authorizationController.authorize(scope: scope) { [weak self] result in
+        authorizationController.authorize(scopes: scopes) { [weak self] result in
             do {
                 let authorizationCode = try result.get()
                 self?.authorizationCode = authorizationCode
