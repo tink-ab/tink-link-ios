@@ -162,7 +162,7 @@ do {
 }
 ```
 
-### Add Credential with form fields
+### Add Credentials with form fields
 
 To add a credentials for the current user, call `addCredentials` with the provider you want to add a credentials for and a form with valid fields for that provider.
 Then handle status changes in the `progressHandler` closure and the `result` from the completion handler.
