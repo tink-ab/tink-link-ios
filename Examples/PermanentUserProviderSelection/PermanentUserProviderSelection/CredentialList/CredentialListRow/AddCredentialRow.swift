@@ -13,7 +13,7 @@ struct AddCredentialRow: View {
                 Button(action: {
                     self.shouldShowProviders = true
                 }) {
-                    Text("Add New Credential")
+                    Text("Add New Credentials")
                 }
                 .sheet(isPresented: $shouldShowProviders, content: {
                     AddCredentialFlowView(providers: self.providerController.providers, credentialController: self.credentialController) { _ in
