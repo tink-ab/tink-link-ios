@@ -7,7 +7,7 @@ struct CredentialsView: View {
 
     @State private var isPresentingRefreshAlert = false
     @State private var isAnimating: Bool = false
-    @State private var selectedCredentials: [Credential] = []
+    @State private var selectedCredentials: [Credentials] = []
     @State private var isRefreshing = false
 
     var body: some View {

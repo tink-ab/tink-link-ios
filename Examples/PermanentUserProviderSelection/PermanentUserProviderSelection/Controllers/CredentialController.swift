@@ -2,7 +2,7 @@ import TinkLink
 import SwiftUI
 
 final class CredentialController: ObservableObject {
-    @Published var credentials: [Credential] = []
+    @Published var credentials: [Credentials] = []
     var user: User? {
         didSet {
             if user != nil {
@@ -11,16 +11,16 @@ final class CredentialController: ObservableObject {
         }
     }
 
-    @Published var updatedCredentials: [Credential] = []
+    @Published var updatedCredentials: [Credentials] = []
     @Published var supplementInformationTask: SupplementInformationTask?
 
-    private(set) var credentialContext: CredentialContext?
+    private(set) var credentialContext: CredentialsContext?
     private var task: RefreshCredentialTask?
     
     func performFetch() {
         guard let user = user else { return }
         if credentialContext == nil {
-            credentialContext = CredentialContext(user: user)
+            credentialContext = CredentialsContext(user: user)
         }
         credentialContext?.fetchCredentials(completion: { [weak self] result in
             do {
@@ -34,10 +34,10 @@ final class CredentialController: ObservableObject {
         })
     }
 
-    func performRefresh(credentials: [Credential], completion: @escaping (Result<[Credential], Error>) -> Void) {
+    func performRefresh(credentials: [Credentials], completion: @escaping (Result<[Credentials], Error>) -> Void) {
         guard let user = user else { return }
         if credentialContext == nil {
-            credentialContext = CredentialContext(user: user)
+            credentialContext = CredentialsContext(user: user)
         }
         task = credentialContext?.refresh(
             credentials,
@@ -55,7 +55,7 @@ final class CredentialController: ObservableObject {
         task?.cancel()
     }
 
-    func deleteCredential(credentials: [Credential]) {
+    func deleteCredential(credentials: [Credentials]) {
         credentials.forEach { credential in
             credentialContext?.delete(credential, completion: { [weak self] result in
                 switch result {
@@ -108,7 +108,7 @@ final class CredentialController: ObservableObject {
         }
     }
 
-    private func refreshCompletionHandler(result: Result<[Credential], Error>) {
+    private func refreshCompletionHandler(result: Result<[Credentials], Error>) {
         do {
             let updatedCredentials = try result.get()
             var groupedCredentials = Dictionary(grouping: credentials) { $0.id }

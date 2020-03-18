@@ -46,7 +46,7 @@ class ProviderGRPCTests: XCTestCase {
         XCTAssertEqual(provider.displayName, grpcProvider.displayName)
         XCTAssertEqual(provider.kind, .test)
         XCTAssertEqual(provider.status, .enabled)
-        XCTAssertEqual(provider.credentialKind, .thirdPartyAuthentication)
+        XCTAssertEqual(provider.credentialsKind, .thirdPartyAuthentication)
         XCTAssertFalse(provider.isPopular)
         XCTAssertEqual(provider.fields.count, 1)
         if let field = provider.fields.first {

@@ -11,7 +11,7 @@ extension Notification.Name {
 }
 
 final class CredentialController {
-    var credentials: [Credential] = [] {
+    var credentials: [Credentials] = [] {
         didSet {
             NotificationCenter.default.post(name: .credentialControllerDidUpdateCredentials, object: nil)
         }
@@ -22,17 +22,17 @@ final class CredentialController {
         }
     }
 
-    var updatedCredentials: [Credential] = []
+    var updatedCredentials: [Credentials] = []
     private(set) var supplementInformationTask: SupplementInformationTask?
 
-    private(set) var credentialContext: CredentialContext?
+    private(set) var credentialContext: CredentialsContext?
     private var refreshTask: RefreshCredentialTask?
-    private var addCredentialTask: AddCredentialTask?
+    private var addCredentialTask: AddCredentialsTask?
 
     func performFetch() {
         guard let user = user else { return }
         if credentialContext == nil {
-            credentialContext = CredentialContext(user: user)
+            credentialContext = CredentialsContext(user: user)
         }
         credentialContext?.fetchCredentials(completion: { [weak self] result in
             guard let self = self else { return }
@@ -45,10 +45,10 @@ final class CredentialController {
         })
     }
 
-    func performRefresh(_ credentials: [Credential]) {
+    func performRefresh(_ credentials: [Credentials]) {
         guard let user = user else { return }
         if credentialContext == nil {
-            credentialContext = CredentialContext(user: user)
+            credentialContext = CredentialsContext(user: user)
         }
         refreshTask = credentialContext?.refresh(
             credentials,
@@ -62,9 +62,9 @@ final class CredentialController {
     func addCredential(_ provider: Provider, form: Form) {
         guard let user = user else { return }
         if credentialContext == nil {
-            credentialContext = CredentialContext(user: user)
+            credentialContext = CredentialsContext(user: user)
         }
-        addCredentialTask = credentialContext?.addCredential(
+        addCredentialTask = credentialContext?.addCredentials(
             for: provider,
             form: form,
             progressHandler: { [weak self] in self?.createProgressHandler(for: $0) },
@@ -80,7 +80,7 @@ final class CredentialController {
         addCredentialTask?.cancel()
     }
 
-    func deleteCredential(_ credentials: [Credential]) {
+    func deleteCredential(_ credentials: [Credentials]) {
         credentials.forEach { credential in
             credentialContext?.delete(credential, completion: { [weak self] result in
                 switch result {
@@ -96,7 +96,7 @@ final class CredentialController {
         }
     }
 
-    private func createProgressHandler(for status: AddCredentialTask.Status) {
+    private func createProgressHandler(for status: AddCredentialsTask.Status) {
         switch status {
         case .authenticating, .created:
             break
@@ -111,7 +111,7 @@ final class CredentialController {
         }
     }
 
-    private func createCompletionHandler(result: Result<Credential, Error>) {
+    private func createCompletionHandler(result: Result<Credentials, Error>) {
         do {
             let credential = try result.get()
             credentials.append(credential)
@@ -155,7 +155,7 @@ final class CredentialController {
         }
     }
 
-    private func refreshCompletionHandler(result: Result<[Credential], Error>) {
+    private func refreshCompletionHandler(result: Result<[Credentials], Error>) {
         do {
             let updatedCredentials = try result.get()
             var groupedCredentials = Dictionary(grouping: credentials) { $0.id }

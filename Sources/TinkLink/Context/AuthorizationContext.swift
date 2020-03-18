@@ -5,6 +5,25 @@ public final class AuthorizationContext {
     private let tink: Tink
     private let service: AuthenticationService
 
+    /// Error that the `AuthorizationContext` can throw.
+    public enum Error: Swift.Error {
+        /// The scope or redirect URI was invalid.
+        ///
+        /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
+        ///
+        /// - Note: The payload from the backend can be found in the associated value.
+        case invalidScopeOrRedirectURI(String)
+
+        init?(_ error: Swift.Error) {
+            switch error {
+            case ServiceError.invalidArgument(let message):
+                self = .invalidScopeOrRedirectURI(message)
+            default:
+                return nil
+            }
+        }
+    }
+
     // MARK: - Creating a Context
 
     /// Creates a context to authorize for an authorization code for a user with requested scopes.
@@ -28,10 +47,14 @@ public final class AuthorizationContext {
     /// - Parameter completion: The block to execute when the authorization is complete.
     /// - Parameter result: Represents either an authorization code if authorization was successful or an error if authorization failed.
     @discardableResult
-    func authorize(scope: Tink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
+    func authorize(scope: Tink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scope: scope) { result in
-            completion(result.map { $0.code })
+            let mappedResult = result.map({ $0.code }).mapError({ Error($0) ?? $0 })
+            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
+                assertionFailure("Could not authorize: " + message)
+            }
+            completion(mappedResult)
         }
     }
 
@@ -41,11 +64,15 @@ public final class AuthorizationContext {
     ///
     /// - Parameter completion: The block to execute when the aggregator status is received or if an error occurred.
     @discardableResult
-    public func isAggregator(completion: @escaping (Result<Bool, Error>) -> Void) -> RetryCancellable {
+    public func isAggregator(completion: @escaping (Result<Bool, Swift.Error>) -> Void) -> RetryCancellable {
         let scope = Tink.Scope()
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
-            completion(result.map({ $0.isAggregator }))
+            let mappedResult = result.map({ $0.isAggregator }).mapError({ Error($0) ?? $0 })
+            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
+                assertionFailure("Could not check aggregator status: " + message)
+            }
+            completion(mappedResult)
         }
     }
 
@@ -125,10 +152,14 @@ public final class AuthorizationContext {
     ///   - completion: The block to execute when the scope descriptions are received or if an error occurred.
     /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
     @discardableResult
-    public func scopeDescriptions(scope: Tink.Scope, completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable {
+    public func scopeDescriptions(scope: Tink.Scope, completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable {
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
-            completion(result.map({ $0.scopes }))
+            let mappedResult = result.map({ $0.scopes }).mapError({ Error($0) ?? $0 })
+            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
+                assertionFailure("Could not fetch scope descriptions: " + message)
+            }
+            completion(mappedResult)
         }
     }
 
