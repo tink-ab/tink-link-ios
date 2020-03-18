@@ -90,7 +90,7 @@ final class AddCredentialFooterView: UIView {
     }
 
     func configure(with provider: Provider, isAggregator: Bool) {
-        switch provider.credentialKind {
+        switch provider.credentialsKind {
         case .mobileBankID:
             // TODO: Maybe use Form(provider: provider).fields.isEmpty for decide if we should show the bankIdAnotherDeviceButton?
             if ProcessInfo.processInfo.tinkEnableBankIDOnAnotherDevice, bankIdAnotherDeviceButton.superview == nil {

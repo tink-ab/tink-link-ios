@@ -1,7 +1,7 @@
 import Foundation
 import TinkLink
 
-extension AddCredentialTask.Error: LocalizedError {
+extension AddCredentialsTask.Error: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .permanentFailure:
@@ -10,7 +10,7 @@ extension AddCredentialTask.Error: LocalizedError {
             return "Temporary error"
         case .authenticationFailed:
             return "Authentication failed"
-        case .credentialAlreadyExists:
+        case .credentialsAlreadyExists:
             return "Error"
         }
     }
@@ -19,7 +19,7 @@ extension AddCredentialTask.Error: LocalizedError {
         switch self {
         case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload):
             return payload
-        case .credentialAlreadyExists:
+        case .credentialsAlreadyExists:
             return "You already have a connection to this bank or service."
         }
     }

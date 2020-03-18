@@ -122,7 +122,7 @@ extension AddCredentialViewController {
             buttonBottomConstraint,
         ])
         
-        switch provider.credentialKind {
+        switch provider.credentialsKind {
         case .mobileBankID:
             button.text = "Open BankID"
         default:
