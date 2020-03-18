@@ -3,7 +3,7 @@
 ## Users
 
 ### Permanent user
-Creating permanent users in Tink database is limited to our Enterprise customers.
+Creating permanent users is limited to our Enterprise customers.
 1. If you use the access token directly, you can authenticate your permanent user and use it in a `ProviderContext` like this:
 ```swift
 let userContext = UserContext()
@@ -32,13 +32,13 @@ let userCanceller = userContext.authenticateUser(authorizationCode: <#Authorizat
 ```
 
 ### Creating temporary users
-Currently, only Enterprise customers that can create permanent users are able to use the Headless TinkLink SDK.
+Currently, only Enterprise customers that can create permanent users are able to use Tink Link.
 
 ## How to list and select providers
 
 ### Listing and responding to changes
 
-As mentioned at the first section, before fetching providers, you need to have a permanent user via TinkLink first, then use it to fetch the providers. 
+As mentioned at the first section, before fetching providers, you need to have a permanent user via Tink Link first, then use it to fetch the providers. 
 Here's how you can list all providers with a `UITableViewController` subclass.  
 
 ```swift
@@ -87,7 +87,7 @@ class ProviderListViewController: UITableViewController {
 
 ### Provider groups
 
-Use the `ProviderTree` to group providers by financial institution, access type and credential kind.
+Use the `ProviderTree` to group providers by financial institution, access type and credentials kind.
 ```swift
 let providerTree = ProviderTree(providers: <#T##Providers#>)
 ```
@@ -110,11 +110,11 @@ override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: Inde
 }
 ```
 
-## Add credential
+## Add credentials
 
 ### Creating and updating a form
 
-A `Form` is used to determine what a user needs to input in order to proceed. For example it could be a username and a password field.
+A `Form` is used to determine what a user needs to input in order to proceed. For example, it could be a username and a password field.
 
 Here's how to create a form for a provider with a username and password field and how to update the fields.
 
@@ -140,7 +140,7 @@ for field in form.fields {
 
 ### Form validation
 
-Validate before you submit a request to add credential or supplement information.
+Validate before you submit a request to add credentials or supplement information.
 
 Use `areFieldsValid` to check if all form fields are valid. For example, you can use this to enable a submit button when text fields change.
 
@@ -150,7 +150,7 @@ Use `areFieldsValid` to check if all form fields are valid. For example, you can
 }
 ```
 
-Use validateFields() to validate all fields. If not valid, it will throw an error that contains more information about which fields are not valid and why.
+Use `validateFields()` to validate all fields. If not valid, it will throw an error that contains more information about which fields are not valid and why.
 
 ```swift
 do {
@@ -162,13 +162,13 @@ do {
 }
 ```
 
-### Add Credential with form fields
+### Add Credentials with form fields
 
-To add a credential for the current user, call `addCredential` with the provider you want to add a credential for and a form with valid fields for that provider.
+To add a credentials for the current user, call `addCredentials` with the provider you want to add a credentials for and a form with valid fields for that provider.
 Then handle status changes in the `progressHandler` closure and the `result` from the completion handler.
 
 ```swift
-credentialContext.addCredential(for: provider, form: form, progressHandler: { status in
+credentialContext.addCredentials(for: provider, form: form, progressHandler: { status in
     switch status {
     case .awaitingSupplementalInformation(let supplementInformationTask):
         <#Present form for supplemental information task#>
@@ -184,7 +184,7 @@ credentialContext.addCredential(for: provider, form: form, progressHandler: { st
 
 ### Handling awaiting supplemental information
 
-Creates a form for the given credential. Usually you get the credential from `SupplementInformationTask`.
+Creates a form for the given credentials. Usually you get the credentials from `SupplementInformationTask`.
 
 ```swift
 let form = Form(credential: supplementInformationTask.credential)
@@ -203,11 +203,11 @@ do {
 }
 ```
 
-After submitting the form new status updates will sent to the `progressHandler` in the `addCredential` call.
+After submitting the form new status updates will sent to the `progressHandler` in the `addCredentials` call.
 
 ### Handling third party app authentication
 
-When progressHandler get a `awaitingThirdPartyAppAuthentication` status you need to try to open the url provided by `ThirdPartyAppAuthentication`. Check if the system can open the url or ask the user to download the app like this:
+When `progressHandler` get a `awaitingThirdPartyAppAuthentication` status you need to try to open the url provided by `ThirdPartyAppAuthentication`. Check if the system can open the url or ask the user to download the app like this:
 
 ```swift
 if let deepLinkURL = thirdPartyAppAuthentication.deepLinkURL, UIApplication.shared.canOpenURL(deepLinkURL) {
@@ -237,20 +237,20 @@ if let appStoreURL = thirdPartyAppAuthentication.appStoreURL, UIApplication.shar
 present(alertController, animated: true)
 ```
 
-After the redirect to the third party app, some providers requires additional information to be sent to Tink after the user authenticates with the third party app for the credential to be added successfully. This information is passed to your app via the redirect URI. Use the open method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
+After the redirect to the third party app, some providers requires additional information to be sent to Tink after the user authenticates with the third party app, for the credentials to be added successfully. This information is passed to your app via the redirect URI. Use the open method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
 ```swift
 func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-    return TinkLink.shared.open(url)
+    return Tink.shared.open(url)
 }
 ```
 
 ### Handling Universal Links
-For some providers the redirect needs to be a https link. Use the continue user activity method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
+For some providers the redirect needs to be a https link. Use the continue user activity method in your `UIApplicationDelegate` to let `Tink` send the information to Tink if needed.
 
 ```swift
 func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
     if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
-        return TinkLink.shared.open(url)
+        return Tink.shared.open(url)
     } else {
         return false
     }
@@ -260,7 +260,7 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 ## Showing Terms and Conditions and Privacy Policy
 If aggregating under Tink's license the user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before aggregating any data.
 
-Here's how you can get the url for the Terms and Conditions and present it with the SFSafariViewController.
+Here's how you can get the url for the Terms and Conditions and present it with the `SFSafariViewController`.
 
 ```swift
 import SafariServices

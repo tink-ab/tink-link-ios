@@ -4,33 +4,33 @@ import Foundation
 ///
 /// Use `CredentialContext` to create a task.
 public final class RefreshCredentialTask: Identifiable {
-    /// Indicates the state of a credential being refreshed.
+    /// Indicates the state of a credentials being refreshed.
     ///
     /// - Note: For some states there are actions which need to be performed on the credentials.
     public enum Status {
-        /// When the credential has just been created
-        case created(credential: Credential)
+        /// When the credentials has just been created
+        case created(credentials: Credentials)
 
         /// When starting the authentication process
-        case authenticating(credential: Credential)
+        case authenticating(credentials: Credentials)
 
         /// User has been successfully authenticated, now downloading data.
-        case updating(credential: Credential, status: String)
+        case updating(credentials: Credentials, status: String)
 
         /// Trigger for the client to prompt the user to fill out supplemental information.
         case awaitingSupplementalInformation(task: SupplementInformationTask)
 
         /// Trigger for the client to prompt the user to open the third party authentication flow
-        case awaitingThirdPartyAppAuthentication(credential: Credential, task: ThirdPartyAppAuthenticationTask)
+        case awaitingThirdPartyAppAuthentication(credentials: Credentials, task: ThirdPartyAppAuthenticationTask)
 
         /// The session has expired.
-        case sessionExpired(credential: Credential)
+        case sessionExpired(credentials: Credentials)
 
         /// The status has been updated.
-        case updated(credential: Credential)
+        case updated(credentials: Credentials)
 
         /// The refresh error.
-        case error(credential: Credential, error: Error)
+        case error(credentials: Credentials, error: Error)
     }
 
     /// Error that the `RefreshCredentialTask` can throw.
@@ -52,15 +52,15 @@ public final class RefreshCredentialTask: Identifiable {
 
     // MARK: - Getting the Credentials
 
-    public private(set) var credentials: [Credential]
+    public private(set) var credentials: [Credentials]
 
-    private let credentialService: CredentialService
+    private let credentialService: CredentialsService
     let progressHandler: (Status) -> Void
-    let completion: (Result<[Credential], Swift.Error>) -> Void
+    let completion: (Result<[Credentials], Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
 
-    init(credentials: [Credential], credentialService: CredentialService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<[Credential], Swift.Error>) -> Void) {
+    init(credentials: [Credentials], credentialService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<[Credentials], Swift.Error>) -> Void) {
         self.credentials = credentials
         self.credentialService = credentialService
         self.progressHandler = progressHandler
@@ -88,17 +88,17 @@ public final class RefreshCredentialTask: Identifiable {
         callCanceller?.cancel()
     }
 
-    private func handleUpdate(for result: Result<Credential, Swift.Error>) {
+    private func handleUpdate(for result: Result<Credentials, Swift.Error>) {
         do {
-            let credential = try result.get()
-            switch credential.status {
+            let credentials = try result.get()
+            switch credentials.status {
             case .created:
-                progressHandler(.created(credential: credential))
+                progressHandler(.created(credentials: credentials))
             case .authenticating:
-                progressHandler(.authenticating(credential: credential))
+                progressHandler(.authenticating(credentials: credentials))
             case .awaitingSupplementalInformation:
                 credentialStatusPollingTask?.pausePolling()
-                let supplementInformationTask = SupplementInformationTask(credentialService: credentialService, credential: credential) { [weak self] result in
+                let supplementInformationTask = SupplementInformationTask(credentialsService: credentialService, credentials: credentials) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
@@ -109,12 +109,12 @@ public final class RefreshCredentialTask: Identifiable {
                 }
                 progressHandler(.awaitingSupplementalInformation(task: supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
-                guard let thirdPartyAppAuthentication = credential.thirdPartyAppAuthentication else {
+                guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
                     assertionFailure("Missing third pary app authentication deeplink URL!")
                     return
                 }
                 credentialStatusPollingTask?.pausePolling()
-                let task = ThirdPartyAppAuthenticationTask(credential: credential, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialService: credentialService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
+                let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialsService: credentialService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
@@ -123,23 +123,23 @@ public final class RefreshCredentialTask: Identifiable {
                         self.completion(.failure(error))
                     }
                 }
-                progressHandler(.awaitingThirdPartyAppAuthentication(credential: credential, task: task))
+                progressHandler(.awaitingThirdPartyAppAuthentication(credentials: credentials, task: task))
             case .updating:
-                progressHandler(.updating(credential: credential, status: credential.statusPayload))
+                progressHandler(.updating(credentials: credentials, status: credentials.statusPayload))
             case .updated:
-                progressHandler(.updated(credential: credential))
+                progressHandler(.updated(credentials: credentials))
             case .sessionExpired:
-                progressHandler(.sessionExpired(credential: credential))
+                progressHandler(.sessionExpired(credentials: credentials))
             case .authenticationError:
-                progressHandler(.error(credential: credential, error: .authenticationFailed))
+                progressHandler(.error(credentials: credentials, error: .authenticationFailed))
             case .permanentError:
-                progressHandler(.error(credential: credential, error: .permanentFailure))
+                progressHandler(.error(credentials: credentials, error: .permanentFailure))
             case .temporaryError:
-                progressHandler(.error(credential: credential, error: .temporaryFailure))
+                progressHandler(.error(credentials: credentials, error: .temporaryFailure))
             case .disabled:
-                fatalError("Credential shouldn't be disabled during creation.")
+                fatalError("credentials shouldn't be disabled during creation.")
             case .unknown:
-                assertionFailure("Unknown credential status!")
+                assertionFailure("Unknown credentials status!")
             }
         } catch {
             completion(.failure(error))

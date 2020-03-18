@@ -1,7 +1,30 @@
 import Foundation
-// This type represents a tree structure of providers.
+
+/// Use the `ProviderTree` to group providers by financial institution, access type and credentials kind.
 ///
-/// This tree eventually leads to a leaf of type `Provider` that contains more detailed data about a provider.
+/// You initialize a `ProviderTree` with a list of providers.
+///
+/// ```swift
+/// let providerTree = ProviderTree(providers: <#T##Providers#>)
+/// ```
+///
+/// Handle selection of a provider group by switching on the group to decide which screen should be shown next.
+///
+/// ```swift
+/// override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+///     let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
+///     switch financialInstitutionGroupNode {
+///     case .financialInstitutions(let financialInstitutionGroups):
+///         showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
+///     case .accessTypes(let accessTypeGroups):
+///         showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
+///     case .credentialKinds(let groups):
+///         showCredentialKindPicker(for: groups)
+///     case .provider(let provider):
+///         showAddCredential(for: provider)
+///     }
+/// }
+/// ```
 public struct ProviderTree {
     public let financialInstitutionGroups: [FinancialInstitutionGroupNode]
     
@@ -46,9 +69,9 @@ public struct ProviderTree {
 
         public let provider: Provider
 
-        public var credentialKind: Credential.Kind { provider.credentialKind }
+        public var credentialKind: Credentials.Kind { provider.credentialsKind }
 
-        public var displayDescription: String { provider.displayDescription.isEmpty ? provider.credentialKind.description : provider.displayDescription }
+        public var displayDescription: String { provider.displayDescription.isEmpty ? provider.credentialsKind.description : provider.displayDescription }
 
         public var imageURL: URL? { provider.image }
     }
@@ -142,8 +165,8 @@ public struct ProviderTree {
                 if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
                     self = .credentialKinds(providers.map(CredentialKindNode.init(provider:)))
                 } else {
-                    let providersGroupedByAccessType = providersGroupedByAccessTypes.values.map(AccessTypeNode.init(providers:)).sorted { $0.accessType.description < $1.accessType.description }
-                    self = .accessTypes(providersGroupedByAccessType)
+                    let providersGroupedByAccessType = providersGroupedByAccessTypes.values.map(AccessTypeNode.init(providers:))
+                    self = .accessTypes(providersGroupedByAccessType.sorted { $0.accessType < $1.accessType })
                 }
             }
         }

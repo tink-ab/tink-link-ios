@@ -2,12 +2,12 @@ import SwiftUI
 import TinkLink
 
 struct RefreshCredentialList: View {
-    var credentials: [Credential]
-    var updatedCredentials: [Credential]
+    var credentials: [Credentials]
+    var updatedCredentials: [Credentials]
 
     @ObservedObject var providerController: ProviderController
 
-    @Binding private(set) var selectedCredentials: [Credential]
+    @Binding private(set) var selectedCredentials: [Credentials]
 
     var body: some View {
         Group {
@@ -36,6 +36,6 @@ struct RefreshCredentialList: View {
 
 struct RefreshCredentialList_Previews: PreviewProvider {
     static var previews: some View {
-        RefreshCredentialList(credentials: [], updatedCredentials: [], providerController: ProviderController(), selectedCredentials: Binding<[Credential]>.constant([]))
+        RefreshCredentialList(credentials: [], updatedCredentials: [], providerController: ProviderController(), selectedCredentials: Binding<[Credentials]>.constant([]))
     }
 }

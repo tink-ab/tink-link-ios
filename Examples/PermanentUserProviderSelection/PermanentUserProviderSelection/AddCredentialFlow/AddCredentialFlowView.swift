@@ -19,7 +19,7 @@ struct AddCredentialFlowView: View, UIViewControllerRepresentable {
         }
     }
 
-    typealias CompletionHandler = (Result<Credential, Error>) -> Void
+    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler
 
     typealias UIViewControllerType = UINavigationController
