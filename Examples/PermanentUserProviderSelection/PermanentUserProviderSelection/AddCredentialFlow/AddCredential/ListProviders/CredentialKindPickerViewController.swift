@@ -3,13 +3,13 @@ import UIKit
 
 /// Example of how to use the provider grouped by credential type
 final class CredentialKindPickerViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credential, Error>) -> Void
+    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
     var credentialKindNodes: [ProviderTree.CredentialKindNode] = []
     
-    private let credentialContext: CredentialContext
+    private let credentialContext: CredentialsContext
 
-    init(credentialContext: CredentialContext) {
+    init(credentialContext: CredentialsContext) {
         self.credentialContext = credentialContext
 
         super.init(style: .plain)
@@ -26,7 +26,7 @@ extension CredentialKindPickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.prompt = "Choose Credential Type"
+        navigationItem.prompt = "Choose Credentials Type"
         navigationItem.title = credentialKindNodes.first?.provider.displayName
         navigationItem.largeTitleDisplayMode = .never
 

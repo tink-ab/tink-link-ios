@@ -4,7 +4,7 @@ import UIKit
 
 /// Example of how to use the provider field specification to add credential
 final class AddCredentialViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credential, Error>) -> Void
+    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
     let provider: Provider
 
@@ -16,7 +16,7 @@ final class AddCredentialViewController: UITableViewController {
         }
     }
 
-    private var task: AddCredentialTask?
+    private var task: AddCredentialsTask?
     private var statusViewController: AddCredentialStatusViewController?
     private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private var didFirstFieldBecomeFirstResponder = false
@@ -259,7 +259,7 @@ extension AddCredentialViewController {
         statusViewController = nil
     }
 
-    private func showCredentialUpdated(for credential: Credential) {
+    private func showCredentialUpdated(for credential: Credentials) {
         hideUpdatingView()
         dismiss(animated: true) {
             self.onCompletion?(.success(credential))
@@ -318,7 +318,7 @@ extension AddCredentialViewController: SupplementalInformationViewControllerDele
         dismiss(animated: true)
     }
 
-    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credential) {
+    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credentials) {
         dismiss(animated: true)
 
         let activityIndicator = UIActivityIndicatorView(style: .medium)
