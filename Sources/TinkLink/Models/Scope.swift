@@ -1,299 +1,130 @@
 import Foundation
-public protocol ScopeType: CustomStringConvertible {
-    static var name: String { get }
+
+public struct Scope {
+    let name: String
+    let access: [String]
 }
 
-// MARK: - Defining Access Scopes
-extension Tink {
-    /// Access to Tink is divided into scopes. The available scopes for Tink's APIs can be found in Tink console
-    public struct Scope: CustomStringConvertible {
-        public let scopes: [ScopeType]
-        public let description: String
-        public init(scopes: [ScopeType]) {
-            precondition(!scopes.isEmpty, "Tinklink scope is empty.")
-            self.scopes = scopes
-
-            self.description = scopes.map { $0.description }.joined(separator: ",")
-        }
-
-        init() {
-            self.scopes = []
-            self.description = ""
-        }
+public extension Scope {
+    var scopeDescription: String {
+        access.map { "\(name):\($0)" }.joined(separator: ",")
     }
 }
 
-extension Tink.Scope {
-    enum Access: String {
-        case read, write, grant, revoke, refresh, categorize, execute, create, delete, webHooks = "web_hooks"
+extension Array where Element == Scope {
+    var scopeDescription: String { map { $0.scopeDescription }.joined(separator: ",") }
+}
+public extension Scope {
+
+    enum ReadAccess: String {
+        case read
     }
 
-    /// Access to all the user's account information, including balances.
-    public struct Accounts: ScopeType {
-        public static let name = "accounts"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
+    enum ReadWriteAccess: String {
+        case read, write
     }
 
-    public struct Activities: ScopeType {
-        public static let name = "activities"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
+    enum AuthorizationAccess: String {
+        case grant, read, revoke
     }
 
-    public struct Authorization: ScopeType {
-        public static let name = "authorization"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let grant = Self(access: .grant)
-        public static let revoke = Self(access: .revoke)
+    enum CredentialsAccess: String {
+        case read, write, refresh
     }
 
-    public struct Budgets: ScopeType {
-        public static let name = "budgets"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
+    enum TransactionAccess: String {
+        case read, write, categorize
     }
 
-    public struct Calendar: ScopeType {
-        public static let name = "calendar"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
+    enum TransferAccess: String {
+        case read, execute
     }
 
-    public struct Categories: ScopeType {
-        public static let name = "categories"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
+    enum UserAccess: String {
+        case create, delete, read, webHooks = "web_hooks", write
     }
 
-    public struct Contacts: ScopeType {
-        public static let name = "contacts"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
+    static func accounts(_ access: ReadWriteAccess...) -> Scope {
+        return Scope(name: "accounts", access: access.map { $0.rawValue })
     }
 
-    /// Access to the information describing the user's different bank credentials connected to Tink.
-    public struct Credentials: ScopeType {
-        public static let name = "credentials"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
-        public static let refresh = Self(access: .refresh)
+    static func activities(_ access: ReadAccess...) -> Scope {
+        return Scope(name: "activities", access: access.map { $0.rawValue })
     }
 
-    public struct DataExports: ScopeType {
-        public static let name = "data-exports"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
+    static func authorization(_ access: AuthorizationAccess...) -> Scope {
+        return Scope(name: "authorization", access: access.map { $0.rawValue })
     }
 
-    public struct Documents: ScopeType {
-        public static let name = "documents"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
+    static func budgets(_ access: ReadWriteAccess...) -> Scope {
+        return Scope(name: "budgets", access: access.map { $0.rawValue })
     }
 
-    public struct Follow: ScopeType {
-        public static let name = "follow"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
+    static func calendar(_ access: ReadAccess...) -> Scope {
+        return Scope(name: "calendar", access: access.map { $0.rawValue })
     }
 
-    /// Access to the user's personal information that can be used for identification purposes.
-    public struct Identity: ScopeType {
-        public static let name = "identity"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
+    static func categories(_ access: ReadAccess...) -> Scope {
+        return Scope(name: "categories", access: access.map { $0.rawValue })
     }
 
-    public struct Insights: ScopeType {
-        public static let name = "insights"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
+    static func contacts(_ access: ReadAccess...) -> Scope {
+        return Scope(name: "contacts", access: access.map { $0.rawValue })
     }
 
-    /// Access to the user's portfolios and underlying financial instruments.
-    public struct Investments: ScopeType {
-        public static let name = "investments"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
+    static func credentials(_ access: CredentialsAccess...) -> Scope {
+        return Scope(name: "credentials", access: access.map { $0.rawValue })
     }
 
-    public struct Payment: ScopeType {
-        public static let name = "payment"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
+    static func dataExports(_ access: ReadWriteAccess...) -> Scope {
+        return Scope(name: "data-exports", access: access.map { $0.rawValue })
     }
 
-    public struct Properties: ScopeType {
-        public static let name = "properties"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
+    static func documents(_ access: ReadWriteAccess...) -> Scope {
+        return Scope(name: "documents", access: access.map { $0.rawValue })
     }
 
-    public struct Providers: ScopeType {
-        public static let name = "providers"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
+    static func follow(_ access: ReadWriteAccess...) -> Scope {
+        return Scope(name: "follow", access: access.map { $0.rawValue })
     }
 
-    /// Access to all the user's statistics, which can include filters on statistic.type.
-    public struct Statistics: ScopeType {
-        public static let name = "statistics"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
+    static func identity(_ access: ReadWriteAccess...) -> Scope {
+        return Scope(name: "identity", access: access.map { $0.rawValue })
     }
 
-    public struct Suggestions: ScopeType {
-        public static let name = "suggestions"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
+    static func insights(_ access: ReadWriteAccess...) -> Scope {
+        return Scope(name: "insights", access: access.map { $0.rawValue })
     }
 
-    /// Access to all the user's transactional data.
-    public struct Transactions: ScopeType {
-        public static let name = "transactions"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
-        public static let categorize = Self(access: .categorize)
+    static func investments(_ access: ReadAccess...) -> Scope {
+        return Scope(name: "investments", access: access.map { $0.rawValue })
     }
 
-    public struct Transfer: ScopeType {
-        public static let name = "transfer"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
-
-        private let access: Tink.Scope.Access
-
-        public static let read = Self(access: .read)
-        public static let execute = Self(access: .execute)
+    static func properties(_ access: ReadWriteAccess...) -> Scope {
+        return Scope(name: "properties", access: access.map { $0.rawValue })
     }
 
-    /// Access to user profile data such as e-mail, date of birth, etc.
-    public struct User: ScopeType {
-        public static let name = "user"
-        public var description: String {
-            return Self.name + ":" + access.rawValue
-        }
+    static func providers(_ access: ReadAccess...) -> Scope {
+        return Scope(name: "providers", access: access.map { $0.rawValue })
+    }
 
-        private let access: Tink.Scope.Access
+    static func statistics(_ access: ReadAccess...) -> Scope {
+        return Scope(name: "statistics", access: access.map { $0.rawValue })
+    }
 
-        public static let read = Self(access: .read)
-        public static let write = Self(access: .write)
-        public static let create = Self(access: .create)
-        public static let delete = Self(access: .delete)
-        public static let webHooks = Self(access: .webHooks)
+    static func suggestions(_ access: ReadAccess...) -> Scope {
+        return Scope(name: "suggestions", access: access.map { $0.rawValue })
+    }
+
+    static func transactions(_ access: TransactionAccess...) -> Scope {
+        return Scope(name: "transactions", access: access.map { $0.rawValue })
+    }
+
+    static func transfer(_ access: TransferAccess...) -> Scope {
+        return Scope(name: "transfer", access: access.map { $0.rawValue })
+    }
+
+    static func user(_ access: UserAccess...) -> Scope {
+        return Scope(name: "user", access: access.map { $0.rawValue })
     }
 }

@@ -51,14 +51,14 @@ final class AuthenticationService: TokenConfigurableService {
         }
     }
 
-    func clientDescription(scope: Tink.Scope, redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable {
+    func clientDescription(scopes: [Scope], redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable {
         guard let clientID = defaultCallOptions.customMetadata[CallOptions.HeaderKey.oauthClientID.key].first else {
             preconditionFailure("No client id")
         }
 
         var request = GRPCDescribeOAuth2ClientRequest()
         request.clientID = clientID
-        request.scopes = scope.scopes.map { $0.description }
+        request.scopes = scopes.map { $0.scopeDescription }
         request.redirectUri = redirectURI.absoluteString
 
         return CallHandler(
@@ -72,7 +72,7 @@ final class AuthenticationService: TokenConfigurableService {
 }
 
 extension AuthenticationService {
-    func authorize(redirectURI: URL, scope: Tink.Scope, completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable? {
+    func authorize(redirectURI: URL, scopes: [Scope], completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable? {
         guard let clientID = defaultCallOptions.customMetadata[CallOptions.HeaderKey.oauthClientID.key].first else {
             preconditionFailure("No client id")
         }
@@ -101,7 +101,7 @@ extension AuthenticationService {
             let body = [
                 "clientId": clientID,
                 "redirectUri": redirectURI.absoluteString,
-                "scope": scope.description,
+                "scope": scopes.scopeDescription,
             ]
             urlRequest.httpBody = try JSONEncoder().encode(body)
         } catch {

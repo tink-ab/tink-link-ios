@@ -47,9 +47,9 @@ public final class AuthorizationContext {
     /// - Parameter completion: The block to execute when the authorization is complete.
     /// - Parameter result: Represents either an authorization code if authorization was successful or an error if authorization failed.
     @discardableResult
-    public func authorize(scope: Tink.Scope, completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
-        return service.authorize(redirectURI: redirectURI, scope: scope) { result in
+        return service.authorize(redirectURI: redirectURI, scopes: scopes) { result in
             let mappedResult = result.map({ $0.code }).mapError({ Error($0) ?? $0 })
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not authorize: " + message)
@@ -65,9 +65,9 @@ public final class AuthorizationContext {
     /// - Parameter completion: The block to execute when the client description is received or if an error occurred.
     @discardableResult
     public func clientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable {
-        let scope = Tink.Scope()
+        let scopes: [Scope] = []
         let redirectURI = tink.configuration.redirectURI
-        return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
+        return service.clientDescription(scopes: scopes, redirectURI: redirectURI) { (result) in
             let mappedResult = result.mapError({ Error($0) ?? $0 })
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not get client description: " + message)
@@ -152,9 +152,9 @@ public final class AuthorizationContext {
     ///   - completion: The block to execute when the scope descriptions are received or if an error occurred.
     /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
     @discardableResult
-    public func scopeDescriptions(scope: Tink.Scope, completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable {
+    public func scopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable {
         let redirectURI = tink.configuration.redirectURI
-        return service.clientDescription(scope: scope, redirectURI: redirectURI) { (result) in
+        return service.clientDescription(scopes: scopes, redirectURI: redirectURI) { (result) in
             let mappedResult = result.map({ $0.scopes }).mapError({ Error($0) ?? $0 })
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not fetch scope descriptions: " + message)
