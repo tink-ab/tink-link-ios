@@ -14,7 +14,7 @@ class CredentialsViewController: UITableViewController {
     private var credentialController: CredentialController?
     private var providerController: ProviderController?
 
-    private var credentials: [Credential]? {
+    private var credentials: [Credentials]? {
         didSet {
             if credentials != nil {
                 activityIndicator.stopAnimating()

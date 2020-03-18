@@ -3,7 +3,7 @@ import UIKit
 
 /// Example of how to use the provider grouped by financialInstitution
 final class FinancialInstitutionPickerViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credential, Error>) -> Void
+    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
     var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
     

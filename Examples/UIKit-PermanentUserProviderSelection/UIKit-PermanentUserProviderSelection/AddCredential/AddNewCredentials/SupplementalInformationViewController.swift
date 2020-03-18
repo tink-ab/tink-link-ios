@@ -3,7 +3,7 @@ import UIKit
 
 protocol SupplementalInformationViewControllerDelegate: AnyObject {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController)
-    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credential)
+    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credentials)
 }
 
 /// Example of how to use the credential field supplemental information to update credential
@@ -26,7 +26,7 @@ final class SupplementalInformationViewController: UITableViewController {
 
     init(supplementInformationTask: SupplementInformationTask) {
         self.supplementInformationTask = supplementInformationTask
-        self.form = Form(credential: supplementInformationTask.credential)
+        self.form = Form(credentials: supplementInformationTask.credentials)
 
         if #available(iOS 13.0, *) {
             super.init(style: .insetGrouped)
@@ -118,7 +118,7 @@ extension SupplementalInformationViewController {
         do {
             try form.validateFields()
             supplementInformationTask.submit(form)
-            delegate?.supplementalInformationViewController(self, didSupplementInformationForCredential: supplementInformationTask.credential)
+            delegate?.supplementalInformationViewController(self, didSupplementInformationForCredential: supplementInformationTask.credentials)
         } catch {
             formError = error as? Form.ValidationError
         }
