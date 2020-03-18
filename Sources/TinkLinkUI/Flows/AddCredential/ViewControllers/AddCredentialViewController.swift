@@ -5,7 +5,7 @@ import UIKit
 protocol AddCredentialViewControllerDelegate: AnyObject {
     func showScopeDescriptions()
     func showWebContent(with url: URL)
-    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool)
+    func addCredential(provider: Provider, form: Form)
 }
 
 final class AddCredentialViewController: UIViewController {
@@ -83,11 +83,10 @@ extension AddCredentialViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         addCredentialFooterView.delegate = self
-        addCredentialFooterView.configure(with: provider, isAggregator: isAggregator)
+        addCredentialFooterView.configure(isAggregator: isAggregator)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
-        addCredentialFooterView.bankIdAnotherDeviceButton.addTarget(self, action: #selector(addBankIDCredentialOnAnotherDevice), for: .touchUpInside)
-        
+
         view.addSubview(tableView)
         view.addSubview(addCredentialFooterView)
 
@@ -254,10 +253,6 @@ extension AddCredentialViewController {
         addCredential(allowAnotherDevice: false)
     }
 
-    @objc private func addBankIDCredentialOnAnotherDevice() {
-        addCredential(allowAnotherDevice: true)
-    }
-
     private func addCredential(allowAnotherDevice: Bool) {
         view.endEditing(false)
 
@@ -266,7 +261,7 @@ extension AddCredentialViewController {
 
         do {
             try form.validateFields()
-            delegate?.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice)
+            delegate?.addCredential(provider: provider, form: form)
         } catch let error as Form.ValidationError {
             for (index, field) in form.fields.enumerated() {
                 guard let error = error[fieldName: field.name] else {

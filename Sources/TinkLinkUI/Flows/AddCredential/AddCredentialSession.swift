@@ -31,14 +31,14 @@ final class AddCredentialSession {
         task?.cancel()
     }
 
-    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
+    func addCredential(provider: Provider, form: Form, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
 
         task = credentialController.addCredentials(
             provider,
             form: form,
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
-                    self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: allowAnotherDevice) {
+                    self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: true) {
                         [weak self] error in
                         DispatchQueue.main.async {
                             self?.hideUpdatingView(animated: true) {
