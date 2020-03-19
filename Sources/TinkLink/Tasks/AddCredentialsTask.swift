@@ -158,7 +158,13 @@ public final class AddCredentialsTask: Identifiable {
             case .temporaryError:
                 completion(.failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload)))
             case .authenticationError:
-                completion(.failure(AddCredentialsTask.Error.authenticationFailed(credentials.statusPayload)))
+                var payload: String
+                if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
+                    payload = credentials.statusPayload.isEmpty ? "Please try again later" : credentials.statusPayload
+                } else {
+                    payload = credentials.statusPayload
+                }
+                completion(.failure(AddCredentialsTask.Error.authenticationFailed(payload)))
             case .disabled:
                 fatalError("credentials shouldn't be disabled during creation.")
             case .sessionExpired:
