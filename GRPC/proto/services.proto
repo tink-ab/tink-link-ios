@@ -35,7 +35,6 @@ service ProviderService {
     rpc ListProvidersForMarkets (ProviderListForMarketsRequest) returns (ListProvidersForMarketsResponse) {}
     rpc ListProviderMarkets (ProviderMarketListRequest) returns (ProviderMarketListResponse) {}
     rpc Suggest (ProviderSuggestRequest) returns (ListProvidersResponse) {}
-    rpc ListProvidersForPolicy (PolicyListRequest) returns (ListProvidersResponse) {}
 }
 
 service UserService {
