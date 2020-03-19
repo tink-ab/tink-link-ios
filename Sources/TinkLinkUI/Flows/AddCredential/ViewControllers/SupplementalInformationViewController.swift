@@ -23,7 +23,7 @@ final class SupplementalInformationViewController: UIViewController {
     private var didFirstFieldBecomeFirstResponder = false
 
     init(supplementInformationTask: SupplementInformationTask) {
-        self.form = Form(credential: supplementInformationTask.credential)
+        self.form = Form(credentials: supplementInformationTask.credentials)
         super.init(nibName: nil, bundle: nil)
     }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2028F40F242237CE00EF17B5 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 2028F40E242237CE00EF17B5 /* TinkLink */; };
 		202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */; };
 		202E06F723D0C06300A3B6C3 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F623D0C06300A3B6C3 /* AlertView.swift */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
@@ -25,7 +26,6 @@
 		8F579BA1239E8CA400013FE1 /* AddCredentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F579B9C239E8CA300013FE1 /* AddCredentialViewController.swift */; };
 		8F579BA3239E8CA400013FE1 /* AddCredentialStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F579B9E239E8CA300013FE1 /* AddCredentialStatusViewController.swift */; };
 		8F579BA5239E8CA400013FE1 /* SupplementalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F579BA0239E8CA400013FE1 /* SupplementalInformationViewController.swift */; };
-		8F7DDC4223E07962004230E5 /* TinkLinkSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7DDC4123E07962004230E5 /* TinkLinkSDK */; };
 		8F8BD78C23A27DFD00CC890C /* CredentialsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78B23A27DFD00CC890C /* CredentialsList.swift */; };
 		8F8BD78E23A27EBF00CC890C /* AddCredentialRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78D23A27EBF00CC890C /* AddCredentialRow.swift */; };
 		8F8BD79023A28D4500CC890C /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78F23A28D4500CC890C /* CredentialsView.swift */; };
@@ -42,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2028F40D2422376700EF17B5 /* tink-link-ios-private */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios-private"; path = ../..; sourceTree = "<group>"; };
 		202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		202E06F623D0C06300A3B6C3 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
@@ -80,8 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2028F40F242237CE00EF17B5 /* TinkLink in Frameworks */,
 				8F1BF90123C5EEE3007464F8 /* Kingfisher in Frameworks */,
-				8F7DDC4223E07962004230E5 /* TinkLinkSDK in Frameworks */,
 				8F1BF8FE23C5EEC5007464F8 /* Down in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,6 +227,7 @@
 		92CC022C0FBD2A588CBA7DCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2028F40D2422376700EF17B5 /* tink-link-ios-private */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -249,7 +251,7 @@
 			packageProductDependencies = (
 				8F1BF8FD23C5EEC5007464F8 /* Down */,
 				8F1BF90023C5EEE3007464F8 /* Kingfisher */,
-				8F7DDC4123E07962004230E5 /* TinkLinkSDK */,
+				2028F40E242237CE00EF17B5 /* TinkLink */,
 			);
 			productName = PermanentUserProviderSelection;
 			productReference = 8F3459B62396ADEB007DCD75 /* PermanentUserProviderSelection.app */;
@@ -282,7 +284,6 @@
 			packageReferences = (
 				8F1BF8FC23C5EEC5007464F8 /* XCRemoteSwiftPackageReference "Down" */,
 				8F1BF8FF23C5EEE3007464F8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				8F7DDC4023E07962004230E5 /* XCRemoteSwiftPackageReference "tink-link-ios" */,
 			);
 			productRefGroup = 8F3459B72396ADEB007DCD75 /* Products */;
 			projectDirPath = "";
@@ -546,17 +547,13 @@
 				minimumVersion = 5.12.0;
 			};
 		};
-		8F7DDC4023E07962004230E5 /* XCRemoteSwiftPackageReference "tink-link-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/tink-ab/tink-link-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2028F40E242237CE00EF17B5 /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
+		};
 		8F1BF8FD23C5EEC5007464F8 /* Down */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8F1BF8FC23C5EEC5007464F8 /* XCRemoteSwiftPackageReference "Down" */;
@@ -566,11 +563,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8F1BF8FF23C5EEE3007464F8 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		8F7DDC4123E07962004230E5 /* TinkLinkSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8F7DDC4023E07962004230E5 /* XCRemoteSwiftPackageReference "tink-link-ios" */;
-			productName = TinkLinkSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

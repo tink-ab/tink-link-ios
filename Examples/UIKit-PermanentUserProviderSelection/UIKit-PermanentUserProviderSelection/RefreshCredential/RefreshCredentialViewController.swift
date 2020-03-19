@@ -4,7 +4,7 @@ import TinkLink
 final class RefreshCredentialViewController: UIViewController {
 
     struct ViewModel {
-        var credential: Credential
+        var credential: Credentials
         enum ViewState {
             case selection(Bool)
             case updating
@@ -24,14 +24,14 @@ final class RefreshCredentialViewController: UIViewController {
 
     private let titleText: String
     private let dismissAction: (UIViewController) -> Void
-    private let primaryAction: (([Credential]) -> Void)?
+    private let primaryAction: (([Credentials]) -> Void)?
     private let verticalSeparator = UIView()
     private var primaryButtonConstraints = [NSLayoutConstraint]()
 
     private var credentialController: CredentialController
     private var providerController: ProviderController
 
-    private var credentialsToRefresh: [Credential]
+    private var credentialsToRefresh: [Credentials]
     private var viewModels: [ViewModel] {
         didSet {
             let credentials = viewModels.filter {
@@ -49,7 +49,7 @@ final class RefreshCredentialViewController: UIViewController {
         }
     }
 
-    init(titleText: String, credentialController: CredentialController, providerController: ProviderController, dismissAction: @escaping (UIViewController) -> Void, primaryAction: (([Credential]) -> Void)?) {
+    init(titleText: String, credentialController: CredentialController, providerController: ProviderController, dismissAction: @escaping (UIViewController) -> Void, primaryAction: (([Credentials]) -> Void)?) {
         self.titleText = titleText
         self.viewModels = credentialController.credentials.map{ ViewModel(credential: $0, viewState: .selection(true)) }
         self.credentialsToRefresh = credentialController.credentials
@@ -164,7 +164,7 @@ final class RefreshCredentialViewController: UIViewController {
 
     @objc private func credentialRefresing(notification: Notification) {
         DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: Credential], let credential = userInfo["credential"] {
+            if let userInfo = notification.userInfo as? [String: Credentials], let credential = userInfo["credential"] {
                 if let index = self.viewModels.firstIndex(where: { credential.id == $0.credential.id }) {
                     if credential.status == .updating {
                         self.viewModels[index] = ViewModel(credential: credential, viewState: .updating)

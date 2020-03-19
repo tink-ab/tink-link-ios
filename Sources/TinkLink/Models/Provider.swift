@@ -66,10 +66,10 @@ public struct Provider: Identifiable {
     /// - Note: It is only possible to perform credentials create or refresh actions on providers which are enabled.
     public let status: Status
 
-    /// When creating a new credential connected to the provider this will be the credential's kind.
-    public let credentialKind: Credential.Kind
+    /// When creating a new credentials connected to the provider this will be the credential's kind.
+    public let credentialsKind: Credentials.Kind
 
-    /// Short description of how to authenticate when creating a new credential for connected to the provider.
+    /// Short description of how to authenticate when creating a new credentials for connected to the provider.
     public let helpText: String
 
     /// Indicates if the provider is popular. This is normally set to true for the biggest financial institutions on a market.
@@ -143,7 +143,18 @@ public struct Provider: Identifiable {
     public let capabilities: Capabilities
 
     /// What Tink uses to access data.
-    public enum AccessType: CustomStringConvertible, Hashable {
+    public enum AccessType: CustomStringConvertible, Hashable, Comparable {
+        public static func < (lhs: AccessType, rhs: AccessType) -> Bool {
+            switch (lhs, rhs) {
+            case (.openBanking, _):
+                return true
+            case (_, .unknown):
+                return true
+            default:
+                return false
+            }
+        }
+
         case unknown
         case openBanking
         case other

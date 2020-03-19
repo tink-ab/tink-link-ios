@@ -3,13 +3,13 @@ import UIKit
 
 /// Example of how to use the provider grouped by access type
 final class AccessTypePickerViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credential, Error>) -> Void
+    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
     var accessTypeNodes: [ProviderTree.AccessTypeNode] = []
     
-    private let credentialContext: CredentialContext
+    private let credentialContext: CredentialsContext
 
-    init(credentialContext: CredentialContext) {
+    init(credentialContext: CredentialsContext) {
         self.credentialContext = credentialContext
 
         super.init(style: .plain)

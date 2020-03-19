@@ -3,12 +3,12 @@ import UIKit
 
 /// Example of how to use the provider grouped by names
 final class ProviderListViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credential, Error>) -> Void
+    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
 
     private let searchController = UISearchController(searchResultsController: nil)
     private var providers: [Provider]
-    private var credentialContext: CredentialContext
+    private var credentialContext: CredentialsContext
     private var originalFinancialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode]
     private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] {
         didSet {
@@ -16,7 +16,7 @@ final class ProviderListViewController: UITableViewController {
         }
     }
 
-    init(providers: [Provider], credentialContext: CredentialContext, style: UITableView.Style) {
+    init(providers: [Provider], credentialContext: CredentialsContext, style: UITableView.Style) {
         self.providers = providers
         self.credentialContext = credentialContext
         self.financialInstitutionGroupNodes = ProviderTree(providers: providers).financialInstitutionGroups

@@ -1,6 +1,53 @@
 import Foundation
 
-/// A Form is used to create, manage and validate fields for creating credentials or supplementing information for a credential.
+/// A `Form` is used to determine what a user needs to input in order to proceed. For example it could be a username and a password field.
+///
+/// Here's how to create a form for a provider with a username and password field and how to update the fields.
+///
+/// ```swift
+/// var form = Form(provider: <#Provider#>)
+/// form.fields[name: "username"]?.text = <#String#>
+/// form.fields[name: "password"]?.text = <#String#>
+/// ...
+/// ```
+///
+/// ### Configuring UITextFields from form fields
+///
+/// The `Field` within a `Form` contains attributes that map well to `UITextField`.
+///
+/// ```swift
+/// for field in form.fields {
+///     let textField = UITextField()
+///     textField.placeholder = field.attributes.placeholder
+///     textField.isSecureTextEntry = field.attributes.isSecureTextEntry
+///     textField.isEnabled = field.attributes.isEditable
+///     textField.text = field.text
+///     <#Add to view#>
+/// }
+/// ```
+/// ### Form validation
+///
+/// Validate before you submit a request to add credentials or supplement information.
+///
+/// Use `areFieldsValid` to check if all form fields are valid. For example, you can use this to enable a submit button when text fields change.
+///
+/// ```swift
+/// @objc func textFieldDidChange(_ notification: Notification) {
+///     submitButton.isEnabled = form.areFieldsValid
+/// }
+/// ```
+///
+/// Use validateFields() to validate all fields. If not valid, it will throw an error that contains more information about which fields are not valid and why.
+///
+/// ```swift
+/// do {
+///     try form.validateFields()
+/// } catch let error as Form.Fields.ValidationError {
+///     if let usernameFieldError = error[fieldName: "username"] {
+///         usernameValidationErrorLabel.text = usernameFieldError.errorDescription
+///     }
+/// }
+/// ```
 public struct Form {
     /// A collection of fields.
     ///
@@ -260,27 +307,39 @@ public struct Form {
 extension Form {
     /// Creates a form for the given provider.
     ///
-    /// This creates a form to use for creating a credential for a specific provider.
+    /// This creates a form to use for creating a credentials for a specific provider.
     ///
     /// - Parameter provider: The provider to create a form for.
     public init(provider: Provider) {
         self.init(fieldSpecifications: provider.fields)
     }
 
-    /// Creates a form for the given credential.
+    /// Creates a form for the given credentials.
     ///
-    /// This creates a form to use for supplementing information for a credential.
+    /// This creates a form to use for supplementing information for a credentials.
     ///
-    /// - Parameter credential: The credential to create a form for.
-    public init(credential: Credential) {
-        self.init(fieldSpecifications: credential.supplementalInformationFields)
+    /// - Parameter credential: The credentials to create a form for.
+    public init(credentials: Credentials) {
+        self.init(fieldSpecifications: credentials.supplementalInformationFields)
     }
 }
 
 extension Form.Fields {
     /// Validate fields.
     ///
-    /// Use this method to validate all fields in the form or to catch the values if invalid.
+    /// Use this method to validate all fields. If any field is not valid, it will throw an error that contains
+    /// more information about which fields are not valid and why.
+    ///
+    /// ```swift
+    /// do {
+    ///     try form.validateFields()
+    /// } catch let error as Form.Fields.ValidationError {
+    ///     if let usernameFieldError = error[fieldName: "username"] {
+    ///         usernameValidationErrorLabel.text = usernameFieldError.errorDescription
+    ///     }
+    /// }
+    /// ```
+    ///
     /// - Throws: A `Form.ValidationError` if any of the fields' `text` value is invalid.
     func validateFields() throws {
         var fieldsValidationError = Form.ValidationError(errors: [])
@@ -298,7 +357,13 @@ extension Form.Fields {
 
     /// A Boolean value indicating whether all fields have valid values.
     ///
-    /// If which field and what validation rule has failed are needed, use `validateFields()` instead.
+    /// Use `areFieldsValid` to check if all form fields are valid. For example, you can use this to enable a submit button when text fields change.
+    ///
+    /// ```swift
+    /// @objc func textFieldDidChange(_ notification: Notification) {
+    ///     submitButton.isEnabled = form.areFieldsValid
+    /// }
+    /// ```
     ///
     /// - Returns: `true` if all fields in the form have valid text; otherwise, `false`.
     var areFieldsValid: Bool {

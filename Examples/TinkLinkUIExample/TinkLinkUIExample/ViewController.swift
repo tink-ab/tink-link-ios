@@ -21,13 +21,13 @@ class ViewController: UIViewController {
     }
 
     @objc private func showTinkLink() {
-        let scope = Tink.Scope(scopes: [
-            Tink.Scope.Statistics.read,
-            Tink.Scope.Transactions.read,
-            Tink.Scope.Categories.read,
-            Tink.Scope.Accounts.read
-        ])
-        let tinkLinkViewController = TinkLinkViewController(market: "SE", scope: scope, providerKinds: .all) { _ in }
+        let scopes: [Scope] = [
+            .statistics(.read),
+            .transactions(.read),
+            .categories(.read),
+            .accounts(.read)
+        ]
+        let tinkLinkViewController = TinkLinkViewController(market: "SE", scopes: scopes, providerKinds: .all) { _ in }
         present(tinkLinkViewController, animated: true)
     }
 }

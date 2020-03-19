@@ -7,9 +7,9 @@ final class AddCredentialSession {
 
     private let credentialController: CredentialController
     private let authorizationController: AuthorizationController
-    private let scope: Tink.Scope
+    private let scopes: [Scope]
 
-    private var task: AddCredentialTask?
+    private var task: AddCredentialsTask?
     private var supplementInfoTask: SupplementInformationTask?
 
     private var statusViewController: AddCredentialStatusViewController?
@@ -20,10 +20,10 @@ final class AddCredentialSession {
     private var isAuthorizing = false
     private var authorizationGroup = DispatchGroup()
 
-    init(credentialController: CredentialController, authorizationController: AuthorizationController, scope: Tink.Scope, parentViewController: UIViewController) {
+    init(credentialController: CredentialController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
         self.parentViewController = parentViewController
         self.credentialController = credentialController
-        self.scope = scope
+        self.scopes = scopes
         self.authorizationController = authorizationController
     }
 
@@ -33,7 +33,7 @@ final class AddCredentialSession {
 
     func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
 
-        task = credentialController.addCredential(
+        task = credentialController.addCredentials(
             provider,
             form: form,
             progressHandler: { [weak self] status in
@@ -59,7 +59,7 @@ final class AddCredentialSession {
         // TODO: Copy
         self.showUpdating(status: "Authorizing...")
     }
-    private func handleAddCredentialStatus(_ status: AddCredentialTask.Status, shouldAuthenticateInAnotherDevice: Bool = false, onError: @escaping (Error) -> Void) {
+    private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, shouldAuthenticateInAnotherDevice: Bool = false, onError: @escaping (Error) -> Void) {
         switch status {
         case .created, .authenticating:
             break
@@ -85,7 +85,7 @@ final class AddCredentialSession {
         }
     }
 
-    private func handleAddCredentialCompletion(_ result: Result<Credential, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
+    private func handleAddCredentialCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
         do {
             _ = try result.get()
             authorizationGroup.notify(queue: .main) { [weak self] in
@@ -110,12 +110,12 @@ final class AddCredentialSession {
 
         isAuthorizing = true
         authorizationGroup.enter()
-        authorizationController.authorize(scope: scope) { [weak self] result in
+        authorizationController.authorize(scopes: scopes) { [weak self] result in
             do {
                 let authorizationCode = try result.get()
                 self?.authorizationCode = authorizationCode
             } catch {
-                onError(AddCredentialTask.Error.temporaryFailure("A temporary error has occurred"))
+                onError(AddCredentialsTask.Error.temporaryFailure("A temporary error has occurred"))
             }
             self?.isAuthorizing = false
             self?.authorizationGroup.leave()

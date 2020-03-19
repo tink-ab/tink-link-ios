@@ -1,14 +1,14 @@
 import Foundation
 @testable import TinkLink
 
-extension Credential {
+extension Credentials {
     // Extension to update the status for test
-    init(credential: Credential, status: Credential.Status) {
-        self = Credential(id: credential.id, providerID: credential.providerID, kind: credential.kind, status: status, statusPayload: credential.statusPayload, statusUpdated: Date(), updated: Date(), fields: credential.fields, supplementalInformationFields: credential.supplementalInformationFields, thirdPartyAppAuthentication: credential.thirdPartyAppAuthentication, sessionExpiryDate: credential.sessionExpiryDate)
+    init(credentials: Credentials, status: Credentials.Status) {
+        self = Credentials(id: credentials.id, providerID: credentials.providerID, kind: credentials.kind, status: status, statusPayload: credentials.statusPayload, statusUpdated: Date(), updated: Date(), fields: credentials.fields, supplementalInformationFields: credentials.supplementalInformationFields, thirdPartyAppAuthentication: credentials.thirdPartyAppAuthentication, sessionExpiryDate: credentials.sessionExpiryDate)
     }
 
-    func nextCredentialStatus() -> Credential.Status {
-        let nextStatus: Credential.Status = {
+    func nextCredentialsStatus() -> Credentials.Status {
+        let nextStatus: Credentials.Status = {
             switch status {
             case .created, .authenticating:
                 switch kind {

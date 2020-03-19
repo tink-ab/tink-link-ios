@@ -12,14 +12,14 @@ class CredentialsContextTests: XCTestCase {
 
     func testAddingPasswordCredential() {
         try! Tink.configure(with: .init(clientID: "testID", redirectURI: URL(string: "app://callback")!))
-        let credentialContextUnderTest = CredentialContext(tink: .shared, credentialService: mockedSuccessCredentialService)
+        let credentialContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialService)
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
         let statusChangedToupdating = expectation(description: "add credentials status should be changed to updating")
 
-        let completionPredicate = AddCredentialTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
-        let task = credentialContextUnderTest.addCredential(for: Provider.nordeaPassword, form: Form(provider: Provider.nordeaPassword), completionPredicate: completionPredicate, progressHandler: { status in
+        let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
+        let task = credentialContextUnderTest.addCredentials(for: Provider.nordeaPassword, form: Form(provider: Provider.nordeaPassword), completionPredicate: completionPredicate, progressHandler: { status in
             switch status {
             case .created:
                 statusChangedToCreated.fulfill()

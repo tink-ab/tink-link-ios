@@ -6,21 +6,21 @@ final class CredentialController {
 
     var user: User?
 
-    private(set) var credentialContext: CredentialContext?
+    private(set) var credentialsContext: CredentialsContext?
 
     init(tink: Tink) {
         self.tink = tink
     }
 
-    func addCredential(_ provider: Provider, form: Form, progressHandler: @escaping (AddCredentialTask.Status) -> Void, completion: @escaping (_ result: Result<Credential, Error>) -> Void) -> AddCredentialTask? {
+    func addCredentials(_ provider: Provider, form: Form, progressHandler: @escaping (AddCredentialsTask.Status) -> Void, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask? {
         guard let user = user else { return nil }
-        if credentialContext == nil {
-            credentialContext = CredentialContext(user: user)
+        if credentialsContext == nil {
+            credentialsContext = CredentialsContext(user: user)
         }
-        return credentialContext?.addCredential(
+        return credentialsContext?.addCredentials(
             for: provider,
             form: form,
-            completionPredicate: AddCredentialTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false),
+            completionPredicate: AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false),
             progressHandler: progressHandler,
             completion: completion
         )
