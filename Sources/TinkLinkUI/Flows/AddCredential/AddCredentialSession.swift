@@ -104,7 +104,7 @@ final class AddCredentialSession {
     }
 
     private func authorize(onError: @escaping (Error) -> Void) {
-        guard !isAuthorizing else {
+        guard !isAuthorizing || authorizationCode == nil else {
             return
         }
 
