@@ -159,7 +159,8 @@ public final class AddCredentialsTask: Identifiable {
                 completion(.failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload)))
             case .authenticationError:
                 var payload: String
-                // Noticed that the frontend could get unauthenticated error with empty payload while trying to add the same thirdparty authentication that is being added. Happens if the frontend makes the reuqest to update credential before the backend stops the waiting for previous adding credential finished
+                // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice. 
+                // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
                 if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
                     payload = credentials.statusPayload.isEmpty ? "Please try again later" : credentials.statusPayload
                 } else {
