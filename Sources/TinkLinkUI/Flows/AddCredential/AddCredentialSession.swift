@@ -17,7 +17,7 @@ final class AddCredentialSession {
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
 
     private var authorizationCode: AuthorizationCode?
-    private var isAuthorizing = false
+    private var didCallAuthorize = false
     private var authorizationGroup = DispatchGroup()
 
     init(credentialController: CredentialController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
@@ -81,7 +81,7 @@ final class AddCredentialSession {
             }
         case .updating(let status):
             showUpdating(status: status)
-            authorize(onError: onError)
+            authorizeIfNeeded(onError: onError)
         }
     }
 
@@ -103,12 +103,10 @@ final class AddCredentialSession {
         task = nil
     }
 
-    private func authorize(onError: @escaping (Error) -> Void) {
-        guard !isAuthorizing else {
-            return
-        }
+    private func authorizeIfNeeded(onError: @escaping (Error) -> Void) {
+        if didCallAuthorize { return }
 
-        isAuthorizing = true
+        didCallAuthorize = true
         authorizationGroup.enter()
         authorizationController.authorize(scopes: scopes) { [weak self] result in
             do {
@@ -117,7 +115,6 @@ final class AddCredentialSession {
             } catch {
                 onError(AddCredentialsTask.Error.temporaryFailure("A temporary error has occurred"))
             }
-            self?.isAuthorizing = false
             self?.authorizationGroup.leave()
         }
     }
