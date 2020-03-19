@@ -16,9 +16,10 @@ public class TinkLinkViewController: UINavigationController {
 
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
-    private let completion: (AuthorizationCode) -> Void
+    private var result: Result<AuthorizationCode, TinkLinkError>?
+    private let completion: (Result<AuthorizationCode, TinkLinkError>) -> Void
 
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (AuthorizationCode) -> Void) {
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
         self.market = market
         self.scopes = scopes
@@ -80,15 +81,20 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
-    @objc func cancel() {
+    @objc private func cancel() {
         if didShowAddCredentialForm {
             showDiscardActionSheet()
         } else {
-            dismiss(animated: true)
+            closeTinkLink()
         }
     }
 
     @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+
+    private func closeTinkLink() {
+        completion(result ?? .failure(.userCancelled))
         dismiss(animated: true)
     }
 }
@@ -251,7 +257,10 @@ extension TinkLinkViewController: ProviderPickerCoordinatorDelegate {
     }
 
     func providerPickerCoordinatorShowError(_ coordinator: ProviderPickerCoordinator, error: Error?) {
-        loadingViewController.updatedWithError()
+        if let tinkLinkError = error.flatMap({ TinkLinkError(error: $0) }) {
+            self.result = .failure(tinkLinkError)
+        }
+        loadingViewController.update(error)
     }
 }
 
@@ -274,7 +283,7 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
         addCredentialSession.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
             do {
                 let authorizationCode = try result.get()
-                self?.completion(authorizationCode)
+                self?.result = .success(authorizationCode)
                 self?.showAddCredentialSuccess()
             } catch let error as ThirdPartyAppAuthenticationTask.Error {
                 self?.showDownloadPrompt(for: error)
@@ -296,7 +305,7 @@ extension TinkLinkViewController {
     private func showDiscardActionSheet() {
         let alert = UIAlertController(title: "Are you sure you want to discard this new credential?", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Discard Changes", style: .destructive, handler: { _ in
-            self.dismiss(animated: true)
+            self.closeTinkLink()
         }))
         alert.addAction(UIAlertAction(title: "Continue Editing", style: .cancel, handler: nil))
         present(alert, animated: true)
@@ -308,6 +317,10 @@ extension TinkLinkViewController {
 extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
         showDiscardActionSheet()
+    }
+
+    public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        completion(result ?? .failure(.userCancelled))
     }
 
     public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
