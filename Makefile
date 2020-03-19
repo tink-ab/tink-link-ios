@@ -26,14 +26,14 @@ endif
 CFLAGS = -Xcc -ISources/BoringSSL/include
 
 plugins:
-	mkdir ./GRPC/plugins
+	mkdir -p ./GRPC/plugins
 	swift build $(CFLAGS) --product protoc-gen-swift --static-swift-stdlib -c release
 	swift build $(CFLAGS) --product protoc-gen-grpc-swift --static-swift-stdlib -c release
 	cp .build/release/protoc-gen-swift ./GRPC/plugins/
 	cp .build/release/protoc-gen-grpc-swift ./GRPC/plugins/
 
 generate:
-	mkdir ./Sources/TinkLink/GRPC/
+	mkdir -p ./Sources/TinkLink/GRPC/
 	protoc \
 		--proto_path=./GRPC/proto \
 		--proto_path=./GRPC/third-party \

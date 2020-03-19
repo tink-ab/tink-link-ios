@@ -7,7 +7,7 @@
 
 1. Follow the [getting started guide](https://docs.tink.com/resources/getting-started/set-up-your-account) to retrieve your `client_id`.
 2. Make sure you are an Enterprise customer with permanent users enabled.
-3. Add a deep link with scheme and host to your app (`yourapp://host`) to the [list of redirect URIs under your app's settings](https://console.tink.com/overview).
+3. Add a deep link to your app with scheme and host (`yourapp://host`) to the [list of redirect URIs under your app's settings](https://console.tink.com/overview).
 
 ## Requirements
 

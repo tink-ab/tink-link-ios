@@ -268,7 +268,6 @@ internal protocol ProviderServiceService {
   func listProvidersForMarkets(_ request: GRPCProviderListForMarketsRequest, callOptions: CallOptions?) -> UnaryCall<GRPCProviderListForMarketsRequest, GRPCListProvidersForMarketsResponse>
   func listProviderMarkets(_ request: GRPCProviderMarketListRequest, callOptions: CallOptions?) -> UnaryCall<GRPCProviderMarketListRequest, GRPCProviderMarketListResponse>
   func suggest(_ request: GRPCProviderSuggestRequest, callOptions: CallOptions?) -> UnaryCall<GRPCProviderSuggestRequest, GRPCListProvidersResponse>
-  func listProvidersForPolicy(_ request: GRPCPolicyListRequest, callOptions: CallOptions?) -> UnaryCall<GRPCPolicyListRequest, GRPCListProvidersResponse>
 }
 
 internal final class ProviderServiceServiceClient: GRPCClient, ProviderServiceService {
@@ -329,18 +328,6 @@ internal final class ProviderServiceServiceClient: GRPCClient, ProviderServiceSe
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
   internal func suggest(_ request: GRPCProviderSuggestRequest, callOptions: CallOptions? = nil) -> UnaryCall<GRPCProviderSuggestRequest, GRPCListProvidersResponse> {
     return self.makeUnaryCall(path: "/ProviderService/Suggest",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Asynchronous unary call to ListProvidersForPolicy.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to ListProvidersForPolicy.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func listProvidersForPolicy(_ request: GRPCPolicyListRequest, callOptions: CallOptions? = nil) -> UnaryCall<GRPCPolicyListRequest, GRPCListProvidersResponse> {
-    return self.makeUnaryCall(path: "/ProviderService/ListProvidersForPolicy",
                               request: request,
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
