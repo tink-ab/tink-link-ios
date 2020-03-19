@@ -139,6 +139,7 @@ extension AddCredentialSession {
                 }
             } else {
                 let statusViewController = AddCredentialStatusViewController()
+                statusViewController.delegate = self
                 statusViewController.modalTransitionStyle = .crossDissolve
                 statusViewController.modalPresentationStyle = .custom
                 statusViewController.transitioningDelegate = self.statusPresentationManager
@@ -173,6 +174,15 @@ extension AddCredentialSession {
             return
         }
         parentViewController?.dismiss(animated: animated, completion: completion)
+    }
+}
+
+extension AddCredentialSession: AddCredentialStatusViewControllerDelegate {
+    func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialStatusViewController) {
+        task?.cancel()
+        hideUpdatingView(animated: true) {
+
+        }
     }
 }
 
