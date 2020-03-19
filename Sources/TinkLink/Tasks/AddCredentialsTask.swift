@@ -139,14 +139,7 @@ public final class AddCredentialsTask: Identifiable {
                         self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
                         self.credentialsStatusPollingTask?.pollStatus()
                     } catch {
-                        let taskError = error as? ThirdPartyAppAuthenticationTask.Error
-                        switch taskError {
-                        case .downloadRequired where !self.completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired:
-                            self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
-                            self.credentialsStatusPollingTask?.pollStatus()
-                        default:
-                            self.completion(.failure(error))
-                        }
+                        self.completion(.failure(error))
                     }
                 }
                 progressHandler(.awaitingThirdPartyAppAuthentication(task))
