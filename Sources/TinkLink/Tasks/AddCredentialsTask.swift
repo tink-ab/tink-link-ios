@@ -139,14 +139,7 @@ public final class AddCredentialsTask: Identifiable {
                         self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
                         self.credentialsStatusPollingTask?.pollStatus()
                     } catch {
-                        let taskError = error as? ThirdPartyAppAuthenticationTask.Error
-                        switch taskError {
-                        case .downloadRequired where !self.completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired:
-                            self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
-                            self.credentialsStatusPollingTask?.pollStatus()
-                        default:
-                            self.completion(.failure(error))
-                        }
+                        self.completion(.failure(error))
                     }
                 }
                 progressHandler(.awaitingThirdPartyAppAuthentication(task))
@@ -165,7 +158,15 @@ public final class AddCredentialsTask: Identifiable {
             case .temporaryError:
                 completion(.failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload)))
             case .authenticationError:
-                completion(.failure(AddCredentialsTask.Error.authenticationFailed(credentials.statusPayload)))
+                var payload: String
+                // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice. 
+                // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
+                if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
+                    payload = credentials.statusPayload.isEmpty ? "Please try again later" : credentials.statusPayload
+                } else {
+                    payload = credentials.statusPayload
+                }
+                completion(.failure(AddCredentialsTask.Error.authenticationFailed(payload)))
             case .disabled:
                 fatalError("credentials shouldn't be disabled during creation.")
             case .sessionExpired:
