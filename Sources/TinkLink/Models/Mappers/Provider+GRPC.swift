@@ -41,8 +41,12 @@ extension Provider.Kind {
             self = .test
         case .fraud:
             self = .fraud
+        case .businessBank:
+            self = .businessBank
+        case .firstParty:
+            self = .firstParty
         case .UNRECOGNIZED(let value):
-            assertionFailure("Unrecognized type: \(value)")
+            debugPrint("Unrecognized type: \(value)")
             self = .unknown
         }
     }
@@ -62,7 +66,7 @@ extension Provider.Status {
         case .obsolete:
             self = .obsolete
         case .UNRECOGNIZED(let value):
-            assertionFailure("Unrecognized status: \(value)")
+            debugPrint("Unrecognized status: \(value)")
             self = .unknown
         }
     }
@@ -94,8 +98,10 @@ extension Provider.Capabilities {
                 return capability.union(.mortgageLoan)
             case .identityData:
                 return capability.union(.identityData)
+            case .einvoices:
+                return capability.union(.eInvoices)
             case .UNRECOGNIZED(let value):
-                assertionFailure("Unrecognized capability: \(value)")
+                debugPrint("Unrecognized capability: \(value)")
                 return capability
             }
         }
@@ -147,7 +153,7 @@ extension Provider.AccessType {
         case .unknown:
             self = .unknown
         case .UNRECOGNIZED(let value):
-            assertionFailure("Unrecognized access type: \(value)")
+            debugPrint("Unrecognized access type: \(value)")
             self = .unknown
         }
     }
