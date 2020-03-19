@@ -81,7 +81,7 @@ final class AddCredentialSession {
             }
         case .updating(let status):
             showUpdating(status: status)
-            authorize(onError: onError)
+            authorizeIfNeeded(onError: onError)
         }
     }
 
@@ -103,7 +103,7 @@ final class AddCredentialSession {
         task = nil
     }
 
-    private func authorize(onError: @escaping (Error) -> Void) {
+    private func authorizeIfNeeded(onError: @escaping (Error) -> Void) {
         guard !isAuthorizing || authorizationCode == nil else {
             return
         }
