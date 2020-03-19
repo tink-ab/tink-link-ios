@@ -302,10 +302,6 @@ extension TinkLinkViewController {
         viewControllers.contains(where: { $0 is AddCredentialViewController })
     }
 
-    private var didShowCredentialSuccessfullyAdded: Bool {
-        viewControllers.contains(where: { $0 is CredentialSuccessfullyAddedViewController })
-    }
-
     private func showDiscardActionSheet() {
         let alert = UIAlertController(title: "Are you sure you want to discard this new credential?", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Discard Changes", style: .destructive, handler: { _ in
@@ -324,9 +320,7 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
     }
 
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-        if !didShowCredentialSuccessfullyAdded {
-            completion(result ?? .failure(.userCancelled))
-        }
+        completion(result ?? .failure(.userCancelled))
     }
 
     public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
