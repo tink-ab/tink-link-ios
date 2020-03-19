@@ -8,11 +8,6 @@ option swift_prefix = "GRPC";
 
 import "google/protobuf/timestamp.proto";
 
-message OAuth2ScopeDescription {
-    string title = 1;
-    string description = 2;
-}
-
 message Credential {
     enum Status {
         STATUS_UNKNOWN = 0;
@@ -66,6 +61,8 @@ message Provider {
         TYPE_OTHER = 4;
         TYPE_TEST = 5;
         TYPE_FRAUD = 6;
+        TYPE_BUSINESS_BANK = 7;
+        TYPE_FIRST_PARTY = 8;
     }
 
     Type type = 3;
@@ -99,6 +96,7 @@ message Provider {
         CAPABILITY_PAYMENTS = 8;
         CAPABILITY_MORTGAGE_LOAN = 9;
         CAPABILITY_IDENTITY_DATA = 10;
+        CAPABILITY_EINVOICES = 11;
     }
     repeated Capability capabilities = 12;
 
@@ -175,7 +173,7 @@ message ThirdPartyAppAuthentication {
     string upgrade_message = 4;
     Ios ios = 5;
     Android android = 6;
-    Web web = 7;
+    Desktop desktop = 7;
 
     message Ios {
         string app_store_url = 1;
@@ -189,67 +187,9 @@ message ThirdPartyAppAuthentication {
         string intent = 3;
     }
 
-    message Web {
+    message Desktop {
         string url = 1;
     }
-}
-message Policy {
-    WhitelistRules whitelist_rules = 1;
-    BlacklistRules blacklist_rules = 2;
-    repeated CanaryRule canary_rules = 3;
-    GraylistPolicy graylist_policy = 4;
-}
-
-message WhitelistRules {
-    repeated FinancialInstitutionRule financial_institution_rules = 1;
-    repeated MarketRule market_rules = 2;
-    repeated AccessTypeRule access_type_rules = 3;
-    AllProvidersRule all_providers_rule = 4;
-    TestProvidersRule test_providers_rule = 5;
-}
-
-message BlacklistRules {
-    repeated FinancialInstitutionRule financial_institution_rules = 1;
-    repeated MarketRule market_rules = 2;
-    repeated AccessTypeRule access_type_rules = 3;
-    AllProvidersRule all_providers_rule = 4;
-    TestProvidersRule test_providers_rule = 5;
-}
-
-message CanaryRule {
-    string financial_institution_id = 1;
-    double percentage = 2;
-}
-
-enum GraylistPolicy {
-    GRAYLIST_POLICY_UNDEFINED = 0;
-    ALL_PROVIDERS = 1;
-    NON_TPP_PROVIDERS = 2;
-    TECHNICALLY_AVAILABLE_PROVIDERS = 3;
-    TINK_APP_PROVIDERS = 4;
-    TINK_STANDARD_POLICY = 5;
-}
-
-message FinancialInstitutionRule {
-    string financial_institution_id = 1;
-    bool is_open_banking = 2;
-}
-
-message MarketRule {
-    string market = 1;
-    AccessTypeRule access_type_rule = 2;
-}
-
-message AccessTypeRule {
-    bool is_open_banking = 1;
-}
-
-message AllProvidersRule {
-    bool enable_all_providers = 1;
-}
-
-message TestProvidersRule {
-    bool enable_test_providers = 1;
 }
 
 enum AuthenticationMethod {
@@ -262,3 +202,7 @@ message ProviderMarket {
     string code = 1;
 }
 
+message OAuth2ScopeDescription {
+    string title = 1;
+    string description = 2;
+}

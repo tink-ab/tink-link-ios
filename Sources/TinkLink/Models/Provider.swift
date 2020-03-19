@@ -38,6 +38,9 @@ public struct Provider: Identifiable {
         case test
         case fraud
 
+        case businessBank
+        case firstParty
+
         public static var defaultKinds: Set<Provider.Kind> = [.bank, .creditCard, .broker, .other]
         /// A set of all providers kinds except for the test providers.
         public static var excludingTest: Set<Provider.Kind> = [.unknown, .bank, .creditCard, .broker, .other, .fraud]
@@ -134,7 +137,8 @@ public struct Provider: Identifiable {
         public static let mortgageLoan = Capabilities(rawValue: 1 << 9)
         /// The provider can fetch identity data.
         public static let identityData = Capabilities(rawValue: 1 << 10)
-
+        /// The provider can fetch e-invoice data.
+        public static let eInvoices = Capabilities(rawValue: 1 << 10)
         /// A list representing all possible capabilities.
         public static let all: Capabilities = [.transfers, .mortgageAggregation, .checkingAccounts, .savingsAccounts, .creditCards, .investments, .loans, .payments, .mortgageLoan, .identityData]
     }

@@ -174,10 +174,6 @@ message ProviderSuggestRequest {
 
 }
 
-message PolicyListRequest {
-    Policy policy = 1;
-}
-
 message CreateAnonymousRequest {
     string market = 1;
     string locale = 2;
