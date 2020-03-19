@@ -104,6 +104,7 @@ public final class AddCredentialsTask: Identifiable {
 
     /// Cancel the task.
     public func cancel() {
+        credentialsStatusPollingTask?.cancel()
         callCanceller?.cancel()
     }
 
