@@ -16,7 +16,7 @@ public class TinkLinkViewController: UINavigationController {
 
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
-    private var error: Error?
+    private var result: Result<AuthorizationCode, TinkLinkError>?
     private let completion: (Result<AuthorizationCode, TinkLinkError>) -> Void
 
     public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
@@ -94,8 +94,7 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private func closeTinkLink() {
-        let tinkLinkError = error.flatMap { TinkLinkError(error: $0) } ?? .userCancelled
-        completion(.failure(tinkLinkError))
+        completion(result ?? .failure(.userCancelled))
         dismiss(animated: true)
     }
 }
@@ -258,7 +257,9 @@ extension TinkLinkViewController: ProviderPickerCoordinatorDelegate {
     }
 
     func providerPickerCoordinatorShowError(_ coordinator: ProviderPickerCoordinator, error: Error?) {
-        self.error = error
+        if let tinkLinkError = error.flatMap({ TinkLinkError(error: $0) }) {
+            self.result = .failure(tinkLinkError)
+        }
         loadingViewController.update(error)
     }
 }
@@ -282,7 +283,7 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
         addCredentialSession.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
             do {
                 let authorizationCode = try result.get()
-                self?.completion(.success(authorizationCode))
+                self?.result = .success(authorizationCode)
                 self?.showAddCredentialSuccess()
             } catch let error as ThirdPartyAppAuthenticationTask.Error {
                 self?.showDownloadPrompt(for: error)
@@ -322,11 +323,13 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
         showDiscardActionSheet()
     }
 
-    public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+    public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         if !didShowCredentialSuccessfullyAdded {
-            let tinkLinkError = error.flatMap { TinkLinkError(error: $0) } ?? .userCancelled
-            completion(.failure(tinkLinkError))
+            completion(result ?? .failure(.userCancelled))
         }
+    }
+
+    public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return !didShowAddCredentialForm
     }
 }
