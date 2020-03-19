@@ -32,7 +32,7 @@ extension Credentials.Kind {
         case .thirdPartyAuthentication:
             self = .thirdPartyAuthentication
         case .UNRECOGNIZED(let value):
-            assertionFailure("Unrecognized type: \(value)")
+            debugPrint("Unrecognized type: \(value)")
             self = .unknown
         }
     }
@@ -85,7 +85,7 @@ extension Credentials.Status {
         case .sessionExpired:
             self = .sessionExpired
         case .UNRECOGNIZED(let value):
-            assertionFailure("Unrecognized status:/ \(value)")
+            debugPrint("Unrecognized status:/ \(value)")
             self = .unknown
         }
     }
