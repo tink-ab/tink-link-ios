@@ -28,8 +28,8 @@ final class LoadingViewController: UIViewController {
         errorView.delegate = self
         errorView.isHidden = true
 
-        if !providerController.isFetching, providerController.error != nil {
-            updatedWithError()
+        if !providerController.isFetching, let error = providerController.error {
+            update(error)
         } else {
             showLoadingIndicator()
         }
@@ -64,11 +64,11 @@ final class LoadingViewController: UIViewController {
         }
     }
 
-    func updatedWithError() {
+    func update(_ error: Error?) {
         DispatchQueue.main.async {
             self.hideLoadingIndicator()
             self.errorView.isHidden = false
-            self.errorView.configure(with: self.providerController.error)
+            self.errorView.configure(with: error)
         }
     }
 }
