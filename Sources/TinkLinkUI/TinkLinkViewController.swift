@@ -16,10 +16,9 @@ public class TinkLinkViewController: UINavigationController {
 
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
-    private let onError: ((Error) -> Void)?
     private let completion: (AuthorizationCode) -> Void
 
-    public init(tink: Tink = .shared, market: Market, scope: Tink.Scope, providerKinds: Set<Provider.Kind> = .defaultKinds, onError: ((Error) -> Void)? = nil, authorization completion: @escaping (AuthorizationCode) -> Void) {
+    public init(tink: Tink = .shared, market: Market, scope: Tink.Scope, providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
         self.market = market
         self.scopes = scopes
@@ -283,7 +282,6 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
             } catch ServiceError.cancelled {
                 // No-op
             } catch {
-                self?.onError?(error)
                 self?.showAlert(for: error)
             }
         }
