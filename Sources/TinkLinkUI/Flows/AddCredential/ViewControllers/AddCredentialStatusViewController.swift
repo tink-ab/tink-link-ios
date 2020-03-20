@@ -62,7 +62,7 @@ final class AddCredentialStatusViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            dividerView.heightAnchor.constraint(equalToConstant: 1.0 / contentScaleFactor),
+            dividerView.heightAnchor.constraint(equalToConstant: 1.0 / view.contentScaleFactor),
             cancelButton.heightAnchor.constraint(equalToConstant: 44),
             cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
