@@ -1,6 +1,6 @@
 import GRPC
 
-enum ServiceError: Error {
+public enum ServiceError: Error {
     case cancelled
     case unknown(String)
     case invalidArgument(String)
@@ -17,6 +17,7 @@ enum ServiceError: Error {
     case internalError(String)
     case unavailable(String)
     case dataLoss(String)
+    case missingInternetConnection
 
     init?(_ error: Swift.Error) {
         guard let status = error as? GRPC.GRPCStatus else { return nil }

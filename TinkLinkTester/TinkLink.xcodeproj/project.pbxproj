@@ -1,0 +1,500 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8F3829542417A29D007C418C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3829532417A29D007C418C /* AppDelegate.swift */; };
+		8F3829582417A29D007C418C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3829572417A29D007C418C /* ViewController.swift */; };
+		8F3829602417A29F007C418C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F38295E2417A29F007C418C /* LaunchScreen.storyboard */; };
+		8F38298E2417A56B007C418C /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F38298D2417A56B007C418C /* TinkLinkUI */; };
+		9D10EE57241A5332007E9822 /* AppearanceProvider+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D10EE56241A5332007E9822 /* AppearanceProvider+Presets.swift */; };
+		9D10EE5B241A5339007E9822 /* IcecreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D10EE59241A5339007E9822 /* IcecreamViewController.swift */; };
+		9D10EE5C241A5339007E9822 /* IcecreamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D10EE5A241A5339007E9822 /* IcecreamModel.swift */; };
+		9D10EE5E241A534C007E9822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D10EE5D241A534C007E9822 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8F68890C2417EB3E00402A3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F3829482417A29D007C418C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F38294F2417A29D007C418C;
+			remoteInfo = TinkLinkTester;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8F3829502417A29D007C418C /* TinkLinkTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkLinkTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F3829532417A29D007C418C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8F3829572417A29D007C418C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8F38295F2417A29F007C418C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8F3829612417A29F007C418C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F499D332417F43000DEAFC1 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ..; sourceTree = "<group>"; };
+		8F6889072417EB3E00402A3B /* TinkLinkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkLinkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F6889112417EBCE00402A3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D10EE56241A5332007E9822 /* AppearanceProvider+Presets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceProvider+Presets.swift"; sourceTree = "<group>"; };
+		9D10EE59241A5339007E9822 /* IcecreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IcecreamViewController.swift; sourceTree = "<group>"; };
+		9D10EE5A241A5339007E9822 /* IcecreamModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IcecreamModel.swift; sourceTree = "<group>"; };
+		9D10EE5D241A534C007E9822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8F38294D2417A29D007C418C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F38298E2417A56B007C418C /* TinkLinkUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F6889042417EB3E00402A3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8F3829472417A29D007C418C = {
+			isa = PBXGroup;
+			children = (
+				8F499D322417F41A00DEAFC1 /* Frameworks */,
+				8F6889082417EB3E00402A3B /* TinkLinkTests */,
+				8F3829522417A29D007C418C /* TinkLinkTester */,
+				8F3829512417A29D007C418C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8F3829512417A29D007C418C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F3829502417A29D007C418C /* TinkLinkTester.app */,
+				8F6889072417EB3E00402A3B /* TinkLinkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8F3829522417A29D007C418C /* TinkLinkTester */ = {
+			isa = PBXGroup;
+			children = (
+				9D10EE58241A5339007E9822 /* Icecream */,
+				9D10EE56241A5332007E9822 /* AppearanceProvider+Presets.swift */,
+				8F3829532417A29D007C418C /* AppDelegate.swift */,
+				8F3829572417A29D007C418C /* ViewController.swift */,
+				9D10EE5D241A534C007E9822 /* Assets.xcassets */,
+				8F38295E2417A29F007C418C /* LaunchScreen.storyboard */,
+				8F3829612417A29F007C418C /* Info.plist */,
+			);
+			path = TinkLinkTester;
+			sourceTree = "<group>";
+		};
+		8F499D322417F41A00DEAFC1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F499D332417F43000DEAFC1 /* tink-link-ios */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		8F6889082417EB3E00402A3B /* TinkLinkTests */ = {
+			isa = PBXGroup;
+			children = (
+				8F6889112417EBCE00402A3B /* Info.plist */,
+			);
+			path = TinkLinkTests;
+			sourceTree = "<group>";
+		};
+		9D10EE58241A5339007E9822 /* Icecream */ = {
+			isa = PBXGroup;
+			children = (
+				9D10EE59241A5339007E9822 /* IcecreamViewController.swift */,
+				9D10EE5A241A5339007E9822 /* IcecreamModel.swift */,
+			);
+			path = Icecream;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8F38294F2417A29D007C418C /* TinkLinkTester */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F3829642417A29F007C418C /* Build configuration list for PBXNativeTarget "TinkLinkTester" */;
+			buildPhases = (
+				8F38294C2417A29D007C418C /* Sources */,
+				8F38294D2417A29D007C418C /* Frameworks */,
+				8F38294E2417A29D007C418C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TinkLinkTester;
+			packageProductDependencies = (
+				8F38298D2417A56B007C418C /* TinkLinkUI */,
+			);
+			productName = TinkLinkTester;
+			productReference = 8F3829502417A29D007C418C /* TinkLinkTester.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8F6889062417EB3E00402A3B /* TinkLinkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F68890E2417EB3E00402A3B /* Build configuration list for PBXNativeTarget "TinkLinkTests" */;
+			buildPhases = (
+				8F6889032417EB3E00402A3B /* Sources */,
+				8F6889042417EB3E00402A3B /* Frameworks */,
+				8F6889052417EB3E00402A3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8F68890D2417EB3E00402A3B /* PBXTargetDependency */,
+			);
+			name = TinkLinkTests;
+			productName = TinkLinkTests;
+			productReference = 8F6889072417EB3E00402A3B /* TinkLinkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8F3829482417A29D007C418C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = Tink;
+				TargetAttributes = {
+					8F38294F2417A29D007C418C = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					8F6889062417EB3E00402A3B = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 8F38294F2417A29D007C418C;
+					};
+				};
+			};
+			buildConfigurationList = 8F38294B2417A29D007C418C /* Build configuration list for PBXProject "TinkLink" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8F3829472417A29D007C418C;
+			productRefGroup = 8F3829512417A29D007C418C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8F38294F2417A29D007C418C /* TinkLinkTester */,
+				8F6889062417EB3E00402A3B /* TinkLinkTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8F38294E2417A29D007C418C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D10EE5E241A534C007E9822 /* Assets.xcassets in Resources */,
+				8F3829602417A29F007C418C /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F6889052417EB3E00402A3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8F38294C2417A29D007C418C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F3829582417A29D007C418C /* ViewController.swift in Sources */,
+				9D10EE57241A5332007E9822 /* AppearanceProvider+Presets.swift in Sources */,
+				8F3829542417A29D007C418C /* AppDelegate.swift in Sources */,
+				9D10EE5C241A5339007E9822 /* IcecreamModel.swift in Sources */,
+				9D10EE5B241A5339007E9822 /* IcecreamViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F6889032417EB3E00402A3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8F68890D2417EB3E00402A3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F38294F2417A29D007C418C /* TinkLinkTester */;
+			targetProxy = 8F68890C2417EB3E00402A3B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8F38295E2417A29F007C418C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F38295F2417A29F007C418C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8F3829622417A29F007C418C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8F3829632417A29F007C418C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8F3829652417A29F007C418C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = TinkLinkTester/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkTester;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8F3829662417A29F007C418C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = TinkLinkTester/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkTester;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8F68890F2417EB3E00402A3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = TinkLinkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TinkLinkTester.app/TinkLinkTester";
+			};
+			name = Debug;
+		};
+		8F6889102417EB3E00402A3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = TinkLinkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TinkLinkTester.app/TinkLinkTester";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8F38294B2417A29D007C418C /* Build configuration list for PBXProject "TinkLink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F3829622417A29F007C418C /* Debug */,
+				8F3829632417A29F007C418C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F3829642417A29F007C418C /* Build configuration list for PBXNativeTarget "TinkLinkTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F3829652417A29F007C418C /* Debug */,
+				8F3829662417A29F007C418C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F68890E2417EB3E00402A3B /* Build configuration list for PBXNativeTarget "TinkLinkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F68890F2417EB3E00402A3B /* Debug */,
+				8F6889102417EB3E00402A3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F38298D2417A56B007C418C /* TinkLinkUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLinkUI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 8F3829482417A29D007C418C /* Project object */;
+}

@@ -17,6 +17,10 @@ class URLSessionRequestRetryCancellable<T: Decodable, E: Decodable & Error>: Ret
         let task = session.dataTask(with: request) { [completion] data, _, error in
             if let data = data {
                 do {
+                    if let rawData = data as? T {
+                        completion(.success(rawData))
+                        return
+                    }
                     let decodedResponse = try JSONDecoder().decode(T.self, from: data)
                     completion(.success(decodedResponse))
                 } catch {

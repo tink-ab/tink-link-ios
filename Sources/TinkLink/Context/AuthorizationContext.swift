@@ -47,7 +47,7 @@ public final class AuthorizationContext {
     /// - Parameter completion: The block to execute when the authorization is complete.
     /// - Parameter result: Represents either an authorization code if authorization was successful or an error if authorization failed.
     @discardableResult
-    func authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.authorize(redirectURI: redirectURI, scopes: scopes) { result in
             let mappedResult = result.map({ $0.code }).mapError({ Error($0) ?? $0 })
@@ -60,17 +60,17 @@ public final class AuthorizationContext {
 
     // MARK: - Getting Information About the Client
 
-    /// Checks if the client is the aggregator.
+    /// Get a description of the client.
     ///
-    /// - Parameter completion: The block to execute when the aggregator status is received or if an error occurred.
+    /// - Parameter completion: The block to execute when the client description is received or if an error occurred.
     @discardableResult
-    public func isAggregator(completion: @escaping (Result<Bool, Swift.Error>) -> Void) -> RetryCancellable {
+    public func clientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable {
         let scopes: [Scope] = []
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scopes: scopes, redirectURI: redirectURI) { (result) in
-            let mappedResult = result.map({ $0.isAggregator }).mapError({ Error($0) ?? $0 })
+            let mappedResult = result.mapError({ Error($0) ?? $0 })
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
-                assertionFailure("Could not check aggregator status: " + message)
+                assertionFailure("Could not get client description: " + message)
             }
             completion(mappedResult)
         }

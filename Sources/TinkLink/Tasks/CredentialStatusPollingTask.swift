@@ -9,6 +9,8 @@ class CredentialStatusPollingTask {
     private var updateHandler: (Result<Credentials, Error>) -> Void
     private let backoffStrategy: PollingBackoffStrategy
 
+    private var isCancelled = false
+
     enum PollingBackoffStrategy {
         case none
         case linear
@@ -42,8 +44,12 @@ class CredentialStatusPollingTask {
                     if let updatedCredentials = credentialsList.first(where: { $0.id == self.credentials.id }) {
                         switch updatedCredentials.status {
                         case .awaitingSupplementalInformation, .awaitingMobileBankIDAuthentication, .awaitingThirdPartyAppAuthentication:
-                            self.updateHandler(.success(updatedCredentials))
-                            self.callRetryCancellable = nil
+                            if self.credentials.statusUpdated != updatedCredentials.statusUpdated {
+                                self.callRetryCancellable = nil
+                                self.updateHandler(.success(updatedCredentials))
+                            } else {
+                                self.retry()
+                            }
                         case .created, .authenticating, .updating:
                             self.updateHandler(.success(updatedCredentials))
                             self.retry()
@@ -69,9 +75,16 @@ class CredentialStatusPollingTask {
     }
 
     private func retry() {
+        if isCancelled { return }
         DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) { [weak self] in
+            if self?.isCancelled == true { return }
             self?.callRetryCancellable?.retry()
         }
         retryInterval = backoffStrategy.nextInterval(for: retryInterval)
+    }
+
+    func cancel() {
+        callRetryCancellable?.cancel()
+        isCancelled = true
     }
 }

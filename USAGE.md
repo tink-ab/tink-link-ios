@@ -98,12 +98,12 @@ Handle selection of a provider group by switching on the group to decide which s
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
     switch financialInstitutionGroupNode {
-    case .financialInstitutions(let financialInstitutionGroups):
-        showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
-    case .accessTypes(let accessTypeGroups):
-        showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
-    case .credentialKinds(let groups):
-        showCredentialKindPicker(for: groups)
+    case .financialInstitutions(let nodes):
+        showFinancialInstitution(for: nodes)
+    case .accessTypes(let nodes):
+        showAccessTypePicker(for: nodes)
+    case .credentialKinds(let nodes):
+        showCredentialKindPicker(for: nodes)
     case .provider(let provider):
         showAddCredential(for: provider)
     }
@@ -168,7 +168,7 @@ To add a credentials for the current user, call `addCredentials` with the provid
 Then handle status changes in the `progressHandler` closure and the `result` from the completion handler.
 
 ```swift
-credentialContext.addCredentials(for: provider, form: form, progressHandler: { status in
+let addCredentialsTask = credentialContext.addCredentials(for: provider, form: form, progressHandler: { status in
     switch status {
     case .awaitingSupplementalInformation(let supplementInformationTask):
         <#Present form for supplemental information task#>

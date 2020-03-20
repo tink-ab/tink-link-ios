@@ -16,7 +16,7 @@ struct ContentView: View {
         NavigationView {
             CredentialsView(credentialController: credentialController, providerController: providerController)
         }.onAppear {
-            self.userController.authenticateUser(accessToken: AccessToken(rawValue: <#String#>)!) { result in
+            self.userController.authenticateUser(accessToken: AccessToken(rawValue: "YOUR_ACCESS_TOKEN")!) { result in
                 do {
                     let user = try result.get()
                     self.credentialController.user = user
