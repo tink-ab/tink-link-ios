@@ -114,12 +114,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 appStoreURL: thirdPartyAppAuthentication.appStoreURL
             )
 
+            let deepLinkURL = sanitizeDeeplink(url, redirectUri: appUri)
             DispatchQueue.main.async {
-                application.open(url, options: [.universalLinksOnly: NSNumber(value: true)]) { didOpenUniversalLink in
+                application.open(deepLinkURL, options: [.universalLinksOnly: NSNumber(value: true)]) { didOpenUniversalLink in
                     if didOpenUniversalLink {
                         self.completionHandler(.success(()))
                     } else {
-                        application.open(url, options: [:], completionHandler: { didOpen in
+                        application.open(deepLinkURL, options: [:], completionHandler: { didOpen in
                             if didOpen {
                                 self.completionHandler(.success(()))
                             } else {
@@ -139,5 +140,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Call this method if you have a UI that lets the user choose to open the third party app and the user cancels.
     public func cancel() {
         completionHandler(.failure(CocoaError(.userCancelled)))
+    }
+
+    private func sanitizeDeeplink(_ url: URL, redirectUri: URL) -> URL {
+        // Only replace bankID redirect with tink scheme
+        let tinkBankIDRedirect = "tink://bankid"
+        let bankIDredirect = redirectUri.appendingPathComponent("bankid").absoluteString
+        let updatedUrl = url.absoluteString.replacingOccurrences(of: tinkBankIDRedirect, with: bankIDredirect)
+        return URL(string: updatedUrl)!
     }
 }
