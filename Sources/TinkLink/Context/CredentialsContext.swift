@@ -7,16 +7,22 @@ public final class CredentialsContext {
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
 
+    private var newlyAddedCredentials: [Provider.ID: Credentials] = [:]
+
     // MARK: - Creating a Credentials Context
 
     /// Creates a new CredentialsContext for the given Tink instance.
     ///
     /// - Parameter tink: Tink instance, defaults to `shared` if not provided.
     /// - Parameter user: `User` that will be used for adding credentials with the Tink API.
-    public init(tink: Tink = .shared, user: User) {
+    public convenience init(tink: Tink = .shared, user: User) {
+        let service = TinkCredentialsService(tink: tink, accessToken: user.accessToken)
+        self.init(tink: tink, credentialsService: service)
+    }
+
+    init(tink: Tink, credentialsService: CredentialsService & TokenConfigurableService) {
         self.tink = tink
-        self.service = CredentialsService(tink: tink, accessToken: user.accessToken)
-        service.accessToken = user.accessToken
+        self.service = credentialsService
         addStoreObservers()
     }
 
@@ -86,20 +92,33 @@ public final class CredentialsContext {
 
         let appURI = tink.configuration.redirectURI
 
-        task.callCanceller = addCredentialAndAuthenticateIfNeeded(for: provider, fields: form.makeFields(), appURI: appURI) { [weak task] result in
-            do {
-                let credentials = try result.get()
-                task?.startObserving(credentials)
-            } catch {
-                let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
-                completion(.failure(mappedError))
+        if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
+            task.callCanceller = update(newlyAddedCredentials, form: form) { (result) in
+                do {
+                    let credentials = try result.get()
+                    task.startObserving(credentials)
+                } catch {
+                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
+                    completion(.failure(mappedError))
+                }
+            }
+        } else {
+            task.callCanceller = addCredentialsAndAuthenticateIfNeeded(for: provider, fields: form.makeFields(), appURI: appURI) { [weak task, weak self] result in
+                do {
+                    let credential = try result.get()
+                    self?.newlyAddedCredentials[provider.id] = credential
+                    task?.startObserving(credential)
+                } catch {
+                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
+                    completion(.failure(mappedError))
+                }
             }
         }
         return task
     }
 
-    private func addCredentialAndAuthenticateIfNeeded(for provider: Provider, fields: [String: String], appURI: URL, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
-        return service.createCredential(providerID: provider.id, fields: fields, appURI: appURI, completion: completion)
+    private func addCredentialsAndAuthenticateIfNeeded(for provider: Provider, fields: [String: String], appURI: URL, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        return service.createCredentials(providerID: provider.id, kind: provider.credentialsKind, fields: fields, appURI: appURI, completion: completion)
     }
 
     // MARK: - Fetching Credentials
@@ -137,7 +156,7 @@ public final class CredentialsContext {
                                    completion: @escaping (_ result: Result<[Credentials], Swift.Error>) -> Void) -> RefreshCredentialTask {
         let task = RefreshCredentialTask(credentials: credentials, credentialService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.refreshCredentials(credentialIDs: credentials.map { $0.id }, completion: { result in
+        task.callCanceller = service.refreshCredentials(credentialsIDs: credentials.map { $0.id }, completion: { result in
             switch result {
             case .success:
                 task.startObserving()
@@ -149,20 +168,20 @@ public final class CredentialsContext {
         return task
     }
 
-    /// Update the user's credential.
+    /// Update the user's credentials.
     /// - Parameters:
-    ///   - credential: Credentials that needs to be updated.
+    ///   - credentials: Credentials that needs to be updated.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
     ///   - completion: The block to execute when the credentials has been updated successfuly or if it failed.
     ///   - result: A result with either an updated credentials if the update succeeded or an error if failed.
     /// - Returns: The update credentials task.
     @discardableResult
-    public func update(_ credential: Credentials, form: Form? = nil,
+    public func update(_ credentials: Credentials, form: Form? = nil,
                        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RetryCancellable? {
-        service.updateCredential(credentialID: credential.id, fields: form?.makeFields() ?? [:], completion: completion)
+        service.updateCredentials(credentialsID: credentials.id, fields: form?.makeFields() ?? [:], completion: completion)
     }
 
-    /// Delete the user's credential.
+    /// Delete the user's credentials.
     /// - Parameters:
     ///   - credentials: Credentials that needs to be deleted.
     ///   - completion: The block to execute when the credentials has been deleted successfuly or if it failed.
@@ -171,7 +190,7 @@ public final class CredentialsContext {
     @discardableResult
     public func delete(_ credentials: Credentials,
                        completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
-        return service.deleteCredential(credentialID: credentials.id, completion: completion)
+        return service.deleteCredentials(credentialsID: credentials.id, completion: completion)
     }
 }
 

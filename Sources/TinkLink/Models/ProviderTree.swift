@@ -27,11 +27,27 @@ import Foundation
 /// ```
 public struct ProviderTree {
     public let financialInstitutionGroups: [FinancialInstitutionGroupNode]
-
+    
     public init(providers: [Provider]) {
         self.financialInstitutionGroups = Dictionary(grouping: providers, by: { $0.groupDisplayName.isEmpty ? $0.financialInstitution.id.value : $0.groupDisplayName })
             .sorted(by: { $0.key < $1.key })
             .map { FinancialInstitutionGroupNode(providers: $0.value) }
+    }
+    
+    public func makeFinancialInstitutions() -> [FinancialInstitutionNode] {
+        let institutions: [FinancialInstitutionNode] = financialInstitutionGroups.flatMap { node -> [FinancialInstitutionNode] in
+            switch node {
+            case .accessTypes(let accessType):
+                return [FinancialInstitutionNode(providers: accessType.flatMap { $0.providers }) ]
+            case .credentialKinds(let kinds):
+                return [FinancialInstitutionNode(providers: kinds.map { $0.provider })]
+            case .provider(let provider):
+                return [FinancialInstitutionNode(providers: [provider])]
+            case .financialInstitutions(let nodes):
+                return nodes
+            }
+        }
+        return institutions
     }
 
     /// A parent node of the tree structure, with a `Provider` as it's leaf node.
@@ -87,7 +103,7 @@ public struct ProviderTree {
             }
         }
 
-        public var id: ID { ID(firstProvider.id.value) }
+        public var id: ID { ID(significantProvider.id.value) }
 
         public var providers: [Provider] {
             switch self {
@@ -107,9 +123,18 @@ public struct ProviderTree {
             }
         }
 
+        fileprivate var significantProvider: Provider {
+            switch self {
+            case .credentialKinds(let nodes):
+                return (nodes.first { $0.imageURL != nil })?.provider ?? firstProvider
+            case .provider(let provider):
+                return provider
+            }
+        }
+
         public var accessType: Provider.AccessType { firstProvider.accessType }
 
-        public var imageURL: URL? { firstProvider.image }
+        public var imageURL: URL? { significantProvider.image }
     }
 
     /// A parent node of the tree structure, with a list of either `AccessTypeNode`, `CredentialKindNode` children or a single `Provider`.
@@ -146,7 +171,7 @@ public struct ProviderTree {
             }
         }
 
-        public var id: ID { ID(firstProvider.id.value) }
+        public var id: ID { ID(significantProvider.id.value) }
 
         public var providers: [Provider] {
             switch self {
@@ -170,9 +195,20 @@ public struct ProviderTree {
             }
         }
 
+        fileprivate var significantProvider: Provider {
+            switch self {
+            case .accessTypes(let accessTypeGroups):
+                return (accessTypeGroups.first { $0.imageURL != nil})?.significantProvider ?? firstProvider
+            case .credentialKinds(let groups):
+                return (groups.first { $0.imageURL != nil })?.provider ?? firstProvider
+            case .provider(let provider):
+                return provider
+            }
+        }
+
         public var financialInstitution: Provider.FinancialInstitution { firstProvider.financialInstitution }
 
-        public var imageURL: URL? { firstProvider.image }
+        public var imageURL: URL? { significantProvider.image }
     }
 
     /// A parent node of the tree structure, with a list of either `FinancialInstitutionNode`, `AccessTypeNode`, `CredentialKindNode` children or a single `Provider`.
@@ -216,7 +252,7 @@ public struct ProviderTree {
             }
         }
 
-        public var id: ID { ID(firstProvider.id.value) }
+        public var id: ID { ID(significantProvider.id.value) }
 
         public var providers: [Provider] {
             switch self {
@@ -244,14 +280,45 @@ public struct ProviderTree {
             }
         }
 
-        public var displayName: String {
-            if firstProvider.groupDisplayName.isEmpty {
-                return firstProvider.financialInstitution.name
-            } else {
-                return firstProvider.groupDisplayName
+        private var significantProvider: Provider {
+            switch self {
+            case .financialInstitutions(let nodes):
+                return (nodes.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
+            case .accessTypes(let accessTypeGroups):
+                return (accessTypeGroups.first { $0.imageURL != nil})?.significantProvider ?? firstProvider
+            case .credentialKinds(let groups):
+                return (groups.first { $0.imageURL != nil })?.provider ?? firstProvider
+            case .provider(let provider):
+                return provider
             }
         }
 
-        public var imageURL: URL? { firstProvider.image }
+        public var displayName: String {
+            if significantProvider.groupDisplayName.isEmpty {
+                return significantProvider.financialInstitution.name
+            } else {
+                return significantProvider.groupDisplayName
+            }
+        }
+
+        public var imageURL: URL? { significantProvider.image }
+    }
+}
+
+extension Array where Element == ProviderTree.FinancialInstitutionGroupNode {
+    public func makeFinancialInstitutions() -> [ProviderTree.FinancialInstitutionNode] {
+        let institutions: [ProviderTree.FinancialInstitutionNode] = self.flatMap { node -> [ProviderTree.FinancialInstitutionNode] in
+            switch node {
+            case .accessTypes(let accessType):
+                return [ProviderTree.FinancialInstitutionNode(providers: accessType.flatMap { $0.providers }) ]
+            case .credentialKinds(let kinds):
+                return [ProviderTree.FinancialInstitutionNode(providers: kinds.map { $0.provider })]
+            case .provider(let provider):
+                return [ProviderTree.FinancialInstitutionNode(providers: [provider])]
+            case .financialInstitutions(let nodes):
+                return nodes
+            }
+        }
+        return institutions
     }
 }

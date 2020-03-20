@@ -114,19 +114,13 @@ public final class RefreshCredentialTask: Identifiable {
                     return
                 }
                 credentialStatusPollingTask?.pausePolling()
-                let task = ThirdPartyAppAuthenticationTask(thirdPartyAppAuthentication: thirdPartyAppAuthentication) { [weak self] result in
+                let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialsService: credentialService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
                         self.credentialStatusPollingTask?.continuePolling()
                     } catch {
-                        let taskError = error as? ThirdPartyAppAuthenticationTask.Error
-                        switch taskError {
-                        case .downloadRequired where !self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired:
-                            self.credentialStatusPollingTask?.continuePolling()
-                        default:
-                            self.completion(.failure(error))
-                        }
+                        self.completion(.failure(error))
                     }
                 }
                 progressHandler(.awaitingThirdPartyAppAuthentication(credentials: credentials, task: task))

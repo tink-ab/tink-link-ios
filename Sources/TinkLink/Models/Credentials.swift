@@ -158,6 +158,10 @@ public struct Credentials: Identifiable {
 
         /// URL that the app should open on iOS. Can be of another scheme than app scheme.
         public let deepLinkURL: URL?
+
+        public var hasAutoStartToken: Bool {
+            deepLinkURL?.query?.contains("autostartToken") ?? false
+        }
     }
 
     /// Information about the third party authentication flow.
