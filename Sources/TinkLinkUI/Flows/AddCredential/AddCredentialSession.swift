@@ -177,6 +177,8 @@ extension AddCredentialSession {
     }
 }
 
+// MARK: - AddCredentialStatusViewControllerDelegate
+
 extension AddCredentialSession: AddCredentialStatusViewControllerDelegate {
     func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialStatusViewController) {
         task?.cancel()
