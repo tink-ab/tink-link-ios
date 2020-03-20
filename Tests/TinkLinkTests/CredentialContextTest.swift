@@ -2,17 +2,17 @@ import XCTest
 @testable import TinkLink
 
 class CredentialsContextTests: XCTestCase {
-    var mockedSuccessCredentialService: MockedSuccessCredentialService!
-    var mockedUnauthenticatedErrorCredentialService: MockedUnauthenticatedErrorCredentialService!
+    var mockedSuccessCredentialsService: MockedSuccessCredentialsService!
+    var mockedUnauthenticatedErrorCredentialsService: MockedUnauthenticatedErrorCredentialsService!
 
     override func setUp() {
-        mockedSuccessCredentialService = MockedSuccessCredentialService()
-        mockedUnauthenticatedErrorCredentialService = MockedUnauthenticatedErrorCredentialService()
+        mockedSuccessCredentialsService = MockedSuccessCredentialsService()
+        mockedUnauthenticatedErrorCredentialsService = MockedUnauthenticatedErrorCredentialsService()
     }
 
-    func testAddingPasswordCredential() {
+    func testAddingPasswordCredentials() {
         try! Tink.configure(with: .init(clientID: "testID", redirectURI: URL(string: "app://callback")!))
-        let credentialContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialService)
+        let credentialContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialsService)
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")

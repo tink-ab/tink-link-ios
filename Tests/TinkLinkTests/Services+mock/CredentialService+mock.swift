@@ -2,7 +2,7 @@ import Foundation
 import GRPC
 @testable import TinkLink
 
-class MockedSuccessCredentialService: CredentialsService, TokenConfigurableService {
+class MockedSuccessCredentialsService: CredentialsService, TokenConfigurableService {
     var defaultCallOptions = CallOptions()
 
     private var credentials = [Credentials]()
@@ -91,7 +91,7 @@ class MockedSuccessCredentialService: CredentialsService, TokenConfigurableServi
     }
 }
 
-class MockedUnauthenticatedErrorCredentialService: CredentialsService, TokenConfigurableService {
+class MockedUnauthenticatedErrorCredentialsService: CredentialsService, TokenConfigurableService {
     var defaultCallOptions = CallOptions()
 
     func credentials(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
