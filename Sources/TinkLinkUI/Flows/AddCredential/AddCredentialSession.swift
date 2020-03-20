@@ -182,9 +182,7 @@ extension AddCredentialSession {
 extension AddCredentialSession: AddCredentialStatusViewControllerDelegate {
     func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialStatusViewController) {
         task?.cancel()
-        hideUpdatingView(animated: true) {
-
-        }
+        hideUpdatingView(animated: true) 
     }
 }
 
