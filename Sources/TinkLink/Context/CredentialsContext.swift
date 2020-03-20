@@ -77,14 +77,15 @@ public final class CredentialsContext {
                               completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                               progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
                               completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
+        let appURI = tink.configuration.redirectURI
+        
         let task = AddCredentialsTask(
             credentialsService: service,
             completionPredicate: completionPredicate,
+            appUri: appURI,
             progressHandler: progressHandler,
             completion: completion
         )
-
-        let appURI = tink.configuration.redirectURI
 
         task.callCanceller = addCredentialAndAuthenticateIfNeeded(for: provider, fields: form.makeFields(), appURI: appURI) { [weak task] result in
             do {
@@ -135,7 +136,9 @@ public final class CredentialsContext {
                                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
                                    progressHandler: @escaping (_ status: RefreshCredentialTask.Status) -> Void,
                                    completion: @escaping (_ result: Result<[Credentials], Swift.Error>) -> Void) -> RefreshCredentialTask {
-        let task = RefreshCredentialTask(credentials: credentials, credentialService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, progressHandler: progressHandler, completion: completion)
+        let appURI = tink.configuration.redirectURI
+
+        let task = RefreshCredentialTask(credentials: credentials, credentialService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appURI, progressHandler: progressHandler, completion: completion)
 
         task.callCanceller = service.refreshCredentials(credentialIDs: credentials.map { $0.id }, completion: { result in
             switch result {

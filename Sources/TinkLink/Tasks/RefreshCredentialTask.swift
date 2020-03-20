@@ -55,14 +55,16 @@ public final class RefreshCredentialTask: Identifiable {
     public private(set) var credentials: [Credentials]
 
     private let credentialService: CredentialsService
+    private let appUri: URL
     let progressHandler: (Status) -> Void
     let completion: (Result<[Credentials], Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
 
-    init(credentials: [Credentials], credentialService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<[Credentials], Swift.Error>) -> Void) {
+    init(credentials: [Credentials], credentialService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, appUri: URL, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<[Credentials], Swift.Error>) -> Void) {
         self.credentials = credentials
         self.credentialService = credentialService
+        self.appUri = appUri
         self.progressHandler = progressHandler
         self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired
         self.completion = completion
@@ -114,7 +116,7 @@ public final class RefreshCredentialTask: Identifiable {
                     return
                 }
                 credentialStatusPollingTask?.pausePolling()
-                let task = ThirdPartyAppAuthenticationTask(thirdPartyAppAuthentication: thirdPartyAppAuthentication) { [weak self] result in
+                let task = ThirdPartyAppAuthenticationTask(thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
