@@ -58,6 +58,7 @@ final class AddCredentialSession {
         )
         self.showUpdating(status: NSLocalizedString("AddCredentials.Status.Authorizing", tableName: "TinkLinkUI", value: "Authorizing…", comment: "Text shown when adding credentials and waiting for authorization."))
     }
+
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, shouldAuthenticateInAnotherDevice: Bool = false, onError: @escaping (Error) -> Void) {
         switch status {
         case .created, .authenticating:
@@ -65,22 +66,35 @@ final class AddCredentialSession {
         case .awaitingSupplementalInformation(let supplementInformationTask):
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-            if shouldAuthenticateInAnotherDevice {
-                thirdPartyAppAuthenticationTask.qr { [weak self] qrImage in
+            handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
+        case .updating(let status):
+            showUpdating(status: status)
+            authorizeIfNeeded(onError: onError)
+        }
+    }
+
+    private func handleThirdPartyAppAuthentication(task: ThirdPartyAppAuthenticationTask) {
+
+        if task.shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
+            task.openThirdPartyApp()
+            return
+        }
+
+        task.openThirdPartyApp { [weak self] in
+
+            if task.thirdPartyAppAuthentication.hasAutoStartToken {
+
+                task.qr { [weak self] qrImage in
                     DispatchQueue.main.async {
                         self?.showQRCodeView(qrImage: qrImage)
                     }
                 }
+
             } else {
-                thirdPartyAppAuthenticationTask.openThirdPartyApp { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.showUpdating(status: NSLocalizedString("AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice", tableName: "TinkLinkUI", value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device."))
-                    }
+                DispatchQueue.main.async {
+                    self?.showUpdating(status: NSLocalizedString("AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice", tableName: "TinkLinkUI", value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device."))
                 }
             }
-        case .updating(let status):
-            showUpdating(status: status)
-            authorizeIfNeeded(onError: onError)
         }
     }
 
