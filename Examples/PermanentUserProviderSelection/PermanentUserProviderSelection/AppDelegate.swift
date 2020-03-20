@@ -4,7 +4,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let configuration = try! Tink.Configuration(clientID: <#T##String#>, redirectURI: URL(string: "link-demo://tink")!)
+        let configuration = try! Tink.Configuration(clientID: "YOUR_CLIENT_ID", redirectURI: URL(string: "link-demo://tink")!)
         Tink.configure(with: configuration)
         return true
     }
