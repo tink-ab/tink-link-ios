@@ -56,7 +56,7 @@ public final class CredentialsContext {
     ///
     /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
     ///
-    ///     credentialsContext.addCredentials(for: provider, form: form, progressHandler: { status in
+    ///     let addCredentialsTask = credentialsContext.addCredentials(for: provider, form: form, progressHandler: { status in
     ///         switch status {
     ///         case .awaitingSupplementalInformation(let supplementInformationTask):
     ///             <#Present form for supplemental information task#>
@@ -78,7 +78,6 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
-    @discardableResult
     public func addCredentials(for provider: Provider, form: Form,
                               completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                               progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
