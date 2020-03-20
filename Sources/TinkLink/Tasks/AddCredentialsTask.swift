@@ -81,6 +81,7 @@ public final class AddCredentialsTask: Identifiable {
     let completion: (Result<Credentials, Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
+    private var isCancelled = false
 
     init(credentialsService: CredentialsService, completionPredicate: CompletionPredicate, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
         self.credentialsService = credentialsService
@@ -90,6 +91,7 @@ public final class AddCredentialsTask: Identifiable {
     }
 
     func startObserving(_ credentials: Credentials) {
+        if isCancelled { return }
         self.credentials = credentials
 
         handleUpdate(for: .success(credentials))
@@ -104,11 +106,13 @@ public final class AddCredentialsTask: Identifiable {
 
     /// Cancel the task.
     public func cancel() {
+        isCancelled = true
         credentialsStatusPollingTask?.cancel()
         callCanceller?.cancel()
     }
 
     private func handleUpdate(for result: Result<Credentials, Swift.Error>) {
+        if isCancelled { return }
         do {
             let credentials = try result.get()
             switch credentials.status {
