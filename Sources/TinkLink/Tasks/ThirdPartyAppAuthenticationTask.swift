@@ -167,13 +167,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                                 self.completionHandler(.success(()))
                             } else {
                                 if !self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
-                                    if self.hasBankIDQRCode {
-                                        // Fail if no BankID was found and the QR code is needed for authentication with BankID on another device
-                                        self.completionHandler(.failure(downloadRequiredError))
-                                    } else {
-                                        wait?()
-                                        self.completionHandler(.success(()))
-                                    }
+                                    wait?()
+                                    self.completionHandler(.success(()))
                                 } else {
                                     self.completionHandler(.failure(downloadRequiredError))
                                 }

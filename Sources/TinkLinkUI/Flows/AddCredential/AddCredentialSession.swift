@@ -75,24 +75,15 @@ final class AddCredentialSession {
 
     private func handleThirdPartyAppAuthentication(task: ThirdPartyAppAuthenticationTask) {
 
-        if task.shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
+        guard task.thirdPartyAppAuthentication.hasAutoStartToken, !task.shouldFailOnThirdPartyAppAuthenticationDownloadRequired else {
             task.openThirdPartyApp()
             return
         }
 
         task.openThirdPartyApp { [weak self] in
-
-            if task.thirdPartyAppAuthentication.hasAutoStartToken {
-
-                task.qr { [weak self] qrImage in
-                    DispatchQueue.main.async {
-                        self?.showQRCodeView(qrImage: qrImage)
-                    }
-                }
-
-            } else {
+            task.qr { [weak self] qrImage in
                 DispatchQueue.main.async {
-                    self?.showUpdating(status: NSLocalizedString("AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice", tableName: "TinkLinkUI", value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device."))
+                    self?.showQRCodeView(qrImage: qrImage)
                 }
             }
         }
