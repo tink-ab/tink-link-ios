@@ -87,10 +87,12 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Information about how to open or download the third party application app.
     public private(set) var thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication
 
+    private let appUri: URL
     private let completionHandler: (Result<Void, Swift.Error>) -> Void
 
-    init(thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication, completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
+    init(thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication, appUri: URL, completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
         self.thirdPartyAppAuthentication = thirdPartyAppAuthentication
+        self.appUri = appUri
         self.completionHandler = completionHandler
     }
 
