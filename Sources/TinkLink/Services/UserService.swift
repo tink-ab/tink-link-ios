@@ -3,7 +3,8 @@ import GRPC
 
 final class UserService {
     let connection: ClientConnection
-    let defaultCallOptions: CallOptions
+    var defaultCallOptions: CallOptions
+    private let queue: DispatchQueue
     let restURL: URL
 
     private var session: URLSession
@@ -14,6 +15,7 @@ final class UserService {
         self.init(
             connection: client.connection,
             defaultCallOptions: client.defaultCallOptions,
+            queue: client.queue,
             restURL: client.restURL,
             certificates: client.restCertificateURL
                 .flatMap { try? Data(contentsOf: $0) }
@@ -21,9 +23,10 @@ final class UserService {
         )
     }
 
-    init(connection: ClientConnection, defaultCallOptions: CallOptions, restURL: URL, certificates: [Data]) {
+    init(connection: ClientConnection, defaultCallOptions: CallOptions, queue: DispatchQueue, restURL: URL, certificates: [Data]) {
         self.connection = connection
         self.defaultCallOptions = defaultCallOptions
+        self.queue = queue
         self.restURL = restURL
         if certificates.isEmpty {
             self.session = .shared
@@ -35,13 +38,13 @@ final class UserService {
 
     private lazy var service = UserServiceServiceClient(connection: connection, defaultCallOptions: defaultCallOptions)
 
-    func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable {
+    func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         var request = GRPCCreateAnonymousRequest()
         request.market = market?.code ?? ""
         request.locale = locale.identifier
         request.origin = origin ?? ""
 
-        return CallHandler(for: request, method: service.createAnonymous, responseMap: { AccessToken($0.accessToken) }, completion: completion)
+        return CallHandler(for: request, method: service.createAnonymous, queue: queue, responseMap: { AccessToken($0.accessToken) }, completion: completion)
     }
 
     func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
@@ -70,7 +73,7 @@ final class UserService {
 
     func marketAndLocale(completion: @escaping (Result<(Market, Locale), Error>) -> Void) -> RetryCancellable? {
         let request = GRPCGetProfileRequest()
-        return CallHandler(for: request, method: service.getProfile, responseMap: { response -> (Market, Locale) in
+        return CallHandler(for: request, method: service.getProfile, queue: queue, responseMap: { response -> (Market, Locale) in
             let profile = response.userProfile
             return (Market(code: profile.market), Locale(identifier: profile.locale))
         }, completion: completion)
