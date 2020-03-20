@@ -91,8 +91,8 @@ public final class AddCredentialsTask: Identifiable {
     }
 
     func startObserving(_ credentials: Credentials) {
-        if isCancelled { return }
         self.credentials = credentials
+        if isCancelled { return }
 
         handleUpdate(for: .success(credentials))
         credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
