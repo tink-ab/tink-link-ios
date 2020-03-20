@@ -49,11 +49,15 @@ class MockedSuccessCredentialsService: CredentialsService, TokenConfigurableServ
     func supplementInformation(credentialsID: Credentials.ID, fields: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         if let index = credentials.firstIndex(where: { $0.id == credentialsID }) {
             let credentialToBeUpdated = credentials[index]
-            let credential = Credentials(id: credentialToBeUpdated.id, providerID: credentialToBeUpdated.providerID, kind: credentialToBeUpdated.kind, status: .updated, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: credentialToBeUpdated.supplementalInformationFields, thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
+            let credential = Credentials(id: credentialToBeUpdated.id, providerID: credentialToBeUpdated.providerID, kind: credentialToBeUpdated.kind, status: credentialToBeUpdated.status, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: credentialToBeUpdated.supplementalInformationFields, thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
             credentials[index] = credential
             completion(.success(()))
         }
-        return nil
+        let retryCancellable = TestRetryCanceller { [weak self] in
+            guard let self = self else { return }
+            self.supplementInformation(credentialsID: credentialsID, fields: fields, completion: completion)
+        }
+        return retryCancellable
     }
 
     func cancelSupplementInformation(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
