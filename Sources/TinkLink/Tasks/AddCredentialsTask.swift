@@ -77,15 +77,17 @@ public final class AddCredentialsTask: Identifiable {
     public let completionPredicate: CompletionPredicate
 
     private let credentialsService: CredentialsService
+    private let appUri: URL
     let progressHandler: (Status) -> Void
     let completion: (Result<Credentials, Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
     private var isCancelled = false
 
-    init(credentialsService: CredentialsService, completionPredicate: CompletionPredicate, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
+    init(credentialsService: CredentialsService, completionPredicate: CompletionPredicate, appUri: URL, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
         self.credentialsService = credentialsService
         self.completionPredicate = completionPredicate
+        self.appUri = appUri
         self.progressHandler = progressHandler
         self.completion = completion
     }
@@ -137,7 +139,7 @@ public final class AddCredentialsTask: Identifiable {
                     assertionFailure("Missing third pary app authentication deeplink URL!")
                     return
                 }
-                let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
+                let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
