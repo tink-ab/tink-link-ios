@@ -1,6 +1,6 @@
 import Foundation
 
-extension Credential {
+extension Credentials {
     init(restCredentials: RESTCredentials) {
         guard let id = restCredentials.id, let type = restCredentials.type, let status = restCredentials.status else { fatalError() }
         //TODO: how to handle missing id?
@@ -18,7 +18,7 @@ extension Credential {
     }
 }
 
-extension Credential.Kind {
+extension Credentials.Kind {
     init(restCredentialType: RESTCredentials.ModelType) {
         switch restCredentialType {
         case .thirdPartyApp:
@@ -65,7 +65,7 @@ extension Credential.Kind {
     }
 }
 
-extension Credential.Status {
+extension Credentials.Status {
     init(restCredentialsStatus: RESTCredentials.Status) {
         switch restCredentialsStatus {
         case .created:
