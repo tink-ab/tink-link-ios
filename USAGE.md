@@ -265,14 +265,16 @@ Here's how you can get the url for the Terms and Conditions and present it with 
 ```swift
 import SafariServices
 
+let consentContext = ConsentContext(user: <#T##User#>)
+
 func showTermsAndConditions() {
-    let url = authorizationContext.termsAndConditions(locale: <#appLocale#>)
+    let url = consentContext.termsAndConditions(locale: <#appLocale#>)
     let safariViewController = SFSafariViewController(url: url)
     present(safariViewController, animated: true)
 }
 
 func showPrivacyPolicy() {
-    let url = authorizationContext.privacyPolicy(locale: <#appLocale#>)
+    let url = consentContext.privacyPolicy(locale: <#appLocale#>)
     let safariViewController = SFSafariViewController(url: url)
     present(safariViewController, animated: true)
 }
