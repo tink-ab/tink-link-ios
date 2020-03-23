@@ -56,8 +56,7 @@ final class AddCredentialSession {
                 }
             }
         )
-        // TODO: Copy
-        self.showUpdating(status: "Authorizing...")
+        self.showUpdating(status: NSLocalizedString("AddCredential.Progress.Authorizing", tableName: "TinkLink", value: "Authorizing…", comment: "Text shown when adding credentials and waiting for authorization."))
     }
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, shouldAuthenticateInAnotherDevice: Bool = false, onError: @escaping (Error) -> Void) {
         switch status {
@@ -75,7 +74,7 @@ final class AddCredentialSession {
             } else {
                 thirdPartyAppAuthenticationTask.openThirdPartyApp { [weak self] in
                     DispatchQueue.main.async {
-                        self?.showUpdating(status: "Waiting for authentication on another device")
+                        self?.showUpdating(status: NSLocalizedString("AddCredential.Progress.WaitingForAuthenticationOnAnotherDevice", tableName: "TinkLink", value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device."))
                     }
                 }
             }
@@ -192,14 +191,14 @@ extension AddCredentialSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         parentViewController?.dismiss(animated: true) {
             self.supplementInfoTask?.cancel()
-            self.showUpdating(status: "Canceling...")
+            self.showUpdating(status: NSLocalizedString("AddCredential.Progress.Canceling", tableName: "TinkLink", value: "Canceling…", comment: "Text shown when canceling supplementing information."))
         }
     }
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
         parentViewController?.dismiss(animated: true) {
             self.supplementInfoTask?.submit(form)
-            self.showUpdating(status: "Sending...")
+            self.showUpdating(status: NSLocalizedString("AddCredential.Progress.Canceling", tableName: "TinkLink", value: "Sending…", comment: "Text shown when submitting supplemental information."))
         }
     }
 }
