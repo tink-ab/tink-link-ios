@@ -7,7 +7,7 @@ protocol UserService {
     func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable?
 }
 
-final class TinkUserService: UserService, TokenConfigurableService {
+final class TinkUserService: UserService, CallOptionsProviding, TokenConfigurableService {
 
     let connection: ClientConnection
     var defaultCallOptions: CallOptions

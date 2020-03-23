@@ -5,7 +5,7 @@ protocol ProviderService {
     func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable?
 }
 
-final class TinkProviderService: ProviderService, TokenConfigurableService {
+final class TinkProviderService: ProviderService, CallOptionsProviding, TokenConfigurableService {
     let connection: ClientConnection
     var defaultCallOptions: CallOptions {
         didSet {

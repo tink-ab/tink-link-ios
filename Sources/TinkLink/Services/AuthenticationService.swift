@@ -1,7 +1,7 @@
 import Foundation
 import GRPC
 
-final class AuthenticationService: TokenConfigurableService {
+final class AuthenticationService: CallOptionsProviding, TokenConfigurableService {
     let connection: ClientConnection
     var defaultCallOptions: CallOptions
     private let queue: DispatchQueue

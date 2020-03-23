@@ -16,7 +16,7 @@ protocol CredentialsService {
     func qr(credentialsID: Credentials.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable?
 }
 
-final class TinkCredentialsService: CredentialsService, TokenConfigurableService {
+final class TinkCredentialsService: CredentialsService, CallOptionsProviding, TokenConfigurableService {
 
     let connection: ClientConnection
     let restURL: URL
