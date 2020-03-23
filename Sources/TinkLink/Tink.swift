@@ -26,6 +26,32 @@ public class Tink {
 
     private(set) lazy var client = Client(configuration: configuration)
 
+    // Rest stuff 
+    private var authorizationBehavior = AuthorizationHeaderClientBehavior(sessionCredential: nil)
+
+    private(set) lazy var restClient: RESTClient = {
+        let certificateURL = self.configuration.restCertificateURL
+        let certificate = certificateURL.flatMap { try? String(contentsOf: $0, encoding: .utf8) }
+        return RESTClient(restURL: self.configuration.environment.restURL, certificates: certificate, behavior: ComposableClientBehavior(
+            behaviors: [
+                SDKHeaderClientBehavior(sdkName: "Tink AIS iOS"),
+                authorizationBehavior
+            ]
+        ))
+    }()
+
+    // MARK: - Specifying the Credential
+
+    /// Sets the credential to be used for this Tink Context.
+    ///
+    /// The credential is associated with a specific user which has been
+    /// created and authenticated through the Tink API.
+    ///
+    /// - Parameter credential: The credential to use.
+    public func setCredential(_ credential: SessionCredential?) {
+        authorizationBehavior.sessionCredential = credential
+    }
+
     // MARK: - Creating a Tink Link Object
 
     private init() {

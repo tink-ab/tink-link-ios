@@ -3,6 +3,7 @@ import Foundation
 /// An object that you use to create a user that will be used in other TinkLink APIs.
 public final class UserContext {
     private let userService: UserService & TokenConfigurableService
+    private let restUserService: RESTUserService
     private var retryCancellable: RetryCancellable?
 
     /// Error that the `UserContext` can throw.
@@ -26,10 +27,11 @@ public final class UserContext {
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let userService = TinkUserService(tink: tink)
-        self.init(userService: userService)
+        self.init(userService: userService, restService: RESTUserService(client: tink.restClient))
     }
 
-    init(userService: UserService & TokenConfigurableService) {
+    init(userService: UserService & TokenConfigurableService, restService: RESTUserService) {
+        self.restUserService = restService
         self.userService = userService
     }
 
