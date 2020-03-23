@@ -107,19 +107,19 @@ extension TinkLinkViewController {
         let localizedError = error as? LocalizedError
 
         let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? NSLocalizedString("Generic.ServiceAlert.FallbackTitle", value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description."),
+            title: localizedError?.errorDescription ?? NSLocalizedString("Generic.ServiceAlert.FallbackTitle", tableName: "TinkLink", value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description."),
             message: localizedError?.failureReason ?? error.localizedDescription,
             preferredStyle: .alert
         )
         loadingViewController.hideLoadingIndicator()
-        let retryAction = UIAlertAction(title: NSLocalizedString("Generic.ServiceAlert.Retry", value: "Retry", comment: "Title for action to retry a failed request."), style: .default) { _ in
+        let retryAction = UIAlertAction(title: NSLocalizedString("Generic.ServiceAlert.Retry", tableName: "TinkLink", value: "Retry", comment: "Title for action to retry a failed request."), style: .default) { _ in
             self.loadingViewController.showLoadingIndicator()
             self.setViewControllers([self.loadingViewController], animated: false)
             self.start()
         }
         alertController.addAction(retryAction)
 
-        let dismissAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.Dismiss", value: "Dismiss", comment: "Title for action to dismiss error alert."), style: .cancel) { _ in
+        let dismissAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.Dismiss", tableName: "TinkLink", value: "Dismiss", comment: "Title for action to dismiss error alert."), style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
         }
         alertController.addAction(dismissAction)
@@ -130,12 +130,12 @@ extension TinkLinkViewController {
         let localizedError = error as? LocalizedError
 
         let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? NSLocalizedString("Generic.ServiceAlert.FallbackTitle", value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description."),
+            title: localizedError?.errorDescription ?? NSLocalizedString("Generic.ServiceAlert.FallbackTitle", tableName: "TinkLink", value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description."),
             message: localizedError?.failureReason ?? error.localizedDescription,
             preferredStyle: .alert
         )
 
-        let dismissAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.Dismiss", value: "Dismiss", comment: "Title for action to dismiss error alert."), style: .cancel) { _ in
+        let dismissAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.Dismiss", tableName: "TinkLink", value: "Dismiss", comment: "Title for action to dismiss error alert."), style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
         }
         alertController.addAction(dismissAction)
@@ -146,14 +146,14 @@ extension TinkLinkViewController {
         let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
 
         if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
-            let cancelAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Cancel", value: "Cancel", comment: "Title for action to cancel downloading app for third-party app authentication."), style: .cancel)
-            let downloadAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Download", value: "Download", comment: "Title for action to download app for third-party app authentication."), style: .default, handler: { _ in
+            let cancelAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Cancel", tableName: "TinkLink", value: "Cancel", comment: "Title for action to cancel downloading app for third-party app authentication."), style: .cancel)
+            let downloadAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Download", tableName: "TinkLink", value: "Download", comment: "Title for action to download app for third-party app authentication."), style: .default, handler: { _ in
                 UIApplication.shared.open(appStoreURL)
             })
             alertController.addAction(cancelAction)
             alertController.addAction(downloadAction)
         } else {
-            let okAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Dismiss", value: "OK", comment: "Title for action to confirm alert requesting download of third-party authentication app when AppStore URL could not be opened."), style: .default)
+            let okAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Dismiss", tableName: "TinkLink", value: "OK", comment: "Title for action to confirm alert requesting download of third-party authentication app when AppStore URL could not be opened."), style: .default)
             alertController.addAction(okAction)
         }
 
@@ -167,13 +167,13 @@ extension TinkLinkViewController {
             title = error.errorDescription
             message = error.failureReason
         } else {
-            title = NSLocalizedString("Generic.Alert.Title", value: "Error", comment: "Title generic alert.")
+            title = NSLocalizedString("Generic.Alert.Title", tableName: "TinkLink", value: "Error", comment: "Title generic alert.")
             message = error.localizedDescription
         }
 
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let okAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.OK", value: "OK", comment: "Title for action to confirm alert."), style: .default)
+        let okAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.OK", tableName: "TinkLink", value: "OK", comment: "Title for action to confirm alert."), style: .default)
         alertController.addAction(okAction)
 
         present(alertController, animated: true)
