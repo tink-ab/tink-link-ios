@@ -16,7 +16,7 @@ extension Provider {
         self.capabilities = .init(restCapabilities: restProvider.capabilities)
         self.marketCode = restProvider.market
         self.accessType = .init(restAccessType: restProvider.accessType)
-        self.credentialKind = .init(restCredentialType: restProvider.credentialsType)
+        self.credentialsKind = .init(restCredentialType: restProvider.credentialsType)
         self.financialInstitution = FinancialInstitution(
             id: .init(restProvider.financialInstitutionId),
             name: restProvider.financialInstitutionName
