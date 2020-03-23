@@ -1,6 +1,10 @@
 import Foundation
 
-extension URLSessionTask: Cancellable { }
+extension URLSessionTask: RetryCancellable {
+    public func retry() {
+        //TODO
+    }
+}
 
 final class RESTClient {
     let restURL: URL
@@ -22,9 +26,17 @@ final class RESTClient {
         }
     }
 
-    func performRequest(_ request: RESTRequest) -> Cancellable? {
+    func performRequest(_ request: RESTRequest) -> RetryCancellable? {
         var urlComponents = URLComponents(url: restURL, resolvingAgainstBaseURL: false)!
         urlComponents.path = request.path
+
+        if !request.queryParameters.isEmpty {
+            urlComponents.queryItems = []
+        }
+
+        for queryItem in request.queryParameters {
+            urlComponents.queryItems?.append(URLQueryItem(name: queryItem.key, value: queryItem.value))
+        }
 
         guard let url = urlComponents.url else {
             request.onResponse(.failure(URLError(.unknown)))
@@ -34,14 +46,6 @@ final class RESTClient {
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
-
-        if !request.queryParameters.isEmpty {
-            urlComponents.queryItems = []
-        }
-
-        for queryItem in request.queryParameters {
-            urlComponents.queryItems?.append(URLQueryItem(name: queryItem.key, value: queryItem.value))
-        }
 
         for (field, value) in behavior.headers {
             urlRequest.setValue(value, forHTTPHeaderField: field)
