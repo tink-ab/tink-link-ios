@@ -16,7 +16,7 @@ public final class CredentialsContext {
     /// - Parameter tink: Tink instance, defaults to `shared` if not provided.
     /// - Parameter user: `User` that will be used for adding credentials with the Tink API.
     public convenience init(tink: Tink = .shared, user: User) {
-        let service = TinkCredentialsService(tink: tink, accessToken: user.accessToken)
+        let service = RESTCredentialsService(client: tink.restClient)
         self.init(tink: tink, credentialsService: service)
     }
 
