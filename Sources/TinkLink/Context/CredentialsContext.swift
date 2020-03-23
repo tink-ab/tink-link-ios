@@ -20,7 +20,7 @@ public final class CredentialsContext {
         self.init(tink: tink, credentialsService: service)
     }
 
-    init(tink: Tink, credentialsService: CredentialsService & TokenConfigurableService) {
+    init(tink: Tink, credentialsService: CredentialsService) {
         self.tink = tink
         self.service = credentialsService
         addStoreObservers()
