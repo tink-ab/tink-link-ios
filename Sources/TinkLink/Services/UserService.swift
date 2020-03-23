@@ -7,7 +7,25 @@ protocol UserService {
     func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable?
 }
 
+final class RESTUserService {
+
+    private let client: RESTClient
+
+    init(client: RESTClient) {
+        self.client = client
+    }
+
+    @discardableResult
+    func userProfile(
+        completion: @escaping (Result<RESTUserProfile, Error>) -> Void
+    ) -> Cancellable? {
+        let request = RESTResourceRequest(path: "/api/v1/user/profile", method: .get, contentType: .json, completion: completion)
+        return client.performRequest(request)
+    }
+}
+
 final class TinkUserService: UserService, TokenConfigurableService {
+
     let connection: ClientConnection
     var defaultCallOptions: CallOptions
     private let queue: DispatchQueue
