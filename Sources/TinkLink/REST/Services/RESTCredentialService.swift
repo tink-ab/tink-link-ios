@@ -41,7 +41,9 @@ final class RESTCredentialsService: CredentialsService {
 
         let body = RESTUpdateCredentialsRequest(providerName: nil, fields: fields, callbackUri: nil, appUri: nil)
         let data = try? JSONEncoder().encode(body)
-        let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials/\(credentialsID.value)", method: .put, body: data, contentType: .json, completion: completion)
+        let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials/\(credentialsID.value)", method: .put, body: data, contentType: .json) { result in
+            completion(result.map(Credentials.init))
+        }
         return client.performRequest(request)
     }
 
@@ -91,7 +93,7 @@ final class RESTCredentialsService: CredentialsService {
 
     func manualAuthentication(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
-        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsId.value)/authenticate", method: .post, contentType: .json) { (result) in
+        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/authenticate", method: .post, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
         return client.performRequest(request)
