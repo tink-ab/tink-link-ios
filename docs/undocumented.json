@@ -736,20 +736,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Services/NetworkReachability.swift",
-      "line": 3,
-      "symbol": "NetworkReachability",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Services/NetworkReachability.swift",
-      "line": 4,
-      "symbol": "NetworkReachability.isConnectedToNetwork()",
-      "symbol_kind": "source.lang.swift.decl.function.method.class",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Services/Retriable.swift",
       "line": 3,
       "symbol": "Retriable.retry()",
