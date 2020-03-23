@@ -17,6 +17,8 @@ final class Client {
         return version
     }
 
+    let queue = DispatchQueue(label: "com.tink.link.client", qos: .userInitiated)
+
     init(environment: Environment, clientID: String, userAgent: String? = nil, grpcCertificateURL: URL? = nil, restCertificateURL: URL? = nil) {
         let eventLoopGroup = PlatformSupport.makeEventLoopGroup(loopCount: 1, networkPreference: .best)
         let target: ConnectionTarget = .hostAndPort(environment.grpcURL.host!, environment.grpcURL.port!)
