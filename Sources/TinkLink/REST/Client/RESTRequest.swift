@@ -6,6 +6,7 @@ protocol RESTRequest {
     var body: Data? { get }
     var queryParameters: [String: String] { get }
     var contentType: RESTContentType? { get }
+    var headers: [String: String] { get }
 
     func onResponse(_ result: Result<(data: Data, urlResponse: URLResponse), Error>)
 }
@@ -16,6 +17,7 @@ struct RESTSimpleRequest: RESTRequest {
     var body: Data?
     var queryParameters: [String: String]
     var contentType: RESTContentType?
+    var headers: [String: String] = [:]
 
     private var completion: ((Result<URLResponse, Error>) -> Void)
 
@@ -45,7 +47,8 @@ struct RESTResourceRequest<T: Decodable>: RESTRequest {
     var body: Data?
     var queryParameters: [String: String]
     var contentType: RESTContentType?
-
+    var headers: [String: String] = [:]
+    
     private var completion: ((Result<T, Error>) -> Void)
 
     init(path: String, method: RESTMethod, body: Data? = nil, contentType: RESTContentType?, parameters: [String: String] = [:], completion: @escaping ((Result<T, Error>) -> Void)) {

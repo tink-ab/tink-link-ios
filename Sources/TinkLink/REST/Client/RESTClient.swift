@@ -56,7 +56,11 @@ final class RESTClient {
         }
 
         urlRequest.httpBody = request.body
-        
+
+        for header in request.headers {
+            urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
+        }
+
         behavior.beforeRequest(request: urlRequest)
 
         let task = session.dataTask(with: urlRequest) { (data, response, error) in
