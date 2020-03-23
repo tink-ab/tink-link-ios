@@ -257,29 +257,6 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 }
 ```
 
-## Showing Terms and Conditions and Privacy Policy
-If aggregating under Tink's license the user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before aggregating any data.
-
-Here's how you can get the url for the Terms and Conditions and present it with the `SFSafariViewController`.
-
-```swift
-import SafariServices
-
-let consentContext = ConsentContext(user: <#T##User#>)
-
-func showTermsAndConditions() {
-    let url = consentContext.termsAndConditions(locale: <#appLocale#>)
-    let safariViewController = SFSafariViewController(url: url)
-    present(safariViewController, animated: true)
-}
-
-func showPrivacyPolicy() {
-    let url = consentContext.privacyPolicy(locale: <#appLocale#>)
-    let safariViewController = SFSafariViewController(url: url)
-    present(safariViewController, animated: true)
-}
-```
-
 ## Advanced usage 
 In some cases, you may want to have multiple `Tink` instances, you can create your custom `Tink` instance like this:
 

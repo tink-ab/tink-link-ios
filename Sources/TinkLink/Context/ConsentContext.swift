@@ -126,6 +126,18 @@ public final class ConsentContext {
 
     /// Get a link to the Terms & Conditions for TinkLink.
     ///
+    /// ## Showing Terms and Conditions
+    ///
+    /// If aggregating under Tink's license the user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before aggregating any data.
+    ///
+    /// Here's how you can get the url for the Terms and Conditions and present it with the `SFSafariViewController`.
+    ///
+    ///     func showTermsAndConditions() {
+    ///         let url = consentContext.termsAndConditions(locale: <#appLocale#>)
+    ///         let safariViewController = SFSafariViewController(url: url)
+    ///         present(safariViewController, animated: true)
+    ///     }
+    ///
     /// - Parameter locale: The locale with the language to use.
     /// - Returns: A URL to the Terms & Conditions.
     /// - Note: Not all languages are supported.
@@ -136,6 +148,18 @@ public final class ConsentContext {
     }
 
     /// Get a link to the Privacy Policy for TinkLink.
+    ///
+    /// ## Showing Privacy Policy
+    ///
+    /// If aggregating under Tink's license the user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before aggregating any data.
+    ///
+    /// Here's how you can get the url for the Privacy Policy and present it with the `SFSafariViewController`.
+    ///
+    ///     func showPrivacyPolicy() {
+    ///         let url = consentContext.privacyPolicy(locale: <#appLocale#>)
+    ///         let safariViewController = SFSafariViewController(url: url)
+    ///         present(safariViewController, animated: true)
+    ///     }
     ///
     /// - Parameter locale: The locale with the language to use.
     /// - Returns: A URL to the Privacy Policy.
