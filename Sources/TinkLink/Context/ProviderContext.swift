@@ -35,7 +35,7 @@ public final class ProviderContext {
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     /// - Parameter user: `User` that will be used for fetching providers with the Tink API.
     public convenience init(tink: Tink = .shared, user: User) {
-        let service = RESTProviderService(client: tink.restClient)
+        let service = RESTProviderService(client: tink.restClient, accessToken: user.accessToken)
         self.init(tink: tink, providerService: service)
     }
 
