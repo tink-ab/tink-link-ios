@@ -67,6 +67,22 @@ format:
 test:
 	xcodebuild test -project ./TinkLinkTester/TinkLink.xcodeproj -scheme TinkLinkTester -destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
+build-example: 
+	xcodebuild clean build \
+		-project Examples/UIKit-PermanentUserProviderSelection/UIKit-PermanentUserProviderSelection.xcodeproj \
+		-scheme UIKit-PermanentUserProviderSelection \
+		-destination 'generic/platform=iOS Simulator'
+
+	xcodebuild clean build \
+		-project Examples/PermanentUserProviderSelection/PermanentUserProviderSelection.xcodeproj \
+		-scheme PermanentUserProviderSelection \
+		-destination 'generic/platform=iOS Simulator'
+
+	xcodebuild clean build \
+		-project Examples/TinkLinkUIExample/TinkLinkUIExample.xcodeproj \
+		-scheme TinkLinkUIExample \
+		-destination 'generic/platform=iOS Simulator'
+
 clean: 
 	rm -rf ./GRPC/plugins/
 	rm -rf ./Sources/TinkLinkSDK/GRPC/

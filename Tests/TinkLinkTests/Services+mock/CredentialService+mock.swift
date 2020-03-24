@@ -17,7 +17,7 @@ class MockedSuccessCredentialsService: CredentialsService, TokenConfigurableServ
         return retryCancellable
     }
 
-    func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String : String], appURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String : String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         let credentialsID = String(credentials.count)
         let addedCredential = Credentials(id: .init(credentialsID), providerID: providerID, kind: kind, status: .created, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: [], thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
         credentials.append(addedCredential)
@@ -103,7 +103,7 @@ class MockedUnauthenticatedErrorCredentialsService: CredentialsService, TokenCon
         return nil
     }
 
-    func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String : String], appURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String : String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }

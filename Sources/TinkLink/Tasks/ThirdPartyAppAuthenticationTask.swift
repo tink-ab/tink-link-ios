@@ -107,6 +107,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Information about how to open or download the third party application app.
     public private(set) var thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication
     public private(set) var shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
+    private let appUri: URL
     private let completionHandler: (Result<Void, Swift.Error>) -> Void
     private var hasBankIDQRCode: Bool {
         // TODO: Double check the logic.
@@ -124,11 +125,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
     init(credentials: Credentials,
          thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication,
+         appUri: URL,
          credentialsService: CredentialsService,
          shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
          completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
         self.credentials = credentials
         self.credentialsService = credentialsService
+        self.appUri = appUri
         self.thirdPartyAppAuthentication = thirdPartyAppAuthentication
         self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired
         self.completionHandler = completionHandler
@@ -153,12 +156,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 appStoreURL: thirdPartyAppAuthentication.appStoreURL
             )
 
+            let deepLinkURL = sanitizeDeeplink(url, redirectUri: appUri)
             DispatchQueue.main.async {
-                application.open(url, options: [.universalLinksOnly: NSNumber(value: true)]) { didOpenUniversalLink in
+                application.open(deepLinkURL, options: [.universalLinksOnly: NSNumber(value: true)]) { didOpenUniversalLink in
                     if didOpenUniversalLink {
                         self.completionHandler(.success(()))
                     } else {
-                        application.open(url, options: [:], completionHandler: { didOpen in
+                        application.open(deepLinkURL, options: [:], completionHandler: { didOpen in
                             if didOpen {
                                 self.completionHandler(.success(()))
                             } else {
@@ -212,5 +216,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         callRetryCancellable?.cancel()
         callRetryCancellable = nil
         completionHandler(.failure(CocoaError(.userCancelled)))
+    }
+
+    private func sanitizeDeeplink(_ url: URL, redirectUri: URL) -> URL {
+        // Only replace bankID redirect with tink scheme
+        let tinkBankIDRedirect = "tink://bankid"
+        let bankIDredirect = redirectUri.appendingPathComponent("bankid").absoluteString
+        let updatedUrl = url.absoluteString.replacingOccurrences(of: tinkBankIDRedirect, with: bankIDredirect)
+        return URL(string: updatedUrl)!
     }
 }

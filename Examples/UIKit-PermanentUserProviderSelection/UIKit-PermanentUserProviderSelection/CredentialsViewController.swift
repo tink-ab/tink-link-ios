@@ -47,7 +47,7 @@ class CredentialsViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidUpdateCredentials, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidAddCredential, object: nil)
 
-        userController.authenticateUser(accessToken: AccessToken(rawValue: <#String#>)!) { [weak self] result in
+        userController.authenticateUser(accessToken: AccessToken(rawValue: "YOUR_ACCESS_TOKEN")!) { [weak self] result in
             guard let self = self else { return }
             do {
                 let user = try result.get()

@@ -3,7 +3,7 @@ import GRPC
 
 protocol CredentialsService {
     func credentials(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable?
-    func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String: String], appURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable?
+    func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable?
     func deleteCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable?
     func updateCredentials(credentialsID: Credentials.ID, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable?
     func refreshCredentials(credentialsIDs: [Credentials.ID], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable?
@@ -77,13 +77,13 @@ final class TinkCredentialsService: CredentialsService, TokenConfigurableService
         return CallHandler(for: request, method: service.listCredentials, queue: queue, responseMap: { $0.credentials.map(Credentials.init(grpcCredential:)) }, completion: completion)
     }
 
-    func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String: String], appURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         var request = GRPCCreateCredentialRequest()
         request.providerName = providerID.value
         request.type = kind.grpcCredentialType
         request.fields = fields
-        if let appURI = appURI {
-            request.appUri = appURI.absoluteString
+        if let appUri = appUri {
+            request.appUri = appUri.absoluteString
         }
 
         return CallHandler(for: request, method: service.createCredential, queue: queue, responseMap: { Credentials(grpcCredential: $0.credential) }, completion: { result in
