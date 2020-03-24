@@ -3,7 +3,7 @@ import GRPC
 
 protocol AuthenticationService {
     func clientDescription(scopes: [Scope], redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable?
-    func authorize(redirectURI: URL, scopes: [Scope], completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable?
+    func authorize(clientID: String, redirectURI: URL, scopes: [Scope], completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable?
 }
 
 final class TinkAuthenticationService: CallOptionsProviding, TokenConfigurableService, AuthenticationService {
@@ -75,10 +75,8 @@ final class TinkAuthenticationService: CallOptionsProviding, TokenConfigurableSe
         )
     }
 
-    func authorize(redirectURI: URL, scopes: [Scope], completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable? {
-        guard let clientID = defaultCallOptions.customMetadata[CallOptions.HeaderKey.oauthClientID.key].first else {
-            preconditionFailure("No client id")
-        }
+    func authorize(clientID: String, redirectURI: URL, scopes: [Scope], completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable? {
+        
         guard let authorization = defaultCallOptions.customMetadata[CallOptions.HeaderKey.authorization.key].first else {
             preconditionFailure("Not authorized")
         }
