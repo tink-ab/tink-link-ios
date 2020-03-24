@@ -30,7 +30,7 @@ final class AddCredentialViewController: UIViewController {
     private lazy var addCredentialFooterView = AddCredentialFooterView()
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
-        button.text = "Continue"
+        button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLink", value: "Continue", comment: "Title for button to start authenticating credentials.")
         return button
     }()
 
@@ -102,7 +102,7 @@ extension AddCredentialViewController {
             addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
-        navigationItem.title = "Authenticate"
+        navigationItem.title = NSLocalizedString("AddCredentials.Form.Title", tableName: "TinkLink", value: "Authenticate", comment: "Title for screen where user fills in form to add credentials.")
         navigationItem.largeTitleDisplayMode = .never
         button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
 
@@ -124,9 +124,9 @@ extension AddCredentialViewController {
         
         switch provider.credentialsKind {
         case .mobileBankID:
-            button.text = "Open BankID"
+            button.text = NSLocalizedString("AddCredentials.Form.OpenBankID", tableName: "TinkLink", value: "Open BankID", comment: "Title for button to open BankID app.")
         default:
-            button.text = "Continue"
+            button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLink", value: "Continue", comment: "Title for button to start authenticating credentials.")
         }
     }
     
