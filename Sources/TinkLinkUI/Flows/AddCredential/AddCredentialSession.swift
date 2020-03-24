@@ -198,7 +198,7 @@ extension AddCredentialSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
         parentViewController?.dismiss(animated: true) {
             self.supplementInfoTask?.submit(form)
-            self.showUpdating(status: NSLocalizedString("AddCredentials.Progress.Canceling", tableName: "TinkLink", value: "Sending…", comment: "Text shown when submitting supplemental information."))
+            self.showUpdating(status: NSLocalizedString("AddCredentials.Progress.Sending", tableName: "TinkLink", value: "Sending…", comment: "Text shown when submitting supplemental information."))
         }
     }
 }
