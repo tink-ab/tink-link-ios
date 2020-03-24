@@ -32,7 +32,7 @@ public final class AuthorizationContext {
     /// - Parameter user: `User` that will be used for authorizing scope with the Tink API.
     public init(tink: Tink = .shared, user: User) {
         self.tink = tink
-        self.service = AuthenticationService(tink: tink, accessToken: user.accessToken)
+        self.service = TinkAuthenticationService(tink: tink, accessToken: user.accessToken)
     }
 
     // MARK: - Authorizing a User
@@ -64,7 +64,7 @@ public final class AuthorizationContext {
     ///
     /// - Parameter completion: The block to execute when the client description is received or if an error occurred.
     @discardableResult
-    public func clientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable {
+    public func clientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
         let scopes: [Scope] = []
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scopes: scopes, redirectURI: redirectURI) { (result) in

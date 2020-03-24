@@ -32,7 +32,7 @@ public final class ConsentContext {
     /// - Parameter user: `User` that will be used for authorizing scope with the Tink API.
     public init(tink: Tink = .shared, user: User) {
         self.tink = tink
-        self.service = AuthenticationService(tink: tink, accessToken: user.accessToken)
+        self.service = TinkAuthenticationService(tink: tink, accessToken: user.accessToken)
     }
 
     // MARK: - Getting Descriptions for Requested Scopes
@@ -111,7 +111,7 @@ public final class ConsentContext {
     ///   - completion: The block to execute when the scope descriptions are received or if an error occurred.
     /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
     @discardableResult
-    public func scopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable {
+    public func scopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(scopes: scopes, redirectURI: redirectURI) { (result) in
             let mappedResult = result.map({ $0.scopes }).mapError({ Error($0) ?? $0 })

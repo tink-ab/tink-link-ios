@@ -1,7 +1,12 @@
 import Foundation
 import GRPC
 
-final class AuthenticationService: CallOptionsProviding, TokenConfigurableService {
+protocol AuthenticationService {
+    func clientDescription(scopes: [Scope], redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable?
+    func authorize(redirectURI: URL, scopes: [Scope], completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable?
+}
+
+final class TinkAuthenticationService: CallOptionsProviding, TokenConfigurableService, AuthenticationService {
     let connection: ClientConnection
     var defaultCallOptions: CallOptions
     private let queue: DispatchQueue
@@ -51,7 +56,7 @@ final class AuthenticationService: CallOptionsProviding, TokenConfigurableServic
         }
     }
 
-    func clientDescription(scopes: [Scope], redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable {
+    func clientDescription(scopes: [Scope], redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable? {
         guard let clientID = defaultCallOptions.customMetadata[CallOptions.HeaderKey.oauthClientID.key].first else {
             preconditionFailure("No client id")
         }
@@ -69,9 +74,7 @@ final class AuthenticationService: CallOptionsProviding, TokenConfigurableServic
             completion: completion
         )
     }
-}
 
-extension AuthenticationService {
     func authorize(redirectURI: URL, scopes: [Scope], completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable? {
         guard let clientID = defaultCallOptions.customMetadata[CallOptions.HeaderKey.oauthClientID.key].first else {
             preconditionFailure("No client id")
