@@ -32,7 +32,7 @@ public final class ConsentContext {
     /// - Parameter user: `User` that will be used for authorizing scope with the Tink API.
     public init(tink: Tink = .shared, user: User) {
         self.tink = tink
-        self.service = TinkAuthenticationService(tink: tink, accessToken: user.accessToken)
+        self.service = RESTAuthenticationService(client: tink.restClient, accessToken: user.accessToken)
     }
 
     // MARK: - Getting Descriptions for Requested Scopes
