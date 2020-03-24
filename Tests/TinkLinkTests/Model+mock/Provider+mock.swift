@@ -126,4 +126,22 @@ extension Provider {
         marketCode: "SE",
         financialInstitution: .init(id: "6c1749b4475e5677a83e9fa4bb60a18a", name: "Swedbank")
     )
+
+    static let testSupplementalInformation = Provider(
+        id: "se-test-multi-supplemental",
+        displayName: "Test Multi-Supplemental",
+        kind: .test,
+        status: .enabled,
+        credentialsKind: .password,
+        helpText: "Use the same username and password as you would in the bank\'s mobile app.",
+        isPopular: true,
+        fields: [FieldSpecification(fieldDescription: "Username", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "username", initialValue: "", pattern: "", patternError: "", helpText: "")],
+        groupDisplayName: "Test Multi-Supplemental",
+        image: nil,
+        displayDescription: "Password",
+        capabilities: .init(rawValue: 1276),
+        accessType: .other,
+        marketCode: "SE",
+        financialInstitution: .init(id: "3590cce61e1256dd9cb2c32bfacb713b", name: "Test Multi-Supplemental")
+    )
 }
