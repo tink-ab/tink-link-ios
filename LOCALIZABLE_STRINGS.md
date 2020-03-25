@@ -22,7 +22,7 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `AddCredentials.Error.CredentialsAlreadyExists.FailureReason` | You already have a connection to this bank or service. | Message for error shown when credentials already exists.
 | `AddCredentials.Error.PermanentFailure` | Permanent error | Title for error shown when a permanent failure occured while adding credentials.
 | `AddCredentials.Error.TemporaryFailure` | Temporary error | Title for error shown when a temporary failure occured while adding credentials.
-| `AddCredentials.Form.Continue` | Continue | Title for button to start authenticating credentials.
+| `AddCredentials.Form.Submit` | Continue | Title for button to start authenticating credentials.
 | `AddCredentials.Form.OpenBankID` | Open BankID | Title for button to open BankID app.
 | `AddCredentials.Form.Title` | Authenticate | Title for screen where user fills in form to add credentials.
 | `AddCredentials.ScopeDescriptions.Body` | By following through this service, we’ll collect financial data from you. These are the data points we will collect from you: | Text introducing the descriptions for which data points will be collected when using the service.
@@ -32,7 +32,7 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `AddCredentials.Status.Canceling` | Canceling… | Text shown when canceling supplementing information.
 | `AddCredentials.Status.Sending` | Sending… | Text shown when submitting supplemental information.
 | `AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice` | Waiting for authentication on another device | Text shown when adding credentials and waiting for authenticvation on another device.
-| `AddCredentials.Success.Done` | Done | Title for button to dismiss the screen shown when credentials were successfully added.
+| `AddCredentials.Success.Confirm` | Done | Title for button to dismiss the screen shown when credentials were successfully added.
 | `AddCredentials.Success.Subtitle` | Your account has successfully connected to %@. You'll be redirected back in a few seconds... | Subtitle for screen shown when credentials were successfully added.
 | `AddCredentials.Success.Title` | Connection successful | Title for screen shown when credentials were successfully added.
 

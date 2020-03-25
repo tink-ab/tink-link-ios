@@ -52,7 +52,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         detailLabel.numberOfLines = 0
         detailLabel.font = Font.regular(.deci)
         
-        doneButton.text = NSLocalizedString("AddCredentials.Success.Done", tableName: "TinkLinkUI", value: "Done", comment: "Title for button to dismiss the screen shown when credentials were successfully added.")
+        doneButton.text = NSLocalizedString("AddCredentials.Success.Confirm", tableName: "TinkLinkUI", value: "Done", comment: "Title for button to dismiss the screen shown when credentials were successfully added.")
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
         
         iconView.translatesAutoresizingMaskIntoConstraints = false
