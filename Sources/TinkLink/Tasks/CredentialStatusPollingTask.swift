@@ -78,7 +78,7 @@ class CredentialStatusPollingTask {
         if isCancelled { return }
         DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) { [weak self] in
             if self?.isCancelled == true { return }
-            self?.callRetryCancellable?.retry()
+            self?.pollStatus()
         }
         retryInterval = backoffStrategy.nextInterval(for: retryInterval)
     }
