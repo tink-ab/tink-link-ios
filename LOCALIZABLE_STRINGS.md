@@ -64,9 +64,9 @@ Then the SDK will use that string instead of the default ones when running on a 
 
 | Key | Default | Description |
 | -------- | -------- | -------- |
-| `AddCredentials.Success.Confirm` | Done | Title for button to dismiss the screen shown when credentials were successfully added. |
-| `AddCredentials.Success.Subtitle` | Your account has successfully connected to %@. You'll be redirected back in a few seconds... | Subtitle for screen shown when credentials were successfully added. |
-| `AddCredentials.Success.Title` | Connection successful | Title for screen shown when credentials were successfully added. |
+| `AddCredentials.Success.Confirm` | Done | Title for button to dismiss the screen shown when credentials were added successfully. |
+| `AddCredentials.Success.Subtitle` | Your account has successfully connected to %@. You'll be redirected back in a few seconds... | Subtitle for screen shown when credentials were added successfully. |
+| `AddCredentials.Success.Title` | Connection successful | Title for screen shown when credentials were added successfully. |
 
 ## Generic
 
