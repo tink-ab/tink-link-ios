@@ -9,7 +9,7 @@ final class AccessTypePickerViewController: UITableViewController {
     let accessTypeNodes: [ProviderTree.AccessTypeNode]
 
     init(accessTypeNodes: [ProviderTree.AccessTypeNode]) {
-        self.accessTypeNodes = accessTypeNodes
+        self.accessTypeNodes = accessTypeNodes.sorted(by: { $0.accessType < $1.accessType })
         super.init(style: .plain)
     }
 
