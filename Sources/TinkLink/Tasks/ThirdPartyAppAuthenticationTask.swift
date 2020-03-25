@@ -151,11 +151,11 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         /// - Parameter willAwaitAuthenticationOnAnotherDevice: A block will be called when allow to directly use the third part app for authentication on another device.
     @available(*, deprecated, message: "Use the handle instead")
         public func openThirdPartyApp(with application: UIApplication = .shared) {
-            _openThirdPartyApp(with: application, completion: self.completionHandler)
+            openThirdPartyApp(with: application, completion: self.completionHandler)
         }
     #endif
 
-    private func _openThirdPartyApp(with application: UIApplication = .shared, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+    private func openThirdPartyApp(with application: UIApplication = .shared, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
         guard let url = thirdPartyAppAuthentication.deepLinkURL else {
             completion(.failure(Error.deeplinkURLNotFound))
             return
@@ -185,32 +185,32 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
     }
     public func handle(completion: @escaping (Status) -> Void) {
-        guard thirdPartyAppAuthentication.hasAutoStartToken, !shouldFailOnThirdPartyAppAuthenticationDownloadRequired else {
-            openThirdPartyApp()
+        guard !shouldFailOnThirdPartyAppAuthenticationDownloadRequired else {
+            openThirdPartyApp(completion: completionHandler)
             return
         }
 
-        _openThirdPartyApp {_ in
-            if self.hasBankIDQRCode {
-                self.qr { result in
-                    do {
-                        let qrImage = try result.get()
-                        completion(.qrImage(qrImage))
-                        self.completionHandler(.success)
-                    } catch {
-                        self.completionHandler(.failure(error))
-                    }
-                }
-            } else if self.credentials.kind == .mobileBankID {
-                completion(.awaitAuthenticationOnAnotherDevice)
+        openThirdPartyApp { result in
+            do {
+                try result.get()
                 self.completionHandler(.success)
-            } else {
-                let downloadRequiredError = Error.downloadRequired(
-                    title: self.thirdPartyAppAuthentication.downloadTitle,
-                    message: self.thirdPartyAppAuthentication.downloadMessage,
-                    appStoreURL: self.thirdPartyAppAuthentication.appStoreURL
-                )
-                self.completionHandler(.failure(downloadRequiredError))
+            } catch {
+                if self.hasBankIDQRCode {
+                    self.qr { result in
+                        do {
+                            let qrImage = try result.get()
+                            completion(.qrImage(qrImage))
+                            self.completionHandler(.success)
+                        } catch {
+                            self.completionHandler(.failure(error))
+                        }
+                    }
+                } else if self.credentials.kind == .mobileBankID {
+                    completion(.awaitAuthenticationOnAnotherDevice)
+                    self.completionHandler(.success)
+                } else {
+                    self.completionHandler(.failure(error))
+                }
             }
         }
     }
