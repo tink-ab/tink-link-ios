@@ -23,7 +23,7 @@ extension CredentialKindPickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = credentialKindNodes.first?.provider.displayName
+        navigationItem.title = NSLocalizedString("ProviderPicker.CredentialsType.Title", tableName: "TinkLinkUI", value: "Sign in method", comment: "Title for screen where user selects which authentication type to use when adding credentials.")
         navigationItem.largeTitleDisplayMode = .never
 
         tableView.registerReusableCell(ofType: CredentialKindCell.self)
