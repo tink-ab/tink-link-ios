@@ -303,11 +303,19 @@ extension TinkLinkViewController {
     }
 
     private func showDiscardActionSheet() {
-        let alert = UIAlertController(title: "Are you sure you want to discard this new credential?", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Discard Changes", style: .destructive, handler: { _ in
+        let alertTitle = NSLocalizedString("AddCredentials.Discard.Title", tableName: "TinkLink", value: "Are you sure you want to discard this new credential?", comment: "Title for action sheet presented when user tries to dismiss modal while adding credentials.")
+        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .actionSheet)
+
+        let discardActionTitle = NSLocalizedString("AddCredentials.Discard.PrimaryAction", tableName: "TinkLink", value: "Discard Changes", comment: "Title for action to discard adding credentials.")
+        let discardAction = UIAlertAction(title: discardActionTitle, style: .destructive) { _ in
             self.closeTinkLink()
-        }))
-        alert.addAction(UIAlertAction(title: "Continue Editing", style: .cancel, handler: nil))
+        }
+        alert.addAction(discardAction)
+
+        let continueActionTitle = NSLocalizedString("AddCredentials.Discard.ContinueAction", tableName: "TinkLink", value: "Continue Editing", comment: "Title for action to continue adding credentials.")
+        let continueAction = UIAlertAction(title: continueActionTitle, style: .cancel)
+        alert.addAction(continueAction)
+
         present(alert, animated: true)
     }
 }
