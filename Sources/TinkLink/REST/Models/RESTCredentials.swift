@@ -53,7 +53,7 @@ struct RESTCredentials: Codable {
     var fields: [String:String]
 
     /// A key-value structure to handle if status of credentials are `AWAITING_SUPPLEMENTAL_INFORMATION` or `AWAITING_THIRD_PARTY_APP_AUTHENTICATION`
-    var supplementalInformation: RESTFieldsString?
+    var supplementalInformation: String?
 
     /// (PSD2 change - Not yet implemented) - Indicates when the session of credentials with access type &#x60;OPEN_BANKING&#x60; will expire. After this date automatic refreshes will not be possible without new authentication from the user.
     var sessionExpiryDate: Date?
