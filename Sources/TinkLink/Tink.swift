@@ -34,7 +34,7 @@ public class Tink {
         let certificate = certificateURL.flatMap { try? String(contentsOf: $0, encoding: .utf8) }
         return RESTClient(restURL: self.configuration.environment.restURL, certificates: certificate, behavior: ComposableClientBehavior(
             behaviors: [
-                SDKHeaderClientBehavior(sdkName: "Tink Link iOS"),
+                SDKHeaderClientBehavior(sdkName: "Tink Link iOS", clientID: self.configuration.clientID),
                 authorizationBehavior
             ]
         ))

@@ -11,8 +11,16 @@ final class RESTUserService: UserService {
     private var accessToken: AccessToken?
 
     func createAnonymous(market: Market?, locale: Locale, origin: String?, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
-        //TODO
-        return nil
+
+        let body = RESTAnonymousUserRequest(market: market?.code ?? "", origin: origin ?? "", locale: locale.identifier)
+
+        let data = try? JSONEncoder().encode(body)
+        let request = RESTResourceRequest<RESTAnonymousUserResponse>(path: "/api/v1/user/anonymous", method: .post, body: data, contentType: .json) { (result) in
+
+            completion(result.map { AccessToken($0.access_token) })
+        }
+
+        return client.performRequest(request)
     }
 
     func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
