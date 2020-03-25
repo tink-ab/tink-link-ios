@@ -46,6 +46,7 @@ public final class AddCredentialsTask: Identifiable {
     }
 
     private var credentialsStatusPollingTask: CredentialStatusPollingTask?
+    private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
 
     private(set) var credentials: Credentials?
 
@@ -148,7 +149,9 @@ public final class AddCredentialsTask: Identifiable {
                     } catch {
                         self.completion(.failure(error))
                     }
+                    self.thirdPartyAuthenticationTask = nil
                 }
+                thirdPartyAuthenticationTask = task
                 progressHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
                 if completionPredicate.successPredicate == .updating {

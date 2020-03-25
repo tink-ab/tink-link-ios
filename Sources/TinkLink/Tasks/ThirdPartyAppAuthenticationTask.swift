@@ -186,11 +186,14 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     }
     public func handle(completion: @escaping (Status) -> Void) {
         guard !shouldFailOnThirdPartyAppAuthenticationDownloadRequired else {
-            openThirdPartyApp(completion: completionHandler)
+            openThirdPartyApp { [weak self] result in
+                self?.completionHandler(result)
+            }
             return
         }
 
-        openThirdPartyApp { result in
+        openThirdPartyApp { [weak self] result in
+            guard let self = self else { return }
             do {
                 try result.get()
                 self.completionHandler(.success)
