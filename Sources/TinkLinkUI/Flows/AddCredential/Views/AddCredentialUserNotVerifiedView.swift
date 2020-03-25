@@ -32,6 +32,7 @@ class AddCredentialUserNotVerifiedView: UIView {
         unVerifiedLabel.translatesAutoresizingMaskIntoConstraints = false
         unVerifiedLabel.text = "Unverified - This solution is only made for development purposes. Do not enter you bank credentials unless you trust the developer."
         unVerifiedLabel.numberOfLines = 0
+        unVerifiedLabel.font = Font.regular(.deci)
 
         addSubview(contentView)
         contentView.addSubview(unVerifiedLabel)
