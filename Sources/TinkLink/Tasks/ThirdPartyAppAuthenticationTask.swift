@@ -150,49 +150,47 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         /// - Parameter application: The object that controls and coordinates your app. Defaults to the shared instance.
         /// - Parameter willAwaitAuthenticationOnAnotherDevice: A block will be called when allow to directly use the third part app for authentication on another device.
     @available(*, deprecated, message: "Use the handle instead")
-        public func openThirdPartyApp(with application: UIApplication = .shared, willAwaitAuthenticationOnAnotherDevice wait: (() -> Void)? = nil) {
-            guard let url = thirdPartyAppAuthentication.deepLinkURL else {
-                completionHandler(.failure(Error.deeplinkURLNotFound))
-                return
-            }
-
-            let downloadRequiredError = Error.downloadRequired(
-                title: thirdPartyAppAuthentication.downloadTitle,
-                message: thirdPartyAppAuthentication.downloadMessage,
-                appStoreURL: thirdPartyAppAuthentication.appStoreURL
-            )
-
-            let deepLinkURL = sanitizeDeeplink(url, redirectUri: appUri)
-            DispatchQueue.main.async {
-                application.open(deepLinkURL, options: [.universalLinksOnly: NSNumber(value: true)]) { didOpenUniversalLink in
-                    if didOpenUniversalLink {
-                        self.completionHandler(.success(()))
-                    } else {
-                        application.open(deepLinkURL, options: [:], completionHandler: { didOpen in
-                            if didOpen {
-                                self.completionHandler(.success(()))
-                            } else {
-                                if !self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
-                                    wait?()
-                                    self.completionHandler(.success(()))
-                                } else {
-                                    self.completionHandler(.failure(downloadRequiredError))
-                                }
-                            }
-                        })
-                    }
-                }
-            }
+        public func openThirdPartyApp(with application: UIApplication = .shared) {
+            _openThirdPartyApp(with: application, completion: self.completionHandler)
         }
     #endif
 
+    private func _openThirdPartyApp(with application: UIApplication = .shared, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+        guard let url = thirdPartyAppAuthentication.deepLinkURL else {
+            completion(.failure(Error.deeplinkURLNotFound))
+            return
+        }
+
+        let downloadRequiredError = Error.downloadRequired(
+            title: thirdPartyAppAuthentication.downloadTitle,
+            message: thirdPartyAppAuthentication.downloadMessage,
+            appStoreURL: thirdPartyAppAuthentication.appStoreURL
+        )
+
+        let deepLinkURL = sanitizeDeeplink(url, redirectUri: appUri)
+        DispatchQueue.main.async {
+            application.open(deepLinkURL, options: [.universalLinksOnly: NSNumber(value: true)]) { didOpenUniversalLink in
+                if didOpenUniversalLink {
+                    completion(.success)
+                } else {
+                    application.open(deepLinkURL, options: [:], completionHandler: { didOpen in
+                        if didOpen {
+                            completion(.success)
+                        } else {
+                            completion(.failure(downloadRequiredError))
+                        }
+                    })
+                }
+            }
+        }
+    }
     public func handle(completion: @escaping (Status) -> Void) {
         guard thirdPartyAppAuthentication.hasAutoStartToken, !shouldFailOnThirdPartyAppAuthenticationDownloadRequired else {
             openThirdPartyApp()
             return
         }
 
-        openThirdPartyApp {
+        _openThirdPartyApp {_ in
             if self.hasBankIDQRCode {
                 self.qr { result in
                     do {
@@ -212,7 +210,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     message: self.thirdPartyAppAuthentication.downloadMessage,
                     appStoreURL: self.thirdPartyAppAuthentication.appStoreURL
                 )
-                self.completionHandler(.error(downloadRequiredError))
+                self.completionHandler(.failure(downloadRequiredError))
             }
         }
     }
@@ -258,7 +256,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     }
 }
 
-
 public extension Result where Success == Void {
-    public static var success: Self = .success(())
+    static var success: Self {
+        return .success(())
+    }
 }
