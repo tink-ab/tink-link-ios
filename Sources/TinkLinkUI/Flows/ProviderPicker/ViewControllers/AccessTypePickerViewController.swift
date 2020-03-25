@@ -48,6 +48,7 @@ extension AccessTypePickerViewController {
             cell.setImage(url: url)
         }
         cell.setTitle(text: node.accessType.description)
+        // FIXME: This detail text should be dynamic based on provider capabilities. PFMF-2643
         cell.setDetail(text: "Including everyday accounts, such as your salary account")
         cell.delegate = self
         return cell
