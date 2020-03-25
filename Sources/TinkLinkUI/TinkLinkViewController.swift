@@ -107,19 +107,19 @@ extension TinkLinkViewController {
         let localizedError = error as? LocalizedError
 
         let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
+            title: localizedError?.errorDescription ?? NSLocalizedString("Generic.ServiceAlert.FallbackTitle", tableName: "TinkLinkUI", value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description."),
             message: localizedError?.failureReason ?? error.localizedDescription,
             preferredStyle: .alert
         )
         loadingViewController.hideLoadingIndicator()
-        let retryAction = UIAlertAction(title: "Retry", style: .default) { _ in
+        let retryAction = UIAlertAction(title: NSLocalizedString("Generic.ServiceAlert.Retry", tableName: "TinkLinkUI", value: "Retry", comment: "Title for action to retry a failed request."), style: .default) { _ in
             self.loadingViewController.showLoadingIndicator()
             self.setViewControllers([self.loadingViewController], animated: false)
             self.start()
         }
         alertController.addAction(retryAction)
 
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
+        let dismissAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.Dismiss", tableName: "TinkLinkUI", value: "Dismiss", comment: "Title for action to dismiss error alert."), style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
         }
         alertController.addAction(dismissAction)
@@ -130,12 +130,12 @@ extension TinkLinkViewController {
         let localizedError = error as? LocalizedError
 
         let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? "The service is unavailable at the moment.",
+            title: localizedError?.errorDescription ?? NSLocalizedString("Generic.ServiceAlert.FallbackTitle", tableName: "TinkLinkUI", value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description."),
             message: localizedError?.failureReason ?? error.localizedDescription,
             preferredStyle: .alert
         )
 
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { _ in
+        let dismissAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.Dismiss", tableName: "TinkLinkUI", value: "Dismiss", comment: "Title for action to dismiss error alert."), style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
         }
         alertController.addAction(dismissAction)
@@ -146,14 +146,14 @@ extension TinkLinkViewController {
         let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
 
         if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-            let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
+            let cancelAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Cancel", tableName: "TinkLinkUI", value: "Cancel", comment: "Title for action to cancel downloading app for third-party app authentication."), style: .cancel)
+            let downloadAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Download", tableName: "TinkLinkUI", value: "Download", comment: "Title for action to download app for third-party app authentication."), style: .default, handler: { _ in
                 UIApplication.shared.open(appStoreURL)
             })
             alertController.addAction(cancelAction)
             alertController.addAction(downloadAction)
         } else {
-            let okAction = UIAlertAction(title: "OK", style: .default)
+            let okAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Dismiss", tableName: "TinkLinkUI", value: "OK", comment: "Title for action to confirm alert requesting download of third-party authentication app when AppStore URL could not be opened."), style: .default)
             alertController.addAction(okAction)
         }
 
@@ -167,13 +167,13 @@ extension TinkLinkViewController {
             title = error.errorDescription
             message = error.failureReason
         } else {
-            title = "Error"
+            title = NSLocalizedString("Generic.Alert.Title", tableName: "TinkLinkUI", value: "Error", comment: "Title generic alert.")
             message = error.localizedDescription
         }
 
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let okAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.OK", tableName: "TinkLinkUI", value: "OK", comment: "Title for action to confirm alert."), style: .default)
         alertController.addAction(okAction)
 
         present(alertController, animated: true)
@@ -303,11 +303,19 @@ extension TinkLinkViewController {
     }
 
     private func showDiscardActionSheet() {
-        let alert = UIAlertController(title: "Are you sure you want to discard this new credential?", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Discard Changes", style: .destructive, handler: { _ in
+        let alertTitle = NSLocalizedString("AddCredentials.Discard.Title", tableName: "TinkLinkUI", value: "Are you sure you want to discard this new credential?", comment: "Title for action sheet presented when user tries to dismiss modal while adding credentials.")
+        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .actionSheet)
+
+        let discardActionTitle = NSLocalizedString("AddCredentials.Discard.PrimaryAction", tableName: "TinkLinkUI", value: "Discard Changes", comment: "Title for action to discard adding credentials.")
+        let discardAction = UIAlertAction(title: discardActionTitle, style: .destructive) { _ in
             self.closeTinkLink()
-        }))
-        alert.addAction(UIAlertAction(title: "Continue Editing", style: .cancel, handler: nil))
+        }
+        alert.addAction(discardAction)
+
+        let continueActionTitle = NSLocalizedString("AddCredentials.Discard.ContinueAction", tableName: "TinkLinkUI", value: "Continue Editing", comment: "Title for action to continue adding credentials.")
+        let continueAction = UIAlertAction(title: continueActionTitle, style: .cancel)
+        alert.addAction(continueAction)
+
         present(alert, animated: true)
     }
 }

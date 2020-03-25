@@ -28,17 +28,17 @@ final class AddCredentialFooterView: UIView {
             .font: Font.regular(.micro),
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
-        let text = "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy"
+        let text = NSLocalizedString("AddCredentials.Consent.ServiceAgreement", tableName: "TinkLinkUI", value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.")
         let attributeText = NSMutableAttributedString(
             string: text,
             attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.regular(.micro)])
         let languageCode = Locale.current.languageCode ?? ""
         let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
-        let privacyPolicyText = "Privacy Policy"
+        let privacyPolicyText = NSLocalizedString("AddCredentials.Consent.PrivacyPolicy", tableName: "TinkLinkUI", value: "Privacy Policy", comment: "Title of the Privacy Policy link. This has to match the mention of the Privacy Policy in the `AddCredentials.Consent.ServiceAgreement` string.")
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
         self.privacyPolicyRange = privacyPolicyRange
         attributeText.addAttributes([.link: privacyPolicyUrl,], range: privacyPolicyRange)
-        let termsAndConditionsText = "Terms and Conditions"
+        let termsAndConditionsText = NSLocalizedString("AddCredentials.Consent.TermsAndConditions", tableName: "TinkLinkUI", value: "Terms and Conditions", comment: "Title of the Privacy Policy link. This has to match the mention of the Terms and Conditions in the `AddCredentials.Consent.ServiceAgreement` string.")
         let termsAndConditionsUrl = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
         self.termsAndConditionsRange = termsAndConditionsRange
