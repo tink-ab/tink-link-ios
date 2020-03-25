@@ -11,7 +11,7 @@ Then the SDK will use that string instead of the default ones when running on a 
 
 | Key | Default | Description |
 | -------- | -------- | -------- |
-| `AddCredentials.Consent.FinancialInformation` | %@ will obtain some of your financial information. Read More | Text explaining that the client will obtain financial information of the current user with a link for more information on which financial information. |
+| `AddCredentials.Consent.FinancialInformation` | %@ will obtain some of your financial information. Read More | Text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically. |
 | `AddCredentials.Consent.PrivacyPolicy` | Privacy Policy | Title of the Privacy Policy link. This has to match the mention of the Privacy Policy in the AddCredentials.Consent.ServiceAgreement string. |
 | `AddCredentials.Consent.ReadMore` | Read More | Title of the link to more information. This has to match the text for link in the AddCredentials.Consent.FinancialInformation string. |
 | `AddCredentials.Consent.ServiceAgreement` | By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy | Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy. |
