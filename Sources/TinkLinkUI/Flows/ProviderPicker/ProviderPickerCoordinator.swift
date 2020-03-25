@@ -71,7 +71,9 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
-        setupNavigationItem(for: viewController, title: title)
+        let titleFormat = NSLocalizedString("ProviderPicker.AccessType.Title", tableName: "TinkLinkUI", value: "Add %@", comment: "Title for screen where user selects which access type to use when adding credentials.")
+        let formattedTitle = String(format: titleFormat, title ?? "")
+        setupNavigationItem(for: viewController, title: formattedTitle)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
     }
