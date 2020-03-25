@@ -221,14 +221,14 @@ final class AddCredentialHeaderView: UIView {
         emptyDescriptionUserInfoLabelBottomSpace?.isActive = isDescriptionHidden
         userInfoDescriptionBottomSpace?.isActive = !isDescriptionHidden
 
-        let readMoreFormat = NSLocalizedString("AddCredentials.Consent.FinancialInformation", tableName: "TinkLink", value: "%@ will obtain some of your financial information. Read More", comment: "Text explaining that the client will obtain financial information of the current user with a link for more information on which financial information.")
+        let readMoreFormat = NSLocalizedString("AddCredentials.Consent.FinancialInformation", tableName: "TinkLinkUI", value: "%@ will obtain some of your financial information. Read More", comment: "Text explaining that the client will obtain financial information of the current user with a link for more information on which financial information.")
         let text = String(format: readMoreFormat, clientName)
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: Color.label,
             .font: Font.regular(.micro)
         ]
         let attributeText = NSMutableAttributedString(string: text, attributes: attributes)
-        let readMoreText = NSLocalizedString("AddCredentials.Consent.ReadMore", tableName: "TinkLink", value: "Read More", comment: "Title of the link to more information. This has to match the text for link in the AddCredentials.Consent.FinancialInformation string.")
+        let readMoreText = NSLocalizedString("AddCredentials.Consent.ReadMore", tableName: "TinkLinkUI", value: "Read More", comment: "Title of the link to more information. This has to match the text for link in the AddCredentials.Consent.FinancialInformation string.")
         let readMoreRange = attributeText.mutableString.range(of: readMoreText)
         self.readMoreRange = readMoreRange
         attributeText.addAttributes([

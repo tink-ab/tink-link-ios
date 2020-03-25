@@ -1,8 +1,8 @@
 # Localizable Strings
 
-All strings in TinkLinkUI are by default in English. To localize the strings in your app you can provide your own strings by specifying strings for a specific set of keys in a strings file named `TinkLink`.
+All strings in TinkLinkUI are by default in English. To localize the strings in your app you can provide your own strings by specifying strings for a specific set of keys in a strings file named `TinkLinkUI`.
 
-For example: To add a Italian translation for the retry button displayed if providers couldn't load, add `"ProviderPicker.Error.RetryButton" = "Riprova";` to your `it.lproj/TinkLink.strings` file in your app bundle.
+For example: To add a Italian translation for the retry button displayed if providers couldn't load, add `"ProviderPicker.Error.RetryButton" = "Riprova";` to your `it.lproj/TinkLinkUI.strings` file in your app bundle.
 Then the SDK will use that string instead of the default ones when running on a device that has the language setting set to prefer Italian.
 
 ## Add Credentials
