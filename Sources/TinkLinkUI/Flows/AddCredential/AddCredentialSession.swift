@@ -74,17 +74,9 @@ final class AddCredentialSession {
     }
 
     private func handleThirdPartyAppAuthentication(task: ThirdPartyAppAuthenticationTask) {
-
-        guard task.thirdPartyAppAuthentication.hasAutoStartToken, !task.shouldFailOnThirdPartyAppAuthenticationDownloadRequired else {
-            task.openThirdPartyApp()
-            return
-        }
-
-        task.openThirdPartyApp { [weak self] in
-            task.qr { [weak self] qrImage in
-                DispatchQueue.main.async {
-                    self?.showQRCodeView(qrImage: qrImage)
-                }
+        task.handle { [weak self] (qrImage) in
+            DispatchQueue.main.async {
+                self?.showQRCodeView(qrImage: qrImage)
             }
         }
     }

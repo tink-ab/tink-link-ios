@@ -180,6 +180,18 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
     #endif
 
+    public func handle(completion: @escaping (UIImage) -> Void) {
+        guard thirdPartyAppAuthentication.hasAutoStartToken, !shouldFailOnThirdPartyAppAuthenticationDownloadRequired else {
+            openThirdPartyApp()
+            return
+        }
+        openThirdPartyApp {
+            self.qr { qrImage in
+                completion(qrImage)
+            }
+        }
+    }
+
     #if os(iOS)
     public func qr(completion: @escaping (UIImage) -> Void) {
         if hasBankIDQRCode {
