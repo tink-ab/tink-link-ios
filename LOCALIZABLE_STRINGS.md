@@ -35,8 +35,6 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `AddCredentials.Success.Done` | Done | Title for button to dismiss the screen shown when credentials were successfully added.
 | `AddCredentials.Success.Subtitle` | Your account has successfully connected to %@. You'll be redirected back in a few seconds... | Subtitle for screen shown when credentials were successfully added.
 | `AddCredentials.Success.Title` | Connection successful | Title for screen shown when credentials were successfully added.
-| `AddCredentials.SupplementalInformation.Cancel` | Done | Title for button to send supplemental information when adding credentials.
-| `AddCredentials.SupplementalInformation.Title` | Supplemental Information | Title for form asking user to supplement information when adding credentials.
 
 ## Generic
 
@@ -57,6 +55,11 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `ProviderPicker.Error.Temporary` | This could be a temporary error, please try again and see if the problem persists. | Description for error when providers could not be loaded and it is likely it's a temporary error.
 | `ProviderPicker.Error.Title` | We’re sorry, but we couldn't load any banks at the moment | Title for when providers could not be loaded.
 | `ProviderPicker.Search.Placeholder` | Search for a bank or card | Placeholder in search field shown in provider list.
+
+## Supplemental Information
+
+| `SupplementalInformation.Form.Cancel` | Done | Title for button to send supplemental information when adding credentials.
+| `SupplementalInformation.Form.Title` | Supplemental Information | Title for form asking user to supplement information when adding credentials.
 
 ## Third-Party App Authentication
 
