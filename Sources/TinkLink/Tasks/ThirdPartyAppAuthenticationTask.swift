@@ -104,6 +104,12 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
     }
 
+    public enum Status {
+        case qrImage(UIImage)
+        case awaitAuthenticationOnAnotherDevice
+        case error(Swift.Error)
+    }
+
     /// Information about how to open or download the third party application app.
     public private(set) var thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication
     public private(set) var shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
@@ -144,6 +150,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         ///
         /// - Parameter application: The object that controls and coordinates your app. Defaults to the shared instance.
         /// - Parameter willAwaitAuthenticationOnAnotherDevice: A block will be called when allow to directly use the third part app for authentication on another device.
+    @available(*, deprecated, message: "Use the handle instead")
         public func openThirdPartyApp(with application: UIApplication = .shared, willAwaitAuthenticationOnAnotherDevice wait: (() -> Void)? = nil) {
             guard let url = thirdPartyAppAuthentication.deepLinkURL else {
                 completionHandler(.failure(Error.deeplinkURLNotFound))
@@ -180,20 +187,38 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
     #endif
 
-    public func handle(completion: @escaping (UIImage) -> Void) {
+    public func handle(completion: @escaping (Status) -> Void) {
         guard thirdPartyAppAuthentication.hasAutoStartToken, !shouldFailOnThirdPartyAppAuthenticationDownloadRequired else {
             openThirdPartyApp()
             return
         }
+
         openThirdPartyApp {
-            self.qr { qrImage in
-                completion(qrImage)
+            if self.hasBankIDQRCode {
+                self.qr { result in
+                    do {
+                        let qrImage = try result.get()
+                        completion(.qrImage(qrImage))
+                    } catch {
+                        completion(.error(error))
+                    }
+                }
+            } else if self.credentials.kind == .mobileBankID {
+                completion(.awaitAuthenticationOnAnotherDevice)
+                // TODO: make the polling task continue poll
+            } else {
+                let downloadRequiredError = Error.downloadRequired(
+                    title: self.thirdPartyAppAuthentication.downloadTitle,
+                    message: self.thirdPartyAppAuthentication.downloadMessage,
+                    appStoreURL: self.thirdPartyAppAuthentication.appStoreURL
+                )
+                completion(.error(downloadRequiredError))
             }
         }
     }
 
     #if os(iOS)
-    public func qr(completion: @escaping (UIImage) -> Void) {
+    func qr(completion: @escaping (Result<UIImage, Swift.Error>) -> Void) {
         if hasBankIDQRCode {
             callRetryCancellable = credentialsService.qr(credentialsID: credentials.id) { [weak self] result in
                 do {
@@ -201,15 +226,14 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     guard let qrImage = UIImage(data: qrData) else {
                         throw Error.decodingQRCodeImageFailed
                     }
-                    self?.completionHandler(.success(()))
-                    completion(qrImage)
+                    completion(.success(qrImage))
                 } catch {
-                    self?.completionHandler(.failure(error))
+                    completion(.failure(error))
                 }
                 self?.callRetryCancellable = nil
             }
         } else {
-            completionHandler(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
+            completion(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
         }
     }
     #endif

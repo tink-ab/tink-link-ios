@@ -74,10 +74,17 @@ final class AddCredentialSession {
     }
 
     private func handleThirdPartyAppAuthentication(task: ThirdPartyAppAuthenticationTask) {
-        task.handle { [weak self] (qrImage) in
-            DispatchQueue.main.async {
-                self?.showQRCodeView(qrImage: qrImage)
+        task.handle { [weak self] result in
+            switch result {
+            case .qrImage(let image):
+                DispatchQueue.main.async {
+                    self?.showQRCodeView(qrImage: image)
+                }
+            default:
+                // TODO:?
+                break
             }
+
         }
     }
 
