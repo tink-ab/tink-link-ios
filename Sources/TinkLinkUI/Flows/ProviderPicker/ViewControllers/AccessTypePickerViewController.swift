@@ -49,11 +49,11 @@ extension AccessTypePickerViewController {
         }
         switch node.accessType {
         case .openBanking:
-            cell.setTitle(text: "Checking accounts")
-            cell.setDetail(text: "Including everyday accounts, such as your salary account.")
+            cell.setTitle(text: NSLocalizedString("ProviderPicker.AccessType.OpenBankingTitle", tableName: "TinkLinkUI", value: "Checking accounts", comment: "Title for the group of providers that use Open Banking."))
+            cell.setDetail(text: NSLocalizedString("ProviderPicker.AccessType.OpenBankingDetail", tableName: "TinkLinkUI", value: "Including everyday accounts, such as your salary account.", comment: "Text describing the group of providers that use Open Banking."))
         case .other, .unknown:
-            cell.setTitle(text: "Other account types")
-            cell.setDetail(text: "Including saving accounts, credit cards, loans, investments and your personal information.")
+            cell.setTitle(text: NSLocalizedString("ProviderPicker.AccessType.OtherTitle", tableName: "TinkLinkUI", value: "Other account types", comment: "Title for the group of providers that does not use Open Banking."))
+            cell.setDetail(text: NSLocalizedString("ProviderPicker.AccessType.OtherDetail", tableName: "TinkLinkUI", value: "Including saving accounts, credit cards, loans, investments and your personal information.", comment: "Text describing the group of providers that does not use Open Banking."))
         }
         cell.delegate = self
         return cell
