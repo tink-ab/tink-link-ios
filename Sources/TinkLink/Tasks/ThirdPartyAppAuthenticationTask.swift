@@ -107,7 +107,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     public enum Status {
         case qrImage(UIImage)
         case awaitAuthenticationOnAnotherDevice
-        case error(Swift.Error)
     }
 
     /// Information about how to open or download the third party application app.
@@ -199,20 +198,21 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     do {
                         let qrImage = try result.get()
                         completion(.qrImage(qrImage))
+                        self.completionHandler(.success)
                     } catch {
-                        completion(.error(error))
+                        self.completionHandler(.failure(error))
                     }
                 }
             } else if self.credentials.kind == .mobileBankID {
                 completion(.awaitAuthenticationOnAnotherDevice)
-                // TODO: make the polling task continue poll
+                self.completionHandler(.success)
             } else {
                 let downloadRequiredError = Error.downloadRequired(
                     title: self.thirdPartyAppAuthentication.downloadTitle,
                     message: self.thirdPartyAppAuthentication.downloadMessage,
                     appStoreURL: self.thirdPartyAppAuthentication.appStoreURL
                 )
-                completion(.error(downloadRequiredError))
+                self.completionHandler(.error(downloadRequiredError))
             }
         }
     }
@@ -256,4 +256,9 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         let updatedUrl = url.absoluteString.replacingOccurrences(of: tinkBankIDRedirect, with: bankIDredirect)
         return URL(string: updatedUrl)!
     }
+}
+
+
+public extension Result where Success == Void {
+    public static var success: Self = .success(())
 }
