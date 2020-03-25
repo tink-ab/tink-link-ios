@@ -80,6 +80,7 @@ final class RESTCredentialsService: CredentialsService {
     func cancelSupplementInformation(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
         //TODO: There is no cancel in REST. Investigate
+        completion(.success(()))
         return nil
     }
 
