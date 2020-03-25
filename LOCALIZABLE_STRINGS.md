@@ -32,9 +32,9 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `AddCredentials.Status.Canceling` | Canceling… | Text shown when canceling supplementing information.
 | `AddCredentials.Status.Sending` | Sending… | Text shown when submitting supplemental information.
 | `AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice` | Waiting for authentication on another device | Text shown when adding credentials and waiting for authenticvation on another device.
-| `AddCredentials.SuccessfullyAdded.Done` | Done | Title for button to dismiss the screen shown when credentials were successfully added.
-| `AddCredentials.SuccessfullyAdded.Subtitle` | Your account has successfully connected to %@. You'll be redirected back in a few seconds... | Subtitle for screen shown when credentials were successfully added.
-| `AddCredentials.SuccessfullyAdded.Title` | Connection successful | Title for screen shown when credentials were successfully added.
+| `AddCredentials.Success.Done` | Done | Title for button to dismiss the screen shown when credentials were successfully added.
+| `AddCredentials.Success.Subtitle` | Your account has successfully connected to %@. You'll be redirected back in a few seconds... | Subtitle for screen shown when credentials were successfully added.
+| `AddCredentials.Success.Title` | Connection successful | Title for screen shown when credentials were successfully added.
 | `AddCredentials.SupplementalInformation.Cancel` | Done | Title for button to send supplemental information when adding credentials.
 | `AddCredentials.SupplementalInformation.Title` | Supplemental Information | Title for form asking user to supplement information when adding credentials.
 
