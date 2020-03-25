@@ -17,6 +17,11 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `AddCredentials.Discard.ContinueAction` | Continue Editing | Title for action to continue adding credentials.
 | `AddCredentials.Discard.PrimaryAction` | Discard Changes | Title for action to discard adding credentials.
 | `AddCredentials.Discard.Title` | Are you sure you want to discard this new credential? | Title for action sheet presented when user tries to dismiss modal while adding credentials.
+| `AddCredentials.Error.AuthenticationFailed` | Authentication failed | Title for error shown when authentication failed while adding credentials.
+| `AddCredentials.Error.CredentialsAlreadyExists` | Error | Title for error shown when credentials already exists.
+| `AddCredentials.Error.CredentialsAlreadyExists.FailureReason` | You already have a connection to this bank or service. | Message for error shown when credentials already exists.
+| `AddCredentials.Error.PermanentFailure` | Permanent error | Title for error shown when a permanent failure occured while adding credentials.
+| `AddCredentials.Error.TemporaryFailure` | Temporary error | Title for error shown when a temporary failure occured while adding credentials.
 | `AddCredentials.Form.Continue` | Continue | Title for button to start authenticating credentials.
 | `AddCredentials.Form.OpenBankID` | Open BankID | Title for button to open BankID app.
 | `AddCredentials.Form.Title` | Authenticate | Title for screen where user fills in form to add credentials.
@@ -32,16 +37,6 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `AddCredentials.SuccessfullyAdded.Title` | Connection successful | Title for screen shown when credentials were successfully added.
 | `AddCredentials.SupplementalInformation.Cancel` | Done | Title for button to send supplemental information when adding credentials.
 | `AddCredentials.SupplementalInformation.Title` | Supplemental Information | Title for form asking user to supplement information when adding credentials.
-
-## Add Credentials Task
-
-| Key | Default | Description |
-| -------- | -------- | -------- |
-| `AddCredentialsTask.Error.AuthenticationFailed` | Authentication failed | Title for error shown when authentication failed while adding credentials.
-| `AddCredentialsTask.Error.CredentialsAlreadyExists` | Error | Title for error shown when credentials already exists.
-| `AddCredentialsTask.Error.CredentialsAlreadyExists`.FailureReason | You already have a connection to this bank or service. | Message for error shown when credentials already exists.
-| `AddCredentialsTask.Error.PermanentFailure` | Permanent error | Title for error shown when a permanent failure occured while adding credentials.
-| `AddCredentialsTask.Error.TemporaryFailure` | Temporary error | Title for error shown when a temporary failure occured while adding credentials.
 
 ## Generic
 
