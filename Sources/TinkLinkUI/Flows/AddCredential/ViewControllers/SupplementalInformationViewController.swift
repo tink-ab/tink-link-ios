@@ -59,7 +59,7 @@ extension SupplementalInformationViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
         button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
-        button.text = NSLocalizedString("SupplementalInformation.Form.Cancel", tableName: "TinkLinkUI", value: "Done", comment: "Title for button to send supplemental information when adding credentials.")
+        button.text = NSLocalizedString("SupplementalInformation.Form.Done", tableName: "TinkLinkUI", value: "Done", comment: "Title for button to send supplemental information when adding credentials.")
 
         navigationItem.title = NSLocalizedString("SupplementalInformation.Form.Title", tableName: "TinkLinkUI", value: "Supplemental Information", comment: "Title for form asking user to supplement information when adding credentials.")
         navigationItem.largeTitleDisplayMode = .never

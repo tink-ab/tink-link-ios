@@ -58,7 +58,7 @@ Then the SDK will use that string instead of the default ones when running on a 
 
 ## Supplemental Information
 
-| `SupplementalInformation.Form.Cancel` | Done | Title for button to send supplemental information when adding credentials.
+| `SupplementalInformation.Form.Done` | Done | Title for button to send supplemental information when adding credentials.
 | `SupplementalInformation.Form.Title` | Supplemental Information | Title for form asking user to supplement information when adding credentials.
 
 ## Third-Party App Authentication
