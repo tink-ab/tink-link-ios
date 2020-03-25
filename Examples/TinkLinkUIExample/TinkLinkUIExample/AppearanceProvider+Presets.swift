@@ -17,8 +17,9 @@ extension AppearanceProvider {
             income: UIColor(named: "\(folderName)/Income")!,
             transfers: UIColor(named: "\(folderName)/Transfers")!,
             uncategorized: UIColor(named: "\(folderName)/Uncategorized")!,
-            warning: UIColor(named: "\(folderName)/Uncategorized")!)
-            
+            warning: UIColor(named: "\(folderName)/Uncategorized")!,
+            critical: .red
+        )
     }
     
     private static func makeProviderWithFonts(folderName: String, light: String, regular: String, semiBold: String, bold: String) -> AppearanceProvider {
@@ -36,6 +37,7 @@ extension AppearanceProvider {
             transfers: UIColor(named: "\(folderName)/Transfers")!,
             uncategorized: UIColor(named: "\(folderName)/Uncategorized")!,
             warning: UIColor(named: "\(folderName)/Uncategorized")!,
+            critical: .red,
             lightFont: .custom("\(light)"),
             regularFont: .custom("\(regular)"),
             semiBoldFont: .custom("\(semiBold)"),

@@ -25,10 +25,10 @@ class AddCredentialUserNotVerifiedView: UIView {
         contentView.layoutMargins = .init(top: 16, left: 16, bottom: 16, right: 16)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = Color.warning.cgColor
+        contentView.layer.borderColor = Color.critical.cgColor
         contentView.layer.cornerRadius = 16
 
-        unVerifiedLabel.textColor = Color.warning
+        unVerifiedLabel.textColor = Color.critical
         unVerifiedLabel.translatesAutoresizingMaskIntoConstraints = false
         unVerifiedLabel.text = "Unverified - This solution is only made for development purposes. Do not enter you bank credentials unless you trust the developer."
         unVerifiedLabel.numberOfLines = 0

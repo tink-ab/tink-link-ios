@@ -31,4 +31,6 @@ public protocol ColorProviding {
     var uncategorized: UIColor { get }
     /// Color representing a warning.
     var warning: UIColor { get }
+    /// Color representing critical cases.
+    var critical: UIColor { get }
 }
