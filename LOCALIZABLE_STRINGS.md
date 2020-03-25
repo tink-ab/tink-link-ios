@@ -40,7 +40,6 @@ Then the SDK will use that string instead of the default ones when running on a 
 | AddCredentialsTask.Error.AuthenticationFailed | Authentication failed | Title for error shown when authentication failed while adding credentials.
 | AddCredentialsTask.Error.CredentialsAlreadyExists | Error | Title for error shown when credentials already exists.
 | AddCredentialsTask.Error.CredentialsAlreadyExists.FailureReason | You already have a connection to this bank or service. | Message for error shown when credentials already exists.
-| AddCredentialsTask.Error.Description | We are informed of this error and are working hard to resolve it. Bear with us, and try again a bit later. | Description for error when providers could not be loaded.
 | AddCredentialsTask.Error.PermanentFailure | Permanent error | Title for error shown when a permanent failure occured while adding credentials.
 | AddCredentialsTask.Error.TemporaryFailure | Temporary error | Title for error shown when a temporary failure occured while adding credentials.
 
@@ -56,6 +55,7 @@ Then the SDK will use that string instead of the default ones when running on a 
 
 | Key | Default | Description |
 | -------- | -------- | -------- |
+| ProviderPicker.Error.Description | We are informed of this error and are working hard to resolve it. Bear with us, and try again a bit later. | Description for error when providers could not be loaded.
 | ProviderPicker.Error.RetryButton | Try again | Title for button to try loading providers again.
 | ProviderPicker.Error.Temporary | This could be a temporary error, please try again and see if the problem persists. | Description for error when providers could not be loaded and it is likely it's a temporary error.
 | ProviderPicker.Error.Title | We’re sorry, but we couldn't load any banks at the moment | Title for when providers could not be loaded.

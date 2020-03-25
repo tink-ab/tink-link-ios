@@ -93,7 +93,7 @@ final class ProviderLoadingErrorView: UIView {
             descriptionLabel.text = NSLocalizedString("ProviderPicker.Error.Temporary", tableName: "TinkLink", value: "This could be a temporary error, please try again and see if the problem persists.", comment: "Description for error when providers could not be loaded and it is likely it's a temporary error.")
             retryButton.isHidden = false
         } else {
-            descriptionLabel.text = NSLocalizedString("AddCredentialsTask.Error.Description", tableName: "TinkLink", value: "We are informed of this error and are working hard to resolve it. Bear with us, and try again a bit later.", comment: "Description for error when providers could not be loaded.")
+            descriptionLabel.text = NSLocalizedString("ProviderPicker.Error.Description", tableName: "TinkLink", value: "We are informed of this error and are working hard to resolve it. Bear with us, and try again a bit later.", comment: "Description for error when providers could not be loaded.")
             retryButton.isHidden = true
         }
     }
