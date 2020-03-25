@@ -80,11 +80,11 @@ final class AddCredentialSession {
                 DispatchQueue.main.async {
                     self?.showQRCodeView(qrImage: image)
                 }
-            default:
-                // TODO:?
-                break
+            case .awaitAuthenticationOnAnotherDevice:
+                DispatchQueue.main.async {
+                    self?.showUpdating(status: "Waiting for authentication on another device")
+                }
             }
-
         }
     }
 
