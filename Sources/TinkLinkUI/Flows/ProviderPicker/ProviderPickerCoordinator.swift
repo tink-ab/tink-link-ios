@@ -101,7 +101,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     @objc private func updateProviders() {
         delegate?.providerPickerCoordinatorUpdateProviders(self)
         DispatchQueue.main.async {
-            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: NSLocalizedString("ProviderPicker.List.Title", tableName: "TinkLinkUI", value: "Choose Bank", comment: "Title for list of providers."))
+            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: NSLocalizedString("ProviderPicker.List.Title", tableName: "TinkLinkUI", value: "Choose bank", comment: "Title for list of all providers."))
         }
     }
 
