@@ -8,7 +8,7 @@ final class CredentialKindPickerViewController: UITableViewController {
     let credentialKindNodes: [ProviderTree.CredentialKindNode]
 
     init(credentialKindNodes: [ProviderTree.CredentialKindNode]) {
-        self.credentialKindNodes = credentialKindNodes
+        self.credentialKindNodes = credentialKindNodes.sorted(by: { $0.credentialKind.description < $1.credentialKind.description })
         super.init(style: .plain)
     }
 
