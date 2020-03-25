@@ -10,9 +10,19 @@ final class RESTAuthenticationService: AuthenticationService {
         self.accessToken = accessToken
     }
 
-    func clientDescription(scopes: [Scope], redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable? {
-        // Investigate: Do we have REST endpoint?
-        return nil
+    func clientDescription(clientID: String, scopes: [Scope], redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable? {
+
+        let body = RESTDescribeOAuth2ClientRequest(clientId: clientID, redirectUri: redirectURI.absoluteString, scope: scopes.scopeDescription)
+
+        let data = try? JSONEncoder().encode(body)
+
+        var request = RESTResourceRequest<RESTDescribeOAuth2ClientResponse>(path: "/api/v1/oauth/describe", method: .post, body: data, contentType: .json, completion: { result in
+            completion(result.map(ClientDescription.init))
+        })
+
+        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
+
+        return client.performRequest(request)
     }
 
     func authorize(clientID: String, redirectURI: URL, scopes: [Scope], completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable? {

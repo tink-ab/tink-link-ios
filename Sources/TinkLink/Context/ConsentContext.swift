@@ -113,7 +113,7 @@ public final class ConsentContext {
     @discardableResult
     public func scopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
-        return service.clientDescription(scopes: scopes, redirectURI: redirectURI) { (result) in
+        return service.clientDescription(clientID: tink.configuration.clientID, scopes: scopes, redirectURI: redirectURI) { (result) in
             let mappedResult = result.map({ $0.scopes }).mapError({ Error($0) ?? $0 })
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not fetch scope descriptions: " + message)

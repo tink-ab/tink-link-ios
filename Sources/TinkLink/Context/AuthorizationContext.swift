@@ -67,7 +67,7 @@ public final class AuthorizationContext {
     public func clientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
         let scopes: [Scope] = []
         let redirectURI = tink.configuration.redirectURI
-        return service.clientDescription(scopes: scopes, redirectURI: redirectURI) { (result) in
+        return service.clientDescription(clientID: tink.configuration.clientID, scopes: scopes, redirectURI: redirectURI) { (result) in
             let mappedResult = result.mapError({ Error($0) ?? $0 })
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not get client description: " + message)
