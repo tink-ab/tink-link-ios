@@ -15,9 +15,9 @@ import Foundation
 ///     let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
 ///     switch financialInstitutionGroupNode {
 ///     case .financialInstitutions(let financialInstitutionGroups):
-///         showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
+///         showFinancialInstitution(for: financialInstitutionGroups)
 ///     case .accessTypes(let accessTypeGroups):
-///         showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
+///         showAccessTypePicker(for: accessTypeGroups)
 ///     case .credentialKinds(let groups):
 ///         showCredentialKindPicker(for: groups)
 ///     case .provider(let provider):

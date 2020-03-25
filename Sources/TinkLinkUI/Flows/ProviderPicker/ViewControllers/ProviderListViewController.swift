@@ -69,7 +69,7 @@ extension ProviderListViewController {
         let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
         switch financialInstitutionGroupNode {
         case .financialInstitutions(let financialInstitutionGroups):
-            providerPickerCoordinator?.showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
+            providerPickerCoordinator?.showFinancialInstitution(for: financialInstitutionGroups, name: financialInstitutionGroupNode.displayName)
         case .accessTypes(let accessTypeGroups):
             providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, name: financialInstitutionGroupNode.displayName)
         case .credentialKinds(let groups):
