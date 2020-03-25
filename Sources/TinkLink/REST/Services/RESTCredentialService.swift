@@ -84,12 +84,20 @@ final class RESTCredentialsService: CredentialsService {
     }
 
     func enableCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        //TODO
-        return nil
+
+        var request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/enable", method: .post, contentType: .json) { result in
+            completion(result.map { _ in })
+        }
+        request.headers = ["Authentication" : "Bearer \(accessToken.rawValue)"]
+        return client.performRequest(request)
     }
     func disableCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        //TODO
-        return nil
+
+        var request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/disable", method: .post, contentType: .json) { result in
+            completion(result.map { _ in })
+        }
+        request.headers = ["Authentication" : "Bearer \(accessToken.rawValue)"]
+        return client.performRequest(request)
 
     }
     func thirdPartyCallback(state: String, parameters: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
