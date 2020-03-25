@@ -53,6 +53,8 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `Generic.ServiceAlert.FallbackTitle` | The service is unavailable at the moment. | Title for error alert if error doesn't contain a description.
 | `Generic.ServiceAlert.Retry` | Retry | Title for action to retry a failed request.
 
+## Provider Picker
+
 | Key | Default | Description |
 | -------- | -------- | -------- |
 | `ProviderPicker.Error.Description` | We are informed of this error and are working hard to resolve it. Bear with us, and try again a bit later. | Description for error when providers could not be loaded.
@@ -62,6 +64,7 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `ProviderPicker.Search.Placeholder` | Search for a bank or card | Placeholder in search field shown in provider list.
 
 ## Third-Party App Authentication
+
 | Key | Default | Description |
 | -------- | -------- | -------- |
 | `ThirdPartyAppAuthentication.DownloadAlert.Cancel` | Cancel | Title for action to cancel downloading app for third-party app authentication.
