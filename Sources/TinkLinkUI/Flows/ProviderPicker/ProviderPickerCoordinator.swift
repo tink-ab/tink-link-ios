@@ -4,7 +4,7 @@ import TinkLink
 protocol ProviderPickerCoordinating: AnyObject {
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?)
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?)
-    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?)
+    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String)
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode])
     func didSelectProvider(_ provider: Provider)
 }
@@ -69,10 +69,10 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         parentViewController?.show(viewController, sender: nil)
     }
 
-    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
+    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
         let titleFormat = NSLocalizedString("ProviderPicker.AccessType.Title", tableName: "TinkLinkUI", value: "Add %@", comment: "Title for screen where user selects which access type to use when adding credentials.")
-        let formattedTitle = String(format: titleFormat, title ?? "")
+        let formattedTitle = String(format: titleFormat, name)
         setupNavigationItem(for: viewController, title: formattedTitle)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
