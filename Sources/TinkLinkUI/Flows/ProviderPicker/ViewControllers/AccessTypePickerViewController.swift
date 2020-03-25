@@ -47,9 +47,14 @@ extension AccessTypePickerViewController {
         if let url = node.imageURL {
             cell.setImage(url: url)
         }
-        cell.setTitle(text: node.accessType.description)
-        // FIXME: This detail text should be dynamic based on provider capabilities. PFMF-2643
-        cell.setDetail(text: "Including everyday accounts, such as your salary account")
+        switch node.accessType {
+        case .openBanking:
+            cell.setTitle(text: "Checking accounts")
+            cell.setDetail(text: "Including everyday accounts, such as your salary account.")
+        case .other, .unknown:
+            cell.setTitle(text: "Other account types")
+            cell.setDetail(text: "Including saving accounts, credit cards, loans, investments and your personal information.")
+        }
         cell.delegate = self
         return cell
     }
