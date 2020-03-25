@@ -228,7 +228,7 @@ final class AddCredentialHeaderView: UIView {
             .font: Font.regular(.micro)
         ]
         let attributeText = NSMutableAttributedString(string: text, attributes: attributes)
-        let readMoreText = NSLocalizedString("AddCredentials.Consent.ReadMore", tableName: "TinkLinkUI", value: "Read More", comment: "Title of the link to more information. This has to match the text for link in the AddCredentials.Consent.FinancialInformation string.")
+        let readMoreText = NSLocalizedString("AddCredentials.Consent.ReadMore", tableName: "TinkLinkUI", value: "Read More", comment: "Title of the link to more information. This has to match the text for link in the `AddCredentials.Consent.FinancialInformation` string.")
         let readMoreRange = attributeText.mutableString.range(of: readMoreText)
         self.readMoreRange = readMoreRange
         attributeText.addAttributes([

@@ -34,11 +34,11 @@ final class AddCredentialFooterView: UIView {
             attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.regular(.micro)])
         let languageCode = Locale.current.languageCode ?? ""
         let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
-        let privacyPolicyText = NSLocalizedString("AddCredentials.Consent.PrivacyPolicy", tableName: "TinkLinkUI", value: "Privacy Policy", comment: "Title of the Privacy Policy link. This has to match the mention of the Privacy Policy in the AddCredentials.Consent.ServiceAgreement string.")
+        let privacyPolicyText = NSLocalizedString("AddCredentials.Consent.PrivacyPolicy", tableName: "TinkLinkUI", value: "Privacy Policy", comment: "Title of the Privacy Policy link. This has to match the mention of the Privacy Policy in the `AddCredentials.Consent.ServiceAgreement` string.")
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
         self.privacyPolicyRange = privacyPolicyRange
         attributeText.addAttributes([.link: privacyPolicyUrl,], range: privacyPolicyRange)
-        let termsAndConditionsText = NSLocalizedString("AddCredentials.Consent.TermsAndConditions", tableName: "TinkLinkUI", value: "Terms and Conditions", comment: "Title of the Privacy Policy link. This has to match the mention of the Terms and Conditions in the AddCredentials.Consent.ServiceAgreement string.")
+        let termsAndConditionsText = NSLocalizedString("AddCredentials.Consent.TermsAndConditions", tableName: "TinkLinkUI", value: "Terms and Conditions", comment: "Title of the Privacy Policy link. This has to match the mention of the Terms and Conditions in the `AddCredentials.Consent.ServiceAgreement` string.")
         let termsAndConditionsUrl = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
         self.termsAndConditionsRange = termsAndConditionsRange
