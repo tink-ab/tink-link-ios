@@ -25,13 +25,13 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `AddCredentials.Form.Continue` | Continue | Title for button to start authenticating credentials.
 | `AddCredentials.Form.OpenBankID` | Open BankID | Title for button to open BankID app.
 | `AddCredentials.Form.Title` | Authenticate | Title for screen where user fills in form to add credentials.
-| `AddCredentials.Progress.Authorizing` | Authorizing… | Text shown when adding credentials and waiting for authorization.
-| `AddCredentials.Progress.Canceling` | Canceling… | Text shown when canceling supplementing information.
-| `AddCredentials.Progress.Sending` | Sending… | Text shown when submitting supplemental information.
-| `AddCredentials.Progress.WaitingForAuthenticationOnAnotherDevice` | Waiting for authentication on another device | Text shown when adding credentials and waiting for authenticvation on another device.
 | `AddCredentials.ScopeDescriptions.Body` | By following through this service, we’ll collect financial data from you. These are the data points we will collect from you: | Text introducing the descriptions for which data points will be collected when using the service.
 | `AddCredentials.ScopeDescriptions.Title` | We’ll collect the following data from you | Title for text introducing the descriptions for which data points will be collected when using the service.
+| `AddCredentials.Status.Authorizing` | Authorizing… | Text shown when adding credentials and waiting for authorization.
 | `AddCredentials.Status.Cancel` | Cancel | Title for button to cancel an ongoing task for adding credentials.
+| `AddCredentials.Status.Canceling` | Canceling… | Text shown when canceling supplementing information.
+| `AddCredentials.Status.Sending` | Sending… | Text shown when submitting supplemental information.
+| `AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice` | Waiting for authentication on another device | Text shown when adding credentials and waiting for authenticvation on another device.
 | `AddCredentials.SuccessfullyAdded.Done` | Done | Title for button to dismiss the screen shown when credentials were successfully added.
 | `AddCredentials.SuccessfullyAdded.Subtitle` | Your account has successfully connected to %@. You'll be redirected back in a few seconds... | Subtitle for screen shown when credentials were successfully added.
 | `AddCredentials.SuccessfullyAdded.Title` | Connection successful | Title for screen shown when credentials were successfully added.

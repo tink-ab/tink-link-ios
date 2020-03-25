@@ -56,7 +56,7 @@ final class AddCredentialSession {
                 }
             }
         )
-        self.showUpdating(status: NSLocalizedString("AddCredentials.Progress.Authorizing", tableName: "TinkLinkUI", value: "Authorizing…", comment: "Text shown when adding credentials and waiting for authorization."))
+        self.showUpdating(status: NSLocalizedString("AddCredentials.Status.Authorizing", tableName: "TinkLinkUI", value: "Authorizing…", comment: "Text shown when adding credentials and waiting for authorization."))
     }
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, shouldAuthenticateInAnotherDevice: Bool = false, onError: @escaping (Error) -> Void) {
         switch status {
@@ -74,7 +74,7 @@ final class AddCredentialSession {
             } else {
                 thirdPartyAppAuthenticationTask.openThirdPartyApp { [weak self] in
                     DispatchQueue.main.async {
-                        self?.showUpdating(status: NSLocalizedString("AddCredentials.Progress.WaitingForAuthenticationOnAnotherDevice", tableName: "TinkLinkUI", value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device."))
+                        self?.showUpdating(status: NSLocalizedString("AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice", tableName: "TinkLinkUI", value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device."))
                     }
                 }
             }
@@ -191,14 +191,14 @@ extension AddCredentialSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         parentViewController?.dismiss(animated: true) {
             self.supplementInfoTask?.cancel()
-            self.showUpdating(status: NSLocalizedString("AddCredentials.Progress.Canceling", tableName: "TinkLinkUI", value: "Canceling…", comment: "Text shown when canceling supplementing information."))
+            self.showUpdating(status: NSLocalizedString("AddCredentials.Status.Canceling", tableName: "TinkLinkUI", value: "Canceling…", comment: "Text shown when canceling supplementing information."))
         }
     }
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
         parentViewController?.dismiss(animated: true) {
             self.supplementInfoTask?.submit(form)
-            self.showUpdating(status: NSLocalizedString("AddCredentials.Progress.Sending", tableName: "TinkLinkUI", value: "Sending…", comment: "Text shown when submitting supplemental information."))
+            self.showUpdating(status: NSLocalizedString("AddCredentials.Status.Sending", tableName: "TinkLinkUI", value: "Sending…", comment: "Text shown when submitting supplemental information."))
         }
     }
 }
