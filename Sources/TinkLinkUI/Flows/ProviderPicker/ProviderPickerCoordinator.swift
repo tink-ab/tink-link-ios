@@ -5,7 +5,7 @@ protocol ProviderPickerCoordinating: AnyObject {
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?)
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?)
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?)
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?)
+    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode])
     func didSelectProvider(_ provider: Provider)
 }
 
@@ -76,9 +76,9 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         parentViewController?.show(viewController, sender: nil)
     }
 
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
+    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
         let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
-        setupNavigationItem(for: viewController, title: title)
+        setupNavigationItem(for: viewController, title: nil)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
     }
