@@ -281,8 +281,8 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
         present(viewController, animated: true)
     }
 
-    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool) {
-        addCredentialSession.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice) { [weak self] result in
+    func addCredential(provider: Provider, form: Form) {
+        addCredentialSession.addCredential(provider: provider, form: form) { [weak self] result in
             do {
                 let authorizationCode = try result.get()
                 self?.result = .success(authorizationCode)

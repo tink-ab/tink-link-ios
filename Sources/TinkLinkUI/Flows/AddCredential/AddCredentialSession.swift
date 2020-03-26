@@ -31,14 +31,14 @@ final class AddCredentialSession {
         task?.cancel()
     }
 
-    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
+    func addCredential(provider: Provider, form: Form, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
 
         task = credentialController.addCredentials(
             provider,
             form: form,
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
-                    self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: allowAnotherDevice) {
+                    self?.handleAddCredentialStatus(status) {
                         [weak self] error in
                         DispatchQueue.main.async {
                             self?.hideUpdatingView(animated: true) {
@@ -58,29 +58,33 @@ final class AddCredentialSession {
         )
         self.showUpdating(status: NSLocalizedString("AddCredentials.Status.Authorizing", tableName: "TinkLinkUI", value: "Authorizing…", comment: "Text shown when adding credentials and waiting for authorization."))
     }
-    private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, shouldAuthenticateInAnotherDevice: Bool = false, onError: @escaping (Error) -> Void) {
+
+    private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
         switch status {
         case .created, .authenticating:
             break
         case .awaitingSupplementalInformation(let supplementInformationTask):
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-            if shouldAuthenticateInAnotherDevice {
-                thirdPartyAppAuthenticationTask.qr { [weak self] qrImage in
-                    DispatchQueue.main.async {
-                        self?.showQRCodeView(qrImage: qrImage)
-                    }
-                }
-            } else {
-                thirdPartyAppAuthenticationTask.openThirdPartyApp { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.showUpdating(status: NSLocalizedString("AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice", tableName: "TinkLinkUI", value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device."))
-                    }
-                }
-            }
+            handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
         case .updating(let status):
             showUpdating(status: status)
             authorizeIfNeeded(onError: onError)
+        }
+    }
+
+    private func handleThirdPartyAppAuthentication(task: ThirdPartyAppAuthenticationTask) {
+        task.handle { [weak self] result in
+            switch result {
+            case .qrImage(let image):
+                DispatchQueue.main.async {
+                    self?.showQRCodeView(qrImage: image)
+                }
+            case .awaitAuthenticationOnAnotherDevice:
+                DispatchQueue.main.async {
+                    self?.showUpdating(status: NSLocalizedString("AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice", tableName: "TinkLinkUI", value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device."))
+                }
+            }
         }
     }
 
