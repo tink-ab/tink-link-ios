@@ -104,7 +104,7 @@ final class CredentialController {
             self.supplementInformationTask = supplementInformationTask
             NotificationCenter.default.post(name: .credentialControllerDidSupplementInformation, object: nil)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-            thirdPartyAppAuthenticationTask.openThirdPartyApp()
+            thirdPartyAppAuthenticationTask.handle()
         case .updating(let status):
             let parameters = ["status": status]
             NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: nil, userInfo: parameters)
@@ -130,7 +130,7 @@ final class CredentialController {
             self.supplementInformationTask = supplementInformationTask
             NotificationCenter.default.post(name: .credentialControllerDidSupplementInformation, object: nil)
         case .awaitingThirdPartyAppAuthentication(_, let thirdPartyAppAuthenticationTask):
-            thirdPartyAppAuthenticationTask.openThirdPartyApp()
+            thirdPartyAppAuthenticationTask.handle()
         case .updating(let credential, _):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
                 credentials[index] = credential

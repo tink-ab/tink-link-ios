@@ -79,7 +79,7 @@ final class CredentialController: ObservableObject {
         case .awaitingSupplementalInformation(let supplementInformationTask):
             self.supplementInformationTask = supplementInformationTask
         case .awaitingThirdPartyAppAuthentication(_, let thirdPartyAppAuthenticationTask):
-            thirdPartyAppAuthenticationTask.openThirdPartyApp()
+            thirdPartyAppAuthenticationTask.handle()
         case .updating(let credential, _):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
                 DispatchQueue.main.async { [weak self] in
