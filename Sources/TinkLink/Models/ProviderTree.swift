@@ -250,7 +250,9 @@ public struct ProviderTree {
                         self = .accessTypes(providersGroupedByAccessType)
                     }
                 } else {
-                    let providersGroupedByFinancialInstitution = providersGroupedByFinancialInstitution.values.map(FinancialInstitutionNode.init(providers:)).sorted { $0.financialInstitution.name < $1.financialInstitution.name }
+                    let providersGroupedByFinancialInstitution = providersGroupedByFinancialInstitution.values
+                        .map(FinancialInstitutionNode.init(providers:))
+                        .sorted { $0.financialInstitution.name < $1.financialInstitution.name }
                     self = .financialInstitutions(providersGroupedByFinancialInstitution)
                 }
             }
