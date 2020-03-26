@@ -35,11 +35,6 @@ Then the SDK will use that string instead of the default ones when running on a 
 | `AddCredentials.Error.PermanentFailure` | Permanent error | Title for error shown when a permanent failure occured while adding credentials. |
 | `AddCredentials.Error.TemporaryFailure` | Temporary error | Title for error shown when a temporary failure occured while adding credentials. |
 
-### Warnings
-| Key | Default | Description |
-| -------- | -------- | -------- |
-| `AddCredentials.Warning.UnVerifiedUser` | Unverified - This solution is only made for development purposes. Do not enter you bank credentials unless you trust the developer. | Text for the warning shown when the user is unverified. |
-
 ### Form
 
 | Key | Default | Description |
