@@ -34,7 +34,7 @@ class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    var lineWidth: CGFloat = 2.0 {
+    var lineWidth: CGFloat = 1.0 {
         didSet {
             underlineLayer.lineWidth = lineWidth
         }
@@ -42,6 +42,15 @@ class FloatingPlaceholderTextField: UITextField {
 
     override var isEnabled: Bool {
         didSet {
+            if isEnabled {
+                textFieldBackgroundColor = nil
+                textAlignment = .natural
+                lineWidth = 1.0
+            } else {
+                textFieldBackgroundColor = Color.accentBackground
+                textAlignment = .center
+                lineWidth = 0.0
+            }
             invalidateIntrinsicContentSize()
         }
     }

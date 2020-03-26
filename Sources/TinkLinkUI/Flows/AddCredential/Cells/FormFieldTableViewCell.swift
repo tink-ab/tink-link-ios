@@ -116,19 +116,8 @@ extension FloatingPlaceholderTextField {
         case .numeric:
             inputType = .number
         }
-
-        if field.attributes.isEditable {
-            isEnabled = true
-            textFieldBackgroundColor = nil
-            textAlignment = .natural
-            lineWidth = 1.0
-        } else {
-            isEnabled = false
-            textFieldBackgroundColor = Color.accentBackground
-            textAlignment = .center
-            lineWidth = 0.0
-        }
-
+        
+        isEnabled = field.attributes.isEditable
         text = field.text
         placeholder = field.attributes.description
         isSecureTextEntry = field.attributes.isSecureTextEntry
