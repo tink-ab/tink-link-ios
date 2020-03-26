@@ -56,6 +56,23 @@ public struct Credentials: Identifiable {
                 return "Third Party Authentication"
             }
         }
+
+        var sortOrder: Int {
+            switch self {
+            case .mobileBankID:
+                return 1
+            case .password:
+                return 2
+            case .thirdPartyAuthentication:
+                return 3
+            case .keyfob:
+                return 4
+            case .fraud:
+                return 5
+            case .unknown:
+                return 6
+            }
+        }
     }
 
     /// Indicates how Tink authenticates the user to the financial institution.
