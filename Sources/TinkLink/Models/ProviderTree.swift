@@ -53,7 +53,7 @@ public struct ProviderTree {
     /// A parent node of the tree structure, with a `Provider` as it's leaf node.
     public struct CredentialKindNode: Comparable {
         public static func < (lhs: ProviderTree.CredentialKindNode, rhs: ProviderTree.CredentialKindNode) -> Bool {
-            return lhs.credentialKind.description < rhs.credentialKind.description
+            return lhs.credentialKind.sortOrder < rhs.credentialKind.sortOrder
         }
 
         public static func == (lhs: ProviderTree.CredentialKindNode, rhs: ProviderTree.CredentialKindNode) -> Bool {
