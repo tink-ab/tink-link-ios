@@ -17,7 +17,7 @@ import Foundation
 ///     case .financialInstitutions(let financialInstitutionGroups):
 ///         showFinancialInstitution(for: financialInstitutionGroups, name: financialInstitutionGroupNode.displayName)
 ///     case .accessTypes(let accessTypeGroups):
-///         showAccessTypePicker(for: accessTypeGroups)
+///         showAccessTypePicker(for: accessTypeGroups, name: financialInstitutionGroupNode.financialInstitution.name)
 ///     case .credentialKinds(let groups):
 ///         showCredentialKindPicker(for: groups)
 ///     case .provider(let provider):
