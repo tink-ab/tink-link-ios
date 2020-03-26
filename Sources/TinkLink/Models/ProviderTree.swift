@@ -124,7 +124,7 @@ public struct ProviderTree {
             } else {
                 let providersGroupedByCredentialsKind = providers
                     .map(CredentialKindNode.init(provider:))
-                    .sorted(by: { $0.credentialKind.description < $1.credentialKind.description })
+                    .sorted()
                 self = .credentialKinds(providersGroupedByCredentialsKind)
             }
         }
@@ -208,12 +208,12 @@ public struct ProviderTree {
                 if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
                     let providersGroupedByCredentialsKind = providers
                         .map(CredentialKindNode.init(provider:))
-                        .sorted(by: { $0.credentialKind.description < $1.credentialKind.description })
+                        .sorted()
                     self = .credentialKinds(providersGroupedByCredentialsKind)
                 } else {
                     let providersGroupedByAccessType = providersGroupedByAccessTypes.values
                         .map(AccessTypeNode.init(providers:))
-                        .sorted(by: { $0.accessType < $1.accessType })
+                        .sorted()
                     self = .accessTypes(providersGroupedByAccessType)
                 }
             }
@@ -290,18 +290,18 @@ public struct ProviderTree {
                     if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
                         let providersGroupedByCredentialsKind = providers
                             .map(CredentialKindNode.init(provider:))
-                            .sorted(by: { $0.credentialKind.description < $1.credentialKind.description })
+                            .sorted()
                         self = .credentialKinds(providersGroupedByCredentialsKind)
                     } else {
                         let providersGroupedByAccessType = providersGroupedByAccessTypes.values
                             .map(AccessTypeNode.init(providers:))
-                            .sorted(by: { $0.accessType < $1.accessType })
+                            .sorted()
                         self = .accessTypes(providersGroupedByAccessType)
                     }
                 } else {
                     let providersGroupedByFinancialInstitution = providersGroupedByFinancialInstitution.values
                         .map(FinancialInstitutionNode.init(providers:))
-                        .sorted { $0.financialInstitution.name < $1.financialInstitution.name }
+                        .sorted()
                     self = .financialInstitutions(providersGroupedByFinancialInstitution)
                 }
             }
