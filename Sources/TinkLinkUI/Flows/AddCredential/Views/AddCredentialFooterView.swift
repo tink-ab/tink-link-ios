@@ -8,14 +8,6 @@ protocol AddCredentialFooterViewDelegate: AnyObject {
 final class AddCredentialFooterView: UIView {
     weak var delegate: AddCredentialFooterViewDelegate?
 
-    lazy var bankIdAnotherDeviceButton: UIButton = {
-        // TODO: handle using another deivce for BankID?
-        let bankIdAnotherDeviceButton = UIButton()
-        bankIdAnotherDeviceButton.setTitle("Open Mobile BankID on another device", for: .normal)
-        bankIdAnotherDeviceButton.titleLabel?.font = Font.bold(.hecto)
-        bankIdAnotherDeviceButton.setTitleColor(Color.accent, for: .normal)
-        return bankIdAnotherDeviceButton
-    }()
     private lazy var descriptionTextView: UITextView = {
         let descriptionTextView = UnselectableTextView()
         descriptionTextView.delegate = self
@@ -79,7 +71,6 @@ final class AddCredentialFooterView: UIView {
         addSubview(stackView)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        bankIdAnotherDeviceButton.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
@@ -89,18 +80,7 @@ final class AddCredentialFooterView: UIView {
         ])
     }
 
-    func configure(with provider: Provider, isAggregator: Bool) {
-        switch provider.credentialsKind {
-        case .mobileBankID:
-            // TODO: Maybe use Form(provider: provider).fields.isEmpty for decide if we should show the bankIdAnotherDeviceButton?
-            if ProcessInfo.processInfo.tinkEnableBankIDOnAnotherDevice, bankIdAnotherDeviceButton.superview == nil {
-                stackView.insertArrangedSubview(bankIdAnotherDeviceButton, at: 0)
-            }
-        default:
-            if bankIdAnotherDeviceButton.superview != nil {
-                bankIdAnotherDeviceButton.removeFromSuperview()
-            }
-        }
+    func configure(isAggregator: Bool) {
         descriptionTextView.isHidden = isAggregator
     }
 }

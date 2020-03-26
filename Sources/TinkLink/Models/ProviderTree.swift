@@ -51,7 +51,15 @@ public struct ProviderTree {
     }
 
     /// A parent node of the tree structure, with a `Provider` as it's leaf node.
-    public struct CredentialKindNode {
+    public struct CredentialKindNode: Comparable {
+        public static func < (lhs: ProviderTree.CredentialKindNode, rhs: ProviderTree.CredentialKindNode) -> Bool {
+            return lhs.credentialKind.sortOrder < rhs.credentialKind.sortOrder
+        }
+
+        public static func == (lhs: ProviderTree.CredentialKindNode, rhs: ProviderTree.CredentialKindNode) -> Bool {
+            return lhs.provider.id == rhs.provider.id
+        }
+
         /// A unique identifier of a `CredentialKindNode`.
         public struct ID: Hashable, ExpressibleByStringLiteral {
             public init(stringLiteral value: String) {
@@ -77,7 +85,22 @@ public struct ProviderTree {
     }
 
     /// A parent node of the tree structure, with a list of either `CredentialKindNode` children or a single `Provider`.
-    public enum AccessTypeNode {
+    public enum AccessTypeNode: Comparable {
+        public static func < (lhs: ProviderTree.AccessTypeNode, rhs: ProviderTree.AccessTypeNode) -> Bool {
+            return lhs.accessType < rhs.accessType
+        }
+
+        public static func == (lhs: ProviderTree.AccessTypeNode, rhs: ProviderTree.AccessTypeNode) -> Bool {
+            switch (lhs, rhs) {
+            case (.provider(let l), .provider(let r)):
+                return l.id == r.id
+            case (.credentialKinds(let l), .credentialKinds(let r)):
+                return l == r
+            default:
+                return false
+            }
+        }
+
         /// A unique identifier of a `AccessTypeNode`.
         public struct ID: Hashable, ExpressibleByStringLiteral {
             public init(stringLiteral value: String) {
@@ -99,7 +122,10 @@ public struct ProviderTree {
             if providers.count == 1, let provider = providers.first {
                 self = .provider(provider)
             } else {
-                self = .credentialKinds(providers.map(CredentialKindNode.init(provider:)).sorted(by: { $0.credentialKind.description < $1.credentialKind.description }))
+                let providersGroupedByCredentialsKind = providers
+                    .map(CredentialKindNode.init(provider:))
+                    .sorted()
+                self = .credentialKinds(providersGroupedByCredentialsKind)
             }
         }
 
@@ -138,7 +164,24 @@ public struct ProviderTree {
     }
 
     /// A parent node of the tree structure, with a list of either `AccessTypeNode`, `CredentialKindNode` children or a single `Provider`.
-    public enum FinancialInstitutionNode {
+    public enum FinancialInstitutionNode: Comparable {
+        public static func < (lhs: ProviderTree.FinancialInstitutionNode, rhs: ProviderTree.FinancialInstitutionNode) -> Bool {
+            return lhs.financialInstitution.name < rhs.financialInstitution.name
+        }
+
+        public static func == (lhs: ProviderTree.FinancialInstitutionNode, rhs: ProviderTree.FinancialInstitutionNode) -> Bool {
+            switch (lhs, rhs) {
+            case (.accessTypes(let l), .accessTypes(let r)):
+                return l == r
+            case (.credentialKinds(let l), .credentialKinds(let r)):
+                return l == r
+            case (.provider(let l), .provider(let r)):
+                return l.id == r.id
+            default:
+                return false
+            }
+        }
+
         /// A unique identifier of a `FinancialInstitutionNode`.
         public struct ID: Hashable, ExpressibleByStringLiteral {
             public init(stringLiteral value: String) {
@@ -163,10 +206,15 @@ public struct ProviderTree {
             } else {
                 let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: { $0.accessType })
                 if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
-                    self = .credentialKinds(providers.map(CredentialKindNode.init(provider:)))
+                    let providersGroupedByCredentialsKind = providers
+                        .map(CredentialKindNode.init(provider:))
+                        .sorted()
+                    self = .credentialKinds(providersGroupedByCredentialsKind)
                 } else {
-                    let providersGroupedByAccessType = providersGroupedByAccessTypes.values.map(AccessTypeNode.init(providers:))
-                    self = .accessTypes(providersGroupedByAccessType.sorted { $0.accessType < $1.accessType })
+                    let providersGroupedByAccessType = providersGroupedByAccessTypes.values
+                        .map(AccessTypeNode.init(providers:))
+                        .sorted()
+                    self = .accessTypes(providersGroupedByAccessType)
                 }
             }
         }
@@ -240,13 +288,20 @@ public struct ProviderTree {
                 if providersGroupedByFinancialInstitution.count == 1, let providers = providersGroupedByFinancialInstitution.values.first {
                     let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: { $0.accessType })
                     if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
-                        self = .credentialKinds(providers.map(CredentialKindNode.init(provider:)))
+                        let providersGroupedByCredentialsKind = providers
+                            .map(CredentialKindNode.init(provider:))
+                            .sorted()
+                        self = .credentialKinds(providersGroupedByCredentialsKind)
                     } else {
-                        let providersGroupedByAccessType = providersGroupedByAccessTypes.values.map(AccessTypeNode.init(providers:))
+                        let providersGroupedByAccessType = providersGroupedByAccessTypes.values
+                            .map(AccessTypeNode.init(providers:))
+                            .sorted()
                         self = .accessTypes(providersGroupedByAccessType)
                     }
                 } else {
-                    let providersGroupedByFinancialInstitution = providersGroupedByFinancialInstitution.values.map(FinancialInstitutionNode.init(providers:)).sorted { $0.financialInstitution.name < $1.financialInstitution.name }
+                    let providersGroupedByFinancialInstitution = providersGroupedByFinancialInstitution.values
+                        .map(FinancialInstitutionNode.init(providers:))
+                        .sorted()
                     self = .financialInstitutions(providersGroupedByFinancialInstitution)
                 }
             }
