@@ -71,7 +71,7 @@ extension AccessTypePickerViewController: AccessTypeCellDelegate {
 
         switch accessTypeNode {
         case .credentialKinds(let groups):
-            providerPickerCoordinator?.showCredentialKindPicker(for: groups, title: nil)
+            providerPickerCoordinator?.showCredentialKindPicker(for: groups)
         case .provider(let provider):
             providerPickerCoordinator?.didSelectProvider(provider)
         }

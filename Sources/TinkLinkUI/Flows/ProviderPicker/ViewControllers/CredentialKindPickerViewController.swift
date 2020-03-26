@@ -23,7 +23,6 @@ extension CredentialKindPickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = credentialKindNodes.first?.provider.displayName
         navigationItem.largeTitleDisplayMode = .never
 
         tableView.registerReusableCell(ofType: CredentialKindCell.self)
