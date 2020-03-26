@@ -19,15 +19,12 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf.git", .upToNextMajor(from: "1.7.0")),
-        .package(url: "https://github.com/grpc/grpc-swift.git", .exact("1.0.0-alpha.9")),
         .package(url: "https://github.com/iwasrobbed/Down", .upToNextMajor(from: "0.8.1")),
         .package(url: "https://github.com/onevcat/Kingfisher", .upToNextMajor(from: "5.13.0"))
     ],
     targets: [
         .target(
             name: "TinkLink",
-            dependencies: ["SwiftProtobuf", "GRPC"],
             exclude: ["TinkLinkUI"]
         ),
         .target(
