@@ -149,9 +149,9 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         ///
         /// - Parameter application: The object that controls and coordinates your app. Defaults to the shared instance.
     @available(*, deprecated, renamed: "handle")
-        public func openThirdPartyApp(with application: UIApplication = .shared) {
-            openThirdPartyApp(with: application, completion: self.completionHandler)
-        }
+    public func openThirdPartyApp(with application: UIApplication = .shared) {
+        openThirdPartyApp(with: application, completion: self.completionHandler)
+    }
     #endif
 
     private func openThirdPartyApp(with application: UIApplication = .shared, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
