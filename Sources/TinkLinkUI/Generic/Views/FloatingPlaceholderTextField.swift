@@ -4,6 +4,8 @@ class FloatingPlaceholderTextField: UITextField {
 
     private struct Constants {
         static let placeholderTextSize: CGFloat = 13.0
+        static let editableTextHeightPadding: CGFloat = 8.0
+        static let uneditableTextHeightPadding: CGFloat = 16.0
     }
 
     enum InputType {
@@ -38,7 +40,7 @@ class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    var heightPadding: CGFloat = 8.0 {
+    override var isEnabled: Bool {
         didSet {
             invalidateIntrinsicContentSize()
         }
@@ -109,10 +111,11 @@ class FloatingPlaceholderTextField: UITextField {
 
     override var intrinsicContentSize: CGSize {
         var size = super.intrinsicContentSize
-        size.height += heightPadding * 2
         size.height = size.height.rounded()
         if !isEnabled {
-            size.height += Constants.placeholderTextSize
+            size.height += Constants.placeholderTextSize + Constants.uneditableTextHeightPadding * 2
+        } else {
+            size.height += Constants.editableTextHeightPadding * 2
         }
         return size
     }

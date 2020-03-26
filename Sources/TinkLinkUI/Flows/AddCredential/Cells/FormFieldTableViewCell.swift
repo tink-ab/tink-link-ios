@@ -122,14 +122,11 @@ extension FloatingPlaceholderTextField {
             textFieldBackgroundColor = nil
             textAlignment = .natural
             lineWidth = 1.0
-            heightPadding = 8
         } else {
             isEnabled = false
-            inputType = .number
             textFieldBackgroundColor = Color.accentBackground
             textAlignment = .center
             lineWidth = 0.0
-            heightPadding = 16
         }
 
         text = field.text
