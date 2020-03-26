@@ -38,7 +38,7 @@ final class AddCredentialSession {
             form: form,
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
-                    self?.handleAddCredentialStatus(status, shouldAuthenticateInAnotherDevice: true) {
+                    self?.handleAddCredentialStatus(status) {
                         [weak self] error in
                         DispatchQueue.main.async {
                             self?.hideUpdatingView(animated: true) {
@@ -59,7 +59,7 @@ final class AddCredentialSession {
         self.showUpdating(status: NSLocalizedString("AddCredentials.Status.Authorizing", tableName: "TinkLinkUI", value: "Authorizing…", comment: "Text shown when adding credentials and waiting for authorization."))
     }
 
-    private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, shouldAuthenticateInAnotherDevice: Bool = false, onError: @escaping (Error) -> Void) {
+    private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
         switch status {
         case .created, .authenticating:
             break
