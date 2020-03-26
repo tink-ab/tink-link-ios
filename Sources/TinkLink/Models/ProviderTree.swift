@@ -51,7 +51,15 @@ public struct ProviderTree {
     }
 
     /// A parent node of the tree structure, with a `Provider` as it's leaf node.
-    public struct CredentialKindNode {
+    public struct CredentialKindNode: Comparable {
+        public static func < (lhs: ProviderTree.CredentialKindNode, rhs: ProviderTree.CredentialKindNode) -> Bool {
+            return lhs.credentialKind.description < rhs.credentialKind.description
+        }
+
+        public static func == (lhs: ProviderTree.CredentialKindNode, rhs: ProviderTree.CredentialKindNode) -> Bool {
+            return lhs.provider.id == rhs.provider.id
+        }
+
         /// A unique identifier of a `CredentialKindNode`.
         public struct ID: Hashable, ExpressibleByStringLiteral {
             public init(stringLiteral value: String) {
@@ -77,7 +85,22 @@ public struct ProviderTree {
     }
 
     /// A parent node of the tree structure, with a list of either `CredentialKindNode` children or a single `Provider`.
-    public enum AccessTypeNode {
+    public enum AccessTypeNode: Comparable {
+        public static func < (lhs: ProviderTree.AccessTypeNode, rhs: ProviderTree.AccessTypeNode) -> Bool {
+            return lhs.accessType < rhs.accessType
+        }
+
+        public static func == (lhs: ProviderTree.AccessTypeNode, rhs: ProviderTree.AccessTypeNode) -> Bool {
+            switch (lhs, rhs) {
+            case (.provider(let l), .provider(let r)):
+                return l.id == r.id
+            case (.credentialKinds(let l), .credentialKinds(let r)):
+                return l == r
+            default:
+                return false
+            }
+        }
+
         /// A unique identifier of a `AccessTypeNode`.
         public struct ID: Hashable, ExpressibleByStringLiteral {
             public init(stringLiteral value: String) {
@@ -141,7 +164,24 @@ public struct ProviderTree {
     }
 
     /// A parent node of the tree structure, with a list of either `AccessTypeNode`, `CredentialKindNode` children or a single `Provider`.
-    public enum FinancialInstitutionNode {
+    public enum FinancialInstitutionNode: Comparable {
+        public static func < (lhs: ProviderTree.FinancialInstitutionNode, rhs: ProviderTree.FinancialInstitutionNode) -> Bool {
+            return lhs.financialInstitution.name < rhs.financialInstitution.name
+        }
+
+        public static func == (lhs: ProviderTree.FinancialInstitutionNode, rhs: ProviderTree.FinancialInstitutionNode) -> Bool {
+            switch (lhs, rhs) {
+            case (.accessTypes(let l), .accessTypes(let r)):
+                return l == r
+            case (.credentialKinds(let l), .credentialKinds(let r)):
+                return l == r
+            case (.provider(let l), .provider(let r)):
+                return l.id == r.id
+            default:
+                return false
+            }
+        }
+
         /// A unique identifier of a `FinancialInstitutionNode`.
         public struct ID: Hashable, ExpressibleByStringLiteral {
             public init(stringLiteral value: String) {
