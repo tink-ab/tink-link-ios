@@ -1,5 +1,4 @@
 import Foundation
-import GRPC
 
 protocol UserService {
     func createAnonymous(market: Market?, locale: Locale, origin: String?, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable?

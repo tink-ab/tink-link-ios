@@ -1,5 +1,4 @@
 import Foundation
-import GRPC
 
 protocol CredentialsService {
     func credentials(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable?
