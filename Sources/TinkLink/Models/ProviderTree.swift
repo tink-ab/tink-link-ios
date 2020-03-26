@@ -99,7 +99,10 @@ public struct ProviderTree {
             if providers.count == 1, let provider = providers.first {
                 self = .provider(provider)
             } else {
-                self = .credentialKinds(providers.map(CredentialKindNode.init(provider:)).sorted(by: { $0.credentialKind.description < $1.credentialKind.description }))
+                let providersGroupedByCredentialsKind = providers
+                    .map(CredentialKindNode.init(provider:))
+                    .sorted(by: { $0.credentialKind.description < $1.credentialKind.description })
+                self = .credentialKinds(providersGroupedByCredentialsKind)
             }
         }
 
@@ -163,7 +166,10 @@ public struct ProviderTree {
             } else {
                 let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: { $0.accessType })
                 if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
-                    self = .credentialKinds(providers.map(CredentialKindNode.init(provider:)))
+                    let providersGroupedByCredentialsKind = providers
+                        .map(CredentialKindNode.init(provider:))
+                        .sorted(by: { $0.credentialKind.description < $1.credentialKind.description })
+                    self = .credentialKinds(providersGroupedByCredentialsKind)
                 } else {
                     let providersGroupedByAccessType = providersGroupedByAccessTypes.values
                         .map(AccessTypeNode.init(providers:))
@@ -242,7 +248,10 @@ public struct ProviderTree {
                 if providersGroupedByFinancialInstitution.count == 1, let providers = providersGroupedByFinancialInstitution.values.first {
                     let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: { $0.accessType })
                     if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
-                        self = .credentialKinds(providers.map(CredentialKindNode.init(provider:)))
+                        let providersGroupedByCredentialsKind = providers
+                            .map(CredentialKindNode.init(provider:))
+                            .sorted(by: { $0.credentialKind.description < $1.credentialKind.description })
+                        self = .credentialKinds(providersGroupedByCredentialsKind)
                     } else {
                         let providersGroupedByAccessType = providersGroupedByAccessTypes.values
                             .map(AccessTypeNode.init(providers:))
