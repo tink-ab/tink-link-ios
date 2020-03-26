@@ -249,7 +249,7 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return isVerified ? nil : AddCredentialUserNotVerifiedView()
+        return isVerified ? nil : AddCredentialClientNotVerifiedView()
     }
 }
 
