@@ -82,7 +82,7 @@ final class AddCredentialSession {
                 }
             case .awaitAuthenticationOnAnotherDevice:
                 DispatchQueue.main.async {
-                    self?.showUpdating(status: "Waiting for authentication on another device")
+                    self?.showUpdating(status: NSLocalizedString("AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice", tableName: "TinkLinkUI", value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device."))
                 }
             }
         }
