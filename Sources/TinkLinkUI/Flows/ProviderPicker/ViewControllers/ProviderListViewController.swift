@@ -34,7 +34,7 @@ extension ProviderListViewController {
         
         searchViewController.providerPickerCoordinator = providerPickerCoordinator
         searchController.obscuresBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = NSLocalizedString("ProviderPicker.Search.Placeholder", tableName: "TinkLinkUI", value: "Search for a bank or card", comment: "Placeholder in search field shown in provider list.")
+        searchController.searchBar.placeholder = NSLocalizedString("ProviderPicker.Search.Placeholder", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Search for a bank or card", comment: "Placeholder in search field shown in provider list.")
         searchController.searchResultsUpdater = searchViewController
  
         navigationItem.searchController = searchController
