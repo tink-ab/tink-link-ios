@@ -19,6 +19,7 @@ final class AddCredentialViewController: UIViewController {
     private let credentialController: CredentialController
     private let clientName: String
     private let isAggregator: Bool
+    private let isVerified: Bool
     private var form: Form
     private var errors: [IndexPath: Form.Field.ValidationError] = [:]
     private var didFirstFieldBecomeFirstResponder = false
@@ -37,12 +38,13 @@ final class AddCredentialViewController: UIViewController {
     private lazy var buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
 
-    init(provider: Provider, credentialController: CredentialController, clientName: String, isAggregator: Bool) {
+    init(provider: Provider, credentialController: CredentialController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
         self.form = Form(provider: provider)
         self.credentialController = credentialController
         self.clientName = clientName
         self.isAggregator = isAggregator
+        self.isVerified = isVerified
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -243,6 +245,10 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
         cell.delegate = self
         cell.setError(with: errors[indexPath]?.localizedDescription)
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return isVerified ? nil : AddCredentialClientNotVerifiedView()
     }
 }
 

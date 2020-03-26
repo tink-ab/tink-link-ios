@@ -15,6 +15,7 @@ struct DefaultAppearanceProvider: ColorProviding, FontProviding {
     let transfers: UIColor = UIColor(red: 0.282, green: 0.282, blue: 0.282, alpha: 1.0)
     let uncategorized: UIColor = UIColor(red: 0.996, green: 0.682, blue: 0.133, alpha: 1.0)
     let warning: UIColor = UIColor(red: 0.996, green: 0.682, blue: 0.133, alpha: 1.0)
+    let critical: UIColor = UIColor(red: 235.0 / 255.0, green: 84.0 / 255.0, blue: 75.0 / 255.0, alpha: 1.0)
 
     func font(for weight: Font.Weight) -> Font {
         return .systemDefault

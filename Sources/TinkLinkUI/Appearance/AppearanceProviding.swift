@@ -33,6 +33,8 @@ public struct AppearanceProvider: AppearanceProviding {
     public let uncategorized: UIColor
     /// Color representing a warning.
     public let warning: UIColor
+    /// Color representing critical cases.
+    public let critical: UIColor
 
     /// Light font.
     public let lightFont: Font
@@ -79,6 +81,7 @@ public struct AppearanceProvider: AppearanceProviding {
         transfers: UIColor,
         uncategorized: UIColor,
         warning: UIColor,
+        critical: UIColor,
         lightFont: Font = .systemDefault,
         regularFont: Font = .systemDefault,
         semiBoldFont: Font = .systemDefault,
@@ -97,6 +100,7 @@ public struct AppearanceProvider: AppearanceProviding {
         self.transfers = transfers
         self.uncategorized = uncategorized
         self.warning = warning
+        self.critical = critical
 
         self.lightFont = lightFont
         self.regularFont = regularFont
@@ -137,6 +141,7 @@ public struct AppearanceProvider: AppearanceProviding {
             self.label = .label
             self.secondaryLabel = .secondaryLabel
             self.separator = .separator
+            self.critical = .systemRed
         } else {
             self.background = .white
             self.secondaryBackground = UIColor(red: 0.94, green: 0.94, blue: 0.96, alpha: 1.0)
@@ -145,6 +150,7 @@ public struct AppearanceProvider: AppearanceProviding {
             self.label = .black
             self.secondaryLabel = .darkGray
             self.separator = UIColor(red: 0.78, green: 0.78, blue: 0.80, alpha: 1.0)
+            self.critical = .red
         }
         self.accent = accent
         self.expenses = expenses
