@@ -71,7 +71,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
-        let titleFormat = NSLocalizedString("ProviderPicker.List.AccessTypeTitle", tableName: "TinkLinkUI", value: "Add %@", comment: "Title for screen where user selects which access type to use when adding credentials.")
+        let titleFormat = NSLocalizedString("ProviderPicker.List.AccessTypeTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Add %@", comment: "Title for screen where user selects which access type to use when adding credentials.")
         let formattedTitle = String(format: titleFormat, name)
         setupNavigationItem(for: viewController, title: formattedTitle)
         viewController.providerPickerCoordinator = self
@@ -80,7 +80,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
         let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
-        let title = NSLocalizedString("ProviderPicker.List.CredentialsTypeTitle", tableName: "TinkLinkUI", value: "Sign in method", comment: "Title for screen where user selects which authentication type to use when adding credentials.")
+        let title = NSLocalizedString("ProviderPicker.List.CredentialsTypeTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Sign in method", comment: "Title for screen where user selects which authentication type to use when adding credentials.")
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
@@ -101,7 +101,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     @objc private func updateProviders() {
         delegate?.providerPickerCoordinatorUpdateProviders(self)
         DispatchQueue.main.async {
-            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: NSLocalizedString("ProviderPicker.List.FinancialInstitutionsTitle", tableName: "TinkLinkUI", value: "Choose bank", comment: "Title for list of all providers."))
+            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: NSLocalizedString("ProviderPicker.List.FinancialInstitutionsTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Choose bank", comment: "Title for list of all providers."))
         }
     }
 
