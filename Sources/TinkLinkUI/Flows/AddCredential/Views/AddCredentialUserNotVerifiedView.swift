@@ -30,7 +30,7 @@ class AddCredentialUserNotVerifiedView: UIView {
 
         unVerifiedLabel.textColor = Color.critical
         unVerifiedLabel.translatesAutoresizingMaskIntoConstraints = false
-        unVerifiedLabel.text = "Unverified - This solution is only made for development purposes. Do not enter you bank credentials unless you trust the developer."
+        unVerifiedLabel.text = NSLocalizedString("AddCredentials.Warning.UnVerifiedUser", tableName: "TinkLinkUI", value: "Unverified - This solution is only made for development purposes. Do not enter you bank credentials unless you trust the developer.", comment: "Text for the warning shown when the user is unverified.")
         unVerifiedLabel.numberOfLines = 0
         unVerifiedLabel.font = Font.regular(.deci)
 
