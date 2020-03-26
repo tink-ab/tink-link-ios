@@ -76,7 +76,7 @@ class FloatingPlaceholderTextField: UITextField {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        textFieldBackgroundColorLayer.frame = CGRect(x: 0, y: Constants.placeholderTextSize / 2, width: bounds.width, height: bounds.height - Constants.placeholderTextSize / 2)
+        textFieldBackgroundColorLayer.frame = CGRect(x: 0, y: Constants.placeholderTextSize / 2, width: bounds.width, height: bounds.height - Constants.placeholderTextSize)
         placeholderLayer.frame = placeholderRect(forBounds: bounds)
 
         underlineLayer.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: lineWidth)
@@ -111,6 +111,9 @@ class FloatingPlaceholderTextField: UITextField {
         var size = super.intrinsicContentSize
         size.height += heightPadding * 2
         size.height = size.height.rounded()
+        if !isEnabled {
+            size.height += Constants.placeholderTextSize
+        }
         return size
     }
 
@@ -180,7 +183,7 @@ private extension FloatingPlaceholderTextField {
 
         let placeholderFrame = placeholderRect(forBounds: bounds)
         placeholderLayer.position.x = placeholderUpTop ? 0 : placeholderLayer.frame.origin.x
-        placeholderLayer.position.y = placeholderUpTop ? -targetSize / 2 : placeholderFrame.origin.y
+        placeholderLayer.position.y = placeholderUpTop ? -targetSize : placeholderFrame.origin.y
     }
 
     func updateInputType() {
