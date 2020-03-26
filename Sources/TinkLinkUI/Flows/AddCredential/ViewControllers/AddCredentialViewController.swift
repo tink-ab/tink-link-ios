@@ -30,7 +30,7 @@ final class AddCredentialViewController: UIViewController {
     private lazy var addCredentialFooterView = AddCredentialFooterView()
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
-        button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", value: "Continue", comment: "Title for button to start authenticating credentials.")
+        button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Continue", comment: "Title for button to start authenticating credentials.")
         return button
     }()
 
@@ -102,7 +102,7 @@ extension AddCredentialViewController {
             addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
-        navigationItem.title = NSLocalizedString("AddCredentials.Form.Title", tableName: "TinkLinkUI", value: "Authenticate", comment: "Title for screen where user fills in form to add credentials.")
+        navigationItem.title = NSLocalizedString("AddCredentials.Form.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Authenticate", comment: "Title for screen where user fills in form to add credentials.")
         navigationItem.largeTitleDisplayMode = .never
         button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
 
@@ -124,9 +124,9 @@ extension AddCredentialViewController {
         
         switch provider.credentialsKind {
         case .mobileBankID:
-            button.text = NSLocalizedString("AddCredentials.Form.OpenBankID", tableName: "TinkLinkUI", value: "Open BankID", comment: "Title for button to open BankID app.")
+            button.text = NSLocalizedString("AddCredentials.Form.OpenBankID", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Open BankID", comment: "Title for button to open BankID app.")
         default:
-            button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", value: "Continue", comment: "Title for button to start authenticating credentials.")
+            button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Continue", comment: "Title for button to start authenticating credentials.")
         }
     }
     
