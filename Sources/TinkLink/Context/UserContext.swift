@@ -25,7 +25,7 @@ public final class UserContext {
     /// Creates a context to register for an access token that will be used in other Tink APIs.
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
-        self.init(userService: RESTUserService(client: tink.restClient))
+        self.init(userService: RESTUserService(client: tink.client))
     }
 
     init(userService: UserService & TokenConfigurableService) {

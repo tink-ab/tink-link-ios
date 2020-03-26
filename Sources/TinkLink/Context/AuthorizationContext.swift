@@ -32,7 +32,7 @@ public final class AuthorizationContext {
     /// - Parameter user: `User` that will be used for authorizing scope with the Tink API.
     public init(tink: Tink = .shared, user: User) {
         self.tink = tink
-        self.service = RESTAuthenticationService(client: tink.restClient, accessToken: user.accessToken)
+        self.service = RESTAuthenticationService(client: tink.client, accessToken: user.accessToken)
     }
 
     // MARK: - Authorizing a User

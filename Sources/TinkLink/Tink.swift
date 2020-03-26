@@ -24,12 +24,9 @@ public class Tink {
         return shared
     }
 
-    private(set) lazy var client = Client(configuration: configuration)
-
-    // Rest stuff 
     private var authorizationBehavior = AuthorizationHeaderClientBehavior(sessionCredential: nil)
 
-    private(set) lazy var restClient: RESTClient = {
+    private(set) lazy var client: RESTClient = {
         let certificateURL = self.configuration.restCertificateURL
         let certificate = certificateURL.flatMap { try? String(contentsOf: $0, encoding: .utf8) }
         return RESTClient(restURL: self.configuration.environment.restURL, certificates: certificate, behavior: ComposableClientBehavior(
