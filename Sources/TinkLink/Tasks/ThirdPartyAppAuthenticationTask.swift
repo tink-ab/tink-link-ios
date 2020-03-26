@@ -269,9 +269,3 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         return URL(string: updatedUrl)!
     }
 }
-
-public extension Result where Success == Void {
-    static var success: Self {
-        return .success(())
-    }
-}
