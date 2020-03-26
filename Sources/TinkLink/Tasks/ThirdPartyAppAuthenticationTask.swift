@@ -148,8 +148,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         /// Tries to open the third party app.
         ///
         /// - Parameter application: The object that controls and coordinates your app. Defaults to the shared instance.
-        /// - Parameter willAwaitAuthenticationOnAnotherDevice: A block will be called when allow to directly use the third part app for authentication on another device.
-    @available(*, deprecated, message: "Use the handle instead")
+    @available(*, deprecated, renamed: "handle")
         public func openThirdPartyApp(with application: UIApplication = .shared) {
             openThirdPartyApp(with: application, completion: self.completionHandler)
         }
@@ -161,12 +160,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             return
         }
 
-        let downloadRequiredError = Error.downloadRequired(
-            title: thirdPartyAppAuthentication.downloadTitle,
-            message: thirdPartyAppAuthentication.downloadMessage,
-            appStoreURL: thirdPartyAppAuthentication.appStoreURL
-        )
-
         let deepLinkURL = sanitizeDeeplink(url, redirectUri: appUri)
         DispatchQueue.main.async {
             application.open(deepLinkURL, options: [.universalLinksOnly: NSNumber(value: true)]) { didOpenUniversalLink in
@@ -177,6 +170,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                         if didOpen {
                             completion(.success)
                         } else {
+
+                            let downloadRequiredError = Error.downloadRequired(
+                                title: self.thirdPartyAppAuthentication.downloadTitle,
+                                message: self.thirdPartyAppAuthentication.downloadMessage,
+                                appStoreURL: self.thirdPartyAppAuthentication.appStoreURL
+                            )
+
                             completion(.failure(downloadRequiredError))
                         }
                     })
@@ -184,8 +184,19 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             }
         }
     }
-    public func handle(completion: @escaping (Status) -> Void) {
-        guard !shouldFailOnThirdPartyAppAuthenticationDownloadRequired else {
+
+    /// Will try to open the third party app. If it fails then the add credentials task will be aborted.
+    public func handle() {
+        openThirdPartyApp { [weak self] result in
+            self?.completionHandler(result)
+        }
+    }
+
+    /// Will try to open the third party app.
+    /// - Parameter statusHandler: A closure that handles statuses that require actions.
+    /// - Parameter status: The specific status that require an action.
+    public func handle(statusHandler: @escaping (_ status: Status) -> Void) {
+        if shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
             openThirdPartyApp { [weak self] result in
                 self?.completionHandler(result)
             }
@@ -202,14 +213,14 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     self.qr { result in
                         do {
                             let qrImage = try result.get()
-                            completion(.qrImage(qrImage))
+                            statusHandler(.qrImage(qrImage))
                             self.completionHandler(.success)
                         } catch {
                             self.completionHandler(.failure(error))
                         }
                     }
                 } else if self.credentials.kind == .mobileBankID {
-                    completion(.awaitAuthenticationOnAnotherDevice)
+                    statusHandler(.awaitAuthenticationOnAnotherDevice)
                     self.completionHandler(.success)
                 } else {
                     self.completionHandler(.failure(error))
@@ -219,7 +230,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     }
 
     #if os(iOS)
-    func qr(completion: @escaping (Result<UIImage, Swift.Error>) -> Void) {
+    private func qr(completion: @escaping (Result<UIImage, Swift.Error>) -> Void) {
         if hasBankIDQRCode {
             callRetryCancellable = credentialsService.qr(credentialsID: credentials.id) { [weak self] result in
                 do {
