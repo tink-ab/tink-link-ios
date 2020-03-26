@@ -84,6 +84,10 @@ Then the SDK will use that string instead of the default ones when running on a 
 
 | Key | Default | Description |
 | -------- | -------- | -------- |
+| `ProviderPicker.AccessType.OpenBankingDetail` | Including everyday accounts, such as your salary account. | Text describing the group of providers that use Open Banking. |
+| `ProviderPicker.AccessType.OpenBankingTitle` | Checking accounts | Title for the group of providers that use Open Banking. |
+| `ProviderPicker.AccessType.OtherDetail` | Including saving accounts, credit cards, loans, investments and your personal information. | Text describing the group of providers that does not use Open Banking. |
+| `ProviderPicker.AccessType.OtherTitle` | Other account types | Title for the group of providers that does not use Open Banking. |
 | `ProviderPicker.Error.Description` | We are informed of this error and are working hard to resolve it. Bear with us, and try again a bit later. | Description for error when providers could not be loaded. |
 | `ProviderPicker.Error.RetryButton` | Try again | Title for button to try loading providers again. |
 | `ProviderPicker.Error.Temporary` | This could be a temporary error, please try again and see if the problem persists. | Description for error when providers could not be loaded and it is likely it's a temporary error. |

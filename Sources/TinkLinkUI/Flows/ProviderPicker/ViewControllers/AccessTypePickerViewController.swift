@@ -9,7 +9,7 @@ final class AccessTypePickerViewController: UITableViewController {
     let accessTypeNodes: [ProviderTree.AccessTypeNode]
 
     init(accessTypeNodes: [ProviderTree.AccessTypeNode]) {
-        self.accessTypeNodes = accessTypeNodes
+        self.accessTypeNodes = accessTypeNodes.sorted(by: { $0.accessType < $1.accessType })
         super.init(style: .plain)
     }
 
@@ -47,9 +47,14 @@ extension AccessTypePickerViewController {
         if let url = node.imageURL {
             cell.setImage(url: url)
         }
-        cell.setTitle(text: node.accessType.description)
-        // FIXME: This detail text should be dynamic based on provider capabilities. PFMF-2643
-        cell.setDetail(text: "Including everyday accounts, such as your salary account")
+        switch node.accessType {
+        case .openBanking:
+            cell.setTitle(text: NSLocalizedString("ProviderPicker.AccessType.OpenBankingTitle", tableName: "TinkLinkUI", value: "Checking accounts", comment: "Title for the group of providers that use Open Banking."))
+            cell.setDetail(text: NSLocalizedString("ProviderPicker.AccessType.OpenBankingDetail", tableName: "TinkLinkUI", value: "Including everyday accounts, such as your salary account.", comment: "Text describing the group of providers that use Open Banking."))
+        case .other, .unknown:
+            cell.setTitle(text: NSLocalizedString("ProviderPicker.AccessType.OtherTitle", tableName: "TinkLinkUI", value: "Other account types", comment: "Title for the group of providers that does not use Open Banking."))
+            cell.setDetail(text: NSLocalizedString("ProviderPicker.AccessType.OtherDetail", tableName: "TinkLinkUI", value: "Including saving accounts, credit cards, loans, investments and your personal information.", comment: "Text describing the group of providers that does not use Open Banking."))
+        }
         cell.delegate = self
         return cell
     }
