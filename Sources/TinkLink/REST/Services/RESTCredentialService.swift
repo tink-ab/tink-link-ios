@@ -10,10 +10,6 @@ final class RESTCredentialsService: CredentialsService {
         self.accessToken = accessToken
     }
 
-    func credentials(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
-        return credentialsList(completion: completion)
-    }
-
     func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
 
         var request = RESTResourceRequest<RESTCredentialsList>(path: "/api/v1/credentials/list", method: .get, contentType: .json) { result in
