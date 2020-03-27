@@ -36,7 +36,7 @@ class CredentialStatusPollingTask {
 
     func pollStatus() {
         DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) {
-            self.callRetryCancellable = self.service.credentials { [weak self] result in
+            self.callRetryCancellable = self.service.credentialsList { [weak self] result in
                 guard let self = self else { return }
                 do {
                     let credentialsList = try result.get()

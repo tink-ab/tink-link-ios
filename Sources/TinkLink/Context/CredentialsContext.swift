@@ -125,9 +125,18 @@ public final class CredentialsContext {
     /// Gets the user's credentials.
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
+    @available(*, deprecated, renamed: "fetchCredentialsList")
     @discardableResult
     public func fetchCredentials(completion: @escaping (_ result: Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
-        return service.credentials { result in
+        return fetchCredentialsList(completion: completion)
+    }
+
+    /// Gets the user's credentials.
+    /// - Parameter completion: The block to execute when the call is completed.
+    /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
+    @discardableResult
+    public func fetchCredentialsList(completion: @escaping (_ result: Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
+        return service.credentialsList { result in
             do {
                 let credentials = try result.get()
                 let storedCredentials = credentials.sorted(by: { $0.id.value < $1.id.value })

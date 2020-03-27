@@ -2,6 +2,8 @@ import Foundation
 
 final class RESTCredentialsService: CredentialsService {
 
+
+
     private let client: RESTClient
     private let accessToken: AccessToken
 
@@ -11,9 +13,23 @@ final class RESTCredentialsService: CredentialsService {
     }
 
     func credentials(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
+        return credentialsList(completion: completion)
+    }
+
+    func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
 
         var request = RESTResourceRequest<RESTCredentialsList>(path: "/api/v1/credentials/list", method: .get, contentType: .json) { result in
             let result = result.map { $0.credentials.map(Credentials.init) }
+            completion(result)
+        }
+        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
+
+        return client.performRequest(request)
+    }
+
+    func credentials(id: Credentials.ID, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        var request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials/\(id.value)", method: .get, contentType: .json) { result in
+            let result = result.map(Credentials.init)
             completion(result)
         }
         request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
