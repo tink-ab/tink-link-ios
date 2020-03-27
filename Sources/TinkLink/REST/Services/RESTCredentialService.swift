@@ -2,8 +2,6 @@ import Foundation
 
 final class RESTCredentialsService: CredentialsService {
 
-
-
     private let client: RESTClient
     private let accessToken: AccessToken
 
