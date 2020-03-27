@@ -41,9 +41,7 @@ The shared instance of Tink can also be configured using environment variables d
 | --------------------------- | ---------- |
 | `TINK_CLIENT_ID`            | String     |
 | `TINK_REDIRECT_URI`         | String     |
-| `TINK_CUSTOM_GRPC_ENDPOINT` | _Optional_ |
 | `TINK_CUSTOM_REST_ENDPOINT` | _Optional_ |
-| `TINK_GRPC_CERTIFICATE_URL` | _Optional_ |
 | `TINK_REST_CERTIFICATE_URL` | _Optional_ |
 
 ## Redirect Handling
