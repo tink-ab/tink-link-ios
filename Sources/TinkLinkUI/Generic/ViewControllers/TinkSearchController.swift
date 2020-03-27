@@ -37,11 +37,15 @@ final private class TinkSearchBar: UISearchBar {
     }
 
     private func setup() {
-        let attributes = [
-            NSAttributedString.Key.foregroundColor : Color.accent,
-            NSAttributedString.Key.font : Font.regular(.deci)
-        ]
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [TinkSearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+        if #available(iOS 13.0, *) {
+            let attributes = [
+                NSAttributedString.Key.foregroundColor : Color.accent,
+                NSAttributedString.Key.font : Font.regular(.deci)
+            ]
+            UIBarButtonItem.appearance(whenContainedInInstancesOf: [TinkSearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+        } else {
+            tintColor = Color.accent
+        }
 
         if let imageView = textField?.leftView as? UIImageView {
             imageView.tintColor = Color.secondaryLabel
