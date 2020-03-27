@@ -1,5 +1,4 @@
 import Foundation
-import GRPC
 
 extension Provider {
     init(restProvider: RESTProvider) {

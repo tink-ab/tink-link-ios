@@ -1,5 +1,4 @@
 import Foundation
-import GRPC
 
 class CredentialsListStatusPollingTask {
     private var service: CredentialsService
