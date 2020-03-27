@@ -36,35 +36,31 @@ class CredentialStatusPollingTask {
 
     func pollStatus() {
         DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) {
-            self.callRetryCancellable = self.service.credentialsList { [weak self] result in
+            self.callRetryCancellable = self.service.credentials(id: self.credentials.id) { [weak self] result in
                 guard let self = self else { return }
                 do {
-                    let credentialsList = try result.get()
-                    if let updatedCredentials = credentialsList.first(where: { $0.id == self.credentials.id }) {
-                        switch updatedCredentials.status {
-                        case .awaitingSupplementalInformation, .awaitingMobileBankIDAuthentication, .awaitingThirdPartyAppAuthentication:
-                            if self.credentials.statusUpdated != updatedCredentials.statusUpdated {
-                                self.callRetryCancellable = nil
-                                self.updateHandler(.success(updatedCredentials))
-                            } else {
-                                self.retry()
-                            }
-                        case .created, .authenticating, .updating:
-                            self.updateHandler(.success(updatedCredentials))
-                            self.retry()
-                        case self.credentials.status where self.credentials.kind == .thirdPartyAuthentication || self.credentials.kind == .mobileBankID:
-                            if self.credentials.statusUpdated != updatedCredentials.statusUpdated {
-                                self.updateHandler(.success(updatedCredentials))
-                                self.callRetryCancellable = nil
-                            } else {
-                                self.retry()
-                            }
-                        default:
-                            self.updateHandler(.success(updatedCredentials))
+                    let credentials = try result.get()
+                    switch credentials.status {
+                    case .awaitingSupplementalInformation, .awaitingMobileBankIDAuthentication, .awaitingThirdPartyAppAuthentication:
+                        if self.credentials.statusUpdated != credentials.statusUpdated {
                             self.callRetryCancellable = nil
+                            self.updateHandler(.success(credentials))
+                        } else {
+                            self.retry()
                         }
-                    } else {
-                        fatalError("No such credentials with " + self.credentials.id.value)
+                    case .created, .authenticating, .updating:
+                        self.updateHandler(.success(credentials))
+                        self.retry()
+                    case self.credentials.status where self.credentials.kind == .thirdPartyAuthentication || self.credentials.kind == .mobileBankID:
+                        if self.credentials.statusUpdated != credentials.statusUpdated {
+                            self.updateHandler(.success(credentials))
+                            self.callRetryCancellable = nil
+                        } else {
+                            self.retry()
+                        }
+                    default:
+                        self.updateHandler(.success(credentials))
+                        self.callRetryCancellable = nil
                     }
                 } catch {
                     self.updateHandler(.failure(error))
