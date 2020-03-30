@@ -1,36 +1,53 @@
 import Foundation
 
-class URLSessionRequestRetryCancellable<T: Decodable, E: Decodable & Error>: RetryCancellable {
-    private var session: URLSession
-    private let request: URLRequest
-    private var task: URLSessionTask?
-    private var currentTask: URLSessionTask?
-    private var completion: (Result<T, Error>) -> Void
+class URLSessionRetryCancellableTask: RetryCancellable {
+    private let session: URLSession
+    private let urlRequest: URLRequest
+    private let behavior: ClientBehavior
+    private let request: RESTRequest
 
-    init(session: URLSession, request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) {
+    private var task: URLSessionTask?
+
+    init(session: URLSession, url: URL, behavior: ClientBehavior, request: RESTRequest) {
         self.session = session
         self.request = request
-        self.completion = completion
+        self.behavior = behavior
+
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = request.method.rawValue
+
+        for (field, value) in behavior.headers {
+            urlRequest.setValue(value, forHTTPHeaderField: field)
+        }
+
+        if let contentType = request.contentType {
+            urlRequest.setValue(contentType.rawValue, forHTTPHeaderField: "Content-Type")
+        }
+
+        urlRequest.httpBody = request.body
+
+        for header in request.headers {
+            urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
+        }
+        self.urlRequest = urlRequest
     }
 
     func start() {
-        let task = session.dataTask(with: request) { [completion] data, _, error in
-            if let data = data {
-                do {
-                    if let rawData = data as? T {
-                        completion(.success(rawData))
-                        return
-                    }
-                    let decodedResponse = try JSONDecoder().decode(T.self, from: data)
-                    completion(.success(decodedResponse))
-                } catch {
-                    let decodedError = try? JSONDecoder().decode(E.self, from: data)
-                    completion(.failure(decodedError ?? error))
+        let task = session.dataTask(with: urlRequest) { (data, response, error) in
+            if let error = error {
+                self.request.onResponse(.failure(error))
+                self.behavior.afterError(error: error)
+            } else if let data = data, let response = response as? HTTPURLResponse {
+                if let error = HTTPStatusCodeError(statusCode: response.statusCode) {
+                    self.request.onResponse(.failure(error))
+                    self.behavior.afterError(error: error)
+                } else {
+                    self.request.onResponse(.success((data, response)))
+                    self.behavior.afterSuccess(response: data, urlResponse: response)
                 }
-            } else if let error = error {
-                completion(.failure(error))
             } else {
-                completion(.failure(URLError(.unknown)))
+                self.request.onResponse(.failure(URLError(.unknown)))
+                self.behavior.afterError(error: URLError(.unknown))
             }
         }
 
