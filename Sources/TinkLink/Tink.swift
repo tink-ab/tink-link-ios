@@ -104,8 +104,10 @@ public class Tink {
             urlComponents.string?.starts(with: configuration.redirectURI.absoluteString) ?? false
         else { return false }
 
-        let parameters = Dictionary(grouping: urlComponents.queryItems ?? [], by: { $0.name })
+        var parameters = Dictionary(grouping: urlComponents.queryItems ?? [], by: { $0.name })
             .compactMapValues { $0.first?.value }
+
+        parameters.merge(urlComponents.fragmentParameters, uniquingKeysWith: { (current, _) in current })
 
         NotificationCenter.default.post(name: .credentialThirdPartyCallback, object: nil, userInfo: parameters)
 

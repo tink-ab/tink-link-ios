@@ -8,14 +8,6 @@ protocol AddCredentialFooterViewDelegate: AnyObject {
 final class AddCredentialFooterView: UIView {
     weak var delegate: AddCredentialFooterViewDelegate?
 
-    lazy var bankIdAnotherDeviceButton: UIButton = {
-        // TODO: handle using another deivce for BankID?
-        let bankIdAnotherDeviceButton = UIButton()
-        bankIdAnotherDeviceButton.setTitle("Open Mobile BankID on another device", for: .normal)
-        bankIdAnotherDeviceButton.titleLabel?.font = Font.bold(.hecto)
-        bankIdAnotherDeviceButton.setTitleColor(Color.accent, for: .normal)
-        return bankIdAnotherDeviceButton
-    }()
     private lazy var descriptionTextView: UITextView = {
         let descriptionTextView = UnselectableTextView()
         descriptionTextView.delegate = self
@@ -28,17 +20,17 @@ final class AddCredentialFooterView: UIView {
             .font: Font.regular(.micro),
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
-        let text = "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy"
+        let text = NSLocalizedString("AddCredentials.Consent.ServiceAgreement", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.")
         let attributeText = NSMutableAttributedString(
             string: text,
             attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.regular(.micro)])
         let languageCode = Locale.current.languageCode ?? ""
         let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
-        let privacyPolicyText = "Privacy Policy"
+        let privacyPolicyText = NSLocalizedString("AddCredentials.Consent.PrivacyPolicy", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Privacy Policy", comment: "Title of the Privacy Policy link. This has to match the mention of the Privacy Policy in the `AddCredentials.Consent.ServiceAgreement` string.")
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
         self.privacyPolicyRange = privacyPolicyRange
         attributeText.addAttributes([.link: privacyPolicyUrl,], range: privacyPolicyRange)
-        let termsAndConditionsText = "Terms and Conditions"
+        let termsAndConditionsText = NSLocalizedString("AddCredentials.Consent.TermsAndConditions", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Terms and Conditions", comment: "Title of the Privacy Policy link. This has to match the mention of the Terms and Conditions in the `AddCredentials.Consent.ServiceAgreement` string.")
         let termsAndConditionsUrl = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
         self.termsAndConditionsRange = termsAndConditionsRange
@@ -79,7 +71,6 @@ final class AddCredentialFooterView: UIView {
         addSubview(stackView)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        bankIdAnotherDeviceButton.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
@@ -89,18 +80,7 @@ final class AddCredentialFooterView: UIView {
         ])
     }
 
-    func configure(with provider: Provider, isAggregator: Bool) {
-        switch provider.credentialsKind {
-        case .mobileBankID:
-            // TODO: Maybe use Form(provider: provider).fields.isEmpty for decide if we should show the bankIdAnotherDeviceButton?
-            if ProcessInfo.processInfo.tinkEnableBankIDOnAnotherDevice, bankIdAnotherDeviceButton.superview == nil {
-                stackView.insertArrangedSubview(bankIdAnotherDeviceButton, at: 0)
-            }
-        default:
-            if bankIdAnotherDeviceButton.superview != nil {
-                bankIdAnotherDeviceButton.removeFromSuperview()
-            }
-        }
+    func configure(isAggregator: Bool) {
         descriptionTextView.isHidden = isAggregator
     }
 }

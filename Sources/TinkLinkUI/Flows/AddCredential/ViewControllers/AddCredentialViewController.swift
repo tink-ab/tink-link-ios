@@ -5,7 +5,7 @@ import UIKit
 protocol AddCredentialViewControllerDelegate: AnyObject {
     func showScopeDescriptions()
     func showWebContent(with url: URL)
-    func addCredential(provider: Provider, form: Form, allowAnotherDevice: Bool)
+    func addCredential(provider: Provider, form: Form)
 }
 
 final class AddCredentialViewController: UIViewController {
@@ -19,6 +19,7 @@ final class AddCredentialViewController: UIViewController {
     private let credentialController: CredentialController
     private let clientName: String
     private let isAggregator: Bool
+    private let isVerified: Bool
     private var form: Form
     private var errors: [IndexPath: Form.Field.ValidationError] = [:]
     private var didFirstFieldBecomeFirstResponder = false
@@ -30,19 +31,20 @@ final class AddCredentialViewController: UIViewController {
     private lazy var addCredentialFooterView = AddCredentialFooterView()
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
-        button.text = "Continue"
+        button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Continue", comment: "Title for button to start authenticating credentials.")
         return button
     }()
 
     private lazy var buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
 
-    init(provider: Provider, credentialController: CredentialController, clientName: String, isAggregator: Bool) {
+    init(provider: Provider, credentialController: CredentialController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
         self.form = Form(provider: provider)
         self.credentialController = credentialController
         self.clientName = clientName
         self.isAggregator = isAggregator
+        self.isVerified = isVerified
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -83,11 +85,10 @@ extension AddCredentialViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         addCredentialFooterView.delegate = self
-        addCredentialFooterView.configure(with: provider, isAggregator: isAggregator)
+        addCredentialFooterView.configure(isAggregator: isAggregator)
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
-        addCredentialFooterView.bankIdAnotherDeviceButton.addTarget(self, action: #selector(addBankIDCredentialOnAnotherDevice), for: .touchUpInside)
-        
+
         view.addSubview(tableView)
         view.addSubview(addCredentialFooterView)
 
@@ -102,7 +103,7 @@ extension AddCredentialViewController {
             addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
-        navigationItem.title = "Authenticate"
+        navigationItem.title = NSLocalizedString("AddCredentials.Form.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Authenticate", comment: "Title for screen where user fills in form to add credentials.")
         navigationItem.largeTitleDisplayMode = .never
         button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
 
@@ -124,9 +125,9 @@ extension AddCredentialViewController {
         
         switch provider.credentialsKind {
         case .mobileBankID:
-            button.text = "Open BankID"
+            button.text = NSLocalizedString("AddCredentials.Form.OpenBankID", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Open BankID", comment: "Title for button to open BankID app.")
         default:
-            button.text = "Continue"
+            button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Continue", comment: "Title for button to start authenticating credentials.")
         }
     }
     
@@ -245,6 +246,10 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
         cell.setError(with: errors[indexPath]?.localizedDescription)
         return cell
     }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return isVerified ? nil : AddCredentialClientNotVerifiedView()
+    }
 }
 
 // MARK: - Actions
@@ -252,10 +257,6 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
 extension AddCredentialViewController {
     @objc private func startAddCredentialFlow() {
         addCredential(allowAnotherDevice: false)
-    }
-
-    @objc private func addBankIDCredentialOnAnotherDevice() {
-        addCredential(allowAnotherDevice: true)
     }
 
     private func addCredential(allowAnotherDevice: Bool) {
@@ -266,7 +267,7 @@ extension AddCredentialViewController {
 
         do {
             try form.validateFields()
-            delegate?.addCredential(provider: provider, form: form, allowAnotherDevice: allowAnotherDevice)
+            delegate?.addCredential(provider: provider, form: form)
         } catch let error as Form.ValidationError {
             for (index, field) in form.fields.enumerated() {
                 guard let error = error[fieldName: field.name] else {

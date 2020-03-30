@@ -8,7 +8,8 @@ public struct ClientDescription {
     let url: URL?
     let isEmbeddedAllowed: Bool
     let scopes: [ScopeDescription]
-    let isVerified: Bool
+    /// Whether the client is verified.
+    public let isVerified: Bool
     /// Whether the client is the aggregator.
     public let isAggregator: Bool
 }

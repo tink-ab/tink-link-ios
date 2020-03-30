@@ -3,9 +3,9 @@ import TinkLink
 
 protocol ProviderPickerCoordinating: AnyObject {
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?)
-    func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?)
-    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?)
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?)
+    func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], name: String)
+    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String)
+    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode])
     func didSelectProvider(_ provider: Provider)
 }
 
@@ -62,22 +62,25 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         }
     }
 
-    func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
+    func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], name: String) {
         let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes)
-        setupNavigationItem(for: viewController, title: title)
+        setupNavigationItem(for: viewController, title: name)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
     }
 
-    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
+    func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
-        setupNavigationItem(for: viewController, title: title)
+        let titleFormat = NSLocalizedString("ProviderPicker.List.AccessTypeTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Add %@", comment: "Title for screen where user selects which access type to use when adding credentials.")
+        let formattedTitle = String(format: titleFormat, name)
+        setupNavigationItem(for: viewController, title: formattedTitle)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
     }
 
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
+    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
         let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
+        let title = NSLocalizedString("ProviderPicker.List.CredentialsTypeTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Sign in method", comment: "Title for screen where user selects which authentication type to use when adding credentials.")
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
@@ -98,7 +101,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     @objc private func updateProviders() {
         delegate?.providerPickerCoordinatorUpdateProviders(self)
         DispatchQueue.main.async {
-            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: "Choose Bank")
+            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: NSLocalizedString("ProviderPicker.List.FinancialInstitutionsTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Choose bank", comment: "Title for list of all providers."))
         }
     }
 

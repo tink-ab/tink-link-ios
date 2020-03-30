@@ -52,7 +52,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
 
         footerLabel.font = Font.regular(.nano)
 
-        contentView.layoutMargins = .init(top: 16, left: 20, bottom: 4, right: 20)
+        contentView.layoutMargins = .init(top: 20, left: 20, bottom: 0, right: 20)
         contentView.backgroundColor = Color.background
         contentView.addSubview(textField)
         contentView.addSubview(footerLabel)
@@ -116,22 +116,8 @@ extension FloatingPlaceholderTextField {
         case .numeric:
             inputType = .number
         }
-
-        if field.attributes.isEditable {
-            isEnabled = true
-            backgroundColor = nil
-            textAlignment = .natural
-            lineWidth = 1.0
-            heightPadding = 8
-        } else {
-            isEnabled = false
-            inputType = .number
-            backgroundColor = Color.accentBackground
-            textAlignment = .center
-            lineWidth = 0.0
-            heightPadding = 16
-        }
-
+        
+        isEnabled = field.attributes.isEditable
         text = field.text
         placeholder = field.attributes.description
         isSecureTextEntry = field.attributes.isSecureTextEntry

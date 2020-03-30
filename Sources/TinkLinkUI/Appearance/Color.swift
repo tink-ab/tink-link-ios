@@ -21,6 +21,7 @@ extension Color {
     static var transfers: UIColor { Appearance.colorProvider.transfers }
     static var uncategorized: UIColor { Appearance.colorProvider.uncategorized }
     static var warning: UIColor { Appearance.colorProvider.warning }
+    static var critical : UIColor { Appearance.colorProvider.critical }
 }
 
 // Derived colors

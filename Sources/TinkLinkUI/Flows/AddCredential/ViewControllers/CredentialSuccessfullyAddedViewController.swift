@@ -22,8 +22,8 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
     }
     
     //TODO: Use real strings
-    private let titleText = "Connection successful"
-    private let subtitleText = "Your account has successfully connected to %@. You'll be redirected back in a few seconds..."
+    private let titleText = NSLocalizedString("AddCredentials.Success.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connection successful", comment: "Title for screen shown when credentials were added successfully.")
+    private let subtitleText = NSLocalizedString("AddCredentials.Success.Subtitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Your account has successfully connected to %@. You'll be redirected back in a few seconds...", comment: "Subtitle for screen shown when credentials were added successfully.")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         detailLabel.numberOfLines = 0
         detailLabel.font = Font.regular(.deci)
         
-        doneButton.text = "Done"
+        doneButton.text = NSLocalizedString("AddCredentials.Success.Confirm", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Done", comment: "Title for button to dismiss the screen shown when credentials were added successfully.")
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
         
         iconView.translatesAutoresizingMaskIntoConstraints = false

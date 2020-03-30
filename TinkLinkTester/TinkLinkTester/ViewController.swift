@@ -8,15 +8,34 @@ class ViewController: UIViewController {
 
         view.backgroundColor = .white
 
+        let label = UILabel()
+        label.text = "Aggregation\n SDK sample app"
+        label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+
         let button = UIButton(type: .system)
         button.addTarget(self, action: #selector(showTinkLink), for: .touchUpInside)
-        button.setTitle("Start TinkLink", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        button.setTitle("Start aggregation flow", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.contentEdgeInsets = .init(top: 0, left: 24, bottom: 0, right: 24)
+        button.backgroundColor = UIColor(red: 66.0 / 255.0, green: 119.0 / 255.0, blue: 131.0 / 255.0, alpha: 1.0)
+        button.layer.cornerRadius = 24
+
+        view.addSubview(label)
         view.addSubview(button)
 
         button.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
+            button.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+            button.heightAnchor.constraint(equalToConstant: 48),
+            button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -48)
         ])
         
     }
