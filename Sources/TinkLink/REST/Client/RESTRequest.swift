@@ -35,7 +35,7 @@ struct RESTSimpleRequest: RESTRequest {
             let response = try result.get()
             completion(.success(response.urlResponse))
         } catch {
-            completion(.failure(error))
+            completion(.failure(ServiceError(error) ?? error))
         }
     }
 }
@@ -68,7 +68,7 @@ struct RESTResourceRequest<T: Decodable>: RESTRequest {
             let model = try decoder.decode(T.self, from: response.data)
             completion(.success(model))
         } catch {
-            completion(.failure(error))
+            completion(.failure(ServiceError(error) ?? error))
         }
     }
 }
