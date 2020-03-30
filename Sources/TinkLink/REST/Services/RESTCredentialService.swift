@@ -51,7 +51,7 @@ final class RESTCredentialsService: CredentialsService {
         var request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials/\(credentialsID.value)", method: .put, body: data, contentType: .json) { result in
             completion(result.map(Credentials.init))
         }
-        request.headers = ["Authentication" : "Bearer \(accessToken.rawValue)"]
+        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
 
         return client.performRequest(request)
     }
@@ -89,7 +89,7 @@ final class RESTCredentialsService: CredentialsService {
         var request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/enable", method: .post, contentType: .json) { result in
             completion(result.map { _ in })
         }
-        request.headers = ["Authentication" : "Bearer \(accessToken.rawValue)"]
+        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
         return client.performRequest(request)
     }
     func disableCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
@@ -97,7 +97,7 @@ final class RESTCredentialsService: CredentialsService {
         var request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/disable", method: .post, contentType: .json) { result in
             completion(result.map { _ in })
         }
-        request.headers = ["Authentication" : "Bearer \(accessToken.rawValue)"]
+        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
         return client.performRequest(request)
 
     }
@@ -108,7 +108,7 @@ final class RESTCredentialsService: CredentialsService {
         var request = RESTSimpleRequest(path: "/api/v1/credentials/third-party/callback/relayed", method: .post, body: data, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
-        request.headers = ["Authentication" : "Bearer \(accessToken.rawValue)"]
+        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
         return client.performRequest(request)
     }
 
@@ -117,13 +117,13 @@ final class RESTCredentialsService: CredentialsService {
         var request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/authenticate", method: .post, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
-        request.headers = ["Authentication" : "Bearer \(accessToken.rawValue)"]
+        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
         return client.performRequest(request)
     }
 
     func qr(credentialsID: Credentials.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable? {
         var request = RESTResourceRequest<Data>(path: "/api/v1/credentials/\(credentialsID.value)/qr", method: .get, contentType: .json, completion: completion)
-        request.headers = ["Authentication" : "Bearer \(accessToken.rawValue)"]
+        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
         return client.performRequest(request)
     }
 }
