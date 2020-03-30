@@ -7,7 +7,6 @@ protocol AddCredentialStatusViewControllerDelegate: AnyObject {
 final class AddCredentialStatusViewController: UIViewController {
     private lazy var activityIndicator = ActivityIndicatorView()
     private lazy var statusLabelView = UILabel()
-    private lazy var longProcessStatusLabel = UILabel()
     private lazy var cancelButton = UIButton(type: .system)
 
     weak var delegate: AddCredentialStatusViewControllerDelegate?
@@ -27,7 +26,7 @@ final class AddCredentialStatusViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let contentStackView = UIStackView(arrangedSubviews: [activityIndicator, statusLabelView, longProcessStatusLabel])
+        let contentStackView = UIStackView(arrangedSubviews: [activityIndicator, statusLabelView])
         contentStackView.axis = .vertical
         contentStackView.isLayoutMarginsRelativeArrangement = true
         contentStackView.layoutMargins = UIEdgeInsets(top: 32, left: 24, bottom: 24, right: 24)
@@ -54,7 +53,6 @@ final class AddCredentialStatusViewController: UIViewController {
         activityIndicator.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         cancelButton.setTitle(NSLocalizedString("AddCredentials.Status.Cancel", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Cancel", comment: "Title for button to cancel an ongoing task for adding credentials."), for: .normal)
-        cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.titleLabel?.font = Font.semibold(.hecto)
         cancelButton.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
         cancelButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -68,17 +66,9 @@ final class AddCredentialStatusViewController: UIViewController {
             cancelButton.heightAnchor.constraint(equalToConstant: 44),
             cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 300) {
-            self.showTimeOut()
-        }
     }
 
     @objc private func close(_ sender: Any) {
         delegate?.addCredentialStatusViewControllerDidCancel(self)
-    }
-
-    @objc private func showTimeOut() {
-        longProcessStatusLabel.text = "Process is taking longer than expected."
     }
 }
