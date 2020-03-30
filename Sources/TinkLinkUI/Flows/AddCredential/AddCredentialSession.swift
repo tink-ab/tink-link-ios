@@ -20,6 +20,8 @@ final class AddCredentialSession {
     private var didCallAuthorize = false
     private var authorizationGroup = DispatchGroup()
 
+    private var timer: Timer?
+
     init(credentialController: CredentialController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
         self.parentViewController = parentViewController
         self.credentialController = credentialController
@@ -29,6 +31,17 @@ final class AddCredentialSession {
 
     deinit {
         task?.cancel()
+        timer?.invalidate()
+    }
+
+    private func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 45.0, target: self, selector: #selector(endTimer), userInfo: nil, repeats: false)
+    }
+
+    @objc private func endTimer() {
+        print("inside timer")
+        showUpdating(status: "Process is taking longer than expected")
+        timer?.invalidate()
     }
 
     func addCredential(provider: Provider, form: Form, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
@@ -135,6 +148,7 @@ extension AddCredentialSession {
     }
 
     private func showUpdating(status: String) {
+        startTimer()
         hideQRCodeView {
             if let statusViewController = self.statusViewController {
                 if statusViewController.presentingViewController == nil {
@@ -185,6 +199,7 @@ extension AddCredentialSession {
 extension AddCredentialSession: AddCredentialStatusViewControllerDelegate {
     func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialStatusViewController) {
         task?.cancel()
+        timer?.invalidate()
         hideUpdatingView(animated: true) 
     }
 }
