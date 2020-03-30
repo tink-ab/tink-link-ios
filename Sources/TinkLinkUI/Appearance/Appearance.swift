@@ -91,6 +91,8 @@ struct AppearanceProviderWrapper: AppearanceProviding {
 
     var warning: UIColor { colorProvider.warning }
 
+    var critical: UIColor { colorProvider.critical }
+
     func font(for weight: Font.Weight) -> Font {
         fontProvider.font(for: weight)
     }

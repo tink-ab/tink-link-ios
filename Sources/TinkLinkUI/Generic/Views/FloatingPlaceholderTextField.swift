@@ -2,6 +2,12 @@ import UIKit
 
 class FloatingPlaceholderTextField: UITextField {
 
+    private struct Constants {
+        static let placeholderTextSize: CGFloat = 13.0
+        static let editableTextHeightPadding: CGFloat = 8.0
+        static let uneditableTextHeightPadding: CGFloat = 16.0
+    }
+
     enum InputType {
         case text
         case number
@@ -13,22 +19,38 @@ class FloatingPlaceholderTextField: UITextField {
         }
     }
 
+    var textFieldBackgroundColor: UIColor? {
+        didSet {
+            textFieldBackgroundColorLayer.backgroundColor = textFieldBackgroundColor?.cgColor
+        }
+    }
+
     private let underlineLayer = CAShapeLayer()
     private let placeholderLayer = CATextLayer()
+    private let textFieldBackgroundColorLayer = CALayer()
     override var placeholder: String? {
         didSet {
             placeholderLayer.string = placeholder
         }
     }
 
-    var lineWidth: CGFloat = 2.0 {
+    var lineWidth: CGFloat = 1.0 {
         didSet {
             underlineLayer.lineWidth = lineWidth
         }
     }
 
-    var heightPadding: CGFloat = 8.0 {
+    override var isEnabled: Bool {
         didSet {
+            if isEnabled {
+                textFieldBackgroundColor = nil
+                textAlignment = .natural
+                lineWidth = 1.0
+            } else {
+                textFieldBackgroundColor = Color.accentBackground
+                textAlignment = .center
+                lineWidth = 0.0
+            }
             invalidateIntrinsicContentSize()
         }
     }
@@ -65,6 +87,7 @@ class FloatingPlaceholderTextField: UITextField {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        textFieldBackgroundColorLayer.frame = CGRect(x: 0, y: Constants.placeholderTextSize / 2, width: bounds.width, height: bounds.height - Constants.placeholderTextSize)
         placeholderLayer.frame = placeholderRect(forBounds: bounds)
 
         underlineLayer.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: lineWidth)
@@ -97,8 +120,12 @@ class FloatingPlaceholderTextField: UITextField {
 
     override var intrinsicContentSize: CGSize {
         var size = super.intrinsicContentSize
-        size.height += heightPadding * 2
         size.height = size.height.rounded()
+        if !isEnabled {
+            size.height += Constants.placeholderTextSize + Constants.uneditableTextHeightPadding * 2
+        } else {
+            size.height += Constants.editableTextHeightPadding * 2
+        }
         return size
     }
 
@@ -129,6 +156,8 @@ private extension FloatingPlaceholderTextField {
 
         font = Font.regular(.hecto)
         textColor = Color.label
+        layer.addSublayer(textFieldBackgroundColorLayer)
+
         placeholderLayer.font = font as CFTypeRef
         placeholderLayer.contentsScale = UIScreen.main.scale
         placeholderLayer.string = placeholder
@@ -160,7 +189,7 @@ private extension FloatingPlaceholderTextField {
 
         let value = text ?? ""
         let placeholderUpTop = !value.isEmpty
-        let targetSize: CGFloat = placeholderUpTop ? 13.0 : font.pointSize
+        let targetSize: CGFloat = placeholderUpTop ? Constants.placeholderTextSize : font.pointSize
 
         placeholderLayer.fontSize = targetSize
 

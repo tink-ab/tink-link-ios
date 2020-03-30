@@ -34,7 +34,7 @@ extension ProviderListViewController {
         
         searchViewController.providerPickerCoordinator = providerPickerCoordinator
         searchController.obscuresBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search for a bank or card"
+        searchController.searchBar.placeholder = NSLocalizedString("ProviderPicker.List.SearchPlaceholder", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Search for a bank or card", comment: "Placeholder in search field shown in provider list.")
         searchController.searchResultsUpdater = searchViewController
  
         navigationItem.searchController = searchController
@@ -69,11 +69,11 @@ extension ProviderListViewController {
         let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
         switch financialInstitutionGroupNode {
         case .financialInstitutions(let financialInstitutionGroups):
-            providerPickerCoordinator?.showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
+            providerPickerCoordinator?.showFinancialInstitution(for: financialInstitutionGroups, name: financialInstitutionGroupNode.displayName)
         case .accessTypes(let accessTypeGroups):
-            providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
+            providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, name: financialInstitutionGroupNode.displayName)
         case .credentialKinds(let groups):
-            providerPickerCoordinator?.showCredentialKindPicker(for: groups, title: nil)
+            providerPickerCoordinator?.showCredentialKindPicker(for: groups)
         case .provider(let provider):
             providerPickerCoordinator?.didSelectProvider(provider)
         }

@@ -47,8 +47,14 @@ extension AccessTypePickerViewController {
         if let url = node.imageURL {
             cell.setImage(url: url)
         }
-        cell.setTitle(text: node.accessType.description)
-        cell.setDetail(text: "Including everyday accounts, such as your salary account")
+        switch node.accessType {
+        case .openBanking:
+            cell.setTitle(text: NSLocalizedString("ProviderPicker.AccessType.OpenBankingTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Checking accounts", comment: "Title for the group of providers that use Open Banking."))
+            cell.setDetail(text: NSLocalizedString("ProviderPicker.AccessType.OpenBankingDetail", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Including everyday accounts, such as your salary account.", comment: "Text describing the group of providers that use Open Banking."))
+        case .other, .unknown:
+            cell.setTitle(text: NSLocalizedString("ProviderPicker.AccessType.OtherTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Other account types", comment: "Title for the group of providers that does not use Open Banking."))
+            cell.setDetail(text: NSLocalizedString("ProviderPicker.AccessType.OtherDetail", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Including saving accounts, credit cards, loans, investments and your personal information.", comment: "Text describing the group of providers that does not use Open Banking."))
+        }
         cell.delegate = self
         return cell
     }
@@ -65,7 +71,7 @@ extension AccessTypePickerViewController: AccessTypeCellDelegate {
 
         switch accessTypeNode {
         case .credentialKinds(let groups):
-            providerPickerCoordinator?.showCredentialKindPicker(for: groups, title: nil)
+            providerPickerCoordinator?.showCredentialKindPicker(for: groups)
         case .provider(let provider):
             providerPickerCoordinator?.didSelectProvider(provider)
         }

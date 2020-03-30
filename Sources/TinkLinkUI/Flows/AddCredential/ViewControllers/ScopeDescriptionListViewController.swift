@@ -25,8 +25,8 @@ final class ScopeDescriptionListViewController: UITableViewController {
         self.scopes = scopes
         self.sections = [
             .intro(
-                title: "We’ll collect the following data from you",
-                description: "By following through this service, we’ll collect financial data from you. These are the data points we will collect from you:"
+                title: NSLocalizedString("AddCredentials.ScopeDescriptions.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "We’ll collect the following data from you", comment: "Title for text introducing the descriptions for which data points will be collected when using the service."),
+                description: NSLocalizedString("AddCredentials.ScopeDescriptions.Body", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "By following through this service, we’ll collect financial data from you. These are the data points we will collect from you:", comment: "Text introducing the descriptions for which data points will be collected when using the service.")
             )
         ]
         super.init(nibName: nil, bundle: nil)
