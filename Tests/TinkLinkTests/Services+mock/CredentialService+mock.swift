@@ -1,7 +1,7 @@
 import Foundation
 @testable import TinkLink
 
-class MockedSuccessCredentialService: CredentialsService {
+class MockedSuccessCredentialsService: CredentialsService {
 
     private var credentials = [Credentials]()
     
@@ -93,7 +93,7 @@ class MockedSuccessCredentialService: CredentialsService {
     }
 }
 
-class MockedUnauthenticatedErrorCredentialService: CredentialsService {
+class MockedUnauthenticatedErrorCredentialsService: CredentialsService {
 
     func credentials(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
