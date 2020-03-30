@@ -4,15 +4,25 @@ import Foundation
 class MockedSuccessCredentialsService: CredentialsService {
 
     private var credentials = [Credentials]()
-    
-    func credentials(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
+
+    func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
         credentials = credentials.map { Credentials(credentials: $0, status: $0.nextCredentialsStatus()) }
         completion(.success(credentials))
         let retryCancellable = TestRetryCanceller { [weak self] in
             guard let self = self else { return }
-            self.credentials(completion: completion)
+            self.credentialsList(completion: completion)
         }
         return retryCancellable
+    }
+
+    func credentials(id: Credentials.ID, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        credentials = credentials.map { Credentials(credentials: $0, status: $0.nextCredentialsStatus()) }
+        if let credentials = credentials.first(where: { $0.id == id }) {
+            completion(.success((credentials)))
+        } else {
+            fatalError()
+        }
+        return nil
     }
 
     func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String : String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
@@ -95,7 +105,12 @@ class MockedSuccessCredentialsService: CredentialsService {
 
 class MockedUnauthenticatedErrorCredentialsService: CredentialsService {
 
-    func credentials(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
+    func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
+        completion(.failure(ServiceError.unauthenticatedError))
+        return nil
+    }
+
+    func credentials(id: Credentials.ID, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
