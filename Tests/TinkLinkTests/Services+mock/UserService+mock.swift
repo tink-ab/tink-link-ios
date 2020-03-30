@@ -1,9 +1,7 @@
 import Foundation
-import GRPC
 @testable import TinkLink
 
-class MockedSuccessUserService: UserService, TokenConfigurableService {
-    var defaultCallOptions = CallOptions()
+class MockedSuccessUserService: UserService & TokenConfigurableService {
 
     func createAnonymous(market: Market?, locale: Locale, origin: String?, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         completion(.success(AccessToken("accessToken")))
@@ -20,10 +18,13 @@ class MockedSuccessUserService: UserService, TokenConfigurableService {
         completion(.success(UserProfile(username: "test-user", nationalID: "test-id")))
         return nil
     }
+
+    func configure(_ accessToken: AccessToken) {
+
+    }
 }
 
-class MockedInvalidArgumentFailurefulUserService: UserService, TokenConfigurableService {
-    var defaultCallOptions = CallOptions()
+class MockedInvalidArgumentFailurefulUserService: UserService & TokenConfigurableService {
     
     func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.invalidArgumentError))
@@ -39,10 +40,13 @@ class MockedInvalidArgumentFailurefulUserService: UserService, TokenConfigurable
         completion(.failure(ServiceError.invalidArgumentError))
         return nil
     }
+
+    func configure(_ accessToken: AccessToken) {
+
+    }
 }
 
-class MockedUnauthenticatedErrorUserService: UserService, TokenConfigurableService {
-    var defaultCallOptions = CallOptions()
+class MockedUnauthenticatedErrorUserService: UserService & TokenConfigurableService {
 
     func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
@@ -57,5 +61,9 @@ class MockedUnauthenticatedErrorUserService: UserService, TokenConfigurableServi
     func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
+    }
+
+    func configure(_ accessToken: AccessToken) {
+
     }
 }

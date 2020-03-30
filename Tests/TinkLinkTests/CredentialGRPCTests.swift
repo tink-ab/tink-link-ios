@@ -3,27 +3,28 @@ import XCTest
 
 class CredentialGRPCTests: XCTestCase {
     func testCreatedCapabilitiesMapping() {
-        var grpcCredential = GRPCCredential()
-        grpcCredential.id = "6e68cc6287704273984567b3300c5822"
-        grpcCredential.providerName = "handelsbanken-bankid"
-        grpcCredential.type = .mobileBankid
-        grpcCredential.status = .created
-        grpcCredential.statusPayload = "Analyzed 1,200 out of 1,200 transactions"
-        grpcCredential.clearUpdated()
-        grpcCredential.fields = ["username": "180012121234"]
-        grpcCredential.supplementalInformationFields = []
-        grpcCredential.clearThirdPartyAppAuthentication()
-        grpcCredential.clearSessionExpiryDate()
+        let restCredentials = RESTCredentials(
+            id: "6e68cc6287704273984567b3300c5822",
+            providerName: "handelsbanken-bankid",
+            type: .mobileBankid,
+            status: .created,
+            statusUpdated: nil,
+            statusPayload: "Analyzed 1,200 out of 1,200 transactions",
+            updated: nil,
+            fields: ["username": "180012121234"],
+            supplementalInformation: nil,
+            sessionExpiryDate: nil,
+            userId: nil)
 
-        let credential = Credentials(grpcCredential: grpcCredential)
+        let credential = Credentials(restCredentials: restCredentials)
 
-        XCTAssertEqual(credential.id.value, grpcCredential.id)
-        XCTAssertEqual(credential.providerID.value, grpcCredential.providerName)
+        XCTAssertEqual(credential.id.value, restCredentials.id)
+        XCTAssertEqual(credential.providerID.value, restCredentials.providerName)
         XCTAssertEqual(credential.kind, .mobileBankID)
         XCTAssertEqual(credential.status, .created)
-        XCTAssertEqual(credential.statusPayload, grpcCredential.statusPayload)
+        XCTAssertEqual(credential.statusPayload, restCredentials.statusPayload)
         XCTAssertNil(credential.updated)
-        XCTAssertEqual(credential.fields, grpcCredential.fields)
+        XCTAssertEqual(credential.fields, restCredentials.fields)
         XCTAssertTrue(credential.supplementalInformationFields.isEmpty)
         XCTAssertNil(credential.thirdPartyAppAuthentication)
         XCTAssertNil(credential.sessionExpiryDate)
@@ -32,70 +33,101 @@ class CredentialGRPCTests: XCTestCase {
     func testUpdatedCredentialMapping() {
         let updatedAt = Calendar.current.date(from: DateComponents(year: 2019, month: 10, day: 8, hour: 15, minute: 24))!
 
-        var grpcCredential = GRPCCredential()
-        grpcCredential.id = "6e68cc6287704273984567b3300c5822"
-        grpcCredential.providerName = "handelsbanken-bankid"
-        grpcCredential.type = .mobileBankid
-        grpcCredential.status = .updated
-        grpcCredential.statusPayload = "Analyzed 1,200 out of 1,200 transactions"
-        grpcCredential.updated = .init(date: updatedAt)
-        grpcCredential.fields = ["username": "180012121234"]
-        grpcCredential.supplementalInformationFields = []
-        grpcCredential.clearThirdPartyAppAuthentication()
-        grpcCredential.clearSessionExpiryDate()
+        let restCredentials = RESTCredentials(
+            id: "6e68cc6287704273984567b3300c5822",
+            providerName: "handelsbanken-bankid",
+            type: .mobileBankid,
+            status: .updated,
+            statusUpdated: nil,
+            statusPayload: "Analyzed 1,200 out of 1,200 transactions",
+            updated: updatedAt,
+            fields: ["username": "180012121234"],
+            supplementalInformation: nil,
+            sessionExpiryDate: nil,
+            userId: nil)
 
-        let credential = Credentials(grpcCredential: grpcCredential)
+        let credential = Credentials(restCredentials: restCredentials)
 
-        XCTAssertEqual(credential.id.value, grpcCredential.id)
-        XCTAssertEqual(credential.providerID.value, grpcCredential.providerName)
+        XCTAssertEqual(credential.id.value, restCredentials.id)
+        XCTAssertEqual(credential.providerID.value, restCredentials.providerName)
         XCTAssertEqual(credential.kind, .mobileBankID)
         XCTAssertEqual(credential.status, .updated)
-        XCTAssertEqual(credential.statusPayload, grpcCredential.statusPayload)
+        XCTAssertEqual(credential.statusPayload, restCredentials.statusPayload)
         XCTAssertEqual(credential.updated, updatedAt)
-        XCTAssertEqual(credential.fields, grpcCredential.fields)
+        XCTAssertEqual(credential.fields, restCredentials.fields)
         XCTAssertTrue(credential.supplementalInformationFields.isEmpty)
         XCTAssertNil(credential.thirdPartyAppAuthentication)
         XCTAssertNil(credential.sessionExpiryDate)
     }
 
     func testAwaitingThirdPartyAppAuthenticationCredentialMapping() {
-        var grpcCredential = GRPCCredential()
-        grpcCredential.id = "6e68cc6287704273984567b3300c5822"
-        grpcCredential.providerName = "handelsbanken-bankid"
-        grpcCredential.type = .mobileBankid
-        grpcCredential.status = .awaitingThirdPartyAppAuthentication
-        grpcCredential.statusPayload = "Analyzed 1,200 out of 1,200 transactions"
-        grpcCredential.clearUpdated()
-        grpcCredential.fields = ["username": "180012121234"]
-        grpcCredential.supplementalInformationFields = []
 
-        var thirdPartyAppAuthentication = GRPCThirdPartyAppAuthentication()
-        thirdPartyAppAuthentication.downloadTitle = "Download Mobile BankID"
-        thirdPartyAppAuthentication.downloadMessage = "You need to install the Mobile BankID app to authenticate"
-        thirdPartyAppAuthentication.upgradeTitle = "Download Mobile BankID"
-        thirdPartyAppAuthentication.upgradeMessage = "You need to install the Mobile BankID app to authenticate"
+        let restCredentials = RESTCredentials(
+            id: "6e68cc6287704273984567b3300c5822",
+            providerName: "handelsbanken-bankid",
+            type: .thirdPartyApp,
+            status: .awaitingThirdPartyAppAuthentication,
+            statusUpdated: nil,
+            statusPayload: "Analyzed 1,200 out of 1,200 transactions",
+            updated: nil,
+            fields: ["username": "180012121234"],
+            supplementalInformation: "{\"android\":{\"packageName\":\"this.is.not.a.valid.package.name\",\"requiredMinimumVersion\":0,\"intent\":\"this.is.not.a.valid.intent\"},\"ios\":{\"appStoreUrl\":\"https://itunes.apple.com\",\"scheme\":\"this.is.not.a.valid.app.scheme\",\"deepLinkUrl\":\"this.is.not.a.valid.deeplink\"},\"desktop\":{\"url\":\"https://test.com\"},\"downloadTitle\":\"Download Tink Demo Authentication app\",\"downloadMessage\":\"You need to download the Tink Demo Authentication app in order to continue.\",\"upgradeTitle\":\"Upgrade Tink Demo Authentication app\",\"upgradeMessage\":\"You need to upgrade the Tink Demo Authentication app in order to continue.\"}",
+            sessionExpiryDate: nil,
+            userId: nil)
 
-        var iOS = GRPCThirdPartyAppAuthentication.Ios()
-        iOS.deepLinkURL = "bankid:///?autostartToken=-7b21d-f4g2-41bs-d392d1e-387523sf4w3&redirect=tink://bankid/credentials/6e68cc6287704273984567b3300c5822"
-        iOS.appStoreURL = "itms://itunes.apple.com/se/app/bankid-sakerhetsapp/id433151512"
-        iOS.scheme = "bankid://"
-        thirdPartyAppAuthentication.ios = iOS
+        let credential = Credentials(restCredentials: restCredentials)
 
-        grpcCredential.thirdPartyAppAuthentication = thirdPartyAppAuthentication
-        grpcCredential.clearSessionExpiryDate()
-
-        let credential = Credentials(grpcCredential: grpcCredential)
-
-        XCTAssertEqual(credential.id.value, grpcCredential.id)
-        XCTAssertEqual(credential.providerID.value, grpcCredential.providerName)
-        XCTAssertEqual(credential.kind, .mobileBankID)
+        XCTAssertEqual(credential.id.value, restCredentials.id)
+        XCTAssertEqual(credential.providerID.value, restCredentials.providerName)
+        XCTAssertEqual(credential.kind, .thirdPartyAuthentication)
         XCTAssertEqual(credential.status, .awaitingThirdPartyAppAuthentication)
-        XCTAssertEqual(credential.statusPayload, grpcCredential.statusPayload)
+        XCTAssertEqual(credential.statusPayload, restCredentials.statusPayload)
         XCTAssertNil(credential.updated)
-        XCTAssertEqual(credential.fields, grpcCredential.fields)
+        XCTAssertEqual(credential.fields, restCredentials.fields)
         XCTAssertTrue(credential.supplementalInformationFields.isEmpty)
         XCTAssertNotNil(credential.thirdPartyAppAuthentication)
-        XCTAssertEqual(credential.thirdPartyAppAuthentication?.deepLinkURL?.absoluteString, iOS.deepLinkURL)
+
+        XCTAssertEqual(credential.thirdPartyAppAuthentication?.deepLinkURL?.absoluteString, "this.is.not.a.valid.deeplink")
+        XCTAssertEqual(credential.thirdPartyAppAuthentication?.appStoreURL?.absoluteString, "https://itunes.apple.com")
+        XCTAssertEqual(credential.thirdPartyAppAuthentication?.scheme, "this.is.not.a.valid.app.scheme")
+        XCTAssertEqual(credential.thirdPartyAppAuthentication?.downloadTitle, "Download Tink Demo Authentication app")
+        XCTAssertEqual(credential.thirdPartyAppAuthentication?.downloadMessage, "You need to download the Tink Demo Authentication app in order to continue.")
+        XCTAssertEqual(credential.thirdPartyAppAuthentication?.upgradeTitle, "Upgrade Tink Demo Authentication app")
+        XCTAssertEqual(credential.thirdPartyAppAuthentication?.upgradeMessage, "You need to upgrade the Tink Demo Authentication app in order to continue.")
+
+        XCTAssertNil(credential.sessionExpiryDate)
+    }
+
+    func testAwaitingBankIDCredentialMapping() {
+
+        let restCredentials = RESTCredentials(
+            id: "6e68cc6287704273984567b3300c5822",
+            providerName: "handelsbanken-bankid",
+            type: .mobileBankid,
+            status: .awaitingMobileBankidAuthentication,
+            statusUpdated: nil,
+            statusPayload: "Analyzed 1,200 out of 1,200 transactions",
+            updated: nil,
+            fields: ["username": "180012121234"],
+            supplementalInformation: "TOKEN",
+            sessionExpiryDate: nil,
+            userId: nil)
+
+        let credential = Credentials(restCredentials: restCredentials)
+
+        XCTAssertEqual(credential.id.value, restCredentials.id)
+        XCTAssertEqual(credential.providerID.value, restCredentials.providerName)
+        XCTAssertEqual(credential.kind, .mobileBankID)
+        XCTAssertEqual(credential.status, .awaitingMobileBankIDAuthentication)
+        XCTAssertEqual(credential.statusPayload, restCredentials.statusPayload)
+        XCTAssertNil(credential.updated)
+        XCTAssertEqual(credential.fields, restCredentials.fields)
+        XCTAssertTrue(credential.supplementalInformationFields.isEmpty)
+        XCTAssertNotNil(credential.thirdPartyAppAuthentication)
+
+        XCTAssertEqual(credential.thirdPartyAppAuthentication?.deepLinkURL?.absoluteString, "bankid:///?autostartToken=TOKEN&redirect=tink://bankid/credentials/6e68cc6287704273984567b3300c5822")
+        XCTAssertEqual(credential.thirdPartyAppAuthentication?.appStoreURL?.absoluteString, "itms://itunes.apple.com/se/app/bankid-sakerhetsapp/id433151512")
+
         XCTAssertNil(credential.sessionExpiryDate)
     }
 }
