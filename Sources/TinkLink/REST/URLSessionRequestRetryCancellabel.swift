@@ -8,27 +8,10 @@ class URLSessionRetryCancellableTask: RetryCancellable {
 
     private var task: URLSessionTask?
 
-    init?(session: URLSession, url: URL, behavior: ClientBehavior, request: RESTRequest) {
+    init(session: URLSession, url: URL, behavior: ClientBehavior, request: RESTRequest) {
         self.session = session
         self.request = request
         self.behavior = behavior
-
-        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        urlComponents.path = request.path
-
-        if !request.queryParameters.isEmpty {
-            urlComponents.queryItems = []
-        }
-
-        for queryItem in request.queryParameters {
-            urlComponents.queryItems?.append(URLQueryItem(name: queryItem.key, value: queryItem.value))
-        }
-
-        guard let url = urlComponents.url else {
-            request.onResponse(.failure(URLError(.unknown)))
-            self.behavior.afterError(error: URLError(.unknown))
-            return nil
-        }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue

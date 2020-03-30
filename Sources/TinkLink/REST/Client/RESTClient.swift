@@ -21,8 +21,25 @@ final class RESTClient {
     }
 
     func performRequest(_ request: RESTRequest) -> RetryCancellable? {
-        let task = URLSessionRetryCancellableTask(session: session, url: restURL, behavior: behavior, request: request)
-        task?.start()
+        var urlComponents = URLComponents(url: restURL, resolvingAgainstBaseURL: false)!
+        urlComponents.path = request.path
+
+        if !request.queryParameters.isEmpty {
+            urlComponents.queryItems = []
+        }
+
+        for queryItem in request.queryParameters {
+            urlComponents.queryItems?.append(URLQueryItem(name: queryItem.key, value: queryItem.value))
+        }
+
+        guard let url = urlComponents.url else {
+            request.onResponse(.failure(URLError(.unknown)))
+            self.behavior.afterError(error: URLError(.unknown))
+            return nil
+        }
+
+        let task = URLSessionRetryCancellableTask(session: session, url: url, behavior: behavior, request: request)
+        task.start()
 
         return task
     }
