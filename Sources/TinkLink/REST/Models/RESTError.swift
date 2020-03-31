@@ -50,7 +50,11 @@ struct RESTError: Error, LocalizedError, Decodable {
 }
 
 extension RESTError {
-    init(statusCode: Int) {
-        self = .init(errorMessage: "", errorCode: String(statusCode))
+    init?(statusCode: Int) {
+        if 200..<300 ~= statusCode {
+            return nil
+        } else {
+            self = .init(errorMessage: "", errorCode: String(statusCode))
+        }
     }
 }
