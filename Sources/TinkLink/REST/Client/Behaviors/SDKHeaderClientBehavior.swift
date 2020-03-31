@@ -12,7 +12,7 @@ final class SDKHeaderClientBehavior: ClientBehavior {
         self.version = Bundle(for: SDKHeaderClientBehavior.self).object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
 
-    var headers: [String: String] {
+    var headers: [String: String?] {
         var headers = ["X-Tink-SDK-Name": sdkName]
         headers["X-Tink-SDK-Version"] = version
         headers["X-Tink-OAuth-Client-ID"] = clientID
