@@ -42,12 +42,8 @@ final class RESTUserService: UserService {
     }
 
     func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
-        var request = RESTResourceRequest<RESTUser>(path: "/api/v1/user", method: .get, contentType: .json) { result in
+        let request = RESTResourceRequest<RESTUser>(path: "/api/v1/user", method: .get, contentType: .json) { result in
             completion(result.map(UserProfile.init))
-        }
-
-        if let accessToken = accessToken {
-            request.headers = ["Authorization": "Bearer \(accessToken.rawValue)"]
         }
 
         return client.performRequest(request)
