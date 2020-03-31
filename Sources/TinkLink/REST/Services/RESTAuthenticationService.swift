@@ -3,11 +3,9 @@ import Foundation
 final class RESTAuthenticationService: AuthenticationService {
 
     private let client: RESTClient
-    private let accessToken: AccessToken
 
-    init(client: RESTClient, accessToken: AccessToken) {
+    init(client: RESTClient) {
         self.client = client
-        self.accessToken = accessToken
     }
 
     func clientDescription(clientID: String, scopes: [Scope], redirectURI: URL, completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable? {
@@ -16,11 +14,9 @@ final class RESTAuthenticationService: AuthenticationService {
 
         let data = try? JSONEncoder().encode(body)
 
-        var request = RESTResourceRequest<RESTDescribeOAuth2ClientResponse>(path: "/api/v1/oauth/describe", method: .post, body: data, contentType: .json, completion: { result in
+        let request = RESTResourceRequest<RESTDescribeOAuth2ClientResponse>(path: "/api/v1/oauth/describe", method: .post, body: data, contentType: .json, completion: { result in
             completion(result.map(ClientDescription.init))
         })
-
-        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
 
         return client.performRequest(request)
     }
@@ -34,9 +30,7 @@ final class RESTAuthenticationService: AuthenticationService {
         ]
         let data = try? JSONEncoder().encode(body)
 
-        var request = RESTResourceRequest(path: "/api/v1/oauth/authorize", method: .post, body: data, contentType: .json, completion:  completion)
-
-        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
+        let request = RESTResourceRequest(path: "/api/v1/oauth/authorize", method: .post, body: data, contentType: .json, completion:  completion)
 
         return client.performRequest(request)
     }
