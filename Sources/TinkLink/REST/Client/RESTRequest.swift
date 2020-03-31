@@ -65,8 +65,13 @@ struct RESTResourceRequest<T: Decodable>: RESTRequest {
             let response = try result.get()
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .millisecondsSince1970
-            let model = try decoder.decode(T.self, from: response.data)
-            completion(.success(model))
+            do {
+                let model = try decoder.decode(T.self, from: response.data)
+                completion(.success(model))
+            } catch {
+                let errorResponse = try decoder.decode(RESTError.self, from: response.data)
+                completion(.failure(ServiceError(errorResponse) ?? error))
+            }
         } catch {
             completion(.failure(ServiceError(error) ?? error))
         }
