@@ -34,7 +34,7 @@ final class CredentialController {
         if credentialContext == nil {
             credentialContext = CredentialsContext(user: user)
         }
-        credentialContext?.fetchCredentials(completion: { [weak self] result in
+        credentialContext?.fetchCredentialsList(completion: { [weak self] result in
             guard let self = self else { return }
             do {
                 let credentials = try result.get()
