@@ -39,7 +39,6 @@ final class AddCredentialSession {
     }
 
     @objc private func endTimer() {
-        print("inside timer")
         showUpdating(status: "Process is taking longer than expected")
         timer?.invalidate()
     }
