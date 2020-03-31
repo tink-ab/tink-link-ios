@@ -8,11 +8,10 @@ class MockedSuccessCredentialsService: CredentialsService {
     func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
         credentials = credentials.map { Credentials(credentials: $0, status: $0.nextCredentialsStatus()) }
         completion(.success(credentials))
-        let retryCancellable = TestRetryCanceller { [weak self] in
+        return TestRetryCanceller { [weak self] in
             guard let self = self else { return }
             self.credentialsList(completion: completion)
         }
-        return retryCancellable
     }
 
     func credentials(id: Credentials.ID, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
@@ -64,11 +63,10 @@ class MockedSuccessCredentialsService: CredentialsService {
             credentials[index] = credential
             completion(.success(()))
         }
-        let retryCancellable = TestRetryCanceller { [weak self] in
+        return TestRetryCanceller { [weak self] in
             guard let self = self else { return }
             self.supplementInformation(credentialsID: credentialsID, fields: fields, completion: completion)
         }
-        return retryCancellable
     }
 
     func cancelSupplementInformation(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
