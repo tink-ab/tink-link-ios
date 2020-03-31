@@ -131,7 +131,7 @@ public final class CredentialsContext {
         return fetchCredentialsList(completion: completion)
     }
 
-    /// Gets the user's credentials.
+    /// Fetch a list of the current user's credentials.
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
     @discardableResult
@@ -141,6 +141,22 @@ public final class CredentialsContext {
                 let credentials = try result.get()
                 let storedCredentials = credentials.sorted(by: { $0.id.value < $1.id.value })
                 completion(.success(storedCredentials))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
+    /// Fetch a credentials by ID.
+    /// - Parameter id: The id of the credentials to fetch.
+    /// - Parameter completion: The block to execute when the call is completed.
+    /// - Parameter result: A result that either contains the credentials or an error if the fetch failed.
+    @discardableResult
+    public func fetchCredentials(id: Credentials.ID, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        return service.credentials(id: id) { result in
+            do {
+                let credentials = try result.get()
+                completion(.success(credentials))
             } catch {
                 completion(.failure(error))
             }
