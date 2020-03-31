@@ -55,7 +55,7 @@ public class TinkLinkViewController: UINavigationController {
                 do {
                     let user = try result.get()
                     self.tink.setCredential(.accessToken(user.accessToken.rawValue))
-                    // TODO: Set username
+                    // TODO: Better way to set username
                     self.credentialController.user = user
 
                     self.providerController.performFetch()
