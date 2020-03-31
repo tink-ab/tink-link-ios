@@ -10,26 +10,32 @@ final class RESTUserService: UserService {
 
     private var accessToken: AccessToken?
 
-    func createAnonymous(market: Market?, locale: Locale, origin: String?, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
+    func createAnonymous(market: Market?, locale: Locale, origin: String?, contextClientBehaviors: ComposableClientBehavior, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
 
         let body = RESTAnonymousUserRequest(market: market?.code ?? "", origin: origin ?? "", locale: locale.identifier)
 
         let data = try? JSONEncoder().encode(body)
-        let request = RESTResourceRequest<RESTAnonymousUserResponse>(path: "/api/v1/user/anonymous", method: .post, body: data, contentType: .json) { (result) in
+        var request = RESTResourceRequest<RESTAnonymousUserResponse>(path: "/api/v1/user/anonymous", method: .post, body: data, contentType: .json) { (result) in
 
             completion(result.map { AccessToken($0.access_token) })
+        }
+        for (key, value) in contextClientBehaviors.headers {
+            if let value = value {
+                request.headers[key] = value
+            }
         }
 
         return client.performRequest(request)
     }
 
-    func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
+    func authenticate(code: AuthorizationCode, contextClientBehaviors: ComposableClientBehavior, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
         var request = RESTResourceRequest(path: "/link/v1/authentication/token", method: .post, contentType: .json, completion: completion)
         let body = ["code": code.rawValue]
         request.body = try? JSONEncoder().encode(body)
-
-        if let accessToken = accessToken {
-            request.headers = ["Authorization": "Bearer \(accessToken.rawValue)"]
+        for (key, value) in contextClientBehaviors.headers {
+            if let value = value {
+                request.headers[key] = value
+            }
         }
 
         return client.performRequest(request)

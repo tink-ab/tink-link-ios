@@ -26,8 +26,13 @@ class URLSessionRetryCancellableTask: RetryCancellable {
 
         urlRequest.httpBody = request.body
 
+        // Override the shared client header for this request
         for header in request.headers {
-            urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
+            if urlRequest.value(forHTTPHeaderField: header.key) != nil {
+                urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
+            } else {
+                urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
+            }
         }
         self.urlRequest = urlRequest
     }
