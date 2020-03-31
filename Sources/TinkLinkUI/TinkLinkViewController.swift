@@ -54,9 +54,9 @@ public class TinkLinkViewController: UINavigationController {
             DispatchQueue.main.async {
                 do {
                     let user = try result.get()
-                    self.providerController.user = user
+                    self.tink.setCredential(.accessToken(user.accessToken.rawValue))
+                    // TODO: Set username
                     self.credentialController.user = user
-                    self.authorizationController.user = user
 
                     self.providerController.performFetch()
                     self.showProviderPicker()
