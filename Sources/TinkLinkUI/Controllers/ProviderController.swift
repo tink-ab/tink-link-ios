@@ -47,9 +47,9 @@ final class ProviderController {
     }
 
     func performFetch() {
-        guard let user = user, !isFetching else { return }
+        guard !isFetching else { return }
         if providerContext == nil {
-            providerContext = ProviderContext(tink: tink, user: user)
+            providerContext = ProviderContext(tink: tink)
         }
         let attributes = ProviderContext.Attributes(capabilities: .all, kinds: providerKinds, accessTypes: .all)
         NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)
