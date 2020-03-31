@@ -22,7 +22,10 @@ class MockedSuccessCredentialsService: CredentialsService {
         } else {
             fatalError()
         }
-        return nil
+        return TestRetryCanceller { [weak self] in
+            guard let self = self else { return }
+            self.credentials(id: id, completion: completion)
+        }
     }
 
     func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String : String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
