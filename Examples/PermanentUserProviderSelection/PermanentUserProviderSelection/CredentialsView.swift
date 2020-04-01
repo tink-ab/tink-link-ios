@@ -7,7 +7,7 @@ struct CredentialsView: View {
 
     @State private var isPresentingRefreshAlert = false
     @State private var isAnimating: Bool = false
-    @State private var selectedCredentials: [Credentials] = []
+    @State private var selectedCredentials: Credentials?
     @State private var isRefreshing = false
 
     var body: some View {
@@ -36,9 +36,6 @@ struct CredentialsView: View {
                             RefreshCredentialList(credentials: self.credentialController.credentials, updatedCredentials: self.credentialController.updatedCredentials, providerController: self.providerController, selectedCredentials: self.$selectedCredentials)
                                 .padding(.horizontal, 16)
                                 .padding(.bottom, 20)
-                                .onAppear(perform: {
-                                    self.selectedCredentials = self.credentialController.credentials
-                                })
                                 .disabled(isRefreshing)
                         },
                         dismissButton: .cancel(Text("Cancel"), action: {
@@ -46,9 +43,9 @@ struct CredentialsView: View {
                             self.isPresentingRefreshAlert = false
                             self.credentialController.cancelRefresh()
                         }),
-                        primaryButton: .default(Text("Update"), enabled: !selectedCredentials.isEmpty, action: {
+                        primaryButton: .default(Text("Update"), enabled: selectedCredentials != nil, action: {
                             self.isRefreshing = true
-                            self.credentialController.performRefresh(credentials: self.selectedCredentials) { _ in
+                            self.credentialController.performRefresh(credentials: self.selectedCredentials!) { _ in
                                 self.isRefreshing = false
                                 self.isPresentingRefreshAlert = false
                             }

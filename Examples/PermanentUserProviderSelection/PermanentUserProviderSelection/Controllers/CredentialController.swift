@@ -22,7 +22,7 @@ final class CredentialController: ObservableObject {
         if credentialContext == nil {
             credentialContext = CredentialsContext(user: user)
         }
-        credentialContext?.fetchCredentials(completion: { [weak self] result in
+        credentialContext?.fetchCredentialsList(completion: { [weak self] result in
             do {
                 let credentials = try result.get()
                 DispatchQueue.main.async {
@@ -34,7 +34,7 @@ final class CredentialController: ObservableObject {
         })
     }
 
-    func performRefresh(credentials: [Credentials], completion: @escaping (Result<[Credentials], Error>) -> Void) {
+    func performRefresh(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
         guard let user = user else { return }
         if credentialContext == nil {
             credentialContext = CredentialsContext(user: user)
@@ -108,14 +108,13 @@ final class CredentialController: ObservableObject {
         }
     }
 
-    private func refreshCompletionHandler(result: Result<[Credentials], Error>) {
+    private func refreshCompletionHandler(result: Result<Credentials, Error>) {
         do {
             let updatedCredentials = try result.get()
-            var groupedCredentials = Dictionary(grouping: credentials) { $0.id }
-            let groupedUpdatedCredentials = Dictionary(grouping: updatedCredentials) { $0.id }
-            groupedCredentials.merge(groupedUpdatedCredentials) { (_, new) in return new }
-            DispatchQueue.main.async { [weak self] in
-                self?.credentials = groupedCredentials.values.flatMap { $0 }
+            if let index = credentials.firstIndex (where: { $0.id == updatedCredentials.id }) {
+                DispatchQueue.main.async { [weak self] in
+                    self?.credentials[index] = updatedCredentials
+                }
             }
         } catch {
             // Handle any errors
