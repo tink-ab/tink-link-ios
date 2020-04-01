@@ -34,13 +34,11 @@ final class AddCredentialSession {
         timer?.invalidate()
     }
 
-    private func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 45.0, target: self, selector: #selector(endTimer), userInfo: nil, repeats: false)
-    }
-
-    @objc private func endTimer() {
-        showUpdating(status: "Process is taking longer than expected")
-        timer?.invalidate()
+    private func countUpdatingProcessTime() {
+        timer = Timer.scheduledTimer(withTimeInterval: 45.0, repeats: false) { [weak self] timer in
+            self?.showUpdating(status: "Process is taking longer than expected")
+            timer.invalidate()
+        }
     }
 
     func addCredential(provider: Provider, form: Form, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
@@ -81,6 +79,7 @@ final class AddCredentialSession {
             handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
         case .updating(let status):
             showUpdating(status: status)
+            countUpdatingProcessTime()
             authorizeIfNeeded(onError: onError)
         }
     }
@@ -147,7 +146,6 @@ extension AddCredentialSession {
     }
 
     private func showUpdating(status: String) {
-        startTimer()
         hideQRCodeView {
             if let statusViewController = self.statusViewController {
                 if statusViewController.presentingViewController == nil {
