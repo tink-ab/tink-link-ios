@@ -11,11 +11,7 @@ struct ComposableClientBehavior: ClientBehavior {
         return behaviors.reduce([:], { result, next in
             var result = result
             for (k, v) in next.headers {
-                if v.isEmpty {
-                    result.removeValue(forKey: k)
-                } else {
-                    result.updateValue(v, forKey: k)
-                }
+                result.updateValue(v, forKey: k)
             }
             return result
         })

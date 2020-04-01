@@ -20,7 +20,7 @@ final class RESTClient {
         }
     }
 
-    func performRequest(_ request: RESTRequest, requestSpecificBehavior: ClientBehavior? = nil) -> RetryCancellable? {
+    func performRequest(_ request: RESTRequest) -> RetryCancellable? {
         var urlComponents = URLComponents(url: restURL, resolvingAgainstBaseURL: false)!
         urlComponents.path = request.path
 
@@ -38,12 +38,7 @@ final class RESTClient {
             return nil
         }
 
-        var requestBehavior = behavior
-        if let requestSpecificBehavior = requestSpecificBehavior {
-            requestBehavior = ComposableClientBehavior(behaviors: [behavior, requestSpecificBehavior])
-        }
-
-        let task = URLSessionRetryCancellableTask(session: session, url: url, behavior: requestBehavior, request: request)
+        let task = URLSessionRetryCancellableTask(session: session, url: url, behavior: behavior, request: request)
         task.start()
 
         return task

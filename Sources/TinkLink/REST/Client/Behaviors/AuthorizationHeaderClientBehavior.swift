@@ -15,7 +15,7 @@ final class AuthorizationHeaderClientBehavior: ClientBehavior {
         case .accessToken(let accessToken):
             return ["Authorization": "Bearer \(accessToken)"]
         default:
-            return ["Authorization": ""]
+            return [:]
         }
     }
 }
