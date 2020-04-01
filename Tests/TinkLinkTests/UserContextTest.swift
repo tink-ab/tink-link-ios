@@ -5,17 +5,20 @@ class UserContextTest: XCTestCase {
     var mockedSuccessUserService: MockedSuccessUserService!
     var mockedInvalidArgumentFailurefulUserService: MockedInvalidArgumentFailurefulUserService!
     var mockedUnauthenticatedErrorUserService: MockedUnauthenticatedErrorUserService!
+    var mockedAuthenticationService: MockedAuthenticationService!
+
 
     override func setUp() {
         mockedSuccessUserService = MockedSuccessUserService()
         mockedInvalidArgumentFailurefulUserService = MockedInvalidArgumentFailurefulUserService()
         mockedUnauthenticatedErrorUserService = MockedUnauthenticatedErrorUserService()
+        mockedAuthenticationService = MockedAuthenticationService()
     }
 
     func testSuccessfulWhenCreateAnonymousUser() {
         let completionCalled = expectation(description: "completion should be called")
 
-        let userContext = UserContext(userService: mockedSuccessUserService)
+        let userContext = UserContext(userService: mockedSuccessUserService, authenticationService: mockedAuthenticationService)
         userContext.createTemporaryUser(for: "SE") { result in
             completionCalled.fulfill()
             do {
@@ -35,7 +38,7 @@ class UserContextTest: XCTestCase {
     func testInvalidArgumentFailureWhenCreateAnonymousUser() {
         let completionCalled = expectation(description: "completion should be called")
 
-        let userContext = UserContext(userService: mockedInvalidArgumentFailurefulUserService)
+        let userContext = UserContext(userService: mockedInvalidArgumentFailurefulUserService, authenticationService: mockedAuthenticationService)
         userContext.createTemporaryUser(for: "SE") { result in
             completionCalled.fulfill()
             do {
@@ -60,7 +63,7 @@ class UserContextTest: XCTestCase {
     func testOtherErrorFailureWhenCreateAnonymousUser() {
         let completionCalled = expectation(description: "completion should be called")
         
-        let userContext = UserContext(userService: mockedUnauthenticatedErrorUserService)
+        let userContext = UserContext(userService: mockedUnauthenticatedErrorUserService, authenticationService: mockedAuthenticationService)
         userContext.createTemporaryUser(for: "SE") { result in
             completionCalled.fulfill()
             do {
