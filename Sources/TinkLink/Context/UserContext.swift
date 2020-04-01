@@ -47,7 +47,7 @@ public final class UserContext {
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
     public func authenticateUser(authorizationCode: AuthorizationCode, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        return userService.authenticate(code: authorizationCode, contextClientBehaviors: userContextClientBehaviors, completion: { [weak self] result in
+        return userService.authenticate(code: authorizationCode, completion: { [weak self] result in
             do {
                 let authenticateResponse = try result.get()
                 let accessToken = authenticateResponse.accessToken
@@ -78,7 +78,7 @@ public final class UserContext {
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
     public func createTemporaryUser(for market: Market, locale: Locale = Tink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        return userService.createAnonymous(market: market, locale: locale, origin: nil, contextClientBehaviors: userContextClientBehaviors) { [weak self] result in
+        return userService.createAnonymous(market: market, locale: locale, origin: nil) { [weak self] result in
             let mappedResult = result
                 .map { User(accessToken: $0) }
                 .mapError { Error(createTemporaryUserError: $0) ?? $0 }
