@@ -91,7 +91,7 @@ extension SupplementalInformationViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        tableView.contentInset.bottom = button.frame.height + buttonBottomConstraint.constant
+        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
         tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
     }
 }
