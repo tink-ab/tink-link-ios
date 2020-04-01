@@ -35,9 +35,9 @@ final class AddCredentialSession {
     }
 
     private func countUpdatingProcessTime() {
+        timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 45.0, repeats: false) { [weak self] timer in
             self?.showUpdating(status: "Process is taking longer than expected")
-            timer.invalidate()
         }
     }
 
