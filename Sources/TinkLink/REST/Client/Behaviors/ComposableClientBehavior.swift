@@ -7,11 +7,15 @@ struct ComposableClientBehavior: ClientBehavior {
         self.behaviors = behaviors
     }
 
-    var headers: [String: String?] {
+    var headers: [String: String] {
         return behaviors.reduce([:], { result, next in
             var result = result
             for (k, v) in next.headers {
-                result.updateValue(v, forKey: k)
+                if v.isEmpty {
+                    result.removeValue(forKey: k)
+                } else {
+                    result.updateValue(v, forKey: k)
+                }
             }
             return result
         })

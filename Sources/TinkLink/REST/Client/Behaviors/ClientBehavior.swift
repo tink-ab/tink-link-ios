@@ -1,7 +1,7 @@
 import Foundation
 
 protocol ClientBehavior {
-    var headers: [String: String?] { get }
+    var headers: [String: String] { get }
 
     func beforeRequest(request: URLRequest)
     func afterSuccess(response: Any?, urlResponse: URLResponse?)
@@ -9,7 +9,7 @@ protocol ClientBehavior {
 }
 
 extension ClientBehavior {
-    var headers: [String: String?] { return [:] }
+    var headers: [String: String] { return [:] }
 
     func beforeRequest(request: URLRequest) { }
     func afterSuccess(response: Any?, urlResponse: URLResponse?) { }

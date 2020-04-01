@@ -7,5 +7,5 @@ struct DeviceIdHeaderClientBehavior: ClientBehavior {
         self.deviceId = deviceId
     }
     
-    var headers: [String: String?] { ["X-Tink-Device-Id": deviceId] }
+    var headers: [String: String] { ["X-Tink-Device-Id": deviceId] }
 }
