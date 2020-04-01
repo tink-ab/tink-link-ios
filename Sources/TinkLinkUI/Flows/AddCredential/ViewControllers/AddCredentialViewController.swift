@@ -140,7 +140,7 @@ extension AddCredentialViewController {
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame = frame
 
-        tableView.contentInset.bottom = button.frame.height + buttonBottomConstraint.constant + addCredentialFooterView.frame.height
+        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
         tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
     }
 
