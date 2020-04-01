@@ -27,16 +27,6 @@ public class Tink {
     private var authorizationBehavior = AuthorizationHeaderClientBehavior(sessionCredential: nil)
 
     private(set) var client: RESTClient
-    private func makeClient() -> RESTClient {
-        let certificateURL = self.configuration.restCertificateURL
-        let certificate = certificateURL.flatMap { try? String(contentsOf: $0, encoding: .utf8) }
-        return RESTClient(restURL: self.configuration.environment.restURL, certificates: certificate, behavior: ComposableClientBehavior(
-            behaviors: [
-                SDKHeaderClientBehavior(sdkName: "Tink Link iOS", clientID: self.configuration.clientID),
-                authorizationBehavior
-            ]
-        ))
-    }
 
     // MARK: - Specifying the Credential
 
@@ -48,12 +38,6 @@ public class Tink {
     /// - Parameter credential: The credential to use.
     public func setCredential(_ credential: SessionCredential?) {
         authorizationBehavior.sessionCredential = credential
-        client.behavior = ComposableClientBehavior(
-            behaviors: [
-                SDKHeaderClientBehavior(sdkName: "Tink Link iOS", clientID: self.configuration.clientID),
-                authorizationBehavior
-            ]
-        )
     }
 
     // MARK: - Creating a Tink Link Object
