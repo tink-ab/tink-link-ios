@@ -2,7 +2,7 @@ import Foundation
 
 final class RESTClient {
     let restURL: URL
-    var behavior: ClientBehavior
+    let behavior: ClientBehavior
     private let session: URLSession
     private let sessionDelegate: URLSessionDelegate?
 
