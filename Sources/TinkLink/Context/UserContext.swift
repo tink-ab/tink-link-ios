@@ -2,8 +2,8 @@ import Foundation
 
 /// An object that you use to create a user that will be used in other TinkLink APIs.
 public final class UserContext {
+    private let oAuthService: OAuthService
     private let userService: UserService
-    private let authenticationService: AuthenticationService
     private var retryCancellable: RetryCancellable?
     private var tink: Tink?
 
@@ -28,15 +28,15 @@ public final class UserContext {
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         self.init(
-            userService: RESTUserService(client: tink.client),
-            authenticationService: RESTAuthenticationService(client: tink.client)
+            oAuthService: RESTOAuthService(client: tink.client),
+            userService: RESTUserService(client: tink.client)
         )
         self.tink = tink
     }
 
-    init(userService: UserService, authenticationService: AuthenticationService) {
+    init(oAuthService: OAuthService, userService: UserService) {
+        self.oAuthService = oAuthService
         self.userService = userService
-        self.authenticationService = authenticationService
     }
 
     // MARK: - Authenticating a User
@@ -47,7 +47,7 @@ public final class UserContext {
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
     public func authenticateUser(authorizationCode: AuthorizationCode, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        return userService.authenticate(code: authorizationCode, completion: { [weak self] result in
+        return oAuthService.authenticate(code: authorizationCode, completion: { [weak self] result in
             do {
                 let authenticateResponse = try result.get()
                 let accessToken = authenticateResponse.accessToken
@@ -78,7 +78,7 @@ public final class UserContext {
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
     public func createTemporaryUser(for market: Market, locale: Locale = Tink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        return userService.createAnonymous(market: market, locale: locale, origin: nil) { [weak self] result in
+        return oAuthService.createAnonymous(market: market, locale: locale, origin: nil) { [weak self] result in
             let mappedResult = result
                 .map { User(accessToken: $0) }
                 .mapError { Error(createTemporaryUserError: $0) ?? $0 }
@@ -96,7 +96,7 @@ public final class UserContext {
 
     @discardableResult
     func userProfile(_ user: User, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        return authenticationService.userProfile { result in
+        return userService.userProfile { result in
             do {
                 let userProfile = try result.get()
                 completion(.success(User(accessToken: user.accessToken, userProfile: userProfile)))
