@@ -141,6 +141,7 @@ extension AddCredentialViewController {
         tableView.tableHeaderView?.frame = frame
 
         tableView.contentInset.bottom = button.frame.height + buttonBottomConstraint.constant + addCredentialFooterView.frame.height
+        tableView.scrollIndicatorInsets.bottom = tableView.contentInset.bottom
     }
 
     override func viewLayoutMarginsDidChange() {
