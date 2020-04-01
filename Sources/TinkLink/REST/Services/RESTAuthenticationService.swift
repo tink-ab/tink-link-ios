@@ -34,4 +34,12 @@ final class RESTAuthenticationService: AuthenticationService {
 
         return client.performRequest(request)
     }
+
+    func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
+        let request = RESTResourceRequest<RESTUser>(path: "/api/v1/user", method: .get, contentType: .json) { result in
+            completion(result.map(UserProfile.init))
+        }
+
+        return client.performRequest(request)
+    }
 }
