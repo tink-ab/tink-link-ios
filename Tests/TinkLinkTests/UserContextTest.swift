@@ -2,23 +2,23 @@ import XCTest
 @testable import TinkLink
 
 class UserContextTest: XCTestCase {
-    var mockedSuccessUserService: MockedSuccessUserService!
-    var mockedInvalidArgumentFailurefulUserService: MockedInvalidArgumentFailurefulUserService!
-    var mockedUnauthenticatedErrorUserService: MockedUnauthenticatedErrorUserService!
-    var mockedAuthenticationService: MockedAuthenticationService!
+    var mockedSuccessOAuthService: MockedSuccessOAuthService!
+    var mockedInvalidArgumentFailurefulOAuthService: MockedInvalidArgumentFailurefulOAuthService!
+    var mockedUnauthenticatedErrorOAuthService: MockedUnauthenticatedErrorOAuthService!
+    var mockedUserService: MockedUserService!
 
 
     override func setUp() {
-        mockedSuccessUserService = MockedSuccessUserService()
-        mockedInvalidArgumentFailurefulUserService = MockedInvalidArgumentFailurefulUserService()
-        mockedUnauthenticatedErrorUserService = MockedUnauthenticatedErrorUserService()
-        mockedAuthenticationService = MockedAuthenticationService()
+        mockedSuccessOAuthService = MockedSuccessOAuthService()
+        mockedInvalidArgumentFailurefulOAuthService = MockedInvalidArgumentFailurefulOAuthService()
+        mockedUnauthenticatedErrorOAuthService = MockedUnauthenticatedErrorOAuthService()
+        mockedUserService = MockedUserService()
     }
 
     func testSuccessfulWhenCreateAnonymousUser() {
         let completionCalled = expectation(description: "completion should be called")
 
-        let userContext = UserContext(userService: mockedSuccessUserService, authenticationService: mockedAuthenticationService)
+        let userContext = UserContext(oAuthService: mockedSuccessOAuthService, userService: mockedUserService)
         userContext.createTemporaryUser(for: "SE") { result in
             completionCalled.fulfill()
             do {
@@ -38,7 +38,7 @@ class UserContextTest: XCTestCase {
     func testInvalidArgumentFailureWhenCreateAnonymousUser() {
         let completionCalled = expectation(description: "completion should be called")
 
-        let userContext = UserContext(userService: mockedInvalidArgumentFailurefulUserService, authenticationService: mockedAuthenticationService)
+        let userContext = UserContext(oAuthService: mockedInvalidArgumentFailurefulOAuthService, userService: mockedUserService)
         userContext.createTemporaryUser(for: "SE") { result in
             completionCalled.fulfill()
             do {
@@ -62,8 +62,8 @@ class UserContextTest: XCTestCase {
 
     func testOtherErrorFailureWhenCreateAnonymousUser() {
         let completionCalled = expectation(description: "completion should be called")
-        
-        let userContext = UserContext(userService: mockedUnauthenticatedErrorUserService, authenticationService: mockedAuthenticationService)
+
+        let userContext = UserContext(oAuthService: mockedUnauthenticatedErrorOAuthService, userService: mockedUserService)
         userContext.createTemporaryUser(for: "SE") { result in
             completionCalled.fulfill()
             do {
