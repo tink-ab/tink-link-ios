@@ -2,7 +2,7 @@ import Foundation
 
 /// An object that you use to create a user that will be used in other TinkLink APIs.
 public final class UserContext {
-    private let userService: UserService & TokenConfigurableService
+    private let userService: UserService
     private var retryCancellable: RetryCancellable?
     private let userContextClientBehaviors: ComposableClientBehavior = ComposableClientBehavior(behaviors: [AuthorizationHeaderClientBehavior(sessionCredential: nil)])
     private var tink: Tink?

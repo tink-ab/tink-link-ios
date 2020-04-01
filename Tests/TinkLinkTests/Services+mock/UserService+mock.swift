@@ -1,7 +1,7 @@
 import Foundation
 @testable import TinkLink
 
-class MockedSuccessUserService: UserService & TokenConfigurableService {
+class MockedSuccessUserService: UserService {
     func createAnonymous(market: Market?, locale: Locale, origin: String?, contextClientBehaviors: ComposableClientBehavior, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         completion(.success(AccessToken("accessToken")))
         return nil
@@ -17,13 +17,9 @@ class MockedSuccessUserService: UserService & TokenConfigurableService {
         completion(.success(UserProfile(username: "test-user", nationalID: "test-id")))
         return nil
     }
-
-    func configure(_ accessToken: AccessToken) {
-
-    }
 }
 
-class MockedInvalidArgumentFailurefulUserService: UserService & TokenConfigurableService {
+class MockedInvalidArgumentFailurefulUserService: UserService {
     
     func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, contextClientBehaviors: ComposableClientBehavior, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.invalidArgumentError))
@@ -39,13 +35,9 @@ class MockedInvalidArgumentFailurefulUserService: UserService & TokenConfigurabl
         completion(.failure(ServiceError.invalidArgumentError))
         return nil
     }
-
-    func configure(_ accessToken: AccessToken) {
-
-    }
 }
 
-class MockedUnauthenticatedErrorUserService: UserService & TokenConfigurableService {
+class MockedUnauthenticatedErrorUserService: UserService {
 
     func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, contextClientBehaviors: ComposableClientBehavior, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
@@ -60,9 +52,5 @@ class MockedUnauthenticatedErrorUserService: UserService & TokenConfigurableServ
     func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
-    }
-
-    func configure(_ accessToken: AccessToken) {
-
     }
 }

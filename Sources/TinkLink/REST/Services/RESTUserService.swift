@@ -8,7 +8,6 @@ final class RESTUserService: UserService {
         self.client = client
     }
 
-    private var accessToken: AccessToken?
 
     func createAnonymous(market: Market?, locale: Locale, origin: String?, contextClientBehaviors: ComposableClientBehavior, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
 
@@ -50,8 +49,5 @@ final class RESTUserService: UserService {
     }
 }
 
-extension RESTUserService: TokenConfigurableService {
-    func configure(_ accessToken: AccessToken) {
-        self.accessToken = accessToken
     }
 }
