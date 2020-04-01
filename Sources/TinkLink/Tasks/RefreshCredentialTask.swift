@@ -52,16 +52,16 @@ public final class RefreshCredentialTask: Identifiable {
 
     // MARK: - Getting the Credentials
 
-    public private(set) var credentials: [Credentials]
+    public private(set) var credentials: Credentials
 
     private let credentialService: CredentialsService
     private let appUri: URL
     let progressHandler: (Status) -> Void
-    let completion: (Result<[Credentials], Swift.Error>) -> Void
+    let completion: (Result<Credentials, Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
 
-    init(credentials: [Credentials], credentialService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, appUri: URL, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<[Credentials], Swift.Error>) -> Void) {
+    init(credentials: Credentials, credentialService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, appUri: URL, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
         self.credentials = credentials
         self.credentialService = credentialService
         self.appUri = appUri
@@ -73,9 +73,12 @@ public final class RefreshCredentialTask: Identifiable {
     func startObserving() {
         credentialStatusPollingTask = CredentialsListStatusPollingTask(
             credentialService: credentialService,
-            credentials: credentials,
+            credentials: [credentials],
             updateHandler: { [weak self] result in self?.handleUpdate(for: result) },
-            completion: completion
+            completion: { [weak self] result in
+                guard let self = self else { return }
+                self.completion(result.map { $0.first ?? self.credentials })
+            }
         )
 
         credentialStatusPollingTask?.pollStatus()

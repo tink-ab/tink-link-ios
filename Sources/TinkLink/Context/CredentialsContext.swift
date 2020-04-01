@@ -172,17 +172,17 @@ public final class CredentialsContext {
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being refreshed.
     ///   - completion: The block to execute when the credentials has been refreshed successfuly or if it failed.
-    ///   - result: A result that either a list of updated credentials when refresh successed or an error if failed.
+    ///   - result: A result that either contains the refreshed credentials or an error if the refresh failed.
     /// - Returns: The refresh credentials task.
-    public func refresh(_ credentials: [Credentials],
+    public func refresh(_ credentials: Credentials,
                                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
                                    progressHandler: @escaping (_ status: RefreshCredentialTask.Status) -> Void,
-                                   completion: @escaping (_ result: Result<[Credentials], Swift.Error>) -> Void) -> RefreshCredentialTask {
+                                   completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RefreshCredentialTask {
         let appUri = tink.configuration.redirectURI
 
         let task = RefreshCredentialTask(credentials: credentials, credentialService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.refreshCredentials(credentialsIDs: credentials.map { $0.id }, completion: { result in
+        task.callCanceller = service.refreshCredentials(credentialsID: credentials.id, completion: { result in
             switch result {
             case .success:
                 task.startObserving()

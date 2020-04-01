@@ -66,10 +66,9 @@ final class RESTCredentialsService: CredentialsService {
         return client.performRequest(request)
     }
 
-    func refreshCredentials(credentialsIDs: [Credentials.ID], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func refreshCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
-        // TODO: FIX REQUIRED HERE
-        var request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsIDs.first!.value)/refresh", method: .post, contentType: .json) { (result) in
+        var request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/refresh", method: .post, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
         request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
