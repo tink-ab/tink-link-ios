@@ -17,7 +17,7 @@ final class AuthorizationController {
 
     @discardableResult
     func clientDescription(completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable? {
-        return authorizationContext.clientDescription(completion: completion)
+        return authorizationContext.fetchClientDescription(completion: completion)
     }
 
     @discardableResult

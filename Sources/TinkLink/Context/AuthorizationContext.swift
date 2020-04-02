@@ -64,7 +64,7 @@ public final class AuthorizationContext {
     ///
     /// - Parameter completion: The block to execute when the client description is received or if an error occurred.
     @discardableResult
-    public func clientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func fetchClientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
         let scopes: [Scope] = []
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(clientID: tink.configuration.clientID, scopes: scopes, redirectURI: redirectURI) { (result) in
