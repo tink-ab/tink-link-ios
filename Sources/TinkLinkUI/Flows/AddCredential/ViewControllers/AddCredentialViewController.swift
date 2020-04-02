@@ -140,7 +140,8 @@ extension AddCredentialViewController {
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame = frame
 
-        tableView.contentInset.bottom = addCredentialFooterView.frame.height
+        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
+        tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
     }
 
     override func viewLayoutMarginsDidChange() {

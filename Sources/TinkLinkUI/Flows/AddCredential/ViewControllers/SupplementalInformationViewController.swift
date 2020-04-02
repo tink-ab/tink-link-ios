@@ -87,6 +87,13 @@ extension SupplementalInformationViewController {
             didFirstFieldBecomeFirstResponder = true
         }
     }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
+        tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
+    }
 }
 
 // MARK: - UITableViewDataSource
