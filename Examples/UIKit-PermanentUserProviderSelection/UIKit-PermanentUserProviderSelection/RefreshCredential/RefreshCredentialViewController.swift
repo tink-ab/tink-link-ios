@@ -191,7 +191,6 @@ final class RefreshCredentialViewController: UIViewController {
         NSLayoutConstraint.deactivate(primaryButtonConstraints)
         primiaryButton.removeFromSuperview()
         verticalSeparator.removeFromSuperview()
-        print(credentialsToRefresh)
         primaryAction?(credentialsToRefresh)
     }
 }
