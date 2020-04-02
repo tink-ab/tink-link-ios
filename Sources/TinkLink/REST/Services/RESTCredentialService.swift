@@ -86,10 +86,13 @@ final class RESTCredentialsService: CredentialsService {
     }
 
     func cancelSupplementInformation(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-
-        //TODO: There is no cancel in REST. Investigate
-        completion(.success(()))
-        return nil
+        let information = RESTSupplementalInformation(information: [:])
+        let data = try? JSONEncoder().encode(information)
+        var request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/supplemental-information", method: .post, body: data, contentType: .json) { (result) in
+            completion(result.map { _ in })
+        }
+        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
+        return client.performRequest(request)
     }
 
     func enableCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
