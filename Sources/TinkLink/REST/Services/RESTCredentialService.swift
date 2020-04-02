@@ -61,7 +61,6 @@ final class RESTCredentialsService: CredentialsService {
 
     func refreshCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
-        // TODO: FIX REQUIRED HERE
         let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/refresh", method: .post, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
