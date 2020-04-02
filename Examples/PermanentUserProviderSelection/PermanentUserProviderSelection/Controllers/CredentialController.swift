@@ -93,14 +93,13 @@ final class CredentialController: ObservableObject {
         }
     }
 
-    private func refreshCompletionHandler(result: Result<[Credentials], Error>) {
+    private func refreshCompletionHandler(result: Result<Credentials, Error>) {
         do {
             let updatedCredentials = try result.get()
-            var groupedCredentials = Dictionary(grouping: credentials) { $0.id }
-            let groupedUpdatedCredentials = Dictionary(grouping: updatedCredentials) { $0.id }
-            groupedCredentials.merge(groupedUpdatedCredentials) { (_, new) in return new }
-            DispatchQueue.main.async { [weak self] in
-                self?.credentials = groupedCredentials.values.flatMap { $0 }
+            if let index = credentials.firstIndex (where: { $0.id == updatedCredentials.id }) {
+                DispatchQueue.main.async { [weak self] in
+                    self?.credentials[index] = updatedCredentials
+                }
             }
         } catch {
             // Handle any errors

@@ -38,7 +38,7 @@ class URLSessionRetryCancellableTask: RetryCancellable {
                 self.request.onResponse(.failure(error))
                 self.behavior.afterError(error: error)
             } else if let data = data, let response = response as? HTTPURLResponse {
-                if let error = HTTPStatusCodeError(statusCode: response.statusCode) {
+                if let error = RESTError(statusCode: response.statusCode) {
                     self.request.onResponse(.failure(error))
                     self.behavior.afterError(error: error)
                 } else {

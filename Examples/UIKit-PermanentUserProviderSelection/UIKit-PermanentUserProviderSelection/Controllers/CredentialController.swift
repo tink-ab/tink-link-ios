@@ -41,7 +41,7 @@ final class CredentialController {
         })
     }
 
-    func performRefresh(_ credentials: [Credentials]) {
+    func performRefresh(_ credentials: Credentials) {
         refreshTask = credentialContext.refresh(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
@@ -143,13 +143,12 @@ final class CredentialController {
         }
     }
 
-    private func refreshCompletionHandler(result: Result<[Credentials], Error>) {
+    private func refreshCompletionHandler(result: Result<Credentials, Error>) {
         do {
             let updatedCredentials = try result.get()
-            var groupedCredentials = Dictionary(grouping: credentials) { $0.id }
-            let groupedUpdatedCredentials = Dictionary(grouping: updatedCredentials) { $0.id }
-            groupedCredentials.merge(groupedUpdatedCredentials) { (_, new) in return new }
-            credentials = groupedCredentials.values.flatMap { $0 }
+            if let index = credentials.firstIndex (where: { $0.id == updatedCredentials.id }) {
+                credentials[index] = updatedCredentials
+            }
             NotificationCenter.default.post(name: .credentialControllerDidFinishRefreshingCredentials, object: nil)
         } catch {
             let parameters = ["error": error]

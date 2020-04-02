@@ -59,10 +59,10 @@ final class RESTCredentialsService: CredentialsService {
         return client.performRequest(request)
     }
 
-    func refreshCredentials(credentialsIDs: [Credentials.ID], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func refreshCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
         // TODO: FIX REQUIRED HERE
-        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsIDs.first!.value)/refresh", method: .post, contentType: .json) { (result) in
+        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/refresh", method: .post, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
         return client.performRequest(request)

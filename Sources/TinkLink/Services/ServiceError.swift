@@ -19,7 +19,25 @@ public enum ServiceError: Error {
     case missingInternetConnection
 
     init?(_ error: Swift.Error) {
-        return nil
-        //TODO: ADD mapping to REST errors
+        if let restError = error as? RESTError, let statusCodeError = restError.statusCodeError {
+            switch statusCodeError {
+            case .badRequest:
+                self = .invalidArgument(restError.errorMessage ?? "")
+            case .unauthorized:
+                self = .unauthenticated(restError.errorMessage ?? "User is not authenticated")
+            case .forbidden:
+                self = .permissionDenied(restError.errorMessage ?? "")
+            case .notFound:
+                self = .notFound(restError.errorMessage ?? "")
+            case .internalServerError:
+                self = .internalError(restError.errorMessage ?? "Internal server error")
+            case .serverError(let code):
+                self = .internalError(restError.errorMessage ?? "Error code \(code)")
+            case .clientError(let code):
+                self = .internalError(restError.errorMessage ?? "Error code \(code)")
+            }
+        } else {
+            return nil
+        }
     }
 }
