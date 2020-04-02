@@ -3,26 +3,15 @@ import SwiftUI
 
 final class CredentialController: ObservableObject {
     @Published var credentials: [Credentials] = []
-    var user: User? {
-        didSet {
-            if user != nil {
-                performFetch()
-            }
-        }
-    }
 
     @Published var updatedCredentials: [Credentials] = []
     @Published var supplementInformationTask: SupplementInformationTask?
 
-    private(set) var credentialContext: CredentialsContext?
+    private(set) var credentialContext =  CredentialsContext()
     private var task: RefreshCredentialTask?
     
     func performFetch() {
-        guard let user = user else { return }
-        if credentialContext == nil {
-            credentialContext = CredentialsContext(user: user)
-        }
-        credentialContext?.fetchCredentialsList(completion: { [weak self] result in
+        credentialContext.fetchCredentialsList(completion: { [weak self] result in
             do {
                 let credentials = try result.get()
                 DispatchQueue.main.async {
@@ -35,11 +24,7 @@ final class CredentialController: ObservableObject {
     }
 
     func performRefresh(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        guard let user = user else { return }
-        if credentialContext == nil {
-            credentialContext = CredentialsContext(user: user)
-        }
-        task = credentialContext?.refresh(
+        task = credentialContext.refresh(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             progressHandler: { [weak self] in
@@ -57,7 +42,7 @@ final class CredentialController: ObservableObject {
 
     func deleteCredential(credentials: [Credentials]) {
         credentials.forEach { credential in
-            credentialContext?.delete(credential, completion: { [weak self] result in
+            credentialContext.delete(credential, completion: { [weak self] result in
                 switch result {
                 case .success:
                     DispatchQueue.main.async {

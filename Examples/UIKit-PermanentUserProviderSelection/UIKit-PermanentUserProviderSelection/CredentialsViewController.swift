@@ -11,8 +11,8 @@ class CredentialsViewController: UITableViewController {
     }()
 
     private let userController = UserController()
-    private var credentialController: CredentialController?
-    private var providerController: ProviderController?
+    private var credentialController = CredentialController()
+    private var providerController = ProviderController()
 
     private var credentials: [Credentials]? {
         didSet {
@@ -51,11 +51,7 @@ class CredentialsViewController: UITableViewController {
             guard let self = self else { return }
             do {
                 let user = try result.get()
-                self.credentialController = CredentialController()
-                self.credentialController?.user = user
-                self.providerController = ProviderController()
-                self.providerController?.user = user
-                self.providerController?.performFetch()
+                self.providerController.performFetch()
             } catch {
                 // Handle any errors
             }
@@ -64,35 +60,29 @@ class CredentialsViewController: UITableViewController {
 
     @objc private func updateCredentials() {
         DispatchQueue.main.async {
-            self.credentials = self.credentialController?.credentials
+            self.credentials = self.credentialController.credentials
         }
     }
 
     @objc private func refreshCredentials(sender: UIBarButtonItem) {
-        if let credentialController = credentialController, let providerController = providerController {
-            let refreshCredentialViewController = RefreshCredentialViewController(
-                titleText: "Update banks & services",
-                credentialController: credentialController,
-                providerController: providerController,
-                dismissAction: { refreshCredentialViewController in
-                    refreshCredentialViewController.dismiss(animated: false)
-            }) { credentials in
-                if let credentials = credentials {
-                    credentialController.performRefresh(credentials)
-                }
-            }
-            view.tintAdjustmentMode = .dimmed
-            refreshCredentialViewController.modalPresentationStyle = .overFullScreen
-            present(refreshCredentialViewController, animated: false)
+        let refreshCredentialViewController = RefreshCredentialViewController(
+            titleText: "Update banks & services",
+            credentialController: credentialController,
+            providerController: providerController,
+            dismissAction: { refreshCredentialViewController in
+                refreshCredentialViewController.dismiss(animated: false)
+        }) { [weak self] credentialsToRefresh in
+            credentialsToRefresh.flatMap { self?.credentialController.performRefresh($0) }
         }
+        view.tintAdjustmentMode = .dimmed
+        refreshCredentialViewController.modalPresentationStyle = .overFullScreen
+        present(refreshCredentialViewController, animated: false)
     }
 
     @objc func addCredential(sender: UIBarButtonItem) {
-        if let providerController = providerController, let credentialController = credentialController {
-            let providerListViewController = ProviderListViewController(style: .plain, providerController: providerController, credentialController: credentialController)
-            let navigationController = UINavigationController(rootViewController: providerListViewController)
-            present(navigationController, animated: true)
-        }
+        let providerListViewController = ProviderListViewController(style: .plain, providerController: providerController, credentialController: credentialController)
+        let navigationController = UINavigationController(rootViewController: providerListViewController)
+        present(navigationController, animated: true)
     }
 }
 
@@ -106,7 +96,7 @@ extension CredentialsViewController {
             fatalError()
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FixedImageSizeTableViewCell
-        let provider = providerController?.provider(providerID: credential.providerID)
+        let provider = providerController.provider(providerID: credential.providerID)
         cell.setTitle(text: provider?.displayName ?? credential.kind.description)
         cell.setSubtitle(text: dateFormatter.string(from: credential.updated ?? Date()))
         provider?.image.flatMap { cell.setImage(url: $0) }
@@ -119,7 +109,7 @@ extension CredentialsViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete, let credentialToDelete = credentials?[indexPath.item] {
-            credentialController?.deleteCredential([credentialToDelete])
+            credentialController.deleteCredential([credentialToDelete])
             credentials?.remove(at: indexPath.item)
         }
     }

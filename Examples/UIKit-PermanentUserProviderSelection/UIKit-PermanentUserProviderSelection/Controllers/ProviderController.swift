@@ -22,15 +22,11 @@ final class ProviderController {
         }
     }
     
-    private var providerContext: ProviderContext?
+    private var providerContext = ProviderContext()
 
     func performFetch() {
-        guard let user = user else { return }
-        if providerContext == nil {
-            providerContext = ProviderContext(user: user)
-        }
         let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
-        providerContext?.fetchProviders(attributes: attributes, completion: { [weak self] result in
+        providerContext.fetchProviders(attributes: attributes, completion: { [weak self] result in
             do {
                 let providers = try result.get()
                 DispatchQueue.main.async {

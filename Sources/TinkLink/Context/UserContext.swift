@@ -2,8 +2,10 @@ import Foundation
 
 /// An object that you use to create a user that will be used in other TinkLink APIs.
 public final class UserContext {
-    private let userService: UserService & TokenConfigurableService
+    private let oAuthService: OAuthService
+    private let userService: UserService
     private var retryCancellable: RetryCancellable?
+    private var tink: Tink?
 
     /// Error that the `UserContext` can throw.
     public enum Error: Swift.Error {
@@ -25,10 +27,15 @@ public final class UserContext {
     /// Creates a context to register for an access token that will be used in other Tink APIs.
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
-        self.init(userService: RESTUserService(client: tink.client))
+        self.init(
+            oAuthService: RESTOAuthService(client: tink.client),
+            userService: RESTUserService(client: tink.client)
+        )
+        self.tink = tink
     }
 
-    init(userService: UserService & TokenConfigurableService) {
+    init(oAuthService: OAuthService, userService: UserService) {
+        self.oAuthService = oAuthService
         self.userService = userService
     }
 
@@ -40,12 +47,13 @@ public final class UserContext {
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
     public func authenticateUser(authorizationCode: AuthorizationCode, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        return userService.authenticate(code: authorizationCode, completion: { result in
+        return oAuthService.authenticate(code: authorizationCode, completion: { [weak self] result in
             do {
                 let authenticateResponse = try result.get()
                 let accessToken = authenticateResponse.accessToken
                 let user = User(accessToken: accessToken)
-                self.userProfile(user, completion: completion)
+                self?.tink?.setCredential(.accessToken(user.accessToken.rawValue))
+                self?.userProfile(user, completion: completion)
             } catch {
                 completion(.failure(error))
             }
@@ -59,6 +67,7 @@ public final class UserContext {
     @discardableResult
     public func authenticateUser(accessToken: AccessToken, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
         let user = User(accessToken: accessToken)
+        tink?.setCredential(.accessToken(user.accessToken.rawValue))
         return userProfile(user, completion: completion)
     }
 
@@ -69,12 +78,13 @@ public final class UserContext {
     /// - Parameter completion: A result representing either a user info object or an error.
     @discardableResult
     public func createTemporaryUser(for market: Market, locale: Locale = Tink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        return userService.createAnonymous(market: market, locale: locale, origin: nil) { result in
+        return oAuthService.createAnonymous(market: market, locale: locale, origin: nil) { [weak self] result in
             let mappedResult = result
                 .map { User(accessToken: $0) }
                 .mapError { Error(createTemporaryUserError: $0) ?? $0 }
             do {
                 let user = try mappedResult.get()
+                self?.tink?.setCredential(.accessToken(user.accessToken.rawValue))
                 completion(.success(user))
             } catch Error.invalidMarketOrLocale(let message) {
                 completion(.failure(Error.invalidMarketOrLocale(message)))
@@ -86,7 +96,6 @@ public final class UserContext {
 
     @discardableResult
     func userProfile(_ user: User, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        userService.configure(user.accessToken)
         return userService.userProfile { result in
             do {
                 let userProfile = try result.get()

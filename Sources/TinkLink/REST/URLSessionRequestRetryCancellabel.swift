@@ -25,10 +25,10 @@ class URLSessionRetryCancellableTask: RetryCancellable {
         }
 
         urlRequest.httpBody = request.body
-
         for header in request.headers {
             urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
         }
+
         self.urlRequest = urlRequest
     }
 

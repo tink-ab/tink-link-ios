@@ -30,9 +30,9 @@ public final class AuthorizationContext {
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     /// - Parameter user: `User` that will be used for authorizing scope with the Tink API.
-    public init(tink: Tink = .shared, user: User) {
+    public init(tink: Tink = .shared) {
         self.tink = tink
-        self.service = RESTAuthenticationService(client: tink.client, accessToken: user.accessToken)
+        self.service = RESTAuthenticationService(client: tink.client)
     }
 
     // MARK: - Authorizing a User
@@ -75,5 +75,4 @@ public final class AuthorizationContext {
             completion(mappedResult)
         }
     }
-
 }
