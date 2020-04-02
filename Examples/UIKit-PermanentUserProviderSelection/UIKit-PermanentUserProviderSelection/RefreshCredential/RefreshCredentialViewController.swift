@@ -24,14 +24,14 @@ final class RefreshCredentialViewController: UIViewController {
 
     private let titleText: String
     private let dismissAction: (UIViewController) -> Void
-    private let primaryAction: (([Credentials]) -> Void)?
+    private let primaryAction: ((Credentials?) -> Void)?
     private let verticalSeparator = UIView()
     private var primaryButtonConstraints = [NSLayoutConstraint]()
 
     private var credentialController: CredentialController
     private var providerController: ProviderController
 
-    private var credentialsToRefresh: [Credentials]
+    private var credentialsToRefresh: Credentials?
     private var viewModels: [ViewModel] {
         didSet {
             let credentials = viewModels.filter {
@@ -42,17 +42,17 @@ final class RefreshCredentialViewController: UIViewController {
                     return false
                 }
             }.map { $0.credential }
-            credentialsToRefresh = credentials
+            credentialsToRefresh = credentials.first
             DispatchQueue.main.async {
                 self.refreshCredentialList.reloadData()
             }
         }
     }
 
-    init(titleText: String, credentialController: CredentialController, providerController: ProviderController, dismissAction: @escaping (UIViewController) -> Void, primaryAction: (([Credentials]) -> Void)?) {
+    init(titleText: String, credentialController: CredentialController, providerController: ProviderController, dismissAction: @escaping (UIViewController) -> Void, primaryAction: ((Credentials?) -> Void)?) {
         self.titleText = titleText
         self.viewModels = credentialController.credentials.map{ ViewModel(credential: $0, viewState: .selection(true)) }
-        self.credentialsToRefresh = credentialController.credentials
+        self.credentialsToRefresh = credentialController.credentials.first
         self.credentialController = credentialController
         self.providerController = providerController
         self.dismissAction = dismissAction
