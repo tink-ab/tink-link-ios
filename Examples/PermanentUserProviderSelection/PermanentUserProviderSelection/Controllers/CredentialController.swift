@@ -23,7 +23,7 @@ final class CredentialController: ObservableObject {
         })
     }
 
-    func performRefresh(credentials: [Credentials], completion: @escaping (Result<[Credentials], Error>) -> Void) {
+    func performRefresh(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
         task = credentialContext.refresh(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,

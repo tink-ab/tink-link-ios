@@ -72,7 +72,7 @@ class CredentialsViewController: UITableViewController {
             dismissAction: { refreshCredentialViewController in
                 refreshCredentialViewController.dismiss(animated: false)
         }) { [weak self] credentialsToRefresh in
-            self?.credentialController.performRefresh(credentialsToRefresh)
+            credentialsToRefresh.flatMap { self?.credentialController.performRefresh($0) }
         }
         view.tintAdjustmentMode = .dimmed
         refreshCredentialViewController.modalPresentationStyle = .overFullScreen
