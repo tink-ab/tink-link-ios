@@ -41,7 +41,7 @@ class MockedSuccessCredentialsService: CredentialsService {
         return nil
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, callbackUri: URL?, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         if let index = credentials.firstIndex(where: { $0.id == credentialsID }) {
             let credentialToBeUpdated = credentials[index]
             let credential = Credentials(id: credentialToBeUpdated.id, providerID: credentialToBeUpdated.providerID, kind: credentialToBeUpdated.kind, status: .updated, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: [], thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
@@ -126,7 +126,7 @@ class MockedUnauthenticatedErrorCredentialsService: CredentialsService {
         return nil
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, callbackUri: URL?, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }

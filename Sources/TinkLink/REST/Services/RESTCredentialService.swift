@@ -54,9 +54,8 @@ final class RESTCredentialsService: CredentialsService {
         return client.performRequest(request)
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
-
-        let body = RESTUpdateCredentialsRequest(providerName: nil, fields: fields, callbackUri: nil, appUri: nil)
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, callbackUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        let body = RESTUpdateCredentialsRequest(providerName: providerID.value, fields: fields, callbackUri: callbackUri?.absoluteString, appUri: appUri?.absoluteString)
         let data = try? JSONEncoder().encode(body)
         var request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials/\(credentialsID.value)", method: .put, body: data, contentType: .json) { result in
             completion(result.map(Credentials.init))
