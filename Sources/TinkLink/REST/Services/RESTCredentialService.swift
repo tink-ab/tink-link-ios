@@ -82,7 +82,6 @@ final class RESTCredentialsService: CredentialsService {
         var request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/supplemental-information", method: .post, body: data, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
-        request.headers = ["Authorization" : "Bearer \(accessToken.rawValue)"]
         return client.performRequest(request)
     }
 
