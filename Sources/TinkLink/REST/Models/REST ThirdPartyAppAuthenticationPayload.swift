@@ -10,8 +10,8 @@ struct RESTThirdPartyAppAuthenticationPayload: Codable {
 
     let ios: Ios
 
-    let downloadTitle: String
-    let downloadMessage: String
-    let upgradeTitle: String
-    let upgradeMessage: String
+    let downloadTitle: String?
+    let downloadMessage: String?
+    let upgradeTitle: String?
+    let upgradeMessage: String?
 }
