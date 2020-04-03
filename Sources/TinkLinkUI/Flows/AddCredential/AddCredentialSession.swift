@@ -105,6 +105,7 @@ final class AddCredentialSession {
             authorizationGroup.notify(queue: .main) { [weak self] in
                 if let authorizationCode = self?.authorizationCode {
                     self?.hideUpdatingView(animated: true) {
+                        self?.timer?.invalidate()
                         onCompletion(.success(authorizationCode))
                     }
                 }
@@ -170,7 +171,6 @@ extension AddCredentialSession {
             completion?()
             return
         }
-        timer?.invalidate()
         parentViewController?.dismiss(animated: animated, completion: completion)
     }
 
