@@ -211,7 +211,7 @@ extension AddCredentialViewController {
         buttonBottomConstraint.constant = max(0, frameHeight - addCredentialFooterView.bounds.height)
         buttonWidthConstraint.constant = view.frame.size.width
         button.rounded = false
-        tableView.contentInset.bottom = frameHeight + addCredentialFooterView.frame.height
+        tableView.contentInset.bottom = frameHeight + button.frame.height
         UIView.animate(withDuration: notification.duration) {
             self.view.layoutIfNeeded()
         }

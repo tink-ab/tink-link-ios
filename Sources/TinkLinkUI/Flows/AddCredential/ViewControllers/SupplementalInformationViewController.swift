@@ -188,7 +188,7 @@ extension SupplementalInformationViewController {
         buttonBottomConstraint.constant = keyboardHeight - view.safeAreaInsets.bottom
         buttonWidthConstraint.constant = view.frame.size.width
         button.rounded = false
-        tableView.contentInset.bottom = keyboardHeight
+        tableView.contentInset.bottom = keyboardHeight + button.frame.height
         view.layoutIfNeeded()
     }
 
