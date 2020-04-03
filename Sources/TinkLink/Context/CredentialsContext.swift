@@ -102,7 +102,7 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = addCredentialsAndAuthenticateIfNeeded(for: provider, fields: form.makeFields(), appUri: appUri) { [weak task, weak self] result in
+            task.callCanceller = service.createCredentials(providerID: provider.id, kind: provider.credentialsKind, fields: form.makeFields(), appUri: appUri) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[provider.id] = credential
@@ -114,10 +114,6 @@ public final class CredentialsContext {
             }
         }
         return task
-    }
-
-    private func addCredentialsAndAuthenticateIfNeeded(for provider: Provider, fields: [String: String], appUri: URL, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
-        return service.createCredentials(providerID: provider.id, kind: provider.credentialsKind, fields: fields, appUri: appUri, completion: completion)
     }
 
     // MARK: - Fetching Credentials
@@ -204,7 +200,9 @@ public final class CredentialsContext {
     @discardableResult
     public func update(_ credentials: Credentials, form: Form? = nil,
                        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RetryCancellable? {
-        service.updateCredentials(credentialsID: credentials.id, fields: form?.makeFields() ?? [:], completion: completion)
+        let appUri = tink.configuration.redirectURI
+        return service.updateCredentials(credentialsID: credentials.id, providerID: credentials.providerID, appUri: appUri, callbackUri: appUri, fields: form?.makeFields() ?? [:], completion: completion)
+
     }
 
     /// Delete the user's credentials.
