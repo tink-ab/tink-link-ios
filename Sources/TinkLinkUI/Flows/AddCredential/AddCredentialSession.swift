@@ -170,6 +170,7 @@ extension AddCredentialSession {
             completion?()
             return
         }
+        timer?.invalidate()
         parentViewController?.dismiss(animated: animated, completion: completion)
     }
 
