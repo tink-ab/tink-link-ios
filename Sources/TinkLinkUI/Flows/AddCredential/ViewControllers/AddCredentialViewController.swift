@@ -72,6 +72,7 @@ extension AddCredentialViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .onDrag
 
         headerView.configure(with: provider, username: username, clientName: clientName, isAggregator: isAggregator)
         headerView.delegate = self
