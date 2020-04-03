@@ -80,7 +80,7 @@ public final class ConsentContext {
     ///                 Tink.Scope.Transactions.read
     ///             ])
     ///
-    ///             authorizationContext.scopeDescriptions(scope: scope) { [weak self] result in
+    ///             authorizationContext.fetchScopeDescriptions(scope: scope) { [weak self] result in
     ///                 DispatchQueue.main.async {
     ///                     do {
     ///                         self?.scopeDescriptions = try result.get()
@@ -111,7 +111,7 @@ public final class ConsentContext {
     ///   - completion: The block to execute when the scope descriptions are received or if an error occurred.
     /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
     @discardableResult
-    public func scopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
+    public func fetchScopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.clientDescription(clientID: tink.configuration.clientID, scopes: scopes, redirectURI: redirectURI) { (result) in
             let mappedResult = result.map({ $0.scopes }).mapError({ Error($0) ?? $0 })

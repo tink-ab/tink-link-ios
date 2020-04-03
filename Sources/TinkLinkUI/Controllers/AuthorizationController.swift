@@ -22,6 +22,6 @@ final class AuthorizationController {
 
     @discardableResult
     public func scopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable? {
-        return ConsentContext(tink: tink).scopeDescriptions(scopes: scopes, completion: completion)
+        return ConsentContext(tink: tink).fetchScopeDescriptions(scopes: scopes, completion: completion)
     }
 }
