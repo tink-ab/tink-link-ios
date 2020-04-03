@@ -95,12 +95,8 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
         guard text.count <= maxLength else {
             return false
         }
-        // Noticed that for isSecureTextEntry, unless the clearsOnBeginEditing set to false, the text will be cleared.
-        if textField.isSecureTextEntry {
-            delegate?.formFieldCell(self, willChangeToText: String())
-        } else {
-            delegate?.formFieldCell(self, willChangeToText: text)
-        }
+
+        delegate?.formFieldCell(self, willChangeToText: text)
         return true
     }
 
@@ -140,5 +136,6 @@ extension FloatingPlaceholderTextField {
         text = field.text
         placeholder = field.attributes.description
         isSecureTextEntry = field.attributes.isSecureTextEntry
+        clearsOnBeginEditing = false
     }
 }
