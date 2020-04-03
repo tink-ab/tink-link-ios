@@ -56,7 +56,7 @@ public final class CredentialsContext {
     ///
     /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
     ///
-    ///     let addCredentialsTask = credentialsContext.addCredentials(for: provider, form: form, progressHandler: { status in
+    ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, progressHandler: { status in
     ///         switch status {
     ///         case .awaitingSupplementalInformation(let supplementInformationTask):
     ///             <#Present form for supplemental information task#>
@@ -78,7 +78,7 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
-    public func addCredentials(for provider: Provider, form: Form,
+    public func add(for provider: Provider, form: Form,
                               completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                               progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
                               completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
@@ -92,7 +92,7 @@ public final class CredentialsContext {
         )
 
         if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = updateCredentials(newlyAddedCredentials, form: form) { (result) in
+            task.callCanceller = update(newlyAddedCredentials, form: form) { (result) in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
@@ -170,7 +170,7 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been refreshed successfuly or if it failed.
     ///   - result: A result that either contains the refreshed credentials or an error if the refresh failed.
     /// - Returns: The refresh credentials task.
-    public func refreshCredentials(_ credentials: Credentials,
+    public func refresh(_ credentials: Credentials,
                                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
                                    progressHandler: @escaping (_ status: RefreshCredentialTask.Status) -> Void,
                                    completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RefreshCredentialTask {
@@ -198,7 +198,7 @@ public final class CredentialsContext {
     ///   - result: A result with either an updated credentials if the update succeeded or an error if failed.
     /// - Returns: The update credentials task.
     @discardableResult
-    public func updateCredentials(_ credentials: Credentials, form: Form? = nil,
+    public func update(_ credentials: Credentials, form: Form? = nil,
                        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RetryCancellable? {
         let appUri = tink.configuration.redirectURI
         return service.updateCredentials(credentialsID: credentials.id, providerID: credentials.providerID, appUri: appUri, callbackUri: appUri, fields: form?.makeFields() ?? [:], completion: completion)
@@ -212,7 +212,7 @@ public final class CredentialsContext {
     ///   - result: A result representing that the delete succeeded or an error if failed.
     /// - Returns: The delete credentials task.
     @discardableResult
-    public func deleteCredentials(_ credentials: Credentials,
+    public func delete(_ credentials: Credentials,
                        completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.deleteCredentials(credentialsID: credentials.id, completion: completion)
     }

@@ -42,7 +42,7 @@ final class CredentialController {
     }
 
     func performRefresh(_ credentials: Credentials) {
-        refreshTask = credentialContext.refreshCredentials(
+        refreshTask = credentialContext.refresh(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             progressHandler: { [weak self] in self?.refreshProgressHandler(status: $0) },
@@ -52,7 +52,7 @@ final class CredentialController {
     }
 
     func addCredential(_ provider: Provider, form: Form) {
-        addCredentialTask = credentialContext.addCredentials(
+        addCredentialTask = credentialContext.add(
             for: provider,
             form: form,
             progressHandler: { [weak self] in self?.createProgressHandler(for: $0) },
@@ -70,7 +70,7 @@ final class CredentialController {
 
     func deleteCredential(_ credentials: [Credentials]) {
         credentials.forEach { credential in
-            credentialContext.deleteCredentials(credential, completion: { [weak self] result in
+            credentialContext.delete(credential, completion: { [weak self] result in
                 switch result {
                 case .success:
                     self?.credentials.removeAll { removedCredential -> Bool in

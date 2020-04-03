@@ -24,7 +24,7 @@ final class CredentialController: ObservableObject {
     }
 
     func performRefresh(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        task = credentialContext.refreshCredentials(
+        task = credentialContext.refresh(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             progressHandler: { [weak self] in
@@ -42,7 +42,7 @@ final class CredentialController: ObservableObject {
 
     func deleteCredential(credentials: [Credentials]) {
         credentials.forEach { credential in
-            credentialContext.deleteCredentials(credential, completion: { [weak self] result in
+            credentialContext.delete(credential, completion: { [weak self] result in
                 switch result {
                 case .success:
                     DispatchQueue.main.async {

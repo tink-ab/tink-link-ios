@@ -75,12 +75,12 @@ public final class ConsentContext {
     ///
     ///             tableView.register(ScopeDescriptionCell.self, forCellReuseIdentifier: "Cell")
     ///
-    ///             let scope = Tink.Scope(scopes: [
-    ///                 Tink.Scope.Accounts.read,
-    ///                 Tink.Scope.Transactions.read
-    ///             ])
+    ///             let scopes [Scope] = [
+    ///                 .accounts(.read),
+    ///                 .transactions(.read)
+    ///             ]
     ///
-    ///             authorizationContext.fetchScopeDescriptions(scope: scope) { [weak self] result in
+    ///             authorizationContext.fetchScopeDescriptions(scopes: scopes) { [weak self] result in
     ///                 DispatchQueue.main.async {
     ///                     do {
     ///                         self?.scopeDescriptions = try result.get()
