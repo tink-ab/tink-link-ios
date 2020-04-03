@@ -187,13 +187,15 @@ extension SupplementalInformationViewController {
         buttonBottomConstraint.constant = keyboardHeight - view.safeAreaInsets.bottom
         buttonWidthConstraint.constant = view.frame.size.width
         button.rounded = false
+        tableView.contentInset.bottom = keyboardHeight
         view.layoutIfNeeded()
     }
 
     private func keyboardWillHide(_ notification: KeyboardNotification) {
         buttonBottomConstraint.constant = 4
-        button.rounded = true
         buttonWidthConstraint.constant = button.minimumWidth
+        button.rounded = true
+        tableView.contentInset.bottom = 0
         view.layoutIfNeeded()
     }
 
