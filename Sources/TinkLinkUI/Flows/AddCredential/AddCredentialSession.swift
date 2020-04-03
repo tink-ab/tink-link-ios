@@ -135,7 +135,7 @@ extension AddCredentialSession {
     }
 
     private func showUpdating(status: String) {
-        hideQRCodeView {
+        hideQRCodeViewIfNeeded {
             if let statusViewController = self.statusViewController {
                 if statusViewController.presentingViewController == nil {
                     self.parentViewController?.present(statusViewController, animated: true)
@@ -154,7 +154,7 @@ extension AddCredentialSession {
     }
 
     private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
-        hideQRCodeView(animated: animated)
+        hideQRCodeViewIfNeeded(animated: animated)
         guard statusViewController != nil, statusViewController?.presentingViewController != nil else {
             completion?()
             return
@@ -171,7 +171,7 @@ extension AddCredentialSession {
         }
     }
 
-    private func hideQRCodeView(animated: Bool = false, completion: (() -> Void)? = nil) {
+    private func hideQRCodeViewIfNeeded(animated: Bool = false, completion: (() -> Void)? = nil) {
         guard qrImageViewController != nil else {
             completion?()
             return
