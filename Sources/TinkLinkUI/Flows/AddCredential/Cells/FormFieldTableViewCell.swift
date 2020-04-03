@@ -95,7 +95,12 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
         guard text.count <= maxLength else {
             return false
         }
-        delegate?.formFieldCell(self, willChangeToText: text)
+        // Noticed that for isSecureTextEntry, unless the clearsOnBeginEditing set to false, the text will be cleared.
+        if textField.isSecureTextEntry {
+            delegate?.formFieldCell(self, willChangeToText: String())
+        } else {
+            delegate?.formFieldCell(self, willChangeToText: text)
+        }
         return true
     }
 
