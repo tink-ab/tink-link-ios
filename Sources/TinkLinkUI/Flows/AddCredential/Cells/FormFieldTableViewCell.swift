@@ -95,6 +95,7 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
         guard text.count <= maxLength else {
             return false
         }
+
         delegate?.formFieldCell(self, willChangeToText: text)
         return true
     }
@@ -121,5 +122,6 @@ extension FloatingPlaceholderTextField {
         text = field.text
         placeholder = field.attributes.description
         isSecureTextEntry = field.attributes.isSecureTextEntry
+        clearsOnBeginEditing = false
     }
 }
