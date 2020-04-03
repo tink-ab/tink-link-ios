@@ -3,7 +3,7 @@ import Foundation
 struct RESTThirdPartyAppAuthenticationPayload: Codable {
     
     struct Ios: Codable {
-        let appStoreUrl: URL
+        let appStoreUrl: URL?
         let scheme: String
         let deepLinkUrl: URL
     }
