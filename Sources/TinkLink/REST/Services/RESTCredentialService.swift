@@ -67,9 +67,22 @@ final class RESTCredentialsService: CredentialsService {
         return client.performRequest(request)
     }
 
-    func refreshCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func refreshCredentials(credentialsID: Credentials.ID, refreshableItems: Set<RefreshableItem>, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
-        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/refresh", method: .post, contentType: .json) { (result) in
+        var parameters: [String:String] = [:]
+
+        if !refreshableItems.isEmpty {
+            // Hack: You are supposed to send the items as "items=item1&items=item2", but since we use a dictionary
+            // to represent the parameters we can only use the key items once so we combine all of the items
+            // instead
+            parameters["items"] = refreshableItems.map({$0.rawValue}).joined(separator: "&items=")
+        }
+
+        if optIn {
+            parameters["optIn"] = "true"
+        }
+
+        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/refresh", method: .post, contentType: .json, parameters: parameters) { (result) in
             completion(result.map { _ in })
         }
         return client.performRequest(request)

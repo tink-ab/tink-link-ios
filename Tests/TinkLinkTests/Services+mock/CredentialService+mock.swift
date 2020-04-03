@@ -51,7 +51,7 @@ class MockedSuccessCredentialsService: CredentialsService {
         return nil
     }
 
-    func refreshCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func refreshCredentials(credentialsID: Credentials.ID, refreshableItems: Set<RefreshableItem>, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.success(()))
         return nil
     }
@@ -131,7 +131,7 @@ class MockedUnauthenticatedErrorCredentialsService: CredentialsService {
         return nil
     }
 
-    func refreshCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func refreshCredentials(credentialsID: Credentials.ID, refreshableItems: Set<RefreshableItem>, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         return nil
     }
 
