@@ -27,12 +27,21 @@ final class RESTCredentialsService: CredentialsService {
         return client.performRequest(request)
     }
 
-    func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func createCredentials(providerID: Provider.ID, refreshableItems: Set<RefreshableItem>, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
 
         let body = RESTCreateCredentialsRequest(providerName: providerID.value, fields: fields, callbackUri: nil, appUri: appUri?.absoluteString, triggerRefresh: nil)
         let data = try? JSONEncoder().encode(body)
 
-        let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials", method: .post, body: data, contentType: .json) { result in
+        var parameters: [String:String] = [:]
+
+        if !refreshableItems.isEmpty {
+            // Hack: You are supposed to send the items as "items=item1&items=item2", but since we use a dictionary
+            // to represent the parameters we can only use the key items once so we combine all of the items
+            // instead
+            parameters["items"] = refreshableItems.map({$0.rawValue}).joined(separator: "&items=")
+        }
+
+        let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials", method: .post, body: data, contentType: .json, parameters: parameters) { result in
             completion(result.map(Credentials.init))
         }
 

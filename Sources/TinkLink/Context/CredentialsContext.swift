@@ -102,7 +102,7 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = service.createCredentials(providerID: provider.id, kind: provider.credentialsKind, fields: form.makeFields(), appUri: appUri) { [weak task, weak self] result in
+            task.callCanceller = service.createCredentials(providerID: provider.id, refreshableItems: [], fields: form.makeFields(), appUri: appUri) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[provider.id] = credential
