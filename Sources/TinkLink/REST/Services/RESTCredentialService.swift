@@ -29,7 +29,7 @@ final class RESTCredentialsService: CredentialsService {
 
     func createCredentials(providerID: Provider.ID, kind: Credentials.Kind, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
 
-        let body = RESTCreateCredentialsRequest(providerName: providerID.value, fields: fields, callbackUri: appUri?.absoluteString, appUri: appUri?.absoluteString, triggerRefresh: nil)
+        let body = RESTCreateCredentialsRequest(providerName: providerID.value, fields: fields, callbackUri: nil, appUri: appUri?.absoluteString, triggerRefresh: nil)
         let data = try? JSONEncoder().encode(body)
 
         let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials", method: .post, body: data, contentType: .json) { result in
