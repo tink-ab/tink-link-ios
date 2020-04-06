@@ -100,12 +100,12 @@ final class AddCredentialSession {
     }
 
     private func handleAddCredentialCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
+        timer?.invalidate()
         do {
             _ = try result.get()
             authorizationGroup.notify(queue: .main) { [weak self] in
                 if let authorizationCode = self?.authorizationCode {
                     self?.hideUpdatingView(animated: true) {
-                        self?.timer?.invalidate()
                         onCompletion(.success(authorizationCode))
                     }
                 }
