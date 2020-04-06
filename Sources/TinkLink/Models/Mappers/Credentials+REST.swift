@@ -56,12 +56,13 @@ extension Credentials {
 
             return ThirdPartyAppAuthentication(
                 downloadTitle: payload.downloadTitle,
-            downloadMessage: payload.downloadMessage,
-            upgradeTitle: payload.upgradeTitle,
-            upgradeMessage: payload.upgradeMessage,
-            appStoreURL: payload.ios.appStoreUrl,
-            scheme: payload.ios.scheme,
-            deepLinkURL: payload.ios.deepLinkUrl)
+                downloadMessage: payload.downloadMessage,
+                upgradeTitle: payload.upgradeTitle,
+                upgradeMessage: payload.upgradeMessage,
+                appStoreURL: payload.ios.appStoreUrl,
+                scheme: payload.ios.scheme,
+                deepLinkURL: payload.ios.deepLinkUrl
+            )
         default:
             return nil
         }
