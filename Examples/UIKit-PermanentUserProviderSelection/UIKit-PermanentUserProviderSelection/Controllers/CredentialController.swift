@@ -52,7 +52,7 @@ final class CredentialController {
     }
 
     func addCredential(_ provider: Provider, form: Form) {
-        addCredentialTask = credentialContext.addCredentials(
+        addCredentialTask = credentialContext.add(
             for: provider,
             form: form,
             progressHandler: { [weak self] in self?.createProgressHandler(for: $0) },

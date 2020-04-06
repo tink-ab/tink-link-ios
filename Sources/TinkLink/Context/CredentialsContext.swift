@@ -56,7 +56,7 @@ public final class CredentialsContext {
     ///
     /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
     ///
-    ///     let addCredentialsTask = credentialsContext.addCredentials(for: provider, form: form, progressHandler: { status in
+    ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, progressHandler: { status in
     ///         switch status {
     ///         case .awaitingSupplementalInformation(let supplementInformationTask):
     ///             <#Present form for supplemental information task#>
@@ -78,7 +78,7 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
-    public func addCredentials(for provider: Provider, form: Form,
+    public func add(for provider: Provider, form: Form,
                               completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                               progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
                               completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
@@ -148,7 +148,7 @@ public final class CredentialsContext {
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contains the credentials or an error if the fetch failed.
     @discardableResult
-    public func fetchCredentials(id: Credentials.ID, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    public func fetchCredentials(with id: Credentials.ID, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         return service.credentials(id: id) { result in
             do {
                 let credentials = try result.get()

@@ -53,7 +53,7 @@ public final class UserContext {
                 let accessToken = authenticateResponse.accessToken
                 let user = User(accessToken: accessToken)
                 self?.tink?.setCredential(.accessToken(user.accessToken.rawValue))
-                self?.userProfile(user, completion: completion)
+                self?.fetchUserProfile(user, completion: completion)
             } catch {
                 completion(.failure(error))
             }
@@ -68,7 +68,7 @@ public final class UserContext {
     public func authenticateUser(accessToken: AccessToken, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
         let user = User(accessToken: accessToken)
         tink?.setCredential(.accessToken(user.accessToken.rawValue))
-        return userProfile(user, completion: completion)
+        return fetchUserProfile(user, completion: completion)
     }
 
     /// Create a user for a specific market and locale.
@@ -95,7 +95,7 @@ public final class UserContext {
     }
 
     @discardableResult
-    func userProfile(_ user: User, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
+    func fetchUserProfile(_ user: User, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
         return userService.userProfile { result in
             do {
                 let userProfile = try result.get()

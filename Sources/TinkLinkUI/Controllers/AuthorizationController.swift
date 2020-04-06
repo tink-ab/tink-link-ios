@@ -17,11 +17,11 @@ final class AuthorizationController {
 
     @discardableResult
     func clientDescription(completion: @escaping (Result<ClientDescription, Error>) -> Void) -> RetryCancellable? {
-        return authorizationContext.clientDescription(completion: completion)
+        return authorizationContext.fetchClientDescription(completion: completion)
     }
 
     @discardableResult
     public func scopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Error>) -> Void) -> RetryCancellable? {
-        return ConsentContext(tink: tink).scopeDescriptions(scopes: scopes, completion: completion)
+        return ConsentContext(tink: tink).fetchScopeDescriptions(scopes: scopes, completion: completion)
     }
 }

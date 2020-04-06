@@ -167,7 +167,7 @@ extension AddCredentialViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         do {
             try form.validateFields()
-            task = credentialContext.addCredentials(
+            task = credentialContext.add(
                 for: provider,
                 form: form,
                 completionPredicate: .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false),
