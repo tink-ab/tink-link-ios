@@ -29,6 +29,7 @@ final class AddCredentialViewController: UIViewController {
     private lazy var helpLabel = UnselectableTextView()
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
+    private lazy var gradientView = GradientView()
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
         button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Continue", comment: "Title for button to start authenticating credentials.")
@@ -88,9 +89,14 @@ extension AddCredentialViewController {
         addCredentialFooterView.delegate = self
         addCredentialFooterView.isHidden = isAggregator
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
+
+        gradientView.colors = [Color.background.withAlphaComponent(0.0), Color.background]
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+
         button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
 
         view.addSubview(tableView)
+        view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
 
         NSLayoutConstraint.activate([
@@ -101,7 +107,12 @@ extension AddCredentialViewController {
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            gradientView.topAnchor.constraint(equalTo: button.topAnchor),
+            gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            gradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
         navigationItem.title = NSLocalizedString("AddCredentials.Form.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Authenticate", comment: "Title for screen where user fills in form to add credentials.")
