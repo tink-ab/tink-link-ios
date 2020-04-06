@@ -109,12 +109,12 @@ extension AddCredentialViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             gradientView.topAnchor.constraint(equalTo: button.topAnchor),
             gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             gradientView.bottomAnchor.constraint(equalTo: addCredentialFooterView.topAnchor),
 
             buttonWidthConstraint,
