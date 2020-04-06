@@ -114,7 +114,7 @@ extension AddCredentialViewController {
             gradientView.topAnchor.constraint(equalTo: button.topAnchor),
             gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            gradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            gradientView.bottomAnchor.constraint(equalTo: addCredentialFooterView.topAnchor),
 
             buttonWidthConstraint,
             button.heightAnchor.constraint(equalToConstant: 48),
