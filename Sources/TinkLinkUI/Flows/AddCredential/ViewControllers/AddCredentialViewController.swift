@@ -89,6 +89,7 @@ extension AddCredentialViewController {
         addCredentialFooterView.delegate = self
         addCredentialFooterView.isHidden = isAggregator
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
+        addCredentialFooterView.backgroundColor = Color.background
 
         gradientView.colors = [Color.background.withAlphaComponent(0.0), Color.background]
         gradientView.translatesAutoresizingMaskIntoConstraints = false
