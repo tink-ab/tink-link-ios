@@ -46,6 +46,7 @@ extension SupplementalInformationViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.keyboardDismissMode = .onDrag
         tableView.dataSource = self
         tableView.delegate = self
 
@@ -86,6 +87,14 @@ extension SupplementalInformationViewController {
             cell.textField.becomeFirstResponder()
             didFirstFieldBecomeFirstResponder = true
         }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        tableView.contentInset.top = 16.0
+        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
+        tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
     }
 }
 
@@ -187,13 +196,15 @@ extension SupplementalInformationViewController {
         buttonBottomConstraint.constant = keyboardHeight - view.safeAreaInsets.bottom
         buttonWidthConstraint.constant = view.frame.size.width
         button.rounded = false
+        tableView.contentInset.bottom = keyboardHeight + button.frame.height
         view.layoutIfNeeded()
     }
 
     private func keyboardWillHide(_ notification: KeyboardNotification) {
         buttonBottomConstraint.constant = 4
-        button.rounded = true
         buttonWidthConstraint.constant = button.minimumWidth
+        button.rounded = true
+        tableView.contentInset.bottom = 0
         view.layoutIfNeeded()
     }
 

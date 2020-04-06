@@ -20,7 +20,7 @@ extension Tink {
         public var restCertificateURL: URL?
 
         /// - Parameters:
-        ///   - clientId: The client id for your app.
+        ///   - clientID: The client id for your app.
         ///   - redirectURI: The URI you've setup in Console.
         ///   - environment: The environment to use, defaults to production.
         ///   - grpcCertificateURL: URL to a certificate file to use with gRPC API.

@@ -52,7 +52,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
 
         footerLabel.font = Font.regular(.nano)
 
-        contentView.layoutMargins = .init(top: 20, left: 20, bottom: 0, right: 20)
+        contentView.layoutMargins = .init(top: 20, left: 24, bottom: 0, right: 24)
         contentView.backgroundColor = Color.background
         contentView.addSubview(textField)
         contentView.addSubview(footerLabel)
@@ -95,6 +95,7 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
         guard text.count <= maxLength else {
             return false
         }
+
         delegate?.formFieldCell(self, willChangeToText: text)
         return true
     }
@@ -121,5 +122,6 @@ extension FloatingPlaceholderTextField {
         text = field.text
         placeholder = field.attributes.description
         isSecureTextEntry = field.attributes.isSecureTextEntry
+        clearsOnBeginEditing = false
     }
 }

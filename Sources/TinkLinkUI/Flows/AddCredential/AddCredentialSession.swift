@@ -20,6 +20,8 @@ final class AddCredentialSession {
     private var didCallAuthorize = false
     private var authorizationGroup = DispatchGroup()
 
+    private var timer: Timer?
+
     init(credentialController: CredentialController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
         self.parentViewController = parentViewController
         self.credentialController = credentialController
@@ -29,6 +31,14 @@ final class AddCredentialSession {
 
     deinit {
         task?.cancel()
+        timer?.invalidate()
+    }
+
+    private func countUpdatingProcessTime() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 45.0, repeats: false) { [weak self] timer in
+            self?.showUpdating(status: "Process is taking longer than expected")
+        }
     }
 
     func addCredential(provider: Provider, form: Form, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
@@ -69,6 +79,7 @@ final class AddCredentialSession {
             handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
         case .updating(let status):
             showUpdating(status: status)
+            countUpdatingProcessTime()
             authorizeIfNeeded(onError: onError)
         }
     }
@@ -89,6 +100,7 @@ final class AddCredentialSession {
     }
 
     private func handleAddCredentialCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
+        timer?.invalidate()
         authorizeIfNeeded(onError: { [weak self] error in
             DispatchQueue.main.async {
                 self?.hideUpdatingView(animated: true) {
@@ -192,6 +204,7 @@ extension AddCredentialSession {
 extension AddCredentialSession: AddCredentialStatusViewControllerDelegate {
     func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialStatusViewController) {
         task?.cancel()
+        timer?.invalidate()
         hideUpdatingView(animated: true) 
     }
 }

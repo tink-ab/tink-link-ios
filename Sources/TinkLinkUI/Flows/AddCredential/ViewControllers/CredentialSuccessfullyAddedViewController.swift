@@ -23,12 +23,13 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
     
     //TODO: Use real strings
     private let titleText = NSLocalizedString("AddCredentials.Success.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connection successful", comment: "Title for screen shown when credentials were added successfully.")
-    private let subtitleText = NSLocalizedString("AddCredentials.Success.Subtitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Your account has successfully connected to %@. You'll be redirected back in a few seconds...", comment: "Subtitle for screen shown when credentials were added successfully.")
+    private let subtitleText = NSLocalizedString("AddCredentials.Success.Subtitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Your account has successfully connected to %@.", comment: "Subtitle for screen shown when credentials were added successfully.")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = Color.background
+        navigationController?.setNavigationBarHidden(true, animated: false)
         
         view.addSubview(containerView)
         containerView.addSubview(iconView)

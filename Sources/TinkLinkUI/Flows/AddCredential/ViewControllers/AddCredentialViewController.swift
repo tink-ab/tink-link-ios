@@ -29,6 +29,7 @@ final class AddCredentialViewController: UIViewController {
     private lazy var helpLabel = UnselectableTextView()
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
+    private lazy var gradientView = GradientView()
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
         button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Continue", comment: "Title for button to start authenticating credentials.")
@@ -74,6 +75,7 @@ extension AddCredentialViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .onDrag
 
         headerView.configure(with: provider, username: username, clientName: clientName, isAggregator: isAggregator)
         headerView.delegate = self
@@ -85,12 +87,23 @@ extension AddCredentialViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         addCredentialFooterView.delegate = self
-        addCredentialFooterView.configure(isAggregator: isAggregator)
+        addCredentialFooterView.isHidden = isAggregator
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
+        addCredentialFooterView.backgroundColor = Color.background
+
+        gradientView.colors = [Color.background.withAlphaComponent(0.0), Color.background]
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        gradientView.isUserInteractionEnabled = false
+
         button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(tableView)
+        view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
+        view.addSubview(button)
+
+        view.layoutMargins = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
 
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -98,9 +111,19 @@ extension AddCredentialViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            gradientView.topAnchor.constraint(equalTo: button.topAnchor, constant: -40),
+            gradientView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            gradientView.bottomAnchor.constraint(equalTo: addCredentialFooterView.topAnchor),
+
+            buttonWidthConstraint,
+            button.heightAnchor.constraint(equalToConstant: 48),
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonBottomConstraint,
         ])
 
         navigationItem.title = NSLocalizedString("AddCredentials.Form.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Authenticate", comment: "Title for screen where user fills in form to add credentials.")
@@ -113,16 +136,6 @@ extension AddCredentialViewController {
     }
 
     func setupButton() {
-        view.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            buttonWidthConstraint,
-            button.heightAnchor.constraint(equalToConstant: 48),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonBottomConstraint,
-        ])
-        
         switch provider.credentialsKind {
         case .mobileBankID:
             button.text = NSLocalizedString("AddCredentials.Form.OpenBankID", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Open BankID", comment: "Title for button to open BankID app.")
@@ -140,7 +153,8 @@ extension AddCredentialViewController {
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame = frame
 
-        tableView.contentInset.bottom = addCredentialFooterView.frame.height
+        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
+        tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
     }
 
     override func viewLayoutMarginsDidChange() {
@@ -166,17 +180,14 @@ extension AddCredentialViewController {
             ]
         }
         helpLabel.textContainer.lineFragmentPadding = 0
-        helpLabel.textContainerInset = .zero
+        helpLabel.textContainerInset = .init(top: 0, left: 24, bottom: 0, right: 24)
         helpLabel.backgroundColor = .clear
         helpLabel.isScrollEnabled = false
         helpLabel.isEditable = false
         helpLabel.adjustsFontForContentSizeCategory = true
         helpLabel.textColor = Color.secondaryLabel
 
-        let helpStackView = UIStackView(arrangedSubviews: [helpLabel])
-        helpStackView.isLayoutMarginsRelativeArrangement = true
-
-        tableView.tableFooterView = helpStackView
+        tableView.tableFooterView = helpLabel
     }
 
     private func layoutHelpFootnote() {
@@ -211,6 +222,7 @@ extension AddCredentialViewController {
         buttonBottomConstraint.constant = max(0, frameHeight - addCredentialFooterView.bounds.height)
         buttonWidthConstraint.constant = view.frame.size.width
         button.rounded = false
+        tableView.contentInset.bottom = frameHeight + button.frame.height
         UIView.animate(withDuration: notification.duration) {
             self.view.layoutIfNeeded()
         }
@@ -220,6 +232,7 @@ extension AddCredentialViewController {
         buttonBottomConstraint.constant = 0
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
+        tableView.contentInset.bottom = addCredentialFooterView.frame.height
         UIView.animate(withDuration: notification.duration) {
             self.view.layoutIfNeeded()
         }

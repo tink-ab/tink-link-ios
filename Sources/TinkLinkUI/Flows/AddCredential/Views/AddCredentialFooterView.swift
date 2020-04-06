@@ -20,6 +20,8 @@ final class AddCredentialFooterView: UIView {
             .font: Font.regular(.micro),
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
+        descriptionTextView.textContainer.lineFragmentPadding = 0
+        descriptionTextView.textContainerInset = .zero
         let text = NSLocalizedString("AddCredentials.Consent.ServiceAgreement", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.")
         let attributeText = NSMutableAttributedString(
             string: text,
@@ -40,14 +42,7 @@ final class AddCredentialFooterView: UIView {
         descriptionTextView.setLineHeight(lineHeight: 20)
         return descriptionTextView
     }()
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = .init(top: 20, left: 20, bottom: 20, right: 20)
-        return stackView
-    }()
+
     private var privacyPolicyRange: NSRange?
     private var termsAndConditionsRange: NSRange?
 
@@ -67,21 +62,16 @@ final class AddCredentialFooterView: UIView {
 
 
     private func setup() {
-        stackView.addArrangedSubview(descriptionTextView)
-        addSubview(stackView)
+        addSubview(descriptionTextView)
 
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        layoutMargins = .init(top: 12, left: 0, bottom: 12, right: 0)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+            descriptionTextView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            descriptionTextView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            descriptionTextView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            descriptionTextView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
-    }
-
-    func configure(isAggregator: Bool) {
-        descriptionTextView.isHidden = isAggregator
     }
 }
 
