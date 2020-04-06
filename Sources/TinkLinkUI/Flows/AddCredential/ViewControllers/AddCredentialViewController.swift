@@ -93,6 +93,7 @@ extension AddCredentialViewController {
 
         gradientView.colors = [Color.background.withAlphaComponent(0.0), Color.background]
         gradientView.translatesAutoresizingMaskIntoConstraints = false
+        gradientView.isUserInteractionEnabled = false
 
         button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
