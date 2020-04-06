@@ -86,7 +86,7 @@ extension AddCredentialViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         addCredentialFooterView.delegate = self
-        addCredentialFooterView.configure(isAggregator: isAggregator)
+        addCredentialFooterView.isHidden = isAggregator
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
 
@@ -168,17 +168,14 @@ extension AddCredentialViewController {
             ]
         }
         helpLabel.textContainer.lineFragmentPadding = 0
-        helpLabel.textContainerInset = .zero
+        helpLabel.textContainerInset = .init(top: 0, left: 24, bottom: 0, right: 24)
         helpLabel.backgroundColor = .clear
         helpLabel.isScrollEnabled = false
         helpLabel.isEditable = false
         helpLabel.adjustsFontForContentSizeCategory = true
         helpLabel.textColor = Color.secondaryLabel
 
-        let helpStackView = UIStackView(arrangedSubviews: [helpLabel])
-        helpStackView.isLayoutMarginsRelativeArrangement = true
-
-        tableView.tableFooterView = helpStackView
+        tableView.tableFooterView = helpLabel
     }
 
     private func layoutHelpFootnote() {
