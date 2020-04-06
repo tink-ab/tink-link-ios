@@ -68,6 +68,10 @@ struct RESTResourceRequest<T: Decodable>: RESTRequest {
     func onResponse(_ result: Result<(data: Data, urlResponse: URLResponse), Error>) {
         do {
             let response = try result.get()
+            if let data = response.data as? T {
+                completion(.success(data))
+                return
+            }
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .millisecondsSince1970
             do {
