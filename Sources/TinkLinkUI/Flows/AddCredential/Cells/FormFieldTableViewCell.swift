@@ -15,7 +15,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
     let footerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Font.regular(.nano)
+        label.font = Font.regular(.micro)
         label.textColor = Color.secondaryLabel
         label.numberOfLines = 0
         return label
@@ -49,8 +49,6 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.delegate = self
-
-        footerLabel.font = Font.regular(.nano)
 
         contentView.layoutMargins = .init(top: 20, left: 20, bottom: 0, right: 20)
         contentView.backgroundColor = Color.background
