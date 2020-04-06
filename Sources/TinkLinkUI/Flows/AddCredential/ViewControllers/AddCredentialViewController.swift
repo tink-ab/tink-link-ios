@@ -172,10 +172,10 @@ extension AddCredentialViewController {
         let markdown = Down(markdownString: provider.helpText)
         if let attributString = try? markdown.toAttributedString() {
             let mutableAttributeString = NSMutableAttributedString(attributedString: attributString)
-            mutableAttributeString.addAttributes([.font: Font.regular(.nano)], range: NSRange(location: 0, length: attributString.length))
+            mutableAttributeString.addAttributes([.font: Font.regular(.micro)], range: NSRange(location: 0, length: attributString.length))
             helpLabel.attributedText = mutableAttributeString
             helpLabel.linkTextAttributes = [
-                NSAttributedString.Key.font: Font.bold(.nano),
+                NSAttributedString.Key.font: Font.bold(.micro),
                 NSAttributedString.Key.foregroundColor: Color.accent
             ]
         }

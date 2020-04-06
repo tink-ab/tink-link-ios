@@ -44,7 +44,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
-        titleLabel.font = Font.semibold(.mega)
+        titleLabel.font = Font.semibold(.hecto)
 
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
