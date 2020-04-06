@@ -101,7 +101,7 @@ final class FloatingButton: UIControl {
         addSubview(contentView)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = Font.bold(.hecto)
+        titleLabel.font = Font.bold(.deci)
         titleLabel.textColor = Color.background
         titleLabel.textAlignment = .center
         titleLabel.setContentHuggingPriority( .defaultHigh, for: .horizontal)
