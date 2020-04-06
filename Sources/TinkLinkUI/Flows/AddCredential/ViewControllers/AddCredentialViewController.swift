@@ -94,10 +94,12 @@ extension AddCredentialViewController {
         gradientView.translatesAutoresizingMaskIntoConstraints = false
 
         button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(tableView)
         view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
+        view.addSubview(button)
 
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -112,7 +114,12 @@ extension AddCredentialViewController {
             gradientView.topAnchor.constraint(equalTo: button.topAnchor),
             gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            gradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            gradientView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            buttonWidthConstraint,
+            button.heightAnchor.constraint(equalToConstant: 48),
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonBottomConstraint,
         ])
 
         navigationItem.title = NSLocalizedString("AddCredentials.Form.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Authenticate", comment: "Title for screen where user fills in form to add credentials.")
@@ -125,16 +132,6 @@ extension AddCredentialViewController {
     }
 
     func setupButton() {
-        view.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            buttonWidthConstraint,
-            button.heightAnchor.constraint(equalToConstant: 48),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonBottomConstraint,
-        ])
-        
         switch provider.credentialsKind {
         case .mobileBankID:
             button.text = NSLocalizedString("AddCredentials.Form.OpenBankID", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Open BankID", comment: "Title for button to open BankID app.")
