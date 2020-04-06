@@ -102,19 +102,21 @@ extension AddCredentialViewController {
         view.addSubview(addCredentialFooterView)
         view.addSubview(button)
 
+        view.layoutMargins = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
 
             gradientView.topAnchor.constraint(equalTo: button.topAnchor),
-            gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            gradientView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             gradientView.bottomAnchor.constraint(equalTo: addCredentialFooterView.topAnchor),
 
             buttonWidthConstraint,
