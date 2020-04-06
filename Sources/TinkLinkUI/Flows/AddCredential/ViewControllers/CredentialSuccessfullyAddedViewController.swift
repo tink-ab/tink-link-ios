@@ -36,15 +36,15 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         containerView.addSubview(titleLabel)
         containerView.addSubview(detailLabel)
         view.addSubview(doneButton)
-        
-        iconView.isBorderHidden = true
+
         iconView.isChecked = true
-        iconView.tintColor = .white
-        iconView.strokeTintColor = Color.accent
+        iconView.tintColor = Color.accent
+        iconView.strokeTintColor = .white
         
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
         titleLabel.font = Font.semibold(.mega)
+        titleLabel.textColor = Color.label
 
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
@@ -52,6 +52,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         detailLabel.textAlignment = .center
         detailLabel.numberOfLines = 0
         detailLabel.font = Font.regular(.deci)
+        detailLabel.textColor = Color.label
         
         doneButton.text = NSLocalizedString("AddCredentials.Success.Confirm", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Done", comment: "Title for button to dismiss the screen shown when credentials were added successfully.")
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
