@@ -29,6 +29,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = Color.background
+        navigationController?.setNavigationBarHidden(true, animated: false)
         
         view.addSubview(containerView)
         containerView.addSubview(iconView)

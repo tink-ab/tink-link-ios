@@ -238,7 +238,7 @@ extension TinkLinkViewController {
             self.completion(result)
             self.dismiss(animated: true)
         }
-        present(viewController, animated: true)
+        setViewControllers([viewController], animated: true)
     }
 }
 
