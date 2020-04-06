@@ -46,7 +46,7 @@ class ViewController: UIViewController {
             .categories(.read),
             .accounts(.read)
         ]
-        let tinkLinkViewController = TinkLinkViewController(market: "SE", scopes: scopes, providerKinds: .all) { _ in }
+        let tinkLinkViewController = TinkLinkViewController(market: "SE", scopes: scopes) { _ in }
         present(tinkLinkViewController, animated: true)
     }
 }
