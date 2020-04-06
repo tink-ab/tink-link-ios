@@ -50,7 +50,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         textField.autocorrectionType = .no
         textField.delegate = self
 
-        contentView.layoutMargins = .init(top: 20, left: 20, bottom: 0, right: 20)
+        contentView.layoutMargins = .init(top: 20, left: 24, bottom: 0, right: 24)
         contentView.backgroundColor = Color.background
         contentView.addSubview(textField)
         contentView.addSubview(footerLabel)
