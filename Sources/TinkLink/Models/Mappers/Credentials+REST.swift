@@ -55,10 +55,10 @@ extension Credentials {
                 else { return nil }
 
             return ThirdPartyAppAuthentication(
-                downloadTitle: payload.downloadTitle ?? "",
-                downloadMessage: payload.downloadMessage ?? "",
-                upgradeTitle: payload.upgradeTitle ?? "",
-                upgradeMessage: payload.upgradeMessage ?? "",
+                downloadTitle: payload.downloadTitle,
+                downloadMessage: payload.downloadMessage,
+                upgradeTitle: payload.upgradeTitle,
+                upgradeMessage: payload.upgradeMessage,
                 appStoreURL: payload.ios.appStoreUrl,
                 scheme: payload.ios.scheme,
                 deepLinkURL: payload.ios.deepLinkUrl
