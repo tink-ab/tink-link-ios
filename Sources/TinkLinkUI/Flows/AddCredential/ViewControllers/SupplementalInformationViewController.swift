@@ -51,13 +51,6 @@ extension SupplementalInformationViewController {
         tableView.dataSource = self
         tableView.delegate = self
 
-        keyboardObserver.willShow = { [weak self] notification in
-            self?.keyboardWillShow(notification)
-        }
-        keyboardObserver.willHide = { [weak self] notification in
-            self?.keyboardWillHide(notification)
-        }
-
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
         button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
@@ -83,6 +76,13 @@ extension SupplementalInformationViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        keyboardObserver.willShow = { [weak self] notification in
+            self?.keyboardWillShow(notification)
+        }
+        keyboardObserver.willHide = { [weak self] notification in
+            self?.keyboardWillHide(notification)
+        }
 
         if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FormFieldTableViewCell {
             cell.textField.becomeFirstResponder()
