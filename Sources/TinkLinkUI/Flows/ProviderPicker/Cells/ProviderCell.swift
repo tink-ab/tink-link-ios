@@ -15,7 +15,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private let iconSize: CGFloat = 30
+    private let iconSize: CGFloat = 40
     private let iconTitleSpacing: CGFloat = 24
 
     private func setup() {
