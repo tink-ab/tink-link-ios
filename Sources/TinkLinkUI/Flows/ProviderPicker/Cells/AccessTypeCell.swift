@@ -38,7 +38,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
         contentView.layer.shadowOpacity = 0.08
 
         cardView.layer.cornerRadius = 15
-        cardView.backgroundColor = Color.secondaryBackground
+        cardView.backgroundColor = Color.secondaryGroupedBackground
         cardView.translatesAutoresizingMaskIntoConstraints = false
         cardView.clipsToBounds = true
         if #available(iOS 13.0, *) {
@@ -106,7 +106,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         let applyHighlight = {
-            self.cardView.backgroundColor = highlighted ? Color.accentBackground : Color.background
+            self.cardView.backgroundColor = highlighted ? Color.accentBackground : Color.groupedBackground
         }
 
         if animated {

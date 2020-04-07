@@ -28,7 +28,7 @@ extension AccessTypePickerViewController {
 
         tableView.separatorStyle = .none
         tableView.registerReusableCell(ofType: AccessTypeCell.self)
-        tableView.backgroundColor = Color.background
+        tableView.backgroundColor = Color.groupedBackground
         tableView.allowsSelection = false
     }
 }
