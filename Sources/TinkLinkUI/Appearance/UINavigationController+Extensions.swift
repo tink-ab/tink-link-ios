@@ -2,15 +2,22 @@ import UIKit
 
 extension UINavigationController {
     func setupNavigationBarAppearance() {
+
         navigationBar.tintColor = Color.accent
+
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
             appearance.buttonAppearance.normal.titleTextAttributes = [
                 .font: Font.regular(.deci)
             ]
             appearance.buttonAppearance.highlighted.titleTextAttributes = [
                 .font: Font.regular(.deci)
             ]
+
+            appearance.shadowColor = Color.separator
+            appearance.backgroundColor = Color.background
+
             let chevronLayer = ChevronLayer()
             let backIndicatorImage = UIImage.image(from: chevronLayer)
             appearance.setBackIndicatorImage(backIndicatorImage, transitionMaskImage: backIndicatorImage)
@@ -19,12 +26,11 @@ extension UINavigationController {
                 .font: Font.bold(.hecto),
                 .foregroundColor: Color.label
             ]
-            let navigationBarAppearance = UINavigationBar.appearance(whenContainedInInstancesOf: [TinkLinkViewController.self])
-            navigationBarAppearance.standardAppearance = appearance
-        } else {
 
+            navigationBar.standardAppearance = appearance
+        } else {
             // Bar Button Item
-            let barButtonItemAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [TinkLinkViewController.self])
+            let barButtonItemAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [Self.self])
             barButtonItemAppearance.setTitleTextAttributes([
                 .font: Font.regular(.deci)
                 ], for: .normal)
@@ -33,7 +39,7 @@ extension UINavigationController {
                 ], for: .highlighted)
 
             // Navigation Bar
-            let navigationBarAppearance = UINavigationBar.appearance(whenContainedInInstancesOf: [TinkLinkViewController.self])
+            let navigationBarAppearance = UINavigationBar.appearance(whenContainedInInstancesOf: [Self.self])
 
             let chevronLayer = ChevronLayer()
             let backIndicatorImage = UIImage.image(from: chevronLayer)
@@ -44,6 +50,10 @@ extension UINavigationController {
                 .font: Font.bold(.hecto),
                 .foregroundColor: Color.label
             ]
+
+            navigationBar.isTranslucent = false
+            navigationBar.barTintColor = Color.background
+            
         }
     }
 }
