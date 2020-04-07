@@ -24,7 +24,7 @@ final class AddCredentialHeaderView: UIView {
     private let userInfoIconBackgroundView: UIView = {
         let userInfoIconBackgroundView = UIView()
         userInfoIconBackgroundView.backgroundColor = Color.accent.withAlphaComponent(0.1)
-        userInfoIconBackgroundView.layer.cornerRadius = 15
+        userInfoIconBackgroundView.layer.cornerRadius = 20
 
         return userInfoIconBackgroundView
     }()
@@ -141,8 +141,8 @@ final class AddCredentialHeaderView: UIView {
         emptyUserInfoContainerBottomConstraint = bankIconView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
 
         NSLayoutConstraint.activate([
-            bankIconView.widthAnchor.constraint(equalToConstant: 30),
-            bankIconView.heightAnchor.constraint(equalToConstant: 30),
+            bankIconView.widthAnchor.constraint(equalToConstant: 40),
+            bankIconView.heightAnchor.constraint(equalToConstant: 40),
             bankIconView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             bankIconView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             bankIconView.trailingAnchor.constraint(equalTo: bankLabel.leadingAnchor, constant: -10),
@@ -161,12 +161,12 @@ final class AddCredentialHeaderView: UIView {
             dashLine.centerXAnchor.constraint(equalTo: bankIconView.centerXAnchor),
             dashLine.bottomAnchor.constraint(equalTo: userInfoIconBackgroundView.topAnchor),
 
-            userInfoIconBackgroundView.widthAnchor.constraint(equalToConstant: 30),
-            userInfoIconBackgroundView.heightAnchor.constraint(equalToConstant: 30),
+            userInfoIconBackgroundView.widthAnchor.constraint(equalToConstant: 40),
+            userInfoIconBackgroundView.heightAnchor.constraint(equalToConstant: 40),
             userInfoIconBackgroundView.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor),
             userInfoIconBackgroundView.centerXAnchor.constraint(equalTo: userInfoIconView.centerXAnchor),
-            userInfoIconView.widthAnchor.constraint(equalToConstant: 18),
-            userInfoIconView.heightAnchor.constraint(equalToConstant: 18),
+            userInfoIconView.widthAnchor.constraint(equalToConstant: 24),
+            userInfoIconView.heightAnchor.constraint(equalToConstant: 24),
             userInfoIconView.centerXAnchor.constraint(equalTo: dashLine.centerXAnchor),
 
             userInfoLabel.leadingAnchor.constraint(equalTo: userInfoIconBackgroundView.trailingAnchor, constant: 10),
