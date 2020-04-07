@@ -1,10 +1,10 @@
 import UIKit
 
 struct DefaultAppearanceProvider: ColorProviding, FontProviding {
-    let background: UIColor = .white
-    let secondaryBackground: UIColor = .white
-    let groupedBackground: UIColor = UIColor(red: 251.0 / 255.0, green: 252.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
-    let secondaryGroupedBackground: UIColor = .white
+    let background: UIColor = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
+    let secondaryBackground: UIColor = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
+    let groupedBackground: UIColor = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
+    let secondaryGroupedBackground: UIColor = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
     let label: UIColor = UIColor(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.0)
     let secondaryLabel: UIColor = UIColor(red: 0.502, green: 0.502, blue: 0.502, alpha: 1.0)
     let separator: UIColor = UIColor(white: 0.87, alpha: 1.0)
