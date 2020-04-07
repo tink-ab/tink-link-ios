@@ -36,15 +36,15 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         containerView.addSubview(titleLabel)
         containerView.addSubview(detailLabel)
         view.addSubview(doneButton)
-        
-        iconView.isBorderHidden = true
+
         iconView.isChecked = true
-        iconView.tintColor = .white
-        iconView.strokeTintColor = Color.accent
+        iconView.tintColor = Color.accent
+        iconView.strokeTintColor = Color.background
         
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
         titleLabel.font = Font.semibold(.hecto)
+        titleLabel.textColor = Color.label
 
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
@@ -52,6 +52,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
         detailLabel.textAlignment = .center
         detailLabel.numberOfLines = 0
         detailLabel.font = Font.regular(.deci)
+        detailLabel.textColor = Color.label
         
         doneButton.text = NSLocalizedString("AddCredentials.Success.Confirm", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Done", comment: "Title for button to dismiss the screen shown when credentials were added successfully.")
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
@@ -70,7 +71,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
             iconView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             iconView.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: iconView.centerYAnchor, constant: 24),
+            titleLabel.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor, constant: 24),
             titleLabel.trailingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.trailingAnchor, constant: -24),
             

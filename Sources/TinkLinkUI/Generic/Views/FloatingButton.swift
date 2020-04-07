@@ -21,7 +21,7 @@ final class FloatingButton: UIControl {
         }
     }
     
-    var textColor: UIColor = .white {
+    var textColor: UIColor = Color.background {
         didSet {
             titleLabel.textColor = textColor
         }
