@@ -20,9 +20,9 @@ class AddCredentialClientNotVerifiedView: UIView {
 
     private func setup() {
         backgroundColor = Color.background
-        layoutMargins = .init(top: 24, left: 16, bottom: 24, right: 16)
+        layoutMargins = .init(top: 24, left: 24, bottom: 24, right: 24)
 
-        contentView.layoutMargins = .init(top: 16, left: 16, bottom: 16, right: 16)
+        contentView.layoutMargins = .init(top: 12, left: 12, bottom: 12, right: 12)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = Color.critical.cgColor

@@ -107,7 +107,7 @@ final class AddCredentialHeaderView: UIView {
 
     private func setup() {
         backgroundColor = Color.accentBackground
-        layoutMargins = .init(top: 24, left: 16, bottom: 24, right: 16)
+        layoutMargins = .init(top: 24, left: 24, bottom: 24, right: 24)
 
         bankLabel.translatesAutoresizingMaskIntoConstraints = false
         bankIconView.translatesAutoresizingMaskIntoConstraints = false
