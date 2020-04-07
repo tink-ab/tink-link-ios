@@ -69,7 +69,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
 
         button.translatesAutoresizingMaskIntoConstraints = false
         button.text = "Add"
-        button.minimumWidth = 125
+        button.minimumWidth = 79
         button.textColor = Color.secondaryGroupedBackground
         button.addTarget(self, action: #selector(add), for: .touchUpInside)
         
