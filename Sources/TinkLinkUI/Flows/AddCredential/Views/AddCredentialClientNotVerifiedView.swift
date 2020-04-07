@@ -26,7 +26,7 @@ class AddCredentialClientNotVerifiedView: UIView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = Color.critical.cgColor
-        contentView.layer.cornerRadius = 16
+        contentView.layer.cornerRadius = 5
 
         unVerifiedLabel.textColor = Color.critical
         unVerifiedLabel.translatesAutoresizingMaskIntoConstraints = false
