@@ -88,7 +88,7 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var fieldText = String()
-        // If is password and has an initial value, then the textfield will be cleared, so reset the form field text also.
+        // If the textField is password and it has an initial value, then when begin to edit the textfield will clear the text, so need to also reset the form field text cache.
         if textField.isSecureTextEntry, !(field?.text.isEmpty ?? true) {
             field?.text = String()
             fieldText = string
