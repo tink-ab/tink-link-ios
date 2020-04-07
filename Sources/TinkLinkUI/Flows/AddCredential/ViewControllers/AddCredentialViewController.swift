@@ -24,6 +24,7 @@ final class AddCredentialViewController: UIViewController {
     private var errors: [IndexPath: Form.Field.ValidationError] = [:]
     private var didFirstFieldBecomeFirstResponder = false
     private let keyboardObserver = KeyboardObserver()
+    private var currentScrollPos: CGFloat?
 
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
     private lazy var helpLabel = UnselectableTextView()
@@ -341,9 +342,11 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.item].text = text
         errors[indexPath] = nil
+        currentScrollPos = tableView.contentOffset.y
         tableView.beginUpdates()
         cell.setError(with: nil)
         tableView.endUpdates()
+        currentScrollPos = nil
         button.isEnabled = form.areFieldsValid
     }
 
@@ -362,7 +365,18 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
         } catch {
             print("Unknown error \(error).")
         }
+        currentScrollPos = tableView.contentOffset.y
         tableView.reloadRows(at: [indexPath], with: .automatic)
+        currentScrollPos = nil
+    }
+
+    // To fix the issue for scroll view jumping while animating the cell, inspired by
+    // https://stackoverflow.com/questions/33789807/uitableview-jumps-up-after-begin-endupdates-when-using-uitableviewautomaticdimen
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Force the tableView to stay at scroll position until animation completes
+        if let currentScrollPos = currentScrollPos {
+            tableView.setContentOffset(CGPoint(x: 0, y: currentScrollPos), animated: false)
+        }
     }
 }
 
