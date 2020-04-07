@@ -13,7 +13,7 @@ final class FloatingButton: UIControl {
     private var imageTrailingConstraint: NSLayoutConstraint?
     private var minimumWidthConstraint: NSLayoutConstraint?
 
-    var minimumWidth: CGFloat = 169 {
+    var minimumWidth: CGFloat = 150 {
         didSet {
             invalidateIntrinsicContentSize()
             minimumWidthConstraint?.constant = minimumWidth
