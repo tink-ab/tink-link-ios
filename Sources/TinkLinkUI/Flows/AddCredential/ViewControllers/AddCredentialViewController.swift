@@ -67,7 +67,6 @@ extension AddCredentialViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         view.backgroundColor = Color.background
 
-
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .onDrag
