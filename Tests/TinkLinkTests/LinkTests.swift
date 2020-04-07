@@ -8,8 +8,7 @@ class LinkTests: XCTestCase {
                 clientID: "abcdefgh",
                 redirectURI: URL(string: "tink://test")!
             )
-        ),
-        user: User(accessToken: AccessToken(rawValue: "12345678")!)
+        )
     )
 
     func testTermsAndConditionLink() {

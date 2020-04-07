@@ -1,4 +1,3 @@
-import GRPC
 
 public enum ServiceError: Error {
     case cancelled
@@ -20,41 +19,24 @@ public enum ServiceError: Error {
     case missingInternetConnection
 
     init?(_ error: Swift.Error) {
-        guard let status = error as? GRPC.GRPCStatus else { return nil }
-        switch status.code {
-        case .cancelled:
-            self = .cancelled
-        case .unknown:
-            self = .unknown(status.message ?? "")
-        case .invalidArgument:
-            self = .invalidArgument(status.message ?? "")
-        case .deadlineExceeded:
-            self = .deadlineExceeded(status.message ?? "")
-        case .notFound:
-            self = .notFound(status.message ?? "")
-        case .alreadyExists:
-            self = .alreadyExists(status.message ?? "")
-        case .permissionDenied:
-            self = .permissionDenied(status.message ?? "")
-        case .unauthenticated:
-            self = .unauthenticated(status.message ?? "")
-        case .resourceExhausted:
-            self = .resourceExhausted(status.message ?? "")
-        case .failedPrecondition:
-            self = .failedPrecondition(status.message ?? "")
-        case .aborted:
-            self = .aborted(status.message ?? "")
-        case .outOfRange:
-            self = .outOfRange(status.message ?? "")
-        case .unimplemented:
-            self = .unimplemented(status.message ?? "")
-        case .internalError:
-            self = .internalError(status.message ?? "")
-        case .unavailable:
-            self = .unavailable(status.message ?? "")
-        case .dataLoss:
-            self = .dataLoss(status.message ?? "")
-        default:
+        if let restError = error as? RESTError, let statusCodeError = restError.statusCodeError {
+            switch statusCodeError {
+            case .badRequest:
+                self = .invalidArgument(restError.errorMessage ?? "")
+            case .unauthorized:
+                self = .unauthenticated(restError.errorMessage ?? "User is not authenticated")
+            case .forbidden:
+                self = .permissionDenied(restError.errorMessage ?? "")
+            case .notFound:
+                self = .notFound(restError.errorMessage ?? "")
+            case .internalServerError:
+                self = .internalError(restError.errorMessage ?? "Internal server error")
+            case .serverError(let code):
+                self = .internalError(restError.errorMessage ?? "Error code \(code)")
+            case .clientError(let code):
+                self = .internalError(restError.errorMessage ?? "Error code \(code)")
+            }
+        } else {
             return nil
         }
     }

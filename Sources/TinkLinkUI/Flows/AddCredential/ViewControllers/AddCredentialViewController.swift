@@ -29,6 +29,7 @@ final class AddCredentialViewController: UIViewController {
     private lazy var helpLabel = UnselectableTextView()
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
+    private lazy var gradientView = GradientView()
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
         button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Continue", comment: "Title for button to start authenticating credentials.")
@@ -88,10 +89,21 @@ extension AddCredentialViewController {
         addCredentialFooterView.delegate = self
         addCredentialFooterView.isHidden = isAggregator
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
+        addCredentialFooterView.backgroundColor = Color.background
+
+        gradientView.colors = [Color.background.withAlphaComponent(0.0), Color.background]
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        gradientView.isUserInteractionEnabled = false
+
         button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(tableView)
+        view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
+        view.addSubview(button)
+
+        view.layoutMargins = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
 
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -99,9 +111,19 @@ extension AddCredentialViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            gradientView.topAnchor.constraint(equalTo: button.topAnchor, constant: -40),
+            gradientView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            gradientView.bottomAnchor.constraint(equalTo: addCredentialFooterView.topAnchor),
+
+            buttonWidthConstraint,
+            button.heightAnchor.constraint(equalToConstant: 48),
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonBottomConstraint,
         ])
 
         navigationItem.title = NSLocalizedString("AddCredentials.Form.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Authenticate", comment: "Title for screen where user fills in form to add credentials.")
@@ -114,16 +136,6 @@ extension AddCredentialViewController {
     }
 
     func setupButton() {
-        view.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            buttonWidthConstraint,
-            button.heightAnchor.constraint(equalToConstant: 48),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonBottomConstraint,
-        ])
-        
         switch provider.credentialsKind {
         case .mobileBankID:
             button.text = NSLocalizedString("AddCredentials.Form.OpenBankID", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Open BankID", comment: "Title for button to open BankID app.")
@@ -160,10 +172,10 @@ extension AddCredentialViewController {
         let markdown = Down(markdownString: provider.helpText)
         if let attributString = try? markdown.toAttributedString() {
             let mutableAttributeString = NSMutableAttributedString(attributedString: attributString)
-            mutableAttributeString.addAttributes([.font: Font.regular(.nano)], range: NSRange(location: 0, length: attributString.length))
+            mutableAttributeString.addAttributes([.font: Font.regular(.micro)], range: NSRange(location: 0, length: attributString.length))
             helpLabel.attributedText = mutableAttributeString
             helpLabel.linkTextAttributes = [
-                NSAttributedString.Key.font: Font.bold(.nano),
+                NSAttributedString.Key.font: Font.bold(.micro),
                 NSAttributedString.Key.foregroundColor: Color.accent
             ]
         }

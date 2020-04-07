@@ -7,9 +7,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         var environment: Environment {
-            if let grpcURL = ProcessInfo.processInfo.environment["TINK_LINK_TESTER_GRPC_ENDPOINT"].flatMap(URL.init(string:)),
-                let restURL = ProcessInfo.processInfo.environment["TINK_LINK_TESTER_REST_ENDPOINT"].flatMap(URL.init(string:)) {
-                return .custom(grpcURL: grpcURL, restURL: restURL)
+            if let restURL = ProcessInfo.processInfo.environment["TINK_LINK_TESTER_REST_ENDPOINT"].flatMap(URL.init(string:)) {
+                return .custom(restURL: restURL)
             } else {
                 return .production
             }
@@ -27,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         return true
+    }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return Tink.shared.open(url)
     }
 }
 

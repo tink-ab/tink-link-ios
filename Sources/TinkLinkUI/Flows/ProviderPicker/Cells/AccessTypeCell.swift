@@ -59,12 +59,12 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
 
         titleLabel.numberOfLines = 0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = Font.semibold(.hecto)
+        titleLabel.font = Font.bold(.deci)
         titleLabel.textColor = Color.label
 
         detailLabel.numberOfLines = 0
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
-        detailLabel.font = Font.regular(.deci)
+        detailLabel.font = Font.regular(.micro)
         detailLabel.textColor = Color.label
 
         button.translatesAutoresizingMaskIntoConstraints = false

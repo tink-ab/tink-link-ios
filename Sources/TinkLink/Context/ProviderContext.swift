@@ -26,7 +26,7 @@ public final class ProviderContext {
     }
 
     private let tink: Tink
-    private let service: ProviderService & TokenConfigurableService
+    private let service: ProviderService
 
     // MARK: - Creating a Context
 
@@ -34,12 +34,12 @@ public final class ProviderContext {
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     /// - Parameter user: `User` that will be used for fetching providers with the Tink API.
-    public convenience init(tink: Tink = .shared, user: User) {
-        let service = TinkProviderService(tink: tink, accessToken: user.accessToken)
+    public convenience init(tink: Tink = .shared) {
+        let service = RESTProviderService(client: tink.client)
         self.init(tink: tink, providerService: service)
     }
 
-    init(tink: Tink, providerService: ProviderService & TokenConfigurableService) {
+    init(tink: Tink, providerService: ProviderService) {
         self.tink = tink
         self.service = providerService
     }

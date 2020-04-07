@@ -20,6 +20,8 @@ final class AddCredentialFooterView: UIView {
             .font: Font.regular(.micro),
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
+        descriptionTextView.textContainer.lineFragmentPadding = 0
+        descriptionTextView.textContainerInset = .zero
         let text = NSLocalizedString("AddCredentials.Consent.ServiceAgreement", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.")
         let attributeText = NSMutableAttributedString(
             string: text,
@@ -62,7 +64,7 @@ final class AddCredentialFooterView: UIView {
     private func setup() {
         addSubview(descriptionTextView)
 
-        layoutMargins = .init(top: 12, left: 24, bottom: 12, right: 24)
+        layoutMargins = .init(top: 12, left: 0, bottom: 12, right: 0)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             descriptionTextView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),

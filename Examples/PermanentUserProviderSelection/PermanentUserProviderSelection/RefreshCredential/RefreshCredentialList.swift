@@ -7,15 +7,15 @@ struct RefreshCredentialList: View {
 
     @ObservedObject var providerController: ProviderController
 
-    @Binding private(set) var selectedCredentials: [Credentials]
+    @Binding private(set) var selectedCredentials: Credentials?
 
     var body: some View {
         Group {
             ForEach(credentials) { credential -> RefreshCredentialListRow in
                 // Custom binding
                 let binding = Binding(
-                    get: { self.selectedCredentials.contains { $0.id == credential.id } },
-                    set: { $0 ? self.selectedCredentials.append(credential) : self.selectedCredentials.removeAll { $0.id == credential.id } }
+                    get: { self.selectedCredentials?.id == credential.id },
+                    set: { self.selectedCredentials = $0 ? credential : nil }
                 )
                 var viewState: RefreshCredentialListRow.ViewState {
                     guard !self.updatedCredentials.contains(where: { $0.id == credential.id}) else { return .updated }
@@ -36,6 +36,6 @@ struct RefreshCredentialList: View {
 
 struct RefreshCredentialList_Previews: PreviewProvider {
     static var previews: some View {
-        RefreshCredentialList(credentials: [], updatedCredentials: [], providerController: ProviderController(), selectedCredentials: Binding<[Credentials]>.constant([]))
+        RefreshCredentialList(credentials: [], updatedCredentials: [], providerController: ProviderController(), selectedCredentials: Binding<Credentials?>.constant(nil))
     }
 }

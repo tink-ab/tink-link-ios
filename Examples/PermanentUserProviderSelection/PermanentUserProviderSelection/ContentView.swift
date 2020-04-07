@@ -19,8 +19,8 @@ struct ContentView: View {
             self.userController.authenticateUser(accessToken: AccessToken(rawValue: "YOUR_ACCESS_TOKEN")!) { result in
                 do {
                     let user = try result.get()
-                    self.credentialController.user = user
-                    self.providerController.user = user
+                    self.credentialController.performFetch()
+                    self.providerController.performFetch()
                 } catch {
                     // Handle any errors
                 }
