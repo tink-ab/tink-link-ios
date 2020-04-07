@@ -29,7 +29,7 @@ struct AddCredentialFlowView: View, UIViewControllerRepresentable {
     }
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<AddCredentialFlowView>) -> AddCredentialFlowView.UIViewControllerType {
-        guard let credentialContext = credentialController.credentialContext else {fatalError("Should set up the credential context first")}
+        let credentialContext = credentialController.credentialContext
         let viewController = ProviderListViewController(providers: providers, credentialContext: credentialContext, style: .plain)
         viewController.onCompletion = context.coordinator.completionHandler
         let navigationController = UINavigationController(rootViewController: viewController)

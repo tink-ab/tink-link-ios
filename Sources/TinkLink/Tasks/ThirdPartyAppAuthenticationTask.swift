@@ -54,7 +54,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
         case deeplinkURLNotFound
         /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
-        case downloadRequired(title: String, message: String, appStoreURL: URL?)
+        case downloadRequired(title: String?, message: String?, appStoreURL: URL?)
 
         case doesNotSupportAuthenticatingOnAnotherDevice
 

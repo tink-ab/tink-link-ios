@@ -15,12 +15,12 @@ public final class CredentialsContext {
     ///
     /// - Parameter tink: Tink instance, defaults to `shared` if not provided.
     /// - Parameter user: `User` that will be used for adding credentials with the Tink API.
-    public convenience init(tink: Tink = .shared, user: User) {
-        let service = TinkCredentialsService(tink: tink, accessToken: user.accessToken)
+    public convenience init(tink: Tink = .shared) {
+        let service = RESTCredentialsService(client: tink.client)
         self.init(tink: tink, credentialsService: service)
     }
 
-    init(tink: Tink, credentialsService: CredentialsService & TokenConfigurableService) {
+    init(tink: Tink, credentialsService: CredentialsService) {
         self.tink = tink
         self.service = credentialsService
         addStoreObservers()
@@ -56,7 +56,7 @@ public final class CredentialsContext {
     ///
     /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
     ///
-    ///     let addCredentialsTask = credentialsContext.addCredentials(for: provider, form: form, progressHandler: { status in
+    ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, progressHandler: { status in
     ///         switch status {
     ///         case .awaitingSupplementalInformation(let supplementInformationTask):
     ///             <#Present form for supplemental information task#>
@@ -78,7 +78,7 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
-    public func addCredentials(for provider: Provider, form: Form,
+    public func add(for provider: Provider, form: Form,
                               completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                               progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
                               completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
@@ -102,7 +102,7 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = addCredentialsAndAuthenticateIfNeeded(for: provider, fields: form.makeFields(), appUri: appUri) { [weak task, weak self] result in
+            task.callCanceller = service.createCredentials(providerID: provider.id, kind: provider.credentialsKind, fields: form.makeFields(), appUri: appUri) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[provider.id] = credential
@@ -116,22 +116,43 @@ public final class CredentialsContext {
         return task
     }
 
-    private func addCredentialsAndAuthenticateIfNeeded(for provider: Provider, fields: [String: String], appUri: URL, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
-        return service.createCredentials(providerID: provider.id, kind: provider.credentialsKind, fields: fields, appUri: appUri, completion: completion)
-    }
-
     // MARK: - Fetching Credentials
 
     /// Gets the user's credentials.
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
+    @available(*, deprecated, renamed: "fetchCredentialsList")
     @discardableResult
     public func fetchCredentials(completion: @escaping (_ result: Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
-        return service.credentials { result in
+        return fetchCredentialsList(completion: completion)
+    }
+
+    /// Fetch a list of the current user's credentials.
+    /// - Parameter completion: The block to execute when the call is completed.
+    /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
+    @discardableResult
+    public func fetchCredentialsList(completion: @escaping (_ result: Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
+        return service.credentialsList { result in
             do {
                 let credentials = try result.get()
                 let storedCredentials = credentials.sorted(by: { $0.id.value < $1.id.value })
                 completion(.success(storedCredentials))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
+    /// Fetch a credentials by ID.
+    /// - Parameter id: The id of the credentials to fetch.
+    /// - Parameter completion: The block to execute when the call is completed.
+    /// - Parameter result: A result that either contains the credentials or an error if the fetch failed.
+    @discardableResult
+    public func fetchCredentials(with id: Credentials.ID, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        return service.credentials(id: id) { result in
+            do {
+                let credentials = try result.get()
+                completion(.success(credentials))
             } catch {
                 completion(.failure(error))
             }
@@ -147,17 +168,17 @@ public final class CredentialsContext {
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being refreshed.
     ///   - completion: The block to execute when the credentials has been refreshed successfuly or if it failed.
-    ///   - result: A result that either a list of updated credentials when refresh successed or an error if failed.
+    ///   - result: A result that either contains the refreshed credentials or an error if the refresh failed.
     /// - Returns: The refresh credentials task.
-    public func refresh(_ credentials: [Credentials],
+    public func refresh(_ credentials: Credentials,
                                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
                                    progressHandler: @escaping (_ status: RefreshCredentialTask.Status) -> Void,
-                                   completion: @escaping (_ result: Result<[Credentials], Swift.Error>) -> Void) -> RefreshCredentialTask {
+                                   completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RefreshCredentialTask {
         let appUri = tink.configuration.redirectURI
 
         let task = RefreshCredentialTask(credentials: credentials, credentialService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.refreshCredentials(credentialsIDs: credentials.map { $0.id }, completion: { result in
+        task.callCanceller = service.refreshCredentials(credentialsID: credentials.id, completion: { result in
             switch result {
             case .success:
                 task.startObserving()
@@ -179,7 +200,9 @@ public final class CredentialsContext {
     @discardableResult
     public func update(_ credentials: Credentials, form: Form? = nil,
                        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RetryCancellable? {
-        service.updateCredentials(credentialsID: credentials.id, fields: form?.makeFields() ?? [:], completion: completion)
+        let appUri = tink.configuration.redirectURI
+        return service.updateCredentials(credentialsID: credentials.id, providerID: credentials.providerID, appUri: appUri, callbackUri: appUri, fields: form?.makeFields() ?? [:], completion: completion)
+
     }
 
     /// Delete the user's credentials.

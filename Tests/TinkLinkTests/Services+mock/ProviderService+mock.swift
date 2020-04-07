@@ -1,9 +1,7 @@
 import Foundation
-import GRPC
 @testable import TinkLink
 
-class MockedSuccessProviderService: ProviderService, TokenConfigurableService {
-    var defaultCallOptions = CallOptions()
+class MockedSuccessProviderService: ProviderService {
 
     func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
         let providers = [
@@ -19,8 +17,7 @@ class MockedSuccessProviderService: ProviderService, TokenConfigurableService {
     }
 }
 
-class MockedUnauthenticatedErrorProviderService: ProviderService, TokenConfigurableService {
-    var defaultCallOptions = CallOptions()
+class MockedUnauthenticatedErrorProviderService: ProviderService {
 
     func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))

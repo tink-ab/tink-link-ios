@@ -156,16 +156,16 @@ public struct Credentials: Identifiable {
     /// The ThirdPartyAppAuthentication contains specific deeplink urls and configuration for the third party app.
     public struct ThirdPartyAppAuthentication {
         /// Title of the app to be downloaded.
-        public let downloadTitle: String
+        public let downloadTitle: String?
 
         /// Detailed message about app to be downloaded.
-        public let downloadMessage: String
+        public let downloadMessage: String?
 
         /// Title of the app to be upgraded.
-        public let upgradeTitle: String
+        public let upgradeTitle: String?
 
         /// Detailed message about app to be upgraded
-        public let upgradeMessage: String
+        public let upgradeMessage: String?
 
         /// URL to AppStore where the app can be downloaded on iOS.
         public let appStoreURL: URL?
