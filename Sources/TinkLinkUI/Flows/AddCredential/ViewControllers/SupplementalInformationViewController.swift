@@ -17,6 +17,7 @@ final class SupplementalInformationViewController: UIViewController {
 
     private var form: Form
     private var errors: [IndexPath: Form.Field.ValidationError] = [:]
+    private var currentScrollPos: CGFloat?
 
     private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(equalToConstant: button.minimumWidth)
@@ -117,6 +118,15 @@ extension SupplementalInformationViewController: UITableViewDataSource, UITableV
         cell.setError(with: errors[indexPath]?.localizedDescription)
         return cell
     }
+
+    // To fix the issue for scroll view jumping while animating the cell, inspired by
+    // https://stackoverflow.com/questions/33789807/uitableview-jumps-up-after-begin-endupdates-when-using-uitableviewautomaticdimen
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Force the tableView to stay at scroll position until animation completes
+        if let currentScrollPos = currentScrollPos {
+            tableView.setContentOffset(CGPoint(x: 0, y: currentScrollPos), animated: false)
+        }
+    }
 }
 
 // MARK: - Actions
@@ -164,9 +174,11 @@ extension SupplementalInformationViewController: FormFieldTableViewCellDelegate 
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.item].text = text
         errors[indexPath] = nil
+        currentScrollPos = tableView.contentOffset.y
         tableView.beginUpdates()
         cell.setError(with: nil)
         tableView.endUpdates()
+        currentScrollPos = nil
         button.isEnabled = form.fields[indexPath.item].isValid
     }
 
@@ -185,7 +197,9 @@ extension SupplementalInformationViewController: FormFieldTableViewCellDelegate 
         } catch {
             print("Unknown error \(error).")
         }
+        currentScrollPos = tableView.contentOffset.y
         tableView.reloadRows(at: [indexPath], with: .automatic)
+        currentScrollPos = nil
     }
 }
 
