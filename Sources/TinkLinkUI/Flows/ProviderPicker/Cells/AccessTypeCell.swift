@@ -50,9 +50,9 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
         cardView.addSubview(detailLabel)
         cardView.addSubview(button)
 
-        contentView.layoutMargins = .init(top: 12, left: 20, bottom: 12, right: 20)
+        contentView.layoutMargins = .init(top: 24, left: 24, bottom: 24, right: 24)
 
-        cardView.layoutMargins = .init(top: 24, left: 20, bottom: 24, right: 20)
+        cardView.layoutMargins = .init(top: 24, left: 16, bottom: 24, right: 40)
 
         iconView.contentMode = .scaleAspectFit
         iconView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +91,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
             titleLabel.topAnchor.constraint(equalTo: cardView.layoutMarginsGuide.topAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: cardView.layoutMarginsGuide.trailingAnchor),
 
-            detailLabel.topAnchor.constraint(equalTo: titleLabel.lastBaselineAnchor, constant: 8),
+            detailLabel.topAnchor.constraint(equalTo: titleLabel.lastBaselineAnchor, constant: 12),
             detailLabel.trailingAnchor.constraint(equalTo: cardView.layoutMarginsGuide.trailingAnchor),
             detailLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
 
