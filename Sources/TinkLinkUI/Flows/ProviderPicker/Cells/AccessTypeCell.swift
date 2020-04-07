@@ -38,7 +38,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
         contentView.layer.shadowOpacity = 0.08
 
         cardView.layer.cornerRadius = 15
-        cardView.backgroundColor = Color.groupedBackground
+        cardView.backgroundColor = Color.background
         cardView.translatesAutoresizingMaskIntoConstraints = false
         cardView.clipsToBounds = true
         if #available(iOS 13.0, *) {
