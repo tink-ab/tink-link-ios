@@ -67,12 +67,6 @@ extension AddCredentialViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         view.backgroundColor = Color.background
 
-        keyboardObserver.willShow = { [weak self] notification in
-            self?.keyboardWillShow(notification)
-        }
-        keyboardObserver.willHide = { [weak self] notification in
-            self?.keyboardWillHide(notification)
-        }
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -134,6 +128,17 @@ extension AddCredentialViewController {
         setupHelpFootnote()
         layoutHelpFootnote()
         setupButton()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        keyboardObserver.willShow = { [weak self] notification in
+            self?.keyboardWillShow(notification)
+        }
+        keyboardObserver.willHide = { [weak self] notification in
+            self?.keyboardWillHide(notification)
+        }
     }
 
     func setupButton() {
