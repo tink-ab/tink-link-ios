@@ -67,7 +67,7 @@ extension FinancialInstitutionSearchViewController {
 
 extension FinancialInstitutionSearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        if let text = searchController.searchBar.text?.folding(options: .diacriticInsensitive, locale: Tink.defaultLocale), !text.isEmpty {
+        if let text = searchController.searchBar.text, !text.isEmpty {
             financialInstitutionNodes = searchFinancialInstitution(with: text)
         } else {
             financialInstitutionNodes = originalFinancialInstitutionNodes
@@ -75,8 +75,9 @@ extension FinancialInstitutionSearchViewController: UISearchResultsUpdating {
     }
 
     private func searchFinancialInstitution(with query: String) -> [ProviderTree.FinancialInstitutionNode] {
+        let foldedQuery = query.folding(options: .diacriticInsensitive, locale: Tink.defaultLocale)
         var filteredFinancialInstitutionNodes = originalFinancialInstitutionNodes
-        for component in query.components(separatedBy: CharacterSet.whitespacesAndNewlines) {
+        for component in foldedQuery.components(separatedBy: CharacterSet.whitespacesAndNewlines) {
             if !component.isEmpty {
                 filteredFinancialInstitutionNodes = filteredFinancialInstitutionNodes.filter {
                     let foldedProviderName = $0.financialInstitution.name.folding(options: .diacriticInsensitive, locale: Tink.defaultLocale)
