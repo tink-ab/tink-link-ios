@@ -15,6 +15,7 @@ final class AddCredentialFooterView: UIView {
         descriptionTextView.isEditable = false
         descriptionTextView.clipsToBounds = false
         descriptionTextView.backgroundColor = Color.background
+        descriptionTextView.setLineHeight(lineHeight: 20)
         descriptionTextView.linkTextAttributes = [
             .foregroundColor: Color.secondaryLabel,
             .font: Font.regular(.micro),

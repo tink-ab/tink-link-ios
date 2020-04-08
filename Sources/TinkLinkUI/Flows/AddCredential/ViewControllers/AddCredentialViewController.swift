@@ -27,7 +27,11 @@ final class AddCredentialViewController: UIViewController {
     private var currentScrollPos: CGFloat?
 
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
-    private lazy var helpLabel = UnselectableTextView()
+    private lazy var helpLabel: UnselectableTextView = {
+        let helpLabel = UnselectableTextView()
+        helpLabel.setLineHeight(lineHeight: 20)
+        return helpLabel
+    }()
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
     private lazy var gradientView = GradientView()
