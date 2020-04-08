@@ -38,7 +38,7 @@ final class AddCredentialViewController: UIViewController {
     }()
 
     private lazy var buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor)
-    private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
+    private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
     init(provider: Provider, credentialController: CredentialController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
@@ -67,13 +67,6 @@ extension AddCredentialViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         view.backgroundColor = Color.background
 
-        keyboardObserver.willShow = { [weak self] notification in
-            self?.keyboardWillShow(notification)
-        }
-        keyboardObserver.willHide = { [weak self] notification in
-            self?.keyboardWillHide(notification)
-        }
-
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .onDrag
@@ -98,6 +91,8 @@ extension AddCredentialViewController {
 
         button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 180)
 
         view.addSubview(tableView)
         view.addSubview(gradientView)
@@ -134,6 +129,17 @@ extension AddCredentialViewController {
         setupHelpFootnote()
         layoutHelpFootnote()
         setupButton()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        keyboardObserver.willShow = { [weak self] notification in
+            self?.keyboardWillShow(notification)
+        }
+        keyboardObserver.willHide = { [weak self] notification in
+            self?.keyboardWillHide(notification)
+        }
     }
 
     func setupButton() {
@@ -234,7 +240,7 @@ extension AddCredentialViewController {
         buttonBottomConstraint.constant = 0
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
-        tableView.contentInset.bottom = addCredentialFooterView.frame.height
+        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
         UIView.animate(withDuration: notification.duration) {
             self.view.layoutIfNeeded()
         }
