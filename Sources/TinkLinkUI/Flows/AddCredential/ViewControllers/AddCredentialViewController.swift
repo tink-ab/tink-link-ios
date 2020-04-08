@@ -258,6 +258,7 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
         cell.configure(with: field)
         cell.delegate = self
         cell.setError(with: errors[indexPath]?.localizedDescription)
+        cell.textField.returnKeyType = indexPath.row < (form.fields.count - 1) ? .next : .continue
         return cell
     }
 
