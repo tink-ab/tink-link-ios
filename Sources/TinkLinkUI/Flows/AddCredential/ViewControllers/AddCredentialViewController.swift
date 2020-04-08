@@ -38,7 +38,7 @@ final class AddCredentialViewController: UIViewController {
     }()
 
     private lazy var buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor)
-    private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
+    private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
     init(provider: Provider, credentialController: CredentialController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
