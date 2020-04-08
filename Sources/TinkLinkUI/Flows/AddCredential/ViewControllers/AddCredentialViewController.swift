@@ -92,6 +92,8 @@ extension AddCredentialViewController {
         button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 180)
+
         view.addSubview(tableView)
         view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
@@ -127,12 +129,6 @@ extension AddCredentialViewController {
         setupHelpFootnote()
         layoutHelpFootnote()
         setupButton()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        view.layoutIfNeeded()
     }
 
     override func viewDidAppear(_ animated: Bool) {
