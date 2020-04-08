@@ -93,7 +93,7 @@ extension SupplementalInformationViewController {
         super.viewDidLayoutSubviews()
 
         tableView.contentInset.top = 16.0
-        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
+        tableView.contentInset.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
         tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
     }
 }
