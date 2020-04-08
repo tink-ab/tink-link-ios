@@ -285,12 +285,12 @@ Here is how you can retrieve the scopes and their descriptions:
 
 ```swift
 let authorizationContext = AuthorizationContext(user: user)
-let scope = Tink.Scope(scopes: [
-    Tink.Scope.Accounts.read,
-    Tink.Scope.Transactions.read
-    ])
+let scopes: [Scope] = [
+    .transactions(.read),
+    .accounts(.read)
+]
 
-authorizationContext.scopeDescriptions(scope: scope) { [weak self] result in
+authorizationContext.scopeDescriptions(scopes: scopes) { [weak self] result in
     DispatchQueue.main.async {
         do {
             self?.scopeDescriptions = try result.get()
