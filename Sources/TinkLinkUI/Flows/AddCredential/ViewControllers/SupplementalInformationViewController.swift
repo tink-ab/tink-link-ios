@@ -70,6 +70,8 @@ extension SupplementalInformationViewController {
         view.addSubview(tableView)
         view.addSubview(button)
 
+        buttonBottomConstraint.constant = 24
+
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -215,7 +217,7 @@ extension SupplementalInformationViewController {
     }
 
     private func keyboardWillHide(_ notification: KeyboardNotification) {
-        buttonBottomConstraint.constant = 4
+        buttonBottomConstraint.constant = 24
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
         tableView.contentInset.bottom = 0
