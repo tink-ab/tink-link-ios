@@ -101,6 +101,8 @@ extension AddCredentialViewController {
 
         view.layoutMargins = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
 
+        buttonBottomConstraint.constant = 24
+
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -227,7 +229,7 @@ extension AddCredentialViewController {
 
     private func updateButtonBottomConstraint(_ notification: KeyboardNotification) {
         let frameHeight = notification.frame.height
-        buttonBottomConstraint.constant = max(0, frameHeight - addCredentialFooterView.bounds.height)
+        buttonBottomConstraint.constant = max(24, frameHeight - addCredentialFooterView.bounds.height)
         buttonWidthConstraint.constant = view.frame.size.width
         button.rounded = false
         tableView.contentInset.bottom = frameHeight + button.frame.height
@@ -237,7 +239,7 @@ extension AddCredentialViewController {
     }
 
     private func resetButtonBottomConstraint(_ notification: KeyboardNotification) {
-        buttonBottomConstraint.constant = 0
+        buttonBottomConstraint.constant = 24
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
         tableView.contentInset.bottom = view.bounds.height - button.frame.minY

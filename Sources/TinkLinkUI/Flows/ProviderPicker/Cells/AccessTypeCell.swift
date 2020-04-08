@@ -52,7 +52,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
 
         contentView.layoutMargins = .init(top: 24, left: 24, bottom: 24, right: 24)
 
-        cardView.layoutMargins = .init(top: 24, left: 16, bottom: 24, right: 40)
+        cardView.layoutMargins = .init(top: 24, left: 16, bottom: 16, right: 40)
 
         iconView.contentMode = .scaleAspectFit
         iconView.translatesAutoresizingMaskIntoConstraints = false

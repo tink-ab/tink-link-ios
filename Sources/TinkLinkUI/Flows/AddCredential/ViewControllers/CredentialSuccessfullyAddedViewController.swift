@@ -81,7 +81,7 @@ class CredentialSuccessfullyAddedViewController: UIViewController {
             detailLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             
             doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            doneButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -40)
+            doneButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -32)
         ])
     }
     
