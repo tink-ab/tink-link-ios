@@ -16,7 +16,6 @@ final class AddCredentialsHelpTextView: UIView {
     }
 
     private func setup() {
-
         directionalLayoutMargins = .init(top: 16, leading: 24, bottom: 16, trailing: 24)
 
         helpTextView.linkTextAttributes = [
@@ -30,8 +29,6 @@ final class AddCredentialsHelpTextView: UIView {
         helpTextView.isScrollEnabled = false
         helpTextView.isEditable = false
         helpTextView.adjustsFontForContentSizeCategory = true
-        helpTextView.textColor = .red
-
 
         let containerView = UIView()
         containerView.backgroundColor = Color.accentBackground
