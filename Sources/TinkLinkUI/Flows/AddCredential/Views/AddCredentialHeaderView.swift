@@ -53,6 +53,7 @@ final class AddCredentialHeaderView: UIView {
         userInfoDescription.clipsToBounds = false
         userInfoDescription.adjustsFontForContentSizeCategory = true
         userInfoDescription.delegate = self
+        userInfoDescription.setLineHeight(lineHeight: 20)
         return userInfoDescription
     }()
     private lazy var dashLine: UIView = {

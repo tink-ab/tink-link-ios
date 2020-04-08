@@ -61,11 +61,13 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = Font.bold(.deci)
         titleLabel.textColor = Color.label
+        titleLabel.setLineHeight(lineHeight: 20)
 
         detailLabel.numberOfLines = 0
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
         detailLabel.font = Font.regular(.micro)
         detailLabel.textColor = Color.label
+        detailLabel.setLineHeight(lineHeight: 20)
 
         button.translatesAutoresizingMaskIntoConstraints = false
         button.text = "Add"

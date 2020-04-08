@@ -187,6 +187,7 @@ extension AddCredentialViewController {
         helpLabel.isEditable = false
         helpLabel.adjustsFontForContentSizeCategory = true
         helpLabel.textColor = Color.secondaryLabel
+        helpLabel.setLineHeight(lineHeight: 20)
 
         tableView.tableFooterView = helpLabel
     }

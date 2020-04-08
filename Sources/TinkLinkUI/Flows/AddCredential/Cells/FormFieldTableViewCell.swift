@@ -18,6 +18,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         label.font = Font.regular(.micro)
         label.textColor = Color.secondaryLabel
         label.numberOfLines = 0
+        label.setLineHeight(lineHeight: 20)
         return label
     }()
     lazy var textField = FloatingPlaceholderTextField()
@@ -71,6 +72,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         textField.configure(with: field)
         footerLabel.text = field.attributes.helpText
         footerLabel.textColor = Color.secondaryLabel
+        footerLabel.setLineHeight(lineHeight: 20)
     }
 
     func setError(with errorText: String?) {
