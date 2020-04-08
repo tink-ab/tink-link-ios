@@ -159,7 +159,7 @@ extension AddCredentialViewController {
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame = frame
 
-        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
+        tableView.contentInset.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
         tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
     }
 
@@ -239,7 +239,7 @@ extension AddCredentialViewController {
         buttonBottomConstraint.constant = 0
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
-        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
+        tableView.contentInset.bottom = view.safeAreaLayoutGuide.layoutFrame.height - button.frame.minY
         UIView.animate(withDuration: notification.duration) {
             self.view.layoutIfNeeded()
         }
