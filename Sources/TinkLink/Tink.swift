@@ -72,7 +72,7 @@ public class Tink {
     ///
     /// Here's how you could configure Tink with a `Tink.Configuration`.
     ///
-    ///     let configuration = Configuration(clientID: "<#clientID#>", redirectURI: <#URL#>, market: "<#SE#>", locale: .current)
+    ///     let configuration = Configuration(clientID: "<#clientID#>", redirectURI: <#URL#>)
     ///     Tink.configure(with: configuration)
     ///
     /// - Parameters:
