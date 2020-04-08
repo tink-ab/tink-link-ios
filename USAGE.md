@@ -235,7 +235,7 @@ if let deepLinkURL = thirdPartyAppAuthentication.deepLinkURL, UIApplication.shar
 }
 ```
 
-Here is how you can prompt the user to download the third party app if it is not present on the device:
+Here is how you can prompt the user to download the third party app if it is not currently installed on the device:
 
 ```swift
 let alertController = UIAlertController(title: thirdPartyAppAuthentication.downloadTitle, message: thirdPartyAppAuthentication.downloadMessage, preferredStyle: .alert)
