@@ -47,7 +47,6 @@ extension SupplementalInformationViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        tableView.keyboardDismissMode = .onDrag
         tableView.dataSource = self
         tableView.delegate = self
 
