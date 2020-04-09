@@ -9,6 +9,7 @@ class CredentialStatusPollingTask {
     private let backoffStrategy: PollingBackoffStrategy
 
     private var isCancelled = false
+    private var isPaused = false
 
     enum PollingBackoffStrategy {
         case none
@@ -38,6 +39,7 @@ class CredentialStatusPollingTask {
         DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) {
             self.callRetryCancellable = self.service.credentials(id: self.credentials.id) { [weak self] result in
                 guard let self = self else { return }
+                if self.isPaused { return }
                 do {
                     let credentials = try result.get()
                     switch credentials.status {
@@ -71,8 +73,10 @@ class CredentialStatusPollingTask {
 
     private func retry() {
         if isCancelled { return }
+        if isPaused { return }
         DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) { [weak self] in
             if self?.isCancelled == true { return }
+            if self?.isPaused == true { return }
             self?.callRetryCancellable?.retry()
         }
         retryInterval = backoffStrategy.nextInterval(for: retryInterval)
@@ -81,5 +85,14 @@ class CredentialStatusPollingTask {
     func cancel() {
         callRetryCancellable?.cancel()
         isCancelled = true
+    }
+
+    func pausePolling() {
+        isPaused = true
+    }
+
+    func continuePolling() {
+        isPaused = false
+        pollStatus()
     }
 }
