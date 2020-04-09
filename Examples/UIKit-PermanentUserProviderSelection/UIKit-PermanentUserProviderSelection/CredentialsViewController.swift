@@ -132,6 +132,7 @@ extension CredentialsViewController {
         cell.title = provider?.displayName
         cell.subtitle = credentials.updated.map(dateFormatter.string(from:))
         cell.imageURL = provider?.image
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
 
