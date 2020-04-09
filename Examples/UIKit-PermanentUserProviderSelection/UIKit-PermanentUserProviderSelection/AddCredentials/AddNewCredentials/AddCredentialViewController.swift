@@ -4,11 +4,9 @@ import UIKit
 
 /// Example of how to use the provider field specification to add credential
 final class AddCredentialViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
-    var onCompletion: CompletionHandler?
     let provider: Provider
 
-    private let credentialController: CredentialController
+    private let credentialsContext = CredentialsContext()
     private var form: Form
     private var formError: Form.ValidationError? {
         didSet {
@@ -16,17 +14,18 @@ final class AddCredentialViewController: UITableViewController {
         }
     }
 
-    private var task: AddCredentialsTask?
+    private var credentials: Credentials?
+
+    private var addCredentialsTask: AddCredentialsTask?
     private var statusViewController: AddCredentialStatusViewController?
     private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
 
-    init(provider: Provider, credentialController: CredentialController) {
+    init(provider: Provider) {
         self.provider = provider
         self.form = Form(provider: provider)
-        self.credentialController = credentialController
 
         if #available(iOS 13.0, *) {
             super.init(style: .insetGrouped)
@@ -45,11 +44,6 @@ final class AddCredentialViewController: UITableViewController {
 extension AddCredentialViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(updatedStatus), name: .credentialControllerDidUpdateStatus, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(credentialAdded), name: .credentialControllerDidAddCredential, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialControllerDidSupplementInformation, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialControllerDidError, object: nil)
 
         tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
         tableView.allowsSelection = false
@@ -117,46 +111,6 @@ extension AddCredentialViewController {
             )
         )
     }
-
-    @objc private func updatedStatus(notification: Notification) {
-        DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: String], let status = userInfo["status"] {
-                self.showUpdating(status: status)
-            }
-        }
-    }
-
-    @objc private func credentialAdded() {
-        DispatchQueue.main.async {
-            self.navigationItem.rightBarButtonItem = self.addBarButtonItem
-            let addedCredential = self.credentialController.credentials.first(where: { $0.providerID == self.provider.id })
-            addedCredential.flatMap { self.showCredentialUpdated(for: $0) }
-        }
-    }
-
-    @objc private func supplementInformationTask() {
-        DispatchQueue.main.async {
-            if let task = self.credentialController.supplementInformationTask {
-                self.showSupplementalInformation(for: task)
-            }
-        }
-    }
-
-    @objc private func receivedError(notification: Notification) {
-        DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: Error], let error = userInfo["error"] {
-                if let error = error as? ThirdPartyAppAuthenticationTask.Error {
-                    self.hideUpdatingView(animated: true) {
-                        self.showDownloadPrompt(for: error)
-                    }
-                } else {
-                    self.hideUpdatingView(animated: true) {
-                        self.showAlert(for: error)
-                    }
-                }
-            }
-        }
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -211,12 +165,74 @@ extension AddCredentialViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         do {
             try form.validateFields()
-            credentialController.addCredential(
-                provider,
-                form: form
+            addCredentialsTask = credentialsContext.add(
+                for: provider,
+                form: form,
+                completionPredicate: .init(
+                    successPredicate: .updated,
+                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false
+                ),
+                progressHandler: { status in
+                    DispatchQueue.main.async {
+                        self.handleProgress(status)
+                    }
+                },
+                completion: { result in
+                    DispatchQueue.main.async {
+                        self.handleCompletion(result)
+                    }
+                }
             )
         } catch {
             formError = error as? Form.ValidationError
+        }
+    }
+
+    private var isPresentingQR: Bool {
+        guard let navigationController = presentedViewController as? UINavigationController else { return false }
+        return navigationController.topViewController is QRViewController
+    }
+
+    private func handleProgress(_ status: AddCredentialsTask.Status) {
+        switch status {
+        case .created:
+            showUpdating(status: "Created Credentials")
+        case .authenticating:
+            if isPresentingQR {
+                dismiss(animated: true)
+            }
+            showUpdating(status: "Authenticating…")
+        case .updating(let status):
+            if isPresentingQR {
+                dismiss(animated: true)
+            }
+            showUpdating(status: status)
+        case .awaitingSupplementalInformation(let task):
+            showSupplementalInformation(for: task)
+        case .awaitingThirdPartyAppAuthentication(let task):
+            task.handle { taskStatus in
+                DispatchQueue.main.async {
+                    switch taskStatus {
+                    case .awaitAuthenticationOnAnotherDevice:
+                        self.showUpdating(status: "Await Authentication on Another Device")
+                    case .qrImage(let image):
+                        self.hideUpdatingView(animated: true) {
+                            let qrViewController = QRViewController(image: image)
+                            let navigationController = UINavigationController(rootViewController: qrViewController)
+                            self.present(navigationController, animated: true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func handleCompletion(_ result: Result<Credentials, Error>) {
+        do {
+            let credentials = try result.get()
+            showCredentialUpdated(for: credentials)
+        } catch {
+            showAlert(for: error)
         }
     }
 }
@@ -261,9 +277,7 @@ extension AddCredentialViewController {
 
     private func showCredentialUpdated(for credential: Credentials) {
         hideUpdatingView()
-        dismiss(animated: true) {
-            self.onCompletion?(.success(credential))
-        }
+        dismiss(animated: true)
     }
 
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {

@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8F1962DE23D9DE3600BC7C83 /* SelfSizingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1962DD23D9DE3600BC7C83 /* SelfSizingTableView.swift */; };
-		8F39F02423D1F6DF009D785E /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02123D1F6DF009D785E /* UserController.swift */; };
-		8F39F02523D1F6DF009D785E /* CredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02223D1F6DF009D785E /* CredentialController.swift */; };
-		8F39F02623D1F6DF009D785E /* ProviderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02323D1F6DF009D785E /* ProviderController.swift */; };
+		20164860243F0CFE00D3C1E0 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */; };
+		20164862243F0D1300D3C1E0 /* CredentialsStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20164861243F0D1300D3C1E0 /* CredentialsStatusTableViewCell.swift */; };
+		20FD9612243F169B00603B5A /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD9611243F169B00603B5A /* QRViewController.swift */; };
 		8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02823D5BC79009D785E /* CredentialsViewController.swift */; };
-		8FD3A6F923D89714002E97EF /* RefreshCredentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3A6F823D89714002E97EF /* RefreshCredentialViewController.swift */; };
+		8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */; };
 		8FDA296623D1EE4D00EC810F /* AddCredentialStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296323D1EE4D00EC810F /* AddCredentialStatusViewController.swift */; };
 		8FDA296723D1EE4D00EC810F /* AddCredentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296423D1EE4D00EC810F /* AddCredentialViewController.swift */; };
 		8FDA296823D1EE4D00EC810F /* SupplementalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */; };
@@ -31,12 +30,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8F1962DD23D9DE3600BC7C83 /* SelfSizingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizingTableView.swift; sourceTree = "<group>"; };
-		8F39F02123D1F6DF009D785E /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
-		8F39F02223D1F6DF009D785E /* CredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialController.swift; sourceTree = "<group>"; };
-		8F39F02323D1F6DF009D785E /* ProviderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderController.swift; sourceTree = "<group>"; };
+		2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
+		20164861243F0D1300D3C1E0 /* CredentialsStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsStatusTableViewCell.swift; sourceTree = "<group>"; };
+		20FD9611243F169B00603B5A /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
 		8F39F02823D5BC79009D785E /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
-		8FD3A6F823D89714002E97EF /* RefreshCredentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCredentialViewController.swift; sourceTree = "<group>"; };
+		8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCredentialsViewController.swift; sourceTree = "<group>"; };
 		8FDA296323D1EE4D00EC810F /* AddCredentialStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialStatusViewController.swift; sourceTree = "<group>"; };
 		8FDA296423D1EE4D00EC810F /* AddCredentialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialViewController.swift; sourceTree = "<group>"; };
 		8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementalInformationViewController.swift; sourceTree = "<group>"; };
@@ -68,22 +66,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8F39F02723D1F6E4009D785E /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				8F39F02223D1F6DF009D785E /* CredentialController.swift */,
-				8F39F02323D1F6DF009D785E /* ProviderController.swift */,
-				8F39F02123D1F6DF009D785E /* UserController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
 		8FDA296023D1EDDB00EC810F /* AddNewCredentials */ = {
 			isa = PBXGroup;
 			children = (
 				8FDA296323D1EE4D00EC810F /* AddCredentialStatusViewController.swift */,
 				8FDA296423D1EE4D00EC810F /* AddCredentialViewController.swift */,
 				8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */,
+				20FD9611243F169B00603B5A /* QRViewController.swift */,
 			);
 			path = AddNewCredentials;
 			sourceTree = "<group>";
@@ -101,22 +90,23 @@
 			path = ListProviders;
 			sourceTree = "<group>";
 		};
-		8FDA296223D1EDF800EC810F /* AddCredential */ = {
+		8FDA296223D1EDF800EC810F /* AddCredentials */ = {
 			isa = PBXGroup;
 			children = (
 				8FDA296023D1EDDB00EC810F /* AddNewCredentials */,
 				8FDA296123D1EDF000EC810F /* ListProviders */,
 			);
-			path = AddCredential;
+			path = AddCredentials;
 			sourceTree = "<group>";
 		};
-		8FDA297723D1F5B900EC810F /* RefreshCredential */ = {
+		8FDA297723D1F5B900EC810F /* RefreshCredentials */ = {
 			isa = PBXGroup;
 			children = (
-				8FD3A6F823D89714002E97EF /* RefreshCredentialViewController.swift */,
-				8F1962DD23D9DE3600BC7C83 /* SelfSizingTableView.swift */,
+				8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */,
+				20164861243F0D1300D3C1E0 /* CredentialsStatusTableViewCell.swift */,
+				2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */,
 			);
-			path = RefreshCredential;
+			path = RefreshCredentials;
 			sourceTree = "<group>";
 		};
 		8FFAE4CC23D1E7D100784CBC = {
@@ -141,9 +131,8 @@
 			children = (
 				8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */,
 				8F39F02823D5BC79009D785E /* CredentialsViewController.swift */,
-				8F39F02723D1F6E4009D785E /* Controllers */,
-				8FDA297723D1F5B900EC810F /* RefreshCredential */,
-				8FDA296223D1EDF800EC810F /* AddCredential */,
+				8FDA297723D1F5B900EC810F /* RefreshCredentials */,
+				8FDA296223D1EDF800EC810F /* AddCredentials */,
 				8FFAE4E123D1E7D400784CBC /* Assets.xcassets */,
 				8FFAE4E323D1E7D400784CBC /* LaunchScreen.storyboard */,
 				8FFAE4E623D1E7D400784CBC /* Info.plist */,
@@ -240,20 +229,19 @@
 			files = (
 				8FFAE4D923D1E7D100784CBC /* AppDelegate.swift in Sources */,
 				8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */,
-				8F1962DE23D9DE3600BC7C83 /* SelfSizingTableView.swift in Sources */,
-				8F39F02623D1F6DF009D785E /* ProviderController.swift in Sources */,
 				8FDA296823D1EE4D00EC810F /* SupplementalInformationViewController.swift in Sources */,
 				8FDA297223D1EE5300EC810F /* ProviderListViewController.swift in Sources */,
-				8F39F02423D1F6DF009D785E /* UserController.swift in Sources */,
 				8FDA297423D1EE5300EC810F /* CredentialKindPickerViewController.swift in Sources */,
 				8FDA296723D1EE4D00EC810F /* AddCredentialViewController.swift in Sources */,
 				8FDA297323D1EE5300EC810F /* AccessTypePickerViewController.swift in Sources */,
 				8FDA297023D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift in Sources */,
-				8F39F02523D1F6DF009D785E /* CredentialController.swift in Sources */,
+				20FD9612243F169B00603B5A /* QRViewController.swift in Sources */,
 				8FDA296623D1EE4D00EC810F /* AddCredentialStatusViewController.swift in Sources */,
-				8FD3A6F923D89714002E97EF /* RefreshCredentialViewController.swift in Sources */,
+				8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */,
+				20164862243F0D1300D3C1E0 /* CredentialsStatusTableViewCell.swift in Sources */,
 				8FDA297123D1EE5300EC810F /* FixedImageSizeTableViewCell.swift in Sources */,
 				8FDA296F23D1EE5300EC810F /* TextFieldCell.swift in Sources */,
+				20164860243F0CFE00D3C1E0 /* ButtonTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

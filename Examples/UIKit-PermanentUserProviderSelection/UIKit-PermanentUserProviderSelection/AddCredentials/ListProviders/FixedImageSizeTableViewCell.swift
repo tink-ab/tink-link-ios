@@ -69,18 +69,28 @@ class FixedImageSizeTableViewCell: UITableViewCell {
         separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing
     }
 
-    func setImage(url: URL) {
-        iconView.kf.setImage(with: ImageResource(downloadURL: url))
-    }
-
-    func setTitle(text: String) {
-        titleLabel.text = text
-    }
-
-    func setSubtitle(text: String) {
-        if !stackView.subviews.contains(subtitleLabel) {
-            stackView.addArrangedSubview(subtitleLabel)
+    var imageURL: URL? {
+        didSet {
+            iconView.kf.setImage(with: imageURL)
         }
-        subtitleLabel.text = text
+    }
+
+    var title: String? {
+        get { titleLabel.text }
+        set { titleLabel.text = newValue }
+    }
+
+    var subtitle: String? {
+        get { subtitleLabel.text }
+        set {
+            if newValue != nil {
+                if !stackView.subviews.contains(subtitleLabel) {
+                    stackView.addArrangedSubview(subtitleLabel)
+                }
+            } else {
+                subtitleLabel.removeFromSuperview()
+            }
+            subtitleLabel.text = newValue
+        }
     }
 }

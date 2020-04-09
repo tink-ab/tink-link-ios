@@ -3,21 +3,7 @@ import UIKit
 
 /// Example of how to use the provider grouped by credential type
 final class CredentialKindPickerViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
-    var onCompletion: CompletionHandler?
     var credentialKindNodes: [ProviderTree.CredentialKindNode] = []
-    
-    private let credentialController: CredentialController
-
-    init(credentialController: CredentialController) {
-        self.credentialController = credentialController
-
-        super.init(style: .plain)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 // MARK: - View Lifecycle
@@ -58,8 +44,7 @@ extension CredentialKindPickerViewController {
 
 extension CredentialKindPickerViewController {
     func showAddCredential(for provider: Provider) {
-        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController)
-        addCredentialViewController.onCompletion = onCompletion
+        let addCredentialViewController = AddCredentialViewController(provider: provider)
         show(addCredentialViewController, sender: nil)
     }
 }

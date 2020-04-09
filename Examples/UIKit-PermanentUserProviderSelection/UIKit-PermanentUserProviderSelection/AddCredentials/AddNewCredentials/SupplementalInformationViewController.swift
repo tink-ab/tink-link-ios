@@ -12,9 +12,6 @@ final class SupplementalInformationViewController: UITableViewController {
 
     weak var delegate: SupplementalInformationViewControllerDelegate?
 
-    typealias CompletionHandler = (Result<Void, Error>) -> Void
-    var onCompletion: CompletionHandler?
-
     private var form: Form
     private var formError: Form.ValidationError? {
         didSet {
