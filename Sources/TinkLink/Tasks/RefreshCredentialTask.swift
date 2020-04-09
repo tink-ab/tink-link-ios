@@ -18,10 +18,10 @@ public final class RefreshCredentialTask: Identifiable {
         case updating(status: String)
 
         /// Trigger for the client to prompt the user to fill out supplemental information.
-        case awaitingSupplementalInformation(task: SupplementInformationTask)
+        case awaitingSupplementalInformation(SupplementInformationTask)
 
         /// Trigger for the client to prompt the user to open the third party authentication flow
-        case awaitingThirdPartyAppAuthentication(task: ThirdPartyAppAuthenticationTask)
+        case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
 
         /// The session has expired.
         case sessionExpired
@@ -30,7 +30,7 @@ public final class RefreshCredentialTask: Identifiable {
         case updated
 
         /// The refresh error.
-        case error(error: Error)
+        case error(Error)
     }
 
     /// Error that the `RefreshCredentialTask` can throw.
@@ -112,7 +112,7 @@ public final class RefreshCredentialTask: Identifiable {
                         self.completion(.failure(error))
                     }
                 }
-                progressHandler(.awaitingSupplementalInformation(task: supplementInformationTask))
+                progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
                     assertionFailure("Missing third pary app authentication deeplink URL!")
@@ -128,7 +128,7 @@ public final class RefreshCredentialTask: Identifiable {
                         self.completion(.failure(error))
                     }
                 }
-                progressHandler(.awaitingThirdPartyAppAuthentication(task: task))
+                progressHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
                 progressHandler(.updating(status: credentials.statusPayload))
             case .updated:
@@ -136,11 +136,11 @@ public final class RefreshCredentialTask: Identifiable {
             case .sessionExpired:
                 progressHandler(.sessionExpired)
             case .authenticationError:
-                progressHandler(.error(error: .authenticationFailed))
+                progressHandler(.error(.authenticationFailed))
             case .permanentError:
-                progressHandler(.error(error: .permanentFailure))
+                progressHandler(.error(.permanentFailure))
             case .temporaryError:
-                progressHandler(.error(error: .temporaryFailure))
+                progressHandler(.error(.temporaryFailure))
             case .disabled:
                 fatalError("credentials shouldn't be disabled during creation.")
             case .unknown:
