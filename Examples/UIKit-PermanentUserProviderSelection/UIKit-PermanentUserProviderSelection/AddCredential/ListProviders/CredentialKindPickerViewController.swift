@@ -56,7 +56,7 @@ extension CredentialKindPickerViewController {
 
 // MARK: - Navigation
 
-extension CredentialKindPickerViewController {
+extension CredentialsKindPickerViewController {
     func showAddCredential(for provider: Provider) {
         let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialController: credentialController)
         addCredentialsViewController.onCompletion = onCompletion
