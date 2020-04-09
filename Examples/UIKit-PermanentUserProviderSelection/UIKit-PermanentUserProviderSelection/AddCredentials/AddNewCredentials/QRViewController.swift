@@ -7,7 +7,6 @@ class QRViewController: UIViewController {
         self.image = image
         super.init(nibName: nil, bundle: nil)
         title = "QR Code"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close(_:)))
     }
 
     required init?(coder: NSCoder) {
@@ -28,9 +27,5 @@ class QRViewController: UIViewController {
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-    }
-
-    @objc private func close(_ sender: Any) {
-        dismiss(animated: true)
     }
 }

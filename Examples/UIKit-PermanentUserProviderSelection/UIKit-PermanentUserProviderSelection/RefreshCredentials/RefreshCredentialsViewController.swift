@@ -190,6 +190,7 @@ extension RefreshCredentialsViewController {
                         self?.present(alertController, animated: true)
                     case .qrImage(let image):
                         let qrViewController = QRViewController(image: image)
+                        qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
                         let navigationController = UINavigationController(rootViewController: qrViewController)
                         self?.present(navigationController, animated: true)
                     }
@@ -210,6 +211,11 @@ extension RefreshCredentialsViewController {
         } catch {
             // Handle any errors
         }
+    }
+
+    @objc private func cancelRefreshingCredentials(_ sender: Any) {
+        refreshCredentialsTask?.cancel()
+        dismiss(animated: true)
     }
 
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {

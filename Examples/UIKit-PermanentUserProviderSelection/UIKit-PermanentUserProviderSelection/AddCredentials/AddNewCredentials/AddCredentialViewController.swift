@@ -216,6 +216,7 @@ extension AddCredentialViewController {
                     case .qrImage(let image):
                         self.hideUpdatingView(animated: true) {
                             let qrViewController = QRViewController(image: image)
+                            qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
                             let navigationController = UINavigationController(rootViewController: qrViewController)
                             self.present(navigationController, animated: true)
                         }
@@ -232,6 +233,11 @@ extension AddCredentialViewController {
         } catch {
             showAlert(for: error)
         }
+    }
+
+    @objc private func cancelRefreshingCredentials(_ sender: Any) {
+        addCredentialsTask?.cancel()
+        dismiss(animated: true)
     }
 }
 
