@@ -27,7 +27,7 @@ final class AddCredentialViewController: UIViewController {
     private var currentScrollPos: CGFloat?
 
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
-    private lazy var helpLabel = UnselectableTextView()
+    private lazy var helpLabel = AddCredentialsHelpTextView()
     private lazy var headerView = AddCredentialHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
     private lazy var gradientView = GradientView()
@@ -160,7 +160,6 @@ extension AddCredentialViewController {
         frame.size.height = headerHeight
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame = frame
-
         tableView.contentInset.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
         tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
     }
@@ -176,41 +175,20 @@ extension AddCredentialViewController {
 
 extension AddCredentialViewController {
     private func setupHelpFootnote() {
-
-        let markdown = Down(markdownString: provider.helpText)
-        if let attributString = try? markdown.toAttributedString() {
-            let mutableAttributeString = NSMutableAttributedString(attributedString: attributString)
-            mutableAttributeString.addAttributes([.font: Font.regular(.micro)], range: NSRange(location: 0, length: attributString.length))
-            helpLabel.attributedText = mutableAttributeString
-            helpLabel.linkTextAttributes = [
-                NSAttributedString.Key.font: Font.bold(.micro),
-                NSAttributedString.Key.foregroundColor: Color.accent
-            ]
-        }
-        helpLabel.textContainer.lineFragmentPadding = 0
-        helpLabel.textContainerInset = .init(top: 0, left: 24, bottom: 0, right: 24)
-        helpLabel.backgroundColor = .clear
-        helpLabel.isScrollEnabled = false
-        helpLabel.isEditable = false
-        helpLabel.adjustsFontForContentSizeCategory = true
-        helpLabel.textColor = Color.secondaryLabel
-        helpLabel.setLineHeight(lineHeight: 20)
-
+        helpLabel.configure(markdownString: provider.helpText)
         tableView.tableFooterView = helpLabel
     }
 
-    private func layoutHelpFootnote() {
-        let footerLayoutMargins = UIEdgeInsets(top: 0, left: view.layoutMargins.left, bottom: 0, right: view.layoutMargins.right)
+    private func layoutHelpFootnote() { 
+        guard let footerView = tableView.tableFooterView else {
+            return
+        }
 
-        let helpLabelSize = helpLabel.sizeThatFits(CGSize(width: view.bounds.inset(by: footerLayoutMargins).width, height: .infinity))
+        let footerSize = footerView.systemLayoutSizeFitting(CGSize(width: view.bounds.width, height: 0), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
 
-        tableView.tableFooterView?.layoutMargins = footerLayoutMargins
-
-        tableView.tableFooterView?.frame = CGRect(
-            origin: .zero,
-            size: CGSize(
+        footerView.frame = CGRect(origin: .zero, size: CGSize(
                 width: view.bounds.width,
-                height: helpLabelSize.height
+                height: footerSize.height
             )
         )
     }
