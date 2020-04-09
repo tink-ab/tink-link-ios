@@ -37,7 +37,6 @@ final class RefreshCredentialsViewController: UITableViewController {
         super.init(style: .grouped)
 
         navigationItem.largeTitleDisplayMode = .never
-        hidesBottomBarWhenPushed = true
 
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short

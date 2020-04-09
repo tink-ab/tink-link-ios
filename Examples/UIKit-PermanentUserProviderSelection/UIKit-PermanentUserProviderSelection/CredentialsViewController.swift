@@ -38,10 +38,8 @@ extension CredentialsViewController {
 
         title = "Credentials"
 
-        let addBarItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredential))
-        toolbarItems = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), addBarItem]
-
         navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredential))
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
 
