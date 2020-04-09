@@ -1,12 +1,12 @@
 import UIKit
 import TinkLink
 
-protocol AddCredentialFooterViewDelegate: AnyObject {
-    func addCredentialFooterViewDidTapLink(_ addCredentialFooterView: AddCredentialFooterView, url: URL)
+protocol AddCredentialsFooterViewDelegate: AnyObject {
+    func addCredentialFooterViewDidTapLink(_ addCredentialFooterView: AddCredentialsFooterView, url: URL)
 }
 
-final class AddCredentialFooterView: UIView {
-    weak var delegate: AddCredentialFooterViewDelegate?
+final class AddCredentialsFooterView: UIView {
+    weak var delegate: AddCredentialsFooterViewDelegate?
 
     private lazy var descriptionTextView: UITextView = {
         let descriptionTextView = UnselectableTextView()
@@ -76,7 +76,7 @@ final class AddCredentialFooterView: UIView {
     }
 }
 
-extension AddCredentialFooterView: UITextViewDelegate {
+extension AddCredentialsFooterView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         switch interaction {
         case .invokeDefaultAction:
