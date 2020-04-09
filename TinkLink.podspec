@@ -1,6 +1,9 @@
 Pod::Spec.new do |spec|
   spec.name     = "TinkLink"
-  spec.summary  = "With TinkLink you can connect to banks across Europe and easily access a wide range of financial data."
+  spec.summary  = "Tink Link iOS SDK"
+  spec.description = <<-DESC
+                   With TinkLink you can connect to banks across Europe and easily access a wide range of financial data.
+                   DESC
   spec.version  = "0.10.0"
   spec.license  = { :type => "MIT", :file => "LICENSE" }
   spec.authors  = { "Tink AB" => "mobile@tink.se" }
