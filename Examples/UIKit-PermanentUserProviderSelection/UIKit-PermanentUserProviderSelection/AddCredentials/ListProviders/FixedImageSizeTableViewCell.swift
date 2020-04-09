@@ -25,6 +25,7 @@ class FixedImageSizeTableViewCell: UITableViewCell {
         contentView.addSubview(iconView)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(subtitleLabel)
         stackView.setContentHuggingPriority(.defaultLow, for: .vertical)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -36,6 +37,7 @@ class FixedImageSizeTableViewCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
 
+        subtitleLabel.isHidden = true
         subtitleLabel.numberOfLines = 0
         subtitleLabel.textColor = .darkGray
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -83,13 +85,7 @@ class FixedImageSizeTableViewCell: UITableViewCell {
     var subtitle: String? {
         get { subtitleLabel.text }
         set {
-            if newValue != nil {
-                if !stackView.subviews.contains(subtitleLabel) {
-                    stackView.addArrangedSubview(subtitleLabel)
-                }
-            } else {
-                subtitleLabel.removeFromSuperview()
-            }
+            subtitleLabel.isHidden = subtitle == nil
             subtitleLabel.text = newValue
         }
     }
