@@ -197,14 +197,20 @@ extension AddCredentialViewController {
             showUpdating(status: "Created Credentials")
         case .authenticating:
             if isPresentingQR {
-                dismiss(animated: true)
+                dismiss(animated: true) {
+                    self.showUpdating(status: "Authenticating…")
+                }
+            } else {
+                showUpdating(status: "Authenticating…")
             }
-            showUpdating(status: "Authenticating…")
         case .updating(let status):
             if isPresentingQR {
-                dismiss(animated: true)
+                dismiss(animated: true) {
+                    self.showUpdating(status: status)
+                }
+            } else {
+                showUpdating(status: status)
             }
-            showUpdating(status: status)
         case .awaitingSupplementalInformation(let task):
             showSupplementalInformation(for: task)
         case .awaitingThirdPartyAppAuthentication(let task):
