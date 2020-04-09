@@ -1,13 +1,13 @@
-Pod::Spec.new do |s|
-  s.name     = 'TinkLink'
-  s.summary  = 'With TinkLink you can connect to banks across Europe and easily access a wide range of financial data.'
-  s.version  = '0.10.0'
-  s.license  = { :type => "MIT", :file => "LICENSE" }
-  s.authors  = { 'Tink AB' => 'mobile@tink.se' }
-  s.homepage = 'https://tink.com'
-  s.source = { :git => 'https://github.com/tink-ab/tink-link-ios.git', :tag => s.version }
+Pod::Spec.new do |spec|
+  spec.name     = 'TinkLink'
+  spec.summary  = 'With TinkLink you can connect to banks across Europe and easily access a wide range of financial data.'
+  spec.version  = '0.10.0'
+  spec.license  = { :type => "MIT", :file => "LICENSE" }
+  spec.authors  = { 'Tink AB' => 'mobile@tink.se' }
+  spec.homepage = 'https://tink.com'
+  spec.source = { :git => 'https://github.com/tink-ab/tink-link-ios.git', :tag => spec.version }
 
-  s.ios.deployment_target = '11.0'
+  spec.ios.deployment_target = '11.0'
 
-  s.source_files = "Sources/TinkLink/**/*.swift"
+  spec.source_files = "Sources/TinkLink/**/*.swift"
 end

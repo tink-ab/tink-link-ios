@@ -1,17 +1,17 @@
-Pod::Spec.new do |s|
-  s.name     = 'TinkLinkUI'
-  s.summary  = 'With TinkLinkUI you can connect to banks across Europe and easily access a wide range of financial data.'
-  s.version  = '0.10.0'
-  s.license  = { :type => "MIT", :file => "LICENSE" }
-  s.authors  = { 'Tink AB' => 'mobile@tink.se' }
-  s.homepage = 'https://tink.com'
-  s.source = { :git => 'https://github.com/tink-ab/tink-link-ios.git', :tag => s.version }
+Pod::Spec.new do |spec|
+  spec.name     = 'TinkLinkUI'
+  spec.summary  = 'With TinkLinkUI you can connect to banks across Europe and easily access a wide range of financial data.'
+  spec.version  = '0.10.0'
+  spec.license  = { :type => "MIT", :file => "LICENSE" }
+  spec.authors  = { 'Tink AB' => 'mobile@tink.se' }
+  spec.homepage = 'https://tink.com'
+  spec.source = { :git => 'https://github.com/tink-ab/tink-link-ios.git', :tag => spec.version }
 
-  s.ios.deployment_target = '11.0'
+  spec.ios.deployment_target = '11.0'
 
-  s.source_files = "Sources/TinkLinkUI/**/*.swift"
+  spec.source_files = "Sources/TinkLinkUI/**/*.swift"
 
-  s.dependency "TinkLink"
-  s.dependency "Down"
-  s.dependency "Kingfisher"
+  spec.dependency "TinkLink"
+  spec.dependency "Down"
+  spec.dependency "Kingfisher"
 end
