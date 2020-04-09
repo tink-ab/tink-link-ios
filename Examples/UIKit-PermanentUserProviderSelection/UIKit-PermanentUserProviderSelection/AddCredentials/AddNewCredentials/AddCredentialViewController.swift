@@ -45,7 +45,7 @@ extension AddCredentialViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: TextFieldTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
 
         navigationItem.prompt = "Enter Credentials"
@@ -61,7 +61,7 @@ extension AddCredentialViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {
+        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldTableViewCell {
             cell.textField.becomeFirstResponder()
             didFirstFieldBecomeFirstResponder = true
         }
@@ -125,15 +125,13 @@ extension AddCredentialViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldTableViewCell.reuseIdentifier, for: indexPath) as! TextFieldTableViewCell
         let field = form.fields[indexPath.section]
-        if let textFieldCell = cell as? TextFieldCell {
-            textFieldCell.delegate = self
-            textFieldCell.textField.placeholder = field.attributes.placeholder
-            textFieldCell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
-            textFieldCell.textField.isEnabled = field.attributes.isEditable
-            textFieldCell.textField.text = field.text
-        }
+        cell.delegate = self
+        cell.textField.placeholder = field.attributes.placeholder
+        cell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
+        cell.textField.isEnabled = field.attributes.isEditable
+        cell.textField.text = field.text
         return cell
     }
 
@@ -308,15 +306,15 @@ extension AddCredentialViewController {
     }
 }
 
-// MARK: - TextFieldCellDelegate
-extension AddCredentialViewController: TextFieldCellDelegate {
-    func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
+// MARK: - TextFieldTableViewCellDelegate
+extension AddCredentialViewController: TextFieldTableViewCellDelegate {
+    func textFieldTableViewCell(_ cell: TextFieldTableViewCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
         navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
     }
 
-    func textFieldCellDidEndEditing(_ cell: TextFieldCell) {
+    func textFieldTableViewCellDidEndEditing(_ cell: TextFieldTableViewCell) {
         do {
             try form.validateFields()
         } catch {

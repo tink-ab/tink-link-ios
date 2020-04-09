@@ -43,7 +43,7 @@ extension SupplementalInformationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: TextFieldTableViewCell.reuseIdentifier)
 
         navigationItem.title = "Enter Supplemental Information"
         navigationItem.largeTitleDisplayMode = .never
@@ -55,7 +55,7 @@ extension SupplementalInformationViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {
+        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldTableViewCell {
             cell.textField.becomeFirstResponder()
             didFirstFieldBecomeFirstResponder = true
         }
@@ -74,16 +74,13 @@ extension SupplementalInformationViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath)
-        if let textFieldCell = cell as? TextFieldCell {
-            let field = form.fields[indexPath.section]
-
-            textFieldCell.delegate = self
-            textFieldCell.textField.placeholder = field.attributes.placeholder
-            textFieldCell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
-            textFieldCell.textField.isEnabled = field.attributes.isEditable
-            textFieldCell.textField.text = field.text
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldTableViewCell.reuseIdentifier, for: indexPath) as! TextFieldTableViewCell
+        let field = form.fields[indexPath.section]
+        cell.delegate = self
+        cell.textField.placeholder = field.attributes.placeholder
+        cell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
+        cell.textField.isEnabled = field.attributes.isEditable
+        cell.textField.text = field.text
         return cell
     }
 
@@ -122,17 +119,17 @@ extension SupplementalInformationViewController {
     }
 }
 
-// MARK: - TextFieldCellDelegate
+// MARK: - TextFieldTableViewCellDelegate
 
-extension SupplementalInformationViewController: TextFieldCellDelegate {
-    func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
+extension SupplementalInformationViewController: TextFieldTableViewCellDelegate {
+    func textFieldTableViewCell(_ cell: TextFieldTableViewCell, willChangeToText text: String) {
         if let indexPath = tableView.indexPath(for: cell) {
             form.fields[indexPath.section].text = text
             navigationItem.rightBarButtonItem?.isEnabled = form.fields[indexPath.section].isValid
         }
     }
 
-    func textFieldCellDidEndEditing(_ cell: TextFieldCell) {
+    func textFieldTableViewCellDidEndEditing(_ cell: TextFieldTableViewCell) {
         do {
             try form.validateFields()
         } catch {

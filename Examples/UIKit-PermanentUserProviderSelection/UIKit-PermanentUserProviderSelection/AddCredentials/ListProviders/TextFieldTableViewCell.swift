@@ -1,12 +1,12 @@
 import UIKit
 
-protocol TextFieldCellDelegate: AnyObject {
-    func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String)
-    func textFieldCellDidEndEditing(_ cell: TextFieldCell)
+protocol TextFieldTableViewCellDelegate: AnyObject {
+    func textFieldTableViewCell(_ cell: TextFieldTableViewCell, willChangeToText text: String)
+    func textFieldTableViewCellDidEndEditing(_ cell: TextFieldTableViewCell)
 }
 
-class TextFieldCell: UITableViewCell, UITextFieldDelegate {
-    weak var delegate: TextFieldCellDelegate?
+class TextFieldTableViewCell: UITableViewCell, UITextFieldDelegate {
+    weak var delegate: TextFieldTableViewCellDelegate?
 
     static var reuseIdentifier: String {
         return "TextFieldCell"
@@ -51,11 +51,11 @@ class TextFieldCell: UITableViewCell, UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
-        delegate?.textFieldCell(self, willChangeToText: text)
+        delegate?.textFieldTableViewCell(self, willChangeToText: text)
         return true
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        delegate?.textFieldCellDidEndEditing(self)
+        delegate?.textFieldTableViewCellDidEndEditing(self)
     }
 }
