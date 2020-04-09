@@ -52,6 +52,7 @@ class CredentialsViewController: UITableViewController {
             do {
                 let user = try result.get()
                 self.providerController.performFetch()
+                self.credentialController.performFetch()
             } catch {
                 // Handle any errors
             }
