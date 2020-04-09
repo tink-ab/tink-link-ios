@@ -79,7 +79,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
-        let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
+        let viewController = CredentialsKindPickerViewController(credentialKindNodes: credentialKindNodes)
         let title = NSLocalizedString("ProviderPicker.List.CredentialsTypeTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Sign in method", comment: "Title for screen where user selects which authentication type to use when adding credentials.")
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self

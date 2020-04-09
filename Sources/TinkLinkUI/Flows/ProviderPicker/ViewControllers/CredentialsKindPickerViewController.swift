@@ -2,7 +2,7 @@ import TinkLink
 import UIKit
 
 /// Example of how to use the provider grouped by credential type
-final class CredentialKindPickerViewController: UITableViewController {
+final class CredentialsKindPickerViewController: UITableViewController {
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let credentialKindNodes: [ProviderTree.CredentialKindNode]
@@ -19,7 +19,7 @@ final class CredentialKindPickerViewController: UITableViewController {
 
 // MARK: - View Lifecycle
 
-extension CredentialKindPickerViewController {
+extension CredentialsKindPickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,7 +35,7 @@ extension CredentialKindPickerViewController {
 
 // MARK: - UITableViewDataSource
 
-extension CredentialKindPickerViewController {
+extension CredentialsKindPickerViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return credentialKindNodes.count
     }
