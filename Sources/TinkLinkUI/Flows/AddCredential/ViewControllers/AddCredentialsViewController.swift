@@ -271,7 +271,7 @@ extension AddCredentialsViewController: UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return isVerified ? nil : AddCredentialClientNotVerifiedView()
+        return isVerified ? nil : AddCredentialsClientNotVerifiedView()
     }
 }
 

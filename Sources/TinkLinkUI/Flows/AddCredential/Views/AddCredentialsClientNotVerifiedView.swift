@@ -1,6 +1,6 @@
 import UIKit
 
-class AddCredentialClientNotVerifiedView: UIView {
+class AddCredentialsClientNotVerifiedView: UIView {
     private let contentView = UIView()
     private let unVerifiedLabel = UILabel()
 
