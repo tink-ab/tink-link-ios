@@ -3,14 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		202E5FDA2400140000E0C405 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 202E5FD92400140000E0C405 /* TinkLink */; };
 		2071952423F2B7A20042B2FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2071952323F2B7A20042B2FB /* ViewController.swift */; };
 		20E6AEF023FA79AC00070B1E /* AppearanceProvider+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E6AEEF23FA79AC00070B1E /* AppearanceProvider+Presets.swift */; };
-		8F0C9CBE23F1974600BD9913 /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F0C9CBD23F1974600BD9913 /* TinkLinkUI */; };
 		8FC06D2223F196A700CD7B88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC06D2123F196A700CD7B88 /* AppDelegate.swift */; };
 		8FC06D2B23F196A900CD7B88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC06D2A23F196A900CD7B88 /* Assets.xcassets */; };
 		8FC06D2E23F196A900CD7B88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC06D2C23F196A900CD7B88 /* LaunchScreen.storyboard */; };
@@ -24,7 +22,6 @@
 		8FC06D2A23F196A900CD7B88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FC06D2D23F196A900CD7B88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FC06D2F23F196A900CD7B88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8FC06D3523F196BD00CD7B88 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,28 +29,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				202E5FDA2400140000E0C405 /* TinkLink in Frameworks */,
-				8F0C9CBE23F1974600BD9913 /* TinkLinkUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8F0C9CBC23F1974600BD9913 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8FC06D3523F196BD00CD7B88 /* tink-link-ios */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		8FC06D1523F196A700CD7B88 = {
 			isa = PBXGroup;
 			children = (
 				8FC06D2023F196A700CD7B88 /* TinkLinkUIExample */,
 				8FC06D1F23F196A700CD7B88 /* Products */,
-				8F0C9CBC23F1974600BD9913 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,8 +81,6 @@
 			);
 			name = TinkLinkUIExample;
 			packageProductDependencies = (
-				8F0C9CBD23F1974600BD9913 /* TinkLinkUI */,
-				202E5FD92400140000E0C405 /* TinkLink */,
 			);
 			productName = TinkLinkUIExample;
 			productReference = 8FC06D1E23F196A700CD7B88 /* TinkLinkUIExample.app */;
@@ -342,17 +326,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		202E5FD92400140000E0C405 /* TinkLink */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TinkLink;
-		};
-		8F0C9CBD23F1974600BD9913 /* TinkLinkUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TinkLinkUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8FC06D1623F196A700CD7B88 /* Project object */;
 }
