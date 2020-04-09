@@ -28,7 +28,7 @@ final class AddCredentialsViewController: UIViewController {
 
     private lazy var tableView = UITableView(frame: .zero, style: .grouped)
     private lazy var helpLabel = UnselectableTextView()
-    private lazy var headerView = AddCredentialHeaderView()
+    private lazy var headerView = AddCredentialsHeaderView()
     private lazy var addCredentialFooterView = AddCredentialFooterView()
     private lazy var gradientView = GradientView()
     private lazy var button: FloatingButton = {
@@ -392,7 +392,7 @@ extension AddCredentialsViewController: FormFieldTableViewCellDelegate {
 // MARK: - AddCredentialHeaderViewDelegate
 
 extension AddCredentialsViewController: AddCredentialHeaderViewDelegate {
-    func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialHeaderView) {
+    func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialsHeaderView) {
         showMoreInfo()
     }
 }

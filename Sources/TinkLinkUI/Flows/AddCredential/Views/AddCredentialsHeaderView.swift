@@ -3,10 +3,10 @@ import TinkLink
 import Kingfisher
 
 protocol AddCredentialHeaderViewDelegate: AnyObject {
-    func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialHeaderView)
+    func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialsHeaderView)
 }
 
-final class AddCredentialHeaderView: UIView {
+final class AddCredentialsHeaderView: UIView {
     private lazy var bankIconView: UIImageView = {
         let bankIconView = UIImageView()
         bankIconView.contentMode = .scaleAspectFit
@@ -246,7 +246,7 @@ final class AddCredentialHeaderView: UIView {
     }
 }
 
-extension AddCredentialHeaderView: UITextViewDelegate {
+extension AddCredentialsHeaderView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         switch interaction {
         case .invokeDefaultAction:
