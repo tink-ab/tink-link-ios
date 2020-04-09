@@ -136,11 +136,11 @@ public final class RefreshCredentialTask: Identifiable {
             case .sessionExpired:
                 progressHandler(.sessionExpired)
             case .authenticationError:
-                progressHandler(.error(.authenticationFailed))
+                completion(.failure(Error.authenticationFailed))
             case .permanentError:
-                progressHandler(.error(.permanentFailure))
+                completion(.failure(Error.permanentFailure))
             case .temporaryError:
-                progressHandler(.error(.temporaryFailure))
+                completion(.failure(Error.temporaryFailure))
             case .disabled:
                 fatalError("credentials shouldn't be disabled during creation.")
             case .unknown:
