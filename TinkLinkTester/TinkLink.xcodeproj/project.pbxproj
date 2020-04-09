@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		8F3829542417A29D007C418C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3829532417A29D007C418C /* AppDelegate.swift */; };
 		8F3829582417A29D007C418C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3829572417A29D007C418C /* ViewController.swift */; };
 		8F3829602417A29F007C418C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F38295E2417A29F007C418C /* LaunchScreen.storyboard */; };
-		8F38298E2417A56B007C418C /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F38298D2417A56B007C418C /* TinkLinkUI */; };
 		9D10EE57241A5332007E9822 /* AppearanceProvider+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D10EE56241A5332007E9822 /* AppearanceProvider+Presets.swift */; };
 		9D10EE5B241A5339007E9822 /* IcecreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D10EE59241A5339007E9822 /* IcecreamViewController.swift */; };
 		9D10EE5C241A5339007E9822 /* IcecreamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D10EE5A241A5339007E9822 /* IcecreamModel.swift */; };
@@ -33,7 +32,6 @@
 		8F3829572417A29D007C418C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8F38295F2417A29F007C418C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F3829612417A29F007C418C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8F499D332417F43000DEAFC1 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ..; sourceTree = "<group>"; };
 		8F6889072417EB3E00402A3B /* TinkLinkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkLinkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F6889112417EBCE00402A3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D10EE56241A5332007E9822 /* AppearanceProvider+Presets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceProvider+Presets.swift"; sourceTree = "<group>"; };
@@ -47,7 +45,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F38298E2417A56B007C418C /* TinkLinkUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +61,6 @@
 		8F3829472417A29D007C418C = {
 			isa = PBXGroup;
 			children = (
-				8F499D322417F41A00DEAFC1 /* Frameworks */,
 				8F6889082417EB3E00402A3B /* TinkLinkTests */,
 				8F3829522417A29D007C418C /* TinkLinkTester */,
 				8F3829512417A29D007C418C /* Products */,
@@ -92,14 +88,6 @@
 				8F3829612417A29F007C418C /* Info.plist */,
 			);
 			path = TinkLinkTester;
-			sourceTree = "<group>";
-		};
-		8F499D322417F41A00DEAFC1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8F499D332417F43000DEAFC1 /* tink-link-ios */,
-			);
-			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		8F6889082417EB3E00402A3B /* TinkLinkTests */ = {
@@ -136,7 +124,6 @@
 			);
 			name = TinkLinkTester;
 			packageProductDependencies = (
-				8F38298D2417A56B007C418C /* TinkLinkUI */,
 			);
 			productName = TinkLinkTester;
 			productReference = 8F3829502417A29D007C418C /* TinkLinkTester.app */;
@@ -488,13 +475,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		8F38298D2417A56B007C418C /* TinkLinkUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TinkLinkUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8F3829482417A29D007C418C /* Project object */;
 }
