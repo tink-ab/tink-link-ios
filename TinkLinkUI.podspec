@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name     = 'TinkLinkUI'
   s.version  = '0.10.0'
-  s.license  = 'Tink AB'
+  s.license  = { :type => "MIT", :file => "LICENSE" }
   s.authors  = { 'Tink AB' => 'mobile@tink.se' }
   s.homepage = 'https://tink.com'
   s.summary = 'Tink Link SDK.'
