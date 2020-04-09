@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.license  = { :type => "MIT", :file => "LICENSE" }
   s.authors  = { 'Tink AB' => 'mobile@tink.se' }
   s.homepage = 'https://tink.com'
-  s.source = { :git => 'https://github.com/tink-ab/tink-link-ios.git' }
+  s.source = { :git => 'https://github.com/tink-ab/tink-link-ios.git', :tag => s.version }
 
   s.ios.deployment_target = '11.0'
 
