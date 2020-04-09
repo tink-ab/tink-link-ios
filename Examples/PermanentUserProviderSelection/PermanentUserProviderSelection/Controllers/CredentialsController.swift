@@ -1,7 +1,7 @@
 import TinkLink
 import SwiftUI
 
-final class CredentialController: ObservableObject {
+final class CredentialsController: ObservableObject {
     @Published var credentials: [Credentials] = []
 
     @Published var updatedCredentials: [Credentials] = []

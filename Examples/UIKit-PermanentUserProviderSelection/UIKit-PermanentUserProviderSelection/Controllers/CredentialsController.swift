@@ -10,7 +10,7 @@ extension Notification.Name {
     static let credentialControllerDidError = Notification.Name("CredentialControllerDidError")
 }
 
-final class CredentialController {
+final class CredentialsController {
     var credentials: [Credentials] = [] {
         didSet {
             NotificationCenter.default.post(name: .credentialControllerDidUpdateCredentials, object: nil)
