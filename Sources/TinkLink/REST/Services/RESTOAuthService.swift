@@ -10,7 +10,7 @@ final class RESTOAuthService: OAuthService {
 
     func createAnonymous(market: Market?, locale: Locale, origin: String?, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
 
-        let body = RESTAnonymousUserRequest(market: market?.code ?? "", origin: origin ?? "", locale: locale.identifier)
+        let body = RESTAnonymousUserRequest(market: market?.code ?? "", origin: origin, locale: locale.identifier)
 
         let data = try? JSONEncoder().encode(body)
         let request = RESTResourceRequest<RESTAnonymousUserResponse>(path: "/api/v1/user/anonymous", method: .post, body: data, contentType: .json) { (result) in
