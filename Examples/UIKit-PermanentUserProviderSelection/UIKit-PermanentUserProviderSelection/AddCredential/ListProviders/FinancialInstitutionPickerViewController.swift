@@ -77,7 +77,7 @@ extension FinancialInstitutionPickerViewController {
     }
 
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode], title: String?) {
-        let viewController = CredentialKindPickerViewController(credentialController: credentialController)
+        let viewController = CredentialsKindPickerViewController(credentialController: credentialController)
         viewController.onCompletion = onCompletion
         viewController.title = title
         viewController.credentialKindNodes = credentialKindNodes

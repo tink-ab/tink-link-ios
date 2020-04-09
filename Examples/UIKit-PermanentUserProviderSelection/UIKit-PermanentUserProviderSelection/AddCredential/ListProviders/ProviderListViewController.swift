@@ -113,7 +113,7 @@ extension ProviderListViewController {
 
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
         guard let credentialController = credentialController else { return }
-        let viewController = CredentialKindPickerViewController(credentialController: credentialController)
+        let viewController = CredentialsKindPickerViewController(credentialController: credentialController)
         viewController.credentialKindNodes = credentialKindNodes
         show(viewController, sender: nil)
     }

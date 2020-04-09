@@ -62,7 +62,7 @@ extension AccessTypePickerViewController {
 
 extension AccessTypePickerViewController {
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
-        let viewController = CredentialKindPickerViewController(credentialController: credentialController)
+        let viewController = CredentialsKindPickerViewController(credentialController: credentialController)
         viewController.onCompletion = onCompletion
         viewController.credentialKindNodes = credentialKindNodes
         show(viewController, sender: nil)
