@@ -208,17 +208,17 @@ extension AddCredentialViewController {
         case .awaitingSupplementalInformation(let task):
             showSupplementalInformation(for: task)
         case .awaitingThirdPartyAppAuthentication(let task):
-            task.handle { taskStatus in
+            task.handle { [weak self] taskStatus in
                 DispatchQueue.main.async {
                     switch taskStatus {
                     case .awaitAuthenticationOnAnotherDevice:
-                        self.showUpdating(status: "Await Authentication on Another Device")
+                        self?.showUpdating(status: "Await Authentication on Another Device")
                     case .qrImage(let image):
-                        self.hideUpdatingView(animated: true) {
+                        self?.hideUpdatingView(animated: true) {
                             let qrViewController = QRViewController(image: image)
                             qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
                             let navigationController = UINavigationController(rootViewController: qrViewController)
-                            self.present(navigationController, animated: true)
+                            self?.present(navigationController, animated: true)
                         }
                     }
                 }
