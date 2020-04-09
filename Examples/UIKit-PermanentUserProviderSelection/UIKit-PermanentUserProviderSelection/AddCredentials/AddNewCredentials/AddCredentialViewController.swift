@@ -170,14 +170,14 @@ extension AddCredentialViewController {
                     successPredicate: .updated,
                     shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false
                 ),
-                progressHandler: { status in
+                progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
-                        self.handleProgress(status)
+                        self?.handleProgress(status)
                     }
                 },
-                completion: { result in
+                completion: { [weak self] result in
                     DispatchQueue.main.async {
-                        self.handleCompletion(result)
+                        self?.handleCompletion(result)
                     }
                 }
             )
