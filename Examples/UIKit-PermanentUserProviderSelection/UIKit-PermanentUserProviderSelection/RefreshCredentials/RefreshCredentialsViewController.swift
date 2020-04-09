@@ -183,18 +183,7 @@ extension RefreshCredentialsViewController {
             self.credentials = credentials
             task.handle { [weak self] taskStatus in
                 DispatchQueue.main.async {
-                    switch taskStatus {
-                    case .awaitAuthenticationOnAnotherDevice:
-                        let alertController = UIAlertController(title: "Awaiting Authentication on Another Device ", message: nil, preferredStyle: .alert)
-                        let action = UIAlertAction(title: "OK", style: .default)
-                        alertController.addAction(action)
-                        self?.present(alertController, animated: true)
-                    case .qrImage(let image):
-                        let qrViewController = QRViewController(image: image)
-                        qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
-                        let navigationController = UINavigationController(rootViewController: qrViewController)
-                        self?.present(navigationController, animated: true)
-                    }
+                    self?.handleThirdPartyAppAuthentication(taskStatus)
                 }
             }
         case .sessionExpired(credentials: let credentials):
@@ -206,6 +195,20 @@ extension RefreshCredentialsViewController {
         }
     }
 
+    private func handleThirdPartyAppAuthentication(_ taskStatus: ThirdPartyAppAuthenticationTask.Status) {
+        switch taskStatus {
+        case .awaitAuthenticationOnAnotherDevice:
+            let alertController = UIAlertController(title: "Awaiting Authentication on Another Device ", message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default)
+            alertController.addAction(action)
+            present(alertController, animated: true)
+        case .qrImage(let image):
+            let qrViewController = QRViewController(image: image)
+            qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
+            let navigationController = UINavigationController(rootViewController: qrViewController)
+            present(navigationController, animated: true)
+        }
+    }
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
             self.credentials = try result.get()
