@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		20164860243F0CFE00D3C1E0 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */; };
-		20164862243F0D1300D3C1E0 /* CredentialsStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20164861243F0D1300D3C1E0 /* CredentialsStatusTableViewCell.swift */; };
+		20164862243F0D1300D3C1E0 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */; };
 		20FD9612243F169B00603B5A /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD9611243F169B00603B5A /* QRViewController.swift */; };
 		8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02823D5BC79009D785E /* CredentialsViewController.swift */; };
 		8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */; };
@@ -31,7 +31,7 @@
 
 /* Begin PBXFileReference section */
 		2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
-		20164861243F0D1300D3C1E0 /* CredentialsStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsStatusTableViewCell.swift; sourceTree = "<group>"; };
+		20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		20FD9611243F169B00603B5A /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
 		8F39F02823D5BC79009D785E /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
 		8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCredentialsViewController.swift; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */,
-				20164861243F0D1300D3C1E0 /* CredentialsStatusTableViewCell.swift */,
+				20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */,
 				2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */,
 			);
 			path = RefreshCredentials;
@@ -238,7 +238,7 @@
 				20FD9612243F169B00603B5A /* QRViewController.swift in Sources */,
 				8FDA296623D1EE4D00EC810F /* AddCredentialStatusViewController.swift in Sources */,
 				8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */,
-				20164862243F0D1300D3C1E0 /* CredentialsStatusTableViewCell.swift in Sources */,
+				20164862243F0D1300D3C1E0 /* SubtitleTableViewCell.swift in Sources */,
 				8FDA297123D1EE5300EC810F /* FixedImageSizeTableViewCell.swift in Sources */,
 				8FDA296F23D1EE5300EC810F /* TextFieldTableViewCell.swift in Sources */,
 				20164860243F0CFE00D3C1E0 /* ButtonTableViewCell.swift in Sources */,

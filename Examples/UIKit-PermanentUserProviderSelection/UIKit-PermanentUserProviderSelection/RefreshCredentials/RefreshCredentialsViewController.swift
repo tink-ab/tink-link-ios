@@ -54,7 +54,7 @@ extension RefreshCredentialsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(CredentialsStatusTableViewCell.self, forCellReuseIdentifier: "Status")
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "Status")
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
     }
 }
