@@ -1,0 +1,35 @@
+PODS:
+  - Down (0.9.2)
+  - Kingfisher (5.13.3):
+    - Kingfisher/Core (= 5.13.3)
+  - Kingfisher/Core (5.13.3)
+  - TinkLink (0.10.0)
+  - TinkLinkUI (0.10.0):
+    - Down
+    - Kingfisher
+    - TinkLink
+
+DEPENDENCIES:
+  - TinkLink (from `../`)
+  - TinkLinkUI (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Down
+    - Kingfisher
+
+EXTERNAL SOURCES:
+  TinkLink:
+    :path: "../"
+  TinkLinkUI:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Down: 1f6a14846dff45ae8e7e4334b4e386a5fd3b2412
+  Kingfisher: d2b3d6a7200c93b34de9afcdf25c8dd9282ec277
+  TinkLink: d960730387a5a7df4f4fb99c4394774d1ca1d71c
+  TinkLinkUI: 9d5367e402046a15091b8b55d728bb89e229ffd4
+
+PODFILE CHECKSUM: b8ff39617942ace80c644f65926abf4fb1fa8042
+
+COCOAPODS: 1.9.1
