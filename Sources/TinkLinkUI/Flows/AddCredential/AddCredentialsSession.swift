@@ -1,7 +1,7 @@
 import UIKit
 import TinkLink
 
-final class AddCredentialSession {
+final class AddCredentialsSession {
 
     weak var parentViewController: UIViewController?
 
@@ -142,7 +142,7 @@ final class AddCredentialSession {
     }
 }
 
-extension AddCredentialSession {
+extension AddCredentialsSession {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
         self.supplementInfoTask = supplementInformationTask
         hideUpdatingView(animated: true) {
@@ -201,7 +201,7 @@ extension AddCredentialSession {
 
 // MARK: - AddCredentialStatusViewControllerDelegate
 
-extension AddCredentialSession: AddCredentialStatusViewControllerDelegate {
+extension AddCredentialsSession: AddCredentialStatusViewControllerDelegate {
     func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialStatusViewController) {
         task?.cancel()
         timer?.invalidate()
@@ -211,7 +211,7 @@ extension AddCredentialSession: AddCredentialStatusViewControllerDelegate {
 
 // MARK: - SupplementalInformationViewControllerDelegate
 
-extension AddCredentialSession: SupplementalInformationViewControllerDelegate {
+extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         parentViewController?.dismiss(animated: true) {
             self.supplementInfoTask?.cancel()
@@ -227,7 +227,7 @@ extension AddCredentialSession: SupplementalInformationViewControllerDelegate {
     }
 }
 
-extension AddCredentialSession: QRImageViewControllerDelegate {
+extension AddCredentialsSession: QRImageViewControllerDelegate {
     func qrImageViewControllerDidCancel(_ viewController: QRImageViewController) {
         parentViewController?.dismiss(animated: true) {
             self.task?.cancel()
