@@ -42,6 +42,9 @@ extension CredentialsViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredential))
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
 
         activityIndicator.startAnimating()
 
@@ -49,7 +52,9 @@ extension CredentialsViewController {
             dump(result)
             do {
                 self?.user = try result.get()
-                self?.updateList()
+                self?.updateList {
+                    self?.activityIndicator.stopAnimating()
+                }
             } catch {
                 // Handle any errors
             }
@@ -63,8 +68,12 @@ extension CredentialsViewController {
             updateList()
         }
     }
+}
 
-    private func updateList() {
+// MARK: - Data
+
+extension CredentialsViewController {
+    private func updateList(completion: (() -> Void)? = nil) {
         let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
         providerContext.fetchProviders(attributes: attributes) { [weak self] result in
             DispatchQueue.main.async {
@@ -79,12 +88,12 @@ extension CredentialsViewController {
 
         credentialContext.fetchCredentialsList { [weak self] result in
             DispatchQueue.main.async {
-                self?.activityIndicator.stopAnimating()
                 do {
                     self?.credentialsList = try result.get()
                 } catch {
                     // Handle any errors
                 }
+                completion?()
             }
         }
     }
@@ -93,6 +102,12 @@ extension CredentialsViewController {
 // MARK: - Actions
 
 extension CredentialsViewController {
+    @objc private func refresh(_ refreshControl: UIRefreshControl) {
+        updateList {
+            refreshControl.endRefreshing()
+        }
+    }
+
     @objc private func addCredential(sender: UIBarButtonItem) {
         let providerListViewController = ProviderListViewController()
         providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAddingCredentials))
