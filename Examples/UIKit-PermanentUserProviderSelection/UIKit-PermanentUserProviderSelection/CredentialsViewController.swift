@@ -49,7 +49,6 @@ extension CredentialsViewController {
         activityIndicator.startAnimating()
 
         userContext.authenticateUser(accessToken: AccessToken(rawValue: "YOUR_ACCESS_TOKEN")!) { [weak self] result in
-            dump(result)
             do {
                 self?.user = try result.get()
                 self?.updateList {
