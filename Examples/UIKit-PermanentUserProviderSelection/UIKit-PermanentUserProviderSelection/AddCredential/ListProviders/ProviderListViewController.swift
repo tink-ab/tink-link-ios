@@ -120,8 +120,8 @@ extension ProviderListViewController {
 
     func showAddCredential(for provider: Provider) {
         guard let credentialController = credentialController else { return }
-        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController)
-        show(addCredentialViewController, sender: nil)
+        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialController: credentialController)
+        show(addCredentialsViewController, sender: nil)
     }
 }
 

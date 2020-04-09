@@ -3,7 +3,7 @@ import TinkLink
 import UIKit
 
 /// Example of how to use the provider field specification to add credential
-final class AddCredentialViewController: UITableViewController {
+final class AddCredentialsViewController: UITableViewController {
     typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
     let provider: Provider
@@ -43,7 +43,7 @@ final class AddCredentialViewController: UITableViewController {
 
 // MARK: - View Lifecycle
 
-extension AddCredentialViewController {
+extension AddCredentialsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -78,7 +78,7 @@ extension AddCredentialViewController {
 
 // MARK: - Help Footnote
 
-extension AddCredentialViewController {
+extension AddCredentialsViewController {
     private func setupHelpFootnote() {
 
         let markdown = Down(markdownString: provider.helpText)
@@ -117,7 +117,7 @@ extension AddCredentialViewController {
 
 // MARK: - UITableViewDataSource
 
-extension AddCredentialViewController {
+extension AddCredentialsViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return form.fields.count
     }
@@ -158,7 +158,7 @@ extension AddCredentialViewController {
 
 // MARK: - Actions
 
-extension AddCredentialViewController {
+extension AddCredentialsViewController {
     @objc private func addCredential(_ sender: UIBarButtonItem) {
         view.endEditing(false)
 
@@ -220,7 +220,7 @@ extension AddCredentialViewController {
 
 // MARK: - Navigation
 
-extension AddCredentialViewController {
+extension AddCredentialsViewController {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
         hideUpdatingView()
         let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
@@ -293,7 +293,7 @@ extension AddCredentialViewController {
 
 // MARK: - TextFieldCellDelegate
 
-extension AddCredentialViewController: TextFieldCellDelegate {
+extension AddCredentialsViewController: TextFieldCellDelegate {
     func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
@@ -311,7 +311,7 @@ extension AddCredentialViewController: TextFieldCellDelegate {
 
 // MARK: - SupplementalInformationViewControllerDelegate
 
-extension AddCredentialViewController: SupplementalInformationViewControllerDelegate {
+extension AddCredentialsViewController: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         dismiss(animated: true)
     }

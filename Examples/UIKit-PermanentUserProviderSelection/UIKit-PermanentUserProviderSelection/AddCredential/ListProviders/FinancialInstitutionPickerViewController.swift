@@ -85,8 +85,8 @@ extension FinancialInstitutionPickerViewController {
     }
 
     func showAddCredential(for provider: Provider) {
-        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController)
-        addCredentialViewController.onCompletion = onCompletion
-        show(addCredentialViewController, sender: nil)
+        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialController: credentialController)
+        addCredentialsViewController.onCompletion = onCompletion
+        show(addCredentialsViewController, sender: nil)
     }
 }

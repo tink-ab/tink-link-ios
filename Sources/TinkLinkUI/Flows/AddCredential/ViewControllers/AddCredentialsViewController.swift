@@ -8,7 +8,7 @@ protocol AddCredentialViewControllerDelegate: AnyObject {
     func addCredential(provider: Provider, form: Form)
 }
 
-final class AddCredentialViewController: UIViewController {
+final class AddCredentialsViewController: UIViewController {
     let provider: Provider
     var username: String? {
         credentialController.user?.username
@@ -58,7 +58,7 @@ final class AddCredentialViewController: UIViewController {
 
 // MARK: - View Lifecycle
 
-extension AddCredentialViewController {
+extension AddCredentialsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -175,7 +175,7 @@ extension AddCredentialViewController {
 
 // MARK: - Help Footnote
 
-extension AddCredentialViewController {
+extension AddCredentialsViewController {
     private func setupHelpFootnote() {
 
         let markdown = Down(markdownString: provider.helpText)
@@ -218,7 +218,7 @@ extension AddCredentialViewController {
 }
 
 // MARK: - Keyboard Helper
-extension AddCredentialViewController {
+extension AddCredentialsViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
         updateButtonBottomConstraint(notification)
     }
@@ -255,7 +255,7 @@ extension AddCredentialViewController {
 
 // MARK: - UITableViewDataSource
 
-extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSource {
+extension AddCredentialsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return form.fields.count
     }
@@ -277,7 +277,7 @@ extension AddCredentialViewController: UITableViewDelegate, UITableViewDataSourc
 
 // MARK: - Actions
 
-extension AddCredentialViewController {
+extension AddCredentialsViewController {
     @objc private func startAddCredentialFlow() {
         addCredential(allowAnotherDevice: false)
     }
@@ -321,7 +321,7 @@ extension AddCredentialViewController {
 }
 
 // MARK: - TextFieldCellDelegate
-extension AddCredentialViewController: FormFieldTableViewCellDelegate {
+extension AddCredentialsViewController: FormFieldTableViewCellDelegate {
     func formFieldCellShouldReturn(_ cell: FormFieldTableViewCell) -> Bool {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return true
@@ -391,7 +391,7 @@ extension AddCredentialViewController: FormFieldTableViewCellDelegate {
 
 // MARK: - AddCredentialHeaderViewDelegate
 
-extension AddCredentialViewController: AddCredentialHeaderViewDelegate {
+extension AddCredentialsViewController: AddCredentialHeaderViewDelegate {
     func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialHeaderView) {
         showMoreInfo()
     }
@@ -399,7 +399,7 @@ extension AddCredentialViewController: AddCredentialHeaderViewDelegate {
 
 // MARK: - AddCredentialFooterViewDelegate
 
-extension AddCredentialViewController: AddCredentialFooterViewDelegate {
+extension AddCredentialsViewController: AddCredentialFooterViewDelegate {
     func addCredentialFooterViewDidTapLink(_ addCredentialFooterView: AddCredentialFooterView, url: URL) {
         showPrivacyPolicy(url)
     }
@@ -407,7 +407,7 @@ extension AddCredentialViewController: AddCredentialFooterViewDelegate {
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension AddCredentialViewController: UIGestureRecognizerDelegate {
+extension AddCredentialsViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return !button.frame.contains(gestureRecognizer.location(in: view))
     }

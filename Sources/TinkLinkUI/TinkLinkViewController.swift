@@ -213,13 +213,13 @@ extension TinkLinkViewController {
             show(loadingViewController, sender: nil)
             return
         }
-        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialController: credentialController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
-        addCredentialViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-        addCredentialViewController.delegate = self
+        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialController: credentialController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
+        addCredentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+        addCredentialsViewController.delegate = self
         if viewControllers.last is LoadingViewController {
-            replaceTopViewController(with: addCredentialViewController, animated: true)
+            replaceTopViewController(with: addCredentialsViewController, animated: true)
         } else {
-            show(addCredentialViewController, sender: nil)
+            show(addCredentialsViewController, sender: nil)
         }
     }
 
@@ -300,7 +300,7 @@ extension TinkLinkViewController: AddCredentialViewControllerDelegate {
 // MARK: - Helpers
 extension TinkLinkViewController {
     private var didShowAddCredentialForm: Bool {
-        viewControllers.contains(where: { $0 is AddCredentialViewController })
+        viewControllers.contains(where: { $0 is AddCredentialsViewController })
     }
 
     private func showDiscardActionSheet() {

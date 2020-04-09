@@ -69,8 +69,8 @@ extension AccessTypePickerViewController {
     }
 
     func showAddCredential(for provider: Provider) {
-        let addCredentialViewController = AddCredentialViewController(provider: provider, credentialContext: credentialContext)
-        addCredentialViewController.onCompletion = onCompletion
-        show(addCredentialViewController, sender: nil)
+        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialContext: credentialContext)
+        addCredentialsViewController.onCompletion = onCompletion
+        show(addCredentialsViewController, sender: nil)
     }
 }
