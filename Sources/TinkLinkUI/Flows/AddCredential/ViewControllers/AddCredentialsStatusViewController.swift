@@ -1,7 +1,7 @@
 import UIKit
 
 protocol AddCredentialsStatusViewControllerDelegate: AnyObject {
-    func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController)
+    func addCredentialsStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController)
 }
 
 final class AddCredentialsStatusViewController: UIViewController {
@@ -70,6 +70,6 @@ final class AddCredentialsStatusViewController: UIViewController {
     }
 
     @objc private func close(_ sender: Any) {
-        delegate?.addCredentialStatusViewControllerDidCancel(self)
+        delegate?.addCredentialsStatusViewControllerDidCancel(self)
     }
 }

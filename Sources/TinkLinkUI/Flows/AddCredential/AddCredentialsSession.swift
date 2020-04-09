@@ -199,10 +199,10 @@ extension AddCredentialsSession {
     }
 }
 
-// MARK: - AddCredentialStatusViewControllerDelegate
+// MARK: - AddCredentialsStatusViewControllerDelegate
 
 extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
-    func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
+    func addCredentialsStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
         task?.cancel()
         timer?.invalidate()
         hideUpdatingView(animated: true) 
