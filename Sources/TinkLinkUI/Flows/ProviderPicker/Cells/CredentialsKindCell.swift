@@ -1,6 +1,6 @@
 import UIKit
 
-class CredentialKindCell: UITableViewCell, ReusableCell {
+class CredentialsKindCell: UITableViewCell, ReusableCell {
     private let iconBackgroundView = UIView()
     private let iconView = UIImageView()
     private let titleLabel = UILabel()

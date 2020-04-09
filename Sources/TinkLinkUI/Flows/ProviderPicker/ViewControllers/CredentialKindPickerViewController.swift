@@ -25,7 +25,7 @@ extension CredentialKindPickerViewController {
 
         navigationItem.largeTitleDisplayMode = .never
 
-        tableView.registerReusableCell(ofType: CredentialKindCell.self)
+        tableView.registerReusableCell(ofType: CredentialsKindCell.self)
         tableView.tableFooterView = UIView(frame: .zero)
 
         tableView.backgroundColor = Color.background
@@ -44,7 +44,7 @@ extension CredentialKindPickerViewController {
         let node = credentialKindNodes[indexPath.row]
         let icon: Icon = node.credentialKind == .mobileBankID ? .bankID : .password
 
-        let cell = tableView.dequeueReusableCell(ofType: CredentialKindCell.self, for: indexPath)
+        let cell = tableView.dequeueReusableCell(ofType: CredentialsKindCell.self, for: indexPath)
         cell.setIcon(icon)
         cell.setTitle(text: node.credentialKind.description)
         return cell
