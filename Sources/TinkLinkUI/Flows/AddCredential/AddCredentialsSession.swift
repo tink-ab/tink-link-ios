@@ -12,7 +12,7 @@ final class AddCredentialsSession {
     private var task: AddCredentialsTask?
     private var supplementInfoTask: SupplementInformationTask?
 
-    private var statusViewController: AddCredentialStatusViewController?
+    private var statusViewController: AddCredentialsStatusViewController?
     private weak var qrImageViewController: QRImageViewController?
     private var statusPresentationManager = AddCredentialStatusPresentationManager()
 
@@ -160,7 +160,7 @@ extension AddCredentialsSession {
                     self.parentViewController?.present(statusViewController, animated: true)
                 }
             } else {
-                let statusViewController = AddCredentialStatusViewController()
+                let statusViewController = AddCredentialsStatusViewController()
                 statusViewController.delegate = self
                 statusViewController.modalTransitionStyle = .crossDissolve
                 statusViewController.modalPresentationStyle = .custom
@@ -201,8 +201,8 @@ extension AddCredentialsSession {
 
 // MARK: - AddCredentialStatusViewControllerDelegate
 
-extension AddCredentialsSession: AddCredentialStatusViewControllerDelegate {
-    func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialStatusViewController) {
+extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
+    func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
         task?.cancel()
         timer?.invalidate()
         hideUpdatingView(animated: true) 

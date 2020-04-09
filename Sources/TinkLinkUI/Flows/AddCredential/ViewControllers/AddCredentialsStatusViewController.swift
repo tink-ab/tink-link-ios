@@ -1,15 +1,15 @@
 import UIKit
 
-protocol AddCredentialStatusViewControllerDelegate: AnyObject {
-    func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialStatusViewController)
+protocol AddCredentialsStatusViewControllerDelegate: AnyObject {
+    func addCredentialStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController)
 }
 
-final class AddCredentialStatusViewController: UIViewController {
+final class AddCredentialsStatusViewController: UIViewController {
     private lazy var activityIndicator = ActivityIndicatorView()
     private lazy var statusLabelView = UILabel()
     private lazy var cancelButton = UIButton(type: .system)
 
-    weak var delegate: AddCredentialStatusViewControllerDelegate?
+    weak var delegate: AddCredentialsStatusViewControllerDelegate?
 
     var status: String? {
         get {
