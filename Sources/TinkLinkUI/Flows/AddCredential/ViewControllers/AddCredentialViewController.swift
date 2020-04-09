@@ -69,7 +69,6 @@ extension AddCredentialViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.keyboardDismissMode = .onDrag
 
         headerView.configure(with: provider, username: username, clientName: clientName, isAggregator: isAggregator)
         headerView.delegate = self
@@ -162,7 +161,7 @@ extension AddCredentialViewController {
         tableView.tableHeaderView = headerView
         tableView.tableHeaderView?.frame = frame
 
-        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
+        tableView.contentInset.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
         tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
     }
 
@@ -232,7 +231,6 @@ extension AddCredentialViewController {
         buttonBottomConstraint.constant = max(24, frameHeight - addCredentialFooterView.bounds.height)
         buttonWidthConstraint.constant = view.frame.size.width
         button.rounded = false
-        tableView.contentInset.bottom = frameHeight + button.frame.height
         UIView.animate(withDuration: notification.duration) {
             self.view.layoutIfNeeded()
         }
@@ -242,7 +240,6 @@ extension AddCredentialViewController {
         buttonBottomConstraint.constant = 24
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
-        tableView.contentInset.bottom = view.bounds.height - button.frame.minY
         UIView.animate(withDuration: notification.duration) {
             self.view.layoutIfNeeded()
         }
