@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name     = 'TinkLink'
+  s.name     = 'TinkLinkUI'
   s.version  = '0.10.0'
   s.license  = 'Tink AB'
   s.authors  = { 'Tink AB' => 'mobile@tink.se' }
@@ -9,5 +9,9 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '11.0'
 
-  s.source_files = "Sources/TinkLink/**/*.swift"
+  s.source_files = "Sources/TinkLinkUI/**/*.swift"
+
+  s.dependency "TinkLink"
+  s.dependency "Down"
+  s.dependency "Kingfisher"
 end
