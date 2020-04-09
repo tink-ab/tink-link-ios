@@ -1,7 +1,7 @@
 import SwiftUI
 import TinkLink
 
-struct AddCredentialFlowView: View, UIViewControllerRepresentable {
+struct AddCredentialsFlowView: View, UIViewControllerRepresentable {
     private var providers: [Provider]
     private var credentialController: CredentialController
 
