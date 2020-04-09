@@ -157,13 +157,24 @@ extension RefreshCredentialsViewController {
         )
     }
 
+    private var isPresentingQR: Bool {
+        guard let navigationController = presentedViewController as? UINavigationController else { return false }
+        return navigationController.topViewController is QRViewController
+    }
+
     private func handleProgress(_ status: RefreshCredentialTask.Status) {
         switch status {
         case .created(credentials: let credentials):
             self.credentials = credentials
         case .authenticating(credentials: let credentials):
+            if isPresentingQR {
+                dismiss(animated: true)
+            }
             self.credentials = credentials
         case .updating(credentials: let credentials, status: let status):
+            if isPresentingQR {
+                dismiss(animated: true)
+            }
             self.credentials = credentials
         case .awaitingSupplementalInformation(task: let task):
             showSupplementalInformation(for: task)
@@ -179,7 +190,8 @@ extension RefreshCredentialsViewController {
                         self?.present(alertController, animated: true)
                     case .qrImage(let image):
                         let qrViewController = QRViewController(image: image)
-                        self?.present(qrViewController, animated: true)
+                        let navigationController = UINavigationController(rootViewController: qrViewController)
+                        self?.present(navigationController, animated: true)
                     }
                 }
             }
