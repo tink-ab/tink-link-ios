@@ -232,7 +232,7 @@ extension TinkLinkViewController {
             show(loadingViewController, sender: nil)
             return
         }
-        let viewController = CredentialSuccessfullyAddedViewController(companyName: clientDescription.name) { [weak self] in
+        let viewController = CredentialsSuccessfullyAddedViewController(companyName: clientDescription.name) { [weak self] in
             guard let self = self, let result = self.result else { return }
             self.completion(result)
             self.dismiss(animated: true)

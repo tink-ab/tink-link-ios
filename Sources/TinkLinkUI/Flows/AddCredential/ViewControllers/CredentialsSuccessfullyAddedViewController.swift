@@ -1,7 +1,7 @@
 import UIKit
 import TinkLink
 
-class CredentialSuccessfullyAddedViewController: UIViewController {
+class CredentialsSuccessfullyAddedViewController: UIViewController {
     let companyName: String
     let doneActionHandler: () -> Void
 
