@@ -8,7 +8,7 @@ This document outlines how to use the different classes and types provided by Ti
 
 > Creating permanent users is limited to our Enterprise customers.
 
-1. If you directly use access tokens, then you can authenticate your permanent user as follows:
+1. If you directly use access tokens, you can authenticate your permanent user as follows:
 
 ```swift
 let userContext = UserContext()
