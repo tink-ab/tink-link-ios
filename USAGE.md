@@ -23,7 +23,7 @@ let userCanceller = userContext.authenticateUser(accessToken: <#Access Token#>, 
 })
 ```
 
-2. If you use delegation to create an authorization code, then you can authenticate your permanent user with the authorization code as follows:
+2. If you use delegation to create an authorization code, you can authenticate your permanent user with the authorization code as follows:
 
 ```swift
 let userContext = UserContext()
