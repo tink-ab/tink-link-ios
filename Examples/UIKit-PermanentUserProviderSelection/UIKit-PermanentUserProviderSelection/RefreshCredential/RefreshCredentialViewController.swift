@@ -1,7 +1,7 @@
 import UIKit
 import TinkLink
 
-final class RefreshCredentialViewController: UIViewController {
+final class RefreshCredentialsViewController: UIViewController {
 
     struct ViewModel {
         var credential: Credentials
@@ -195,7 +195,7 @@ final class RefreshCredentialViewController: UIViewController {
     }
 }
 
-extension RefreshCredentialViewController: UITableViewDelegate, UITableViewDataSource {
+extension RefreshCredentialsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
     }

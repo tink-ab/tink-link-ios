@@ -65,18 +65,18 @@ class CredentialsViewController: UITableViewController {
     }
 
     @objc private func refreshCredentials(sender: UIBarButtonItem) {
-        let refreshCredentialViewController = RefreshCredentialViewController(
+        let refreshCredentialsViewController = RefreshCredentialsViewController(
             titleText: "Update banks & services",
             credentialController: credentialController,
             providerController: providerController,
-            dismissAction: { refreshCredentialViewController in
-                refreshCredentialViewController.dismiss(animated: false)
+            dismissAction: { refreshCredentialsViewController in
+                refreshCredentialsViewController.dismiss(animated: false)
         }) { [weak self] credentialsToRefresh in
-            credentialsToRefresh.flatMap { self?.credentialController.performRefresh($0) }
+            credentialsToRefresh.flatMap { self?.credentialsController.performRefresh($0) }
         }
         view.tintAdjustmentMode = .dimmed
-        refreshCredentialViewController.modalPresentationStyle = .overFullScreen
-        present(refreshCredentialViewController, animated: false)
+        refreshCredentialsViewController.modalPresentationStyle = .overFullScreen
+        present(refreshCredentialsViewController, animated: false)
     }
 
     @objc func addCredential(sender: UIBarButtonItem) {
