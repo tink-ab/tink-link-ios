@@ -3,7 +3,7 @@ import Foundation
 
 extension Notification.Name {
     static let credentialsControllerDidUpdateCredentials = Notification.Name("CredentialsControllerDidUpdateCredentials")
-    static let credentialsControllerDidFinishRefreshingCredentials = Notification.Name("credentialsControllerDidFinishRefreshingCredentials")
+    static let credentialsControllerDidFinishRefreshingCredentials = Notification.Name("CredentialsControllerDidFinishRefreshingCredentials")
     static let credentialsControllerDidAddCredential = Notification.Name("CredentialsControllerDidAddCredential")
     static let credentialsControllerDidUpdateStatus = Notification.Name("CredentialsControllerDidUpdateStatus")
     static let credentialsControllerDidSupplementInformation = Notification.Name("CredentialsControllerDidSupplementInformation")
