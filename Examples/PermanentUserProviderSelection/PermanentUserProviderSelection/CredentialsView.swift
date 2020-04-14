@@ -33,7 +33,7 @@ struct CredentialsView: View {
                     AlertView(
                         title: isRefreshing ? "Updating…" : "Update banks & services",
                         content: {
-                            RefreshCredentialList(credentials: self.credentialsController.credentials, updatedCredentials: self.credentialsController.updatedCredentials, providerController: self.providerController, selectedCredentials: self.$selectedCredentials)
+                            RefreshCredentialsList(credentials: self.credentialsController.credentials, updatedCredentials: self.credentialsController.updatedCredentials, providerController: self.providerController, selectedCredentials: self.$selectedCredentials)
                                 .padding(.horizontal, 16)
                                 .padding(.bottom, 20)
                                 .disabled(isRefreshing)

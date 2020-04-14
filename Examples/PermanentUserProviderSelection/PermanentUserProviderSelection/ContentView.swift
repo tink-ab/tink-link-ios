@@ -3,7 +3,7 @@ import TinkLink
 
 struct ContentView: View {
 
-    @ObservedObject var credentialController = CredentialsController()
+    @ObservedObject var credentialsController = CredentialsController()
     @ObservedObject var providerController = ProviderController()
 
     private let dateFormatter: DateFormatter = {

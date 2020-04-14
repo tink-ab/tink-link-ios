@@ -1,7 +1,7 @@
 import SwiftUI
 import TinkLink
 
-struct RefreshCredentialListRow: View {
+struct RefreshCredentialsListRow: View {
     enum ViewState {
         case selection
         case updating

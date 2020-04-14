@@ -24,11 +24,11 @@ struct AddCredentialsFlowView: View, UIViewControllerRepresentable {
 
     typealias UIViewControllerType = UINavigationController
 
-    func makeCoordinator() -> AddCredentialFlowView.Coordinator {
+    func makeCoordinator() -> AddCredentialsFlowView.Coordinator {
         return Coordinator(completionHandler: onCompletion)
     }
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<AddCredentialFlowView>) -> AddCredentialFlowView.UIViewControllerType {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<AddCredentialsFlowView>) -> AddCredentialsFlowView.UIViewControllerType {
         let credentialsContext = credentialsController.credentialsContext
         let viewController = ProviderListViewController(providers: providers, credentialsContext: credentialsContext, style: .plain)
         viewController.onCompletion = context.coordinator.completionHandler
@@ -37,13 +37,13 @@ struct AddCredentialsFlowView: View, UIViewControllerRepresentable {
         return navigationController
     }
 
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: UIViewControllerRepresentableContext<AddCredentialFlowView>) {
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: UIViewControllerRepresentableContext<AddCredentialsFlowView>) {
         // NOOP
     }
 }
 
 struct ProviderFlowView_Previews: PreviewProvider {
     static var previews: some View {
-        AddCredentialFlowView(providers: [], credentialsController: CredentialsController(), onCompletion: { _ in })
+        AddCredentialsFlowView(providers: [], credentialsController: CredentialsController(), onCompletion: { _ in })
     }
 }

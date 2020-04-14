@@ -15,7 +15,7 @@ struct CredentialsListRow: View {
     }
 }
 
-struct CredentialsListRow_Previews: PreviewProvider {
+struct CredentialListRow_Previews: PreviewProvider {
     static var previews: some View {
         CredentialsListRow(providerName: "Foo", updatedDate: "bar")
     }

@@ -50,7 +50,7 @@ extension CredentialsKindPickerViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let credentialsKindsNode = credentialsKindNodes[indexPath.row]
-        showAddCredential(for: credentialsKindNode.provider)
+        showAddCredential(for: credentialsKindsNode.provider)
     }
 }
 

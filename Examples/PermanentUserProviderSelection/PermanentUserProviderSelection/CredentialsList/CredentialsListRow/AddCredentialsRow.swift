@@ -16,7 +16,7 @@ struct AddCredentialsRow: View {
                     Text("Add New Credentials")
                 }
                 .sheet(isPresented: $shouldShowProviders, content: {
-                    AddCredentialFlowView(providers: self.providerController.providers, credentialsController: self.credentialsController) { _ in
+                    AddCredentialsFlowView(providers: self.providerController.providers, credentialsController: self.credentialsController) { _ in
                         self.credentialsController.performFetch()
                     }
                 })
