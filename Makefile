@@ -67,7 +67,7 @@ format:
 test:
 	bundle exec pod install --project-directory="./TinkLinkTester/"
 	xcodebuild test \
-		-project ./TinkLinkTester/TinkLink.xcodeproj \
+		-workspace ./TinkLinkTester/TinkLink.xcworkspace \
 		-scheme TinkLinkTester \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
