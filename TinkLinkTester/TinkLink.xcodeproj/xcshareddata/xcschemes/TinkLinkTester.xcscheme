@@ -20,6 +20,20 @@
                ReferencedContainer = "container:TinkLink.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "58C83C65FDDE82965EE08CB4EF07AB18"
+               BuildableName = "TinkLink-Unit-TinkLinkTests.xctest"
+               BlueprintName = "TinkLink-Unit-TinkLinkTests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -32,10 +46,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8F6889062417EB3E00402A3B"
-               BuildableName = "TinkLinkTests.xctest"
-               BlueprintName = "TinkLinkTests"
-               ReferencedContainer = "container:TinkLink.xcodeproj">
+               BlueprintIdentifier = "58C83C65FDDE82965EE08CB4EF07AB18"
+               BuildableName = "TinkLink-Unit-TinkLinkTests.xctest"
+               BlueprintName = "TinkLink-Unit-TinkLinkTests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
