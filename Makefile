@@ -82,7 +82,7 @@ build-swiftui-example:
 build-tinklinkui-example:
 	bundle exec pod install --project-directory="./Examples/TinkLinkUIExample/"
 	xcodebuild clean build \
-		-project Examples/TinkLinkUIExample/TinkLinkUIExample.xcodeproj \
+		-workspace Examples/TinkLinkUIExample/TinkLinkUIExample.xcworkspace \
 		-scheme TinkLinkUIExample \
 		-destination 'generic/platform=iOS Simulator'
 
