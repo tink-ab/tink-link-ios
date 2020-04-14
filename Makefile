@@ -18,7 +18,7 @@ endif
 ifeq ($(strip $(shell command -v bundle 2> /dev/null)),)
 	gem install bundler
 endif
-	bundle install > /dev/null
+	bundle install
 
 docs:
 	bundle exec jazzy \
