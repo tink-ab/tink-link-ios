@@ -3,12 +3,12 @@ import TinkLink
 
 struct AddCredentialsFlowView: View, UIViewControllerRepresentable {
     private var providers: [Provider]
-    private var credentialController: CredentialController
+    private var credentialsController: CredentialsController
 
-    init(providers: [Provider], credentialController: CredentialController, onCompletion: @escaping CompletionHandler) {
+    init(providers: [Provider], credentialsController: CredentialsController, onCompletion: @escaping CompletionHandler) {
         self.onCompletion = onCompletion
         self.providers = providers
-        self.credentialController = credentialController
+        self.credentialsController = credentialsController
     }
 
     class Coordinator {
@@ -29,8 +29,8 @@ struct AddCredentialsFlowView: View, UIViewControllerRepresentable {
     }
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<AddCredentialFlowView>) -> AddCredentialFlowView.UIViewControllerType {
-        let credentialContext = credentialController.credentialContext
-        let viewController = ProviderListViewController(providers: providers, credentialContext: credentialContext, style: .plain)
+        let credentialsContext = credentialsController.credentialsContext
+        let viewController = ProviderListViewController(providers: providers, credentialsContext: credentialsContext, style: .plain)
         viewController.onCompletion = context.coordinator.completionHandler
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.navigationBar.prefersLargeTitles = true
@@ -44,6 +44,6 @@ struct AddCredentialsFlowView: View, UIViewControllerRepresentable {
 
 struct ProviderFlowView_Previews: PreviewProvider {
     static var previews: some View {
-        AddCredentialFlowView(providers: [], credentialController: CredentialController(), onCompletion: { _ in })
+        AddCredentialFlowView(providers: [], credentialsController: CredentialsController(), onCompletion: { _ in })
     }
 }

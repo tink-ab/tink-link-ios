@@ -5,7 +5,7 @@ final class AddCredentialsSession {
 
     weak var parentViewController: UIViewController?
 
-    private let credentialController: CredentialController
+    private let credentialsController: CredentialsController
     private let authorizationController: AuthorizationController
     private let scopes: [Scope]
 
@@ -22,9 +22,9 @@ final class AddCredentialsSession {
 
     private var timer: Timer?
 
-    init(credentialController: CredentialController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
+    init(credentialsController: CredentialsController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
         self.parentViewController = parentViewController
-        self.credentialController = credentialController
+        self.credentialsController = credentialsController
         self.scopes = scopes
         self.authorizationController = authorizationController
     }
@@ -43,7 +43,7 @@ final class AddCredentialsSession {
 
     func addCredential(provider: Provider, form: Form, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
 
-        task = credentialController.addCredentials(
+        task = credentialsController.addCredentials(
             provider,
             form: form,
             progressHandler: { [weak self] status in

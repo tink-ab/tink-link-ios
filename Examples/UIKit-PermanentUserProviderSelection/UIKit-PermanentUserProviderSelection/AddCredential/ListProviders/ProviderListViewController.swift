@@ -4,7 +4,7 @@ import UIKit
 /// Example of how to use the provider grouped by names
 final class ProviderListViewController: UITableViewController {
     private var providerController: ProviderController?
-    private var credentialController: CredentialController?
+    private var credentialsController: CredentialsController?
     private var user: User?
 
     private let searchController = UISearchController(searchResultsController: nil)
@@ -15,9 +15,9 @@ final class ProviderListViewController: UITableViewController {
         }
     }
 
-    init(style: UITableView.Style, providerController: ProviderController, credentialController: CredentialController) {
+    init(style: UITableView.Style, providerController: ProviderController, credentialsController: CredentialsController) {
         self.providerController = providerController
-        self.credentialController = credentialController
+        self.credentialsController = credentialsController
         financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
 
         super.init(style: style)
@@ -96,31 +96,31 @@ extension ProviderListViewController {
 
 extension ProviderListViewController {
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
-        guard let credentialController = credentialController else { return }
-        let viewController = FinancialInstitutionPickerViewController(credentialController: credentialController)
+        guard let credentialsController = credentialsController else { return }
+        let viewController = FinancialInstitutionPickerViewController(credentialsController: credentialsController)
         viewController.title = title
         viewController.financialInstitutionNodes = financialInstitutionNodes
         show(viewController, sender: nil)
     }
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
-        guard let credentialController = credentialController else { return }
-        let viewController = AccessTypePickerViewController(credentialController: credentialController)
+        guard let credentialsController = credentialsController else { return }
+        let viewController = AccessTypePickerViewController(credentialsController: credentialsController)
         viewController.title = title
         viewController.accessTypeNodes = accessTypeNodes
         show(viewController, sender: nil)
     }
 
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
-        guard let credentialController = credentialController else { return }
-        let viewController = CredentialsKindPickerViewController(credentialController: credentialController)
+        guard let credentialsController = credentialsController else { return }
+        let viewController = CredentialsKindPickerViewController(credentialsController: credentialsController)
         viewController.credentialKindNodes = credentialKindNodes
         show(viewController, sender: nil)
     }
 
     func showAddCredential(for provider: Provider) {
-        guard let credentialController = credentialController else { return }
-        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialController: credentialController)
+        guard let credentialsController = credentialsController else { return }
+        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController)
         show(addCredentialsViewController, sender: nil)
     }
 }

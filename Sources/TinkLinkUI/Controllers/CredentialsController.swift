@@ -1,7 +1,7 @@
 import TinkLink
 import Foundation
 
-final class CredentialController {
+final class CredentialsController {
     let tink: Tink
     var user: User?
     private(set) var credentialsContext: CredentialsContext?

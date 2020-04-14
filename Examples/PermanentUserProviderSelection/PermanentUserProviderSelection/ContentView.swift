@@ -3,7 +3,7 @@ import TinkLink
 
 struct ContentView: View {
     @ObservedObject var userController = UserController()
-    @ObservedObject var credentialController = CredentialController()
+    @ObservedObject var credentialsController = CredentialsController()
     @ObservedObject var providerController = ProviderController()
 
     private let dateFormatter: DateFormatter = {
@@ -14,12 +14,12 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            CredentialsView(credentialController: credentialController, providerController: providerController)
+            CredentialsView(credentialsController: credentialsController, providerController: providerController)
         }.onAppear {
             self.userController.authenticateUser(accessToken: AccessToken(rawValue: "YOUR_ACCESS_TOKEN")!) { result in
                 do {
                     let user = try result.get()
-                    self.credentialController.performFetch()
+                    self.credentialsController.performFetch()
                     self.providerController.performFetch()
                 } catch {
                     // Handle any errors
@@ -31,6 +31,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(credentialController: CredentialController(), providerController: ProviderController())
+        ContentView(credentialsController: CredentialsController(), providerController: ProviderController())
     }
 }

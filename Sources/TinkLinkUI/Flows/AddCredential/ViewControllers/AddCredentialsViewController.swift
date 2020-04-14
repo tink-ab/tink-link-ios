@@ -11,12 +11,12 @@ protocol AddCredentialsViewControllerDelegate: AnyObject {
 final class AddCredentialsViewController: UIViewController {
     let provider: Provider
     var username: String? {
-        credentialController.user?.username
+        credentialsController.user?.username
     }
 
     weak var delegate: AddCredentialsViewControllerDelegate?
 
-    private let credentialController: CredentialController
+    private let credentialsController: CredentialsController
     private let clientName: String
     private let isAggregator: Bool
     private let isVerified: Bool
@@ -40,10 +40,10 @@ final class AddCredentialsViewController: UIViewController {
     private lazy var buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
-    init(provider: Provider, credentialController: CredentialController, clientName: String, isAggregator: Bool, isVerified: Bool) {
+    init(provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
         self.form = Form(provider: provider)
-        self.credentialController = credentialController
+        self.credentialsController = credentialsController
         self.clientName = clientName
         self.isAggregator = isAggregator
         self.isVerified = isVerified

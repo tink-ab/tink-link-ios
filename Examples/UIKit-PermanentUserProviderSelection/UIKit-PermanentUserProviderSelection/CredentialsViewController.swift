@@ -11,7 +11,7 @@ class CredentialsViewController: UITableViewController {
     }()
 
     private let userController = UserController()
-    private var credentialController = CredentialController()
+    private var credentialsController = CredentialsController()
     private var providerController = ProviderController()
 
     private var credentials: [Credentials]? {
@@ -60,14 +60,14 @@ class CredentialsViewController: UITableViewController {
 
     @objc private func updateCredentials() {
         DispatchQueue.main.async {
-            self.credentials = self.credentialController.credentials
+            self.credentials = self.credentialsController.credentials
         }
     }
 
     @objc private func refreshCredentials(sender: UIBarButtonItem) {
         let refreshCredentialsViewController = RefreshCredentialsViewController(
             titleText: "Update banks & services",
-            credentialController: credentialController,
+            credentialsController: credentialsController,
             providerController: providerController,
             dismissAction: { refreshCredentialsViewController in
                 refreshCredentialsViewController.dismiss(animated: false)
@@ -80,7 +80,7 @@ class CredentialsViewController: UITableViewController {
     }
 
     @objc func addCredential(sender: UIBarButtonItem) {
-        let providerListViewController = ProviderListViewController(style: .plain, providerController: providerController, credentialController: credentialController)
+        let providerListViewController = ProviderListViewController(style: .plain, providerController: providerController, credentialsController: credentialsController)
         let navigationController = UINavigationController(rootViewController: providerListViewController)
         present(navigationController, animated: true)
     }
@@ -109,7 +109,7 @@ extension CredentialsViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete, let credentialToDelete = credentials?[indexPath.item] {
-            credentialController.deleteCredential([credentialToDelete])
+            credentialsController.deleteCredential([credentialToDelete])
             credentials?.remove(at: indexPath.item)
         }
     }

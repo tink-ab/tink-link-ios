@@ -7,10 +7,10 @@ final class AccessTypePickerViewController: UITableViewController {
     var onCompletion: CompletionHandler?
     var accessTypeNodes: [ProviderTree.AccessTypeNode] = []
     
-    private let credentialController: CredentialController
+    private let credentialsController: CredentialsController
 
-    init(credentialController: CredentialController) {
-        self.credentialController = credentialController
+    init(credentialsController: CredentialsController) {
+        self.credentialsController = credentialsController
 
         super.init(style: .plain)
     }
@@ -62,14 +62,14 @@ extension AccessTypePickerViewController {
 
 extension AccessTypePickerViewController {
     func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
-        let viewController = CredentialsKindPickerViewController(credentialController: credentialController)
+        let viewController = CredentialsKindPickerViewController(credentialsController: credentialsController)
         viewController.onCompletion = onCompletion
         viewController.credentialKindNodes = credentialKindNodes
         show(viewController, sender: nil)
     }
 
     func showAddCredential(for provider: Provider) {
-        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialController: credentialController)
+        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController)
         addCredentialsViewController.onCompletion = onCompletion
         show(addCredentialsViewController, sender: nil)
     }

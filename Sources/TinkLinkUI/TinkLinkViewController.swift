@@ -8,9 +8,9 @@ public class TinkLinkViewController: UINavigationController {
 
     private var userController: UserController
     private var providerController: ProviderController
-    private lazy var credentialController = CredentialController(tink: tink)
+    private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
-    private lazy var addCredentialSession = AddCredentialsSession(credentialController: self.credentialController, authorizationController: self.authorizationController, scopes: scopes, parentViewController: self)
+    private lazy var addCredentialSession = AddCredentialsSession(credentialsController: self.credentialsController, authorizationController: self.authorizationController, scopes: scopes, parentViewController: self)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
     private lazy var loadingViewController = LoadingViewController(providerController: providerController)
 
@@ -55,7 +55,7 @@ public class TinkLinkViewController: UINavigationController {
                 do {
                     let user = try result.get()
                     // TODO: Better way to set username
-                    self.credentialController.user = user
+                    self.credentialsController.user = user
 
                     self.providerController.performFetch()
                     self.showProviderPicker()
@@ -213,7 +213,7 @@ extension TinkLinkViewController {
             show(loadingViewController, sender: nil)
             return
         }
-        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialController: credentialController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
+        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
         addCredentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         addCredentialsViewController.delegate = self
         if viewControllers.last is LoadingViewController {

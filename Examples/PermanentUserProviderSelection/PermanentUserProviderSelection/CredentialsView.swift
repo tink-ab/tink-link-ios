@@ -2,7 +2,7 @@ import SwiftUI
 import TinkLink
 
 struct CredentialsView: View {
-    @ObservedObject var credentialController: CredentialController
+    @ObservedObject var credentialsController: CredentialsController
     @ObservedObject var providerController: ProviderController
 
     @State private var isPresentingRefreshAlert = false
@@ -12,13 +12,13 @@ struct CredentialsView: View {
 
     var body: some View {
         return Group {
-            if credentialController.credentialContext == nil {
+            if credentialsController.credentialContext == nil {
                 ActivityIndicator(isAnimating: $isAnimating, style: .large)
                     .edgesIgnoringSafeArea(.all)
                     .onAppear { self.isAnimating = true }
                     .onDisappear { self.isAnimating = false }
             } else {
-                CredentialsList(credentialController: credentialController, providerController: providerController)
+                CredentialsList(credentialsController: credentialsController, providerController: providerController)
                     .disabled(isPresentingRefreshAlert)
                     .navigationBarTitle("Credentials")
                     .navigationBarItems(
@@ -33,7 +33,7 @@ struct CredentialsView: View {
                     AlertView(
                         title: isRefreshing ? "Updating…" : "Update banks & services",
                         content: {
-                            RefreshCredentialList(credentials: self.credentialController.credentials, updatedCredentials: self.credentialController.updatedCredentials, providerController: self.providerController, selectedCredentials: self.$selectedCredentials)
+                            RefreshCredentialList(credentials: self.credentialsController.credentials, updatedCredentials: self.credentialsController.updatedCredentials, providerController: self.providerController, selectedCredentials: self.$selectedCredentials)
                                 .padding(.horizontal, 16)
                                 .padding(.bottom, 20)
                                 .disabled(isRefreshing)
@@ -41,18 +41,18 @@ struct CredentialsView: View {
                         dismissButton: .cancel(Text("Cancel"), action: {
                             self.isRefreshing = false
                             self.isPresentingRefreshAlert = false
-                            self.credentialController.cancelRefresh()
+                            self.credentialsController.cancelRefresh()
                         }),
                         primaryButton: .default(Text("Update"), enabled: selectedCredentials != nil, action: {
                             self.isRefreshing = true
-                            self.credentialController.performRefresh(credentials: self.selectedCredentials!) { _ in
+                            self.credentialsController.performRefresh(credentials: self.selectedCredentials!) { _ in
                                 self.isRefreshing = false
                                 self.isPresentingRefreshAlert = false
                             }
                         })
                     )
                 }
-                .sheet(item: Binding(get: { self.credentialController.supplementInformationTask }, set: { self.credentialController.supplementInformationTask = $0 })) {
+                .sheet(item: Binding(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) {
                     SupplementControllerRepresentableView(supplementInformationTask: $0) { _ in }
                 }
             }
@@ -62,6 +62,6 @@ struct CredentialsView: View {
 
 struct CredentialsView_Previews: PreviewProvider {
     static var previews: some View {
-        CredentialsView(credentialController: CredentialController(), providerController: ProviderController())
+        CredentialsView(credentialsController: CredentialsController(), providerController: ProviderController())
     }
 }

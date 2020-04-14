@@ -2,7 +2,7 @@ import SwiftUI
 import TinkLink
 
 struct AddCredentialRow: View {
-    @ObservedObject var credentialController: CredentialController
+    @ObservedObject var credentialsController: CredentialsController
     @ObservedObject var providerController: ProviderController
 
     @State var shouldShowProviders: Bool = false
@@ -16,8 +16,8 @@ struct AddCredentialRow: View {
                     Text("Add New Credentials")
                 }
                 .sheet(isPresented: $shouldShowProviders, content: {
-                    AddCredentialFlowView(providers: self.providerController.providers, credentialController: self.credentialController) { _ in
-                        self.credentialController.performFetch()
+                    AddCredentialFlowView(providers: self.providerController.providers, credentialsController: self.credentialsController) { _ in
+                        self.credentialsController.performFetch()
                     }
                 })
             }
@@ -27,6 +27,6 @@ struct AddCredentialRow: View {
 
 struct AddCredentialRow_Previews: PreviewProvider {
     static var previews: some View {
-        AddCredentialRow(credentialController: CredentialController(), providerController: ProviderController())
+        AddCredentialRow(credentialsController: CredentialsController(), providerController: ProviderController())
     }
 }

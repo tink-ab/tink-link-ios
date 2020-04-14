@@ -28,7 +28,7 @@ final class RefreshCredentialsViewController: UIViewController {
     private let verticalSeparator = UIView()
     private var primaryButtonConstraints = [NSLayoutConstraint]()
 
-    private var credentialController: CredentialController
+    private var credentialsController: CredentialsController
     private var providerController: ProviderController
 
     private var credentialsToRefresh: Credentials?
@@ -49,11 +49,11 @@ final class RefreshCredentialsViewController: UIViewController {
         }
     }
 
-    init(titleText: String, credentialController: CredentialController, providerController: ProviderController, dismissAction: @escaping (UIViewController) -> Void, primaryAction: ((Credentials?) -> Void)?) {
+    init(titleText: String, credentialsController: CredentialsController, providerController: ProviderController, dismissAction: @escaping (UIViewController) -> Void, primaryAction: ((Credentials?) -> Void)?) {
         self.titleText = titleText
-        self.viewModels = credentialController.credentials.map{ ViewModel(credential: $0, viewState: .selection(true)) }
-        self.credentialsToRefresh = credentialController.credentials.first
-        self.credentialController = credentialController
+        self.viewModels = credentialsController.credentials.map{ ViewModel(credential: $0, viewState: .selection(true)) }
+        self.credentialsToRefresh = credentialsController.credentials.first
+        self.credentialsController = credentialsController
         self.providerController = providerController
         self.dismissAction = dismissAction
         self.primaryAction = primaryAction

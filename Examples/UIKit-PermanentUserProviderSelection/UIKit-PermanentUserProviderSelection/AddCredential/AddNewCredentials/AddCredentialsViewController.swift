@@ -8,7 +8,7 @@ final class AddCredentialsViewController: UITableViewController {
     var onCompletion: CompletionHandler?
     let provider: Provider
 
-    private let credentialController: CredentialController
+    private let credentialsController: CredentialsController
     private var form: Form
     private var formError: Form.ValidationError? {
         didSet {
@@ -23,10 +23,10 @@ final class AddCredentialsViewController: UITableViewController {
 
     private lazy var helpLabel = UITextView()
 
-    init(provider: Provider, credentialController: CredentialController) {
+    init(provider: Provider, credentialsController: CredentialsController) {
         self.provider = provider
         self.form = Form(provider: provider)
-        self.credentialController = credentialController
+        self.credentialsController = credentialsController
 
         if #available(iOS 13.0, *) {
             super.init(style: .insetGrouped)
@@ -129,14 +129,14 @@ extension AddCredentialsViewController {
     @objc private func credentialAdded() {
         DispatchQueue.main.async {
             self.navigationItem.rightBarButtonItem = self.addBarButtonItem
-            let addedCredential = self.credentialController.credentials.first(where: { $0.providerID == self.provider.id })
+            let addedCredential = self.credentialsController.credentials.first(where: { $0.providerID == self.provider.id })
             addedCredential.flatMap { self.showCredentialUpdated(for: $0) }
         }
     }
 
     @objc private func supplementInformationTask() {
         DispatchQueue.main.async {
-            if let task = self.credentialController.supplementInformationTask {
+            if let task = self.credentialsController.supplementInformationTask {
                 self.showSupplementalInformation(for: task)
             }
         }
@@ -211,7 +211,7 @@ extension AddCredentialsViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         do {
             try form.validateFields()
-            credentialController.addCredential(
+            credentialsController.addCredential(
                 provider,
                 form: form
             )
