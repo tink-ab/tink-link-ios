@@ -48,7 +48,7 @@ public final class AddCredentialsTask: Identifiable {
     private var credentialsStatusPollingTask: CredentialStatusPollingTask?
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
 
-    private(set) var credentials: Credentials?
+    private(set) public var credentials: Credentials?
 
     // MARK: - Evaluating Completion
 
