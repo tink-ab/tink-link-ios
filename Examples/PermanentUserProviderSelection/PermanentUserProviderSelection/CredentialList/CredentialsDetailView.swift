@@ -6,12 +6,14 @@ struct CredentialsDetailView: View {
 
     var body: some View {
         Form {
-            Text(credentials.statusPayload)
+            Section(footer: Text(credentials.statusPayload)) {
+                Text(String(describing: credentials.status).localizedCapitalized)
+            }
             Button(action: refresh) {
                 Text("Refresh")
             }
         }
-        .navigationBarTitle("Credentials")
+        .navigationBarTitle("Credentials", displayMode: .inline)
     }
 
     private func refresh() {
