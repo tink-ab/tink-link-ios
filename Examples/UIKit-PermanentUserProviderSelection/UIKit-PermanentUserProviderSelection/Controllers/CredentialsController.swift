@@ -2,18 +2,18 @@ import TinkLink
 import Foundation
 
 extension Notification.Name {
-    static let credentialControllerDidUpdateCredentials = Notification.Name("CredentialControllerDidUpdateCredentials")
-    static let credentialControllerDidFinishRefreshingCredentials = Notification.Name("credentialControllerDidFinishRefreshingCredentials")
-    static let credentialControllerDidAddCredential = Notification.Name("CredentialControllerDidAddCredential")
-    static let credentialControllerDidUpdateStatus = Notification.Name("CredentialControllerDidUpdateStatus")
-    static let credentialControllerDidSupplementInformation = Notification.Name("CredentialControllerDidSupplementInformation")
-    static let credentialControllerDidError = Notification.Name("CredentialControllerDidError")
+    static let credentialsControllerDidUpdateCredentials = Notification.Name("CredentialsControllerDidUpdateCredentials")
+    static let credentialsControllerDidFinishRefreshingCredentials = Notification.Name("credentialsControllerDidFinishRefreshingCredentials")
+    static let credentialsControllerDidAddCredential = Notification.Name("CredentialsControllerDidAddCredential")
+    static let credentialsControllerDidUpdateStatus = Notification.Name("CredentialsControllerDidUpdateStatus")
+    static let credentialsControllerDidSupplementInformation = Notification.Name("CredentialsControllerDidSupplementInformation")
+    static let credentialsControllerDidError = Notification.Name("CredentialsControllerDidError")
 }
 
 final class CredentialsController {
     var credentials: [Credentials] = [] {
         didSet {
-            NotificationCenter.default.post(name: .credentialControllerDidUpdateCredentials, object: nil)
+            NotificationCenter.default.post(name: .credentialsControllerDidUpdateCredentials, object: nil)
         }
     }
     var user: User? {
@@ -36,7 +36,7 @@ final class CredentialsController {
                 let credentials = try result.get()
                 self.credentials = credentials
             } catch {
-                NotificationCenter.default.post(name: .credentialControllerDidError, object: nil)
+                NotificationCenter.default.post(name: .credentialsControllerDidError, object: nil)
             }
         })
     }
@@ -78,7 +78,7 @@ final class CredentialsController {
                     }
                 case .failure(let error):
                     let parameters = ["error": error]
-                    NotificationCenter.default.post(name: .credentialControllerDidError, object: nil, userInfo: parameters)
+                    NotificationCenter.default.post(name: .credentialsControllerDidError, object: nil, userInfo: parameters)
                 }
             })
         }
@@ -90,12 +90,12 @@ final class CredentialsController {
             break
         case .awaitingSupplementalInformation(let supplementInformationTask):
             self.supplementInformationTask = supplementInformationTask
-            NotificationCenter.default.post(name: .credentialControllerDidSupplementInformation, object: nil)
+            NotificationCenter.default.post(name: .credentialsControllerDidSupplementInformation, object: nil)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
         case .updating(let status):
             let parameters = ["status": status]
-            NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: nil, userInfo: parameters)
+            NotificationCenter.default.post(name: .credentialsControllerDidUpdateStatus, object: nil, userInfo: parameters)
         }
     }
 
@@ -103,10 +103,10 @@ final class CredentialsController {
         do {
             let credential = try result.get()
             credentials.append(credential)
-            NotificationCenter.default.post(name: .credentialControllerDidAddCredential, object: nil)
+            NotificationCenter.default.post(name: .credentialsControllerDidAddCredential, object: nil)
         } catch {
             let parameters = ["error": error]
-            NotificationCenter.default.post(name: .credentialControllerDidError, object: nil, userInfo: parameters)
+            NotificationCenter.default.post(name: .credentialsControllerDidError, object: nil, userInfo: parameters)
         }
     }
 
@@ -116,14 +116,14 @@ final class CredentialsController {
             break
         case .awaitingSupplementalInformation(let supplementInformationTask):
             self.supplementInformationTask = supplementInformationTask
-            NotificationCenter.default.post(name: .credentialControllerDidSupplementInformation, object: nil)
+            NotificationCenter.default.post(name: .credentialsControllerDidSupplementInformation, object: nil)
         case .awaitingThirdPartyAppAuthentication(_, let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
         case .updating(let credential, _):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
                 credentials[index] = credential
                 let parameters = ["credential": credential]
-                NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: nil, userInfo: parameters)
+                NotificationCenter.default.post(name: .credentialsControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
         case .sessionExpired(let credential):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
@@ -134,7 +134,7 @@ final class CredentialsController {
                 credentials[index] = credential
                 updatedCredentials.append(credential)
                 let parameters = ["credential": credential]
-                NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: nil, userInfo: parameters)
+                NotificationCenter.default.post(name: .credentialsControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
         case .error(let credential, _):
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
@@ -149,10 +149,10 @@ final class CredentialsController {
             if let index = credentials.firstIndex (where: { $0.id == updatedCredentials.id }) {
                 credentials[index] = updatedCredentials
             }
-            NotificationCenter.default.post(name: .credentialControllerDidFinishRefreshingCredentials, object: nil)
+            NotificationCenter.default.post(name: .credentialsControllerDidFinishRefreshingCredentials, object: nil)
         } catch {
             let parameters = ["error": error]
-            NotificationCenter.default.post(name: .credentialControllerDidError, object: nil, userInfo: parameters)
+            NotificationCenter.default.post(name: .credentialsControllerDidError, object: nil, userInfo: parameters)
         }
         updatedCredentials = []
     }

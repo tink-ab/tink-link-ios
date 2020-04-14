@@ -68,8 +68,8 @@ final class RefreshCredentialsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(credentialRefresing), name: .credentialControllerDidUpdateStatus, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(credentialsFinishedRefresh), name: .credentialControllerDidFinishRefreshingCredentials, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(credentialRefresing), name: .credentialsControllerDidUpdateStatus, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(credentialsFinishedRefresh), name: .credentialsControllerDidFinishRefreshingCredentials, object: nil)
 
         setup()
     }

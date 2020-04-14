@@ -44,8 +44,8 @@ class CredentialsViewController: UITableViewController {
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .providerControllerDidUpdateProviders, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidUpdateCredentials, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidAddCredential, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialsControllerDidUpdateCredentials, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialsControllerDidAddCredential, object: nil)
 
         userController.authenticateUser(accessToken: AccessToken(rawValue: "YOUR_ACCESS_TOKEN")!) { [weak self] result in
             guard let self = self else { return }

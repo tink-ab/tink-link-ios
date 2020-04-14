@@ -46,10 +46,10 @@ extension AddCredentialsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(updatedStatus), name: .credentialControllerDidUpdateStatus, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(credentialAdded), name: .credentialControllerDidAddCredential, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialControllerDidSupplementInformation, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialControllerDidError, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updatedStatus), name: .credentialsControllerDidUpdateStatus, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(credentialAdded), name: .credentialsControllerDidAddCredential, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialsControllerDidSupplementInformation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialsControllerDidError, object: nil)
 
         tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
         tableView.allowsSelection = false
