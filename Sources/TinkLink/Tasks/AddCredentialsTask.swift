@@ -15,7 +15,7 @@ public final class AddCredentialsTask: Identifiable {
         case authenticating
 
         /// User has been successfully authenticated, now downloading data.
-        case updating(providerID: Provider.ID)
+        case updating(status: String)
 
         /// Trigger for the client to prompt the user to fill out supplemental information.
         case awaitingSupplementalInformation(SupplementInformationTask)
@@ -157,7 +157,7 @@ public final class AddCredentialsTask: Identifiable {
                 if completionPredicate.successPredicate == .updating {
                     completion(.success(credentials))
                 } else {
-                    progressHandler(.updating(providerID: credentials.providerID))
+                    progressHandler(.updating(status: credentials.statusPayload))
                 }
             case .updated:
                 if completionPredicate.successPredicate == .updated {

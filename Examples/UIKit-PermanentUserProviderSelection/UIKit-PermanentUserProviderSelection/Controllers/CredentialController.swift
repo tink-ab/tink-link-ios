@@ -93,8 +93,8 @@ final class CredentialController {
             NotificationCenter.default.post(name: .credentialControllerDidSupplementInformation, object: nil)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
-        case .updating(let providerID):
-            let parameters = ["providerID": providerID]
+        case .updating(let status):
+            let parameters = ["status": status]
             NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: nil, userInfo: parameters)
         }
     }
