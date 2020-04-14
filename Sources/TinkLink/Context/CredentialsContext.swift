@@ -176,7 +176,7 @@ public final class CredentialsContext {
                                    completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RefreshCredentialsTask {
         let appUri = tink.configuration.redirectURI
 
-        let task = RefreshCredentialsTask(credentials: credentials, credentialService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
 
         task.callCanceller = service.refreshCredentials(credentialsID: credentials.id, completion: { result in
             switch result {

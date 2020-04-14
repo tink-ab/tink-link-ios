@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8F1962DE23D9DE3600BC7C83 /* SelfSizingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1962DD23D9DE3600BC7C83 /* SelfSizingTableView.swift */; };
-		8F39F02423D1F6DF009D785E /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02123D1F6DF009D785E /* UserController.swift */; };
 		8F39F02523D1F6DF009D785E /* CredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02223D1F6DF009D785E /* CredentialController.swift */; };
 		8F39F02623D1F6DF009D785E /* ProviderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02323D1F6DF009D785E /* ProviderController.swift */; };
 		8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02823D5BC79009D785E /* CredentialsViewController.swift */; };
@@ -32,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		8F1962DD23D9DE3600BC7C83 /* SelfSizingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizingTableView.swift; sourceTree = "<group>"; };
-		8F39F02123D1F6DF009D785E /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		8F39F02223D1F6DF009D785E /* CredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialController.swift; sourceTree = "<group>"; };
 		8F39F02323D1F6DF009D785E /* ProviderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderController.swift; sourceTree = "<group>"; };
 		8F39F02823D5BC79009D785E /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
@@ -73,7 +71,6 @@
 			children = (
 				8F39F02223D1F6DF009D785E /* CredentialController.swift */,
 				8F39F02323D1F6DF009D785E /* ProviderController.swift */,
-				8F39F02123D1F6DF009D785E /* UserController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -244,7 +241,6 @@
 				8F39F02623D1F6DF009D785E /* ProviderController.swift in Sources */,
 				8FDA296823D1EE4D00EC810F /* SupplementalInformationViewController.swift in Sources */,
 				8FDA297223D1EE5300EC810F /* ProviderListViewController.swift in Sources */,
-				8F39F02423D1F6DF009D785E /* UserController.swift in Sources */,
 				8FDA297423D1EE5300EC810F /* CredentialKindPickerViewController.swift in Sources */,
 				8FDA296723D1EE4D00EC810F /* AddCredentialViewController.swift in Sources */,
 				8FDA297323D1EE5300EC810F /* AccessTypePickerViewController.swift in Sources */,

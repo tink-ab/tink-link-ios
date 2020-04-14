@@ -6,7 +6,6 @@ public class TinkLinkViewController: UINavigationController {
     private let market: Market
     public let scopes: [Scope]
 
-    private var userController: UserController
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
@@ -23,7 +22,6 @@ public class TinkLinkViewController: UINavigationController {
         self.tink = tink
         self.market = market
         self.scopes = scopes
-        self.userController = UserController(tink: tink)
         self.providerController = ProviderController(tink: tink, providerKinds: providerKinds)
         self.completion = completion
 
@@ -49,17 +47,14 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private func start() {
-        userController.createTemporaryUser(for: market) { [weak self] result in
+        tink.createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 do {
-                    let user = try result.get()
-                    // TODO: Better way to set username
-                    self.credentialsController.user = user
+                    _ = try result.get()
 
                     self.providerController.performFetch()
                     self.showProviderPicker()
-
                     self.clientDescriptorLoadingGroup.enter()
                     self.authorizationController.clientDescription { (clientDescriptionResult) in
                         DispatchQueue.main.async {

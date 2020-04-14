@@ -2,8 +2,8 @@ import SwiftUI
 import TinkLink
 
 struct ContentView: View {
-    @ObservedObject var userController = UserController()
-    @ObservedObject var credentialsController = CredentialsController()
+
+    @ObservedObject var credentialController = CredentialsController()
     @ObservedObject var providerController = ProviderController()
 
     private let dateFormatter: DateFormatter = {
@@ -16,15 +16,9 @@ struct ContentView: View {
         NavigationView {
             CredentialsView(credentialsController: credentialsController, providerController: providerController)
         }.onAppear {
-            self.userController.authenticateUser(accessToken: AccessToken(rawValue: "YOUR_ACCESS_TOKEN")!) { result in
-                do {
-                    let user = try result.get()
-                    self.credentialsController.performFetch()
-                    self.providerController.performFetch()
-                } catch {
-                    // Handle any errors
-                }
-            }
+            Tink.shared.setCredential(.accessToken("YOUR_ACCESS_TOKEN"))
+            self.credentialsController.performFetch()
+            self.providerController.performFetch()
         }
     }
 }

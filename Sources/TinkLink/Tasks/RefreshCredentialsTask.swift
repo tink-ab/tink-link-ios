@@ -48,22 +48,22 @@ public final class RefreshCredentialsTask: Identifiable {
     /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
-    private var credentialStatusPollingTask: CredentialsListStatusPollingTask?
+    private var credentialsStatusPollingTask: CredentialsListStatusPollingTask?
 
     // MARK: - Getting the Credentials
 
     public private(set) var credentials: Credentials
 
-    private let credentialService: CredentialsService
+    private let credentialsService: CredentialsService
     private let appUri: URL
     let progressHandler: (Status) -> Void
     let completion: (Result<Credentials, Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
 
-    init(credentials: Credentials, credentialService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, appUri: URL, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
+    init(credentials: Credentials, credentialsService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, appUri: URL, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
         self.credentials = credentials
-        self.credentialService = credentialService
+        self.credentialsService = credentialsService
         self.appUri = appUri
         self.progressHandler = progressHandler
         self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired
@@ -71,8 +71,8 @@ public final class RefreshCredentialsTask: Identifiable {
     }
 
     func startObserving() {
-        credentialStatusPollingTask = CredentialsListStatusPollingTask(
-            credentialService: credentialService,
+        credentialsStatusPollingTask = CredentialsListStatusPollingTask(
+            credentialsService: credentialsService,
             credentials: [credentials],
             updateHandler: { [weak self] result in self?.handleUpdate(for: result) },
             completion: { [weak self] result in
@@ -81,9 +81,9 @@ public final class RefreshCredentialsTask: Identifiable {
             }
         )
 
-        credentialStatusPollingTask?.pollStatus()
+        credentialsStatusPollingTask?.pollStatus()
         // Set the callCanceller to cancel the polling
-        callCanceller = credentialStatusPollingTask?.callRetryCancellable
+        callCanceller = credentialsStatusPollingTask?.callRetryCancellable
     }
 
     // MARK: - Controlling the Task
@@ -102,12 +102,12 @@ public final class RefreshCredentialsTask: Identifiable {
             case .authenticating:
                 progressHandler(.authenticating(credentials: credentials))
             case .awaitingSupplementalInformation:
-                credentialStatusPollingTask?.pausePolling()
-                let supplementInformationTask = SupplementInformationTask(credentialsService: credentialService, credentials: credentials) { [weak self] result in
+                credentialsStatusPollingTask?.pausePolling()
+                let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
-                        self.credentialStatusPollingTask?.continuePolling()
+                        self.credentialsStatusPollingTask?.continuePolling()
                     } catch {
                         self.completion(.failure(error))
                     }
@@ -118,12 +118,12 @@ public final class RefreshCredentialsTask: Identifiable {
                     assertionFailure("Missing third pary app authentication deeplink URL!")
                     return
                 }
-                credentialStatusPollingTask?.pausePolling()
-                let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
+                credentialsStatusPollingTask?.pausePolling()
+                let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
-                        self.credentialStatusPollingTask?.continuePolling()
+                        self.credentialsStatusPollingTask?.continuePolling()
                     } catch {
                         self.completion(.failure(error))
                     }

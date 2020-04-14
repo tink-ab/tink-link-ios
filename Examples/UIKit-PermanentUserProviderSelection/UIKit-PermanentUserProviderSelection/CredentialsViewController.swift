@@ -10,7 +10,6 @@ class CredentialsViewController: UITableViewController {
         return formatter
     }()
 
-    private let userController = UserController()
     private var credentialsController = CredentialsController()
     private var providerController = ProviderController()
 
@@ -47,15 +46,8 @@ class CredentialsViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialsControllerDidUpdateCredentials, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialsControllerDidAddCredential, object: nil)
 
-        userController.authenticateUser(accessToken: AccessToken(rawValue: "YOUR_ACCESS_TOKEN")!) { [weak self] result in
-            guard let self = self else { return }
-            do {
-                let user = try result.get()
-                self.providerController.performFetch()
-            } catch {
-                // Handle any errors
-            }
-        }
+        Tink.shared.setCredential(.accessToken("YOUR_ACCESS_TOKEN"))
+        providerController.performFetch()
     }
 
     @objc private func updateCredentials() {
