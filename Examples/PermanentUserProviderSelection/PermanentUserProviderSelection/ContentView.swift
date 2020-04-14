@@ -2,7 +2,6 @@ import SwiftUI
 import TinkLink
 
 struct ContentView: View {
-    @ObservedObject var userController = UserController()
     @ObservedObject var credentialController = CredentialController()
     @ObservedObject var providerController = ProviderController()
 
@@ -16,15 +15,9 @@ struct ContentView: View {
         NavigationView {
             CredentialsView(credentialController: credentialController, providerController: providerController)
         }.onAppear {
-            self.userController.authenticateUser(accessToken: AccessToken(rawValue: "YOUR_ACCESS_TOKEN")!) { result in
-                do {
-                    let user = try result.get()
-                    self.credentialController.performFetch()
-                    self.providerController.performFetch()
-                } catch {
-                    // Handle any errors
-                }
-            }
+            Tink.shared.setCredential(.accessToken("YOUR_ACCESS_TOKEN"))
+            self.credentialController.performFetch()
+            self.providerController.performFetch()
         }
     }
 }

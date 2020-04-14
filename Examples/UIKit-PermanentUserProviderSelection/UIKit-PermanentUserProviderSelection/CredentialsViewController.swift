@@ -8,8 +8,6 @@ class CredentialsViewController: UITableViewController {
     private let credentialContext = CredentialsContext()
     private let providerContext = ProviderContext()
 
-    private var user: User?
-
     private var providersByID: [Provider.ID: Provider] = [:] {
         didSet {
             tableView.reloadData()
@@ -48,24 +46,17 @@ extension CredentialsViewController {
 
         activityIndicator.startAnimating()
 
-        userContext.authenticateUser(accessToken: AccessToken(rawValue: "YOUR_ACCESS_TOKEN")!) { [weak self] result in
-            do {
-                self?.user = try result.get()
-                self?.updateList {
-                    self?.activityIndicator.stopAnimating()
-                }
-            } catch {
-                // Handle any errors
-            }
+        Tink.shared.setCredential(.accessToken("YOUR_ACCESS_TOKEN"))
+
+        updateList { [weak self] in
+            self?.activityIndicator.stopAnimating()
         }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if user != nil {
-            updateList()
-        }
+        updateList()
     }
 }
 

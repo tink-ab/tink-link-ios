@@ -1,26 +1,11 @@
 import Foundation
 
 /// An object that you use to create a user that will be used in other TinkLink APIs.
-public final class UserContext {
+final class UserContext {
     private let oAuthService: OAuthService
     private let userService: UserService
     private var retryCancellable: RetryCancellable?
     private var tink: Tink?
-
-    /// Error that the `UserContext` can throw.
-    public enum Error: Swift.Error {
-        /// The market and/or locale was invalid. The payload from the backend can be found in the associated value.
-        case invalidMarketOrLocale(String)
-
-        init?(createTemporaryUserError error: Swift.Error) {
-            switch error {
-            case ServiceError.invalidArgument(let message):
-                self = .invalidMarketOrLocale(message)
-            default:
-                return nil
-            }
-        }
-    }
 
     // MARK: - Creating a Context
 
@@ -37,61 +22,6 @@ public final class UserContext {
     init(oAuthService: OAuthService, userService: UserService) {
         self.oAuthService = oAuthService
         self.userService = userService
-    }
-
-    // MARK: - Authenticating a User
-
-    /// Authenticate a permanent user with authorization code.
-    ///
-    /// - Parameter authorizationCode: Authenticate with a `AuthorizationCode` that delegated from Tink to exchanged for a user object.
-    /// - Parameter completion: A result representing either a user info object or an error.
-    @discardableResult
-    public func authenticateUser(authorizationCode: AuthorizationCode, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        return oAuthService.authenticate(code: authorizationCode, completion: { [weak self] result in
-            do {
-                let authenticateResponse = try result.get()
-                let accessToken = authenticateResponse.accessToken
-                let user = User(accessToken: accessToken)
-                self?.tink?.setCredential(.accessToken(user.accessToken.rawValue))
-                self?.fetchUserProfile(user, completion: completion)
-            } catch {
-                completion(.failure(error))
-            }
-        })
-    }
-
-    /// Authenticate a permanent user with accessToken.
-    ///
-    /// - Parameter accessToken: Authenticate with an accessToken `String` that generated for the permanent user.
-    /// - Parameter completion: A result representing either a user info object or an error.
-    @discardableResult
-    public func authenticateUser(accessToken: AccessToken, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        let user = User(accessToken: accessToken)
-        tink?.setCredential(.accessToken(user.accessToken.rawValue))
-        return fetchUserProfile(user, completion: completion)
-    }
-
-    /// Create a user for a specific market and locale.
-    ///
-    /// - Parameter market: Register a `Market` for creating the user, will use the default market if nothing is provided.
-    /// - Parameter locale: Register a `Locale` for creating the user, will use the default locale in TinkLink if nothing is provided.
-    /// - Parameter completion: A result representing either a user info object or an error.
-    @discardableResult
-    public func createTemporaryUser(for market: Market, locale: Locale = Tink.defaultLocale, completion: @escaping (Result<User, Swift.Error>) -> Void) -> RetryCancellable? {
-        return oAuthService.createAnonymous(market: market, locale: locale, origin: nil) { [weak self] result in
-            let mappedResult = result
-                .map { User(accessToken: $0) }
-                .mapError { Error(createTemporaryUserError: $0) ?? $0 }
-            do {
-                let user = try mappedResult.get()
-                self?.tink?.setCredential(.accessToken(user.accessToken.rawValue))
-                completion(.success(user))
-            } catch Error.invalidMarketOrLocale(let message) {
-                completion(.failure(Error.invalidMarketOrLocale(message)))
-            } catch {
-                completion(.failure(error))
-            }
-        }
     }
 
     @discardableResult
