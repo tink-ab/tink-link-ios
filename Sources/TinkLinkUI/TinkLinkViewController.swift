@@ -265,9 +265,9 @@ extension TinkLinkViewController: ProviderPickerCoordinatorDelegate {
     }
 }
 
-// MARK: - AddCredentialViewControllerDelegate
+// MARK: - AddCredentialsViewControllerDelegate
 
-extension TinkLinkViewController: AddCredentialViewControllerDelegate {
+extension TinkLinkViewController: AddCredentialsViewControllerDelegate {
     func showScopeDescriptions() {
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scopes: scopes)
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))

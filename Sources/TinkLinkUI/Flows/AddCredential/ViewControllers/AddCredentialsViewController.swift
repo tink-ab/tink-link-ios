@@ -2,7 +2,7 @@ import Down
 import TinkLink
 import UIKit
 
-protocol AddCredentialViewControllerDelegate: AnyObject {
+protocol AddCredentialsViewControllerDelegate: AnyObject {
     func showScopeDescriptions()
     func showWebContent(with url: URL)
     func addCredential(provider: Provider, form: Form)
@@ -14,7 +14,7 @@ final class AddCredentialsViewController: UIViewController {
         credentialController.user?.username
     }
 
-    weak var delegate: AddCredentialViewControllerDelegate?
+    weak var delegate: AddCredentialsViewControllerDelegate?
 
     private let credentialController: CredentialController
     private let clientName: String
