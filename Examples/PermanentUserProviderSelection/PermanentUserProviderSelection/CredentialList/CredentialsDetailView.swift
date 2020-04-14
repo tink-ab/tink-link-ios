@@ -11,6 +11,7 @@ struct CredentialsDetailView: View {
                 Text("Refresh")
             }
         }
+        .navigationBarTitle("Credentials")
     }
 
     private func refresh() {
