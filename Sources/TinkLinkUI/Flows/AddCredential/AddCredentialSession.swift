@@ -79,11 +79,15 @@ final class AddCredentialSession {
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
-        case .updating(let providerID):
-            if let bankName = providerController.provider(providerID: providerID)?.displayName {
-                let status = NSLocalizedString("AddCredentials.Status.Updating", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connecting to %@, please wait...", comment: "Text shown when updating credentials.")
-                showUpdating(status: String(format: status, bankName))
+        case .updating:
+            let status: String
+            if let providerID = task?.credentials?.providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
+                let statusFormatText = NSLocalizedString("AddCredentials.Status.Updating", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connecting to %@, please wait…", comment: "Text shown when updating credentials.")
+                status = String(format: statusFormatText, bankName)
+            } else {
+                status = NSLocalizedString("AddCredentials.Status.Updating.Fallback", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connection, please wait…", comment: "Fallback text shown when fail to get bank name while updating credentials.")
             }
+            showUpdating(status: status)
             countUpdatingProcessTime()
             authorizeIfNeeded(onError: onError)
         }
