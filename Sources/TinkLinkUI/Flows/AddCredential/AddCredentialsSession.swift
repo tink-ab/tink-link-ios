@@ -62,7 +62,7 @@ final class AddCredentialsSession {
             },
             completion: { [weak self] result in
                 DispatchQueue.main.async {
-                    self?.handleAddCredentialCompletion(result, onCompletion: onCompletion)
+                    self?.handleAddCredentialsCompletion(result, onCompletion: onCompletion)
                 }
             }
         )
@@ -99,7 +99,7 @@ final class AddCredentialsSession {
         }
     }
 
-    private func handleAddCredentialCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
+    private func handleAddCredentialsCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
         timer?.invalidate()
         authorizeIfNeeded(onError: { [weak self] error in
             DispatchQueue.main.async {
