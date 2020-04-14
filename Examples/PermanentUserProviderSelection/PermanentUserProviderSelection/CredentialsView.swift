@@ -5,14 +5,8 @@ struct CredentialsView: View {
     @EnvironmentObject var credentialsController: CredentialController
     @EnvironmentObject var providerController: ProviderController
 
-    @State private var isPresentingRefreshAlert = false
-    @State private var isAnimating: Bool = false
-    @State private var selectedCredentials: Credentials?
-    @State private var isRefreshing = false
-
     var body: some View {
         CredentialsList()
-            .disabled(isPresentingRefreshAlert)
             .navigationBarTitle("Credentials")
             .sheet(item: Binding(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) {
                 SupplementControllerRepresentableView(supplementInformationTask: $0) { _ in }
