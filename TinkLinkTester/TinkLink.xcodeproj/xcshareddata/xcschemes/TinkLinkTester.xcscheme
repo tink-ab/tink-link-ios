@@ -32,16 +32,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "TinkLinkTests"
-               BuildableName = "TinkLinkTests"
-               BlueprintName = "TinkLinkTests"
-               ReferencedContainer = "container:..">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "8F6889062417EB3E00402A3B"
                BuildableName = "TinkLinkTests.xctest"
                BlueprintName = "TinkLinkTests"
