@@ -40,7 +40,7 @@ final class CredentialsController: ObservableObject {
         task?.cancel()
     }
 
-    func deleteCredential(credentials: [Credentials]) {
+    func deleteCredentials(credentials: [Credentials]) {
         credentials.forEach { credential in
             credentialsContext.delete(credential, completion: { [weak self] result in
                 switch result {

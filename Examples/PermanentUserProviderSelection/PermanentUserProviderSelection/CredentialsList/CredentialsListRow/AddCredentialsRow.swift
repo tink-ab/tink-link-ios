@@ -1,7 +1,7 @@
 import SwiftUI
 import TinkLink
 
-struct AddCredentialRow: View {
+struct AddCredentialsRow: View {
     @ObservedObject var credentialsController: CredentialsController
     @ObservedObject var providerController: ProviderController
 
@@ -25,8 +25,8 @@ struct AddCredentialRow: View {
     }
 }
 
-struct AddCredentialRow_Previews: PreviewProvider {
+struct AddCredentialsRow_Previews: PreviewProvider {
     static var previews: some View {
-        AddCredentialRow(credentialsController: CredentialsController(), providerController: ProviderController())
+        AddCredentialsRow(credentialsController: CredentialsController(), providerController: ProviderController())
     }
 }

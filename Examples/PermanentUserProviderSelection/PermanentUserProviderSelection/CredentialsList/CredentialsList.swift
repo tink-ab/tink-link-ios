@@ -14,18 +14,18 @@ struct CredentialsList: View {
     var body: some View {
         List {
             Section {
-                ForEach(credentialsController.credentials) { credential in
-                    CredentialListRow(
-                        providerName: self.providerController.provider(providerID: credential.providerID)?.displayName ?? "",
-                        updatedDate: (self.dateFormatter.string(from: credential.updated ?? Date())))
+                ForEach(credentialsController.credentials) { credentials in
+                    CredentialsListRow(
+                        providerName: self.providerController.provider(providerID: credentials.providerID)?.displayName ?? "",
+                        updatedDate: (self.dateFormatter.string(from: credentials.updated ?? Date())))
                 }.onDelete { indexSet in
                     let credentialsToDelete = indexSet.map { self.credentialsController.credentials[$0] }
-                    self.credentialsController.deleteCredential(credentials: credentialsToDelete)
+                    self.credentialsController.deleteCredentials(credentials: credentialsToDelete)
                     self.credentialsController.credentials.remove(atOffsets: indexSet)
                 }
             }
             Section {
-                AddCredentialRow(credentialsController: credentialsController, providerController: providerController)
+                AddCredentialsRow(credentialsController: credentialsController, providerController: providerController)
             }
         }
         .listStyle(GroupedListStyle())

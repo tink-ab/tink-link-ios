@@ -1,7 +1,7 @@
 import SwiftUI
 import TinkLink
 
-struct CredentialListRow: View {
+struct CredentialsListRow: View {
     var providerName: String
     var updatedDate: String
 
@@ -15,9 +15,9 @@ struct CredentialListRow: View {
     }
 }
 
-struct CredentialListRow_Previews: PreviewProvider {
+struct CredentialsListRow_Previews: PreviewProvider {
     static var previews: some View {
-        CredentialListRow(providerName: "Foo", updatedDate: "bar")
+        CredentialsListRow(providerName: "Foo", updatedDate: "bar")
     }
 }
 
