@@ -5,6 +5,7 @@ final class AddCredentialSession {
 
     weak var parentViewController: UIViewController?
 
+    private let providerController: ProviderController
     private let credentialController: CredentialController
     private let authorizationController: AuthorizationController
     private let scopes: [Scope]
@@ -22,8 +23,9 @@ final class AddCredentialSession {
 
     private var timer: Timer?
 
-    init(credentialController: CredentialController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
+    init(providerController: ProviderController, credentialController: CredentialController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
         self.parentViewController = parentViewController
+        self.providerController = providerController
         self.credentialController = credentialController
         self.scopes = scopes
         self.authorizationController = authorizationController
@@ -77,8 +79,11 @@ final class AddCredentialSession {
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
-        case .updating(let status):
-            showUpdating(status: status)
+        case .updating(let providerID):
+            if let bankName = providerController.provider(providerID: providerID)?.displayName {
+                let status = NSLocalizedString("AddCredentials.Status.Updating", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connecting to %@, please wait...", comment: "Text shown when updating credentials.")
+                showUpdating(status: String(format: status, bankName))
+            }
             countUpdatingProcessTime()
             authorizeIfNeeded(onError: onError)
         }
