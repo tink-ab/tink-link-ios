@@ -4,13 +4,15 @@ PODS:
     - Kingfisher/Core (= 5.13.3)
   - Kingfisher/Core (5.13.3)
   - TinkLink (0.10.0)
+  - TinkLink/TinkLinkTests (0.10.0)
   - TinkLinkUI (0.10.0):
-    - Down
-    - Kingfisher
+    - Down (~> 0.9)
+    - Kingfisher (~> 5.13)
     - TinkLink
 
 DEPENDENCIES:
   - TinkLink (from `../`)
+  - TinkLink/TinkLinkTests (from `../`)
   - TinkLinkUI (from `../`)
 
 SPEC REPOS:
@@ -27,9 +29,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Down: 1f6a14846dff45ae8e7e4334b4e386a5fd3b2412
   Kingfisher: d2b3d6a7200c93b34de9afcdf25c8dd9282ec277
-  TinkLink: d960730387a5a7df4f4fb99c4394774d1ca1d71c
-  TinkLinkUI: 9d5367e402046a15091b8b55d728bb89e229ffd4
+  TinkLink: 227aeff5012c024d778bbd945e959ca82b9c8910
+  TinkLinkUI: b86e907eba3ce92dfad873a630bbe9bee694f8c9
 
-PODFILE CHECKSUM: b8ff39617942ace80c644f65926abf4fb1fa8042
+PODFILE CHECKSUM: 7642a7a9d740b1025b94617b5a582a6298ef4c57
 
 COCOAPODS: 1.9.1

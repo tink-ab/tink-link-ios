@@ -3,7 +3,7 @@ use_frameworks!
 
 target "TinkLinkTester" do
 
-    pod "TinkLink", :path => "../"
+    pod "TinkLink", :path => "../", :testspecs => ['TinkLinkTests']
     pod "TinkLinkUI", :path => "../"
 
 end
