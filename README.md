@@ -18,7 +18,7 @@
 
 Swift Package Manager is used to integrate Tink Link into your project.
 
-Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-sdk-ios` when asked for a package repository.
+Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-ios` when asked for a package repository.
 
 When finished, you should be able to `import TinkLink` within your project.
 
@@ -48,15 +48,15 @@ The shared instance of Tink can also be configured using environment variables d
 
 You will need to add a custom URL scheme or support universal links to handle redirects from a third party authentication flow back into your app.
 
-Follow the instructions at one of these links for how to set this up:
+Follow the instructions in one of these links to learn how to set this up:
 
-- [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app).
-- [Allowing Apps and Websites to Link to Your Content](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content).
+- [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app)
+- [Allowing Apps and Websites to Link to Your Content](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content)
 
 ## Examples
 
-- [Usage Examples](USAGE.md) This document outlines how to use the different classes and types provided by Tink Link.
-- [Provider Selection](Examples) These examples shows how to build a complete aggregation flow using Tink Link.
+- [Usage examples](USAGE.md) This document outlines how to use the different classes and types provided by Tink Link.
+- [Example apps](Examples) These examples shows how to build a complete aggregation flow using Tink Link.
 
 ## Developer Documentation
-- [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios).
+- [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios)
