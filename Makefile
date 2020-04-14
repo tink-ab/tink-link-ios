@@ -65,6 +65,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
+	bundle exec pod install --project-directory="./TinkLinkTester/"
 	xcodebuild test -project ./TinkLinkTester/TinkLink.xcodeproj -scheme TinkLinkTester -destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
 build-uikit-example:
