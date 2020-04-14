@@ -8,7 +8,6 @@ final class AddCredentialViewController: UITableViewController {
     var onCompletion: CompletionHandler?
     let provider: Provider
 
-
     private let credentialContext: CredentialsContext
     private var form: Form
     private var formError: Form.ValidationError? {
@@ -195,7 +194,8 @@ extension AddCredentialViewController {
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
-        case .updating(let status):
+        case .updating:
+            let status = "Connecting to \(provider.displayName), please wait..."
             showUpdating(status: status)
         }
     }
