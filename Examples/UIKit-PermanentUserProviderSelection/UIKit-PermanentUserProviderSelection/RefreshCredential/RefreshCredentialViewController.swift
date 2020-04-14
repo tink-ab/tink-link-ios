@@ -164,10 +164,10 @@ final class RefreshCredentialViewController: UIViewController {
 
     @objc private func credentialRefresing(notification: Notification) {
         DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: Credentials], let credential = uswerInfo["credential"] {
-                if let index = self.viewModels.firstIndex(wherwe: { credential.id == $0.credential.id }) {
+            if let userInfo = notification.userInfo as? [String: Credentials], let credential = userInfo["credential"] {
+                if let index = self.viewModels.firstIndex(where: { credential.id == $0.credential.id }) {
                     if credential.status == .updating {
-                        self.viewModels[index] = ViewModel(wcredential: credential, viewState: .updating)
+                        self.viewModels[index] = ViewModel(credential: credential, viewState: .updating)
                     } else if credential.status == .updated {
                         self.viewModels[index] = ViewModel(credential: credential, viewState: .updated)
                     }
