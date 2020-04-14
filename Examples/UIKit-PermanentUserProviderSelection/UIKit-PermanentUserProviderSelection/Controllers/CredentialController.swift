@@ -111,32 +111,33 @@ final class CredentialController {
     }
 
     private func refreshProgressHandler(status: RefreshCredentialTask.Status) {
+        guard let credential = refreshTask?.credentials else { return }
         switch status {
         case .authenticating, .created:
             break
         case .awaitingSupplementalInformation(let supplementInformationTask):
             self.supplementInformationTask = supplementInformationTask
             NotificationCenter.default.post(name: .credentialControllerDidSupplementInformation, object: nil)
-        case .awaitingThirdPartyAppAuthentication(_, let thirdPartyAppAuthenticationTask):
+        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
-        case .updating(let credential, _):
+        case .updating:
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
                 credentials[index] = credential
                 let parameters = ["credential": credential]
                 NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
-        case .sessionExpired(let credential):
+        case .sessionExpired:
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
                 credentials[index] = credential
             }
-        case .updated(let credential):
+        case .updated:
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
                 credentials[index] = credential
                 updatedCredentials.append(credential)
                 let parameters = ["credential": credential]
                 NotificationCenter.default.post(name: .credentialControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
-        case .error(let credential, _):
+        case .error:
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
                 credentials[index] = credential
             }
