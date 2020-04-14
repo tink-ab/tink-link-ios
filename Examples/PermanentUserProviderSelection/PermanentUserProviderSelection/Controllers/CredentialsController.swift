@@ -8,7 +8,7 @@ final class CredentialsController: ObservableObject {
     @Published var supplementInformationTask: SupplementInformationTask?
 
     private(set) var credentialsContext =  CredentialsContext()
-    private var task: RefreshCredentialTask?
+    private var task: RefreshCredentialsTask?
     
     func performFetch() {
         credentialsContext.fetchCredentialsList(completion: { [weak self] result in
@@ -57,7 +57,7 @@ final class CredentialsController: ObservableObject {
         }
     }
 
-    private func refreshProgressHandler(status: RefreshCredentialTask.Status) {
+    private func refreshProgressHandler(status: RefreshCredentialsTask.Status) {
         switch status {
         case .authenticating, .created:
             break

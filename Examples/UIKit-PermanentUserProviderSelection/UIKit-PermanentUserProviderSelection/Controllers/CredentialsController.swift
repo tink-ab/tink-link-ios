@@ -26,8 +26,8 @@ final class CredentialsController {
     private(set) var supplementInformationTask: SupplementInformationTask?
 
     private(set) var credentialsContext = CredentialsContext()
-    private var refreshTask: RefreshCredentialTask?
-    private var addCredentialTask: AddCredentialsTask?
+    private var refreshTask: RefreshCredentialsTask?
+    private var addCredentialsTask: AddCredentialsTask?
 
     func performFetch() {
         credentialsContext.fetchCredentialsList(completion: { [weak self] result in
@@ -52,7 +52,7 @@ final class CredentialsController {
     }
 
     func addCredential(_ provider: Provider, form: Form) {
-        addCredentialTask = credentialsContext.add(
+        addCredentialsTask = credentialsContext.add(
             for: provider,
             form: form,
             progressHandler: { [weak self] in self?.createProgressHandler(for: $0) },
@@ -65,7 +65,7 @@ final class CredentialsController {
     }
 
     func cancelAddCredential() {
-        addCredentialTask?.cancel()
+        addCredentialsTask?.cancel()
     }
 
     func deleteCredential(_ credentials: [Credentials]) {
@@ -110,7 +110,7 @@ final class CredentialsController {
         }
     }
 
-    private func refreshProgressHandler(status: RefreshCredentialTask.Status) {
+    private func refreshProgressHandler(status: RefreshCredentialsTask.Status) {
         switch status {
         case .authenticating, .created:
             break
