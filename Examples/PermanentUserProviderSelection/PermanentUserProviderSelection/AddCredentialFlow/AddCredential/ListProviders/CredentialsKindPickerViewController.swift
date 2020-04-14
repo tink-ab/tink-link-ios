@@ -5,7 +5,7 @@ import UIKit
 final class CredentialsKindPickerViewController: UITableViewController {
     typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
-    var credentialKindNodes: [ProviderTree.CredentialKindNode] = []
+    var credentialsKindNodes: [ProviderTree.CredentialsKindNode] = []
     
     private let credentialContext: CredentialsContext
 
@@ -27,7 +27,7 @@ extension CredentialsKindPickerViewController {
         super.viewDidLoad()
 
         navigationItem.prompt = "Choose Credentials Type"
-        navigationItem.title = credentialKindNodes.first?.provider.displayName
+        navigationItem.title = credentialsKindNodes.first?.provider.displayName
         navigationItem.largeTitleDisplayMode = .never
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -38,19 +38,19 @@ extension CredentialsKindPickerViewController {
 
 extension CredentialsKindPickerViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return credentialKindNodes.count
+        return credentialsKindNodes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = credentialKindNodes[indexPath.row].displayDescription
+        cell.textLabel?.text = credentialsKindNodes[indexPath.row].displayDescription
         cell.accessoryType = .disclosureIndicator
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let credentialKindNode = credentialKindNodes[indexPath.row]
-        showAddCredential(for: credentialKindNode.provider)
+        let credentialsKindsNode = credentialsKindNodes[indexPath.row]
+        showAddCredential(for: credentialsKindNode.provider)
     }
 }
 

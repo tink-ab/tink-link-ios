@@ -57,8 +57,8 @@ extension FinancialInstitutionPickerViewController {
         switch financialInstitutionNode {
         case .accessTypes(let accessTypeGroups):
             providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, name: financialInstitutionNode.financialInstitution.name)
-        case .credentialKinds(let groups):
-            providerPickerCoordinator?.showCredentialKindPicker(for: groups)
+        case .credentialsKinds(let groups):
+            providerPickerCoordinator?.showCredentialsKindPicker(for: groups)
         case .provider(let provider):
             providerPickerCoordinator?.didSelectProvider(provider)
         }

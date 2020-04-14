@@ -84,8 +84,8 @@ extension ProviderListViewController {
             showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
         case .accessTypes(let accessTypeGroups):
             showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
-        case .credentialKinds(let groups):
-            showCredentialKindPicker(for: groups)
+        case .credentialsKinds(let groups):
+            showCredentialsKindPicker(for: groups)
         case .provider(let provider):
             showAddCredential(for: provider)
         }
@@ -111,10 +111,10 @@ extension ProviderListViewController {
         show(viewController, sender: nil)
     }
 
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
+    func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
         guard let credentialsController = credentialsController else { return }
         let viewController = CredentialsKindPickerViewController(credentialsController: credentialsController)
-        viewController.credentialKindNodes = credentialKindNodes
+        viewController.credentialsKindNodes = credentialsKindNodes
         show(viewController, sender: nil)
     }
 

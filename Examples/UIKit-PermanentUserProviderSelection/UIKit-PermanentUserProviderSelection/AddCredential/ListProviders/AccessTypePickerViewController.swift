@@ -50,8 +50,8 @@ extension AccessTypePickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accessTypeNode = accessTypeNodes[indexPath.row]
         switch accessTypeNode {
-        case .credentialKinds(let groups):
-            showCredentialKindPicker(for: groups)
+        case .credentialsKinds(let groups):
+            showCredentialsKindPicker(for: groups)
         case .provider(let provider):
             showAddCredential(for: provider)
         }
@@ -61,10 +61,10 @@ extension AccessTypePickerViewController {
 // MARK: - Navigation
 
 extension AccessTypePickerViewController {
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
+    func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
         let viewController = CredentialsKindPickerViewController(credentialsController: credentialsController)
         viewController.onCompletion = onCompletion
-        viewController.credentialKindNodes = credentialKindNodes
+        viewController.credentialsKindNodes = credentialsKindNodes
         show(viewController, sender: nil)
     }
 

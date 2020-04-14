@@ -102,8 +102,8 @@ override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: Inde
         showFinancialInstitution(for: nodes)
     case .accessTypes(let nodes):
         showAccessTypePicker(for: nodes)
-    case .credentialKinds(let nodes):
-        showCredentialKindPicker(for: nodes)
+    case .credentialsKinds(let nodes):
+        showCredentialsKindPicker(for: nodes)
     case .provider(let provider):
         showAddCredential(for: provider)
     }

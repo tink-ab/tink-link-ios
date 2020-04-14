@@ -5,10 +5,10 @@ import UIKit
 final class CredentialsKindPickerViewController: UITableViewController {
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
-    let credentialKindNodes: [ProviderTree.CredentialKindNode]
+    let credentialsKindNodes: [ProviderTree.CredentialsKindNode]
 
-    init(credentialKindNodes: [ProviderTree.CredentialKindNode]) {
-        self.credentialKindNodes = credentialKindNodes
+    init(credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
+        self.credentialsKindNodes = credentialsKindNodes
         super.init(style: .plain)
     }
 
@@ -37,21 +37,21 @@ extension CredentialsKindPickerViewController {
 
 extension CredentialsKindPickerViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return credentialKindNodes.count
+        return credentialsKindNodes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let node = credentialKindNodes[indexPath.row]
-        let icon: Icon = node.credentialKind == .mobileBankID ? .bankID : .password
+        let node = credentialsKindNodes[indexPath.row]
+        let icon: Icon = node.credentialsKind == .mobileBankID ? .bankID : .password
 
         let cell = tableView.dequeueReusableCell(ofType: CredentialsKindCell.self, for: indexPath)
         cell.setIcon(icon)
-        cell.setTitle(text: node.credentialKind.description)
+        cell.setTitle(text: node.credentialsKind.description)
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let credentialKindNode = credentialKindNodes[indexPath.row]
-        providerPickerCoordinator?.didSelectProvider(credentialKindNode.provider)
+        let credentialsKindNode = credentialsKindNodes[indexPath.row]
+        providerPickerCoordinator?.didSelectProvider(credentialsKindNode.provider)
     }
 }
