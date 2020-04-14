@@ -12,7 +12,7 @@ struct CredentialsView: View {
 
     var body: some View {
         return Group {
-            if credentialsController.credentialContext == nil {
+            if credentialsController.credentialsContext == nil {
                 ActivityIndicator(isAnimating: $isAnimating, style: .large)
                     .edgesIgnoringSafeArea(.all)
                     .onAppear { self.isAnimating = true }

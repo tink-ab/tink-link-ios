@@ -7,10 +7,10 @@ final class FinancialInstitutionPickerViewController: UITableViewController {
     var onCompletion: CompletionHandler?
     var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
     
-    private let credentialContext: CredentialsContext
+    private let credentialsContext: CredentialsContext
 
-    init(credentialContext: CredentialsContext) {
-        self.credentialContext = credentialContext
+    init(credentialsContext: CredentialsContext) {
+        self.credentialsContext = credentialsContext
 
         super.init(style: .plain)
     }
@@ -69,7 +69,7 @@ extension FinancialInstitutionPickerViewController {
 
 extension FinancialInstitutionPickerViewController {
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
-        let viewController = AccessTypePickerViewController(credentialContext: credentialContext)
+        let viewController = AccessTypePickerViewController(credentialsContext: credentialsContext)
         viewController.onCompletion = onCompletion
         viewController.title = title
         viewController.accessTypeNodes = accessTypeNodes
@@ -77,7 +77,7 @@ extension FinancialInstitutionPickerViewController {
     }
 
     func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode], title: String?) {
-        let viewController = CredentialsKindPickerViewController(credentialContext: credentialContext)
+        let viewController = CredentialsKindPickerViewController(credentialsContext: credentialsContext)
         viewController.onCompletion = onCompletion
         viewController.title = title
         viewController.credentialsKindNodes = credentialsKindNodes
@@ -85,7 +85,7 @@ extension FinancialInstitutionPickerViewController {
     }
 
     func showAddCredential(for provider: Provider) {
-        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialContext: credentialContext)
+        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsContext: credentialsContext)
         addCredentialsViewController.onCompletion = onCompletion
         show(addCredentialsViewController, sender: nil)
     }

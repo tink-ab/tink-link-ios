@@ -25,12 +25,12 @@ final class CredentialsController {
     var updatedCredentials: [Credentials] = []
     private(set) var supplementInformationTask: SupplementInformationTask?
 
-    private(set) var credentialContext = CredentialsContext()
+    private(set) var credentialsContext = CredentialsContext()
     private var refreshTask: RefreshCredentialTask?
     private var addCredentialTask: AddCredentialsTask?
 
     func performFetch() {
-        credentialContext.fetchCredentialsList(completion: { [weak self] result in
+        credentialsContext.fetchCredentialsList(completion: { [weak self] result in
             guard let self = self else { return }
             do {
                 let credentials = try result.get()
@@ -42,7 +42,7 @@ final class CredentialsController {
     }
 
     func performRefresh(_ credentials: Credentials) {
-        refreshTask = credentialContext.refresh(
+        refreshTask = credentialsContext.refresh(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             progressHandler: { [weak self] in self?.refreshProgressHandler(status: $0) },
@@ -52,7 +52,7 @@ final class CredentialsController {
     }
 
     func addCredential(_ provider: Provider, form: Form) {
-        addCredentialTask = credentialContext.add(
+        addCredentialTask = credentialsContext.add(
             for: provider,
             form: form,
             progressHandler: { [weak self] in self?.createProgressHandler(for: $0) },
@@ -70,7 +70,7 @@ final class CredentialsController {
 
     func deleteCredential(_ credentials: [Credentials]) {
         credentials.forEach { credential in
-            credentialContext.delete(credential, completion: { [weak self] result in
+            credentialsContext.delete(credential, completion: { [weak self] result in
                 switch result {
                 case .success:
                     self?.credentials.removeAll { removedCredential -> Bool in

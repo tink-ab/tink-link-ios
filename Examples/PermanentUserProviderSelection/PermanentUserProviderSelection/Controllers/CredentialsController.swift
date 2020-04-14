@@ -7,11 +7,11 @@ final class CredentialsController: ObservableObject {
     @Published var updatedCredentials: [Credentials] = []
     @Published var supplementInformationTask: SupplementInformationTask?
 
-    private(set) var credentialContext =  CredentialsContext()
+    private(set) var credentialsContext =  CredentialsContext()
     private var task: RefreshCredentialTask?
     
     func performFetch() {
-        credentialContext.fetchCredentialsList(completion: { [weak self] result in
+        credentialsContext.fetchCredentialsList(completion: { [weak self] result in
             do {
                 let credentials = try result.get()
                 DispatchQueue.main.async {
@@ -24,7 +24,7 @@ final class CredentialsController: ObservableObject {
     }
 
     func performRefresh(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        task = credentialContext.refresh(
+        task = credentialsContext.refresh(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             progressHandler: { [weak self] in
@@ -42,7 +42,7 @@ final class CredentialsController: ObservableObject {
 
     func deleteCredential(credentials: [Credentials]) {
         credentials.forEach { credential in
-            credentialContext.delete(credential, completion: { [weak self] result in
+            credentialsContext.delete(credential, completion: { [weak self] result in
                 switch result {
                 case .success:
                     DispatchQueue.main.async {

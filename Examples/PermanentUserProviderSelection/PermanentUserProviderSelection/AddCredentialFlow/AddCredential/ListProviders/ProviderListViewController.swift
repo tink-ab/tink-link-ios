@@ -8,7 +8,7 @@ final class ProviderListViewController: UITableViewController {
 
     private let searchController = UISearchController(searchResultsController: nil)
     private var providers: [Provider]
-    private var credentialContext: CredentialsContext
+    private var credentialsContext: CredentialsContext
     private var originalFinancialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode]
     private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] {
         didSet {
@@ -16,9 +16,9 @@ final class ProviderListViewController: UITableViewController {
         }
     }
 
-    init(providers: [Provider], credentialContext: CredentialsContext, style: UITableView.Style) {
+    init(providers: [Provider], credentialsContext: CredentialsContext, style: UITableView.Style) {
         self.providers = providers
-        self.credentialContext = credentialContext
+        self.credentialsContext = credentialsContext
         self.financialInstitutionGroupNodes = ProviderTree(providers: providers).financialInstitutionGroups
         self.originalFinancialInstitutionGroupNodes = ProviderTree(providers: providers).financialInstitutionGroups
         super.init(style: style)
@@ -91,7 +91,7 @@ extension ProviderListViewController {
 
 extension ProviderListViewController {
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
-        let viewController = FinancialInstitutionPickerViewController(credentialContext: credentialContext)
+        let viewController = FinancialInstitutionPickerViewController(credentialsContext: credentialsContext)
         viewController.onCompletion = onCompletion
         viewController.title = title
         viewController.financialInstitutionNodes = financialInstitutionNodes
@@ -99,7 +99,7 @@ extension ProviderListViewController {
     }
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
-        let viewController = AccessTypePickerViewController(credentialContext: credentialContext)
+        let viewController = AccessTypePickerViewController(credentialsContext: credentialsContext)
         viewController.onCompletion = onCompletion
         viewController.title = title
         viewController.accessTypeNodes = accessTypeNodes
@@ -107,14 +107,14 @@ extension ProviderListViewController {
     }
 
     func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
-        let viewController = CredentialsKindPickerViewController(credentialContext: credentialContext)
+        let viewController = CredentialsKindPickerViewController(credentialsContext: credentialsContext)
         viewController.onCompletion = onCompletion
         viewController.credentialsKindNodes = credentialsKindNodes
         show(viewController, sender: nil)
     }
 
     func showAddCredential(for provider: Provider) {
-        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialContext: credentialContext)
+        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsContext: credentialsContext)
         addCredentialsViewController.onCompletion = onCompletion
         show(addCredentialsViewController, sender: nil)
     }

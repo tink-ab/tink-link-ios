@@ -2,7 +2,7 @@ import Foundation
 
 /// A task that manages progress of refreshing a credential.
 ///
-/// Use `CredentialContext` to create a task.
+/// Use `CredentialsContext` to create a task.
 public final class RefreshCredentialTask: Identifiable {
     /// Indicates the state of a credentials being refreshed.
     ///

@@ -168,7 +168,7 @@ To add a credentials for the current user, call `addCredentials` with the provid
 Then handle status changes in the `progressHandler` closure and the `result` from the completion handler.
 
 ```swift
-let addCredentialsTask = credentialContext.addCredentials(for: provider, form: form, progressHandler: { status in
+let addCredentialsTask = credentialsContext.addCredentials(for: provider, form: form, progressHandler: { status in
     switch status {
     case .awaitingSupplementalInformation(let supplementInformationTask):
         <#Present form for supplemental information task#>

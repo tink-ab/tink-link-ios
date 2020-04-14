@@ -9,7 +9,7 @@ final class AddCredentialsViewController: UITableViewController {
     let provider: Provider
 
 
-    private let credentialContext: CredentialsContext
+    private let credentialsContext: CredentialsContext
     private var form: Form
     private var formError: Form.ValidationError? {
         didSet {
@@ -24,10 +24,10 @@ final class AddCredentialsViewController: UITableViewController {
 
     private lazy var helpLabel = UITextView()
 
-    init(provider: Provider, credentialContext: CredentialsContext) {
+    init(provider: Provider, credentialsContext: CredentialsContext) {
         self.provider = provider
         self.form = Form(provider: provider)
-        self.credentialContext = credentialContext
+        self.credentialsContext = credentialsContext
 
         if #available(iOS 13.0, *) {
             super.init(style: .insetGrouped)
@@ -167,7 +167,7 @@ extension AddCredentialsViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         do {
             try form.validateFields()
-            task = credentialContext.add(
+            task = credentialsContext.add(
                 for: provider,
                 form: form,
                 completionPredicate: .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false),

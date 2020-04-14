@@ -13,14 +13,14 @@ class CredentialsContextTests: XCTestCase {
     }
 
     func testAddingPasswordCredentials() {
-        let credentialContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialsService)
+        let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialsService)
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
         let statusChangedToupdating = expectation(description: "add credentials status should be changed to updating")
 
         let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
-        task = credentialContextUnderTest.add(for: Provider.nordeaPassword, form: Form(provider: Provider.nordeaPassword), completionPredicate: completionPredicate, progressHandler: { status in
+        task = credentialsContextUnderTest.add(for: Provider.nordeaPassword, form: Form(provider: Provider.nordeaPassword), completionPredicate: completionPredicate, progressHandler: { status in
             switch status {
             case .created:
                 statusChangedToCreated.fulfill()
@@ -46,7 +46,7 @@ class CredentialsContextTests: XCTestCase {
     }
 
     func testAddingSupplementalInfoCredentials() {
-        let credentialContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialsService)
+        let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialsService)
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
@@ -54,7 +54,7 @@ class CredentialsContextTests: XCTestCase {
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "add credentials status should be changed to awaitingSupplementalInformation")
 
         let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
-        task = credentialContextUnderTest.add(for: Provider.testSupplementalInformation, form: Form(provider: Provider.testSupplementalInformation), completionPredicate: completionPredicate, progressHandler: { status in
+        task = credentialsContextUnderTest.add(for: Provider.testSupplementalInformation, form: Form(provider: Provider.testSupplementalInformation), completionPredicate: completionPredicate, progressHandler: { status in
             switch status {
             case .created:
                 statusChangedToCreated.fulfill()

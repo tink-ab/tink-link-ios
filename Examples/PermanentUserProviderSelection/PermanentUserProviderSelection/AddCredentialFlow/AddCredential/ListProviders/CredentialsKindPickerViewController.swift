@@ -7,10 +7,10 @@ final class CredentialsKindPickerViewController: UITableViewController {
     var onCompletion: CompletionHandler?
     var credentialsKindNodes: [ProviderTree.CredentialsKindNode] = []
     
-    private let credentialContext: CredentialsContext
+    private let credentialsContext: CredentialsContext
 
-    init(credentialContext: CredentialsContext) {
-        self.credentialContext = credentialContext
+    init(credentialsContext: CredentialsContext) {
+        self.credentialsContext = credentialsContext
 
         super.init(style: .plain)
     }
@@ -58,7 +58,7 @@ extension CredentialsKindPickerViewController {
 
 extension CredentialsKindPickerViewController {
     func showAddCredential(for provider: Provider) {
-        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialContext: credentialContext)
+        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsContext: credentialsContext)
         addCredentialsViewController.onCompletion = onCompletion
         show(addCredentialsViewController, sender: nil)
     }
