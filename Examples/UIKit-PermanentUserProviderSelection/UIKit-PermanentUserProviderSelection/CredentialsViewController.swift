@@ -4,7 +4,6 @@ import UIKit
 class CredentialsViewController: UITableViewController {
     private let dateFormatter = DateFormatter()
 
-    private let userContext = UserContext()
     private let credentialContext = CredentialsContext()
     private let providerContext = ProviderContext()
 
@@ -115,9 +114,7 @@ extension CredentialsViewController {
 
 extension CredentialsViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        if user != nil {
-            updateList()
-        }
+        updateList()
     }
 }
 
