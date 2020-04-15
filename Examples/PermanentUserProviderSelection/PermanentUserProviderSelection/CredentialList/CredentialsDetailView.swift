@@ -7,6 +7,8 @@ struct CredentialsDetailView: View {
     let credentials: Credentials
     let provider: Provider?
 
+    @State private var isRefreshing = false
+
     private var updatedCredentials: Credentials {
         credentialController.credentials.first(where: { $0.id == credentials.id }) ?? credentials
     }
@@ -34,6 +36,7 @@ struct CredentialsDetailView: View {
             Button(action: refresh) {
                 Text("Refresh")
             }
+            .disabled(isRefreshing)
         }
         .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
         .sheet(item: .init(get: { self.credentialController.supplementInformationTask }, set: { self.credentialController.supplementInformationTask = $0 })) { (task) in
@@ -44,7 +47,9 @@ struct CredentialsDetailView: View {
     }
 
     private func refresh() {
+        isRefreshing = true
         credentialController.performRefresh(credentials: credentials) { (result) in
+            self.isRefreshing = false
         }
     }
 }
