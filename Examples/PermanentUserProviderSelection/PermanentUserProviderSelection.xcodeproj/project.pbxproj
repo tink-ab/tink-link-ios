@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2028F40F242237CE00EF17B5 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 2028F40E242237CE00EF17B5 /* TinkLink */; };
 		202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */; };
-		202E06F723D0C06300A3B6C3 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F623D0C06300A3B6C3 /* AlertView.swift */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
 		8F1BF8FE23C5EEC5007464F8 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 8F1BF8FD23C5EEC5007464F8 /* Down */; };
 		8F1BF90123C5EEE3007464F8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8F1BF90023C5EEE3007464F8 /* Kingfisher */; };
@@ -41,7 +40,6 @@
 /* Begin PBXFileReference section */
 		2028F40D2422376700EF17B5 /* tink-link-ios-private */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios-private"; path = ../..; sourceTree = "<group>"; };
 		202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
-		202E06F623D0C06300A3B6C3 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
 		8F3459B62396ADEB007DCD75 /* PermanentUserProviderSelection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PermanentUserProviderSelection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3459B92396ADEB007DCD75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */,
-				202E06F623D0C06300A3B6C3 /* AlertView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -304,7 +301,6 @@
 				8FF1F392239E65D300968AB9 /* AddCredentialsFlowView.swift in Sources */,
 				8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */,
 				8FA5F37B23A3ACC200083430 /* CredentialsListRow.swift in Sources */,
-				202E06F723D0C06300A3B6C3 /* AlertView.swift in Sources */,
 				8FF1F388239E409300968AB9 /* ProviderController.swift in Sources */,
 				8FF1F396239E776F00968AB9 /* AccessTypePickerViewController.swift in Sources */,
 				8F579BA5239E8CA400013FE1 /* SupplementalInformationViewController.swift in Sources */,
