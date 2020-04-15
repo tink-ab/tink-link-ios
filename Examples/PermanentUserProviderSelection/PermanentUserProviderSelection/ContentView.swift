@@ -2,7 +2,8 @@ import SwiftUI
 import TinkLink
 
 struct ContentView: View {
-    @ObservedObject var credentialController = CredentialController()
+
+    @ObservedObject var credentialsController = CredentialsController()
     @ObservedObject var providerController = ProviderController()
 
     private let dateFormatter: DateFormatter = {
@@ -13,10 +14,10 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            CredentialsView(credentialController: credentialController, providerController: providerController)
+            CredentialsView(credentialsController: credentialsController, providerController: providerController)
         }.onAppear {
             Tink.shared.setCredential(.accessToken("YOUR_ACCESS_TOKEN"))
-            self.credentialController.performFetch()
+            self.credentialsController.performFetch()
             self.providerController.performFetch()
         }
     }
@@ -24,6 +25,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(credentialController: CredentialController(), providerController: ProviderController())
+        ContentView(credentialsController: CredentialsController(), providerController: ProviderController())
     }
 }
