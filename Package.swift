@@ -12,25 +12,11 @@ let package = Package(
         .library(
             name: "TinkLink",
             targets: ["TinkLink"]
-        ),
-        .library(
-            name: "TinkLinkUI",
-            targets: ["TinkLinkUI"]
-        ),
-    ],
-    dependencies: [
-        .package(url: "https://github.com/iwasrobbed/Down", .upToNextMajor(from: "0.8.1")),
-        .package(url: "https://github.com/onevcat/Kingfisher", .upToNextMajor(from: "5.13.0"))
+        )
     ],
     targets: [
         .target(
-            name: "TinkLink",
-            exclude: ["TinkLinkUI"]
-        ),
-        .target(
-            name: "TinkLinkUI",
-            dependencies: ["TinkLink", "Down", "Kingfisher"],
-            exclude: ["TinkLink"]
+            name: "TinkLink"
         ),
         .testTarget(
             name: "TinkLinkTests",

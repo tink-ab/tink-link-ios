@@ -1,4 +1,11 @@
 steps:
+  - name: ':pipeline: Bootstrap'
+    command: 'make bootstrap'
+    agents:
+      queue: 'macos'
+
+  - wait
+
   - name: ':pipeline: Test'
     command: 'make test'
     agents:

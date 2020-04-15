@@ -5,6 +5,7 @@ final class AddCredentialsSession {
 
     weak var parentViewController: UIViewController?
 
+    private let providerController: ProviderController
     private let credentialsController: CredentialsController
     private let authorizationController: AuthorizationController
     private let scopes: [Scope]
@@ -22,8 +23,9 @@ final class AddCredentialsSession {
 
     private var timer: Timer?
 
-    init(credentialsController: CredentialsController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
+    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
         self.parentViewController = parentViewController
+        self.providerController = providerController
         self.credentialsController = credentialsController
         self.scopes = scopes
         self.authorizationController = authorizationController
@@ -77,7 +79,14 @@ final class AddCredentialsSession {
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
-        case .updating(let status):
+        case .updating:
+            let status: String
+            if let providerID = task?.credentials?.providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
+                let statusFormatText = NSLocalizedString("AddCredentials.Status.Updating", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connecting to %@, please wait…", comment: "Text shown when updating credentials.")
+                status = String(format: statusFormatText, bankName)
+            } else {
+                status = NSLocalizedString("AddCredentials.Status.Updating.Fallback", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connection, please wait…", comment: "Fallback text shown when fail to get bank name while updating credentials.")
+            }
             showUpdating(status: status)
             countUpdatingProcessTime()
             authorizeIfNeeded(onError: onError)

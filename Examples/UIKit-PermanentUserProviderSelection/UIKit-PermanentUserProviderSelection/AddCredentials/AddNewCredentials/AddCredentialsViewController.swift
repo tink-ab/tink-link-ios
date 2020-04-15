@@ -119,10 +119,9 @@ extension AddCredentialsViewController {
     }
 
     @objc private func updatedStatus(notification: Notification) {
+        let status = "Connecting to \(provider.displayName), please wait..."
         DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: String], let status = userInfo["status"] {
-                self.showUpdating(status: status)
-            }
+            self.showUpdating(status: status)
         }
     }
 

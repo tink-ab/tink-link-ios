@@ -9,7 +9,8 @@ public class TinkLinkViewController: UINavigationController {
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
-    private lazy var addCredentialSession = AddCredentialsSession(credentialsController: self.credentialsController, authorizationController: self.authorizationController, scopes: scopes, parentViewController: self)
+
+    private lazy var addCredentialsSession = AddCredentialSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, scopes: scopes, parentViewController: self)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
     private lazy var loadingViewController = LoadingViewController(providerController: providerController)
 
