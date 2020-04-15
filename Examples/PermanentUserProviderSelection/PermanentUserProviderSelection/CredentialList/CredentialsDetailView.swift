@@ -3,6 +3,7 @@ import TinkLink
 
 struct CredentialsDetailView: View {
     let credentials: Credentials
+    let provider: Provider?
 
     var body: some View {
         Form {
@@ -13,7 +14,7 @@ struct CredentialsDetailView: View {
                 Text("Refresh")
             }
         }
-        .navigationBarTitle("Credentials", displayMode: .inline)
+        .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
     }
 
     private func refresh() {
