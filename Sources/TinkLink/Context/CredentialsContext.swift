@@ -72,6 +72,7 @@ public final class CredentialsContext {
     /// - Parameters:
     ///   - provider: The provider (financial institution) that the credentials is connected to.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
+    ///   - scopes: The scopes you want to request after adding the credentials. This determines what data will be aggregated when the credential has been added. If nil, all data will be fetched. Defaults to nil.
     ///   - completionPredicate: Predicate for when credentials task should complete.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
@@ -165,7 +166,9 @@ public final class CredentialsContext {
 
     /// Refresh the user's credentials.
     /// - Parameters:
-    ///   - credentials: List fo credentials that needs to be refreshed.
+    ///   - credentials: The credentials that needs to be refreshed.
+    ///   - provider: The provider associated with the credentials.
+    ///   - scopes: The scopes you want to request after adding the credentials. This determines what data will be aggregated when the credential has been added. If nil, all data will be fetched. Defaults to nil.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being refreshed.
