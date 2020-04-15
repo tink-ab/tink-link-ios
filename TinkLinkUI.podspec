@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
   spec.source_files = "Sources/TinkLinkUI/**/*.swift"
 
   spec.resource_bundles = { 
-    "TinkLinkUI" => "Sources/TinkLinkUI/TinkLinkUI.bundle"
+    "Translations" => "Sources/TinkLinkUI/Translations.bundle"
   }
 
   spec.dependency "TinkLink"
