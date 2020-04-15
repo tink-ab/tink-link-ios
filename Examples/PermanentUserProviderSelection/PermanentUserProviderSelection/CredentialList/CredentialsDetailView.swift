@@ -38,7 +38,7 @@ struct CredentialsDetailView: View {
         .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
         .sheet(item: .init(get: { self.credentialController.supplementInformationTask }, set: { self.credentialController.supplementInformationTask = $0 })) { (task) in
             SupplementControllerRepresentableView(supplementInformationTask: task) { (result) in
-
+                self.credentialController.supplementInformationTask = nil
             }
         }
     }
