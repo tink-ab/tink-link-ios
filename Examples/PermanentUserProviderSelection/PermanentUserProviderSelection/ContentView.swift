@@ -15,9 +15,6 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             CredentialsView()
-        }.onAppear {
-            self.credentialsController.performFetch()
-            self.providerController.performFetch()
         }
     }
 }

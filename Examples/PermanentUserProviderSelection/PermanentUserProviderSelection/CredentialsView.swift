@@ -17,6 +17,10 @@ struct CredentialsView: View {
             .sheet(item: Binding(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) {
                 SupplementControllerRepresentableView(supplementInformationTask: $0) { _ in }
             }
+            .onAppear {
+                self.credentialsController.performFetch()
+                self.providerController.performFetch()
+            }
     }
 }
 
