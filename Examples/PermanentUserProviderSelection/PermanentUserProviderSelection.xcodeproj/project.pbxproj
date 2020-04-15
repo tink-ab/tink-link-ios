@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2028F40F242237CE00EF17B5 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 2028F40E242237CE00EF17B5 /* TinkLink */; };
 		202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */; };
+		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
 		8F1BF8FE23C5EEC5007464F8 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 8F1BF8FD23C5EEC5007464F8 /* Down */; };
 		8F1BF90123C5EEE3007464F8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8F1BF90023C5EEE3007464F8 /* Kingfisher */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		2028F40D2422376700EF17B5 /* tink-link-ios-private */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios-private"; path = ../..; sourceTree = "<group>"; };
 		202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
 		8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
 		8F3459B62396ADEB007DCD75 /* PermanentUserProviderSelection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PermanentUserProviderSelection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3459B92396ADEB007DCD75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				8F8BD78B23A27DFD00CC890C /* CredentialsList.swift */,
+				20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */,
 				8FC4980423AB9F2B00A17945 /* CredentialsListRow */,
 			);
 			path = CredentialsList;
@@ -295,6 +298,7 @@
 			files = (
 				8F8BD78C23A27DFD00CC890C /* CredentialsList.swift in Sources */,
 				8FF1F38D239E648400968AB9 /* ProviderListViewController.swift in Sources */,
+				20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */,
 				8F3459D02396B8C8007DCD75 /* CredentialsController.swift in Sources */,
 				8F3459BA2396ADEB007DCD75 /* AppDelegate.swift in Sources */,
 				8F8BD78E23A27EBF00CC890C /* AddCredentialsRow.swift in Sources */,
