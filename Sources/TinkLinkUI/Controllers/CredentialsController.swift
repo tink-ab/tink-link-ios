@@ -11,10 +11,11 @@ final class CredentialsController {
         self.credentialsContext = CredentialsContext(tink: tink)
     }
 
-    func addCredentials(_ provider: Provider, form: Form, progressHandler: @escaping (AddCredentialsTask.Status) -> Void, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask? {
+    func addCredentials(_ provider: Provider, form: Form, scopes: [Scope], progressHandler: @escaping (AddCredentialsTask.Status) -> Void, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask? {
         return credentialsContext?.add(
             for: provider,
             form: form,
+            scopes: scopes,
             completionPredicate: AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false),
             progressHandler: progressHandler,
             completion: completion
