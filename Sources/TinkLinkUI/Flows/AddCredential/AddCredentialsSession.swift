@@ -15,7 +15,7 @@ final class AddCredentialsSession {
 
     private var statusViewController: AddCredentialsStatusViewController?
     private weak var qrImageViewController: QRImageViewController?
-    private var statusPresentationManager = AddCredentialStatusPresentationManager()
+    private var statusPresentationManager = AddCredentialsStatusPresentationManager()
 
     private var authorizationCode: AuthorizationCode?
     private var didCallAuthorize = false

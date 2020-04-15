@@ -1,6 +1,6 @@
 import UIKit
 
-final class AddCredentialStatusPresentationController: UIPresentationController {
+final class AddCredentialsStatusPresentationController: UIPresentationController {
     private lazy var shadowLayer: CAShapeLayer = {
         let shapeLayer = CAShapeLayer()
         shapeLayer.fillColor = UIColor(white: 0.0, alpha: 0.25).cgColor
