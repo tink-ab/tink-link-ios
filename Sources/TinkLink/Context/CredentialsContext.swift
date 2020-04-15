@@ -50,9 +50,7 @@ public final class CredentialsContext {
         removeObservers()
     }
 
-    // MARK: - Adding Credentials
-
-    /// Adds a credentials for the user.
+    /// Adds a credentials for the user based on what scopes you want to request. 
     ///
     /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
     ///
@@ -79,12 +77,51 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
-    public func add(for provider: Provider, form: Form, scopes: [Scope]? = nil,
-                              completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
-                              progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
-                              completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
+    public func add(for provider: Provider,
+                    form: Form,
+                    scopes: [Scope],
+                    completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
+                    progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
+                    completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
+        add(for: provider, form: form, refreshableItems: RefreshableItem.makeFromScopes(scopes ?? [], provider: provider), completionPredicate: completionPredicate, progressHandler: progressHandler, completion: completion)
+    }
+
+    // MARK: - Adding Credentials
+
+    /// Adds a credentials for the user.
+    ///
+    /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
+    ///
+    ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, progressHandler: { status in
+    ///         switch status {
+    ///         case .awaitingSupplementalInformation(let supplementInformationTask):
+    ///             <#Present form for supplemental information task#>
+    ///         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication):
+    ///             <#Open third party app deep link URL#>
+    ///         default:
+    ///             break
+    ///         }
+    ///     }, completion: { result in
+    ///         <#Handle result#>
+    ///     }
+    ///
+    /// - Parameters:
+    ///   - provider: The provider (financial institution) that the credentials is connected to.
+    ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
+    ///   - refreshableItems: The data types to aggregate from the provider. Default to all types.
+    ///   - completionPredicate: Predicate for when credentials task should complete.
+    ///   - progressHandler: The block to execute with progress information about the credential's status.
+    ///   - status: Indicates the state of a credentials being added.
+    ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
+    ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
+    /// - Returns: The add credentials task.
+    public func add(for provider: Provider,
+                    form: Form,
+                    refreshableItems: Set<RefreshableItem> = Set(RefreshableItem.allCases),
+                    completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
+                    progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
+                    completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
         let appUri = tink.configuration.redirectURI
-        let refreshableItems = RefreshableItem.makeFromScopes(scopes ?? [.transactions(.read), .identity(.read)], provider: provider)
         
         let task = AddCredentialsTask(
             credentialsService: service,
@@ -166,9 +203,7 @@ public final class CredentialsContext {
 
     /// Refresh the user's credentials.
     /// - Parameters:
-    ///   - credentials: The credentials that needs to be refreshed.
-    ///   - provider: The provider associated with the credentials.
-    ///   - scopes: The scopes you want to request after adding the credentials. This determines what data will be aggregated when the credential has been added. If nil, all data will be fetched. Defaults to nil.
+    ///   - refreshableItems: The items you want to refresh. If nil, will attempt to refresh all possible items.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being refreshed.
@@ -176,14 +211,11 @@ public final class CredentialsContext {
     ///   - result: A result that either contains the refreshed credentials or an error if the refresh failed.
     /// - Returns: The refresh credentials task.
     public func refresh(_ credentials: Credentials,
-                        provider: Provider,
-                        scopes: [Scope]? = nil,
+                        refreshableItems: Set<RefreshableItem> = Set(RefreshableItem.allCases),
                         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
                         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
                         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RefreshCredentialsTask {
         let appUri = tink.configuration.redirectURI
-
-        let refreshableItems = RefreshableItem.makeFromScopes(scopes ?? [.transactions(.read), .identity(.read)], provider: provider)
 
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
 

@@ -1,4 +1,4 @@
-public enum RefreshableItem: String {
+public enum RefreshableItem: String, CaseIterable {
     case checkingAccounts = "CHECKING_ACCOUNTS"
     case checkingTransactions = "CHECKING_TRANSACTIONS"
     case savingAccounts = "SAVING_ACCOUNTS"
