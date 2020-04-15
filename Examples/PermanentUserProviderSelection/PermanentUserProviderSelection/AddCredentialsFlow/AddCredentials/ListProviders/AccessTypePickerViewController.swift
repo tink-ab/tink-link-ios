@@ -53,7 +53,7 @@ extension AccessTypePickerViewController {
         case .credentialsKinds(let groups):
             showCredentialsKindPicker(for: groups)
         case .provider(let provider):
-            showAddCredential(for: provider)
+            showAddCredentials(for: provider)
         }
     }
 }
@@ -68,7 +68,7 @@ extension AccessTypePickerViewController {
         show(viewController, sender: nil)
     }
 
-    func showAddCredential(for provider: Provider) {
+    func showAddCredentials(for provider: Provider) {
         let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsContext: credentialsContext)
         addCredentialsViewController.onCompletion = onCompletion
         show(addCredentialsViewController, sender: nil)

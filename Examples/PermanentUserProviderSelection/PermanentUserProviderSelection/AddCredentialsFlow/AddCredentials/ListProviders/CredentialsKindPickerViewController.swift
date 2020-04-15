@@ -50,14 +50,14 @@ extension CredentialsKindPickerViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let credentialsKindsNode = credentialsKindNodes[indexPath.row]
-        showAddCredential(for: credentialsKindsNode.provider)
+        showAddCredentials(for: credentialsKindsNode.provider)
     }
 }
 
 // MARK: - Navigation
 
 extension CredentialsKindPickerViewController {
-    func showAddCredential(for provider: Provider) {
+    func showAddCredentials(for provider: Provider) {
         let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsContext: credentialsContext)
         addCredentialsViewController.onCompletion = onCompletion
         show(addCredentialsViewController, sender: nil)
