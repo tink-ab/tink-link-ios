@@ -4,7 +4,6 @@ import SwiftUI
 final class CredentialsController: ObservableObject {
     @Published var credentials: [Credentials] = []
 
-    @Published var updatedCredentials: [Credentials] = []
     @Published var supplementInformationTask: SupplementInformationTask?
 
     private(set) var credentialsContext =  CredentialsContext()
@@ -81,7 +80,6 @@ final class CredentialsController: ObservableObject {
             if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
                 DispatchQueue.main.async { [weak self] in
                     self?.credentials[index] = credential
-                    self?.updatedCredentials.append(credential)
                 }
             }
         case .error(let credential, _):
@@ -103,9 +101,6 @@ final class CredentialsController: ObservableObject {
             }
         } catch {
             // Handle any errors
-        }
-        DispatchQueue.main.async { [weak self] in
-            self?.updatedCredentials = []
         }
     }
 }
