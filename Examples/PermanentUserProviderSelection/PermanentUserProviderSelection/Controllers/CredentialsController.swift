@@ -41,13 +41,13 @@ final class CredentialsController: ObservableObject {
     }
 
     func deleteCredentials(credentials: [Credentials]) {
-        credentials.forEach { credential in
-            credentialsContext.delete(credential, completion: { [weak self] result in
+        credentials.forEach { credentials in
+            credentialsContext.delete(credentials, completion: { [weak self] result in
                 switch result {
                 case .success:
                     DispatchQueue.main.async {
                         self?.credentials.removeAll { removedCredentials -> Bool in
-                            credential.id == removedCredentials.id
+                            credentials.id == removedCredentials.id
                         }
                     }
                 case .failure(let error):
