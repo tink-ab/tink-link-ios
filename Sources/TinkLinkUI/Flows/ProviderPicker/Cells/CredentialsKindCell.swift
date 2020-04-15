@@ -22,6 +22,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     private func setup() {
         selectionStyle = .none
 
+        backgroundColor = .clear
         contentView.backgroundColor = Color.background
 
         contentView.addSubview(iconBackgroundView)
