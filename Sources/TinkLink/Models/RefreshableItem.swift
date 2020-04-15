@@ -42,6 +42,9 @@ extension RefreshableItem {
             requestedRefreshableItems.insert(.identityData)
         }
 
+        // This makes sure that at least one of the provider capability that maps to
+        // that refreshable item is supported by the provider, otherwise an error would be 
+        // raised because of provider capability validation on the backend
         return requestedRefreshableItems.filter { (item) -> Bool in
             let capabilities = makeProviderCapabilities(refreshableItem: item)
             return providerCapabilities.contains(capabilities)
