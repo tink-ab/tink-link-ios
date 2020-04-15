@@ -21,7 +21,7 @@ import Foundation
 ///     case .credentialsKinds(let groups):
 ///         showCredentialsKindPicker(for: groups)
 ///     case .provider(let provider):
-///         showAddCredential(for: provider)
+///         showAddCredentials(for: provider)
 ///     }
 /// }
 /// ```

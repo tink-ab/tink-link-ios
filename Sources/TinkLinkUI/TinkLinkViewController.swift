@@ -191,7 +191,7 @@ extension TinkLinkViewController {
         providerPickerCoordinator.start { [weak self] (result) in
             do {
                 let provider = try result.get()
-                self?.showAddCredential(for: provider)
+                self?.showAddCredentials(for: provider)
             } catch CocoaError.userCancelled {
                 self?.cancel()
             } catch {
@@ -200,10 +200,10 @@ extension TinkLinkViewController {
         }
     }
 
-    func showAddCredential(for provider: Provider) {
+    func showAddCredentials(for provider: Provider) {
         guard let clientDescription = clientDescription else {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
-                self?.showAddCredential(for: provider)
+                self?.showAddCredentials(for: provider)
             }
             loadingViewController.showLoadingIndicator()
             show(loadingViewController, sender: nil)
