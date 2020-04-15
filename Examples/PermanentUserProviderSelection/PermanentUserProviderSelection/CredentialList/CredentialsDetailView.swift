@@ -7,6 +7,10 @@ struct CredentialsDetailView: View {
     let credentials: Credentials
     let provider: Provider?
 
+    private var updatedCredentials: Credentials {
+        credentialController.credentials.first(where: { $0.id == credentials.id }) ?? credentials
+    }
+
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -17,10 +21,10 @@ struct CredentialsDetailView: View {
 
     var body: some View {
         Form {
-            Section(footer: Text(credentials.statusPayload)) {
+            Section(footer: Text(updatedCredentials.statusPayload)) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(String(describing: credentials.status).localizedCapitalized)
-                    credentials.statusUpdated.map {
+                    Text(String(describing: updatedCredentials.status).localizedCapitalized)
+                    updatedCredentials.statusUpdated.map {
                         Text("\($0, formatter: dateFormatter)")
                             .font(.footnote)
                             .foregroundColor(.secondary)
