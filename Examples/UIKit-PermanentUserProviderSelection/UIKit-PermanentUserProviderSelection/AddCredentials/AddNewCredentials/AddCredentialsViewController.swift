@@ -4,8 +4,6 @@ import UIKit
 
 /// Example of how to use the provider field specification to add credential
 final class AddCredentialsViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
-    var onCompletion: CompletionHandler?
     let provider: Provider
 
     private let credentialsContext = CredentialsContext()
