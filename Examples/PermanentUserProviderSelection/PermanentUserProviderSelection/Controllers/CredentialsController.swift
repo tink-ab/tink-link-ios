@@ -46,8 +46,8 @@ final class CredentialsController: ObservableObject {
                 switch result {
                 case .success:
                     DispatchQueue.main.async {
-                        self?.credentials.removeAll { removedCredential -> Bool in
-                            credential.id == removedCredential.id
+                        self?.credentials.removeAll { removedCredentials -> Bool in
+                            credential.id == removedCredentials.id
                         }
                     }
                 case .failure(let error):
