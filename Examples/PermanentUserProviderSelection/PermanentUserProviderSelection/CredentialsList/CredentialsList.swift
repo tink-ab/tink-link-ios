@@ -15,9 +15,12 @@ struct CredentialsList: View {
         List {
             Section {
                 ForEach(credentialsController.credentials) { credentials in
-                    CredentialsListRow(
-                        providerName: self.providerController.provider(providerID: credentials.providerID)?.displayName ?? "",
-                        updatedDate: (self.dateFormatter.string(from: credentials.updated ?? Date())))
+                    NavigationLink(destination: CredentialsDetailView(credentials: credentials)) {
+                        CredentialsListRow(
+                            providerName: self.providerController.provider(providerID: credentials.providerID)?.displayName ?? "",
+                            updatedDate: (self.dateFormatter.string(from: credentials.updated ?? Date()))
+                        )
+                    }
                 }
                 .onDelete { indexSet in
                     let credentialsToDelete = indexSet.map { self.credentialsController.credentials[$0] }
