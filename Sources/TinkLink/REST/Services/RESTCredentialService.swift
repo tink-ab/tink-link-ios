@@ -32,14 +32,7 @@ final class RESTCredentialsService: CredentialsService {
         let body = RESTCreateCredentialsRequest(providerName: providerID.value, fields: fields, callbackUri: nil, appUri: appUri?.absoluteString, triggerRefresh: nil)
         let data = try? JSONEncoder().encode(body)
 
-        var parameters: [String:String] = [:]
-
-        if !refreshableItems.isEmpty {
-            // Hack: You are supposed to send the items as "items=item1&items=item2", but since we use a dictionary
-            // to represent the parameters we can only use the key items once so we combine all of the items
-            // instead
-            parameters["items"] = refreshableItems.map({$0.rawValue}).joined(separator: "&items=")
-        }
+        let parameters = refreshableItems.map({ (name: "items", value: $0.rawValue) })
 
         let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials", method: .post, body: data, contentType: .json, parameters: parameters) { result in
             completion(result.map(Credentials.init))
@@ -69,17 +62,10 @@ final class RESTCredentialsService: CredentialsService {
 
     func refreshCredentials(credentialsID: Credentials.ID, refreshableItems: Set<RefreshableItem>, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
-        var parameters: [String:String] = [:]
-
-        if !refreshableItems.isEmpty {
-            // Hack: You are supposed to send the items as "items=item1&items=item2", but since we use a dictionary
-            // to represent the parameters we can only use the key items once so we combine all of the items
-            // instead
-            parameters["items"] = refreshableItems.map({$0.rawValue}).joined(separator: "&items=")
-        }
+        var parameters = refreshableItems.map({ (name: "items", value: $0.rawValue) })
 
         if optIn {
-            parameters["optIn"] = "true"
+            parameters.append((name: "optIn", value: "true"))
         }
 
         let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/refresh", method: .post, contentType: .json, parameters: parameters) { (result) in
