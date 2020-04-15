@@ -2,8 +2,8 @@ import UIKit
 import TinkLink
 import Kingfisher
 
-protocol AddCredentialHeaderViewDelegate: AnyObject {
-    func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialsHeaderView)
+protocol AddCredentialsHeaderViewDelegate: AnyObject {
+    func addCredentialsHeaderViewDidTapReadMore(_ addCredentialsHeaderView: AddCredentialsHeaderView)
 }
 
 final class AddCredentialsHeaderView: UIView {
@@ -90,7 +90,7 @@ final class AddCredentialsHeaderView: UIView {
     private var emptyUserInfoContainerBottomConstraint: NSLayoutConstraint?
     private var userInfoContainerBottomConstraint: NSLayoutConstraint?
 
-    weak var delegate: AddCredentialHeaderViewDelegate?
+    weak var delegate: AddCredentialsHeaderViewDelegate?
 
     convenience init() {
         self.init(frame: .zero)
@@ -251,7 +251,7 @@ extension AddCredentialsHeaderView: UITextViewDelegate {
         switch interaction {
         case .invokeDefaultAction:
             if characterRange == readMoreRange {
-                delegate?.addCredentialHeaderViewDidTapReadMore(self)
+                delegate?.addCredentialsHeaderViewDidTapReadMore(self)
                 return false
             } else {
                 return true

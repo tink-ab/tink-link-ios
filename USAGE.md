@@ -110,7 +110,7 @@ override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: Inde
         showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
     case .accessTypes(let accessTypeGroups):
         showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
-    case .credentialKinds(let groups):
+    case .credentialsKinds(let groups):
         showCredentialsKindPicker(for: groups)
     case .provider(let provider):
         showAddCredential(for: provider)

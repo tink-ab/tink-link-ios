@@ -365,10 +365,10 @@ extension AddCredentialsViewController: FormFieldTableViewCellDelegate {
     }
 }
 
-// MARK: - AddCredentialHeaderViewDelegate
+// MARK: - AddCredentialsHeaderViewDelegate
 
-extension AddCredentialsViewController: AddCredentialHeaderViewDelegate {
-    func addCredentialHeaderViewDidTapReadMore(_ addCredentialHeaderView: AddCredentialsHeaderView) {
+extension AddCredentialsViewController: AddCredentialsHeaderViewDelegate {
+    func addCredentialsHeaderViewDidTapReadMore(_ addCredentialsHeaderView: AddCredentialsHeaderView) {
         showMoreInfo()
     }
 }
@@ -376,7 +376,7 @@ extension AddCredentialsViewController: AddCredentialHeaderViewDelegate {
 // MARK: - AddCredentialFooterViewDelegate
 
 extension AddCredentialsViewController: AddCredentialsFooterViewDelegate {
-    func addCredentialFooterViewDidTapLink(_ addCredentialFooterView: AddCredentialsFooterView, url: URL) {
+    func addCredentialsFooterViewDidTapLink(_ addCredentialsFooterView: AddCredentialsFooterView, url: URL) {
         showPrivacyPolicy(url)
     }
 }
