@@ -7,11 +7,6 @@ struct CredentialsView: View {
 
     var body: some View {
         CredentialsList()
-            .navigationBarTitle("Credentials")
-            .onAppear {
-                self.credentialsController.performFetch()
-                self.providerController.performFetch()
-            }
     }
 }
 

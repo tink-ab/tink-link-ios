@@ -33,6 +33,11 @@ struct CredentialsList: View {
             }
         }
         .listStyle(GroupedListStyle())
+        .navigationBarTitle("Credentials")
+        .onAppear {
+            self.credentialsController.performFetch()
+            self.providerController.performFetch()
+        }
     }
 }
 
