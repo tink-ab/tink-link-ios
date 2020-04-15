@@ -21,6 +21,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private func setup() {
         selectionStyle = .none
 
+        backgroundColor = .clear
         contentView.backgroundColor = Color.background
 
         contentView.addSubview(iconView)
@@ -37,7 +38,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         titleLabel.textColor = Color.label
 
         separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing
-        separatorInset.right = layoutMargins.right 
+        separatorInset.right = layoutMargins.right
 
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: iconSize),
