@@ -5,7 +5,7 @@ protocol ProviderPickerCoordinating: AnyObject {
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?)
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], name: String)
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String)
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode])
+    func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode])
     func didSelectProvider(_ provider: Provider)
 }
 
@@ -78,8 +78,8 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         parentViewController?.show(viewController, sender: nil)
     }
 
-    func showCredentialKindPicker(for credentialKindNodes: [ProviderTree.CredentialKindNode]) {
-        let viewController = CredentialKindPickerViewController(credentialKindNodes: credentialKindNodes)
+    func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
+        let viewController = CredentialsKindPickerViewController(credentialsKindNodes: credentialsKindNodes)
         let title = NSLocalizedString("ProviderPicker.List.CredentialsTypeTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Sign in method", comment: "Title for screen where user selects which authentication type to use when adding credentials.")
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self

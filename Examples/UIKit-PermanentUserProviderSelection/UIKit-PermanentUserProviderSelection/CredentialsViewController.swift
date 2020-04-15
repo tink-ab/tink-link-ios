@@ -4,7 +4,7 @@ import UIKit
 class CredentialsViewController: UITableViewController {
     private let dateFormatter = DateFormatter()
 
-    private let credentialContext = CredentialsContext()
+    private let credentialsContext = CredentialsContext()
     private let providerContext = ProviderContext()
 
     private var providersByID: [Provider.ID: Provider] = [:] {
@@ -36,7 +36,7 @@ extension CredentialsViewController {
         title = "Credentials"
 
         navigationItem.leftBarButtonItem = editButtonItem
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredential))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredentials))
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
         
@@ -75,7 +75,7 @@ extension CredentialsViewController {
             }
         }
 
-        credentialContext.fetchCredentialsList { [weak self] result in
+        credentialsContext.fetchCredentialsList { [weak self] result in
             DispatchQueue.main.async {
                 do {
                     self?.credentialsList = try result.get()
@@ -97,7 +97,7 @@ extension CredentialsViewController {
         }
     }
 
-    @objc private func addCredential(sender: UIBarButtonItem) {
+    @objc private func addCredentials(sender: UIBarButtonItem) {
         let providerListViewController = ProviderListViewController()
         providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAddingCredentials))
         let navigationController = UINavigationController(rootViewController: providerListViewController)
@@ -155,7 +155,7 @@ extension CredentialsViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         let credentials = credentialsList[indexPath.row]
-        credentialContext.delete(credentials) { [weak self] (result) in
+        credentialsContext.delete(credentials) { [weak self] (result) in
             do {
                 _ = try result.get()
                 self?.credentialsList.remove(at: indexPath.item)

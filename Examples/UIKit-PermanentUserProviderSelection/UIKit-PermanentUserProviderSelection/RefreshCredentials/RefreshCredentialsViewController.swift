@@ -21,7 +21,7 @@ final class RefreshCredentialsViewController: UITableViewController {
 
     private let dateFormatter = DateFormatter()
 
-    private var refreshCredentialsTask: RefreshCredentialTask? {
+    private var refreshCredentialsTask: RefreshCredentialsTask? {
         didSet {
             if isViewLoaded {
                 tableView.reloadData()
@@ -163,7 +163,7 @@ extension RefreshCredentialsViewController {
         return navigationController.topViewController is QRViewController
     }
 
-    private func handleProgress(_ status: RefreshCredentialTask.Status) {
+    private func handleProgress(_ status: RefreshCredentialsTask.Status) {
         switch status {
         case .created(credentials: let credentials):
             self.credentials = credentials

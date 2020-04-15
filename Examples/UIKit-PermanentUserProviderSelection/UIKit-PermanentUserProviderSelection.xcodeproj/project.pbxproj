@@ -12,15 +12,15 @@
 		20FD9612243F169B00603B5A /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD9611243F169B00603B5A /* QRViewController.swift */; };
 		8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02823D5BC79009D785E /* CredentialsViewController.swift */; };
 		8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */; };
-		8FDA296623D1EE4D00EC810F /* AddCredentialStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296323D1EE4D00EC810F /* AddCredentialStatusViewController.swift */; };
-		8FDA296723D1EE4D00EC810F /* AddCredentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296423D1EE4D00EC810F /* AddCredentialViewController.swift */; };
+		8FDA296623D1EE4D00EC810F /* AddCredentialsStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296323D1EE4D00EC810F /* AddCredentialsStatusViewController.swift */; };
+		8FDA296723D1EE4D00EC810F /* AddCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296423D1EE4D00EC810F /* AddCredentialsViewController.swift */; };
 		8FDA296823D1EE4D00EC810F /* SupplementalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */; };
 		8FDA296F23D1EE5300EC810F /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296923D1EE5300EC810F /* TextFieldTableViewCell.swift */; };
 		8FDA297023D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296A23D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift */; };
 		8FDA297123D1EE5300EC810F /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296B23D1EE5300EC810F /* FixedImageSizeTableViewCell.swift */; };
 		8FDA297223D1EE5300EC810F /* ProviderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296C23D1EE5300EC810F /* ProviderListViewController.swift */; };
 		8FDA297323D1EE5300EC810F /* AccessTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296D23D1EE5300EC810F /* AccessTypePickerViewController.swift */; };
-		8FDA297423D1EE5300EC810F /* CredentialKindPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296E23D1EE5300EC810F /* CredentialKindPickerViewController.swift */; };
+		8FDA297423D1EE5300EC810F /* CredentialsKindPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296E23D1EE5300EC810F /* CredentialsKindPickerViewController.swift */; };
 		8FFAE4D923D1E7D100784CBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */; };
 		8FFAE4E223D1E7D400784CBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE4E123D1E7D400784CBC /* Assets.xcassets */; };
 		8FFAE4E523D1E7D400784CBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE4E323D1E7D400784CBC /* LaunchScreen.storyboard */; };
@@ -35,15 +35,15 @@
 		20FD9611243F169B00603B5A /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
 		8F39F02823D5BC79009D785E /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
 		8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCredentialsViewController.swift; sourceTree = "<group>"; };
-		8FDA296323D1EE4D00EC810F /* AddCredentialStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialStatusViewController.swift; sourceTree = "<group>"; };
-		8FDA296423D1EE4D00EC810F /* AddCredentialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialViewController.swift; sourceTree = "<group>"; };
+		8FDA296323D1EE4D00EC810F /* AddCredentialsStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialsStatusViewController.swift; sourceTree = "<group>"; };
+		8FDA296423D1EE4D00EC810F /* AddCredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialsViewController.swift; sourceTree = "<group>"; };
 		8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementalInformationViewController.swift; sourceTree = "<group>"; };
 		8FDA296923D1EE5300EC810F /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		8FDA296A23D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionPickerViewController.swift; sourceTree = "<group>"; };
 		8FDA296B23D1EE5300EC810F /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
 		8FDA296C23D1EE5300EC810F /* ProviderListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderListViewController.swift; sourceTree = "<group>"; };
 		8FDA296D23D1EE5300EC810F /* AccessTypePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTypePickerViewController.swift; sourceTree = "<group>"; };
-		8FDA296E23D1EE5300EC810F /* CredentialKindPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialKindPickerViewController.swift; sourceTree = "<group>"; };
+		8FDA296E23D1EE5300EC810F /* CredentialsKindPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsKindPickerViewController.swift; sourceTree = "<group>"; };
 		8FFAE4D523D1E7D100784CBC /* UIKit-PermanentUserProviderSelection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UIKit-PermanentUserProviderSelection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FFAE4E123D1E7D400784CBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,8 +69,8 @@
 		8FDA296023D1EDDB00EC810F /* AddNewCredentials */ = {
 			isa = PBXGroup;
 			children = (
-				8FDA296323D1EE4D00EC810F /* AddCredentialStatusViewController.swift */,
-				8FDA296423D1EE4D00EC810F /* AddCredentialViewController.swift */,
+				8FDA296323D1EE4D00EC810F /* AddCredentialsStatusViewController.swift */,
+				8FDA296423D1EE4D00EC810F /* AddCredentialsViewController.swift */,
 				8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */,
 				20FD9611243F169B00603B5A /* QRViewController.swift */,
 			);
@@ -81,7 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				8FDA296D23D1EE5300EC810F /* AccessTypePickerViewController.swift */,
-				8FDA296E23D1EE5300EC810F /* CredentialKindPickerViewController.swift */,
+				8FDA296E23D1EE5300EC810F /* CredentialsKindPickerViewController.swift */,
 				8FDA296A23D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift */,
 				8FDA296B23D1EE5300EC810F /* FixedImageSizeTableViewCell.swift */,
 				8FDA296C23D1EE5300EC810F /* ProviderListViewController.swift */,
@@ -231,14 +231,14 @@
 				8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */,
 				8FDA296823D1EE4D00EC810F /* SupplementalInformationViewController.swift in Sources */,
 				8FDA297223D1EE5300EC810F /* ProviderListViewController.swift in Sources */,
-				8FDA297423D1EE5300EC810F /* CredentialKindPickerViewController.swift in Sources */,
-				8FDA296723D1EE4D00EC810F /* AddCredentialViewController.swift in Sources */,
+				8FDA297423D1EE5300EC810F /* CredentialsKindPickerViewController.swift in Sources */,
+				8FDA296723D1EE4D00EC810F /* AddCredentialsViewController.swift in Sources */,
 				8FDA297323D1EE5300EC810F /* AccessTypePickerViewController.swift in Sources */,
 				8FDA297023D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift in Sources */,
 				20FD9612243F169B00603B5A /* QRViewController.swift in Sources */,
-				8FDA296623D1EE4D00EC810F /* AddCredentialStatusViewController.swift in Sources */,
-				8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */,
 				20164862243F0D1300D3C1E0 /* SubtitleTableViewCell.swift in Sources */,
+				8FDA296623D1EE4D00EC810F /* AddCredentialsStatusViewController.swift in Sources */,
+				8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */,
 				8FDA297123D1EE5300EC810F /* FixedImageSizeTableViewCell.swift in Sources */,
 				8FDA296F23D1EE5300EC810F /* TextFieldTableViewCell.swift in Sources */,
 				20164860243F0CFE00D3C1E0 /* ButtonTableViewCell.swift in Sources */,

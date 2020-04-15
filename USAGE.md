@@ -110,10 +110,10 @@ override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: Inde
         showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
     case .accessTypes(let accessTypeGroups):
         showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
-    case .credentialKinds(let groups):
-        showCredentialKindPicker(for: groups)
+    case .credentialsKinds(let groups):
+        showCredentialsKindPicker(for: groups)
     case .provider(let provider):
-        showAddCredential(for: provider)
+        showAddCredentials(for: provider)
     }
 }
 ```
@@ -186,7 +186,7 @@ do {
 To add a credential for the current user, call `addCredentials` with the provider you want to add a credential for and a form with valid field values. Make sure to handle the status changes in the `progressHandler` closure and the `result` in the completion handler.
 
 ```swift
-credentialContext.addCredentials(for: provider, form: form, progressHandler: { status in
+credentialsContext.addCredentials(for: provider, form: form, progressHandler: { status in
     switch status {
     case .awaitingSupplementalInformation(let supplementInformationTask):
         <#Present form for supplemental information task#>
@@ -202,10 +202,10 @@ credentialContext.addCredentials(for: provider, form: form, progressHandler: { s
 
 ### Handling awaiting supplemental information
 
-Supplemental information is used to prompt the user to enter any further information during the process of adding credentials (such as two factor authentication challenges). When the `progressHandler` emits a `awaitingSupplementalInformation` status you need to prompt the user to enter the required information. To do that, you can once again create a form for the given credential and present it to the user. The credential can be retrieved from the `SupplementInformationTask`.
+Supplemental information is used to prompt the user to enter any further information during the process of adding credentials (such as two factor authentication challenges). When the `progressHandler` emits a `awaitingSupplementalInformation` status you need to prompt the user to enter the required information. To do that, you can once again create a form for the given credentials and present it to the user. The credentials can be retrieved from the `SupplementInformationTask`.
 
 ```swift
-let form = Form(credential: supplementInformationTask.credential)
+let form = Form(credentials: supplementInformationTask.credentials)
 form.fields[0].text = <#String#>
 form.fields[1].text = <#String#>
 ```
@@ -255,7 +255,7 @@ if let appStoreURL = thirdPartyAppAuthentication.appStoreURL, UIApplication.shar
 present(alertController, animated: true)
 ```
 
-After the redirect to the third party app, some providers require additional information from the authentication to be sent back to Tink after the user authenticates within the third party app, for the credential to be added successfully. This information is returned to your app through the redirect URI. Use the `open` method in your `UIApplicationDelegate` to let Tink Link send the information back to Tink if needed.
+After the redirect to the third party app, some providers require additional information from the authentication to be sent back to Tink after the user authenticates within the third party app, for the credentials to be added successfully. This information is returned to your app through the redirect URI. Use the `open` method in your `UIApplicationDelegate` to let Tink Link send the information back to Tink if needed.
 
 ```swift
 func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
