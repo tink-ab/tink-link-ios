@@ -122,7 +122,9 @@ public final class CredentialsContext {
                     progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
                     completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
         let appUri = tink.configuration.redirectURI
-        
+
+        //TODO: Filter out refreshableItems not supported by provider capabilities.
+
         let task = AddCredentialsTask(
             credentialsService: service,
             completionPredicate: completionPredicate,
@@ -217,6 +219,8 @@ public final class CredentialsContext {
                         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RefreshCredentialsTask {
         let appUri = tink.configuration.redirectURI
 
+        //TODO: Filter out refreshableItems not supported by provider capabilities.
+        
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
 
         task.callCanceller = service.refreshCredentials(credentialsID: credentials.id, refreshableItems: refreshableItems, optIn: false, completion: { result in
