@@ -203,7 +203,7 @@ public final class CredentialsContext {
 
     /// Refresh the user's credentials.
     /// - Parameters:
-    ///   - refreshableItems: The items you want to refresh. If nil, will attempt to refresh all possible items.
+    ///   - refreshableItems: The data types to aggregate from the provider. Default to all types.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being refreshed.
