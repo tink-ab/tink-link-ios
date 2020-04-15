@@ -2,8 +2,8 @@ import SwiftUI
 import TinkLink
 
 struct CredentialsView: View {
-    @ObservedObject var credentialsController: CredentialsController
-    @ObservedObject var providerController: ProviderController
+    @EnvironmentObject var credentialsController: CredentialController
+    @EnvironmentObject var providerController: ProviderController
 
     @State private var isPresentingRefreshAlert = false
     @State private var isAnimating: Bool = false
@@ -18,7 +18,7 @@ struct CredentialsView: View {
                     .onAppear { self.isAnimating = true }
                     .onDisappear { self.isAnimating = false }
             } else {
-                CredentialsList(credentialsController: credentialsController, providerController: providerController)
+                CredentialsList()
                     .disabled(isPresentingRefreshAlert)
                     .navigationBarTitle("Credentials")
                 .sheet(item: Binding(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) {
@@ -31,6 +31,8 @@ struct CredentialsView: View {
 
 struct CredentialsView_Previews: PreviewProvider {
     static var previews: some View {
-        CredentialsView(credentialsController: CredentialsController(), providerController: ProviderController())
+        CredentialsView()
+            .environmentObject(CredentialsController())
+            .environmentObject(ProviderController())
     }
 }

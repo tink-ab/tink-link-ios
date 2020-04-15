@@ -2,8 +2,8 @@ import SwiftUI
 import TinkLink
 
 struct CredentialsList: View {
-    @ObservedObject var credentialsController: CredentialsController
-    @ObservedObject var providerController: ProviderController
+    @EnvironmentObject var credentialsController: CredentialsController
+    @EnvironmentObject var providerController: ProviderController
 
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -38,6 +38,8 @@ struct CredentialsList: View {
 
 struct CredentialsListRow_Previews: PreviewProvider {
     static var previews: some View {
-        CredentialsList(credentialsController: CredentialsController(), providerController: ProviderController())
+        CredentialsList()
+            .environmentObject(CredentialsController())
+            .environmentObject(ProviderController())
     }
 }
