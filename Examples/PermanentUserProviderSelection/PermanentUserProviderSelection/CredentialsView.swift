@@ -8,9 +8,6 @@ struct CredentialsView: View {
     var body: some View {
         CredentialsList()
             .navigationBarTitle("Credentials")
-            .sheet(item: Binding(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) {
-                SupplementControllerRepresentableView(supplementInformationTask: $0) { _ in }
-            }
             .onAppear {
                 self.credentialsController.performFetch()
                 self.providerController.performFetch()
