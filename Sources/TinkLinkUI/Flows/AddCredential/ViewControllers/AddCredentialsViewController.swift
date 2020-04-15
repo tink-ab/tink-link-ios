@@ -88,7 +88,7 @@ extension AddCredentialsViewController {
         gradientView.translatesAutoresizingMaskIntoConstraints = false
         gradientView.isUserInteractionEnabled = false
 
-        button.addTarget(self, action: #selector(startAddCredentialFlow), for: .touchUpInside)
+        button.addTarget(self, action: #selector(startAddCredentialsFlow), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 180)
@@ -254,7 +254,7 @@ extension AddCredentialsViewController: UITableViewDelegate, UITableViewDataSour
 // MARK: - Actions
 
 extension AddCredentialsViewController {
-    @objc private func startAddCredentialFlow() {
+    @objc private func startAddCredentialsFlow() {
         addCredential(allowAnotherDevice: false)
     }
 
