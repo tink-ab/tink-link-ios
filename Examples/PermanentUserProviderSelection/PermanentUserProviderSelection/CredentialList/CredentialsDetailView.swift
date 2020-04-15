@@ -2,7 +2,7 @@ import SwiftUI
 import TinkLink
 
 struct CredentialsDetailView: View {
-    @EnvironmentObject var credentialController: CredentialController
+    @EnvironmentObject var credentialsController: CredentialsController
 
     let credentials: Credentials
     let provider: Provider?
@@ -10,7 +10,7 @@ struct CredentialsDetailView: View {
     @State private var isRefreshing = false
 
     private var updatedCredentials: Credentials {
-        credentialController.credentials.first(where: { $0.id == credentials.id }) ?? credentials
+        credentialsController.credentials.first(where: { $0.id == credentials.id }) ?? credentials
     }
 
     private let dateFormatter: DateFormatter = {
@@ -39,16 +39,16 @@ struct CredentialsDetailView: View {
             .disabled(isRefreshing)
         }
         .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
-        .sheet(item: .init(get: { self.credentialController.supplementInformationTask }, set: { self.credentialController.supplementInformationTask = $0 })) { (task) in
+        .sheet(item: .init(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) { (task) in
             SupplementalInformationForm(supplementInformationTask: task) { (result) in
-                self.credentialController.supplementInformationTask = nil
+                self.credentialsController.supplementInformationTask = nil
             }
         }
     }
 
     private func refresh() {
         isRefreshing = true
-        credentialController.performRefresh(credentials: credentials) { (result) in
+        credentialsController.performRefresh(credentials: credentials) { (result) in
             self.isRefreshing = false
         }
     }
