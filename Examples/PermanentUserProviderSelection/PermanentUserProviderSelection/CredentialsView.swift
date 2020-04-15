@@ -11,21 +11,12 @@ struct CredentialsView: View {
     @State private var isRefreshing = false
 
     var body: some View {
-        return Group {
-            if credentialsController.credentialsContext == nil {
-                ActivityIndicator(isAnimating: $isAnimating, style: .large)
-                    .edgesIgnoringSafeArea(.all)
-                    .onAppear { self.isAnimating = true }
-                    .onDisappear { self.isAnimating = false }
-            } else {
-                CredentialsList()
-                    .disabled(isPresentingRefreshAlert)
-                    .navigationBarTitle("Credentials")
-                .sheet(item: Binding(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) {
-                    SupplementControllerRepresentableView(supplementInformationTask: $0) { _ in }
-                }
+        CredentialsList()
+            .disabled(isPresentingRefreshAlert)
+            .navigationBarTitle("Credentials")
+            .sheet(item: Binding(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) {
+                SupplementControllerRepresentableView(supplementInformationTask: $0) { _ in }
             }
-        }
     }
 }
 
