@@ -18,7 +18,8 @@ struct CredentialsList: View {
                     CredentialsListRow(
                         providerName: self.providerController.provider(providerID: credentials.providerID)?.displayName ?? "",
                         updatedDate: (self.dateFormatter.string(from: credentials.updated ?? Date())))
-                }.onDelete { indexSet in
+                }
+                .onDelete { indexSet in
                     let credentialsToDelete = indexSet.map { self.credentialsController.credentials[$0] }
                     self.credentialsController.deleteCredentials(credentials: credentialsToDelete)
                     self.credentialsController.credentials.remove(atOffsets: indexSet)
