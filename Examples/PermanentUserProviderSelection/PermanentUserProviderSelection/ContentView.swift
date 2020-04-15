@@ -16,7 +16,6 @@ struct ContentView: View {
         NavigationView {
             CredentialsView()
         }.onAppear {
-            Tink.shared.setCredential(.accessToken("YOUR_ACCESS_TOKEN"))
             self.credentialsController.performFetch()
             self.providerController.performFetch()
         }
