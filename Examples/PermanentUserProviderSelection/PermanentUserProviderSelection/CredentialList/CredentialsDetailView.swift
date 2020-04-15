@@ -2,6 +2,8 @@ import SwiftUI
 import TinkLink
 
 struct CredentialsDetailView: View {
+    @EnvironmentObject var credentialController: CredentialController
+
     let credentials: Credentials
     let provider: Provider?
 
@@ -33,6 +35,7 @@ struct CredentialsDetailView: View {
     }
 
     private func refresh() {
-
+        credentialController.performRefresh(credentials: credentials) { (result) in
+        }
     }
 }
