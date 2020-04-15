@@ -4,7 +4,7 @@ import TinkLink
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            CredentialsView()
+            CredentialsList()
         }
     }
 }
