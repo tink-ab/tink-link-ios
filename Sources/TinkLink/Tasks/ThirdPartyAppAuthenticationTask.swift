@@ -1,6 +1,6 @@
 import Foundation
 #if os(iOS)
-    import UIKit
+import UIKit
 #endif
 
 /// A task that handles opening third party apps.
