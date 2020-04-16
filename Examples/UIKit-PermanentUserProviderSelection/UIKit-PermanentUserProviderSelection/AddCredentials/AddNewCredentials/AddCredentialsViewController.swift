@@ -4,11 +4,9 @@ import UIKit
 
 /// Example of how to use the provider field specification to add credential
 final class AddCredentialsViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
-    var onCompletion: CompletionHandler?
     let provider: Provider
 
-    private let credentialsController: CredentialsController
+    private let credentialsContext = CredentialsContext()
     private var form: Form
     private var formError: Form.ValidationError? {
         didSet {
@@ -16,17 +14,18 @@ final class AddCredentialsViewController: UITableViewController {
         }
     }
 
-    private var task: AddCredentialsTask?
+    private var credentials: Credentials?
+
+    private var addCredentialsTask: AddCredentialsTask?
     private var statusViewController: AddCredentialsStatusViewController?
     private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
 
-    init(provider: Provider, credentialsController: CredentialsController) {
+    init(provider: Provider) {
         self.provider = provider
         self.form = Form(provider: provider)
-        self.credentialsController = credentialsController
 
         if #available(iOS 13.0, *) {
             super.init(style: .insetGrouped)
@@ -46,12 +45,7 @@ extension AddCredentialsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(updatedStatus), name: .credentialsControllerDidUpdateStatus, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(credentialAdded), name: .credentialsControllerDidAddCredential, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(supplementInformationTask), name: .credentialsControllerDidSupplementInformation, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receivedError), name: .credentialsControllerDidError, object: nil)
-
-        tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: TextFieldTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
 
         navigationItem.prompt = "Enter Credentials"
@@ -67,7 +61,7 @@ extension AddCredentialsViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {
+        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldTableViewCell {
             cell.textField.becomeFirstResponder()
             didFirstFieldBecomeFirstResponder = true
         }
@@ -117,45 +111,6 @@ extension AddCredentialsViewController {
             )
         )
     }
-
-    @objc private func updatedStatus(notification: Notification) {
-        let status = "Connecting to \(provider.displayName), please wait..."
-        DispatchQueue.main.async {
-            self.showUpdating(status: status)
-        }
-    }
-
-    @objc private func credentialAdded() {
-        DispatchQueue.main.async {
-            self.navigationItem.rightBarButtonItem = self.addBarButtonItem
-            let addedCredential = self.credentialsController.credentials.first(where: { $0.providerID == self.provider.id })
-            addedCredential.flatMap { self.showCredentialUpdated(for: $0) }
-        }
-    }
-
-    @objc private func supplementInformationTask() {
-        DispatchQueue.main.async {
-            if let task = self.credentialsController.supplementInformationTask {
-                self.showSupplementalInformation(for: task)
-            }
-        }
-    }
-
-    @objc private func receivedError(notification: Notification) {
-        DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: Error], let error = userInfo["error"] {
-                if let error = error as? ThirdPartyAppAuthenticationTask.Error {
-                    self.hideUpdatingView(animated: true) {
-                        self.showDownloadPrompt(for: error)
-                    }
-                } else {
-                    self.hideUpdatingView(animated: true) {
-                        self.showAlert(for: error)
-                    }
-                }
-            }
-        }
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -170,22 +125,20 @@ extension AddCredentialsViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldTableViewCell.reuseIdentifier, for: indexPath) as! TextFieldTableViewCell
         let field = form.fields[indexPath.section]
-        if let textFieldCell = cell as? TextFieldCell {
-            textFieldCell.delegate = self
-            textFieldCell.textField.placeholder = field.attributes.placeholder
-            textFieldCell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
-            textFieldCell.textField.isEnabled = field.attributes.isEditable
-            textFieldCell.textField.text = field.text
-        }
+        cell.delegate = self
+        cell.textField.placeholder = field.attributes.placeholder
+        cell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
+        cell.textField.isEnabled = field.attributes.isEditable
+        cell.textField.text = field.text
         return cell
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let field = form.fields[section]
         let suffix = field.validationRules.isOptional ? " - optional" : ""
-        
+
         return field.attributes.description + suffix
     }
 
@@ -210,13 +163,91 @@ extension AddCredentialsViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         do {
             try form.validateFields()
-            credentialsController.addCredential(
-                provider,
-                form: form
+            addCredentialsTask = credentialsContext.add(
+                for: provider,
+                form: form,
+                completionPredicate: .init(
+                    successPredicate: .updated,
+                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false
+                ),
+                progressHandler: { [weak self] status in
+                    DispatchQueue.main.async {
+                        self?.handleProgress(status)
+                    }
+                },
+                completion: { [weak self] result in
+                    DispatchQueue.main.async {
+                        self?.handleCompletion(result)
+                    }
+                }
             )
         } catch {
             formError = error as? Form.ValidationError
         }
+    }
+
+    private var isPresentingQR: Bool {
+        guard let navigationController = presentedViewController as? UINavigationController else { return false }
+        return navigationController.topViewController is QRViewController
+    }
+
+    private func handleProgress(_ status: AddCredentialsTask.Status) {
+        switch status {
+        case .created:
+            showUpdating(status: "Created Credentials")
+        case .authenticating:
+            if isPresentingQR {
+                dismiss(animated: true) {
+                    self.showUpdating(status: "Authenticating…")
+                }
+            } else {
+                showUpdating(status: "Authenticating…")
+            }
+        case .updating(let status):
+            if isPresentingQR {
+                dismiss(animated: true) {
+                    self.showUpdating(status: status)
+                }
+            } else {
+                showUpdating(status: status)
+            }
+        case .awaitingSupplementalInformation(let task):
+            showSupplementalInformation(for: task)
+        case .awaitingThirdPartyAppAuthentication(let task):
+            task.handle { [weak self] taskStatus in
+                DispatchQueue.main.async {
+                    self?.handleThirdPartyAppAuthentication(taskStatus)
+                }
+            }
+        }
+    }
+
+    private func handleThirdPartyAppAuthentication(_ taskStatus: ThirdPartyAppAuthenticationTask.Status) {
+        switch taskStatus {
+        case .awaitAuthenticationOnAnotherDevice:
+            showUpdating(status: "Await Authentication on Another Device")
+        case .qrImage(let image):
+            hideUpdatingView(animated: true) {
+                let qrViewController = QRViewController(image: image)
+                qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
+                let navigationController = UINavigationController(rootViewController: qrViewController)
+                self.present(navigationController, animated: true)
+            }
+        }
+    }
+
+    private func handleCompletion(_ result: Result<Credentials, Error>) {
+        do {
+            let credentials = try result.get()
+            showCredentialUpdated(for: credentials)
+        } catch {
+            showAlert(for: error)
+        }
+    }
+
+    @objc private func cancelRefreshingCredentials(_ sender: Any) {
+        addCredentialsTask?.cancel()
+        dismiss(animated: true)
     }
 }
 
@@ -260,9 +291,7 @@ extension AddCredentialsViewController {
 
     private func showCredentialUpdated(for credential: Credentials) {
         hideUpdatingView()
-        dismiss(animated: true) {
-            self.onCompletion?(.success(credential))
-        }
+        dismiss(animated: true)
     }
 
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
@@ -293,15 +322,15 @@ extension AddCredentialsViewController {
     }
 }
 
-// MARK: - TextFieldCellDelegate
-extension AddCredentialsViewController: TextFieldCellDelegate {
-    func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
+// MARK: - TextFieldTableViewCellDelegate
+extension AddCredentialsViewController: TextFieldTableViewCellDelegate {
+    func textFieldTableViewCell(_ cell: TextFieldTableViewCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
         navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
     }
 
-    func textFieldCellDidEndEditing(_ cell: TextFieldCell) {
+    func textFieldTableViewCellDidEndEditing(_ cell: TextFieldTableViewCell) {
         do {
             try form.validateFields()
         } catch {

@@ -3,21 +3,7 @@ import UIKit
 
 /// Example of how to use the provider grouped by access type
 final class AccessTypePickerViewController: UITableViewController {
-    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
-    var onCompletion: CompletionHandler?
     var accessTypeNodes: [ProviderTree.AccessTypeNode] = []
-    
-    private let credentialsController: CredentialsController
-
-    init(credentialsController: CredentialsController) {
-        self.credentialsController = credentialsController
-
-        super.init(style: .plain)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 // MARK: - View Lifecycle
@@ -51,7 +37,7 @@ extension AccessTypePickerViewController {
         let accessTypeNode = accessTypeNodes[indexPath.row]
         switch accessTypeNode {
         case .credentialsKinds(let groups):
-            showCredentialsKindPicker(for: groups)
+            showCredentialKindPicker(for: groups)
         case .provider(let provider):
             showAddCredential(for: provider)
         }
@@ -61,16 +47,14 @@ extension AccessTypePickerViewController {
 // MARK: - Navigation
 
 extension AccessTypePickerViewController {
-    func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
-        let viewController = CredentialsKindPickerViewController(credentialsController: credentialsController)
-        viewController.onCompletion = onCompletion
+    func showCredentialKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
+        let viewController = CredentialsKindPickerViewController()
         viewController.credentialsKindNodes = credentialsKindNodes
         show(viewController, sender: nil)
     }
 
     func showAddCredential(for provider: Provider) {
-        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController)
-        addCredentialsViewController.onCompletion = onCompletion
-        show(addCredentialsViewController, sender: nil)
+        let addCredentialViewController = AddCredentialsViewController(provider: provider)
+        show(addCredentialViewController, sender: nil)
     }
 }

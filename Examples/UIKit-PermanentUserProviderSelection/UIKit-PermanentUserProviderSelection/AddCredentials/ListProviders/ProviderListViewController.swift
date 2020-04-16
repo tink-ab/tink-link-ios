@@ -3,9 +3,7 @@ import UIKit
 
 /// Example of how to use the provider grouped by names
 final class ProviderListViewController: UITableViewController {
-    private var providerController: ProviderController?
-    private var credentialsController: CredentialsController?
-    private var user: User?
+    private let providerContext = ProviderContext()
 
     private let searchController = UISearchController(searchResultsController: nil)
     private var originalFinancialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
@@ -14,18 +12,6 @@ final class ProviderListViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-
-    init(style: UITableView.Style, providerController: ProviderController, credentialsController: CredentialsController) {
-        self.providerController = providerController
-        self.credentialsController = credentialsController
-        financialInstitutionGroupNodes = providerController.financialInstitutionGroupNodes
-
-        super.init(style: style)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 // MARK: - View Lifecycle
@@ -33,8 +19,6 @@ final class ProviderListViewController: UITableViewController {
 extension ProviderListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
 
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
@@ -48,11 +32,19 @@ extension ProviderListViewController {
         title = "Choose Bank"
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
-    }
 
-    @objc private func updateProviders() {
-        DispatchQueue.main.async {
-            self.financialInstitutionGroupNodes = self.providerController?.financialInstitutionGroupNodes ?? []
+        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
+        providerContext.fetchProviders(attributes: attributes) { [weak self] result in
+            do {
+                let providers = try result.get()
+                let tree = ProviderTree(providers: providers)
+                DispatchQueue.main.async {
+                    self?.financialInstitutionGroupNodes = tree.financialInstitutionGroups
+                    self?.originalFinancialInstitutionGroupNodes = tree.financialInstitutionGroups
+                }
+            } catch {
+                // TODO: Error handling
+            }
         }
     }
 }
@@ -65,15 +57,11 @@ extension ProviderListViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FixedImageSizeTableViewCell
         cell.accessoryType = .disclosureIndicator
         let group = financialInstitutionGroupNodes[indexPath.row]
-        if let imageViewCell = cell as? FixedImageSizeTableViewCell {
-            imageViewCell.setTitle(text: group.displayName)
-            if let url = group.imageURL {
-                imageViewCell.setImage(url: url)
-            }
-        }
+        cell.title = group.displayName
+        cell.imageURL = group.imageURL
         return cell
     }
 
@@ -85,7 +73,7 @@ extension ProviderListViewController {
         case .accessTypes(let accessTypeGroups):
             showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
         case .credentialsKinds(let groups):
-            showCredentialsKindPicker(for: groups)
+            showCredentialKindPicker(for: groups)
         case .provider(let provider):
             showAddCredential(for: provider)
         }
@@ -96,32 +84,28 @@ extension ProviderListViewController {
 
 extension ProviderListViewController {
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
-        guard let credentialsController = credentialsController else { return }
-        let viewController = FinancialInstitutionPickerViewController(credentialsController: credentialsController)
+        let viewController = FinancialInstitutionPickerViewController()
         viewController.title = title
         viewController.financialInstitutionNodes = financialInstitutionNodes
         show(viewController, sender: nil)
     }
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
-        guard let credentialsController = credentialsController else { return }
-        let viewController = AccessTypePickerViewController(credentialsController: credentialsController)
+        let viewController = AccessTypePickerViewController()
         viewController.title = title
         viewController.accessTypeNodes = accessTypeNodes
         show(viewController, sender: nil)
     }
 
-    func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
-        guard let credentialsController = credentialsController else { return }
-        let viewController = CredentialsKindPickerViewController(credentialsController: credentialsController)
+    func showCredentialKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
+        let viewController = CredentialsKindPickerViewController()
         viewController.credentialsKindNodes = credentialsKindNodes
         show(viewController, sender: nil)
     }
 
     func showAddCredential(for provider: Provider) {
-        guard let credentialsController = credentialsController else { return }
-        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController)
-        show(addCredentialsViewController, sender: nil)
+        let addCredentialViewController = AddCredentialsViewController(provider: provider)
+        show(addCredentialViewController, sender: nil)
     }
 }
 
