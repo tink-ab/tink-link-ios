@@ -46,7 +46,7 @@ import Foundation
 /// }
 /// ```
 ///
-/// - Note: If the app couldn't be opened you need to handle the `AddCredentialTask` completion result and check for a `ThirdPartyAppAuthenticationTask.Error`.
+/// - Note: If the app couldn't be opened you need to handle the `AddCredentialsTask` completion result and check for a `ThirdPartyAppAuthenticationTask.Error`.
 /// This error can tell you if the user needs to download the app.
 public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Error associated with the `ThirdPartyAppAuthenticationTask`.
