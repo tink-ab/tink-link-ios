@@ -225,15 +225,13 @@ After submitting the form, further status updates will once again be sent to the
 
 ### Handling third party app authentication
 
-Third party authentication is used to handle authentication outside of your app (such as app-to-app and app-to-web redirects). When the `progressHandler` emits a `awaitingThirdPartyAppAuthentication` status you need to try to open the URL provided by `ThirdPartyAppAuthentication`. Check if the system can open the URL or ask the user to download the app like this:
+Third party authentication is used to handle authentication outside of your app (such as app-to-app and app-to-web redirects). When the `progressHandler` emits a `awaitingThirdPartyAppAuthentication` status,  you should let the  `ThirdPartyAppAuthenticationTask` object to handle the updates like this:
 
 ```swift
-if let deepLinkURL = thirdPartyAppAuthentication.deepLinkURL, UIApplication.shared.canOpenURL(deepLinkURL) {
-    UIApplication.shared.open(deepLinkURL)
-} else {
-    <#Ask user to download app#>
-}
+/// thirdPartyAppAuthenticationTask.handle()
 ```
+
+If the thirdparty authentication couldn't be handled by the `ThirdPartyAppAuthenticationTask`, you need to handle the `AddCredentialsTask` completion result and check for a `ThirdPartyAppAuthenticationTask.Error`. This error can tell you if the user needs to download the thirdparty authentication app.
 
 Here is how you can prompt the user to download the third party app if it is not currently installed on the device:
 
