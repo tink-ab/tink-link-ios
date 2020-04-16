@@ -45,7 +45,7 @@ class FloatingPlaceholderTextField: UITextField {
             if isEnabled {
                 textFieldBackgroundColor = nil
                 textAlignment = .natural
-                lineWidth = .onePixel
+                lineWidth = 1.0
             } else {
                 textFieldBackgroundColor = Color.accentBackground
                 textAlignment = .center
