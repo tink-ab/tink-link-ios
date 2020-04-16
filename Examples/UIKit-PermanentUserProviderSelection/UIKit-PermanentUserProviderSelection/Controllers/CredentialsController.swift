@@ -123,7 +123,7 @@ final class CredentialsController {
         case .updating:
             if let index = credentialsList.firstIndex (where: { $0.id == credentials.id }) {
                 credentialsList[index] = credentials
-                let parameters = ["credential": credentials]
+                let parameters = ["credentials": credentials]
                 NotificationCenter.default.post(name: .credentialsControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
         case .sessionExpired:
@@ -134,7 +134,7 @@ final class CredentialsController {
             if let index = credentialsList.firstIndex (where: { $0.id == credentials.id }) {
                 credentialsList[index] = credentials
                 updatedCredentials.append(credentials)
-                let parameters = ["credential": credentials]
+                let parameters = ["credentials": credentials]
                 NotificationCenter.default.post(name: .credentialsControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
         case .error:
