@@ -44,6 +44,7 @@ final class AddCredentialsStatusViewController: UIViewController {
         view.addSubview(stackView)
 
         statusLabelView.font = UIFont.preferredFont(forTextStyle: .headline)
+        statusLabelView.textColor = Color.label
         statusLabelView.numberOfLines = 0
         statusLabelView.preferredMaxLayoutWidth = 220
         statusLabelView.textAlignment = .center
