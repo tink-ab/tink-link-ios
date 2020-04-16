@@ -1,7 +1,5 @@
 import Foundation
-#if os(macOS)
-    import AppKit
-#else
+#if os(iOS)
     import UIKit
 #endif
 
@@ -106,14 +104,10 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
     }
 
-    #if os(macOS)
-    public typealias Image = NSImage
-    #else
-    public typealias Image = UIImage
-    #endif
-
     public enum Status {
-        case qrImage(Image)
+        #if os(iOS)
+        case qrImage(UIImage)
+        #endif
         case awaitAuthenticationOnAnotherDevice
     }
 
@@ -235,14 +229,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             }
         }
     }
-    #endif
 
-    private func qr(completion: @escaping (Result<Image, Swift.Error>) -> Void) {
+    private func qr(completion: @escaping (Result<UIImage, Swift.Error>) -> Void) {
         if hasBankIDQRCode {
             callRetryCancellable = credentialsService.qr(credentialsID: credentials.id) { [weak self] result in
                 do {
                     let qrData = try result.get()
-                    guard let qrImage = Image(data: qrData) else {
+                    guard let qrImage = UIImage(data: qrData) else {
                         throw Error.decodingQRCodeImageFailed
                     }
                     completion(.success(qrImage))
@@ -255,6 +248,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             completion(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
         }
     }
+    #endif
 
     // MARK: - Controlling the Task
 
