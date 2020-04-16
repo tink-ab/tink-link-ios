@@ -1,6 +1,6 @@
 import Foundation
 
-class CredentialStatusPollingTask {
+class CredentialsStatusPollingTask {
     private var service: CredentialsService
     var callRetryCancellable: RetryCancellable?
     private var retryInterval: TimeInterval = 1
