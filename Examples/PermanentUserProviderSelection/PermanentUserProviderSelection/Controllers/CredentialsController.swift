@@ -58,36 +58,37 @@ final class CredentialsController: ObservableObject {
     }
 
     private func refreshProgressHandler(status: RefreshCredentialsTask.Status) {
+        guard let refreshedCredentials = task?.credentials else { return }
         switch status {
         case .authenticating, .created:
             break
         case .awaitingSupplementalInformation(let supplementInformationTask):
             self.supplementInformationTask = supplementInformationTask
-        case .awaitingThirdPartyAppAuthentication(_, let thirdPartyAppAuthenticationTask):
+        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
-        case .updating(let credential, _):
-            if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
+        case .updating:
+            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
                 DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = credential
+                    self?.credentials[index] = refreshedCredentials
                 }
             }
-        case .sessionExpired(let credential):
-            if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
+        case .sessionExpired:
+            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
                 DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = credential
+                    self?.credentials[index] = refreshedCredentials
                 }
             }
-        case .updated(let credential):
-            if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
+        case .updated:
+            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
                 DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = credential
-                    self?.updatedCredentials.append(credential)
+                    self?.credentials[index] = refreshedCredentials
+                    self?.updatedCredentials.append(refreshedCredentials)
                 }
             }
-        case .error(let credential, _):
-            if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
+        case .error:
+            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
                 DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = credential
+                    self?.credentials[index] = refreshedCredentials
                 }
             }
         }

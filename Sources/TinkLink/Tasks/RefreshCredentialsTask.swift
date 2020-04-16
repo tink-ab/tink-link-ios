@@ -9,28 +9,28 @@ public final class RefreshCredentialsTask: Identifiable {
     /// - Note: For some states there are actions which need to be performed on the credentials.
     public enum Status {
         /// When the credentials has just been created
-        case created(credentials: Credentials)
+        case created
 
         /// When starting the authentication process
-        case authenticating(credentials: Credentials)
+        case authenticating
 
         /// User has been successfully authenticated, now downloading data.
-        case updating(credentials: Credentials, status: String)
+        case updating(status: String)
 
         /// Trigger for the client to prompt the user to fill out supplemental information.
-        case awaitingSupplementalInformation(task: SupplementInformationTask)
+        case awaitingSupplementalInformation(SupplementInformationTask)
 
         /// Trigger for the client to prompt the user to open the third party authentication flow
-        case awaitingThirdPartyAppAuthentication(credentials: Credentials, task: ThirdPartyAppAuthenticationTask)
+        case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
 
         /// The session has expired.
-        case sessionExpired(credentials: Credentials)
+        case sessionExpired
 
         /// The status has been updated.
-        case updated(credentials: Credentials)
+        case updated
 
         /// The refresh error.
-        case error(credentials: Credentials, error: Error)
+        case error(Error)
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
@@ -48,7 +48,7 @@ public final class RefreshCredentialsTask: Identifiable {
     /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
-    private var credentialsStatusPollingTask: CredentialsListStatusPollingTask?
+    private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
 
     // MARK: - Getting the Credentials
 
@@ -71,13 +71,11 @@ public final class RefreshCredentialsTask: Identifiable {
     }
 
     func startObserving() {
-        credentialsStatusPollingTask = CredentialsListStatusPollingTask(
+        credentialsStatusPollingTask = CredentialsStatusPollingTask(
             credentialsService: credentialsService,
-            credentials: [credentials],
-            updateHandler: { [weak self] result in self?.handleUpdate(for: result) },
-            completion: { [weak self] result in
-                guard let self = self else { return }
-                self.completion(result.map { $0.first ?? self.credentials })
+            credentials: credentials,
+            updateHandler: { [weak self] result in
+                self?.handleUpdate(for: result)
             }
         )
 
@@ -98,9 +96,9 @@ public final class RefreshCredentialsTask: Identifiable {
             let credentials = try result.get()
             switch credentials.status {
             case .created:
-                progressHandler(.created(credentials: credentials))
+                progressHandler(.created)
             case .authenticating:
-                progressHandler(.authenticating(credentials: credentials))
+                progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
                 credentialsStatusPollingTask?.pausePolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
@@ -112,7 +110,7 @@ public final class RefreshCredentialsTask: Identifiable {
                         self.completion(.failure(error))
                     }
                 }
-                progressHandler(.awaitingSupplementalInformation(task: supplementInformationTask))
+                progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
                     assertionFailure("Missing third pary app authentication deeplink URL!")
@@ -128,19 +126,19 @@ public final class RefreshCredentialsTask: Identifiable {
                         self.completion(.failure(error))
                     }
                 }
-                progressHandler(.awaitingThirdPartyAppAuthentication(credentials: credentials, task: task))
+                progressHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
-                progressHandler(.updating(credentials: credentials, status: credentials.statusPayload))
+                progressHandler(.updating(status: credentials.statusPayload))
             case .updated:
-                progressHandler(.updated(credentials: credentials))
+                progressHandler(.updated)
             case .sessionExpired:
-                progressHandler(.sessionExpired(credentials: credentials))
+                progressHandler(.sessionExpired)
             case .authenticationError:
-                progressHandler(.error(credentials: credentials, error: .authenticationFailed))
+                throw Error.authenticationFailed
             case .permanentError:
-                progressHandler(.error(credentials: credentials, error: .permanentFailure))
+                throw Error.permanentFailure
             case .temporaryError:
-                progressHandler(.error(credentials: credentials, error: .temporaryFailure))
+                throw Error.temporaryFailure
             case .disabled:
                 fatalError("credentials shouldn't be disabled during creation.")
             case .unknown:

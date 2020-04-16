@@ -164,34 +164,35 @@ extension RefreshCredentialsViewController {
     }
 
     private func handleProgress(_ status: RefreshCredentialsTask.Status) {
+        guard let refreshedCredentials = refreshCredentialsTask?.credentials else { return }
         switch status {
-        case .created(credentials: let credentials):
-            self.credentials = credentials
-        case .authenticating(credentials: let credentials):
+        case .created:
+            self.credentials = refreshedCredentials
+        case .authenticating:
             if isPresentingQR {
                 dismiss(animated: true)
             }
-            self.credentials = credentials
-        case .updating(credentials: let credentials, status: let status):
+            self.credentials = refreshedCredentials
+        case .updating:
             if isPresentingQR {
                 dismiss(animated: true)
             }
-            self.credentials = credentials
-        case .awaitingSupplementalInformation(task: let task):
+            self.credentials = refreshedCredentials
+        case .awaitingSupplementalInformation(let task):
             showSupplementalInformation(for: task)
-        case .awaitingThirdPartyAppAuthentication(credentials: let credentials, task: let task):
-            self.credentials = credentials
+        case .awaitingThirdPartyAppAuthentication(let task):
+            self.credentials = refreshedCredentials
             task.handle { [weak self] taskStatus in
                 DispatchQueue.main.async {
                     self?.handleThirdPartyAppAuthentication(taskStatus)
                 }
             }
-        case .sessionExpired(credentials: let credentials):
-            self.credentials = credentials
-        case .updated(credentials: let credentials):
-            self.credentials = credentials
-        case .error(credentials: let credentials, error: let error):
-            self.credentials = credentials
+        case .sessionExpired:
+            self.credentials = refreshedCredentials
+        case .updated:
+            self.credentials = refreshedCredentials
+        case .error:
+            self.credentials = refreshedCredentials
         }
     }
 
