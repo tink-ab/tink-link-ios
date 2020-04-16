@@ -109,7 +109,7 @@ extension RefreshableItems {
 }
 
 extension RefreshableItems {
-    static func makeFromScopes(_ scopes: [Scope], provider: Provider) -> RefreshableItems {
+    static func makeRefreshableItems(scopes: [Scope], provider: Provider) -> RefreshableItems {
 
         var requestedRefreshableItems: RefreshableItems = [.accounts, .eInvoices, .transferDestinations]
 
