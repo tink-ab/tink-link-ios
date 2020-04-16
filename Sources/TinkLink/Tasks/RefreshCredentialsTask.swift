@@ -71,7 +71,7 @@ public final class RefreshCredentialsTask: Identifiable {
     }
 
     func startObserving() {
-        credentialsStatusPollingTask = CredentialsStatusPollingTask(
+        credentialsStatusPollingTask = CredentialStatusPollingTask(
             credentialsService: credentialsService,
             credentials: credentials,
             updateHandler: { [weak self] result in
