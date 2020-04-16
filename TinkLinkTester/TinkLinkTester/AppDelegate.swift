@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         let configuration = try! Tink.Configuration(
-            clientID: ProcessInfo.processInfo.environment["TINK_LINK_TESTER_CLIENT_ID"]!,
+            clientID: ProcessInfo.processInfo.environment["TINK_LINK_TESTER_CLIENT_ID"] ?? "",
             redirectURI: ProcessInfo.processInfo.environment["TINK_LINK_TESTER_REDIRECT_URI"].flatMap(URL.init(string:)) ?? URL(string: "link-demo://tink")!,
             environment: environment
         )

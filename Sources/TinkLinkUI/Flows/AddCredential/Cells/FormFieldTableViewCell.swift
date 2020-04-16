@@ -89,14 +89,23 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
 extension FormFieldTableViewCell: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
-
-        let maxLength = field?.validationRules.maxLength ?? .max
-        guard text.count <= maxLength else {
+        let fieldText: String
+        // If the textField is password and it has an initial value, then when begin to edit the textfield will clear the text, so need to also reset the form field text cache.
+        if textField.isSecureTextEntry, !(field?.text.isEmpty ?? true) {
+            field?.text = String()
+            fieldText = string
+        } else if let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) {
+            fieldText = text
+        } else {
             return false
         }
 
-        delegate?.formFieldCell(self, willChangeToText: text)
+        let maxLength = field?.validationRules.maxLength ?? .max
+        guard fieldText.count <= maxLength else {
+            return false
+        }
+
+        delegate?.formFieldCell(self, willChangeToText: fieldText)
         return true
     }
 
@@ -122,6 +131,5 @@ extension FloatingPlaceholderTextField {
         text = field.text
         placeholder = field.attributes.description
         isSecureTextEntry = field.attributes.isSecureTextEntry
-        clearsOnBeginEditing = false
     }
 }

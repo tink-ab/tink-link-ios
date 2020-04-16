@@ -10,7 +10,7 @@ class CredentialsViewController: UITableViewController {
         return formatter
     }()
 
-    private var credentialController = CredentialController()
+    private var credentialsController = CredentialsController()
     private var providerController = ProviderController()
 
     private var credentials: [Credentials]? {
@@ -43,8 +43,8 @@ class CredentialsViewController: UITableViewController {
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .providerControllerDidUpdateProviders, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidUpdateCredentials, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialControllerDidAddCredential, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialsControllerDidUpdateCredentials, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCredentials), name: .credentialsControllerDidAddCredential, object: nil)
 
         Tink.shared.setCredential(.accessToken("YOUR_ACCESS_TOKEN"))
         providerController.performFetch()
@@ -52,27 +52,27 @@ class CredentialsViewController: UITableViewController {
 
     @objc private func updateCredentials() {
         DispatchQueue.main.async {
-            self.credentials = self.credentialController.credentials
+            self.credentials = self.credentialsController.credentials
         }
     }
 
     @objc private func refreshCredentials(sender: UIBarButtonItem) {
-        let refreshCredentialViewController = RefreshCredentialViewController(
+        let refreshCredentialsViewController = RefreshCredentialsViewController(
             titleText: "Update banks & services",
-            credentialController: credentialController,
+            credentialsController: credentialsController,
             providerController: providerController,
-            dismissAction: { refreshCredentialViewController in
-                refreshCredentialViewController.dismiss(animated: false)
+            dismissAction: { refreshCredentialsViewController in
+                refreshCredentialsViewController.dismiss(animated: false)
         }) { [weak self] credentialsToRefresh in
-            credentialsToRefresh.flatMap { self?.credentialController.performRefresh($0) }
+            credentialsToRefresh.flatMap { self?.credentialsController.performRefresh($0) }
         }
         view.tintAdjustmentMode = .dimmed
-        refreshCredentialViewController.modalPresentationStyle = .overFullScreen
-        present(refreshCredentialViewController, animated: false)
+        refreshCredentialsViewController.modalPresentationStyle = .overFullScreen
+        present(refreshCredentialsViewController, animated: false)
     }
 
     @objc func addCredential(sender: UIBarButtonItem) {
-        let providerListViewController = ProviderListViewController(style: .plain, providerController: providerController, credentialController: credentialController)
+        let providerListViewController = ProviderListViewController(style: .plain, providerController: providerController, credentialsController: credentialsController)
         let navigationController = UINavigationController(rootViewController: providerListViewController)
         present(navigationController, animated: true)
     }
@@ -101,7 +101,7 @@ extension CredentialsViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete, let credentialToDelete = credentials?[indexPath.item] {
-            credentialController.deleteCredential([credentialToDelete])
+            credentialsController.deleteCredential([credentialToDelete])
             credentials?.remove(at: indexPath.item)
         }
     }

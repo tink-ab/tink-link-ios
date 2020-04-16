@@ -28,8 +28,8 @@ class CredentialsListStatusPollingTask {
         }
     }
 
-    init(credentialService: CredentialsService, credentials: [Credentials], backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credentials, Error>) -> Void, completion: @escaping (Result<[Credentials], Error>) -> Void) {
-        self.service = credentialService
+    init(credentialsService: CredentialsService, credentials: [Credentials], backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credentials, Error>) -> Void, completion: @escaping (Result<[Credentials], Error>) -> Void) {
+        self.service = credentialsService
         self.credentialsToUpdate = credentials
         self.backoffStrategy = backoffStrategy
         self.updateHandler = updateHandler
