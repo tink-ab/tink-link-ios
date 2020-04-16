@@ -11,7 +11,7 @@ extension Notification.Name {
 }
 
 final class CredentialsController {
-    var credentials: [Credentials] = [] {
+    var credentialsList: [Credentials] = [] {
         didSet {
             NotificationCenter.default.post(name: .credentialsControllerDidUpdateCredentials, object: nil)
         }
@@ -34,7 +34,7 @@ final class CredentialsController {
             guard let self = self else { return }
             do {
                 let credentials = try result.get()
-                self.credentials = credentials
+                self.credentialsList = credentials
             } catch {
                 NotificationCenter.default.post(name: .credentialsControllerDidError, object: nil)
             }
@@ -73,7 +73,7 @@ final class CredentialsController {
             credentialsContext.delete(credential, completion: { [weak self] result in
                 switch result {
                 case .success:
-                    self?.credentials.removeAll { removedCredential -> Bool in
+                    self?.credentialsList.removeAll { removedCredential -> Bool in
                         credential.id == removedCredential.id
                     }
                 case .failure(let error):
@@ -102,7 +102,7 @@ final class CredentialsController {
     private func createCompletionHandler(result: Result<Credentials, Error>) {
         do {
             let credential = try result.get()
-            credentials.append(credential)
+            credentialsList.append(credential)
             NotificationCenter.default.post(name: .credentialsControllerDidAddCredential, object: nil)
         } catch {
             let parameters = ["error": error]
@@ -121,25 +121,25 @@ final class CredentialsController {
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
         case .updating:
-            if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
+            if let index = credentialsList.firstIndex (where: { $0.id == credential.id }) {
+                credentialsList[index] = credential
                 let parameters = ["credential": credential]
                 NotificationCenter.default.post(name: .credentialsControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
         case .sessionExpired:
-            if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
+            if let index = credentialsList.firstIndex (where: { $0.id == credential.id }) {
+                credentialsList[index] = credential
             }
         case .updated:
-            if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
+            if let index = credentialsList.firstIndex (where: { $0.id == credential.id }) {
+                credentialsList[index] = credential
                 updatedCredentials.append(credential)
                 let parameters = ["credential": credential]
                 NotificationCenter.default.post(name: .credentialsControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
         case .error:
-            if let index = credentials.firstIndex (where: { $0.id == credential.id }) {
-                credentials[index] = credential
+            if let index = credentialsList.firstIndex (where: { $0.id == credential.id }) {
+                credentialsList[index] = credential
             }
         }
     }
@@ -147,8 +147,8 @@ final class CredentialsController {
     private func refreshCompletionHandler(result: Result<Credentials, Error>) {
         do {
             let updatedCredentials = try result.get()
-            if let index = credentials.firstIndex (where: { $0.id == updatedCredentials.id }) {
-                credentials[index] = updatedCredentials
+            if let index = credentialsList.firstIndex (where: { $0.id == updatedCredentials.id }) {
+                credentialsList[index] = updatedCredentials
             }
             NotificationCenter.default.post(name: .credentialsControllerDidFinishRefreshingCredentials, object: nil)
         } catch {
