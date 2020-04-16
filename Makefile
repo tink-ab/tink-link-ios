@@ -68,8 +68,6 @@ build-tinklinkui-example:
 		-destination 'generic/platform=iOS Simulator'
 
 clean: 
-	rm -rf ./GRPC/plugins/
-	rm -rf ./Sources/TinkLinkSDK/GRPC/
 	rm -rf ./docs
 
 release: format lint
