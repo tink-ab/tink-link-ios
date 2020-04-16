@@ -83,7 +83,7 @@ public final class CredentialsContext {
                     completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                     progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
                     completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
-        add(for: provider, form: form, refreshableItems: RefreshableItems.makeFromScopes(scopes, provider: provider), completionPredicate: completionPredicate, progressHandler: progressHandler, completion: completion)
+        add(for: provider, form: form, refreshableItems: RefreshableItems.makeRefreshableItems(scopes: scopes, provider: provider), completionPredicate: completionPredicate, progressHandler: progressHandler, completion: completion)
     }
 
     // MARK: - Adding Credentials
