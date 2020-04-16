@@ -225,7 +225,7 @@ After submitting the form, further status updates will once again be sent to the
 
 ### Handling third party app authentication
 
-Third party authentication is used to handle authentication outside of your app (such as app-to-app and app-to-web redirects). When the `progressHandler` emits a `awaitingThirdPartyAppAuthentication` status,  you should let the  `ThirdPartyAppAuthenticationTask` object to handle the updates like this:
+Third party authentication is used to handle authentication outside of your app (such as app-to-app and app-to-web redirects). When the `progressHandler` emits a `awaitingThirdPartyAppAuthentication` status, you should let the `ThirdPartyAppAuthenticationTask` object handle the update like this:
 
 ```swift
 /// thirdPartyAppAuthenticationTask.handle()
