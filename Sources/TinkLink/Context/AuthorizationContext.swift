@@ -47,7 +47,7 @@ public final class AuthorizationContext {
     /// - Parameter completion: The block to execute when the authorization is complete.
     /// - Parameter result: Represents either an authorization code if authorization was successful or an error if authorization failed.
     @discardableResult
-    public func authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.authorize(clientID: tink.configuration.clientID, redirectURI: redirectURI, scopes: scopes) { result in
             let mappedResult = result.map({ $0.code }).mapError({ Error($0) ?? $0 })
