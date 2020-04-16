@@ -31,8 +31,7 @@ docs:
 		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
 		--module-version $(VERSION) \
 		--module TinkLink \
-		--swift-build-tool spm \
-		--build-tool-arguments -Xswiftc,-swift-version,-Xswiftc,5 \
+		--swift-build-tool xcodebuild \
 		--output docs
 
 lint:
