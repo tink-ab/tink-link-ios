@@ -123,7 +123,7 @@ public final class CredentialsContext {
                     completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
         let appUri = tink.configuration.redirectURI
 
-        //TODO: Filter out refreshableItems not supported by provider capabilities.
+        let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
 
         let task = AddCredentialsTask(
             credentialsService: service,
