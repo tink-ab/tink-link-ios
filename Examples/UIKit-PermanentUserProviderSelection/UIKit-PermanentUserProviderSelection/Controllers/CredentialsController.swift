@@ -111,7 +111,7 @@ final class CredentialsController {
     }
 
     private func refreshProgressHandler(status: RefreshCredentialsTask.Status) {
-        guard let credential = refreshTask?.credentials else { return }
+        guard let credentials = refreshTask?.credentials else { return }
         switch status {
         case .authenticating, .created:
             break
@@ -121,25 +121,25 @@ final class CredentialsController {
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
         case .updating:
-            if let index = credentialsList.firstIndex (where: { $0.id == credential.id }) {
-                credentialsList[index] = credential
-                let parameters = ["credential": credential]
+            if let index = credentialsList.firstIndex (where: { $0.id == credentials.id }) {
+                credentialsList[index] = credentials
+                let parameters = ["credential": credentials]
                 NotificationCenter.default.post(name: .credentialsControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
         case .sessionExpired:
-            if let index = credentialsList.firstIndex (where: { $0.id == credential.id }) {
-                credentialsList[index] = credential
+            if let index = credentialsList.firstIndex (where: { $0.id == credentials.id }) {
+                credentialsList[index] = credentials
             }
         case .updated:
-            if let index = credentialsList.firstIndex (where: { $0.id == credential.id }) {
-                credentialsList[index] = credential
-                updatedCredentials.append(credential)
-                let parameters = ["credential": credential]
+            if let index = credentialsList.firstIndex (where: { $0.id == credentials.id }) {
+                credentialsList[index] = credentials
+                updatedCredentials.append(credentials)
+                let parameters = ["credential": credentials]
                 NotificationCenter.default.post(name: .credentialsControllerDidUpdateStatus, object: nil, userInfo: parameters)
             }
         case .error:
-            if let index = credentialsList.firstIndex (where: { $0.id == credential.id }) {
-                credentialsList[index] = credential
+            if let index = credentialsList.firstIndex (where: { $0.id == credentials.id }) {
+                credentialsList[index] = credentials
             }
         }
     }
