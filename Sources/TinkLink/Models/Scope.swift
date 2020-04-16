@@ -11,7 +11,7 @@ public extension Scope {
     }
 }
 
-extension Array where Element == Scope {
+public extension Array where Element == Scope {
     var scopeDescription: String { map { $0.scopeDescription }.joined(separator: ",") }
 }
 public extension Scope {

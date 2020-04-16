@@ -15,7 +15,7 @@ final class CredentialsController {
         return credentialsContext?.add(
             for: provider,
             form: form,
-            scopes: scopes,
+            refreshableItems: RefreshableItems.makeRefreshableItems(scopes: scopes, provider: provider),
             completionPredicate: AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false),
             progressHandler: progressHandler,
             completion: completion

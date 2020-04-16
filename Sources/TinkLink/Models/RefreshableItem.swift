@@ -71,7 +71,7 @@ public struct RefreshableItems: OptionSet {
     }
 }
 
-extension RefreshableItems {
+public extension RefreshableItems {
 
     /// Creates a set of refreshable items that corresponds to the providers capabilities.
     init(providerCapabilities: Provider.Capabilities) {
@@ -105,26 +105,5 @@ extension RefreshableItems {
 
     func supporting(providerCapabilities: Provider.Capabilities) -> RefreshableItems {
         return intersection(RefreshableItems(providerCapabilities: providerCapabilities))
-    }
-}
-
-extension RefreshableItems {
-    static func makeRefreshableItems(scopes: [Scope], provider: Provider) -> RefreshableItems {
-
-        var requestedRefreshableItems: RefreshableItems = [.accounts, .eInvoices, .transferDestinations]
-
-        // Based on: https://github.com/tink-ab/tink-backend/blob/39c97c74a0eba4d039b5347de3781df378c3692f/src/main-system-features/aggregation_controller_v1/src/main/java/se/tink/libraries/aggregation_controller_v1/enums/RefreshableItem.java#L36
-        if scopes.scopeDescription.contains("transactions:read") {
-            requestedRefreshableItems.formUnion(.transactions)
-        }
-
-        if scopes.scopeDescription.contains("identity:read") {
-            requestedRefreshableItems.insert(.identityData)
-        }
-
-        // This makes sure that at least one of the provider capability that maps to
-        // that refreshable item is supported by the provider, otherwise an error would be
-        // raised because of provider capability validation on the backend
-        return requestedRefreshableItems.supporting(providerCapabilities: provider.capabilities)
     }
 }

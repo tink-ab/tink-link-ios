@@ -50,42 +50,6 @@ public final class CredentialsContext {
         removeObservers()
     }
 
-    /// Adds a credentials for the user based on what scopes you want to request. 
-    ///
-    /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
-    ///
-    ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, progressHandler: { status in
-    ///         switch status {
-    ///         case .awaitingSupplementalInformation(let supplementInformationTask):
-    ///             <#Present form for supplemental information task#>
-    ///         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication):
-    ///             <#Open third party app deep link URL#>
-    ///         default:
-    ///             break
-    ///         }
-    ///     }, completion: { result in
-    ///         <#Handle result#>
-    ///     }
-    ///
-    /// - Parameters:
-    ///   - provider: The provider (financial institution) that the credentials is connected to.
-    ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
-    ///   - scopes: The scopes you want to request after adding the credentials. This determines what data will be aggregated when the credential has been added. If nil, all data will be fetched. Defaults to nil.
-    ///   - completionPredicate: Predicate for when credentials task should complete.
-    ///   - progressHandler: The block to execute with progress information about the credential's status.
-    ///   - status: Indicates the state of a credentials being added.
-    ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
-    ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
-    /// - Returns: The add credentials task.
-    public func add(for provider: Provider,
-                    form: Form,
-                    scopes: [Scope],
-                    completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
-                    progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
-                    completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
-        add(for: provider, form: form, refreshableItems: RefreshableItems.makeRefreshableItems(scopes: scopes, provider: provider), completionPredicate: completionPredicate, progressHandler: progressHandler, completion: completion)
-    }
-
     // MARK: - Adding Credentials
 
     /// Adds a credentials for the user.
