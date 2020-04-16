@@ -1,6 +1,8 @@
 import Foundation
 #if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
 #endif
 
 /// A task that handles opening third party apps.
@@ -107,6 +109,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     public enum Status {
         #if os(iOS)
         case qrImage(UIImage)
+        #elseif os(macOS)
+        case qrImage(NSImage)
         #endif
         case awaitAuthenticationOnAnotherDevice
     }
