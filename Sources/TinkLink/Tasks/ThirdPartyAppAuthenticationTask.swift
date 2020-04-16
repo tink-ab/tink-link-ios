@@ -9,7 +9,7 @@ import Foundation
 ///
 /// When a credentials' status is `awaitingThirdPartyAppAuthentication` the user needs to authenticate in a third party app to finish adding the credentials.
 ///
-/// When you receive a `awaitingThirdPartyAppAuthentication` status, you should let the   `ThirdPartyAppAuthenticationTask` object to handle the updates like this:
+/// When you receive a `awaitingThirdPartyAppAuthentication` status, you should let the `ThirdPartyAppAuthenticationTask` object to handle the updates like this:
 ///
 /// ```swift
 /// thirdPartyAppAuthenticationTask.handle()
