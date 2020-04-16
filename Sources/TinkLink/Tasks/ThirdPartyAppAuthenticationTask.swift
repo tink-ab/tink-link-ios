@@ -154,7 +154,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     public func openThirdPartyApp(with application: UIApplication = .shared) {
         openThirdPartyApp(with: application, completion: self.completionHandler)
     }
-    #endif
 
     private func openThirdPartyApp(with application: UIApplication = .shared, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
         guard let url = thirdPartyAppAuthentication.deepLinkURL else {
@@ -230,6 +229,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             }
         }
     }
+    #endif
 
     #if os(iOS)
     private func qr(completion: @escaping (Result<UIImage, Swift.Error>) -> Void) {
