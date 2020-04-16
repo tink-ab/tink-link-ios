@@ -12,7 +12,7 @@ final class AuthorizationController {
 
     @discardableResult
     func authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
-        return authorizationContext.authorize(scopes: scopes, completion: completion)
+        return authorizationContext._authorize(scopes: scopes, completion: completion)
     }
 
     @discardableResult
