@@ -88,6 +88,7 @@ class CredentialsStatusPollingTask {
     }
 
     func pausePolling() {
+        retryInterval = 1
         isPaused = true
     }
 
