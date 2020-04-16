@@ -3,5 +3,5 @@ import Foundation
 private class BundleLoadingClass { }
 
 extension Bundle {
-    static let tinkLinkUI = Bundle(for: BundleLoadingClass.self)
+    static let tinkLinkUI = Bundle(url: Bundle(for: BundleLoadingClass.self).url(forResource: "Translations", withExtension: "bundle")!)!
 }

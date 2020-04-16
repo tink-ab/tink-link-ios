@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		103860D3B43D9A6BE38074FD /* Pods_TinkLinkTester.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinkLinkTester.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		20CD80E22446F5920051C728 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		575B0CE02822E1C4A76C77E8 /* Pods-TinkLinkTester.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkLinkTester.release.xcconfig"; path = "Target Support Files/Pods-TinkLinkTester/Pods-TinkLinkTester.release.xcconfig"; sourceTree = "<group>"; };
 		8F3829502417A29D007C418C /* TinkLinkTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkLinkTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3829532417A29D007C418C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +147,7 @@
 			knownRegions = (
 				en,
 				Base,
+				sv,
 			);
 			mainGroup = 8F3829472417A29D007C418C;
 			productRefGroup = 8F3829512417A29D007C418C /* Products */;
@@ -231,6 +233,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8F38295F2417A29F007C418C /* Base */,
+				20CD80E22446F5920051C728 /* sv */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -302,6 +306,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
