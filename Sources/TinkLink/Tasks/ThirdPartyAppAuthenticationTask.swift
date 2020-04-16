@@ -196,11 +196,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             self?.completionHandler(result)
         }
     }
+    #endif
 
     /// Will try to open the third party app.
     /// - Parameter statusHandler: A closure that handles statuses that require actions.
     /// - Parameter status: The specific status that require an action.
     public func handle(statusHandler: @escaping (_ status: Status) -> Void) {
+        #if os(iOS)
         if shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
             openThirdPartyApp { [weak self] result in
                 self?.completionHandler(result)
@@ -232,6 +234,17 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 }
             }
         }
+        #elseif os(macOS)
+        qr { [weak self] result in
+            do {
+                let qrImage = try result.get()
+                statusHandler(.qrImage(qrImage))
+                self?.completionHandler(.success)
+            } catch {
+                self?.completionHandler(.failure(error))
+            }
+        }
+        #endif
     }
 
     #if os(iOS)
@@ -258,7 +271,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             completion(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
         }
     }
-    #endif
 
     // MARK: - Controlling the Task
 
