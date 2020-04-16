@@ -235,11 +235,18 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             }
         }
         #elseif os(macOS)
-        qr { [weak self] result in
+        qr { [weak self, credentialsKind = credentials.kind] result in
             do {
                 let qrImage = try result.get()
                 statusHandler(.qrImage(qrImage))
                 self?.completionHandler(.success)
+            } catch Error.doesNotSupportAuthenticatingOnAnotherDevice {
+                if credentialsKind == .mobileBankID {
+                    statusHandler(.awaitAuthenticationOnAnotherDevice)
+                    self?.completionHandler(.success)
+                } else {
+                    self?.completionHandler(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
+                }
             } catch {
                 self?.completionHandler(.failure(error))
             }
