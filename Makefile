@@ -21,6 +21,8 @@ endif
 	bundle install
 
 docs:
+	swift package generate-xcodeproj
+
 	bundle exec jazzy \
 		--clean \
 		--author Tink \
