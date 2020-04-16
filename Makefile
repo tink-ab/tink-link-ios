@@ -21,6 +21,8 @@ endif
 	bundle install
 
 docs:
+	swift package generate-xcodeproj
+
 	bundle exec jazzy \
 		--clean \
 		--author Tink \
@@ -29,8 +31,8 @@ docs:
 		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
 		--module-version $(VERSION) \
 		--module TinkLink \
-		--swift-build-tool spm \
-		--build-tool-arguments -Xswiftc,-swift-version,-Xswiftc,5 \
+		--swift-build-tool xcodebuild \
+		--sdk iphone \
 		--output docs
 
 lint:
@@ -66,8 +68,6 @@ build-tinklinkui-example:
 		-destination 'generic/platform=iOS Simulator'
 
 clean: 
-	rm -rf ./GRPC/plugins/
-	rm -rf ./Sources/TinkLinkSDK/GRPC/
 	rm -rf ./docs
 
 release: format lint
