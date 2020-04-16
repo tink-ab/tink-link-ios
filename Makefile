@@ -32,6 +32,7 @@ docs:
 		--module-version $(VERSION) \
 		--module TinkLink \
 		--swift-build-tool xcodebuild \
+		--sdk iphone \
 		--output docs
 
 lint:
