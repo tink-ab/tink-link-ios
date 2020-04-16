@@ -27,12 +27,17 @@ final class RESTCredentialsService: CredentialsService {
         return client.performRequest(request)
     }
 
-    func createCredentials(providerID: Provider.ID, refreshableItems: Set<RefreshableItem>, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func createCredentials(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
 
         let body = RESTCreateCredentialsRequest(providerName: providerID.value, fields: fields, callbackUri: nil, appUri: appUri?.absoluteString, triggerRefresh: nil)
         let data = try? JSONEncoder().encode(body)
 
-        let parameters = refreshableItems.map({ (name: "items", value: $0.rawValue) })
+        let parameters: [(name: String, value: String)]
+        if refreshableItems != .all {
+            parameters = refreshableItems.strings.map({ (name: "items", value: $0) })
+        } else {
+            parameters = []
+        }
 
         let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials", method: .post, body: data, contentType: .json, parameters: parameters) { result in
             completion(result.map(Credentials.init))
@@ -60,9 +65,14 @@ final class RESTCredentialsService: CredentialsService {
         return client.performRequest(request)
     }
 
-    func refreshCredentials(credentialsID: Credentials.ID, refreshableItems: Set<RefreshableItem>, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func refreshCredentials(credentialsID: Credentials.ID, refreshableItems: RefreshableItems, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
-        var parameters = refreshableItems.map({ (name: "items", value: $0.rawValue) })
+        var parameters: [(name: String, value: String)]
+        if refreshableItems != .all {
+            parameters = refreshableItems.strings.map({ (name: "items", value: $0) })
+        } else {
+            parameters = []
+        }
 
         if optIn {
             parameters.append((name: "optIn", value: "true"))
@@ -87,7 +97,7 @@ final class RESTCredentialsService: CredentialsService {
     func cancelSupplementInformation(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         let information = RESTSupplementalInformation(information: [:])
         let data = try? JSONEncoder().encode(information)
-        var request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/supplemental-information", method: .post, body: data, contentType: .json) { (result) in
+        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/supplemental-information", method: .post, body: data, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
         return client.performRequest(request)

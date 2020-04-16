@@ -83,7 +83,7 @@ public final class CredentialsContext {
                     completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                     progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
                     completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
-        add(for: provider, form: form, refreshableItems: RefreshableItem.makeFromScopes(scopes, provider: provider), completionPredicate: completionPredicate, progressHandler: progressHandler, completion: completion)
+        add(for: provider, form: form, refreshableItems: RefreshableItems.makeFromScopes(scopes, provider: provider), completionPredicate: completionPredicate, progressHandler: progressHandler, completion: completion)
     }
 
     // MARK: - Adding Credentials
@@ -117,7 +117,7 @@ public final class CredentialsContext {
     /// - Returns: The add credentials task.
     public func add(for provider: Provider,
                     form: Form,
-                    refreshableItems: Set<RefreshableItem> = [],
+                    refreshableItems: RefreshableItems = .all,
                     completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
                     progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
                     completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
@@ -213,7 +213,7 @@ public final class CredentialsContext {
     ///   - result: A result that either contains the refreshed credentials or an error if the refresh failed.
     /// - Returns: The refresh credentials task.
     public func refresh(_ credentials: Credentials,
-                        refreshableItems: Set<RefreshableItem> = [],
+                        refreshableItems: RefreshableItems = .all,
                         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
                         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
                         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RefreshCredentialsTask {
