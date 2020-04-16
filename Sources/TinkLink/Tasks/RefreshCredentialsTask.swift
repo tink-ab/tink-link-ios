@@ -48,7 +48,7 @@ public final class RefreshCredentialsTask: Identifiable {
     /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
-    private var credentialsStatusPollingTask: CredentialsListStatusPollingTask?
+    private var credentialsStatusPollingTask: CredentialStatusPollingTask?
 
     // MARK: - Getting the Credentials
 
@@ -71,13 +71,11 @@ public final class RefreshCredentialsTask: Identifiable {
     }
 
     func startObserving() {
-        credentialsStatusPollingTask = CredentialsListStatusPollingTask(
+        credentialsStatusPollingTask = CredentialsStatusPollingTask(
             credentialsService: credentialsService,
-            credentials: [credentials],
-            updateHandler: { [weak self] result in self?.handleUpdate(for: result) },
-            completion: { [weak self] result in
-                guard let self = self else { return }
-                self.completion(result.map { $0.first ?? self.credentials })
+            credentials: credentials,
+            updateHandler: { [weak self] result in
+                self?.handleUpdate(for: result)
             }
         )
 
