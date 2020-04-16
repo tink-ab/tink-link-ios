@@ -1,242 +1,245 @@
 import UIKit
 import TinkLink
 
-final class RefreshCredentialsViewController: UIViewController {
-
-    struct ViewModel {
-        var credential: Credentials
-        enum ViewState {
-            case selection(Bool)
-            case updating
-            case updated
-            case error
-        }
-
-        var viewState: ViewState
-    }
-
-    private let refreshCredentialList = SelfSizingTableView()
-    private let titleLabel = UILabel()
-    private let dismissButton = UIButton(type: .system)
-    private let primiaryButton = UIButton(type: .system)
-    private let stackView = UIStackView()
-    private let contentView = UIView()
-
-    private let titleText: String
-    private let dismissAction: (UIViewController) -> Void
-    private let primaryAction: ((Credentials?) -> Void)?
-    private let verticalSeparator = UIView()
-    private var primaryButtonConstraints = [NSLayoutConstraint]()
-
-    private var credentialsController: CredentialsController
-    private var providerController: ProviderController
-
-    private var credentialsToRefresh: Credentials?
-    private var viewModels: [ViewModel] {
+final class RefreshCredentialsViewController: UITableViewController {
+    private let credentialsContext = CredentialsContext()
+    private var credentials: Credentials {
         didSet {
-            let credentials = viewModels.filter {
-                switch $0.viewState {
-                case .selection(let selected):
-                    return selected
-                default:
-                    return false
-                }
-            }.map { $0.credential }
-            credentialsToRefresh = credentials.first
-            DispatchQueue.main.async {
-                self.refreshCredentialList.reloadData()
+            if isViewLoaded {
+                tableView.reloadData()
             }
         }
     }
 
-    init(titleText: String, credentialsController: CredentialsController, providerController: ProviderController, dismissAction: @escaping (UIViewController) -> Void, primaryAction: ((Credentials?) -> Void)?) {
-        self.titleText = titleText
-        self.viewModels = credentialsController.credentials.map{ ViewModel(credential: $0, viewState: .selection(true)) }
-        self.credentialsToRefresh = credentialsController.credentials.first
-        self.credentialsController = credentialsController
-        self.providerController = providerController
-        self.dismissAction = dismissAction
-        self.primaryAction = primaryAction
+    private enum Section: CaseIterable {
+        case status
+        case refresh
+        case delete
+    }
 
-        super.init(nibName: nil, bundle: nil)
+    private var sections = Section.allCases
+
+    private let dateFormatter = DateFormatter()
+
+    private var refreshCredentialsTask: RefreshCredentialsTask? {
+        didSet {
+            if isViewLoaded {
+                tableView.reloadData()
+            }
+        }
+    }
+
+    private var isDeleting = false
+
+    init(credentials: Credentials) {
+        self.credentials = credentials
+
+        super.init(style: .grouped)
+
+        navigationItem.largeTitleDisplayMode = .never
+
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.doesRelativeDateFormatting = true
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
 
+// MARK: - View Lifecycle
+
+extension RefreshCredentialsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(credentialRefresing), name: .credentialsControllerDidUpdateStatus, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(credentialsFinishedRefresh), name: .credentialsControllerDidFinishRefreshingCredentials, object: nil)
-
-        setup()
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "Status")
+        tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
     }
+}
 
-    func setup() {
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-        view.addSubview(blurEffectView)
+// MARK: - UITableViewDataSource
 
-        titleLabel.text = titleText
-        titleLabel.font = .preferredFont(forTextStyle: .headline)
+extension RefreshCredentialsViewController {
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
 
-        refreshCredentialList.dataSource = self
-        refreshCredentialList.delegate = self
-        refreshCredentialList.separatorStyle = .none
-        refreshCredentialList.translatesAutoresizingMaskIntoConstraints = false
-        refreshCredentialList.rowHeight = UITableView.automaticDimension
-        refreshCredentialList.estimatedRowHeight = 52
-        refreshCredentialList.isScrollEnabled = false
-        refreshCredentialList.alwaysBounceVertical = false
-        refreshCredentialList.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "cell")
-
-        let horizontalStackView = UIStackView()
-        horizontalStackView.alignment = .center
-        horizontalStackView.distribution = .fill
-        dismissButton.setTitle("Cancel", for: .normal)
-        dismissButton.addTarget(self, action: #selector(dismissActionPressed), for: .touchUpInside)
-        dismissButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
-        dismissButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
-        horizontalStackView.addArrangedSubview(dismissButton)
-        primaryAction.flatMap { _ in
-            primiaryButton.addTarget(self, action: #selector(primaryActionPressed), for: .touchUpInside)
-            primiaryButton.setTitle("Update", for: .normal)
-            primiaryButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
-            primiaryButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
-            verticalSeparator.translatesAutoresizingMaskIntoConstraints = false
-            verticalSeparator.backgroundColor = .separator
-            horizontalStackView.addArrangedSubview(verticalSeparator)
-            horizontalStackView.addArrangedSubview(primiaryButton)
-            primaryButtonConstraints = [
-                primiaryButton.widthAnchor.constraint(equalTo: dismissButton.widthAnchor),
-                verticalSeparator.widthAnchor.constraint(equalToConstant: 1),
-                verticalSeparator.heightAnchor.constraint(equalTo: horizontalStackView.heightAnchor)
-            ]
-            NSLayoutConstraint.activate(primaryButtonConstraints)
+    }
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch sections[section] {
+        case .status:
+            return credentials.statusPayload
+        default:
+            return nil
         }
-        let horizontalSeparator = UIView()
-        horizontalSeparator.translatesAutoresizingMaskIntoConstraints = false
-        horizontalSeparator.backgroundColor = .separator
-
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(refreshCredentialList)
-        stackView.addArrangedSubview(horizontalSeparator)
-        stackView.addArrangedSubview(horizontalStackView)
-
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.alignment = .center
-        stackView.setCustomSpacing(0, after: horizontalSeparator)
-
-        contentView.backgroundColor = .white
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.layer.cornerRadius = 15
-        contentView.layer.masksToBounds = true
-
-        contentView.addSubview(stackView)
-        view.addSubview(contentView)
-
-        NSLayoutConstraint.activate([
-            horizontalSeparator.heightAnchor.constraint(equalToConstant: 1),
-            horizontalSeparator.widthAnchor.constraint(equalTo: stackView.widthAnchor),
-
-            blurEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            blurEffectView.topAnchor.constraint(equalTo: view.topAnchor),
-            blurEffectView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            refreshCredentialList.widthAnchor.constraint(equalToConstant: 300),
-            horizontalStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-
-            contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
     }
 
-    @objc private func credentialRefresing(notification: Notification) {
-        DispatchQueue.main.async {
-            if let userInfo = notification.userInfo as? [String: Credentials], let credential = userInfo["credential"] {
-                if let index = self.viewModels.firstIndex(where: { credential.id == $0.credential.id }) {
-                    if credential.status == .updating {
-                        self.viewModels[index] = ViewModel(credential: credential, viewState: .updating)
-                    } else if credential.status == .updated {
-                        self.viewModels[index] = ViewModel(credential: credential, viewState: .updated)
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch sections[indexPath.section] {
+        case .status:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Status", for: indexPath)
+            cell.textLabel?.text = String(describing: credentials.status).localizedCapitalized
+            cell.detailTextLabel?.text = credentials.statusUpdated.map(dateFormatter.string(from:))
+            return cell
+        case .refresh:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
+            cell.actionLabel.text = "Refresh"
+            cell.tintColor = nil
+            return cell
+        case .delete:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
+            cell.actionLabel.text = "Delete"
+            cell.tintColor = .systemRed
+            return cell
+        }
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension RefreshCredentialsViewController {
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        switch sections[indexPath.section] {
+        case .status:
+            return false
+        case .refresh:
+            return refreshCredentialsTask == nil
+        case .delete:
+            return !isDeleting
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch sections[indexPath.section] {
+        case .status:
+            break
+        case .refresh:
+            refresh()
+            tableView.deselectRow(at: indexPath, animated: true)
+        case .delete:
+            isDeleting = true
+            credentialsContext.delete(credentials) { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.isDeleting = false
+                    do {
+                        _ = try result.get()
+                        self?.navigationController?.popViewController(animated: true)
+                    } catch {
+                        // Handle any errors
                     }
                 }
             }
         }
     }
+}
 
-    @objc private func credentialsFinishedRefresh() {
-        DispatchQueue.main.async {
-            self.dismiss(animated: false)
+// MARK: - Actions
+
+extension RefreshCredentialsViewController {
+    private func refresh() {
+        refreshCredentialsTask = credentialsContext.refresh(
+            credentials,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            progressHandler: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleProgress(status)
+                }
+            },
+            completion: { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.handleCompletion(result)
+                }
+            }
+        )
+    }
+
+    private var isPresentingQR: Bool {
+        guard let navigationController = presentedViewController as? UINavigationController else { return false }
+        return navigationController.topViewController is QRViewController
+    }
+
+    private func handleProgress(_ status: RefreshCredentialsTask.Status) {
+        guard let refreshedCredentials = refreshCredentialsTask?.credentials else { return }
+        switch status {
+        case .created:
+            self.credentials = refreshedCredentials
+        case .authenticating:
+            if isPresentingQR {
+                dismiss(animated: true)
+            }
+            self.credentials = refreshedCredentials
+        case .updating:
+            if isPresentingQR {
+                dismiss(animated: true)
+            }
+            self.credentials = refreshedCredentials
+        case .awaitingSupplementalInformation(let task):
+            showSupplementalInformation(for: task)
+        case .awaitingThirdPartyAppAuthentication(let task):
+            self.credentials = refreshedCredentials
+            task.handle { [weak self] taskStatus in
+                DispatchQueue.main.async {
+                    self?.handleThirdPartyAppAuthentication(taskStatus)
+                }
+            }
+        case .sessionExpired:
+            self.credentials = refreshedCredentials
+        case .updated:
+            self.credentials = refreshedCredentials
+        case .error:
+            self.credentials = refreshedCredentials
         }
     }
 
-    @objc private func dismissActionPressed(sender: UIButton) {
-        dismissAction(self)
+    private func handleThirdPartyAppAuthentication(_ taskStatus: ThirdPartyAppAuthenticationTask.Status) {
+        switch taskStatus {
+        case .awaitAuthenticationOnAnotherDevice:
+            let alertController = UIAlertController(title: "Awaiting Authentication on Another Device ", message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default)
+            alertController.addAction(action)
+            present(alertController, animated: true)
+        case .qrImage(let image):
+            let qrViewController = QRViewController(image: image)
+            qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
+            let navigationController = UINavigationController(rootViewController: qrViewController)
+            present(navigationController, animated: true)
+        }
+    }
+    private func handleCompletion(_ result: Result<Credentials, Error>) {
+        do {
+            self.credentials = try result.get()
+        } catch {
+            // Handle any errors
+        }
     }
 
-    @objc private func primaryActionPressed(sender: UIButton) {
-        refreshCredentialList.isUserInteractionEnabled = false
-        NSLayoutConstraint.deactivate(primaryButtonConstraints)
-        primiaryButton.removeFromSuperview()
-        verticalSeparator.removeFromSuperview()
-        primaryAction?(credentialsToRefresh)
+    @objc private func cancelRefreshingCredentials(_ sender: Any) {
+        refreshCredentialsTask?.cancel()
+        dismiss(animated: true)
+    }
+
+    private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
+        let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
+        supplementalInformationViewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
+        show(navigationController, sender: nil)
     }
 }
 
-extension RefreshCredentialsViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModels.count
+// MARK: - SupplementalInformationViewControllerDelegate
+
+extension RefreshCredentialsViewController: SupplementalInformationViewControllerDelegate {
+    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credentials) {
+        self.credentials = credential
+        dismiss(animated: true)
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FixedImageSizeTableViewCell
-        let viewModel = viewModels[indexPath.item]
-        configure(cell, viewModel: viewModel)
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewModel = viewModels[indexPath.item]
-        switch viewModel.viewState {
-        case .selection(let selected):
-            viewModels[indexPath.item].viewState = .selection(!selected)
-        default:
-            break
-        }
-    }
-
-    private func configure(_ cell: FixedImageSizeTableViewCell, viewModel: ViewModel) {
-        let provider = providerController.provider(providerID: viewModel.credential.providerID)
-        cell.setTitle(text: provider?.displayName ?? viewModel.credential.kind.description)
-        provider?.image.flatMap{ cell.setImage(url: $0) }
-
-        switch viewModel.viewState {
-        case .selection(let selected):
-            let switchView = UISwitch()
-            switchView.isUserInteractionEnabled = false
-            switchView.isOn = selected
-            cell.accessoryView = switchView
-        case .updating:
-            let activityIndicatorView = UIActivityIndicatorView(style: .medium)
-            cell.accessoryView = activityIndicatorView
-            activityIndicatorView.startAnimating()
-        case .updated:
-            cell.accessoryView = nil
-            cell.accessoryType = .checkmark
-        case .error:
-            break
-        }
+    func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
+        dismiss(animated: true)
     }
 }

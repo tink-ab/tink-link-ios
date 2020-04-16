@@ -45,7 +45,7 @@ public final class AddCredentialsTask: Identifiable {
         }
     }
 
-    private var credentialsStatusPollingTask: CredentialStatusPollingTask?
+    private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
 
     private(set) public var credentials: Credentials?
@@ -98,7 +98,7 @@ public final class AddCredentialsTask: Identifiable {
         if isCancelled { return }
 
         handleUpdate(for: .success(credentials))
-        credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
+        credentialsStatusPollingTask = CredentialsStatusPollingTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
             self?.handleUpdate(for: result)
         }
 
@@ -128,7 +128,7 @@ public final class AddCredentialsTask: Identifiable {
                     guard let self = self else { return }
                     do {
                         try result.get()
-                        self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
+                        self.credentialsStatusPollingTask = CredentialsStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
                         self.credentialsStatusPollingTask?.pollStatus()
                     } catch {
                         self.completion(.failure(error))
@@ -144,7 +144,7 @@ public final class AddCredentialsTask: Identifiable {
                     guard let self = self else { return }
                     do {
                         try result.get()
-                        self.credentialsStatusPollingTask = CredentialStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
+                        self.credentialsStatusPollingTask = CredentialsStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
                         self.credentialsStatusPollingTask?.pollStatus()
                     } catch {
                         self.completion(.failure(error))

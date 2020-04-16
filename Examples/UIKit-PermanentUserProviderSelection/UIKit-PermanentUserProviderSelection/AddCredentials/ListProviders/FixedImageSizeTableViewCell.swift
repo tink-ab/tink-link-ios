@@ -25,6 +25,7 @@ class FixedImageSizeTableViewCell: UITableViewCell {
         contentView.addSubview(iconView)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(subtitleLabel)
         stackView.setContentHuggingPriority(.defaultLow, for: .vertical)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -36,6 +37,7 @@ class FixedImageSizeTableViewCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
 
+        subtitleLabel.isHidden = true
         subtitleLabel.numberOfLines = 0
         subtitleLabel.textColor = .darkGray
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -69,18 +71,22 @@ class FixedImageSizeTableViewCell: UITableViewCell {
         separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing
     }
 
-    func setImage(url: URL) {
-        iconView.kf.setImage(with: ImageResource(downloadURL: url))
-    }
-
-    func setTitle(text: String) {
-        titleLabel.text = text
-    }
-
-    func setSubtitle(text: String) {
-        if !stackView.subviews.contains(subtitleLabel) {
-            stackView.addArrangedSubview(subtitleLabel)
+    var imageURL: URL? {
+        didSet {
+            iconView.kf.setImage(with: imageURL)
         }
-        subtitleLabel.text = text
+    }
+
+    var title: String? {
+        get { titleLabel.text }
+        set { titleLabel.text = newValue }
+    }
+
+    var subtitle: String? {
+        get { subtitleLabel.text }
+        set {
+            subtitleLabel.isHidden = subtitle == nil
+            subtitleLabel.text = newValue
+        }
     }
 }
