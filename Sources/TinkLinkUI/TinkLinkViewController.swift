@@ -1,7 +1,7 @@
 import UIKit
 import TinkLink
 
-/// A view controller for lanuch the aggregation flow.
+/// A view controller for aggregating credentials.
 ///
 /// A `TinkLinkViewController` displays adding bank credentials.
 ///
