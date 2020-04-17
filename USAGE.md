@@ -334,13 +334,7 @@ let customTink = Tink(configuration: configuration)
 
 ## Tink Link UI
 
-1. Import the SDK
-
-```swift
-import TinkLinkUI
-```
-
-2. First you need to define what scopes you need.
+1. First you need to define what scopes you need.
 
 ```swift
 let scopes: [Scope] = [
@@ -349,7 +343,7 @@ let scopes: [Scope] = [
 ]
 ```
 
-3. Then create a `TinkLinkViewController` with a market and the scopes to use.
+2. Then create a `TinkLinkViewController` with a market and the scopes to use.
 
 ```swift
 let tinkLinkViewController = TinkLinkViewController(market: <#String#>, scopes: scopes) { result in 
@@ -362,7 +356,7 @@ let tinkLinkViewController = TinkLinkViewController(market: <#String#>, scopes: 
 }
 ```
 
-4. Tink Link is designed to be presented modally so display the view controller by calling `present(_:animated:)`
+3. Tink Link is designed to be presented modally so display the view controller by calling `present(_:animated:)`
 
 ```swift
 present(tinkLinkViewController, animated: true)
