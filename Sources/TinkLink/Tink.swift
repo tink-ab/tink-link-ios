@@ -153,11 +153,13 @@ extension Tink {
 
     /// Create a user for a specific market and locale.
     ///
+    /// :nodoc:
+    ///
     /// - Parameter market: Register a `Market` for creating the user, will use the default market if nothing is provided.
     /// - Parameter locale: Register a `Locale` for creating the user, will use the default locale in TinkLink if nothing is provided.
     /// - Parameter completion: A result representing either a success or an error.
     @discardableResult
-    public func createTemporaryUser(for market: Market, locale: Locale = Tink.defaultLocale, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func _createTemporaryUser(for market: Market, locale: Locale = Tink.defaultLocale, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
         return oAuthService.createAnonymous(market: market, locale: locale, origin: nil) { [weak self] result in
             let mappedResult = result.mapError { UserError(createTemporaryUserError: $0) ?? $0 }
             do {

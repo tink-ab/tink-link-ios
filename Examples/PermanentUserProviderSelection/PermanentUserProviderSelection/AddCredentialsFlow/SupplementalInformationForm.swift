@@ -1,7 +1,7 @@
 import SwiftUI
 import TinkLink
 
-struct SupplementControllerRepresentableView: View, UIViewControllerRepresentable {
+struct SupplementalInformationForm: View, UIViewControllerRepresentable {
     private var supplementInformationTask: SupplementInformationTask
 
     init(supplementInformationTask: SupplementInformationTask, onCompletion: @escaping CompletionHandler) {
@@ -22,11 +22,11 @@ struct SupplementControllerRepresentableView: View, UIViewControllerRepresentabl
 
     typealias UIViewControllerType = UINavigationController
 
-    func makeCoordinator() -> SupplementControllerRepresentableView.Coordinator {
+    func makeCoordinator() -> SupplementalInformationForm.Coordinator {
         return Coordinator(completionHandler: onCompletion)
     }
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<SupplementControllerRepresentableView>) -> SupplementControllerRepresentableView.UIViewControllerType {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<SupplementalInformationForm>) -> SupplementalInformationForm.UIViewControllerType {
         let viewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
         viewController.onCompletion = context.coordinator.completionHandler
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -34,7 +34,7 @@ struct SupplementControllerRepresentableView: View, UIViewControllerRepresentabl
         return navigationController
     }
 
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: UIViewControllerRepresentableContext<SupplementControllerRepresentableView>) {
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: UIViewControllerRepresentableContext<SupplementalInformationForm>) {
         // NOOP
     }
 }

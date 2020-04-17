@@ -4,64 +4,65 @@ import TinkLinkUI
 extension AppearanceProvider {
 
     private static func makeProvider(folderName: String) -> AppearanceProvider {
-        return AppearanceProvider(
-            background: UIColor(named: "\(folderName)/Background")!,
-            secondaryBackground: UIColor(named: "\(folderName)/SecondaryBackground")!,
-            groupedBackground: UIColor(named: "\(folderName)/GroupedBackground")!,
-            secondaryGroupedBackground: UIColor(named: "\(folderName)/GroupedSecondaryBackground")!,
-            label: UIColor(named: "\(folderName)/Label")!,
-            secondaryLabel: UIColor(named: "\(folderName)/SecondaryLabel")!,
-            separator: UIColor(named: "\(folderName)/Separator")!,
-            accent: UIColor(named: "\(folderName)/Accent")!,
-            expenses: UIColor(named: "\(folderName)/Expenses")!,
-            income: UIColor(named: "\(folderName)/Income")!,
-            transfers: UIColor(named: "\(folderName)/Transfers")!,
-            uncategorized: UIColor(named: "\(folderName)/Uncategorized")!,
-            warning: UIColor(named: "\(folderName)/Uncategorized")!,
-            critical: UIColor(named: "\(folderName)/Critical")!
-        )
+        let color = ColorProvider()
+        color.background = UIColor(named: "\(folderName)/Background")!
+        color.secondaryBackground = UIColor(named: "\(folderName)/SecondaryBackground")!
+        color.groupedBackground = UIColor(named: "\(folderName)/GroupedBackground")!
+        color.secondaryGroupedBackground = UIColor(named: "\(folderName)/GroupedSecondaryBackground")!
+        color.label = UIColor(named: "\(folderName)/Label")!
+        color.secondaryLabel = UIColor(named: "\(folderName)/SecondaryLabel")!
+        color.separator = UIColor(named: "\(folderName)/Separator")!
+        color.accent = UIColor(named: "\(folderName)/Accent")!
+        color.expenses = UIColor(named: "\(folderName)/Expenses")!
+        color.income = UIColor(named: "\(folderName)/Income")!
+        color.transfers = UIColor(named: "\(folderName)/Transfers")!
+        color.uncategorized = UIColor(named: "\(folderName)/Uncategorized")!
+        color.warning = UIColor(named: "\(folderName)/Uncategorized")!
+        color.critical = UIColor(named: "\(folderName)/Critical")!
+        return AppearanceProvider(colors: color)
     }
 
     private static func makeProviderWithCustomIcon(colorFolderName: String) -> AppearanceProvider {
-        return AppearanceProvider(
-            background: UIColor(named: "\(colorFolderName)/Background")!,
-            secondaryBackground: UIColor(named: "\(colorFolderName)/SecondaryBackground")!,
-            groupedBackground: UIColor(named: "\(colorFolderName)/GroupedBackground")!,
-            secondaryGroupedBackground: UIColor(named: "\(colorFolderName)/GroupedSecondaryBackground")!,
-            label: UIColor(named: "\(colorFolderName)/Label")!,
-            secondaryLabel: UIColor(named: "\(colorFolderName)/SecondaryLabel")!,
-            separator: UIColor(named: "\(colorFolderName)/Separator")!,
-            accent: UIColor(named: "\(colorFolderName)/Accent")!,
-            expenses: UIColor(named: "\(colorFolderName)/Expenses")!,
-            income: UIColor(named: "\(colorFolderName)/Income")!,
-            transfers: UIColor(named: "\(colorFolderName)/Transfers")!,
-            uncategorized: UIColor(named: "\(colorFolderName)/Uncategorized")!,
-            warning: UIColor(named: "\(colorFolderName)/Uncategorized")!,
-            critical: UIColor(named: "\(colorFolderName)/Critical")!
-        )
+        let color = ColorProvider()
+        color.background = UIColor(named: "\(colorFolderName)/Background")!
+        color.secondaryBackground = UIColor(named: "\(colorFolderName)/SecondaryBackground")!
+        color.groupedBackground = UIColor(named: "\(colorFolderName)/GroupedBackground")!
+        color.secondaryGroupedBackground = UIColor(named: "\(colorFolderName)/GroupedSecondaryBackground")!
+        color.label = UIColor(named: "\(colorFolderName)/Label")!
+        color.secondaryLabel = UIColor(named: "\(colorFolderName)/SecondaryLabel")!
+        color.separator = UIColor(named: "\(colorFolderName)/Separator")!
+        color.accent = UIColor(named: "\(colorFolderName)/Accent")!
+        color.expenses = UIColor(named: "\(colorFolderName)/Expenses")!
+        color.income = UIColor(named: "\(colorFolderName)/Income")!
+        color.transfers = UIColor(named: "\(colorFolderName)/Transfers")!
+        color.uncategorized = UIColor(named: "\(colorFolderName)/Uncategorized")!
+        color.warning = UIColor(named: "\(colorFolderName)/Uncategorized")!
+        color.critical = UIColor(named: "\(colorFolderName)/Critical")!
+        return AppearanceProvider(colors: color)
     }
     
     private static func makeProviderWithFonts(folderName: String, light: String, regular: String, semiBold: String, bold: String) -> AppearanceProvider {
-        return AppearanceProvider(
-            background: UIColor(named: "\(folderName)/Background")!,
-            secondaryBackground: UIColor(named: "\(folderName)/SecondaryBackground")!,
-            groupedBackground: UIColor(named: "\(folderName)/GroupedBackground")!,
-            secondaryGroupedBackground: UIColor(named: "\(folderName)/GroupedSecondaryBackground")!,
-            label: UIColor(named: "\(folderName)/Label")!,
-            secondaryLabel: UIColor(named: "\(folderName)/SecondaryLabel")!,
-            separator: UIColor(named: "\(folderName)/Separator")!,
-            accent: UIColor(named: "\(folderName)/Accent")!,
-            expenses: UIColor(named: "\(folderName)/Expenses")!,
-            income: UIColor(named: "\(folderName)/Income")!,
-            transfers: UIColor(named: "\(folderName)/Transfers")!,
-            uncategorized: UIColor(named: "\(folderName)/Uncategorized")!,
-            warning: UIColor(named: "\(folderName)/Uncategorized")!,
-            critical: UIColor(named: "\(folderName)/Critical")!,
-            lightFont: .custom("\(light)"),
-            regularFont: .custom("\(regular)"),
-            semiBoldFont: .custom("\(semiBold)"),
-            boldFont: .custom("\(bold)")
-        )
+        let color = ColorProvider()
+        let font = FontProvider()
+        color.background = UIColor(named: "\(folderName)/Background")!
+        color.secondaryBackground = UIColor(named: "\(folderName)/SecondaryBackground")!
+        color.groupedBackground = UIColor(named: "\(folderName)/GroupedBackground")!
+        color.secondaryGroupedBackground = UIColor(named: "\(folderName)/GroupedSecondaryBackground")!
+        color.label = UIColor(named: "\(folderName)/Label")!
+        color.secondaryLabel = UIColor(named: "\(folderName)/SecondaryLabel")!
+        color.separator = UIColor(named: "\(folderName)/Separator")!
+        color.accent = UIColor(named: "\(folderName)/Accent")!
+        color.expenses = UIColor(named: "\(folderName)/Expenses")!
+        color.income = UIColor(named: "\(folderName)/Income")!
+        color.transfers = UIColor(named: "\(folderName)/Transfers")!
+        color.uncategorized = UIColor(named: "\(folderName)/Uncategorized")!
+        color.warning = UIColor(named: "\(folderName)/Uncategorized")!
+        color.critical = UIColor(named: "\(folderName)/Critical")!
+        font.lightFont = .custom("\(light)")
+        font.regularFont = .custom("\(regular)")
+        font.semiBoldFont = .custom("\(semiBold)")
+        font.boldFont = .custom("\(bold)")
+        return AppearanceProvider(colors: color, fonts: font)
     }
 
     static var darkGreen: AppearanceProvider = makeProvider(folderName: "DarkGreen")

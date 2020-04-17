@@ -39,6 +39,8 @@ public final class AuthorizationContext {
 
     /// Creates an authorization code with the requested scopes for the current user
     ///
+    /// :nodoc:
+    ///
     /// Once you have received the authorization code, you can exchange it for an access token on your backend and use the access token to access the user's data.
     /// Exchanging the authorization code for an access token requires the use of the client secret associated with your client identifier.
     ///
@@ -47,7 +49,7 @@ public final class AuthorizationContext {
     /// - Parameter completion: The block to execute when the authorization is complete.
     /// - Parameter result: Represents either an authorization code if authorization was successful or an error if authorization failed.
     @discardableResult
-    public func authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.authorize(clientID: tink.configuration.clientID, redirectURI: redirectURI, scopes: scopes) { result in
             let mappedResult = result.map({ $0.code }).mapError({ Error($0) ?? $0 })

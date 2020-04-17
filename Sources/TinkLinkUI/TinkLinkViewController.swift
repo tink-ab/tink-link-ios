@@ -48,7 +48,7 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private func start() {
-        tink.createTemporaryUser(for: market) { [weak self] result in
+        tink._createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 do {

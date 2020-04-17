@@ -8,3 +8,4 @@ Pods/
 *.xcworkspace
 GRPC/plugins/
 .swiftpm/
+TinkLink.xcodeproj/

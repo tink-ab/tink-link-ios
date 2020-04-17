@@ -4,7 +4,6 @@ import SwiftUI
 final class CredentialsController: ObservableObject {
     @Published var credentials: [Credentials] = []
 
-    @Published var updatedCredentials: [Credentials] = []
     @Published var supplementInformationTask: SupplementInformationTask?
 
     private(set) var credentialsContext =  CredentialsContext()
@@ -43,15 +42,15 @@ final class CredentialsController: ObservableObject {
     func deleteCredentials(credentials: [Credentials]) {
         credentials.forEach { credentials in
             credentialsContext.delete(credentials, completion: { [weak self] result in
-                switch result {
-                case .success:
+                do {
+                    try result.get()
                     DispatchQueue.main.async {
                         self?.credentials.removeAll { removedCredentials -> Bool in
                             credentials.id == removedCredentials.id
                         }
                     }
-                case .failure(let error):
-                    print(error)
+                } catch {
+                    // Handle any errors
                 }
             })
         }
@@ -82,7 +81,6 @@ final class CredentialsController: ObservableObject {
             if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
                 DispatchQueue.main.async { [weak self] in
                     self?.credentials[index] = refreshedCredentials
-                    self?.updatedCredentials.append(refreshedCredentials)
                 }
             }
         case .error:
@@ -104,9 +102,6 @@ final class CredentialsController: ObservableObject {
             }
         } catch {
             // Handle any errors
-        }
-        DispatchQueue.main.async { [weak self] in
-            self?.updatedCredentials = []
         }
     }
 }

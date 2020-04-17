@@ -29,7 +29,7 @@ final class RESTClient {
         }
 
         for queryItem in request.queryParameters {
-            urlComponents.queryItems?.append(URLQueryItem(name: queryItem.key, value: queryItem.value))
+            urlComponents.queryItems?.append(URLQueryItem(name: queryItem.name, value: queryItem.value))
         }
 
         guard let url = urlComponents.url else {

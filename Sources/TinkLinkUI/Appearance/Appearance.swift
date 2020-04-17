@@ -5,22 +5,14 @@ public enum Appearance {
     ///
     /// If you set a custom appearance provider, all Tink PFM SDK views will use
     /// this provider to retreive colors and fonts.
-    public static var provider: AppearanceProviding! {
-        get {
-            AppearanceProviderWrapper(colorProvider: colorProvider, fontProvider: fontProvider)
-        }
-        set {
-            if let newProvider = newValue {
-                customColorProvider = newProvider
-                customFontProvider = newProvider
-            } else {
-                customColorProvider = nil
-                customFontProvider = nil
-            }
+    public static var provider: AppearanceProviding = AppearanceProvider() {
+        didSet {
+            customColorProvider = provider.colors
+            customFontProvider = provider.fonts
         }
     }
 
-    static var defaultProvider: AppearanceProviding = DefaultAppearanceProvider()
+    static var defaultProvider: AppearanceProviding = AppearanceProvider()
 
     /// A custom color provider.
     ///
@@ -28,7 +20,7 @@ public enum Appearance {
     /// this provider to retreive colors.
     static var colorProvider: ColorProviding! {
         get {
-            customColorProvider ?? defaultProvider
+            customColorProvider ?? defaultProvider.colors
         }
         set {
             if let newProvider = newValue {
@@ -47,7 +39,7 @@ public enum Appearance {
     /// this provider to retreive fonts.
     static var fontProvider: FontProviding! {
         get {
-            customFontProvider ?? defaultProvider
+            customFontProvider ?? defaultProvider.fonts
         }
         set {
             if let newProvider = newValue {
@@ -59,41 +51,4 @@ public enum Appearance {
     }
 
     private static var customFontProvider: FontProviding?
-}
-
-struct AppearanceProviderWrapper: AppearanceProviding {
-    let colorProvider: ColorProviding
-    let fontProvider: FontProviding
-
-    var background: UIColor { colorProvider.background }
-
-    var secondaryBackground: UIColor { colorProvider.secondaryBackground }
-
-    var groupedBackground: UIColor { colorProvider.groupedBackground }
-
-    var secondaryGroupedBackground: UIColor { colorProvider.secondaryGroupedBackground }
-
-    var label: UIColor { colorProvider.label }
-
-    var secondaryLabel: UIColor { colorProvider.secondaryLabel }
-
-    var separator: UIColor { colorProvider.separator }
-
-    var accent: UIColor { colorProvider.accent }
-
-    var expenses: UIColor { colorProvider.expenses }
-
-    var income: UIColor { colorProvider.income }
-
-    var transfers: UIColor { colorProvider.transfers }
-
-    var uncategorized: UIColor { colorProvider.uncategorized }
-
-    var warning: UIColor { colorProvider.warning }
-
-    var critical: UIColor { colorProvider.critical }
-
-    func font(for weight: Font.Weight) -> Font {
-        fontProvider.font(for: weight)
-    }
 }

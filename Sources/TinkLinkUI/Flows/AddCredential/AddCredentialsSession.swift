@@ -48,6 +48,7 @@ final class AddCredentialsSession {
         task = credentialsController.addCredentials(
             provider,
             form: form,
+            scopes: scopes, 
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
                     self?.handleAddCredentialStatus(status) {

@@ -19,7 +19,7 @@ class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    var textFieldBackgroundColor: UIColor? {
+    private var textFieldBackgroundColor: UIColor? {
         didSet {
             textFieldBackgroundColorLayer.backgroundColor = textFieldBackgroundColor?.cgColor
         }
@@ -34,7 +34,7 @@ class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    var lineWidth: CGFloat = .onePixel {
+    var lineWidth: CGFloat = 1.0 {
         didSet {
             underlineLayer.lineWidth = lineWidth
         }
@@ -45,7 +45,7 @@ class FloatingPlaceholderTextField: UITextField {
             if isEnabled {
                 textFieldBackgroundColor = nil
                 textAlignment = .natural
-                lineWidth = .onePixel
+                lineWidth = 1.0
             } else {
                 textFieldBackgroundColor = Color.accentBackground
                 textAlignment = .center
@@ -133,7 +133,8 @@ class FloatingPlaceholderTextField: UITextField {
         super.tintColorDidChange()
 
         underlineLayer.strokeColor = tintColor.cgColor
-        underlineLayer.backgroundColor = Color.secondaryLabel.cgColor
+        placeholderLayer.foregroundColor = Color.secondaryLabel.cgColor
+        underlineLayer.backgroundColor = Color.label.withAlphaComponent(0.2).cgColor
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -144,7 +145,8 @@ class FloatingPlaceholderTextField: UITextField {
                 return
             }
             underlineLayer.strokeColor = tintColor.cgColor
-            underlineLayer.backgroundColor = Color.separator.cgColor
+            placeholderLayer.foregroundColor = Color.secondaryLabel.cgColor
+            underlineLayer.backgroundColor = Color.label.withAlphaComponent(0.2).cgColor
         }
     }
 }
@@ -165,7 +167,7 @@ private extension FloatingPlaceholderTextField {
         placeholderLayer.anchorPoint = .zero
         layer.addSublayer(placeholderLayer)
 
-        underlineLayer.backgroundColor = Color.separator.cgColor
+        underlineLayer.backgroundColor = Color.label.withAlphaComponent(0.2).cgColor
         underlineLayer.lineWidth = lineWidth
         underlineLayer.fillColor = UIColor.clear.cgColor
         underlineLayer.strokeColor = tintColor.cgColor

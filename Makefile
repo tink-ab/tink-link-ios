@@ -37,6 +37,7 @@ docs:
 		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
 		--module-version $(VERSION) \
 		--module TinkLink \
+		--sdk iphone \
 		--output docs
 
 lint:
@@ -72,8 +73,6 @@ build-tinklinkui-example:
 		-destination 'generic/platform=iOS Simulator'
 
 clean: 
-	rm -rf ./GRPC/plugins/
-	rm -rf ./Sources/TinkLinkSDK/GRPC/
 	rm -rf ./docs
 
 release: format lint
