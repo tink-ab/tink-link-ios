@@ -4,8 +4,8 @@ import Foundation
 public enum TinkLinkError: Error {
     /// User cancelled the flow.
     case userCancelled
-    /// Unable to fetch any back.
-    case unableToFetchBanks
+    /// Unable to fetch providers.
+    case unableToFetchProviders
     /// Lost internet connection.
     case missingInternetConnection
 
@@ -13,7 +13,7 @@ public enum TinkLinkError: Error {
         if let error = error as? ProviderController.Error {
             switch error {
             case .emptyProviderList:
-                self = .unableToFetchBanks
+                self = .unableToFetchProviders
             case .missingInternetConnection:
                 self = .missingInternetConnection
             }

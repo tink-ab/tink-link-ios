@@ -29,8 +29,8 @@ public class TinkLinkViewController: UINavigationController {
     ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from. 
     ///   - scope: A set of scopes that will be aggregated.
     ///   - providerKinds: The kind of providers that will be listed.
-    ///   - authorization: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
         self.market = market
         self.scopes = scopes
