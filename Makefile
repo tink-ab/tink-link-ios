@@ -46,6 +46,12 @@ ui-docs:
 		--sdk iphone \
 		--output ui-docs
 
+combined-docs
+	swift package generate-xcodeproj
+	sourcekitten doc --module-name TinkLink -- -project TinkLink.xcodeproj > TinkLinkDoc.json
+	sourcekitten doc --module-name TinkLinkUI -- -project TinkLinkUI.xcodeproj > TinkLinkUIDoc.json
+	jazzy --sourcekitten-sourcefile TinkLinkDoc.json,TinkLinkUIDoc.json
+
 lint:
 	swiftlint 2> /dev/null
 
