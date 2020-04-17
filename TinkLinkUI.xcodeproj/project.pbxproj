@@ -9,6 +9,7 @@
 /* Begin PBXFileReference section */
 		20B354002449A5A300D8F24F /* TinkLinkUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TinkLinkUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B354042449A5A300D8F24F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		20B3549D2449A78400D8F24F /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +28,7 @@
 			children = (
 				20B354092449A70900D8F24F /* Sources */,
 				20B354012449A5A300D8F24F /* Products */,
+				20B3549E2449A78D00D8F24F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -52,6 +54,14 @@
 				20B354022449A5A300D8F24F /* TinkLinkUI */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		20B3549E2449A78D00D8F24F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				20B3549D2449A78400D8F24F /* tink-link-ios */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
