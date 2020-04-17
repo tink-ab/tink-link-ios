@@ -331,3 +331,38 @@ In some cases, you may want to have multiple `Tink` instances. You can create mu
 let configuration = Tink.Configuration(clientID: <#T##String#>, redirectURI: <#T##URL#>)
 let customTink = Tink(configuration: configuration)
 ```
+
+## How to display Tink Link
+
+1. Import Tink Link UI
+```swift
+import TinkLinkUI
+```
+
+2. First you need to define what scopes you need.
+
+```swift
+let scopes: [Scope] = [
+    .accounts(.read), 
+    .transactions(.read)
+]
+```
+
+3. Then create a `TinkLinkViewController` with a market and the scopes to use.
+
+```swift
+let tinkLinkViewController = TinkLinkViewController(market: <#String#>, scopes: scopes) { result in 
+    do {
+        let authorizationCode = try result.get()
+        // Exchange the authorization code for a access token.
+    } catch {
+        // Handle any errors
+    }
+}
+```
+
+4. Tink Link is designed to be presented modally so display the view controller by calling `present(_:animated:)`
+
+```swift
+present(tinkLinkViewController, animated: true)
+```
