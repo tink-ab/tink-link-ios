@@ -25,9 +25,9 @@ endif
 
 docs:
 	swift package generate-xcodeproj
-	sourcekitten doc --module-name TinkLink -- -project TinkLink.xcodeproj -destination 'generic/platform=iOS Simulator' > TinkLinkDoc.json
+	sourcekitten doc --module-name TinkLink -- -project TinkLink.xcodeproj -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -target TinkLink > TinkLinkDoc.json
 	bundle exec pod install --project-directory="./TinkLinkTester/"
-	sourcekitten doc --module-name TinkLinkUI -- -workspace TinkLinkTester/TinkLink.xcworkspace -scheme TinkLinkTester -destination 'generic/platform=iOS Simulator' > TinkLinkUIDoc.json
+	sourcekitten doc --module-name TinkLinkUI -- -workspace TinkLinkTester/TinkLink.xcworkspace -scheme TinkLinkTester -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -target TinkLinkUI > TinkLinkUIDoc.json
 	bundle exec jazzy \
 		--sourcekitten-sourcefile TinkLinkDoc.json,TinkLinkUIDoc.json \
 		--clean \
