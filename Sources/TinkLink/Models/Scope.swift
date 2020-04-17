@@ -5,15 +5,18 @@ public struct Scope {
     let access: [String]
 }
 
-public extension Scope {
+extension Scope {
     var scopeDescription: String {
         access.map { "\(name):\($0)" }.joined(separator: ",")
     }
 }
 
-public extension Array where Element == Scope {
+extension Scope: Equatable {}
+
+extension Array where Element == Scope {
     var scopeDescription: String { map { $0.scopeDescription }.joined(separator: ",") }
 }
+
 public extension Scope {
 
     enum ReadAccess: String {
