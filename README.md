@@ -105,7 +105,7 @@ fontProvider.regularFont = <#UIFont#>
 fontProvider.semiBoldFont = <#UIFont#>
 fontProvider.boldFont = <#UIFont#>
 
-Appearance.provider = AppearenceProvider(colors: colorProvider, fonts: fontProvder)
+Appearance.provider = AppearenceProvider(colors: colorProvider, fonts: fontProvider)
 ```
 
 ## Examples
