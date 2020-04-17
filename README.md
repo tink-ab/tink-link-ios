@@ -59,4 +59,5 @@ Follow the instructions in one of these links to learn how to set this up:
 - [Example apps](Examples) These examples shows how to build a complete aggregation flow using Tink Link.
 
 ## Developer Documentation
-- [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios)
+- [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios/tinklink)
+- [Tink Link UI iOS Reference](https://tink-ab.github.io/tink-link-ios/tinklinkui)
