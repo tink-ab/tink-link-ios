@@ -69,6 +69,7 @@
 		20B355302449A7D300D8F24F /* CredentialsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B354EF2449A7D300D8F24F /* CredentialsController.swift */; };
 		20B355312449A7D300D8F24F /* TinkLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B354F02449A7D300D8F24F /* TinkLinkViewController.swift */; };
 		20B355322449A7D300D8F24F /* TinkLinkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B354F12449A7D300D8F24F /* TinkLinkError.swift */; };
+		20B355362449A86900D8F24F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 20B355352449A86900D8F24F /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20B355362449A86900D8F24F /* Kingfisher in Frameworks */,
 				20B354A02449A7B100D8F24F /* TinkLink in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +419,7 @@
 			name = TinkLinkUI;
 			packageProductDependencies = (
 				20B3549F2449A7B100D8F24F /* TinkLink */,
+				20B355352449A86900D8F24F /* Kingfisher */,
 			);
 			productName = TinkLinkUI;
 			productReference = 20B354002449A5A300D8F24F /* TinkLinkUI.framework */;
@@ -446,6 +449,9 @@
 				sv,
 			);
 			mainGroup = 20B353F42449A55B00D8F24F;
+			packageReferences = (
+				20B355342449A86800D8F24F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 20B354012449A5A300D8F24F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -726,10 +732,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		20B355342449A86800D8F24F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.13.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		20B3549F2449A7B100D8F24F /* TinkLink */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TinkLink;
+		};
+		20B355352449A86900D8F24F /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20B355342449A86800D8F24F /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
