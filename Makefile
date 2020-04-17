@@ -29,7 +29,7 @@ docs:
 	bundle exec pod install --project-directory="./TinkLinkTester/"
 	sourcekitten doc --module-name TinkLinkUI -- -workspace TinkLinkTester/TinkLink.xcworkspace -scheme TinkLinkTester > TinkLinkUIDoc.json
 	bundle exec jazzy \
-		--sourcekitten-sourcefile TinkLinkDoc.json,TinkLinkUIDoc.json
+		--sourcekitten-sourcefile TinkLinkDoc.json,TinkLinkUIDoc.json \
 		--clean \
 		--author Tink \
 		--author_url https://tink.com \
