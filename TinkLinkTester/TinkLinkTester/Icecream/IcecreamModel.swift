@@ -33,7 +33,7 @@ final class IcecreamModel {
         switch identifier {
         case .theme(let theme):
             needsReload = true
-            Appearance.provider = theme
+            Appearance.provider = theme ?? AppearanceProvider()
         }
     }
 }
