@@ -334,7 +334,7 @@ let customTink = Tink(configuration: configuration)
 
 ## Tink Link UI
 
-1. First you need to define what scopes you need. Select scopes based on the type of data you want to fetch.
+1. First you need to define what scopes you need. Select scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, select these scopes:
 
 ```swift
 let scopes: [Scope] = [
