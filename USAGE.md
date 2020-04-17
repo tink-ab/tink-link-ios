@@ -334,7 +334,7 @@ let customTink = Tink(configuration: configuration)
 
 ## Tink Link UI
 
-1. First you need to define what scopes you need.
+1. First you need to define what scopes you need. Select scopes based on the type of data you want to fetch.
 
 ```swift
 let scopes: [Scope] = [
