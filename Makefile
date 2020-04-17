@@ -38,7 +38,7 @@ combined-docs
 	sourcekitten doc --module-name TinkLink -- -project TinkLink.xcodeproj > TinkLinkDoc.json
 	bundle exec pod install --project-directory="./TinkLinkTester/"
 	sourcekitten doc --module-name TinkLinkUI -- -workspace TinkLinkTester/TinkLink.xcworkspace -scheme TinkLinkTester > TinkLinkUIDoc.json
-	jazzy --sourcekitten-sourcefile TinkLinkDoc.json,TinkLinkUIDoc.json
+	bundle exec jazzy --sourcekitten-sourcefile TinkLinkDoc.json,TinkLinkUIDoc.json
 
 lint:
 	swiftlint 2> /dev/null
