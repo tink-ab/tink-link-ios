@@ -49,7 +49,8 @@ ui-docs:
 combined-docs
 	swift package generate-xcodeproj
 	sourcekitten doc --module-name TinkLink -- -project TinkLink.xcodeproj > TinkLinkDoc.json
-	sourcekitten doc --module-name TinkLinkUI -- -project TinkLinkUI.xcodeproj > TinkLinkUIDoc.json
+	bundle exec pod install --project-directory="./TinkLinkTester/"
+	sourcekitten doc --module-name TinkLinkUI -- -workspace TinkLinkTester/TinkLink.xcworkspace -scheme TinkLinkTester > TinkLinkUIDoc.json
 	jazzy --sourcekitten-sourcefile TinkLinkDoc.json,TinkLinkUIDoc.json
 
 lint:
