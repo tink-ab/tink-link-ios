@@ -25,7 +25,7 @@
 		20B353F42449A55B00D8F24F = {
 			isa = PBXGroup;
 			children = (
-				20B354022449A5A300D8F24F /* TinkLinkUI */,
+				20B354092449A70900D8F24F /* Sources */,
 				20B354012449A5A300D8F24F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,8 +43,15 @@
 			children = (
 				20B354042449A5A300D8F24F /* Info.plist */,
 			);
-			name = TinkLinkUI;
-			path = Sources/TinkLinkUI;
+			path = TinkLinkUI;
+			sourceTree = "<group>";
+		};
+		20B354092449A70900D8F24F /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				20B354022449A5A300D8F24F /* TinkLinkUI */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
