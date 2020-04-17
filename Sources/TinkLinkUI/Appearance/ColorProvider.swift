@@ -4,24 +4,24 @@ import UIKit
 public class ColorProvider: ColorProviding {
 
     /// Color for the main background of the interface.
-    public var background: UIColor = .white
+    public var background: UIColor = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
     /// Color for content layered on top of the main background.
-    public var secondaryBackground: UIColor = .white
+    public var secondaryBackground: UIColor = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
     /// Color for the main background of grouped interface components.
-    public var groupedBackground: UIColor = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
+    public var groupedBackground: UIColor = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
     /// Color for content layered on top of the main background of grouped interface components.
-    public var secondaryGroupedBackground: UIColor = .white
+    public var secondaryGroupedBackground: UIColor = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
     /// Primary text color.
     public var label: UIColor = UIColor(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.0)
     /// Secondary text color.
     public var secondaryLabel: UIColor = UIColor(red: 0.502, green: 0.502, blue: 0.502, alpha: 1.0)
     /// Color for separators.
-    public var separator: UIColor = UIColor(red: 0.933, green: 0.933, blue: 0.933, alpha: 1.0)
+    public var separator: UIColor = UIColor(white: 0.87, alpha: 1.0)
     /// Colors for buttons, indicators and other similar elements.
     public var accent: UIColor = UIColor(red: 0.259, green: 0.467, blue: 0.514, alpha: 1.0)
 
     /// Color to represent expenses.
-    public var expenses: UIColor = UIColor(red: 66.0 / 255.0, green: 119.0 / 255.0, blue: 131.0 / 255.0, alpha: 1.0)
+    public var expenses: UIColor = UIColor(red: 0.055, green: 0.620, blue: 0.761, alpha: 1.0)
     /// Color to represent incomes.
     public var income: UIColor = UIColor(red: 0.212, green: 0.706, blue: 0.447, alpha: 1.0)
     /// Color to represent transfers.
@@ -31,7 +31,7 @@ public class ColorProvider: ColorProviding {
     /// Color representing a warning.
     public var warning: UIColor = UIColor(red: 0.996, green: 0.682, blue: 0.133, alpha: 1.0)
     /// Color representing a critical error or warning.
-    public var critical: UIColor = UIColor(red: 0.996, green: 0.682, blue: 0.133, alpha: 1.0)
+    public var critical: UIColor = UIColor(red: 235.0 / 255.0, green: 84.0 / 255.0, blue: 75.0 / 255.0, alpha: 1.0)
 
     public init() {}
 
