@@ -1,6 +1,6 @@
 import Foundation
 
-/// An error returned by TInkLinkUI when something went wrong during the aggregation.
+/// An error returned by TinkLinkUI when something went wrong during the aggregation.
 public enum TinkLinkError: Error {
     /// User cancelled the flow.
     case userCancelled
