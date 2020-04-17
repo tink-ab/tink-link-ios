@@ -1,6 +1,8 @@
 platform :ios, "11.0"
 use_frameworks!
 
+install! 'cocoapods', :disable_input_output_paths => true
+
 target "TinkLinkTester" do
 
     pod "TinkLink", :path => "../", :testspecs => ['TinkLinkTests']
