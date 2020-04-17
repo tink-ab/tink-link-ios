@@ -332,7 +332,7 @@ let configuration = Tink.Configuration(clientID: <#T##String#>, redirectURI: <#T
 let customTink = Tink(configuration: configuration)
 ```
 
-## How to display Tink Link
+## Tink Link UI
 
 1. Import Tink Link UI
 ```swift
