@@ -335,6 +335,7 @@ let customTink = Tink(configuration: configuration)
 ## Tink Link UI
 
 1. Import the SDK
+
 ```swift
 import TinkLinkUI
 ```
