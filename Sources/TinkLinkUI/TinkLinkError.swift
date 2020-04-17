@@ -1,6 +1,6 @@
 import Foundation
 
-/// Error that returned by the TInkLinkUI when failed to aggreagate the credential
+/// An error returned by TInkLinkUI when something went wrong during the aggregation.
 public enum TinkLinkError: Error {
     /// User cancelled the flow.
     case userCancelled
