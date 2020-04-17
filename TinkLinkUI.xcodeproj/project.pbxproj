@@ -3,8 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
+
+/* Begin PBXBuildFile section */
+		20B354A02449A7B100D8F24F /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20B3549F2449A7B100D8F24F /* TinkLink */; };
+/* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		20B354002449A5A300D8F24F /* TinkLinkUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TinkLinkUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -17,6 +21,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20B354A02449A7B100D8F24F /* TinkLink in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +96,9 @@
 			dependencies = (
 			);
 			name = TinkLinkUI;
+			packageProductDependencies = (
+				20B3549F2449A7B100D8F24F /* TinkLink */,
+			);
 			productName = TinkLinkUI;
 			productReference = 20B354002449A5A300D8F24F /* TinkLinkUI.framework */;
 			productType = "com.apple.product-type.framework";
@@ -335,6 +343,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		20B3549F2449A7B100D8F24F /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 20B353F52449A55B00D8F24F /* Project object */;
 }
