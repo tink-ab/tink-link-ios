@@ -33,6 +33,19 @@ docs:
 		--build-tool-arguments -Xswiftc,-swift-version,-Xswiftc,5 \
 		--output docs
 
+ui-docs:
+	bundle exec jazzy \
+		--clean \
+		--author Tink \
+		--author_url https://tink.com \
+		--github_url https://github.com/tink-ab/tink-link-ios \
+		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
+		--module-version $(VERSION) \
+		--module TinkLinkUI \
+		--swift-build-tool xcodebuild \
+		--sdk iphone \
+		--output ui-docs
+
 lint:
 	swiftlint 2> /dev/null
 
