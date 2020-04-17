@@ -53,10 +53,12 @@ Follow the instructions in one of these links to learn how to set this up:
 - [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app)
 - [Allowing Apps and Websites to Link to Your Content](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content)
 
+# Tink Link UI iOS
+
 ## Customization 
 
-To configure colors or fonts, you can update `Appearance.provider`.
-This needs to be done before initializing the `TinkLinkViewController`.
+You can only customize the appearance of Tink Link UI. 
+To configure colors or fonts, you can update `Appearance.provider`. This needs to be done before initializing the `TinkLinkViewController`.
 
 ### Colors
 
