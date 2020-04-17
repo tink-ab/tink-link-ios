@@ -16,7 +16,7 @@
 
 ## Installation
 There are two targets in this package TinkLink and TinkLink UI.
-- TinkLink is a headless framework to aggregate bank credentials but without any UI, you can build your flow with your UI component, suitable for enterprise plan customer that aggregating using their own licence.
+- TinkLink is a framework for aggregating bank credentials but without any UI, you can build your flow with your UI component, suitable for enterprise plan customer that aggregating using their own license.
 
 - TinkLinkUI is a headlful version framework with predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast, suitable for customer aggregating under Tink licence.
 
