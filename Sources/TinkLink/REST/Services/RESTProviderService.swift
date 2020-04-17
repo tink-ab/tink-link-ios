@@ -10,7 +10,7 @@ final class RESTProviderService: ProviderService {
 
     func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
 
-        let parameters = ["includeTestProviders": includeTestProviders ? "true" : "false"]
+        let parameters = [(name: "includeTestProviders", value: includeTestProviders ? "true" : "false")]
 
         let request = RESTResourceRequest<RESTProviders>(path: "/api/v1/providers", method: .get, contentType: .json, parameters: parameters) { result in
 
