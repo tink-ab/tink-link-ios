@@ -2,7 +2,7 @@ import Foundation
 
 struct RESTError: Error, LocalizedError, Decodable {
 
-    let errorMessage: String
+    let errorMessage: String?
     let errorCode: String
 
     var statusCodeError: HTTPStatusCodeError? {
@@ -19,7 +19,7 @@ extension RESTError {
         if 200..<300 ~= statusCode {
             return nil
         } else {
-            self = .init(errorMessage: "", errorCode: String(statusCode))
+            self = .init(errorMessage: nil, errorCode: String(statusCode))
         }
     }
 }
