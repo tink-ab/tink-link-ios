@@ -26,7 +26,7 @@ public class TinkLinkViewController: UINavigationController {
     /// Initializes a new TinkLinkViewController.
     /// - Parameters:
     ///   - tink: A configured `Tink` object.
-    ///   - market: A market of the banks.
+    ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from. 
     ///   - scope: A set of scopes that will be aggregated.
     ///   - providerKinds: The kind of providers that will be listed.
     ///   - authorization: The block to execute when the aggregation finished or if an error occurred.
