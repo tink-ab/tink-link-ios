@@ -70,6 +70,7 @@
 		20B355312449A7D300D8F24F /* TinkLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B354F02449A7D300D8F24F /* TinkLinkViewController.swift */; };
 		20B355322449A7D300D8F24F /* TinkLinkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B354F12449A7D300D8F24F /* TinkLinkError.swift */; };
 		20B355362449A86900D8F24F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 20B355352449A86900D8F24F /* Kingfisher */; };
+		20B355392449A8A400D8F24F /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 20B355382449A8A400D8F24F /* Down */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +147,7 @@
 			files = (
 				20B355362449A86900D8F24F /* Kingfisher in Frameworks */,
 				20B354A02449A7B100D8F24F /* TinkLink in Frameworks */,
+				20B355392449A8A400D8F24F /* Down in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +422,7 @@
 			packageProductDependencies = (
 				20B3549F2449A7B100D8F24F /* TinkLink */,
 				20B355352449A86900D8F24F /* Kingfisher */,
+				20B355382449A8A400D8F24F /* Down */,
 			);
 			productName = TinkLinkUI;
 			productReference = 20B354002449A5A300D8F24F /* TinkLinkUI.framework */;
@@ -451,6 +454,7 @@
 			mainGroup = 20B353F42449A55B00D8F24F;
 			packageReferences = (
 				20B355342449A86800D8F24F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				20B355372449A8A400D8F24F /* XCRemoteSwiftPackageReference "Down" */,
 			);
 			productRefGroup = 20B354012449A5A300D8F24F /* Products */;
 			projectDirPath = "";
@@ -741,6 +745,14 @@
 				minimumVersion = 5.13.4;
 			};
 		};
+		20B355372449A8A400D8F24F /* XCRemoteSwiftPackageReference "Down" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/iwasrobbed/Down";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -752,6 +764,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 20B355342449A86800D8F24F /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		20B355382449A8A400D8F24F /* Down */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20B355372449A8A400D8F24F /* XCRemoteSwiftPackageReference "Down" */;
+			productName = Down;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
