@@ -6,13 +6,8 @@
 	objectVersion = 50;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		20B354052449A5A300D8F24F /* TinkLinkUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 20B354032449A5A300D8F24F /* TinkLinkUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		20B354002449A5A300D8F24F /* TinkLinkUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TinkLinkUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		20B354032449A5A300D8F24F /* TinkLinkUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TinkLinkUI.h; sourceTree = "<group>"; };
 		20B354042449A5A300D8F24F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,7 +41,6 @@
 		20B354022449A5A300D8F24F /* TinkLinkUI */ = {
 			isa = PBXGroup;
 			children = (
-				20B354032449A5A300D8F24F /* TinkLinkUI.h */,
 				20B354042449A5A300D8F24F /* Info.plist */,
 			);
 			path = TinkLinkUI;
@@ -59,7 +53,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20B354052449A5A300D8F24F /* TinkLinkUI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
