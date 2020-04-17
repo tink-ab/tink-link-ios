@@ -24,7 +24,12 @@ endif
 	bundle install
 
 docs:
+	swift package generate-xcodeproj
+	sourcekitten doc --module-name TinkLink -- -project TinkLink.xcodeproj > TinkLinkDoc.json
+	bundle exec pod install --project-directory="./TinkLinkTester/"
+	sourcekitten doc --module-name TinkLinkUI -- -workspace TinkLinkTester/TinkLink.xcworkspace -scheme TinkLinkTester > TinkLinkUIDoc.json
 	bundle exec jazzy \
+		--sourcekitten-sourcefile TinkLinkDoc.json,TinkLinkUIDoc.json
 		--clean \
 		--author Tink \
 		--author_url https://tink.com \
@@ -32,16 +37,7 @@ docs:
 		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
 		--module-version $(VERSION) \
 		--module TinkLink \
-		--swift-build-tool spm \
-		--build-tool-arguments -Xswiftc,-swift-version,-Xswiftc,5 \
 		--output docs
-
-combined-docs
-	swift package generate-xcodeproj
-	sourcekitten doc --module-name TinkLink -- -project TinkLink.xcodeproj > TinkLinkDoc.json
-	bundle exec pod install --project-directory="./TinkLinkTester/"
-	sourcekitten doc --module-name TinkLinkUI -- -workspace TinkLinkTester/TinkLink.xcworkspace -scheme TinkLinkTester > TinkLinkUIDoc.json
-	bundle exec jazzy --sourcekitten-sourcefile TinkLinkDoc.json,TinkLinkUIDoc.json
 
 lint:
 	swiftlint 2> /dev/null
