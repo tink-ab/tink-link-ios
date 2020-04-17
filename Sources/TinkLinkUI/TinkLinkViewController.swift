@@ -28,7 +28,7 @@ public class TinkLinkViewController: UINavigationController {
     ///   - tink: A configured `Tink` object.
     ///   - market: A market of the banks.
     ///   - scope: A set of scopes that will be aggregated.
-    ///   - providerKinds: The kinds of provicers that will be listed.
+    ///   - providerKinds: The kind of providers that will be listed.
     ///   - authorization: The block to execute when the aggregation finished or if an error occurred.
     public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
