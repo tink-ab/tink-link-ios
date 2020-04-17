@@ -15,9 +15,6 @@ endif
 ifeq ($(strip $(shell command -v swiftformat 2> /dev/null)),)
 	brew install swiftformat
 endif
-ifeq ($(strip $(shell command -v sourcekitten 2> /dev/null)),)
-	brew install sourcekitten
-endif
 ifeq ($(strip $(shell command -v bundle 2> /dev/null)),)
 	gem install bundler
 endif
@@ -25,11 +22,8 @@ endif
 
 docs:
 	swift package generate-xcodeproj
-	sourcekitten doc --module-name TinkLink -- -project TinkLink.xcodeproj -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -target TinkLink > TinkLinkDoc.json
 	bundle exec pod install --project-directory="./TinkLinkTester/"
-	sourcekitten doc --module-name TinkLinkUI -- -workspace TinkLinkTester/TinkLink.xcworkspace -scheme TinkLinkTester -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -target TinkLinkUI > TinkLinkUIDoc.json
 	bundle exec jazzy \
-		--sourcekitten-sourcefile TinkLinkDoc.json,TinkLinkUIDoc.json \
 		--clean \
 		--author Tink \
 		--author_url https://tink.com \
@@ -37,8 +31,20 @@ docs:
 		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
 		--module-version $(VERSION) \
 		--module TinkLink \
+		--swift-build-tool xcodebuild \
 		--sdk iphone \
-		--output docs
+		--output docs/tinklink
+	bundle exec jazzy \
+		--clean \
+		--author Tink \
+		--author_url https://tink.com \
+		--github_url https://github.com/tink-ab/tink-link-ios \
+		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
+		--module-version $(VERSION) \
+		--module TinkLinkUI \
+		--swift-build-tool xcodebuild \
+		--xcodebuild-arguments -workspace,TinkLinkTester/TinkLink.xcworkspace,-scheme,TinkLinkTester,-sdk,iphonesimulator,-destination,'generic/platform=iOS Simulator' \
+		--output docs/tinklinkui
 
 lint:
 	swiftlint 2> /dev/null
