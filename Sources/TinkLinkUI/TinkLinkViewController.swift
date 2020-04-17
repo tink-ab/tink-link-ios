@@ -1,11 +1,15 @@
 import UIKit
 import TinkLink
 
+/// A view controller for lanuch the aggregation flow.
+///
+/// A `TinkLinkViewController` displays adding bank credentials.
+///
 public class TinkLinkViewController: UINavigationController {
-    private let tink: Tink
-    private let market: Market
     public let scopes: [Scope]
 
+    private let tink: Tink
+    private let market: Market
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
@@ -19,6 +23,13 @@ public class TinkLinkViewController: UINavigationController {
     private var result: Result<AuthorizationCode, TinkLinkError>?
     private let completion: (Result<AuthorizationCode, TinkLinkError>) -> Void
 
+    /// Initializes a new TinkLinkViewController.
+    /// - Parameters:
+    ///   - tink: A configured `Tink` object.
+    ///   - market: A market of the banks.
+    ///   - scope: A set of scopes that will be aggregated.
+    ///   - providerKinds: The kinds of provicers that will be listed.
+    ///   - authorization: The block to execute when the aggregation finished or if an error occurred.
     public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
         self.market = market
