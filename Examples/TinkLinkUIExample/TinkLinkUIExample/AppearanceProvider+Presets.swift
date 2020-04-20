@@ -13,10 +13,6 @@ extension AppearanceProvider {
         color.secondaryLabel = UIColor(named: "\(folderName)/SecondaryLabel")!
         color.separator = UIColor(named: "\(folderName)/Separator")!
         color.accent = UIColor(named: "\(folderName)/Accent")!
-        color.expenses = UIColor(named: "\(folderName)/Expenses")!
-        color.income = UIColor(named: "\(folderName)/Income")!
-        color.transfers = UIColor(named: "\(folderName)/Transfers")!
-        color.uncategorized = UIColor(named: "\(folderName)/Uncategorized")!
         color.warning = UIColor(named: "\(folderName)/Uncategorized")!
         color.critical = .red
         return AppearanceProvider(colors: color)
@@ -33,10 +29,6 @@ extension AppearanceProvider {
         color.secondaryLabel = UIColor(named: "\(folderName)/SecondaryLabel")!
         color.separator = UIColor(named: "\(folderName)/Separator")!
         color.accent = UIColor(named: "\(folderName)/Accent")!
-        color.expenses = UIColor(named: "\(folderName)/Expenses")!
-        color.income = UIColor(named: "\(folderName)/Income")!
-        color.transfers = UIColor(named: "\(folderName)/Transfers")!
-        color.uncategorized = UIColor(named: "\(folderName)/Uncategorized")!
         color.warning = UIColor(named: "\(folderName)/Uncategorized")!
         color.critical = .red
         font.lightFont = .custom("\(light)")
