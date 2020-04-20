@@ -15,12 +15,36 @@
 - Xcode 11.3
 
 ## Installation
+There are two targets TinkLink and TinkLinkUI in the package Tink Link.
+- TinkLink is a framework for aggregating bank credentials but without any UI, you can build your flow with your UI component, suitable for enterprise plan customer that aggregating using permanent user.
 
-Swift Package Manager is used to integrate Tink Link into your project.
+- TinkLinkUI is a framework with a predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast, suitable for customer aggregating with temporary user.
+
+See the difference about the [permanent user and temporary user](https://docs.tink.com/resources/tutorials/permanent-users)
+
+### Integrate TinkLink into your project using Swift Package Manager or CocoaPods
+- Using Swift Package Manager
 
 Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-ios` when asked for a package repository.
 
 When finished, you should be able to `import TinkLink` within your project.
+
+- Using CocoaPods
+
+Add `pod 'TinkLink'` to your project's Podfile. Run `pod install` to install the TinkLink framework.
+
+When finished, you should be able to `import TinkLink` within your project.
+
+Use `pod update TinkLink` to update to the newer version.
+
+### Integrate TinkLinkUI into your project using CocoaPods.
+- Using CocoaPods
+
+Similar to using TinkLink, Add `pod 'TinkLinkUI'` to your project's Podfile. Run `pod install` to install the TinkLinkUI framework.
+
+When finished, you should be able to `import TinkLink` and `import TinkLinkUI` within your project.
+
+Use `pod update TinkLinkUI` to update to the newer version.
 
 ## Configuration
 
@@ -110,8 +134,8 @@ Appearance.provider = AppearenceProvider(colors: colorProvider, fonts: fontProvi
 
 ## Examples
 
-- [Usage examples](USAGE.md) This document outlines how to use the different classes and types provided by Tink Link.
-- [Example apps](Examples) These examples shows how to build a complete aggregation flow using Tink Link.
+- [Usage examples](USAGE.md) This document outlines how to use the different classes and types provided by TinkLink.
+- [Example apps](Examples) These examples shows how to build a complete aggregation flow using TinkLink and TinkLinkUI.
 
 ## Developer Documentation
 - [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios/tinklink)
