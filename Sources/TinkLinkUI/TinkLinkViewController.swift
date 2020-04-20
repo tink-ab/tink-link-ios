@@ -4,6 +4,55 @@ import TinkLink
 /// A view controller for aggregating credentials.
 ///
 /// A `TinkLinkViewController` displays adding bank credentials.
+/// To start using Tink Link UI, you need to first configure a `Tink` instance with your client ID and redirect URI.
+///
+/// Typically you do this in your app's `application(_:didFinishLaunchingWithOptions:)` method like this.
+///
+/// ```swift
+/// import UIKit
+/// import TinkLink
+/// @UIApplicationMain
+/// class AppDelegate: UIResponder, UIApplicationDelegate {
+///
+///    var window: UIWindow?
+///
+///    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+///
+///        let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
+///        Tink.configure(with: configuration)
+///        ...
+///```
+/// Here's how you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
+/// 1. Import the SDK
+/// ```swift
+/// import TinkLinkUI
+/// ```
+/// 2. Define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes:
+/// ```swift
+/// let scopes: [Scope] = [
+///     .accounts(.read),
+///     .transactions(.read)
+/// ]
+/// ```
+/// 3. Then create a `TinkLinkViewController` with a market and the scopes to use.
+/// ```swift
+/// let tinkLinkViewController = TinkLinkViewController(market: <#String#>, scopes: scopes) { result in
+///    // Handle result
+/// }
+/// ```
+/// 4. Tink Link is designed to be presented modally so show the view controller by calling `present(_:animated:)`
+/// ```swift
+/// present(tinkLinkViewController, animated: true)
+/// ```
+/// 5. After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can [exchange](https://docs.tink.com/resources/getting-started/retrieve-access-token) for an access token. If something went wrong the result will contain an error.
+/// ```swift
+/// do {
+/// let authorizationCode = try result.get()
+/// // Exchange the authorization code for a access token.
+/// } catch {
+/// // Handle any errors
+/// }
+/// ```
 public class TinkLinkViewController: UINavigationController {
     /// Scopes that grant access to Tink.
     public let scopes: [Scope]
