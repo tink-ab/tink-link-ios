@@ -1,10 +1,9 @@
 import UIKit
-
+/// A custom appearance provider.
+///
+/// If you set a custom appearance provider, all TinkLinkUI SDK views will use
+/// this provider to retreive colors and fonts.
 public enum Appearance {
-    /// A custom appearance provider.
-    ///
-    /// If you set a custom appearance provider, all Tink PFM SDK views will use
-    /// this provider to retreive colors and fonts.
     public static var provider: AppearanceProviding = AppearanceProvider() {
         didSet {
             customColorProvider = provider.colors
