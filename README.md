@@ -18,9 +18,9 @@
 There are two targets TinkLink and TinkLinkUI in the package Tink Link.
 - TinkLink is a framework for aggregating bank credentials but without any UI, you can build your flow with your UI component, suitable for enterprise plan customer that aggregating using their own license.
 
-- TinkLinkUI is a framework with predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast, suitable for customer aggregating under Tink licence.
+- TinkLinkUI is a framework with a predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast, suitable for customer aggregating under Tink license.
 
-### Integrate the TinkLink into your project using Swift Package Manager or CocoaPods
+### Integrate TinkLink into your project using Swift Package Manager or CocoaPods
 - Using Swift Package Manager
 
 Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-ios` when asked for a package repository.
@@ -28,14 +28,16 @@ Follow these instructions to [link a target to a package product](https://help.a
 When finished, you should be able to `import TinkLink` within your project.
 
 - Using CocoaPods
+
 Add `pod 'TinkLink'` to your project's Podfile. Run `pod install` to install the TinkLink framework.
 
 When finished, you should be able to `import TinkLink` within your project.
 
 Use `pod update TinkLink` to update to the newer version.
 
-### Integrate the TinkLinkUI into your project using CocoaPds.
+### Integrate TinkLinkUI into your project using CocoaPods.
 - Using CocoaPods
+
 Similar to using TinkLink, Add `pod 'TinkLinkUI'` to your project's Podfile. Run `pod install` to install the TinkLinkUI framework.
 
 When finished, you should be able to `import TinkLink` and `import TinkLinkUI` within your project.
