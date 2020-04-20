@@ -8,8 +8,8 @@ public protocol AppearanceProviding {
 
 /// A appearance provider that can provide colors and fonts for Tink views.
 public struct AppearanceProvider: AppearanceProviding {
-    public var colors: ColorProviding = ColorProvider()
-    public var fonts: FontProviding = FontProvider()
+    public let colors: ColorProviding
+    public let fonts: FontProviding
 
     public init(
         colors: ColorProvider? = nil,
