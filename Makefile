@@ -22,7 +22,7 @@ endif
 
 docs:
 	swift package generate-xcodeproj
-
+	bundle exec pod install --project-directory="./TinkLinkTester/"
 	bundle exec jazzy \
 		--clean \
 		--author Tink \
@@ -33,7 +33,18 @@ docs:
 		--module TinkLink \
 		--swift-build-tool xcodebuild \
 		--sdk iphone \
-		--output docs
+		--output docs/tinklink
+	bundle exec jazzy \
+		--clean \
+		--author Tink \
+		--author_url https://tink.com \
+		--github_url https://github.com/tink-ab/tink-link-ios \
+		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
+		--module-version $(VERSION) \
+		--module TinkLinkUI \
+		--swift-build-tool xcodebuild \
+		--xcodebuild-arguments -workspace,TinkLinkTester/TinkLink.xcworkspace,-scheme,TinkLinkTester,-sdk,iphonesimulator,-destination,'generic/platform=iOS Simulator' \
+		--output docs/tinklinkui
 
 lint:
 	swiftlint 2> /dev/null

@@ -72,7 +72,7 @@ public final class CredentialsContext {
     /// - Parameters:
     ///   - provider: The provider (financial institution) that the credentials is connected to.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
-    ///   - refreshableItems: The data types to aggregate from the provider. Default to all types.
+    ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - completionPredicate: Predicate for when credentials task should complete.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
@@ -169,7 +169,7 @@ public final class CredentialsContext {
 
     /// Refresh the user's credentials.
     /// - Parameters:
-    ///   - refreshableItems: The data types to aggregate from the provider. Default to all types.
+    ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being refreshed.

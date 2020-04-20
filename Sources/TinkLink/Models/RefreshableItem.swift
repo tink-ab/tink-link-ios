@@ -1,5 +1,4 @@
-/// A set of items that represent the data types to aggregate from the provider capabilities.
-/// If the item's data types is not contained in the provider capabilities, it will be ignored.
+/// Represents a set of data types that you can aggregate from a provider.
 public struct RefreshableItems: OptionSet {
 
     public let rawValue: Int
@@ -35,11 +34,17 @@ public struct RefreshableItems: OptionSet {
     /// Identity data types to aggregate.
     public static let identityData = RefreshableItems(rawValue: 1 << 12)
 
-    /// All accounts data types to aggregate.
+    /// All kinds of account data.
+    ///
+    /// Contains .checkingAccounts`, `.savingAccounts`, `.creditCardAccounts`, `.loanAccounts`, and `.investmentAccounts`.
     public static let accounts: RefreshableItems = [.checkingAccounts, .savingAccounts, .creditCardAccounts, .loanAccounts, .investmentAccounts]
-    /// All transactions data types to aggregate.
+    /// All kinds of all transaction data.
+    ///
+    /// Contains .checkingTransactions`, `.savingTransactions`, `.creditCardTransactions`, `.loanTransactions`, and `.investmentTransactions`.
     public static let transactions: RefreshableItems = [.checkingTransactions, .savingTransactions, .creditCardTransactions, .loanTransactions, .investmentTransactions]
-    /// All data types to aggregate.
+    /// All possible data.
+    ///
+    /// Contains all types of refreshable items.
     public static let all: RefreshableItems = [.accounts, .transactions, .eInvoices, .transferDestinations, .identityData]
 
     var strings: [String] {
@@ -120,6 +125,9 @@ public extension RefreshableItems {
         self = refreshableItems
     }
 
+    /// Returns a new set of refreshable items that contain the items in the set that the given provider capabilities supports.
+    /// - Parameter providerCapabilities: A set of provider capabilities.
+    /// - Returns: The subset of the items that the provider capabilities support.
     func supporting(providerCapabilities: Provider.Capabilities) -> RefreshableItems {
         return intersection(RefreshableItems(providerCapabilities: providerCapabilities))
     }
