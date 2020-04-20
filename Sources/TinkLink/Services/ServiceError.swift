@@ -1,21 +1,38 @@
 /// An error returned by TinkLink service request when something went wrong during the aggregation.
 public enum ServiceError: Error {
+    /// Request is cancelled
     case cancelled
+    /// Unknown error
     case unknown(String)
+    /// Invalid argurment
     case invalidArgument(String)
+    /// Deadline exceeded
     case deadlineExceeded(String)
+    /// Not found
     case notFound(String)
+    /// The credential alreay exists
     case alreadyExists(String)
+    /// The user has no permission
     case permissionDenied(String)
+    /// The user has not authenticated
     case unauthenticated(String)
+    /// Resource exhausted
     case resourceExhausted(String)
+    /// Precondition failed
     case failedPrecondition(String)
+    /// The request is aborted
     case aborted(String)
+    /// Out of range
     case outOfRange(String)
+    /// Not implemented
     case unimplemented(String)
+    /// Internal error
     case internalError(String)
+    /// The server is not available
     case unavailable(String)
+    /// Data loss
     case dataLoss(String)
+    /// The internet connection is missing
     case missingInternetConnection
 
     init?(_ error: Swift.Error) {
