@@ -9,9 +9,9 @@ public protocol AppearanceProviding {
 /// A appearance provider that can provide colors and fonts for Tink views.
 public struct AppearanceProvider: AppearanceProviding {
     /// Color provier
-    public let colors: ColorProviding
+    public var colors: ColorProviding
     /// Font provier
-    public let fonts: FontProviding
+    public var fonts: FontProviding
 
     /// Create customized Appearence with specific provider, if no value is passed, the default provider will be used.
     public init(
