@@ -4,7 +4,7 @@ class CredentialsStatusPollingTask {
     private var service: CredentialsService
     private var callRetryCancellable: RetryCancellable?
     private var retryInterval: TimeInterval = 1
-    private(set) var credentials: Credentials
+    private var credentials: Credentials
     private var updateHandler: (Result<Credentials, Error>) -> Void
 
     private let applicationObserver = ApplicationObserver()
@@ -12,12 +12,9 @@ class CredentialsStatusPollingTask {
     private var isPaused = true
     private var isActive = true
 
-    private var lastCredentialsFetched: Credentials
-
     init(credentialsService: CredentialsService, credentials: Credentials, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
         self.service = credentialsService
         self.credentials = credentials
-        self.lastCredentialsFetched = credentials
         self.updateHandler = updateHandler
 
         applicationObserver.didBecomeActive = { [weak self] in
@@ -65,11 +62,11 @@ class CredentialsStatusPollingTask {
                 }
 
                 // Only call updateHandler if status has actually changed.
-                guard credentials.statusUpdated != self.lastCredentialsFetched.statusUpdated || credentials.status != self.lastCredentialsFetched.status else {
+                guard credentials.statusUpdated != self.credentials.statusUpdated || credentials.status != self.credentials.status else {
                     return
                 }
 
-                self.lastCredentialsFetched = credentials
+                self.credentials = credentials
                 self.updateHandler(.success(credentials))
             } catch {
                 self.updateHandler(.failure(error))
