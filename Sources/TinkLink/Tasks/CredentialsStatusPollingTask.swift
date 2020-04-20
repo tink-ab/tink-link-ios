@@ -11,7 +11,8 @@ class CredentialsStatusPollingTask {
 
     private var isPaused = true
     private var isActive = true
-    private var lastStatusUpdated: Date?
+
+    private var lastCredentialsFetched: Credentials?
 
     init(credentialsService: CredentialsService, credentials: Credentials, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
         self.service = credentialsService
@@ -63,11 +64,11 @@ class CredentialsStatusPollingTask {
                 }
 
                 // Only call updateHandler if status has actually changed.
-                guard credentials.statusUpdated != self.lastStatusUpdated else {
+                guard credentials.statusUpdated != self.lastCredentialsFetched?.statusUpdated || credentials.status != self.lastCredentialsFetched?.status else {
                     return
                 }
 
-                self.lastStatusUpdated = credentials.statusUpdated
+                self.lastCredentialsFetched = credentials
                 self.updateHandler(.success(credentials))
             } catch {
                 self.updateHandler(.failure(error))
