@@ -6,7 +6,7 @@ enum Icon {
     case profile
     case warning
 
-    var name: String {
+    fileprivate var name: String {
         switch self {
         case .bankID:
             return "bankID"
