@@ -2,10 +2,19 @@ import UIKit
 import TinkLink
 
 public class TinkLinkViewController: UINavigationController {
+
+    /// Strategy for different types of prefilling
+    public enum PrefillStrategy {
+        /// No prefilling will occur.
+        case none
+        /// Will attempt to fill the first field of the provider with the associated value.
+        case username(value: String, isEditable: Bool)
+    }
     private let tink: Tink
     private let market: Market
     public let scopes: [Scope]
 
+    public var prefill: PrefillStrategy = .none
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
