@@ -12,11 +12,12 @@ class CredentialsStatusPollingTask {
     private var isPaused = true
     private var isActive = true
 
-    private var lastCredentialsFetched: Credentials?
+    private var lastCredentialsFetched: Credentials
 
     init(credentialsService: CredentialsService, credentials: Credentials, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
         self.service = credentialsService
         self.credentials = credentials
+        self.lastCredentialsFetched = credentials
         self.updateHandler = updateHandler
 
         applicationObserver.didBecomeActive = { [weak self] in
@@ -64,7 +65,7 @@ class CredentialsStatusPollingTask {
                 }
 
                 // Only call updateHandler if status has actually changed.
-                guard credentials.statusUpdated != self.lastCredentialsFetched?.statusUpdated || credentials.status != self.lastCredentialsFetched?.status else {
+                guard credentials.statusUpdated != self.lastCredentialsFetched.statusUpdated || credentials.status != self.lastCredentialsFetched.status else {
                     return
                 }
 
