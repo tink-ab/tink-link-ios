@@ -4,8 +4,8 @@ import TinkLink
 /// A view controller for aggregating credentials.
 ///
 /// A `TinkLinkViewController` displays adding bank credentials.
-///
 public class TinkLinkViewController: UINavigationController {
+    /// Scopes that grant access to Tink.
     public let scopes: [Scope]
 
     private let tink: Tink
