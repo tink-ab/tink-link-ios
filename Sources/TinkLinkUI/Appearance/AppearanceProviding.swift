@@ -13,7 +13,7 @@ public struct AppearanceProvider: AppearanceProviding {
     /// Font provier
     public let fonts: FontProviding
 
-    /// Create customized Appearence with specific provider, if no provider is provide, the default value will be used.
+    /// Create customized Appearence with specific provider, if no value is passed, the default provider will be used.
     public init(
         colors: ColorProvider? = nil,
         fonts: FontProvider? = nil
