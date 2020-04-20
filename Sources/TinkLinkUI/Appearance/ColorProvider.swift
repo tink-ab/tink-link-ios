@@ -20,14 +20,6 @@ public class ColorProvider: ColorProviding {
     /// Colors for buttons, indicators and other similar elements.
     public var accent: UIColor = UIColor(red: 0.259, green: 0.467, blue: 0.514, alpha: 1.0)
 
-    /// Color to represent expenses.
-    public var expenses: UIColor = UIColor(red: 0.055, green: 0.620, blue: 0.761, alpha: 1.0)
-    /// Color to represent incomes.
-    public var income: UIColor = UIColor(red: 0.212, green: 0.706, blue: 0.447, alpha: 1.0)
-    /// Color to represent transfers.
-    public var transfers: UIColor = UIColor(red: 0.282, green: 0.282, blue: 0.282, alpha: 1.0)
-    /// Color representing uncategorized transactions.
-    public var uncategorized: UIColor = UIColor(red: 0.996, green: 0.682, blue: 0.133, alpha: 1.0)
     /// Color representing a warning.
     public var warning: UIColor = UIColor(red: 0.996, green: 0.682, blue: 0.133, alpha: 1.0)
     /// Color representing a critical error or warning.
@@ -46,10 +38,6 @@ public class ColorProvider: ColorProviding {
     ///   - secondaryLabel: Secondary text color.
     ///   - separator: Color for separators.
     ///   - accent: Colors for buttons, indicators and other similar elements.
-    ///   - expenses: Color to represent expenses.
-    ///   - income: Color to represent incomes.
-    ///   - transfers: Color to represent transfers.
-    ///   - uncategorized:  Color representing uncategorized transactions.
     ///   - warning:  Color representing a warning.
     ///   - critical: Color representing a critical error or warning
     public init(
@@ -61,10 +49,6 @@ public class ColorProvider: ColorProviding {
         secondaryLabel: UIColor,
         separator: UIColor,
         accent: UIColor,
-        expenses: UIColor,
-        income: UIColor,
-        transfers: UIColor,
-        uncategorized: UIColor,
         warning: UIColor,
         critical: UIColor
     ) {
@@ -76,10 +60,6 @@ public class ColorProvider: ColorProviding {
         self.secondaryLabel = secondaryLabel
         self.separator = separator
         self.accent = accent
-        self.expenses = expenses
-        self.income = income
-        self.transfers = transfers
-        self.uncategorized = uncategorized
         self.warning = warning
         self.critical = critical
     }

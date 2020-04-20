@@ -21,14 +21,6 @@ public protocol ColorProviding {
     var accent: UIColor { get }
 
     // Semantic colors:
-    /// Color to represent expenses.
-    var expenses: UIColor { get }
-    /// Color to represent incomes.
-    var income: UIColor { get }
-    /// Color to represent transfers.
-    var transfers: UIColor { get }
-    /// Color representing uncategorized transactions.
-    var uncategorized: UIColor { get }
     /// Color representing a warning.
     var warning: UIColor { get }
     /// Color representing critical cases.
