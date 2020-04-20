@@ -16,9 +16,11 @@
 
 ## Installation
 There are two targets TinkLink and TinkLinkUI in the package Tink Link.
-- TinkLink is a framework for aggregating bank credentials but without any UI, you can build your flow with your UI component, suitable for enterprise plan customer that aggregating using their own license.
+- TinkLink is a framework for aggregating bank credentials but without any UI, you can build your flow with your UI component, suitable for enterprise plan customer that aggregating using permanent user.
 
-- TinkLinkUI is a framework with a predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast, suitable for customer aggregating under Tink license.
+- TinkLinkUI is a framework with a predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast, suitable for customer aggregating with temporary user.
+
+See the difference about the [permanent user and temporary user](https://docs.tink.com/resources/tutorials/permanent-users)
 
 ### Integrate TinkLink into your project using Swift Package Manager or CocoaPods
 - Using Swift Package Manager
