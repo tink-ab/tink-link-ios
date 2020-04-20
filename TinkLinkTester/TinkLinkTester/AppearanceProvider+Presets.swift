@@ -13,10 +13,6 @@ extension AppearanceProvider {
         color.secondaryLabel = UIColor(named: "\(folderName)/SecondaryLabel")!
         color.separator = UIColor(named: "\(folderName)/Separator")!
         color.accent = UIColor(named: "\(folderName)/Accent")!
-        color.expenses = UIColor(named: "\(folderName)/Expenses")!
-        color.income = UIColor(named: "\(folderName)/Income")!
-        color.transfers = UIColor(named: "\(folderName)/Transfers")!
-        color.uncategorized = UIColor(named: "\(folderName)/Uncategorized")!
         color.warning = UIColor(named: "\(folderName)/Uncategorized")!
         color.critical = UIColor(named: "\(folderName)/Critical")!
         return AppearanceProvider(colors: color)
@@ -32,10 +28,6 @@ extension AppearanceProvider {
         color.secondaryLabel = UIColor(named: "\(colorFolderName)/SecondaryLabel")!
         color.separator = UIColor(named: "\(colorFolderName)/Separator")!
         color.accent = UIColor(named: "\(colorFolderName)/Accent")!
-        color.expenses = UIColor(named: "\(colorFolderName)/Expenses")!
-        color.income = UIColor(named: "\(colorFolderName)/Income")!
-        color.transfers = UIColor(named: "\(colorFolderName)/Transfers")!
-        color.uncategorized = UIColor(named: "\(colorFolderName)/Uncategorized")!
         color.warning = UIColor(named: "\(colorFolderName)/Uncategorized")!
         color.critical = UIColor(named: "\(colorFolderName)/Critical")!
         return AppearanceProvider(colors: color)
@@ -52,10 +44,6 @@ extension AppearanceProvider {
         color.secondaryLabel = UIColor(named: "\(folderName)/SecondaryLabel")!
         color.separator = UIColor(named: "\(folderName)/Separator")!
         color.accent = UIColor(named: "\(folderName)/Accent")!
-        color.expenses = UIColor(named: "\(folderName)/Expenses")!
-        color.income = UIColor(named: "\(folderName)/Income")!
-        color.transfers = UIColor(named: "\(folderName)/Transfers")!
-        color.uncategorized = UIColor(named: "\(folderName)/Uncategorized")!
         color.warning = UIColor(named: "\(folderName)/Uncategorized")!
         color.critical = UIColor(named: "\(folderName)/Critical")!
         font.lightFont = .custom("\(light)")
