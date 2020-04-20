@@ -21,30 +21,23 @@ import TinkLink
 ///        let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
 ///        Tink.configure(with: configuration)
 ///        ...
-///```
-/// Here's how you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
-/// 1. Import the SDK
-/// ```swift
-/// import TinkLinkUI
 /// ```
-/// 2. Define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes:
+///
+/// Here's how you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
+/// You need to define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes. Then create a `TinkLinkViewController` with a market and the scopes to use. And present the view controller.
 /// ```swift
 /// let scopes: [Scope] = [
 ///     .accounts(.read),
 ///     .transactions(.read)
 /// ]
-/// ```
-/// 3. Then create a `TinkLinkViewController` with a market and the scopes to use.
-/// ```swift
+///
 /// let tinkLinkViewController = TinkLinkViewController(market: <#String#>, scopes: scopes) { result in
 ///    // Handle result
 /// }
-/// ```
-/// 4. Tink Link is designed to be presented modally so show the view controller by calling `present(_:animated:)`
-/// ```swift
 /// present(tinkLinkViewController, animated: true)
 /// ```
-/// 5. After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can [exchange](https://docs.tink.com/resources/getting-started/retrieve-access-token) for an access token. If something went wrong the result will contain an error.
+/// 
+/// After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can [exchange](https://docs.tink.com/resources/getting-started/retrieve-access-token) for an access token. If something went wrong the result will contain an error.
 /// ```swift
 /// do {
 /// let authorizationCode = try result.get()
