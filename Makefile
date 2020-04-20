@@ -67,6 +67,9 @@ build-tinklinkui-example:
 		-scheme TinkLinkUIExample \
 		-destination 'generic/platform=iOS Simulator'
 
+generate-translations:
+	find Sources/TinkLinkUI/ -name \*.swift | xargs genstrings -o Sources/TinkLinkUI/Translations/Base.lproj
+
 clean: 
 	rm -rf ./docs
 
