@@ -38,10 +38,7 @@ extension Font {
 extension Font {
     
     enum Size: UInt {
-        
-        /// 80
-        case yotta = 80
-        
+
         /// 45
         case peta = 45
         
@@ -75,8 +72,6 @@ extension Font {
         
         fileprivate var textStyle: UIFont.TextStyle {
             switch self {
-            case .yotta:
-                return UIFont.TextStyle.largeTitle
             case .peta:
                 return UIFont.TextStyle.largeTitle
             case .tera:
