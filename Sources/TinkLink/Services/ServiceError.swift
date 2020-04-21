@@ -1,4 +1,4 @@
-/// An error returned by TinkLink service request when something went wrong during the aggregation.
+/// An error returned by TinkLink when something went wrong.
 public enum ServiceError: Error {
     /// Request is cancelled
     case cancelled
