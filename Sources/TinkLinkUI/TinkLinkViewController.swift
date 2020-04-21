@@ -7,9 +7,10 @@ public class TinkLinkViewController: UINavigationController {
     public enum PrefillStrategy {
         /// No prefilling will occur.
         case none
-        /// Will attempt to fill the first field of the provider with the associated value.
+        /// Will attempt to fill the first field of the provider with the associated value if it is valid.
         case username(value: String, isEditable: Bool)
     }
+
     private let tink: Tink
     private let market: Market
     public let scopes: [Scope]
@@ -219,7 +220,7 @@ extension TinkLinkViewController {
             return
         }
         let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
-        addCredentialsViewController.prefillingStrategy = prefill
+        addCredentialsViewController.prefillStrategy = prefill
         addCredentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         addCredentialsViewController.delegate = self
         if viewControllers.last is LoadingViewController {

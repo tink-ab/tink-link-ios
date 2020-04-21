@@ -16,7 +16,7 @@ final class AddCredentialsViewController: UIViewController {
 
     weak var delegate: AddCredentialsViewControllerDelegate?
 
-    var prefillingStrategy: TinkLinkViewController.PrefillStrategy = .none
+    var prefillStrategy: TinkLinkViewController.PrefillStrategy = .none
 
     private let credentialsController: CredentialsController
     private let clientName: String
@@ -242,7 +242,7 @@ extension AddCredentialsViewController: UITableViewDelegate, UITableViewDataSour
 
         let cell = tableView.dequeueReusableCell(ofType: FormFieldTableViewCell.self, for: indexPath)
         var viewModel = FormFieldTableViewCell.ViewModel(field: field)
-        switch prefillingStrategy {
+        switch prefillStrategy {
         case .username(value: let name, isEditable: let isEditable):
             if indexPath.row == 0 {
                 var testField = field
