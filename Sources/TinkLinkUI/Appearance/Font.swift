@@ -39,9 +39,6 @@ extension Font {
     
     enum Size: UInt {
 
-        /// 25
-        case giga = 25
-        
         /// 21
         case mega = 21
         
@@ -66,8 +63,6 @@ extension Font {
         
         fileprivate var textStyle: UIFont.TextStyle {
             switch self {
-            case .giga:
-                return UIFont.TextStyle.title2
             case .mega:
                 return UIFont.TextStyle.title3
             case .hecto:
@@ -91,8 +86,6 @@ extension Font {
         
         var lineHeight: CGFloat {
             switch self {
-            case .giga:
-                return 28
             case .mega:
                 return 28
             case .hecto:
