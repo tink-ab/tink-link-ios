@@ -115,7 +115,8 @@ extension SupplementalInformationViewController: UITableViewDataSource, UITableV
         let field = form.fields[indexPath.row]
         let cell = tableView.dequeueReusableCell(ofType: FormFieldTableViewCell.self, for: indexPath)
         cell.delegate = self
-        cell.configure(with: field)
+
+        cell.configure(with: FormFieldTableViewCell.ViewModel(field: field))
         cell.setError(with: errors[indexPath]?.localizedDescription)
         return cell
     }
