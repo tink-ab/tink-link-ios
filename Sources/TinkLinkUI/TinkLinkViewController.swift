@@ -219,6 +219,7 @@ extension TinkLinkViewController {
             return
         }
         let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
+        addCredentialsViewController.prefillingStrategy = prefill
         addCredentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         addCredentialsViewController.delegate = self
         if viewControllers.last is LoadingViewController {
