@@ -2,8 +2,6 @@ import UIKit
 
 /// A type that can provide custom fonts for Tink views.
 public class FontProvider: FontProviding {
-    /// Light font.
-    public var lightFont: Font = .systemDefault
     /// Regular font.
     public var regularFont: Font = .systemDefault
     /// Bold font.
@@ -14,15 +12,12 @@ public class FontProvider: FontProviding {
     /// Initializes a appearance provider with the specified styling.
     ///
     /// - Parameters:
-    ///   - lightFont: The light font to use.
     ///   - regularFont: The regular font to use.
     ///   - boldFont: The bold font to use.
     public init(
-        lightFont: Font,
         regularFont: Font,
         boldFont: Font
     ) {
-        self.lightFont = lightFont
         self.regularFont = regularFont
         self.boldFont = boldFont
     }
