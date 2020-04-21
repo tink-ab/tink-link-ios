@@ -54,7 +54,7 @@ final class AddCredentialsStatusViewController: UIViewController {
         activityIndicator.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         cancelButton.setTitle(Strings.AddCredentials.Status.cancel, for: .normal)
-        cancelButton.titleLabel?.font = Font.semibold(.hecto)
+        cancelButton.titleLabel?.font = Font.bold(.hecto)
         cancelButton.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
         cancelButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         cancelButton.tintColor = Color.accent

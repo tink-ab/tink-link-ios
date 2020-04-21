@@ -14,7 +14,7 @@ final class AddCredentialsHeaderView: UIView {
     }()
     private lazy var bankLabel: UILabel = {
         let bankLabel = UILabel()
-        bankLabel.font = Font.semibold(.deci)
+        bankLabel.font = Font.bold(.deci)
         bankLabel.adjustsFontForContentSizeCategory = true
         bankLabel.textColor = Color.label
         bankLabel.numberOfLines = 0
@@ -36,7 +36,7 @@ final class AddCredentialsHeaderView: UIView {
     }()
     private let userInfoLabel: UILabel = {
         let userInfoLabel = UILabel()
-        userInfoLabel.font = Font.semibold(.deci)
+        userInfoLabel.font = Font.bold(.deci)
         userInfoLabel.textColor = Color.label
         userInfoLabel.numberOfLines = 0
         return userInfoLabel
