@@ -245,6 +245,9 @@ extension AddCredentialsViewController: UITableViewDelegate, UITableViewDataSour
         switch prefillingStrategy {
         case .username(value: let name, isEditable: let isEditable):
             if indexPath.row == 0 {
+                var testField = field
+                testField.text = name
+                guard testField.isValid else { break }
                 viewModel.text = name
                 viewModel.isEditable = isEditable ? field.attributes.isEditable : false
             }
