@@ -201,12 +201,12 @@ final class AddCredentialsHeaderView: UIView {
         let readMoreRange = attributeText.mutableString.range(of: readMoreText)
         self.readMoreRange = readMoreRange
         attributeText.addAttributes([
-            NSAttributedString.Key.font: Font.bold(.micro),
+            NSAttributedString.Key.font: Font.footnote.bold,
             NSAttributedString.Key.foregroundColor: Color.accent,
             NSAttributedString.Key.link: "",
         ], range: readMoreRange)
         userInfoDescription.linkTextAttributes = [
-            NSAttributedString.Key.font: Font.bold(.micro),
+            NSAttributedString.Key.font: Font.footnote.bold,
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
         userInfoDescription.attributedText = attributeText

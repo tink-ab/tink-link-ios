@@ -19,7 +19,7 @@ final class AddCredentialsHelpTextView: UIView {
         directionalLayoutMargins = .init(top: 16, leading: 24, bottom: 16, trailing: 24)
 
         helpTextView.linkTextAttributes = [
-            NSAttributedString.Key.font: Font.bold(.micro),
+            NSAttributedString.Key.font: Font.footnote.bold,
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
 
