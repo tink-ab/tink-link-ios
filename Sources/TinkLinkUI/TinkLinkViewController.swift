@@ -40,10 +40,10 @@ import TinkLink
 /// After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can [exchange](https://docs.tink.com/resources/getting-started/retrieve-access-token) for an access token. If something went wrong the result will contain an error.
 /// ```swift
 /// do {
-/// let authorizationCode = try result.get()
-/// // Exchange the authorization code for a access token.
+///     let authorizationCode = try result.get()
+///     // Exchange the authorization code for a access token.
 /// } catch {
-/// // Handle any errors
+///     // Handle any errors
 /// }
 /// ```
 public class TinkLinkViewController: UINavigationController {
