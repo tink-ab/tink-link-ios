@@ -39,9 +39,6 @@ extension Font {
     
     enum Size: UInt {
 
-        /// 45
-        case peta = 45
-        
         /// 35
         case tera = 35
         
@@ -72,8 +69,6 @@ extension Font {
         
         fileprivate var textStyle: UIFont.TextStyle {
             switch self {
-            case .peta:
-                return UIFont.TextStyle.largeTitle
             case .tera:
                 return UIFont.TextStyle.title1
             case .giga:
@@ -101,8 +96,6 @@ extension Font {
         
         var lineHeight: CGFloat {
             switch self {
-            case .peta:
-                return 48
             case .tera:
                 return 40
             case .giga:
