@@ -31,7 +31,6 @@ public class FontProvider: FontProviding {
     /// - Parameter weight: The weight of the font that is asked for.
     public func font(for weight: Font.Weight) -> Font {
         switch weight {
-        case .light: return lightFont
         case .regular: return regularFont
         case .bold: return boldFont
         }
