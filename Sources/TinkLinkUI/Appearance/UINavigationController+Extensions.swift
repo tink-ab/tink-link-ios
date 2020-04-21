@@ -9,10 +9,10 @@ extension UINavigationController {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.buttonAppearance.normal.titleTextAttributes = [
-                .font: Font.regular(.deci)
+                .font: Font.subheadline
             ]
             appearance.buttonAppearance.highlighted.titleTextAttributes = [
-                .font: Font.regular(.deci)
+                .font: Font.subheadline
             ]
 
             appearance.shadowColor = Color.separator
@@ -32,10 +32,10 @@ extension UINavigationController {
             // Bar Button Item
             let barButtonItemAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [Self.self])
             barButtonItemAppearance.setTitleTextAttributes([
-                .font: Font.regular(.deci)
+                .font: Font.subheadline
                 ], for: .normal)
             barButtonItemAppearance.setTitleTextAttributes([
-                .font: Font.regular(.deci)
+                .font: Font.subheadline
                 ], for: .highlighted)
 
             // Navigation Bar
