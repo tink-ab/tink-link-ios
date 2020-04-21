@@ -43,7 +43,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
-        titleLabel.font = Font.semibold(.deci)
+        titleLabel.font = Font.bold(.deci)
         titleLabel.textColor = Color.label
 
         let paragraphStyle = NSMutableParagraphStyle()
