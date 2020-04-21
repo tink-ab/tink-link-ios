@@ -11,23 +11,15 @@ public enum Font {
 extension Font {
     /// A type that determines the weight of a font.
     public enum Weight {
-        /// The light font weight.
-        case light
         /// The regular font weight.
         case regular
-        /// The semibold font weight.
-        case semibold
         /// The bold font weight.
         case bold
 
         var fontWeight: UIFont.Weight {
             switch self {
-            case .light:
-                return .light
             case .regular:
                 return .regular
-            case .semibold:
-                return .semibold
             case .bold:
                 return .bold
             }
@@ -89,27 +81,11 @@ extension Font {
         }
     }
     
-    static func light(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
-        if adjustsFontForContentSizeCategory {
-            return scaledFont(weight: .light, size: size)
-        } else {
-            return font(weight: .light, size: size)
-        }
-    }
-    
     static func regular(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .regular, size: size)
         } else {
             return font(weight: .regular, size: size)
-        }
-    }
-    
-    static func semibold(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
-        if adjustsFontForContentSizeCategory {
-            return scaledFont(weight: .semibold, size: size)
-        } else {
-            return font(weight: .semibold, size: size)
         }
     }
     

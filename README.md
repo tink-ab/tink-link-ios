@@ -112,9 +112,7 @@ You can configure colors and font by providing Tink Link SDK with a `ColorProvid
 let colorProvider = ColorProvider()
 let fontProvider = FontProvider()
 colorProvider.accent = <#UIColor#>
-fontProvider.lightFont = <#UIFont#>
 fontProvider.regularFont = <#UIFont#>
-fontProvider.semiBoldFont = <#UIFont#>
 fontProvider.boldFont = <#UIFont#>
 
 Appearance.provider = AppearenceProvider(colors: colorProvider, fonts: fontProvider)
