@@ -65,7 +65,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
 
         detailLabel.numberOfLines = 0
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
-        detailLabel.font = Font.regular(.micro)
+        detailLabel.font = Font.footnote
         detailLabel.textColor = Color.label
         detailLabel.setLineHeight(lineHeight: 20)
 

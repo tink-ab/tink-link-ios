@@ -38,7 +38,7 @@ final class AddCredentialsHeaderView: UIView {
         let userInfoDescription = UnselectableTextView()
         userInfoDescription.textContainerInset = .zero
         userInfoDescription.textContainer.lineFragmentPadding = 0
-        userInfoDescription.font = Font.regular(.micro)
+        userInfoDescription.font = Font.footnote
         userInfoDescription.textColor = Color.label
         userInfoDescription.isScrollEnabled = false
         userInfoDescription.backgroundColor = .clear
@@ -194,7 +194,7 @@ final class AddCredentialsHeaderView: UIView {
         let text = String(format: readMoreFormat, clientName)
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: Color.label,
-            .font: Font.regular(.micro)
+            .font: Font.footnote
         ]
         let attributeText = NSMutableAttributedString(string: text, attributes: attributes)
         let readMoreText = Strings.AddCredentials.Consent.readMore

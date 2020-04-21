@@ -51,7 +51,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         detailLabel.attributedText = NSAttributedString(string: String(format: subtitleText, companyName), attributes: [.paragraphStyle: paragraphStyle])
         detailLabel.textAlignment = .center
         detailLabel.numberOfLines = 0
-        detailLabel.font = Font.regular(.micro)
+        detailLabel.font = Font.footnote
         detailLabel.textColor = Color.label
         
         doneButton.text = Strings.AddCredentials.Success.confirm
