@@ -51,7 +51,7 @@ final class ProviderLoadingErrorView: UIView {
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 0
 
-        retryButton.text = NSLocalizedString("ProviderPicker.Error.RetryButton", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Try again", comment: "Title for button to try loading providers again.")
+        retryButton.text = Strings.ProviderPicker.Error.retryButton
         retryButton.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -88,12 +88,12 @@ final class ProviderLoadingErrorView: UIView {
     }
 
     func configure(with error: Error?) {
-        textLabel.text = NSLocalizedString("ProviderPicker.Error.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "We’re sorry, but we couldn't load any banks at the moment", comment: "Title for when providers could not be loaded.")
+        textLabel.text = Strings.ProviderPicker.Error.title
         if error is ProviderController.Error {
-            descriptionLabel.text = NSLocalizedString("ProviderPicker.Error.Temporary", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "This could be a temporary error, please try again and see if the problem persists.", comment: "Description for error when providers could not be loaded and it is likely it's a temporary error.")
+            descriptionLabel.text = Strings.ProviderPicker.Error.temporary
             retryButton.isHidden = false
         } else {
-            descriptionLabel.text = NSLocalizedString("ProviderPicker.Error.Description", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "We are informed of this error and are working hard to resolve it. Bear with us, and try again a bit later.", comment: "Description for error when providers could not be loaded.")
+            descriptionLabel.text = Strings.ProviderPicker.Error.description
             retryButton.isHidden = true
         }
     }

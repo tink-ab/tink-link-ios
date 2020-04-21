@@ -69,7 +69,7 @@ final class AddCredentialsSession {
                 }
             }
         )
-        self.showUpdating(status: NSLocalizedString("AddCredentials.Status.Authorizing", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Authorizing…", comment: "Text shown when adding credentials and waiting for authorization."))
+        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
     }
 
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
@@ -83,10 +83,10 @@ final class AddCredentialsSession {
         case .updating:
             let status: String
             if let providerID = task?.credentials?.providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
-                let statusFormatText = NSLocalizedString("AddCredentials.Status.Updating", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connecting to %@, please wait…", comment: "Text shown when updating credentials.")
+                let statusFormatText = Strings.AddCredentials.Status.updating
                 status = String(format: statusFormatText, bankName)
             } else {
-                status = NSLocalizedString("AddCredentials.Status.Updating.Fallback", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connection, please wait…", comment: "Fallback text shown when fail to get bank name while updating credentials.")
+                status = Strings.AddCredentials.Status.updatingFallback
             }
             showUpdating(status: status)
             countUpdatingProcessTime()
@@ -103,7 +103,7 @@ final class AddCredentialsSession {
                 }
             case .awaitAuthenticationOnAnotherDevice:
                 DispatchQueue.main.async {
-                    self?.showUpdating(status: NSLocalizedString("AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device."))
+                    self?.showUpdating(status: Strings.AddCredentials.Status.waitingForAuthenticationOnAnotherDevice)
                 }
             }
         }
@@ -225,14 +225,14 @@ extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         parentViewController?.dismiss(animated: true) {
             self.supplementInfoTask?.cancel()
-            self.showUpdating(status: NSLocalizedString("AddCredentials.Status.Canceling", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Canceling…", comment: "Text shown when canceling supplementing information."))
+            self.showUpdating(status: Strings.AddCredentials.Status.cancelling)
         }
     }
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
         parentViewController?.dismiss(animated: true) {
             self.supplementInfoTask?.submit(form)
-            self.showUpdating(status: NSLocalizedString("AddCredentials.Status.Sending", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Sending…", comment: "Text shown when submitting supplemental information."))
+            self.showUpdating(status: Strings.AddCredentials.Status.sending)
         }
     }
 }
