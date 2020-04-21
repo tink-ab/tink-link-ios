@@ -4,6 +4,7 @@ import TinkLink
 public class TinkLinkViewController: UINavigationController {
     private let tink: Tink
     private let market: Market
+    private let providerID: Provider.ID?
     public let scopes: [Scope]
 
     private var providerController: ProviderController
@@ -19,11 +20,12 @@ public class TinkLinkViewController: UINavigationController {
     private var result: Result<AuthorizationCode, TinkLinkError>?
     private let completion: (Result<AuthorizationCode, TinkLinkError>) -> Void
 
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, providerID: Provider.ID? = nil, authorization completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
         self.market = market
         self.scopes = scopes
         self.providerController = ProviderController(tink: tink, providerKinds: providerKinds)
+        self.providerID = providerID
         self.completion = completion
 
         super.init(nibName: nil, bundle: nil)
