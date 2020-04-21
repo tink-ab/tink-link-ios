@@ -1,7 +1,7 @@
 import UIKit
 /// A custom appearance provider.
 ///
-/// If you set a custom appearance provider, all TinkLinkUI SDK views will use
+/// If you set a custom appearance provider, all TinkLinkUI views will use
 /// this provider to retreive colors and fonts.
 ///
 /// You can change the appearance of Tink Link UI to match the rest of your app.
