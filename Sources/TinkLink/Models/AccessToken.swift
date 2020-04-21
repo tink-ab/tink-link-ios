@@ -1,3 +1,4 @@
+/// An OAuth access token to access the Tink service.
 public struct AccessToken: Hashable, RawRepresentable, Decodable {
     public let rawValue: String
 

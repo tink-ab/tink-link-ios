@@ -1,11 +1,57 @@
 import UIKit
 import TinkLink
 
+/// A view controller for aggregating credentials.
+///
+/// A `TinkLinkViewController` displays adding bank credentials.
+/// To start using Tink Link UI, you need to first configure a `Tink` instance with your client ID and redirect URI.
+///
+/// Typically you do this in your app's `application(_:didFinishLaunchingWithOptions:)` method like this.
+///
+/// ```swift
+/// import UIKit
+/// import TinkLink
+/// @UIApplicationMain
+/// class AppDelegate: UIResponder, UIApplicationDelegate {
+///
+///    var window: UIWindow?
+///
+///    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+///
+///        let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
+///        Tink.configure(with: configuration)
+///        ...
+/// ```
+///
+/// Here's how you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
+/// You need to define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes. Then create a `TinkLinkViewController` with a market and the scopes to use. And present the view controller.
+/// ```swift
+/// let scopes: [Scope] = [
+///     .accounts(.read),
+///     .transactions(.read)
+/// ]
+///
+/// let tinkLinkViewController = TinkLinkViewController(market: <#String#>, scopes: scopes) { result in
+///    // Handle result
+/// }
+/// present(tinkLinkViewController, animated: true)
+/// ```
+/// 
+/// After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can [exchange](https://docs.tink.com/resources/getting-started/retrieve-access-token) for an access token. If something went wrong the result will contain an error.
+/// ```swift
+/// do {
+///     let authorizationCode = try result.get()
+///     // Exchange the authorization code for a access token.
+/// } catch {
+///     // Handle any errors
+/// }
+/// ```
 public class TinkLinkViewController: UINavigationController {
-    private let tink: Tink
-    private let market: Market
+    /// Scopes that grant access to Tink.
     public let scopes: [Scope]
 
+    private let tink: Tink
+    private let market: Market
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
@@ -19,7 +65,14 @@ public class TinkLinkViewController: UINavigationController {
     private var result: Result<AuthorizationCode, TinkLinkError>?
     private let completion: (Result<AuthorizationCode, TinkLinkError>) -> Void
 
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+    /// Initializes a new TinkLinkViewController.
+    /// - Parameters:
+    ///   - tink: A configured `Tink` object.
+    ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from. 
+    ///   - scope: A set of scopes that will be aggregated.
+    ///   - providerKinds: The kind of providers that will be listed.
+    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
         self.market = market
         self.scopes = scopes

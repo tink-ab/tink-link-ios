@@ -1,10 +1,16 @@
 import UIKit
-
+/// A custom appearance provider.
+///
+/// If you set a custom appearance provider, all TinkLinkUI views will use
+/// this provider to retreive colors and fonts.
+///
+/// You can change the appearance of Tink Link UI to match the rest of your app.
+///
+/// To change colors or fonts, update the `Appearance.provider` before initializing the `TinkLinkViewController`.
+/// ```swift
+/// Appearance.provider.colors.accent = <#UIColor#>
+/// ```
 public enum Appearance {
-    /// A custom appearance provider.
-    ///
-    /// If you set a custom appearance provider, all Tink PFM SDK views will use
-    /// this provider to retreive colors and fonts.
     public static var provider: AppearanceProviding = AppearanceProvider() {
         didSet {
             customColorProvider = provider.colors
