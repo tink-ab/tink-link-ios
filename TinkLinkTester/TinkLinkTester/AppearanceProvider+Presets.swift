@@ -33,7 +33,7 @@ extension AppearanceProvider {
         return AppearanceProvider(colors: color)
     }
     
-    private static func makeProviderWithFonts(folderName: String, light: String, regular: String, bold: String) -> AppearanceProvider {
+    private static func makeProviderWithFonts(folderName: String, regular: String, bold: String) -> AppearanceProvider {
         let color = ColorProvider()
         let font = FontProvider()
         color.background = UIColor(named: "\(folderName)/Background")!
@@ -46,7 +46,6 @@ extension AppearanceProvider {
         color.accent = UIColor(named: "\(folderName)/Accent")!
         color.warning = UIColor(named: "\(folderName)/Uncategorized")!
         color.critical = UIColor(named: "\(folderName)/Critical")!
-        font.lightFont = .custom("\(light)")
         font.regularFont = .custom("\(regular)")
         font.boldFont = .custom("\(bold)")
         return AppearanceProvider(colors: color, fonts: font)
@@ -55,6 +54,6 @@ extension AppearanceProvider {
     static var darkGreen: AppearanceProvider = makeProvider(folderName: "DarkGreen")
     static var blue: AppearanceProvider = makeProvider(folderName: "Blue")
     static var purple: AppearanceProvider = makeProvider(folderName: "Purple")
-    static var chewinggum: AppearanceProvider = makeProviderWithFonts(folderName: "Chewinggum", light: "Avenir-Light", regular: "Avenir-Book", bold: "Avenir-Black")
-    static var strict: AppearanceProvider = makeProviderWithFonts(folderName: "Strict", light: "GillSans", regular: "GillSans", bold: "GillSans-SemiBold")
+    static var chewinggum: AppearanceProvider = makeProviderWithFonts(folderName: "Chewinggum", regular: "Avenir-Book", bold: "Avenir-Black")
+    static var strict: AppearanceProvider = makeProviderWithFonts(folderName: "Strict", regular: "GillSans", bold: "GillSans-SemiBold")
 }
