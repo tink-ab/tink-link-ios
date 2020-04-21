@@ -102,7 +102,7 @@ public final class AddCredentialsTask: Identifiable {
             self?.handleUpdate(for: result)
         }
 
-        credentialsStatusPollingTask?.pollStatus()
+        credentialsStatusPollingTask?.startPolling()
     }
 
     // MARK: - Controlling the Task
@@ -110,8 +110,13 @@ public final class AddCredentialsTask: Identifiable {
     /// Cancel the task.
     public func cancel() {
         isCancelled = true
-        credentialsStatusPollingTask?.cancel()
+        credentialsStatusPollingTask?.stopPolling()
         callCanceller?.cancel()
+    }
+
+    private func complete(with result: Result<Credentials, Swift.Error>) {
+        credentialsStatusPollingTask?.stopPolling()
+        completion(result)
     }
 
     private func handleUpdate(for result: Result<Credentials, Swift.Error>) {
@@ -124,30 +129,31 @@ public final class AddCredentialsTask: Identifiable {
             case .authenticating:
                 progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
+                self.credentialsStatusPollingTask?.stopPolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
-                        self.credentialsStatusPollingTask = CredentialsStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
-                        self.credentialsStatusPollingTask?.pollStatus()
+                        self.credentialsStatusPollingTask?.startPolling()
                     } catch {
-                        self.completion(.failure(error))
+                        self.complete(with: .failure(error))
                     }
                 }
                 progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
+                self.credentialsStatusPollingTask?.stopPolling()
                 guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
                     assertionFailure("Missing third pary app authentication deeplink URL!")
                     return
                 }
+
                 let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
-                        self.credentialsStatusPollingTask = CredentialsStatusPollingTask(credentialsService: self.credentialsService, credentials: credentials, updateHandler: self.handleUpdate)
-                        self.credentialsStatusPollingTask?.pollStatus()
+                        self.credentialsStatusPollingTask?.startPolling()
                     } catch {
-                        self.completion(.failure(error))
+                        self.complete(with: .failure(error))
                     }
                     self.thirdPartyAuthenticationTask = nil
                 }
@@ -155,18 +161,18 @@ public final class AddCredentialsTask: Identifiable {
                 progressHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
                 if completionPredicate.successPredicate == .updating {
-                    completion(.success(credentials))
+                    complete(with: .success(credentials))
                 } else {
                     progressHandler(.updating(status: credentials.statusPayload))
                 }
             case .updated:
                 if completionPredicate.successPredicate == .updated {
-                    completion(.success(credentials))
+                    complete(with: .success(credentials))
                 }
             case .permanentError:
-                completion(.failure(AddCredentialsTask.Error.permanentFailure(credentials.statusPayload)))
+                complete(with: .failure(AddCredentialsTask.Error.permanentFailure(credentials.statusPayload)))
             case .temporaryError:
-                completion(.failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload)))
+                complete(with: .failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload)))
             case .authenticationError:
                 var payload: String
                 // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice. 
@@ -176,7 +182,7 @@ public final class AddCredentialsTask: Identifiable {
                 } else {
                     payload = credentials.statusPayload
                 }
-                completion(.failure(AddCredentialsTask.Error.authenticationFailed(payload)))
+                complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(payload)))
             case .disabled:
                 fatalError("credentials shouldn't be disabled during creation.")
             case .sessionExpired:
@@ -185,7 +191,7 @@ public final class AddCredentialsTask: Identifiable {
                 assertionFailure("Unknown credentials status!")
             }
         } catch {
-            completion(.failure(error))
+            complete(with: .failure(error))
         }
     }
 }

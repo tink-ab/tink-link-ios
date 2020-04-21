@@ -79,16 +79,19 @@ public final class RefreshCredentialsTask: Identifiable {
             }
         )
 
-        credentialsStatusPollingTask?.pollStatus()
-        // Set the callCanceller to cancel the polling
-        callCanceller = credentialsStatusPollingTask?.callRetryCancellable
+        credentialsStatusPollingTask?.startPolling()
     }
 
     // MARK: - Controlling the Task
 
     /// Cancel the task.
     public func cancel() {
-        callCanceller?.cancel()
+        credentialsStatusPollingTask?.stopPolling()
+    }
+
+    private func complete(with result: Result<Credentials, Swift.Error>) {
+        credentialsStatusPollingTask?.stopPolling()
+        completion(result)
     }
 
     private func handleUpdate(for result: Result<Credentials, Swift.Error>) {
@@ -100,14 +103,14 @@ public final class RefreshCredentialsTask: Identifiable {
             case .authenticating:
                 progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
-                credentialsStatusPollingTask?.pausePolling()
+                credentialsStatusPollingTask?.stopPolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
-                        self.credentialsStatusPollingTask?.continuePolling()
+                        self.credentialsStatusPollingTask?.startPolling()
                     } catch {
-                        self.completion(.failure(error))
+                        self.complete(with: .failure(error))
                     }
                 }
                 progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
@@ -116,14 +119,14 @@ public final class RefreshCredentialsTask: Identifiable {
                     assertionFailure("Missing third pary app authentication deeplink URL!")
                     return
                 }
-                credentialsStatusPollingTask?.pausePolling()
+                credentialsStatusPollingTask?.stopPolling()
                 let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
-                        self.credentialsStatusPollingTask?.continuePolling()
+                        self.credentialsStatusPollingTask?.startPolling()
                     } catch {
-                        self.completion(.failure(error))
+                        self.complete(with: .failure(error))
                     }
                 }
                 progressHandler(.awaitingThirdPartyAppAuthentication(task))
@@ -145,7 +148,7 @@ public final class RefreshCredentialsTask: Identifiable {
                 assertionFailure("Unknown credentials status!")
             }
         } catch {
-            completion(.failure(error))
+            complete(with: .failure(error))
         }
     }
 }
