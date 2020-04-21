@@ -85,8 +85,6 @@ extension Font {
                 return 20
             case .nano:
                 return 16
-            default:
-                return self.pointSize
             }
         }
     }
