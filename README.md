@@ -96,20 +96,12 @@ To configure colors or fonts, you can update `Appearance.provider`. This needs t
 |`secondaryLabel`|Secondary text color.|
 |`separator`|Color for separators.|
 |`accent`|Colors for buttons, indicators and other similar elements.|
-|`expenses`|Color to represent expenses.|
-|`income`|Color to represent income.|
-|`transfers`|Color to represent transfers.|
-|`uncategorized`|Color representing uncategorized transactions.|
 |`warning`|Color representing a warning.|
 |`critical`|Color representing a critical warning or error.|
 
 ```swift
 let colorProvider = ColorProvider()
 colorProvider.accent = <#UIColor#>
-colorProvider.expenses = <#UIColor#>
-colorProvider.income = <#UIColor#>
-colorProvider.transfers = <#UIColor#>
-colorProvider.uncategorized = <#UIColor#>
 Appearance.provider.colors = colorProvider
 ```
 
@@ -120,13 +112,7 @@ You can configure colors and font by providing Tink Link SDK with a `ColorProvid
 let colorProvider = ColorProvider()
 let fontProvider = FontProvider()
 colorProvider.accent = <#UIColor#>
-colorProvider.expenses = <#UIColor#>
-colorProvider.income = <#UIColor#>
-colorProvider.transfers = <#UIColor#>
-colorProvider.uncategorized = <#UIColor#>
-fontProvider.lightFont = <#UIFont#>
 fontProvider.regularFont = <#UIFont#>
-fontProvider.semiBoldFont = <#UIFont#>
 fontProvider.boldFont = <#UIFont#>
 
 Appearance.provider = AppearenceProvider(colors: colorProvider, fonts: fontProvider)

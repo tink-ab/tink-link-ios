@@ -38,18 +38,20 @@ final class ProviderLoadingErrorView: UIView {
         iconView.image = UIImage(icon: .warning)?.withRenderingMode(.alwaysTemplate)
         iconView.contentMode = .scaleAspectFit
         iconView.tintColor = Color.warning
-        iconBackgroundView.layer.cornerRadius = 32
+        iconBackgroundView.layer.cornerRadius = 20
         iconBackgroundView.layer.backgroundColor = Color.warningBackground.cgColor
 
-        textLabel.font = Font.semibold(.mega)
+        textLabel.font = Font.bold(.deci)
         textLabel.textColor = Color.label
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 0
+        textLabel.setLineHeight(lineHeight: 20)
 
-        descriptionLabel.font = Font.regular(.hecto)
+        descriptionLabel.font = Font.regular(.micro)
         descriptionLabel.textColor = Color.secondaryLabel
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 0
+        descriptionLabel.setLineHeight(lineHeight: 20)
 
         retryButton.text = NSLocalizedString("ProviderPicker.Error.RetryButton", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Try again", comment: "Title for button to try loading providers again.")
         retryButton.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
@@ -66,19 +68,19 @@ final class ProviderLoadingErrorView: UIView {
         stackView.addArrangedSubview(iconBackgroundView)
         iconBackgroundView.addSubview(iconView)
         stackView.addArrangedSubview(textLabel)
-        stackView.setCustomSpacing(16, after: textLabel)
+        stackView.setCustomSpacing(6, after: textLabel)
         stackView.addArrangedSubview(descriptionLabel)
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 100),
+            stackView.centerYAnchor.constraint(equalTo: layoutMarginsGuide.centerYAnchor),
             stackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
 
-            iconBackgroundView.widthAnchor.constraint(equalToConstant: 64),
-            iconBackgroundView.heightAnchor.constraint(equalToConstant: 64),
+            iconBackgroundView.widthAnchor.constraint(equalToConstant: 40),
+            iconBackgroundView.heightAnchor.constraint(equalToConstant: 40),
 
-            iconView.widthAnchor.constraint(equalToConstant: 26),
-            iconView.heightAnchor.constraint(equalToConstant: 26),
+            iconView.widthAnchor.constraint(equalToConstant: 20),
+            iconView.heightAnchor.constraint(equalToConstant: 20),
             iconView.centerXAnchor.constraint(equalTo: iconBackgroundView.centerXAnchor),
             iconView.centerYAnchor.constraint(equalTo: iconBackgroundView.centerYAnchor),
 
