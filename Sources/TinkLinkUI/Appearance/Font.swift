@@ -81,6 +81,12 @@ extension Font {
         }
     }
     
+    static var headline: UIFont { bold(.hecto) }
+    static var body: UIFont { regular(.hecto) }
+    static var callout: UIFont { regular(.deci) }
+    static var subheadline: UIFont { regular(.micro) }
+    static var footnote: UIFont { regular(.nano) }
+
     static func regular(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .regular, size: size)
