@@ -53,7 +53,7 @@ extension Font {
         
         /// 11
         case nano = 11
-        
+
         fileprivate var textStyle: UIFont.TextStyle {
             switch self {
             case .mega:
