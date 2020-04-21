@@ -54,9 +54,6 @@ extension Font {
         /// 11
         case nano = 11
         
-        /// 9
-        case pico = 9
-        
         fileprivate var textStyle: UIFont.TextStyle {
             switch self {
             case .mega:
@@ -67,8 +64,6 @@ extension Font {
                 return UIFont.TextStyle.body
             case .micro:
                 return UIFont.TextStyle.callout
-            case .pico:
-                return UIFont.TextStyle.footnote
             case .nano:
                 return UIFont.TextStyle.caption2
             }
@@ -90,8 +85,6 @@ extension Font {
                 return 20
             case .nano:
                 return 16
-            case .pico:
-                return 12
             default:
                 return self.pointSize
             }
