@@ -23,17 +23,17 @@ final class AddCredentialsFooterView: UIView {
         ]
         descriptionTextView.textContainer.lineFragmentPadding = 0
         descriptionTextView.textContainerInset = .zero
-        let text = NSLocalizedString("AddCredentials.Consent.ServiceAgreement", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.")
+        let text = Strings.AddCredentials.Consent.serviceAgreement
         let attributeText = NSMutableAttributedString(
             string: text,
             attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.regular(.micro)])
         let languageCode = Locale.current.languageCode ?? ""
         let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
-        let privacyPolicyText = NSLocalizedString("AddCredentials.Consent.PrivacyPolicy", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Privacy Policy", comment: "Title of the Privacy Policy link. This has to match the mention of the Privacy Policy in the `AddCredentials.Consent.ServiceAgreement` string.")
+        let privacyPolicyText = Strings.AddCredentials.Consent.privacyPolicy
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
         self.privacyPolicyRange = privacyPolicyRange
         attributeText.addAttributes([.link: privacyPolicyUrl,], range: privacyPolicyRange)
-        let termsAndConditionsText = NSLocalizedString("AddCredentials.Consent.TermsAndConditions", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Terms and Conditions", comment: "Title of the Privacy Policy link. This has to match the mention of the Terms and Conditions in the `AddCredentials.Consent.ServiceAgreement` string.")
+        let termsAndConditionsText = Strings.AddCredentials.Consent.termsAndConditions
         let termsAndConditionsUrl = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
         self.termsAndConditionsRange = termsAndConditionsRange

@@ -30,7 +30,7 @@ class AddCredentialsClientNotVerifiedView: UIView {
 
         unVerifiedLabel.textColor = Color.critical
         unVerifiedLabel.translatesAutoresizingMaskIntoConstraints = false
-        unVerifiedLabel.text = NSLocalizedString("AddCredentials.Warning.UnverifiedClient", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Unverified - This solution is only made for development purposes. Do not enter your bank credentials unless you trust the developer.", comment: "Text for the warning shown when the developer is unverified.")
+        unVerifiedLabel.text = Strings.AddCredentials.Warning.unverifiedClient
         unVerifiedLabel.numberOfLines = 0
         unVerifiedLabel.font = Font.regular(.micro)
         unVerifiedLabel.setLineHeight(lineHeight: 20)
