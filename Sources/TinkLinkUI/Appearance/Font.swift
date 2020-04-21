@@ -122,14 +122,6 @@ extension Font {
         }
     }
     
-    static func light(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
-        if adjustsFontForContentSizeCategory {
-            return scaledFont(weight: .light, size: size)
-        } else {
-            return font(weight: .light, size: size)
-        }
-    }
-    
     static func regular(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .regular, size: size)
