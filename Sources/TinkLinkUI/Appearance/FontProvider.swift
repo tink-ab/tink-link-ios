@@ -38,7 +38,6 @@ public class FontProvider: FontProviding {
         switch weight {
         case .light: return lightFont
         case .regular: return regularFont
-        case .semibold: return semiBoldFont
         case .bold: return boldFont
         }
     }

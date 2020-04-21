@@ -15,8 +15,6 @@ extension Font {
         case light
         /// The regular font weight.
         case regular
-        /// The semibold font weight.
-        case semibold
         /// The bold font weight.
         case bold
 
@@ -26,8 +24,6 @@ extension Font {
                 return .light
             case .regular:
                 return .regular
-            case .semibold:
-                return .semibold
             case .bold:
                 return .bold
             }
