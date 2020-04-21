@@ -10,7 +10,7 @@ public enum ServiceError: Error {
     case deadlineExceeded(String)
     /// Not found
     case notFound(String)
-    /// The credential alreay exists
+    /// The resource already exists
     case alreadyExists(String)
     /// The user has no permission
     case permissionDenied(String)
