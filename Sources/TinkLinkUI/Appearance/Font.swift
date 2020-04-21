@@ -54,10 +54,6 @@ extension Font {
         /// 11
         case nano = 11
         
-        /// 10
-        /// - Note: This size should only be used for the tab bar label.
-        case tabBarLabel = 10
-        
         /// 9
         case pico = 9
         
@@ -73,8 +69,6 @@ extension Font {
                 return UIFont.TextStyle.callout
             case .pico:
                 return UIFont.TextStyle.footnote
-            case .tabBarLabel:
-                return UIFont.TextStyle.caption1
             case .nano:
                 return UIFont.TextStyle.caption2
             }
@@ -153,7 +147,6 @@ extension Font {
     
     private static func scaledFont(weight: Weight, size: Size) -> UIFont {
         let lotaGrotesque = font(weight: weight, size: size)
-        if size == .tabBarLabel { return lotaGrotesque }
         return UIFontMetrics(forTextStyle: size.textStyle).scaledFont(for: lotaGrotesque, maximumPointSize: size.pointSize * 1.5)
     }
 }
