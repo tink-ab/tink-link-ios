@@ -61,9 +61,9 @@ extension Font {
             case .hecto:
                 return UIFont.TextStyle.headline
             case .deci:
-                return UIFont.TextStyle.body
+                return UIFont.TextStyle.subheadline
             case .micro:
-                return UIFont.TextStyle.callout
+                return UIFont.TextStyle.footnote
             case .nano:
                 return UIFont.TextStyle.caption2
             }
