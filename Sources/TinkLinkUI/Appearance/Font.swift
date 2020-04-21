@@ -11,8 +11,6 @@ public enum Font {
 extension Font {
     /// A type that determines the weight of a font.
     public enum Weight {
-        /// The light font weight.
-        case light
         /// The regular font weight.
         case regular
         /// The bold font weight.
@@ -20,8 +18,6 @@ extension Font {
 
         var fontWeight: UIFont.Weight {
             switch self {
-            case .light:
-                return .light
             case .regular:
                 return .regular
             case .bold:
