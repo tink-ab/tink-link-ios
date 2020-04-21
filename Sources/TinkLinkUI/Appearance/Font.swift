@@ -142,14 +142,6 @@ extension Font {
         }
     }
     
-    static func semibold(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
-        if adjustsFontForContentSizeCategory {
-            return scaledFont(weight: .semibold, size: size)
-        } else {
-            return font(weight: .semibold, size: size)
-        }
-    }
-    
     static func bold(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .bold, size: size)
