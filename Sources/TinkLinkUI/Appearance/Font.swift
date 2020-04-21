@@ -38,19 +38,7 @@ extension Font {
 extension Font {
     
     enum Size: UInt {
-        
-        /// 80
-        case yotta = 80
-        
-        /// 45
-        case peta = 45
-        
-        /// 35
-        case tera = 35
-        
-        /// 25
-        case giga = 25
-        
+
         /// 21
         case mega = 21
         
@@ -65,36 +53,17 @@ extension Font {
         
         /// 11
         case nano = 11
-        
-        /// 10
-        /// - Note: This size should only be used for the tab bar label.
-        case tabBarLabel = 10
-        
-        /// 9
-        case pico = 9
-        
+
         fileprivate var textStyle: UIFont.TextStyle {
             switch self {
-            case .yotta:
-                return UIFont.TextStyle.largeTitle
-            case .peta:
-                return UIFont.TextStyle.largeTitle
-            case .tera:
-                return UIFont.TextStyle.title1
-            case .giga:
-                return UIFont.TextStyle.title2
             case .mega:
                 return UIFont.TextStyle.title3
             case .hecto:
                 return UIFont.TextStyle.headline
             case .deci:
-                return UIFont.TextStyle.body
+                return UIFont.TextStyle.subheadline
             case .micro:
-                return UIFont.TextStyle.callout
-            case .pico:
                 return UIFont.TextStyle.footnote
-            case .tabBarLabel:
-                return UIFont.TextStyle.caption1
             case .nano:
                 return UIFont.TextStyle.caption2
             }
@@ -106,12 +75,6 @@ extension Font {
         
         var lineHeight: CGFloat {
             switch self {
-            case .peta:
-                return 48
-            case .tera:
-                return 40
-            case .giga:
-                return 28
             case .mega:
                 return 28
             case .hecto:
@@ -122,10 +85,6 @@ extension Font {
                 return 20
             case .nano:
                 return 16
-            case .pico:
-                return 12
-            default:
-                return self.pointSize
             }
         }
     }
@@ -179,7 +138,6 @@ extension Font {
     
     private static func scaledFont(weight: Weight, size: Size) -> UIFont {
         let lotaGrotesque = font(weight: weight, size: size)
-        if size == .tabBarLabel { return lotaGrotesque }
         return UIFontMetrics(forTextStyle: size.textStyle).scaledFont(for: lotaGrotesque, maximumPointSize: size.pointSize * 1.5)
     }
 }
