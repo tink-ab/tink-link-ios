@@ -43,7 +43,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
-        titleLabel.font = Font.semibold(.hecto)
+        titleLabel.font = Font.semibold(.deci)
         titleLabel.textColor = Color.label
 
         let paragraphStyle = NSMutableParagraphStyle()
@@ -51,7 +51,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         detailLabel.attributedText = NSAttributedString(string: String(format: subtitleText, companyName), attributes: [.paragraphStyle: paragraphStyle])
         detailLabel.textAlignment = .center
         detailLabel.numberOfLines = 0
-        detailLabel.font = Font.regular(.deci)
+        detailLabel.font = Font.regular(.micro)
         detailLabel.textColor = Color.label
         
         doneButton.text = NSLocalizedString("AddCredentials.Success.Confirm", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Done", comment: "Title for button to dismiss the screen shown when credentials were added successfully.")
