@@ -10,25 +10,25 @@ This document outlines how to use the different classes and types provided by Ti
 
 1. If you directly use access tokens, you can authenticate your permanent user as follows:
 
-```swift
-Tink.shared.setCredential(.accessToken(<#T##String#>))
-let providerContext = ProviderContext()
-<#Code using providerContext#>
-```
+    ```swift
+    Tink.shared.setCredential(.accessToken(<#T##String#>))
+    let providerContext = ProviderContext()
+    <#Code using providerContext#>
+    ```
 
 2. If you use delegation to create an authorization code, you can authenticate your permanent user with the authorization code as follows:
 
-```swift
-Tink.shared.authenticateUser(authorizationCode: <#AuthorizationCode#>) { result in
-    do {
-        let user = try result.get()
-        let providerContext = ProviderContext()
-        <#Code using providerContext#>
-    } catch {
-        <#Error Handling#>
+    ```swift
+    Tink.shared.authenticateUser(authorizationCode: <#AuthorizationCode#>) { result in
+        do {
+            let user = try result.get()
+            let providerContext = ProviderContext()
+            <#Code using providerContext#>
+        } catch {
+            <#Error Handling#>
+        }
     }
-}
-```
+    ```
 
 ### Creating temporary users
 
