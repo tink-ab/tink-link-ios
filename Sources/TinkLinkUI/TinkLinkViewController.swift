@@ -4,7 +4,7 @@ import TinkLink
 public class TinkLinkViewController: UINavigationController {
     private let tink: Tink
     private let market: Market
-    private let providerID: Provider.ID?
+    public let providerID: Provider.ID?
     public let scopes: [Scope]
 
     private var providerController: ProviderController
@@ -251,6 +251,13 @@ extension TinkLinkViewController: ProviderPickerCoordinatorDelegate {
 
     func providerPickerCoordinatorUpdateProviders(_ coordinator: ProviderPickerCoordinator) {
         DispatchQueue.main.async {
+            guard let providerID = self.providerID else { return }
+            if let provider = self.providerController.provider(providerID: providerID) {
+                self.loadingViewController.hideLoadingIndicator()
+                self.showAddCredentials(for: provider)
+            } else {
+                self.loadingViewController.removeFromParent()
+            }
             self.loadingViewController.removeFromParent()
         }
     }
