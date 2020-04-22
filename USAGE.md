@@ -42,8 +42,7 @@ To be able to fetch providers, you will first need to have an authenticated user
 
 ```swift
 class ProviderListViewController: UITableViewController {
-    private var providerContext: ProviderContext?
-    private let userContext = UserContext()
+    private let providerContext = ProviderContext()
 
     private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
 
@@ -51,22 +50,14 @@ class ProviderListViewController: UITableViewController {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
-        userContext.authenticateUser(accessToken: <#Access Token#>, completion: { result in
-            do {
-                let user = try result.get()
-                self?.providerContext = ProviderContext(user: user)
-                self?.providerContext?.fetchProviders(completion: { [weak self] result in
-                    DispatchQueue.main.async {
-                        do {
-                            let providers = try result.get()
-                            self?.financialInstitutionGroupNodes = ProviderTree(providers: providers).financialInstitutionGroups
-                        } catch {
-                            <#Error Handling#>
-                        }
-                    }
-                })
-            } catch {
-                <#Error Handling#>
+        providerContext.fetchProviders { [weak self] result in
+            DispatchQueue.main.async {
+                do {
+                    let providers = try result.get()
+                    self?.financialInstitutionGroupNodes = ProviderTree(providers: providers).financialInstitutionGroups
+                } catch {
+                    <#Error Handling#>
+                }
             }
         }
     }
