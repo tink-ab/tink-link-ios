@@ -19,16 +19,15 @@ let providerContext = ProviderContext()
 2. If you use delegation to create an authorization code, you can authenticate your permanent user with the authorization code as follows:
 
 ```swift
-let userContext = UserContext()
-let userCanceller = userContext.authenticateUser(authorizationCode: <#AuthorizationCode#>, completion: { result in
+Tink.shared.authenticateUser(authorizationCode: <#AuthorizationCode#>) { result in
     do {
         let user = try result.get()
-        let providerContext = ProviderContext(user: user)
+        let providerContext = ProviderContext()
         <#Code using providerContext#>
     } catch {
         <#Error Handling#>
     }
-})
+}
 ```
 
 ### Creating temporary users
