@@ -81,13 +81,6 @@ extension Font {
         }
     }
     
-    static var title3: UIFont { regular(.mega) }
-    static var headline: UIFont { bold(.hecto) }
-    static var body: UIFont { regular(.hecto) }
-    static var callout: UIFont { regular(.deci) }
-    static var subheadline: UIFont { regular(.micro) }
-    static var footnote: UIFont { regular(.nano) }
-
     private static func regular(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .regular, size: size)
@@ -123,4 +116,15 @@ extension Font {
         let lotaGrotesque = font(weight: weight, size: size)
         return UIFontMetrics(forTextStyle: size.textStyle).scaledFont(for: lotaGrotesque, maximumPointSize: size.pointSize * 1.5)
     }
+}
+
+// MARK: - Semantic Text Styles
+
+extension Font {
+    static var title3: UIFont { regular(.mega) }
+    static var headline: UIFont { bold(.hecto) }
+    static var body: UIFont { regular(.hecto) }
+    static var callout: UIFont { regular(.deci) }
+    static var subheadline: UIFont { regular(.micro) }
+    static var footnote: UIFont { regular(.nano) }[
 }
