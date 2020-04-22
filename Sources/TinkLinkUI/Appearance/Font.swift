@@ -88,7 +88,7 @@ extension Font {
     static var subheadline: UIFont { regular(.micro) }
     static var footnote: UIFont { regular(.nano) }
 
-    static func regular(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
+    private static func regular(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .regular, size: size)
         } else {
@@ -96,7 +96,7 @@ extension Font {
         }
     }
     
-    static func bold(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
+    private static func bold(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .bold, size: size)
         } else {
