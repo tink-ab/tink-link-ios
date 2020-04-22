@@ -125,6 +125,6 @@ extension Font {
     static var headline: UIFont { bold(.hecto) }
     static var body: UIFont { regular(.hecto) }
     static var callout: UIFont { regular(.deci) }
-    static var subheadline: UIFont { regular(.micro) }
-    static var footnote: UIFont { regular(.nano) }[
+    static var subheadline: UIFont { regular(.deci) }
+    static var footnote: UIFont { regular(.micro) }
 }
