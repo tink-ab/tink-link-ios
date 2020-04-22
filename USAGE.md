@@ -219,9 +219,9 @@ If the third party authentication couldn't be handled by the `ThirdPartyAppAuthe
 Here is how you can prompt the user to download the third party app if it is not currently installed on the device:
 
 ```swift
-let alertController = UIAlertController(title: thirdPartyAppAuthentication.downloadTitle, message: thirdPartyAppAuthentication.downloadMessage, preferredStyle: .alert)
+let alertController = UIAlertController(title: thirdPartyAppAuthenticationTaskError.errorDescription, message: thirdPartyAppAuthenticationTaskError.failureReason, preferredStyle: .alert)
 
-if let appStoreURL = thirdPartyAppAuthentication.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
+if let appStoreURL = thirdPartyAppAuthenticationTaskError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
     let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
         UIApplication.shared.open(appStoreURL)
