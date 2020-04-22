@@ -204,7 +204,7 @@ do {
 }
 ```
 
-After submitting the form, further status updates will once again be sent to the `progressHandler` in the existing `addCredentials` call.
+After submitting the form, further status updates will once again be sent to the `progressHandler` in the existing `add` call.
 
 ### Handling third party app authentication
 
