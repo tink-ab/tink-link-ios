@@ -10,37 +10,29 @@ This document outlines how to use the different classes and types provided by Ti
 
 1. If you directly use access tokens, you can authenticate your permanent user as follows:
 
-```swift
-let userContext = UserContext()
-let userCanceller = userContext.authenticateUser(accessToken: <#Access Token#>, completion: { result in
-    do {
-        let user = try result.get()
-        let providerContext = ProviderContext(user: user)
-        <#Code using providerContext#>
-    } catch {
-        <#Error Handling#>
-    }
-})
-```
+    ```swift
+    Tink.shared.setCredential(.accessToken(<#T##String#>))
+    let providerContext = ProviderContext()
+    <#Code using providerContext#>
+    ```
 
 2. If you use delegation to create an authorization code, you can authenticate your permanent user with the authorization code as follows:
 
-```swift
-let userContext = UserContext()
-let userCanceller = userContext.authenticateUser(authorizationCode: <#AuthorizationCode#>, completion: { result in
-    do {
-        let user = try result.get()
-        let providerContext = ProviderContext(user: user)
-        <#Code using providerContext#>
-    } catch {
-        <#Error Handling#>
+    ```swift
+    Tink.shared.authenticateUser(authorizationCode: <#AuthorizationCode#>) { result in
+        do {
+            let user = try result.get()
+            let providerContext = ProviderContext()
+            <#Code using providerContext#>
+        } catch {
+            <#Error Handling#>
+        }
     }
-})
-```
+    ```
 
 ### Creating temporary users
 
-Temporary users are not currently supported in Tink Link, hence Tink Link can only be used by Enterprise customers that are able to create permanent users.
+Temporary users are currently not supported in Tink Link, hence Tink Link can only be used by Enterprise customers that are able to create permanent users.
 
 ## Selecting providers
 
@@ -50,8 +42,7 @@ To be able to fetch providers, you will first need to have an authenticated user
 
 ```swift
 class ProviderListViewController: UITableViewController {
-    private var providerContext: ProviderContext?
-    private let userContext = UserContext()
+    private let providerContext = ProviderContext()
 
     private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
 
@@ -59,22 +50,14 @@ class ProviderListViewController: UITableViewController {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
-        userContext.authenticateUser(accessToken: <#Access Token#>, completion: { result in
-            do {
-                let user = try result.get()
-                self?.providerContext = ProviderContext(user: user)
-                self?.providerContext?.fetchProviders(completion: { [weak self] result in
-                    DispatchQueue.main.async {
-                        do {
-                            let providers = try result.get()
-                            self?.financialInstitutionGroupNodes = ProviderTree(providers: providers).financialInstitutionGroups
-                        } catch {
-                            <#Error Handling#>
-                        }
-                    }
-                })
-            } catch {
-                <#Error Handling#>
+        providerContext.fetchProviders { [weak self] result in
+            DispatchQueue.main.async {
+                do {
+                    let providers = try result.get()
+                    self?.financialInstitutionGroupNodes = ProviderTree(providers: providers).financialInstitutionGroups
+                } catch {
+                    <#Error Handling#>
+                }
             }
         }
     }
@@ -106,14 +89,14 @@ Handle selection of a provider group by switching on the group itself to determi
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
     switch financialInstitutionGroupNode {
-    case .financialInstitutions(let financialInstitutionGroups):
-        showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
-    case .accessTypes(let accessTypeGroups):
-        showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
-    case .credentialsKinds(let groups):
-        showCredentialsKindPicker(for: groups)
+    case .financialInstitutions(let financialInstitutionNodes):
+        showFinancialInstitution(for: financialInstitutionNodes, title: financialInstitutionGroupNode.displayName)
+    case .accessTypes(let accessTypeNodes):
+        showAccessTypePicker(for: accessTypeNodes, title: financialInstitutionGroupNode.displayName)
+    case .credentialsKinds(let credentialsKindNodes):
+        showCredentialKindPicker(for: credentialsKindNodes)
     case .provider(let provider):
-        showAddCredentials(for: provider)
+        showAddCredential(for: provider)
     }
 }
 ```
@@ -183,21 +166,21 @@ do {
 
 ### Add credentials with form fields
 
-To add a credential for the current user, call `addCredentials` with the provider you want to add a credential for and a form with valid field values. Make sure to handle the status changes in the `progressHandler` closure and the `result` in the completion handler.
+To add a credential for the current user, call `add` with the provider you want to add a credential for and a form with valid field values. Make sure to handle the status changes in the `progressHandler` closure and the `result` in the completion handler.
 
 ```swift
-credentialsContext.addCredentials(for: provider, form: form, progressHandler: { status in
+credentialContext.add(for: provider, form: form, progressHandler: { status in
     switch status {
     case .awaitingSupplementalInformation(let supplementInformationTask):
         <#Present form for supplemental information task#>
-    case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication):
+    case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
         <#Open third party app deep link URL#>
     default:
         break
     }
 }, completion: { result in
     <#Handle result#>
-}
+})
 ```
 
 ### Handling awaiting supplemental information
@@ -221,11 +204,11 @@ do {
 }
 ```
 
-After submitting the form, further status updates will once again be sent to the `progressHandler` in the existing `addCredentials` call.
+After submitting the form, further status updates will once again be sent to the `progressHandler` in the existing `add` call.
 
 ### Handling third party app authentication
 
-Third party authentication is used to handle authentication outside of your app (such as app-to-app and app-to-web redirects). When the `progressHandler` emits a `awaitingThirdPartyAppAuthentication` status, you should let the `ThirdPartyAppAuthenticationTask` object handle the update like this:
+Third party authentication is used to handle authentication outside of your app (such as app-to-app and app-to-web redirects). When the `progressHandler` emits a `awaitingThirdPartyAppAuthentication` status, you should let the `ThirdPartyAppAuthenticationTask` object handle the update as follows:
 
 ```swift
 /// thirdPartyAppAuthenticationTask.handle()
@@ -236,9 +219,9 @@ If the third party authentication couldn't be handled by the `ThirdPartyAppAuthe
 Here is how you can prompt the user to download the third party app if it is not currently installed on the device:
 
 ```swift
-let alertController = UIAlertController(title: thirdPartyAppAuthentication.downloadTitle, message: thirdPartyAppAuthentication.downloadMessage, preferredStyle: .alert)
+let alertController = UIAlertController(title: thirdPartyAppAuthenticationTaskError.errorDescription, message: thirdPartyAppAuthenticationTaskError.failureReason, preferredStyle: .alert)
 
-if let appStoreURL = thirdPartyAppAuthentication.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
+if let appStoreURL = thirdPartyAppAuthenticationTaskError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
     let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
         UIApplication.shared.open(appStoreURL)
@@ -282,7 +265,7 @@ If you are aggregating data under Tink's license, the user must be informed and 
 Here is how you can retrieve the scopes and their descriptions:
 
 ```swift
-let authorizationContext = AuthorizationContext(user: user)
+let authorizationContext = AuthorizationContext()
 let scopes: [Scope] = [
     .transactions(.read),
     .accounts(.read)

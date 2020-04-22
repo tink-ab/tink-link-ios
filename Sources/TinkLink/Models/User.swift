@@ -5,6 +5,7 @@ public struct User {
     let accessToken: AccessToken
     let userProfile: UserProfile?
 
+    /// The username of the current user.
     public var username: String? {
         return userProfile?.username
     }

@@ -7,18 +7,31 @@ public struct RefreshableItems: OptionSet {
         self.rawValue = rawValue
     }
 
+    /// Checking accounts data types to aggregate.
     public static let checkingAccounts = RefreshableItems(rawValue: 1 << 0)
+    /// Checking transactions data types to aggregate.
     public static let checkingTransactions = RefreshableItems(rawValue: 1 << 1)
+    /// Saving accounts data types to aggregate.
     public static let savingAccounts = RefreshableItems(rawValue: 1 << 2)
+    /// Saving transactions data types to aggregate.
     public static let savingTransactions = RefreshableItems(rawValue: 1 << 3)
+    /// Credit Card accounts data types to aggregate.
     public static let creditCardAccounts = RefreshableItems(rawValue: 1 << 4)
+    /// Credit Card transactions data types to aggregate.
     public static let creditCardTransactions = RefreshableItems(rawValue: 1 << 5)
+    /// Loan accounts data types to aggregate.
     public static let loanAccounts = RefreshableItems(rawValue: 1 << 6)
+    /// Loan transactions data types to aggregate.
     public static let loanTransactions = RefreshableItems(rawValue: 1 << 7)
+    /// Investment accounts data types to aggregate.
     public static let investmentAccounts = RefreshableItems(rawValue: 1 << 8)
+    /// Investment transactions data types to aggregate.
     public static let investmentTransactions = RefreshableItems(rawValue: 1 << 9)
+    /// EInvoices data types to aggregate.
     public static let eInvoices = RefreshableItems(rawValue: 1 << 10)
+    /// Transfer data types to aggregate.
     public static let transferDestinations = RefreshableItems(rawValue: 1 << 11)
+    /// Identity data types to aggregate.
     public static let identityData = RefreshableItems(rawValue: 1 << 12)
 
     /// All kinds of account data.

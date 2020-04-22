@@ -1,6 +1,51 @@
 import UIKit
 import TinkLink
 
+/// A view controller for aggregating credentials.
+///
+/// A `TinkLinkViewController` displays adding bank credentials.
+/// To start using Tink Link UI, you need to first configure a `Tink` instance with your client ID and redirect URI.
+///
+/// Typically you do this in your app's `application(_:didFinishLaunchingWithOptions:)` method like this.
+///
+/// ```swift
+/// import UIKit
+/// import TinkLink
+/// @UIApplicationMain
+/// class AppDelegate: UIResponder, UIApplicationDelegate {
+///
+///    var window: UIWindow?
+///
+///    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+///
+///        let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
+///        Tink.configure(with: configuration)
+///        ...
+/// ```
+///
+/// Here's how you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
+/// You need to define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes. Then create a `TinkLinkViewController` with a market and the scopes to use. And present the view controller.
+/// ```swift
+/// let scopes: [Scope] = [
+///     .accounts(.read),
+///     .transactions(.read)
+/// ]
+///
+/// let tinkLinkViewController = TinkLinkViewController(market: <#String#>, scopes: scopes) { result in
+///    // Handle result
+/// }
+/// present(tinkLinkViewController, animated: true)
+/// ```
+/// 
+/// After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can [exchange](https://docs.tink.com/resources/getting-started/retrieve-access-token) for an access token. If something went wrong the result will contain an error.
+/// ```swift
+/// do {
+///     let authorizationCode = try result.get()
+///     // Exchange the authorization code for a access token.
+/// } catch {
+///     // Handle any errors
+/// }
+/// ```
 public class TinkLinkViewController: UINavigationController {
 
     /// Strategy for different types of prefilling
@@ -10,12 +55,15 @@ public class TinkLinkViewController: UINavigationController {
         /// Will attempt to fill the first field of the provider with the associated value if it is valid.
         case username(value: String, isEditable: Bool)
     }
+  
+    /// Scopes that grant access to Tink.
+    public let scopes: [Scope]
+    /// The prefilling strategy to use. 
+    public var prefill: PrefillStrategy = .none
 
     private let tink: Tink
     private let market: Market
-    public let scopes: [Scope]
 
-    public var prefill: PrefillStrategy = .none
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
@@ -29,7 +77,14 @@ public class TinkLinkViewController: UINavigationController {
     private var result: Result<AuthorizationCode, TinkLinkError>?
     private let completion: (Result<AuthorizationCode, TinkLinkError>) -> Void
 
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, authorization completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+    /// Initializes a new TinkLinkViewController.
+    /// - Parameters:
+    ///   - tink: A configured `Tink` object.
+    ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from. 
+    ///   - scope: A set of scopes that will be aggregated.
+    ///   - providerKinds: The kind of providers that will be listed.
+    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
         self.market = market
         self.scopes = scopes
@@ -112,19 +167,19 @@ extension TinkLinkViewController {
         let localizedError = error as? LocalizedError
 
         let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? NSLocalizedString("Generic.ServiceAlert.FallbackTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description."),
+            title: localizedError?.errorDescription ?? Strings.Generic.ServiceAlert.fallbackTitle,
             message: localizedError?.failureReason ?? error.localizedDescription,
             preferredStyle: .alert
         )
         loadingViewController.hideLoadingIndicator()
-        let retryAction = UIAlertAction(title: NSLocalizedString("Generic.ServiceAlert.Retry", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Retry", comment: "Title for action to retry a failed request."), style: .default) { _ in
+        let retryAction = UIAlertAction(title: Strings.Generic.ServiceAlert.retry, style: .default) { _ in
             self.loadingViewController.showLoadingIndicator()
             self.setViewControllers([self.loadingViewController], animated: false)
             self.start()
         }
         alertController.addAction(retryAction)
 
-        let dismissAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.Dismiss", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Dismiss", comment: "Title for action to dismiss error alert."), style: .cancel) { _ in
+        let dismissAction = UIAlertAction(title: Strings.Generic.Alert.dismiss, style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
         }
         alertController.addAction(dismissAction)
@@ -135,12 +190,12 @@ extension TinkLinkViewController {
         let localizedError = error as? LocalizedError
 
         let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? NSLocalizedString("Generic.ServiceAlert.FallbackTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description."),
+            title: localizedError?.errorDescription ?? Strings.Generic.ServiceAlert.fallbackTitle,
             message: localizedError?.failureReason ?? error.localizedDescription,
             preferredStyle: .alert
         )
 
-        let dismissAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.Dismiss", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Dismiss", comment: "Title for action to dismiss error alert."), style: .cancel) { _ in
+        let dismissAction = UIAlertAction(title: Strings.Generic.Alert.dismiss, style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
         }
         alertController.addAction(dismissAction)
@@ -151,14 +206,14 @@ extension TinkLinkViewController {
         let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
 
         if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
-            let cancelAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Cancel", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Cancel", comment: "Title for action to cancel downloading app for third-party app authentication."), style: .cancel)
-            let downloadAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Download", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Download", comment: "Title for action to download app for third-party app authentication."), style: .default, handler: { _ in
+            let cancelAction = UIAlertAction(title: Strings.ThirdPartyAppAuthentication.DownloadAlert.cancel, style: .cancel)
+            let downloadAction = UIAlertAction(title: Strings.ThirdPartyAppAuthentication.DownloadAlert.download, style: .default, handler: { _ in
                 UIApplication.shared.open(appStoreURL)
             })
             alertController.addAction(cancelAction)
             alertController.addAction(downloadAction)
         } else {
-            let okAction = UIAlertAction(title: NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Dismiss", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "OK", comment: "Title for action to confirm alert requesting download of third-party authentication app when AppStore URL could not be opened."), style: .default)
+            let okAction = UIAlertAction(title: Strings.ThirdPartyAppAuthentication.DownloadAlert.dismiss, style: .default)
             alertController.addAction(okAction)
         }
 
@@ -172,13 +227,13 @@ extension TinkLinkViewController {
             title = error.errorDescription
             message = error.failureReason
         } else {
-            title = NSLocalizedString("Generic.Alert.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Error", comment: "Title generic alert.")
+            title = Strings.Generic.Alert.title
             message = error.localizedDescription
         }
 
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let okAction = UIAlertAction(title: NSLocalizedString("Generic.Alert.OK", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "OK", comment: "Title for action to confirm alert."), style: .default)
+        let okAction = UIAlertAction(title: Strings.Generic.Alert.ok, style: .default)
         alertController.addAction(okAction)
 
         present(alertController, animated: true)
@@ -311,16 +366,16 @@ extension TinkLinkViewController {
     }
 
     private func showDiscardActionSheet() {
-        let alertTitle = NSLocalizedString("AddCredentials.Discard.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Are you sure you want to discard this new credential?", comment: "Title for action sheet presented when user tries to dismiss modal while adding credentials.")
+        let alertTitle = Strings.AddCredentials.Discard.title
         let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .actionSheet)
 
-        let discardActionTitle = NSLocalizedString("AddCredentials.Discard.PrimaryAction", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Discard Changes", comment: "Title for action to discard adding credentials.")
+        let discardActionTitle = Strings.AddCredentials.Discard.primaryAction
         let discardAction = UIAlertAction(title: discardActionTitle, style: .destructive) { _ in
             self.closeTinkLink()
         }
         alert.addAction(discardAction)
 
-        let continueActionTitle = NSLocalizedString("AddCredentials.Discard.ContinueAction", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Continue Editing", comment: "Title for action to continue adding credentials.")
+        let continueActionTitle = Strings.AddCredentials.Discard.continueAction
         let continueAction = UIAlertAction(title: continueActionTitle, style: .cancel)
         alert.addAction(continueAction)
 

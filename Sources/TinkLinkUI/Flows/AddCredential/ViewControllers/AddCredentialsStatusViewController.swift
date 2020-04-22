@@ -53,8 +53,8 @@ final class AddCredentialsStatusViewController: UIViewController {
         activityIndicator.startAnimating()
         activityIndicator.setContentHuggingPriority(.defaultLow, for: .vertical)
 
-        cancelButton.setTitle(NSLocalizedString("AddCredentials.Status.Cancel", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Cancel", comment: "Title for button to cancel an ongoing task for adding credentials."), for: .normal)
-        cancelButton.titleLabel?.font = Font.semibold(.hecto)
+        cancelButton.setTitle(Strings.AddCredentials.Status.cancel, for: .normal)
+        cancelButton.titleLabel?.font = Font.bold(.hecto)
         cancelButton.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
         cancelButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         cancelButton.tintColor = Color.accent

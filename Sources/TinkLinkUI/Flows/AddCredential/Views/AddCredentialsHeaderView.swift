@@ -14,7 +14,7 @@ final class AddCredentialsHeaderView: UIView {
     }()
     private lazy var bankLabel: UILabel = {
         let bankLabel = UILabel()
-        bankLabel.font = Font.semibold(.deci)
+        bankLabel.font = Font.bold(.deci)
         bankLabel.adjustsFontForContentSizeCategory = true
         bankLabel.textColor = Color.label
         bankLabel.numberOfLines = 0
@@ -36,7 +36,7 @@ final class AddCredentialsHeaderView: UIView {
     }()
     private let userInfoLabel: UILabel = {
         let userInfoLabel = UILabel()
-        userInfoLabel.font = Font.semibold(.deci)
+        userInfoLabel.font = Font.bold(.deci)
         userInfoLabel.textColor = Color.label
         userInfoLabel.numberOfLines = 0
         return userInfoLabel
@@ -222,14 +222,14 @@ final class AddCredentialsHeaderView: UIView {
         emptyDescriptionUserInfoLabelBottomSpace?.isActive = isDescriptionHidden
         userInfoDescriptionBottomSpace?.isActive = !isDescriptionHidden
 
-        let readMoreFormat = NSLocalizedString("AddCredentials.Consent.FinancialInformation", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "%@ will obtain some of your financial information. Read More", comment: "Text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.")
+        let readMoreFormat = Strings.AddCredentials.Consent.financialInformation
         let text = String(format: readMoreFormat, clientName)
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: Color.label,
             .font: Font.regular(.micro)
         ]
         let attributeText = NSMutableAttributedString(string: text, attributes: attributes)
-        let readMoreText = NSLocalizedString("AddCredentials.Consent.ReadMore", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Read More", comment: "Title of the link to more information. This has to match the text for link in the `AddCredentials.Consent.FinancialInformation` string.")
+        let readMoreText = Strings.AddCredentials.Consent.readMore
         let readMoreRange = attributeText.mutableString.range(of: readMoreText)
         self.readMoreRange = readMoreRange
         attributeText.addAttributes([

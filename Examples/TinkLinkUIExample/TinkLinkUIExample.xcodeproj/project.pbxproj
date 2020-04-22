@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		077A4F8AAFB04891684267DA /* Pods_TinkLinkUIExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3432EE2BC37070DBF7C2892 /* Pods_TinkLinkUIExample.framework */; };
 		2071952423F2B7A20042B2FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2071952323F2B7A20042B2FB /* ViewController.swift */; };
-		20E6AEF023FA79AC00070B1E /* AppearanceProvider+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E6AEEF23FA79AC00070B1E /* AppearanceProvider+Presets.swift */; };
 		8FC06D2223F196A700CD7B88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC06D2123F196A700CD7B88 /* AppDelegate.swift */; };
 		8FC06D2B23F196A900CD7B88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC06D2A23F196A900CD7B88 /* Assets.xcassets */; };
 		8FC06D2E23F196A900CD7B88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC06D2C23F196A900CD7B88 /* LaunchScreen.storyboard */; };
@@ -18,7 +17,6 @@
 /* Begin PBXFileReference section */
 		1F6B6352F51D1CF0332E4680 /* Pods-TinkLinkUIExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkLinkUIExample.debug.xcconfig"; path = "Target Support Files/Pods-TinkLinkUIExample/Pods-TinkLinkUIExample.debug.xcconfig"; sourceTree = "<group>"; };
 		2071952323F2B7A20042B2FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		20E6AEEF23FA79AC00070B1E /* AppearanceProvider+Presets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceProvider+Presets.swift"; sourceTree = "<group>"; };
 		8FC06D1E23F196A700CD7B88 /* TinkLinkUIExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkLinkUIExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC06D2123F196A700CD7B88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FC06D2A23F196A900CD7B88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,7 +44,6 @@
 				1F6B6352F51D1CF0332E4680 /* Pods-TinkLinkUIExample.debug.xcconfig */,
 				D1FE3357E5C183EA460C2F77 /* Pods-TinkLinkUIExample.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -73,7 +70,6 @@
 			children = (
 				8FC06D2123F196A700CD7B88 /* AppDelegate.swift */,
 				2071952323F2B7A20042B2FB /* ViewController.swift */,
-				20E6AEEF23FA79AC00070B1E /* AppearanceProvider+Presets.swift */,
 				8FC06D2A23F196A900CD7B88 /* Assets.xcassets */,
 				8FC06D2C23F196A900CD7B88 /* LaunchScreen.storyboard */,
 				8FC06D2F23F196A900CD7B88 /* Info.plist */,
@@ -204,7 +200,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2071952423F2B7A20042B2FB /* ViewController.swift in Sources */,
-				20E6AEF023FA79AC00070B1E /* AppearanceProvider+Presets.swift in Sources */,
 				8FC06D2223F196A700CD7B88 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

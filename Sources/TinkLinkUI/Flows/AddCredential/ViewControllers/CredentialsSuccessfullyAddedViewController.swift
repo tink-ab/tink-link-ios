@@ -22,8 +22,8 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
     }
     
     //TODO: Use real strings
-    private let titleText = NSLocalizedString("AddCredentials.Success.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Connection successful", comment: "Title for screen shown when credentials were added successfully.")
-    private let subtitleText = NSLocalizedString("AddCredentials.Success.Subtitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Your account has successfully connected to %@.", comment: "Subtitle for screen shown when credentials were added successfully.")
+    private let titleText = Strings.AddCredentials.Success.title
+    private let subtitleText = Strings.AddCredentials.Success.subtitle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
-        titleLabel.font = Font.semibold(.deci)
+        titleLabel.font = Font.bold(.deci)
         titleLabel.textColor = Color.label
 
         let paragraphStyle = NSMutableParagraphStyle()
@@ -54,7 +54,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         detailLabel.font = Font.regular(.micro)
         detailLabel.textColor = Color.label
         
-        doneButton.text = NSLocalizedString("AddCredentials.Success.Confirm", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Done", comment: "Title for button to dismiss the screen shown when credentials were added successfully.")
+        doneButton.text = Strings.AddCredentials.Success.confirm
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
         
         iconView.translatesAutoresizingMaskIntoConstraints = false

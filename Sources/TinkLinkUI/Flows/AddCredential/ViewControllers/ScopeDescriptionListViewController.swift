@@ -25,8 +25,8 @@ final class ScopeDescriptionListViewController: UITableViewController {
         self.scopes = scopes
         self.sections = [
             .intro(
-                title: NSLocalizedString("AddCredentials.ScopeDescriptions.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "We’ll collect the following data from you", comment: "Title for text introducing the descriptions for which data points will be collected when using the service."),
-                description: NSLocalizedString("AddCredentials.ScopeDescriptions.Body", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "By following through this service, we’ll collect financial data from you. These are the data points we will collect from you:", comment: "Text introducing the descriptions for which data points will be collected when using the service.")
+                title: Strings.AddCredentials.ScopeDescriptions.title,
+                description: Strings.AddCredentials.ScopeDescriptions.body
             )
         ]
         super.init(nibName: nil, bundle: nil)
@@ -88,7 +88,7 @@ extension ScopeDescriptionListViewController {
         let cell = tableView.dequeueReusableCell(ofType: ScopeDescriptionCell.self, for: indexPath)
         switch sections[indexPath.section] {
         case .intro(let title, let description):
-            cell.configure(title: title, titleFont: Font.semibold(.mega), description: description)
+            cell.configure(title: title, titleFont: Font.bold(.mega), description: description)
         case .scopeDescriptions(let scopeDescriptions):
             let scopeDescription = scopeDescriptions[indexPath.row]
             cell.configure(title: scopeDescription.title, description: scopeDescription.description)

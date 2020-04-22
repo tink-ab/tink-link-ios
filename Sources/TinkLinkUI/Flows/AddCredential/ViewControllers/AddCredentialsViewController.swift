@@ -35,7 +35,7 @@ final class AddCredentialsViewController: UIViewController {
     private lazy var gradientView = GradientView()
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
-        button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Continue", comment: "Title for button to start authenticating credentials.")
+        button.text = Strings.AddCredentials.Form.continue
         return button
     }()
 
@@ -125,7 +125,7 @@ extension AddCredentialsViewController {
             buttonBottomConstraint,
         ])
 
-        navigationItem.title = NSLocalizedString("AddCredentials.Form.Title", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Authenticate", comment: "Title for screen where user fills in form to add credentials.")
+        navigationItem.title = Strings.AddCredentials.Form.title
         navigationItem.largeTitleDisplayMode = .never
         button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
 
@@ -148,9 +148,9 @@ extension AddCredentialsViewController {
     func setupButton() {
         switch provider.credentialsKind {
         case .mobileBankID:
-            button.text = NSLocalizedString("AddCredentials.Form.OpenBankID", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Open BankID", comment: "Title for button to open BankID app.")
+            button.text = Strings.AddCredentials.Form.openBankID
         default:
-            button.text = NSLocalizedString("AddCredentials.Form.Continue", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Continue", comment: "Title for button to start authenticating credentials.")
+            button.text = Strings.AddCredentials.Form.continue
         }
     }
     
