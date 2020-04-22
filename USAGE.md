@@ -265,7 +265,7 @@ If you are aggregating data under Tink's license, the user must be informed and 
 Here is how you can retrieve the scopes and their descriptions:
 
 ```swift
-let authorizationContext = AuthorizationContext(user: user)
+let authorizationContext = AuthorizationContext()
 let scopes: [Scope] = [
     .transactions(.read),
     .accounts(.read)
