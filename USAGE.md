@@ -89,14 +89,14 @@ Handle selection of a provider group by switching on the group itself to determi
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
     switch financialInstitutionGroupNode {
-    case .financialInstitutions(let financialInstitutionGroups):
-        showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
-    case .accessTypes(let accessTypeGroups):
-        showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
-    case .credentialsKinds(let groups):
-        showCredentialsKindPicker(for: groups)
+    case .financialInstitutions(let financialInstitutionNodes):
+        showFinancialInstitution(for: financialInstitutionNodes, title: financialInstitutionGroupNode.displayName)
+    case .accessTypes(let accessTypeNodes):
+        showAccessTypePicker(for: accessTypeNodes, title: financialInstitutionGroupNode.displayName)
+    case .credentialsKinds(let credentialsKindNodes):
+        showCredentialKindPicker(for: credentialsKindNodes)
     case .provider(let provider):
-        showAddCredentials(for: provider)
+        showAddCredential(for: provider)
     }
 }
 ```
