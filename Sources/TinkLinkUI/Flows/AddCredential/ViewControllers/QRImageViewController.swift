@@ -43,7 +43,7 @@ final class QRImageViewController: UIViewController {
         borderedCornersView.translatesAutoresizingMaskIntoConstraints = false
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
 
-        subtitleLabel.font = Font.bold(.mega)
+        subtitleLabel.font = Font.title3.bold
         subtitleLabel.textColor = Color.label
         subtitleLabel.numberOfLines = 0
         subtitleLabel.textAlignment = .center

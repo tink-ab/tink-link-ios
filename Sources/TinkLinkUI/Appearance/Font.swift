@@ -81,6 +81,7 @@ extension Font {
         }
     }
     
+    static var title3: UIFont { regular(.mega) }
     static var headline: UIFont { bold(.hecto) }
     static var body: UIFont { regular(.hecto) }
     static var callout: UIFont { regular(.deci) }
