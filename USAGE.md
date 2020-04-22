@@ -32,7 +32,7 @@ This document outlines how to use the different classes and types provided by Ti
 
 ### Creating temporary users
 
-Temporary users are not currently supported in Tink Link, hence Tink Link can only be used by Enterprise customers that are able to create permanent users.
+Temporary users are currently not supported in Tink Link, hence Tink Link can only be used by Enterprise customers that are able to create permanent users.
 
 ## Selecting providers
 
