@@ -169,18 +169,18 @@ do {
 To add a credential for the current user, call `addCredentials` with the provider you want to add a credential for and a form with valid field values. Make sure to handle the status changes in the `progressHandler` closure and the `result` in the completion handler.
 
 ```swift
-credentialsContext.addCredentials(for: provider, form: form, progressHandler: { status in
+credentialContext.add(for: provider, form: form, progressHandler: { status in
     switch status {
     case .awaitingSupplementalInformation(let supplementInformationTask):
         <#Present form for supplemental information task#>
-    case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication):
+    case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
         <#Open third party app deep link URL#>
     default:
         break
     }
 }, completion: { result in
     <#Handle result#>
-}
+})
 ```
 
 ### Handling awaiting supplemental information
