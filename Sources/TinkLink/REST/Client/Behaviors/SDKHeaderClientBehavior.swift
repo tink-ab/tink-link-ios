@@ -3,7 +3,7 @@ import Foundation
 final class SDKHeaderClientBehavior: ClientBehavior {
 
     private let version: String?
-    private let sdkName: String
+    var sdkName: String
     private let clientID: String
 
     init(sdkName: String, clientID: String) {
