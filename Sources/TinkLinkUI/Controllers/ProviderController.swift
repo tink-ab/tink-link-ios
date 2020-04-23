@@ -46,7 +46,7 @@ final class ProviderController {
         self.providerKinds = providerKinds
     }
 
-    func performFetch() {
+    func performFetch(completion: ((Result<[Provider], Swift.Error>) -> Void)? = nil) {
         guard !isFetching else { return }
         if providerContext == nil {
             providerContext = ProviderContext(tink: tink)
@@ -65,10 +65,12 @@ final class ProviderController {
                 DispatchQueue.main.async {
                     self?.providers = providers
                     self?.financialInstitutionGroupNodes = tree.financialInstitutionGroups
+                    completion?(Result.success(providers))
                     NotificationCenter.default.post(name: .providerControllerDidUpdateProviders, object: self)
                 }
             } catch {
                 self?.error = Error(fetchProviderError: error) ?? error
+                completion?(Result.failure(Error(fetchProviderError: error) ?? error))
                 NotificationCenter.default.post(name: .providerControllerDidFailWithError, object: self)
             }
         })

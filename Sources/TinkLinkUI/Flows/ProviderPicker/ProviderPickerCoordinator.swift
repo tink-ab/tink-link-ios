@@ -38,6 +38,10 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         NotificationCenter.default.addObserver(self, selector: #selector(hideLoadingIndicator), name: .providerControllerDidFetchProviders, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updatedWithError), name: .providerControllerDidFailWithError, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
+
+        DispatchQueue.main.async {
+            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: NSLocalizedString("ProviderPicker.List.FinancialInstitutionsTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Choose bank", comment: "Title for list of all providers."))
+        }
         
         self.completion = completion
     }
@@ -100,9 +104,6 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     @objc private func updateProviders() {
         delegate?.providerPickerCoordinatorUpdateProviders(self)
-        DispatchQueue.main.async {
-            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: NSLocalizedString("ProviderPicker.List.FinancialInstitutionsTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Choose bank", comment: "Title for list of all providers."))
-        }
     }
 
     @objc private func updatedWithError() {

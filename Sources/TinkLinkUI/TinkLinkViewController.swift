@@ -56,8 +56,20 @@ public class TinkLinkViewController: UINavigationController {
                 do {
                     _ = try result.get()
 
-                    self.providerController.performFetch()
-                    self.showProviderPicker()
+                    self.providerController.performFetch { (result) in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let providers):
+                                if self.providerID != nil,
+                                    let provider = providers.first(where: { $0.id == self.providerID }) {
+                                    self.showAddCredentials(for: provider)
+                                } else {
+                                    self.showProviderPicker()
+                                }
+                            case .failure: break
+                            }
+                        }
+                    }
                     self.clientDescriptorLoadingGroup.enter()
                     self.authorizationController.clientDescription { (clientDescriptionResult) in
                         DispatchQueue.main.async {
@@ -251,13 +263,6 @@ extension TinkLinkViewController: ProviderPickerCoordinatorDelegate {
 
     func providerPickerCoordinatorUpdateProviders(_ coordinator: ProviderPickerCoordinator) {
         DispatchQueue.main.async {
-            guard let providerID = self.providerID else { return }
-            if let provider = self.providerController.provider(providerID: providerID) {
-                self.loadingViewController.hideLoadingIndicator()
-                self.showAddCredentials(for: provider)
-            } else {
-                self.loadingViewController.removeFromParent()
-            }
             self.loadingViewController.removeFromParent()
         }
     }
