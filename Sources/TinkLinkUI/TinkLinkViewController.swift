@@ -44,6 +44,7 @@ public class TinkLinkViewController: UINavigationController {
         setViewControllers([loadingViewController], animated: false)
 
         presentationController?.delegate = self
+        loadingViewController.delegate = self
 
         start()
     }
@@ -259,6 +260,14 @@ extension TinkLinkViewController {
             self.dismiss(animated: true)
         }
         setViewControllers([viewController], animated: true)
+    }
+}
+
+// MARK: - LoadingViewControllerDelegate
+
+extension TinkLinkViewController: LoadingViewControllerDelegate {
+    func fetchProviderList(_ viewController: LoadingViewController) {
+        fetchProvider()
     }
 }
 
