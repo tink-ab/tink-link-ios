@@ -48,6 +48,29 @@ public class TinkLinkViewController: UINavigationController {
         start()
     }
 
+    func fetchProvider() {
+        providerController.performFetch { (result) in
+            DispatchQueue.main.async {
+                self.loadingViewController.hideLoadingIndicator()
+                switch result {
+                case .success(let providers):
+                    self.loadingViewController.removeFromParent()
+                    if self.providerID != nil,
+                        let provider = providers.first(where: { $0.id == self.providerID }) {
+                        self.showAddCredentials(for: provider)
+                    } else {
+                        self.showProviderPicker()
+                    }
+                case .failure (let error):
+                    if let tinkLinkError = TinkLinkError(error: error) {
+                        self.result = .failure(tinkLinkError)
+                    }
+                    self.loadingViewController.update(error)
+                }
+            }
+        }
+    }
+
     private func start() {
         loadingViewController.showLoadingIndicator()
         tink._createTemporaryUser(for: market) { [weak self] result in
@@ -56,26 +79,7 @@ public class TinkLinkViewController: UINavigationController {
                 do {
                     _ = try result.get()
 
-                    self.providerController.performFetch { (result) in
-                        DispatchQueue.main.async {
-                            self.loadingViewController.hideLoadingIndicator()
-                            switch result {
-                            case .success(let providers):
-                                self.loadingViewController.removeFromParent()
-                                if self.providerID != nil,
-                                    let provider = providers.first(where: { $0.id == self.providerID }) {
-                                    self.showAddCredentials(for: provider)
-                                } else {
-                                    self.showProviderPicker()
-                                }
-                            case .failure (let error):
-                                if let tinkLinkError = TinkLinkError(error: error) {
-                                    self.result = .failure(tinkLinkError)
-                                }
-                                self.loadingViewController.update(error)
-                            }
-                        }
-                    }
+                    self.fetchProvider()
                     self.clientDescriptorLoadingGroup.enter()
                     self.authorizationController.clientDescription { (clientDescriptionResult) in
                         DispatchQueue.main.async {
