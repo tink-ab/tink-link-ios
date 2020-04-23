@@ -61,7 +61,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
-        let titleFormat = NSLocalizedString("ProviderPicker.List.AccessTypeTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Add %@", comment: "Title for screen where user selects which access type to use when adding credentials.")
+        let titleFormat = Strings.ProviderPicker.List.accessTypeTitle
         let formattedTitle = String(format: titleFormat, name)
         setupNavigationItem(for: viewController, title: formattedTitle)
         viewController.providerPickerCoordinator = self
@@ -70,7 +70,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
         let viewController = CredentialsKindPickerViewController(credentialsKindNodes: credentialsKindNodes)
-        let title = NSLocalizedString("ProviderPicker.List.CredentialsTypeTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Sign in method", comment: "Title for screen where user selects which authentication type to use when adding credentials.")
+        let title = Strings.ProviderPicker.List.credentialTypeTitle
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
