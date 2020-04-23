@@ -97,9 +97,7 @@ final class AddCredentialsSession {
     }
 
     private func handleThirdPartyAppAuthentication(task: ThirdPartyAppAuthenticationTask) {
-        tink._beginUITask()
         task.handle { [weak self] result in
-            self?.tink._endUITask()
             switch result {
             case .qrImage(let image):
                 DispatchQueue.main.async {
@@ -228,8 +226,6 @@ extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
 extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         parentViewController?.dismiss(animated: true) {
-            self.tink._beginUITask()
-            defer { self.tink._endUITask() }
             self.supplementInfoTask?.cancel()
             self.showUpdating(status: Strings.AddCredentials.Status.cancelling)
         }
@@ -237,8 +233,6 @@ extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
         parentViewController?.dismiss(animated: true) {
-            self.tink._beginUITask()
-            defer { self.tink._endUITask() }
             self.supplementInfoTask?.submit(form)
             self.showUpdating(status: Strings.AddCredentials.Status.sending)
         }
