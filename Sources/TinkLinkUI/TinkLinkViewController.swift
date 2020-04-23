@@ -44,12 +44,12 @@ public class TinkLinkViewController: UINavigationController {
         setViewControllers([loadingViewController], animated: false)
 
         presentationController?.delegate = self
-        providerPickerCoordinator.delegate = self
 
         start()
     }
 
     private func start() {
+        loadingViewController.showLoadingIndicator()
         tink._createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -58,15 +58,21 @@ public class TinkLinkViewController: UINavigationController {
 
                     self.providerController.performFetch { (result) in
                         DispatchQueue.main.async {
+                            self.loadingViewController.hideLoadingIndicator()
                             switch result {
                             case .success(let providers):
+                                self.loadingViewController.removeFromParent()
                                 if self.providerID != nil,
                                     let provider = providers.first(where: { $0.id == self.providerID }) {
                                     self.showAddCredentials(for: provider)
                                 } else {
                                     self.showProviderPicker()
                                 }
-                            case .failure: break
+                            case .failure (let error):
+                                if let tinkLinkError = TinkLinkError(error: error) {
+                                    self.result = .failure(tinkLinkError)
+                                }
+                                self.loadingViewController.update(error)
                             }
                         }
                     }
@@ -84,6 +90,7 @@ public class TinkLinkViewController: UINavigationController {
                 } catch {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
+                    self.loadingViewController.removeFromParent()
                     self.showCreateTemporaryUserAlert(for: error)
                 }
             }
@@ -248,30 +255,6 @@ extension TinkLinkViewController {
             self.dismiss(animated: true)
         }
         setViewControllers([viewController], animated: true)
-    }
-}
-
-// MARK: - ProviderPickerCoordinatorDelegate
-extension TinkLinkViewController: ProviderPickerCoordinatorDelegate {
-    func providerPickerCoordinatorShowLoading(_ coordinator: ProviderPickerCoordinator) {
-        loadingViewController.showLoadingIndicator()
-    }
-
-    func providerPickerCoordinatorHideLoading(_ coordinator: ProviderPickerCoordinator) {
-        loadingViewController.hideLoadingIndicator()
-    }
-
-    func providerPickerCoordinatorUpdateProviders(_ coordinator: ProviderPickerCoordinator) {
-        DispatchQueue.main.async {
-            self.loadingViewController.removeFromParent()
-        }
-    }
-
-    func providerPickerCoordinatorShowError(_ coordinator: ProviderPickerCoordinator, error: Error?) {
-        if let tinkLinkError = error.flatMap({ TinkLinkError(error: $0) }) {
-            self.result = .failure(tinkLinkError)
-        }
-        loadingViewController.update(error)
     }
 }
 

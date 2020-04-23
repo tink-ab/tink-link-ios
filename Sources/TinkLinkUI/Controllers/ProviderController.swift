@@ -26,14 +26,6 @@ final class ProviderController {
 
     let tink: Tink
     
-    var user: User? {
-        didSet {
-            if user != nil {
-                performFetch()
-            }
-        }
-    }
-
     private(set) var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
     private(set) var isFetching = false
     private(set) var error: Swift.Error?
