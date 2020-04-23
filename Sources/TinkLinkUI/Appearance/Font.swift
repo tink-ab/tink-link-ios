@@ -121,7 +121,7 @@ extension Font {
 // MARK: - Semantic Text Styles
 
 extension Font {
-    static var title: UIFont { bold(.mega) }
+    static var header6: UIFont { bold(.mega) }
     static var headline: UIFont { bold(.hecto) }
     static var body: UIFont { regular(.hecto) }
     static var subheadline: UIFont { regular(.deci) }
