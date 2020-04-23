@@ -12,6 +12,8 @@ final class CredentialsController {
     }
 
     func addCredentials(_ provider: Provider, form: Form, scopes: [Scope], progressHandler: @escaping (AddCredentialsTask.Status) -> Void, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask? {
+        tink._beginUITask()
+        defer { tink._endUITask() }
         return credentialsContext?.add(
             for: provider,
             form: form,
