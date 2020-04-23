@@ -174,3 +174,13 @@ extension Tink {
         }
     }
 }
+
+extension Tink {
+    public func _beginUITask() {
+        sdkHeaderBehavior.sdkName = "Tink Link UI iOS"
+    }
+
+    public func _endUITask() {
+        sdkHeaderBehavior.sdkName = "Tink Link iOS"
+    }
+}
