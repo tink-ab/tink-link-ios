@@ -123,7 +123,6 @@ extension Font {
 extension Font {
     static var header6: UIFont { bold(.mega) }
     static var headline: UIFont { bold(.hecto) }
-    static var field: UIFont { regular(.hecto) }
     static var subheadline: UIFont { bold(.deci) }
     static var body: UIFont { regular(.deci) }
     static var footnote: UIFont { regular(.micro) }
