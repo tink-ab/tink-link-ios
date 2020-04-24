@@ -86,6 +86,7 @@ public class TinkLinkViewController: UINavigationController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// :nodoc:
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarAppearance()
@@ -375,14 +376,17 @@ extension TinkLinkViewController {
 // MARK: - UIAdaptivePresentationControllerDelegate
 @available(iOS 13.0, *)
 extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
+    /// :nodoc:
     public func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
         showDiscardActionSheet()
     }
 
+    /// :nodoc:
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         completion(result ?? .failure(.userCancelled))
     }
 
+    /// :nodoc:
     public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return !didShowAddCredentialForm
     }
