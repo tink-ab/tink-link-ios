@@ -2,7 +2,9 @@ import UIKit
 
 /// A type that can provide colors and fonts for Tink views.
 public protocol AppearanceProviding {
+    /// Color provider
     var colors: ColorProviding { get }
+    /// Font provider
     var fonts: FontProviding { get }
 }
 
