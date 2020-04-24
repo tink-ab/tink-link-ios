@@ -2,6 +2,7 @@ import Foundation
 import TinkLink
 
 extension AddCredentialsTask.Error: LocalizedError {
+    /// :nodoc:
     public var errorDescription: String? {
         switch self {
         case .permanentFailure:
@@ -15,6 +16,7 @@ extension AddCredentialsTask.Error: LocalizedError {
         }
     }
 
+    /// :nodoc:
     public var failureReason: String? {
         switch self {
         case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload):
