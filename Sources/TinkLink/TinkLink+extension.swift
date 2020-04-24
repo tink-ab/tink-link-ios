@@ -1,4 +1,4 @@
-import TinkCore
+@_exported import TinkCore
 import Foundation
 
 extension Tink {
