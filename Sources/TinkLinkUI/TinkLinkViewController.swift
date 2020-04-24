@@ -109,9 +109,9 @@ public class TinkLinkViewController: UINavigationController {
                 switch result {
                 case .success(let providers):
                     self.loadingViewController.removeFromParent()
-                    if self.providerID != nil,
-                        let provider = providers.first(where: { $0.id == self.providerID }) {
-                        self.showAddCredentials(for: provider)
+                    if let providerID = self.providerID,
+                    let provider = providers.first(where: { $0.id == providerID }) {
+                        self.showAddCredentials(for: provider, animated: false)
                     } else {
                         self.showProviderPicker()
                     }
@@ -279,10 +279,10 @@ extension TinkLinkViewController {
         }
     }
 
-    func showAddCredentials(for provider: Provider) {
+    func showAddCredentials(for provider: Provider, animated: Bool? = true) {
         guard let clientDescription = clientDescription else {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
-                self?.showAddCredentials(for: provider)
+                self?.showAddCredentials(for: provider, animated: animated)
             }
             loadingViewController.showLoadingIndicator()
             show(loadingViewController, sender: nil)
