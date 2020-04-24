@@ -101,6 +101,8 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private func start() {
+        tink._beginUITask()
+        defer { tink._endUITask() }
         tink._createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
