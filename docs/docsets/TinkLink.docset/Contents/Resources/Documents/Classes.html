@@ -14,7 +14,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">TinkLink 0.9.6 Docs</a> (70% documented)</p>
+        <p><a href="index.html">TinkLink 0.10.0 Docs</a> (75% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -50,6 +50,12 @@
                 <a href="Classes/AuthorizationContext/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/ConsentContext.html">ConsentContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ConsentContext/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/CredentialsContext.html">CredentialsContext</a>
               </li>
               <li class="nav-group-task">
@@ -59,13 +65,13 @@
                 <a href="Classes/ProviderContext/Attributes.html">– Attributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/RefreshCredentialTask.html">RefreshCredentialTask</a>
+                <a href="Classes/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/RefreshCredentialTask/Status.html">– Status</a>
+                <a href="Classes/RefreshCredentialsTask/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/RefreshCredentialTask/Error.html">– Error</a>
+                <a href="Classes/RefreshCredentialsTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/SupplementInformationTask.html">SupplementInformationTask</a>
@@ -77,16 +83,16 @@
                 <a href="Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/ThirdPartyAppAuthenticationTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/Tink.html">Tink</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/Tink/Configuration.html">– Configuration</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/UserContext.html">UserContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/UserContext/Error.html">– Error</a>
+                <a href="Classes/Tink/UserError.html">– UserError</a>
               </li>
             </ul>
           </li>
@@ -96,11 +102,20 @@
               <li class="nav-group-task">
                 <a href="Enums/Environment.html">Environment</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Enums/ServiceError.html">ServiceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/SessionCredential.html">SessionCredential</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/Array.html">Array</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Extensions/Set.html">Set</a>
               </li>
@@ -125,6 +140,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientDescription.html">ClientDescription</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Credentials.html">Credentials</a>
@@ -181,7 +199,7 @@
                 <a href="Structs/ProviderTree.html">ProviderTree</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/ProviderTree/CredentialKindNode.html">– CredentialKindNode</a>
+                <a href="Structs/ProviderTree/CredentialsKindNode.html">– CredentialsKindNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
@@ -191,6 +209,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RefreshableItems.html">RefreshableItems</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Scope.html">Scope</a>
@@ -220,7 +241,7 @@
                 <a href="Structs/ScopeDescription.html">ScopeDescription</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs.html#/s:8TinkLink4UserV">User</a>
+                <a href="Structs/User.html">User</a>
               </li>
             </ul>
           </li>
@@ -274,15 +295,11 @@ same time.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tink.swift#L11-L91">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tink.swift#L11-L116">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -309,15 +326,42 @@ same time.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Context/AuthorizationContext.swift#L4-L189">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Context/AuthorizationContext.swift#L4-L80">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink14ConsentContextC"></a>
+                    <a name="//apple_ref/swift/Class/ConsentContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink14ConsentContextC">ConsentContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An object that you use to get user consent.</p>
+
+                        <a href="Classes/ConsentContext.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ConsentContext</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Context/ConsentContext.swift#L4-L172">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -344,15 +388,11 @@ same time.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Context/CredentialsContext.swift#L4-L179">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Context/CredentialsContext.swift#L4-L228">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -379,50 +419,11 @@ same time.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Context/ProviderContext.swift#L4-L62">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Context/ProviderContext.swift#L4-L65">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:8TinkLink11UserContextC"></a>
-                    <a name="//apple_ref/swift/Class/UserContext" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink11UserContextC">UserContext</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>An object that you use to create a user that will be used in other Tink APIs.</p>
-
-                        <a href="Classes/UserContext.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">UserContext</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Context/UserContext.swift#L4-L82">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -451,21 +452,17 @@ same time.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tasks/AddCredentialsTask.swift#L6-L182">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/AddCredentialsTask.swift#L6-L197">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8TinkLink21RefreshCredentialTaskC"></a>
-                    <a name="//apple_ref/swift/Class/RefreshCredentialTask" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink21RefreshCredentialTaskC">RefreshCredentialTask</a>
+                    <a name="/s:8TinkLink22RefreshCredentialsTaskC"></a>
+                    <a name="//apple_ref/swift/Class/RefreshCredentialsTask" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC">RefreshCredentialsTask</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -475,28 +472,24 @@ same time.</p>
                       <div class="abstract">
                         <p>A task that manages progress of refreshing a credential.</p>
 
-<p>Use <code>CredentialContext</code> to create a task.</p>
+<p>Use <code><a href="Classes/CredentialsContext.html">CredentialsContext</a></code> to create a task.</p>
 
-                        <a href="Classes/RefreshCredentialTask.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/RefreshCredentialsTask.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">RefreshCredentialTask</span> <span class="p">:</span> <span class="kt">Identifiable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">RefreshCredentialsTask</span> <span class="p">:</span> <span class="kt">Identifiable</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tasks/RefreshCredentialTask.swift#L6-L156">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L6-L154">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -549,15 +542,11 @@ same time.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tasks/SupplementInformationTask.swift#L29-L69">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/SupplementInformationTask.swift#L29-L74">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -577,13 +566,11 @@ same time.</p>
 
 <p>When a credentials&rsquo; status is <code>awaitingThirdPartyAppAuthentication</code> the user needs to authenticate in a third party app to finish adding the credentials.</p>
 
-<p>When you receive a <code>awaitingThirdPartyAppAuthentication</code> status you should try to open the url provided in the  <code>ThirdPartyAppAuthentication</code> object. Check if the system can open the url or ask the user to download the app like this:</p>
-<pre class="highlight swift"><code><span class="k">if</span> <span class="k">let</span> <span class="nv">deepLinkURL</span> <span class="o">=</span> <span class="n">thirdPartyAppAuthentication</span><span class="o">.</span><span class="n">deepLinkURL</span><span class="p">,</span> <span class="kt">UIApplication</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="nf">canOpenURL</span><span class="p">(</span><span class="n">deepLinkURL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">UIApplication</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="nf">open</span><span class="p">(</span><span class="n">deepLinkURL</span><span class="p">)</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="o">&lt;</span><span class="err">#</span><span class="kt">Ask</span> <span class="n">user</span> <span class="n">to</span> <span class="n">download</span> <span class="n">app</span><span class="err">#</span><span class="o">&gt;</span>
-<span class="p">}</span>
+<p>When you receive a <code>awaitingThirdPartyAppAuthentication</code> status, you should let the <code>ThirdPartyAppAuthenticationTask</code> object to handle the updates like this:</p>
+<pre class="highlight swift"><code><span class="n">thirdPartyAppAuthenticationTask</span><span class="o">.</span><span class="nf">handle</span><span class="p">()</span>
 </code></pre>
+
+<p>If the third party authentication couldn&rsquo;t be handled by the <code>ThirdPartyAppAuthenticationTask</code>, you need to handle the <code><a href="Classes/AddCredentialsTask.html">AddCredentialsTask</a></code> completion result and check for a <code><a href="Classes/ThirdPartyAppAuthenticationTask/Error.html">ThirdPartyAppAuthenticationTask.Error</a></code>. This error can tell you if the user needs to download the thirdparty authentication app.</p>
 
 <p>Here&rsquo;s how you can ask the user to download the third party app via an alert:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">alertController</span> <span class="o">=</span> <span class="kt">UIAlertController</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="n">thirdPartyAppAuthentication</span><span class="o">.</span><span class="n">downloadTitle</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="n">thirdPartyAppAuthentication</span><span class="o">.</span><span class="n">downloadMessage</span><span class="p">,</span> <span class="nv">preferredStyle</span><span class="p">:</span> <span class="o">.</span><span class="n">alert</span><span class="p">)</span>
@@ -610,7 +597,7 @@ same time.</p>
 </code></pre>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    If the app couldn&rsquo;t be opened you need to handle the <code>AddCredentialTask</code> completion result and check for a <code><a href="Classes/ThirdPartyAppAuthenticationTask/Error.html">ThirdPartyAppAuthenticationTask.Error</a></code>.
+    If the app couldn&rsquo;t be opened you need to handle the <code><a href="Classes/AddCredentialsTask.html">AddCredentialsTask</a></code> completion result and check for a <code><a href="Classes/ThirdPartyAppAuthenticationTask/Error.html">ThirdPartyAppAuthenticationTask.Error</a></code>.
 This error can tell you if the user needs to download the app.
 
 </div>
@@ -626,7 +613,7 @@ This error can tell you if the user needs to download the app.
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L51-L152">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L50-L297">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -636,8 +623,8 @@ This error can tell you if the user needs to download the app.
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-03-23)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-24)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
