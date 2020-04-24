@@ -319,7 +319,7 @@ extension TinkLinkViewController {
 // MARK: - LoadingViewControllerDelegate
 
 extension TinkLinkViewController: LoadingViewControllerDelegate {
-    func fetchProviderList(_ viewController: LoadingViewController) {
+    func loadingViewControllerDidPressRetry(_ viewController: LoadingViewController) {
         fetchProvider()
     }
 }
