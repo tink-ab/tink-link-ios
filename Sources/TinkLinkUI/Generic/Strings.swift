@@ -79,8 +79,8 @@ enum Strings {
             /// Fallback text shown when fail to get bank name while updating credentials.
             static let updatingFallback = NSLocalizedString("AddCredentials.Status.Updating.Fallback", tableName: tableName, bundle: bundle, value: "Connecting, please wait…", comment: "Fallback text shown when fail to get bank name while updating credentials.")
 
-            /// Text shown when adding credentials and waiting for authenticvation on another device.
-            static let waitingForAuthenticationOnAnotherDevice = NSLocalizedString("AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice", tableName: tableName, bundle: bundle, value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authenticvation on another device.")
+            /// Text shown when adding credentials and waiting for authentication on another device.
+            static let waitingForAuthenticationOnAnotherDevice = NSLocalizedString("AddCredentials.Status.WaitingForAuthenticationOnAnotherDevice", tableName: tableName, bundle: bundle, value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authentication on another device.")
 
             /// Text shown when canceling supplementing information.
             static let cancelling = NSLocalizedString("AddCredentials.Status.Canceling", tableName: tableName, bundle: bundle, value: "Canceling…", comment: "Text shown when canceling supplementing information.")
