@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Enumerations  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Section/Enumerations" class="dashAnchor"></a>
+    <a title="Enumerations  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">TinkLinkUI 0.10.0 Docs</a> (87% documented)</p>
+        <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">TinkLinkUI Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Enumerations  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/ColorProvider.html">ColorProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/FontProvider.html">FontProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/TinkLinkViewController.html">TinkLinkViewController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/Appearance.html">Appearance</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums.html#/s:10TinkLinkUI5ColorO">Color</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/Font.html">Font</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/Font/Weight.html">– Weight</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/TinkLinkError.html">TinkLinkError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/AddCredentialsTask.html">AddCredentialsTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/AddCredentialsTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/ServiceError.html">ServiceError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/AppearanceProviding.html">AppearanceProviding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ColorProviding.html">ColorProviding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/FontProviding.html">FontProviding</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/AppearanceProvider.html">AppearanceProvider</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Enumerations</h1>
+            <p>The following enumerations are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10TinkLinkUI10AppearanceO"></a>
+                    <a name="//apple_ref/swift/Enum/Appearance" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10TinkLinkUI10AppearanceO">Appearance</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A custom appearance provider.</p>
+
+<p>If you set a custom appearance provider, all TinkLinkUI views will use
+this provider to retreive colors and fonts.</p>
+
+<p>You can change the appearance of Tink Link UI to match the rest of your app.</p>
+
+<p>To change colors or fonts, update the <code><a href="Enums/Appearance.html#/s:10TinkLinkUI10AppearanceO8providerAA0D9Providing_pvpZ">Appearance.provider</a></code> before initializing the <code><a href="Classes/TinkLinkViewController.html">TinkLinkViewController</a></code>.</p>
+<pre class="highlight swift"><code><span class="kt">Appearance</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">accent</span> <span class="o">=</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">UIColor</span><span class="err">#</span><span class="o">&gt;</span>
+</code></pre>
+
+                        <a href="Enums/Appearance.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Appearance</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLinkUI/Appearance/Appearance.swift#L13-L60">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10TinkLinkUI5ColorO"></a>
+                    <a name="//apple_ref/swift/Enum/Color" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10TinkLinkUI5ColorO">Color</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A namespace for custom colors.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Color</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLinkUI/Appearance/Color.swift#L4-L6">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10TinkLinkUI4FontO"></a>
+                    <a name="//apple_ref/swift/Enum/Font" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10TinkLinkUI4FontO">Font</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A type that represents a specific font.</p>
+
+                        <a href="Enums/Font.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Font</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLinkUI/Appearance/Font.swift#L4-L9">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10TinkLinkUI0aB5ErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/TinkLinkError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10TinkLinkUI0aB5ErrorO">TinkLinkError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An error returned by TinkLinkUI when something went wrong during the aggregation.</p>
+
+                        <a href="Enums/TinkLinkError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TinkLinkError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLinkUI/TinkLinkError.swift#L4-L24">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-24)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

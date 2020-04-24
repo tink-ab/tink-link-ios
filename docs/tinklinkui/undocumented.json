@@ -1,0 +1,68 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/Appearance/Appearance.swift",
+      "line": 14,
+      "symbol": "Appearance.provider",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/Appearance/AppearanceProviding.swift",
+      "line": 5,
+      "symbol": "AppearanceProviding.colors",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/Appearance/AppearanceProviding.swift",
+      "line": 6,
+      "symbol": "AppearanceProviding.fonts",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/Appearance/ColorProvider.swift",
+      "line": 28,
+      "symbol": "ColorProvider.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/Appearance/FontProvider.swift",
+      "line": 10,
+      "symbol": "FontProvider.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/TinkLinkViewController.swift",
+      "line": 89,
+      "symbol": "TinkLinkViewController.viewDidLoad()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/TinkLinkViewController.swift",
+      "line": 376,
+      "symbol": "TinkLinkViewController.presentationControllerDidAttemptToDismiss(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/TinkLinkViewController.swift",
+      "line": 380,
+      "symbol": "TinkLinkViewController.presentationControllerWillDismiss(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/TinkLinkViewController.swift",
+      "line": 384,
+      "symbol": "TinkLinkViewController.presentationControllerShouldDismiss(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/kasperlahti/Applications/tink-link-ios"
+}

@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RefreshableItems Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/RefreshableItems" class="dashAnchor"></a>
+    <a title="RefreshableItems Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">TinkLink 0.10.0 Docs</a> (75% documented)</p>
+        <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">TinkLink Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        RefreshableItems Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialsTask.html">AddCredentialsTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialsTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialsTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AddCredentialsTask/CompletionPredicate.html">– CompletionPredicate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationContext.html">AuthorizationContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthorizationContext/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConsentContext.html">ConsentContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConsentContext/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CredentialsContext.html">CredentialsContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ProviderContext.html">ProviderContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ProviderContext/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RefreshCredentialsTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RefreshCredentialsTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SupplementInformationTask.html">SupplementInformationTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask.html">ThirdPartyAppAuthenticationTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Tink.html">Tink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Tink/Configuration.html">– Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Tink/UserError.html">– UserError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Environment.html">Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ServiceError.html">ServiceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SessionCredential.html">SessionCredential</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Set.html">Set</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Cancellable.html">Cancellable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Retriable.html">Retriable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AccessToken.html">AccessToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientDescription.html">ClientDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credentials.html">Credentials</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credentials/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credentials/Kind.html">– Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credentials/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Credentials/ThirdPartyAppAuthentication.html">– ThirdPartyAppAuthentication</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form.html">Form</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form/Fields.html">– Fields</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form/Field.html">– Field</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Form/ValidationError.html">– ValidationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Market.html">Market</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider.html">Provider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/Kind.html">– Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/Capabilities.html">– Capabilities</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/AccessType.html">– AccessType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Provider/FinancialInstitution.html">– FinancialInstitution</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree.html">ProviderTree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/CredentialsKindNode.html">– CredentialsKindNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/FinancialInstitutionNode.html">– FinancialInstitutionNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RefreshableItems.html">RefreshableItems</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Scope.html">Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Scope/ReadAccess.html">– ReadAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Scope/ReadWriteAccess.html">– ReadWriteAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Scope/AuthorizationAccess.html">– AuthorizationAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Scope/CredentialsAccess.html">– CredentialsAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Scope/TransactionAccess.html">– TransactionAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Scope/TransferAccess.html">– TransferAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Scope/UserAccess.html">– UserAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ScopeDescription.html">ScopeDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/User.html">User</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:8TinkLink16RetryCancellablea">RetryCancellable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>RefreshableItems</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RefreshableItems</span> <span class="p">:</span> <span class="kt">OptionSet</span></code></pre>
+
+                </div>
+              </div>
+            <p>Represents a set of data types that you can aggregate from a provider.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SY8rawValue03RawB0Qzvp"></a>
+                    <a name="//apple_ref/swift/Property/rawValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SY8rawValue03RawB0Qzvp">rawValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s9OptionSetP8rawValuex03RawD0Qz_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(rawValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s9OptionSetP8rawValuex03RawD0Qz_tcfc">init(rawValue:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L6-L8">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV16checkingAccountsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/checkingAccounts" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV16checkingAccountsACvpZ">checkingAccounts</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checking accounts data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">checkingAccounts</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L11">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV20checkingTransactionsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/checkingTransactions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV20checkingTransactionsACvpZ">checkingTransactions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checking transactions data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">checkingTransactions</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L13">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV14savingAccountsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/savingAccounts" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV14savingAccountsACvpZ">savingAccounts</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Saving accounts data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">savingAccounts</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L15">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV18savingTransactionsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/savingTransactions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV18savingTransactionsACvpZ">savingTransactions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Saving transactions data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">savingTransactions</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L17">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV18creditCardAccountsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/creditCardAccounts" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV18creditCardAccountsACvpZ">creditCardAccounts</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Credit Card accounts data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">creditCardAccounts</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L19">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV22creditCardTransactionsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/creditCardTransactions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV22creditCardTransactionsACvpZ">creditCardTransactions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Credit Card transactions data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">creditCardTransactions</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L21">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV12loanAccountsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/loanAccounts" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV12loanAccountsACvpZ">loanAccounts</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Loan accounts data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">loanAccounts</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L23">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV16loanTransactionsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/loanTransactions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV16loanTransactionsACvpZ">loanTransactions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Loan transactions data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">loanTransactions</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L25">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV18investmentAccountsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/investmentAccounts" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV18investmentAccountsACvpZ">investmentAccounts</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Investment accounts data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">investmentAccounts</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L27">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV22investmentTransactionsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/investmentTransactions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV22investmentTransactionsACvpZ">investmentTransactions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Investment transactions data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">investmentTransactions</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L29">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV9eInvoicesACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/eInvoices" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV9eInvoicesACvpZ">eInvoices</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>EInvoices data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">eInvoices</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L31">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV20transferDestinationsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/transferDestinations" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV20transferDestinationsACvpZ">transferDestinations</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transfer data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">transferDestinations</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L33">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV12identityDataACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/identityData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV12identityDataACvpZ">identityData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Identity data types to aggregate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">identityData</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L35">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV8accountsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/accounts" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV8accountsACvpZ">accounts</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>All kinds of account data.</p>
+
+<p>Contains .checkingAccounts<code>,</code>.savingAccounts<code>,</code>.creditCardAccounts<code>,</code>.loanAccounts<code>, and</code>.investmentAccounts`.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">accounts</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L40">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV12transactionsACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/transactions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV12transactionsACvpZ">transactions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>All kinds of all transaction data.</p>
+
+<p>Contains .checkingTransactions<code>,</code>.savingTransactions<code>,</code>.creditCardTransactions<code>,</code>.loanTransactions<code>, and</code>.investmentTransactions`.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">transactions</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L44">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV3allACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/all" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV3allACvpZ">all</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>All possible data.</p>
+
+<p>Contains all types of refreshable items.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">all</span><span class="p">:</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L48">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV20providerCapabilitiesAcA8ProviderV0F0V_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(providerCapabilities:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV20providerCapabilitiesAcA8ProviderV0F0V_tcfc">init(providerCapabilities:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a set of refreshable items that corresponds to the providers capabilities.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">providerCapabilities</span><span class="p">:</span> <span class="kt"><a href="../Structs/Provider.html">Provider</a></span><span class="o">.</span><span class="kt">Capabilities</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L99-L126">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink16RefreshableItemsV10supporting20providerCapabilitiesAcA8ProviderV0G0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/supporting(providerCapabilities:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink16RefreshableItemsV10supporting20providerCapabilitiesAcA8ProviderV0G0V_tF">supporting(providerCapabilities:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a new set of refreshable items that contain the items in the set that the given provider capabilities supports.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">supporting</span><span class="p">(</span><span class="nv">providerCapabilities</span><span class="p">:</span> <span class="kt"><a href="../Structs/Provider.html">Provider</a></span><span class="o">.</span><span class="kt">Capabilities</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">RefreshableItems</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>providerCapabilities</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A set of provider capabilities.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The subset of the items that the provider capabilities support.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/RefreshableItem.swift#L131-L133">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-24)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
