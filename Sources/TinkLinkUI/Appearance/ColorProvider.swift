@@ -25,6 +25,7 @@ public class ColorProvider: ColorProviding {
     /// Color representing a critical error or warning.
     public var critical: UIColor = UIColor(red: 235.0 / 255.0, green: 84.0 / 255.0, blue: 75.0 / 255.0, alpha: 1.0)
 
+    /// Initializes a color provider.
     public init() {}
 
     /// Initializes a color provider with the specified styling.
