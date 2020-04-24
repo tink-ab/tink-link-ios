@@ -374,6 +374,7 @@ extension TinkLinkViewController {
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
+/// :nodoc:
 @available(iOS 13.0, *)
 extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
     /// :nodoc:
