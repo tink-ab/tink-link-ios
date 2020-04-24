@@ -1,6 +1,7 @@
 import Foundation
 import TinkLink
 
+/// :nodoc:
 extension AddCredentialsTask.Error: LocalizedError {
     /// :nodoc:
     public var errorDescription: String? {

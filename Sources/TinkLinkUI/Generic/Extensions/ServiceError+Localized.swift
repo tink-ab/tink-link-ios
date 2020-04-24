@@ -1,6 +1,7 @@
 import Foundation
 import TinkLink
 
+/// :nodoc:
 extension ServiceError: LocalizedError {
     /// :nodoc:
     public var errorDescription: String? {
