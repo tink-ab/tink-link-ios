@@ -156,7 +156,7 @@ private extension FloatingPlaceholderTextField {
         clipsToBounds = false
         backgroundColor = .clear
 
-        font = Font.regular(.hecto)
+        font = Font.regular(.deci)
         textColor = Color.label
         layer.addSublayer(textFieldBackgroundColorLayer)
 
