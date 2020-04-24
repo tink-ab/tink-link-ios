@@ -102,7 +102,7 @@ public class TinkLinkViewController: UINavigationController {
         start()
     }
 
-    func fetchProvider() {
+    func fetchProviders() {
         providerController.performFetch { (result) in
             DispatchQueue.main.async {
                 self.loadingViewController.hideLoadingIndicator()
@@ -133,7 +133,7 @@ public class TinkLinkViewController: UINavigationController {
                 do {
                     _ = try result.get()
 
-                    self.fetchProvider()
+                    self.fetchProviders()
                     self.clientDescriptorLoadingGroup.enter()
                     self.authorizationController.clientDescription { (clientDescriptionResult) in
                         DispatchQueue.main.async {
@@ -320,7 +320,7 @@ extension TinkLinkViewController {
 
 extension TinkLinkViewController: LoadingViewControllerDelegate {
     func loadingViewControllerDidPressRetry(_ viewController: LoadingViewController) {
-        fetchProvider()
+        fetchProviders()
     }
 }
 
