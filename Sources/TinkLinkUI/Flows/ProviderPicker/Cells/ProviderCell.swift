@@ -34,7 +34,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
         titleLabel.numberOfLines = 0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = Font.subheadline
+        titleLabel.font = Font.body
         titleLabel.textColor = Color.label
 
         separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing

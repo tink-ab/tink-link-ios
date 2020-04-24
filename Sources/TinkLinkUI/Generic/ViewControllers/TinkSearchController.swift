@@ -40,7 +40,7 @@ final private class TinkSearchBar: UISearchBar {
         if #available(iOS 13.0, *) {
             let attributes = [
                 NSAttributedString.Key.foregroundColor : Color.accent,
-                NSAttributedString.Key.font : Font.subheadline
+                NSAttributedString.Key.font : Font.body
             ]
             UIBarButtonItem.appearance(whenContainedInInstancesOf: [TinkSearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
         } else {
@@ -53,7 +53,7 @@ final private class TinkSearchBar: UISearchBar {
         }
         textField?.backgroundColor = Color.secondaryBackground
         textField?.textColor = Color.label
-        textField?.font = Font.subheadline
+        textField?.font = Font.body
     }
 
     override func layoutSubviews() {
