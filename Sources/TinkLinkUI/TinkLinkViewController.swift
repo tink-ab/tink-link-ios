@@ -47,11 +47,23 @@ import TinkLink
 /// }
 /// ```
 public class TinkLinkViewController: UINavigationController {
+
+    /// Strategy for different types of prefilling
+    public enum PrefillStrategy {
+        /// No prefilling will occur.
+        case none
+        /// Will attempt to fill the first field of the provider with the associated value if it is valid.
+        case username(value: String, isEditable: Bool)
+    }
+  
     /// Scopes that grant access to Tink.
     public let scopes: [Scope]
+    /// The prefilling strategy to use. 
+    public var prefill: PrefillStrategy = .none
 
     private let tink: Tink
     private let market: Market
+
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
@@ -266,6 +278,7 @@ extension TinkLinkViewController {
             return
         }
         let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
+        addCredentialsViewController.prefillStrategy = prefill
         addCredentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         addCredentialsViewController.delegate = self
         if viewControllers.last is LoadingViewController {

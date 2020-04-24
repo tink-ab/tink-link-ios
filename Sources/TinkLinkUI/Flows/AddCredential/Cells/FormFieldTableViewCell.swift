@@ -8,9 +8,24 @@ protocol FormFieldTableViewCellDelegate: AnyObject {
 }
 
 class FormFieldTableViewCell: UITableViewCell, ReusableCell {
+
+    struct ViewModel {
+        enum InputType {
+            case text, number
+        }
+
+        var text: String?
+        var isEditable: Bool
+        var placeholderText: String?
+        var isSecureTextEntry: Bool
+        var inputType: InputType
+        var maxLength: Int?
+        var helpText: String?
+    }
+
     weak var delegate: FormFieldTableViewCellDelegate?
 
-    private var field: Form.Field?
+    private var viewModel: ViewModel?
 
     let footerLabel: UILabel = {
         let label = UILabel()
@@ -67,10 +82,10 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         ])
     }
 
-    func configure(with field: Form.Field) {
-        self.field = field
-        textField.configure(with: field)
-        footerLabel.text = field.attributes.helpText
+    func configure(with viewModel: ViewModel) {
+        self.viewModel = viewModel
+        textField.configure(with: viewModel)
+        footerLabel.text = viewModel.helpText
         footerLabel.textColor = Color.secondaryLabel
         footerLabel.setLineHeight(lineHeight: 20)
     }
@@ -80,7 +95,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
             footerLabel.text = errorText
             footerLabel.textColor = Color.warning
         } else {
-            footerLabel.text = field?.attributes.helpText
+            footerLabel.text = viewModel?.helpText
             footerLabel.textColor = Color.secondaryLabel
         }
     }
@@ -91,8 +106,8 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let fieldText: String
         // If the textField is password and it has an initial value, then when begin to edit the textfield will clear the text, so need to also reset the form field text cache.
-        if textField.isSecureTextEntry, !(field?.text.isEmpty ?? true) {
-            field?.text = String()
+        if textField.isSecureTextEntry, !(viewModel?.text?.isEmpty ?? true) {
+            viewModel?.text = String()
             fieldText = string
         } else if let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) {
             fieldText = text
@@ -100,7 +115,7 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
             return false
         }
 
-        let maxLength = field?.validationRules.maxLength ?? .max
+        let maxLength = viewModel?.maxLength ?? .max
         guard fieldText.count <= maxLength else {
             return false
         }
@@ -119,17 +134,31 @@ extension FormFieldTableViewCell: UITextFieldDelegate {
 }
 
 extension FloatingPlaceholderTextField {
-    func configure(with field: Form.Field) {
+    func configure(with viewModel: FormFieldTableViewCell.ViewModel) {
+        switch viewModel.inputType {
+        case .text:
+            inputType = .text
+        case .number:
+            inputType = .number
+        }
+        
+        isEnabled = viewModel.isEditable
+        text = viewModel.text
+        placeholder = viewModel.placeholderText
+        isSecureTextEntry = viewModel.isSecureTextEntry
+    }
+}
+
+extension FormFieldTableViewCell.ViewModel {
+    init(field: Form.Field) {
+        let inputType: InputType
         switch field.attributes.inputType {
         case .default:
             inputType = .text
         case .numeric:
             inputType = .number
         }
-        
-        isEnabled = field.attributes.isEditable
-        text = field.text
-        placeholder = field.attributes.description
-        isSecureTextEntry = field.attributes.isSecureTextEntry
+
+        self.init(text: field.text, isEditable: field.attributes.isEditable, placeholderText: field.attributes.placeholder, isSecureTextEntry: field.attributes.isSecureTextEntry, inputType: inputType, maxLength: field.validationRules.maxLength, helpText: field.attributes.helpText)
     }
 }
