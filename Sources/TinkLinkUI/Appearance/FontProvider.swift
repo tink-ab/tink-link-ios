@@ -7,10 +7,10 @@ public class FontProvider: FontProviding {
     /// Bold font.
     public var boldFont: Font = .systemDefault
 
-    /// Initializes a appearance provider.
+    /// Initializes a font provider.
     public init() {}
 
-    /// Initializes a appearance provider with the specified styling.
+    /// Initializes a font provider with the specified styling.
     ///
     /// - Parameters:
     ///   - regularFont: The regular font to use.
