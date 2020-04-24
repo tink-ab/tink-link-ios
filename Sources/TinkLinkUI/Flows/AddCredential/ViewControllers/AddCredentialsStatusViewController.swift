@@ -43,7 +43,7 @@ final class AddCredentialsStatusViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
 
-        statusLabelView.font = UIFont.preferredFont(forTextStyle: .headline)
+        statusLabelView.font = Font.bold(.deci)
         statusLabelView.textColor = Color.label
         statusLabelView.numberOfLines = 0
         statusLabelView.preferredMaxLayoutWidth = 220
@@ -54,7 +54,7 @@ final class AddCredentialsStatusViewController: UIViewController {
         activityIndicator.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         cancelButton.setTitle(Strings.AddCredentials.Status.cancel, for: .normal)
-        cancelButton.titleLabel?.font = Font.bold(.hecto)
+        cancelButton.titleLabel?.font = Font.bold(.deci)
         cancelButton.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
         cancelButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         cancelButton.tintColor = Color.accent
