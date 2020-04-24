@@ -779,9 +779,23 @@
     },
     {
       "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Tink.swift",
-      "line": 120,
+      "line": 122,
       "symbol": "Tink.UserError",
       "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Tink.swift",
+      "line": 179,
+      "symbol": "Tink._beginUITask()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Tink.swift",
+      "line": 183,
+      "symbol": "Tink._endUITask()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],

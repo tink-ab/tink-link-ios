@@ -11,6 +11,7 @@ import UIKit
 /// Appearance.provider.colors.accent = <#UIColor#>
 /// ```
 public enum Appearance {
+    /// The current appearance provider.
     public static var provider: AppearanceProviding = AppearanceProvider() {
         didSet {
             customColorProvider = provider.colors
