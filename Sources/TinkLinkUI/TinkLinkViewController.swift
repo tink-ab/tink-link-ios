@@ -108,7 +108,7 @@ public class TinkLinkViewController: UINavigationController {
                 self.loadingViewController.hideLoadingIndicator()
                 switch result {
                 case .success(let providers):
-                    self.loadingViewController.removeFromParent()
+                    self.setViewControllers([], animated: false)
                     if let providerID = self.providerID,
                     let provider = providers.first(where: { $0.id == providerID }) {
                         self.showAddCredentials(for: provider, animated: false)
@@ -148,7 +148,6 @@ public class TinkLinkViewController: UINavigationController {
                 } catch {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
-                    self.loadingViewController.removeFromParent()
                     self.showCreateTemporaryUserAlert(for: error)
                 }
             }
