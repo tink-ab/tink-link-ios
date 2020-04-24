@@ -146,6 +146,7 @@ extension AddCredentialsViewController {
     func setupButton() {
         switch provider.credentialsKind {
         case .mobileBankID:
+            button.image = UIImage(icon: .bankID)
             button.text = Strings.AddCredentials.Form.openBankID
         default:
             button.text = Strings.AddCredentials.Form.continue

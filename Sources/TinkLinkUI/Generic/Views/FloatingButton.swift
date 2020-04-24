@@ -24,6 +24,7 @@ final class FloatingButton: UIControl {
     var textColor: UIColor = Color.background {
         didSet {
             titleLabel.textColor = textColor
+            imageView.tintColor = textColor
         }
     }
     
@@ -74,12 +75,14 @@ final class FloatingButton: UIControl {
     override var isHighlighted: Bool {
         didSet {
             titleLabel.textColor = isHighlighted ? textColor.withAlphaComponent(0.5) : textColor
+            imageView.tintColor = isHighlighted ? textColor.withAlphaComponent(0.5) : textColor
         }
     }
     
     override var isEnabled: Bool {
         didSet {
             titleLabel.alpha = isEnabled ? 1.0 : 0.2
+            imageView.alpha = isEnabled ? 1.0 : 0.2
         }
     }
     
@@ -108,6 +111,7 @@ final class FloatingButton: UIControl {
         contentView.addSubview(titleLabel)
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = Color.background
         imageView.contentMode = .center
         contentView.addSubview(imageView)
         
