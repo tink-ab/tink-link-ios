@@ -21,7 +21,7 @@ final private class TinkSearchBar: UISearchBar {
         didSet {
             // Hack: You need the async call here to have the color apply properly. 
             DispatchQueue.main.async {
-                self.textField?.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.subheadline])
+                self.textField?.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.body])
             }
         }
     }
