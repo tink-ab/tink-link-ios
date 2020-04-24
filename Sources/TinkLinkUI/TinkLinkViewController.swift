@@ -320,6 +320,7 @@ extension TinkLinkViewController {
 
 extension TinkLinkViewController: LoadingViewControllerDelegate {
     func loadingViewControllerDidPressRetry(_ viewController: LoadingViewController) {
+        loadingViewController.showLoadingIndicator()
         fetchProviders()
     }
 }
