@@ -31,11 +31,7 @@ public class Tink {
 
     private var uiTaskCount = 0 {
         didSet {
-            if uiTaskCount > 0 {
-                sdkHeaderBehavior.sdkName = "Tink Link UI iOS"
-            } else {
-                sdkHeaderBehavior.sdkName = "Tink Link iOS"
-            }
+            sdkHeaderBehavior.sdkName = uiTaskCount > 0 ? "Tink Link UI iOS" : "Tink Link iOS"
         }
     }
 
