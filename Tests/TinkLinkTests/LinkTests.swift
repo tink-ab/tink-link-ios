@@ -2,14 +2,13 @@ import XCTest
 @testable import TinkLink
 
 class LinkTests: XCTestCase {
-    let context = AuthorizationContext(
+    let context = ConsentContext(
         tink: Tink(
             configuration: try! .init(
                 clientID: "abcdefgh",
                 redirectURI: URL(string: "tink://test")!
             )
-        ),
-        user: User(accessToken: "12345678")
+        )
     )
 
     func testTermsAndConditionLink() {

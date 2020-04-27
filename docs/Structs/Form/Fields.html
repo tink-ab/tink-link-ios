@@ -14,7 +14,7 @@
     <a title="Fields Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">TinkLink 0.9.7 Docs</a> (70% documented)</p>
+        <p><a href="../../index.html">TinkLink 0.10.0 Docs</a> (75% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -50,6 +50,12 @@
                 <a href="../../Classes/AuthorizationContext/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../Classes/ConsentContext.html">ConsentContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ConsentContext/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../Classes/CredentialsContext.html">CredentialsContext</a>
               </li>
               <li class="nav-group-task">
@@ -59,13 +65,13 @@
                 <a href="../../Classes/ProviderContext/Attributes.html">– Attributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/RefreshCredentialTask.html">RefreshCredentialTask</a>
+                <a href="../../Classes/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/RefreshCredentialTask/Status.html">– Status</a>
+                <a href="../../Classes/RefreshCredentialsTask/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/RefreshCredentialTask/Error.html">– Error</a>
+                <a href="../../Classes/RefreshCredentialsTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Classes/SupplementInformationTask.html">SupplementInformationTask</a>
@@ -77,16 +83,16 @@
                 <a href="../../Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../Classes/ThirdPartyAppAuthenticationTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../Classes/Tink.html">Tink</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Classes/Tink/Configuration.html">– Configuration</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/UserContext.html">UserContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Classes/UserContext/Error.html">– Error</a>
+                <a href="../../Classes/Tink/UserError.html">– UserError</a>
               </li>
             </ul>
           </li>
@@ -96,11 +102,20 @@
               <li class="nav-group-task">
                 <a href="../../Enums/Environment.html">Environment</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/ServiceError.html">ServiceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/SessionCredential.html">SessionCredential</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="../../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/Array.html">Array</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../../Extensions/Set.html">Set</a>
               </li>
@@ -125,6 +140,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ClientDescription.html">ClientDescription</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/Credentials.html">Credentials</a>
@@ -181,7 +199,7 @@
                 <a href="../../Structs/ProviderTree.html">ProviderTree</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Structs/ProviderTree/CredentialKindNode.html">– CredentialKindNode</a>
+                <a href="../../Structs/ProviderTree/CredentialsKindNode.html">– CredentialsKindNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
@@ -191,6 +209,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RefreshableItems.html">RefreshableItems</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/Scope.html">Scope</a>
@@ -220,7 +241,7 @@
                 <a href="../../Structs/ScopeDescription.html">ScopeDescription</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Structs.html#/s:8TinkLink4UserV">User</a>
+                <a href="../../Structs/User.html">User</a>
               </li>
             </ul>
           </li>
@@ -254,9 +275,11 @@
               <div class="task-name-container">
                 <a name="/Collection%20Conformance"></a>
                 <a name="//apple_ref/swift/Section/Collection Conformance" class="dashAnchor"></a>
-                <a href="#/Collection%20Conformance">
-                  <h3 class="section-name">Collection Conformance</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Collection%20Conformance"></a>
+                  <h3 class="section-name"><p>Collection Conformance</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -283,7 +306,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.7/Sources/TinkLink/Models/Form.swift#L">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/Form.swift#L">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -312,7 +335,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.7/Sources/TinkLink/Models/Form.swift#L">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/Form.swift#L">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -322,7 +345,7 @@
                     <code>
                     <a name="/s:SMy7ElementQz5IndexQzcip"></a>
                     <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SMy7ElementQz5IndexQzcip">subscript(_:)</a>
+                    <a class="token" href="#/s:SMy7ElementQz5IndexQzcip">subscript(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -341,7 +364,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.7/Sources/TinkLink/Models/Form.swift#L62-L65">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/Form.swift#L62-L65">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -351,7 +374,7 @@
                     <code>
                     <a name="/s:Sk5index5after5IndexQzAD_tF"></a>
                     <a name="//apple_ref/swift/Method/index(after:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sk5index5after5IndexQzAD_tF">index(after:)</a>
+                    <a class="token" href="#/s:Sk5index5after5IndexQzAD_tF">index(after:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -370,7 +393,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.7/Sources/TinkLink/Models/Form.swift#L">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/Form.swift#L">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -381,9 +404,11 @@
               <div class="task-name-container">
                 <a name="/Dictionary%20Lookup"></a>
                 <a name="//apple_ref/swift/Section/Dictionary Lookup" class="dashAnchor"></a>
-                <a href="#/Dictionary%20Lookup">
-                  <h3 class="section-name">Dictionary Lookup</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Dictionary%20Lookup"></a>
+                  <h3 class="section-name"><p>Dictionary Lookup</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -391,7 +416,7 @@
                     <code>
                     <a name="/s:8TinkLink4FormV6FieldsV4nameAC5FieldVSgSS_tcip"></a>
                     <a name="//apple_ref/swift/Method/subscript(name:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink4FormV6FieldsV4nameAC5FieldVSgSS_tcip">subscript(name:)</a>
+                    <a class="token" href="#/s:8TinkLink4FormV6FieldsV4nameAC5FieldVSgSS_tcip">subscript(name:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -436,7 +461,7 @@
                         <p>The field associciated with <code>name</code> if it exists; otherwise, <code>nil</code>.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.7/Sources/TinkLink/Models/Form.swift#L77-L92">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/Form.swift#L77-L92">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -446,8 +471,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-03-24)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

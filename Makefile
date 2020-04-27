@@ -15,37 +15,14 @@ endif
 ifeq ($(strip $(shell command -v swiftformat 2> /dev/null)),)
 	brew install swiftformat
 endif
-ifeq ($(strip $(shell command -v protoc 2> /dev/null)),)
-	$(error "`protoc` is not available, please install Google's protoc compiler")
-endif
 ifeq ($(strip $(shell command -v bundle 2> /dev/null)),)
 	gem install bundler
 endif
-	bundle install > /dev/null
-
-CFLAGS = -Xcc -ISources/BoringSSL/include
-
-plugins:
-	mkdir -p ./GRPC/plugins
-	swift build $(CFLAGS) --product protoc-gen-swift --static-swift-stdlib -c release
-	swift build $(CFLAGS) --product protoc-gen-grpc-swift --static-swift-stdlib -c release
-	cp .build/release/protoc-gen-swift ./GRPC/plugins/
-	cp .build/release/protoc-gen-grpc-swift ./GRPC/plugins/
-
-generate:
-	mkdir -p ./Sources/TinkLink/GRPC/
-	protoc \
-		--proto_path=./GRPC/proto \
-		--proto_path=./GRPC/third-party \
-		./GRPC/proto/*.proto \
-		--swift_out=./Sources/TinkLink/GRPC/ \
-		--grpc-swift_out=./Sources/TinkLink/GRPC/ \
-		--swift_opt=Visibility=Internal \
-		--grpc-swift_opt=Visibility=Internal,Client=true,Server=false \
-		--plugin=protoc-gen-swift=./GRPC/plugins/protoc-gen-swift \
-		--plugin=protoc-gen-grpc-swift=./GRPC/plugins/protoc-gen-grpc-swift
+	bundle install
 
 docs:
+	swift package generate-xcodeproj
+	bundle exec pod install --project-directory="./TinkLinkTester/"
 	bundle exec jazzy \
 		--clean \
 		--author Tink \
@@ -54,9 +31,20 @@ docs:
 		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
 		--module-version $(VERSION) \
 		--module TinkLink \
-		--swift-build-tool spm \
-		--build-tool-arguments -Xswiftc,-swift-version,-Xswiftc,5 \
+		--swift-build-tool xcodebuild \
+		--sdk iphone \
 		--output docs
+	bundle exec jazzy \
+		--clean \
+		--author Tink \
+		--author_url https://tink.com \
+		--github_url https://github.com/tink-ab/tink-link-ios \
+		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
+		--module-version $(VERSION) \
+		--module TinkLinkUI \
+		--swift-build-tool xcodebuild \
+		--xcodebuild-arguments -workspace,TinkLinkTester/TinkLink.xcworkspace,-scheme,TinkLinkTester,-sdk,iphonesimulator,-destination,'generic/platform=iOS Simulator' \
+		--output docs/tinklinkui
 
 lint:
 	swiftlint 2> /dev/null
@@ -65,11 +53,35 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-	swift test 
+	bundle exec pod install --project-directory="./TinkLinkTester/"
+	xcodebuild test \
+		-workspace ./TinkLinkTester/TinkLink.xcworkspace \
+		-scheme TinkLinkTester \
+		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
+
+build-uikit-example:
+	xcodebuild clean build \
+		-project Examples/UIKit-PermanentUserProviderSelection/UIKit-PermanentUserProviderSelection.xcodeproj \
+		-scheme UIKit-PermanentUserProviderSelection \
+		-destination 'generic/platform=iOS Simulator'
+
+build-swiftui-example:
+	xcodebuild clean build \
+		-project Examples/PermanentUserProviderSelection/PermanentUserProviderSelection.xcodeproj \
+		-scheme PermanentUserProviderSelection \
+		-destination 'generic/platform=iOS Simulator'
+
+build-tinklinkui-example:
+	bundle exec pod install --project-directory="./Examples/TinkLinkUIExample/"
+	xcodebuild clean build \
+		-workspace Examples/TinkLinkUIExample/TinkLinkUIExample.xcworkspace \
+		-scheme TinkLinkUIExample \
+		-destination 'generic/platform=iOS Simulator'
+
+generate-translations:
+	find Sources/TinkLinkUI/ -name \*.swift | xargs genstrings -o Sources/TinkLinkUI/Translations/Base.lproj
 
 clean: 
-	rm -rf ./GRPC/plugins/
-	rm -rf ./Sources/TinkLinkSDK/GRPC/
 	rm -rf ./docs
 
 release: format lint

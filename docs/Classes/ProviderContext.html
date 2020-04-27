@@ -14,7 +14,7 @@
     <a title="ProviderContext Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TinkLink 0.9.7 Docs</a> (70% documented)</p>
+        <p><a href="../index.html">TinkLink 0.10.0 Docs</a> (75% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -50,6 +50,12 @@
                 <a href="../Classes/AuthorizationContext/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/ConsentContext.html">ConsentContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConsentContext/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/CredentialsContext.html">CredentialsContext</a>
               </li>
               <li class="nav-group-task">
@@ -59,13 +65,13 @@
                 <a href="../Classes/ProviderContext/Attributes.html">– Attributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask.html">RefreshCredentialTask</a>
+                <a href="../Classes/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask/Status.html">– Status</a>
+                <a href="../Classes/RefreshCredentialsTask/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask/Error.html">– Error</a>
+                <a href="../Classes/RefreshCredentialsTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/SupplementInformationTask.html">SupplementInformationTask</a>
@@ -77,16 +83,16 @@
                 <a href="../Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Tink.html">Tink</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Tink/Configuration.html">– Configuration</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/UserContext.html">UserContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/UserContext/Error.html">– Error</a>
+                <a href="../Classes/Tink/UserError.html">– UserError</a>
               </li>
             </ul>
           </li>
@@ -96,11 +102,20 @@
               <li class="nav-group-task">
                 <a href="../Enums/Environment.html">Environment</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ServiceError.html">ServiceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SessionCredential.html">SessionCredential</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Set.html">Set</a>
               </li>
@@ -125,6 +140,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientDescription.html">ClientDescription</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Credentials.html">Credentials</a>
@@ -181,7 +199,7 @@
                 <a href="../Structs/ProviderTree.html">ProviderTree</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/ProviderTree/CredentialKindNode.html">– CredentialKindNode</a>
+                <a href="../Structs/ProviderTree/CredentialsKindNode.html">– CredentialsKindNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
@@ -191,6 +209,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RefreshableItems.html">RefreshableItems</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Scope.html">Scope</a>
@@ -220,7 +241,7 @@
                 <a href="../Structs/ScopeDescription.html">ScopeDescription</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs.html#/s:8TinkLink4UserV">User</a>
+                <a href="../Structs/User.html">User</a>
               </li>
             </ul>
           </li>
@@ -276,7 +297,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.7/Sources/TinkLink/Context/ProviderContext.swift#L6-L26">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Context/ProviderContext.swift#L6-L26">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -287,17 +308,19 @@
               <div class="task-name-container">
                 <a name="/Creating%20a%20Context"></a>
                 <a name="//apple_ref/swift/Section/Creating a Context" class="dashAnchor"></a>
-                <a href="#/Creating%20a%20Context">
-                  <h3 class="section-name">Creating a Context</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Creating%20a%20Context"></a>
+                  <h3 class="section-name"><p>Creating a Context</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8TinkLink15ProviderContextC4tink4userAcA0A0C_AA4UserVtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(tink:user:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink15ProviderContextC4tink4userAcA0A0C_AA4UserVtcfc">init(tink:user:)</a>
+                    <a name="/s:8TinkLink15ProviderContextC4tinkAcA0A0C_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(tink:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink15ProviderContextC4tinkAcA0A0C_tcfc">init(tink:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -312,7 +335,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">tink</span><span class="p">:</span> <span class="kt"><a href="../Classes/Tink.html">Tink</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">shared</span><span class="p">,</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs.html#/s:8TinkLink4UserV">User</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">tink</span><span class="p">:</span> <span class="kt"><a href="../Classes/Tink.html">Tink</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">shared</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -340,7 +363,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p><code><a href="../Structs.html#/s:8TinkLink4UserV">User</a></code> that will be used for fetching providers with the Tink API.</p>
+                                  <p><code><a href="../Structs/User.html">User</a></code> that will be used for fetching providers with the Tink API.</p>
                                 </div>
                               </td>
                             </tr>
@@ -348,7 +371,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.7/Sources/TinkLink/Context/ProviderContext.swift#L38-L42">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Context/ProviderContext.swift#L37-L40">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -359,9 +382,11 @@
               <div class="task-name-container">
                 <a name="/Fetching%20Providers"></a>
                 <a name="//apple_ref/swift/Section/Fetching Providers" class="dashAnchor"></a>
-                <a href="#/Fetching%20Providers">
-                  <h3 class="section-name">Fetching Providers</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Fetching%20Providers"></a>
+                  <h3 class="section-name"><p>Fetching Providers</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -369,7 +394,7 @@
                     <code>
                     <a name="/s:8TinkLink15ProviderContextC14fetchProviders10attributes10completionAA11Cancellable_AA9RetriablepSgAC10AttributesV_ys6ResultOySayAA0C0VGs5Error_pGctF"></a>
                     <a name="//apple_ref/swift/Method/fetchProviders(attributes:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink15ProviderContextC14fetchProviders10attributes10completionAA11Cancellable_AA9RetriablepSgAC10AttributesV_ys6ResultOySayAA0C0VGs5Error_pGctF">fetchProviders(attributes:completion:)</a>
+                    <a class="token" href="#/s:8TinkLink15ProviderContextC14fetchProviders10attributes10completionAA11Cancellable_AA9RetriablepSgAC10AttributesV_ys6ResultOySayAA0C0VGs5Error_pGctF">fetchProviders(attributes:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -421,7 +446,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.7/Sources/TinkLink/Context/ProviderContext.swift#L51-L61">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Context/ProviderContext.swift#L54-L64">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -431,8 +456,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-03-24)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

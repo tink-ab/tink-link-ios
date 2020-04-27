@@ -11,16 +11,40 @@
 
 ## Requirements
 
-- iOS 10.0
+- iOS 11.0
 - Xcode 11.3
 
 ## Installation
+There are two targets TinkLink and TinkLinkUI in the package Tink Link.
+- TinkLink is a framework for aggregating bank credentials but without any UI, you can build your flow with your UI component, suitable for enterprise plan customer that aggregating using permanent user.
 
-Swift Package Manager is used to integrate Tink Link into your project.
+- TinkLinkUI is a framework with a predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast, suitable for customer aggregating with temporary user.
 
-Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-sdk-ios` when asked for a package repository.
+See the difference about the [permanent user and temporary user](https://docs.tink.com/resources/tutorials/permanent-users)
+
+### Integrate TinkLink into your project using Swift Package Manager or CocoaPods
+- Using Swift Package Manager
+
+Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-ios` when asked for a package repository.
 
 When finished, you should be able to `import TinkLink` within your project.
+
+- Using CocoaPods
+
+Add `pod 'TinkLink'` to your project's Podfile. Run `pod install` to install the TinkLink framework.
+
+When finished, you should be able to `import TinkLink` within your project.
+
+Use `pod update TinkLink` to update to the newer version.
+
+### Integrate TinkLinkUI into your project using CocoaPods.
+- Using CocoaPods
+
+Similar to using TinkLink, Add `pod 'TinkLinkUI'` to your project's Podfile. Run `pod install` to install the TinkLinkUI framework.
+
+When finished, you should be able to `import TinkLink` and `import TinkLinkUI` within your project.
+
+Use `pod update TinkLinkUI` to update to the newer version.
 
 ## Configuration
 
@@ -41,24 +65,64 @@ The shared instance of Tink can also be configured using environment variables d
 | --------------------------- | ---------- |
 | `TINK_CLIENT_ID`            | String     |
 | `TINK_REDIRECT_URI`         | String     |
-| `TINK_CUSTOM_GRPC_ENDPOINT` | _Optional_ |
 | `TINK_CUSTOM_REST_ENDPOINT` | _Optional_ |
-| `TINK_GRPC_CERTIFICATE_URL` | _Optional_ |
 | `TINK_REST_CERTIFICATE_URL` | _Optional_ |
 
 ## Redirect Handling
 
 You will need to add a custom URL scheme or support universal links to handle redirects from a third party authentication flow back into your app.
 
-Follow the instructions at one of these links for how to set this up:
+Follow the instructions in one of these links to learn how to set this up:
 
-- [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app).
-- [Allowing Apps and Websites to Link to Your Content](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content).
+- [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app)
+- [Allowing Apps and Websites to Link to Your Content](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content)
+
+## Tink Link UI
+
+### Customization 
+
+You can only customize the appearance of Tink Link UI. 
+To configure colors or fonts, you can update `Appearance.provider`. This needs to be done before initializing the `TinkLinkViewController`.
+
+#### Colors
+
+|`Color`|Description|
+|--------|-------------|
+|`background`|Color for the main background of the interface.|
+|`secondaryBackground`|Color for content layered on top of the main background.|
+|`groupedBackground`|Color for the main background of grouped interface components.|
+|`secondaryGroupedBackground`|Color for content layered on top of the main background of grouped interface components.|
+|`label`|Primary text color.|
+|`secondaryLabel`|Secondary text color.|
+|`separator`|Color for separators.|
+|`accent`|Colors for buttons, indicators and other similar elements.|
+|`warning`|Color representing a warning.|
+|`critical`|Color representing a critical warning or error.|
+
+```swift
+let colorProvider = ColorProvider()
+colorProvider.accent = <#UIColor#>
+Appearance.provider.colors = colorProvider
+```
+
+#### Themes
+You can configure colors and font by providing Tink Link SDK with a `ColorProviding` and `FontProviding` type respectively. Tink Link SDK also provides a `AppearanceProvider` type that can be used to easily customize the Tink Link SDK views. 
+
+```swift
+let colorProvider = ColorProvider()
+let fontProvider = FontProvider()
+colorProvider.accent = <#UIColor#>
+fontProvider.regularFont = <#UIFont#>
+fontProvider.boldFont = <#UIFont#>
+
+Appearance.provider = AppearenceProvider(colors: colorProvider, fonts: fontProvider)
+```
 
 ## Examples
 
-- [Usage Examples](USAGE.md) This document outlines how to use the different classes and types provided by Tink Link.
-- [Provider Selection](Examples) These examples shows how to build a complete aggregation flow using Tink Link.
+- [Usage examples](USAGE.md) This document outlines how to use the different classes and types provided by TinkLink.
+- [Example apps](Examples) These examples shows how to build a complete aggregation flow using TinkLink and TinkLinkUI.
 
 ## Developer Documentation
-- [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios).
+- [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios)
+- [Tink Link UI iOS Reference](https://tink-ab.github.io/tink-link-ios/tinklinkui)

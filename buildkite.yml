@@ -1,6 +1,33 @@
 steps:
+  - name: ':pipeline: Bootstrap'
+    command: 'make bootstrap'
+    agents:
+      queue: 'macos'
+
+  - wait
+
   - name: ':pipeline: Test'
     command: 'make test'
     agents:
       queue: 'macos'
 
+  - wait
+
+  - name: ':pipeline: Build UIKit Example'
+    command: 'make build-uikit-example'
+    agents:
+      queue: 'macos'
+
+  - wait
+
+  - name: ':pipeline: Build SwiftUI Example'
+    command: 'make build-swiftui-example'
+    agents:
+      queue: 'macos'
+
+  - wait
+
+  - name: ':pipeline: Build TinkLinkUI Example'
+    command: 'make build-tinklinkui-example'
+    agents:
+      queue: 'macos'

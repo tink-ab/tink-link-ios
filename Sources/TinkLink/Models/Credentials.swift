@@ -56,6 +56,23 @@ public struct Credentials: Identifiable {
                 return "Third Party Authentication"
             }
         }
+
+        var sortOrder: Int {
+            switch self {
+            case .mobileBankID:
+                return 1
+            case .password:
+                return 2
+            case .thirdPartyAuthentication:
+                return 3
+            case .keyfob:
+                return 4
+            case .fraud:
+                return 5
+            case .unknown:
+                return 6
+            }
+        }
     }
 
     /// Indicates how Tink authenticates the user to the financial institution.
@@ -139,16 +156,16 @@ public struct Credentials: Identifiable {
     /// The ThirdPartyAppAuthentication contains specific deeplink urls and configuration for the third party app.
     public struct ThirdPartyAppAuthentication {
         /// Title of the app to be downloaded.
-        public let downloadTitle: String
+        public let downloadTitle: String?
 
         /// Detailed message about app to be downloaded.
-        public let downloadMessage: String
+        public let downloadMessage: String?
 
         /// Title of the app to be upgraded.
-        public let upgradeTitle: String
+        public let upgradeTitle: String?
 
         /// Detailed message about app to be upgraded
-        public let upgradeMessage: String
+        public let upgradeMessage: String?
 
         /// URL to AppStore where the app can be downloaded on iOS.
         public let appStoreURL: URL?
@@ -158,6 +175,10 @@ public struct Credentials: Identifiable {
 
         /// URL that the app should open on iOS. Can be of another scheme than app scheme.
         public let deepLinkURL: URL?
+
+        public var hasAutoStartToken: Bool {
+            deepLinkURL?.query?.contains("autostartToken") ?? false
+        }
     }
 
     /// Information about the third party authentication flow.

@@ -7,16 +7,22 @@ public final class CredentialsContext {
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
 
+    private var newlyAddedCredentials: [Provider.ID: Credentials] = [:]
+
     // MARK: - Creating a Credentials Context
 
     /// Creates a new CredentialsContext for the given Tink instance.
     ///
     /// - Parameter tink: Tink instance, defaults to `shared` if not provided.
     /// - Parameter user: `User` that will be used for adding credentials with the Tink API.
-    public init(tink: Tink = .shared, user: User) {
+    public convenience init(tink: Tink = .shared) {
+        let service = RESTCredentialsService(client: tink.client)
+        self.init(tink: tink, credentialsService: service)
+    }
+
+    init(tink: Tink, credentialsService: CredentialsService) {
         self.tink = tink
-        self.service = CredentialsService(tink: tink, accessToken: user.accessToken)
-        service.accessToken = user.accessToken
+        self.service = credentialsService
         addStoreObservers()
     }
 
@@ -50,7 +56,7 @@ public final class CredentialsContext {
     ///
     /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
     ///
-    ///     credentialsContext.addCredentials(for: provider, form: form, progressHandler: { status in
+    ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, progressHandler: { status in
     ///         switch status {
     ///         case .awaitingSupplementalInformation(let supplementInformationTask):
     ///             <#Present form for supplemental information task#>
@@ -66,41 +72,54 @@ public final class CredentialsContext {
     /// - Parameters:
     ///   - provider: The provider (financial institution) that the credentials is connected to.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
+    ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - completionPredicate: Predicate for when credentials task should complete.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
-    @discardableResult
-    public func addCredentials(for provider: Provider, form: Form,
-                              completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
-                              progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
-                              completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
-        let appURI = tink.configuration.redirectURI
-        
+    public func add(for provider: Provider,
+                    form: Form,
+                    refreshableItems: RefreshableItems = .all,
+                    completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
+                    progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
+                    completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask {
+        let appUri = tink.configuration.redirectURI
+
+        let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
+
         let task = AddCredentialsTask(
             credentialsService: service,
             completionPredicate: completionPredicate,
-            appUri: appURI,
+            appUri: appUri,
             progressHandler: progressHandler,
             completion: completion
         )
 
-        task.callCanceller = addCredentialAndAuthenticateIfNeeded(for: provider, fields: form.makeFields(), appURI: appURI) { [weak task] result in
-            do {
-                let credentials = try result.get()
-                task?.startObserving(credentials)
-            } catch {
-                let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
-                completion(.failure(mappedError))
+        if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
+            task.callCanceller = update(newlyAddedCredentials, form: form) { (result) in
+                do {
+                    let credentials = try result.get()
+                    task.startObserving(credentials)
+                } catch {
+                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
+                    completion(.failure(mappedError))
+                }
+            }
+        } else {
+            task.callCanceller = service.createCredentials(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appUri: appUri) { [weak task, weak self] result in
+                do {
+                    let credential = try result.get()
+                    self?.newlyAddedCredentials[provider.id] = credential
+                    task?.startObserving(credential)
+                } catch {
+                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
+                    completion(.failure(mappedError))
+                }
             }
         }
         return task
-    }
-
-    private func addCredentialAndAuthenticateIfNeeded(for provider: Provider, fields: [String: String], appURI: URL, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
-        return service.createCredential(providerID: provider.id, fields: fields, appURI: appURI, completion: completion)
     }
 
     // MARK: - Fetching Credentials
@@ -108,9 +127,18 @@ public final class CredentialsContext {
     /// Gets the user's credentials.
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
+    @available(*, deprecated, renamed: "fetchCredentialsList")
     @discardableResult
     public func fetchCredentials(completion: @escaping (_ result: Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
-        return service.credentials { result in
+        return fetchCredentialsList(completion: completion)
+    }
+
+    /// Fetch a list of the current user's credentials.
+    /// - Parameter completion: The block to execute when the call is completed.
+    /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
+    @discardableResult
+    public func fetchCredentialsList(completion: @escaping (_ result: Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
+        return service.credentialsList { result in
             do {
                 let credentials = try result.get()
                 let storedCredentials = credentials.sorted(by: { $0.id.value < $1.id.value })
@@ -121,26 +149,45 @@ public final class CredentialsContext {
         }
     }
 
+    /// Fetch a credentials by ID.
+    /// - Parameter id: The id of the credentials to fetch.
+    /// - Parameter completion: The block to execute when the call is completed.
+    /// - Parameter result: A result that either contains the credentials or an error if the fetch failed.
+    @discardableResult
+    public func fetchCredentials(with id: Credentials.ID, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        return service.credentials(id: id) { result in
+            do {
+                let credentials = try result.get()
+                completion(.success(credentials))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
     // MARK: - Managing Credentials
 
     /// Refresh the user's credentials.
     /// - Parameters:
-    ///   - credentials: List fo credentials that needs to be refreshed.
+    ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being refreshed.
     ///   - completion: The block to execute when the credentials has been refreshed successfuly or if it failed.
-    ///   - result: A result that either a list of updated credentials when refresh successed or an error if failed.
+    ///   - result: A result that either contains the refreshed credentials or an error if the refresh failed.
     /// - Returns: The refresh credentials task.
-    public func refresh(_ credentials: [Credentials],
-                                   shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
-                                   progressHandler: @escaping (_ status: RefreshCredentialTask.Status) -> Void,
-                                   completion: @escaping (_ result: Result<[Credentials], Swift.Error>) -> Void) -> RefreshCredentialTask {
-        let appURI = tink.configuration.redirectURI
+    public func refresh(_ credentials: Credentials,
+                        refreshableItems: RefreshableItems = .all,
+                        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+                        progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
+                        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RefreshCredentialsTask {
+        let appUri = tink.configuration.redirectURI
 
-        let task = RefreshCredentialTask(credentials: credentials, credentialService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appURI, progressHandler: progressHandler, completion: completion)
+        //TODO: Filter out refreshableItems not supported by provider capabilities.
+        
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.refreshCredentials(credentialIDs: credentials.map { $0.id }, completion: { result in
+        task.callCanceller = service.refreshCredentials(credentialsID: credentials.id, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
             case .success:
                 task.startObserving()
@@ -152,20 +199,22 @@ public final class CredentialsContext {
         return task
     }
 
-    /// Update the user's credential.
+    /// Update the user's credentials.
     /// - Parameters:
-    ///   - credential: Credentials that needs to be updated.
+    ///   - credentials: Credentials that needs to be updated.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
     ///   - completion: The block to execute when the credentials has been updated successfuly or if it failed.
     ///   - result: A result with either an updated credentials if the update succeeded or an error if failed.
     /// - Returns: The update credentials task.
     @discardableResult
-    public func update(_ credential: Credentials, form: Form? = nil,
+    public func update(_ credentials: Credentials, form: Form? = nil,
                        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RetryCancellable? {
-        service.updateCredential(credentialID: credential.id, fields: form?.makeFields() ?? [:], completion: completion)
+        let appUri = tink.configuration.redirectURI
+        return service.updateCredentials(credentialsID: credentials.id, providerID: credentials.providerID, appUri: appUri, callbackUri: appUri, fields: form?.makeFields() ?? [:], completion: completion)
+
     }
 
-    /// Delete the user's credential.
+    /// Delete the user's credentials.
     /// - Parameters:
     ///   - credentials: Credentials that needs to be deleted.
     ///   - completion: The block to execute when the credentials has been deleted successfuly or if it failed.
@@ -174,7 +223,7 @@ public final class CredentialsContext {
     @discardableResult
     public func delete(_ credentials: Credentials,
                        completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
-        return service.deleteCredential(credentialID: credentials.id, completion: completion)
+        return service.deleteCredentials(credentialsID: credentials.id, completion: completion)
     }
 }
 

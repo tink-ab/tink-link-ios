@@ -13,7 +13,7 @@
     <a title="TinkLink  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">TinkLink 0.9.7 Docs</a> (70% documented)</p>
+        <p><a href="index.html">TinkLink 0.10.0 Docs</a> (75% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,6 +49,12 @@
                 <a href="Classes/AuthorizationContext/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/ConsentContext.html">ConsentContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ConsentContext/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/CredentialsContext.html">CredentialsContext</a>
               </li>
               <li class="nav-group-task">
@@ -58,13 +64,13 @@
                 <a href="Classes/ProviderContext/Attributes.html">– Attributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/RefreshCredentialTask.html">RefreshCredentialTask</a>
+                <a href="Classes/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/RefreshCredentialTask/Status.html">– Status</a>
+                <a href="Classes/RefreshCredentialsTask/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/RefreshCredentialTask/Error.html">– Error</a>
+                <a href="Classes/RefreshCredentialsTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/SupplementInformationTask.html">SupplementInformationTask</a>
@@ -76,16 +82,16 @@
                 <a href="Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/ThirdPartyAppAuthenticationTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/Tink.html">Tink</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/Tink/Configuration.html">– Configuration</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/UserContext.html">UserContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/UserContext/Error.html">– Error</a>
+                <a href="Classes/Tink/UserError.html">– UserError</a>
               </li>
             </ul>
           </li>
@@ -95,11 +101,20 @@
               <li class="nav-group-task">
                 <a href="Enums/Environment.html">Environment</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Enums/ServiceError.html">ServiceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/SessionCredential.html">SessionCredential</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/Array.html">Array</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Extensions/Set.html">Set</a>
               </li>
@@ -124,6 +139,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientDescription.html">ClientDescription</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Credentials.html">Credentials</a>
@@ -180,7 +198,7 @@
                 <a href="Structs/ProviderTree.html">ProviderTree</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/ProviderTree/CredentialKindNode.html">– CredentialKindNode</a>
+                <a href="Structs/ProviderTree/CredentialsKindNode.html">– CredentialsKindNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
@@ -190,6 +208,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RefreshableItems.html">RefreshableItems</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Scope.html">Scope</a>
@@ -219,7 +240,7 @@
                 <a href="Structs/ScopeDescription.html">ScopeDescription</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs.html#/s:8TinkLink4UserV">User</a>
+                <a href="Structs/User.html">User</a>
               </li>
             </ul>
           </li>
@@ -250,16 +271,49 @@
 <h2 id='requirements' class='heading'>Requirements</h2>
 
 <ul>
-<li>iOS 10.0</li>
+<li>iOS 11.0</li>
 <li>Xcode 11.3</li>
 </ul>
 <h2 id='installation' class='heading'>Installation</h2>
 
-<p>Swift Package Manager is used to integrate Tink Link into your project.</p>
+<p>There are two targets TinkLink and TinkLinkUI in the package Tink Link.</p>
 
-<p>Follow these instructions to <a href="https://help.apple.com/xcode/mac/current/#/devb83d64851">link a target to a package product</a> and enter this URL <code>https://github.com/tink-ab/tink-link-sdk-ios</code> when asked for a package repository.</p>
+<ul>
+<li><p>TinkLink is a framework for aggregating bank credentials but without any UI, you can build your flow with your UI component, suitable for enterprise plan customer that aggregating using permanent user.</p></li>
+<li><p>TinkLinkUI is a framework with a predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast, suitable for customer aggregating with temporary user.</p></li>
+</ul>
+
+<p>See the difference about the <a href="https://docs.tink.com/resources/tutorials/permanent-users">permanent user and temporary user</a></p>
+<h3 id='integrate-tinklink-into-your-project-using-swift-package-manager-or-cocoapods' class='heading'>Integrate TinkLink into your project using Swift Package Manager or CocoaPods</h3>
+
+<ul>
+<li>Using Swift Package Manager</li>
+</ul>
+
+<p>Follow these instructions to <a href="https://help.apple.com/xcode/mac/current/#/devb83d64851">link a target to a package product</a> and enter this URL <code>https://github.com/tink-ab/tink-link-ios</code> when asked for a package repository.</p>
 
 <p>When finished, you should be able to <code>import TinkLink</code> within your project.</p>
+
+<ul>
+<li>Using CocoaPods</li>
+</ul>
+
+<p>Add <code>pod &#39;TinkLink&#39;</code> to your project&rsquo;s Podfile. Run <code>pod install</code> to install the TinkLink framework.</p>
+
+<p>When finished, you should be able to <code>import TinkLink</code> within your project.</p>
+
+<p>Use <code>pod update TinkLink</code> to update to the newer version.</p>
+<h3 id='integrate-tinklinkui-into-your-project-using-cocoapods' class='heading'>Integrate TinkLinkUI into your project using CocoaPods.</h3>
+
+<ul>
+<li>Using CocoaPods</li>
+</ul>
+
+<p>Similar to using TinkLink, Add <code>pod &#39;TinkLinkUI&#39;</code> to your project&rsquo;s Podfile. Run <code>pod install</code> to install the TinkLinkUI framework.</p>
+
+<p>When finished, you should be able to <code>import TinkLink</code> and <code>import TinkLinkUI</code> within your project.</p>
+
+<p>Use <code>pod update TinkLinkUI</code> to update to the newer version.</p>
 <h2 id='configuration' class='heading'>Configuration</h2>
 
 <p>To start using Tink Link, you will need to configure a <code><a href="Classes/Tink.html">Tink</a></code> instance with your client ID and redirect URI.</p>
@@ -286,15 +340,7 @@
 <td>String</td>
 </tr>
 <tr>
-<td><code>TINK_CUSTOM_GRPC_ENDPOINT</code></td>
-<td><em>Optional</em></td>
-</tr>
-<tr>
 <td><code>TINK_CUSTOM_REST_ENDPOINT</code></td>
-<td><em>Optional</em></td>
-</tr>
-<tr>
-<td><code>TINK_GRPC_CERTIFICATE_URL</code></td>
 <td><em>Optional</em></td>
 </tr>
 <tr>
@@ -306,29 +352,99 @@
 
 <p>You will need to add a custom URL scheme or support universal links to handle redirects from a third party authentication flow back into your app.</p>
 
-<p>Follow the instructions at one of these links for how to set this up:</p>
+<p>Follow the instructions in one of these links to learn how to set this up:</p>
 
 <ul>
-<li><a href="https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app">Defining a Custom URL Scheme for Your App</a>.</li>
-<li><a href="https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content">Allowing Apps and Websites to Link to Your Content</a>.</li>
+<li><a href="https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app">Defining a Custom URL Scheme for Your App</a></li>
+<li><a href="https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content">Allowing Apps and Websites to Link to Your Content</a></li>
 </ul>
+<h2 id='tink-link-ui' class='heading'>Tink Link UI</h2>
+<h3 id='customization' class='heading'>Customization</h3>
+
+<p>You can only customize the appearance of Tink Link UI. 
+To configure colors or fonts, you can update <code>Appearance.provider</code>. This needs to be done before initializing the <code>TinkLinkViewController</code>.</p>
+<h4 id='colors' class='heading'>Colors</h4>
+
+<table><thead>
+<tr>
+<th><code>Color</code></th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>background</code></td>
+<td>Color for the main background of the interface.</td>
+</tr>
+<tr>
+<td><code>secondaryBackground</code></td>
+<td>Color for content layered on top of the main background.</td>
+</tr>
+<tr>
+<td><code>groupedBackground</code></td>
+<td>Color for the main background of grouped interface components.</td>
+</tr>
+<tr>
+<td><code>secondaryGroupedBackground</code></td>
+<td>Color for content layered on top of the main background of grouped interface components.</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td>Primary text color.</td>
+</tr>
+<tr>
+<td><code>secondaryLabel</code></td>
+<td>Secondary text color.</td>
+</tr>
+<tr>
+<td><code>separator</code></td>
+<td>Color for separators.</td>
+</tr>
+<tr>
+<td><code>accent</code></td>
+<td>Colors for buttons, indicators and other similar elements.</td>
+</tr>
+<tr>
+<td><code>warning</code></td>
+<td>Color representing a warning.</td>
+</tr>
+<tr>
+<td><code>critical</code></td>
+<td>Color representing a critical warning or error.</td>
+</tr>
+</tbody></table>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">colorProvider</span> <span class="o">=</span> <span class="kt">ColorProvider</span><span class="p">()</span>
+<span class="n">colorProvider</span><span class="o">.</span><span class="n">accent</span> <span class="o">=</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">UIColor</span><span class="err">#</span><span class="o">&gt;</span>
+<span class="kt">Appearance</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">colorProvider</span>
+</code></pre>
+<h4 id='themes' class='heading'>Themes</h4>
+
+<p>You can configure colors and font by providing Tink Link SDK with a <code>ColorProviding</code> and <code>FontProviding</code> type respectively. Tink Link SDK also provides a <code>AppearanceProvider</code> type that can be used to easily customize the Tink Link SDK views. </p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">colorProvider</span> <span class="o">=</span> <span class="kt">ColorProvider</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">fontProvider</span> <span class="o">=</span> <span class="kt">FontProvider</span><span class="p">()</span>
+<span class="n">colorProvider</span><span class="o">.</span><span class="n">accent</span> <span class="o">=</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">UIColor</span><span class="err">#</span><span class="o">&gt;</span>
+<span class="n">fontProvider</span><span class="o">.</span><span class="n">regularFont</span> <span class="o">=</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">UIFont</span><span class="err">#</span><span class="o">&gt;</span>
+<span class="n">fontProvider</span><span class="o">.</span><span class="n">boldFont</span> <span class="o">=</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">UIFont</span><span class="err">#</span><span class="o">&gt;</span>
+
+<span class="kt">Appearance</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="kt">AppearenceProvider</span><span class="p">(</span><span class="nv">colors</span><span class="p">:</span> <span class="n">colorProvider</span><span class="p">,</span> <span class="nv">fonts</span><span class="p">:</span> <span class="n">fontProvider</span><span class="p">)</span>
+</code></pre>
 <h2 id='examples' class='heading'>Examples</h2>
 
 <ul>
-<li><a href="USAGE.md">Usage Examples</a> This document outlines how to use the different classes and types provided by Tink Link.</li>
-<li><a href="Examples">Provider Selection</a> These examples shows how to build a complete aggregation flow using Tink Link.</li>
+<li><a href="USAGE.md">Usage examples</a> This document outlines how to use the different classes and types provided by TinkLink.</li>
+<li><a href="Examples">Example apps</a> These examples shows how to build a complete aggregation flow using TinkLink and TinkLinkUI.</li>
 </ul>
 <h2 id='developer-documentation' class='heading'>Developer Documentation</h2>
 
 <ul>
-<li><a href="https://tink-ab.github.io/tink-link-ios">Tink Link iOS Reference</a>.</li>
+<li><a href="https://tink-ab.github.io/tink-link-ios">Tink Link iOS Reference</a></li>
+<li><a href="https://tink-ab.github.io/tink-link-ios/tinklinkui">Tink Link UI iOS Reference</a></li>
 </ul>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-03-24)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

@@ -1,5 +1,4 @@
 import Foundation
-import GRPC
 
 class CredentialsListStatusPollingTask {
     private var service: CredentialsService
@@ -29,8 +28,8 @@ class CredentialsListStatusPollingTask {
         }
     }
 
-    init(credentialService: CredentialsService, credentials: [Credentials], backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credentials, Error>) -> Void, completion: @escaping (Result<[Credentials], Error>) -> Void) {
-        self.service = credentialService
+    init(credentialsService: CredentialsService, credentials: [Credentials], backoffStrategy: PollingBackoffStrategy = .linear, updateHandler: @escaping (Result<Credentials, Error>) -> Void, completion: @escaping (Result<[Credentials], Error>) -> Void) {
+        self.service = credentialsService
         self.credentialsToUpdate = credentials
         self.backoffStrategy = backoffStrategy
         self.updateHandler = updateHandler
@@ -58,7 +57,7 @@ class CredentialsListStatusPollingTask {
             return updatable
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) {
-            self.callRetryCancellable = self.service.credentials { [weak self] result in
+            self.callRetryCancellable = self.service.credentialsList { [weak self] result in
                 guard let self = self else { return }
                 do {
                     let credentials = try result.get()

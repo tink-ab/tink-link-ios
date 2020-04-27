@@ -1,11 +1,15 @@
 import Foundation
 
-struct ClientDescription {
+/// Description of a client using TinkLink.
+public struct ClientDescription {
     let iconURL: URL?
-    let name: String
+    /// The name of the client.
+    public let name: String
     let url: URL?
     let isEmbeddedAllowed: Bool
     let scopes: [ScopeDescription]
-    let isVerified: Bool
-    let isAggregator: Bool
+    /// Whether the client is verified.
+    public let isVerified: Bool
+    /// Whether the client is the aggregator.
+    public let isAggregator: Bool
 }

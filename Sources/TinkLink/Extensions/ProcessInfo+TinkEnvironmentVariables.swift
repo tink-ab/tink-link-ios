@@ -10,10 +10,8 @@ extension ProcessInfo {
     }
 
     var tinkEnvironment: Environment? {
-        guard let grpcEndpoint = environment["TINK_CUSTOM_GRPC_ENDPOINT"].flatMap(URL.init(string:)),
-            let restEndpoint = environment["TINK_CUSTOM_REST_ENDPOINT"].flatMap(URL.init(string:))
-        else { return nil }
-        return Environment.custom(grpcURL: grpcEndpoint, restURL: restEndpoint)
+        guard let restEndpoint = environment["TINK_CUSTOM_REST_ENDPOINT"].flatMap(URL.init(string:)) else { return nil }
+        return Environment.custom(restURL: restEndpoint)
     }
 
     var tinkGrpcCertificateURL: URL? {
