@@ -29,6 +29,16 @@ public class Tink {
     private lazy var oAuthService = RESTOAuthService(client: client)
     private(set) var client: RESTClient
 
+    private var uiTaskCount = 0 {
+        didSet {
+            if uiTaskCount > 0 {
+                sdkHeaderBehavior.sdkName = "Tink Link UI iOS"
+            } else {
+                sdkHeaderBehavior.sdkName = "Tink Link iOS"
+            }
+        }
+    }
+
     // MARK: - Specifying the Credential
 
     /// Sets the credential to be used for this Tink Context.
@@ -177,10 +187,10 @@ extension Tink {
 
 extension Tink {
     public func _beginUITask() {
-        sdkHeaderBehavior.sdkName = "Tink Link UI iOS"
+        uiTaskCount += 1
     }
 
     public func _endUITask() {
-        sdkHeaderBehavior.sdkName = "Tink Link iOS"
+        uiTaskCount -= 1
     }
 }
