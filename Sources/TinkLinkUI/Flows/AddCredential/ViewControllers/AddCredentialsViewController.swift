@@ -16,6 +16,8 @@ final class AddCredentialsViewController: UIViewController {
 
     weak var delegate: AddCredentialsViewControllerDelegate?
 
+    var prefillStrategy: TinkLinkViewController.PrefillStrategy = .none
+
     private let credentialsController: CredentialsController
     private let clientName: String
     private let isAggregator: Bool
@@ -146,6 +148,7 @@ extension AddCredentialsViewController {
     func setupButton() {
         switch provider.credentialsKind {
         case .mobileBankID:
+            button.image = UIImage(icon: .bankID)
             button.text = Strings.AddCredentials.Form.openBankID
         default:
             button.text = Strings.AddCredentials.Form.continue
@@ -239,7 +242,20 @@ extension AddCredentialsViewController: UITableViewDelegate, UITableViewDataSour
         let field = form.fields[indexPath.item]
 
         let cell = tableView.dequeueReusableCell(ofType: FormFieldTableViewCell.self, for: indexPath)
-        cell.configure(with: field)
+        var viewModel = FormFieldTableViewCell.ViewModel(field: field)
+        switch prefillStrategy {
+        case .username(value: let name, isEditable: let isEditable):
+            if indexPath.row == 0 {
+                var testField = field
+                testField.text = name
+                guard testField.isValid else { break }
+                viewModel.text = name
+                viewModel.isEditable = isEditable ? field.attributes.isEditable : false
+            }
+        case .none:
+            break
+        }
+        cell.configure(with: viewModel)
         cell.delegate = self
         cell.setError(with: errors[indexPath]?.localizedDescription)
         cell.textField.returnKeyType = indexPath.row < (form.fields.count - 1) ? .next : .continue

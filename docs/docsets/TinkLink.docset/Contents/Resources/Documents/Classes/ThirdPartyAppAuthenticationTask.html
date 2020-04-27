@@ -14,7 +14,7 @@
     <a title="ThirdPartyAppAuthenticationTask Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TinkLink 0.9.6 Docs</a> (70% documented)</p>
+        <p><a href="../index.html">TinkLink 0.10.0 Docs</a> (75% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -50,6 +50,12 @@
                 <a href="../Classes/AuthorizationContext/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/ConsentContext.html">ConsentContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConsentContext/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/CredentialsContext.html">CredentialsContext</a>
               </li>
               <li class="nav-group-task">
@@ -59,13 +65,13 @@
                 <a href="../Classes/ProviderContext/Attributes.html">– Attributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask.html">RefreshCredentialTask</a>
+                <a href="../Classes/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask/Status.html">– Status</a>
+                <a href="../Classes/RefreshCredentialsTask/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask/Error.html">– Error</a>
+                <a href="../Classes/RefreshCredentialsTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/SupplementInformationTask.html">SupplementInformationTask</a>
@@ -77,16 +83,16 @@
                 <a href="../Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Tink.html">Tink</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Tink/Configuration.html">– Configuration</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/UserContext.html">UserContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/UserContext/Error.html">– Error</a>
+                <a href="../Classes/Tink/UserError.html">– UserError</a>
               </li>
             </ul>
           </li>
@@ -96,11 +102,20 @@
               <li class="nav-group-task">
                 <a href="../Enums/Environment.html">Environment</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ServiceError.html">ServiceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SessionCredential.html">SessionCredential</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Set.html">Set</a>
               </li>
@@ -125,6 +140,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientDescription.html">ClientDescription</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Credentials.html">Credentials</a>
@@ -181,7 +199,7 @@
                 <a href="../Structs/ProviderTree.html">ProviderTree</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/ProviderTree/CredentialKindNode.html">– CredentialKindNode</a>
+                <a href="../Structs/ProviderTree/CredentialsKindNode.html">– CredentialsKindNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
@@ -191,6 +209,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RefreshableItems.html">RefreshableItems</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Scope.html">Scope</a>
@@ -220,7 +241,7 @@
                 <a href="../Structs/ScopeDescription.html">ScopeDescription</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs.html#/s:8TinkLink4UserV">User</a>
+                <a href="../Structs/User.html">User</a>
               </li>
             </ul>
           </li>
@@ -250,13 +271,11 @@
 
 <p>When a credentials&rsquo; status is <code>awaitingThirdPartyAppAuthentication</code> the user needs to authenticate in a third party app to finish adding the credentials.</p>
 
-<p>When you receive a <code>awaitingThirdPartyAppAuthentication</code> status you should try to open the url provided in the  <code>ThirdPartyAppAuthentication</code> object. Check if the system can open the url or ask the user to download the app like this:</p>
-<pre class="highlight swift"><code><span class="k">if</span> <span class="k">let</span> <span class="nv">deepLinkURL</span> <span class="o">=</span> <span class="n">thirdPartyAppAuthentication</span><span class="o">.</span><span class="n">deepLinkURL</span><span class="p">,</span> <span class="kt">UIApplication</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="nf">canOpenURL</span><span class="p">(</span><span class="n">deepLinkURL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">UIApplication</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="nf">open</span><span class="p">(</span><span class="n">deepLinkURL</span><span class="p">)</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="o">&lt;</span><span class="err">#</span><span class="kt">Ask</span> <span class="n">user</span> <span class="n">to</span> <span class="n">download</span> <span class="n">app</span><span class="err">#</span><span class="o">&gt;</span>
-<span class="p">}</span>
+<p>When you receive a <code>awaitingThirdPartyAppAuthentication</code> status, you should let the <code>ThirdPartyAppAuthenticationTask</code> object to handle the updates like this:</p>
+<pre class="highlight swift"><code><span class="n">thirdPartyAppAuthenticationTask</span><span class="o">.</span><span class="nf">handle</span><span class="p">()</span>
 </code></pre>
+
+<p>If the third party authentication couldn&rsquo;t be handled by the <code>ThirdPartyAppAuthenticationTask</code>, you need to handle the <code><a href="../Classes/AddCredentialsTask.html">AddCredentialsTask</a></code> completion result and check for a <code><a href="../Classes/ThirdPartyAppAuthenticationTask/Error.html">ThirdPartyAppAuthenticationTask.Error</a></code>. This error can tell you if the user needs to download the thirdparty authentication app.</p>
 
 <p>Here&rsquo;s how you can ask the user to download the third party app via an alert:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">alertController</span> <span class="o">=</span> <span class="kt">UIAlertController</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="n">thirdPartyAppAuthentication</span><span class="o">.</span><span class="n">downloadTitle</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="n">thirdPartyAppAuthentication</span><span class="o">.</span><span class="n">downloadMessage</span><span class="p">,</span> <span class="nv">preferredStyle</span><span class="p">:</span> <span class="o">.</span><span class="n">alert</span><span class="p">)</span>
@@ -283,7 +302,7 @@
 </code></pre>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    If the app couldn&rsquo;t be opened you need to handle the <code>AddCredentialTask</code> completion result and check for a <code><a href="../Classes/ThirdPartyAppAuthenticationTask/Error.html">ThirdPartyAppAuthenticationTask.Error</a></code>.
+    If the app couldn&rsquo;t be opened you need to handle the <code><a href="../Classes/AddCredentialsTask.html">AddCredentialsTask</a></code> completion result and check for a <code><a href="../Classes/ThirdPartyAppAuthenticationTask/Error.html">ThirdPartyAppAuthenticationTask.Error</a></code>.
 This error can tell you if the user needs to download the app.
 
 </div>
@@ -318,7 +337,38 @@ This error can tell you if the user needs to download the app.
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L53-L85">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L52-L104">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink31ThirdPartyAppAuthenticationTaskC6StatusO"></a>
+                    <a name="//apple_ref/swift/Enum/Status" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink31ThirdPartyAppAuthenticationTaskC6StatusO">Status</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Classes/ThirdPartyAppAuthenticationTask/Status.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Status</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L106-L113">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -343,12 +393,42 @@ This error can tell you if the user needs to download the app.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">thirdPartyAppAuthentication</span><span class="p">:</span> <span class="kt"><a href="../Structs/Credentials.html">Credentials</a></span><span class="o">.</span><span class="kt">ThirdPartyAppAuthentication</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">thirdPartyAppAuthentication</span><span class="p">:</span> <span class="kt"><a href="../Structs/Credentials.html">Credentials</a></span><span class="o">.</span><span class="kt">ThirdPartyAppAuthentication</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L88">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L116">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink31ThirdPartyAppAuthenticationTaskC012shouldFailOncdeF16DownloadRequiredSbvp"></a>
+                    <a name="//apple_ref/swift/Property/shouldFailOnThirdPartyAppAuthenticationDownloadRequired" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink31ThirdPartyAppAuthenticationTaskC012shouldFailOncdeF16DownloadRequiredSbvp">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -359,17 +439,19 @@ This error can tell you if the user needs to download the app.
               <div class="task-name-container">
                 <a name="/Opening%20an%20App"></a>
                 <a name="//apple_ref/swift/Section/Opening an App" class="dashAnchor"></a>
-                <a href="#/Opening%20an%20App">
-                  <h3 class="section-name">Opening an App</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Opening%20an%20App"></a>
+                  <h3 class="section-name"><p>Opening an App</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Method/openThirdPartyApp(with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">openThirdPartyApp(with:)</a>
+                    <a name="//apple_ref/swift/Method/handle()" class="dashAnchor"></a>
+                    <a class="token" href="#/">handle()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -377,8 +459,69 @@ This error can tell you if the user needs to download the app.
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Tries to open the third party app.</p>
+                        <p>Will try to open the third party app. If it fails then the add credentials task will be aborted.</p>
 
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink31ThirdPartyAppAuthenticationTaskC6handle13statusHandleryyAC6StatusOc_tF"></a>
+                    <a name="//apple_ref/swift/Method/handle(statusHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink31ThirdPartyAppAuthenticationTaskC6handle13statusHandleryyAC6StatusOc_tF">handle(statusHandler:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Will try to open the third party app.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">handle</span><span class="p">(</span><span class="nv">statusHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">status</span><span class="p">:</span> <span class="kt"><a href="../Classes/ThirdPartyAppAuthenticationTask/Status.html">Status</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>statusHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure that handles statuses that require actions.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>status</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The specific status that require an action.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L201-L252">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -389,9 +532,11 @@ This error can tell you if the user needs to download the app.
               <div class="task-name-container">
                 <a name="/Controlling%20the%20Task"></a>
                 <a name="//apple_ref/swift/Section/Controlling the Task" class="dashAnchor"></a>
-                <a href="#/Controlling%20the%20Task">
-                  <h3 class="section-name">Controlling the Task</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Controlling%20the%20Task"></a>
+                  <h3 class="section-name"><p>Controlling the Task</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -421,7 +566,7 @@ This error can tell you if the user needs to download the app.
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L141-L143">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/ThirdPartyAppAuthenticationTask.swift#L284-L288">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -431,8 +576,8 @@ This error can tell you if the user needs to download the app.
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-03-23)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

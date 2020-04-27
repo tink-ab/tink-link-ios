@@ -1,7 +1,9 @@
 import Foundation
 import TinkLink
 
+/// :nodoc:
 extension ServiceError: LocalizedError {
+    /// :nodoc:
     public var errorDescription: String? {
         switch self {
         case .cancelled:
@@ -41,6 +43,7 @@ extension ServiceError: LocalizedError {
         }
     }
 
+    /// :nodoc:
     public var failureReason: String? {
         switch self {
         case .cancelled:

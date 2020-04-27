@@ -124,5 +124,5 @@ Appearance.provider = AppearenceProvider(colors: colorProvider, fonts: fontProvi
 - [Example apps](Examples) These examples shows how to build a complete aggregation flow using TinkLink and TinkLinkUI.
 
 ## Developer Documentation
-- [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios/tinklink)
+- [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios)
 - [Tink Link UI iOS Reference](https://tink-ab.github.io/tink-link-ios/tinklinkui)

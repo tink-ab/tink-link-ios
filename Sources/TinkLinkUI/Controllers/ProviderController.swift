@@ -46,6 +46,8 @@ final class ProviderController {
         let attributes = ProviderContext.Attributes(capabilities: .all, kinds: providerKinds, accessTypes: .all)
         NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)
         isFetching = true
+        tink._beginUITask()
+        defer { tink._endUITask() }
         providerContext?.fetchProviders(attributes: attributes, completion: { [weak self] result in
 
             self?.isFetching = false

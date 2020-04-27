@@ -24,6 +24,7 @@ public class Tink {
         return shared
     }
 
+    private let sdkHeaderBehavior: SDKHeaderClientBehavior
     private var authorizationBehavior = AuthorizationHeaderClientBehavior(sessionCredential: nil)
     private lazy var oAuthService = RESTOAuthService(client: client)
     private(set) var client: RESTClient
@@ -58,9 +59,10 @@ public class Tink {
         self.configuration = configuration
         let certificateURL = configuration.restCertificateURL
         let certificate = certificateURL.flatMap { try? String(contentsOf: $0, encoding: .utf8) }
+        self.sdkHeaderBehavior = SDKHeaderClientBehavior(sdkName: "Tink Link iOS", clientID: self.configuration.clientID)
         self.client = RESTClient(restURL: self.configuration.environment.restURL, certificates: certificate, behavior: ComposableClientBehavior(
             behaviors: [
-                SDKHeaderClientBehavior(sdkName: "Tink Link iOS", clientID: self.configuration.clientID),
+                sdkHeaderBehavior,
                 authorizationBehavior
             ]
         ))
@@ -170,5 +172,17 @@ extension Tink {
                 completion(.failure(error))
             }
         }
+    }
+}
+
+extension Tink {
+    /// :nodoc:
+    public func _beginUITask() {
+        sdkHeaderBehavior.sdkName = "Tink Link UI iOS"
+    }
+
+    /// :nodoc:
+    public func _endUITask() {
+        sdkHeaderBehavior.sdkName = "Tink Link iOS"
     }
 }

@@ -47,11 +47,22 @@ import TinkLink
 /// }
 /// ```
 public class TinkLinkViewController: UINavigationController {
+
+    /// Strategy for different types of prefilling
+    public enum PrefillStrategy {
+        /// No prefilling will occur.
+        case none
+        /// Will attempt to fill the first field of the provider with the associated value if it is valid.
+        case username(value: String, isEditable: Bool)
+    }
+  
     /// Scopes that grant access to Tink.
     public let scopes: [Scope]
     private let tink: Tink
     private let market: Market
     public let providerID: Provider.ID?
+    /// The prefilling strategy to use. 
+    public var prefill: PrefillStrategy = .none
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
@@ -88,6 +99,7 @@ public class TinkLinkViewController: UINavigationController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// :nodoc:
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarAppearance()
@@ -127,6 +139,8 @@ public class TinkLinkViewController: UINavigationController {
 
     private func start() {
         loadingViewController.showLoadingIndicator()
+        tink._beginUITask()
+        defer { tink._endUITask() }
         tink._createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -288,6 +302,7 @@ extension TinkLinkViewController {
             return
         }
         let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
+        addCredentialsViewController.prefillStrategy = prefill
         addCredentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         addCredentialsViewController.delegate = self
         if viewControllers.last is LoadingViewController {
@@ -381,16 +396,20 @@ extension TinkLinkViewController {
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
+/// :nodoc:
 @available(iOS 13.0, *)
 extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
+    /// :nodoc:
     public func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
         showDiscardActionSheet()
     }
 
+    /// :nodoc:
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         completion(result ?? .failure(.userCancelled))
     }
 
+    /// :nodoc:
     public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return !didShowAddCredentialForm
     }

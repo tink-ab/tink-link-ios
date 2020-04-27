@@ -23,7 +23,7 @@ extension UINavigationController {
             appearance.setBackIndicatorImage(backIndicatorImage, transitionMaskImage: backIndicatorImage)
 
             appearance.titleTextAttributes = [
-                .font: Font.bold(.hecto),
+                .font: Font.bold(.deci),
                 .foregroundColor: Color.label
             ]
 
@@ -47,7 +47,7 @@ extension UINavigationController {
             navigationBarAppearance.backIndicatorTransitionMaskImage = backIndicatorImage
 
             navigationBarAppearance.titleTextAttributes = [
-                .font: Font.bold(.hecto),
+                .font: Font.bold(.deci),
                 .foregroundColor: Color.label
             ]
 

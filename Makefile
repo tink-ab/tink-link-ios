@@ -33,7 +33,7 @@ docs:
 		--module TinkLink \
 		--swift-build-tool xcodebuild \
 		--sdk iphone \
-		--output docs/tinklink
+		--output docs
 	bundle exec jazzy \
 		--clean \
 		--author Tink \

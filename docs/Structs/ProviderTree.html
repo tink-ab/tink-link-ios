@@ -14,7 +14,7 @@
     <a title="ProviderTree Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TinkLink 0.9.6 Docs</a> (70% documented)</p>
+        <p><a href="../index.html">TinkLink 0.10.0 Docs</a> (75% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -50,6 +50,12 @@
                 <a href="../Classes/AuthorizationContext/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/ConsentContext.html">ConsentContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConsentContext/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/CredentialsContext.html">CredentialsContext</a>
               </li>
               <li class="nav-group-task">
@@ -59,13 +65,13 @@
                 <a href="../Classes/ProviderContext/Attributes.html">– Attributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask.html">RefreshCredentialTask</a>
+                <a href="../Classes/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask/Status.html">– Status</a>
+                <a href="../Classes/RefreshCredentialsTask/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask/Error.html">– Error</a>
+                <a href="../Classes/RefreshCredentialsTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/SupplementInformationTask.html">SupplementInformationTask</a>
@@ -77,16 +83,16 @@
                 <a href="../Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Tink.html">Tink</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Tink/Configuration.html">– Configuration</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/UserContext.html">UserContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/UserContext/Error.html">– Error</a>
+                <a href="../Classes/Tink/UserError.html">– UserError</a>
               </li>
             </ul>
           </li>
@@ -96,11 +102,20 @@
               <li class="nav-group-task">
                 <a href="../Enums/Environment.html">Environment</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ServiceError.html">ServiceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SessionCredential.html">SessionCredential</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Set.html">Set</a>
               </li>
@@ -125,6 +140,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientDescription.html">ClientDescription</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Credentials.html">Credentials</a>
@@ -181,7 +199,7 @@
                 <a href="../Structs/ProviderTree.html">ProviderTree</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/ProviderTree/CredentialKindNode.html">– CredentialKindNode</a>
+                <a href="../Structs/ProviderTree/CredentialsKindNode.html">– CredentialsKindNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
@@ -191,6 +209,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RefreshableItems.html">RefreshableItems</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Scope.html">Scope</a>
@@ -220,7 +241,7 @@
                 <a href="../Structs/ScopeDescription.html">ScopeDescription</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs.html#/s:8TinkLink4UserV">User</a>
+                <a href="../Structs/User.html">User</a>
               </li>
             </ul>
           </li>
@@ -255,13 +276,13 @@
     <span class="k">let</span> <span class="nv">financialInstitutionGroupNode</span> <span class="o">=</span> <span class="n">financialInstitutionGroupNodes</span><span class="p">[</span><span class="n">indexPath</span><span class="o">.</span><span class="n">row</span><span class="p">]</span>
     <span class="k">switch</span> <span class="n">financialInstitutionGroupNode</span> <span class="p">{</span>
     <span class="k">case</span> <span class="o">.</span><span class="nf">financialInstitutions</span><span class="p">(</span><span class="k">let</span> <span class="nv">financialInstitutionGroups</span><span class="p">):</span>
-        <span class="nf">showFinancialInstitution</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">financialInstitutionGroups</span><span class="p">,</span> <span class="nv">title</span><span class="p">:</span> <span class="n">financialInstitutionGroupNode</span><span class="o">.</span><span class="n">displayName</span><span class="p">)</span>
+        <span class="nf">showFinancialInstitution</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">financialInstitutionGroups</span><span class="p">)</span>
     <span class="k">case</span> <span class="o">.</span><span class="nf">accessTypes</span><span class="p">(</span><span class="k">let</span> <span class="nv">accessTypeGroups</span><span class="p">):</span>
-        <span class="nf">showAccessTypePicker</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">accessTypeGroups</span><span class="p">,</span> <span class="nv">title</span><span class="p">:</span> <span class="n">financialInstitutionGroupNode</span><span class="o">.</span><span class="n">displayName</span><span class="p">)</span>
-    <span class="k">case</span> <span class="o">.</span><span class="nf">credentialKinds</span><span class="p">(</span><span class="k">let</span> <span class="nv">groups</span><span class="p">):</span>
-        <span class="nf">showCredentialKindPicker</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">groups</span><span class="p">)</span>
+        <span class="nf">showAccessTypePicker</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">accessTypeGroups</span><span class="p">)</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">credentialsKinds</span><span class="p">(</span><span class="k">let</span> <span class="nv">groups</span><span class="p">):</span>
+        <span class="nf">showCredentialsKindPicker</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">groups</span><span class="p">)</span>
     <span class="k">case</span> <span class="o">.</span><span class="nf">provider</span><span class="p">(</span><span class="k">let</span> <span class="nv">provider</span><span class="p">):</span>
-        <span class="nf">showAddCredential</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">provider</span><span class="p">)</span>
+        <span class="nf">showAddCredentials</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">provider</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
@@ -295,7 +316,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Models/ProviderTree.swift#L">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/ProviderTree.swift#L">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -305,7 +326,7 @@
                     <code>
                     <a name="/s:8TinkLink12ProviderTreeV9providersACSayAA0C0VG_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(providers:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink12ProviderTreeV9providersACSayAA0C0VG_tcfc">init(providers:)</a>
+                    <a class="token" href="#/s:8TinkLink12ProviderTreeV9providersACSayAA0C0VG_tcfc">init(providers:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -325,7 +346,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Models/ProviderTree.swift#L31-L35">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/ProviderTree.swift#L31-L35">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -333,9 +354,39 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8TinkLink12ProviderTreeV18CredentialKindNodeV"></a>
-                    <a name="//apple_ref/swift/Struct/CredentialKindNode" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink12ProviderTreeV18CredentialKindNodeV">CredentialKindNode</a>
+                    <a name="/s:8TinkLink12ProviderTreeV25makeFinancialInstitutionsSayAC0F15InstitutionNodeOGyF"></a>
+                    <a name="//apple_ref/swift/Method/makeFinancialInstitutions()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink12ProviderTreeV25makeFinancialInstitutionsSayAC0F15InstitutionNodeOGyF">makeFinancialInstitutions()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeFinancialInstitutions</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Structs/ProviderTree/FinancialInstitutionNode.html">FinancialInstitutionNode</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/ProviderTree.swift#L37-L51">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink12ProviderTreeV19CredentialsKindNodeV"></a>
+                    <a name="//apple_ref/swift/Struct/CredentialsKindNode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink12ProviderTreeV19CredentialsKindNodeV">CredentialsKindNode</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -345,18 +396,18 @@
                       <div class="abstract">
                         <p>A parent node of the tree structure, with a <code><a href="../Structs/Provider.html">Provider</a></code> as it&rsquo;s leaf node.</p>
 
-                        <a href="../Structs/ProviderTree/CredentialKindNode.html" class="slightly-smaller">See more</a>
+                        <a href="../Structs/ProviderTree/CredentialsKindNode.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CredentialKindNode</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CredentialsKindNode</span> <span class="p">:</span> <span class="kt">Comparable</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Models/ProviderTree.swift#L38-L61">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/ProviderTree.swift#L54-L85">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -374,7 +425,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A parent node of the tree structure, with a list of either <code><a href="../Structs/ProviderTree/CredentialKindNode.html">CredentialKindNode</a></code> children or a single <code><a href="../Structs/Provider.html">Provider</a></code>.</p>
+                        <p>A parent node of the tree structure, with a list of either <code><a href="../Structs/ProviderTree/CredentialsKindNode.html">CredentialsKindNode</a></code> children or a single <code><a href="../Structs/Provider.html">Provider</a></code>.</p>
 
                         <a href="../Structs/ProviderTree/AccessTypeNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -382,12 +433,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">AccessTypeNode</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">AccessTypeNode</span> <span class="p">:</span> <span class="kt">Comparable</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Models/ProviderTree.swift#L64-L113">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/ProviderTree.swift#L88-L164">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -405,7 +456,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A parent node of the tree structure, with a list of either <code><a href="../Structs/ProviderTree/AccessTypeNode.html">AccessTypeNode</a></code>, <code><a href="../Structs/ProviderTree/CredentialKindNode.html">CredentialKindNode</a></code> children or a single <code><a href="../Structs/Provider.html">Provider</a></code>.</p>
+                        <p>A parent node of the tree structure, with a list of either <code><a href="../Structs/ProviderTree/AccessTypeNode.html">AccessTypeNode</a></code>, <code><a href="../Structs/ProviderTree/CredentialsKindNode.html">CredentialsKindNode</a></code> children or a single <code><a href="../Structs/Provider.html">Provider</a></code>.</p>
 
                         <a href="../Structs/ProviderTree/FinancialInstitutionNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -413,12 +464,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FinancialInstitutionNode</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FinancialInstitutionNode</span> <span class="p">:</span> <span class="kt">Comparable</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Models/ProviderTree.swift#L116-L176">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/ProviderTree.swift#L167-L260">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -436,7 +487,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A parent node of the tree structure, with a list of either <code><a href="../Structs/ProviderTree/FinancialInstitutionNode.html">FinancialInstitutionNode</a></code>, <code><a href="../Structs/ProviderTree/AccessTypeNode.html">AccessTypeNode</a></code>, <code><a href="../Structs/ProviderTree/CredentialKindNode.html">CredentialKindNode</a></code> children or a single <code><a href="../Structs/Provider.html">Provider</a></code>.</p>
+                        <p>A parent node of the tree structure, with a list of either <code><a href="../Structs/ProviderTree/FinancialInstitutionNode.html">FinancialInstitutionNode</a></code>, <code><a href="../Structs/ProviderTree/AccessTypeNode.html">AccessTypeNode</a></code>, <code><a href="../Structs/ProviderTree/CredentialsKindNode.html">CredentialsKindNode</a></code> children or a single <code><a href="../Structs/Provider.html">Provider</a></code>.</p>
 
                         <a href="../Structs/ProviderTree/FinancialInstitutionGroupNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -449,7 +500,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Models/ProviderTree.swift#L179-L256">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Models/ProviderTree.swift#L263-L360">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -459,8 +510,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-03-23)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

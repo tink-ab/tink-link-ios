@@ -14,7 +14,7 @@
     <a title="Tink Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TinkLink 0.9.6 Docs</a> (70% documented)</p>
+        <p><a href="../index.html">TinkLink 0.10.0 Docs</a> (75% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -50,6 +50,12 @@
                 <a href="../Classes/AuthorizationContext/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/ConsentContext.html">ConsentContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConsentContext/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/CredentialsContext.html">CredentialsContext</a>
               </li>
               <li class="nav-group-task">
@@ -59,13 +65,13 @@
                 <a href="../Classes/ProviderContext/Attributes.html">– Attributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask.html">RefreshCredentialTask</a>
+                <a href="../Classes/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask/Status.html">– Status</a>
+                <a href="../Classes/RefreshCredentialsTask/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/RefreshCredentialTask/Error.html">– Error</a>
+                <a href="../Classes/RefreshCredentialsTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/SupplementInformationTask.html">SupplementInformationTask</a>
@@ -77,16 +83,16 @@
                 <a href="../Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/ThirdPartyAppAuthenticationTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Tink.html">Tink</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Tink/Configuration.html">– Configuration</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/UserContext.html">UserContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/UserContext/Error.html">– Error</a>
+                <a href="../Classes/Tink/UserError.html">– UserError</a>
               </li>
             </ul>
           </li>
@@ -96,11 +102,20 @@
               <li class="nav-group-task">
                 <a href="../Enums/Environment.html">Environment</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ServiceError.html">ServiceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SessionCredential.html">SessionCredential</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Set.html">Set</a>
               </li>
@@ -125,6 +140,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientDescription.html">ClientDescription</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Credentials.html">Credentials</a>
@@ -181,7 +199,7 @@
                 <a href="../Structs/ProviderTree.html">ProviderTree</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/ProviderTree/CredentialKindNode.html">– CredentialKindNode</a>
+                <a href="../Structs/ProviderTree/CredentialsKindNode.html">– CredentialsKindNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
@@ -191,6 +209,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RefreshableItems.html">RefreshableItems</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Scope.html">Scope</a>
@@ -220,7 +241,7 @@
                 <a href="../Structs/ScopeDescription.html">ScopeDescription</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs.html#/s:8TinkLink4UserV">User</a>
+                <a href="../Structs/User.html">User</a>
               </li>
             </ul>
           </li>
@@ -256,9 +277,11 @@ same time.</p>
               <div class="task-name-container">
                 <a name="/Using%20the%20Shared%20Instance"></a>
                 <a name="//apple_ref/swift/Section/Using the Shared Instance" class="dashAnchor"></a>
-                <a href="#/Using%20the%20Shared%20Instance">
-                  <h3 class="section-name">Using the Shared Instance</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Using%20the%20Shared%20Instance"></a>
+                  <h3 class="section-name"><p>Using the Shared Instance</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -289,7 +312,72 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tink.swift#L20-L25">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tink.swift#L20-L25">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Specifying%20the%20Credential"></a>
+                <a name="//apple_ref/swift/Section/Specifying the Credential" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Specifying%20the%20Credential"></a>
+                  <h3 class="section-name"><p>Specifying the Credential</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C13setCredentialyyAA07SessionD0OSgF"></a>
+                    <a name="//apple_ref/swift/Method/setCredential(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C13setCredentialyyAA07SessionD0OSgF">setCredential(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the credential to be used for this Tink Context.</p>
+
+<p>The credential is associated with a specific user which has been
+created and authenticated through the Tink API.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setCredential</span><span class="p">(</span><span class="n">_</span> <span class="nv">credential</span><span class="p">:</span> <span class="kt"><a href="../Enums/SessionCredential.html">SessionCredential</a></span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>credential</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The credential to use.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tink.swift#L40-L42">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -300,9 +388,11 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
               <div class="task-name-container">
                 <a name="/Creating%20a%20Tink%20Link%20Object"></a>
                 <a name="//apple_ref/swift/Section/Creating a Tink Link Object" class="dashAnchor"></a>
-                <a href="#/Creating%20a%20Tink%20Link%20Object">
-                  <h3 class="section-name">Creating a Tink Link Object</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Creating%20a%20Tink%20Link%20Object"></a>
+                  <h3 class="section-name"><p>Creating a Tink Link Object</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -310,7 +400,7 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                     <code>
                     <a name="/s:8TinkLink0A0C13configurationA2C13ConfigurationV_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(configuration:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink0A0C13configurationA2C13ConfigurationV_tcfc">init(configuration:)</a>
+                    <a class="token" href="#/s:8TinkLink0A0C13configurationA2C13ConfigurationV_tcfc">init(configuration:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -349,7 +439,7 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tink.swift#L42-L44">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tink.swift#L58-L69">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -360,9 +450,11 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
               <div class="task-name-container">
                 <a name="/Configuring%20the%20Tink%20Link%20Object"></a>
                 <a name="//apple_ref/swift/Section/Configuring the Tink Link Object" class="dashAnchor"></a>
-                <a href="#/Configuring%20the%20Tink%20Link%20Object">
-                  <h3 class="section-name">Configuring the Tink Link Object</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Configuring%20the%20Tink%20Link%20Object"></a>
+                  <h3 class="section-name"><p>Configuring the Tink Link Object</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -370,7 +462,7 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                     <code>
                     <a name="/s:8TinkLink0A0C9configure4withyAC13ConfigurationV_tFZ"></a>
                     <a name="//apple_ref/swift/Method/configure(with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink0A0C9configure4withyAC13ConfigurationV_tFZ">configure(with:)</a>
+                    <a class="token" href="#/s:8TinkLink0A0C9configure4withyAC13ConfigurationV_tFZ">configure(with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -381,7 +473,7 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                         <p>Configure shared instance with configration description.</p>
 
 <p>Here&rsquo;s how you could configure Tink with a <code><a href="../Classes/Tink/Configuration.html">Tink.Configuration</a></code>.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">Configuration</span><span class="p">(</span><span class="nv">clientID</span><span class="p">:</span> <span class="s">"&lt;#clientID#&gt;"</span><span class="p">,</span> <span class="nv">redirectURI</span><span class="p">:</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">URL</span><span class="err">#</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">market</span><span class="p">:</span> <span class="s">"&lt;#SE#&gt;"</span><span class="p">,</span> <span class="nv">locale</span><span class="p">:</span> <span class="o">.</span><span class="n">current</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">Configuration</span><span class="p">(</span><span class="nv">clientID</span><span class="p">:</span> <span class="s">"&lt;#clientID#&gt;"</span><span class="p">,</span> <span class="nv">redirectURI</span><span class="p">:</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">URL</span><span class="err">#</span><span class="o">&gt;</span><span class="p">)</span>
 <span class="kt">Tink</span><span class="o">.</span><span class="nf">configure</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
 </code></pre>
 
@@ -414,7 +506,7 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tink.swift#L57-L59">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tink.swift#L82-L84">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -444,7 +536,7 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tink.swift#L62">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tink.swift#L87">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -455,9 +547,11 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
               <div class="task-name-container">
                 <a name="/Handling%20Redirects"></a>
                 <a name="//apple_ref/swift/Section/Handling Redirects" class="dashAnchor"></a>
-                <a href="#/Handling%20Redirects">
-                  <h3 class="section-name">Handling Redirects</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Handling%20Redirects"></a>
+                  <h3 class="section-name"><p>Handling Redirects</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -465,7 +559,7 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                     <code>
                     <a name="/s:8TinkLink0A0C4open_10completionSb10Foundation3URLV_ys6ResultOyyts5Error_pGcSgtF"></a>
                     <a name="//apple_ref/swift/Method/open(_:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink0A0C4open_10completionSb10Foundation3URLV_ys6ResultOyyts5Error_pGcSgtF">open(_:completion:)</a>
+                    <a class="token" href="#/s:8TinkLink0A0C4open_10completionSb10Foundation3URLV_ys6ResultOyyts5Error_pGcSgtF">open(_:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -494,7 +588,7 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Tink.swift#L79-L90">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tink.swift#L104-L117">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -505,9 +599,11 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
               <div class="task-name-container">
                 <a name="/Tink%20Link%20Configuration"></a>
                 <a name="//apple_ref/swift/Section/Tink Link Configuration" class="dashAnchor"></a>
-                <a href="#/Tink%20Link%20Configuration">
-                  <h3 class="section-name">Tink Link Configuration</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Tink%20Link%20Configuration"></a>
+                  <h3 class="section-name"><p>Tink Link Configuration</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -536,7 +632,7 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Configuration.swift#L6-L44">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Configuration.swift#L6-L44">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -547,9 +643,11 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
               <div class="task-name-container">
                 <a name="/Locales"></a>
                 <a name="//apple_ref/swift/Section/Locales" class="dashAnchor"></a>
-                <a href="#/Locales">
-                  <h3 class="section-name">Locales</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Locales"></a>
+                  <h3 class="section-name"><p>Locales</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -577,7 +675,7 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Extensions/Locale+Extensions.swift#L6-L19">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Extensions/Locale+Extensions.swift#L6-L19">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -607,7 +705,113 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.9.6/Sources/TinkLink/Extensions/Locale+Extensions.swift#L35-L43">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Extensions/Locale+Extensions.swift#L35-L43">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C9UserErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/UserError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C9UserErrorO">UserError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Classes/Tink/UserError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">UserError</span> <span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tink.swift#L122-L134">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Authenticating%20a%20User"></a>
+                <a name="//apple_ref/swift/Section/Authenticating a User" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Authenticating%20a%20User"></a>
+                  <h3 class="section-name"><p>Authenticating a User</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C16authenticateUser17authorizationCode10completionAA11Cancellable_AA9RetriablepSgAA013AuthorizationF0V_ys6ResultOyyts5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/authenticateUser(authorizationCode:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C16authenticateUser17authorizationCode10completionAA11Cancellable_AA9RetriablepSgAA013AuthorizationF0V_ys6ResultOyyts5Error_pGctF">authenticateUser(authorizationCode:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Authenticate a permanent user with authorization code.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">authenticateUser</span><span class="p">(</span><span class="nv">authorizationCode</span><span class="p">:</span> <span class="kt"><a href="../Structs/AuthorizationCode.html">AuthorizationCode</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:8TinkLink16RetryCancellablea">RetryCancellable</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authorizationCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Authenticate with a <code><a href="../Structs/AuthorizationCode.html">AuthorizationCode</a></code> that delegated from Tink to exchanged for a user object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A result representing either a success or an error.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tink.swift#L143-L154">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -617,8 +821,8 @@ before accessing the shared instance. Not doing so will cause a run-time error.<
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-03-23)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
