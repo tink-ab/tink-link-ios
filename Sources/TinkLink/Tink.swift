@@ -176,10 +176,12 @@ extension Tink {
 }
 
 extension Tink {
+    /// :nodoc:
     public func _beginUITask() {
         sdkHeaderBehavior.sdkName = "Tink Link UI iOS"
     }
 
+    /// :nodoc:
     public func _endUITask() {
         sdkHeaderBehavior.sdkName = "Tink Link iOS"
     }
