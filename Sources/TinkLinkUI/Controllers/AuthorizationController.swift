@@ -12,8 +12,6 @@ final class AuthorizationController {
 
     @discardableResult
     func authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
-        tink._beginUITask()
-        defer { tink._endUITask() }
         return authorizationContext._authorize(scopes: scopes, completion: completion)
     }
 

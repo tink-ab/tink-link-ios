@@ -113,6 +113,8 @@ final class AddCredentialsSession {
 
     private func handleAddCredentialsCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
         timer?.invalidate()
+        tink._beginUITask()
+        defer { tink._endUITask() }
         authorizeIfNeeded(onError: { [weak self] error in
             DispatchQueue.main.async {
                 self?.hideUpdatingView(animated: true) {
