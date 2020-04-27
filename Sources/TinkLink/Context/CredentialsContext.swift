@@ -225,6 +225,19 @@ public final class CredentialsContext {
                        completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.deleteCredentials(credentialsID: credentials.id, completion: completion)
     }
+
+    // MARK: - Authenticate Credentials
+
+    /// Authenticate the user's credentials.
+    /// - Parameters:
+    ///   - credentials: Credentials that needs to be deleted.
+    ///   - completion: The block to execute when the credentials has been authenticated successfuly or if it failed.
+    ///   - result: A result representing that the authentication succeeded or an error if failed.
+    /// - Returns: The authenticate credentials task.
+    public func authenticate(_ credentials: Credentials,
+                   completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
+        return service.manualAuthentication(credentialsID: credentials.id, completion: completion)
+    }
 }
 
 extension Notification.Name {
