@@ -60,7 +60,7 @@ public class TinkLinkViewController: UINavigationController {
     public let scopes: [Scope]
     private let tink: Tink
     private let market: Market
-    public let providerID: Provider.ID?
+    private let providerID: Provider.ID?
     /// The prefilling strategy to use. 
     public var prefill: PrefillStrategy = .none
     private var providerController: ProviderController
