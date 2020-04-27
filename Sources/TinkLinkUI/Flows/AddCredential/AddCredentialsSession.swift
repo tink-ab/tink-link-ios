@@ -5,6 +5,7 @@ final class AddCredentialsSession {
 
     weak var parentViewController: UIViewController?
 
+    private let tink: Tink
     private let providerController: ProviderController
     private let credentialsController: CredentialsController
     private let authorizationController: AuthorizationController
@@ -23,7 +24,8 @@ final class AddCredentialsSession {
 
     private var timer: Timer?
 
-    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
+    init(tink: Tink, providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
+        self.tink = tink
         self.parentViewController = parentViewController
         self.providerController = providerController
         self.credentialsController = credentialsController
