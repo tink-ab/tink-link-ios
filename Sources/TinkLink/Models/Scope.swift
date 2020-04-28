@@ -16,7 +16,7 @@ extension Scope {
 extension Scope: Equatable {}
 
 extension Array where Element == Scope {
-    var scopeDescription: String { map { $0.scopeDescription }.joined(separator: ",") }
+    var scopeDescription: String { map(\.scopeDescription).joined(separator: ",") }
 }
 
 public extension Scope {
