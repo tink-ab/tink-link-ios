@@ -52,7 +52,7 @@ public final class AuthorizationContext {
     public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.authorize(clientID: tink.configuration.clientID, redirectURI: redirectURI, scopes: scopes) { result in
-            let mappedResult = result.map(\0.code).mapError({ Error($0) ?? $0 })
+            let mappedResult = result.map(\.code).mapError({ Error($0) ?? $0 })
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not authorize: " + message)
             }
