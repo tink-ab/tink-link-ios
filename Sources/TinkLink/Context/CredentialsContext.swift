@@ -228,12 +228,12 @@ public final class CredentialsContext {
 
     // MARK: - Authenticate Credentials
 
-    /// Authenticate the user's credentials.
+    /// Authenticate the  user's `OPEN_BANKING` provider type credentials.
     /// - Parameters:
-    ///   - credentials: Credentials that needs to be deleted.
+    ///   - credentials: Credentials that needs to be authenticated.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
-    ///   - status: Indicates the state of a credentials being refreshed.
+    ///   - status: Indicates the state of a credentials being authenticated.
     ///   - completion: The block to execute when the credentials has been authenticated successfuly or if it failed.
     ///   - result: A result representing that the authentication succeeded or an error if failed.
     /// - Returns: The authenticate credentials task.
