@@ -38,9 +38,9 @@ public struct ProviderTree {
         let institutions: [FinancialInstitutionNode] = financialInstitutionGroups.flatMap { node -> [FinancialInstitutionNode] in
             switch node {
             case .accessTypes(let accessType):
-                return [FinancialInstitutionNode(providers: accessType.flatMap { $0.providers }) ]
+                return [FinancialInstitutionNode(providers: accessType.flatMap(\.providers)) ]
             case .credentialsKinds(let kinds):
-                return [FinancialInstitutionNode(providers: kinds.map { $0.provider })]
+                return [FinancialInstitutionNode(providers: kinds.map(\.provider))]
             case .provider(let provider):
                 return [FinancialInstitutionNode(providers: [provider])]
             case .financialInstitutions(let nodes):
@@ -134,7 +134,7 @@ public struct ProviderTree {
         public var providers: [Provider] {
             switch self {
             case .credentialsKinds(let nodes):
-                return nodes.map { $0.provider }
+                return nodes.map(\.provider)
             case .provider(let provider):
                 return [provider]
             }
@@ -204,7 +204,7 @@ public struct ProviderTree {
             if providers.count == 1, let provider = providers.first {
                 self = .provider(provider)
             } else {
-                let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: { $0.accessType })
+                let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
                 if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
                     let providersGroupedByCredentialsKind = providers
                         .map(CredentialsKindNode.init(provider:))
@@ -224,9 +224,9 @@ public struct ProviderTree {
         public var providers: [Provider] {
             switch self {
             case .accessTypes(let nodes):
-                return nodes.flatMap { $0.providers }
+                return nodes.flatMap(\.providers)
             case .credentialsKinds(let nodes):
-                return nodes.map { $0.provider }
+                return nodes.map(\.provider)
             case .provider(let provider):
                 return [provider]
             }
@@ -284,9 +284,9 @@ public struct ProviderTree {
             if providers.count == 1, let provider = providers.first {
                 self = .provider(provider)
             } else {
-                let providersGroupedByFinancialInstitution = Dictionary(grouping: providers, by: { $0.financialInstitution })
+                let providersGroupedByFinancialInstitution = Dictionary(grouping: providers, by: \.financialInstitution)
                 if providersGroupedByFinancialInstitution.count == 1, let providers = providersGroupedByFinancialInstitution.values.first {
-                    let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: { $0.accessType })
+                    let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
                     if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
                         let providersGroupedByCredentialsKind = providers
                             .map(CredentialsKindNode.init(provider:))
@@ -312,11 +312,11 @@ public struct ProviderTree {
         public var providers: [Provider] {
             switch self {
             case .financialInstitutions(let nodes):
-                return nodes.flatMap { $0.providers }
+                return nodes.flatMap(\.providers)
             case .accessTypes(let nodes):
-                return nodes.flatMap { $0.providers }
+                return nodes.flatMap(\.providers)
             case .credentialsKinds(let nodes):
-                return nodes.map { $0.provider }
+                return nodes.map(\.provider)
             case .provider(let provider):
                 return [provider]
             }
@@ -365,9 +365,9 @@ extension Array where Element == ProviderTree.FinancialInstitutionGroupNode {
         let institutions: [ProviderTree.FinancialInstitutionNode] = self.flatMap { node -> [ProviderTree.FinancialInstitutionNode] in
             switch node {
             case .accessTypes(let accessType):
-                return [ProviderTree.FinancialInstitutionNode(providers: accessType.flatMap { $0.providers }) ]
+                return [ProviderTree.FinancialInstitutionNode(providers: accessType.flatMap(\.providers)) ]
             case .credentialsKinds(let kinds):
-                return [ProviderTree.FinancialInstitutionNode(providers: kinds.map { $0.provider })]
+                return [ProviderTree.FinancialInstitutionNode(providers: kinds.map(\.provider))]
             case .provider(let provider):
                 return [ProviderTree.FinancialInstitutionNode(providers: [provider])]
             case .financialInstitutions(let nodes):
