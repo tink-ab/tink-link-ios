@@ -3,7 +3,6 @@ import Foundation
 
 final class CredentialsController {
     let tink: Tink
-    var user: User?
     private(set) var credentialsContext: CredentialsContext?
 
     init(tink: Tink) {
