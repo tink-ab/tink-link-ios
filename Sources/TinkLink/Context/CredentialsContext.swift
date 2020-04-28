@@ -228,7 +228,7 @@ public final class CredentialsContext {
 
     // MARK: - Authenticate Credentials
 
-    /// Authenticate the  user's `OPEN_BANKING` provider type credentials.
+    /// Authenticate the user's `OPEN_BANKING` access type credentials.
     /// - Parameters:
     ///   - credentials: Credentials that needs to be authenticated.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
