@@ -11,7 +11,8 @@ protocol AddCredentialsViewControllerDelegate: AnyObject {
 final class AddCredentialsViewController: UIViewController {
     let provider: Provider
     var username: String? {
-        credentialsController.user?.username
+        // FIXME: Fetch user to get username from.
+        nil
     }
 
     weak var delegate: AddCredentialsViewControllerDelegate?
