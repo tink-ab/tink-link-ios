@@ -231,12 +231,30 @@ public final class CredentialsContext {
     /// Authenticate the user's credentials.
     /// - Parameters:
     ///   - credentials: Credentials that needs to be deleted.
+    ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
+    ///   - progressHandler: The block to execute with progress information about the credential's status.
+    ///   - status: Indicates the state of a credentials being refreshed.
     ///   - completion: The block to execute when the credentials has been authenticated successfuly or if it failed.
     ///   - result: A result representing that the authentication succeeded or an error if failed.
     /// - Returns: The authenticate credentials task.
-    public func authenticate(_ credentials: Credentials,
-                   completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
-        return service.manualAuthentication(credentialsID: credentials.id, completion: completion)
+    public func authenticate(_ credentials: Credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+    progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
+    completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> AuthenticateCredentialsTask {
+
+        let appUri = tink.configuration.redirectURI
+
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
+
+        task.callCanceller = service.manualAuthentication(credentialsID: credentials.id, completion: { result in
+            switch result {
+            case .success:
+                task.startObserving()
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+
+        return task
     }
 }
 
