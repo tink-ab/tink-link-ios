@@ -38,15 +38,15 @@ final class RefreshCredentialsViewController: UITableViewController {
 
     private var isDeleting = false
 
-    private var providersByID: [Provider.ID: Provider]
+    private var provider: Provider
 
     private var canAuthenticate: Bool {
-        providersByID[credentials.providerID]?.accessType == .openBanking
+        provider.accessType == .openBanking
     }
 
-    init(credentials: Credentials, providersByID: [Provider.ID: Provider]) {
+    init(credentials: Credentials, provider: Provider) {
         self.credentials = credentials
-        self.providersByID = providersByID
+        self.provider = provider
 
         super.init(style: .grouped)
 
@@ -194,11 +194,9 @@ extension RefreshCredentialsViewController {
     }
 
     private func update() {
-        if let provider = providersByID[credentials.providerID] {
-            let updateCredentialsViewController = UpdateCredentialsViewController(provider: provider, credentials: credentials)
-            let viewController = UINavigationController(rootViewController: updateCredentialsViewController)
-            present(viewController, animated: true)
-        }
+        let updateCredentialsViewController = UpdateCredentialsViewController(provider: provider, credentials: credentials)
+        let viewController = UINavigationController(rootViewController: updateCredentialsViewController)
+        present(viewController, animated: true)
     }
 
     private func authenticate() {
