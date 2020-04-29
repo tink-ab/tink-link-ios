@@ -14,12 +14,17 @@ final class RefreshCredentialsViewController: UITableViewController {
     private enum Section: CaseIterable {
         case status
         case refresh
-        case update
-        case authenticate
         case delete
     }
 
+    private enum Item: CaseIterable {
+        case refresh
+        case update
+        case authenticate
+    }
+
     private var sections = Section.allCases
+    private var actionItems = Item.allCases
 
     private let dateFormatter = DateFormatter()
 
@@ -63,6 +68,7 @@ extension RefreshCredentialsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.separatorInset = .zero
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "Status")
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
     }
@@ -86,10 +92,10 @@ extension RefreshCredentialsViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .status, .refresh, .update, .delete:
+        case .status, .delete:
             return 1
-        case .authenticate:
-            return canAuthenticate ? 1 : 0
+        case .refresh:
+            return canAuthenticate ? actionItems.count : actionItems.count - 1
         }
     }
 
@@ -102,18 +108,16 @@ extension RefreshCredentialsViewController {
             return cell
         case .refresh:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
-            cell.actionLabel.text = "Refresh"
             cell.tintColor = nil
-            return cell
-        case .update:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
-            cell.actionLabel.text = "Update"
-            cell.tintColor = nil
-            return cell
-        case .authenticate:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
-            cell.actionLabel.text = "Authenticate"
-            cell.tintColor = nil
+            switch actionItems[indexPath.item] {
+            case .refresh:
+                cell.actionLabel.text = "Refresh"
+            case .update:
+                cell.actionLabel.text = "Update"
+            case .authenticate:
+                cell.actionLabel.text = "Authenticate"
+            }
+
             return cell
         case .delete:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
@@ -133,10 +137,6 @@ extension RefreshCredentialsViewController {
             return false
         case .refresh:
             return refreshCredentialsTask == nil
-        case .update:
-            return refreshCredentialsTask == nil
-        case .authenticate:
-            return refreshCredentialsTask == nil
         case .delete:
             return !isDeleting
         }
@@ -147,13 +147,16 @@ extension RefreshCredentialsViewController {
         case .status:
             break
         case .refresh:
-            refresh()
-            tableView.deselectRow(at: indexPath, animated: true)
-        case .update:
-            update()
-        case .authenticate:
-            authenticate()
-            tableView.deselectRow(at: indexPath, animated: true)
+            switch actionItems[indexPath.item] {
+            case .refresh:
+                refresh()
+                tableView.deselectRow(at: indexPath, animated: true)
+            case .update:
+                update()
+            case .authenticate:
+                authenticate()
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
         case .delete:
             isDeleting = true
             credentialsContext.delete(credentials) { [weak self] result in
