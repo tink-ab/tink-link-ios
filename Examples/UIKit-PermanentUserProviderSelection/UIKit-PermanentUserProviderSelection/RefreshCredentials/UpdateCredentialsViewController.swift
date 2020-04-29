@@ -125,16 +125,19 @@ extension UpdateCredentialsViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldTableViewCell.reuseIdentifier, for: indexPath) as! TextFieldTableViewCell
-        let fieldName = form.fields[indexPath.section].name
-        if let value = credentials.fields[fieldName] {
-            form.fields[indexPath.section].text = value
-        }
         let field = form.fields[indexPath.section]
         cell.delegate = self
         cell.textField.placeholder = field.attributes.placeholder
         cell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
         cell.textField.isEnabled = field.attributes.isEditable
-        cell.textField.text = field.text
+
+        let fieldName = form.fields[indexPath.section].name
+        if let value = credentials.fields[fieldName] {
+            form.fields[indexPath.section].text = value
+            cell.textField.isEnabled = false
+        }
+
+        cell.textField.text = form.fields[indexPath.section].text
         return cell
     }
 
