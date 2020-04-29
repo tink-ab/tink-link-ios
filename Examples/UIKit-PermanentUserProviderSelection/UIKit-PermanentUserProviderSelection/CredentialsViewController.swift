@@ -139,7 +139,7 @@ extension CredentialsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let credentials = credentialsList[indexPath.row]
         let provider = providersByID[credentials.providerID]
-        let refreshCredentialsViewController = RefreshCredentialsViewController(credentials: credentials)
+        let refreshCredentialsViewController = RefreshCredentialsViewController(credentials: credentials, providersByID: providersByID)
         refreshCredentialsViewController.title = provider?.displayName ?? "Credentials"
         show(refreshCredentialsViewController, sender: self)
     }
