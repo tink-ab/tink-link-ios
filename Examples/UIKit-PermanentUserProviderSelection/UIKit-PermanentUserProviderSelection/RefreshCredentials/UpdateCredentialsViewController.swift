@@ -138,6 +138,7 @@ extension UpdateCredentialsViewController {
         }
 
         cell.textField.text = form.fields[indexPath.section].text
+        navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
         return cell
     }
 
