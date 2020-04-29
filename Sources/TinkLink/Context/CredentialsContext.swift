@@ -199,6 +199,15 @@ public final class CredentialsContext {
         return task
     }
 
+    @available(*, deprecated, message: "Use update(_:form:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:progressHandler:completion) method instead.")
+    public func update(
+        _ credentials: Credentials,
+        form: Form? = nil,
+        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
+    ) -> RetryCancellable? {
+        self.update(credentials, form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true, progressHandler: { _ in }, completion: completion)
+    }
+
     /// Update the user's credentials.
     /// - Parameters:
     ///   - credentials: Credentials that needs to be updated.
