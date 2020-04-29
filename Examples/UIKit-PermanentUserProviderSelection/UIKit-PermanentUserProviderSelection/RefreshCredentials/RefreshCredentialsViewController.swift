@@ -24,7 +24,7 @@ final class RefreshCredentialsViewController: UITableViewController {
     }
 
     private var sections = Section.allCases
-    private var actionItems = Item.allCases
+    private var refreshSectionItems = Item.allCases
 
     private let dateFormatter = DateFormatter()
 
@@ -95,7 +95,7 @@ extension RefreshCredentialsViewController {
         case .status, .delete:
             return 1
         case .refresh:
-            return canAuthenticate ? actionItems.count : actionItems.count - 1
+            return canAuthenticate ? refreshSectionItems.count : refreshSectionItems.count - 1
         }
     }
 
@@ -109,7 +109,7 @@ extension RefreshCredentialsViewController {
         case .refresh:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
             cell.tintColor = nil
-            switch actionItems[indexPath.item] {
+            switch refreshSectionItems[indexPath.item] {
             case .refresh:
                 cell.actionLabel.text = "Refresh"
             case .update:
@@ -147,7 +147,7 @@ extension RefreshCredentialsViewController {
         case .status:
             break
         case .refresh:
-            switch actionItems[indexPath.item] {
+            switch refreshSectionItems[indexPath.item] {
             case .refresh:
                 refresh()
             case .update:
