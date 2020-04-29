@@ -14,9 +14,9 @@ final class UpdateCredentialsViewController: UITableViewController {
         }
     }
 
-    private var addCredentialsTask: AddCredentialsTask?
+    private var updateCredentialsTask: UpdateCredentialsTask?
     private var statusViewController: AddCredentialsStatusViewController?
-    private lazy var addBarButtonItem = UIBarButtonItem(title: "Update", style: .done, target: self, action: #selector(updateCredential))
+    private lazy var updateBarButtonItem = UIBarButtonItem(title: "Update", style: .done, target: self, action: #selector(updateCredential))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
@@ -50,7 +50,7 @@ extension UpdateCredentialsViewController {
         navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItem = addBarButtonItem
+        navigationItem.rightBarButtonItem = updateBarButtonItem
         navigationItem.rightBarButtonItem?.isEnabled = form.fields.isEmpty
 
         setupHelpFootnote()
@@ -169,7 +169,7 @@ extension UpdateCredentialsViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         do {
             try form.validateFields()
-            credentialsContext.update(credentials, form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            updateCredentialsTask = credentialsContext.update(credentials, form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
                 progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
                         self?.handleProgress(status)
@@ -252,7 +252,7 @@ extension UpdateCredentialsViewController {
     }
 
     @objc private func cancelRefreshingCredentials(_ sender: Any) {
-        addCredentialsTask?.cancel()
+        updateCredentialsTask?.cancel()
         dismiss(animated: true)
     }
 }
@@ -270,7 +270,7 @@ extension UpdateCredentialsViewController {
 
     private func showUpdating(status: String) {
         if statusViewController == nil {
-            navigationItem.setRightBarButton(addBarButtonItem, animated: true)
+            navigationItem.setRightBarButton(updateBarButtonItem, animated: true)
             let statusViewController = AddCredentialsStatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
