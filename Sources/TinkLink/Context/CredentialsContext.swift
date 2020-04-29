@@ -205,7 +205,7 @@ public final class CredentialsContext {
         form: Form? = nil,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> RetryCancellable? {
-        self.update(credentials, form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true, progressHandler: { _ in }, completion: completion)
+        update(credentials, form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true, progressHandler: { _ in }, completion: completion)
         return nil
     }
 
