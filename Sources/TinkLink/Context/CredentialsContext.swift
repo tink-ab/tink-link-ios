@@ -210,7 +210,7 @@ public final class CredentialsContext {
     public func update(_ credentials: Credentials, form: Form? = nil,
                        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RetryCancellable? {
         let appUri = tink.configuration.redirectURI
-        return service.updateCredentials(credentialsID: credentials.id, providerID: credentials.providerID, appUri: appUri, callbackUri: appUri, fields: form?.makeFields() ?? [:], completion: completion)
+        return service.updateCredentials(credentialsID: credentials.id, providerID: credentials.providerID, appUri: appUri, fields: form?.makeFields() ?? [:], completion: completion)
 
     }
 
