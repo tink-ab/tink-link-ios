@@ -1,6 +1,7 @@
 import Foundation
 
 public typealias AuthenticateCredentialsTask = RefreshCredentialsTask
+public typealias UpdateCredentialsTask = RefreshCredentialsTask
 
 /// A task that manages progress of refreshing a credential.
 ///
