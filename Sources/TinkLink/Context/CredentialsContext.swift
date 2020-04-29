@@ -98,7 +98,7 @@ public final class CredentialsContext {
         )
 
         if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = update(newlyAddedCredentials, form: form) { (result) in
+            task.callCanceller = service.updateCredentials(credentialsID: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appUri: appUri, fields: form.makeFields()) { (result) in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
