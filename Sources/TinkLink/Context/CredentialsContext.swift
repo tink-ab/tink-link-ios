@@ -207,8 +207,11 @@ public final class CredentialsContext {
     ///   - result: A result with either an updated credentials if the update succeeded or an error if failed.
     /// - Returns: The update credentials task.
     @discardableResult
-    public func update(_ credentials: Credentials, form: Form? = nil,
-                       completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func update(
+        _ credentials: Credentials,
+        form: Form? = nil,
+        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
+    ) -> RetryCancellable? {
         let appUri = tink.configuration.redirectURI
         return service.updateCredentials(credentialsID: credentials.id, providerID: credentials.providerID, appUri: appUri, fields: form?.makeFields() ?? [:], completion: completion)
 
