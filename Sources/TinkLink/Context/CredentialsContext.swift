@@ -210,11 +210,37 @@ public final class CredentialsContext {
     public func update(
         _ credentials: Credentials,
         form: Form? = nil,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+        progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> RetryCancellable? {
+    ) -> UpdateCredentialsTask {
         let appUri = tink.configuration.redirectURI
-        return service.updateCredentials(credentialsID: credentials.id, providerID: credentials.providerID, appUri: appUri, fields: form?.makeFields() ?? [:], completion: completion)
 
+        let task = UpdateCredentialsTask(
+            credentials: credentials,
+            credentialsService: service,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
+            appUri: appUri,
+            progressHandler: progressHandler,
+            completion: completion
+        )
+
+        task.callCanceller = service.updateCredentials(
+            credentialsID: credentials.id,
+            providerID: credentials.providerID,
+            appUri: appUri,
+            fields: form?.makeFields() ?? [:],
+            completion: { result in
+                switch result {
+                case .success:
+                    task.startObserving()
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        )
+
+        return task
     }
 
     /// Delete the user's credentials.
