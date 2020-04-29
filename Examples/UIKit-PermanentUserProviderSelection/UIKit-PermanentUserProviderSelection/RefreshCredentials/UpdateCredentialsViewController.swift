@@ -16,7 +16,7 @@ final class UpdateCredentialsViewController: UITableViewController {
 
     private var addCredentialsTask: AddCredentialsTask?
     private var statusViewController: AddCredentialsStatusViewController?
-    private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(updateCredential))
+    private lazy var addBarButtonItem = UIBarButtonItem(title: "Update", style: .done, target: self, action: #selector(updateCredential))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
