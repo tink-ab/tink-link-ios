@@ -98,7 +98,7 @@ public final class CredentialsContext {
         )
 
         if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = update(newlyAddedCredentials, form: form) { (result) in
+            task.callCanceller = service.updateCredentials(credentialsID: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appUri: appUri, fields: form.makeFields()) { (result) in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
@@ -199,19 +199,61 @@ public final class CredentialsContext {
         return task
     }
 
+    @available(*, deprecated, message: "Use update(_:form:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:progressHandler:completion) method instead.")
+    public func update(
+        _ credentials: Credentials,
+        form: Form? = nil,
+        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
+    ) -> RetryCancellable? {
+        update(credentials, form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true, progressHandler: { _ in }, completion: completion)
+        return nil
+    }
+
     /// Update the user's credentials.
     /// - Parameters:
     ///   - credentials: Credentials that needs to be updated.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
+    ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
+    ///   - progressHandler: The block to execute with progress information about the credential's status.
+    ///   - status: Indicates the state of a credentials being updated.
     ///   - completion: The block to execute when the credentials has been updated successfuly or if it failed.
     ///   - result: A result with either an updated credentials if the update succeeded or an error if failed.
     /// - Returns: The update credentials task.
     @discardableResult
-    public func update(_ credentials: Credentials, form: Form? = nil,
-                       completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func update(
+        _ credentials: Credentials,
+        form: Form? = nil,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+        progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
+        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
+    ) -> UpdateCredentialsTask {
         let appUri = tink.configuration.redirectURI
-        return service.updateCredentials(credentialsID: credentials.id, providerID: credentials.providerID, appUri: appUri, callbackUri: appUri, fields: form?.makeFields() ?? [:], completion: completion)
 
+        let task = UpdateCredentialsTask(
+            credentials: credentials,
+            credentialsService: service,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
+            appUri: appUri,
+            progressHandler: progressHandler,
+            completion: completion
+        )
+
+        task.callCanceller = service.updateCredentials(
+            credentialsID: credentials.id,
+            providerID: credentials.providerID,
+            appUri: appUri,
+            fields: form?.makeFields() ?? [:],
+            completion: { result in
+                switch result {
+                case .success:
+                    task.startObserving()
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        )
+
+        return task
     }
 
     /// Delete the user's credentials.
