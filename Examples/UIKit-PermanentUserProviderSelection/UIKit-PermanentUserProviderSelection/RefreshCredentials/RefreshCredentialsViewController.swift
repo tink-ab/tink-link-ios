@@ -270,6 +270,7 @@ extension RefreshCredentialsViewController {
         } catch {
             // Handle any errors
         }
+        refreshCredentialsTask = nil
     }
 
     @objc private func cancelRefreshingCredentials(_ sender: Any) {
