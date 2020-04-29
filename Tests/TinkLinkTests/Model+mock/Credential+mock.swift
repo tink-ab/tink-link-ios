@@ -14,7 +14,7 @@ extension Credentials {
         default:
             break
         }
-        self = Credentials(id: credentials.id, providerID: credentials.providerID, kind: credentials.kind, status: status, statusPayload: credentials.statusPayload, statusUpdated: Date(), updated: Date(), fields: credentials.fields, supplementalInformationFields: supplementalInformationFields, thirdPartyAppAuthentication: credentials.thirdPartyAppAuthentication, sessionExpiryDate: credentials.sessionExpiryDate)
+        self = Credentials(id: credentials.id, providerID: credentials.providerID, kind: credentials.kind, status: status, statusPayload: credentials.statusPayload, statusUpdated: Date(), updated: Date(), fields: credentials.fields, supplementalInformationFields: supplementalInformationFields, thirdPartyAppAuthentication: thirdPartyAppAuthentication, sessionExpiryDate: credentials.sessionExpiryDate)
     }
 
     func nextCredentialsStatus() -> Credentials.Status {
