@@ -203,6 +203,9 @@ public final class CredentialsContext {
     /// - Parameters:
     ///   - credentials: Credentials that needs to be updated.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
+    ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
+    ///   - progressHandler: The block to execute with progress information about the credential's status.
+    ///   - status: Indicates the state of a credentials being updated.
     ///   - completion: The block to execute when the credentials has been updated successfuly or if it failed.
     ///   - result: A result with either an updated credentials if the update succeeded or an error if failed.
     /// - Returns: The update credentials task.
