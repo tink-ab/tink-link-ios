@@ -156,11 +156,13 @@ extension CredentialsViewController {
         guard editingStyle == .delete else { return }
         let credentials = credentialsList[indexPath.row]
         credentialsContext.delete(credentials) { [weak self] (result) in
-            do {
-                _ = try result.get()
-                self?.credentialsList.remove(at: indexPath.item)
-            } catch {
-                // Handle any errors
+            DispatchQueue.main.async {
+                do {
+                    _ = try result.get()
+                    self?.credentialsList.remove(at: indexPath.item)
+                } catch {
+                    // Handle any errors
+                }
             }
         }
     }
