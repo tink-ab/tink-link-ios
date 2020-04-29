@@ -150,13 +150,12 @@ extension RefreshCredentialsViewController {
             switch actionItems[indexPath.item] {
             case .refresh:
                 refresh()
-                tableView.deselectRow(at: indexPath, animated: true)
             case .update:
                 update()
             case .authenticate:
                 authenticate()
-                tableView.deselectRow(at: indexPath, animated: true)
             }
+            tableView.deselectRow(at: indexPath, animated: true)
         case .delete:
             isDeleting = true
             credentialsContext.delete(credentials) { [weak self] result in
@@ -195,7 +194,11 @@ extension RefreshCredentialsViewController {
     }
 
     private func update() {
-        
+        if let provider = providersByID[credentials.providerID] {
+            let updateCredentialsViewController = UpdateCredentialsViewController(provider: provider, credentials: credentials)
+            let viewController = UINavigationController(rootViewController: updateCredentialsViewController)
+            present(viewController, animated: true)
+        }
     }
 
     private func authenticate() {
