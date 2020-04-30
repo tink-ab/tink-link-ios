@@ -55,12 +55,17 @@ public class TinkLinkViewController: UINavigationController {
         /// Will attempt to fill the first field of the provider with the associated value if it is valid.
         case username(value: String, isEditable: Bool)
     }
+
+    public enum ProviderPredicate {
+        case kinds(Set<Provider.Kind>)
+        case name(Provider.ID)
+    }
   
     /// Scopes that grant access to Tink.
     public let scopes: [Scope]
     private let tink: Tink
     private let market: Market
-    private let providerID: Provider.ID?
+    private let providerPredicate: ProviderPredicate
     /// The prefilling strategy to use. 
     public var prefill: PrefillStrategy = .none
     private var providerController: ProviderController
@@ -84,12 +89,12 @@ public class TinkLinkViewController: UINavigationController {
     ///   - providerKinds: The kind of providers that will be listed.
     ///   - providerID: The ID of a specific provider. This will open Tink Link with that provider preselected. Optional.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, providerID: Provider.ID? = nil, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.defaultKinds), completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
         self.market = market
         self.scopes = scopes
-        self.providerController = ProviderController(tink: tink, providerKinds: providerKinds)
-        self.providerID = providerID
+        self.providerController = ProviderController(tink: tink, providerPredicate: providerPredicate)
+        self.providerPredicate = providerPredicate
         self.completion = completion
 
         super.init(nibName: nil, bundle: nil)
@@ -115,17 +120,16 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     func fetchProviders() {
-        providerController.performFetch { (result) in
+        providerController.fetch { (result) in
             DispatchQueue.main.async {
                 self.loadingViewController.hideLoadingIndicator()
                 switch result {
                 case .success(let providers):
-                    self.setViewControllers([], animated: false)
-                    if let providerID = self.providerID,
-                    let provider = providers.first(where: { $0.id == providerID }) {
-                        self.showAddCredentials(for: provider, animated: false)
-                    } else {
-                        self.showProviderPicker()
+                    switch self.providerPredicate {
+                    case .kinds:
+                        // TODO
+                    case .name:
+                        // TODO
                     }
                 case .failure (let error):
                     if let tinkLinkError = TinkLinkError(error: error) {
