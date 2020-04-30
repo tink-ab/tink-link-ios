@@ -100,6 +100,18 @@ public class TinkLinkViewController: UINavigationController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, deprecated, message: "use tink:market:scopes:providerPredicate: instead")
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+        self.tink = tink
+        self.market = market
+        self.scopes = scopes
+        self.providerController = ProviderController(tink: tink, providerPredicate: .kinds(.defaultKinds))
+        self.completion = completion
+        self.providerPredicate = TinkLinkViewController.ProviderPredicate.kinds(.defaultKinds)
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -125,11 +137,14 @@ public class TinkLinkViewController: UINavigationController {
                 self.loadingViewController.hideLoadingIndicator()
                 switch result {
                 case .success(let providers):
+                    self.setViewControllers([], animated: false)
                     switch self.providerPredicate {
                     case .kinds:
-                        // TODO
+                        self.showProviderPicker()
                     case .name:
-                        // TODO
+                        if let provider = providers.first {
+                            self.showAddCredentials(for: provider, animated: false)
+                        }
                     }
                 case .failure (let error):
                     if let tinkLinkError = TinkLinkError(error: error) {
