@@ -8,9 +8,14 @@ struct CredentialsDetailView: View {
     let provider: Provider?
 
     @State private var isRefreshing = false
+    @State private var isAuthenticating = false
+    @State private var isUpdating = false
 
     private var updatedCredentials: Credentials {
         credentialsController.credentials.first(where: { $0.id == credentials.id }) ?? credentials
+    }
+    private var canAuthenticate: Bool {
+        provider?.accessType == .openBanking
     }
 
     private let dateFormatter: DateFormatter = {
@@ -37,6 +42,15 @@ struct CredentialsDetailView: View {
                 Text("Refresh")
             }
             .disabled(isRefreshing)
+            Button(action: update) {
+                Text(verbatim: "Update")
+            }
+            if canAuthenticate {
+                Button(action: authenticate) {
+                    Text(verbatim: "Authenticate")
+                }
+                .disabled(isAuthenticating)
+            }
         }
         .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
         .sheet(item: .init(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) { (task) in
@@ -50,6 +64,17 @@ struct CredentialsDetailView: View {
         isRefreshing = true
         credentialsController.performRefresh(credentials: credentials) { (result) in
             self.isRefreshing = false
+        }
+    }
+
+    private func update() {
+        isUpdating = true
+    }
+
+    private func authenticate() {
+        isAuthenticating = true
+        credentialsController.performAuthentication(credentials: credentials) { (result) in
+            self.isAuthenticating = false
         }
     }
 }

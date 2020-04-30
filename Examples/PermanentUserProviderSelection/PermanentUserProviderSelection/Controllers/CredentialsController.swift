@@ -32,7 +32,21 @@ final class CredentialsController: ObservableObject {
             completion: { [weak self] result in
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
-        })
+            }
+        )
+    }
+
+    func performAuthentication(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        task = credentialsContext.authenticate(
+            credentials,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            progressHandler: { [weak self] in
+                self?.refreshProgressHandler(status: $0)
+            }, completion: { [weak self] result in
+                self?.refreshCompletionHandler(result: result)
+                completion(result)
+            }
+        )
     }
 
     func cancelRefresh() {
