@@ -311,7 +311,7 @@ extension TinkLinkViewController {
         }
     }
 
-    func showAddCredentials(for provider: Provider, animated: Bool? = true) {
+    func showAddCredentials(for provider: Provider, animated: Bool = true) {
         guard let clientDescription = clientDescription else {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.showAddCredentials(for: provider, animated: animated)
