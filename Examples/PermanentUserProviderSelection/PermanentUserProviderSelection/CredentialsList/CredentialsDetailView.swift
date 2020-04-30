@@ -58,6 +58,12 @@ struct CredentialsDetailView: View {
                 self.credentialsController.supplementInformationTask = nil
             }
         }
+        .sheet(isPresented: $isUpdating) {
+            UpdateCredentialsFlowView(provider: self.provider!, credentials: self.credentials, credentialsController: self.credentialsController) { result in
+                self.isUpdating = false
+                self.credentialsController.performFetch()
+            }
+        }
     }
 
     private func refresh() {
