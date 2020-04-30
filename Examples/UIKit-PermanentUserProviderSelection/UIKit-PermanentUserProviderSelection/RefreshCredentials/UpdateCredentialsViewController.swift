@@ -24,7 +24,7 @@ final class UpdateCredentialsViewController: UITableViewController {
     init(provider: Provider, credentials: Credentials) {
         self.provider = provider
         self.credentials = credentials
-        self.form = Form(provider: provider)
+        self.form = Form(updatingCredentials: credentials, provider: provider)
 
         if #available(iOS 13.0, *) {
             super.init(style: .insetGrouped)
@@ -130,15 +130,7 @@ extension UpdateCredentialsViewController {
         cell.textField.placeholder = field.attributes.placeholder
         cell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
         cell.textField.isEnabled = field.attributes.isEditable
-
-        let fieldName = form.fields[indexPath.section].name
-        if let value = credentials.fields[fieldName] {
-            form.fields[indexPath.section].text = value
-            cell.textField.isEnabled = false
-        }
-
-        cell.textField.text = form.fields[indexPath.section].text
-        navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
+        cell.textField.text = field.text
         return cell
     }
 
