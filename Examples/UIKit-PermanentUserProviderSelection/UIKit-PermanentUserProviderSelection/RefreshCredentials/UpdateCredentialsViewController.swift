@@ -47,7 +47,7 @@ extension UpdateCredentialsViewController {
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: TextFieldTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
 
-        navigationItem.prompt = "Enter Credentials"
+        navigationItem.prompt = "Update Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = updateBarButtonItem
