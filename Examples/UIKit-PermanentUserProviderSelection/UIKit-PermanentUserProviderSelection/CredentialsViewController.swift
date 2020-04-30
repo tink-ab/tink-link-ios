@@ -102,6 +102,7 @@ extension CredentialsViewController {
         providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAddingCredentials))
         let navigationController = UINavigationController(rootViewController: providerListViewController)
         navigationController.presentationController?.delegate = self
+        navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true)
     }
 
