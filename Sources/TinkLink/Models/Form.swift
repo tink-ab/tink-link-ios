@@ -322,6 +322,19 @@ extension Form {
     public init(credentials: Credentials) {
         self.init(fieldSpecifications: credentials.supplementalInformationFields)
     }
+
+    public init(updatingCredentials: Credentials, provider: Provider) {
+        let providerFieldSpecifications = provider.fields
+        let credentialsFields = updatingCredentials.fields
+        let fieldSpecifications = providerFieldSpecifications.map { fieldSpecification -> Provider.FieldSpecification in
+            if let text = credentialsFields[fieldSpecification.name] {
+                return Provider.FieldSpecification(fieldDescription: fieldSpecification.fieldDescription, hint: fieldSpecification.hint, maxLength: fieldSpecification.maxLength, minLength: fieldSpecification.minLength, isMasked: fieldSpecification.isMasked, isNumeric: fieldSpecification.isMasked, isImmutable: true, isOptional: fieldSpecification.isOptional, name: fieldSpecification.name, initialValue: text, pattern: fieldSpecification.pattern, patternError: fieldSpecification.patternError, helpText: fieldSpecification.helpText)
+            } else {
+                return fieldSpecification
+            }
+        }
+        self.init(fieldSpecifications: fieldSpecifications)
+    }
 }
 
 extension Form.Fields {
