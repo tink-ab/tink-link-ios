@@ -51,7 +51,7 @@ extension UpdateCredentialsViewController {
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = updateBarButtonItem
-        navigationItem.rightBarButtonItem?.isEnabled = form.fields.isEmpty
+        navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
 
         setupHelpFootnote()
         layoutHelpFootnote()
