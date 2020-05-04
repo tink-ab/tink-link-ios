@@ -13,7 +13,7 @@ final class RefreshCredentialsViewController: UITableViewController {
 
     private enum Section: CaseIterable {
         case status
-        case refresh
+        case actions
         case delete
     }
 
@@ -24,7 +24,7 @@ final class RefreshCredentialsViewController: UITableViewController {
     }
 
     private var sections = Section.allCases
-    private var refreshSectionItems = Item.allCases
+    private var actionsSectionItems = Item.allCases
 
     private let dateFormatter = DateFormatter()
 
@@ -68,7 +68,6 @@ extension RefreshCredentialsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.separatorInset = .zero
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "Status")
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
     }
@@ -94,8 +93,8 @@ extension RefreshCredentialsViewController {
         switch sections[section] {
         case .status, .delete:
             return 1
-        case .refresh:
-            return canAuthenticate ? refreshSectionItems.count : refreshSectionItems.count - 1
+        case .actions:
+            return canAuthenticate ? actionsSectionItems.count : actionsSectionItems.count - 1
         }
     }
 
@@ -106,10 +105,10 @@ extension RefreshCredentialsViewController {
             cell.textLabel?.text = String(describing: credentials.status).localizedCapitalized
             cell.detailTextLabel?.text = credentials.statusUpdated.map(dateFormatter.string(from:))
             return cell
-        case .refresh:
+        case .actions:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
             cell.tintColor = nil
-            switch refreshSectionItems[indexPath.item] {
+            switch actionsSectionItems[indexPath.item] {
             case .refresh:
                 cell.actionLabel.text = "Refresh"
             case .update:
@@ -135,7 +134,7 @@ extension RefreshCredentialsViewController {
         switch sections[indexPath.section] {
         case .status:
             return false
-        case .refresh:
+        case .actions:
             return refreshCredentialsTask == nil
         case .delete:
             return !isDeleting
@@ -146,8 +145,8 @@ extension RefreshCredentialsViewController {
         switch sections[indexPath.section] {
         case .status:
             break
-        case .refresh:
-            switch refreshSectionItems[indexPath.item] {
+        case .actions:
+            switch actionsSectionItems[indexPath.item] {
             case .refresh:
                 refresh()
             case .update:
