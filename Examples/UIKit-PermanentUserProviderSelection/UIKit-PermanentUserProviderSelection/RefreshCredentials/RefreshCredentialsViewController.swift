@@ -201,7 +201,7 @@ extension RefreshCredentialsViewController {
     private func update() {
         let updateCredentialsViewController = UpdateCredentialsViewController(provider: provider, credentials: credentials) { [weak self] result in
             do {
-                self.credentials = try result.get()
+                self?.credentials = try result.get()
             } catch {
 
             }
