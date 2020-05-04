@@ -11,20 +11,26 @@ final class RefreshCredentialsViewController: UITableViewController {
         }
     }
 
-    private enum Section: CaseIterable {
+    private enum Section {
         case status
-        case actions
+        case actions([Action])
         case delete
     }
 
-    private enum Item: CaseIterable {
+    private enum Action {
         case refresh
         case update
         case authenticate
     }
 
-    private var sections = Section.allCases
-    private var actionsSectionItems = Item.allCases
+    private var sections: [Section] {
+        var actions: [Action] = [.refresh, .update]
+        if canAuthenticate {
+            actions.append(.authenticate)
+        }
+        let sections: [Section] = [.status, .actions(actions), .delete]
+        return sections
+    }
 
     private let dateFormatter = DateFormatter()
 
@@ -93,8 +99,8 @@ extension RefreshCredentialsViewController {
         switch sections[section] {
         case .status, .delete:
             return 1
-        case .actions:
-            return canAuthenticate ? actionsSectionItems.count : actionsSectionItems.count - 1
+        case .actions(let actionItems):
+            return actionItems.count
         }
     }
 
@@ -105,10 +111,10 @@ extension RefreshCredentialsViewController {
             cell.textLabel?.text = String(describing: credentials.status).localizedCapitalized
             cell.detailTextLabel?.text = credentials.statusUpdated.map(dateFormatter.string(from:))
             return cell
-        case .actions:
+        case .actions(let actionItems):
             let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
             cell.tintColor = nil
-            switch actionsSectionItems[indexPath.item] {
+            switch actionItems[indexPath.item] {
             case .refresh:
                 cell.actionLabel.text = "Refresh"
             case .update:
@@ -145,8 +151,8 @@ extension RefreshCredentialsViewController {
         switch sections[indexPath.section] {
         case .status:
             break
-        case .actions:
-            switch actionsSectionItems[indexPath.item] {
+        case .actions(let actionItems):
+            switch actionItems[indexPath.item] {
             case .refresh:
                 refresh()
             case .update:
