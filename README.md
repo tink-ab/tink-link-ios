@@ -57,7 +57,7 @@ let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <
 Tink.configure(with: configuration)
 ```
 
-## Redirect Handling
+## Redirect handling
 
 You will need to add a custom URL scheme or support universal links to handle redirects from a third party authentication flow back into your app.
 
