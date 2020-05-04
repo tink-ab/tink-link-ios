@@ -179,10 +179,9 @@ extension AddCredentialsViewController {
 
 extension AddCredentialsViewController {
     private func setupHelpFootnote() {
-        if !provider.helpText.isEmpty {
-            helpLabel.configure(markdownString: provider.helpText)
-            tableView.tableFooterView = helpLabel
-        }
+        guard let helpText = provider.helpText, !helpText.isEmpty else { return }
+        helpLabel.configure(markdownString: helpText)
+        tableView.tableFooterView = helpLabel
     }
 
     private func layoutHelpFootnote() { 
