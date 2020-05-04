@@ -57,18 +57,7 @@ let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <
 Tink.configure(with: configuration)
 ```
 
-### Environment Variables
-
-The shared instance of Tink can also be configured using environment variables defined in your application's target run scheme.
-
-| Key                         | Value      |
-| --------------------------- | ---------- |
-| `TINK_CLIENT_ID`            | String     |
-| `TINK_REDIRECT_URI`         | String     |
-| `TINK_CUSTOM_REST_ENDPOINT` | _Optional_ |
-| `TINK_REST_CERTIFICATE_URL` | _Optional_ |
-
-## Redirect Handling
+## Redirect handling
 
 You will need to add a custom URL scheme or support universal links to handle redirects from a third party authentication flow back into your app.
 
@@ -76,47 +65,6 @@ Follow the instructions in one of these links to learn how to set this up:
 
 - [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app)
 - [Allowing Apps and Websites to Link to Your Content](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content)
-
-## Tink Link UI
-
-### Customization 
-
-You can only customize the appearance of Tink Link UI. 
-To configure colors or fonts, you can update `Appearance.provider`. This needs to be done before initializing the `TinkLinkViewController`.
-
-#### Colors
-
-|`Color`|Description|
-|--------|-------------|
-|`background`|Color for the main background of the interface.|
-|`secondaryBackground`|Color for content layered on top of the main background.|
-|`groupedBackground`|Color for the main background of grouped interface components.|
-|`secondaryGroupedBackground`|Color for content layered on top of the main background of grouped interface components.|
-|`label`|Primary text color.|
-|`secondaryLabel`|Secondary text color.|
-|`separator`|Color for separators.|
-|`accent`|Colors for buttons, indicators and other similar elements.|
-|`warning`|Color representing a warning.|
-|`critical`|Color representing a critical warning or error.|
-
-```swift
-let colorProvider = ColorProvider()
-colorProvider.accent = <#UIColor#>
-Appearance.provider.colors = colorProvider
-```
-
-#### Themes
-You can configure colors and font by providing Tink Link SDK with a `ColorProviding` and `FontProviding` type respectively. Tink Link SDK also provides a `AppearanceProvider` type that can be used to easily customize the Tink Link SDK views. 
-
-```swift
-let colorProvider = ColorProvider()
-let fontProvider = FontProvider()
-colorProvider.accent = <#UIColor#>
-fontProvider.regularFont = <#UIFont#>
-fontProvider.boldFont = <#UIFont#>
-
-Appearance.provider = AppearenceProvider(colors: colorProvider, fonts: fontProvider)
-```
 
 ## Examples
 

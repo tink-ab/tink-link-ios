@@ -166,10 +166,10 @@ do {
 
 ### Add credentials with form fields
 
-To add a credential for the current user, call `add` with the provider you want to add a credential for and a form with valid field values. Make sure to handle the status changes in the `progressHandler` closure and the `result` in the completion handler.
+To add credentials for the current user, call `add` with the provider you want to add credentials for and a form with valid field values. Make sure to handle the status changes in the `progressHandler` closure and the `result` in the completion handler.
 
 ```swift
-credentialContext.add(for: provider, form: form, progressHandler: { status in
+credentialsContext.add(for: provider, form: form, progressHandler: { status in
     switch status {
     case .awaitingSupplementalInformation(let supplementInformationTask):
         <#Present form for supplemental information task#>
@@ -211,12 +211,10 @@ After submitting the form, further status updates will once again be sent to the
 Third party authentication is used to handle authentication outside of your app (such as app-to-app and app-to-web redirects). When the `progressHandler` emits a `awaitingThirdPartyAppAuthentication` status, you should let the `ThirdPartyAppAuthenticationTask` object handle the update as follows:
 
 ```swift
-/// thirdPartyAppAuthenticationTask.handle()
+thirdPartyAppAuthenticationTask.handle()
 ```
 
-If the third party authentication couldn't be handled by the `ThirdPartyAppAuthenticationTask`, you need to handle the `AddCredentialsTask` completion result and check for a `ThirdPartyAppAuthenticationTask.Error`. This error can tell you if the user needs to download the thirdparty authentication app.
-
-Here is how you can prompt the user to download the third party app if it is not currently installed on the device:
+If the third party authentication couldn't be handled by the `ThirdPartyAppAuthenticationTask`, you need to handle the `AddCredentialsTask` completion result and check for a `ThirdPartyAppAuthenticationTask.Error`. This error can tell you if the user needs to download the third party authentication app.
 
 ```swift
 let alertController = UIAlertController(title: thirdPartyAppAuthenticationTaskError.errorDescription, message: thirdPartyAppAuthenticationTaskError.failureReason, preferredStyle: .alert)
@@ -236,7 +234,7 @@ if let appStoreURL = thirdPartyAppAuthenticationTaskError.appStoreURL, UIApplica
 present(alertController, animated: true)
 ```
 
-After the redirect to the third party app, some providers require additional information from the authentication to be sent back to Tink after the user authenticates within the third party app, for the credentials to be added successfully. This information is returned to your app through the redirect URI. Use the `open` method in your `UIApplicationDelegate` to let Tink Link send the information back to Tink if needed.
+After the redirect to the third party app, some providers require additional information from the authentication to be sent back to Tink after the user authenticates within the third party app for the credentials to be added successfully. This information will be included as part of the redirect URI. Use the `open` method in your `UIApplicationDelegate` to let Tink Link send the information back to Tink if needed.
 
 ```swift
 func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -284,7 +282,7 @@ authorizationContext.scopeDescriptions(scopes: scopes) { [weak self] result in
 }
 ```
 
-## Displaying Terms and Conditions and Privacy Policy
+## Displaying terms and conditions and privacy policy
 
 If you are aggregating data under Tink's license, the user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before any data is aggregated.
 
@@ -308,12 +306,25 @@ func showPrivacyPolicy() {
 
 ## Advanced usage
 
+### Multiple Tink instances
+
 In some cases, you may want to have multiple `Tink` instances. You can create multiple `Tink` instance as follows:
 
 ```swift
 let configuration = Tink.Configuration(clientID: <#T##String#>, redirectURI: <#T##URL#>)
 let customTink = Tink(configuration: configuration)
 ```
+
+### Environment variables
+
+The shared instance of Tink can also be configured using environment variables defined in your application's target run scheme.
+
+| Key                         | Value      |
+| --------------------------- | ---------- |
+| `TINK_CLIENT_ID`            | String     |
+| `TINK_REDIRECT_URI`         | String     |
+| `TINK_CUSTOM_REST_ENDPOINT` | _Optional_ |
+| `TINK_REST_CERTIFICATE_URL` | _Optional_ |
 
 ## Tink Link UI
 
@@ -343,4 +354,43 @@ let tinkLinkViewController = TinkLinkViewController(market: <#String#>, scopes: 
 
 ```swift
 present(tinkLinkViewController, animated: true)
+```
+
+### Customization 
+
+You can only customize the appearance of Tink Link UI. 
+To configure colors or fonts, you can update `Appearance.provider`. This needs to be done before initializing the `TinkLinkViewController`.
+
+#### Colors
+
+|`Color`|Description|
+|--------|-------------|
+|`background`|Color for the main background of the interface.|
+|`secondaryBackground`|Color for content layered on top of the main background.|
+|`groupedBackground`|Color for the main background of grouped interface components.|
+|`secondaryGroupedBackground`|Color for content layered on top of the main background of grouped interface components.|
+|`label`|Primary text color.|
+|`secondaryLabel`|Secondary text color.|
+|`separator`|Color for separators.|
+|`accent`|Colors for buttons, indicators and other similar elements.|
+|`warning`|Color representing a warning.|
+|`critical`|Color representing a critical warning or error.|
+
+```swift
+let colorProvider = ColorProvider()
+colorProvider.accent = <#UIColor#>
+Appearance.provider.colors = colorProvider
+```
+
+#### Themes
+You can configure colors and font by providing Tink Link SDK with a `ColorProviding` and `FontProviding` type respectively. Tink Link SDK also provides a `AppearanceProvider` type that can be used to easily customize the Tink Link SDK views. 
+
+```swift
+let colorProvider = ColorProvider()
+let fontProvider = FontProvider()
+colorProvider.accent = <#UIColor#>
+fontProvider.regularFont = <#UIFont#>
+fontProvider.boldFont = <#UIFont#>
+
+Appearance.provider = AppearenceProvider(colors: colorProvider, fonts: fontProvider)
 ```
