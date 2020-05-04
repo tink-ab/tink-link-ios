@@ -43,7 +43,7 @@ public class Tink {
     /// other object associated with it will try to authenticate using the provided user session credentials.
     ///
     /// You can check if this property is not `nil` if you want to check whether the Tink object
-    /// is currently trying to authenticate with a user session credentials.
+    /// is currently trying to authenticate with user session credentials.
     ///
     /// - Note: The existence of a `userSession` does not guarantee that the session is
     /// valid. It may have expired or be invalid.
