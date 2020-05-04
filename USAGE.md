@@ -284,7 +284,7 @@ authorizationContext.scopeDescriptions(scopes: scopes) { [weak self] result in
 }
 ```
 
-## Displaying Terms and Conditions and Privacy Policy
+## Displaying terms and conditions and privacy policy
 
 If you are aggregating data under Tink's license, the user must be presented with an option to view Tink’s Terms and Conditions and Privacy Policy before any data is aggregated.
 
