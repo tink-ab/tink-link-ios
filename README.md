@@ -57,17 +57,6 @@ let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <
 Tink.configure(with: configuration)
 ```
 
-### Environment Variables
-
-The shared instance of Tink can also be configured using environment variables defined in your application's target run scheme.
-
-| Key                         | Value      |
-| --------------------------- | ---------- |
-| `TINK_CLIENT_ID`            | String     |
-| `TINK_REDIRECT_URI`         | String     |
-| `TINK_CUSTOM_REST_ENDPOINT` | _Optional_ |
-| `TINK_REST_CERTIFICATE_URL` | _Optional_ |
-
 ## Redirect Handling
 
 You will need to add a custom URL scheme or support universal links to handle redirects from a third party authentication flow back into your app.

@@ -315,6 +315,17 @@ let configuration = Tink.Configuration(clientID: <#T##String#>, redirectURI: <#T
 let customTink = Tink(configuration: configuration)
 ```
 
+### Environment variables
+
+The shared instance of Tink can also be configured using environment variables defined in your application's target run scheme.
+
+| Key                         | Value      |
+| --------------------------- | ---------- |
+| `TINK_CLIENT_ID`            | String     |
+| `TINK_REDIRECT_URI`         | String     |
+| `TINK_CUSTOM_REST_ENDPOINT` | _Optional_ |
+| `TINK_REST_CERTIFICATE_URL` | _Optional_ |
+
 ## Tink Link UI
 
 1. First you need to define what scopes you need. Define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes:
