@@ -230,7 +230,7 @@ extension UpdateCredentialsViewController {
         case .qrImage(let image):
             hideUpdatingView(animated: true) {
                 let qrViewController = QRViewController(image: image)
-                qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
+                qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelQRCode))
                 let navigationController = UINavigationController(rootViewController: qrViewController)
                 self.present(navigationController, animated: true)
             }
@@ -247,7 +247,7 @@ extension UpdateCredentialsViewController {
         }
     }
 
-    @objc private func cancelRefreshingCredentials(_ sender: Any) {
+    @objc private func cancelQRCode(_ sender: Any) {
         updateCredentialsTask?.cancel()
         completion(.failure(CocoaError(.userCancelled)))
     }
