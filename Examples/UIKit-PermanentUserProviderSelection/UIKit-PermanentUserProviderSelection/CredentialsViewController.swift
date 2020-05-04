@@ -101,21 +101,12 @@ extension CredentialsViewController {
         let providerListViewController = ProviderListViewController()
         providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAddingCredentials))
         let navigationController = UINavigationController(rootViewController: providerListViewController)
-        navigationController.presentationController?.delegate = self
         navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true)
     }
 
     @objc private func cancelAddingCredentials(_ sender: Any) {
         dismiss(animated: true)
-    }
-}
-
-// MARK: - UIAdaptivePresentationControllerDelegate
-
-extension CredentialsViewController: UIAdaptivePresentationControllerDelegate {
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        updateList()
     }
 }
 
