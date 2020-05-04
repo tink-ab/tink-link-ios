@@ -214,9 +214,7 @@ Third party authentication is used to handle authentication outside of your app 
 thirdPartyAppAuthenticationTask.handle()
 ```
 
-If the third party authentication couldn't be handled by the `ThirdPartyAppAuthenticationTask`, you need to handle the `AddCredentialsTask` completion result and check for a `ThirdPartyAppAuthenticationTask.Error`. This error can tell you if the user needs to download the thirdparty authentication app.
-
-Here is how you can prompt the user to download the third party app if it is not currently installed on the device:
+If the third party authentication couldn't be handled by the `ThirdPartyAppAuthenticationTask`, you need to handle the `AddCredentialsTask` completion result and check for a `ThirdPartyAppAuthenticationTask.Error`. This error can tell you if the user needs to download the third party authentication app.
 
 ```swift
 let alertController = UIAlertController(title: thirdPartyAppAuthenticationTaskError.errorDescription, message: thirdPartyAppAuthenticationTaskError.failureReason, preferredStyle: .alert)
