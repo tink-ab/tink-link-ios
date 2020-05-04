@@ -12,7 +12,7 @@
 ## Requirements
 
 - iOS 11.0
-- Xcode 11.3
+- Xcode 11.4
 
 ## Installation
 There are two targets TinkLink and TinkLinkUI in the package Tink Link.
