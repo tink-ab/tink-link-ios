@@ -248,7 +248,6 @@ extension UpdateCredentialsViewController {
 
     @objc private func cancelRefreshingCredentials(_ sender: Any) {
         updateCredentialsTask?.cancel()
-        dismiss(animated: true)
         completion(.failure(CocoaError(.userCancelled)))
     }
 }
@@ -293,7 +292,6 @@ extension UpdateCredentialsViewController {
 
     private func showCredentialUpdated(for credential: Credentials) {
         hideUpdatingView()
-        dismiss(animated: true)
         completion(.success(credential))
     }
 
