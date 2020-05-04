@@ -11,13 +11,26 @@ final class RefreshCredentialsViewController: UITableViewController {
         }
     }
 
-    private enum Section: CaseIterable {
+    private enum Section {
         case status
-        case refresh
+        case actions([Action])
         case delete
     }
 
-    private var sections = Section.allCases
+    private enum Action {
+        case refresh
+        case update
+        case authenticate
+    }
+
+    private var sections: [Section] {
+        var actions: [Action] = [.refresh, .update]
+        if canAuthenticate {
+            actions.append(.authenticate)
+        }
+        let sections: [Section] = [.status, .actions(actions), .delete]
+        return sections
+    }
 
     private let dateFormatter = DateFormatter()
 
@@ -31,8 +44,15 @@ final class RefreshCredentialsViewController: UITableViewController {
 
     private var isDeleting = false
 
-    init(credentials: Credentials) {
+    private var provider: Provider
+
+    private var canAuthenticate: Bool {
+        provider.accessType == .openBanking
+    }
+
+    init(credentials: Credentials, provider: Provider) {
         self.credentials = credentials
+        self.provider = provider
 
         super.init(style: .grouped)
 
@@ -76,7 +96,12 @@ extension RefreshCredentialsViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch sections[section] {
+        case .status, .delete:
+            return 1
+        case .actions(let actionItems):
+            return actionItems.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,10 +111,18 @@ extension RefreshCredentialsViewController {
             cell.textLabel?.text = String(describing: credentials.status).localizedCapitalized
             cell.detailTextLabel?.text = credentials.statusUpdated.map(dateFormatter.string(from:))
             return cell
-        case .refresh:
+        case .actions(let actionItems):
             let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
-            cell.actionLabel.text = "Refresh"
             cell.tintColor = nil
+            switch actionItems[indexPath.item] {
+            case .refresh:
+                cell.actionLabel.text = "Refresh"
+            case .update:
+                cell.actionLabel.text = "Update"
+            case .authenticate:
+                cell.actionLabel.text = "Authenticate"
+            }
+
             return cell
         case .delete:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
@@ -107,7 +140,7 @@ extension RefreshCredentialsViewController {
         switch sections[indexPath.section] {
         case .status:
             return false
-        case .refresh:
+        case .actions:
             return refreshCredentialsTask == nil
         case .delete:
             return !isDeleting
@@ -118,8 +151,15 @@ extension RefreshCredentialsViewController {
         switch sections[indexPath.section] {
         case .status:
             break
-        case .refresh:
-            refresh()
+        case .actions(let actionItems):
+            switch actionItems[indexPath.item] {
+            case .refresh:
+                refresh()
+            case .update:
+                update()
+            case .authenticate:
+                authenticate()
+            }
             tableView.deselectRow(at: indexPath, animated: true)
         case .delete:
             isDeleting = true
@@ -143,6 +183,29 @@ extension RefreshCredentialsViewController {
 extension RefreshCredentialsViewController {
     private func refresh() {
         refreshCredentialsTask = credentialsContext.refresh(
+            credentials,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            progressHandler: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleProgress(status)
+                }
+            },
+            completion: { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.handleCompletion(result)
+                }
+            }
+        )
+    }
+
+    private func update() {
+        let updateCredentialsViewController = UpdateCredentialsViewController(provider: provider, credentials: credentials)
+        let viewController = UINavigationController(rootViewController: updateCredentialsViewController)
+        present(viewController, animated: true)
+    }
+
+    private func authenticate() {
+        refreshCredentialsTask = credentialsContext.authenticate(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             progressHandler: { [weak self] status in
@@ -216,6 +279,7 @@ extension RefreshCredentialsViewController {
         } catch {
             // Handle any errors
         }
+        refreshCredentialsTask = nil
     }
 
     @objc private func cancelRefreshingCredentials(_ sender: Any) {

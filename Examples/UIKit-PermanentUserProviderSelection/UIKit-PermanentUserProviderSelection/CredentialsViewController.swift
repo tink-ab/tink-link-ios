@@ -130,9 +130,12 @@ extension CredentialsViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let credentials = credentialsList[indexPath.row]
-        let provider = providersByID[credentials.providerID]
-        let refreshCredentialsViewController = RefreshCredentialsViewController(credentials: credentials)
-        refreshCredentialsViewController.title = provider?.displayName ?? "Credentials"
+        guard let provider = providersByID[credentials.providerID] else {
+            fatalError("Cannot find corresponding provider")
+        }
+
+        let refreshCredentialsViewController = RefreshCredentialsViewController(credentials: credentials, provider: provider)
+        refreshCredentialsViewController.title = provider.displayName
         show(refreshCredentialsViewController, sender: self)
     }
 }

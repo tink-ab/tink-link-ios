@@ -136,7 +136,7 @@ public final class RefreshCredentialsTask: Identifiable {
             case .updating:
                 progressHandler(.updating(status: credentials.statusPayload))
             case .updated:
-                progressHandler(.updated)
+                complete(with: .success(credentials))
             case .sessionExpired:
                 progressHandler(.sessionExpired)
             case .authenticationError:

@@ -9,6 +9,8 @@ class ButtonTableViewCell: UITableViewCell {
         actionLabel.textAlignment = .center
         actionLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         actionLabel.textColor = tintColor
+
+        separatorInset = .zero
         contentView.addSubview(actionLabel)
     }
 
