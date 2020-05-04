@@ -240,7 +240,8 @@ extension UpdateCredentialsViewController {
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
             let credentials = try result.get()
-            showCredentialUpdated(for: credentials)
+            hideUpdatingView()
+            completion(.success(credentials))
         } catch {
             showAlert(for: error)
         }
@@ -288,11 +289,6 @@ extension UpdateCredentialsViewController {
         }
         dismiss(animated: animated, completion: completion)
         statusViewController = nil
-    }
-
-    private func showCredentialUpdated(for credential: Credentials) {
-        hideUpdatingView()
-        completion(.success(credential))
     }
 
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
