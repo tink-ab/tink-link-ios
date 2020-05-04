@@ -199,7 +199,13 @@ extension RefreshCredentialsViewController {
     }
 
     private func update() {
-        let updateCredentialsViewController = UpdateCredentialsViewController(provider: provider, credentials: credentials)
+        let updateCredentialsViewController = UpdateCredentialsViewController(provider: provider, credentials: credentials) { result in
+            do {
+                self.credentials = try result.get()
+            } catch {
+
+            }
+        }
         let viewController = UINavigationController(rootViewController: updateCredentialsViewController)
         present(viewController, animated: true)
     }

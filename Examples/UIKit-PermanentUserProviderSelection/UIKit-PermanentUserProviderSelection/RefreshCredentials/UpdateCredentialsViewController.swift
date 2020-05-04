@@ -6,6 +6,7 @@ import UIKit
 final class UpdateCredentialsViewController: UITableViewController {
     private let provider: Provider
     private var credentials: Credentials
+    private let completion: (Result<Credentials, Error>) -> Void
     private let credentialsContext = CredentialsContext()
     private var form: Form
     private var formError: Form.ValidationError? {
@@ -21,9 +22,10 @@ final class UpdateCredentialsViewController: UITableViewController {
 
     private lazy var helpLabel = UITextView()
 
-    init(provider: Provider, credentials: Credentials) {
+    init(provider: Provider, credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
         self.provider = provider
         self.credentials = credentials
+        self.completion = completion
         self.form = Form(updatingCredentials: credentials, provider: provider)
 
         if #available(iOS 13.0, *) {
@@ -247,6 +249,7 @@ extension UpdateCredentialsViewController {
     @objc private func cancelRefreshingCredentials(_ sender: Any) {
         updateCredentialsTask?.cancel()
         dismiss(animated: true)
+        completion(.failure(CocoaError(.userCancelled)))
     }
 }
 
@@ -291,6 +294,7 @@ extension UpdateCredentialsViewController {
     private func showCredentialUpdated(for credential: Credentials) {
         hideUpdatingView()
         dismiss(animated: true)
+        completion(.success(credential))
     }
 
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
