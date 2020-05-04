@@ -328,10 +328,12 @@ extension Form {
         let credentialsFields = updatingCredentials.fields
         let fieldSpecifications = providerFieldSpecifications.map { fieldSpecification -> Provider.FieldSpecification in
             if let text = credentialsFields[fieldSpecification.name] {
-                return Provider.FieldSpecification(fieldDescription: fieldSpecification.fieldDescription, hint: fieldSpecification.hint, maxLength: fieldSpecification.maxLength, minLength: fieldSpecification.minLength, isMasked: fieldSpecification.isMasked, isNumeric: fieldSpecification.isMasked, isImmutable: true, isOptional: fieldSpecification.isOptional, name: fieldSpecification.name, initialValue: text, pattern: fieldSpecification.pattern, patternError: fieldSpecification.patternError, helpText: fieldSpecification.helpText)
-            } else {
-                return fieldSpecification
+                var multableFieldSpecification = fieldSpecification
+                multableFieldSpecification.initialValue = text
+                multableFieldSpecification.isImmutable = true
+                return multableFieldSpecification
             }
+            return fieldSpecification
         }
         self.init(fieldSpecifications: fieldSpecifications)
     }
