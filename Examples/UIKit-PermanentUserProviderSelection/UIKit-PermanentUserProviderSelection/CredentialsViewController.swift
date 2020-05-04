@@ -45,8 +45,6 @@ extension CredentialsViewController {
 
         activityIndicator.startAnimating()
 
-        Tink.shared.setCredential(.accessToken("YOUR_ACCESS_TOKEN"))
-
         updateList { [weak self] in
             self?.activityIndicator.stopAnimating()
         }
