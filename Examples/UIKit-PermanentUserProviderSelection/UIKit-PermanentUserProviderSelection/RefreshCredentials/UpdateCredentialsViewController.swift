@@ -6,6 +6,7 @@ import UIKit
 final class UpdateCredentialsViewController: UITableViewController {
     private let provider: Provider
     private var credentials: Credentials
+    private let completion: (Result<Credentials, Error>) -> Void
     private let credentialsContext = CredentialsContext()
     private var form: Form
     private var formError: Form.ValidationError? {
@@ -21,9 +22,10 @@ final class UpdateCredentialsViewController: UITableViewController {
 
     private lazy var helpLabel = UITextView()
 
-    init(provider: Provider, credentials: Credentials) {
+    init(provider: Provider, credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
         self.provider = provider
         self.credentials = credentials
+        self.completion = completion
         self.form = Form(updatingCredentials: credentials, provider: provider)
 
         if #available(iOS 13.0, *) {
@@ -228,7 +230,7 @@ extension UpdateCredentialsViewController {
         case .qrImage(let image):
             hideUpdatingView(animated: true) {
                 let qrViewController = QRViewController(image: image)
-                qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
+                qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelQRCode))
                 let navigationController = UINavigationController(rootViewController: qrViewController)
                 self.present(navigationController, animated: true)
             }
@@ -238,15 +240,16 @@ extension UpdateCredentialsViewController {
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
             let credentials = try result.get()
-            showCredentialUpdated(for: credentials)
+            hideUpdatingView()
+            completion(.success(credentials))
         } catch {
             showAlert(for: error)
         }
     }
 
-    @objc private func cancelRefreshingCredentials(_ sender: Any) {
+    @objc private func cancelQRCode(_ sender: Any) {
         updateCredentialsTask?.cancel()
-        dismiss(animated: true)
+        completion(.failure(CocoaError(.userCancelled)))
     }
 }
 
@@ -286,11 +289,6 @@ extension UpdateCredentialsViewController {
         }
         dismiss(animated: animated, completion: completion)
         statusViewController = nil
-    }
-
-    private func showCredentialUpdated(for credential: Credentials) {
-        hideUpdatingView()
-        dismiss(animated: true)
     }
 
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
