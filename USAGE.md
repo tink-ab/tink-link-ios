@@ -308,6 +308,8 @@ func showPrivacyPolicy() {
 
 ## Advanced usage
 
+### Multiple Tink instances
+
 In some cases, you may want to have multiple `Tink` instances. You can create multiple `Tink` instance as follows:
 
 ```swift
