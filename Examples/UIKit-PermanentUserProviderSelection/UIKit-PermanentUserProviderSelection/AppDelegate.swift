@@ -12,6 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tink.shared.setCredential(.accessToken("YOUR_ACCESS_TOKEN"))
 
         window = UIWindow(frame: UIScreen.main.bounds)
+        
         let credentialsViewController = CredentialsViewController(style: .grouped)
         let navigationController = UINavigationController(rootViewController: credentialsViewController)
         navigationController.navigationBar.prefersLargeTitles = true
