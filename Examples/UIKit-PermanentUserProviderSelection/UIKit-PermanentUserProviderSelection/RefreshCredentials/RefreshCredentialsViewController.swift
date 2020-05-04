@@ -207,8 +207,13 @@ extension RefreshCredentialsViewController {
             }
             self?.dismiss(animated: true)
         }
+        updateCredentialsViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelUpdateCredentials))
         let viewController = UINavigationController(rootViewController: updateCredentialsViewController)
         present(viewController, animated: true)
+    }
+
+    @objc private func cancelUpdateCredentials(_ sender: Any) {
+        dismiss(animated: true)
     }
 
     private func authenticate() {
