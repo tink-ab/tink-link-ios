@@ -241,8 +241,6 @@ extension RefreshCredentialsViewController {
     private func handleProgress(_ status: RefreshCredentialsTask.Status) {
         guard let refreshedCredentials = refreshCredentialsTask?.credentials else { return }
         switch status {
-        case .created:
-            self.credentials = refreshedCredentials
         case .authenticating:
             if isPresentingQR {
                 dismiss(animated: true)

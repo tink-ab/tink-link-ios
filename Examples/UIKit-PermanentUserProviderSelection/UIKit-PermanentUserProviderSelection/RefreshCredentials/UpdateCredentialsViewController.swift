@@ -188,8 +188,6 @@ extension UpdateCredentialsViewController {
 
     private func handleProgress(_ status: UpdateCredentialsTask.Status) {
         switch status {
-        case .created:
-            showUpdating(status: "Created Credentials")
         case .authenticating:
             if isPresentingQR {
                 dismiss(animated: true) {
