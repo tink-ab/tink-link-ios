@@ -74,9 +74,7 @@ final class AddCredentialsHeaderView: UIView {
 
     private var readMoreRange: NSRange?
 
-    private var emptyDescriptionUserInfoLabelBottomSpace: NSLayoutConstraint?
     private var userInfoDescriptionBottomSpace: NSLayoutConstraint?
-
     private var userInfoDescriptionTopConstraint: NSLayoutConstraint?
     private var userInfoEmptyBottomConstraint: NSLayoutConstraint?
     private var emptyUserInfoContainerBottomConstraint: NSLayoutConstraint?
@@ -124,7 +122,6 @@ final class AddCredentialsHeaderView: UIView {
 
         let userInfoDescriptionBottomSpace = userInfoDescription.bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
         self.userInfoDescriptionBottomSpace = userInfoDescriptionBottomSpace
-        emptyDescriptionUserInfoLabelBottomSpace = bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
 
         let userInfoContainerBottomConstraint = userInfoContainerView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         self.userInfoContainerBottomConstraint = userInfoContainerBottomConstraint
@@ -175,7 +172,6 @@ final class AddCredentialsHeaderView: UIView {
 
             userInfoDescriptionTopConstraint?.isActive = false
             userInfoDescriptionBottomSpace?.isActive = false
-            emptyDescriptionUserInfoLabelBottomSpace?.isActive = false
             userInfoContainerBottomConstraint?.isActive = false
             return
         }
@@ -192,7 +188,6 @@ final class AddCredentialsHeaderView: UIView {
 
     private func configure(_ clientName: String, isDescriptionHidden: Bool) {
         userInfoDescription.isHidden = isDescriptionHidden
-        emptyDescriptionUserInfoLabelBottomSpace?.isActive = isDescriptionHidden
         userInfoDescriptionBottomSpace?.isActive = !isDescriptionHidden
 
         let readMoreFormat = Strings.AddCredentials.Consent.financialInformation
