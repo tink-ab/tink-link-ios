@@ -32,6 +32,8 @@ public final class RefreshCredentialsTask: Identifiable {
         case temporaryFailure
         /// A permanent failure occurred.
         case permanentFailure
+        /// The credentials are disabled.
+        case disabled
     }
 
     // MARK: - Retrieving Failure Requirements
