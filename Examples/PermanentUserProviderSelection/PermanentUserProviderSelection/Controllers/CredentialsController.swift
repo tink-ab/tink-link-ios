@@ -71,24 +71,6 @@ final class CredentialsController: ObservableObject {
                     self?.credentials[index] = refreshedCredentials
                 }
             }
-        case .sessionExpired:
-            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = refreshedCredentials
-                }
-            }
-        case .updated:
-            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = refreshedCredentials
-                }
-            }
-        case .error:
-            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = refreshedCredentials
-                }
-            }
         }
     }
 
