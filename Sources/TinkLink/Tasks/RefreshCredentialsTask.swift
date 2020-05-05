@@ -26,9 +26,6 @@ public final class RefreshCredentialsTask: Identifiable {
         /// The session has expired.
         case sessionExpired
 
-        /// The status has been updated.
-        case updated
-
         /// The refresh error.
         case error(Error)
     }
