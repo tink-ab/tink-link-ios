@@ -26,14 +26,14 @@ public final class RefreshCredentialsTask: Identifiable {
 
     /// Error that the `RefreshCredentialsTask` can throw.
     public enum Error: Swift.Error {
-        /// The authentication failed.
-        case authenticationFailed
-        /// A temporary failure occurred.
-        case temporaryFailure
-        /// A permanent failure occurred.
-        case permanentFailure
-        /// The credentials are disabled.
-        case disabled
+        /// The authentication failed. The payload from the backend can be found in the associated value.
+        case authenticationFailed(String)
+        /// A temporary failure occurred. The payload from the backend can be found in the associated value.
+        case temporaryFailure(String)
+        /// A permanent failure occurred. The payload from the backend can be found in the associated value.
+        case permanentFailure(String)
+        /// The credentials are disabled. The payload from the backend can be found in the associated value.
+        case disabled(String)
     }
 
     // MARK: - Retrieving Failure Requirements
@@ -130,13 +130,13 @@ public final class RefreshCredentialsTask: Identifiable {
             case .sessionExpired:
                 break
             case .authenticationError:
-                throw Error.authenticationFailed
+                throw Error.authenticationFailed(credentials.statusPayload)
             case .permanentError:
-                throw Error.permanentFailure
+                throw Error.permanentFailure(credentials.statusPayload)
             case .temporaryError:
-                throw Error.temporaryFailure
+                throw Error.temporaryFailure(credentials.statusPayload)
             case .disabled:
-                throw Error.disabled
+                throw Error.disabled(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }
