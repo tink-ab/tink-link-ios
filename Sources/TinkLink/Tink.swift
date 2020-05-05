@@ -42,7 +42,7 @@ public class Tink {
     /// When you set this property to some value, all requests made by this Tink object or any
     /// other object associated with it will try to authenticate using the provided user session credentials.
     ///
-    /// You can check if this property is not `nil` if you want to check whether the Tink object
+    /// You can check if this property is not `nil` if you want to check if the Tink object
     /// is currently trying to authenticate with user session credentials.
     ///
     /// - Note: The existence of a `userSession` does not guarantee that the session is
