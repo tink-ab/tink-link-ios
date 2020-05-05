@@ -19,6 +19,10 @@ Pod::Spec.new do |spec|
     "Assets" => ["Sources/TinkLinkUI/Assets/*.xcassets"]
   }
 
+  s.test_spec 'TinkLinkUITests' do |test_spec|
+    test_spec.source_files = "Tests/TinkLinkUITests/**/*.swift"
+  end
+
   spec.dependency "TinkLink"
   spec.dependency "Down", "~> 0.9"
   spec.dependency "Kingfisher", "~> 5.13"
