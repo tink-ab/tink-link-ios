@@ -261,7 +261,7 @@ public final class CredentialsContext {
     ///   - credentials: Credentials that needs to be deleted.
     ///   - completion: The block to execute when the credentials has been deleted successfuly or if it failed.
     ///   - result: A result representing that the delete succeeded or an error if failed.
-    /// - Returns: The delete credentials task.
+    /// - Returns: A cancellation handler.
     @discardableResult
     public func delete(_ credentials: Credentials,
                        completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
