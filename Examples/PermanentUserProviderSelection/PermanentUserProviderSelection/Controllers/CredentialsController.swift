@@ -59,7 +59,7 @@ final class CredentialsController: ObservableObject {
     private func refreshProgressHandler(status: RefreshCredentialsTask.Status) {
         guard let refreshedCredentials = task?.credentials else { return }
         switch status {
-        case .authenticating, .created:
+        case .authenticating:
             break
         case .awaitingSupplementalInformation(let supplementInformationTask):
             self.supplementInformationTask = supplementInformationTask
