@@ -79,8 +79,9 @@ extension UpdateCredentialsViewController {
 
 extension UpdateCredentialsViewController {
     private func setupHelpFootnote() {
+        guard let helpText = provider.helpText else { return }
 
-        let markdown = Down(markdownString: provider.helpText)
+        let markdown = Down(markdownString: helpText)
         helpLabel.attributedText = try? markdown.toAttributedString()
         helpLabel.backgroundColor = .clear
         helpLabel.isScrollEnabled = false
