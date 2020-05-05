@@ -136,7 +136,7 @@ public final class RefreshCredentialsTask: Identifiable {
             case .temporaryError:
                 throw Error.temporaryFailure
             case .disabled:
-                fatalError("credentials shouldn't be disabled during creation.")
+                throw Error.disabled
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }
