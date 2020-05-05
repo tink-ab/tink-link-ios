@@ -85,7 +85,6 @@ final class AddCredentialsHeaderView: UIView {
     private var userInfoDescriptionBottomSpace: NSLayoutConstraint?
 
     private var userInfoDescriptionTopConstraint: NSLayoutConstraint?
-    private var emptyUsernameDescriptionCenterYConstraint: NSLayoutConstraint?
     private var userInfoEmptyBottomConstraint: NSLayoutConstraint?
     private var emptyUserInfoContainerBottomConstraint: NSLayoutConstraint?
     private var userInfoContainerBottomConstraint: NSLayoutConstraint?
@@ -131,7 +130,6 @@ final class AddCredentialsHeaderView: UIView {
 
         let userInfoDescriptionTopConstraint = userInfoDescription.topAnchor.constraint(equalTo: userInfoLabel.lastBaselineAnchor, constant: 8)
         self.userInfoDescriptionTopConstraint = userInfoDescriptionTopConstraint
-        emptyUsernameDescriptionCenterYConstraint = userInfoDescription.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor)
 
         let userInfoDescriptionBottomSpace = userInfoDescription.bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
         self.userInfoDescriptionBottomSpace = userInfoDescriptionBottomSpace
@@ -181,23 +179,21 @@ final class AddCredentialsHeaderView: UIView {
         ])
     }
 
-    func configure(with provider: Provider, username: String? = nil, clientName: String, isAggregator: Bool) {
+    func configure(with provider: Provider, clientName: String, isAggregator: Bool) {
         configure(provider)
         
-        let shouldHideUserInfoContainer = isAggregator && (username?.isEmpty ?? true)
+        let shouldHideUserInfoContainer = isAggregator
         guard !shouldHideUserInfoContainer else {
             userInfoContainerView.isHidden = true
             emptyUserInfoContainerBottomConstraint?.isActive = true
 
             userInfoDescriptionTopConstraint?.isActive = false
-            emptyUsernameDescriptionCenterYConstraint?.isActive = false
             userInfoDescriptionBottomSpace?.isActive = false
             emptyDescriptionUserInfoLabelBottomSpace?.isActive = false
             userInfoContainerBottomConstraint?.isActive = false
             return
         }
 
-        configure(username)
         configure(clientName, isDescriptionHidden: isAggregator)
     }
 
@@ -206,15 +202,6 @@ final class AddCredentialsHeaderView: UIView {
             bankIconView.kf.setImage(with: ImageResource(downloadURL: image))
         }
         bankLabel.text = provider.displayName
-    }
-
-    private func configure(_ username: String?) {
-        let isUsernameEmpty = username?.isEmpty ?? true
-
-        userInfoLabel.text = username
-        userInfoLabel.isHidden = isUsernameEmpty
-        userInfoDescriptionTopConstraint?.isActive = !isUsernameEmpty
-        emptyUsernameDescriptionCenterYConstraint?.isActive = isUsernameEmpty
     }
 
     private func configure(_ clientName: String, isDescriptionHidden: Bool) {
