@@ -130,6 +130,11 @@ enum Strings {
             /// Title for action to retry a failed request.
             static let retry = NSLocalizedString("Generic.ServiceAlert.Retry", tableName: tableName, bundle: bundle, value: "Retry", comment: "Title for action to retry a failed request.")
         }
+
+        enum Formatter {
+            /// Text used to form a list.
+            static let and = NSLocalizedString("Generic.Formatter.And", tableName: tableName, bundle: bundle, value: "and", comment: "Text used to form a list.")
+        }
     }
 
     enum ProviderPicker {
