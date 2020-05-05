@@ -22,9 +22,6 @@ public final class RefreshCredentialsTask: Identifiable {
 
         /// Trigger for the client to prompt the user to open the third party authentication flow
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
-
-        /// The session has expired.
-        case sessionExpired
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
@@ -129,7 +126,7 @@ public final class RefreshCredentialsTask: Identifiable {
             case .updated:
                 complete(with: .success(credentials))
             case .sessionExpired:
-                progressHandler(.sessionExpired)
+                break
             case .authenticationError:
                 throw Error.authenticationFailed
             case .permanentError:
