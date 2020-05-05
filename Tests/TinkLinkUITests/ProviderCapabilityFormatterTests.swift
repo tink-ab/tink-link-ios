@@ -93,4 +93,13 @@ class ProviderCapabilityFormatterTests: XCTestCase {
         )
         XCTAssertEqual(formatter.string(for: provider), "checking accounts, credit cards & loans")
     }
+
+    func testLongStyleFormatting() {
+        let formatter = ProviderCapabilityFormatter()
+        formatter.listFormatter.style = .long
+        let provider = Provider(
+            capabilities: [.checkingAccounts, .creditCards, .loans]
+        )
+        XCTAssertEqual(formatter.string(for: provider), "Checking Accounts, Credit Cards and Loans")
+    }
 }
