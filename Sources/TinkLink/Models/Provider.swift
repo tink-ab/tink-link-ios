@@ -73,7 +73,7 @@ public struct Provider: Identifiable {
     public let credentialsKind: Credentials.Kind
 
     /// Short description of how to authenticate when creating a new credentials for connected to the provider.
-    public let helpText: String
+    public let helpText: String?
 
     /// Indicates if the provider is popular. This is normally set to true for the biggest financial institutions on a market.
     public let isPopular: Bool

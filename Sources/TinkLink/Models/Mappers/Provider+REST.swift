@@ -6,7 +6,7 @@ extension Provider {
         self.displayName = restProvider.displayName
         self.kind = .init(restType: restProvider.type)
         self.status = Status(restStatus: restProvider.status)
-        self.helpText = restProvider.passwordHelpText ?? ""
+        self.helpText = restProvider.passwordHelpText
         self.isPopular = restProvider.popular
         self.fields = restProvider.fields.map(FieldSpecification.init)
         self.groupDisplayName = restProvider.groupDisplayName ?? restProvider.displayName
