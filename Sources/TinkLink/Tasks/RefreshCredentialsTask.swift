@@ -11,9 +11,6 @@ public final class RefreshCredentialsTask: Identifiable {
     ///
     /// - Note: For some states there are actions which need to be performed on the credentials.
     public enum Status {
-        /// When the credentials has just been created
-        case created
-
         /// When starting the authentication process
         case authenticating
 
@@ -102,7 +99,7 @@ public final class RefreshCredentialsTask: Identifiable {
             let credentials = try result.get()
             switch credentials.status {
             case .created:
-                progressHandler(.created)
+                break
             case .authenticating:
                 progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
