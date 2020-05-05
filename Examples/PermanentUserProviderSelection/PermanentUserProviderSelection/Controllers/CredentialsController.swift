@@ -59,31 +59,13 @@ final class CredentialsController: ObservableObject {
     private func refreshProgressHandler(status: RefreshCredentialsTask.Status) {
         guard let refreshedCredentials = task?.credentials else { return }
         switch status {
-        case .authenticating, .created:
+        case .authenticating:
             break
         case .awaitingSupplementalInformation(let supplementInformationTask):
             self.supplementInformationTask = supplementInformationTask
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
         case .updating:
-            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = refreshedCredentials
-                }
-            }
-        case .sessionExpired:
-            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = refreshedCredentials
-                }
-            }
-        case .updated:
-            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = refreshedCredentials
-                }
-            }
-        case .error:
             if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
                 DispatchQueue.main.async { [weak self] in
                     self?.credentials[index] = refreshedCredentials
