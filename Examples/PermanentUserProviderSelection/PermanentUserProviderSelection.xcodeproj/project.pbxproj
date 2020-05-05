@@ -20,6 +20,8 @@
 		8F3459C62396ADED007DCD75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459C42396ADED007DCD75 /* LaunchScreen.storyboard */; };
 		8F3459CE2396AFEB007DCD75 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459CD2396AFEB007DCD75 /* Settings.bundle */; };
 		8F3459D02396B8C8007DCD75 /* CredentialsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459CF2396B8C8007DCD75 /* CredentialsController.swift */; };
+		8F348AE8245AE380009B9973 /* UpdateCredentialsFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE7245AE380009B9973 /* UpdateCredentialsFlowView.swift */; };
+		8F348AEA245AE49C009B9973 /* UpdateCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE9245AE49C009B9973 /* UpdateCredentialsViewController.swift */; };
 		8F45CAD223A2435A00CA0B9B /* SupplementalInformationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F45CAD123A2435A00CA0B9B /* SupplementalInformationForm.swift */; };
 		8F579BA1239E8CA400013FE1 /* AddCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F579B9C239E8CA300013FE1 /* AddCredentialsViewController.swift */; };
 		8F579BA3239E8CA400013FE1 /* AddCredentialsStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F579B9E239E8CA300013FE1 /* AddCredentialsStatusViewController.swift */; };
@@ -50,6 +52,8 @@
 		8F3459C72396ADED007DCD75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F3459CD2396AFEB007DCD75 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		8F3459CF2396B8C8007DCD75 /* CredentialsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsController.swift; sourceTree = "<group>"; };
+		8F348AE7245AE380009B9973 /* UpdateCredentialsFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsFlowView.swift; sourceTree = "<group>"; };
+		8F348AE9245AE49C009B9973 /* UpdateCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsViewController.swift; sourceTree = "<group>"; };
 		8F45CAD123A2435A00CA0B9B /* SupplementalInformationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementalInformationForm.swift; sourceTree = "<group>"; };
 		8F579B9C239E8CA300013FE1 /* AddCredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialsViewController.swift; sourceTree = "<group>"; };
 		8F579B9E239E8CA300013FE1 /* AddCredentialsStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialsStatusViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 			children = (
 				8F579B9E239E8CA300013FE1 /* AddCredentialsStatusViewController.swift */,
 				8F579B9C239E8CA300013FE1 /* AddCredentialsViewController.swift */,
+				8F348AE9245AE49C009B9973 /* UpdateCredentialsViewController.swift */,
 				8F579BA0239E8CA400013FE1 /* SupplementalInformationViewController.swift */,
 			);
 			path = AddNewCredentials;
@@ -177,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				8FF1F391239E65D300968AB9 /* AddCredentialsFlowView.swift */,
+				8F348AE7245AE380009B9973 /* UpdateCredentialsFlowView.swift */,
 				8F45CAD123A2435A00CA0B9B /* SupplementalInformationForm.swift */,
 				8FF1F38B239E645B00968AB9 /* AddCredentials */,
 			);
@@ -290,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F348AE8245AE380009B9973 /* UpdateCredentialsFlowView.swift in Sources */,
 				8F8BD78C23A27DFD00CC890C /* CredentialsList.swift in Sources */,
 				8FF1F38D239E648400968AB9 /* ProviderListViewController.swift in Sources */,
 				20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */,
@@ -309,6 +316,7 @@
 				8FF1F398239E776F00968AB9 /* FinancialInstitutionPickerViewController.swift in Sources */,
 				8F579BA1239E8CA400013FE1 /* AddCredentialsViewController.swift in Sources */,
 				8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */,
+				8F348AEA245AE49C009B9973 /* UpdateCredentialsViewController.swift in Sources */,
 				8FF1F38F239E650600968AB9 /* TextFieldCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
