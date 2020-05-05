@@ -9,7 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let configuration = try! Tink.Configuration(clientID: "YOUR_CLIENT_ID", redirectURI: URL(string: "link-demo://tink")!, environment: .production)
         Tink.configure(with: configuration)
 
-        Tink.shared.setCredential(.accessToken("YOUR_ACCESS_TOKEN"))
+        Tink.shared.userSession = .accessToken("YOUR_ACCESS_TOKEN")
 
         window = UIWindow(frame: UIScreen.main.bounds)
         

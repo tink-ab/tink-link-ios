@@ -4,10 +4,12 @@ import UIKit
 
 /// Example of how to update credential
 final class UpdateCredentialsViewController: UITableViewController {
+    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
+    var onCompletion: CompletionHandler?
+
     private let provider: Provider
-    private var credentials: Credentials
-    private let completion: (Result<Credentials, Error>) -> Void
-    private let credentialsContext = CredentialsContext()
+    private let credentials: Credentials
+    private let credentialsContext: CredentialsContext
     private var form: Form
     private var formError: Form.ValidationError? {
         didSet {
@@ -22,10 +24,10 @@ final class UpdateCredentialsViewController: UITableViewController {
 
     private lazy var helpLabel = UITextView()
 
-    init(provider: Provider, credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
+    init(provider: Provider, credentials: Credentials, credentialsContext: CredentialsContext) {
         self.provider = provider
         self.credentials = credentials
-        self.completion = completion
+        self.credentialsContext = credentialsContext
         self.form = Form(updatingCredentials: credentials, provider: provider)
 
         if #available(iOS 13.0, *) {
@@ -46,7 +48,7 @@ extension UpdateCredentialsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: TextFieldTableViewCell.reuseIdentifier)
+        tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
         tableView.allowsSelection = false
 
         navigationItem.prompt = "Update Credentials"
@@ -62,7 +64,7 @@ extension UpdateCredentialsViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldTableViewCell {
+        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell {
             cell.textField.becomeFirstResponder()
             didFirstFieldBecomeFirstResponder = true
         }
@@ -79,7 +81,7 @@ extension UpdateCredentialsViewController {
 
 extension UpdateCredentialsViewController {
     private func setupHelpFootnote() {
-        guard let helpText = provider.helpText, !helpText.isEmpty else { return }
+        guard let helpText = provider.helpText else { return }
         let markdown = Down(markdownString: helpText)
         helpLabel.attributedText = try? markdown.toAttributedString()
         helpLabel.backgroundColor = .clear
@@ -126,7 +128,7 @@ extension UpdateCredentialsViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldTableViewCell.reuseIdentifier, for: indexPath) as! TextFieldTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath) as! TextFieldCell
         let field = form.fields[indexPath.section]
         cell.delegate = self
         cell.textField.placeholder = field.attributes.placeholder
@@ -181,67 +183,32 @@ extension UpdateCredentialsViewController {
         }
     }
 
-    private var isPresentingQR: Bool {
-        guard let navigationController = presentedViewController as? UINavigationController else { return false }
-        return navigationController.topViewController is QRViewController
-    }
-
     private func handleProgress(_ status: UpdateCredentialsTask.Status) {
         switch status {
         case .authenticating:
-            if isPresentingQR {
-                dismiss(animated: true) {
-                    self.showUpdating(status: "Authenticating…")
-                }
-            } else {
-                showUpdating(status: "Authenticating…")
-            }
+            showUpdating(status: "Authenticating…")
         case .updating(let status):
-            if isPresentingQR {
-                dismiss(animated: true) {
-                    self.showUpdating(status: status)
-                }
-            } else {
-                showUpdating(status: status)
-            }
+            showUpdating(status: status)
         case .awaitingSupplementalInformation(let task):
             showSupplementalInformation(for: task)
         case .awaitingThirdPartyAppAuthentication(let task):
-            task.handle { [weak self] taskStatus in
-                DispatchQueue.main.async {
-                    self?.handleThirdPartyAppAuthentication(taskStatus)
-                }
-            }
-        }
-    }
-
-    private func handleThirdPartyAppAuthentication(_ taskStatus: ThirdPartyAppAuthenticationTask.Status) {
-        switch taskStatus {
-        case .awaitAuthenticationOnAnotherDevice:
-            showUpdating(status: "Await Authentication on Another Device")
-        case .qrImage(let image):
-            hideUpdatingView(animated: true) {
-                let qrViewController = QRViewController(image: image)
-                qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelQRCode))
-                let navigationController = UINavigationController(rootViewController: qrViewController)
-                self.present(navigationController, animated: true)
-            }
+            // TODO: Handle QR image
+            task.handle()
         }
     }
 
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
             let credentials = try result.get()
-            hideUpdatingView()
-            completion(.success(credentials))
+            showCredentialUpdated(for: credentials)
         } catch {
             showAlert(for: error)
         }
     }
 
-    @objc private func cancelQRCode(_ sender: Any) {
+    @objc private func cancelRefreshingCredentials(_ sender: Any) {
         updateCredentialsTask?.cancel()
-        completion(.failure(CocoaError(.userCancelled)))
+        dismiss(animated: true)
     }
 }
 
@@ -283,6 +250,13 @@ extension UpdateCredentialsViewController {
         statusViewController = nil
     }
 
+    private func showCredentialUpdated(for credential: Credentials) {
+        hideUpdatingView()
+        dismiss(animated: true) {
+            self.onCompletion?(.success(credential))
+        }
+    }
+
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
         let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
 
@@ -312,14 +286,14 @@ extension UpdateCredentialsViewController {
 }
 
 // MARK: - TextFieldTableViewCellDelegate
-extension UpdateCredentialsViewController: TextFieldTableViewCellDelegate {
-    func textFieldTableViewCell(_ cell: TextFieldTableViewCell, willChangeToText text: String) {
+extension UpdateCredentialsViewController: TextFieldCellDelegate {
+    func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
         navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
     }
 
-    func textFieldTableViewCellDidEndEditing(_ cell: TextFieldTableViewCell) {
+    func textFieldCellDidEndEditing(_ cell: TextFieldCell) {
         do {
             try form.validateFields()
         } catch {
