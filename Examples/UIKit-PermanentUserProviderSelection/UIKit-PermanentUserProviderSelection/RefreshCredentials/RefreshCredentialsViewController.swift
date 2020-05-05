@@ -262,8 +262,6 @@ extension RefreshCredentialsViewController {
             }
         case .sessionExpired:
             self.credentials = refreshedCredentials
-        case .error:
-            self.credentials = refreshedCredentials
         }
     }
 

@@ -214,8 +214,6 @@ extension UpdateCredentialsViewController {
             }
         case .sessionExpired:
             break
-        case .error(_):
-            break
         }
     }
 
