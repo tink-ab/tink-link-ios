@@ -263,8 +263,7 @@ public final class CredentialsContext {
     ///   - result: A result representing that the delete succeeded or an error if failed.
     /// - Returns: A cancellation handler.
     @discardableResult
-    public func delete(_ credentials: Credentials,
-                       completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func delete(_ credentials: Credentials, completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.deleteCredentials(credentialsID: credentials.id, completion: completion)
     }
 
