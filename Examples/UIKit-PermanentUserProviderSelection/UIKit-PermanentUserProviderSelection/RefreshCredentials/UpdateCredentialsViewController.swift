@@ -212,8 +212,6 @@ extension UpdateCredentialsViewController {
                     self?.handleThirdPartyAppAuthentication(taskStatus)
                 }
             }
-        case .sessionExpired:
-            break
         }
     }
 

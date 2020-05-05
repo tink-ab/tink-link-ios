@@ -260,8 +260,6 @@ extension RefreshCredentialsViewController {
                     self?.handleThirdPartyAppAuthentication(taskStatus)
                 }
             }
-        case .sessionExpired:
-            self.credentials = refreshedCredentials
         }
     }
 
