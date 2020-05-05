@@ -19,7 +19,7 @@ Pod::Spec.new do |spec|
     "Assets" => ["Sources/TinkLinkUI/Assets/*.xcassets"]
   }
 
-  s.test_spec 'TinkLinkUITests' do |test_spec|
+  spec.test_spec 'TinkLinkUITests' do |test_spec|
     test_spec.source_files = "Tests/TinkLinkUITests/**/*.swift"
   end
 
