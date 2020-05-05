@@ -81,8 +81,8 @@ extension UpdateCredentialsViewController {
 
 extension UpdateCredentialsViewController {
     private func setupHelpFootnote() {
-
-        let markdown = Down(markdownString: provider.helpText)
+        guard let helpText = provider.helpText else { return }
+        let markdown = Down(markdownString: helpText)
         helpLabel.attributedText = try? markdown.toAttributedString()
         helpLabel.backgroundColor = .clear
         helpLabel.isScrollEnabled = false
@@ -185,8 +185,6 @@ extension UpdateCredentialsViewController {
 
     private func handleProgress(_ status: UpdateCredentialsTask.Status) {
         switch status {
-        case .created:
-            showUpdating(status: "Created Credentials")
         case .authenticating:
             showUpdating(status: "Authenticating…")
         case .updating(let status):
@@ -196,12 +194,6 @@ extension UpdateCredentialsViewController {
         case .awaitingThirdPartyAppAuthentication(let task):
             // TODO: Handle QR image
             task.handle()
-        case .sessionExpired:
-            break
-        case .updated:
-            break
-        case .error(_):
-            break
         }
     }
 
