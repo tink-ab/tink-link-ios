@@ -34,13 +34,6 @@ final class AddCredentialsHeaderView: UIView {
         userInfoIconView.image = UIImage(icon: .profile)?.withRenderingMode(.alwaysTemplate)
         return userInfoIconView
     }()
-    private let userInfoLabel: UILabel = {
-        let userInfoLabel = UILabel()
-        userInfoLabel.font = Font.bold(.deci)
-        userInfoLabel.textColor = Color.label
-        userInfoLabel.numberOfLines = 0
-        return userInfoLabel
-    }()
     private lazy var userInfoDescription: UITextView = {
         let userInfoDescription = UnselectableTextView()
         userInfoDescription.textContainerInset = .zero
@@ -115,7 +108,6 @@ final class AddCredentialsHeaderView: UIView {
         dashLine.translatesAutoresizingMaskIntoConstraints = false
         userInfoIconBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         userInfoIconView.translatesAutoresizingMaskIntoConstraints = false
-        userInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         userInfoDescription.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(bankLabel)
@@ -125,15 +117,14 @@ final class AddCredentialsHeaderView: UIView {
         userInfoContainerView.addSubview(dashLine)
         userInfoContainerView.addSubview(userInfoIconBackgroundView)
         userInfoContainerView.addSubview(userInfoIconView)
-        userInfoContainerView.addSubview(userInfoLabel)
         userInfoContainerView.addSubview(userInfoDescription)
 
-        let userInfoDescriptionTopConstraint = userInfoDescription.topAnchor.constraint(equalTo: userInfoLabel.lastBaselineAnchor, constant: 8)
+        let userInfoDescriptionTopConstraint = userInfoDescription.topAnchor.constraint(equalTo: lastBaselineAnchor, constant: 8)
         self.userInfoDescriptionTopConstraint = userInfoDescriptionTopConstraint
 
         let userInfoDescriptionBottomSpace = userInfoDescription.bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
         self.userInfoDescriptionBottomSpace = userInfoDescriptionBottomSpace
-        emptyDescriptionUserInfoLabelBottomSpace = userInfoLabel.bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
+        emptyDescriptionUserInfoLabelBottomSpace = bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
 
         let userInfoContainerBottomConstraint = userInfoContainerView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         self.userInfoContainerBottomConstraint = userInfoContainerBottomConstraint
@@ -168,14 +159,9 @@ final class AddCredentialsHeaderView: UIView {
             userInfoIconView.heightAnchor.constraint(equalToConstant: 24),
             userInfoIconView.centerXAnchor.constraint(equalTo: dashLine.centerXAnchor),
 
-            userInfoLabel.leadingAnchor.constraint(equalTo: userInfoIconBackgroundView.trailingAnchor, constant: 10),
-            userInfoLabel.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor),
-            userInfoLabel.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor),
-
-            userInfoDescriptionTopConstraint,
-            userInfoDescription.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor),
-            userInfoDescription.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor),
-            userInfoDescriptionBottomSpace
+            userInfoDescription.leadingAnchor.constraint(equalTo: userInfoIconBackgroundView.trailingAnchor, constant: 10),
+            userInfoDescription.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor),
+            userInfoDescription.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor)
         ])
     }
 
