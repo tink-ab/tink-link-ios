@@ -63,7 +63,12 @@ public final class ProviderContext {
         }
     }
 
-    // TODO: Add documentation
+    // MARK: - Fetching one specific provider
+
+    /// Fetches a specific provider matching the provided id.
+    ///
+    /// - Parameter id: ID of provider to fetch
+    /// - Parameter completion: A result representing either a single provider or an error.
     @discardableResult
     public func fetchProvider(with id: Provider.ID, completion: @escaping (Result<Provider, Error>) -> Void) -> RetryCancellable? {
 
