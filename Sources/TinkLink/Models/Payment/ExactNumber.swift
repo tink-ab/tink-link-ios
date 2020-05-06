@@ -5,7 +5,7 @@ public struct ExactNumber: Equatable, Hashable, Codable {
     let scale: Int64
 }
 
-public extension ExactNumber {
+extension ExactNumber {
     init(value: Decimal) {
         var value = value
         var normalizedSignificand: Int64?

@@ -17,7 +17,7 @@ public struct SignableOperation {
         public let value: String
     }
 
-    enum Status {
+    public enum Status {
         case awaitingCredentials
         case awaitingThirdPartyAppAuthentication
         case created
@@ -29,28 +29,28 @@ public struct SignableOperation {
         case unknown
     }
 
-    enum ModelType {
+    public enum ModelType {
         case transfer
     }
 
     /// The timestamp of the creation of the operation.
-    let created: Date
+    public let created: Date
     /// The ID of the Credentials used to make the operation.
-    let credentialsId: Credentials.ID
+    public let credentialsId: Credentials.ID?
     /// The unique identifier of this operation.
-    let id: ID
+    public let id: ID?
     /// The transfer status. The value of this field changes during payment initiation according to `/resources/payments/payment-status-transitions`
-    let status: Status
+    public let status: Status
     /// A message with additional information regarding the current status of the transfer.
-    let statusMessage: String
+    public let statusMessage: String
     /// The type of operation.
-    let type: ModelType
+    public let type: ModelType
     /// The ID of the actual transfer.
-    let underlyingId: Transfer.ID
+    public let underlyingId: Transfer.ID?
     /// The timestamp of the last update of the operation.
-    let updated: Date
+    public let updated: Date
 
     // TODO: Not 100% sure what is this here for now
     /// The ID of the user making the operation.
-    let userId: String
+    public let userId: String?
 }
