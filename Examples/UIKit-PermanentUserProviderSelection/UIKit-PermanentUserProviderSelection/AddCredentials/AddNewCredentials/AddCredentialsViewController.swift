@@ -292,8 +292,9 @@ extension AddCredentialsViewController {
     }
 
     private func showCredentialUpdated(for credential: Credentials) {
-        hideUpdatingView()
-        dismiss(animated: true)
+        hideUpdatingView(animated: false) {
+            self.dismiss(animated: true)
+        }
     }
 
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
