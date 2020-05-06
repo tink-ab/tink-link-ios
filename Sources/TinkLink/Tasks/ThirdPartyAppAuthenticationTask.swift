@@ -54,9 +54,9 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         case deeplinkURLNotFound
         /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
         case downloadRequired(title: String?, message: String?, appStoreURL: URL?)
-
+        /// The credentials can not be authenticated on another device.
         case doesNotSupportAuthenticatingOnAnotherDevice
-
+        /// Decoding the QR code image failed.
         case decodingQRCodeImageFailed
 
         public var errorDescription: String? {
@@ -89,6 +89,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             }
         }
 
+        /// If the error is `downloadRequired` this property can have an App Store URL to the third party app required for authentication.
         public var appStoreURL: URL? {
             switch self {
             case .deeplinkURLNotFound:
@@ -103,17 +104,23 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
     }
 
+    /// Indicates a user action required for the third party app authentication task to succeed.
     public enum Status {
         #if os(iOS)
+        /// Indicates that a QR image needs to be scanned by the user to authenticate with the third party app.
         case qrImage(UIImage)
         #elseif os(macOS)
+        /// Indicates that a QR image needs to be scanned by the user to authenticate with the third party app.
         case qrImage(NSImage)
         #endif
+        /// Indicates that the task will wait for the user to authenticate with the third party app on another device.
         case awaitAuthenticationOnAnotherDevice
     }
 
     /// Information about how to open or download the third party application app.
     public private(set) var thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication
+
+    /// Indicates whether the task should fail if a third party app could not be opened for authentication.
     public private(set) var shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
     private let appUri: URL
     private let completionHandler: (Result<Void, Swift.Error>) -> Void

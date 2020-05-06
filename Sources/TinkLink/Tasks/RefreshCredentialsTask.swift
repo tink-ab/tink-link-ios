@@ -1,6 +1,13 @@
 import Foundation
 
+/// A task that manages progress of authenticating a credential.
+///
+/// Use `CredentialsContext` to create a task.
 public typealias AuthenticateCredentialsTask = RefreshCredentialsTask
+
+/// A task that manages progress of updating a credential.
+///
+/// Use `CredentialsContext` to create a task.
 public typealias UpdateCredentialsTask = RefreshCredentialsTask
 
 /// A task that manages progress of refreshing a credential.
@@ -45,6 +52,7 @@ public final class RefreshCredentialsTask: Identifiable {
 
     // MARK: - Getting the Credentials
 
+    /// The credentials that are being refreshed.
     public private(set) var credentials: Credentials
 
     private let credentialsService: CredentialsService
