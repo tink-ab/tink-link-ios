@@ -454,7 +454,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_ASSET_PATHS = "\"PermanentUserProviderSelection/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"PermanentUserExample/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PermanentUserProviderSelection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -473,7 +473,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_ASSET_PATHS = "\"PermanentUserProviderSelection/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"PermanentUserExample/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PermanentUserProviderSelection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
