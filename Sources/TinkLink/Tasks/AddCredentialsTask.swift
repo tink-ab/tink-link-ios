@@ -71,6 +71,10 @@ public final class AddCredentialsTask: Identifiable {
         /// Determines if the add credentials task should fail if a third party app could not be opened for authentication.
         public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
+        /// Determines when the add credentials task is considered done or should fail.
+        /// - Parameters:
+        ///   - successPredicate: Predicate determining when the add credentials task should succeed.
+        ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: A Boolean value determining if the task should fail when a third party app could not be opened.
         public init(successPredicate: SuccessPredicate, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool) {
             self.successPredicate = successPredicate
             self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired
