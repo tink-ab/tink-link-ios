@@ -1,21 +1,17 @@
 import Foundation
 
 /// A Transfer on Tink represents the tentative action of requesting a payment initiation. By consequence, its success does not represent that money has been successfully transferred from one account to another because the payment initiation relays the responsibility of properly executing the monetary reallocation to the financial institution.  The source account must belong to the authenticated user. Source and destination accounts are sent in a special URI format.
-struct RESTTransfer: Codable {
+struct RESTTransferRequest: Codable {
 
     enum MessageType: String, Codable {
         case structured = "STRUCTURED"
         case freeText = "FREE_TEXT"
     }
-    enum UriScheme: String, Codable {
-        case sepaEur = "sepa-eur"
-        case seBg = "se-bg"
-        case sePg = "se-pg"
-    }
+
     /// The amount that will be transferred. Should be positive.
     var amount: Double
     /// The id of the Credentials used to make the transfer. For PIS with AIS will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.
-    var credentialsId: Credentials.ID?
+    var credentialsId: String?
     /// The currency of the amount to be transferred. Should match the SourceUri&#39;s currency.
     var currency: String
     /// The message to the recipient. Optional for bank transfers but required for payments. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
@@ -32,19 +28,6 @@ struct RESTTransfer: Codable {
     var destinationUri: String
     /// The source account of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
     var sourceUri: String
-
-    init(amount: Double, credentialsId: Credentials.ID?, currency: String, destinationMessage: String, id: String, sourceMessage: String?, dueDate: Date?, messageType: MessageType?, destinationUri: URL, sourceUri: URL) {
-        self.amount = amount
-        self.credentialsId = credentialsId
-        self.currency = currency
-        self.destinationMessage = destinationMessage
-        self.id = id
-        self.sourceMessage = sourceMessage
-        self.dueDate = dueDate
-        self.messageType = messageType
-        self.destinationUri = destinationUri
-        self.sourceUri = sourceUri
-    }
 }
 
 
