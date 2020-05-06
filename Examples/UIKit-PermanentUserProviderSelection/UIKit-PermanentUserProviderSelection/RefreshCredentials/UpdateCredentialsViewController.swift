@@ -219,7 +219,7 @@ extension UpdateCredentialsViewController {
     private func handleThirdPartyAppAuthentication(_ taskStatus: ThirdPartyAppAuthenticationTask.Status) {
         switch taskStatus {
         case .awaitAuthenticationOnAnotherDevice:
-            showUpdating(status: "Await Authentication on Another Device")
+            showUpdating(status: "Awaiting Authentication on Another Device")
         case .qrImage(let image):
             hideUpdatingView(animated: true) {
                 let qrViewController = QRViewController(image: image)
