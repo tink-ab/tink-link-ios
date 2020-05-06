@@ -61,7 +61,7 @@ test:
 
 build-uikit-example:
 	xcodebuild clean build \
-		-project Examples/UIKit-PermanentUserProviderSelection/PermanentUserExample.xcodeproj \
+		-project Examples/PermanentUserExample/PermanentUserExample.xcodeproj \
 		-scheme PermanentUserExample \
 		-destination 'generic/platform=iOS Simulator'
 
