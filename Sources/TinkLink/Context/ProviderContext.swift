@@ -78,7 +78,7 @@ public final class ProviderContext {
                 if let provider = fetchedProviders.first {
                     completion(.success(provider))
                 } else {
-                    throw ServiceError.notFound("Provider not found.") //TODO: How do we deal with payload?
+                    throw ServiceError.notFound("")
                 }
                } catch {
                    completion(.failure(error))
