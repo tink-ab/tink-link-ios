@@ -103,12 +103,16 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
     }
 
+    /// Indicates a user action required for the third party app authentication task to succeed.
     public enum Status {
         #if os(iOS)
+        /// Indicates that a QR image needs to be scanned by the user to authenticate with the third party app.
         case qrImage(UIImage)
         #elseif os(macOS)
+        /// Indicates that a QR image needs to be scanned by the user to authenticate with the third party app.
         case qrImage(NSImage)
         #endif
+        /// Indicates that the task will wait for the user to authenticate with the third party app on another device.
         case awaitAuthenticationOnAnotherDevice
     }
 
