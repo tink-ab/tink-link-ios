@@ -57,6 +57,7 @@ public final class AddCredentialsTask: Identifiable {
     ///
     /// Use with `CredentialsContext.addCredentials(for:form:completionPredicate:progressHandler:completion:)` to set when add credentials task should call completion handler if successful.
     public struct CompletionPredicate {
+        /// Determines when the add credentials task is considered done.
         public enum SuccessPredicate {
             /// A predicate that indicates the credentials' status is `updating`.
             case updating
