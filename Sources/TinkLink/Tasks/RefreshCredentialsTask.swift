@@ -45,6 +45,7 @@ public final class RefreshCredentialsTask: Identifiable {
 
     // MARK: - Getting the Credentials
 
+    /// The credentials that are being refreshed.
     public private(set) var credentials: Credentials
 
     private let credentialsService: CredentialsService
