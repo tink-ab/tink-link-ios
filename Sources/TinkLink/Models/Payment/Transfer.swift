@@ -15,14 +15,16 @@ public struct Transfer: Identifiable {
         public let value: String
     }
 
-    public struct TransferEntity {
+    public struct TransferEntityURI {
+        // TODO: This seems the model for Sweden?
         public enum UriScheme: String {
             case sepaEur = "sepa-eur"
             case seBg = "se-bg"
             case sePg = "se-pg"
         }
 
-        init(scheme: UriScheme, host: String) {
+        /// Create a transfer entity uri with an acceptable scheme and a host
+        public init(scheme: UriScheme, host: String) {
             value = "\(scheme.rawValue)://\(host)"
         }
 
@@ -51,7 +53,7 @@ public struct Transfer: Identifiable {
     /// Transfe's message type, only required for BE and SEPA-EUR schemes. STRUCTURED is for PAYMENT type transfers and FREE_TEXT is for BANK_TRANSFER type transfers.
     public let messageType: MessageType
     /// The destination account or recipient of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
-    public let destinationUri: TransferEntity
+    public let destinationUri: TransferEntityURI
     /// The source account of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
-    public let sourceUri: TransferEntity
+    public let sourceUri: TransferEntityURI
 }
