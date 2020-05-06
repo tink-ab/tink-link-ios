@@ -45,8 +45,6 @@ Use `pod update TinkLinkUI` to update to the newer version.
 
 To start using Tink Link, you will need to configure a `Tink` instance with your client ID and redirect URI.
 
-### Swift
-
 ```swift
 let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
 Tink.configure(with: configuration)
