@@ -35,7 +35,7 @@ Use `pod update TinkLink` to update to the newer version.
 ### Integrate TinkLinkUI into your project using CocoaPods.
 #### Using CocoaPods
 
-Similar to using TinkLink, Add `pod 'TinkLinkUI'` to your project's Podfile. Run `pod install` to install the TinkLinkUI framework.
+Add `pod 'TinkLinkUI'` to your project's Podfile. Run `pod install` to install the TinkLinkUI framework.
 
 When finished, you should be able to `import TinkLink` and `import TinkLinkUI` within your project.
 
