@@ -272,7 +272,7 @@ extension RefreshCredentialsViewController {
             present(alertController, animated: true)
         case .qrImage(let image):
             let qrViewController = QRViewController(image: image)
-            qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
+            qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelQRCode))
             let navigationController = UINavigationController(rootViewController: qrViewController)
             present(navigationController, animated: true)
         }
@@ -286,7 +286,7 @@ extension RefreshCredentialsViewController {
         refreshCredentialsTask = nil
     }
 
-    @objc private func cancelRefreshingCredentials(_ sender: Any) {
+    @objc private func cancelQRCode(_ sender: Any) {
         refreshCredentialsTask?.cancel()
         dismiss(animated: true)
     }
