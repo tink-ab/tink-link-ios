@@ -89,6 +89,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             }
         }
 
+        /// If the error is `downloadRequired` this property can have an App Store URL to the third party app required for authentication.
         public var appStoreURL: URL? {
             switch self {
             case .deeplinkURLNotFound:
