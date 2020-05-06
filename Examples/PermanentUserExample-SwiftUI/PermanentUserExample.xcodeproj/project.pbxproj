@@ -456,7 +456,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"PermanentUserExample/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = PermanentUserProviderSelection/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/PermanentUserExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,7 +475,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"PermanentUserExample/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = PermanentUserProviderSelection/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/PermanentUserExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
