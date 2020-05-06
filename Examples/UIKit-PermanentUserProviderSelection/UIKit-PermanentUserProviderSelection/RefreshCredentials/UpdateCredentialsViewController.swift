@@ -235,7 +235,6 @@ extension UpdateCredentialsViewController {
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
             let credentials = try result.get()
-            hideUpdatingView()
             completion(.success(credentials))
         } catch {
             showAlert(for: error)
