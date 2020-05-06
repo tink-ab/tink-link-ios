@@ -119,6 +119,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
     /// Information about how to open or download the third party application app.
     public private(set) var thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication
+
+    /// Indicates whether the task should fail if a third party app could not be opened for authentication.
     public private(set) var shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
     private let appUri: URL
     private let completionHandler: (Result<Void, Swift.Error>) -> Void
