@@ -64,8 +64,10 @@ Follow the instructions in one of these links to learn how to set this up:
 - [Tink Link UI Tutorial](https://docs.tink.com/resources/tutorials/tink-link-ui-sdk-ios-tutorial) This tutorial outlines how integrate Tink Link UI in your app.
 
 ## Examples
-
-- [Example apps](Examples) These examples shows how to build a complete aggregation flow using TinkLink and TinkLinkUI.
+These examples shows how to build a complete aggregation flow using TinkLink or TinkLinkUI.
+- [Permanent User](Examples/PermanentUserExample) 
+- [Permanent User (Swift UI)](Examples/PermanentUserExample)
+- [Tink Link UI](Examples/TinkLinkUIExample)
 
 ## Developer Documentation
 - [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios)
