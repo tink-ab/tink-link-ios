@@ -43,7 +43,7 @@
 		202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
 		8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
-		8F3459B62396ADEB007DCD75 /* PermanentUserProviderSelection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PermanentUserProviderSelection.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F3459B62396ADEB007DCD75 /* PermanentUserExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PermanentUserExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3459B92396ADEB007DCD75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F3459BD2396ADEB007DCD75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8F3459BF2396ADED007DCD75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -95,7 +95,7 @@
 		8F3459AD2396ADEB007DCD75 = {
 			isa = PBXGroup;
 			children = (
-				8F3459B82396ADEB007DCD75 /* PermanentUserProviderSelection */,
+				8F3459B82396ADEB007DCD75 /* PermanentUserExample */,
 				8F3459B72396ADEB007DCD75 /* Products */,
 				92CC022C0FBD2A588CBA7DCD /* Frameworks */,
 			);
@@ -104,12 +104,12 @@
 		8F3459B72396ADEB007DCD75 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8F3459B62396ADEB007DCD75 /* PermanentUserProviderSelection.app */,
+				8F3459B62396ADEB007DCD75 /* PermanentUserExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8F3459B82396ADEB007DCD75 /* PermanentUserProviderSelection */ = {
+		8F3459B82396ADEB007DCD75 /* PermanentUserExample */ = {
 			isa = PBXGroup;
 			children = (
 				8F3459CD2396AFEB007DCD75 /* Settings.bundle */,
@@ -124,7 +124,7 @@
 				8F3459C72396ADED007DCD75 /* Info.plist */,
 				8F3459C12396ADED007DCD75 /* Preview Content */,
 			);
-			path = PermanentUserProviderSelection;
+			path = PermanentUserExample;
 			sourceTree = "<group>";
 		};
 		8F3459C12396ADED007DCD75 /* Preview Content */ = {
@@ -218,9 +218,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8F3459B52396ADEB007DCD75 /* PermanentUserProviderSelection */ = {
+		8F3459B52396ADEB007DCD75 /* PermanentUserExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8F3459CA2396ADED007DCD75 /* Build configuration list for PBXNativeTarget "PermanentUserProviderSelection" */;
+			buildConfigurationList = 8F3459CA2396ADED007DCD75 /* Build configuration list for PBXNativeTarget "PermanentUserExample" */;
 			buildPhases = (
 				8F3459B22396ADEB007DCD75 /* Sources */,
 				8F3459B32396ADEB007DCD75 /* Frameworks */,
@@ -230,14 +230,14 @@
 			);
 			dependencies = (
 			);
-			name = PermanentUserProviderSelection;
+			name = PermanentUserExample;
 			packageProductDependencies = (
 				8F1BF8FD23C5EEC5007464F8 /* Down */,
 				8F1BF90023C5EEE3007464F8 /* Kingfisher */,
 				2028F40E242237CE00EF17B5 /* TinkLink */,
 			);
 			productName = PermanentUserProviderSelection;
-			productReference = 8F3459B62396ADEB007DCD75 /* PermanentUserProviderSelection.app */;
+			productReference = 8F3459B62396ADEB007DCD75 /* PermanentUserExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -255,7 +255,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8F3459B12396ADEB007DCD75 /* Build configuration list for PBXProject "PermanentUserProviderSelection" */;
+			buildConfigurationList = 8F3459B12396ADEB007DCD75 /* Build configuration list for PBXProject "PermanentUserExample" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -272,7 +272,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8F3459B52396ADEB007DCD75 /* PermanentUserProviderSelection */,
+				8F3459B52396ADEB007DCD75 /* PermanentUserExample */,
 			);
 		};
 /* End PBXProject section */
@@ -461,7 +461,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tink.PermanentUserProviderSelection;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tink.PermanentUserExample-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -480,7 +480,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tink.PermanentUserProviderSelection;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tink.PermanentUserExample-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -490,7 +490,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8F3459B12396ADEB007DCD75 /* Build configuration list for PBXProject "PermanentUserProviderSelection" */ = {
+		8F3459B12396ADEB007DCD75 /* Build configuration list for PBXProject "PermanentUserExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3459C82396ADED007DCD75 /* Debug */,
@@ -499,7 +499,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8F3459CA2396ADED007DCD75 /* Build configuration list for PBXNativeTarget "PermanentUserProviderSelection" */ = {
+		8F3459CA2396ADED007DCD75 /* Build configuration list for PBXNativeTarget "PermanentUserExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3459CB2396ADED007DCD75 /* Debug */,
