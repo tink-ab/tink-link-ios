@@ -61,14 +61,14 @@ test:
 
 build-uikit-example:
 	xcodebuild clean build \
-		-project Examples/UIKit-PermanentUserProviderSelection/UIKit-PermanentUserProviderSelection.xcodeproj \
-		-scheme UIKit-PermanentUserProviderSelection \
+		-project Examples/UIKit-PermanentUserProviderSelection/PermanentUserExample.xcodeproj \
+		-scheme PermanentUserExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-swiftui-example:
 	xcodebuild clean build \
-		-project Examples/PermanentUserProviderSelection/PermanentUserProviderSelection.xcodeproj \
-		-scheme PermanentUserProviderSelection \
+		-project Examples/PermanentUserExample-SwiftUI/PermanentUserExample.xcodeproj \
+		-scheme PermanentUserExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-tinklinkui-example:
