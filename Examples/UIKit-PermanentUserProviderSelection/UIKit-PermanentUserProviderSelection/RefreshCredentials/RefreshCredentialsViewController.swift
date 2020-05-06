@@ -281,7 +281,7 @@ extension RefreshCredentialsViewController {
         do {
             self.credentials = try result.get()
         } catch {
-            // Handle any errors
+            showAlert(for: error)
         }
         refreshCredentialsTask = nil
     }
@@ -296,6 +296,15 @@ extension RefreshCredentialsViewController {
         supplementalInformationViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
         show(navigationController, sender: nil)
+    }
+
+    private func showAlert(for error: Error) {
+        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+
+        present(alertController, animated: true)
     }
 }
 
