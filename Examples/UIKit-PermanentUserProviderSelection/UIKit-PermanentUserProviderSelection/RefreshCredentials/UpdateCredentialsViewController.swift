@@ -79,8 +79,7 @@ extension UpdateCredentialsViewController {
 
 extension UpdateCredentialsViewController {
     private func setupHelpFootnote() {
-        guard let helpText = provider.helpText else { return }
-
+        guard let helpText = provider.helpText, !helpText.isEmpty else { return }
         let markdown = Down(markdownString: helpText)
         helpLabel.attributedText = try? markdown.toAttributedString()
         helpLabel.backgroundColor = .clear

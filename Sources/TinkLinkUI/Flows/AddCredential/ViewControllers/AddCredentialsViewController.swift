@@ -10,10 +10,6 @@ protocol AddCredentialsViewControllerDelegate: AnyObject {
 
 final class AddCredentialsViewController: UIViewController {
     let provider: Provider
-    var username: String? {
-        // FIXME: Fetch user to get username from.
-        nil
-    }
 
     weak var delegate: AddCredentialsViewControllerDelegate?
 
@@ -73,7 +69,7 @@ extension AddCredentialsViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        headerView.configure(with: provider, username: username, clientName: clientName, isAggregator: isAggregator)
+        headerView.configure(with: provider, clientName: clientName, isAggregator: isAggregator)
         headerView.delegate = self
 
         tableView.backgroundColor = .clear
