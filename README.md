@@ -61,6 +61,8 @@ Follow the instructions in one of these links to learn how to set this up:
 
 ## Tutorials
 - [Tink Link Tutorial](https://docs.tink.com/resources/tutorials/tink-link-sdk-ios-tutorial) This tutorial outlines how to use the different classes and types provided by TinkLink.
+- [Tink Link UI Tutorial](https://docs.tink.com/resources/tutorials/tink-link-ui-sdk-ios-tutorial) This tutorial outlines how integrate Tink Link UI in your app.
+
 ## Examples
 
 - [Example apps](Examples) These examples shows how to build a complete aggregation flow using TinkLink and TinkLinkUI.
