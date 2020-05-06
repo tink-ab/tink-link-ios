@@ -23,6 +23,19 @@ struct RESTTransferRequest: Codable {
     var destinationUri: String
     /// The source account of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
     var sourceUri: String
+
+    init(amount: Double, credentialsId: String?, currency: String, sourceMessage: String?, destinationMessage: String, id: String, dueDate: Date?, messageType: String?, sourceUri: String, destinationUri: String) {
+        self.amount = amount
+        self.credentialsId = credentialsId
+        self.currency = currency
+        self.sourceMessage = sourceMessage
+        self.destinationMessage = destinationMessage
+        self.id = id
+        self.dueDate = dueDate
+        self.messageType = messageType
+        self.sourceUri = sourceUri
+        self.destinationUri = destinationUri
+    }
 }
 
 
