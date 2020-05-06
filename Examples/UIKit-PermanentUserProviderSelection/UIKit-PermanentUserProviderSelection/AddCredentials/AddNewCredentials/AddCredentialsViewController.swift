@@ -244,7 +244,9 @@ extension AddCredentialsViewController {
             let credentials = try result.get()
             showCredentialUpdated(for: credentials)
         } catch {
-            showAlert(for: error)
+            hideUpdatingView(animated: false) {
+                self.showAlert(for: error)
+            }
         }
     }
 
