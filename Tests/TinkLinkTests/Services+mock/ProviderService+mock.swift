@@ -3,7 +3,7 @@ import Foundation
 
 class MockedSuccessProviderService: ProviderService {
 
-    func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
+    func providers(id: Provider.ID?, capabilities: Provider.Capabilities?, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
         let providers = [
             Provider.nordeaBankID,
             Provider.nordeaPassword,
@@ -19,7 +19,7 @@ class MockedSuccessProviderService: ProviderService {
 
 class MockedUnauthenticatedErrorProviderService: ProviderService {
 
-    func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
+    func providers(id: Provider.ID?, capabilities: Provider.Capabilities?, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
