@@ -241,7 +241,7 @@ extension AddCredentialsViewController {
 
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
-            let credentials = try result.get()
+            _ = try result.get()
             hideUpdatingView(animated: false) {
                 self.dismiss(animated: true)
             }
