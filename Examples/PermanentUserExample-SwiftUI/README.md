@@ -18,7 +18,7 @@ Before running the example project open `AppDelegate.swift` and configure the fo
     ```swift
     Tink.shared.userSession = .accessToken(<#String#>)
     ```
-    
-    ## Running the example app
-    1. Open `PermanentUserExample.xcodeproj` in Xcode.
-    2. Press the run button. If all went well, this should launch a simulator with the sample app running.
+
+## Running the example app
+1. Open `PermanentUserExample.xcodeproj` in Xcode.
+2. Press the run button. If all went well, this should launch a simulator with the sample app running.
