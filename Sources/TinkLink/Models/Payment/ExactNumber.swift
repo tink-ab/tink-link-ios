@@ -1,11 +1,11 @@
 import Foundation
 
-struct ExactNumber: Equatable, Hashable, Codable {
+public struct ExactNumber: Equatable, Hashable, Codable {
     let unscaledValue: Int64
     let scale: Int64
 }
 
-extension ExactNumber {
+public extension ExactNumber {
     init(value: Decimal) {
         var value = value
         var normalizedSignificand: Int64?
@@ -30,12 +30,12 @@ extension ExactNumber {
         self.unscaledValue = normalizedSignificand ?? 0
     }
 
-    init(value: Int) {
+    public init(value: Int) {
         self.scale = 0
         self.unscaledValue = Int64(value)
     }
 
-    var doubleValue: Double {
+    public var doubleValue: Double {
         Double(unscaledValue) * pow(10, Double(-scale))
     }
 }
