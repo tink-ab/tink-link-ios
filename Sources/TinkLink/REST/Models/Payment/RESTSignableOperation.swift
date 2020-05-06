@@ -23,9 +23,9 @@ struct RESTSignableOperation: Codable {
     /// The ID of the Credentials used to make the operation.
     var credentialsId: String?
     /// The unique identifier of this operation.
-    var id: String
+    var id: String?
     /// The transfer status. The value of this field changes during payment initiation according to `/resources/payments/payment-status-transitions`
-    var status: Status
+    var status: Status?
     /// A message with additional information regarding the current status of the transfer.
     var statusMessage: String?
     /// The type of operation.
