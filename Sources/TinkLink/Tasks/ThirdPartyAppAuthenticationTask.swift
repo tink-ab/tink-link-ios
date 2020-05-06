@@ -54,9 +54,9 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         case deeplinkURLNotFound
         /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
         case downloadRequired(title: String?, message: String?, appStoreURL: URL?)
-
+        /// The credentials can not be authenticated on another device.
         case doesNotSupportAuthenticatingOnAnotherDevice
-
+        /// Decoding the QR code image failed.
         case decodingQRCodeImageFailed
 
         public var errorDescription: String? {
