@@ -213,7 +213,9 @@ extension AddCredentialsViewController {
                 showUpdating(status: status)
             }
         case .awaitingSupplementalInformation(let task):
-            showSupplementalInformation(for: task)
+            hideUpdatingView(animated: false) {
+                self.showSupplementalInformation(for: task)
+            }
         case .awaitingThirdPartyAppAuthentication(let task):
             task.handle { [weak self] taskStatus in
                 DispatchQueue.main.async {
@@ -256,7 +258,6 @@ extension AddCredentialsViewController {
 
 extension AddCredentialsViewController {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
-        hideUpdatingView()
         let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
         supplementalInformationViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
