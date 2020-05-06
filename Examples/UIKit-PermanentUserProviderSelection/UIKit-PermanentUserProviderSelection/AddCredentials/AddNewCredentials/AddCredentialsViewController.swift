@@ -279,7 +279,7 @@ extension AddCredentialsViewController {
         statusViewController?.status = status
     }
 
-    private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
+    private func hideUpdatingView(animated: Bool, completion: (() -> Void)? = nil) {
         guard statusViewController != nil else {
             completion?()
             return
