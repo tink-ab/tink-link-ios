@@ -272,7 +272,7 @@ extension RefreshCredentialsViewController {
             present(alertController, animated: true)
         case .qrImage(let image):
             let qrViewController = QRViewController(image: image)
-            qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
+            qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelQRCode))
             let navigationController = UINavigationController(rootViewController: qrViewController)
             present(navigationController, animated: true)
         }
@@ -281,12 +281,12 @@ extension RefreshCredentialsViewController {
         do {
             self.credentials = try result.get()
         } catch {
-            // Handle any errors
+            showAlert(for: error)
         }
         refreshCredentialsTask = nil
     }
 
-    @objc private func cancelRefreshingCredentials(_ sender: Any) {
+    @objc private func cancelQRCode(_ sender: Any) {
         refreshCredentialsTask?.cancel()
         dismiss(animated: true)
     }
@@ -296,6 +296,15 @@ extension RefreshCredentialsViewController {
         supplementalInformationViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
         show(navigationController, sender: nil)
+    }
+
+    private func showAlert(for error: Error) {
+        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+
+        present(alertController, animated: true)
     }
 }
 

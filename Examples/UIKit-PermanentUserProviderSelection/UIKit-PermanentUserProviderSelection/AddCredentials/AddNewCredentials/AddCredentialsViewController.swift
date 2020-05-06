@@ -213,7 +213,9 @@ extension AddCredentialsViewController {
                 showUpdating(status: status)
             }
         case .awaitingSupplementalInformation(let task):
-            showSupplementalInformation(for: task)
+            hideUpdatingView(animated: false) {
+                self.showSupplementalInformation(for: task)
+            }
         case .awaitingThirdPartyAppAuthentication(let task):
             task.handle { [weak self] taskStatus in
                 DispatchQueue.main.async {
@@ -226,7 +228,7 @@ extension AddCredentialsViewController {
     private func handleThirdPartyAppAuthentication(_ taskStatus: ThirdPartyAppAuthenticationTask.Status) {
         switch taskStatus {
         case .awaitAuthenticationOnAnotherDevice:
-            showUpdating(status: "Await Authentication on Another Device")
+            showUpdating(status: "Awaiting Authentication on Another Device")
         case .qrImage(let image):
             hideUpdatingView(animated: true) {
                 let qrViewController = QRViewController(image: image)
@@ -239,10 +241,14 @@ extension AddCredentialsViewController {
 
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
-            let credentials = try result.get()
-            showCredentialUpdated(for: credentials)
+            _ = try result.get()
+            hideUpdatingView(animated: false) {
+                self.dismiss(animated: true)
+            }
         } catch {
-            showAlert(for: error)
+            hideUpdatingView(animated: false) {
+                self.showAlert(for: error)
+            }
         }
     }
 
@@ -256,7 +262,6 @@ extension AddCredentialsViewController {
 
 extension AddCredentialsViewController {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
-        hideUpdatingView()
         let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
         supplementalInformationViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
@@ -278,7 +283,7 @@ extension AddCredentialsViewController {
         statusViewController?.status = status
     }
 
-    private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
+    private func hideUpdatingView(animated: Bool, completion: (() -> Void)? = nil) {
         guard statusViewController != nil else {
             completion?()
             return
@@ -288,11 +293,6 @@ extension AddCredentialsViewController {
         }
         dismiss(animated: animated, completion: completion)
         statusViewController = nil
-    }
-
-    private func showCredentialUpdated(for credential: Credentials) {
-        hideUpdatingView()
-        dismiss(animated: true)
     }
 
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {

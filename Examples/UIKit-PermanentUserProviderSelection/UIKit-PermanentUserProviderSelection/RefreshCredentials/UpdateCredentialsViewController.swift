@@ -205,7 +205,9 @@ extension UpdateCredentialsViewController {
                 showUpdating(status: status)
             }
         case .awaitingSupplementalInformation(let task):
-            showSupplementalInformation(for: task)
+            hideUpdatingView(animated: false) {
+                self.showSupplementalInformation(for: task)
+            }
         case .awaitingThirdPartyAppAuthentication(let task):
             task.handle { [weak self] taskStatus in
                 DispatchQueue.main.async {
@@ -218,7 +220,7 @@ extension UpdateCredentialsViewController {
     private func handleThirdPartyAppAuthentication(_ taskStatus: ThirdPartyAppAuthenticationTask.Status) {
         switch taskStatus {
         case .awaitAuthenticationOnAnotherDevice:
-            showUpdating(status: "Await Authentication on Another Device")
+            showUpdating(status: "Awaiting Authentication on Another Device")
         case .qrImage(let image):
             hideUpdatingView(animated: true) {
                 let qrViewController = QRViewController(image: image)
@@ -232,10 +234,11 @@ extension UpdateCredentialsViewController {
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
             let credentials = try result.get()
-            hideUpdatingView()
             completion(.success(credentials))
         } catch {
-            showAlert(for: error)
+            hideUpdatingView(animated: false) {
+                self.showAlert(for: error)
+            }
         }
     }
 
@@ -249,7 +252,6 @@ extension UpdateCredentialsViewController {
 
 extension UpdateCredentialsViewController {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
-        hideUpdatingView()
         let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
         supplementalInformationViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
@@ -271,7 +273,7 @@ extension UpdateCredentialsViewController {
         statusViewController?.status = status
     }
 
-    private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
+    private func hideUpdatingView(animated: Bool, completion: (() -> Void)? = nil) {
         guard statusViewController != nil else {
             completion?()
             return
