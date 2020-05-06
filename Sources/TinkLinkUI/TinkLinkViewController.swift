@@ -56,8 +56,11 @@ public class TinkLinkViewController: UINavigationController {
         case username(value: String, isEditable: Bool)
     }
 
+    /// Strategy for what to fetch
     public enum ProviderPredicate {
+        /// Will fetch a list of providers depending on kind.
         case kinds(Set<Provider.Kind>)
+        /// Will fetch a single provider by id.
         case name(Provider.ID)
     }
   
@@ -87,7 +90,7 @@ public class TinkLinkViewController: UINavigationController {
     ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from. 
     ///   - scope: A set of scopes that will be aggregated.
     ///   - providerKinds: The kind of providers that will be listed.
-    ///   - providerID: The ID of a specific provider. This will open Tink Link with that provider preselected. Optional.
+    ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
     public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.defaultKinds), completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
