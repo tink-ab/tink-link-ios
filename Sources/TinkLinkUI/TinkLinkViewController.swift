@@ -104,15 +104,8 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     @available(*, deprecated, message: "use tink:market:scopes:providerPredicate: instead")
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
-        self.tink = tink
-        self.market = market
-        self.scopes = scopes
-        self.providerController = ProviderController(tink: tink, providerPredicate: .kinds(.defaultKinds))
-        self.completion = completion
-        self.providerPredicate = TinkLinkViewController.ProviderPredicate.kinds(.defaultKinds)
-
-        super.init(nibName: nil, bundle: nil)
+    public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+        self.init(tink: tink, market: market, scopes: scopes, providerPredicate: .kinds(providerKinds), completion: completion)
     }
 
     required init?(coder aDecoder: NSCoder) {
