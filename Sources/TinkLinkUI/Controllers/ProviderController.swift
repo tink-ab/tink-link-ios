@@ -74,12 +74,12 @@ final class ProviderController {
                 DispatchQueue.main.async {
                     self?.providers = providers
                     self?.financialInstitutionGroupNodes = tree.financialInstitutionGroups
-                    completion?(Result.success(providers))
+                    completion?(.success(providers))
                     NotificationCenter.default.post(name: .providerControllerDidUpdateProviders, object: self)
                 }
             } catch {
                 self?.error = Error(fetchProviderError: error) ?? error
-                completion?(Result.failure(Error(fetchProviderError: error) ?? error))
+                completion?(.failure(Error(fetchProviderError: error) ?? error))
                 NotificationCenter.default.post(name: .providerControllerDidFailWithError, object: self)
             }
         })
