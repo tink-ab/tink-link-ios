@@ -50,7 +50,7 @@ public struct SignableOperation {
     /// The timestamp of the last update of the operation.
     public let updated: Date
 
-    // TODO: Not 100% sure what is this here for now
+    // TODO: This should be the real userID for generating the access token
     /// The ID of the user making the operation.
     public let userId: String?
 }

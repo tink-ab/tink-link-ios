@@ -12,13 +12,14 @@ final class RESTTransferService {
             amount: transfer.amount.doubleValue,
             credentialsId: transfer.credentialsID.value,
             currency: transfer.currency.value,
-            sourceMessage: transfer.sourceMessage,
             destinationMessage: transfer.destinationMessage,
             id: transfer.id.value,
+            sourceMessage: transfer.sourceMessage,
             dueDate: transfer.dueDate,
             messageType: transfer.messageType.rawValue,
-            sourceUri: transfer.sourceUri.value,
-            destinationUri: transfer.destinationUri.value)
+            destinationUri: transfer.destinationUri.value,
+            sourceUri: transfer.sourceUri.value
+        )
         let data = try? JSONEncoder().encode(body)
 
         let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer", method: .post, body: data, contentType: .json) { result in
