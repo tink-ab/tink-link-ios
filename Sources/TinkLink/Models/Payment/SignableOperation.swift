@@ -49,8 +49,6 @@ public struct SignableOperation {
     public let transferID: Transfer.ID?
     /// The timestamp of the last update of the operation.
     public let updated: Date
-
-    // TODO: This should be the real userID for generating the access token
     /// The ID of the user making the operation.
-    public let userID: UUID?
+    public let userID: User.ID?
 }
