@@ -63,14 +63,14 @@ public class TinkLinkViewController: UINavigationController {
         /// Will fetch a single provider by id.
         case name(Provider.ID)
     }
-  
+
+    /// The prefilling strategy to use.
+    public var prefill: PrefillStrategy = .none
     /// Scopes that grant access to Tink.
     public let scopes: [Scope]
     private let tink: Tink
     private let market: Market
     private let providerPredicate: ProviderPredicate
-    /// The prefilling strategy to use. 
-    public var prefill: PrefillStrategy = .none
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
