@@ -43,7 +43,7 @@ final class AddCredentialsStatusViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
 
-        statusLabelView.font = Font.subheadline
+        statusLabelView.font = Font.headline
         statusLabelView.textColor = Color.label
         statusLabelView.numberOfLines = 0
         statusLabelView.preferredMaxLayoutWidth = 220
