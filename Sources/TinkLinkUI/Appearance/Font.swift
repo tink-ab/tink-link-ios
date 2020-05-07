@@ -121,10 +121,16 @@ extension Font {
 // MARK: - Semantic Text Styles
 
 extension Font {
+    /// Bold 21 (Mega)
     static var title: UIFont { bold(.mega) }
+    /// Bold 15 (Deci)
     static var headline: UIFont { bold(.deci) }
+    /// Bold 15 (Deci)
     static var subheadline: UIFont { bold(.deci) }
+    /// Regular 15 (Deci)
     static var body: UIFont { regular(.deci) }
+    /// Bold 15 (Deci)
     static var callout: UIFont { bold(.deci) }
+    /// Regular 13 (Micro)
     static var footnote: UIFont { regular(.micro) }
 }
