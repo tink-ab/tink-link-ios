@@ -18,7 +18,7 @@ final class AddCredentialsFooterView: UIView {
         descriptionTextView.setLineHeight(lineHeight: 20)
         descriptionTextView.linkTextAttributes = [
             .foregroundColor: Color.secondaryLabel,
-            .font: Font.regular(.micro),
+            .font: Font.footnote,
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         descriptionTextView.textContainer.lineFragmentPadding = 0
@@ -26,7 +26,7 @@ final class AddCredentialsFooterView: UIView {
         let text = Strings.AddCredentials.Consent.serviceAgreement
         let attributeText = NSMutableAttributedString(
             string: text,
-            attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.regular(.micro)])
+            attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.footnote])
         let languageCode = Locale.current.languageCode ?? ""
         let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
         let privacyPolicyText = Strings.AddCredentials.Consent.privacyPolicy

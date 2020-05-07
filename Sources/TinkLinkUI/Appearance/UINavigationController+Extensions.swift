@@ -9,10 +9,10 @@ extension UINavigationController {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.buttonAppearance.normal.titleTextAttributes = [
-                .font: Font.regular(.deci)
+                .font: Font.body
             ]
             appearance.buttonAppearance.highlighted.titleTextAttributes = [
-                .font: Font.regular(.deci)
+                .font: Font.body
             ]
 
             appearance.shadowColor = Color.separator
@@ -23,7 +23,7 @@ extension UINavigationController {
             appearance.setBackIndicatorImage(backIndicatorImage, transitionMaskImage: backIndicatorImage)
 
             appearance.titleTextAttributes = [
-                .font: Font.bold(.deci),
+                .font: Font.headline,
                 .foregroundColor: Color.label
             ]
 
@@ -32,10 +32,10 @@ extension UINavigationController {
             // Bar Button Item
             let barButtonItemAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [Self.self])
             barButtonItemAppearance.setTitleTextAttributes([
-                .font: Font.regular(.deci)
+                .font: Font.body
                 ], for: .normal)
             barButtonItemAppearance.setTitleTextAttributes([
-                .font: Font.regular(.deci)
+                .font: Font.body
                 ], for: .highlighted)
 
             // Navigation Bar
@@ -47,7 +47,7 @@ extension UINavigationController {
             navigationBarAppearance.backIndicatorTransitionMaskImage = backIndicatorImage
 
             navigationBarAppearance.titleTextAttributes = [
-                .font: Font.bold(.deci),
+                .font: Font.headline,
                 .foregroundColor: Color.label
             ]
 

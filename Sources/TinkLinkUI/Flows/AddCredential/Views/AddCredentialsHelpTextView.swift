@@ -19,7 +19,7 @@ final class AddCredentialsHelpTextView: UIView {
         directionalLayoutMargins = .init(top: 16, leading: 24, bottom: 16, trailing: 24)
 
         helpTextView.linkTextAttributes = [
-            NSAttributedString.Key.font: Font.bold(.micro),
+            NSAttributedString.Key.font: Font.footnote.bold,
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
 
@@ -62,7 +62,7 @@ final class AddCredentialsHelpTextView: UIView {
 
         let mutableAttributedString = NSMutableAttributedString(attributedString: attributedString)
 
-        mutableAttributedString.addAttributes([.font: Font.regular(.micro), .foregroundColor: Color.secondaryLabel], range: NSRange(location: 0, length: attributedString.length))
+        mutableAttributedString.addAttributes([.font: Font.footnote, .foregroundColor: Color.secondaryLabel], range: NSRange(location: 0, length: attributedString.length))
 
         //There can be an extra newline in the end of the
         // string (Down doing this?) so we need to remove it.

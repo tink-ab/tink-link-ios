@@ -41,13 +41,13 @@ final class ProviderLoadingErrorView: UIView {
         iconBackgroundView.layer.cornerRadius = 20
         iconBackgroundView.layer.backgroundColor = Color.warningBackground.cgColor
 
-        textLabel.font = Font.bold(.deci)
+        textLabel.font = Font.headline
         textLabel.textColor = Color.label
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 0
         textLabel.setLineHeight(lineHeight: 20)
 
-        descriptionLabel.font = Font.regular(.micro)
+        descriptionLabel.font = Font.footnote
         descriptionLabel.textColor = Color.secondaryLabel
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 0
