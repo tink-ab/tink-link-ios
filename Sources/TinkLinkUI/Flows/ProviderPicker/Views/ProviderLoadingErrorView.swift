@@ -47,7 +47,7 @@ final class ProviderLoadingErrorView: UIView {
         textLabel.numberOfLines = 0
         textLabel.setLineHeight(lineHeight: 20)
 
-        descriptionLabel.font = Font.regular(.micro)
+        descriptionLabel.font = Font.footnote
         descriptionLabel.textColor = Color.secondaryLabel
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 0
