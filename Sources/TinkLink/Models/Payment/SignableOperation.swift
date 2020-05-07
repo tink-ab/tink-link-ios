@@ -52,5 +52,5 @@ public struct SignableOperation {
 
     // TODO: This should be the real userID for generating the access token
     /// The ID of the user making the operation.
-    public let userID: String?
+    public let userID: UUID?
 }

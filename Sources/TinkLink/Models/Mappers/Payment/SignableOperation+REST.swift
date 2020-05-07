@@ -10,7 +10,7 @@ extension SignableOperation {
         type = .transfer
         transferID = restSignableOperation.underlyingId.flatMap({ Transfer.ID($0) })
         updated = restSignableOperation.updated ?? Date()
-        userID = restSignableOperation.userId
+        userID = restSignableOperation.userId.flatMap({ UUID(uuidString: $0) })
     }
 }
 
