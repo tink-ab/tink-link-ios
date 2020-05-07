@@ -41,7 +41,7 @@ final class ProviderLoadingErrorView: UIView {
         iconBackgroundView.layer.cornerRadius = 20
         iconBackgroundView.layer.backgroundColor = Color.warningBackground.cgColor
 
-        textLabel.font = Font.subheadline
+        textLabel.font = Font.headline
         textLabel.textColor = Color.label
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 0
