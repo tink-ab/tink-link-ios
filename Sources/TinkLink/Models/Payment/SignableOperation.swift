@@ -34,7 +34,7 @@ public struct SignableOperation {
     }
 
     /// The timestamp of the creation of the operation.
-    public let created: Date
+    public let created: Date?
     /// The ID of the Credentials used to make the operation.
     public let credentialsID: Credentials.ID?
     /// The unique identifier of this operation.
@@ -42,13 +42,13 @@ public struct SignableOperation {
     /// The transfer status. The value of this field changes during payment initiation according to `/resources/payments/payment-status-transitions`
     public let status: Status
     /// A message with additional information regarding the current status of the transfer.
-    public let statusMessage: String
+    public let statusMessage: String?
     /// The type of operation.
     public let type: ModelType
     /// The ID of the actual transfer.
     public let transferID: Transfer.ID?
     /// The timestamp of the last update of the operation.
-    public let updated: Date
+    public let updated: Date?
     /// The ID of the user making the operation.
     public let userID: User.ID?
 }
