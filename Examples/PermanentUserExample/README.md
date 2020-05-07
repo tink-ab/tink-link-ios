@@ -14,7 +14,11 @@ Before running the example project open `AppDelegate.swift` and configure the fo
     Tink.configure(with: configuration)
     ```
     
-2. Set a valid access token.
+2. Set a valid user access token. If you don't have one already, please follow our [guide](https://docs.tink.com/resources/getting-started/get-access-token) on how to generate a new API token. Note that these can expire, so make sure that you're using one that's currently active.
     ```swift
     Tink.shared.userSession = .accessToken(<#String#>)
     ```
+
+## Running the example app
+1. Open `PermanentUserExample.xcodeproj` in Xcode.
+2. Press the run button. If all went well, this should launch a simulator with the sample app running.
