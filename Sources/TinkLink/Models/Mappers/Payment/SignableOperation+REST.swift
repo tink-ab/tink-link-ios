@@ -3,14 +3,14 @@ import Foundation
 extension SignableOperation {
     init(_ restSignableOperation: RESTSignableOperation) {
         created = restSignableOperation.created ?? Date()
-        credentialsId = restSignableOperation.credentialsId.flatMap({ Credentials.ID($0) })
+        credentialsID = restSignableOperation.credentialsId.flatMap({ Credentials.ID($0) })
         id = restSignableOperation.id.flatMap({ SignableOperation.ID($0) })
         status = restSignableOperation.status.flatMap({ SignableOperation.Status($0) }) ?? .unknown
         statusMessage = restSignableOperation.statusMessage ?? String()
         type = .transfer
-        underlyingId = restSignableOperation.underlyingId.flatMap({ Transfer.ID($0) })
+        transferID = restSignableOperation.underlyingId.flatMap({ Transfer.ID($0) })
         updated = restSignableOperation.updated ?? Date()
-        userId = restSignableOperation.userId
+        userID = restSignableOperation.userId
     }
 }
 
