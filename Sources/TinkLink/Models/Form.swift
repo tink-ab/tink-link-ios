@@ -322,6 +322,26 @@ extension Form {
     public init(credentials: Credentials) {
         self.init(fieldSpecifications: credentials.supplementalInformationFields)
     }
+
+    /// Creates a form for updating the given credentials.
+    ///
+    /// - Parameters:
+    ///   - updatingCredentials: The credentials to update.
+    ///   - provider: The provider for the credentials to update.
+    public init(updatingCredentials: Credentials, provider: Provider) {
+        let providerFieldSpecifications = provider.fields
+        let credentialsFields = updatingCredentials.fields
+        let fieldSpecifications = providerFieldSpecifications.map { fieldSpecification -> Provider.FieldSpecification in
+            if let text = credentialsFields[fieldSpecification.name] {
+                var multableFieldSpecification = fieldSpecification
+                multableFieldSpecification.initialValue = text
+                multableFieldSpecification.isImmutable = true
+                return multableFieldSpecification
+            }
+            return fieldSpecification
+        }
+        self.init(fieldSpecifications: fieldSpecifications)
+    }
 }
 
 extension Form.Fields {

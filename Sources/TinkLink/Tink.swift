@@ -37,16 +37,20 @@ public class Tink {
 
     // MARK: - Specifying the Credential
 
-    /// Sets the credential to be used for this Tink Context.
+    /// The current user session associated with this Tink object.
     ///
-    /// The credential is associated with a specific user which has been
-    /// created and authenticated through the Tink API.
+    /// When you set this property to some value, all requests made by this Tink object or any
+    /// other object associated with it will try to authenticate using the provided user session credentials.
     ///
-    /// - Parameter credential: The credential to use.
-    public func setCredential(_ credential: SessionCredential?) {
-        authorizationBehavior.sessionCredential = credential
+    /// You can check if this property is not `nil` if you want to check if the Tink object
+    /// is currently trying to authenticate with user session credentials.
+    ///
+    /// - Note: The existence of a `userSession` does not guarantee that the session is
+    /// valid. It may have expired or be invalid.
+    public var userSession: UserSession? {
+        get { authorizationBehavior.sessionCredential }
+        set { authorizationBehavior.sessionCredential = newValue }
     }
-
     // MARK: - Creating a Tink Link Object
 
     private convenience init() {
@@ -151,7 +155,7 @@ extension Tink {
             do {
                 let authenticateResponse = try result.get()
                 let accessToken = authenticateResponse.accessToken
-                self?.setCredential(.accessToken(accessToken.rawValue))
+                self?.userSession = .accessToken(accessToken.rawValue)
                 completion(.success)
             } catch {
                 completion(.failure(error))
@@ -172,7 +176,7 @@ extension Tink {
             let mappedResult = result.mapError { UserError(createTemporaryUserError: $0) ?? $0 }
             do {
                 let accessToken = try mappedResult.get()
-                self?.setCredential(.accessToken(accessToken.rawValue))
+                self?.userSession = .accessToken(accessToken.rawValue)
                 completion(.success)
             } catch {
                 completion(.failure(error))
@@ -190,5 +194,18 @@ extension Tink {
     /// :nodoc:
     public func _endUITask() {
         uiTaskCount -= 1
+    }
+}
+
+extension Tink {
+    /// Sets the credential to be used for this Tink Context.
+    ///
+    /// The credential is associated with a specific user which has been
+    /// created and authenticated through the Tink API.
+    ///
+    /// - Parameter credential: The credential to use.
+    @available(*, deprecated, message: "Set the userSession property directly instead.")
+    public func setCredential(_ credential: SessionCredential?) {
+        authorizationBehavior.sessionCredential = credential
     }
 }

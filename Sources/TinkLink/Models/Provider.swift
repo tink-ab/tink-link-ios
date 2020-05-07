@@ -73,7 +73,7 @@ public struct Provider: Identifiable {
     public let credentialsKind: Credentials.Kind
 
     /// Short description of how to authenticate when creating a new credentials for connected to the provider.
-    public let helpText: String
+    public let helpText: String?
 
     /// Indicates if the provider is popular. This is normally set to true for the biggest financial institutions on a market.
     public let isPopular: Bool
@@ -88,10 +88,10 @@ public struct Provider: Identifiable {
         /// Controls whether or not the field should be shown masked, like a password field.
         internal let isMasked: Bool
         internal let isNumeric: Bool
-        internal let isImmutable: Bool
+        internal var isImmutable: Bool
         internal let isOptional: Bool
         internal let name: String
-        internal let initialValue: String
+        internal var initialValue: String
         internal let pattern: String
         internal let patternError: String
         /// Text displayed next to the input field

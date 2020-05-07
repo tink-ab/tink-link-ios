@@ -14,7 +14,7 @@ final class AddCredentialsHeaderView: UIView {
     }()
     private lazy var bankLabel: UILabel = {
         let bankLabel = UILabel()
-        bankLabel.font = Font.bold(.deci)
+        bankLabel.font = Font.headline
         bankLabel.adjustsFontForContentSizeCategory = true
         bankLabel.textColor = Color.label
         bankLabel.numberOfLines = 0
@@ -34,18 +34,11 @@ final class AddCredentialsHeaderView: UIView {
         userInfoIconView.image = UIImage(icon: .profile)?.withRenderingMode(.alwaysTemplate)
         return userInfoIconView
     }()
-    private let userInfoLabel: UILabel = {
-        let userInfoLabel = UILabel()
-        userInfoLabel.font = Font.bold(.deci)
-        userInfoLabel.textColor = Color.label
-        userInfoLabel.numberOfLines = 0
-        return userInfoLabel
-    }()
     private lazy var userInfoDescription: UITextView = {
         let userInfoDescription = UnselectableTextView()
         userInfoDescription.textContainerInset = .zero
         userInfoDescription.textContainer.lineFragmentPadding = 0
-        userInfoDescription.font = Font.regular(.micro)
+        userInfoDescription.font = Font.footnote
         userInfoDescription.textColor = Color.label
         userInfoDescription.isScrollEnabled = false
         userInfoDescription.backgroundColor = .clear
@@ -81,11 +74,8 @@ final class AddCredentialsHeaderView: UIView {
 
     private var readMoreRange: NSRange?
 
-    private var emptyDescriptionUserInfoLabelBottomSpace: NSLayoutConstraint?
     private var userInfoDescriptionBottomSpace: NSLayoutConstraint?
-
     private var userInfoDescriptionTopConstraint: NSLayoutConstraint?
-    private var emptyUsernameDescriptionCenterYConstraint: NSLayoutConstraint?
     private var userInfoEmptyBottomConstraint: NSLayoutConstraint?
     private var emptyUserInfoContainerBottomConstraint: NSLayoutConstraint?
     private var userInfoContainerBottomConstraint: NSLayoutConstraint?
@@ -116,7 +106,6 @@ final class AddCredentialsHeaderView: UIView {
         dashLine.translatesAutoresizingMaskIntoConstraints = false
         userInfoIconBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         userInfoIconView.translatesAutoresizingMaskIntoConstraints = false
-        userInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         userInfoDescription.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(bankLabel)
@@ -126,16 +115,13 @@ final class AddCredentialsHeaderView: UIView {
         userInfoContainerView.addSubview(dashLine)
         userInfoContainerView.addSubview(userInfoIconBackgroundView)
         userInfoContainerView.addSubview(userInfoIconView)
-        userInfoContainerView.addSubview(userInfoLabel)
         userInfoContainerView.addSubview(userInfoDescription)
 
-        let userInfoDescriptionTopConstraint = userInfoDescription.topAnchor.constraint(equalTo: userInfoLabel.lastBaselineAnchor, constant: 8)
+        let userInfoDescriptionTopConstraint = userInfoDescription.topAnchor.constraint(equalTo: lastBaselineAnchor, constant: 8)
         self.userInfoDescriptionTopConstraint = userInfoDescriptionTopConstraint
-        emptyUsernameDescriptionCenterYConstraint = userInfoDescription.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor)
 
         let userInfoDescriptionBottomSpace = userInfoDescription.bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
         self.userInfoDescriptionBottomSpace = userInfoDescriptionBottomSpace
-        emptyDescriptionUserInfoLabelBottomSpace = userInfoLabel.bottomAnchor.constraint(equalTo: userInfoContainerView.bottomAnchor)
 
         let userInfoContainerBottomConstraint = userInfoContainerView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         self.userInfoContainerBottomConstraint = userInfoContainerBottomConstraint
@@ -170,34 +156,26 @@ final class AddCredentialsHeaderView: UIView {
             userInfoIconView.heightAnchor.constraint(equalToConstant: 24),
             userInfoIconView.centerXAnchor.constraint(equalTo: dashLine.centerXAnchor),
 
-            userInfoLabel.leadingAnchor.constraint(equalTo: userInfoIconBackgroundView.trailingAnchor, constant: 10),
-            userInfoLabel.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor),
-            userInfoLabel.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor),
-
-            userInfoDescriptionTopConstraint,
-            userInfoDescription.leadingAnchor.constraint(equalTo: userInfoLabel.leadingAnchor),
-            userInfoDescription.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor),
-            userInfoDescriptionBottomSpace
+            userInfoDescription.leadingAnchor.constraint(equalTo: userInfoIconBackgroundView.trailingAnchor, constant: 10),
+            userInfoDescription.centerYAnchor.constraint(equalTo: userInfoIconView.centerYAnchor),
+            userInfoDescription.trailingAnchor.constraint(equalTo: userInfoContainerView.trailingAnchor)
         ])
     }
 
-    func configure(with provider: Provider, username: String? = nil, clientName: String, isAggregator: Bool) {
+    func configure(with provider: Provider, clientName: String, isAggregator: Bool) {
         configure(provider)
         
-        let shouldHideUserInfoContainer = isAggregator && (username?.isEmpty ?? true)
+        let shouldHideUserInfoContainer = isAggregator
         guard !shouldHideUserInfoContainer else {
             userInfoContainerView.isHidden = true
             emptyUserInfoContainerBottomConstraint?.isActive = true
 
             userInfoDescriptionTopConstraint?.isActive = false
-            emptyUsernameDescriptionCenterYConstraint?.isActive = false
             userInfoDescriptionBottomSpace?.isActive = false
-            emptyDescriptionUserInfoLabelBottomSpace?.isActive = false
             userInfoContainerBottomConstraint?.isActive = false
             return
         }
 
-        configure(username)
         configure(clientName, isDescriptionHidden: isAggregator)
     }
 
@@ -208,37 +186,27 @@ final class AddCredentialsHeaderView: UIView {
         bankLabel.text = provider.displayName
     }
 
-    private func configure(_ username: String?) {
-        let isUsernameEmpty = username?.isEmpty ?? true
-
-        userInfoLabel.text = username
-        userInfoLabel.isHidden = isUsernameEmpty
-        userInfoDescriptionTopConstraint?.isActive = !isUsernameEmpty
-        emptyUsernameDescriptionCenterYConstraint?.isActive = isUsernameEmpty
-    }
-
     private func configure(_ clientName: String, isDescriptionHidden: Bool) {
         userInfoDescription.isHidden = isDescriptionHidden
-        emptyDescriptionUserInfoLabelBottomSpace?.isActive = isDescriptionHidden
         userInfoDescriptionBottomSpace?.isActive = !isDescriptionHidden
 
         let readMoreFormat = Strings.AddCredentials.Consent.financialInformation
         let text = String(format: readMoreFormat, clientName)
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: Color.label,
-            .font: Font.regular(.micro)
+            .font: Font.footnote
         ]
         let attributeText = NSMutableAttributedString(string: text, attributes: attributes)
         let readMoreText = Strings.AddCredentials.Consent.readMore
         let readMoreRange = attributeText.mutableString.range(of: readMoreText)
         self.readMoreRange = readMoreRange
         attributeText.addAttributes([
-            NSAttributedString.Key.font: Font.bold(.micro),
+            NSAttributedString.Key.font: Font.footnote.bold,
             NSAttributedString.Key.foregroundColor: Color.accent,
             NSAttributedString.Key.link: "",
         ], range: readMoreRange)
         userInfoDescription.linkTextAttributes = [
-            NSAttributedString.Key.font: Font.bold(.micro),
+            NSAttributedString.Key.font: Font.footnote.bold,
             NSAttributedString.Key.foregroundColor: Color.accent
         ]
         userInfoDescription.attributedText = attributeText

@@ -43,14 +43,14 @@ final class QRImageViewController: UIViewController {
         borderedCornersView.translatesAutoresizingMaskIntoConstraints = false
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
 
-        subtitleLabel.font = Font.bold(.mega)
+        subtitleLabel.font = Font.headline
         subtitleLabel.textColor = Color.label
         subtitleLabel.numberOfLines = 0
         subtitleLabel.textAlignment = .center
         subtitleLabel.text = "Open the BankID app"
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        descriptionLabel.font = Font.regular(.deci)
+        descriptionLabel.font = Font.footnote
         descriptionLabel.textColor = Color.label
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center

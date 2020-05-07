@@ -2,9 +2,9 @@ import Foundation
 
 final class AuthorizationHeaderClientBehavior: ClientBehavior {
 
-    var sessionCredential: SessionCredential?
+    var sessionCredential: UserSession?
     
-    init(sessionCredential: SessionCredential?) {
+    init(sessionCredential: UserSession?) {
         self.sessionCredential = sessionCredential
     }
     

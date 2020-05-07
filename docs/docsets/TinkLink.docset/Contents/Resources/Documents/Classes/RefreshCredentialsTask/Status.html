@@ -14,7 +14,7 @@
     <a title="Status Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">TinkLink 0.10.0 Docs</a> (75% documented)</p>
+        <p><a href="../../index.html">TinkLink 0.11.0 Docs</a> (78% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -106,7 +106,7 @@
                 <a href="../../Enums/ServiceError.html">ServiceError</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Enums/SessionCredential.html">SessionCredential</a>
+                <a href="../../Enums/UserSession.html">UserSession</a>
               </li>
             </ul>
           </li>
@@ -249,7 +249,13 @@
             <a href="../../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../../Typealiases.html#/s:8TinkLink27AuthenticateCredentialsTaska">AuthenticateCredentialsTask</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../Typealiases.html#/s:8TinkLink16RetryCancellablea">RetryCancellable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Typealiases.html#/s:8TinkLink21UpdateCredentialsTaska">UpdateCredentialsTask</a>
               </li>
             </ul>
           </li>
@@ -279,36 +285,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8TinkLink22RefreshCredentialsTaskC6StatusO7createdyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/created" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC6StatusO7createdyA2EmF">created</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>When the credentials has just been created</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">created</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L12">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:8TinkLink22RefreshCredentialsTaskC6StatusO14authenticatingyA2EmF"></a>
                     <a name="//apple_ref/swift/Element/authenticating" class="dashAnchor"></a>
                     <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC6StatusO14authenticatingyA2EmF">authenticating</a>
@@ -331,7 +307,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L15">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L22">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -361,7 +337,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L18">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L25">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -391,7 +367,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L21">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L28">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -421,97 +397,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L24">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:8TinkLink22RefreshCredentialsTaskC6StatusO14sessionExpiredyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/sessionExpired" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC6StatusO14sessionExpiredyA2EmF">sessionExpired</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The session has expired.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">sessionExpired</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L27">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:8TinkLink22RefreshCredentialsTaskC6StatusO7updatedyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/updated" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC6StatusO7updatedyA2EmF">updated</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The status has been updated.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">updated</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L30">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:8TinkLink22RefreshCredentialsTaskC6StatusO5erroryAeC5ErrorOcAEmF"></a>
-                    <a name="//apple_ref/swift/Element/error(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC6StatusO5erroryAeC5ErrorOcAEmF">error(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The refresh error.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">error</span><span class="p">(</span><span class="kt"><a href="../../Classes/RefreshCredentialsTask/Error.html">Error</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L33">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L31">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -521,7 +407,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-27)</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-05-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

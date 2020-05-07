@@ -14,7 +14,7 @@
     <a title="Error Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">TinkLink 0.10.0 Docs</a> (75% documented)</p>
+        <p><a href="../../index.html">TinkLink 0.11.0 Docs</a> (78% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -106,7 +106,7 @@
                 <a href="../../Enums/ServiceError.html">ServiceError</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Enums/SessionCredential.html">SessionCredential</a>
+                <a href="../../Enums/UserSession.html">UserSession</a>
               </li>
             </ul>
           </li>
@@ -249,7 +249,13 @@
             <a href="../../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../../Typealiases.html#/s:8TinkLink27AuthenticateCredentialsTaska">AuthenticateCredentialsTask</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../Typealiases.html#/s:8TinkLink16RetryCancellablea">RetryCancellable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Typealiases.html#/s:8TinkLink21UpdateCredentialsTaska">UpdateCredentialsTask</a>
               </li>
             </ul>
           </li>
@@ -274,9 +280,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8TinkLink22RefreshCredentialsTaskC5ErrorO20authenticationFailedyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/authenticationFailed" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC5ErrorO20authenticationFailedyA2EmF">authenticationFailed</a>
+                    <a name="/s:8TinkLink22RefreshCredentialsTaskC5ErrorO20authenticationFailedyAESScAEmF"></a>
+                    <a name="//apple_ref/swift/Element/authenticationFailed(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC5ErrorO20authenticationFailedyAESScAEmF">authenticationFailed(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -284,19 +290,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The authentication failed.</p>
+                        <p>The authentication failed. The payload from the backend can be found in the associated value.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">authenticationFailed</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">authenticationFailed</span><span class="p">(</span><span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L39">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L37">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -304,9 +310,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8TinkLink22RefreshCredentialsTaskC5ErrorO16temporaryFailureyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/temporaryFailure" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC5ErrorO16temporaryFailureyA2EmF">temporaryFailure</a>
+                    <a name="/s:8TinkLink22RefreshCredentialsTaskC5ErrorO16temporaryFailureyAESScAEmF"></a>
+                    <a name="//apple_ref/swift/Element/temporaryFailure(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC5ErrorO16temporaryFailureyAESScAEmF">temporaryFailure(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -314,19 +320,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A temporary failure occurred.</p>
+                        <p>A temporary failure occurred. The payload from the backend can be found in the associated value.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">temporaryFailure</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">temporaryFailure</span><span class="p">(</span><span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L41">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L39">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -334,9 +340,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8TinkLink22RefreshCredentialsTaskC5ErrorO16permanentFailureyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/permanentFailure" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC5ErrorO16permanentFailureyA2EmF">permanentFailure</a>
+                    <a name="/s:8TinkLink22RefreshCredentialsTaskC5ErrorO16permanentFailureyAESScAEmF"></a>
+                    <a name="//apple_ref/swift/Element/permanentFailure(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC5ErrorO16permanentFailureyAESScAEmF">permanentFailure(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -344,19 +350,49 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A permanent failure occurred.</p>
+                        <p>A permanent failure occurred. The payload from the backend can be found in the associated value.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">permanentFailure</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">permanentFailure</span><span class="p">(</span><span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.10.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L43">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L41">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink22RefreshCredentialsTaskC5ErrorO8disabledyAESScAEmF"></a>
+                    <a name="//apple_ref/swift/Element/disabled(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink22RefreshCredentialsTaskC5ErrorO8disabledyAESScAEmF">disabled(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The credentials are disabled. The payload from the backend can be found in the associated value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">disabled</span><span class="p">(</span><span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Tasks/RefreshCredentialsTask.swift#L43">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -366,7 +402,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-04-27)</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-05-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

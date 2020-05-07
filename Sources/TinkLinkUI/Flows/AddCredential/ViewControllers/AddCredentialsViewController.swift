@@ -10,9 +10,6 @@ protocol AddCredentialsViewControllerDelegate: AnyObject {
 
 final class AddCredentialsViewController: UIViewController {
     let provider: Provider
-    var username: String? {
-        credentialsController.user?.username
-    }
 
     weak var delegate: AddCredentialsViewControllerDelegate?
 
@@ -72,7 +69,7 @@ extension AddCredentialsViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        headerView.configure(with: provider, username: username, clientName: clientName, isAggregator: isAggregator)
+        headerView.configure(with: provider, clientName: clientName, isAggregator: isAggregator)
         headerView.delegate = self
 
         tableView.backgroundColor = .clear
@@ -178,7 +175,8 @@ extension AddCredentialsViewController {
 
 extension AddCredentialsViewController {
     private func setupHelpFootnote() {
-        helpLabel.configure(markdownString: provider.helpText)
+        guard let helpText = provider.helpText, !helpText.isEmpty else { return }
+        helpLabel.configure(markdownString: helpText)
         tableView.tableFooterView = helpLabel
     }
 

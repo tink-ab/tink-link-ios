@@ -1,5 +1,15 @@
 import Foundation
 
+/// A task that manages progress of authenticating a credential.
+///
+/// Use `CredentialsContext` to create a task.
+public typealias AuthenticateCredentialsTask = RefreshCredentialsTask
+
+/// A task that manages progress of updating a credential.
+///
+/// Use `CredentialsContext` to create a task.
+public typealias UpdateCredentialsTask = RefreshCredentialsTask
+
 /// A task that manages progress of refreshing a credential.
 ///
 /// Use `CredentialsContext` to create a task.
@@ -8,9 +18,6 @@ public final class RefreshCredentialsTask: Identifiable {
     ///
     /// - Note: For some states there are actions which need to be performed on the credentials.
     public enum Status {
-        /// When the credentials has just been created
-        case created
-
         /// When starting the authentication process
         case authenticating
 
@@ -22,25 +29,18 @@ public final class RefreshCredentialsTask: Identifiable {
 
         /// Trigger for the client to prompt the user to open the third party authentication flow
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
-
-        /// The session has expired.
-        case sessionExpired
-
-        /// The status has been updated.
-        case updated
-
-        /// The refresh error.
-        case error(Error)
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
     public enum Error: Swift.Error {
-        /// The authentication failed.
-        case authenticationFailed
-        /// A temporary failure occurred.
-        case temporaryFailure
-        /// A permanent failure occurred.
-        case permanentFailure
+        /// The authentication failed. The payload from the backend can be found in the associated value.
+        case authenticationFailed(String)
+        /// A temporary failure occurred. The payload from the backend can be found in the associated value.
+        case temporaryFailure(String)
+        /// A permanent failure occurred. The payload from the backend can be found in the associated value.
+        case permanentFailure(String)
+        /// The credentials are disabled. The payload from the backend can be found in the associated value.
+        case disabled(String)
     }
 
     // MARK: - Retrieving Failure Requirements
@@ -52,6 +52,7 @@ public final class RefreshCredentialsTask: Identifiable {
 
     // MARK: - Getting the Credentials
 
+    /// The credentials that are being refreshed.
     public private(set) var credentials: Credentials
 
     private let credentialsService: CredentialsService
@@ -99,7 +100,7 @@ public final class RefreshCredentialsTask: Identifiable {
             let credentials = try result.get()
             switch credentials.status {
             case .created:
-                progressHandler(.created)
+                break
             case .authenticating:
                 progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
@@ -133,17 +134,17 @@ public final class RefreshCredentialsTask: Identifiable {
             case .updating:
                 progressHandler(.updating(status: credentials.statusPayload))
             case .updated:
-                progressHandler(.updated)
+                complete(with: .success(credentials))
             case .sessionExpired:
-                progressHandler(.sessionExpired)
+                break
             case .authenticationError:
-                throw Error.authenticationFailed
+                throw Error.authenticationFailed(credentials.statusPayload)
             case .permanentError:
-                throw Error.permanentFailure
+                throw Error.permanentFailure(credentials.statusPayload)
             case .temporaryError:
-                throw Error.temporaryFailure
+                throw Error.temporaryFailure(credentials.statusPayload)
             case .disabled:
-                fatalError("credentials shouldn't be disabled during creation.")
+                throw Error.disabled(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }

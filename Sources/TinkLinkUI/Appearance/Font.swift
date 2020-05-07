@@ -81,7 +81,7 @@ extension Font {
         }
     }
     
-    static func regular(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
+    private static func regular(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .regular, size: size)
         } else {
@@ -89,7 +89,7 @@ extension Font {
         }
     }
     
-    static func bold(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
+    private static func bold(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .bold, size: size)
         } else {
@@ -116,4 +116,19 @@ extension Font {
         let lotaGrotesque = font(weight: weight, size: size)
         return UIFontMetrics(forTextStyle: size.textStyle).scaledFont(for: lotaGrotesque, maximumPointSize: size.pointSize * 1.5)
     }
+}
+
+// MARK: - Semantic Text Styles
+
+extension Font {
+    /// Bold 21 (Mega)
+    static var title: UIFont { bold(.mega) }
+    /// Bold 15 (Deci)
+    static var headline: UIFont { bold(.deci) }
+    /// Regular 15 (Deci)
+    static var body: UIFont { regular(.deci) }
+    /// Bold 15 (Deci)
+    static var callout: UIFont { bold(.deci) }
+    /// Regular 13 (Micro)
+    static var footnote: UIFont { regular(.micro) }
 }

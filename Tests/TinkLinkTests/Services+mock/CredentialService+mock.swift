@@ -5,6 +5,7 @@ class MockedSuccessCredentialsService: CredentialsService {
 
     private var credentials = [Credentials]()
 
+    @discardableResult
     func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
         credentials = credentials.map { Credentials(credentials: $0, status: $0.nextCredentialsStatus()) }
         completion(.success(credentials))
@@ -14,6 +15,7 @@ class MockedSuccessCredentialsService: CredentialsService {
         }
     }
 
+    @discardableResult
     func credentials(id: Credentials.ID, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         credentials = credentials.map { Credentials(credentials: $0, status: $0.nextCredentialsStatus()) }
         if let credentials = credentials.first(where: { $0.id == id }) {
@@ -41,7 +43,7 @@ class MockedSuccessCredentialsService: CredentialsService {
         return nil
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, callbackUri: URL?, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         if let index = credentials.firstIndex(where: { $0.id == credentialsID }) {
             let credentialToBeUpdated = credentials[index]
             let credential = Credentials(id: credentialToBeUpdated.id, providerID: credentialToBeUpdated.providerID, kind: credentialToBeUpdated.kind, status: .updated, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: [], thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
@@ -56,6 +58,7 @@ class MockedSuccessCredentialsService: CredentialsService {
         return nil
     }
 
+    @discardableResult
     func supplementInformation(credentialsID: Credentials.ID, fields: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         if let index = credentials.firstIndex(where: { $0.id == credentialsID }) {
             let credentialToBeUpdated = credentials[index]
@@ -126,7 +129,7 @@ class MockedUnauthenticatedErrorCredentialsService: CredentialsService {
         return nil
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, callbackUri: URL?, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }

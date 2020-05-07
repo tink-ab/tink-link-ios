@@ -48,6 +48,7 @@ public final class AddCredentialsTask: Identifiable {
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
 
+    /// The credentials that are being added.
     private(set) public var credentials: Credentials?
 
     // MARK: - Evaluating Completion
@@ -56,6 +57,7 @@ public final class AddCredentialsTask: Identifiable {
     ///
     /// Use with `CredentialsContext.addCredentials(for:form:completionPredicate:progressHandler:completion:)` to set when add credentials task should call completion handler if successful.
     public struct CompletionPredicate {
+        /// Determines when the add credentials task is considered done.
         public enum SuccessPredicate {
             /// A predicate that indicates the credentials' status is `updating`.
             case updating
@@ -63,9 +65,16 @@ public final class AddCredentialsTask: Identifiable {
             case updated
         }
 
+        /// Determines when the add credentials task is considered done.
         public let successPredicate: SuccessPredicate
+
+        /// Determines if the add credentials task should fail if a third party app could not be opened for authentication.
         public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
+        /// Determines when the add credentials task is considered done or should fail.
+        /// - Parameters:
+        ///   - successPredicate: Predicate determining when the add credentials task should succeed.
+        ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: A Boolean value determining if the task should fail when a third party app could not be opened.
         public init(successPredicate: SuccessPredicate, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool) {
             self.successPredicate = successPredicate
             self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired

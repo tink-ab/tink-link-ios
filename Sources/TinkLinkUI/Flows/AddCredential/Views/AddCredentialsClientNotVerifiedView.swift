@@ -32,7 +32,7 @@ class AddCredentialsClientNotVerifiedView: UIView {
         unVerifiedLabel.translatesAutoresizingMaskIntoConstraints = false
         unVerifiedLabel.text = Strings.AddCredentials.Warning.unverifiedClient
         unVerifiedLabel.numberOfLines = 0
-        unVerifiedLabel.font = Font.regular(.micro)
+        unVerifiedLabel.font = Font.footnote
         unVerifiedLabel.setLineHeight(lineHeight: 20)
 
         addSubview(contentView)
