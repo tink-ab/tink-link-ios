@@ -125,8 +125,6 @@ extension Font {
     static var title: UIFont { bold(.mega) }
     /// Bold 15 (Deci)
     static var headline: UIFont { bold(.deci) }
-    /// Bold 15 (Deci)
-    static var subheadline: UIFont { bold(.deci) }
     /// Regular 15 (Deci)
     static var body: UIFont { regular(.deci) }
     /// Bold 15 (Deci)

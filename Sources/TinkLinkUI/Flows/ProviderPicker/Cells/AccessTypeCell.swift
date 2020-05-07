@@ -59,7 +59,7 @@ class AccessTypeCell: UITableViewCell, ReusableCell {
 
         titleLabel.numberOfLines = 0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = Font.subheadline
+        titleLabel.font = Font.headline
         titleLabel.textColor = Color.label
         titleLabel.setLineHeight(lineHeight: 20)
 
