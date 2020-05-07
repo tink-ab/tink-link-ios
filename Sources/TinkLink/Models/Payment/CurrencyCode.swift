@@ -1,6 +1,6 @@
 import Foundation
 
-public struct CurrencyCode: Hashable, ExpressibleByStringLiteral, Codable {
+public struct CurrencyCode: Hashable, ExpressibleByStringLiteral {
     public let value: String
 
     public init(_ value: String) {

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ExactNumber: Equatable, Hashable, Codable {
+public struct ExactNumber: Equatable, Hashable {
     let unscaledValue: Int64
     let scale: Int64
 }
