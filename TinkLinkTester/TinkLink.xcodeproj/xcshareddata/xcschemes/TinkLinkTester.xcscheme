@@ -52,6 +52,16 @@
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9459DFA8B43E94B9192544B42E1FFA38"
+               BuildableName = "TinkLinkUI-Unit-TinkLinkUITests.xctest"
+               BlueprintName = "TinkLinkUI-Unit-TinkLinkUITests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
