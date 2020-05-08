@@ -7,7 +7,7 @@ extension SignableOperation {
         id = restSignableOperation.id.flatMap({ SignableOperation.ID($0) })
         status = restSignableOperation.status.flatMap({ SignableOperation.Status($0) }) ?? .unknown
         statusMessage = restSignableOperation.statusMessage
-        type = .transfer
+        kind = .transfer
         transferID = restSignableOperation.underlyingId.flatMap({ Transfer.ID($0) })
         updated = restSignableOperation.updated
         userID = restSignableOperation.userId.flatMap({ User.ID($0) })

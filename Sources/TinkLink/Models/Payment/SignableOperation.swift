@@ -44,7 +44,7 @@ public struct SignableOperation {
     /// A message with additional information regarding the current status of the transfer.
     public let statusMessage: String?
     /// The type of operation.
-    public let type: Kind
+    public let kind: Kind
     /// The ID of the actual transfer.
     public let transferID: Transfer.ID?
     /// The timestamp of the last update of the operation.
