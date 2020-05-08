@@ -30,6 +30,10 @@ public struct Transfer: Identifiable {
             value = "\(scheme.rawValue)://\(host)"
         }
 
+        public init(_ value: String) {
+            self.value = value
+        }
+
         public let value: String
     }
 
