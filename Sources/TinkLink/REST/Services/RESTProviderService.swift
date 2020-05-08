@@ -8,15 +8,30 @@ final class RESTProviderService: ProviderService {
         self.client = client
     }
 
-    func providers(market: Market?, capabilities: Provider.Capabilities, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
+    func providers(id: Provider.ID?, capabilities: Provider.Capabilities?, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
 
-        let parameters = [(name: "includeTestProviders", value: includeTestProviders ? "true" : "false")]
+        var parameters = [
+            (name: "includeTestProviders", value: includeTestProviders ? "true" : "false")
+        ]
 
+        if let id = id {
+            parameters.append((name: "name", value: id.value))
+        }
+        
         let request = RESTResourceRequest<RESTProviders>(path: "/api/v1/providers", method: .get, contentType: .json, parameters: parameters) { result in
 
-            let result = result.map { $0.providers.map(Provider.init).filter { !$0.capabilities.isDisjoint(with: capabilities) } }
+            do {
+                var providers = try result.get().providers.map(Provider.init)
 
-            completion(result)
+                if let capabilities = capabilities {
+                    providers = providers.filter {
+                        !$0.capabilities.isDisjoint(with: capabilities)
+                    }
+                }
+                completion(.success(providers))
+            } catch {
+                completion(.failure(error))
+            }
         }
 
         return client.performRequest(request)
