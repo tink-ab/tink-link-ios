@@ -276,7 +276,7 @@ extension UpdateCredentialsViewController {
     }
 
     private func showAlert(for error: Error) {
-        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Error", message: String(describing: error), preferredStyle: .alert)
 
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
