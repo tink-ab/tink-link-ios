@@ -236,6 +236,7 @@ extension UpdateCredentialsViewController {
             let credentials = try result.get()
             completion(.success(credentials))
         } catch {
+            navigationItem.rightBarButtonItem = updateBarButtonItem
             hideUpdatingView(animated: false) {
                 self.showAlert(for: error)
             }
