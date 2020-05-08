@@ -23,7 +23,7 @@ final class RESTTransferService {
         do {
             let data = try JSONEncoder().encode(body)
             let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer", method: .post, body: data, contentType: .json) { result in
-                let mappedResult = result.map{ SignableOperation($0) }
+                let mappedResult = result.map { SignableOperation($0) }
                 completion(mappedResult)
             }
 
@@ -37,7 +37,7 @@ final class RESTTransferService {
     func transferStatus(transferID: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
 
         let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer/\(transferID.value)/status", method: .get, contentType: .json) { result in
-            let mappedResult = result.map{ SignableOperation($0) }
+            let mappedResult = result.map { SignableOperation($0) }
             completion(mappedResult)
         }
 
