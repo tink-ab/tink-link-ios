@@ -36,17 +36,13 @@ final class ProviderCapabilityFormatter: Formatter {
         switch formattingContext {
         case .beginningOfSentence:
             if names.isEmpty { return "" }
-            let lowercasedNames = names.dropFirst().map({ $0.lowercased(with: .current) })
-            var sentenceCasedFirstName: String {
-                let firstName = names[0]
-                let words = firstName.split(separator: " ")
-                if words.isEmpty { return "" }
-                let lowercasedWords = words.dropFirst().map({ $0.lowercased(with: .current) })
-                return ([String(words[0])] + lowercasedWords)
-                    .filter({ !$0.isEmpty })
-                    .joined(separator: " ")
-            }
-            return listFormatter.string(for: [sentenceCasedFirstName] + lowercasedNames)
+            var lowercasedNames = names.map({ $0.lowercased(with: .current) })
+
+            var firstName = lowercasedNames.first ?? ""
+            firstName = firstName.prefix(1).capitalized(with: .current) + firstName.dropFirst()
+            lowercasedNames[0] = firstName
+            
+            return listFormatter.string(for: lowercasedNames)
         case .middleOfSentence:
             let lowercasedNames = names.map({ $0.lowercased(with: .current) })
             return listFormatter.string(for: lowercasedNames)
