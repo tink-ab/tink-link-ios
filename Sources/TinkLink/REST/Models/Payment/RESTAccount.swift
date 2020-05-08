@@ -62,7 +62,7 @@ struct RESTAccount: Codable {
     var identifiers: String?
 
     /// The destinations this Account can transfer money to, be that payment or bank transfer recipients. This field is only populated if account data is requested via GET /transfer/accounts.
-    var transferDestinations: [TransferDestination]?
+    var transferDestinations: [RESTTransferDestination]?
 
     /// Details contains information only applicable for accounts of the types loans and mortgages.
     /// All banks do not offer detail information about their loan and mortgages therefore will details not be present on all accounts of the types loan and mortgages.
