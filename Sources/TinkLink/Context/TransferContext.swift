@@ -13,4 +13,29 @@ public final class TransferContext {
         self.tink = tink
         self.service = transferService
     }
+
+    public func initiateTransfer(
+        amount: Double,
+        currencyCode: CurrencyCode,
+        credentials: Credentials,
+        sourceURI: Transfer.TransferEntityURI,
+        destinationURI: Transfer.TransferEntityURI,
+        message: String,
+        completion: @escaping (Result<SignableOperation, Error>) -> Void
+    ) -> RetryCancellable? {
+        let transfer = Transfer(
+            amount: ExactNumber(value: Decimal(amount)),
+            id: nil,
+            credentialsID: credentials.id,
+            currency: currencyCode,
+            sourceMessage: message,
+            destinationMessage: message,
+            dueDate: nil,
+            messageType: .freeText,
+            destinationUri: destinationURI,
+            sourceUri: sourceURI
+        )
+
+        return service.transfer(transfer: transfer, completion: completion)
+    }
 }
