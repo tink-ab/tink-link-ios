@@ -20,14 +20,18 @@ final class RESTTransferService {
             destinationUri: transfer.destinationUri.value,
             sourceUri: transfer.sourceUri.value
         )
-        let data = try? JSONEncoder().encode(body)
+        do {
+            let data = try JSONEncoder().encode(body)
+            let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer", method: .post, body: data, contentType: .json) { result in
+                let mappedResult = result.map{ SignableOperation($0) }
+                completion(mappedResult)
+            }
 
-        let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer", method: .post, body: data, contentType: .json) { result in
-            let mappedResult = result.map{ SignableOperation($0) }
-            completion(mappedResult)
+            return client.performRequest(request)
+        } catch {
+            completion(.failure(error))
+            return nil
         }
-
-        return client.performRequest(request)
     }
 
     func transferStatus(transferID: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
