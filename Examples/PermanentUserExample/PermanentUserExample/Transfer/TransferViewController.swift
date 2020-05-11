@@ -9,15 +9,20 @@ class TransferViewController: UITableViewController {
     private var sourceAccounts: [Account]? = nil
 
     private enum Section {
+        enum AccountField {
+            case from
+            case to
+        }
         enum DetailField {
             case amount
             case message
         }
+        case accounts([AccountField])
         case details([DetailField])
         case action
     }
 
-    private let sections: [Section] = [.details([.amount, .message]), .action]
+    private let sections: [Section] = [.accounts([.from, .to]), .details([.amount, .message]), .action]
 
     init() {
         super.init(style: .insetGrouped)
@@ -33,6 +38,7 @@ class TransferViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.register(Value2TableViewCell.self, forCellReuseIdentifier: "Value2")
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextField")
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
 
@@ -65,6 +71,8 @@ class TransferViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
+        case .accounts:
+            return 2
         case .details(let items):
             return items.count
         case .action:
@@ -74,6 +82,15 @@ class TransferViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
+        case .accounts(let fields):
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Value2", for: indexPath)
+            switch fields[indexPath.row] {
+            case .from:
+                cell.textLabel?.text = "From:"
+            case .to:
+                cell.textLabel?.text = "To:"
+            }
+            return cell
         case .details(let fields):
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextField", for: indexPath) as! TextFieldTableViewCell
             switch fields[indexPath.row] {
