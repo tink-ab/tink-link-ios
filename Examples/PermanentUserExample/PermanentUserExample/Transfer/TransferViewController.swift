@@ -17,6 +17,12 @@ class TransferViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
+    }
+
     @objc private func transfer(_ sender: Any) {
         _ = transferContext.initiateTransfer(
             amount: ExactNumber(value: 1),
@@ -33,5 +39,24 @@ class TransferViewController: UITableViewController {
 
     @objc private func cancel(_ sender: Any) {
         dismiss(animated: true)
+    }
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
+        cell.actionLabel.text = "Transfer"
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)!
+        transfer(cell)
     }
 }
