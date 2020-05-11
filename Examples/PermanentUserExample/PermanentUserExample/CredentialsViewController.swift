@@ -112,7 +112,9 @@ extension CredentialsViewController {
     }
 
     @objc private func transfer(_ sender: UIBarButtonItem) {
-        
+        let transferViewController = TransferViewController()
+        let navigationController = UINavigationController(rootViewController: transferViewController)
+        present(navigationController, animated: true)
     }
 }
 
