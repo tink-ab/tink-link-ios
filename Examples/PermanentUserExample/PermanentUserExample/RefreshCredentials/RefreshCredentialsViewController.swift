@@ -3,7 +3,6 @@ import TinkLink
 
 final class RefreshCredentialsViewController: UITableViewController {
     private let credentialsContext = CredentialsContext()
-    private let transferContext = TransferContext()
     private var credentials: Credentials {
         didSet {
             if isViewLoaded {
@@ -16,7 +15,6 @@ final class RefreshCredentialsViewController: UITableViewController {
         case status
         case actions([Action])
         case delete
-        case transfer
     }
 
     private enum Action {
@@ -30,7 +28,7 @@ final class RefreshCredentialsViewController: UITableViewController {
         if canAuthenticate {
             actions.append(.authenticate)
         }
-        let sections: [Section] = [.status, .actions(actions), .delete, .transfer]
+        let sections: [Section] = [.status, .actions(actions), .delete]
         return sections
     }
 
@@ -99,7 +97,7 @@ extension RefreshCredentialsViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .status, .delete, .transfer:
+        case .status, .delete:
             return 1
         case .actions(let actionItems):
             return actionItems.count
@@ -131,10 +129,6 @@ extension RefreshCredentialsViewController {
             cell.actionLabel.text = "Delete"
             cell.tintColor = .systemRed
             return cell
-        case .transfer:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
-            cell.actionLabel.text = "Transfer"
-            return cell
         }
     }
 }
@@ -150,8 +144,6 @@ extension RefreshCredentialsViewController {
             return refreshCredentialsTask == nil
         case .delete:
             return !isDeleting
-        case .transfer:
-            return true
         }
     }
 
@@ -182,9 +174,6 @@ extension RefreshCredentialsViewController {
                     }
                 }
             }
-        case .transfer:
-            // TODO:
-            break
         }
     }
 }
