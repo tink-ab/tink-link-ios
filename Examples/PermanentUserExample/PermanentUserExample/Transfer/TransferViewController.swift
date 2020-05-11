@@ -6,6 +6,13 @@ class TransferViewController: UITableViewController {
 
     var credentials: Credentials!
 
+    private enum Section: CaseIterable {
+        case details
+        case action
+    }
+
+    private let sections = Section.allCases
+
     init() {
         super.init(style: .insetGrouped)
 
@@ -20,6 +27,7 @@ class TransferViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextField")
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
     }
 
@@ -42,17 +50,30 @@ class TransferViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch sections[section] {
+        case .details:
+            return 1
+        case .action:
+            return 1
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
-        cell.actionLabel.text = "Transfer"
-        return cell
+        switch sections[indexPath.section] {
+        case .details:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextField", for: indexPath) as! TextFieldTableViewCell
+            cell.textField.placeholder = "Amount"
+            cell.textField.keyboardType = .decimalPad
+            return cell
+        case .action:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
+            cell.actionLabel.text = "Transfer"
+            return cell
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
