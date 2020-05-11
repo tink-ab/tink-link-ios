@@ -6,6 +6,8 @@ class TransferViewController: UITableViewController {
 
     var credentials: Credentials!
 
+    private var sourceAccounts: [Account]? = nil
+
     private enum Section {
         enum Item {
             case amount
@@ -33,6 +35,10 @@ class TransferViewController: UITableViewController {
 
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextField")
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
+
+        transferContext.sourceAccounts { [weak self] (result) in
+            self?.sourceAccounts = try? result.get()
+        }
     }
 
     @objc private func transfer(_ sender: Any) {
