@@ -42,4 +42,8 @@ public final class TransferContext {
     public func transfer(id: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         return service.transferStatus(transferID: id, completion: completion)
     }
+
+    public func sourceAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+        return service.accounts(destinationUris: [], completion: completion)
+    }
 }
