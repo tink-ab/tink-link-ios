@@ -91,6 +91,6 @@ struct CredentialsDetailView: View {
     }
 
     private func delete() {
-        
+        credentialsController.deleteCredentials(credentials: [credentials])
     }
 }
