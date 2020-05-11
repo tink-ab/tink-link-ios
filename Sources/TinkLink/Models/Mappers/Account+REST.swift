@@ -3,10 +3,9 @@ import Foundation
 extension Account {
     init(restAccount account: RESTAccount) {
         self.accountNumber = account.accountNumber
-        self.balance = ExactNumber(value: Decimal(account.balance))
-        self.credentialsId = Credentials.ID(account.credentialsId)
-        self.excluded = account.excluded
-        self.favored = account.favored
+        self.balance = account.balance
+        self.credentialsID = Credentials.ID(account.credentialsId)
+        self.isFavored = account.favored
         self.id = Account.ID(account.id)
         self.name = account.name
         self.ownership = account.ownership
@@ -15,12 +14,12 @@ extension Account {
         self.transferDestinations = account.transferDestinations?.compactMap { TransferDestination(restTransferDestination: $0) }
         self.details = account.details.flatMap { AccountDetails(restAccountDetails: $0) }
         self.holderName = account.holderName
-        self.closed = account.closed
+        self.isClosed = account.closed
         self.flag = account.flags.flatMap { Account.Flag(restAccountFlags: $0) }
         self.accountExclusion = Account.AccountExclusion(restAccountExclusion: account.accountExclusion)
         self.currencyDenominatedBalance = account.currencyDenominatedBalance.flatMap { CurrencyDenominatedAmount(restCurrencyDenominatedAmount: $0) }
         self.refreshed = account.refreshed
-        self.financialInstitutionId = account.financialInstitutionId.flatMap { Provider.FinancialInstitution.ID($0) }
+        self.financialInstitutionID = account.financialInstitutionId.flatMap { Provider.FinancialInstitution.ID($0) }
     }
 }
 

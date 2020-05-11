@@ -1,8 +1,8 @@
 import Foundation
 
-public struct AccountDetails {
+struct AccountDetails {
 
-    public enum Kind {
+    enum Kind {
         case mortgage
         case blanco
         case membership
@@ -14,15 +14,15 @@ public struct AccountDetails {
         case unknown
     }
     /// Interest of the account. Applicable for loans and savings accounts.
-    public let interest: Double?
+    let interest: Double?
 
     /// Populated if available. Describes how many months the interest rate is bound.
-    public let numberOfMonthsBound: Int?
+    let numberOfMonthsBound: Int?
 
     /// Account subtype.
-    public let kind: Kind
+    let kind: Kind
 
     /// A timestamp of the next day of terms change of the account. Applicable for loans.
-    public let nextDayOfTermsChange: Date?
+    let nextDayOfTermsChange: Date?
 }
 

@@ -48,16 +48,13 @@ public struct Account {
     /// `INVESTMENT`: the balance represents the value of the investments connected to this accounts including any available cash.
     /// `MORTGAGE`: the balance represents the loan debt outstanding from this account.
     /// `CREDIT_CARD`: the balance represent the outstanding balance on the account, it does not include any available credit or purchasing power the user has with the credit provider.
-    public let balance: ExactNumber
+    let balance: Double
 
     /// The internal identifier of the credentials that the account belongs to.
-    public let credentialsId: Credentials.ID
-
-    /// Indicates if the user has excluded the account. Categorization and PFM Features are excluded, and transactions belonging to this account are not searchable. This property can be updated in a update account request.
-    public let excluded: Bool
+    public let credentialsID: Credentials.ID
 
     /// Indicates if the user has favored the account. This property can be updated in a update account request.
-    public let favored: Bool
+    let isFavored: Bool
 
     /// The internal identifier of account.
     public let id: Account.ID
@@ -79,13 +76,13 @@ public struct Account {
 
     /// Details contains information only applicable for accounts of the types loans and mortgages.
     /// All banks do not offer detail information about their loan and mortgages therefore will details not be present on all accounts of the types loan and mortgages.
-    public let details: AccountDetails?
+    let details: AccountDetails?
 
     /// The name of the account holder
     public let holderName: String?
 
     /// A closed account indicates that it was no longer available from the connected financial institution, most likely due to it having been closed by the user.
-    public let closed: Bool?
+    public let isClosed: Bool?
 
     /// A list of flags specifying attributes on an account.
     public let flag: Flag?
@@ -112,6 +109,6 @@ public struct Account {
     public let refreshed: Date?
 
     /// A unique identifier to group accounts belonging the same financial institution. Available for aggregated accounts only.
-    public let financialInstitutionId: Provider.FinancialInstitution.ID?
+    public let financialInstitutionID: Provider.FinancialInstitution.ID?
 }
 
