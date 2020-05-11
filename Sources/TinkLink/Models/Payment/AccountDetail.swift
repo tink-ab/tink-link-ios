@@ -14,10 +14,10 @@ public struct AccountDetails {
         case unknown
     }
     /// Interest of the account. Applicable for loans and savings accounts.
-    public let interest: ExactNumber?
+    public let interest: Double?
 
     /// Populated if available. Describes how many months the interest rate is bound.
-    public let numMonthsBound: Int?
+    public let numberOfMonthsBound: Int?
 
     /// Account subtype.
     public let kind: Kind

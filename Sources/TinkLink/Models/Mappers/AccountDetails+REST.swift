@@ -2,10 +2,10 @@ import Foundation
 
 extension AccountDetails {
     init(restAccountDetails accountDetails: RESTAccountDetails) {
-        self.interest = accountDetails.interest.flatMap { ExactNumber(value: Decimal($0)) }
+        self.interest = accountDetails.interest
         self.kind = accountDetails.type.flatMap({ AccountDetails.Kind(restAccountDetailsType: $0) }) ?? .unknown
         self.nextDayOfTermsChange = accountDetails.nextDayOfTermsChange
-        self.numMonthsBound = accountDetails.numMonthsBound
+        self.numberOfMonthsBound = accountDetails.numMonthsBound
     }
 }
 
