@@ -38,6 +38,7 @@ final class QRImageViewController: UIViewController {
         view.backgroundColor = Color.background
 
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.magnificationFilter = .nearest
         imageView.translatesAutoresizingMaskIntoConstraints = false
         borderedCornersView.tintColor = Color.separator
         borderedCornersView.translatesAutoresizingMaskIntoConstraints = false
