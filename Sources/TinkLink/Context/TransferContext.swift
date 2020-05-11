@@ -15,7 +15,7 @@ public final class TransferContext {
     }
 
     public func initiateTransfer(
-        amount: Double,
+        amount: ExactNumber,
         currencyCode: CurrencyCode,
         credentials: Credentials,
         sourceURI: Transfer.TransferEntityURI,
@@ -24,7 +24,7 @@ public final class TransferContext {
         completion: @escaping (Result<SignableOperation, Error>) -> Void
     ) -> RetryCancellable? {
         let transfer = Transfer(
-            amount: ExactNumber(value: Decimal(amount)),
+            amount: amount,
             id: nil,
             credentialsID: credentials.id,
             currency: currencyCode,
