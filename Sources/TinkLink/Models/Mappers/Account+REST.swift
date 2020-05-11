@@ -11,14 +11,14 @@ extension Account {
         self.name = account.name
         self.ownership = account.ownership
         self.kind = Account.Kind(restAccountType: account.type)
-        self.identifiers = account.identifiers.flatMap({ Transfer.TransferEntityURI($0) })
-        self.transferDestinations = account.transferDestinations?.compactMap({ TransferDestination(restTransferDestination: $0) }) ?? []
-        self.details = account.details.flatMap({ AccountDetails(restAccountDetails: $0) })
+        self.identifiers = account.identifiers.flatMap { Transfer.TransferEntityURI($0) }
+        self.transferDestinations = account.transferDestinations?.compactMap { TransferDestination(restTransferDestination: $0) }
+        self.details = account.details.flatMap { AccountDetails(restAccountDetails: $0) }
         self.holderName = account.holderName
         self.closed = account.closed
-        self.flag = account.flags.flatMap({ Account.Flag(restAccountFlags: $0) })
+        self.flag = account.flags.flatMap { Account.Flag(restAccountFlags: $0) }
         self.accountExclusion = Account.AccountExclusion(restAccountExclusion: account.accountExclusion)
-        self.currencyDenominatedBalance = account.currencyDenominatedBalance.flatMap({ CurrencyDenominatedAmount(restCurrencyDenominatedAmount: $0) })
+        self.currencyDenominatedBalance = account.currencyDenominatedBalance.flatMap { CurrencyDenominatedAmount(restCurrencyDenominatedAmount: $0) }
         self.refreshed = account.refreshed
         self.financialInstitutionId = account.financialInstitutionId.flatMap { Provider.FinancialInstitution.ID($0) }
     }
