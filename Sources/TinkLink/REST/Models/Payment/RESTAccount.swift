@@ -15,7 +15,7 @@ struct RESTAccount: Codable {
         case external = "EXTERNAL"
     }
 
-    enum Flags: String, Codable {
+    enum Flag: String, Codable {
         case business = "BUSINESS"
         case mandate = "MANDATE"
     }
@@ -75,7 +75,7 @@ struct RESTAccount: Codable {
     var closed: Bool?
 
     /// A list of flags specifying attributes on an account.
-    var flags: Flags?
+    var flags: String?
 
     /// Indicates features this account should be excluded from.
     /// Possible values are:

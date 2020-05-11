@@ -10,12 +10,14 @@ extension Account {
         self.name = account.name
         self.ownership = account.ownership
         self.kind = Account.Kind(restAccountType: account.type)
-        self.identifiers = account.identifiers.flatMap { Transfer.TransferEntityURI($0) }
+        // TODO: Need to map this properly
+        self.identifiers = account.identifiers
         self.transferDestinations = account.transferDestinations?.compactMap { TransferDestination(restTransferDestination: $0) }
         self.details = account.details.flatMap { AccountDetails(restAccountDetails: $0) }
         self.holderName = account.holderName
         self.isClosed = account.closed
-        self.flag = account.flags.flatMap { Account.Flag(restAccountFlags: $0) }
+        // TODO: Need to map this properly
+        self.flags = account.flags
         self.accountExclusion = Account.AccountExclusion(restAccountExclusion: account.accountExclusion)
         self.currencyDenominatedBalance = account.currencyDenominatedBalance.flatMap { CurrencyDenominatedAmount(restCurrencyDenominatedAmount: $0) }
         self.refreshed = account.refreshed
@@ -40,7 +42,7 @@ extension Account.Kind {
 }
 
 extension Account.Flag {
-    init(restAccountFlags flags: RESTAccount.Flags) {
+    init(restAccountFlags flags: RESTAccount.Flag) {
         switch flags {
         case .business: self = .business
         case .mandate: self = .mandate
