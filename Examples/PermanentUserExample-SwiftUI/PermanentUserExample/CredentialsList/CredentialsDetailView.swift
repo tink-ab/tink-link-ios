@@ -10,6 +10,7 @@ struct CredentialsDetailView: View {
     @State private var isRefreshing = false
     @State private var isAuthenticating = false
     @State private var isUpdating = false
+    @State private var isDeleting = false
 
     private var updatedCredentials: Credentials {
         credentialsController.credentials.first(where: { $0.id == credentials.id }) ?? credentials
@@ -55,6 +56,7 @@ struct CredentialsDetailView: View {
                 Button(action: delete) {
                     Text("Delete")
                 }
+                .disabled(isDeleting)
                 .foregroundColor(.red)
             }
         }
@@ -91,6 +93,7 @@ struct CredentialsDetailView: View {
     }
 
     private func delete() {
+        isDeleting = true
         credentialsController.deleteCredentials(credentials: [credentials])
     }
 }
