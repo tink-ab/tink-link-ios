@@ -8,6 +8,9 @@ class TransferViewController: UITableViewController {
 
     init() {
         super.init(style: .insetGrouped)
+
+        title = "Transfer"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
     }
 
     required init?(coder: NSCoder) {
@@ -26,5 +29,9 @@ class TransferViewController: UITableViewController {
                 dump(result)
             }
         )
+    }
+
+    @objc private func cancel(_ sender: Any) {
+        dismiss(animated: true)
     }
 }
