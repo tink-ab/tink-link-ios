@@ -110,7 +110,14 @@ class TransferViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)!
-        transfer(cell)
+        switch sections[indexPath.section] {
+        case .accounts:
+            break
+        case .details:
+            break
+        case .action:
+            let cell = tableView.cellForRow(at: indexPath)!
+            transfer(cell)
+        }
     }
 }
