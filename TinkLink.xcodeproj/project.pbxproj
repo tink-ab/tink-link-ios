@@ -420,14 +420,13 @@
 			path = REST;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_7 /* Sources */,
 				OBJ_108 /* Tests */,
 				OBJ_130 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_51 /* Client */ = {
@@ -602,7 +601,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_130 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
