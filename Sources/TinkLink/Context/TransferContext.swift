@@ -38,4 +38,8 @@ public final class TransferContext {
 
         return service.transfer(transfer: transfer, completion: completion)
     }
+
+    public func transfer(id: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+        return service.transferStatus(transferID: id, completion: completion)
+    }
 }
