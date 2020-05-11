@@ -4,8 +4,8 @@ import Foundation
 final class TransferStatusPollingTask {
     private let service: TransferService
     private let updateHandler: (Result<SignableOperation, Error>) -> Void
-    private let retryInterval: TimeInterval = 1
     private let applicationObserver = ApplicationObserver()
+    private let retryInterval: TimeInterval = 1
 
     private var signableOperation: SignableOperation
     private var callRetryCancellable: RetryCancellable?
@@ -40,7 +40,6 @@ final class TransferStatusPollingTask {
         }
 
         isPaused = false
-        retryInterval = 1
         DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) {
             self.pollStatus()
         }
@@ -61,13 +60,13 @@ final class TransferStatusPollingTask {
             guard let self = self else { return }
             self.callRetryCancellable = nil
             do {
-                let signableOperation = result.get()
+                let signableOperation = try result.get()
 
                 defer {
                     self.retry()
                 }
 
-                guard signableOperation.status != self.signableOperation.status {
+                guard signableOperation.status != self.signableOperation.status else {
                     return
                 }
 
