@@ -2,13 +2,13 @@ import Foundation
 
 extension TransferDestination {
     init(restTransferDestination destination: RESTTransferDestination) {
-        self.balance = destination.balance.flatMap({ ExactNumber(value: Decimal($0)) })
+        self.balance = destination.balance.flatMap { ExactNumber(value: Decimal($0)) }
         self.displayAccountNumber = destination.displayAccountNumber
         self.displayBankName = destination.displayBankName
         self.kind = destination.type.flatMap({ TransferDestination.Kind(restTransferDestinationType: $0) }) ?? .unknown
         self.matchesMultiple = destination.matchesMultiple
         self.name = destination.name
-        self.uri = destination.uri.flatMap({ Transfer.TransferEntityURI($0) })
+        self.uri = destination.uri.flatMap { Transfer.TransferEntityURI($0) }
     }
 }
 
