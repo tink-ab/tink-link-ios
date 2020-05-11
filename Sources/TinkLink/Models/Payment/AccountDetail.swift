@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AccountDetails: Codable {
+public struct AccountDetails {
 
     public enum Kind {
         case mortgage
@@ -14,7 +14,7 @@ public struct AccountDetails: Codable {
         case unknown
     }
     /// Interest of the account. Applicable for loans and savings accounts.
-    public let interest: Double?
+    public let interest: ExactNumber?
 
     /// Populated if available. Describes how many months the interest rate is bound.
     public let numMonthsBound: Int?

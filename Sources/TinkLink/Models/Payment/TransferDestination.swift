@@ -13,7 +13,7 @@ public struct TransferDestination {
     }
 
     /// The balance of the account. Will only be populated for accounts that is owned by the user.
-    public let balance: Double?
+    public let balance: ExactNumber?
 
     /// The name of the bank where this destination resides. Will not be populated for payment destinations.
     public let displayBankName: String?
@@ -22,7 +22,7 @@ public struct TransferDestination {
     public let displayAccountNumber: String?
 
     /// The uri used to describe this destination.
-    public let uri: String?
+    public let uri: Transfer.TransferEntityURI?
 
     /// The name of the destination if one exists.
     public let name: String?
