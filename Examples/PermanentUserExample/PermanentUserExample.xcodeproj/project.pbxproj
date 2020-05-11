@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		20164860243F0CFE00D3C1E0 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */; };
 		20164862243F0D1300D3C1E0 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */; };
+		20358158246975050075F1EA /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20358157246975050075F1EA /* TransferViewController.swift */; };
 		20FD9612243F169B00603B5A /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD9611243F169B00603B5A /* QRViewController.swift */; };
 		8F348AE6245994F1009B9973 /* UpdateCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE5245994F1009B9973 /* UpdateCredentialsViewController.swift */; };
 		8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02823D5BC79009D785E /* CredentialsViewController.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
+		20358157246975050075F1EA /* TransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
 		20FD9611243F169B00603B5A /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
 		8F348AE5245994F1009B9973 /* UpdateCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsViewController.swift; sourceTree = "<group>"; };
 		8F39F02823D5BC79009D785E /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +70,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20358156246974F90075F1EA /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				20358157246975050075F1EA /* TransferViewController.swift */,
+			);
+			path = Transfer;
+			sourceTree = "<group>";
+		};
 		8FDA296023D1EDDB00EC810F /* AddNewCredentials */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +144,7 @@
 			children = (
 				8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */,
 				8F39F02823D5BC79009D785E /* CredentialsViewController.swift */,
+				20358156246974F90075F1EA /* Transfer */,
 				8FDA297723D1F5B900EC810F /* RefreshCredentials */,
 				8FDA296223D1EDF800EC810F /* AddCredentials */,
 				8FFAE4E123D1E7D400784CBC /* Assets.xcassets */,
@@ -244,6 +255,7 @@
 				8FDA296623D1EE4D00EC810F /* AddCredentialsStatusViewController.swift in Sources */,
 				8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */,
 				8FDA297123D1EE5300EC810F /* FixedImageSizeTableViewCell.swift in Sources */,
+				20358158246975050075F1EA /* TransferViewController.swift in Sources */,
 				8FDA296F23D1EE5300EC810F /* TextFieldTableViewCell.swift in Sources */,
 				20164860243F0CFE00D3C1E0 /* ButtonTableViewCell.swift in Sources */,
 			);
