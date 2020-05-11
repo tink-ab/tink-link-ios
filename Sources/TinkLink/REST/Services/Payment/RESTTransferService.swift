@@ -8,7 +8,7 @@ final class RESTTransferService {
     }
 
     // TODO: Use TinkLink SDK model
-    func accounts(destinationUris: [Transfer.TransferEntityURI], completion: @escaping (Result<RESTAccountListResponse, Error>) -> Void) -> RetryCancellable? {
+    func accounts(destinationUris: [Transfer.TransferEntityURI], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         typealias DestinationParameter = (name: String, value: String)
 
         let parameters: [DestinationParameter] = destinationUris.map {
@@ -16,7 +16,8 @@ final class RESTTransferService {
         }
 
         let request = RESTResourceRequest<RESTAccountListResponse>(path: "/api/v1/transfer/accounts", method: .get, contentType: .json, parameters: parameters) { result in
-            completion(result)
+            let mappedResult = result.map { $0.accounts.map { Account(restAccount: $0) } }
+            completion(mappedResult)
         }
 
         return client.performRequest(request)
