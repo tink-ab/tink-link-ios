@@ -3,7 +3,7 @@ import Foundation
 /// A Transfer on Tink represents the tentative action of requesting a payment initiation.
 /// By consequence, its success does not represent that money has been successfully transferred from one account to another because the payment initiation relays the responsibility of properly executing the monetary reallocation to the financial institution.
 /// The source account must belong to the authenticated user. Source and destination accounts are sent in a special URI format.
-public struct Transfer: Identifiable {
+public struct Transfer {
     /// A unique identifier of a `Transfer`.
     public struct ID: Hashable, ExpressibleByStringLiteral {
         public init(stringLiteral value: String) {

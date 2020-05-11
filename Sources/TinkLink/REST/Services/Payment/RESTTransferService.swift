@@ -13,7 +13,7 @@ final class RESTTransferService {
             credentialsId: transfer.credentialsID.value,
             currency: transfer.currency.value,
             destinationMessage: transfer.destinationMessage,
-            id: transfer.id.value,
+            id: transfer.id?.value,
             sourceMessage: transfer.sourceMessage,
             dueDate: transfer.dueDate,
             messageType: transfer.messageType.rawValue,
