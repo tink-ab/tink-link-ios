@@ -7,6 +7,22 @@ final class RESTTransferService {
         self.client = client
     }
 
+    // TODO: Use TinkLink SDK model
+    func accounts(destinationUris: [Transfer.TransferEntityURI], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+        typealias DestinationParameter = (name: String, value: String)
+
+        let parameters: [DestinationParameter] = destinationUris.map {
+            DestinationParameter("destination[]", $0.value)
+        }
+
+        let request = RESTResourceRequest<RESTAccountListResponse>(path: "/api/v1/transfer/accounts", method: .get, contentType: .json, parameters: parameters) { result in
+            let mappedResult = result.map { $0.accounts.map { Account(restAccount: $0) } }
+            completion(mappedResult)
+        }
+
+        return client.performRequest(request)
+    }
+
     func transfer(transfer: Transfer, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         let body = RESTTransferRequest(
             amount: transfer.amount.doubleValue,
@@ -23,7 +39,7 @@ final class RESTTransferService {
         do {
             let data = try JSONEncoder().encode(body)
             let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer", method: .post, body: data, contentType: .json) { result in
-                let mappedResult = result.map{ SignableOperation($0) }
+                let mappedResult = result.map { SignableOperation($0) }
                 completion(mappedResult)
             }
 
@@ -37,7 +53,7 @@ final class RESTTransferService {
     func transferStatus(transferID: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
 
         let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer/\(transferID.value)/status", method: .get, contentType: .json) { result in
-            let mappedResult = result.map{ SignableOperation($0) }
+            let mappedResult = result.map { SignableOperation($0) }
             completion(mappedResult)
         }
 
