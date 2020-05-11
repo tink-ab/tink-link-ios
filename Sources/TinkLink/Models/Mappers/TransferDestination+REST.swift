@@ -6,7 +6,7 @@ extension TransferDestination {
         self.displayAccountNumber = destination.displayAccountNumber
         self.displayBankName = destination.displayBankName
         self.kind = destination.type.flatMap({ TransferDestination.Kind(restTransferDestinationType: $0) }) ?? .unknown
-        self.isMultipleMatcheing = destination.matchesMultiple
+        self.isMatchingMultipleDestinations = destination.matchesMultiple
         self.name = destination.name
         self.uri = destination.uri.flatMap { Transfer.TransferEntityURI($0) }
     }

@@ -32,6 +32,6 @@ public struct TransferDestination {
 
     /// Indicates whether this `TransferDestination` matches multiple destinations.
     /// If true, the uri will be a regular expression, for instance "se-pg://" meaning that the source account can make PG payments.
-    public let isMultipleMatcheing: Bool?
+    public let isMatchingMultipleDestinations: Bool?
 }
 
