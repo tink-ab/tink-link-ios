@@ -51,6 +51,11 @@ struct CredentialsDetailView: View {
                 }
                 .disabled(isAuthenticating)
             }
+            Section {
+                Button(action: delete) {
+                    Text("Delete")
+                }
+            }
         }
         .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
         .sheet(item: .init(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) { (task) in
@@ -82,5 +87,9 @@ struct CredentialsDetailView: View {
         credentialsController.performAuthentication(credentials: credentials) { (result) in
             self.isAuthenticating = false
         }
+    }
+
+    private func delete() {
+        
     }
 }
