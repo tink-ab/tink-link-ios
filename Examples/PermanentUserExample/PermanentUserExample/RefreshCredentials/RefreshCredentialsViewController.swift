@@ -183,17 +183,8 @@ extension RefreshCredentialsViewController {
                 }
             }
         case .transfer:
-            _ = transferContext.initiateTransfer(
-                amount: ExactNumber(value: 1),
-                currencyCode: "EUR",
-                credentials: credentials,
-                sourceURI: Transfer.TransferEntityURI("SOURCE_URI"),
-                destinationURI: Transfer.TransferEntityURI("DESTINATION_URI"),
-                message: "MESSAGE",
-                completion: { result in
-                    dump(result)
-                }
-            )
+            // TODO:
+            break
         }
     }
 }
