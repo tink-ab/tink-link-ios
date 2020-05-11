@@ -108,7 +108,6 @@
 		OBJ_235 /* SupplementInformationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_105 /* SupplementInformationTask.swift */; };
 		OBJ_236 /* ThirdPartyAppAuthenticationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_106 /* ThirdPartyAppAuthenticationTask.swift */; };
 		OBJ_237 /* Tink.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* Tink.swift */; };
-		OBJ_244 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_255 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_111 /* ConfigurationTests.swift */; };
 		OBJ_256 /* CredentialGRPCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_112 /* CredentialGRPCTests.swift */; };
 		OBJ_257 /* CredentialsContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_113 /* CredentialsContextTest.swift */; };
@@ -175,15 +174,7 @@
 		OBJ_128 /* SupplementalInfoFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementalInfoFieldTests.swift; sourceTree = "<group>"; };
 		OBJ_129 /* ThirdPartyCallbackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyCallbackTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* AuthorizationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationContext.swift; sourceTree = "<group>"; };
-		OBJ_138 /* TinkLink.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TinkLink.podspec; sourceTree = "<group>"; };
-		OBJ_139 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		OBJ_14 /* ConsentContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentContext.swift; sourceTree = "<group>"; };
-		OBJ_140 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		OBJ_141 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		OBJ_142 /* TinkLinkUI.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TinkLinkUI.podspec; sourceTree = "<group>"; };
-		OBJ_143 /* Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
-		OBJ_144 /* Gemfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gemfile.lock; sourceTree = "<group>"; };
-		OBJ_145 /* buildkite.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = buildkite.yml; sourceTree = "<group>"; };
 		OBJ_15 /* CredentialsContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsContext.swift; sourceTree = "<group>"; };
 		OBJ_16 /* ProviderContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderContext.swift; sourceTree = "<group>"; };
 		OBJ_17 /* UserContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContext.swift; sourceTree = "<group>"; };
@@ -223,7 +214,6 @@
 		OBJ_57 /* DeviceIdHeaderClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdHeaderClientBehavior.swift; sourceTree = "<group>"; };
 		OBJ_58 /* EmptyClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyClientBehavior.swift; sourceTree = "<group>"; };
 		OBJ_59 /* RequestErrorClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestErrorClientBehavior.swift; sourceTree = "<group>"; };
-		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_60 /* SDKHeaderClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKHeaderClientBehavior.swift; sourceTree = "<group>"; };
 		OBJ_61 /* HTTPStatusCodeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCodeError.swift; sourceTree = "<group>"; };
 		OBJ_62 /* RESTClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTClient.swift; sourceTree = "<group>"; };
@@ -433,18 +423,9 @@
 		OBJ_5 /*  */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_108 /* Tests */,
 				OBJ_130 /* Products */,
-				OBJ_138 /* TinkLink.podspec */,
-				OBJ_139 /* LICENSE */,
-				OBJ_140 /* Makefile */,
-				OBJ_141 /* README.md */,
-				OBJ_142 /* TinkLinkUI.podspec */,
-				OBJ_143 /* Gemfile */,
-				OBJ_144 /* Gemfile.lock */,
-				OBJ_145 /* buildkite.yml */,
 			);
 			name = "";
 			sourceTree = "<group>";
@@ -733,7 +714,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_244 /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
