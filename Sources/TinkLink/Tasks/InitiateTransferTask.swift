@@ -2,7 +2,7 @@ import Foundation
 
 public final class InitiateTransferTask {
 
-    public enum status {
+    public enum Status {
         case created
         case authenticating
         case awaitingSupplementalInformation(SupplementInformationTask)
@@ -11,7 +11,7 @@ public final class InitiateTransferTask {
     }
 
     // TODO: Make a protocol for transfer service
-    private let transService: RESTTransferService
+    private let transferService: RESTTransferService
 
     public func cancel() {
     }
