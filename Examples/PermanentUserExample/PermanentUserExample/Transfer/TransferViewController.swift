@@ -6,12 +6,16 @@ class TransferViewController: UITableViewController {
 
     var credentials: Credentials!
 
-    private enum Section: CaseIterable {
-        case details
+    private enum Section {
+        enum Item {
+            case amount
+            case message
+        }
+        case details([Item])
         case action
     }
 
-    private let sections = Section.allCases
+    private let sections: [Section] = [.details([.amount, .message]), .action]
 
     init() {
         super.init(style: .insetGrouped)
@@ -55,8 +59,8 @@ class TransferViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .details:
-            return 1
+        case .details(let items):
+            return items.count
         case .action:
             return 1
         }
@@ -64,10 +68,17 @@ class TransferViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
-        case .details:
+        case .details(let items):
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextField", for: indexPath) as! TextFieldTableViewCell
-            cell.textField.placeholder = "Amount"
-            cell.textField.keyboardType = .decimalPad
+            let item = items[indexPath.row]
+            switch item {
+            case .amount:
+                cell.textField.placeholder = "Amount"
+                cell.textField.keyboardType = .decimalPad
+            case .message:
+                cell.textField.placeholder = "Message"
+                cell.textField.keyboardType = .alphabet
+            }
             return cell
         case .action:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
