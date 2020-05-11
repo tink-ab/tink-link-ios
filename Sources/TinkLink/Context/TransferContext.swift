@@ -2,7 +2,7 @@ import Foundation
 
 public final class TransferContext {
     private let tink: Tink
-    private let service: RESTTransferService
+    private let service: TransferService
 
     public convenience init(tink: Tink = .shared) {
         let service = RESTTransferService(client: tink.client)

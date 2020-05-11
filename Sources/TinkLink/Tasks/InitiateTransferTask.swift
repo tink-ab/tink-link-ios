@@ -10,8 +10,7 @@ public final class InitiateTransferTask {
         case executing
     }
 
-    // TODO: Make a protocol for transfer service
-    private let transferService: RESTTransferService
+    private let transferService: TransferService
     private let transferID: Transfer.ID
     private let completionHandler: (Result<Void, Error>) -> Void
 
@@ -25,7 +24,7 @@ public final class InitiateTransferTask {
     }
 
     func transfer(id: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
-        return service.transferStatus(transferID: id, completion: completion)
+        return transferService.transferStatus(transferID: id, completion: completion)
     }
 
     public func cancel() {
