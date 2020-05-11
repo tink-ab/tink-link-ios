@@ -13,7 +13,7 @@ public struct TransferDestination {
     }
 
     /// The balance of the account. Will only be populated for accounts that is owned by the user.
-    public let balance: ExactNumber?
+    public let balance: Double?
 
     /// The name of the bank where this destination resides. Will not be populated for payment destinations.
     public let displayBankName: String?
@@ -32,6 +32,6 @@ public struct TransferDestination {
 
     /// Indicates whether this `TransferDestination` matches multiple destinations.
     /// If true, the uri will be a regular expression, for instance "se-pg://" meaning that the source account can make PG payments.
-    public let matchesMultiple: Bool?
+    public let isMultipleMatcheing: Bool?
 }
 
