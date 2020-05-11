@@ -55,6 +55,7 @@ struct CredentialsDetailView: View {
                 Button(action: delete) {
                     Text("Delete")
                 }
+                .foregroundColor(.red)
             }
         }
         .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
