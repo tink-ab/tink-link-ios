@@ -9,11 +9,11 @@ class TransferViewController: UITableViewController {
     private var sourceAccounts: [Account]? = nil
 
     private enum Section {
-        enum Item {
+        enum DetailField {
             case amount
             case message
         }
-        case details([Item])
+        case details([DetailField])
         case action
     }
 
@@ -74,10 +74,9 @@ class TransferViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
-        case .details(let items):
+        case .details(let fields):
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextField", for: indexPath) as! TextFieldTableViewCell
-            let item = items[indexPath.row]
-            switch item {
+            switch fields[indexPath.row] {
             case .amount:
                 cell.textField.placeholder = "Amount"
                 cell.textField.keyboardType = .decimalPad
