@@ -30,6 +30,10 @@ public struct Transfer: Identifiable {
             value = "\(scheme.rawValue)://\(host)"
         }
 
+        public init(_ value: String) {
+            self.value = value
+        }
+
         public let value: String
     }
 
@@ -41,7 +45,7 @@ public struct Transfer: Identifiable {
     /// The amount that will be transferred. Should be positive.
     public let amount: ExactNumber
     /// The unique identifier of the transfer.
-    public let id: ID
+    public let id: ID?
     /// The id of the Credentials used to make the transfer. For PIS with AIS will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.
     public let credentialsID: Credentials.ID
     /// The currency of the amount to be transferred. Should match the SourceUri's currency.
@@ -51,7 +55,7 @@ public struct Transfer: Identifiable {
     /// The message to the recipient. Optional for bank transfers but required for payments. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
     public let destinationMessage: String
     /// The date when the payment or bank transfer should be executed. If no dueDate is given, it will be executed immediately.
-    public let dueDate: Date
+    public let dueDate: Date?
     /// Transfe's message type, only required for BE and SEPA-EUR schemes. STRUCTURED is for PAYMENT type transfers and FREE_TEXT is for BANK_TRANSFER type transfers.
     public let messageType: MessageType
     /// The destination account or recipient of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
