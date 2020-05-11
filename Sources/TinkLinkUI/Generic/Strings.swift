@@ -222,6 +222,12 @@ enum Strings {
             /// Title for form asking user to supplement information when adding credentials.
             static let title = NSLocalizedString("SupplementalInformation.Form.Title", tableName: tableName, bundle: bundle, value: "Supplemental Information", comment: "Title for form asking user to supplement information when adding credentials.")
         }
+
+        /// Title shown for QR code in the supplemental information dialog.
+        static let qrCodeTitle = NSLocalizedString("SupplementalInformation.QRCodeTitle", tableName: tableName, bundle: bundle, value: "Open the BankID app", comment: "Title shown for QR code in the supplemental information dialog.")
+
+        /// Title shown for QR code in the supplemental information dialog.
+        static let qrCodeDescription = NSLocalizedString("SupplementalInformation.QRCodeDescription", tableName: tableName, bundle: bundle, value: "Open the Mobile Bank ID app and scan this QR code to authenticate.", comment: "Description shown for QR code in the supplemental information dialog.")
     }
     enum ThirdPartyAppAuthentication {
 
