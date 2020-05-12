@@ -4,6 +4,8 @@ import Foundation
 ///
 /// Use `CredentialsContext` to create a task.
 public final class AddCredentialsTask: Identifiable {
+
+    typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
     /// Indicates the state of a credentials being added.
     ///
     /// - Note: For some states there are actions which need to be performed on the credentials.
@@ -107,7 +109,8 @@ public final class AddCredentialsTask: Identifiable {
         if isCancelled { return }
 
         handleUpdate(for: .success(credentials))
-        credentialsStatusPollingTask = CredentialsStatusPollingTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
+        credentialsStatusPollingTask = CredentialsStatusPollingTask(pollingID: credentials.id, initialStatus: credentials, pollingRequest: credentialsService.credentials, pollingPredicate: { $0.statusUpdated != $1.statusUpdated || $0.status != $1.status
+        }) { [weak self] result in
             self?.handleUpdate(for: result)
         }
 

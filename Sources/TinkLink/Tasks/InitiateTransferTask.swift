@@ -46,11 +46,11 @@ public final class InitiateTransferTask {
         if isCancelled { return }
 
         handleUpdate(for: .success(signableOperation))
-        transferStatusPollingTask = PollingTask(pollingID: transferID, initialStatus: signableOperation, pollingRequest: transferService.transferStatus, pollingPredicate: { (lhs, rhs) -> Bool in
-            return lhs.updated != rhs.updated || lhs.status != rhs.status
-        }, updateHandler: { [weak self] result in
+        transferStatusPollingTask = PollingTask(pollingID: transferID, initialStatus: signableOperation, pollingRequest: transferService.transferStatus, pollingPredicate: {
+            return $0.updated != $1.updated || $0.status != $1.status
+        }) { [weak self] result in
             self?.handleUpdate(for: result)
-        })
+        }
 
         credentialsStatusPollingTask = CredentialsStatusPollingTask(credentialsService: credentialsService, credentialsID: credentialsID, initialStatus: .created) { [weak self] result in
             self?.handleUpdate(for: result)
