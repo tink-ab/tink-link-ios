@@ -112,7 +112,7 @@ extension TransferViewController {
     }
 
     private func handleTransferCompletion(_ result: Result<SignableOperation, Error>) {
-
+        dismiss(animated: true)
     }
 }
 
