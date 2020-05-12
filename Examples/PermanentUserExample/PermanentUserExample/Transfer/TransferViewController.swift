@@ -132,7 +132,14 @@ extension TransferViewController {
     }
 
     private func handleTransferCompletion(_ result: Result<SignableOperation, Error>) {
-        dismiss(animated: true)
+        hideStatus(animated: true) {
+            do {
+                let signableOperation = try result.get()
+                self.showTransferSuccess(signableOperation)
+            } catch {
+                // Handle any error
+            }
+        }
     }
 }
 
@@ -263,6 +270,12 @@ extension TransferViewController {
         qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelQRCode))
         let navigationController = UINavigationController(rootViewController: qrViewController)
         present(navigationController, animated: true)
+    }
+
+    private func showTransferSuccess(_ signableOperation: SignableOperation) {
+        let alert = UIAlertController(title: "Success", message: signableOperation.statusMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }
 
