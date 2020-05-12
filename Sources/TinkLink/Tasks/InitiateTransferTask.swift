@@ -10,21 +10,37 @@ public final class InitiateTransferTask {
         case executing
     }
 
-    private let transferService: TransferService
-    private let transferID: Transfer.ID
-    private let completionHandler: (Result<Void, Error>) -> Void
+    private(set) public var signableOperation: SignableOperation?
 
+    private let transferService: TransferService
+    private let progressHandler: (Status) -> Void
+    private let completionHandler: (Result<SignableOperation, Error>) -> Void
+
+    private var transferStatusPollingTask: TransferStatusPollingTask?
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
+    private var isCancelled = false
     private var canceller: Cancellable?
 
-    init(transferService: RESTTransferService, transferID: Transfer.ID, completionHandler: @escaping (Result<Void, Error>) -> Void) {
+    init(transferService: TransferService, progressHandler: @escaping (Status) -> Void, completionHandler: @escaping (Result<SignableOperation, Error>) -> Void) {
         self.transferService = transferService
-        self.transferID = transferID
+        self.progressHandler = progressHandler
         self.completionHandler = completionHandler
     }
 
-    func transfer(id: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
-        return transferService.transferStatus(transferID: id, completion: completion)
+    func startObserving(_ signableOperation: SignableOperation) {
+        self.signableOperation = signableOperation
+        if isCancelled { return }
+
+        handleUpdate(for: .success(signableOperation))
+        transferStatusPollingTask = TransferStatusPollingTask(transferService: transferService, signableOperation: signableOperation) { [weak self] result in
+            self?.handleUpdate(for: result)
+        }
+
+        transferStatusPollingTask?.startPolling()
+    }
+
+    private func handleUpdate(for result: Result<SignableOperation, Swift.Error>) {
+
     }
 
     public func cancel() {
