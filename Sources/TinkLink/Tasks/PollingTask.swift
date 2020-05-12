@@ -3,18 +3,18 @@ import Foundation
 class PollingTask<T, S> {
     private let pollingRequest: (T, @escaping ((Result<S, Error>) -> Void)) -> RetryCancellable?
     private let pollingID: T
-    private let pollingPredicate: (_ lhs: S, _ rhs: S) -> Bool
+    private let pollingPredicate: (_ current: S?, _ updated: S) -> Bool
     private let updateHandler: (Result<S, Error>) -> Void
     private let applicationObserver = ApplicationObserver()
     private let retryInterval: TimeInterval = 1
 
-    private var pollingResponseStatus: S
+    private var pollingResponseStatus: S?
     private var callRetryCancellable: RetryCancellable?
 
     private var isPaused = true
     private var isActive = true
 
-    init(pollingID: T, initialStatus: S, pollingRequest: @escaping (T, @escaping ((Result<S, Error>) -> Void)) -> RetryCancellable?, pollingPredicate: @escaping (_ lhs: S, _ rhs: S) -> Bool, updateHandler: @escaping (Result<S, Error>) -> Void) {
+    init(pollingID: T, initialStatus: S?, pollingRequest: @escaping (T, @escaping ((Result<S, Error>) -> Void)) -> RetryCancellable?, pollingPredicate: @escaping (_ current: S?, _ updated: S) -> Bool, updateHandler: @escaping (Result<S, Error>) -> Void) {
         self.pollingID = pollingID
         self.pollingResponseStatus = initialStatus
         self.pollingPredicate = pollingPredicate
@@ -53,7 +53,6 @@ class PollingTask<T, S> {
             return
         }
 
-
         callRetryCancellable = pollingRequest(pollingID) { [weak self] result in
             guard let self = self else { return }
             self.callRetryCancellable = nil
@@ -64,7 +63,7 @@ class PollingTask<T, S> {
                     self.retry()
                 }
 
-                guard self.pollingPredicate(pollingResponse, self.pollingResponseStatus) else {
+                guard self.pollingPredicate(self.pollingResponseStatus, pollingResponse) else {
                     return
                 }
 
