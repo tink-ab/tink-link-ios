@@ -57,18 +57,18 @@ class PollingTask<T, S> {
             guard let self = self else { return }
             self.callRetryCancellable = nil
             do {
-                let pollingResponse = try result.get()
+                let updatedResponseState = try result.get()
 
                 defer {
                     self.retry()
                 }
 
-                guard self.pollingPredicate(self.pollingResponseStatus, pollingResponse) else {
+                guard self.pollingPredicate(self.pollingResponseStatus, updatedResponseState) else {
                     return
                 }
 
-                self.pollingResponseStatus = pollingResponse
-                self.updateHandler(.success(pollingResponse))
+                self.pollingResponseStatus = updatedResponseState
+                self.updateHandler(.success(updatedResponseState))
             } catch {
                 self.updateHandler(.failure(error))
             }
