@@ -95,7 +95,20 @@ extension TransferViewController {
 
 extension TransferViewController {
     private func handleTransferProgress(_ status: InitiateTransferTask.Status) {
-
+        switch status {
+        case .created:
+            showStatus("Created")
+        case .authenticating:
+            showStatus("Authenticating…")
+        case .awaitingSupplementalInformation(let task):
+            hideStatus(animated: false) {
+                self.showSupplementalInformation(for: task)
+            }
+        case .awaitingThirdPartyAppAuthentication(let task):
+            task.handle()
+        case .executing(let status):
+            showStatus(status)
+        }
     }
 
     private func handleTransferCompletion(_ result: Result<SignableOperation, Error>) {
@@ -217,6 +230,14 @@ extension TransferViewController {
         dismiss(animated: animated, completion: completion)
         statusViewController = nil
     }
+
+    private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
+        let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
+        supplementalInformationViewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
+        show(navigationController, sender: nil)
+    }
+
 }
 
 // MARK: - TextFieldTableViewCellDelegate
@@ -260,5 +281,17 @@ extension TransferViewController: TransferDestinationPickerViewControllerDelegat
         navigationController?.popToViewController(self, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
 
+    }
+}
+
+// MARK: - SupplementalInformationViewControllerDelegate
+
+extension TransferViewController: SupplementalInformationViewControllerDelegate {
+    func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
+        dismiss(animated: true)
+    }
+
+    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credentials) {
+        dismiss(animated: true)
     }
 }
