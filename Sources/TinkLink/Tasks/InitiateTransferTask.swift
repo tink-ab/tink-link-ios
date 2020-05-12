@@ -64,6 +64,7 @@ public final class InitiateTransferTask {
                 progressHandler(.created)
             case .awaitingCredentials, .awaitingThirdPartyAppAuthentication:
                 transferStatusPollingTask?.stopPolling()
+                credentialsStatusPollingTask?.startPolling()
             case .executing:
                 progressHandler(.executing(status: signableOperation.statusMessage ?? ""))
             case .executed:
