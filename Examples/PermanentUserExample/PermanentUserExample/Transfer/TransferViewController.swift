@@ -208,7 +208,7 @@ extension TransferViewController {
                 showTransferDestinationPicker(cell)
             }
         case .details:
-            break
+            tableView.deselectRow(at: indexPath, animated: true)
         case .action:
             transfer(cell)
             tableView.deselectRow(at: indexPath, animated: true)
