@@ -33,7 +33,6 @@ public final class ProviderContext {
     /// Creates a context to access providers that matches the provided attributes.
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
-    /// - Parameter user: `User` that will be used for fetching providers with the Tink API.
     public convenience init(tink: Tink = .shared) {
         let service = RESTProviderService(client: tink.client)
         self.init(tink: tink, providerService: service)
