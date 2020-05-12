@@ -6,6 +6,8 @@ class TransferViewController: UITableViewController {
 
     private var sourceAccount: Account?
     private var transferDestination: TransferDestination?
+    private var amount: Decimal?
+    private var message = ""
 
     private enum Section {
         enum AccountField {
@@ -46,12 +48,12 @@ class TransferViewController: UITableViewController {
         guard let sourceAccount = sourceAccount, let balance = sourceAccount.currencyDenominatedBalance else { return }
         
         _ = transferContext.initiateTransfer(
-            amount: ExactNumber(value: 1),
+            amount: ExactNumber(value: amount),
             currencyCode: balance.currencyCode,
             credentialsID: sourceAccount.credentialsID,
             sourceURI: Transfer.TransferEntityURI("SOURCE_URI"),
             destinationURI: Transfer.TransferEntityURI("DESTINATION_URI"),
-            message: "MESSAGE",
+            message: message,
             completion: { result in
                 dump(result)
             }
@@ -92,6 +94,7 @@ class TransferViewController: UITableViewController {
             return cell
         case .details(let fields):
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextField", for: indexPath) as! TextFieldTableViewCell
+            cell.delegate = self
             switch fields[indexPath.row] {
             case .amount:
                 cell.textField.placeholder = "Amount"
@@ -137,6 +140,27 @@ class TransferViewController: UITableViewController {
         let transferDestinationPicker = TransferDestinationPickerViewController(sourceAccount: sourceAccount)
         transferDestinationPicker.delegate = self
         show(transferDestinationPicker, sender: sender)
+    }
+}
+
+extension TransferViewController: TextFieldTableViewCellDelegate {
+    func textFieldTableViewCell(_ cell: TextFieldTableViewCell, willChangeToText text: String) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        switch sections[indexPath.section] {
+        case .details(let fields):
+            switch fields[indexPath.row] {
+            case .amount:
+                amount = Decimal(string: text)
+            case .message:
+                message = text
+            }
+        default:
+            break
+        }
+    }
+
+    func textFieldTableViewCellDidEndEditing(_ cell: TextFieldTableViewCell) {
+
     }
 }
 
