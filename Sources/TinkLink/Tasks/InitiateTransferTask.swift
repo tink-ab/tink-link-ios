@@ -12,6 +12,8 @@ public final class InitiateTransferTask {
 
     private(set) public var signableOperation: SignableOperation?
 
+    var canceller: Cancellable?
+
     private let transferService: TransferService
     private let credentialsService: CredentialsService
     private let appUri: URL
@@ -22,7 +24,6 @@ public final class InitiateTransferTask {
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private var isCancelled = false
-    private var canceller: Cancellable?
 
     init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, completionHandler: @escaping (Result<SignableOperation, Error>) -> Void) {
         self.transferService = transferService
@@ -158,6 +159,9 @@ public final class InitiateTransferTask {
     }
 
     public func cancel() {
+        isCancelled = true
+        transferStatusPollingTask?.stopPolling()
+        credentialsStatusPollingTask?.stopPolling()
         canceller?.cancel()
     }
 }
