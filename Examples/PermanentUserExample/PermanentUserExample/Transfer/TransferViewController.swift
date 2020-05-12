@@ -237,7 +237,7 @@ extension TransferViewController {
 
 extension TransferViewController {
     private func showSourceAccountPicker(_ sender: Any) {
-        let sourceAccountPicker = SourceAccountPickerViewController()
+        let sourceAccountPicker = SourceAccountPickerViewController(selectedAccount: sourceAccount)
         sourceAccountPicker.delegate = self
         show(sourceAccountPicker, sender: sender)
     }

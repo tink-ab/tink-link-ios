@@ -11,8 +11,10 @@ class SourceAccountPickerViewController: UITableViewController {
     weak var delegate: SourceAccountPickerViewControllerDelegate?
 
     private var sourceAccounts: [Account] = []
+    private let selectedAccount: Account?
 
-    init() {
+    init(selectedAccount: Account? = nil) {
+        self.selectedAccount = selectedAccount
         super.init(style: .plain)
         title = "Accounts"
     }
@@ -46,6 +48,7 @@ class SourceAccountPickerViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let account = sourceAccounts[indexPath.row]
         cell.textLabel?.text = account.name
+        cell.accessoryType = account.id == selectedAccount?.id ? .checkmark : .none
         return cell
     }
 
