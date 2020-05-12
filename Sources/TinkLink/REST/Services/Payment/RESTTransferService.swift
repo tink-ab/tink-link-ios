@@ -1,13 +1,12 @@
 import Foundation
 
-final class RESTTransferService {
+final class RESTTransferService: TransferService {
     private let client: RESTClient
 
     init(client: RESTClient) {
         self.client = client
     }
 
-    // TODO: Use TinkLink SDK model
     func accounts(destinationUris: [Transfer.TransferEntityURI], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         typealias DestinationParameter = (name: String, value: String)
 

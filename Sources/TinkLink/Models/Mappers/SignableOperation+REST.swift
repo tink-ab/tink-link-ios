@@ -32,7 +32,7 @@ extension SignableOperation.Status {
         case .failed:
             self = .failed
         case .sent:
-            self = .sent
+            self = .executed
         case .unknown:
             self = .unknown
         }
