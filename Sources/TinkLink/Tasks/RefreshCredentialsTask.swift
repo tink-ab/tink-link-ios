@@ -14,6 +14,7 @@ public typealias UpdateCredentialsTask = RefreshCredentialsTask
 ///
 /// Use `CredentialsContext` to create a task.
 public final class RefreshCredentialsTask: Identifiable {
+    typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
     /// Indicates the state of a credentials being refreshed.
     ///
     /// - Note: For some states there are actions which need to be performed on the credentials.
@@ -73,12 +74,15 @@ public final class RefreshCredentialsTask: Identifiable {
 
     func startObserving() {
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
-            credentialsService: credentialsService,
-            credentials: credentials,
-            updateHandler: { [weak self] result in
-                self?.handleUpdate(for: result)
-            }
-        )
+            pollingID: credentials.id,
+            initialStatus: credentials,
+            pollingRequest: credentialsService.credentials,
+            pollingPredicate: {  (currentState, updatedState) -> Bool in
+                guard let currentState = currentState else { return true }
+                return currentState.statusUpdated != updatedState.statusUpdated || currentState.status != updatedState.status
+        }) { [weak self] result in
+            self?.handleUpdate(for: result)
+        }
 
         credentialsStatusPollingTask?.startPolling()
     }
