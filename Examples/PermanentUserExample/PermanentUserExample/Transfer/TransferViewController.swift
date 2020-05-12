@@ -5,7 +5,6 @@ class TransferViewController: UITableViewController {
     private let transferContext = TransferContext()
 
     private var sourceAccount: Account?
-    var credentials: Credentials!
 
     private enum Section {
         enum AccountField {
@@ -43,10 +42,12 @@ class TransferViewController: UITableViewController {
     }
 
     @objc private func transfer(_ sender: Any) {
+        guard let sourceAccount = sourceAccount else { return }
+
         _ = transferContext.initiateTransfer(
             amount: ExactNumber(value: 1),
             currencyCode: "EUR",
-            credentials: credentials,
+            credentialsID: sourceAccount.credentialsID,
             sourceURI: Transfer.TransferEntityURI("SOURCE_URI"),
             destinationURI: Transfer.TransferEntityURI("DESTINATION_URI"),
             message: "MESSAGE",
