@@ -5,6 +5,7 @@ class TransferViewController: UITableViewController {
     private let transferContext = TransferContext()
 
     private var sourceAccount: Account?
+    private var transferDestination: TransferDestination?
 
     private enum Section {
         enum AccountField {
@@ -86,6 +87,7 @@ class TransferViewController: UITableViewController {
                 cell.detailTextLabel?.text = sourceAccount?.name
             case .to:
                 cell.textLabel?.text = "To:"
+                cell.detailTextLabel?.text = transferDestination?.name
             }
             return cell
         case .details(let fields):
@@ -114,7 +116,7 @@ class TransferViewController: UITableViewController {
             case .from:
                 showSourceAccountPicker(cell)
             case .to:
-                break
+                showTransferDestinationPicker(cell)
             }
         case .details:
             break
@@ -128,6 +130,14 @@ class TransferViewController: UITableViewController {
         sourceAccountPicker.delegate = self
         show(sourceAccountPicker, sender: sender)
     }
+
+    private func showTransferDestinationPicker(_ sender: Any) {
+        guard let sourceAccount = sourceAccount else { return }
+
+        let transferDestinationPicker = TransferDestinationPickerViewController(sourceAccount: sourceAccount)
+        transferDestinationPicker.delegate = self
+        show(transferDestinationPicker, sender: sender)
+    }
 }
 
 extension TransferViewController: SourceAccountPickerViewControllerDelegate {
@@ -135,5 +145,14 @@ extension TransferViewController: SourceAccountPickerViewControllerDelegate {
         sourceAccount = account
         navigationController?.popToViewController(self, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+    }
+}
+
+extension TransferViewController: TransferDestinationPickerViewControllerDelegate {
+    func transferDestinationPickerViewController(_ viewController: TransferDestinationPickerViewController, didSelectTransferDestination transferDestination: TransferDestination) {
+        self.transferDestination = transferDestination
+        navigationController?.popToViewController(self, animated: true)
+        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
+
     }
 }
