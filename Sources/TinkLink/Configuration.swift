@@ -42,7 +42,7 @@ extension Tink {
         ///   - environment: The environment to use, defaults to production.
         ///   - grpcCertificateURL: URL to a certificate file to use with the gRPC API.
         ///   - restCertificateURL: URL to a certificate file to use with the REST API.
-        @available(*, deprecated)
+        @available(*, deprecated, message: "Use init(clientID:redirectURI:environment:certificateURL:) instead")
         public init(
             clientID: String,
             redirectURI: URL,
