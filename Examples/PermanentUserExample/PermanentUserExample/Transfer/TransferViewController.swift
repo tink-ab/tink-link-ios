@@ -152,10 +152,10 @@ extension TransferViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .accounts:
-            return 2
-        case .details(let items):
-            return items.count
+        case .accounts(let fields):
+            return fields.count
+        case .details(let fields):
+            return fields.count
         case .action:
             return 1
         }
