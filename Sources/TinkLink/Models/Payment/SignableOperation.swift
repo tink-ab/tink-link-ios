@@ -23,7 +23,6 @@ public struct SignableOperation {
         case created
         case executing
         case executed
-        case sent
         case failed
         case cancelled
         case unknown
