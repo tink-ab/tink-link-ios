@@ -89,6 +89,11 @@ extension TransferViewController {
         initiateTransferTask?.cancel()
         dismiss(animated: true)
     }
+
+    @objc private func cancelQRCode(_ sender: Any) {
+        initiateTransferTask?.cancel()
+        dismiss(animated: true)
+    }
 }
 
 // MARK: - Transfer Handling
@@ -105,9 +110,24 @@ extension TransferViewController {
                 self.showSupplementalInformation(for: task)
             }
         case .awaitingThirdPartyAppAuthentication(let task):
-            task.handle()
+            task.handle { [weak self] taskStatus in
+                DispatchQueue.main.async {
+                    self?.handleThirdPartyAppAuthentication(taskStatus)
+                }
+            }
         case .executing(let status):
             showStatus(status)
+        }
+    }
+
+    private func handleThirdPartyAppAuthentication(_ taskStatus: ThirdPartyAppAuthenticationTask.Status) {
+        switch taskStatus {
+        case .awaitAuthenticationOnAnotherDevice:
+            showStatus("Awaiting Authentication on Another Device")
+        case .qrImage(let image):
+            hideStatus(animated: true) {
+                self.showQR(image)
+            }
         }
     }
 
@@ -238,6 +258,12 @@ extension TransferViewController {
         show(navigationController, sender: nil)
     }
 
+    private func showQR(_ image: UIImage) {
+        let qrViewController = QRViewController(image: image)
+        qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelQRCode))
+        let navigationController = UINavigationController(rootViewController: qrViewController)
+        present(navigationController, animated: true)
+    }
 }
 
 // MARK: - TextFieldTableViewCellDelegate
