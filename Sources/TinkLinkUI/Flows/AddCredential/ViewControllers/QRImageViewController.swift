@@ -15,8 +15,11 @@ final class QRImageViewController: UIViewController {
     weak var delegate: QRImageViewControllerDelegate?
 
     init(qrImage: UIImage) {
-        imageView.image = qrImage
-
+        if let image = qrImage.cgImage?.withMaskedWhiteChannel {
+            imageView.image = UIImage(cgImage: image).withRenderingMode(.alwaysTemplate)
+        } else {
+            imageView.image = qrImage
+        }
         super.init(nibName: nil, bundle: nil)
     }
 
