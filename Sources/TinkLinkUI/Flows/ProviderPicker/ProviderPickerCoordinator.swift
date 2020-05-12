@@ -9,16 +9,7 @@ protocol ProviderPickerCoordinating: AnyObject {
     func didSelectProvider(_ provider: Provider)
 }
 
-protocol ProviderPickerCoordinatorDelegate: AnyObject {
-    func providerPickerCoordinatorShowLoading(_ coordinator: ProviderPickerCoordinator)
-    func providerPickerCoordinatorHideLoading(_ coordinator: ProviderPickerCoordinator)
-    func providerPickerCoordinatorUpdateProviders(_ coordinator: ProviderPickerCoordinator)
-    func providerPickerCoordinatorShowError(_ coordinator: ProviderPickerCoordinator, error: Error?)
-}
-
 class ProviderPickerCoordinator: ProviderPickerCoordinating {
-
-    weak var delegate: ProviderPickerCoordinatorDelegate?
 
     private let providerController: ProviderController
     private weak var parentViewController: UIViewController?
@@ -34,10 +25,9 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func start(completion: @escaping ((Result<Provider, Error>) -> Void)) {
-        NotificationCenter.default.addObserver(self, selector: #selector(showLoadingIndicator), name: .providerControllerWillFetchProviders, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(hideLoadingIndicator), name: .providerControllerDidFetchProviders, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updatedWithError), name: .providerControllerDidFailWithError, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateProviders), name: .providerControllerDidUpdateProviders, object: nil)
+        DispatchQueue.main.async {
+            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: NSLocalizedString("ProviderPicker.List.FinancialInstitutionsTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Choose bank", comment: "Title for list of all providers."))
+        }
         
         self.completion = completion
     }
@@ -88,25 +78,6 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func didSelectProvider(_ provider: Provider) {
         completion?(.success(provider))
-    }
-
-    @objc private func showLoadingIndicator() {
-        delegate?.providerPickerCoordinatorShowLoading(self)
-    }
-
-    @objc private func hideLoadingIndicator() {
-        delegate?.providerPickerCoordinatorHideLoading(self)
-    }
-
-    @objc private func updateProviders() {
-        delegate?.providerPickerCoordinatorUpdateProviders(self)
-        DispatchQueue.main.async {
-            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: Strings.ProviderPicker.List.financialInstitutionsTitle)
-        }
-    }
-
-    @objc private func updatedWithError() {
-        delegate?.providerPickerCoordinatorShowError(self, error: providerController.error)
     }
 }
 

@@ -55,15 +55,22 @@ public class TinkLinkViewController: UINavigationController {
         /// Will attempt to fill the first field of the provider with the associated value if it is valid.
         case username(value: String, isEditable: Bool)
     }
-  
+
+    /// Strategy for what to fetch
+    public enum ProviderPredicate {
+        /// Will fetch a list of providers depending on kind.
+        case kinds(Set<Provider.Kind>)
+        /// Will fetch a single provider by id.
+        case name(Provider.ID)
+    }
+
+    /// The prefilling strategy to use.
+    public var prefill: PrefillStrategy = .none
     /// Scopes that grant access to Tink.
     public let scopes: [Scope]
-    /// The prefilling strategy to use. 
-    public var prefill: PrefillStrategy = .none
-
     private let tink: Tink
     private let market: Market
-
+    private let providerPredicate: ProviderPredicate
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
@@ -83,15 +90,22 @@ public class TinkLinkViewController: UINavigationController {
     ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from. 
     ///   - scope: A set of scopes that will be aggregated.
     ///   - providerKinds: The kind of providers that will be listed.
+    ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.defaultKinds), completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.tink = tink
         self.market = market
         self.scopes = scopes
-        self.providerController = ProviderController(tink: tink, providerKinds: providerKinds)
+        self.providerController = ProviderController(tink: tink, providerPredicate: providerPredicate)
+        self.providerPredicate = providerPredicate
         self.completion = completion
 
         super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, deprecated, message: "use tink:market:scopes:providerPredicate: instead")
+    public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+        self.init(tink: tink, market: market, scopes: scopes, providerPredicate: .kinds(providerKinds), completion: completion)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -108,12 +122,38 @@ public class TinkLinkViewController: UINavigationController {
         setViewControllers([loadingViewController], animated: false)
 
         presentationController?.delegate = self
-        providerPickerCoordinator.delegate = self
+        loadingViewController.delegate = self
 
         start()
     }
 
+    func fetchProviders() {
+        providerController.fetch { (result) in
+            DispatchQueue.main.async {
+                self.loadingViewController.hideLoadingIndicator()
+                switch result {
+                case .success(let providers):
+                    self.setViewControllers([], animated: false)
+                    switch self.providerPredicate {
+                    case .kinds:
+                        self.showProviderPicker()
+                    case .name:
+                        if let provider = providers.first {
+                            self.showAddCredentials(for: provider, animated: false)
+                        }
+                    }
+                case .failure (let error):
+                    if let tinkLinkError = TinkLinkError(error: error) {
+                        self.result = .failure(tinkLinkError)
+                    }
+                    self.loadingViewController.update(error)
+                }
+            }
+        }
+    }
+
     private func start() {
+        loadingViewController.showLoadingIndicator()
         tink._beginUITask()
         defer { tink._endUITask() }
         tink._createTemporaryUser(for: market) { [weak self] result in
@@ -122,8 +162,7 @@ public class TinkLinkViewController: UINavigationController {
                 do {
                     _ = try result.get()
 
-                    self.providerController.performFetch()
-                    self.showProviderPicker()
+                    self.fetchProviders()
                     self.clientDescriptorLoadingGroup.enter()
                     self.authorizationController.clientDescription { (clientDescriptionResult) in
                         DispatchQueue.main.async {
@@ -268,10 +307,10 @@ extension TinkLinkViewController {
         }
     }
 
-    func showAddCredentials(for provider: Provider) {
+    func showAddCredentials(for provider: Provider, animated: Bool = true) {
         guard let clientDescription = clientDescription else {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
-                self?.showAddCredentials(for: provider)
+                self?.showAddCredentials(for: provider, animated: animated)
             }
             loadingViewController.showLoadingIndicator()
             show(loadingViewController, sender: nil)
@@ -306,27 +345,12 @@ extension TinkLinkViewController {
     }
 }
 
-// MARK: - ProviderPickerCoordinatorDelegate
-extension TinkLinkViewController: ProviderPickerCoordinatorDelegate {
-    func providerPickerCoordinatorShowLoading(_ coordinator: ProviderPickerCoordinator) {
+// MARK: - LoadingViewControllerDelegate
+
+extension TinkLinkViewController: LoadingViewControllerDelegate {
+    func loadingViewControllerDidPressRetry(_ viewController: LoadingViewController) {
         loadingViewController.showLoadingIndicator()
-    }
-
-    func providerPickerCoordinatorHideLoading(_ coordinator: ProviderPickerCoordinator) {
-        loadingViewController.hideLoadingIndicator()
-    }
-
-    func providerPickerCoordinatorUpdateProviders(_ coordinator: ProviderPickerCoordinator) {
-        DispatchQueue.main.async {
-            self.loadingViewController.removeFromParent()
-        }
-    }
-
-    func providerPickerCoordinatorShowError(_ coordinator: ProviderPickerCoordinator, error: Error?) {
-        if let tinkLinkError = error.flatMap({ TinkLinkError(error: $0) }) {
-            self.result = .failure(tinkLinkError)
-        }
-        loadingViewController.update(error)
+        fetchProviders()
     }
 }
 

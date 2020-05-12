@@ -130,6 +130,11 @@ enum Strings {
             /// Title for action to retry a failed request.
             static let retry = NSLocalizedString("Generic.ServiceAlert.Retry", tableName: tableName, bundle: bundle, value: "Retry", comment: "Title for action to retry a failed request.")
         }
+
+        enum Formatter {
+            /// Text used to form a list.
+            static let and = NSLocalizedString("Generic.Formatter.And", tableName: tableName, bundle: bundle, value: "and", comment: "Text used to form a list.")
+        }
     }
 
     enum ProviderPicker {
@@ -145,6 +150,41 @@ enum Strings {
 
             /// Text describing the group of providers that does not use Open Banking.
             static let otherDetail = NSLocalizedString("ProviderPicker.AccessType.OtherDetail", tableName: tableName, bundle: bundle, value: "Including saving accounts, credit cards, loans, investments and your personal information.", comment: "Text describing the group of providers that does not use Open Banking.")
+        }
+
+        enum Capability {
+            /// Description of the provider capability Transfers.
+            static let transfers = NSLocalizedString("ProviderPicker.Capability.Transfers", tableName: tableName, bundle: bundle, value: "Transfers", comment: "Description of the provider capability Transfers.")
+
+            /// Description of the provider capability Mortgage Aggregation.
+            static let mortgageAggregation = NSLocalizedString("ProviderPicker.Capability.MortgageAggregation", tableName: tableName, bundle: bundle, value: "Mortgage Aggregation", comment: "Description of the provider capability Mortgage Aggregation.")
+
+            /// Description of the provider capability Checking Accounts.
+            static let checkingAccounts = NSLocalizedString("ProviderPicker.Capability.CheckingAccounts", tableName: tableName, bundle: bundle, value: "Checking Accounts", comment: "Description of the provider capability Checking Accounts.")
+
+            /// Description of the provider capability Savings Accounts.
+            static let savingsAccounts = NSLocalizedString("ProviderPicker.Capability.SavingsAccounts", tableName: tableName, bundle: bundle, value: "Savings Accounts", comment: "Description of the provider capability Savings Accounts.")
+
+            /// Description of the provider capability Credit Cards.
+            static let creditCards = NSLocalizedString("ProviderPicker.Capability.CreditCards", tableName: tableName, bundle: bundle, value: "Credit Cards", comment: "Description of the provider capability Credit Cards.")
+
+            /// Description of the provider capability Investments.
+            static let investments = NSLocalizedString("ProviderPicker.Capability.Investments", tableName: tableName, bundle: bundle, value: "Investments", comment: "Description of the provider capability Investments.")
+
+            /// Description of the provider capability Loans.
+            static let loans = NSLocalizedString("ProviderPicker.Capability.Loans", tableName: tableName, bundle: bundle, value: "Loans", comment: "Description of the provider capability Loans.")
+
+            /// Description of the provider capability Payments.
+            static let payments = NSLocalizedString("ProviderPicker.Capability.Payments", tableName: tableName, bundle: bundle, value: "Payments", comment: "Description of the provider capability Payments.")
+
+            /// Description of the provider capability Mortgage Loan.
+            static let mortgageLoan = NSLocalizedString("ProviderPicker.Capability.MortgageLoan", tableName: tableName, bundle: bundle, value: "Mortgage Loan", comment: "Description of the provider capability Mortgage Loan.")
+
+            /// Description of the provider capability Identity Data.
+            static let identityData = NSLocalizedString("ProviderPicker.Capability.IdentityData", tableName: tableName, bundle: bundle, value: "Identity Data", comment: "Description of the provider capability Identity Data.")
+
+            /// Description of the provider capability E-Invoices.
+            static let eInvoices = NSLocalizedString("ProviderPicker.Capability.EInvoices", tableName: tableName, bundle: bundle, value: "E-Invoices", comment: "Description of the provider capability E-Invoices.")
         }
 
         enum Error {
@@ -182,6 +222,12 @@ enum Strings {
             /// Title for form asking user to supplement information when adding credentials.
             static let title = NSLocalizedString("SupplementalInformation.Form.Title", tableName: tableName, bundle: bundle, value: "Supplemental Information", comment: "Title for form asking user to supplement information when adding credentials.")
         }
+
+        /// Title shown for QR code in the supplemental information dialog.
+        static let qrCodeTitle = NSLocalizedString("SupplementalInformation.QRCodeTitle", tableName: tableName, bundle: bundle, value: "Open the BankID app", comment: "Title shown for QR code in the supplemental information dialog.")
+
+        /// Title shown for QR code in the supplemental information dialog.
+        static let qrCodeDescription = NSLocalizedString("SupplementalInformation.QRCodeDescription", tableName: tableName, bundle: bundle, value: "Open the Mobile Bank ID app and scan this QR code to authenticate.", comment: "Description shown for QR code in the supplemental information dialog.")
     }
     enum ThirdPartyAppAuthentication {
 
