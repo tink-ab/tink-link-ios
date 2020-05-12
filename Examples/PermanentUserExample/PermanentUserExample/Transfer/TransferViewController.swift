@@ -4,6 +4,7 @@ import TinkLink
 class TransferViewController: UITableViewController {
     private let transferContext = TransferContext()
 
+    private var sourceAccount: Account?
     var credentials: Credentials!
 
     private enum Section {
@@ -81,6 +82,7 @@ class TransferViewController: UITableViewController {
             switch fields[indexPath.row] {
             case .from:
                 cell.textLabel?.text = "From:"
+                cell.detailTextLabel?.text = sourceAccount?.name
             case .to:
                 cell.textLabel?.text = "To:"
             }
@@ -121,5 +123,16 @@ class TransferViewController: UITableViewController {
     }
 
     private func showSourceAccountPicker(_ sender: Any) {
+        let sourceAccountPicker = SourceAccountPickerViewController()
+        sourceAccountPicker.delegate = self
+        show(sourceAccountPicker, sender: sender)
+    }
+}
+
+extension TransferViewController: SourceAccountPickerViewControllerDelegate {
+    func sourceAccountPickerViewController(_ viewController: SourceAccountPickerViewController, didSelectAccount account: Account) {
+        sourceAccount = account
+        navigationController?.popToViewController(self, animated: true)
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
     }
 }
