@@ -68,6 +68,9 @@ extension TransferViewController {
             sourceURI: sourceAccountIdentifier,
             destinationURI: transferDestinationIdentifier,
             message: message,
+            progressHandler: { status in
+                dump(status)
+            },
             completion: { result in
                 dump(result)
             }
