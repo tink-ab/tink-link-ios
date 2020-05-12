@@ -13,19 +13,19 @@ extension Tink {
         /// The environment to use.
         public var environment: Environment
 
-        /// Certificate to use with REST API.
+        /// Certificate to use with the API.
         public var restCertificateURL: URL?
 
         /// - Parameters:
         ///   - clientID: The client id for your app.
         ///   - redirectURI: The URI you've setup in Console.
         ///   - environment: The environment to use, defaults to production.
-        ///   - restCertificateURL: URL to a certificate file to use with REST API.
+        ///   - certificateURL: URL to a certificate file to use with the API.
         public init(
             clientID: String,
             redirectURI: URL,
             environment: Environment = .production,
-            restCertificateURL: URL? = nil
+            certificateURL: URL? = nil
         ) throws {
             guard let host = redirectURI.host, !host.isEmpty else {
                 throw NSError(domain: URLError.errorDomain, code: URLError.cannotFindHost.rawValue)
@@ -33,7 +33,7 @@ extension Tink {
             self.clientID = clientID
             self.redirectURI = redirectURI
             self.environment = environment
-            self.restCertificateURL = restCertificateURL
+            self.restCertificateURL = certificateURL
         }
     }
 }
