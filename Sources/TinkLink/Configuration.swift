@@ -35,6 +35,23 @@ extension Tink {
             self.environment = environment
             self.restCertificateURL = certificateURL
         }
+
+        /// - Parameters:
+        ///   - clientID: The client id for your app.
+        ///   - redirectURI: The URI you've setup in Console.
+        ///   - environment: The environment to use, defaults to production.
+        ///   - grpcCertificateURL: URL to a certificate file to use with the gRPC API.
+        ///   - restCertificateURL: URL to a certificate file to use with the REST API.
+        @available(*, deprecated)
+        public init(
+            clientID: String,
+            redirectURI: URL,
+            environment: Environment = .production,
+            grpcCertificateURL: URL? = nil,
+            restCertificateURL: URL? = nil
+        ) throws {
+            try self.init(clientID: clientID, redirectURI: redirectURI, environment: environment, certificateURL: restCertificateURL)
+        }
     }
 }
 
