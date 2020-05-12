@@ -35,7 +35,11 @@ class TransferViewController: UITableViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
 
+// MARK: - View Lifecycle
+
+extension TransferViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,7 +47,11 @@ class TransferViewController: UITableViewController {
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextField")
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
     }
+}
 
+// MARK: - Actions
+
+extension TransferViewController {
     @objc private func transfer(_ sender: Any) {
         guard let sourceAccount = sourceAccount, let balance = sourceAccount.currencyDenominatedBalance else { return }
         
@@ -63,7 +71,11 @@ class TransferViewController: UITableViewController {
     @objc private func cancel(_ sender: Any) {
         dismiss(animated: true)
     }
+}
 
+// MARK: - UITableViewDataSource
+
+extension TransferViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -110,7 +122,11 @@ class TransferViewController: UITableViewController {
             return cell
         }
     }
+}
 
+// MARK: - UITableViewDelegate
+
+extension TransferViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)!
         switch sections[indexPath.section] {
@@ -127,7 +143,11 @@ class TransferViewController: UITableViewController {
             transfer(cell)
         }
     }
+}
 
+// MARK: - Navigation
+
+extension TransferViewController {
     private func showSourceAccountPicker(_ sender: Any) {
         let sourceAccountPicker = SourceAccountPickerViewController()
         sourceAccountPicker.delegate = self
@@ -142,6 +162,8 @@ class TransferViewController: UITableViewController {
         show(transferDestinationPicker, sender: sender)
     }
 }
+
+// MARK: - TextFieldTableViewCellDelegate
 
 extension TransferViewController: TextFieldTableViewCellDelegate {
     func textFieldTableViewCell(_ cell: TextFieldTableViewCell, willChangeToText text: String) {
@@ -164,6 +186,8 @@ extension TransferViewController: TextFieldTableViewCellDelegate {
     }
 }
 
+// MARK: - SourceAccountPickerViewControllerDelegate
+
 extension TransferViewController: SourceAccountPickerViewControllerDelegate {
     func sourceAccountPickerViewController(_ viewController: SourceAccountPickerViewController, didSelectAccount account: Account) {
         sourceAccount = account
@@ -171,6 +195,8 @@ extension TransferViewController: SourceAccountPickerViewControllerDelegate {
         tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
     }
 }
+
+// MARK: - TransferDestinationPickerViewControllerDelegate
 
 extension TransferViewController: TransferDestinationPickerViewControllerDelegate {
     func transferDestinationPickerViewController(_ viewController: TransferDestinationPickerViewController, didSelectTransferDestination transferDestination: TransferDestination) {
