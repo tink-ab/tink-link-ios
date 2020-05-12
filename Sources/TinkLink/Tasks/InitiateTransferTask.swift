@@ -2,6 +2,8 @@ import Foundation
 
 public final class InitiateTransferTask {
 
+    typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
+
     public enum Status {
         case created
         case authenticating
@@ -34,7 +36,7 @@ public final class InitiateTransferTask {
     }
 
     func startObserving(_ signableOperation: SignableOperation) {
-        guard let credentialsID = signableOperation.credentialsID else {
+        guard let credentialsID = signableOperation.credentialsID, let transferID = signableOperation.transferID else {
             // TODO: Error handling
             complete(with: .failure(CocoaError(.coderValueNotFound)))
             return
@@ -44,9 +46,11 @@ public final class InitiateTransferTask {
         if isCancelled { return }
 
         handleUpdate(for: .success(signableOperation))
-        transferStatusPollingTask = TransferStatusPollingTask(transferService: transferService, signableOperation: signableOperation) { [weak self] result in
+        transferStatusPollingTask = PollingTask(pollingID: transferID, initialStatus: signableOperation, pollingRequest: transferService.transferStatus, pollingPredicate: { (lhs, rhs) -> Bool in
+            return lhs.updated != rhs.updated || lhs.status != rhs.status
+        }, updateHandler: { [weak self] result in
             self?.handleUpdate(for: result)
-        }
+        })
 
         credentialsStatusPollingTask = CredentialsStatusPollingTask(credentialsService: credentialsService, credentialsID: credentialsID, initialStatus: .created) { [weak self] result in
             self?.handleUpdate(for: result)
