@@ -20,7 +20,7 @@ public final class TransferContext {
     public func initiateTransfer(
         amount: ExactNumber,
         currencyCode: CurrencyCode,
-        credentials: Credentials,
+        credentialsID: Credentials.ID,
         sourceURI: Transfer.TransferEntityURI,
         destinationURI: Transfer.TransferEntityURI,
         message: String,
@@ -32,7 +32,7 @@ public final class TransferContext {
         let transfer = Transfer(
             amount: amount,
             id: nil,
-            credentialsID: credentials.id,
+            credentialsID: credentialsID,
             currency: currencyCode,
             sourceMessage: message,
             destinationMessage: message,
