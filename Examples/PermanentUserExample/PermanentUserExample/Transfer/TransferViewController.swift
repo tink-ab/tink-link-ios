@@ -43,11 +43,11 @@ class TransferViewController: UITableViewController {
     }
 
     @objc private func transfer(_ sender: Any) {
-        guard let sourceAccount = sourceAccount else { return }
-
+        guard let sourceAccount = sourceAccount, let balance = sourceAccount.currencyDenominatedBalance else { return }
+        
         _ = transferContext.initiateTransfer(
             amount: ExactNumber(value: 1),
-            currencyCode: "EUR",
+            currencyCode: balance.currencyCode,
             credentialsID: sourceAccount.credentialsID,
             sourceURI: Transfer.TransferEntityURI("SOURCE_URI"),
             destinationURI: Transfer.TransferEntityURI("DESTINATION_URI"),
