@@ -13,9 +13,6 @@ extension Tink {
         /// The environment to use.
         public var environment: Environment
 
-        /// Certificate to use with gRPC API.
-        public var grpcCertificateURL: URL?
-
         /// Certificate to use with REST API.
         public var restCertificateURL: URL?
 
@@ -23,13 +20,11 @@ extension Tink {
         ///   - clientID: The client id for your app.
         ///   - redirectURI: The URI you've setup in Console.
         ///   - environment: The environment to use, defaults to production.
-        ///   - grpcCertificateURL: URL to a certificate file to use with gRPC API.
         ///   - restCertificateURL: URL to a certificate file to use with REST API.
         public init(
             clientID: String,
             redirectURI: URL,
             environment: Environment = .production,
-            grpcCertificateURL: URL? = nil,
             restCertificateURL: URL? = nil
         ) throws {
             guard let host = redirectURI.host, !host.isEmpty else {
@@ -38,7 +33,6 @@ extension Tink {
             self.clientID = clientID
             self.redirectURI = redirectURI
             self.environment = environment
-            self.grpcCertificateURL = grpcCertificateURL
             self.restCertificateURL = restCertificateURL
         }
     }
