@@ -27,6 +27,8 @@ class TransferViewController: UITableViewController {
 
     private var initiateTransferTask: InitiateTransferTask?
 
+    private var statusViewController: AddCredentialsStatusViewController?
+
     init() {
         super.init(style: .insetGrouped)
 
@@ -188,6 +190,32 @@ extension TransferViewController {
         let transferDestinationPicker = TransferDestinationPickerViewController(sourceAccount: sourceAccount)
         transferDestinationPicker.delegate = self
         show(transferDestinationPicker, sender: sender)
+    }
+
+    private func showStatus(_ status: String) {
+        if statusViewController == nil {
+            let statusViewController = AddCredentialsStatusViewController()
+            statusViewController.modalTransitionStyle = .crossDissolve
+            statusViewController.modalPresentationStyle = .overFullScreen
+            present(statusViewController, animated: true)
+            UIView.animate(withDuration: 0.3) {
+                self.view.tintAdjustmentMode = .dimmed
+            }
+            self.statusViewController = statusViewController
+        }
+        statusViewController?.status = status
+    }
+
+    private func hideStatus(animated: Bool, completion: (() -> Void)? = nil) {
+        guard statusViewController != nil else {
+            completion?()
+            return
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.view.tintAdjustmentMode = .automatic
+        }
+        dismiss(animated: animated, completion: completion)
+        statusViewController = nil
     }
 }
 
