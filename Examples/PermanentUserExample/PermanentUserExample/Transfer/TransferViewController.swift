@@ -211,6 +211,7 @@ extension TransferViewController {
             break
         case .action:
             transfer(cell)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 }
