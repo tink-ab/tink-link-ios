@@ -59,7 +59,6 @@ extension Tink.Configuration {
         self.clientID = clientID
         self.redirectURI = redirectURI
         self.environment = processInfo.tinkEnvironment ?? .production
-        self.grpcCertificateURL = processInfo.tinkGrpcCertificateURL
         self.restCertificateURL = processInfo.tinkRestCertificateURL
     }
 }

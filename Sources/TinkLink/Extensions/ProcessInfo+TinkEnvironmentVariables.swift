@@ -14,10 +14,6 @@ extension ProcessInfo {
         return Environment.custom(restURL: restEndpoint)
     }
 
-    var tinkGrpcCertificateURL: URL? {
-        return environment["TINK_GRPC_CERTIFICATE_URL"].flatMap(URL.init(string:))
-    }
-
     var tinkRestCertificateURL: URL? {
         return environment["TINK_REST_CERTIFICATE_URL"].flatMap(URL.init(string:))
     }
