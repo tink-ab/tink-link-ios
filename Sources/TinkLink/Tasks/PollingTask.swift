@@ -1,20 +1,20 @@
 import Foundation
 
-class PollingTask<T, S> {
-    private let pollingRequest: (T, @escaping ((Result<S, Error>) -> Void)) -> RetryCancellable?
-    private let pollingID: T
-    private let pollingPredicate: (_ current: S?, _ updated: S) -> Bool
-    private let updateHandler: (Result<S, Error>) -> Void
+final class PollingTask<ID, Model> {
+    private let pollingRequest: (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?
+    private let pollingID: ID
+    private let pollingPredicate: (_ current: Model?, _ updated: Model) -> Bool
+    private let updateHandler: (Result<Model, Error>) -> Void
     private let applicationObserver = ApplicationObserver()
     private let retryInterval: TimeInterval = 1
 
-    private var pollingResponseStatus: S?
+    private var pollingResponseStatus: Model?
     private var callRetryCancellable: RetryCancellable?
 
     private var isPaused = true
     private var isActive = true
 
-    init(pollingID: T, initialStatus: S?, pollingRequest: @escaping (T, @escaping ((Result<S, Error>) -> Void)) -> RetryCancellable?, pollingPredicate: @escaping (_ current: S?, _ updated: S) -> Bool, updateHandler: @escaping (Result<S, Error>) -> Void) {
+    init(pollingID: ID, initialStatus: Model?, pollingRequest: @escaping (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?, pollingPredicate: @escaping (_ current: Model?, _ updated: Model) -> Bool, updateHandler: @escaping (Result<Model, Error>) -> Void) {
         self.pollingID = pollingID
         self.pollingResponseStatus = initialStatus
         self.pollingPredicate = pollingPredicate
