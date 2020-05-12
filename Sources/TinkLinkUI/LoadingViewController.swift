@@ -1,7 +1,12 @@
 import UIKit
 
+protocol LoadingViewControllerDelegate: AnyObject {
+    func loadingViewControllerDidPressRetry(_ viewController: LoadingViewController)
+}
+
 final class LoadingViewController: UIViewController {
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
+    weak var delegate: LoadingViewControllerDelegate?
 
     private let providerController: ProviderController
 
@@ -75,6 +80,6 @@ final class LoadingViewController: UIViewController {
 
 extension LoadingViewController: ProviderLoadingErrorViewDelegate {
     func reloadProviderList(providerLoadingErrorView: ProviderLoadingErrorView) {
-        providerController.performFetch()
+        delegate?.loadingViewControllerDidPressRetry(self)
     }
 }

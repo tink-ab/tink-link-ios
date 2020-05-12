@@ -7,6 +7,7 @@ final class AccessTypePickerViewController: UITableViewController {
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let accessTypeNodes: [ProviderTree.AccessTypeNode]
+    let capabilityFormatter = ProviderCapabilityFormatter()
 
     init(accessTypeNodes: [ProviderTree.AccessTypeNode]) {
         self.accessTypeNodes = accessTypeNodes
@@ -26,10 +27,11 @@ extension AccessTypePickerViewController {
 
         navigationItem.largeTitleDisplayMode = .never
 
-        tableView.separatorStyle = .none
-        tableView.registerReusableCell(ofType: AccessTypeCell.self)
-        tableView.backgroundColor = Color.groupedBackground
-        tableView.allowsSelection = false
+        tableView.registerReusableCell(ofType: ProviderCell.self)
+        tableView.tableFooterView = UIView(frame: .zero)
+
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
     }
 }
 
@@ -43,30 +45,18 @@ extension AccessTypePickerViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let node = accessTypeNodes[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(ofType: AccessTypeCell.self, for: indexPath)
+        let cell = tableView.dequeueReusableCell(ofType: ProviderCell.self, for: indexPath)
         if let url = node.imageURL {
             cell.setImage(url: url)
         }
-        switch node.accessType {
-        case .openBanking:
-            cell.setTitle(text: Strings.ProviderPicker.AccessType.openBankingTitle)
-            cell.setDetail(text: Strings.ProviderPicker.AccessType.openBankingDetail)
-        case .other, .unknown:
-            cell.setTitle(text: Strings.ProviderPicker.AccessType.otherTitle)
-            cell.setDetail(text: Strings.ProviderPicker.AccessType.otherDetail)
-        }
-        cell.delegate = self
+
+        let capabilities = node.providers.reduce(Provider.Capabilities()) { $0.union($1.capabilities) }
+        cell.setTitle(text: capabilityFormatter.string(for: capabilities))
+
         return cell
     }
-}
 
-extension AccessTypePickerViewController: AccessTypeCellDelegate {
-    func accessTypeCellAddButtonTapped(_ accessTypeCell: AccessTypeCell) {
-
-        guard let indexPath = tableView.indexPath(for: accessTypeCell) else {
-            return
-        }
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accessTypeNode = accessTypeNodes[indexPath.row]
 
         switch accessTypeNode {
