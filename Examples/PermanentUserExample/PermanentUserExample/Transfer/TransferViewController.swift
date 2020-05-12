@@ -100,7 +100,7 @@ class TransferViewController: UITableViewController {
             return cell
         case .action:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Button", for: indexPath) as! ButtonTableViewCell
-            cell.actionLabel.text = "Transfer"
+            cell.actionLabel.text = "Initiate Transfer"
             return cell
         }
     }
