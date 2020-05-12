@@ -245,7 +245,7 @@ extension TransferViewController {
     private func showTransferDestinationPicker(_ sender: Any) {
         guard let sourceAccount = sourceAccount else { return }
 
-        let transferDestinationPicker = TransferDestinationPickerViewController(sourceAccount: sourceAccount)
+        let transferDestinationPicker = TransferDestinationPickerViewController(sourceAccount: sourceAccount, selectedTransferDestination: transferDestination)
         transferDestinationPicker.delegate = self
         show(transferDestinationPicker, sender: sender)
     }
