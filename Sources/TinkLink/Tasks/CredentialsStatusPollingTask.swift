@@ -4,7 +4,9 @@ class CredentialsStatusPollingTask {
     private var service: CredentialsService
     private var callRetryCancellable: RetryCancellable?
     private var retryInterval: TimeInterval = 1
-    private var credentials: Credentials
+    private let credentialsID: Credentials.ID
+    private var credentialsStatus: Credentials.Status
+    private var credentialsStatusUpdated: Date?
     private var updateHandler: (Result<Credentials, Error>) -> Void
 
     private let applicationObserver = ApplicationObserver()
@@ -12,9 +14,15 @@ class CredentialsStatusPollingTask {
     private var isPaused = true
     private var isActive = true
 
-    init(credentialsService: CredentialsService, credentials: Credentials, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
+    convenience init(credentialsService: CredentialsService, credentials: Credentials, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
+        self.init(credentialsService: credentialsService, credentialsID: credentials.id, initialStatus: credentials.status, updateHandler: updateHandler)
+    }
+
+    init(credentialsService: CredentialsService, credentialsID: Credentials.ID, initialStatus: Credentials.Status, statusUpdated: Date? = nil, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
         self.service = credentialsService
-        self.credentials = credentials
+        self.credentialsID = credentialsID
+        self.credentialsStatus = initialStatus
+        self.credentialsStatusUpdated = statusUpdated
         self.updateHandler = updateHandler
 
         applicationObserver.didBecomeActive = { [weak self] in
@@ -51,7 +59,7 @@ class CredentialsStatusPollingTask {
             return
         }
 
-        self.callRetryCancellable = self.service.credentials(id: self.credentials.id) { [weak self] result in
+        self.callRetryCancellable = self.service.credentials(id: self.credentialsID) { [weak self] result in
             guard let self = self else { return }
             self.callRetryCancellable = nil
             do {
@@ -62,11 +70,12 @@ class CredentialsStatusPollingTask {
                 }
 
                 // Only call updateHandler if status has actually changed.
-                guard credentials.statusUpdated != self.credentials.statusUpdated || credentials.status != self.credentials.status else {
+                guard credentials.statusUpdated != self.credentialsStatusUpdated || credentials.status != self.credentialsStatus else {
                     return
                 }
 
-                self.credentials = credentials
+                self.credentialsStatus = credentials.status
+                self.credentialsStatusUpdated = credentials.statusUpdated
                 self.updateHandler(.success(credentials))
             } catch {
                 self.updateHandler(.failure(error))
