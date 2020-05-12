@@ -25,6 +25,8 @@ class TransferViewController: UITableViewController {
 
     private let sections: [Section] = [.accounts([.from, .to]), .details([.amount, .message]), .action]
 
+    private var initiateTransferTask: InitiateTransferTask?
+
     init() {
         super.init(style: .insetGrouped)
 
@@ -61,7 +63,7 @@ extension TransferViewController {
             let amount = amount
             else { return }
         
-        _ = transferContext.initiateTransfer(
+        initiateTransferTask = transferContext.initiateTransfer(
             amount: ExactNumber(value: amount),
             currencyCode: balance.currencyCode,
             credentialsID: credentialsID,
@@ -82,6 +84,7 @@ extension TransferViewController {
     }
 
     @objc private func cancel(_ sender: Any) {
+        initiateTransferTask?.cancel()
         dismiss(animated: true)
     }
 }
