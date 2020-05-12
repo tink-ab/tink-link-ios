@@ -110,14 +110,22 @@ class TransferViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)!
         switch sections[indexPath.section] {
-        case .accounts:
-            break
+        case .accounts(let fields):
+            switch fields[indexPath.row] {
+            case .from:
+                showSourceAccountPicker(cell)
+            case .to:
+                break
+            }
         case .details:
             break
         case .action:
-            let cell = tableView.cellForRow(at: indexPath)!
             transfer(cell)
         }
+    }
+
+    private func showSourceAccountPicker(_ sender: Any) {
     }
 }
