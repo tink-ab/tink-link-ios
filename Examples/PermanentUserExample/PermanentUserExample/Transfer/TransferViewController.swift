@@ -68,17 +68,33 @@ extension TransferViewController {
             sourceURI: sourceAccountIdentifier,
             destinationURI: transferDestinationIdentifier,
             message: message,
-            progressHandler: { status in
-                dump(status)
+            progressHandler: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleTransferProgress(status)
+                }
             },
-            completion: { result in
-                dump(result)
+            completion: { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.handleTransferCompletion(result)
+                }
             }
         )
     }
 
     @objc private func cancel(_ sender: Any) {
         dismiss(animated: true)
+    }
+}
+
+// MARK: - Transfer Handling
+
+extension TransferViewController {
+    private func handleTransferProgress(_ status: InitiateTransferTask.Status) {
+
+    }
+
+    private func handleTransferCompletion(_ result: Result<SignableOperation, Error>) {
+
     }
 }
 
