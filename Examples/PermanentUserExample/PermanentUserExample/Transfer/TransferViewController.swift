@@ -140,6 +140,7 @@ extension TransferViewController {
                 self.showAlert(for: error)
             }
         }
+        initiateTransferTask = nil
     }
 }
 
