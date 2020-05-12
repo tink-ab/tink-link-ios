@@ -6,7 +6,7 @@ public struct ExactNumber: Equatable, Hashable {
 }
 
 extension ExactNumber {
-    init(value: Decimal) {
+    public init(value: Decimal) {
         var value = value
         var normalizedSignificand: Int64?
 

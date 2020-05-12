@@ -9,7 +9,11 @@
 /* Begin PBXBuildFile section */
 		20164860243F0CFE00D3C1E0 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */; };
 		20164862243F0D1300D3C1E0 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */; };
+		20358158246975050075F1EA /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20358157246975050075F1EA /* TransferViewController.swift */; };
 		20FD9612243F169B00603B5A /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD9611243F169B00603B5A /* QRViewController.swift */; };
+		6B5198D6246987F80099C045 /* Value2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5198D5246987F80099C045 /* Value2TableViewCell.swift */; };
+		6BB8C3A924698FB300C2C999 /* SourceAccountPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8C3A824698FB300C2C999 /* SourceAccountPickerViewController.swift */; };
+		6BB8C3AB246A961200C2C999 /* TransferDestinationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8C3AA246A961200C2C999 /* TransferDestinationPickerViewController.swift */; };
 		8F348AE6245994F1009B9973 /* UpdateCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE5245994F1009B9973 /* UpdateCredentialsViewController.swift */; };
 		8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02823D5BC79009D785E /* CredentialsViewController.swift */; };
 		8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */; };
@@ -33,7 +37,11 @@
 /* Begin PBXFileReference section */
 		2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
+		20358157246975050075F1EA /* TransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
 		20FD9611243F169B00603B5A /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
+		6B5198D5246987F80099C045 /* Value2TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value2TableViewCell.swift; sourceTree = "<group>"; };
+		6BB8C3A824698FB300C2C999 /* SourceAccountPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAccountPickerViewController.swift; sourceTree = "<group>"; };
+		6BB8C3AA246A961200C2C999 /* TransferDestinationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDestinationPickerViewController.swift; sourceTree = "<group>"; };
 		8F348AE5245994F1009B9973 /* UpdateCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsViewController.swift; sourceTree = "<group>"; };
 		8F39F02823D5BC79009D785E /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
 		8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCredentialsViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +76,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20358156246974F90075F1EA /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				20358157246975050075F1EA /* TransferViewController.swift */,
+				6BB8C3A824698FB300C2C999 /* SourceAccountPickerViewController.swift */,
+				6BB8C3AA246A961200C2C999 /* TransferDestinationPickerViewController.swift */,
+				6B5198D5246987F80099C045 /* Value2TableViewCell.swift */,
+			);
+			path = Transfer;
+			sourceTree = "<group>";
+		};
 		8FDA296023D1EDDB00EC810F /* AddNewCredentials */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +153,7 @@
 			children = (
 				8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */,
 				8F39F02823D5BC79009D785E /* CredentialsViewController.swift */,
+				20358156246974F90075F1EA /* Transfer */,
 				8FDA297723D1F5B900EC810F /* RefreshCredentials */,
 				8FDA296223D1EDF800EC810F /* AddCredentials */,
 				8FFAE4E123D1E7D400784CBC /* Assets.xcassets */,
@@ -234,16 +254,20 @@
 				8FFAE4D923D1E7D100784CBC /* AppDelegate.swift in Sources */,
 				8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */,
 				8FDA296823D1EE4D00EC810F /* SupplementalInformationViewController.swift in Sources */,
+				6BB8C3AB246A961200C2C999 /* TransferDestinationPickerViewController.swift in Sources */,
 				8FDA297223D1EE5300EC810F /* ProviderListViewController.swift in Sources */,
 				8FDA297423D1EE5300EC810F /* CredentialsKindPickerViewController.swift in Sources */,
 				8FDA296723D1EE4D00EC810F /* AddCredentialsViewController.swift in Sources */,
+				6B5198D6246987F80099C045 /* Value2TableViewCell.swift in Sources */,
 				8FDA297323D1EE5300EC810F /* AccessTypePickerViewController.swift in Sources */,
 				8FDA297023D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift in Sources */,
 				20FD9612243F169B00603B5A /* QRViewController.swift in Sources */,
+				6BB8C3A924698FB300C2C999 /* SourceAccountPickerViewController.swift in Sources */,
 				20164862243F0D1300D3C1E0 /* SubtitleTableViewCell.swift in Sources */,
 				8FDA296623D1EE4D00EC810F /* AddCredentialsStatusViewController.swift in Sources */,
 				8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */,
 				8FDA297123D1EE5300EC810F /* FixedImageSizeTableViewCell.swift in Sources */,
+				20358158246975050075F1EA /* TransferViewController.swift in Sources */,
 				8FDA296F23D1EE5300EC810F /* TextFieldTableViewCell.swift in Sources */,
 				20164860243F0CFE00D3C1E0 /* ButtonTableViewCell.swift in Sources */,
 			);
