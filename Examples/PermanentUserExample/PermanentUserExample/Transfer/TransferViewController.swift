@@ -54,17 +54,19 @@ extension TransferViewController {
 extension TransferViewController {
     @objc private func transfer(_ sender: Any) {
         guard
-            let sourceAccount = sourceAccount,
-            let balance = sourceAccount.currencyDenominatedBalance,
+            let sourceAccountIdentifier = sourceAccount?.identifiers?.first,
+            let transferDestinationIdentifier = transferDestination?.uri,
+            let credentialsID = sourceAccount?.credentialsID,
+            let balance = sourceAccount?.currencyDenominatedBalance,
             let amount = amount
             else { return }
         
         _ = transferContext.initiateTransfer(
             amount: ExactNumber(value: amount),
             currencyCode: balance.currencyCode,
-            credentialsID: sourceAccount.credentialsID,
-            sourceURI: Transfer.TransferEntityURI("SOURCE_URI"),
-            destinationURI: Transfer.TransferEntityURI("DESTINATION_URI"),
+            credentialsID: credentialsID,
+            sourceURI: sourceAccountIdentifier,
+            destinationURI: transferDestinationIdentifier,
             message: message,
             completion: { result in
                 dump(result)
