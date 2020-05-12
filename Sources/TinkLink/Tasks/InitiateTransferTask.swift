@@ -3,6 +3,7 @@ import Foundation
 public final class InitiateTransferTask {
 
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
+    typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
     public enum Status {
         case created
@@ -46,13 +47,25 @@ public final class InitiateTransferTask {
         if isCancelled { return }
 
         handleUpdate(for: .success(signableOperation))
-        transferStatusPollingTask = PollingTask(pollingID: transferID, initialStatus: signableOperation, pollingRequest: transferService.transferStatus, pollingPredicate: {
-            return $0.updated != $1.updated || $0.status != $1.status
+        transferStatusPollingTask = PollingTask(
+            pollingID: transferID,
+            initialStatus: signableOperation,
+            pollingRequest: transferService.transferStatus,
+            pollingPredicate: { (currentState, updatedState) -> Bool in
+                guard let currentState = currentState else { return true }
+                return currentState.updated != updatedState.updated || currentState.status != updatedState.status
         }) { [weak self] result in
             self?.handleUpdate(for: result)
         }
 
-        credentialsStatusPollingTask = CredentialsStatusPollingTask(credentialsService: credentialsService, credentialsID: credentialsID, initialStatus: .created) { [weak self] result in
+        credentialsStatusPollingTask = CredentialsStatusPollingTask(
+            pollingID: credentialsID,
+            initialStatus: nil,
+            pollingRequest: credentialsService.credentials,
+            pollingPredicate: {  (currentState, updatedState) -> Bool in
+                guard let currentState = currentState else { return true }
+                return currentState.statusUpdated != updatedState.statusUpdated || currentState.status != updatedState.status
+        }) { [weak self] result in
             self?.handleUpdate(for: result)
         }
 
