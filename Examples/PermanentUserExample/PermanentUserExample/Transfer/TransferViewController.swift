@@ -197,6 +197,22 @@ extension TransferViewController {
 // MARK: - UITableViewDelegate
 
 extension TransferViewController {
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        switch sections[indexPath.section] {
+        case .accounts(let fields):
+            switch fields[indexPath.row] {
+            case .from:
+                return true
+            case .to:
+                return sourceAccount != nil
+            }
+        case .details:
+            return false
+        case .action:
+            return initiateTransferTask == nil
+        }
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)!
         switch sections[indexPath.section] {
@@ -208,7 +224,7 @@ extension TransferViewController {
                 showTransferDestinationPicker(cell)
             }
         case .details:
-            tableView.deselectRow(at: indexPath, animated: true)
+            break
         case .action:
             transfer(cell)
             tableView.deselectRow(at: indexPath, animated: true)
