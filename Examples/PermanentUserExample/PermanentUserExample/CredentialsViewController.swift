@@ -39,7 +39,9 @@ extension CredentialsViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredentials))
 
         toolbarItems = [
-            UIBarButtonItem(title: "Transfer", style: .plain, target: self, action: #selector(transfer))
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Transfer", style: .plain, target: self, action: #selector(transfer)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         ]
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
