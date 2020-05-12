@@ -56,7 +56,7 @@ final class TransferStatusPollingTask {
             return
         }
 
-        service.transferStatus(transferID: transferID) { [weak self] result in
+        callRetryCancellable = service.transferStatus(transferID: transferID) { [weak self] result in
             guard let self = self else { return }
             self.callRetryCancellable = nil
             do {
@@ -66,7 +66,8 @@ final class TransferStatusPollingTask {
                     self.retry()
                 }
 
-                guard signableOperation.status != self.signableOperation.status else {
+                // Check if the operation really updated
+                guard signableOperation.updated != self.signableOperation.updated || signableOperation.status != self.signableOperation.status else {
                     return
                 }
 

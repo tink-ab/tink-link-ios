@@ -7,7 +7,7 @@ public final class InitiateTransferTask {
         case authenticating
         case awaitingSupplementalInformation(SupplementInformationTask)
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
-        case executing
+        case executing(status: String)
     }
 
     private(set) public var signableOperation: SignableOperation?
@@ -64,7 +64,7 @@ public final class InitiateTransferTask {
             case .awaitingCredentials, .awaitingThirdPartyAppAuthentication:
                 transferStatusPollingTask?.stopPolling()
             case .executing:
-                progressHandler(.executing)
+                progressHandler(.executing(status: signableOperation.statusMessage ?? ""))
             case .executed:
                 complete(with: result)
             case .cancelled:
