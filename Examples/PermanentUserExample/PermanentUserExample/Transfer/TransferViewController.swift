@@ -345,7 +345,6 @@ extension TransferViewController: TransferDestinationPickerViewControllerDelegat
         self.transferDestination = transferDestination
         navigationController?.popToViewController(self, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
-
     }
 }
 
