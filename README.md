@@ -39,7 +39,7 @@ Use `pod update TinkLink` to update to the newer version.
 
 #### Using Carthage
 
-Add `github "tink-ab/tink-link-ios"` to your project's Cartfile. Run `carthage bootstrap` to install TinkLink.
+Add `github "tink-ab/tink-link-ios"` to your project's Cartfile. Run `carthage update` to install TinkLink.
 
 When finished, you should be able to `import TinkLink` within your project.
 
