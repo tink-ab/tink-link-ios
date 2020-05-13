@@ -1,1891 +1,998 @@
 // !$*UTF8*$!
 {
-   archiveVersion = "1";
-   objectVersion = "46";
-   objects = {
-      "OBJ_1" = {
-         isa = "PBXProject";
-         attributes = {
-            LastSwiftMigration = "9999";
-            LastUpgradeCheck = "9999";
-         };
-         buildConfigurationList = "OBJ_2";
-         compatibilityVersion = "Xcode 3.2";
-         developmentRegion = "en";
-         hasScannedForEncodings = "0";
-         knownRegions = (
-            "en"
-         );
-         mainGroup = "OBJ_5";
-         productRefGroup = "OBJ_130";
-         projectDirPath = ".";
-         targets = (
-            "TinkLink::TinkLink",
-            "TinkLink::SwiftPMPackageDescription",
-            "TinkLink::TinkLinkPackageTests::ProductTarget",
-            "TinkLink::TinkLinkTests"
-         );
-      };
-      "OBJ_10" = {
-         isa = "PBXFileReference";
-         path = "ApplicationObserver.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_100" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_101",
-            "OBJ_102",
-            "OBJ_103",
-            "OBJ_104",
-            "OBJ_105",
-            "OBJ_106"
-         );
-         name = "Tasks";
-         path = "Tasks";
-         sourceTree = "<group>";
-      };
-      "OBJ_101" = {
-         isa = "PBXFileReference";
-         path = "AddCredentialsTask.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_102" = {
-         isa = "PBXFileReference";
-         path = "CredentialsListStatusPollingTask.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_103" = {
-         isa = "PBXFileReference";
-         path = "CredentialsStatusPollingTask.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_104" = {
-         isa = "PBXFileReference";
-         path = "RefreshCredentialsTask.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_105" = {
-         isa = "PBXFileReference";
-         path = "SupplementInformationTask.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_106" = {
-         isa = "PBXFileReference";
-         path = "ThirdPartyAppAuthenticationTask.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_107" = {
-         isa = "PBXFileReference";
-         path = "Tink.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_108" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_109"
-         );
-         name = "Tests";
-         path = "";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_109" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_110",
-            "OBJ_111",
-            "OBJ_112",
-            "OBJ_113",
-            "OBJ_114",
-            "OBJ_115",
-            "OBJ_116",
-            "OBJ_120",
-            "OBJ_121",
-            "OBJ_122",
-            "OBJ_128",
-            "OBJ_129"
-         );
-         name = "TinkLinkTests";
-         path = "Tests/TinkLinkTests";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_11" = {
-         isa = "PBXFileReference";
-         path = "Configuration.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_110" = {
-         isa = "PBXFileReference";
-         path = "Info.plist";
-         sourceTree = "<group>";
-      };
-      "OBJ_111" = {
-         isa = "PBXFileReference";
-         path = "ConfigurationTests.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_112" = {
-         isa = "PBXFileReference";
-         path = "CredentialGRPCTests.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_113" = {
-         isa = "PBXFileReference";
-         path = "CredentialsContextTest.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_114" = {
-         isa = "PBXFileReference";
-         path = "FormTests.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_115" = {
-         isa = "PBXFileReference";
-         path = "LinkTests.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_116" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_117",
-            "OBJ_118",
-            "OBJ_119"
-         );
-         name = "Model+mock";
-         path = "Model+mock";
-         sourceTree = "<group>";
-      };
-      "OBJ_117" = {
-         isa = "PBXFileReference";
-         path = "Credential+mock.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_118" = {
-         isa = "PBXFileReference";
-         path = "Provider+mock.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_119" = {
-         isa = "PBXFileReference";
-         path = "ServiceError+mock.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_12" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_13",
-            "OBJ_14",
-            "OBJ_15",
-            "OBJ_16",
-            "OBJ_17"
-         );
-         name = "Context";
-         path = "Context";
-         sourceTree = "<group>";
-      };
-      "OBJ_120" = {
-         isa = "PBXFileReference";
-         path = "ProviderGRPCTests.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_121" = {
-         isa = "PBXFileReference";
-         path = "ProviderTreeTests.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_122" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_123",
-            "OBJ_124",
-            "OBJ_125",
-            "OBJ_126",
-            "OBJ_127"
-         );
-         name = "Services+mock";
-         path = "Services+mock";
-         sourceTree = "<group>";
-      };
-      "OBJ_123" = {
-         isa = "PBXFileReference";
-         path = "CredentialService+mock.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_124" = {
-         isa = "PBXFileReference";
-         path = "OAuthService+mock.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_125" = {
-         isa = "PBXFileReference";
-         path = "ProviderService+mock.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_126" = {
-         isa = "PBXFileReference";
-         path = "RetryCancellable+mock.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_127" = {
-         isa = "PBXFileReference";
-         path = "UserService+mock.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_128" = {
-         isa = "PBXFileReference";
-         path = "SupplementalInfoFieldTests.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_129" = {
-         isa = "PBXFileReference";
-         path = "ThirdPartyCallbackTests.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_13" = {
-         isa = "PBXFileReference";
-         path = "AuthorizationContext.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_130" = {
-         isa = "PBXGroup";
-         children = (
-            "TinkLink::TinkLinkTests::Product",
-            "TinkLink::TinkLink::Product"
-         );
-         name = "Products";
-         path = "";
-         sourceTree = "BUILT_PRODUCTS_DIR";
-      };
-      "OBJ_133" = {
-         isa = "PBXFileReference";
-         path = "TinkLinkTester";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_134" = {
-         isa = "PBXFileReference";
-         path = "Carthage";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_135" = {
-         isa = "PBXFileReference";
-         path = "docs";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_136" = {
-         isa = "PBXFileReference";
-         path = "Examples";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_137" = {
-         isa = "PBXFileReference";
-         path = "build";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_138" = {
-         isa = "PBXFileReference";
-         path = "Frameworks";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_139" = {
-         isa = "PBXFileReference";
-         path = "TinkLink.podspec";
-         sourceTree = "<group>";
-      };
-      "OBJ_14" = {
-         isa = "PBXFileReference";
-         path = "ConsentContext.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_140" = {
-         isa = "PBXFileReference";
-         path = "LICENSE";
-         sourceTree = "<group>";
-      };
-      "OBJ_141" = {
-         isa = "PBXFileReference";
-         path = "Makefile";
-         sourceTree = "<group>";
-      };
-      "OBJ_142" = {
-         isa = "PBXFileReference";
-         path = "README.md";
-         sourceTree = "<group>";
-      };
-      "OBJ_143" = {
-         isa = "PBXFileReference";
-         path = "TinkLinkUI.podspec";
-         sourceTree = "<group>";
-      };
-      "OBJ_144" = {
-         isa = "PBXFileReference";
-         path = "Gemfile";
-         sourceTree = "<group>";
-      };
-      "OBJ_145" = {
-         isa = "PBXFileReference";
-         path = "Gemfile.lock";
-         sourceTree = "<group>";
-      };
-      "OBJ_146" = {
-         isa = "PBXFileReference";
-         path = "buildkite.yml";
-         sourceTree = "<group>";
-      };
-      "OBJ_148" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_149",
-            "OBJ_150"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_149" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            ENABLE_TESTABILITY = "YES";
-            FRAMEWORK_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-            );
-            HEADER_SEARCH_PATHS = (
-               "$(inherited)"
-            );
-            INFOPLIST_FILE = "TinkLink.xcodeproj/TinkLink_Info.plist";
-            IPHONEOS_DEPLOYMENT_TARGET = "11.0";
-            LD_RUNPATH_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx"
-            );
-            MACOSX_DEPLOYMENT_TARGET = "10.13";
-            OTHER_CFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_LDFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)"
-            );
-            PRODUCT_BUNDLE_IDENTIFIER = "TinkLink";
-            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-            SKIP_INSTALL = "YES";
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)"
-            );
-            SWIFT_VERSION = "5.0";
-            TARGET_NAME = "TinkLink";
-            TVOS_DEPLOYMENT_TARGET = "9.0";
-            WATCHOS_DEPLOYMENT_TARGET = "2.0";
-         };
-         name = "Debug";
-      };
-      "OBJ_15" = {
-         isa = "PBXFileReference";
-         path = "CredentialsContext.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_150" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            ENABLE_TESTABILITY = "YES";
-            FRAMEWORK_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-            );
-            HEADER_SEARCH_PATHS = (
-               "$(inherited)"
-            );
-            INFOPLIST_FILE = "TinkLink.xcodeproj/TinkLink_Info.plist";
-            IPHONEOS_DEPLOYMENT_TARGET = "11.0";
-            LD_RUNPATH_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx"
-            );
-            MACOSX_DEPLOYMENT_TARGET = "10.13";
-            OTHER_CFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_LDFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)"
-            );
-            PRODUCT_BUNDLE_IDENTIFIER = "TinkLink";
-            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-            SKIP_INSTALL = "YES";
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)"
-            );
-            SWIFT_VERSION = "5.0";
-            TARGET_NAME = "TinkLink";
-            TVOS_DEPLOYMENT_TARGET = "9.0";
-            WATCHOS_DEPLOYMENT_TARGET = "2.0";
-         };
-         name = "Release";
-      };
-      "OBJ_151" = {
-         isa = "PBXSourcesBuildPhase";
-         files = (
-            "OBJ_152",
-            "OBJ_153",
-            "OBJ_154",
-            "OBJ_155",
-            "OBJ_156",
-            "OBJ_157",
-            "OBJ_158",
-            "OBJ_159",
-            "OBJ_160",
-            "OBJ_161",
-            "OBJ_162",
-            "OBJ_163",
-            "OBJ_164",
-            "OBJ_165",
-            "OBJ_166",
-            "OBJ_167",
-            "OBJ_168",
-            "OBJ_169",
-            "OBJ_170",
-            "OBJ_171",
-            "OBJ_172",
-            "OBJ_173",
-            "OBJ_174",
-            "OBJ_175",
-            "OBJ_176",
-            "OBJ_177",
-            "OBJ_178",
-            "OBJ_179",
-            "OBJ_180",
-            "OBJ_181",
-            "OBJ_182",
-            "OBJ_183",
-            "OBJ_184",
-            "OBJ_185",
-            "OBJ_186",
-            "OBJ_187",
-            "OBJ_188",
-            "OBJ_189",
-            "OBJ_190",
-            "OBJ_191",
-            "OBJ_192",
-            "OBJ_193",
-            "OBJ_194",
-            "OBJ_195",
-            "OBJ_196",
-            "OBJ_197",
-            "OBJ_198",
-            "OBJ_199",
-            "OBJ_200",
-            "OBJ_201",
-            "OBJ_202",
-            "OBJ_203",
-            "OBJ_204",
-            "OBJ_205",
-            "OBJ_206",
-            "OBJ_207",
-            "OBJ_208",
-            "OBJ_209",
-            "OBJ_210",
-            "OBJ_211",
-            "OBJ_212",
-            "OBJ_213",
-            "OBJ_214",
-            "OBJ_215",
-            "OBJ_216",
-            "OBJ_217",
-            "OBJ_218",
-            "OBJ_219",
-            "OBJ_220",
-            "OBJ_221",
-            "OBJ_222",
-            "OBJ_223",
-            "OBJ_224",
-            "OBJ_225",
-            "OBJ_226",
-            "OBJ_227",
-            "OBJ_228",
-            "OBJ_229",
-            "OBJ_230",
-            "OBJ_231",
-            "OBJ_232",
-            "OBJ_233",
-            "OBJ_234",
-            "OBJ_235",
-            "OBJ_236",
-            "OBJ_237",
-            "OBJ_238"
-         );
-      };
-      "OBJ_152" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_10";
-      };
-      "OBJ_153" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_11";
-      };
-      "OBJ_154" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_13";
-      };
-      "OBJ_155" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_14";
-      };
-      "OBJ_156" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_15";
-      };
-      "OBJ_157" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_16";
-      };
-      "OBJ_158" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_17";
-      };
-      "OBJ_159" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_18";
-      };
-      "OBJ_16" = {
-         isa = "PBXFileReference";
-         path = "ProviderContext.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_160" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_20";
-      };
-      "OBJ_161" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_21";
-      };
-      "OBJ_162" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_22";
-      };
-      "OBJ_163" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_23";
-      };
-      "OBJ_164" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_24";
-      };
-      "OBJ_165" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_25";
-      };
-      "OBJ_166" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_26";
-      };
-      "OBJ_167" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_28";
-      };
-      "OBJ_168" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_29";
-      };
-      "OBJ_169" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_30";
-      };
-      "OBJ_17" = {
-         isa = "PBXFileReference";
-         path = "UserContext.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_170" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_31";
-      };
-      "OBJ_171" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_32";
-      };
-      "OBJ_172" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_33";
-      };
-      "OBJ_173" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_34";
-      };
-      "OBJ_174" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_35";
-      };
-      "OBJ_175" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_37";
-      };
-      "OBJ_176" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_38";
-      };
-      "OBJ_177" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_39";
-      };
-      "OBJ_178" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_40";
-      };
-      "OBJ_179" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_41";
-      };
-      "OBJ_18" = {
-         isa = "PBXFileReference";
-         path = "Environment.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_180" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_42";
-      };
-      "OBJ_181" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_43";
-      };
-      "OBJ_182" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_44";
-      };
-      "OBJ_183" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_45";
-      };
-      "OBJ_184" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_46";
-      };
-      "OBJ_185" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_47";
-      };
-      "OBJ_186" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_48";
-      };
-      "OBJ_187" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_50";
-      };
-      "OBJ_188" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_52";
-      };
-      "OBJ_189" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_54";
-      };
-      "OBJ_19" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_20",
-            "OBJ_21",
-            "OBJ_22",
-            "OBJ_23",
-            "OBJ_24",
-            "OBJ_25",
-            "OBJ_26"
-         );
-         name = "Extensions";
-         path = "Extensions";
-         sourceTree = "<group>";
-      };
-      "OBJ_190" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_55";
-      };
-      "OBJ_191" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_56";
-      };
-      "OBJ_192" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_57";
-      };
-      "OBJ_193" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_58";
-      };
-      "OBJ_194" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_59";
-      };
-      "OBJ_195" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_60";
-      };
-      "OBJ_196" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_61";
-      };
-      "OBJ_197" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_62";
-      };
-      "OBJ_198" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_63";
-      };
-      "OBJ_199" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_64";
-      };
-      "OBJ_2" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_3",
-            "OBJ_4"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_20" = {
-         isa = "PBXFileReference";
-         path = "Credentials+Extension.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_200" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_65";
-      };
-      "OBJ_201" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_67";
-      };
-      "OBJ_202" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_68";
-      };
-      "OBJ_203" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_69";
-      };
-      "OBJ_204" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_70";
-      };
-      "OBJ_205" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_71";
-      };
-      "OBJ_206" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_72";
-      };
-      "OBJ_207" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_73";
-      };
-      "OBJ_208" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_74";
-      };
-      "OBJ_209" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_75";
-      };
-      "OBJ_21" = {
-         isa = "PBXFileReference";
-         path = "Locale+Extensions.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_210" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_76";
-      };
-      "OBJ_211" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_77";
-      };
-      "OBJ_212" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_78";
-      };
-      "OBJ_213" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_79";
-      };
-      "OBJ_214" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_80";
-      };
-      "OBJ_215" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_81";
-      };
-      "OBJ_216" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_83";
-      };
-      "OBJ_217" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_84";
-      };
-      "OBJ_218" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_85";
-      };
-      "OBJ_219" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_86";
-      };
-      "OBJ_22" = {
-         isa = "PBXFileReference";
-         path = "ProcessInfo+TinkEnvironmentVariables.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_220" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_87";
-      };
-      "OBJ_221" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_88";
-      };
-      "OBJ_222" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_90";
-      };
-      "OBJ_223" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_91";
-      };
-      "OBJ_224" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_92";
-      };
-      "OBJ_225" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_93";
-      };
-      "OBJ_226" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_94";
-      };
-      "OBJ_227" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_95";
-      };
-      "OBJ_228" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_96";
-      };
-      "OBJ_229" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_97";
-      };
-      "OBJ_23" = {
-         isa = "PBXFileReference";
-         path = "Result+Extensions.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_230" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_98";
-      };
-      "OBJ_231" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_99";
-      };
-      "OBJ_232" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_101";
-      };
-      "OBJ_233" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_102";
-      };
-      "OBJ_234" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_103";
-      };
-      "OBJ_235" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_104";
-      };
-      "OBJ_236" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_105";
-      };
-      "OBJ_237" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_106";
-      };
-      "OBJ_238" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_107";
-      };
-      "OBJ_239" = {
-         isa = "PBXFrameworksBuildPhase";
-         files = (
-         );
-      };
-      "OBJ_24" = {
-         isa = "PBXFileReference";
-         path = "SecCertificate+Swift.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_241" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_242",
-            "OBJ_243"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_242" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            LD = "/usr/bin/true";
-            OTHER_SWIFT_FLAGS = (
-               "-swift-version",
-               "5",
-               "-I",
-               "$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
-               "-target",
-               "x86_64-apple-macosx10.10",
-               "-sdk",
-               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk",
-               "-package-description-version",
-               "5.0.0"
-            );
-            SWIFT_VERSION = "5.0";
-         };
-         name = "Debug";
-      };
-      "OBJ_243" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            LD = "/usr/bin/true";
-            OTHER_SWIFT_FLAGS = (
-               "-swift-version",
-               "5",
-               "-I",
-               "$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2",
-               "-target",
-               "x86_64-apple-macosx10.10",
-               "-sdk",
-               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk",
-               "-package-description-version",
-               "5.0.0"
-            );
-            SWIFT_VERSION = "5.0";
-         };
-         name = "Release";
-      };
-      "OBJ_244" = {
-         isa = "PBXSourcesBuildPhase";
-         files = (
-            "OBJ_245"
-         );
-      };
-      "OBJ_245" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_6";
-      };
-      "OBJ_247" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_248",
-            "OBJ_249"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_248" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-         };
-         name = "Debug";
-      };
-      "OBJ_249" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-         };
-         name = "Release";
-      };
-      "OBJ_25" = {
-         isa = "PBXFileReference";
-         path = "SecTrust+Swift.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_250" = {
-         isa = "PBXTargetDependency";
-         target = "TinkLink::TinkLinkTests";
-      };
-      "OBJ_252" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_253",
-            "OBJ_254"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_253" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            CLANG_ENABLE_MODULES = "YES";
-            EMBEDDED_CONTENT_CONTAINS_SWIFT = "YES";
-            FRAMEWORK_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-            );
-            HEADER_SEARCH_PATHS = (
-               "$(inherited)"
-            );
-            INFOPLIST_FILE = "TinkLink.xcodeproj/TinkLinkTests_Info.plist";
-            IPHONEOS_DEPLOYMENT_TARGET = "11.0";
-            LD_RUNPATH_SEARCH_PATHS = (
-               "$(inherited)",
-               "@loader_path/../Frameworks",
-               "@loader_path/Frameworks"
-            );
-            MACOSX_DEPLOYMENT_TARGET = "10.13";
-            OTHER_CFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_LDFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)"
-            );
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)"
-            );
-            SWIFT_VERSION = "5.0";
-            TARGET_NAME = "TinkLinkTests";
-            TVOS_DEPLOYMENT_TARGET = "9.0";
-            WATCHOS_DEPLOYMENT_TARGET = "2.0";
-         };
-         name = "Debug";
-      };
-      "OBJ_254" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            CLANG_ENABLE_MODULES = "YES";
-            EMBEDDED_CONTENT_CONTAINS_SWIFT = "YES";
-            FRAMEWORK_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-            );
-            HEADER_SEARCH_PATHS = (
-               "$(inherited)"
-            );
-            INFOPLIST_FILE = "TinkLink.xcodeproj/TinkLinkTests_Info.plist";
-            IPHONEOS_DEPLOYMENT_TARGET = "11.0";
-            LD_RUNPATH_SEARCH_PATHS = (
-               "$(inherited)",
-               "@loader_path/../Frameworks",
-               "@loader_path/Frameworks"
-            );
-            MACOSX_DEPLOYMENT_TARGET = "10.13";
-            OTHER_CFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_LDFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)"
-            );
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)"
-            );
-            SWIFT_VERSION = "5.0";
-            TARGET_NAME = "TinkLinkTests";
-            TVOS_DEPLOYMENT_TARGET = "9.0";
-            WATCHOS_DEPLOYMENT_TARGET = "2.0";
-         };
-         name = "Release";
-      };
-      "OBJ_255" = {
-         isa = "PBXSourcesBuildPhase";
-         files = (
-            "OBJ_256",
-            "OBJ_257",
-            "OBJ_258",
-            "OBJ_259",
-            "OBJ_260",
-            "OBJ_261",
-            "OBJ_262",
-            "OBJ_263",
-            "OBJ_264",
-            "OBJ_265",
-            "OBJ_266",
-            "OBJ_267",
-            "OBJ_268",
-            "OBJ_269",
-            "OBJ_270",
-            "OBJ_271",
-            "OBJ_272"
-         );
-      };
-      "OBJ_256" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_111";
-      };
-      "OBJ_257" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_112";
-      };
-      "OBJ_258" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_113";
-      };
-      "OBJ_259" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_114";
-      };
-      "OBJ_26" = {
-         isa = "PBXFileReference";
-         path = "URLComponents+FragmentParameters.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_260" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_115";
-      };
-      "OBJ_261" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_117";
-      };
-      "OBJ_262" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_118";
-      };
-      "OBJ_263" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_119";
-      };
-      "OBJ_264" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_120";
-      };
-      "OBJ_265" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_121";
-      };
-      "OBJ_266" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_123";
-      };
-      "OBJ_267" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_124";
-      };
-      "OBJ_268" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_125";
-      };
-      "OBJ_269" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_126";
-      };
-      "OBJ_27" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_28",
-            "OBJ_29",
-            "OBJ_30",
-            "OBJ_31",
-            "OBJ_32",
-            "OBJ_33",
-            "OBJ_34",
-            "OBJ_35",
-            "OBJ_36",
-            "OBJ_41",
-            "OBJ_42",
-            "OBJ_43",
-            "OBJ_44",
-            "OBJ_45",
-            "OBJ_46",
-            "OBJ_47",
-            "OBJ_48"
-         );
-         name = "Models";
-         path = "Models";
-         sourceTree = "<group>";
-      };
-      "OBJ_270" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_127";
-      };
-      "OBJ_271" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_128";
-      };
-      "OBJ_272" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_129";
-      };
-      "OBJ_273" = {
-         isa = "PBXFrameworksBuildPhase";
-         files = (
-            "OBJ_274"
-         );
-      };
-      "OBJ_274" = {
-         isa = "PBXBuildFile";
-         fileRef = "TinkLink::TinkLink::Product";
-      };
-      "OBJ_275" = {
-         isa = "PBXTargetDependency";
-         target = "TinkLink::TinkLink";
-      };
-      "OBJ_28" = {
-         isa = "PBXFileReference";
-         path = "AccessToken.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_29" = {
-         isa = "PBXFileReference";
-         path = "AuthenticateResponse.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_3" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            CLANG_ENABLE_OBJC_ARC = "YES";
-            COMBINE_HIDPI_IMAGES = "YES";
-            COPY_PHASE_STRIP = "NO";
-            DEBUG_INFORMATION_FORMAT = "dwarf";
-            DYLIB_INSTALL_NAME_BASE = "@rpath";
-            ENABLE_NS_ASSERTIONS = "YES";
-            GCC_OPTIMIZATION_LEVEL = "0";
-            GCC_PREPROCESSOR_DEFINITIONS = (
-               "$(inherited)",
-               "SWIFT_PACKAGE=1",
-               "DEBUG=1"
-            );
-            MACOSX_DEPLOYMENT_TARGET = "10.10";
-            ONLY_ACTIVE_ARCH = "YES";
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)",
-               "-DXcode"
-            );
-            PRODUCT_NAME = "$(TARGET_NAME)";
-            SDKROOT = "macosx";
-            SUPPORTED_PLATFORMS = (
-               "macosx",
-               "iphoneos",
-               "iphonesimulator",
-               "appletvos",
-               "appletvsimulator",
-               "watchos",
-               "watchsimulator"
-            );
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)",
-               "SWIFT_PACKAGE",
-               "DEBUG"
-            );
-            SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-            USE_HEADERMAP = "NO";
-         };
-         name = "Debug";
-      };
-      "OBJ_30" = {
-         isa = "PBXFileReference";
-         path = "AuthorizationCode.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_31" = {
-         isa = "PBXFileReference";
-         path = "AuthorizationResponse.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_32" = {
-         isa = "PBXFileReference";
-         path = "ClientDescription.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_33" = {
-         isa = "PBXFileReference";
-         path = "Credentials.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_34" = {
-         isa = "PBXFileReference";
-         path = "FinancialInstitution.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_35" = {
-         isa = "PBXFileReference";
-         path = "Form.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_36" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_37",
-            "OBJ_38",
-            "OBJ_39",
-            "OBJ_40"
-         );
-         name = "Mappers";
-         path = "Mappers";
-         sourceTree = "<group>";
-      };
-      "OBJ_37" = {
-         isa = "PBXFileReference";
-         path = "ClientDescription+REST.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_38" = {
-         isa = "PBXFileReference";
-         path = "Credentials+REST.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_39" = {
-         isa = "PBXFileReference";
-         path = "Provider+REST.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_4" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            CLANG_ENABLE_OBJC_ARC = "YES";
-            COMBINE_HIDPI_IMAGES = "YES";
-            COPY_PHASE_STRIP = "YES";
-            DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-            DYLIB_INSTALL_NAME_BASE = "@rpath";
-            GCC_OPTIMIZATION_LEVEL = "s";
-            GCC_PREPROCESSOR_DEFINITIONS = (
-               "$(inherited)",
-               "SWIFT_PACKAGE=1"
-            );
-            MACOSX_DEPLOYMENT_TARGET = "10.10";
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)",
-               "-DXcode"
-            );
-            PRODUCT_NAME = "$(TARGET_NAME)";
-            SDKROOT = "macosx";
-            SUPPORTED_PLATFORMS = (
-               "macosx",
-               "iphoneos",
-               "iphonesimulator",
-               "appletvos",
-               "appletvsimulator",
-               "watchos",
-               "watchsimulator"
-            );
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)",
-               "SWIFT_PACKAGE"
-            );
-            SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-            USE_HEADERMAP = "NO";
-         };
-         name = "Release";
-      };
-      "OBJ_40" = {
-         isa = "PBXFileReference";
-         path = "UserProfile+REST.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_41" = {
-         isa = "PBXFileReference";
-         path = "Market.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_42" = {
-         isa = "PBXFileReference";
-         path = "Provider.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_43" = {
-         isa = "PBXFileReference";
-         path = "ProviderTree.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_44" = {
-         isa = "PBXFileReference";
-         path = "RefreshableItem.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_45" = {
-         isa = "PBXFileReference";
-         path = "Scope.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_46" = {
-         isa = "PBXFileReference";
-         path = "ScopeDescription.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_47" = {
-         isa = "PBXFileReference";
-         path = "User.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_48" = {
-         isa = "PBXFileReference";
-         path = "UserProfile.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_49" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_50",
-            "OBJ_51",
-            "OBJ_66",
-            "OBJ_82",
-            "OBJ_88"
-         );
-         name = "REST";
-         path = "REST";
-         sourceTree = "<group>";
-      };
-      "OBJ_5" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_6",
-            "OBJ_7",
-            "OBJ_108",
-            "OBJ_130",
-            "OBJ_133",
-            "OBJ_134",
-            "OBJ_135",
-            "OBJ_136",
-            "OBJ_137",
-            "OBJ_138",
-            "OBJ_139",
-            "OBJ_140",
-            "OBJ_141",
-            "OBJ_142",
-            "OBJ_143",
-            "OBJ_144",
-            "OBJ_145",
-            "OBJ_146"
-         );
-         path = "";
-         sourceTree = "<group>";
-      };
-      "OBJ_50" = {
-         isa = "PBXFileReference";
-         path = "CertificatePinningDelegate.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_51" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_52",
-            "OBJ_53",
-            "OBJ_61",
-            "OBJ_62",
-            "OBJ_63",
-            "OBJ_64",
-            "OBJ_65"
-         );
-         name = "Client";
-         path = "Client";
-         sourceTree = "<group>";
-      };
-      "OBJ_52" = {
-         isa = "PBXFileReference";
-         path = "AnyCanceller.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_53" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_54",
-            "OBJ_55",
-            "OBJ_56",
-            "OBJ_57",
-            "OBJ_58",
-            "OBJ_59",
-            "OBJ_60"
-         );
-         name = "Behaviors";
-         path = "Behaviors";
-         sourceTree = "<group>";
-      };
-      "OBJ_54" = {
-         isa = "PBXFileReference";
-         path = "AuthorizationHeaderClientBehavior.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_55" = {
-         isa = "PBXFileReference";
-         path = "ClientBehavior.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_56" = {
-         isa = "PBXFileReference";
-         path = "ComposableClientBehavior.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_57" = {
-         isa = "PBXFileReference";
-         path = "DeviceIdHeaderClientBehavior.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_58" = {
-         isa = "PBXFileReference";
-         path = "EmptyClientBehavior.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_59" = {
-         isa = "PBXFileReference";
-         path = "RequestErrorClientBehavior.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_6" = {
-         isa = "PBXFileReference";
-         explicitFileType = "sourcecode.swift";
-         path = "Package.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_60" = {
-         isa = "PBXFileReference";
-         path = "SDKHeaderClientBehavior.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_61" = {
-         isa = "PBXFileReference";
-         path = "HTTPStatusCodeError.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_62" = {
-         isa = "PBXFileReference";
-         path = "RESTClient.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_63" = {
-         isa = "PBXFileReference";
-         path = "RESTContentType.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_64" = {
-         isa = "PBXFileReference";
-         path = "RESTMethod.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_65" = {
-         isa = "PBXFileReference";
-         path = "RESTRequest.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_66" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_67",
-            "OBJ_68",
-            "OBJ_69",
-            "OBJ_70",
-            "OBJ_71",
-            "OBJ_72",
-            "OBJ_73",
-            "OBJ_74",
-            "OBJ_75",
-            "OBJ_76",
-            "OBJ_77",
-            "OBJ_78",
-            "OBJ_79",
-            "OBJ_80",
-            "OBJ_81"
-         );
-         name = "Models";
-         path = "Models";
-         sourceTree = "<group>";
-      };
-      "OBJ_67" = {
-         isa = "PBXFileReference";
-         path = "RESTAnonymousUserRequest.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_68" = {
-         isa = "PBXFileReference";
-         path = "RESTCallbackRelayedRequest.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_69" = {
-         isa = "PBXFileReference";
-         path = "RESTCreateCredentialsRequest.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_7" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_8"
-         );
-         name = "Sources";
-         path = "";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_70" = {
-         isa = "PBXFileReference";
-         path = "RESTCredentials.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_71" = {
-         isa = "PBXFileReference";
-         path = "RESTDescribeOAuth2ClientRequest.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_72" = {
-         isa = "PBXFileReference";
-         path = "RESTError.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_73" = {
-         isa = "PBXFileReference";
-         path = "RESTField.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_74" = {
-         isa = "PBXFileReference";
-         path = "RESTImageUrls.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_75" = {
-         isa = "PBXFileReference";
-         path = "RESTProvider.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_76" = {
-         isa = "PBXFileReference";
-         path = "RESTSupplementalInformation.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_77" = {
-         isa = "PBXFileReference";
-         path = "RESTThirdPartyAppAuthenticationPayload.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_78" = {
-         isa = "PBXFileReference";
-         path = "RESTUpdateCredentialsRequest.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_79" = {
-         isa = "PBXFileReference";
-         path = "RESTUserProfile.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_8" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_9",
-            "OBJ_10",
-            "OBJ_11",
-            "OBJ_12",
-            "OBJ_18",
-            "OBJ_19",
-            "OBJ_27",
-            "OBJ_49",
-            "OBJ_89",
-            "OBJ_100",
-            "OBJ_107"
-         );
-         name = "TinkLink";
-         path = "Sources/TinkLink";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_80" = {
-         isa = "PBXFileReference";
-         path = "ScopeDescription+REST.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_81" = {
-         isa = "PBXFileReference";
-         path = "UserSession.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_82" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_83",
-            "OBJ_84",
-            "OBJ_85",
-            "OBJ_86",
-            "OBJ_87"
-         );
-         name = "Services";
-         path = "Services";
-         sourceTree = "<group>";
-      };
-      "OBJ_83" = {
-         isa = "PBXFileReference";
-         path = "RESTAuthenticationService.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_84" = {
-         isa = "PBXFileReference";
-         path = "RESTCredentialService.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_85" = {
-         isa = "PBXFileReference";
-         path = "RESTOAuthService.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_86" = {
-         isa = "PBXFileReference";
-         path = "RESTProviderService.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_87" = {
-         isa = "PBXFileReference";
-         path = "RESTUserService.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_88" = {
-         isa = "PBXFileReference";
-         path = "URLSessionRequestRetryCancellabel.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_89" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_90",
-            "OBJ_91",
-            "OBJ_92",
-            "OBJ_93",
-            "OBJ_94",
-            "OBJ_95",
-            "OBJ_96",
-            "OBJ_97",
-            "OBJ_98",
-            "OBJ_99"
-         );
-         name = "Services";
-         path = "Services";
-         sourceTree = "<group>";
-      };
-      "OBJ_9" = {
-         isa = "PBXFileReference";
-         path = "Info.plist";
-         sourceTree = "<group>";
-      };
-      "OBJ_90" = {
-         isa = "PBXFileReference";
-         path = "AuthenticationService.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_91" = {
-         isa = "PBXFileReference";
-         path = "Cancellable.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_92" = {
-         isa = "PBXFileReference";
-         path = "CredentialsService.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_93" = {
-         isa = "PBXFileReference";
-         path = "NetworkReachability.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_94" = {
-         isa = "PBXFileReference";
-         path = "OAuthService.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_95" = {
-         isa = "PBXFileReference";
-         path = "ProviderService.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_96" = {
-         isa = "PBXFileReference";
-         path = "Retriable.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_97" = {
-         isa = "PBXFileReference";
-         path = "RetryCancellable.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_98" = {
-         isa = "PBXFileReference";
-         path = "ServiceError.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_99" = {
-         isa = "PBXFileReference";
-         path = "UserService.swift";
-         sourceTree = "<group>";
-      };
-      "TinkLink::SwiftPMPackageDescription" = {
-         isa = "PBXNativeTarget";
-         buildConfigurationList = "OBJ_241";
-         buildPhases = (
-            "OBJ_244"
-         );
-         dependencies = (
-         );
-         name = "TinkLinkPackageDescription";
-         productName = "TinkLinkPackageDescription";
-         productType = "com.apple.product-type.framework";
-      };
-      "TinkLink::TinkLink" = {
-         isa = "PBXNativeTarget";
-         buildConfigurationList = "OBJ_148";
-         buildPhases = (
-            "OBJ_151",
-            "OBJ_239"
-         );
-         dependencies = (
-         );
-         name = "TinkLink";
-         productName = "TinkLink";
-         productReference = "TinkLink::TinkLink::Product";
-         productType = "com.apple.product-type.framework";
-      };
-      "TinkLink::TinkLink::Product" = {
-         isa = "PBXFileReference";
-         path = "TinkLink.framework";
-         sourceTree = "BUILT_PRODUCTS_DIR";
-      };
-      "TinkLink::TinkLinkPackageTests::ProductTarget" = {
-         isa = "PBXAggregateTarget";
-         buildConfigurationList = "OBJ_247";
-         buildPhases = (
-         );
-         dependencies = (
-            "OBJ_250"
-         );
-         name = "TinkLinkPackageTests";
-         productName = "TinkLinkPackageTests";
-      };
-      "TinkLink::TinkLinkTests" = {
-         isa = "PBXNativeTarget";
-         buildConfigurationList = "OBJ_252";
-         buildPhases = (
-            "OBJ_255",
-            "OBJ_273"
-         );
-         dependencies = (
-            "OBJ_275"
-         );
-         name = "TinkLinkTests";
-         productName = "TinkLinkTests";
-         productReference = "TinkLink::TinkLinkTests::Product";
-         productType = "com.apple.product-type.bundle.unit-test";
-      };
-      "TinkLink::TinkLinkTests::Product" = {
-         isa = "PBXFileReference";
-         path = "TinkLinkTests.xctest";
-         sourceTree = "BUILT_PRODUCTS_DIR";
-      };
-   };
-   rootObject = "OBJ_1";
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		"TinkLink::TinkLinkPackageTests::ProductTarget" /* TinkLinkPackageTests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = OBJ_247 /* Build configuration list for PBXAggregateTarget "TinkLinkPackageTests" */;
+			buildPhases = (
+			);
+			dependencies = (
+				OBJ_250 /* PBXTargetDependency */,
+			);
+			name = TinkLinkPackageTests;
+			productName = TinkLinkPackageTests;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		OBJ_152 /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ApplicationObserver.swift */; };
+		OBJ_153 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Configuration.swift */; };
+		OBJ_154 /* AuthorizationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* AuthorizationContext.swift */; };
+		OBJ_155 /* ConsentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* ConsentContext.swift */; };
+		OBJ_156 /* CredentialsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* CredentialsContext.swift */; };
+		OBJ_157 /* ProviderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* ProviderContext.swift */; };
+		OBJ_158 /* UserContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* UserContext.swift */; };
+		OBJ_159 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Environment.swift */; };
+		OBJ_160 /* Credentials+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Credentials+Extension.swift */; };
+		OBJ_161 /* Locale+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Locale+Extensions.swift */; };
+		OBJ_162 /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* ProcessInfo+TinkEnvironmentVariables.swift */; };
+		OBJ_163 /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* Result+Extensions.swift */; };
+		OBJ_164 /* SecCertificate+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* SecCertificate+Swift.swift */; };
+		OBJ_165 /* SecTrust+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* SecTrust+Swift.swift */; };
+		OBJ_166 /* URLComponents+FragmentParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* URLComponents+FragmentParameters.swift */; };
+		OBJ_167 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* AccessToken.swift */; };
+		OBJ_168 /* AuthenticateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* AuthenticateResponse.swift */; };
+		OBJ_169 /* AuthorizationCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* AuthorizationCode.swift */; };
+		OBJ_170 /* AuthorizationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* AuthorizationResponse.swift */; };
+		OBJ_171 /* ClientDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* ClientDescription.swift */; };
+		OBJ_172 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* Credentials.swift */; };
+		OBJ_173 /* FinancialInstitution.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* FinancialInstitution.swift */; };
+		OBJ_174 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* Form.swift */; };
+		OBJ_175 /* ClientDescription+REST.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* ClientDescription+REST.swift */; };
+		OBJ_176 /* Credentials+REST.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* Credentials+REST.swift */; };
+		OBJ_177 /* Provider+REST.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* Provider+REST.swift */; };
+		OBJ_178 /* UserProfile+REST.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* UserProfile+REST.swift */; };
+		OBJ_179 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* Market.swift */; };
+		OBJ_180 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* Provider.swift */; };
+		OBJ_181 /* ProviderTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* ProviderTree.swift */; };
+		OBJ_182 /* RefreshableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* RefreshableItem.swift */; };
+		OBJ_183 /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* Scope.swift */; };
+		OBJ_184 /* ScopeDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* ScopeDescription.swift */; };
+		OBJ_185 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* User.swift */; };
+		OBJ_186 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* UserProfile.swift */; };
+		OBJ_187 /* CertificatePinningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_50 /* CertificatePinningDelegate.swift */; };
+		OBJ_188 /* AnyCanceller.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* AnyCanceller.swift */; };
+		OBJ_189 /* AuthorizationHeaderClientBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_54 /* AuthorizationHeaderClientBehavior.swift */; };
+		OBJ_190 /* ClientBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_55 /* ClientBehavior.swift */; };
+		OBJ_191 /* ComposableClientBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* ComposableClientBehavior.swift */; };
+		OBJ_192 /* DeviceIdHeaderClientBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* DeviceIdHeaderClientBehavior.swift */; };
+		OBJ_193 /* EmptyClientBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* EmptyClientBehavior.swift */; };
+		OBJ_194 /* RequestErrorClientBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* RequestErrorClientBehavior.swift */; };
+		OBJ_195 /* SDKHeaderClientBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* SDKHeaderClientBehavior.swift */; };
+		OBJ_196 /* HTTPStatusCodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_61 /* HTTPStatusCodeError.swift */; };
+		OBJ_197 /* RESTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* RESTClient.swift */; };
+		OBJ_198 /* RESTContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* RESTContentType.swift */; };
+		OBJ_199 /* RESTMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* RESTMethod.swift */; };
+		OBJ_200 /* RESTRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* RESTRequest.swift */; };
+		OBJ_201 /* RESTAnonymousUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_67 /* RESTAnonymousUserRequest.swift */; };
+		OBJ_202 /* RESTCallbackRelayedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* RESTCallbackRelayedRequest.swift */; };
+		OBJ_203 /* RESTCreateCredentialsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* RESTCreateCredentialsRequest.swift */; };
+		OBJ_204 /* RESTCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* RESTCredentials.swift */; };
+		OBJ_205 /* RESTDescribeOAuth2ClientRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_71 /* RESTDescribeOAuth2ClientRequest.swift */; };
+		OBJ_206 /* RESTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_72 /* RESTError.swift */; };
+		OBJ_207 /* RESTField.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* RESTField.swift */; };
+		OBJ_208 /* RESTImageUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_74 /* RESTImageUrls.swift */; };
+		OBJ_209 /* RESTProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_75 /* RESTProvider.swift */; };
+		OBJ_210 /* RESTSupplementalInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* RESTSupplementalInformation.swift */; };
+		OBJ_211 /* RESTThirdPartyAppAuthenticationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* RESTThirdPartyAppAuthenticationPayload.swift */; };
+		OBJ_212 /* RESTUpdateCredentialsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* RESTUpdateCredentialsRequest.swift */; };
+		OBJ_213 /* RESTUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* RESTUserProfile.swift */; };
+		OBJ_214 /* ScopeDescription+REST.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* ScopeDescription+REST.swift */; };
+		OBJ_215 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* UserSession.swift */; };
+		OBJ_216 /* RESTAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_83 /* RESTAuthenticationService.swift */; };
+		OBJ_217 /* RESTCredentialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_84 /* RESTCredentialService.swift */; };
+		OBJ_218 /* RESTOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_85 /* RESTOAuthService.swift */; };
+		OBJ_219 /* RESTProviderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* RESTProviderService.swift */; };
+		OBJ_220 /* RESTUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_87 /* RESTUserService.swift */; };
+		OBJ_221 /* URLSessionRequestRetryCancellabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_88 /* URLSessionRequestRetryCancellabel.swift */; };
+		OBJ_222 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_90 /* AuthenticationService.swift */; };
+		OBJ_223 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_91 /* Cancellable.swift */; };
+		OBJ_224 /* CredentialsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_92 /* CredentialsService.swift */; };
+		OBJ_225 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_93 /* NetworkReachability.swift */; };
+		OBJ_226 /* OAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_94 /* OAuthService.swift */; };
+		OBJ_227 /* ProviderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_95 /* ProviderService.swift */; };
+		OBJ_228 /* Retriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_96 /* Retriable.swift */; };
+		OBJ_229 /* RetryCancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_97 /* RetryCancellable.swift */; };
+		OBJ_230 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_98 /* ServiceError.swift */; };
+		OBJ_231 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_99 /* UserService.swift */; };
+		OBJ_232 /* AddCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_101 /* AddCredentialsTask.swift */; };
+		OBJ_233 /* CredentialsListStatusPollingTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_102 /* CredentialsListStatusPollingTask.swift */; };
+		OBJ_234 /* CredentialsStatusPollingTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_103 /* CredentialsStatusPollingTask.swift */; };
+		OBJ_235 /* RefreshCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_104 /* RefreshCredentialsTask.swift */; };
+		OBJ_236 /* SupplementInformationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_105 /* SupplementInformationTask.swift */; };
+		OBJ_237 /* ThirdPartyAppAuthenticationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_106 /* ThirdPartyAppAuthenticationTask.swift */; };
+		OBJ_238 /* Tink.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* Tink.swift */; };
+		OBJ_256 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_111 /* ConfigurationTests.swift */; };
+		OBJ_257 /* CredentialGRPCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_112 /* CredentialGRPCTests.swift */; };
+		OBJ_258 /* CredentialsContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_113 /* CredentialsContextTest.swift */; };
+		OBJ_259 /* FormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_114 /* FormTests.swift */; };
+		OBJ_260 /* LinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_115 /* LinkTests.swift */; };
+		OBJ_261 /* Credential+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_117 /* Credential+mock.swift */; };
+		OBJ_262 /* Provider+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_118 /* Provider+mock.swift */; };
+		OBJ_263 /* ServiceError+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* ServiceError+mock.swift */; };
+		OBJ_264 /* ProviderGRPCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_120 /* ProviderGRPCTests.swift */; };
+		OBJ_265 /* ProviderTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_121 /* ProviderTreeTests.swift */; };
+		OBJ_266 /* CredentialService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_123 /* CredentialService+mock.swift */; };
+		OBJ_267 /* OAuthService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_124 /* OAuthService+mock.swift */; };
+		OBJ_268 /* ProviderService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_125 /* ProviderService+mock.swift */; };
+		OBJ_269 /* RetryCancellable+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_126 /* RetryCancellable+mock.swift */; };
+		OBJ_270 /* UserService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_127 /* UserService+mock.swift */; };
+		OBJ_271 /* SupplementalInfoFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_128 /* SupplementalInfoFieldTests.swift */; };
+		OBJ_272 /* ThirdPartyCallbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* ThirdPartyCallbackTests.swift */; };
+		OBJ_274 /* TinkLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "TinkLink::TinkLink::Product" /* TinkLink.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		20358168246C35100075F1EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "TinkLink::TinkLink";
+			remoteInfo = TinkLink;
+		};
+		20358169246C35110075F1EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "TinkLink::TinkLinkTests";
+			remoteInfo = TinkLinkTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		OBJ_10 /* ApplicationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationObserver.swift; sourceTree = "<group>"; };
+		OBJ_101 /* AddCredentialsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsTask.swift; sourceTree = "<group>"; };
+		OBJ_102 /* CredentialsListStatusPollingTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsListStatusPollingTask.swift; sourceTree = "<group>"; };
+		OBJ_103 /* CredentialsStatusPollingTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsStatusPollingTask.swift; sourceTree = "<group>"; };
+		OBJ_104 /* RefreshCredentialsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCredentialsTask.swift; sourceTree = "<group>"; };
+		OBJ_105 /* SupplementInformationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementInformationTask.swift; sourceTree = "<group>"; };
+		OBJ_106 /* ThirdPartyAppAuthenticationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyAppAuthenticationTask.swift; sourceTree = "<group>"; };
+		OBJ_107 /* Tink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tink.swift; sourceTree = "<group>"; };
+		OBJ_11 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		OBJ_110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		OBJ_111 /* ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
+		OBJ_112 /* CredentialGRPCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialGRPCTests.swift; sourceTree = "<group>"; };
+		OBJ_113 /* CredentialsContextTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsContextTest.swift; sourceTree = "<group>"; };
+		OBJ_114 /* FormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTests.swift; sourceTree = "<group>"; };
+		OBJ_115 /* LinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTests.swift; sourceTree = "<group>"; };
+		OBJ_117 /* Credential+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Credential+mock.swift"; sourceTree = "<group>"; };
+		OBJ_118 /* Provider+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Provider+mock.swift"; sourceTree = "<group>"; };
+		OBJ_119 /* ServiceError+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceError+mock.swift"; sourceTree = "<group>"; };
+		OBJ_120 /* ProviderGRPCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderGRPCTests.swift; sourceTree = "<group>"; };
+		OBJ_121 /* ProviderTreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderTreeTests.swift; sourceTree = "<group>"; };
+		OBJ_123 /* CredentialService+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CredentialService+mock.swift"; sourceTree = "<group>"; };
+		OBJ_124 /* OAuthService+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuthService+mock.swift"; sourceTree = "<group>"; };
+		OBJ_125 /* ProviderService+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderService+mock.swift"; sourceTree = "<group>"; };
+		OBJ_126 /* RetryCancellable+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RetryCancellable+mock.swift"; sourceTree = "<group>"; };
+		OBJ_127 /* UserService+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserService+mock.swift"; sourceTree = "<group>"; };
+		OBJ_128 /* SupplementalInfoFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementalInfoFieldTests.swift; sourceTree = "<group>"; };
+		OBJ_129 /* ThirdPartyCallbackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyCallbackTests.swift; sourceTree = "<group>"; };
+		OBJ_13 /* AuthorizationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationContext.swift; sourceTree = "<group>"; };
+		OBJ_14 /* ConsentContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentContext.swift; sourceTree = "<group>"; };
+		OBJ_15 /* CredentialsContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsContext.swift; sourceTree = "<group>"; };
+		OBJ_16 /* ProviderContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderContext.swift; sourceTree = "<group>"; };
+		OBJ_17 /* UserContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContext.swift; sourceTree = "<group>"; };
+		OBJ_18 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		OBJ_20 /* Credentials+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Credentials+Extension.swift"; sourceTree = "<group>"; };
+		OBJ_21 /* Locale+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+Extensions.swift"; sourceTree = "<group>"; };
+		OBJ_22 /* ProcessInfo+TinkEnvironmentVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+TinkEnvironmentVariables.swift"; sourceTree = "<group>"; };
+		OBJ_23 /* Result+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extensions.swift"; sourceTree = "<group>"; };
+		OBJ_24 /* SecCertificate+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecCertificate+Swift.swift"; sourceTree = "<group>"; };
+		OBJ_25 /* SecTrust+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecTrust+Swift.swift"; sourceTree = "<group>"; };
+		OBJ_26 /* URLComponents+FragmentParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLComponents+FragmentParameters.swift"; sourceTree = "<group>"; };
+		OBJ_28 /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
+		OBJ_29 /* AuthenticateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateResponse.swift; sourceTree = "<group>"; };
+		OBJ_30 /* AuthorizationCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCode.swift; sourceTree = "<group>"; };
+		OBJ_31 /* AuthorizationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationResponse.swift; sourceTree = "<group>"; };
+		OBJ_32 /* ClientDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDescription.swift; sourceTree = "<group>"; };
+		OBJ_33 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		OBJ_34 /* FinancialInstitution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialInstitution.swift; sourceTree = "<group>"; };
+		OBJ_35 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
+		OBJ_37 /* ClientDescription+REST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClientDescription+REST.swift"; sourceTree = "<group>"; };
+		OBJ_38 /* Credentials+REST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Credentials+REST.swift"; sourceTree = "<group>"; };
+		OBJ_39 /* Provider+REST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Provider+REST.swift"; sourceTree = "<group>"; };
+		OBJ_40 /* UserProfile+REST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProfile+REST.swift"; sourceTree = "<group>"; };
+		OBJ_41 /* Market.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
+		OBJ_42 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		OBJ_43 /* ProviderTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderTree.swift; sourceTree = "<group>"; };
+		OBJ_44 /* RefreshableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableItem.swift; sourceTree = "<group>"; };
+		OBJ_45 /* Scope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
+		OBJ_46 /* ScopeDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeDescription.swift; sourceTree = "<group>"; };
+		OBJ_47 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		OBJ_48 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		OBJ_50 /* CertificatePinningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePinningDelegate.swift; sourceTree = "<group>"; };
+		OBJ_52 /* AnyCanceller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCanceller.swift; sourceTree = "<group>"; };
+		OBJ_54 /* AuthorizationHeaderClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationHeaderClientBehavior.swift; sourceTree = "<group>"; };
+		OBJ_55 /* ClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientBehavior.swift; sourceTree = "<group>"; };
+		OBJ_56 /* ComposableClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposableClientBehavior.swift; sourceTree = "<group>"; };
+		OBJ_57 /* DeviceIdHeaderClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdHeaderClientBehavior.swift; sourceTree = "<group>"; };
+		OBJ_58 /* EmptyClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyClientBehavior.swift; sourceTree = "<group>"; };
+		OBJ_59 /* RequestErrorClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestErrorClientBehavior.swift; sourceTree = "<group>"; };
+		OBJ_60 /* SDKHeaderClientBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKHeaderClientBehavior.swift; sourceTree = "<group>"; };
+		OBJ_61 /* HTTPStatusCodeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCodeError.swift; sourceTree = "<group>"; };
+		OBJ_62 /* RESTClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTClient.swift; sourceTree = "<group>"; };
+		OBJ_63 /* RESTContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTContentType.swift; sourceTree = "<group>"; };
+		OBJ_64 /* RESTMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTMethod.swift; sourceTree = "<group>"; };
+		OBJ_65 /* RESTRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTRequest.swift; sourceTree = "<group>"; };
+		OBJ_67 /* RESTAnonymousUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTAnonymousUserRequest.swift; sourceTree = "<group>"; };
+		OBJ_68 /* RESTCallbackRelayedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTCallbackRelayedRequest.swift; sourceTree = "<group>"; };
+		OBJ_69 /* RESTCreateCredentialsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTCreateCredentialsRequest.swift; sourceTree = "<group>"; };
+		OBJ_70 /* RESTCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTCredentials.swift; sourceTree = "<group>"; };
+		OBJ_71 /* RESTDescribeOAuth2ClientRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTDescribeOAuth2ClientRequest.swift; sourceTree = "<group>"; };
+		OBJ_72 /* RESTError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTError.swift; sourceTree = "<group>"; };
+		OBJ_73 /* RESTField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTField.swift; sourceTree = "<group>"; };
+		OBJ_74 /* RESTImageUrls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTImageUrls.swift; sourceTree = "<group>"; };
+		OBJ_75 /* RESTProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTProvider.swift; sourceTree = "<group>"; };
+		OBJ_76 /* RESTSupplementalInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTSupplementalInformation.swift; sourceTree = "<group>"; };
+		OBJ_77 /* RESTThirdPartyAppAuthenticationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTThirdPartyAppAuthenticationPayload.swift; sourceTree = "<group>"; };
+		OBJ_78 /* RESTUpdateCredentialsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTUpdateCredentialsRequest.swift; sourceTree = "<group>"; };
+		OBJ_79 /* RESTUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTUserProfile.swift; sourceTree = "<group>"; };
+		OBJ_80 /* ScopeDescription+REST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScopeDescription+REST.swift"; sourceTree = "<group>"; };
+		OBJ_81 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
+		OBJ_83 /* RESTAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTAuthenticationService.swift; sourceTree = "<group>"; };
+		OBJ_84 /* RESTCredentialService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTCredentialService.swift; sourceTree = "<group>"; };
+		OBJ_85 /* RESTOAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTOAuthService.swift; sourceTree = "<group>"; };
+		OBJ_86 /* RESTProviderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTProviderService.swift; sourceTree = "<group>"; };
+		OBJ_87 /* RESTUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTUserService.swift; sourceTree = "<group>"; };
+		OBJ_88 /* URLSessionRequestRetryCancellabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionRequestRetryCancellabel.swift; sourceTree = "<group>"; };
+		OBJ_9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		OBJ_90 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		OBJ_91 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
+		OBJ_92 /* CredentialsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsService.swift; sourceTree = "<group>"; };
+		OBJ_93 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
+		OBJ_94 /* OAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthService.swift; sourceTree = "<group>"; };
+		OBJ_95 /* ProviderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderService.swift; sourceTree = "<group>"; };
+		OBJ_96 /* Retriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Retriable.swift; sourceTree = "<group>"; };
+		OBJ_97 /* RetryCancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryCancellable.swift; sourceTree = "<group>"; };
+		OBJ_98 /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
+		OBJ_99 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		"TinkLink::TinkLink::Product" /* TinkLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TinkLink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"TinkLink::TinkLinkTests::Product" /* TinkLinkTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = TinkLinkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		OBJ_239 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_273 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_274 /* TinkLink.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		OBJ_100 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_101 /* AddCredentialsTask.swift */,
+				OBJ_102 /* CredentialsListStatusPollingTask.swift */,
+				OBJ_103 /* CredentialsStatusPollingTask.swift */,
+				OBJ_104 /* RefreshCredentialsTask.swift */,
+				OBJ_105 /* SupplementInformationTask.swift */,
+				OBJ_106 /* ThirdPartyAppAuthenticationTask.swift */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
+		OBJ_108 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_109 /* TinkLinkTests */,
+			);
+			name = Tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_109 /* TinkLinkTests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_110 /* Info.plist */,
+				OBJ_111 /* ConfigurationTests.swift */,
+				OBJ_112 /* CredentialGRPCTests.swift */,
+				OBJ_113 /* CredentialsContextTest.swift */,
+				OBJ_114 /* FormTests.swift */,
+				OBJ_115 /* LinkTests.swift */,
+				OBJ_116 /* Model+mock */,
+				OBJ_120 /* ProviderGRPCTests.swift */,
+				OBJ_121 /* ProviderTreeTests.swift */,
+				OBJ_122 /* Services+mock */,
+				OBJ_128 /* SupplementalInfoFieldTests.swift */,
+				OBJ_129 /* ThirdPartyCallbackTests.swift */,
+			);
+			name = TinkLinkTests;
+			path = Tests/TinkLinkTests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_116 /* Model+mock */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_117 /* Credential+mock.swift */,
+				OBJ_118 /* Provider+mock.swift */,
+				OBJ_119 /* ServiceError+mock.swift */,
+			);
+			path = "Model+mock";
+			sourceTree = "<group>";
+		};
+		OBJ_12 /* Context */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_13 /* AuthorizationContext.swift */,
+				OBJ_14 /* ConsentContext.swift */,
+				OBJ_15 /* CredentialsContext.swift */,
+				OBJ_16 /* ProviderContext.swift */,
+				OBJ_17 /* UserContext.swift */,
+			);
+			path = Context;
+			sourceTree = "<group>";
+		};
+		OBJ_122 /* Services+mock */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_123 /* CredentialService+mock.swift */,
+				OBJ_124 /* OAuthService+mock.swift */,
+				OBJ_125 /* ProviderService+mock.swift */,
+				OBJ_126 /* RetryCancellable+mock.swift */,
+				OBJ_127 /* UserService+mock.swift */,
+			);
+			path = "Services+mock";
+			sourceTree = "<group>";
+		};
+		OBJ_130 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				"TinkLink::TinkLinkTests::Product" /* TinkLinkTests.xctest */,
+				"TinkLink::TinkLink::Product" /* TinkLink.framework */,
+			);
+			name = Products;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		OBJ_19 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_20 /* Credentials+Extension.swift */,
+				OBJ_21 /* Locale+Extensions.swift */,
+				OBJ_22 /* ProcessInfo+TinkEnvironmentVariables.swift */,
+				OBJ_23 /* Result+Extensions.swift */,
+				OBJ_24 /* SecCertificate+Swift.swift */,
+				OBJ_25 /* SecTrust+Swift.swift */,
+				OBJ_26 /* URLComponents+FragmentParameters.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		OBJ_27 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_28 /* AccessToken.swift */,
+				OBJ_29 /* AuthenticateResponse.swift */,
+				OBJ_30 /* AuthorizationCode.swift */,
+				OBJ_31 /* AuthorizationResponse.swift */,
+				OBJ_32 /* ClientDescription.swift */,
+				OBJ_33 /* Credentials.swift */,
+				OBJ_34 /* FinancialInstitution.swift */,
+				OBJ_35 /* Form.swift */,
+				OBJ_36 /* Mappers */,
+				OBJ_41 /* Market.swift */,
+				OBJ_42 /* Provider.swift */,
+				OBJ_43 /* ProviderTree.swift */,
+				OBJ_44 /* RefreshableItem.swift */,
+				OBJ_45 /* Scope.swift */,
+				OBJ_46 /* ScopeDescription.swift */,
+				OBJ_47 /* User.swift */,
+				OBJ_48 /* UserProfile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		OBJ_36 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_37 /* ClientDescription+REST.swift */,
+				OBJ_38 /* Credentials+REST.swift */,
+				OBJ_39 /* Provider+REST.swift */,
+				OBJ_40 /* UserProfile+REST.swift */,
+			);
+			path = Mappers;
+			sourceTree = "<group>";
+		};
+		OBJ_49 /* REST */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_50 /* CertificatePinningDelegate.swift */,
+				OBJ_51 /* Client */,
+				OBJ_66 /* Models */,
+				OBJ_82 /* Services */,
+				OBJ_88 /* URLSessionRequestRetryCancellabel.swift */,
+			);
+			path = REST;
+			sourceTree = "<group>";
+		};
+		OBJ_5 /*  */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_7 /* Sources */,
+				OBJ_108 /* Tests */,
+				OBJ_130 /* Products */,
+			);
+			name = "";
+			sourceTree = "<group>";
+		};
+		OBJ_51 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_52 /* AnyCanceller.swift */,
+				OBJ_53 /* Behaviors */,
+				OBJ_61 /* HTTPStatusCodeError.swift */,
+				OBJ_62 /* RESTClient.swift */,
+				OBJ_63 /* RESTContentType.swift */,
+				OBJ_64 /* RESTMethod.swift */,
+				OBJ_65 /* RESTRequest.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		OBJ_53 /* Behaviors */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_54 /* AuthorizationHeaderClientBehavior.swift */,
+				OBJ_55 /* ClientBehavior.swift */,
+				OBJ_56 /* ComposableClientBehavior.swift */,
+				OBJ_57 /* DeviceIdHeaderClientBehavior.swift */,
+				OBJ_58 /* EmptyClientBehavior.swift */,
+				OBJ_59 /* RequestErrorClientBehavior.swift */,
+				OBJ_60 /* SDKHeaderClientBehavior.swift */,
+			);
+			path = Behaviors;
+			sourceTree = "<group>";
+		};
+		OBJ_66 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_67 /* RESTAnonymousUserRequest.swift */,
+				OBJ_68 /* RESTCallbackRelayedRequest.swift */,
+				OBJ_69 /* RESTCreateCredentialsRequest.swift */,
+				OBJ_70 /* RESTCredentials.swift */,
+				OBJ_71 /* RESTDescribeOAuth2ClientRequest.swift */,
+				OBJ_72 /* RESTError.swift */,
+				OBJ_73 /* RESTField.swift */,
+				OBJ_74 /* RESTImageUrls.swift */,
+				OBJ_75 /* RESTProvider.swift */,
+				OBJ_76 /* RESTSupplementalInformation.swift */,
+				OBJ_77 /* RESTThirdPartyAppAuthenticationPayload.swift */,
+				OBJ_78 /* RESTUpdateCredentialsRequest.swift */,
+				OBJ_79 /* RESTUserProfile.swift */,
+				OBJ_80 /* ScopeDescription+REST.swift */,
+				OBJ_81 /* UserSession.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		OBJ_7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_8 /* TinkLink */,
+			);
+			name = Sources;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_8 /* TinkLink */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_9 /* Info.plist */,
+				OBJ_10 /* ApplicationObserver.swift */,
+				OBJ_11 /* Configuration.swift */,
+				OBJ_12 /* Context */,
+				OBJ_18 /* Environment.swift */,
+				OBJ_19 /* Extensions */,
+				OBJ_27 /* Models */,
+				OBJ_49 /* REST */,
+				OBJ_89 /* Services */,
+				OBJ_100 /* Tasks */,
+				OBJ_107 /* Tink.swift */,
+			);
+			name = TinkLink;
+			path = Sources/TinkLink;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_82 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_83 /* RESTAuthenticationService.swift */,
+				OBJ_84 /* RESTCredentialService.swift */,
+				OBJ_85 /* RESTOAuthService.swift */,
+				OBJ_86 /* RESTProviderService.swift */,
+				OBJ_87 /* RESTUserService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		OBJ_89 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_90 /* AuthenticationService.swift */,
+				OBJ_91 /* Cancellable.swift */,
+				OBJ_92 /* CredentialsService.swift */,
+				OBJ_93 /* NetworkReachability.swift */,
+				OBJ_94 /* OAuthService.swift */,
+				OBJ_95 /* ProviderService.swift */,
+				OBJ_96 /* Retriable.swift */,
+				OBJ_97 /* RetryCancellable.swift */,
+				OBJ_98 /* ServiceError.swift */,
+				OBJ_99 /* UserService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		"TinkLink::SwiftPMPackageDescription" /* TinkLinkPackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_241 /* Build configuration list for PBXNativeTarget "TinkLinkPackageDescription" */;
+			buildPhases = (
+				OBJ_244 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TinkLinkPackageDescription;
+			productName = TinkLinkPackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+		"TinkLink::TinkLink" /* TinkLink */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_148 /* Build configuration list for PBXNativeTarget "TinkLink" */;
+			buildPhases = (
+				OBJ_151 /* Sources */,
+				OBJ_239 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TinkLink;
+			productName = TinkLink;
+			productReference = "TinkLink::TinkLink::Product" /* TinkLink.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"TinkLink::TinkLinkTests" /* TinkLinkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_252 /* Build configuration list for PBXNativeTarget "TinkLinkTests" */;
+			buildPhases = (
+				OBJ_255 /* Sources */,
+				OBJ_273 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_275 /* PBXTargetDependency */,
+			);
+			name = TinkLinkTests;
+			productName = TinkLinkTests;
+			productReference = "TinkLink::TinkLinkTests::Product" /* TinkLinkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		OBJ_1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftMigration = 9999;
+				LastUpgradeCheck = 9999;
+			};
+			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "TinkLink" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = OBJ_5 /*  */;
+			productRefGroup = OBJ_130 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				"TinkLink::TinkLink" /* TinkLink */,
+				"TinkLink::SwiftPMPackageDescription" /* TinkLinkPackageDescription */,
+				"TinkLink::TinkLinkPackageTests::ProductTarget" /* TinkLinkPackageTests */,
+				"TinkLink::TinkLinkTests" /* TinkLinkTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		OBJ_151 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_152 /* ApplicationObserver.swift in Sources */,
+				OBJ_153 /* Configuration.swift in Sources */,
+				OBJ_154 /* AuthorizationContext.swift in Sources */,
+				OBJ_155 /* ConsentContext.swift in Sources */,
+				OBJ_156 /* CredentialsContext.swift in Sources */,
+				OBJ_157 /* ProviderContext.swift in Sources */,
+				OBJ_158 /* UserContext.swift in Sources */,
+				OBJ_159 /* Environment.swift in Sources */,
+				OBJ_160 /* Credentials+Extension.swift in Sources */,
+				OBJ_161 /* Locale+Extensions.swift in Sources */,
+				OBJ_162 /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */,
+				OBJ_163 /* Result+Extensions.swift in Sources */,
+				OBJ_164 /* SecCertificate+Swift.swift in Sources */,
+				OBJ_165 /* SecTrust+Swift.swift in Sources */,
+				OBJ_166 /* URLComponents+FragmentParameters.swift in Sources */,
+				OBJ_167 /* AccessToken.swift in Sources */,
+				OBJ_168 /* AuthenticateResponse.swift in Sources */,
+				OBJ_169 /* AuthorizationCode.swift in Sources */,
+				OBJ_170 /* AuthorizationResponse.swift in Sources */,
+				OBJ_171 /* ClientDescription.swift in Sources */,
+				OBJ_172 /* Credentials.swift in Sources */,
+				OBJ_173 /* FinancialInstitution.swift in Sources */,
+				OBJ_174 /* Form.swift in Sources */,
+				OBJ_175 /* ClientDescription+REST.swift in Sources */,
+				OBJ_176 /* Credentials+REST.swift in Sources */,
+				OBJ_177 /* Provider+REST.swift in Sources */,
+				OBJ_178 /* UserProfile+REST.swift in Sources */,
+				OBJ_179 /* Market.swift in Sources */,
+				OBJ_180 /* Provider.swift in Sources */,
+				OBJ_181 /* ProviderTree.swift in Sources */,
+				OBJ_182 /* RefreshableItem.swift in Sources */,
+				OBJ_183 /* Scope.swift in Sources */,
+				OBJ_184 /* ScopeDescription.swift in Sources */,
+				OBJ_185 /* User.swift in Sources */,
+				OBJ_186 /* UserProfile.swift in Sources */,
+				OBJ_187 /* CertificatePinningDelegate.swift in Sources */,
+				OBJ_188 /* AnyCanceller.swift in Sources */,
+				OBJ_189 /* AuthorizationHeaderClientBehavior.swift in Sources */,
+				OBJ_190 /* ClientBehavior.swift in Sources */,
+				OBJ_191 /* ComposableClientBehavior.swift in Sources */,
+				OBJ_192 /* DeviceIdHeaderClientBehavior.swift in Sources */,
+				OBJ_193 /* EmptyClientBehavior.swift in Sources */,
+				OBJ_194 /* RequestErrorClientBehavior.swift in Sources */,
+				OBJ_195 /* SDKHeaderClientBehavior.swift in Sources */,
+				OBJ_196 /* HTTPStatusCodeError.swift in Sources */,
+				OBJ_197 /* RESTClient.swift in Sources */,
+				OBJ_198 /* RESTContentType.swift in Sources */,
+				OBJ_199 /* RESTMethod.swift in Sources */,
+				OBJ_200 /* RESTRequest.swift in Sources */,
+				OBJ_201 /* RESTAnonymousUserRequest.swift in Sources */,
+				OBJ_202 /* RESTCallbackRelayedRequest.swift in Sources */,
+				OBJ_203 /* RESTCreateCredentialsRequest.swift in Sources */,
+				OBJ_204 /* RESTCredentials.swift in Sources */,
+				OBJ_205 /* RESTDescribeOAuth2ClientRequest.swift in Sources */,
+				OBJ_206 /* RESTError.swift in Sources */,
+				OBJ_207 /* RESTField.swift in Sources */,
+				OBJ_208 /* RESTImageUrls.swift in Sources */,
+				OBJ_209 /* RESTProvider.swift in Sources */,
+				OBJ_210 /* RESTSupplementalInformation.swift in Sources */,
+				OBJ_211 /* RESTThirdPartyAppAuthenticationPayload.swift in Sources */,
+				OBJ_212 /* RESTUpdateCredentialsRequest.swift in Sources */,
+				OBJ_213 /* RESTUserProfile.swift in Sources */,
+				OBJ_214 /* ScopeDescription+REST.swift in Sources */,
+				OBJ_215 /* UserSession.swift in Sources */,
+				OBJ_216 /* RESTAuthenticationService.swift in Sources */,
+				OBJ_217 /* RESTCredentialService.swift in Sources */,
+				OBJ_218 /* RESTOAuthService.swift in Sources */,
+				OBJ_219 /* RESTProviderService.swift in Sources */,
+				OBJ_220 /* RESTUserService.swift in Sources */,
+				OBJ_221 /* URLSessionRequestRetryCancellabel.swift in Sources */,
+				OBJ_222 /* AuthenticationService.swift in Sources */,
+				OBJ_223 /* Cancellable.swift in Sources */,
+				OBJ_224 /* CredentialsService.swift in Sources */,
+				OBJ_225 /* NetworkReachability.swift in Sources */,
+				OBJ_226 /* OAuthService.swift in Sources */,
+				OBJ_227 /* ProviderService.swift in Sources */,
+				OBJ_228 /* Retriable.swift in Sources */,
+				OBJ_229 /* RetryCancellable.swift in Sources */,
+				OBJ_230 /* ServiceError.swift in Sources */,
+				OBJ_231 /* UserService.swift in Sources */,
+				OBJ_232 /* AddCredentialsTask.swift in Sources */,
+				OBJ_233 /* CredentialsListStatusPollingTask.swift in Sources */,
+				OBJ_234 /* CredentialsStatusPollingTask.swift in Sources */,
+				OBJ_235 /* RefreshCredentialsTask.swift in Sources */,
+				OBJ_236 /* SupplementInformationTask.swift in Sources */,
+				OBJ_237 /* ThirdPartyAppAuthenticationTask.swift in Sources */,
+				OBJ_238 /* Tink.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_244 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_255 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_256 /* ConfigurationTests.swift in Sources */,
+				OBJ_257 /* CredentialGRPCTests.swift in Sources */,
+				OBJ_258 /* CredentialsContextTest.swift in Sources */,
+				OBJ_259 /* FormTests.swift in Sources */,
+				OBJ_260 /* LinkTests.swift in Sources */,
+				OBJ_261 /* Credential+mock.swift in Sources */,
+				OBJ_262 /* Provider+mock.swift in Sources */,
+				OBJ_263 /* ServiceError+mock.swift in Sources */,
+				OBJ_264 /* ProviderGRPCTests.swift in Sources */,
+				OBJ_265 /* ProviderTreeTests.swift in Sources */,
+				OBJ_266 /* CredentialService+mock.swift in Sources */,
+				OBJ_267 /* OAuthService+mock.swift in Sources */,
+				OBJ_268 /* ProviderService+mock.swift in Sources */,
+				OBJ_269 /* RetryCancellable+mock.swift in Sources */,
+				OBJ_270 /* UserService+mock.swift in Sources */,
+				OBJ_271 /* SupplementalInfoFieldTests.swift in Sources */,
+				OBJ_272 /* ThirdPartyCallbackTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		OBJ_250 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "TinkLink::TinkLinkTests" /* TinkLinkTests */;
+			targetProxy = 20358169246C35110075F1EA /* PBXContainerItemProxy */;
+		};
+		OBJ_275 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "TinkLink::TinkLink" /* TinkLink */;
+			targetProxy = 20358168246C35100075F1EA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		OBJ_149 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = TinkLink.xcodeproj/TinkLink_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = TinkLink;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = TinkLink;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		OBJ_150 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = TinkLink.xcodeproj/TinkLink_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = TinkLink;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = TinkLink;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		OBJ_242 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5.0.0";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		OBJ_243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5.0.0";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		OBJ_248 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		OBJ_249 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		OBJ_253 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = TinkLink.xcodeproj/TinkLinkTests_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = TinkLinkTests;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		OBJ_254 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = TinkLink.xcodeproj/TinkLinkTests_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = TinkLinkTests;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		OBJ_3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SWIFT_PACKAGE=1",
+					"DEBUG=1",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USE_HEADERMAP = NO;
+			};
+			name = Debug;
+		};
+		OBJ_4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SWIFT_PACKAGE=1",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		OBJ_148 /* Build configuration list for PBXNativeTarget "TinkLink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_149 /* Debug */,
+				OBJ_150 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_2 /* Build configuration list for PBXProject "TinkLink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_3 /* Debug */,
+				OBJ_4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_241 /* Build configuration list for PBXNativeTarget "TinkLinkPackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_242 /* Debug */,
+				OBJ_243 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_247 /* Build configuration list for PBXAggregateTarget "TinkLinkPackageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_248 /* Debug */,
+				OBJ_249 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_252 /* Build configuration list for PBXNativeTarget "TinkLinkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_253 /* Debug */,
+				OBJ_254 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = OBJ_1 /* Project object */;
 }
