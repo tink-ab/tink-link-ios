@@ -1,6 +1,13 @@
 {
   "warnings": [
     {
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/AuthorizationCode.swift",
+      "line": 13,
+      "symbol": "AuthorizationCode.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Credentials.swift",
       "line": 11,
       "symbol": "Credentials.ID.init(_:)",
