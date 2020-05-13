@@ -14,8 +14,8 @@ final class PollingTask<ID, Model> {
     private var isPaused = true
     private var isActive = true
 
-    init(pollingID: ID, initialValue: Model?, request: @escaping (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?, predicate: @escaping (_ old: Model, _ new: Model) -> Bool, updateHandler: @escaping (Result<Model, Error>) -> Void) {
-        self.id = pollingID
+    init(id: ID, initialValue: Model?, request: @escaping (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?, predicate: @escaping (_ old: Model, _ new: Model) -> Bool, updateHandler: @escaping (Result<Model, Error>) -> Void) {
+        self.id = id
         self.responseValue = initialValue
         self.predicate = predicate
         self.request = request

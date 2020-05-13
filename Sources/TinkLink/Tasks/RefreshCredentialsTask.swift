@@ -74,7 +74,7 @@ public final class RefreshCredentialsTask: Identifiable {
 
     func startObserving() {
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
-            pollingID: credentials.id,
+            id: credentials.id,
             initialValue: credentials,
             request: credentialsService.credentials,
             predicate: {  (old, new) -> Bool in

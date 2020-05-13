@@ -110,7 +110,7 @@ public final class AddCredentialsTask: Identifiable {
 
         handleUpdate(for: .success(credentials))
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
-            pollingID: credentials.id,
+            id: credentials.id,
             initialValue: credentials,
             request: credentialsService.credentials,
             predicate: {  (old, new) -> Bool in

@@ -48,7 +48,7 @@ public final class InitiateTransferTask {
 
         handleUpdate(for: .success(signableOperation))
         transferStatusPollingTask = TransferStatusPollingTask(
-            pollingID: transferID,
+            id: transferID,
             initialValue: signableOperation,
             request: transferService.transferStatus,
             predicate: { (old, new) -> Bool in
@@ -58,7 +58,7 @@ public final class InitiateTransferTask {
         }
 
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
-            pollingID: credentialsID,
+            id: credentialsID,
             initialValue: nil,
             request: credentialsService.credentials,
             predicate: {  (old, new) -> Bool in
