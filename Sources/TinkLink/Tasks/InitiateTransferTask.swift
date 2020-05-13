@@ -76,7 +76,7 @@ public final class InitiateTransferTask {
                 // Error handling
                 break
             case .unknown:
-                // Error handling
+                // Error handling?
                 break
             }
         } catch {
