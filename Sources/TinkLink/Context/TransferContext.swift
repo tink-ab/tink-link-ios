@@ -5,6 +5,11 @@ public final class TransferContext {
     private let transferService: TransferService
     private let credentialsService: CredentialsService
 
+    public enum DestinationAccountKind {
+        case all
+        case availableForAccount(Transfer.TransferEntityURI)
+    }
+
     public convenience init(tink: Tink = .shared) {
         let transferService = RESTTransferService(client: tink.client)
         let credentialsService = RESTCredentialsService(client: tink.client)
@@ -55,5 +60,9 @@ public final class TransferContext {
 
     public func sourceAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: [], completion: completion)
+    }
+
+    public func destinationAccounts(destinationKind: DestinationAccountKind = .all, completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+        return nil
     }
 }
