@@ -50,3 +50,22 @@ extension RefreshCredentialsTask.Error: LocalizedError {
         }
     }
 }
+
+extension InitiateTransferTask.Error: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .cancelled:
+            return "Cancelled"
+        case .failed:
+            return "Failed"
+        }
+    }
+
+    public var failureReason: String? {
+        switch self {
+        case .cancelled(let payload),
+             .failed(let payload):
+            return payload
+        }
+    }
+}

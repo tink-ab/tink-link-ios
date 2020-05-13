@@ -10,6 +10,11 @@ public final class InitiateTransferTask {
         case executing(status: String)
     }
 
+    public enum Error: Swift.Error {
+        case cancelled(String?)
+        case failed(String?)
+    }
+
     private(set) public var signableOperation: SignableOperation?
 
     var canceller: Cancellable?
@@ -18,14 +23,14 @@ public final class InitiateTransferTask {
     private let credentialsService: CredentialsService
     private let appUri: URL
     private let progressHandler: (Status) -> Void
-    private let completionHandler: (Result<SignableOperation, Error>) -> Void
+    private let completionHandler: (Result<SignableOperation, Swift.Error>) -> Void
 
     private var transferStatusPollingTask: TransferStatusPollingTask?
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private var isCancelled = false
 
-    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, completionHandler: @escaping (Result<SignableOperation, Error>) -> Void) {
+    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, completionHandler: @escaping (Result<SignableOperation, Swift.Error>) -> Void) {
         self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri
@@ -70,13 +75,11 @@ public final class InitiateTransferTask {
             case .executed:
                 complete(with: result)
             case .cancelled:
-                // Error handling
-                break
+                complete(with: .failure(Error.cancelled(signableOperation.statusMessage)))
             case .failed:
-                // Error handling
-                break
+                complete(with: .failure(Error.failed(signableOperation.statusMessage)))
             case .unknown:
-                // Error handling
+                // Error handling?
                 break
             }
         } catch {
