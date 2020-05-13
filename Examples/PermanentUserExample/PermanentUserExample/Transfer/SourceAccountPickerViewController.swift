@@ -11,8 +11,12 @@ class SourceAccountPickerViewController: UITableViewController {
     weak var delegate: SourceAccountPickerViewControllerDelegate?
 
     private var sourceAccounts: [Account] = []
+    private let selectedAccount: Account?
 
-    init() {
+    private var canceller: RetryCancellable?
+
+    init(selectedAccount: Account? = nil) {
+        self.selectedAccount = selectedAccount
         super.init(style: .plain)
         title = "Accounts"
     }
@@ -21,12 +25,16 @@ class SourceAccountPickerViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        canceller?.cancel()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
-        transferContext.sourceAccounts { [weak self] (result) in
+        canceller = transferContext.sourceAccounts { [weak self] (result) in
             DispatchQueue.main.async {
                 do {
                     self?.sourceAccounts = try result.get()
@@ -46,6 +54,7 @@ class SourceAccountPickerViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let account = sourceAccounts[indexPath.row]
         cell.textLabel?.text = account.name
+        cell.accessoryType = account.id == selectedAccount?.id ? .checkmark : .none
         return cell
     }
 

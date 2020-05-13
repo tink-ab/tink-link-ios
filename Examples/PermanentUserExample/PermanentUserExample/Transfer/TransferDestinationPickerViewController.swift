@@ -11,9 +11,11 @@ class TransferDestinationPickerViewController: UITableViewController {
     weak var delegate: TransferDestinationPickerViewControllerDelegate?
 
     private let transferDestinations: [TransferDestination]
+    private let selectedTransferDestination: TransferDestination?
 
-    init(sourceAccount: Account) {
+    init(sourceAccount: Account, selectedTransferDestination: TransferDestination? = nil) {
         self.transferDestinations = sourceAccount.transferDestinations ?? []
+        self.selectedTransferDestination = selectedTransferDestination
         super.init(style: .plain)
         title = "Transfer Destinations"
     }
@@ -36,6 +38,7 @@ class TransferDestinationPickerViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let transferDestination = transferDestinations[indexPath.row]
         cell.textLabel?.text = transferDestination.name
+        cell.accessoryType = transferDestination.uri?.value == selectedTransferDestination?.uri?.value ? .checkmark : .none
         return cell
     }
 
