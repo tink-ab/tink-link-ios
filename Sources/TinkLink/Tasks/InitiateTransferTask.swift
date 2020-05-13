@@ -47,24 +47,22 @@ public final class InitiateTransferTask {
         if isCancelled { return }
 
         handleUpdate(for: .success(signableOperation))
-        transferStatusPollingTask = PollingTask(
+        transferStatusPollingTask = TransferStatusPollingTask(
             pollingID: transferID,
-            initialStatus: signableOperation,
-            pollingRequest: transferService.transferStatus,
-            pollingPredicate: { (currentState, updatedState) -> Bool in
-                guard let currentState = currentState else { return true }
-                return currentState.updated != updatedState.updated || currentState.status != updatedState.status
+            initialValue: signableOperation,
+            request: transferService.transferStatus,
+            predicate: { (old, new) -> Bool in
+                return old.updated != new.updated || old.status != new.status
         }) { [weak self] result in
             self?.handleUpdate(for: result)
         }
 
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
             pollingID: credentialsID,
-            initialStatus: nil,
-            pollingRequest: credentialsService.credentials,
-            pollingPredicate: {  (currentState, updatedState) -> Bool in
-                guard let currentState = currentState else { return true }
-                return currentState.statusUpdated != updatedState.statusUpdated || currentState.status != updatedState.status
+            initialValue: nil,
+            request: credentialsService.credentials,
+            predicate: {  (old, new) -> Bool in
+                return old.statusUpdated != new.statusUpdated || old.status != new.status
         }) { [weak self] result in
             self?.handleUpdate(for: result)
         }

@@ -111,11 +111,10 @@ public final class AddCredentialsTask: Identifiable {
         handleUpdate(for: .success(credentials))
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
             pollingID: credentials.id,
-            initialStatus: credentials,
-            pollingRequest: credentialsService.credentials,
-            pollingPredicate: {  (currentState, updatedState) -> Bool in
-                guard let currentState = currentState else { return true }
-                return currentState.statusUpdated != updatedState.statusUpdated || currentState.status != updatedState.status
+            initialValue: credentials,
+            request: credentialsService.credentials,
+            predicate: {  (old, new) -> Bool in
+                return old.statusUpdated != new.statusUpdated || old.status != new.status
         }) { [weak self] result in
             self?.handleUpdate(for: result)
         }

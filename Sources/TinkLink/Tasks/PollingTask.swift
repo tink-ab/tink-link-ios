@@ -1,24 +1,24 @@
 import Foundation
 
 final class PollingTask<ID, Model> {
-    private let pollingRequest: (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?
-    private let pollingID: ID
-    private let pollingPredicate: (_ current: Model?, _ updated: Model) -> Bool
+    private let request: (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?
+    private let id: ID
+    private let predicate: (_ old: Model, _ new: Model) -> Bool
     private let updateHandler: (Result<Model, Error>) -> Void
     private let applicationObserver = ApplicationObserver()
     private let retryInterval: TimeInterval = 1
 
-    private var pollingResponseStatus: Model?
+    private var responseValue: Model?
     private var callRetryCancellable: RetryCancellable?
 
     private var isPaused = true
     private var isActive = true
 
-    init(pollingID: ID, initialStatus: Model?, pollingRequest: @escaping (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?, pollingPredicate: @escaping (_ current: Model?, _ updated: Model) -> Bool, updateHandler: @escaping (Result<Model, Error>) -> Void) {
-        self.pollingID = pollingID
-        self.pollingResponseStatus = initialStatus
-        self.pollingPredicate = pollingPredicate
-        self.pollingRequest = pollingRequest
+    init(pollingID: ID, initialValue: Model?, request: @escaping (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?, predicate: @escaping (_ old: Model, _ new: Model) -> Bool, updateHandler: @escaping (Result<Model, Error>) -> Void) {
+        self.id = pollingID
+        self.responseValue = initialValue
+        self.predicate = predicate
+        self.request = request
         self.updateHandler = updateHandler
 
         applicationObserver.didBecomeActive = { [weak self] in
@@ -53,7 +53,7 @@ final class PollingTask<ID, Model> {
             return
         }
 
-        callRetryCancellable = pollingRequest(pollingID) { [weak self] result in
+        callRetryCancellable = request(id) { [weak self] result in
             guard let self = self else { return }
             self.callRetryCancellable = nil
             do {
