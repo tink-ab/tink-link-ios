@@ -33,7 +33,6 @@ public final class ProviderContext {
     /// Creates a context to access providers that matches the provided attributes.
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
-    /// - Parameter user: `User` that will be used for fetching providers with the Tink API.
     public convenience init(tink: Tink = .shared) {
         let service = RESTProviderService(client: tink.client)
         self.init(tink: tink, providerService: service)
@@ -52,7 +51,7 @@ public final class ProviderContext {
     /// - Parameter completion: A result representing either a list of providers or an error.
     @discardableResult
     public func fetchProviders(attributes: Attributes = .default, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
-        return service.providers(market: nil, capabilities: attributes.capabilities, includeTestProviders: attributes.kinds.contains(.test)) { result in
+        return service.providers(id: nil, capabilities: attributes.capabilities, includeTestProviders: attributes.kinds.contains(.test)) { result in
             do {
                 let fetchedProviders = try result.get()
                 let filteredProviders = fetchedProviders.filter { attributes.accessTypes.contains($0.accessType) && attributes.kinds.contains($0.kind) }
@@ -62,4 +61,27 @@ public final class ProviderContext {
             }
         }
     }
+
+    // MARK: - Fetching one specific provider
+
+    /// Fetches a specific provider matching the provided id.
+    ///
+    /// - Parameter id: ID of provider to fetch.
+    /// - Parameter completion: A result representing either a single provider or an error.
+    @discardableResult
+    public func fetchProvider(with id: Provider.ID, completion: @escaping (Result<Provider, Error>) -> Void) -> RetryCancellable? {
+
+        return service.providers(id: id, capabilities: nil, includeTestProviders: true) { result in
+            do {
+                let fetchedProviders = try result.get()
+                if let provider = fetchedProviders.first {
+                    completion(.success(provider))
+                } else {
+                    throw ServiceError.notFound("")
+                }
+               } catch {
+                   completion(.failure(error))
+               }
+           }
+       }
 }

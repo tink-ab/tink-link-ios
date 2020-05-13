@@ -30,25 +30,40 @@ final class ProviderController {
     private(set) var isFetching = false
     private(set) var error: Swift.Error?
     private var providers: [Provider] = []
-    private var providerContext: ProviderContext?
-    private var providerKinds: Set<Provider.Kind>
+    private lazy var providerContext = ProviderContext(tink: tink)
+    private let providerPredicate: TinkLinkViewController.ProviderPredicate
 
-    init(tink: Tink, providerKinds: Set<Provider.Kind>) {
+    init(tink: Tink, providerPredicate: TinkLinkViewController.ProviderPredicate = .kinds(.defaultKinds)) {
         self.tink = tink
-        self.providerKinds = providerKinds
+        self.providerPredicate = providerPredicate
     }
 
-    func performFetch() {
+    func fetch(completion: ((Result<[Provider], Swift.Error>) -> Void)? = nil) {
         guard !isFetching else { return }
-        if providerContext == nil {
-            providerContext = ProviderContext(tink: tink)
-        }
-        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: providerKinds, accessTypes: .all)
-        NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)
         isFetching = true
+        NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)
         tink._beginUITask()
         defer { tink._endUITask() }
-        providerContext?.fetchProviders(attributes: attributes, completion: { [weak self] result in
+
+        switch providerPredicate {
+        case .name(let id):
+            fetchProvider(with: id) { result in
+                do {
+                    let provider = try result.get()
+                    completion?(.success([provider]))
+                } catch {
+                    completion?(.failure(error))
+                }
+            }
+        case .kinds(let kinds):
+            fetchProviders(kinds: kinds, completion: completion)
+        }
+    }
+
+    private func fetchProviders(kinds: Set<Provider.Kind>, completion: ((Result<[Provider], Swift.Error>) -> Void)? = nil) {
+
+        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: kinds, accessTypes: .all)
+        providerContext.fetchProviders(attributes: attributes, completion: { [weak self] result in
 
             self?.isFetching = false
             do {
@@ -59,11 +74,30 @@ final class ProviderController {
                 DispatchQueue.main.async {
                     self?.providers = providers
                     self?.financialInstitutionGroupNodes = tree.financialInstitutionGroups
+                    completion?(.success(providers))
                     NotificationCenter.default.post(name: .providerControllerDidUpdateProviders, object: self)
                 }
             } catch {
                 self?.error = Error(fetchProviderError: error) ?? error
+                completion?(.failure(Error(fetchProviderError: error) ?? error))
                 NotificationCenter.default.post(name: .providerControllerDidFailWithError, object: self)
+            }
+        })
+    }
+
+    private func fetchProvider(with id: Provider.ID, completion: @escaping ((Result<Provider, Swift.Error>) -> Void)) {
+
+        providerContext.fetchProvider(with: id, completion: { [weak self] result in
+
+            self?.isFetching = false
+            do {
+                let provider = try result.get()
+                DispatchQueue.main.async {
+                    completion(Result.success(provider))
+                }
+            } catch {
+                self?.error = Error(fetchProviderError: error) ?? error
+                completion(.failure(Error(fetchProviderError: error) ?? error))
             }
         })
     }

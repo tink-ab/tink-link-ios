@@ -138,7 +138,7 @@ public struct Provider: Identifiable {
         /// The provider can fetch identity data.
         public static let identityData = Capabilities(rawValue: 1 << 10)
         /// The provider can fetch e-invoice data.
-        public static let eInvoices = Capabilities(rawValue: 1 << 10)
+        public static let eInvoices = Capabilities(rawValue: 1 << 11)
         /// A list representing all possible capabilities.
         public static let all: Capabilities = [.transfers, .mortgageAggregation, .checkingAccounts, .savingsAccounts, .creditCards, .investments, .loans, .payments, .mortgageLoan, .identityData]
     }

@@ -10,6 +10,7 @@ struct CredentialsDetailView: View {
     @State private var isRefreshing = false
     @State private var isAuthenticating = false
     @State private var isUpdating = false
+    @State private var isDeleting = false
 
     private var updatedCredentials: Credentials {
         credentialsController.credentials.first(where: { $0.id == credentials.id }) ?? credentials
@@ -51,6 +52,13 @@ struct CredentialsDetailView: View {
                 }
                 .disabled(isAuthenticating)
             }
+            Section {
+                Button(action: delete) {
+                    Text("Delete")
+                }
+                .disabled(isDeleting)
+                .foregroundColor(.red)
+            }
         }
         .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
         .sheet(item: .init(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) { (task) in
@@ -82,5 +90,10 @@ struct CredentialsDetailView: View {
         credentialsController.performAuthentication(credentials: credentials) { (result) in
             self.isAuthenticating = false
         }
+    }
+
+    private func delete() {
+        isDeleting = true
+        credentialsController.deleteCredentials(credentials: [credentials])
     }
 }

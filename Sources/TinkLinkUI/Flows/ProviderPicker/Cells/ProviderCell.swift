@@ -16,18 +16,17 @@ class ProviderCell: UITableViewCell, ReusableCell {
     }
 
     private let iconSize: CGFloat = 40
-    private let iconTitleSpacing: CGFloat = 24
+    private let iconTitleSpacing: CGFloat = 16
 
     private func setup() {
         selectionStyle = .none
-
-        backgroundColor = .clear
-        contentView.backgroundColor = Color.background
+        accessoryType = .disclosureIndicator
+        backgroundColor = Color.background
 
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
 
-        contentView.layoutMargins = .init(top: 24, left: 20, bottom: 24, right: 20)
+        contentView.layoutMargins = .init(top: 32, left: 24, bottom: 32, right: 16)
 
         iconView.contentMode = .scaleAspectFit
         iconView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,8 +36,8 @@ class ProviderCell: UITableViewCell, ReusableCell {
         titleLabel.font = Font.body
         titleLabel.textColor = Color.label
 
-        separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing
-        separatorInset.right = layoutMargins.right
+        separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
+        separatorInset.right = contentView.layoutMargins.right
 
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: iconSize),
@@ -62,14 +61,14 @@ class ProviderCell: UITableViewCell, ReusableCell {
     override func layoutMarginsDidChange() {
         super.layoutMarginsDidChange()
 
-        separatorInset.left = layoutMargins.left + iconSize + iconTitleSpacing
+        separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
     }
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
 
         let applyHighlight = {
-            self.contentView.backgroundColor = highlighted ? Color.accentBackground : Color.background
+            self.backgroundColor = highlighted ? Color.accentBackground : Color.background
         }
 
         if animated {

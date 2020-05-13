@@ -15,8 +15,11 @@ final class QRImageViewController: UIViewController {
     weak var delegate: QRImageViewControllerDelegate?
 
     init(qrImage: UIImage) {
-        imageView.image = qrImage
-
+        if let image = qrImage.cgImage?.withMaskedWhiteChannel {
+            imageView.image = UIImage(cgImage: image).withRenderingMode(.alwaysTemplate)
+        } else {
+            imageView.image = qrImage
+        }
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -31,15 +34,16 @@ final class QRImageViewController: UIViewController {
     }
 
     private func setup() {
-        navigationItem.title = "Supplemental Information"
+        navigationItem.title = Strings.SupplementalInformation.Form.title
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
 
         view.backgroundColor = Color.background
 
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.magnificationFilter = .nearest
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        borderedCornersView.tintColor = Color.separator
+        borderedCornersView.tintColor = Color.accent
         borderedCornersView.translatesAutoresizingMaskIntoConstraints = false
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -47,14 +51,14 @@ final class QRImageViewController: UIViewController {
         subtitleLabel.textColor = Color.label
         subtitleLabel.numberOfLines = 0
         subtitleLabel.textAlignment = .center
-        subtitleLabel.text = "Open the BankID app"
+        subtitleLabel.text = Strings.SupplementalInformation.qrCodeTitle
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         descriptionLabel.font = Font.footnote
         descriptionLabel.textColor = Color.label
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center
-        descriptionLabel.text = "Open the Mobile Bank ID app and scan this QR code to authenticate"
+        descriptionLabel.text = Strings.SupplementalInformation.qrCodeDescription
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         stackView.axis = .vertical
