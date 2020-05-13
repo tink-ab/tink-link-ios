@@ -17,23 +17,24 @@ public struct Transfer {
         public let value: String
     }
 
+    /// The uri used to describe a transfer entity
     public struct TransferEntityURI {
-        // TODO: This seems the model for Sweden?
-        public enum UriScheme: String {
+        enum UriScheme: String {
             case sepaEur = "sepa-eur"
             case seBg = "se-bg"
             case sePg = "se-pg"
         }
 
         /// Create a transfer entity uri with an acceptable scheme and a host
-        public init(scheme: UriScheme, host: String) {
+        init(scheme: UriScheme, host: String) {
             value = "\(scheme.rawValue)://\(host)"
         }
 
-        public init(_ value: String) {
+        init(_ value: String) {
             self.value = value
         }
 
+        /// The value of the transfer entity uri
         public let value: String
     }
 
