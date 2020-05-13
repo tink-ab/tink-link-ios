@@ -21,7 +21,7 @@ There are two targets TinkLink and TinkLinkUI in the package Tink Link.
 
 See the difference about the [permanent user and temporary user](https://docs.tink.com/resources/tutorials/permanent-users)
 
-### Integrate TinkLink into your project using Swift Package Manager or CocoaPods
+### Integrate TinkLink into your project using Swift Package Manager, CocoaPods or Carthage
 
 #### Swift Package Manager
 
@@ -36,6 +36,12 @@ Add `pod 'TinkLink'` to your project's Podfile. Run `pod install` to install the
 When finished, you should be able to `import TinkLink` within your project.
 
 Use `pod update TinkLink` to update to the newer version.
+
+#### Using Carthage
+
+Add `github "tink-ab/tink-link-ios"` to your project's Cartfile. Run `carthage bootstrap` to install TinkLink.
+
+When finished, you should be able to `import TinkLink` within your project.
 
 ### Integrate TinkLinkUI into your project using CocoaPods.
 #### Using CocoaPods
