@@ -1,21 +1,24 @@
 import Foundation
 
-// TODO: Abstruct this and credentials status polling into a common class
-final class TransferStatusPollingTask {
-    private let service: TransferService
-    private let updateHandler: (Result<SignableOperation, Error>) -> Void
+final class PollingTask<ID, Model> {
+    private let request: (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?
+    private let id: ID
+    private let predicate: (_ old: Model, _ new: Model) -> Bool
+    private let updateHandler: (Result<Model, Error>) -> Void
     private let applicationObserver = ApplicationObserver()
     private let retryInterval: TimeInterval = 1
 
-    private var signableOperation: SignableOperation
+    private var responseValue: Model?
     private var callRetryCancellable: RetryCancellable?
 
     private var isPaused = true
     private var isActive = true
 
-    init(transferService: TransferService, signableOperation: SignableOperation, updateHandler: @escaping (Result<SignableOperation, Error>) -> Void) {
-        self.service = transferService
-        self.signableOperation = signableOperation
+    init(id: ID, initialValue: Model?, request: @escaping (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?, predicate: @escaping (_ old: Model, _ new: Model) -> Bool, updateHandler: @escaping (Result<Model, Error>) -> Void) {
+        self.id = id
+        self.responseValue = initialValue
+        self.predicate = predicate
+        self.request = request
         self.updateHandler = updateHandler
 
         applicationObserver.didBecomeActive = { [weak self] in
@@ -46,33 +49,26 @@ final class TransferStatusPollingTask {
     }
 
     private func pollStatus() {
-
-        guard let transferID = signableOperation.transferID else {
-            // TODO: Call handler with error if cannot find transferID
-            return
-        }
-
         if isPaused || !isActive {
             return
         }
 
-        callRetryCancellable = service.transferStatus(transferID: transferID) { [weak self] result in
+        callRetryCancellable = request(id) { [weak self] result in
             guard let self = self else { return }
             self.callRetryCancellable = nil
             do {
-                let signableOperation = try result.get()
+                let newValue = try result.get()
 
                 defer {
                     self.retry()
                 }
 
-                // Check if the operation really updated
-                guard signableOperation.updated != self.signableOperation.updated || signableOperation.status != self.signableOperation.status else {
+                if let oldValue = self.responseValue, !self.predicate(oldValue, newValue) {
                     return
                 }
 
-                self.signableOperation = signableOperation
-                self.updateHandler(.success(signableOperation))
+                self.responseValue = newValue
+                self.updateHandler(.success(newValue))
             } catch {
                 self.updateHandler(.failure(error))
             }
@@ -90,4 +86,5 @@ final class TransferStatusPollingTask {
         callRetryCancellable?.cancel()
         isPaused = true
     }
+
 }

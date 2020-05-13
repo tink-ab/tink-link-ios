@@ -2,6 +2,9 @@ import Foundation
 
 public final class InitiateTransferTask {
 
+    typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
+    typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
+
     public enum Status {
         case created
         case authenticating
@@ -39,7 +42,7 @@ public final class InitiateTransferTask {
     }
 
     func startObserving(_ signableOperation: SignableOperation) {
-        guard let credentialsID = signableOperation.credentialsID else {
+        guard let credentialsID = signableOperation.credentialsID, let transferID = signableOperation.transferID else {
             // TODO: Error handling
             complete(with: .failure(CocoaError(.coderValueNotFound)))
             return
@@ -49,11 +52,23 @@ public final class InitiateTransferTask {
         if isCancelled { return }
 
         handleUpdate(for: .success(signableOperation))
-        transferStatusPollingTask = TransferStatusPollingTask(transferService: transferService, signableOperation: signableOperation) { [weak self] result in
+        transferStatusPollingTask = TransferStatusPollingTask(
+            id: transferID,
+            initialValue: signableOperation,
+            request: transferService.transferStatus,
+            predicate: { (old, new) -> Bool in
+                return old.updated != new.updated || old.status != new.status
+        }) { [weak self] result in
             self?.handleUpdate(for: result)
         }
 
-        credentialsStatusPollingTask = CredentialsStatusPollingTask(credentialsService: credentialsService, credentialsID: credentialsID, initialStatus: .created) { [weak self] result in
+        credentialsStatusPollingTask = CredentialsStatusPollingTask(
+            id: credentialsID,
+            initialValue: nil,
+            request: credentialsService.credentials,
+            predicate: {  (old, new) -> Bool in
+                return old.statusUpdated != new.statusUpdated || old.status != new.status
+        }) { [weak self] result in
             self?.handleUpdate(for: result)
         }
 
