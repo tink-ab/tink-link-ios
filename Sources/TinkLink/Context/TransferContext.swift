@@ -27,7 +27,8 @@ public final class TransferContext {
         credentialsID: Credentials.ID,
         sourceURI: Transfer.TransferEntityURI,
         destinationURI: Transfer.TransferEntityURI,
-        message: String,
+        sourceMessage: String? = nil,
+        destinationMessage: String,
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void,
         completion: @escaping (Result<SignableOperation, Error>) -> Void
     ) -> InitiateTransferTask? {
@@ -38,8 +39,8 @@ public final class TransferContext {
             id: nil,
             credentialsID: credentialsID,
             currency: amount.currencyCode,
-            sourceMessage: message,
-            destinationMessage: message,
+            sourceMessage: sourceMessage,
+            destinationMessage: destinationMessage,
             dueDate: nil,
             destinationUri: destinationURI,
             sourceUri: sourceURI
