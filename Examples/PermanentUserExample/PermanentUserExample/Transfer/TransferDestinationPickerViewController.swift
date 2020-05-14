@@ -38,7 +38,7 @@ class TransferDestinationPickerViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let transferDestination = transferDestinations[indexPath.row]
         cell.textLabel?.text = transferDestination.name
-        cell.accessoryType = transferDestination.uri?.value == selectedTransferDestination?.uri?.value ? .checkmark : .none
+        cell.accessoryType = transferDestination == selectedTransferDestination ? .checkmark : .none
         return cell
     }
 
