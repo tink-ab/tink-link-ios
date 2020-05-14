@@ -10,7 +10,7 @@ extension Account {
         self.name = account.name
         self.ownership = account.ownership
         self.kind = Account.Kind(restAccountType: account.type)
-        self.identifiers = Account.makeTransferEntityURI(identifiers: account.identifiers)
+        self.transferSourceIdentifiers = Account.makeTransferEntityURI(identifiers: account.identifiers)
         self.transferDestinations = account.transferDestinations?.compactMap { TransferDestination(restTransferDestination: $0) }
         self.details = account.details.flatMap { AccountDetails(restAccountDetails: $0) }
         self.holderName = account.holderName

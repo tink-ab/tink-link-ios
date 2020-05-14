@@ -24,22 +24,29 @@ public final class TransferContext {
 
     public func initiateTransfer(
         amount: CurrencyDenominatedAmount,
-        credentialsID: Credentials.ID,
-        sourceURI: Transfer.TransferEntityURI,
-        destinationURI: Transfer.TransferEntityURI,
-        message: String,
+        source: Account,
+        destination: TransferDestination,
+        sourceMessage: String? = nil,
+        destinationMessage: String,
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void,
         completion: @escaping (Result<SignableOperation, Error>) -> Void
     ) -> InitiateTransferTask? {
+        guard let sourceURI = source.transferSourceIdentifiers?.first else {
+            preconditionFailure("Source account doesn't have a URI.")
+        }
+        guard let destinationURI = destination.uri else {
+            preconditionFailure("Transfer destination doesn't have a URI.")
+        }
+
         let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, completionHandler: completion)
 
         let transfer = Transfer(
             amount: amount.value,
             id: nil,
-            credentialsID: credentialsID,
+            credentialsID: source.credentialsID,
             currency: amount.currencyCode,
-            sourceMessage: message,
-            destinationMessage: message,
+            sourceMessage: sourceMessage,
+            destinationMessage: destinationMessage,
             dueDate: nil,
             destinationUri: destinationURI,
             sourceUri: sourceURI

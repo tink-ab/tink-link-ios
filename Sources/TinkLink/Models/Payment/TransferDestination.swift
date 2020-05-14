@@ -1,8 +1,8 @@
 import Foundation
 
-public struct TransferDestination {
+public struct TransferDestination: Equatable {
 
-    public enum Kind {
+    public enum Kind: Equatable {
         case checking
         case savings
         case investment
@@ -22,7 +22,7 @@ public struct TransferDestination {
     public let displayAccountNumber: String?
 
     /// The uri used to describe this destination.
-    public let uri: Transfer.TransferEntityURI?
+    let uri: Transfer.TransferEntityURI?
 
     /// The name of the destination if one exists.
     public let name: String?
