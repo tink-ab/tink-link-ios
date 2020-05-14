@@ -5,6 +5,11 @@ public final class TransferContext {
     private let transferService: TransferService
     private let credentialsService: CredentialsService
 
+    public enum DestinationAccountKind {
+        case all
+        case availableForAccount(Transfer.TransferEntityURI)
+    }
+
     public convenience init(tink: Tink = .shared) {
         let transferService = RESTTransferService(client: tink.client)
         let credentialsService = RESTCredentialsService(client: tink.client)
@@ -51,7 +56,34 @@ public final class TransferContext {
         return task
     }
 
-    public func sourceAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+    public func fetchSourceAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: [], completion: completion)
+    }
+
+    public func fetchDestinationAccounts(forSource account: Account, completion: @escaping (Result<[TransferDestination], Error>) -> Void) -> RetryCancellable? {
+        return transferService.accounts(destinationUris: []) { result in
+            do {
+                let accounts = try result.get()
+                let transferDestinations = accounts.first { $0.id == account.id }?.transferDestinations ?? []
+                completion(.success(transferDestinations))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
+    public func fetchAllDestinationAccounts(completion: @escaping (Result<[Account.ID: [TransferDestination]], Error>) -> Void) -> RetryCancellable? {
+        transferService.accounts(destinationUris: []) { result in
+            do {
+                let accounts = try result.get()
+                let mappedTransferDestinations = accounts.reduce(into: [Account.ID: [TransferDestination]]()) {
+                    let destinations = $1.transferDestinations ?? []
+                    $0[$1.id] = destinations
+                }
+                completion(.success(mappedTransferDestinations))
+            } catch {
+                completion(.failure(error))
+            }
+        }
     }
 }
