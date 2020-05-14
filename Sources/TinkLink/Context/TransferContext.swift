@@ -62,8 +62,16 @@ public final class TransferContext {
         return transferService.accounts(destinationUris: [], completion: completion)
     }
 
-    public func fetchDestinationAccounts(forSourceAccount sourceUri: Transfer.TransferEntityURI, completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
-        return nil
+    public func fetchDestinationAccounts(forSource account: Account, completion: @escaping (Result<[TransferDestination], Error>) -> Void) -> RetryCancellable? {
+        return transferService.accounts(destinationUris: []) { result in
+            do {
+                let accounts = try result.get()
+                let transferDestinations = accounts.first { $0.id == account.id }?.transferDestinations ?? []
+                completion(.success(transferDestinations))
+            } catch {
+                completion(.failure(error))
+            }
+        }
     }
 
     public func fetchAllDestinationAccounts(completion: @escaping (Result<[Account.ID: [TransferDestination]], Error>) -> Void) -> RetryCancellable? {
