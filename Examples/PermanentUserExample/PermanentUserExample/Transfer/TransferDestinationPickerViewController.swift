@@ -10,11 +10,14 @@ class TransferDestinationPickerViewController: UITableViewController {
 
     weak var delegate: TransferDestinationPickerViewControllerDelegate?
 
-    private let transferDestinations: [TransferDestination]
+    private let sourceAccount: Account
+    private var transferDestinations: [TransferDestination]
     private let selectedTransferDestination: TransferDestination?
+    private var canceller: RetryCancellable?
 
     init(sourceAccount: Account, selectedTransferDestination: TransferDestination? = nil) {
-        self.transferDestinations = sourceAccount.transferDestinations ?? []
+        self.sourceAccount = sourceAccount
+        self.transferDestinations = []
         self.selectedTransferDestination = selectedTransferDestination
         super.init(style: .plain)
         title = "Transfer Destinations"
@@ -26,6 +29,17 @@ class TransferDestinationPickerViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        canceller = transferContext.fetchDestinationAccounts(forSource: sourceAccount) { [weak self] result in
+            DispatchQueue.main.async {
+                do {
+                    self?.transferDestinations = try result.get()
+                    self?.tableView.reloadData()
+                } catch {
+                    // Handle any error
+                }
+            }
+        }
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
