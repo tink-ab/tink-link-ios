@@ -18,8 +18,7 @@ public final class TransferContext {
     }
 
     public func initiateTransfer(
-        amount: ExactNumber,
-        currencyCode: CurrencyCode,
+        amount: CurrencyDenominatedAmount,
         credentialsID: Credentials.ID,
         sourceURI: Transfer.TransferEntityURI,
         destinationURI: Transfer.TransferEntityURI,
@@ -30,10 +29,10 @@ public final class TransferContext {
         let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, completionHandler: completion)
 
         let transfer = Transfer(
-            amount: amount,
+            amount: amount.value,
             id: nil,
             credentialsID: credentialsID,
-            currency: currencyCode,
+            currency: amount.currencyCode,
             sourceMessage: message,
             destinationMessage: message,
             dueDate: nil,
