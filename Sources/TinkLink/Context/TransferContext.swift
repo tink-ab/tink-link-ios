@@ -36,7 +36,6 @@ public final class TransferContext {
             sourceMessage: message,
             destinationMessage: message,
             dueDate: nil,
-            messageType: .freeText,
             destinationUri: destinationURI,
             sourceUri: sourceURI
         )

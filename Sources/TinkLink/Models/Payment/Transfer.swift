@@ -38,11 +38,6 @@ public struct Transfer {
         public let value: String
     }
 
-    public enum MessageType: String {
-        case structured = "STRUCTURED"
-        case freeText = "FREE_TEXT"
-    }
-
     /// The amount that will be transferred. Should be positive.
     public let amount: ExactNumber
     /// The unique identifier of the transfer.
@@ -57,8 +52,6 @@ public struct Transfer {
     public let destinationMessage: String
     /// The date when the payment or bank transfer should be executed. If no dueDate is given, it will be executed immediately.
     public let dueDate: Date?
-    /// Transfe's message type, only required for BE and SEPA-EUR schemes. STRUCTURED is for PAYMENT type transfers and FREE_TEXT is for BANK_TRANSFER type transfers.
-    public let messageType: MessageType
     /// The destination account or recipient of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
     public let destinationUri: TransferEntityURI
     /// The source account of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
