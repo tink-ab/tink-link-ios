@@ -58,11 +58,15 @@ public final class TransferContext {
         return task
     }
 
-    public func sourceAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+    public func fetchSourceAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: [], completion: completion)
     }
 
-    public func destinationAccounts(destinationKind: DestinationAccountKind = .all, completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+    public func fetchDestinationAccounts(forSourceAccount sourceUri: Transfer.TransferEntityURI, completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+        return nil
+    }
+
+    public func fetchAllDestinationAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         return nil
     }
 }
