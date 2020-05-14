@@ -10,7 +10,7 @@ public struct CurrencyDenominatedAmount: Equatable {
     ///
     /// - Parameters:
     ///   - value: The exact value of the amount.
-    ///   - currencyCode: The exact value of the amount.
+    ///   - currencyCode: The ISO 4217 currency code of the amount.
     public init(_ value: ExactNumber, currencyCode: CurrencyCode) {
         self.value = value
         self.currencyCode = currencyCode
@@ -20,7 +20,7 @@ public struct CurrencyDenominatedAmount: Equatable {
     ///
     /// - Parameters:
     ///   - value: The exact value of the amount.
-    ///   - currencyCode: The exact value of the amount.
+    ///   - currencyCode: The ISO 4217 currency code of the amount.
     public init(_ value: Int, currencyCode: CurrencyCode) {
         self.value = ExactNumber(value: value)
         self.currencyCode = currencyCode
@@ -30,7 +30,7 @@ public struct CurrencyDenominatedAmount: Equatable {
     ///
     /// - Parameters:
     ///   - value: The exact value of the amount.
-    ///   - currencyCode: The exact value of the amount.
+    ///   - currencyCode: The ISO 4217 currency code of the amount.
     public init(value: Decimal, currencyCode: CurrencyCode) {
         self.value = ExactNumber(value: value)
         self.currencyCode = currencyCode
