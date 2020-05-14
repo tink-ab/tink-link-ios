@@ -43,7 +43,7 @@ public final class InitiateTransferTask {
 
     func startObserving(_ signableOperation: SignableOperation) {
         guard let transferID = signableOperation.transferID else {
-            complete(with: .failure(Error.failed("Failed to get transferID")))
+            complete(with: .failure(Error.failed("Failed to get transfer ID.")))
             return
         }
 
