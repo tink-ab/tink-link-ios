@@ -17,6 +17,7 @@ public final class InitiateTransferTask {
         /// The authentication failed. The payload from the backend can be found in the associated value.
         case authenticationFailed(String?)
         case disabledCredentials(String?)
+        case sessionExpired(String?)
         case cancelled(String?)
         case failed(String?)
     }
@@ -169,7 +170,7 @@ public final class InitiateTransferTask {
             case .disabled:
                 complete(with: .failure(Error.disabledCredentials(credentials.statusPayload)))
             case .sessionExpired:
-                fatalError("Credentials session shouldn't expire when making a transfer.")
+                complete(with: .failure(Error.sessionExpired(credentials.statusPayload)))
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }
