@@ -137,7 +137,7 @@ final class AddCredentialsSession {
         case .awaitingSupplementalInformation(let supplementInformationTask):
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-        handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
+            handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
         case .updating:
             let status: String
             if let providerID = providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
