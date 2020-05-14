@@ -156,9 +156,9 @@ public final class InitiateTransferTask {
                 credentialsStatusPollingTask?.stopPolling()
                 transferStatusPollingTask?.startPolling()
             case .permanentError:
-                complete(with: .failure(AddCredentialsTask.Error.permanentFailure(credentials.statusPayload)))
+                complete(with: .failure(Error.permanentFailure(credentials.statusPayload)))
             case .temporaryError:
-                complete(with: .failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload)))
+                complete(with: .failure(Error.temporaryFailure(credentials.statusPayload)))
             case .authenticationError:
                 var payload: String
                 // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
@@ -168,7 +168,7 @@ public final class InitiateTransferTask {
                 } else {
                     payload = credentials.statusPayload
                 }
-                complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(payload)))
+                complete(with: .failure(Error.authenticationFailed(payload)))
             case .disabled:
                 fatalError("Credentials shouldn't be disabled when making a transfer.")
             case .sessionExpired:
