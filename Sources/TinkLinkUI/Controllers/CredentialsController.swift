@@ -33,15 +33,15 @@ final class CredentialsController {
     ) -> UpdateCredentialsTask? {
         tink._beginUITask()
         return credentialsContext.update(
-                   credentials,
-                   form: form,
-                   shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
-                   progressHandler: progressHandler,
-                   completion: { [weak tink] result in
-                       tink?._endUITask()
-                       completion(result)
-                   }
-               )
+            credentials,
+            form: form,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
+            progressHandler: progressHandler,
+            completion: { [weak tink] result in
+                tink?._endUITask()
+                completion(result)
+            }
+       )
     }
 
     func refresh(
