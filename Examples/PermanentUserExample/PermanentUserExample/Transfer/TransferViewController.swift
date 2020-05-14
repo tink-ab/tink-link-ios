@@ -58,17 +58,15 @@ extension TransferViewController {
 extension TransferViewController {
     @objc private func transfer(_ sender: Any) {
         guard
-            let sourceAccountIdentifier = sourceAccount?.identifiers?.first,
+            let sourceAccount = sourceAccount,
             let transferDestinationIdentifier = transferDestination?.uri,
-            let credentialsID = sourceAccount?.credentialsID,
-            let balance = sourceAccount?.currencyDenominatedBalance,
+            let balance = sourceAccount.currencyDenominatedBalance,
             let amount = amount
             else { return }
 
         initiateTransferTask = transferContext.initiateTransfer(
             amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-            credentialsID: credentialsID,
-            sourceURI: sourceAccountIdentifier,
+            source: sourceAccount,
             destinationURI: transferDestinationIdentifier,
             destinationMessage: message,
             progressHandler: { [weak self] status in
