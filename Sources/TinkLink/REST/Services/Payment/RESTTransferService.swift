@@ -31,7 +31,7 @@ final class RESTTransferService: TransferService {
             id: transfer.id?.value,
             sourceMessage: transfer.sourceMessage,
             dueDate: transfer.dueDate,
-            messageType: transfer.messageType.rawValue,
+            messageType: nil,
             destinationUri: transfer.destinationUri.value,
             sourceUri: transfer.sourceUri.value
         )
