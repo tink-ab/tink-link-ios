@@ -22,7 +22,7 @@ public struct TransferDestination: Equatable {
     public let displayAccountNumber: String?
 
     /// The uri used to describe this destination.
-    public let uri: Transfer.TransferEntityURI?
+    let uri: Transfer.TransferEntityURI?
 
     /// The name of the destination if one exists.
     public let name: String?
