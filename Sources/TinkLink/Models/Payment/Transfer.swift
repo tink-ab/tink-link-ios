@@ -18,7 +18,7 @@ public struct Transfer {
     }
 
     /// The uri used to describe a transfer entity
-    public struct TransferEntityURI {
+    public struct TransferEntityURI: Equatable {
         enum UriScheme: String {
             case sepaEur = "sepa-eur"
             case seBg = "se-bg"

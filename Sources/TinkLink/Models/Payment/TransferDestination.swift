@@ -1,8 +1,8 @@
 import Foundation
 
-public struct TransferDestination {
+public struct TransferDestination: Equatable {
 
-    public enum Kind {
+    public enum Kind: Equatable {
         case checking
         case savings
         case investment
