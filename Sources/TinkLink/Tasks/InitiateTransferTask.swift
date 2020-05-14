@@ -42,9 +42,8 @@ public final class InitiateTransferTask {
     }
 
     func startObserving(_ signableOperation: SignableOperation) {
-        guard let credentialsID = signableOperation.credentialsID, let transferID = signableOperation.transferID else {
-            // TODO: Error handling
-            complete(with: .failure(CocoaError(.coderValueNotFound)))
+        guard let transferID = signableOperation.transferID else {
+            complete(with: .failure(Error.failed("Failed to get transferID")))
             return
         }
 
