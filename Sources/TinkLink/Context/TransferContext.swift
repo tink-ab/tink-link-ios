@@ -67,6 +67,6 @@ public final class TransferContext {
     }
 
     public func fetchAllDestinationAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
-        return nil
+        return transferService.accounts(destinationUris: [], completion: completion)
     }
 }
