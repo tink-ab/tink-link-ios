@@ -81,7 +81,9 @@ final class AddCredentialsSession {
                 self?.handleUpdateTaskStatus(status)
             }
             }, completion: completion)
+
         providerID = credentials.providerID
+        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
     }
 
     func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -90,6 +92,9 @@ final class AddCredentialsSession {
                 self?.handleUpdateTaskStatus(status)
             }
         }, completion: completion)
+
+        providerID = credentials.providerID
+        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
     }
 
     func authenticateCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -98,7 +103,9 @@ final class AddCredentialsSession {
                 self?.handleUpdateTaskStatus(status)
             }
         }, completion: completion)
+
         providerID = credentials.providerID
+        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
     }
 
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
