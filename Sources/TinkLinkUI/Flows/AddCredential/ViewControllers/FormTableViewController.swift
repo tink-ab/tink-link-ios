@@ -6,6 +6,8 @@ final class FormTableViewController: UITableViewController {
     var onSubmit: (() -> Void)?
     var formDidChange: (() -> Void)?
 
+    var prefillStrategy: TinkLinkViewController.PrefillStrategy = .none
+
     private(set) var form: Form
 
     private var currentScrollPos: CGFloat?
@@ -27,23 +29,24 @@ final class FormTableViewController: UITableViewController {
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let field = form.fields[indexPath.item]
 
         let cell = tableView.dequeueReusableCell(ofType: FormFieldTableViewCell.self, for: indexPath)
         var viewModel = FormFieldTableViewCell.ViewModel(field: field)
-//        switch prefillStrategy {
-//        case .username(value: let name, isEditable: let isEditable):
-//            if indexPath.row == 0 {
-//                var testField = field
-//                testField.text = name
-//                guard testField.isValid else { break }
-//                viewModel.text = name
-//                viewModel.isEditable = isEditable ? field.attributes.isEditable : false
-//            }
-//        case .none:
-//            break
-//        }
+        switch prefillStrategy {
+        case .username(value: let name, isEditable: let isEditable):
+            if indexPath.row == 0 {
+                var testField = field
+                testField.text = name
+                guard testField.isValid else { break }
+                viewModel.text = name
+                viewModel.isEditable = isEditable ? field.attributes.isEditable : false
+            }
+        case .none:
+            break
+        }
         cell.configure(with: viewModel)
         cell.delegate = self
         cell.setError(with: errors[indexPath]?.localizedDescription)
@@ -76,7 +79,7 @@ final class FormTableViewController: UITableViewController {
         } catch {
             assertionFailure("validateFields should only throw Form.ValidationError")
         }
-        return false 
+        return false
     }
 }
 

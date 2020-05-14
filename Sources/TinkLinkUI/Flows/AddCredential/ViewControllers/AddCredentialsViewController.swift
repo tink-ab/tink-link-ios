@@ -13,7 +13,10 @@ final class AddCredentialsViewController: UIViewController {
 
     weak var delegate: AddCredentialsViewControllerDelegate?
 
-    var prefillStrategy: TinkLinkViewController.PrefillStrategy = .none
+    var prefillStrategy: TinkLinkViewController.PrefillStrategy {
+        get { formTableViewController.prefillStrategy }
+        set { formTableViewController.prefillStrategy = newValue }
+    }
 
     private let credentialsController: CredentialsController
     private let clientName: String
