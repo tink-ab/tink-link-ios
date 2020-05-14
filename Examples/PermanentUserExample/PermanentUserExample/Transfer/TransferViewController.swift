@@ -70,7 +70,7 @@ extension TransferViewController {
             credentialsID: credentialsID,
             sourceURI: sourceAccountIdentifier,
             destinationURI: transferDestinationIdentifier,
-            message: message,
+            destinationMessage: message,
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
                     self?.handleTransferProgress(status)
