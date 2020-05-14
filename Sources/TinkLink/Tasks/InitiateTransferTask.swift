@@ -14,6 +14,12 @@ public final class InitiateTransferTask {
     }
 
     public enum Error: Swift.Error {
+        /// The authentication failed. The payload from the backend can be found in the associated value.
+        case authenticationFailed(String)
+        /// A temporary failure occurred. The payload from the backend can be found in the associated value.
+        case temporaryFailure(String)
+        /// A permanent failure occurred. The payload from the backend can be found in the associated value.
+        case permanentFailure(String)
         case cancelled(String?)
         case failed(String?)
     }
