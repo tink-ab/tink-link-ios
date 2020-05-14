@@ -10,7 +10,8 @@ final class AddCredentialsSession {
     private let authorizationController: AuthorizationController
     private let scopes: [Scope]
 
-    private var task: AddCredentialsTask?
+    private var task: Cancellable?
+
     private var supplementInfoTask: SupplementInformationTask?
 
     private var statusViewController: AddCredentialsStatusViewController?
@@ -22,6 +23,7 @@ final class AddCredentialsSession {
     private var authorizationGroup = DispatchGroup()
 
     private var timer: Timer?
+    private var providerID: Provider.ID?
 
     init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
         self.parentViewController = parentViewController
@@ -69,7 +71,34 @@ final class AddCredentialsSession {
                 }
             }
         )
+        providerID = provider.id
         self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+    }
+
+    func updateCredentials(credentials: Credentials, form: Form, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        task = credentialsController.update(credentials, form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
+            DispatchQueue.main.async {
+                self?.handleUpdateTaskStatus(status)
+            }
+            }, completion: completion)
+        providerID = credentials.providerID
+    }
+
+    func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        task = credentialsController.refresh(credentials, progressHandler: { [weak self] status in
+            DispatchQueue.main.async {
+                self?.handleUpdateTaskStatus(status)
+            }
+        }, completion: completion)
+    }
+
+    func authenticateCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        task = credentialsController.authenticate(credentials, progressHandler: { [weak self] status in
+            DispatchQueue.main.async {
+                self?.handleUpdateTaskStatus(status)
+            }
+        }, completion: completion)
+        providerID = credentials.providerID
     }
 
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
@@ -82,7 +111,7 @@ final class AddCredentialsSession {
             handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
         case .updating:
             let status: String
-            if let providerID = task?.credentials?.providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
+            if let providerID = providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
                 let statusFormatText = Strings.AddCredentials.Status.updating
                 status = String(format: statusFormatText, bankName)
             } else {
@@ -91,6 +120,27 @@ final class AddCredentialsSession {
             showUpdating(status: status)
             countUpdatingProcessTime()
             authorizeIfNeeded(onError: onError)
+        }
+    }
+
+    private func handleUpdateTaskStatus(_ status: UpdateCredentialsTask.Status) {
+        switch status {
+        case .authenticating:
+            break
+        case .awaitingSupplementalInformation(let supplementInformationTask):
+            showSupplementalInformation(for: supplementInformationTask)
+        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
+        handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
+        case .updating:
+            let status: String
+            if let providerID = providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
+                let statusFormatText = Strings.AddCredentials.Status.updating
+                status = String(format: statusFormatText, bankName)
+            } else {
+                status = Strings.AddCredentials.Status.updatingFallback
+            }
+            showUpdating(status: status)
+            countUpdatingProcessTime()
         }
     }
 
