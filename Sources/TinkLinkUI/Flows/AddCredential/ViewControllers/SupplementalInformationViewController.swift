@@ -17,7 +17,6 @@ final class SupplementalInformationViewController: UIViewController {
 
     private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
-    private var didFirstFieldBecomeFirstResponder = false
 
     init(supplementInformationTask: SupplementInformationTask) {
         let form = Form(credentials: supplementInformationTask.credentials)

@@ -87,7 +87,6 @@ extension AddCredentialsViewController {
 
         headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 180)
 
-//        view.addSubview(tableView)
         view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
         view.addSubview(button)
