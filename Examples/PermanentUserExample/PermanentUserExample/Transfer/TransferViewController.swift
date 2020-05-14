@@ -66,8 +66,7 @@ extension TransferViewController {
             else { return }
 
         initiateTransferTask = transferContext.initiateTransfer(
-            amount: ExactNumber(value: amount),
-            currencyCode: balance.currencyCode,
+            amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
             credentialsID: credentialsID,
             sourceURI: sourceAccountIdentifier,
             destinationURI: transferDestinationIdentifier,
