@@ -25,7 +25,7 @@ public final class TransferContext {
     public func initiateTransfer(
         amount: CurrencyDenominatedAmount,
         source: Account,
-        destinationURI: Transfer.TransferEntityURI,
+        destination: TransferDestination,
         sourceMessage: String? = nil,
         destinationMessage: String,
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void,
@@ -33,6 +33,9 @@ public final class TransferContext {
     ) -> InitiateTransferTask? {
         guard let sourceURI = source.identifiers?.first else {
             preconditionFailure("Source account doesn't have a URI.")
+        }
+        guard let destinationURI = destination.uri else {
+            preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
         let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, completionHandler: completion)
