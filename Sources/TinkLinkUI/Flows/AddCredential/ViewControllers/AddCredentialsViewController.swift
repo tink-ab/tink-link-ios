@@ -19,11 +19,10 @@ final class AddCredentialsViewController: UIViewController {
     private let clientName: String
     private let isAggregator: Bool
     private let isVerified: Bool
-    private var form: Form
-    private var errors: [IndexPath: Form.Field.ValidationError] = [:]
+
     private let keyboardObserver = KeyboardObserver()
 
-    private lazy var formTableViewController = FormTableViewController(form: form)
+    private let formTableViewController: FormTableViewController
 
     private lazy var helpLabel = AddCredentialsHelpTextView()
     private lazy var headerView = AddCredentialsHeaderView()
@@ -40,7 +39,8 @@ final class AddCredentialsViewController: UIViewController {
 
     init(provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
-        self.form = Form(provider: provider)
+        let form = Form(provider: provider)
+        self.formTableViewController = FormTableViewController(form: form)
         self.credentialsController = credentialsController
         self.clientName = clientName
         self.isAggregator = isAggregator
@@ -119,7 +119,7 @@ extension AddCredentialsViewController {
 
         navigationItem.title = Strings.AddCredentials.Form.title
         navigationItem.largeTitleDisplayMode = .never
-        button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
+        button.isEnabled = formTableViewController.form.fields.filter({ $0.attributes.isEditable }).isEmpty
 
         setupHelpFootnote()
         layoutHelpFootnote()
@@ -127,7 +127,6 @@ extension AddCredentialsViewController {
 
         formTableViewController.formDidChange = { [weak self] in
             guard let self = self else { return }
-            self.form = self.formTableViewController.form
             self.button.isEnabled = self.formTableViewController.form.areFieldsValid
         }
 
@@ -244,26 +243,9 @@ extension AddCredentialsViewController {
     private func addCredential() {
         view.endEditing(false)
 
-        var indexPathsToUpdate = Set(errors.keys)
-        errors = [:]
-
-        do {
-            try form.validateFields()
-            delegate?.addCredential(provider: provider, form: form)
-        } catch let error as Form.ValidationError {
-            for (index, field) in form.fields.enumerated() {
-                guard let error = error[fieldName: field.name] else {
-                    continue
-                }
-                let indexPath = IndexPath(row: index, section: 0)
-                errors[indexPath] = error
-                indexPathsToUpdate.insert(indexPath)
-            }
-        } catch {
-            assertionFailure("validateFields should only throw Form.ValidationError")
+        if formTableViewController.validateFields() {
+            delegate?.addCredential(provider: provider, form: formTableViewController.form)
         }
-
-        formTableViewController.tableView.reloadRows(at: Array(indexPathsToUpdate), with: .automatic)
     }
 
     private func showMoreInfo() {

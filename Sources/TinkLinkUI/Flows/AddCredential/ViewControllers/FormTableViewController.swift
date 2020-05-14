@@ -50,6 +50,34 @@ final class FormTableViewController: UITableViewController {
         cell.textField.returnKeyType = indexPath.row < (form.fields.count - 1) ? .next : .continue
         return cell
     }
+
+    func validateFields() -> Bool {
+        view.endEditing(false)
+
+        var indexPathsToUpdate = Set(errors.keys)
+        errors = [:]
+
+        do {
+            try form.validateFields()
+            tableView.reloadRows(at: Array(indexPathsToUpdate), with: .automatic)
+            return true
+
+        } catch let error as Form.ValidationError {
+            for (index, field) in form.fields.enumerated() {
+                guard let error = error[fieldName: field.name] else {
+                    continue
+                }
+                let indexPath = IndexPath(row: index, section: 0)
+                errors[indexPath] = error
+                indexPathsToUpdate.insert(indexPath)
+                tableView.reloadRows(at: Array(indexPathsToUpdate), with: .automatic)
+                return false
+            }
+        } catch {
+            assertionFailure("validateFields should only throw Form.ValidationError")
+        }
+        return false 
+    }
 }
 
 // MARK: - TextFieldCellDelegate

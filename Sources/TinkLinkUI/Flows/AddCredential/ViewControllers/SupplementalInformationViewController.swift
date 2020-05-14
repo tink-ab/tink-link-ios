@@ -12,18 +12,16 @@ final class SupplementalInformationViewController: UIViewController {
     weak var delegate: SupplementalInformationViewControllerDelegate?
 
     private let button = FloatingButton()
-    private lazy var formTableViewController = FormTableViewController(form: form)
+    private let formTableViewController: FormTableViewController
     private let keyboardObserver = KeyboardObserver()
-
-    private var form: Form
-    private var errors: [IndexPath: Form.Field.ValidationError] = [:]
 
     private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
     private var didFirstFieldBecomeFirstResponder = false
 
     init(supplementInformationTask: SupplementInformationTask) {
-        self.form = Form(credentials: supplementInformationTask.credentials)
+        let form = Form(credentials: supplementInformationTask.credentials)
+        self.formTableViewController = FormTableViewController(form: form)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -48,7 +46,7 @@ extension SupplementalInformationViewController {
         formTableViewController.didMove(toParent: self)
 
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
+        button.isEnabled = formTableViewController.form.fields.filter({ $0.attributes.isEditable }).isEmpty
         button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
         button.text = Strings.SupplementalInformation.Form.submit
 
@@ -72,7 +70,6 @@ extension SupplementalInformationViewController {
 
         formTableViewController.formDidChange = { [weak self] in
             guard let self = self else { return }
-            self.form = self.formTableViewController.form
             self.button.isEnabled = self.formTableViewController.form.areFieldsValid
         }
 
@@ -114,28 +111,9 @@ extension SupplementalInformationViewController {
     }
 
     func submit() {
-        formTableViewController.tableView.resignFirstResponder()
-
-        var indexPathsToUpdate = Set(errors.keys)
-        errors = [:]
-
-        do {
-            try form.validateFields()
-            delegate?.supplementalInformationViewController(self, didPressSubmitWithForm: form)
-        } catch let error as Form.ValidationError {
-            for (index, field) in form.fields.enumerated() {
-                guard let error = error[fieldName: field.name] else {
-                    continue
-                }
-                let indexPath = IndexPath(row: index, section: 0)
-                errors[indexPath] = error
-                indexPathsToUpdate.insert(indexPath)
-            }
-        } catch {
-            assertionFailure("validateFields should only throw Form.ValidationError")
+        if formTableViewController.validateFields() {
+            delegate?.supplementalInformationViewController(self, didPressSubmitWithForm: formTableViewController.form)
         }
-
-        formTableViewController.tableView.reloadRows(at: Array(indexPathsToUpdate), with: .automatic)
     }
 }
 
