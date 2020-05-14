@@ -5,5 +5,14 @@ public struct CurrencyDenominatedAmount: Equatable {
     public let value: ExactNumber
     /// The ISO 4217 currency code of the amount
     public let currencyCode: CurrencyCode
-}
 
+    /// Creates a currency denominated amount with the value specified as an exact number.
+    ///
+    /// - Parameters:
+    ///   - value: The exact value of the amount.
+    ///   - currencyCode: The exact value of the amount.
+    public init(value: ExactNumber, currencyCode: CurrencyCode) {
+        self.value = value
+        self.currencyCode = currencyCode
+    }
+}
