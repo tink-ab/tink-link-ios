@@ -61,16 +61,6 @@ public final class InitiateTransferTask {
             self?.handleUpdate(for: result)
         }
 
-        credentialsStatusPollingTask = CredentialsStatusPollingTask(
-            id: credentialsID,
-            initialValue: nil,
-            request: credentialsService.credentials,
-            predicate: {  (old, new) -> Bool in
-                return old.statusUpdated != new.statusUpdated || old.status != new.status
-        }) { [weak self] result in
-            self?.handleUpdate(for: result)
-        }
-
         transferStatusPollingTask?.startPolling()
     }
 
@@ -83,6 +73,21 @@ public final class InitiateTransferTask {
                 progressHandler(.created)
             case .awaitingCredentials, .awaitingThirdPartyAppAuthentication:
                 transferStatusPollingTask?.stopPolling()
+                if credentialsStatusPollingTask == nil {
+                    guard let credentialsID = signableOperation.credentialsID else {
+                        complete(with: .failure(Error.failed("Failed to get credentialsID")))
+                        return
+                    }
+                    credentialsStatusPollingTask = CredentialsStatusPollingTask(
+                        id: credentialsID,
+                        initialValue: nil,
+                        request: credentialsService.credentials,
+                        predicate: {  (old, new) -> Bool in
+                            return old.statusUpdated != new.statusUpdated || old.status != new.status
+                    }) { [weak self] result in
+                        self?.handleUpdate(for: result)
+                    }
+                }
                 credentialsStatusPollingTask?.startPolling()
             case .executing:
                 progressHandler(.executing(status: signableOperation.statusMessage ?? ""))
