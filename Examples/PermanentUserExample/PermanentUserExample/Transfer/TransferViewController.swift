@@ -59,7 +59,7 @@ extension TransferViewController {
     @objc private func transfer(_ sender: Any) {
         guard
             let sourceAccount = sourceAccount,
-            let transferDestinationIdentifier = transferDestination?.uri,
+            let transferDestination = transferDestination,
             let balance = sourceAccount.currencyDenominatedBalance,
             let amount = amount
             else { return }
@@ -67,7 +67,7 @@ extension TransferViewController {
         initiateTransferTask = transferContext.initiateTransfer(
             amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
             source: sourceAccount,
-            destinationURI: transferDestinationIdentifier,
+            destination: transferDestination,
             destinationMessage: message,
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
