@@ -66,7 +66,18 @@ public final class TransferContext {
         return nil
     }
 
-    public func fetchAllDestinationAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
-        return transferService.accounts(destinationUris: [], completion: completion)
+    public func fetchAllDestinationAccounts(completion: @escaping (Result<[Account.ID: [TransferDestination]], Error>) -> Void) -> RetryCancellable? {
+        transferService.accounts(destinationUris: []) { result in
+            do {
+                let accounts = try result.get()
+                let mappedTransferDestinations = accounts.reduce(into: [Account.ID: [TransferDestination]]()) {
+                    let destinations = $1.transferDestinations ?? []
+                    $0[$1.id] = destinations
+                }
+                completion(.success(mappedTransferDestinations))
+            } catch {
+                completion(.failure(error))
+            }
+        }
     }
 }
