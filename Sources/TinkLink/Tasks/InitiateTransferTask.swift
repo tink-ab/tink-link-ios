@@ -164,9 +164,9 @@ public final class InitiateTransferTask {
                 }
                 complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(payload)))
             case .disabled:
-                fatalError("credentials shouldn't be disabled during creation.")
+                fatalError("Credentials shouldn't be disabled when making a transfer.")
             case .sessionExpired:
-                fatalError("Credential's session shouldn't expire during creation.")
+                fatalError("Credentials session shouldn't expire when making a transfer.")
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }
