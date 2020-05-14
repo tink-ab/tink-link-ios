@@ -12,12 +12,11 @@ final class SupplementalInformationViewController: UIViewController {
     weak var delegate: SupplementalInformationViewControllerDelegate?
 
     private let button = FloatingButton()
-    private let tableView = UITableView(frame: .zero, style: .plain)
+    private lazy var formTableViewController = FormTableViewController(form: form)
     private let keyboardObserver = KeyboardObserver()
 
     private var form: Form
     private var errors: [IndexPath: Form.Field.ValidationError] = [:]
-    private var currentScrollPos: CGFloat?
 
     private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
@@ -43,12 +42,10 @@ extension SupplementalInformationViewController {
         tapGestureRecognizer.delegate = self
         view.addGestureRecognizer(tapGestureRecognizer)
 
-        tableView.registerReusableCell(ofType: FormFieldTableViewCell.self)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
-        tableView.allowsSelection = false
-        tableView.dataSource = self
-        tableView.delegate = self
+        formTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(formTableViewController.view)
+        addChild(formTableViewController)
+        formTableViewController.didMove(toParent: self)
 
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = form.fields.filter({ $0.attributes.isEditable }).isEmpty
@@ -59,20 +56,29 @@ extension SupplementalInformationViewController {
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed(_:)))
 
-        view.addSubview(tableView)
         view.addSubview(button)
 
         buttonBottomConstraint.constant = 24
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            formTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            formTableViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            formTableViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            formTableViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             buttonBottomConstraint,
             buttonWidthConstraint,
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+
+        formTableViewController.formDidChange = { [weak self] in
+            guard let self = self else { return }
+            self.form = self.formTableViewController.form
+            self.button.isEnabled = self.formTableViewController.form.areFieldsValid
+        }
+
+        formTableViewController.onSubmit = { [weak self] in
+            self?.submit()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -84,50 +90,14 @@ extension SupplementalInformationViewController {
         keyboardObserver.willHide = { [weak self] notification in
             self?.keyboardWillHide(notification)
         }
-
-        if !didFirstFieldBecomeFirstResponder, !form.fields.isEmpty, let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FormFieldTableViewCell {
-            cell.textField.becomeFirstResponder()
-            didFirstFieldBecomeFirstResponder = true
-        }
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        tableView.contentInset.top = 16.0
-        tableView.contentInset.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
-        tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : tableView.contentInset.bottom
-    }
-}
-
-// MARK: - UITableViewDataSource
-
-extension SupplementalInformationViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return form.fields.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let field = form.fields[indexPath.row]
-        let cell = tableView.dequeueReusableCell(ofType: FormFieldTableViewCell.self, for: indexPath)
-        cell.delegate = self
-
-        cell.configure(with: FormFieldTableViewCell.ViewModel(field: field))
-        cell.setError(with: errors[indexPath]?.localizedDescription)
-        return cell
-    }
-
-    // To fix the issue for scroll view jumping while animating the cell, inspired by
-    // https://stackoverflow.com/questions/33789807/uitableview-jumps-up-after-begin-endupdates-when-using-uitableviewautomaticdimen
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // Force the tableView to stay at scroll position until animation completes
-        if let currentScrollPos = currentScrollPos {
-            tableView.setContentOffset(CGPoint(x: 0, y: currentScrollPos), animated: false)
-        }
+        formTableViewController.tableView.contentInset.top = 16.0
+        formTableViewController.tableView.contentInset.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
+        formTableViewController.tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : formTableViewController.tableView.contentInset.bottom
     }
 }
 
@@ -139,7 +109,12 @@ extension SupplementalInformationViewController {
     }
 
     @objc private func doneButtonPressed(_ sender: UIBarButtonItem) {
-        tableView.resignFirstResponder()
+        submit()
+
+    }
+
+    func submit() {
+        formTableViewController.tableView.resignFirstResponder()
 
         var indexPathsToUpdate = Set(errors.keys)
         errors = [:]
@@ -160,48 +135,7 @@ extension SupplementalInformationViewController {
             assertionFailure("validateFields should only throw Form.ValidationError")
         }
 
-        tableView.reloadRows(at: Array(indexPathsToUpdate), with: .automatic)
-    }
-}
-
-// MARK: - TextFieldCellDelegate
-
-extension SupplementalInformationViewController: FormFieldTableViewCellDelegate {
-    func formFieldCellShouldReturn(_ cell: FormFieldTableViewCell) -> Bool {
-        // TODO: Fix this
-        return true
-    }
-
-    func formFieldCell(_ cell: FormFieldTableViewCell, willChangeToText text: String) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        form.fields[indexPath.item].text = text
-        errors[indexPath] = nil
-        currentScrollPos = tableView.contentOffset.y
-        tableView.beginUpdates()
-        cell.setError(with: nil)
-        tableView.endUpdates()
-        currentScrollPos = nil
-        button.isEnabled = form.fields[indexPath.item].isValid
-    }
-
-    func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else {
-            return
-        }
-
-        let field = form.fields[indexPath.item]
-
-        do {
-            try field.validate()
-            errors[indexPath] = nil
-        } catch let error as Form.Field.ValidationError {
-            errors[indexPath] = error
-        } catch {
-            print("Unknown error \(error).")
-        }
-        currentScrollPos = tableView.contentOffset.y
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-        currentScrollPos = nil
+        formTableViewController.tableView.reloadRows(at: Array(indexPathsToUpdate), with: .automatic)
     }
 }
 
