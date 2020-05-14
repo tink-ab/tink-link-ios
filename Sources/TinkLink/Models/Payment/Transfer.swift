@@ -39,21 +39,21 @@ public struct Transfer {
     }
 
     /// The amount that will be transferred. Should be positive.
-    public let amount: ExactNumber
+    let amount: ExactNumber
     /// The unique identifier of the transfer.
-    public let id: ID?
+    let id: ID?
     /// The id of the Credentials used to make the transfer. For PIS with AIS will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.
-    public let credentialsID: Credentials.ID
+    let credentialsID: Credentials.ID
     /// The currency of the amount to be transferred. Should match the SourceUri's currency.
-    public let currency: CurrencyCode
+    let currency: CurrencyCode
      /// The transaction description on the source account for the transfer.
-    public let sourceMessage: String?
+    let sourceMessage: String?
     /// The message to the recipient. Optional for bank transfers but required for payments. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
-    public let destinationMessage: String
+    let destinationMessage: String
     /// The date when the payment or bank transfer should be executed. If no dueDate is given, it will be executed immediately.
-    public let dueDate: Date?
+    let dueDate: Date?
     /// The destination account or recipient of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
-    public let destinationUri: TransferEntityURI
+    let destinationUri: TransferEntityURI
     /// The source account of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
-    public let sourceUri: TransferEntityURI
+    let sourceUri: TransferEntityURI
 }
