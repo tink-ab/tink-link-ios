@@ -3,7 +3,7 @@ import Foundation
 /// A task that manages progress of adding a credential.
 ///
 /// Use `CredentialsContext` to create a task.
-public final class AddCredentialsTask: Identifiable {
+public final class AddCredentialsTask: Identifiable, Cancellable {
     /// Indicates the state of a credentials being added.
     ///
     /// - Note: For some states there are actions which need to be performed on the credentials.
