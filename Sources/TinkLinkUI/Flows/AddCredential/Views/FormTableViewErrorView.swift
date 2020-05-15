@@ -8,6 +8,7 @@ final class FormTableViewErrorView: UIView {
     init(errorText: String) {
         super.init(frame: .zero)
         errorLabel.text = errorText
+        setup()
     }
 
     required init?(coder: NSCoder) {
