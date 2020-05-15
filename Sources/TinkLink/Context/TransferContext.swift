@@ -62,7 +62,7 @@ public final class TransferContext {
         return transferService.accounts(destinationUris: [], completion: completion)
     }
 
-    public func fetchDestinationAccounts(forSource account: Account, completion: @escaping (Result<[TransferDestination], Error>) -> Void) -> RetryCancellable? {
+    public func fetchBeneficiaries(forSource account: Account, completion: @escaping (Result<[TransferDestination], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: []) { result in
             do {
                 let accounts = try result.get()
@@ -74,7 +74,7 @@ public final class TransferContext {
         }
     }
 
-    public func fetchAllDestinationAccounts(completion: @escaping (Result<[Account.ID: [TransferDestination]], Error>) -> Void) -> RetryCancellable? {
+    public func fetchAllBeneficiaries(completion: @escaping (Result<[Account.ID: [TransferDestination]], Error>) -> Void) -> RetryCancellable? {
         transferService.accounts(destinationUris: []) { result in
             do {
                 let accounts = try result.get()

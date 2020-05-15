@@ -30,7 +30,7 @@ class TransferDestinationPickerViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        canceller = transferContext.fetchDestinationAccounts(forSource: sourceAccount) { [weak self] result in
+        canceller = transferContext.fetchBeneficiaries(forSource: sourceAccount) { [weak self] result in
             DispatchQueue.main.async {
                 do {
                     self?.transferDestinations = try result.get()
