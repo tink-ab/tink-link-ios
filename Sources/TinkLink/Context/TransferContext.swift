@@ -62,7 +62,7 @@ public final class TransferContext {
         return transferService.accounts(destinationUris: [], completion: completion)
     }
 
-    public func fetchBeneficiaries(forSource account: Account, completion: @escaping (Result<[TransferDestination], Error>) -> Void) -> RetryCancellable? {
+    public func fetchBeneficiaries(for account: Account, completion: @escaping (Result<[TransferDestination], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: []) { result in
             do {
                 let accounts = try result.get()
