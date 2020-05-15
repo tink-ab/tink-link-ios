@@ -21,3 +21,14 @@ public struct Beneficiary: Equatable, Identifiable {
 
     let uri: Transfer.TransferEntityURI?
 }
+
+extension Beneficiary {
+    init(account: Account, transferDestination: TransferDestination) {
+        self.id = .init(transferDestination.uri!.value)
+        self.name = transferDestination.name
+        self.accountID = account.id
+        self.accountNumber = transferDestination.displayAccountNumber!
+        self.kind = String(describing: transferDestination.kind)
+        self.uri = transferDestination.uri
+    }
+}
