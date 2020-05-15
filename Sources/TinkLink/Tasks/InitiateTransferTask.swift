@@ -14,6 +14,10 @@ public final class InitiateTransferTask {
     }
 
     public enum Error: Swift.Error {
+        /// The authentication failed. The payload from the backend can be found in the associated value.
+        case authenticationFailed(String?)
+        case disabledCredentials(String?)
+        case sessionExpired(String?)
         case cancelled(String?)
         case failed(String?)
     }
@@ -150,9 +154,9 @@ public final class InitiateTransferTask {
                 credentialsStatusPollingTask?.stopPolling()
                 transferStatusPollingTask?.startPolling()
             case .permanentError:
-                complete(with: .failure(AddCredentialsTask.Error.permanentFailure(credentials.statusPayload)))
+                complete(with: .failure(Error.failed(credentials.statusPayload)))
             case .temporaryError:
-                complete(with: .failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload)))
+                complete(with: .failure(Error.failed(credentials.statusPayload)))
             case .authenticationError:
                 var payload: String
                 // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
@@ -162,11 +166,11 @@ public final class InitiateTransferTask {
                 } else {
                     payload = credentials.statusPayload
                 }
-                complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(payload)))
+                complete(with: .failure(Error.authenticationFailed(payload)))
             case .disabled:
-                fatalError("credentials shouldn't be disabled during creation.")
+                complete(with: .failure(Error.disabledCredentials(credentials.statusPayload)))
             case .sessionExpired:
-                fatalError("Credential's session shouldn't expire during creation.")
+                complete(with: .failure(Error.sessionExpired(credentials.statusPayload)))
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }

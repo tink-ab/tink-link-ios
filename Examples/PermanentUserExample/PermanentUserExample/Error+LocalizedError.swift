@@ -54,6 +54,12 @@ extension RefreshCredentialsTask.Error: LocalizedError {
 extension InitiateTransferTask.Error: LocalizedError {
     public var errorDescription: String? {
         switch self {
+        case .authenticationFailed:
+            return "Authentication Failed"
+        case .disabledCredentials:
+            return "Disabled Credentials"
+        case .sessionExpired:
+            return "Credentials Session Expired"
         case .cancelled:
             return "Cancelled"
         case .failed:
@@ -63,7 +69,10 @@ extension InitiateTransferTask.Error: LocalizedError {
 
     public var failureReason: String? {
         switch self {
-        case .cancelled(let payload),
+        case .authenticationFailed(let payload),
+             .disabledCredentials(let payload),
+             .sessionExpired(let payload),
+             .cancelled(let payload),
              .failed(let payload):
             return payload
         }
