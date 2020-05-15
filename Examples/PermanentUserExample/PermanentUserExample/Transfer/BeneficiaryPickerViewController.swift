@@ -1,24 +1,24 @@
 import UIKit
 import TinkLink
 
-protocol TransferDestinationPickerViewControllerDelegate: AnyObject {
-    func transferDestinationPickerViewController(_ viewController: TransferDestinationPickerViewController, didSelectTransferDestination transferDestination: Beneficiary)
+protocol BeneficiaryPickerViewControllerDelegate: AnyObject {
+    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: Beneficiary)
 }
 
-class TransferDestinationPickerViewController: UITableViewController {
+class BeneficiaryPickerViewController: UITableViewController {
     private let transferContext = TransferContext()
 
-    weak var delegate: TransferDestinationPickerViewControllerDelegate?
+    weak var delegate: BeneficiaryPickerViewControllerDelegate?
 
     private let sourceAccount: Account
-    private var transferDestinations: [Beneficiary]
-    private let selectedTransferDestination: Beneficiary?
+    private var beneficiaries: [Beneficiary]
+    private let selectedBeneficiary: Beneficiary?
     private var canceller: RetryCancellable?
 
-    init(sourceAccount: Account, selectedTransferDestination: Beneficiary? = nil) {
+    init(sourceAccount: Account, selectedBeneficiary: Beneficiary? = nil) {
         self.sourceAccount = sourceAccount
-        self.transferDestinations = []
-        self.selectedTransferDestination = selectedTransferDestination
+        self.beneficiaries = []
+        self.selectedBeneficiary = selectedBeneficiary
         super.init(style: .plain)
         title = "Transfer Destinations"
     }
@@ -33,7 +33,7 @@ class TransferDestinationPickerViewController: UITableViewController {
         canceller = transferContext.fetchBeneficiaries(for: sourceAccount) { [weak self] result in
             DispatchQueue.main.async {
                 do {
-                    self?.transferDestinations = try result.get()
+                    self?.beneficiaries = try result.get()
                     self?.tableView.reloadData()
                 } catch {
                     // Handle any error
@@ -45,19 +45,19 @@ class TransferDestinationPickerViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transferDestinations.count
+        return beneficiaries.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let transferDestination = transferDestinations[indexPath.row]
-        cell.textLabel?.text = transferDestination.name
-        cell.accessoryType = transferDestination == selectedTransferDestination ? .checkmark : .none
+        let beneficiary = beneficiaries[indexPath.row]
+        cell.textLabel?.text = beneficiary.name
+        cell.accessoryType = beneficiary == selectedBeneficiary ? .checkmark : .none
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let transferDestination = transferDestinations[indexPath.row]
-        delegate?.transferDestinationPickerViewController(self, didSelectTransferDestination: transferDestination)
+        let beneficiary = beneficiaries[indexPath.row]
+        delegate?.beneficiaryPickerViewController(self, didSelectBeneficiary: beneficiary)
     }
 }
