@@ -5,7 +5,7 @@ final class FormTableViewController: UITableViewController {
 
     var onSubmit: (() -> Void)?
     var formDidChange: (() -> Void)?
-
+    var errorText: String?
     var prefillStrategy: TinkLinkViewController.PrefillStrategy = .none
 
     private(set) var form: Form
@@ -86,6 +86,14 @@ extension FormTableViewController {
         cell.setError(with: errors[indexPath]?.localizedDescription)
         cell.textField.returnKeyType = indexPath.row < (form.fields.count - 1) ? .next : .continue
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let errorText = errorText {
+            return FormTableViewErrorView(errorText: errorText)
+        } else {
+            return nil
+        }
     }
 }
 
