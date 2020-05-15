@@ -136,7 +136,7 @@ extension AddCredentialsViewController {
             self?.addCredential()
         }
 
-        formTableViewController.errorText = Strings.AddCredentials.Warning.unverifiedClient
+        formTableViewController.errorText = isVerified ? nil : Strings.AddCredentials.Warning.unverifiedClient
     }
 
     override func viewDidAppear(_ animated: Bool) {
