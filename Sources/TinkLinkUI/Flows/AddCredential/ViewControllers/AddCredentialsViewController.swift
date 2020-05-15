@@ -135,6 +135,8 @@ extension AddCredentialsViewController {
         formTableViewController.onSubmit = { [weak self] in
             self?.addCredential()
         }
+
+        formTableViewController.errorText = Strings.AddCredentials.Warning.unverifiedClient
     }
 
     override func viewDidAppear(_ animated: Bool) {
