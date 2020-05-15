@@ -34,7 +34,7 @@ class SourceAccountPickerViewController: UITableViewController {
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
-        canceller = transferContext.fetchSourceAccounts { [weak self] (result) in
+        canceller = transferContext.fetchAccounts { [weak self] (result) in
             DispatchQueue.main.async {
                 do {
                     self?.sourceAccounts = try result.get()
