@@ -2,7 +2,7 @@ import UIKit
 import TinkLink
 
 protocol TransferDestinationPickerViewControllerDelegate: AnyObject {
-    func transferDestinationPickerViewController(_ viewController: TransferDestinationPickerViewController, didSelectTransferDestination transferDestination: TransferDestination)
+    func transferDestinationPickerViewController(_ viewController: TransferDestinationPickerViewController, didSelectTransferDestination transferDestination: Beneficiary)
 }
 
 class TransferDestinationPickerViewController: UITableViewController {
@@ -11,11 +11,11 @@ class TransferDestinationPickerViewController: UITableViewController {
     weak var delegate: TransferDestinationPickerViewControllerDelegate?
 
     private let sourceAccount: Account
-    private var transferDestinations: [TransferDestination]
-    private let selectedTransferDestination: TransferDestination?
+    private var transferDestinations: [Beneficiary]
+    private let selectedTransferDestination: Beneficiary?
     private var canceller: RetryCancellable?
 
-    init(sourceAccount: Account, selectedTransferDestination: TransferDestination? = nil) {
+    init(sourceAccount: Account, selectedTransferDestination: Beneficiary? = nil) {
         self.sourceAccount = sourceAccount
         self.transferDestinations = []
         self.selectedTransferDestination = selectedTransferDestination

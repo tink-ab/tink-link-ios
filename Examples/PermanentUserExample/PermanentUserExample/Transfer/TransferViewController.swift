@@ -5,7 +5,7 @@ class TransferViewController: UITableViewController {
     private let transferContext = TransferContext()
 
     private var sourceAccount: Account?
-    private var transferDestination: TransferDestination?
+    private var transferDestination: Beneficiary?
     private var amount: Decimal?
     private var message = ""
 
@@ -344,7 +344,7 @@ extension TransferViewController: SourceAccountPickerViewControllerDelegate {
 // MARK: - TransferDestinationPickerViewControllerDelegate
 
 extension TransferViewController: TransferDestinationPickerViewControllerDelegate {
-    func transferDestinationPickerViewController(_ viewController: TransferDestinationPickerViewController, didSelectTransferDestination transferDestination: TransferDestination) {
+    func transferDestinationPickerViewController(_ viewController: TransferDestinationPickerViewController, didSelectTransferDestination transferDestination: Beneficiary) {
         self.transferDestination = transferDestination
         navigationController?.popToViewController(self, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
