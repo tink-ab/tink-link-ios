@@ -67,7 +67,8 @@ public final class TransferContext {
             do {
                 let accounts = try result.get()
                 let transferDestinations = accounts.first { $0.id == account.id }?.transferDestinations ?? []
-                completion(.success(transferDestinations))
+                let filteredTransferDestinations = transferDestinations.filter { !$0.isMatchingMultipleDestinations }
+                completion(.success(filteredTransferDestinations))
             } catch {
                 completion(.failure(error))
             }
@@ -80,7 +81,8 @@ public final class TransferContext {
                 let accounts = try result.get()
                 let mappedTransferDestinations = accounts.reduce(into: [Account.ID: [TransferDestination]]()) {
                     let destinations = $1.transferDestinations ?? []
-                    $0[$1.id] = destinations
+                    let filteredTransferDestinations = transferDestinations.filter { !$0.isMatchingMultipleDestinations }
+                    $0[$1.id] = filteredTransferDestinations
                 }
                 completion(.success(mappedTransferDestinations))
             } catch {
