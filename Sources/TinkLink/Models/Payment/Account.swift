@@ -69,7 +69,7 @@ public struct Account {
     public let kind: Kind
 
     /// All possible ways to uniquely identify this `Account`; An se-identifier is built up like: se://{clearingnumber}{accountnumber};
-    let transferSourceIdentifiers: [Transfer.TransferEntityURI]?
+    let transferSourceIdentifiers: [URL]?
 
     /// The destinations this Account can transfer money to, be that payment or bank transfer recipients. This field is only populated if account data is requested via GET /transfer/accounts.
     let transferDestinations: [TransferDestination]?

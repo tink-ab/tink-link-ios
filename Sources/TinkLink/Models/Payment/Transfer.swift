@@ -17,27 +17,6 @@ public struct Transfer {
         public let value: String
     }
 
-    /// The uri used to describe a transfer entity
-    public struct TransferEntityURI: Equatable {
-        enum UriScheme: String {
-            case sepaEur = "sepa-eur"
-            case seBg = "se-bg"
-            case sePg = "se-pg"
-        }
-
-        /// Create a transfer entity uri with an acceptable scheme and a host
-        init(scheme: UriScheme, host: String) {
-            value = "\(scheme.rawValue)://\(host)"
-        }
-
-        init(_ value: String) {
-            self.value = value
-        }
-
-        /// The value of the transfer entity uri
-        public let value: String
-    }
-
     /// The amount that will be transferred. Should be positive.
     let amount: ExactNumber
     /// The unique identifier of the transfer.
@@ -53,7 +32,7 @@ public struct Transfer {
     /// The date when the payment or bank transfer should be executed. If no dueDate is given, it will be executed immediately.
     let dueDate: Date?
     /// The destination account or recipient of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
-    let destinationUri: TransferEntityURI
+    let destinationUri: URL
     /// The source account of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
-    let sourceUri: TransferEntityURI
+    let sourceUri: URL
 }

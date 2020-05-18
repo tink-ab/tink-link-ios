@@ -27,9 +27,9 @@ extension Account {
         return restAccountFlags.compactMap { Account.Flag(restAccountFlags: $0) }
     }
 
-    static func makeTransferEntityURI(identifiers: String?) -> [Transfer.TransferEntityURI]? {
+    static func makeTransferEntityURI(identifiers: String?) -> [URL]? {
         guard let data = identifiers?.data(using: .utf8), let restIdentifiers = try? JSONDecoder().decode([String].self, from: data) else { return nil }
-        return restIdentifiers.compactMap { Transfer.TransferEntityURI($0) }
+        return restIdentifiers.compactMap { URL(string: $0) }
     }
 }
 

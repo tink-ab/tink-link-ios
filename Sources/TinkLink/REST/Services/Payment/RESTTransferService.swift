@@ -7,11 +7,11 @@ final class RESTTransferService: TransferService {
         self.client = client
     }
 
-    func accounts(destinationUris: [Transfer.TransferEntityURI], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+    func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         typealias DestinationParameter = (name: String, value: String)
 
         let parameters: [DestinationParameter] = destinationUris.map {
-            DestinationParameter("destination[]", $0.value)
+            DestinationParameter("destination[]", $0.absoluteString)
         }
 
         let request = RESTResourceRequest<RESTAccountListResponse>(path: "/api/v1/transfer/accounts", method: .get, contentType: .json, parameters: parameters) { result in
@@ -32,8 +32,8 @@ final class RESTTransferService: TransferService {
             sourceMessage: transfer.sourceMessage,
             dueDate: transfer.dueDate,
             messageType: nil,
-            destinationUri: transfer.destinationUri.value,
-            sourceUri: transfer.sourceUri.value
+            destinationUri: transfer.destinationUri.absoluteString,
+            sourceUri: transfer.sourceUri.absoluteString
         )
         do {
             let data = try JSONEncoder().encode(body)
