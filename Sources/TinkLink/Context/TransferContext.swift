@@ -1,10 +1,15 @@
 import Foundation
-
+/// An object that you use to access the user's transfer and beneficiary account and initiate transfer.
 public final class TransferContext {
     private let tink: Tink
     private let transferService: TransferService
     private let credentialsService: CredentialsService
 
+    // MARK: - Creating a Context
+
+    /// Creates a context to access the user's transfer and beneficiary account and initiate transfer.
+    ///
+    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let transferService = RESTTransferService(client: tink.client)
         let credentialsService = RESTCredentialsService(client: tink.client)
