@@ -8,7 +8,7 @@ protocol AddCredentialsViewControllerDelegate: AnyObject {
     func addCredential(provider: Provider, form: Form)
 }
 
-final class AddCredentialsViewController: UIViewController {
+final class CredentialsFormViewController: UIViewController {
     let provider: Provider
 
     weak var delegate: AddCredentialsViewControllerDelegate?
@@ -59,7 +59,7 @@ final class AddCredentialsViewController: UIViewController {
 
 // MARK: - View Lifecycle
 
-extension AddCredentialsViewController {
+extension CredentialsFormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -181,7 +181,7 @@ extension AddCredentialsViewController {
 
 // MARK: - Help Footnote
 
-extension AddCredentialsViewController {
+extension CredentialsFormViewController {
     private func setupHelpFootnote() {
         guard let helpText = provider.helpText, !helpText.isEmpty else { return }
         helpLabel.configure(markdownString: helpText)
@@ -204,7 +204,7 @@ extension AddCredentialsViewController {
 }
 
 // MARK: - Keyboard Helper
-extension AddCredentialsViewController {
+extension CredentialsFormViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
         updateButtonBottomConstraint(notification)
     }
@@ -239,7 +239,7 @@ extension AddCredentialsViewController {
 
 // MARK: - Actions
 
-extension AddCredentialsViewController {
+extension CredentialsFormViewController {
     @objc private func startAddCredentialsFlow() {
         addCredential()
     }
@@ -267,7 +267,7 @@ extension AddCredentialsViewController {
 
 // MARK: - AddCredentialsHeaderViewDelegate
 
-extension AddCredentialsViewController: AddCredentialsHeaderViewDelegate {
+extension CredentialsFormViewController: AddCredentialsHeaderViewDelegate {
     func addCredentialsHeaderViewDidTapReadMore(_ addCredentialsHeaderView: AddCredentialsHeaderView) {
         showMoreInfo()
     }
@@ -275,7 +275,7 @@ extension AddCredentialsViewController: AddCredentialsHeaderViewDelegate {
 
 // MARK: - AddCredentialFooterViewDelegate
 
-extension AddCredentialsViewController: AddCredentialsFooterViewDelegate {
+extension CredentialsFormViewController: AddCredentialsFooterViewDelegate {
     func addCredentialsFooterViewDidTapLink(_ addCredentialsFooterView: AddCredentialsFooterView, url: URL) {
         showPrivacyPolicy(url)
     }
@@ -283,7 +283,7 @@ extension AddCredentialsViewController: AddCredentialsFooterViewDelegate {
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension AddCredentialsViewController: UIGestureRecognizerDelegate {
+extension CredentialsFormViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return !button.frame.contains(gestureRecognizer.location(in: view))
     }

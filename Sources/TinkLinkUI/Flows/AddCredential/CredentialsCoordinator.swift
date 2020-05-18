@@ -43,7 +43,7 @@ final class CredentialsCoordinator {
         let viewController: UIViewController
         switch action {
         case .add(provider: let provider, _):
-            let credentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
+            let credentialsViewController = CredentialsFormViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
             credentialsViewController.delegate = self
             // TODO: Figure out how to send prefill strategy
 //            credentialsViewController.prefillStrategy = prefill

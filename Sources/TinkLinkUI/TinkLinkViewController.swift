@@ -488,7 +488,7 @@ extension TinkLinkViewController: LoadingViewControllerDelegate {
 // MARK: - Helpers
 extension TinkLinkViewController {
     private var didShowAddCredentialForm: Bool {
-        viewControllers.contains(where: { $0 is AddCredentialsViewController })
+        viewControllers.contains(where: { $0 is CredentialsFormViewController })
     }
 
     private func showDiscardActionSheet() {
