@@ -222,7 +222,9 @@ public final class TransferContext {
         to account: Account,
         authenticationHandler: @escaping (AddBeneficiaryTask.Authentication) -> Void,
         completion: @escaping (Result<Beneficiary, Error>) -> Void
-    ) {
+    ) -> AddBeneficiaryTask {
+        let task = AddBeneficiaryTask()
+
         var components = URLComponents()
         components.scheme = type
         components.host = accountNumber
@@ -236,5 +238,7 @@ public final class TransferContext {
         )
 
         completion(.success(beneficiary))
+
+        return task
     }
 }
