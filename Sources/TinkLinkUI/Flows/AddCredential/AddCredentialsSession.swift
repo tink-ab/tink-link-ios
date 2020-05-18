@@ -187,10 +187,8 @@ final class AddCredentialsSession {
         do {
             let credentials = try result.get()
             authorizationGroup.notify(queue: .main) { [weak self] in
-                if let authorizationCode = self?.authorizationCode {
-                    self?.hideUpdatingView(animated: true) {
-                        onCompletion(.success((credentials, authorizationCode)))
-                    }
+                self?.hideUpdatingView(animated: true) {
+                    onCompletion(.success((credentials, self?.authorizationCode)))
                 }
             }
         } catch {
