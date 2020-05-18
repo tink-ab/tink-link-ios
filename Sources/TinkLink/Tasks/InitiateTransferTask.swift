@@ -5,12 +5,15 @@ public final class InitiateTransferTask {
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
-    public enum Status {
+    public enum LoadingStatus {
         case created
         case authenticating
+        case executing(status: String)
+    }
+
+    public enum AuthenticationStatus {
         case awaitingSupplementalInformation(SupplementInformationTask)
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
-        case executing(status: String)
     }
 
     public enum Error: Swift.Error {
@@ -34,8 +37,8 @@ public final class InitiateTransferTask {
     private let transferService: TransferService
     private let credentialsService: CredentialsService
     private let appUri: URL
-    private let loadingHandler: (Status) -> Void
-    private let authenticatingHandler: (Status) -> Void
+    private let loadingHandler: (LoadingStatus) -> Void
+    private let authenticatingHandler: (AuthenticationStatus) -> Void
     private let completionHandler: (Result<Receipt, Swift.Error>) -> Void
 
     private var transferStatusPollingTask: TransferStatusPollingTask?
@@ -43,7 +46,7 @@ public final class InitiateTransferTask {
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private var isCancelled = false
 
-    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, loadingHandler: @escaping (Status) -> Void, authenticatingHandler: @escaping (Status) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
+    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, loadingHandler: @escaping (LoadingStatus) -> Void, authenticatingHandler: @escaping (AuthenticationStatus) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
         self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri

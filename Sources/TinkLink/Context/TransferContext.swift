@@ -23,8 +23,8 @@ public final class TransferContext {
         destination: Beneficiary,
         sourceMessage: String? = nil,
         destinationMessage: String,
-        loadingHandler: @escaping (InitiateTransferTask.Status) -> Void,
-        authenticatingHandler: @escaping (InitiateTransferTask.Status) -> Void,
+        loadingHandler: @escaping (InitiateTransferTask.LoadingStatus) -> Void,
+        authenticatingHandler: @escaping (InitiateTransferTask.AuthenticationStatus) -> Void,
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask? {
         guard let sourceURI = source.transferSourceIdentifiers?.first else {
