@@ -195,7 +195,8 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private func createPermanentUser(accessToken: AccessToken) {
-        tink.authenticateUser(authorizationCode: AuthorizationCode(accessToken.rawValue)) { [weak self] result in
+        tink.userSession = .accessToken(accessToken.rawValue)
+        tink.authenticateUser(authorizationCode: AuthorizationCode("AUTHORIZATION_CODE")) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 do {
