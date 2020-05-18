@@ -155,7 +155,7 @@ public class TinkLinkViewController: UINavigationController {
         presentationController?.delegate = self
         loadingViewController.delegate = self
 
-        start()
+        start(accessToken: accessToken)
     }
 
     func fetchProviders() {
@@ -183,10 +183,46 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
-    private func start() {
+    private func start(accessToken: AccessToken?) {
         loadingViewController.showLoadingIndicator()
         tink._beginUITask()
         defer { tink._endUITask() }
+        if let accessToken = accessToken {
+            createPermanentUser(accessToken: accessToken)
+        } else {
+            createTemporaryUser()
+        }
+    }
+
+    private func createPermanentUser(accessToken: AccessToken) {
+        tink.authenticateUser(authorizationCode: AuthorizationCode(accessToken.rawValue)) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                do {
+                    _ = try result.get()
+
+                    self.fetchProviders()
+                    self.clientDescriptorLoadingGroup.enter()
+                    self.authorizationController.clientDescription { (clientDescriptionResult) in
+                        DispatchQueue.main.async {
+                            do {
+                                self.clientDescription = try clientDescriptionResult.get()
+                                self.clientDescriptorLoadingGroup.leave()
+                            } catch {
+                                self.showUnknownAggregatorAlert(for: error)
+                            }
+                        }
+                    }
+                } catch {
+                    let viewController = UIViewController()
+                    self.setViewControllers([viewController], animated: false)
+                    self.showCreateTemporaryUserAlert(for: error)
+                }
+            }
+        }
+    }
+
+    private func createTemporaryUser() {
         guard let market = market else { return }
         tink._createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
@@ -269,7 +305,7 @@ extension TinkLinkViewController {
         let retryAction = UIAlertAction(title: Strings.Generic.ServiceAlert.retry, style: .default) { _ in
             self.loadingViewController.showLoadingIndicator()
             self.setViewControllers([self.loadingViewController], animated: false)
-            self.start()
+            self.start(accessToken: self.accessToken)
         }
         alertController.addAction(retryAction)
 
