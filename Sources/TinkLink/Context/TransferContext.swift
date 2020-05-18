@@ -24,7 +24,7 @@ public final class TransferContext {
         sourceMessage: String? = nil,
         destinationMessage: String,
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void,
-        completion: @escaping (Result<SignableOperation, Error>) -> Void
+        completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask? {
         guard let sourceURI = source.transferSourceIdentifiers?.first else {
             preconditionFailure("Source account doesn't have a URI.")
