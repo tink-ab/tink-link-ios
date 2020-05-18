@@ -69,10 +69,10 @@ extension TransferViewController {
             source: sourceAccount,
             destination: transferDestination,
             destinationMessage: message,
-            loadingHandler: { [weak self] status in
+            progressHandler: { [weak self] status in
                 self?.handleTransferProgress(status)
             },
-            authenticatingHandler: { [weak self] status in
+            authenticationHandler: { [weak self] status in
                 self?.handleTransferAuthentication(status)
             },
             completion: { [weak self] result in

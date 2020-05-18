@@ -37,8 +37,8 @@ public final class InitiateTransferTask {
     private let transferService: TransferService
     private let credentialsService: CredentialsService
     private let appUri: URL
-    private let loadingHandler: (LoadingStatus) -> Void
-    private let authenticatingHandler: (AuthenticationStatus) -> Void
+    private let progressHandler: (LoadingStatus) -> Void
+    private let authenticationHandler: (AuthenticationStatus) -> Void
     private let completionHandler: (Result<Receipt, Swift.Error>) -> Void
 
     private var transferStatusPollingTask: TransferStatusPollingTask?
@@ -46,12 +46,12 @@ public final class InitiateTransferTask {
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private var isCancelled = false
 
-    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, loadingHandler: @escaping (LoadingStatus) -> Void, authenticatingHandler: @escaping (AuthenticationStatus) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
+    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (LoadingStatus) -> Void, authenticationHandler: @escaping (AuthenticationStatus) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
         self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri
-        self.loadingHandler = loadingHandler
-        self.authenticatingHandler = authenticatingHandler
+        self.progressHandler = progressHandler
+        self.authenticationHandler = authenticationHandler
         self.completionHandler = completionHandler
     }
 
@@ -84,7 +84,7 @@ public final class InitiateTransferTask {
             let signableOperation = try result.get()
             switch signableOperation.status {
             case .created:
-                loadingHandler(.created)
+                progressHandler(.created)
             case .awaitingCredentials, .awaitingThirdPartyAppAuthentication:
                 transferStatusPollingTask?.stopPolling()
                 if credentialsStatusPollingTask == nil {
@@ -104,7 +104,7 @@ public final class InitiateTransferTask {
                 }
                 credentialsStatusPollingTask?.startPolling()
             case .executing:
-                loadingHandler(.executing(status: signableOperation.statusMessage ?? ""))
+                progressHandler(.executing(status: signableOperation.statusMessage ?? ""))
             case .executed:
                 complete(with: result)
             case .cancelled:
@@ -127,7 +127,7 @@ public final class InitiateTransferTask {
             switch credentials.status {
             case .created: break
             case .authenticating:
-                loadingHandler(.authenticating)
+                progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
                 self.credentialsStatusPollingTask?.stopPolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
@@ -139,7 +139,7 @@ public final class InitiateTransferTask {
                         self.complete(with: .failure(error))
                     }
                 }
-                authenticatingHandler(.awaitingSupplementalInformation(supplementInformationTask))
+                authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 self.credentialsStatusPollingTask?.stopPolling()
                 guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
@@ -158,7 +158,7 @@ public final class InitiateTransferTask {
                     self.thirdPartyAuthenticationTask = nil
                 }
                 thirdPartyAuthenticationTask = task
-                authenticatingHandler(.awaitingThirdPartyAppAuthentication(task))
+                authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating, .updated:
                 // Stops polling when the credentials status is updating
                 credentialsStatusPollingTask?.stopPolling()
