@@ -451,7 +451,7 @@ extension TinkLinkViewController {
             return
         }
 
-        credentialsCoordinator = CredentialsCoordinator(tink: tink, parentViewController: self, clientDescription: clientDescription, action: .create(provider: provider, mode: .anonymous(scopes: scopes)), completion: { (result) in
+        credentialsCoordinator = CredentialsCoordinator(tink: tink, parentViewController: self, clientDescription: clientDescription, action: .add(provider: provider, mode: .anonymous(scopes: scopes)), completion: { (result) in
             // Propagate completion to user 
         })
 
