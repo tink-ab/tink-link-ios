@@ -70,10 +70,14 @@ extension TransferViewController {
             destination: transferDestination,
             destinationMessage: message,
             progressHandler: { [weak self] status in
-                self?.handleTransferProgress(status)
+                DispatchQueue.main.async {
+                    self?.handleTransferProgress(status)
+                }
             },
             authenticationHandler: { [weak self] status in
-                self?.handleTransferAuthentication(status)
+                DispatchQueue.main.async {
+                    self?.handleTransferAuthentication(status)
+                }
             },
             completion: { [weak self] result in
                 DispatchQueue.main.async {
