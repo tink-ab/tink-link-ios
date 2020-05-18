@@ -30,14 +30,14 @@ public final class InitiateTransferTask {
     private let credentialsService: CredentialsService
     private let appUri: URL
     private let progressHandler: (Status) -> Void
-    private let completionHandler: (Result<SignableOperation, Swift.Error>) -> Void
+    private let completionHandler: (Result<TransferResponse, Swift.Error>) -> Void
 
     private var transferStatusPollingTask: TransferStatusPollingTask?
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private var isCancelled = false
 
-    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, completionHandler: @escaping (Result<SignableOperation, Swift.Error>) -> Void) {
+    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, completionHandler: @escaping (Result<TransferResponse, Swift.Error>) -> Void) {
         self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri
@@ -182,7 +182,18 @@ public final class InitiateTransferTask {
     private func complete(with result: Result<SignableOperation, Swift.Error>) {
         transferStatusPollingTask?.stopPolling()
         credentialsStatusPollingTask?.stopPolling()
-        completionHandler(result)
+        do {
+            let signableOperation = try result.get()
+            guard let transferID = signableOperation.transferID else {
+                completionHandler(.failure(Error.failed("Failed to get transfer ID.")))
+                return
+            }
+
+            let response = TransferResponse(id: transferID, message: signableOperation.statusMessage)
+            completionHandler(.success(response))
+        } catch {
+            completionHandler(.failure(error))
+        }
     }
 
     public func cancel() {
