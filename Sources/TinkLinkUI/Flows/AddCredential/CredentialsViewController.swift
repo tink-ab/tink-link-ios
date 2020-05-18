@@ -45,6 +45,9 @@ final class CredentialsCoordinator {
         case .create(provider: let provider, _):
             let credentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
             credentialsViewController.delegate = self
+            // TODO: Figure out how to send prefill strategy
+//            credentialsViewController.prefillStrategy = prefill
+
             viewController = credentialsViewController
 
         case .authenticate(credentialsID: let id):
@@ -70,6 +73,7 @@ final class CredentialsCoordinator {
             viewController = LoadingViewController()
         }
 
+        containerViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         containerViewController.setViewController(viewController)
         parentViewController.show(containerViewController, sender: self)
     }
@@ -109,6 +113,10 @@ extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
 
     @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
         containerViewController.dismiss(animated: true)
+    }
+
+    @objc private func cancel() {
+        completion(.failure(TinkLinkError.userCancelled))
     }
 
     func addCredential(provider: Provider, form: Form) {
