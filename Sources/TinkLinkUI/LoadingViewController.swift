@@ -5,23 +5,11 @@ protocol LoadingViewControllerDelegate: AnyObject {
 }
 
 final class LoadingViewController: UIViewController {
-    weak var providerPickerCoordinator: ProviderPickerCoordinating?
+    
     weak var delegate: LoadingViewControllerDelegate?
-
-    private let providerController: ProviderController
 
     private let activityIndicatorView = ActivityIndicatorView()
     private let errorView = ProviderLoadingErrorView()
-
-    init(providerController: ProviderController) {
-        self.providerController = providerController
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +20,6 @@ final class LoadingViewController: UIViewController {
         activityIndicatorView.startAnimating()
         errorView.delegate = self
         errorView.isHidden = true
-
-        if !providerController.isFetching, let error = providerController.error {
-            update(error)
-        } else {
-            showLoadingIndicator()
-        }
 
         errorView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
