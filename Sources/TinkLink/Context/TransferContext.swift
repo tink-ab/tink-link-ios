@@ -22,6 +22,22 @@ public final class TransferContext {
         self.credentialsService = credentialsService
     }
 
+    // MARK: - Initiate Transfer
+
+    /// Initiate a transfer for the user.
+    ///
+    /// You need to handle status changes in `progressHandler` to successfuly initiate a transfer.
+    ///
+    /// - Parameters:
+    ///   - amount: The amount and currency of the transfer.
+    ///   - source: The transfer's source account.
+    ///   - destination: The transfer's destination beneficiary.
+    ///   - sourceMessage: Optional, The transfer description on the source account for the transfer.
+    ///   - destinationMessage: The message to the recipient. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
+    ///   - progressHandler: Indicates the state changes of initiating a transfer.
+    ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
+    ///   - result: A result representing either a transfer initiation receipt or an error.
+    /// - Returns: The add credentials task.
     public func initiateTransfer(
         amount: CurrencyDenominatedAmount,
         source: Account,
