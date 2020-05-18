@@ -23,7 +23,7 @@ public final class TransferContext {
         destination: Beneficiary,
         sourceMessage: String? = nil,
         destinationMessage: String,
-        progressHandler: @escaping (InitiateTransferTask.LoadingStatus) -> Void = { _ in },
+        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         authenticationHandler: @escaping (InitiateTransferTask.AuthenticationStatus) -> Void,
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask? {

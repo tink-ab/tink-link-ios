@@ -5,7 +5,7 @@ public final class InitiateTransferTask {
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
-    public enum LoadingStatus {
+    public enum Status {
         case created
         case authenticating
         case executing(status: String)
@@ -37,7 +37,7 @@ public final class InitiateTransferTask {
     private let transferService: TransferService
     private let credentialsService: CredentialsService
     private let appUri: URL
-    private let progressHandler: (LoadingStatus) -> Void
+    private let progressHandler: (Status) -> Void
     private let authenticationHandler: (AuthenticationStatus) -> Void
     private let completionHandler: (Result<Receipt, Swift.Error>) -> Void
 
@@ -46,7 +46,7 @@ public final class InitiateTransferTask {
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private var isCancelled = false
 
-    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (LoadingStatus) -> Void, authenticationHandler: @escaping (AuthenticationStatus) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
+    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, authenticationHandler: @escaping (AuthenticationStatus) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
         self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri

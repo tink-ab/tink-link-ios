@@ -101,7 +101,7 @@ extension TransferViewController {
 // MARK: - Transfer Handling
 
 extension TransferViewController {
-    private func handleTransferProgress(_ status: InitiateTransferTask.LoadingStatus) {
+    private func handleTransferProgress(_ status: InitiateTransferTask.Status) {
         switch status {
         case .created:
             showStatus("Created")
