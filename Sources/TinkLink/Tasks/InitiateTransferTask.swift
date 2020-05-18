@@ -1,5 +1,8 @@
 import Foundation
 
+/// A task that manages progress of initiating a transfer.
+///
+/// Use `TransferContext` to create a task.
 public final class InitiateTransferTask {
 
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
