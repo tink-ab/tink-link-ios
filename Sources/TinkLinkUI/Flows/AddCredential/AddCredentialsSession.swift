@@ -8,10 +8,9 @@ final class AddCredentialsSession {
     private let providerController: ProviderController
     private let credentialsController: CredentialsController
     private let authorizationController: AuthorizationController
-    private let scopes: [Scope]
+    private var scopes: [Scope] = []
 
     private var task: Cancellable?
-
     private var supplementInfoTask: SupplementInformationTask?
 
     private var statusViewController: AddCredentialsStatusViewController?
@@ -20,16 +19,16 @@ final class AddCredentialsSession {
 
     private var authorizationCode: AuthorizationCode?
     private var didCallAuthorize = false
+    private var shouldAuthorize = false
     private var authorizationGroup = DispatchGroup()
 
     private var timer: Timer?
     private var providerID: Provider.ID?
 
-    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
+    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, parentViewController: UIViewController) {
         self.parentViewController = parentViewController
         self.providerController = providerController
         self.credentialsController = credentialsController
-        self.scopes = scopes
         self.authorizationController = authorizationController
     }
 
@@ -44,8 +43,7 @@ final class AddCredentialsSession {
             self?.showUpdating(status: "Process is taking longer than expected")
         }
     }
-
-    func addCredential(provider: Provider, form: Form, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
+    func addCredential(provider: Provider, form: Form, mode: CredentialsCoordinator.AddCredentialsMode, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
 
         task = credentialsController.addCredentials(
             provider,
@@ -72,6 +70,14 @@ final class AddCredentialsSession {
             }
         )
         providerID = provider.id
+        switch mode {
+        case .user:
+            scopes = []
+            shouldAuthorize = false
+        case .anonymous(scopes: let scopes):
+            self.scopes = scopes
+            shouldAuthorize = true
+        }
         self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
     }
 
@@ -83,6 +89,7 @@ final class AddCredentialsSession {
             }, completion: completion)
 
         providerID = credentials.providerID
+        shouldAuthorize = false
         self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
     }
 
@@ -94,6 +101,7 @@ final class AddCredentialsSession {
         }, completion: completion)
 
         providerID = credentials.providerID
+        shouldAuthorize = false
         self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
     }
 
@@ -105,6 +113,7 @@ final class AddCredentialsSession {
         }, completion: completion)
 
         providerID = credentials.providerID
+        shouldAuthorize = false
         self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
     }
 
@@ -166,7 +175,7 @@ final class AddCredentialsSession {
         }
     }
 
-    private func handleAddCredentialsCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
+    private func handleAddCredentialsCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
         timer?.invalidate()
         authorizeIfNeeded(onError: { [weak self] error in
             DispatchQueue.main.async {
@@ -176,11 +185,11 @@ final class AddCredentialsSession {
             }
         })
         do {
-            _ = try result.get()
+            let credentials = try result.get()
             authorizationGroup.notify(queue: .main) { [weak self] in
                 if let authorizationCode = self?.authorizationCode {
                     self?.hideUpdatingView(animated: true) {
-                        onCompletion(.success(authorizationCode))
+                        onCompletion(.success((credentials, authorizationCode)))
                     }
                 }
             }
@@ -193,7 +202,7 @@ final class AddCredentialsSession {
     }
 
     private func authorizeIfNeeded(onError: @escaping (Error) -> Void) {
-        if didCallAuthorize { return }
+        if didCallAuthorize, !shouldAuthorize { return }
 
         didCallAuthorize = true
         authorizationGroup.enter()
