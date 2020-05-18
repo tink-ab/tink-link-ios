@@ -342,6 +342,10 @@ extension Form {
         }
         self.init(fieldSpecifications: fieldSpecifications)
     }
+
+    public init(supplementInformationTask: SupplementInformationTask) {
+        self.init(credentials: supplementInformationTask.credentials)
+    }
 }
 
 extension Form.Fields {
