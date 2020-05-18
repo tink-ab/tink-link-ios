@@ -22,7 +22,7 @@ public final class InitiateTransferTask {
         case failed(String?)
     }
 
-    private(set) public var signableOperation: SignableOperation?
+    private(set) var signableOperation: SignableOperation?
 
     var canceller: Cancellable?
 
