@@ -71,7 +71,7 @@ public class TinkLinkViewController: UINavigationController {
         case update(credentialsID: Credentials.ID)
     }
 
-    public enum ResultType {
+    enum ResultType {
         case credentials(Credentials)
         case authorizationCode(AuthorizationCode)
     }
