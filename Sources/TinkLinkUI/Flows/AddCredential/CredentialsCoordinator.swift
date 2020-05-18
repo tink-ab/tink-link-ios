@@ -120,8 +120,10 @@ extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
         completion(.failure(TinkLinkError.userCancelled))
     }
 
-    func addCredential(provider: Provider, form: Form) {
-        guard case .add(provider: _, mode: let mode) = action else { return }
+    func submit(form: Form) {
+
+        //TODO: Make it work for Update too 
+        guard case .add(provider: let provider, mode: let mode) = action else { return }
 
         addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
             do {

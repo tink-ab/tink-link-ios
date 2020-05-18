@@ -5,7 +5,7 @@ import UIKit
 protocol AddCredentialsViewControllerDelegate: AnyObject {
     func showScopeDescriptions()
     func showWebContent(with url: URL)
-    func addCredential(provider: Provider, form: Form)
+    func submit(form: Form)
 }
 
 final class CredentialsFormViewController: UIViewController {
@@ -248,7 +248,7 @@ extension CredentialsFormViewController {
         view.endEditing(false)
 
         if formTableViewController.validateFields() {
-            delegate?.addCredential(provider: provider, form: formTableViewController.form)
+            delegate?.submit(form: formTableViewController.form)
         }
     }
 
