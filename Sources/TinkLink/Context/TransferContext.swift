@@ -220,7 +220,7 @@ public final class TransferContext {
         type: String,
         accountNumber: String,
         to account: Account,
-        authenticationHandler: @escaping () -> Void,
+        authenticationHandler: @escaping (AddBeneficiaryTask.Authentication) -> Void,
         completion: @escaping (Result<Beneficiary, Error>) -> Void
     ) {
         var components = URLComponents()
