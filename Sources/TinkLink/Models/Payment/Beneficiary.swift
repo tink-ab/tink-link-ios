@@ -23,7 +23,7 @@ public struct Beneficiary: Equatable, Identifiable {
 
 extension Beneficiary {
     init(account: Account, transferDestination: TransferDestination) {
-        self.id = .init(transferDestination.uri!.absoluteString)
+        self.id = .init(transferDestination.uri?.absoluteString ?? "")
         self.name = transferDestination.name
         self.accountID = account.id
         self.accountNumber = transferDestination.displayAccountNumber!
