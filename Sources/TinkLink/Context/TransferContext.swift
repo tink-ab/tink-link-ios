@@ -23,7 +23,8 @@ public final class TransferContext {
         destination: Beneficiary,
         sourceMessage: String? = nil,
         destinationMessage: String,
-        progressHandler: @escaping (InitiateTransferTask.Status) -> Void,
+        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
+        authenticationHandler: @escaping (InitiateTransferTask.Authentication) -> Void,
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask? {
         guard let sourceURI = source.transferSourceIdentifiers?.first else {
@@ -33,7 +34,7 @@ public final class TransferContext {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
-        let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, completionHandler: completion)
+        let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completionHandler: completion)
 
         let transfer = Transfer(
             amount: amount.value,

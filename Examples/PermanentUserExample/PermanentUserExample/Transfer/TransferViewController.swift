@@ -74,6 +74,11 @@ extension TransferViewController {
                     self?.handleTransferProgress(status)
                 }
             },
+            authenticationHandler: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleTransferAuthentication(status)
+                }
+            },
             completion: { [weak self] result in
                 DispatchQueue.main.async {
                     self?.handleTransferCompletion(result)
@@ -102,6 +107,13 @@ extension TransferViewController {
             showStatus("Created")
         case .authenticating:
             showStatus("Authenticating…")
+        case .executing(let status):
+            showStatus(status)
+        }
+    }
+
+    private func handleTransferAuthentication(_ status: InitiateTransferTask.Authentication) {
+        switch status {
         case .awaitingSupplementalInformation(let task):
             hideStatus(animated: false) {
                 self.showSupplementalInformation(for: task)
@@ -112,8 +124,6 @@ extension TransferViewController {
                     self?.handleThirdPartyAppAuthentication(taskStatus)
                 }
             }
-        case .executing(let status):
-            showStatus(status)
         }
     }
 
