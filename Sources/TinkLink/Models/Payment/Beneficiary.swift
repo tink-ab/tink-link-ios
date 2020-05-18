@@ -16,7 +16,7 @@ public struct Beneficiary: Equatable, Identifiable {
     public let id: ID
     public let name: String?
     public let accountID: Account.ID
-    public let accountNumber: String
+    public let accountNumber: String?
 
     let uri: URL?
 }
@@ -26,7 +26,7 @@ extension Beneficiary {
         self.id = .init(transferDestination.uri?.absoluteString ?? "")
         self.name = transferDestination.name
         self.accountID = account.id
-        self.accountNumber = transferDestination.displayAccountNumber!
+        self.accountNumber = transferDestination.displayAccountNumber
         self.uri = transferDestination.uri
     }
 }
