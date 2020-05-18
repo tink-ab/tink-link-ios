@@ -19,7 +19,6 @@
 		8F3459C02396ADED007DCD75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459BF2396ADED007DCD75 /* Assets.xcassets */; };
 		8F3459C32396ADED007DCD75 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459C22396ADED007DCD75 /* Preview Assets.xcassets */; };
 		8F3459C62396ADED007DCD75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459C42396ADED007DCD75 /* LaunchScreen.storyboard */; };
-		8F3459CE2396AFEB007DCD75 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459CD2396AFEB007DCD75 /* Settings.bundle */; };
 		8F3459D02396B8C8007DCD75 /* CredentialsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459CF2396B8C8007DCD75 /* CredentialsController.swift */; };
 		8F348AE8245AE380009B9973 /* UpdateCredentialsFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE7245AE380009B9973 /* UpdateCredentialsFlowView.swift */; };
 		8F348AEA245AE49C009B9973 /* UpdateCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE9245AE49C009B9973 /* UpdateCredentialsViewController.swift */; };
@@ -52,7 +51,6 @@
 		8F3459C22396ADED007DCD75 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8F3459C52396ADED007DCD75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F3459C72396ADED007DCD75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8F3459CD2396AFEB007DCD75 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		8F3459CF2396B8C8007DCD75 /* CredentialsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsController.swift; sourceTree = "<group>"; };
 		8F348AE7245AE380009B9973 /* UpdateCredentialsFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsFlowView.swift; sourceTree = "<group>"; };
 		8F348AE9245AE49C009B9973 /* UpdateCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsViewController.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 		8F3459B82396ADEB007DCD75 /* PermanentUserExample */ = {
 			isa = PBXGroup;
 			children = (
-				8F3459CD2396AFEB007DCD75 /* Settings.bundle */,
 				8F3459B92396ADEB007DCD75 /* AppDelegate.swift */,
 				8F3459BD2396ADEB007DCD75 /* ContentView.swift */,
 				2035815424659C390075F1EA /* Error+LocalizedError.swift */,
@@ -285,7 +282,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F3459CE2396AFEB007DCD75 /* Settings.bundle in Resources */,
 				8F3459C62396ADED007DCD75 /* LaunchScreen.storyboard in Resources */,
 				8F3459C32396ADED007DCD75 /* Preview Assets.xcassets in Resources */,
 				8F3459C02396ADED007DCD75 /* Assets.xcassets in Resources */,
