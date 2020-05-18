@@ -202,7 +202,7 @@ final class AddCredentialsSession {
     }
 
     private func authorizeIfNeeded(onError: @escaping (Error) -> Void) {
-        if didCallAuthorize, !shouldAuthorize { return }
+        if didCallAuthorize || !shouldAuthorize { return }
 
         didCallAuthorize = true
         authorizationGroup.enter()
