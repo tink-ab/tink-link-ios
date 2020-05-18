@@ -15,26 +15,27 @@ final class CredentialsCoordinator {
         case authenticate(credentialsID: Credentials.ID)
     }
 
-    private lazy var authorizationController = AuthorizationController(tink: tink)
-    private lazy var credentialsController = CredentialsController(tink: tink)
-    private lazy var providerController = ProviderController(tink: tink)
+    private let authorizationController: AuthorizationController
+    private let credentialsController: CredentialsController
+    private let providerController: ProviderController
 
     private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, parentViewController: self.parentViewController)
 
     private let action: Action
     private let completion: (Result<(Credentials, AuthorizationCode?), Error>) -> Void
     private let parentViewController: UIViewController
-    private let tink: Tink
     private let clientDescription: ClientDescription
 
     private let containerViewController = ContainerViewController()
 
     private var result: Result<(Credentials, AuthorizationCode?), Error>?
 
-    init(tink: Tink = .shared, parentViewController: UIViewController, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), Error>) -> Void) {
+    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, parentViewController: UIViewController, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), Error>) -> Void) {
+        self.authorizationController = authorizationController
+        self.credentialsController = credentialsController
+        self.providerController = providerController
         self.action = action
         self.completion = completion
-        self.tink = tink
         self.parentViewController = parentViewController
         self.clientDescription = clientDescription
     }
