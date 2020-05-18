@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
 
         let button = UIButton(type: .system)
-        button.addTarget(self, action: #selector(showTinkLink), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showPermanentUser), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         button.setTitle("Start aggregation flow", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -50,6 +50,14 @@ class ViewController: UIViewController {
 
         let tinkLinkViewController = TinkLinkViewController(market: "SE", scopes: scopes, providerPredicate: .kinds(.all)) { _ in }
         present(tinkLinkViewController, animated: true)
+    }
+
+    @objc private func showPermanentUser() {
+        let accessToken = "YOUR_ACCESS_TOKEN"
+
+
+        let viewcontroller = TinkLinkViewController(accessToken: AccessToken(rawValue: accessToken)!, operation: .create(providerPredicate: .kinds(.all))) { _ in }
+        present(viewcontroller, animated: true)
     }
 }
 
