@@ -128,11 +128,11 @@ extension TransferViewController {
         }
     }
 
-    private func handleTransferCompletion(_ result: Result<TransferResponse, Error>) {
+    private func handleTransferCompletion(_ result: Result<InitiateTransferTask.Receipt, Error>) {
         hideStatus(animated: true) {
             do {
-                let response = try result.get()
-                self.showTransferSuccess(response)
+                let receipt = try result.get()
+                self.showTransferSuccess(receipt)
             } catch {
                 self.showAlert(for: error)
             }
@@ -287,8 +287,8 @@ extension TransferViewController {
         present(navigationController, animated: true)
     }
 
-    private func showTransferSuccess(_ response: TransferResponse) {
-        let alert = UIAlertController(title: "Success", message: response.message, preferredStyle: .alert)
+    private func showTransferSuccess(_ receipt: InitiateTransferTask.Receipt) {
+        let alert = UIAlertController(title: "Success", message: receipt.message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
