@@ -84,7 +84,7 @@ final class CredentialsCoordinator {
                 let credentials = try result.get()
                 then(credentials)
             } catch {
-                // Abort
+                self.completion(.failure(error))
             }
         }
     }
