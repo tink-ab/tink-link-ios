@@ -188,13 +188,13 @@ public class TinkLinkViewController: UINavigationController {
         tink._beginUITask()
         defer { tink._endUITask() }
         if let accessToken = accessToken {
-            createPermanentUser(accessToken: accessToken)
+            authorizePermanentUser(accessToken: accessToken)
         } else {
             createTemporaryUser()
         }
     }
 
-    private func createPermanentUser(accessToken: AccessToken) {
+    private func authorizePermanentUser(accessToken: AccessToken) {
         tink.userSession = .accessToken(accessToken.rawValue)
         tink.authenticateUser(authorizationCode: AuthorizationCode("AUTHORIZATION_CODE")) { [weak self] result in
             guard let self = self else { return }
