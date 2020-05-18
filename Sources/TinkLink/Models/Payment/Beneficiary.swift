@@ -18,12 +18,12 @@ public struct Beneficiary: Equatable, Identifiable {
     public let accountID: Account.ID
     public let accountNumber: String
 
-    let uri: Transfer.TransferEntityURI?
+    let uri: URL?
 }
 
 extension Beneficiary {
     init(account: Account, transferDestination: TransferDestination) {
-        self.id = .init(transferDestination.uri!.value)
+        self.id = .init(transferDestination.uri!.absoluteString)
         self.name = transferDestination.name
         self.accountID = account.id
         self.accountNumber = transferDestination.displayAccountNumber!
