@@ -23,7 +23,7 @@ final class SupplementalInformationViewController: UITableViewController {
 
     init(supplementInformationTask: SupplementInformationTask) {
         self.supplementInformationTask = supplementInformationTask
-        self.form = Form(credentials: supplementInformationTask.credentials)
+        self.form = Form(supplementInformationTask: supplementInformationTask)
 
         if #available(iOS 13.0, *) {
             super.init(style: .insetGrouped)
