@@ -27,7 +27,7 @@ public final class TransferContext {
     /// Initiate a transfer for the user.
     ///
     /// You need to handle status changes in `progressHandler` to successfuly initiate a transfer.
-    ///
+    // TODO: Add example here
     /// - Parameters:
     ///   - amount: The amount and currency of the transfer.
     ///   - source: The transfer's source account.
