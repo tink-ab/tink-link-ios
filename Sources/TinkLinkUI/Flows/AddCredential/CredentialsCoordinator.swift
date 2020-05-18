@@ -9,7 +9,7 @@ final class CredentialsCoordinator {
     }
 
     enum Action {
-        case create(provider: Provider, mode: AddCredentialsMode)
+        case add(provider: Provider, mode: AddCredentialsMode)
         case update(credentialsID: Credentials.ID)
         case refresh(credentialsID: Credentials.ID)
         case authenticate(credentialsID: Credentials.ID)
@@ -42,7 +42,7 @@ final class CredentialsCoordinator {
     func start() {
         let viewController: UIViewController
         switch action {
-        case .create(provider: let provider, _):
+        case .add(provider: let provider, _):
             let credentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
             credentialsViewController.delegate = self
             // TODO: Figure out how to send prefill strategy
@@ -95,7 +95,7 @@ extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
     func showScopeDescriptions() {
 
         let scopeList: [Scope]
-        if case .create(provider: _, mode: let mode) = action, case let .anonymous(scopes) = mode {
+        if case .add(provider: _, mode: let mode) = action, case let .anonymous(scopes) = mode {
             scopeList = scopes
         } else {
             scopeList = []
@@ -120,7 +120,7 @@ extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
     }
 
     func addCredential(provider: Provider, form: Form) {
-        guard case .create(provider: _, mode: let mode) = action else { return }
+        guard case .add(provider: _, mode: let mode) = action else { return }
 
         addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
             do {
