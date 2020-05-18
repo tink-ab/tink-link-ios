@@ -64,10 +64,21 @@ public final class TransferContext {
         return task
     }
 
+    // MARK: - Fetching Accounts
+
+    /// Fetches transfer accounts for the user.
+    ///
+    /// - Parameter completion: A result representing either a list of accounts or an error.
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: [], completion: completion)
     }
 
+    // MARK: - Fetching Beneficiaries
+
+    /// Fetches transfer beneficiaries for an account.
+    ///
+    /// - Parameter account: Account for beneficiary to fetch
+    /// - Parameter completion: A result representing either a list of beneficiaries or an error.
     public func fetchBeneficiaries(for account: Account, completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: []) { result in
             do {
@@ -82,6 +93,11 @@ public final class TransferContext {
         }
     }
 
+    // MARK: - Fetching All Beneficiaries
+
+    /// Fetches all transfer beneficiaries for all accounts.
+    ///
+    /// - Parameter completion: A result representing either a list of account ID and beneficiaries pair or an error.
     public func fetchAllBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
         transferService.accounts(destinationUris: []) { result in
             do {
