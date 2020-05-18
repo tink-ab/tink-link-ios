@@ -214,4 +214,27 @@ public final class TransferContext {
     public func fetchBeneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         transferService.beneficiaries(completion: completion)
     }
+
+    func addBeneficiary(
+        name: String,
+        type: String,
+        accountNumber: String,
+        to account: Account,
+        authenticationHandler: @escaping () -> Void,
+        completion: @escaping (Result<Beneficiary, Error>) -> Void
+    ) {
+        var components = URLComponents()
+        components.scheme = type
+        components.host = accountNumber
+
+        let beneficiary = Beneficiary(
+            id: Beneficiary.ID(UUID().uuidString),
+            name: name,
+            accountID: account.id,
+            accountNumber: accountNumber,
+            uri: components.url
+        )
+
+        completion(.success(beneficiary))
+    }
 }
