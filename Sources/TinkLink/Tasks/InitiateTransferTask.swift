@@ -34,7 +34,8 @@ public final class InitiateTransferTask {
     private let transferService: TransferService
     private let credentialsService: CredentialsService
     private let appUri: URL
-    private let progressHandler: (Status) -> Void
+    private let loadingHandler: (Status) -> Void
+    private let authenticatingHandler: (Status) -> Void
     private let completionHandler: (Result<Receipt, Swift.Error>) -> Void
 
     private var transferStatusPollingTask: TransferStatusPollingTask?
@@ -42,11 +43,12 @@ public final class InitiateTransferTask {
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private var isCancelled = false
 
-    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
+    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, loadingHandler: @escaping (Status) -> Void, authenticatingHandler: @escaping (Status) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
         self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri
-        self.progressHandler = progressHandler
+        self.loadingHandler = loadingHandler
+        self.authenticatingHandler = authenticatingHandler
         self.completionHandler = completionHandler
     }
 
@@ -79,7 +81,7 @@ public final class InitiateTransferTask {
             let signableOperation = try result.get()
             switch signableOperation.status {
             case .created:
-                progressHandler(.created)
+                loadingHandler(.created)
             case .awaitingCredentials, .awaitingThirdPartyAppAuthentication:
                 transferStatusPollingTask?.stopPolling()
                 if credentialsStatusPollingTask == nil {
@@ -99,7 +101,7 @@ public final class InitiateTransferTask {
                 }
                 credentialsStatusPollingTask?.startPolling()
             case .executing:
-                progressHandler(.executing(status: signableOperation.statusMessage ?? ""))
+                loadingHandler(.executing(status: signableOperation.statusMessage ?? ""))
             case .executed:
                 complete(with: result)
             case .cancelled:
@@ -122,7 +124,7 @@ public final class InitiateTransferTask {
             switch credentials.status {
             case .created: break
             case .authenticating:
-                progressHandler(.authenticating)
+                loadingHandler(.authenticating)
             case .awaitingSupplementalInformation:
                 self.credentialsStatusPollingTask?.stopPolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
@@ -134,7 +136,7 @@ public final class InitiateTransferTask {
                         self.complete(with: .failure(error))
                     }
                 }
-                progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
+                authenticatingHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 self.credentialsStatusPollingTask?.stopPolling()
                 guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
@@ -153,7 +155,7 @@ public final class InitiateTransferTask {
                     self.thirdPartyAuthenticationTask = nil
                 }
                 thirdPartyAuthenticationTask = task
-                progressHandler(.awaitingThirdPartyAppAuthentication(task))
+                authenticatingHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating, .updated:
                 // Stops polling when the credentials status is updating
                 credentialsStatusPollingTask?.stopPolling()
