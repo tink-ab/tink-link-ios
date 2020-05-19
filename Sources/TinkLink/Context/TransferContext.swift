@@ -27,6 +27,7 @@ public final class TransferContext {
     /// Initiate a transfer for the user.
     ///
     /// You need to handle authentication changes in `authenticationHandler` to successfuly initiate a transfer.
+    /// Also if needed, you can get the progress status change in `progressHandler`, and present them accordingly.
     ///    initiateTransferTask = transferContext.initiateTransfer(
     ///        amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
     ///        source: sourceAccount,
