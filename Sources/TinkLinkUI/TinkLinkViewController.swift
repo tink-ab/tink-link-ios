@@ -99,7 +99,7 @@ public class TinkLinkViewController: UINavigationController {
     private let clientDescriptorLoadingGroup = DispatchGroup()
     private var result: Result<ResultType, TinkLinkError>?
     private let temporaryCompletion: ((Result<AuthorizationCode, TinkLinkError>) -> Void)?
-    private let permamentCompletion: ((Result<Credentials, TinkLinkError>) -> Void)?
+    private let permanentCompletion: ((Result<Credentials, TinkLinkError>) -> Void)?
 
     /// Initializes a new TinkLinkViewController.
     /// - Parameters:
@@ -116,7 +116,7 @@ public class TinkLinkViewController: UINavigationController {
         self.providerController = ProviderController(tink: tink, providerPredicate: providerPredicate)
         self.providerPredicate = providerPredicate
         self.temporaryCompletion = completion
-        self.permamentCompletion = nil
+        self.permanentCompletion = nil
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -129,7 +129,7 @@ public class TinkLinkViewController: UINavigationController {
         self.market = nil
         self.providerPredicate = .kinds(.all)
         self.providerController = ProviderController(tink: tink)
-        self.permamentCompletion = completion
+        self.permanentCompletion = completion
         self.temporaryCompletion = nil
 
         super.init(nibName: nil, bundle: nil)
@@ -144,7 +144,7 @@ public class TinkLinkViewController: UINavigationController {
         self.market = nil
         self.providerPredicate = .kinds(.all)
         self.providerController = ProviderController(tink: tink)
-        self.permamentCompletion = completion
+        self.permanentCompletion = completion
         self.temporaryCompletion = nil
 
         super.init(nibName: nil, bundle: nil)
@@ -287,22 +287,20 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private func completion() {
-        if let result = result {
-            switch result {
-            case .success(let resultType):
-                switch resultType {
-                case .authorizationCode(let authorizationCode):
-                    temporaryCompletion?(.success(authorizationCode))
-                case .credentials(let credentials):
-                    permamentCompletion?(.success(credentials))
-                }
-            case .failure(let error):
-                temporaryCompletion?(.failure(error))
-                permamentCompletion?(.failure(error))
-            }
-        } else {
+        switch result {
+        case .success(.credentials(let credentials)):
+            permanentCompletion?(.success(credentials))
+
+        case .success(.authorizationCode(let code)):
+            temporaryCompletion?(.success(code))
+
+        case .failure(let error):
+            temporaryCompletion?(.failure(error))
+            permanentCompletion?(.failure(error))
+
+        case .none:
             temporaryCompletion?(.failure(.userCancelled))
-            permamentCompletion?(.failure(.userCancelled))
+            permanentCompletion?(.failure(.userCancelled))
         }
     }
 }
