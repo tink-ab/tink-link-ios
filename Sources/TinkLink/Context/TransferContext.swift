@@ -78,12 +78,7 @@ public final class TransferContext {
         transferService.beneficiaries() { result in
             do {
                 let beneficiaries = try result.get()
-                let accountIDs = beneficiaries.map { $0.accountID }
-                let uniqueAccountIDs = Array(Set(accountIDs))
-                let groupedBeneficiariesByAccountID = uniqueAccountIDs.reduce(into: [Account.ID: [Beneficiary]]()) { result, accountID in
-                    let beneficiaries = beneficiaries.filter { $0.accountID == accountID }
-                    result[accountID] = beneficiaries
-                }
+                let groupedBeneficiariesByAccountID = Dictionary(grouping: beneficiaries, by: \.accountID)
                 completion(.success(groupedBeneficiariesByAccountID))
             } catch {
                 completion(.failure(error))
