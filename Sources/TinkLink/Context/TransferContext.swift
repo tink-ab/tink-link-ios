@@ -216,10 +216,10 @@ public final class TransferContext {
     }
 
     func addBeneficiary(
+        to account: Account,
         name: String,
         type: String,
         accountNumber: String,
-        to account: Account,
         authenticationHandler: @escaping (AddBeneficiaryTask.Authentication) -> Void,
         completion: @escaping (Result<Beneficiary, Error>) -> Void
     ) -> AddBeneficiaryTask {
