@@ -77,7 +77,8 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     public var operation: Operation?
-    public var accessToken: AccessToken?
+    public var userSession: UserSession?
+    public var authorizationCode: AuthorizationCode?
 
     /// The prefilling strategy to use.
     public var prefill: PrefillStrategy = .none
@@ -120,10 +121,25 @@ public class TinkLinkViewController: UINavigationController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    public init(tink: Tink = .shared, accessToken: AccessToken, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, userSession: UserSession, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.tink = tink
-        self.accessToken = accessToken
+        self.userSession = userSession
         self.operation = operation
+        self.scopes = nil
+        self.market = nil
+        self.providerPredicate = .kinds(.all)
+        self.providerController = ProviderController(tink: tink)
+        self.permamentCompletion = completion
+        self.temporaryCompletion = nil
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    public init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+        self.tink = tink
+        self.authorizationCode = authorizationCode
+        self.operation = operation
+        self.userSession = nil
         self.scopes = nil
         self.market = nil
         self.providerPredicate = .kinds(.all)
@@ -155,7 +171,7 @@ public class TinkLinkViewController: UINavigationController {
         presentationController?.delegate = self
         loadingViewController.delegate = self
 
-        start(accessToken: accessToken)
+        start(userSession: userSession)
     }
 
     func fetchProviders() {
@@ -183,19 +199,18 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
-    private func start(accessToken: AccessToken?) {
+    private func start(userSession: UserSession?) {
         loadingViewController.showLoadingIndicator()
         tink._beginUITask()
         defer { tink._endUITask() }
-        if let accessToken = accessToken {
-            authorizePermanentUser(accessToken: accessToken)
+        if let userSession = userSession {
+            authorizePermanentUser(userSession: userSession)
         } else {
             createTemporaryUser()
         }
     }
 
-    private func authorizePermanentUser(accessToken: AccessToken) {
-        tink.userSession = .accessToken(accessToken.rawValue)
+    private func authorizePermanentUser(userSession: UserSession) {
         tink.authenticateUser(authorizationCode: AuthorizationCode("AUTHORIZATION_CODE")) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -306,7 +321,7 @@ extension TinkLinkViewController {
         let retryAction = UIAlertAction(title: Strings.Generic.ServiceAlert.retry, style: .default) { _ in
             self.loadingViewController.showLoadingIndicator()
             self.setViewControllers([self.loadingViewController], animated: false)
-            self.start(accessToken: self.accessToken)
+            self.start(userSession: self.userSession)
         }
         alertController.addAction(retryAction)
 
