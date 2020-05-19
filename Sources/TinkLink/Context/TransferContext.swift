@@ -223,7 +223,12 @@ public final class TransferContext {
         authenticationHandler: @escaping (AddBeneficiaryTask.Authentication) -> Void,
         completion: @escaping (Result<Beneficiary, Error>) -> Void
     ) -> AddBeneficiaryTask {
-        let task = AddBeneficiaryTask()
+        let task = AddBeneficiaryTask(
+            credentialsService: credentialsService,
+            appUri: tink.configuration.redirectURI,
+            authenticationHandler: authenticationHandler,
+            completionHandler: completion
+        )
 
         var components = URLComponents()
         components.scheme = type
