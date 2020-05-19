@@ -26,8 +26,27 @@ public final class TransferContext {
 
     /// Initiate a transfer for the user.
     ///
-    /// You need to handle status changes in `progressHandler` to successfuly initiate a transfer.
-    // TODO: Add example here
+    /// You need to handle authentication changes in `authenticationHandler` to successfuly initiate a transfer.
+    ///    initiateTransferTask = transferContext.initiateTransfer(
+    ///        amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
+    ///        source: sourceAccount,
+    ///        destination: transferDestination,
+    ///        destinationMessage: message,
+    ///        progressHandler: { [weak self] status in
+    ///            <#Present the progress status change if needed#>
+    ///        },
+    ///        authenticationHandler: { [weak self] status in
+    ///            switch status {
+    ///            case .awaitingSupplementalInformation(let task):
+    ///                <#Present form for supplemental information task#>
+    ///            case .awaitingThirdPartyAppAuthentication(let task):
+    ///                <#Handle the third party app deep link URL#>
+    ///             }
+    ///        },
+    ///        completion: { [weak self] result in
+    ///            <#Handle result#>
+    ///        }
+    ///    )
     /// - Parameters:
     ///   - amount: The amount and currency of the transfer.
     ///   - source: The transfer's source account.
