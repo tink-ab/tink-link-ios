@@ -174,31 +174,6 @@ public class TinkLinkViewController: UINavigationController {
         start(userSession: userSession)
     }
 
-    func fetchProviders() {
-        providerController.fetch { (result) in
-            DispatchQueue.main.async {
-                self.loadingViewController.hideLoadingIndicator()
-                switch result {
-                case .success(let providers):
-                    self.setViewControllers([], animated: false)
-                    switch self.providerPredicate {
-                    case .kinds:
-                        self.showProviderPicker()
-                    case .name:
-                        if let provider = providers.first {
-                            self.showAddCredentials(for: provider, animated: false)
-                        }
-                    }
-                case .failure (let error):
-                    if let tinkLinkError = TinkLinkError(error: error) {
-                        self.result = .failure(tinkLinkError)
-                    }
-                    self.loadingViewController.update(error)
-                }
-            }
-        }
-    }
-
     private func start(userSession: UserSession?) {
         loadingViewController.showLoadingIndicator()
         tink._beginUITask()
@@ -262,6 +237,31 @@ public class TinkLinkViewController: UINavigationController {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
                     self.showCreateTemporaryUserAlert(for: error)
+                }
+            }
+        }
+    }
+
+    func fetchProviders() {
+        providerController.fetch { (result) in
+            DispatchQueue.main.async {
+                self.loadingViewController.hideLoadingIndicator()
+                switch result {
+                case .success(let providers):
+                    self.setViewControllers([], animated: false)
+                    switch self.providerPredicate {
+                    case .kinds:
+                        self.showProviderPicker()
+                    case .name:
+                        if let provider = providers.first {
+                            self.showAddCredentials(for: provider, animated: false)
+                        }
+                    }
+                case .failure (let error):
+                    if let tinkLinkError = TinkLinkError(error: error) {
+                        self.result = .failure(tinkLinkError)
+                    }
+                    self.loadingViewController.update(error)
                 }
             }
         }
