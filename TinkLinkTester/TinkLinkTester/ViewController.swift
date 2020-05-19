@@ -53,7 +53,6 @@ class ViewController: UIViewController {
     }
 
     @objc func showTinkLinkWithAuthrorizationCode() {
-
         let authorizationCode = "YOUR_AUTHORIZATION_CODE"
 
         let tinkLinkViewcontroller = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)!, operation: .create(providerPredicate: .kinds(.all))) { _ in }
@@ -61,10 +60,9 @@ class ViewController: UIViewController {
     }
 
     @objc private func showTinkLinkWithUserSession() {
-        var userSession = Tink.shared.userSession
-        userSession = .accessToken("YOUR_ACCESS_TOKEN")
+        let accessToken = "YOUR_ACCESS_TOKEN"
 
-        let tinkLinkViewcontroller = TinkLinkViewController(userSession: userSession!, operation: .create(providerPredicate: .kinds(.all))) { _ in }
+        let tinkLinkViewcontroller = TinkLinkViewController(userSession: .accessToken(accessToken), operation: .create(providerPredicate: .kinds(.all))) { _ in }
         present(tinkLinkViewcontroller, animated: true)
     }
 }
