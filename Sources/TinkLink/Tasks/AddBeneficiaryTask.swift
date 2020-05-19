@@ -1,6 +1,8 @@
 import Foundation
 
 public final class AddBeneficiaryTask: Cancellable {
+    typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
+
     public enum Authentication {
         case awaitingSupplementalInformation(SupplementInformationTask)
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
@@ -11,6 +13,7 @@ public final class AddBeneficiaryTask: Cancellable {
     private let authenticationHandler: (Authentication) -> Void
     private let completionHandler: (Result<Beneficiary, Swift.Error>) -> Void
 
+    private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
     private var isCancelled = false
 
     init(
@@ -23,6 +26,23 @@ public final class AddBeneficiaryTask: Cancellable {
         self.appUri = appUri
         self.authenticationHandler = authenticationHandler
         self.completionHandler = completionHandler
+    }
+
+    func startObservingCredentials(for account: Account) {
+        if isCancelled { return }
+
+        credentialsStatusPollingTask = CredentialsStatusPollingTask(
+            id: account.credentialsID,
+            initialValue: nil,
+            request: credentialsService.credentials,
+            predicate: { (old, new) in
+                old.statusUpdated != new.statusUpdated || old.status != new.status
+            },
+            updateHandler: { [weak self] result in
+            }
+        )
+
+        credentialsStatusPollingTask?.startPolling()
     }
 
     public func cancel() {
