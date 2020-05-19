@@ -8,6 +8,14 @@ public final class AddBeneficiaryTask: Cancellable {
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
     }
 
+    public enum Error: Swift.Error {
+        case authenticationFailed(String)
+        case temporaryFailure(String)
+        case permanentFailure(String)
+        case disabledCredentials(String)
+        case sessionExpired(String)
+    }
+
     private let credentialsService: CredentialsService
     private let appUri: URL
     private let authenticationHandler: (Authentication) -> Void
