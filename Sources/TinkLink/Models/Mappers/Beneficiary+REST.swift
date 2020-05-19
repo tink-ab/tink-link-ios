@@ -6,10 +6,12 @@ extension Beneficiary {
         self.accountNumber = beneficiary.accountNumber
         self.name = beneficiary.name
 
-        let url = URL(string: "\(beneficiary.type)://\(beneficiary.accountNumber)")
-        var urlComponents = url.flatMap { URLComponents(url: $0, resolvingAgainstBaseURL: false) }
-        urlComponents?.queryItems = []
-        urlComponents?.queryItems?.append(URLQueryItem(name: "name", value: beneficiary.name))
-        self.uri = urlComponents?.url
+        var urlComponents = URLComponents()
+        urlComponents.scheme = beneficiary.type
+        urlComponents.path = beneficiary.accountNumber
+        urlComponents.queryItems = []
+        urlComponents.queryItems?.append(URLQueryItem(name: "name", value: beneficiary.name))
+        self.uri = urlComponents.url
+
     }
 }
