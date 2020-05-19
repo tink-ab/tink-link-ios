@@ -230,19 +230,9 @@ public final class TransferContext {
             completionHandler: completion
         )
 
-        var components = URLComponents()
-        components.scheme = type
-        components.host = accountNumber
+        // TODO: Call beneficiary service
 
-        let beneficiary = Beneficiary(
-            id: Beneficiary.ID(UUID().uuidString),
-            name: name,
-            accountID: account.id,
-            accountNumber: accountNumber,
-            uri: components.url
-        )
-
-        completion(.success(beneficiary))
+        task.startObservingCredentials(for: account)
 
         return task
     }
