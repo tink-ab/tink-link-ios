@@ -76,9 +76,9 @@ public class TinkLinkViewController: UINavigationController {
         case authorizationCode(AuthorizationCode)
     }
 
-    public var operation: Operation?
-    public var userSession: UserSession?
-    public var authorizationCode: AuthorizationCode?
+    private let operation: Operation
+    private var userSession: UserSession?
+    private var authorizationCode: AuthorizationCode?
 
     /// The prefilling strategy to use.
     public var prefill: PrefillStrategy = .none
@@ -86,7 +86,6 @@ public class TinkLinkViewController: UINavigationController {
     public let scopes: [Scope]?
     private let tink: Tink
     private let market: Market?
-    private let providerPredicate: ProviderPredicate
     private var providerController: ProviderController
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
@@ -114,7 +113,7 @@ public class TinkLinkViewController: UINavigationController {
         self.market = market
         self.scopes = scopes
         self.providerController = ProviderController(tink: tink, providerPredicate: providerPredicate)
-        self.providerPredicate = providerPredicate
+        self.operation = .create(providerPredicate: providerPredicate)
         self.temporaryCompletion = completion
         self.permanentCompletion = nil
 
@@ -127,7 +126,6 @@ public class TinkLinkViewController: UINavigationController {
         self.operation = operation
         self.scopes = nil
         self.market = nil
-        self.providerPredicate = .kinds(.all)
         self.providerController = ProviderController(tink: tink)
         self.permanentCompletion = completion
         self.temporaryCompletion = nil
@@ -142,7 +140,6 @@ public class TinkLinkViewController: UINavigationController {
         self.userSession = nil
         self.scopes = nil
         self.market = nil
-        self.providerPredicate = .kinds(.all)
         self.providerController = ProviderController(tink: tink)
         self.permanentCompletion = completion
         self.temporaryCompletion = nil
@@ -251,14 +248,7 @@ public class TinkLinkViewController: UINavigationController {
                 switch result {
                 case .success(let providers):
                     self.setViewControllers([], animated: false)
-                    switch self.providerPredicate {
-                    case .kinds:
-                        self.showProviderPicker()
-                    case .name:
-                        if let provider = providers.first {
-                            self.showAddCredentials(for: provider, animated: false)
-                        }
-                    }
+                    self.operate(providers: providers)
                 case .failure (let error):
                     if let tinkLinkError = TinkLinkError(error: error) {
                         self.result = .failure(tinkLinkError)
@@ -266,6 +256,26 @@ public class TinkLinkViewController: UINavigationController {
                     self.loadingViewController.update(error)
                 }
             }
+        }
+    }
+
+    func operate(providers: [Provider]) {
+        switch self.operation {
+        case .create(providerPredicate: let providerPredicate):
+            switch providerPredicate {
+                case .kinds:
+                    self.showProviderPicker()
+                case .name:
+                    if let provider = providers.first {
+                        self.showAddCredentials(for: provider, animated: false)
+                    }
+            }
+        case .authenticate: break
+            // NO-OP
+        case .refresh: break
+            // NO-OP
+        case .update: break
+            // NO-OP
         }
     }
 
