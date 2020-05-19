@@ -69,16 +69,16 @@ public final class TransferContext {
     }
 
     public func fetchAllBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
-        transferService.accounts(destinationUris: []) { result in
+        transferService.beneficiary() { result in
             do {
-                let accounts = try result.get()
-                let mappedTransferDestinations = accounts.reduce(into: [Account.ID: [Beneficiary]]()) { result, account in
-                    let destinations = account.transferDestinations ?? []
-                    let filteredTransferDestinations = destinations.filter { !($0.isMatchingMultipleDestinations ?? false) }
-                    let beneficiaries = filteredTransferDestinations.map { Beneficiary(account: account, transferDestination: $0) }
-                    result[account.id] = beneficiaries
+                let beneficiaries = try result.get()
+                let accountIDs = beneficiaries.map { $0.accountID }
+                let uniqueAccountIDs = Array(Set(accountIDs))
+                let groupedBeneficiariesByAccountID = uniqueAccountIDs.reduce(into: [Account.ID: [Beneficiary]]()) { result, accountID in
+                    let beneficiaries = beneficiaries.filter { $0.accountID == accountID }
+                    result[accountID] = beneficiaries
                 }
-                completion(.success(mappedTransferDestinations))
+                completion(.success(groupedBeneficiariesByAccountID))
             } catch {
                 completion(.failure(error))
             }
