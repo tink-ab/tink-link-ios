@@ -11,7 +11,12 @@ public final class AddBeneficiaryTask: Cancellable {
     private let authenticationHandler: (Authentication) -> Void
     private let completionHandler: (Result<Beneficiary, Swift.Error>) -> Void
 
-    init(credentialsService: CredentialsService, appUri: URL, authenticationHandler: @escaping (Authentication) -> Void, completionHandler: @escaping (Result<Beneficiary, Swift.Error>) -> Void) {
+    init(
+        credentialsService: CredentialsService,
+        appUri: URL,
+        authenticationHandler: @escaping (Authentication) -> Void,
+        completionHandler: @escaping (Result<Beneficiary, Swift.Error>) -> Void
+    ) {
         self.credentialsService = credentialsService
         self.appUri = appUri
         self.authenticationHandler = authenticationHandler
