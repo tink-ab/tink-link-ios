@@ -101,9 +101,9 @@ public final class AddBeneficiaryTask: Cancellable {
             case .updated:
                 complete(with: .success(credentials))
             case .permanentError:
-                complete(with: .failure(Error.permanentFailure(credentials.statusPayload)))
+                throw Error.permanentFailure(credentials.statusPayload)
             case .temporaryError:
-                complete(with: .failure(Error.temporaryFailure(credentials.statusPayload)))
+                throw Error.temporaryFailure(credentials.statusPayload)
             case .authenticationError:
                 var payload: String
                 // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
@@ -113,11 +113,11 @@ public final class AddBeneficiaryTask: Cancellable {
                 } else {
                     payload = credentials.statusPayload
                 }
-                complete(with: .failure(Error.authenticationFailed(payload)))
+                throw Error.authenticationFailed(payload)
             case .disabled:
-                complete(with: .failure(Error.disabledCredentials(credentials.statusPayload)))
+                throw Error.disabledCredentials(credentials.statusPayload)
             case .sessionExpired:
-                complete(with: .failure(Error.sessionExpired(credentials.statusPayload)))
+                throw Error.sessionExpired(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }
