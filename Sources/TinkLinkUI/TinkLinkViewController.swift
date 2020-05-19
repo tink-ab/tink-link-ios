@@ -171,39 +171,35 @@ public class TinkLinkViewController: UINavigationController {
         presentationController?.delegate = self
         loadingViewController.delegate = self
 
-        start(userSession: userSession)
+        start(userSession: userSession, authorizationCode: authorizationCode)
     }
 
-    private func start(userSession: UserSession?) {
+    private func start(userSession: UserSession?, authorizationCode: AuthorizationCode?) {
         loadingViewController.showLoadingIndicator()
         tink._beginUITask()
         defer { tink._endUITask() }
         if let userSession = userSession {
-            authorizePermanentUser(userSession: userSession)
+            tink.userSession = userSession
+            self.showProviderList()
+        } else if let authorizationCode = authorizationCode {
+            createPermanentUser(authorizationCode: authorizationCode) {
+                self.showProviderList()
+            }
         } else {
-            createTemporaryUser()
+            createTemporaryUser() {
+                self.showProviderList()
+            }
         }
     }
 
-    private func authorizePermanentUser(userSession: UserSession) {
-        tink.authenticateUser(authorizationCode: AuthorizationCode("AUTHORIZATION_CODE")) { [weak self] result in
+    private func createPermanentUser(authorizationCode: AuthorizationCode, completion: @escaping () -> Void) {
+        tink.authenticateUser(authorizationCode: authorizationCode) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 do {
                     _ = try result.get()
 
-                    self.fetchProviders()
-                    self.clientDescriptorLoadingGroup.enter()
-                    self.authorizationController.clientDescription { (clientDescriptionResult) in
-                        DispatchQueue.main.async {
-                            do {
-                                self.clientDescription = try clientDescriptionResult.get()
-                                self.clientDescriptorLoadingGroup.leave()
-                            } catch {
-                                self.showUnknownAggregatorAlert(for: error)
-                            }
-                        }
-                    }
+                    completion()
                 } catch {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
@@ -213,7 +209,7 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
-    private func createTemporaryUser() {
+    private func createTemporaryUser(completion: @escaping () -> Void) {
         guard let market = market else { return }
         tink._createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
@@ -221,22 +217,28 @@ public class TinkLinkViewController: UINavigationController {
                 do {
                     _ = try result.get()
 
-                    self.fetchProviders()
-                    self.clientDescriptorLoadingGroup.enter()
-                    self.authorizationController.clientDescription { (clientDescriptionResult) in
-                        DispatchQueue.main.async {
-                            do {
-                                self.clientDescription = try clientDescriptionResult.get()
-                                self.clientDescriptorLoadingGroup.leave()
-                            } catch {
-                                self.showUnknownAggregatorAlert(for: error)
-                            }
-                        }
-                    }
+                    completion()
                 } catch {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
                     self.showCreateTemporaryUserAlert(for: error)
+                }
+            }
+        }
+    }
+
+    private func showProviderList() {
+        DispatchQueue.main.async {
+            self.fetchProviders()
+            self.clientDescriptorLoadingGroup.enter()
+            self.authorizationController.clientDescription { (clientDescriptionResult) in
+                DispatchQueue.main.async {
+                    do {
+                        self.clientDescription = try clientDescriptionResult.get()
+                        self.clientDescriptorLoadingGroup.leave()
+                    } catch {
+                        self.showUnknownAggregatorAlert(for: error)
+                    }
                 }
             }
         }
@@ -321,7 +323,7 @@ extension TinkLinkViewController {
         let retryAction = UIAlertAction(title: Strings.Generic.ServiceAlert.retry, style: .default) { _ in
             self.loadingViewController.showLoadingIndicator()
             self.setViewControllers([self.loadingViewController], animated: false)
-            self.start(userSession: self.userSession)
+            self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
         }
         alertController.addAction(retryAction)
 

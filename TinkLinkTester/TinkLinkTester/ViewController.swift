@@ -52,11 +52,20 @@ class ViewController: UIViewController {
         present(tinkLinkViewController, animated: true)
     }
 
-    @objc private func showPermanentUser() {
-        let accessToken = "YOUR_ACCESS_TOKEN"
+    @objc func showTinkLinkWithAuthrorizationCode() {
 
-        let viewcontroller = TinkLinkViewController(accessToken: AccessToken(rawValue: accessToken)!, operation: .create(providerPredicate: .kinds(.all))) { _ in }
-        present(viewcontroller, animated: true)
+        let authorizationCode = "YOUR_AUTHORIZATION_CODE"
+
+        let tinkLinkViewcontroller = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)!, operation: .create(providerPredicate: .kinds(.all))) { _ in }
+        present(tinkLinkViewcontroller, animated: true)
+    }
+
+    @objc private func showTinkLinkWithUserSession() {
+        var userSession = Tink.shared.userSession
+        userSession = .accessToken("YOUR_ACCESS_TOKEN")
+
+        let tinkLinkViewcontroller = TinkLinkViewController(userSession: userSession!, operation: .create(providerPredicate: .kinds(.all))) { _ in }
+        present(tinkLinkViewcontroller, animated: true)
     }
 }
 
