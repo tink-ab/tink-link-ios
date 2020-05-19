@@ -22,6 +22,15 @@ final class RESTTransferService: TransferService {
         return client.performRequest(request)
     }
 
+    func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
+        let request = RESTResourceRequest<RESTBeneficiaryListResponse>(path: "/api/v1/beneficiaries", method: .get, contentType: .json) { result in
+            let mappedResult = result.map { $0.beneficiaries.map { Beneficiary(restBeneficiary: $0) } }
+            completion(mappedResult)
+        }
+
+        return client.performRequest(request)
+    }
+
     func transfer(transfer: Transfer, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         let body = RESTTransferRequest(
             amount: transfer.amount.doubleValue,

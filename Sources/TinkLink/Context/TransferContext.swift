@@ -64,13 +64,11 @@ public final class TransferContext {
     }
 
     public func fetchBeneficiaries(for account: Account, completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        return transferService.accounts(destinationUris: []) { result in
+        return transferService.beneficiaries { result in
             do {
-                let accounts = try result.get()
-                let transferDestinations = accounts.first { $0.id == account.id }?.transferDestinations ?? []
-                let filteredTransferDestinations = transferDestinations.filter { !($0.isMatchingMultipleDestinations ?? false) }
-                let beneficiaries = filteredTransferDestinations.map { Beneficiary(account: account, transferDestination: $0) }
-                completion(.success(beneficiaries))
+                let beneficiaries = try result.get()
+                let filteredBeneficiaries = beneficiaries.filter { $0.accountID == account.id }
+                completion(.success(filteredBeneficiaries))
             } catch {
                 completion(.failure(error))
             }
@@ -78,16 +76,11 @@ public final class TransferContext {
     }
 
     public func fetchAllBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
-        transferService.accounts(destinationUris: []) { result in
+        transferService.beneficiaries() { result in
             do {
-                let accounts = try result.get()
-                let mappedTransferDestinations = accounts.reduce(into: [Account.ID: [Beneficiary]]()) { result, account in
-                    let destinations = account.transferDestinations ?? []
-                    let filteredTransferDestinations = destinations.filter { !($0.isMatchingMultipleDestinations ?? false) }
-                    let beneficiaries = filteredTransferDestinations.map { Beneficiary(account: account, transferDestination: $0) }
-                    result[account.id] = beneficiaries
-                }
-                completion(.success(mappedTransferDestinations))
+                let beneficiaries = try result.get()
+                let groupedBeneficiariesByAccountID = Dictionary(grouping: beneficiaries, by: \.accountID)
+                completion(.success(groupedBeneficiariesByAccountID))
             } catch {
                 completion(.failure(error))
             }
