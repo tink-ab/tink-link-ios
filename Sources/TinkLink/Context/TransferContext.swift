@@ -63,7 +63,7 @@ public final class TransferContext {
     }
 
     public func fetchBeneficiaries(for account: Account, completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        return transferService.beneficiary { result in
+        return transferService.beneficiaries { result in
             do {
                 let beneficiaries = try result.get()
                 let filteredBeneficiaries = beneficiaries.filter { $0.accountID == account.id }
@@ -75,7 +75,7 @@ public final class TransferContext {
     }
 
     public func fetchAllBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
-        transferService.beneficiary() { result in
+        transferService.beneficiaries() { result in
             do {
                 let beneficiaries = try result.get()
                 let accountIDs = beneficiaries.map { $0.accountID }
