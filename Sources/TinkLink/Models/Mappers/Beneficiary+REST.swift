@@ -5,10 +5,11 @@ extension Beneficiary {
         self.accountID = Account.ID(stringLiteral: beneficiary.accountId)
         self.accountNumber = beneficiary.accountNumber
         self.name = beneficiary.name
-        if let encodedName = beneficiary.name.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
-            self.uri = URL(string: "\(beneficiary.type)://\(beneficiary.accountNumber)?name=\(encodedName)")
-        } else {
-            self.uri = nil
-        }
+
+        let url = URL(string: "\(beneficiary.type)://\(beneficiary.accountNumber)")
+        var urlComponents = url.flatMap { URLComponents(url: $0, resolvingAgainstBaseURL: false) }
+        urlComponents?.queryItems = []
+        urlComponents?.queryItems?.append(URLQueryItem(name: "name", value: beneficiary.name))
+        self.uri = urlComponents?.url
     }
 }
