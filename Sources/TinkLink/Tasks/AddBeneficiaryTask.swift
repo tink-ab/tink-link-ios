@@ -11,6 +11,8 @@ public final class AddBeneficiaryTask: Cancellable {
     private let authenticationHandler: (Authentication) -> Void
     private let completionHandler: (Result<Beneficiary, Swift.Error>) -> Void
 
+    private var isCancelled = false
+
     init(
         credentialsService: CredentialsService,
         appUri: URL,
@@ -24,6 +26,6 @@ public final class AddBeneficiaryTask: Cancellable {
     }
 
     public func cancel() {
-
+        isCancelled = true
     }
 }
