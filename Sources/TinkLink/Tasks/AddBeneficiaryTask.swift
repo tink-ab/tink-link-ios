@@ -94,12 +94,12 @@ public final class AddBeneficiaryTask: Cancellable {
                     }
                     self?.thirdPartyAppAuthenticationTask = nil
                 }
-                thirdPartyAppAuthenticationTask = task
-                if let task = task {
-                    authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
-                } else {
+                guard let task = task else {
                     complete(with: .failure(Error.authenticationFailed("Missing third party app authentication deeplink URL.")))
+                    return
                 }
+                thirdPartyAppAuthenticationTask = task
+                authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
                 break
             case .updated:
