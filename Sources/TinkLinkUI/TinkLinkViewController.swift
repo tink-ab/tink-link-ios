@@ -179,7 +179,7 @@ public class TinkLinkViewController: UINavigationController {
             tink.userSession = userSession
             self.showProviderList()
         } else if let authorizationCode = authorizationCode {
-            createPermanentUser(authorizationCode: authorizationCode) {
+            authorizePermanentUser(authorizationCode: authorizationCode) {
                 self.showProviderList()
             }
         } else {
@@ -189,7 +189,7 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
-    private func createPermanentUser(authorizationCode: AuthorizationCode, completion: @escaping () -> Void) {
+    private func authorizePermanentUser(authorizationCode: AuthorizationCode, completion: @escaping () -> Void) {
         tink.authenticateUser(authorizationCode: authorizationCode) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
