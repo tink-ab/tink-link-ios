@@ -282,11 +282,11 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private func closeTinkLink() {
-        completion()
+        completionHandler()
         dismiss(animated: true)
     }
 
-    private func completion() {
+    private func completionHandler() {
         switch result {
         case .success(.credentials(let credentials)):
             permanentCompletion?(.success(credentials))
@@ -442,7 +442,7 @@ extension TinkLinkViewController {
         }
         let viewController = CredentialsSuccessfullyAddedViewController(companyName: clientDescription.name) { [weak self] in
             guard let self = self else { return }
-            self.completion()
+            self.completionHandler()
             self.dismiss(animated: true)
         }
         setViewControllers([viewController], animated: true)
@@ -525,7 +525,7 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
 
     /// :nodoc:
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-        completion()
+        completionHandler()
     }
 
     /// :nodoc:
