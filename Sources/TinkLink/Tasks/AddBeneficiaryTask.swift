@@ -72,43 +72,34 @@ public final class AddBeneficiaryTask: Cancellable {
                 break
             case .awaitingSupplementalInformation:
                 self.credentialsStatusPollingTask?.stopPolling()
-                let task = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
-                    guard let self = self else { return }
+                let task = makeSupplementInformationTask(for: credentials) { [weak self] result in
                     do {
                         try result.get()
-                        self.credentialsStatusPollingTask?.startPolling()
+                        self?.credentialsStatusPollingTask?.startPolling()
                     } catch {
-                        self.complete(with: .failure(error))
+                        self?.complete(with: .failure(error))
                     }
+                    self?.supplementInformationTask = nil
                 }
                 supplementInformationTask = task
                 authenticationHandler(.awaitingSupplementalInformation(task))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 self.credentialsStatusPollingTask?.stopPolling()
-                guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
-                    assertionFailure("Missing third party app authentication deeplink URL!")
-                    return
-                }
-
-                let task = ThirdPartyAppAuthenticationTask(
-                    credentials: credentials,
-                    thirdPartyAppAuthentication: thirdPartyAppAuthentication,
-                    appUri: appUri,
-                    credentialsService: credentialsService,
-                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
-                    completionHandler: { [weak self] result in
-                        guard let self = self else { return }
-                        do {
-                            try result.get()
-                            self.credentialsStatusPollingTask?.startPolling()
-                        } catch {
-                            self.complete(with: .failure(error))
-                        }
-                        self.thirdPartyAppAuthenticationTask = nil
+                let task = makeThirdPartyAppAuthenticationTask(for: credentials) { [weak self] result in
+                    do {
+                        try result.get()
+                        self?.credentialsStatusPollingTask?.startPolling()
+                    } catch {
+                        self?.complete(with: .failure(error))
                     }
-                )
+                    self?.thirdPartyAppAuthenticationTask = nil
+                }
                 thirdPartyAppAuthenticationTask = task
-                authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
+                if let task = task {
+                    authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
+                } else {
+                    complete(with: .failure(Error.authenticationFailed("Missing third party app authentication deeplink URL.")))
+                }
             case .updating:
                 break
             case .updated:
@@ -137,6 +128,26 @@ public final class AddBeneficiaryTask: Cancellable {
         } catch {
             complete(with: .failure(error))
         }
+    }
+
+    private func makeSupplementInformationTask(for credentials: Credentials, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> SupplementInformationTask {
+        return SupplementInformationTask(credentialsService: credentialsService, credentials: credentials, completionHandler: completion)
+    }
+
+    private func makeThirdPartyAppAuthenticationTask(for credentials: Credentials, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> ThirdPartyAppAuthenticationTask? {
+        guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
+            assertionFailure("Missing third party app authentication deeplink URL!")
+            return nil
+        }
+
+        return ThirdPartyAppAuthenticationTask(
+            credentials: credentials,
+            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
+            appUri: appUri,
+            credentialsService: credentialsService,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            completionHandler: completion
+        )
     }
 
     private func complete(with result: Result<Credentials, Swift.Error>) {
