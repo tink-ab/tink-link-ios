@@ -85,7 +85,7 @@ public final class AddBeneficiaryTask: Cancellable {
                 authenticationHandler(.awaitingSupplementalInformation(task))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 self.credentialsStatusPollingTask?.stopPolling()
-                let task = makeThirdPartyAppAuthenticationTask(for: credentials) { [weak self] result in
+                let task = try makeThirdPartyAppAuthenticationTask(for: credentials) { [weak self] result in
                     do {
                         try result.get()
                         self?.credentialsStatusPollingTask?.startPolling()
@@ -93,10 +93,6 @@ public final class AddBeneficiaryTask: Cancellable {
                         self?.complete(with: .failure(error))
                     }
                     self?.thirdPartyAppAuthenticationTask = nil
-                }
-                guard let task = task else {
-                    complete(with: .failure(Error.authenticationFailed("Missing third party app authentication deeplink URL.")))
-                    return
                 }
                 thirdPartyAppAuthenticationTask = task
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
@@ -134,10 +130,9 @@ public final class AddBeneficiaryTask: Cancellable {
         return SupplementInformationTask(credentialsService: credentialsService, credentials: credentials, completionHandler: completion)
     }
 
-    private func makeThirdPartyAppAuthenticationTask(for credentials: Credentials, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> ThirdPartyAppAuthenticationTask? {
+    private func makeThirdPartyAppAuthenticationTask(for credentials: Credentials, completion: @escaping (Result<Void, Swift.Error>) -> Void) throws -> ThirdPartyAppAuthenticationTask {
         guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
-            assertionFailure("Missing third party app authentication deeplink URL!")
-            return nil
+            throw Error.authenticationFailed("Missing third party app authentication deeplink URL.")
         }
 
         return ThirdPartyAppAuthenticationTask(
