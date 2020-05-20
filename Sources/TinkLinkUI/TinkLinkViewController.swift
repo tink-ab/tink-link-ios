@@ -226,7 +226,7 @@ public class TinkLinkViewController: UINavigationController {
 
     private func showProviderList() {
         DispatchQueue.main.async {
-            self.fetchProviders()
+            self.operate()
             self.clientDescriptorLoadingGroup.enter()
             self.authorizationController.clientDescription { (clientDescriptionResult) in
                 DispatchQueue.main.async {
@@ -241,14 +241,35 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
-    func fetchProviders() {
+    func operate() {
+        switch self.operation {
+        case .create(providerPredicate: let providerPredicate):
+            fetchProviders(providerPredicate: providerPredicate)
+        case .authenticate: break
+            // TODO
+        case .refresh: break
+            // TODO
+        case .update: break
+            // TODO
+        }
+    }
+
+
+    func fetchProviders(providerPredicate: ProviderPredicate) {
         providerController.fetch { (result) in
             DispatchQueue.main.async {
                 self.loadingViewController.hideLoadingIndicator()
                 switch result {
                 case .success(let providers):
                     self.setViewControllers([], animated: false)
-                    self.operate(providers: providers)
+                    switch providerPredicate {
+                    case .kinds:
+                        self.showProviderPicker()
+                    case .name:
+                        if let provider = providers.first {
+                            self.showAddCredentials(for: provider, animated: false)
+                        }
+                    }
                 case .failure (let error):
                     if let tinkLinkError = TinkLinkError(error: error) {
                         self.result = .failure(tinkLinkError)
@@ -256,26 +277,6 @@ public class TinkLinkViewController: UINavigationController {
                     self.loadingViewController.update(error)
                 }
             }
-        }
-    }
-
-    func operate(providers: [Provider]) {
-        switch self.operation {
-        case .create(providerPredicate: let providerPredicate):
-            switch providerPredicate {
-                case .kinds:
-                    self.showProviderPicker()
-                case .name:
-                    if let provider = providers.first {
-                        self.showAddCredentials(for: provider, animated: false)
-                    }
-            }
-        case .authenticate: break
-            // NO-OP
-        case .refresh: break
-            // NO-OP
-        case .update: break
-            // NO-OP
         }
     }
 
@@ -464,7 +465,7 @@ extension TinkLinkViewController {
 extension TinkLinkViewController: LoadingViewControllerDelegate {
     func loadingViewControllerDidPressRetry(_ viewController: LoadingViewController) {
         loadingViewController.showLoadingIndicator()
-        fetchProviders()
+        operate()
     }
 }
 
