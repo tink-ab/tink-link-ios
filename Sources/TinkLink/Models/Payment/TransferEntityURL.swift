@@ -25,6 +25,10 @@ public struct TransferEntityURI {
         }
     }
 
+    init(uri: URL) {
+        self.uri = uri
+    }
+
     let uri: URL
 }
 
