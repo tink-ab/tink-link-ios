@@ -15,7 +15,7 @@ public struct Account {
         case external
     }
 
-    public enum Flag {
+    enum Flag {
         case business
         case mandate
     }
