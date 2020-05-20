@@ -214,14 +214,14 @@ public class TinkLinkViewController: UINavigationController {
         defer { tink._endUITask() }
         if let userSession = userSession {
             tink.userSession = userSession
-            self.showProviderList()
+            self.startOperation()
         } else if let authorizationCode = authorizationCode {
             authorizePermanentUser(authorizationCode: authorizationCode) {
-                self.showProviderList()
+                self.startOperation()
             }
         } else {
             createTemporaryUser() {
-                self.showProviderList()
+                self.startOperation()
             }
         }
     }
@@ -261,7 +261,7 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
-    private func showProviderList() {
+    private func startOperation() {
         DispatchQueue.main.async {
             self.operate()
             self.clientDescriptorLoadingGroup.enter()
