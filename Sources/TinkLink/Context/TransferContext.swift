@@ -18,8 +18,8 @@ public final class TransferContext {
     }
 
     public func initiateTransfer(
-        from accountWithURI: TransferEntityURI,
-        to beneficiaryWithURI: TransferEntityURI,
+        fromAccountWithURI: TransferEntityURI,
+        toBeneficiaryWithURI: TransferEntityURI,
         amount: CurrencyDenominatedAmount,
         sourceMessage: String? = nil,
         destinationMessage: String,
@@ -38,8 +38,8 @@ public final class TransferContext {
             sourceMessage: sourceMessage,
             destinationMessage: destinationMessage,
             dueDate: nil,
-            destinationUri: accountWithURI.uri,
-            sourceUri: beneficiaryWithURI.uri
+            destinationUri: fromAccountWithURI.uri,
+            sourceUri: toBeneficiaryWithURI.uri
         )
 
         task.canceller = transferService.transfer(transfer: transfer) { [weak task] result in
@@ -70,7 +70,7 @@ public final class TransferContext {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
-        return initiateTransfer(from: source, to: destination, amount: amount, destinationMessage: destinationMessage, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
+        return initiateTransfer(fromAccountWithURI: source, toBeneficiaryWithURI: destination, amount: amount, destinationMessage: destinationMessage, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
     }
 
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
