@@ -19,7 +19,7 @@ public struct TransferEntityURI {
         urlComponents.host = accountNumber
 
         if let uri = urlComponents.url {
-            self.uri = uri
+            self.init(uri: uri)
         } else {
             return nil
         }
@@ -35,7 +35,7 @@ public struct TransferEntityURI {
 extension TransferEntityURI {
     init?(account: Account) {
         if let uri = account.transferSourceIdentifiers?.first {
-            self.uri = uri
+            self.init(uri: uri)
         } else {
             return nil
         }
@@ -45,7 +45,7 @@ extension TransferEntityURI {
 extension TransferEntityURI {
     init?(beneficiary: Beneficiary) {
         if let uri = beneficiary.uri {
-            self.uri = uri
+            self.init(uri: uri)
         } else {
             return nil
         }
