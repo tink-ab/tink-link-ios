@@ -93,7 +93,7 @@ public final class InitiateTransferTask {
                 transferStatusPollingTask?.stopPolling()
                 if credentialsStatusPollingTask == nil {
                     guard let credentialsID = signableOperation.credentialsID else {
-                        complete(with: .failure(Error.failed("Failed to get credentials ID.")))
+                        throw Error.failed("Failed to get credentials ID.")
                         return
                     }
                     credentialsStatusPollingTask = CredentialsStatusPollingTask(
@@ -112,9 +112,9 @@ public final class InitiateTransferTask {
             case .executed:
                 complete(with: result)
             case .cancelled:
-                complete(with: .failure(Error.cancelled(signableOperation.statusMessage)))
+                throw Error.cancelled(signableOperation.statusMessage)
             case .failed:
-                complete(with: .failure(Error.failed(signableOperation.statusMessage)))
+                throw Error.failed(signableOperation.statusMessage)
             case .unknown:
                 // Error handling?
                 break
@@ -168,9 +168,9 @@ public final class InitiateTransferTask {
                 credentialsStatusPollingTask?.stopPolling()
                 transferStatusPollingTask?.startPolling()
             case .permanentError:
-                complete(with: .failure(Error.failed(credentials.statusPayload)))
+                throw Error.failed(credentials.statusPayload)
             case .temporaryError:
-                complete(with: .failure(Error.failed(credentials.statusPayload)))
+                throw Error.failed(credentials.statusPayload)
             case .authenticationError:
                 var payload: String
                 // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
@@ -180,11 +180,11 @@ public final class InitiateTransferTask {
                 } else {
                     payload = credentials.statusPayload
                 }
-                complete(with: .failure(Error.authenticationFailed(payload)))
+                throw Error.authenticationFailed(payload)
             case .disabled:
-                complete(with: .failure(Error.disabledCredentials(credentials.statusPayload)))
+                throw Error.disabledCredentials(credentials.statusPayload)
             case .sessionExpired:
-                complete(with: .failure(Error.sessionExpired(credentials.statusPayload)))
+                throw Error.sessionExpired(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }
