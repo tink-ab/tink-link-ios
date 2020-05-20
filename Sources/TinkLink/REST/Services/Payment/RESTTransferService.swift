@@ -31,7 +31,7 @@ final class RESTTransferService: TransferService {
         return client.performRequest(request)
     }
 
-    func transfer(transfer: Transfer, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+    func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         let body = RESTTransferRequest(
             amount: transfer.amount.doubleValue,
             credentialsId: transfer.credentialsID.value,
@@ -42,7 +42,8 @@ final class RESTTransferService: TransferService {
             dueDate: transfer.dueDate,
             messageType: nil,
             destinationUri: transfer.destinationUri.absoluteString,
-            sourceUri: transfer.sourceUri.absoluteString
+            sourceUri: transfer.sourceUri.absoluteString,
+            redirectUri: redirectURI.absoluteString
         )
         do {
             let data = try JSONEncoder().encode(body)
