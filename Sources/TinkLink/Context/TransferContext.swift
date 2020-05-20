@@ -18,6 +18,42 @@ public final class TransferContext {
     }
 
     public func initiateTransfer(
+        from source: URL,
+        to destination: URL,
+        amount: CurrencyDenominatedAmount,
+        sourceMessage: String? = nil,
+        destinationMessage: String,
+        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
+        authenticationHandler: @escaping (InitiateTransferTask.Authentication) -> Void,
+        completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
+    ) -> InitiateTransferTask? {
+
+        let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completionHandler: completion)
+
+        let transfer = Transfer(
+            amount: amount.value,
+            id: nil,
+            credentialsID: nil,
+            currency: amount.currencyCode,
+            sourceMessage: sourceMessage,
+            destinationMessage: destinationMessage,
+            dueDate: nil,
+            destinationUri: destination,
+            sourceUri: source
+        )
+
+        task.canceller = transferService.transfer(transfer: transfer) { [weak task] result in
+            do {
+                let signableOperation = try result.get()
+                task?.startObserving(signableOperation)
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        return task
+    }
+
+    public func initiateTransfer(
         amount: CurrencyDenominatedAmount,
         source: Account,
         destination: Beneficiary,
@@ -34,29 +70,7 @@ public final class TransferContext {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
-        let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completionHandler: completion)
-
-        let transfer = Transfer(
-            amount: amount.value,
-            id: nil,
-            credentialsID: nil,
-            currency: amount.currencyCode,
-            sourceMessage: sourceMessage,
-            destinationMessage: destinationMessage,
-            dueDate: nil,
-            destinationUri: destinationURI,
-            sourceUri: sourceURI
-        )
-
-        task.canceller = transferService.transfer(transfer: transfer) { [weak task] result in
-            do {
-                let signableOperation = try result.get()
-                task?.startObserving(signableOperation)
-            } catch {
-                completion(.failure(error))
-            }
-        }
-        return task
+        return initiateTransfer(from: sourceURI, to: destinationURI, amount: amount, destinationMessage: destinationMessage, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
     }
 
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
