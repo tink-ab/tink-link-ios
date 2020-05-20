@@ -13,22 +13,10 @@ public struct TransferEntityURI {
         public let value: String
     }
 
-    public struct AccountNumber: ExpressibleByStringLiteral {
-        public init(stringLiteral value: String) {
-            self.value = value
-        }
-
-        public init(_ value: String) {
-            self.value = value
-        }
-
-        public let value: String
-    }
-
-    public init?(kind: Kind, accountNumber: AccountNumber) {
+    public init?(kind: Kind, accountNumber: String) {
         var urlComponents = URLComponents()
         urlComponents.scheme = kind.value
-        urlComponents.host = accountNumber.value
+        urlComponents.host = accountNumber
 
         if let uri = urlComponents.url {
             self.uri = uri
