@@ -89,7 +89,7 @@ public final class TransferContext {
         }
     }
 
-    public func fetchAllBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
+    public func fetchBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
         transferService.beneficiaries() { result in
             do {
                 let beneficiaries = try result.get()
