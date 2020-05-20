@@ -33,11 +33,11 @@ public final class TransferContext {
     ///        source: sourceAccount,
     ///        destination: transferDestination,
     ///        destinationMessage: message,
-    ///        progressHandler: { [weak self] status in
+    ///        progressHandler: { status in
     ///            <#Present the progress status change if needed#>
     ///        },
-    ///        authenticationHandler: { [weak self] status in
-    ///            switch status {
+    ///        authenticationHandler: { task in
+    ///            switch task {
     ///            case .awaitingSupplementalInformation(let task):
     ///                <#Present form for supplemental information task#>
     ///            case .awaitingThirdPartyAppAuthentication(let task):

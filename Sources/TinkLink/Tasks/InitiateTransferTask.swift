@@ -8,17 +8,27 @@ public final class InitiateTransferTask {
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
+    /// Indicates the status of initiate transfer progress.
     public enum Status {
+        /// Initial status
         case created
+        /// When starting the authentication process
         case authenticating
+        /// User has been successfully authenticated, now executing the transfer initiation.
         case executing(status: String)
     }
 
+    /// Indicates the task for authentication when initiate a transfer.
+    ///
+    /// - Note: The states have actions which need to be performed to continue the transfer initiation process.
     public enum Authentication {
+        /// Trigger for the client to prompt the user to fill out supplemental information.
         case awaitingSupplementalInformation(SupplementInformationTask)
+        /// Trigger for the client to prompt the user to open the third party authentication flow
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
     }
 
+    /// Error that the `InitiateTransferTask` can throw.
     public enum Error: Swift.Error {
         /// The authentication failed. The payload from the backend can be found in the associated value.
         case authenticationFailed(String?)
@@ -28,8 +38,11 @@ public final class InitiateTransferTask {
         case failed(String?)
     }
 
+    /// Indicates the result of transfer initiation.
     public struct Receipt {
+        /// Transfer ID
         public let id: Transfer.ID
+        /// Receipt message
         public let message: String?
     }
 
@@ -209,6 +222,7 @@ public final class InitiateTransferTask {
         }
     }
 
+    /// Cancel the task.
     public func cancel() {
         isCancelled = true
         transferStatusPollingTask?.stopPolling()
