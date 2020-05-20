@@ -112,8 +112,8 @@ extension TransferViewController {
         }
     }
 
-    private func handleTransferAuthentication(_ status: InitiateTransferTask.Authentication) {
-        switch status {
+    private func handleTransferAuthentication(_ authenticationTask: InitiateTransferTask.AuthenticationTask) {
+        switch authenticationTask {
         case .awaitingSupplementalInformation(let task):
             hideStatus(animated: false) {
                 self.showSupplementalInformation(for: task)
