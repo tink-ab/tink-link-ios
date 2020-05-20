@@ -23,7 +23,7 @@ import TinkLink
 ///        ...
 /// ```
 ///
-/// Here's how you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
+/// Here's one way you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
 /// You need to define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes. Then create a `TinkLinkViewController` with a market and the scopes to use. And present the view controller.
 /// ```swift
 /// let scopes: [Scope] = [
@@ -35,6 +35,26 @@ import TinkLink
 ///    // Handle result
 /// }
 /// present(tinkLinkViewController, animated: true)
+/// ```
+///
+/// You can also start the aggregation flow if you have an authorization code or an access token:
+/// ```swift
+///
+/// // With authorization code:
+/// let authorizationCode = "YOUR_AUTHORIZATION_CODE"
+/// let tinkLinkViewcontroller = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)!, operation: .create(providerPredicate: .kinds(.all))) { result in
+///     // Handle result
+/// }
+/// present(tinkLinkViewcontroller, animated: true)
+///
+/// // With access token:
+/// let accessToken = "YOUR_ACCESS_TOKEN"
+///
+/// let tinkLinkViewcontroller = TinkLinkViewController(userSession: .accessToken(accessToken), operation: .create(providerPredicate: .kinds(.all))) { result in
+///     // Handle result
+/// }
+///
+/// present(tinkLinkViewcontroller, animated: true)
 /// ```
 /// 
 /// After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can [exchange](https://docs.tink.com/resources/getting-started/retrieve-access-token) for an access token. If something went wrong the result will contain an error.
@@ -64,10 +84,15 @@ public class TinkLinkViewController: UINavigationController {
         case name(Provider.ID)
     }
 
+    /// Strategy for different operations.
     public enum Operation {
+        /// Show a list of providers to create a new credenital.
         case create(providerPredicate: ProviderPredicate)
+        /// Authenticate credentials.
         case authenticate(credentialsID: Credentials.ID)
+        /// Refresh credentials.
         case refresh(credentialsID: Credentials.ID)
+        /// Update credentials. 
         case update(credentialsID: Credentials.ID)
     }
 
@@ -120,6 +145,12 @@ public class TinkLinkViewController: UINavigationController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    /// Initializes a new TinkLinkViewController with the current user session associated with this Tink object.
+    /// - Parameters:
+    ///   - tink: A configured `Tink` object.
+    ///   - userSession: The current session associated with this Tink object.
+    ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
+    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
     public init(tink: Tink = .shared, userSession: UserSession, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.tink = tink
         self.userSession = userSession
@@ -133,6 +164,12 @@ public class TinkLinkViewController: UINavigationController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    /// Initializes a new TinkLinkViewController with the `AuthorizationCode`.
+    /// - Parameters:
+    ///   - tink: A configured `Tink` object.
+    ///   - authorizationCode: Authenticate with a `AuthorizationCode` that delegated from Tink to exchanged for a user object.
+    ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
+    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
     public init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.tink = tink
         self.authorizationCode = authorizationCode
