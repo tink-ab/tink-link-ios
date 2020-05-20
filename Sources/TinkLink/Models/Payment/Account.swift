@@ -63,7 +63,7 @@ public struct Account {
     public let name: String
 
     /// The ownership ratio indicating how much of the account is owned by the user. The ownership determine the percentage of the amounts on transactions belonging to this account, that should be attributed to the user when statistics are calculated. This property has a default value, and it can only be updated by you in a update account request.
-    public let ownership: Double
+    let ownership: Double
 
     /// The type of the account. This property can be updated in a update account request.
     public let kind: Kind
