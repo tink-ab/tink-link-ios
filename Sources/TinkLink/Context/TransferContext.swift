@@ -18,8 +18,8 @@ public final class TransferContext {
     }
 
     public func initiateTransfer(
-        from source: URL,
-        to destination: URL,
+        from source: TransferEntityURI,
+        to destination: TransferEntityURI,
         amount: CurrencyDenominatedAmount,
         sourceMessage: String? = nil,
         destinationMessage: String,
@@ -38,8 +38,8 @@ public final class TransferContext {
             sourceMessage: sourceMessage,
             destinationMessage: destinationMessage,
             dueDate: nil,
-            destinationUri: destination,
-            sourceUri: source
+            destinationUri: destination.uri,
+            sourceUri: source.uri
         )
 
         task.canceller = transferService.transfer(transfer: transfer) { [weak task] result in
@@ -63,14 +63,14 @@ public final class TransferContext {
         authenticationHandler: @escaping (InitiateTransferTask.Authentication) -> Void,
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask? {
-        guard let sourceURI = source.transferSourceIdentifiers?.first else {
+        guard let source = TransferEntityURI(account: source) else {
             preconditionFailure("Source account doesn't have a URI.")
         }
-        guard let destinationURI = destination.uri else {
+        guard let destination = TransferEntityURI(beneficiary: destination) else {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
-        return initiateTransfer(from: sourceURI, to: destinationURI, amount: amount, destinationMessage: destinationMessage, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
+        return initiateTransfer(from: source, to: destination, amount: amount, destinationMessage: destinationMessage, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
     }
 
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
