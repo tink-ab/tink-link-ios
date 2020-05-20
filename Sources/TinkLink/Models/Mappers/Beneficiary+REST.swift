@@ -8,9 +8,8 @@ extension Beneficiary {
 
         var urlComponents = URLComponents()
         urlComponents.scheme = beneficiary.type
-        urlComponents.path = beneficiary.accountNumber
-        urlComponents.queryItems = []
-        urlComponents.queryItems?.append(URLQueryItem(name: "name", value: beneficiary.name))
+        urlComponents.host = beneficiary.accountNumber
+        urlComponents.queryItems = [URLQueryItem(name: "name", value: beneficiary.name)]
         self.uri = urlComponents.url
 
     }
