@@ -85,8 +85,7 @@ public final class InitiateTransferTask {
             switch signableOperation.status {
             case .created:
                 guard let transferID = signableOperation.transferID else {
-                    complete(with: .failure(Error.failed("Failed to get transfer ID.")))
-                    return
+                    throw Error.failed("Failed to get transfer ID.")
                 }
                 progressHandler(.created(transferID))
             case .awaitingCredentials, .awaitingThirdPartyAppAuthentication:
