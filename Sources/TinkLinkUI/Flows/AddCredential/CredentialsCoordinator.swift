@@ -15,6 +15,8 @@ final class CredentialsCoordinator {
         case authenticate(credentialsID: Credentials.ID)
     }
 
+    var prefillStrategy: TinkLinkViewController.PrefillStrategy = .none
+
     private let authorizationController: AuthorizationController
     private let credentialsController: CredentialsController
     private let providerController: ProviderController
@@ -46,8 +48,7 @@ final class CredentialsCoordinator {
         case .add(provider: let provider, _):
             let credentialsViewController = CredentialsFormViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
             credentialsViewController.delegate = self
-            // TODO: Figure out how to send prefill strategy
-//            credentialsViewController.prefillStrategy = prefill
+            credentialsViewController.prefillStrategy = prefillStrategy
 
             viewController = credentialsViewController
 
@@ -84,6 +85,17 @@ final class CredentialsCoordinator {
             do {
                 let credentials = try result.get()
                 then(credentials)
+            } catch {
+                self.completion(.failure(error))
+            }
+        }
+    }
+
+    private func fetchProvider(with id: Provider.ID, then: @escaping (Provider) -> Void) {
+        providerController.fetchProvider(with: id) { result in
+            do {
+                let provider = try result.get()
+                then(provider)
             } catch {
                 self.completion(.failure(error))
             }
