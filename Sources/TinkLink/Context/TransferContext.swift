@@ -54,9 +54,9 @@ public final class TransferContext {
     }
 
     public func initiateTransfer(
+        from source: Account,
+        to destination: Beneficiary,
         amount: CurrencyDenominatedAmount,
-        source: Account,
-        destination: Beneficiary,
         sourceMessage: String? = nil,
         destinationMessage: String,
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
