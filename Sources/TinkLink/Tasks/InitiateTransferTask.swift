@@ -147,7 +147,7 @@ public final class InitiateTransferTask {
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 self.credentialsStatusPollingTask?.stopPolling()
                 guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
-                    throw Error.authenticationFailed("Missing third party app authentication deeplink URL.")
+                    throw Error.authenticationFailed("Missing third party app authentication information.")
                 }
 
                 let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false) { [weak self] result in
