@@ -19,7 +19,7 @@ public final class InitiateTransferTask {
     public enum Error: Swift.Error {
         /// The authentication failed. The payload from the backend can be found in the associated value.
         case authenticationFailed(String?)
-        case disabledCredentials(String?)
+        case disabled(String?)
         case sessionExpired(String?)
         case cancelled(String?)
         case failed(String?)
@@ -178,7 +178,7 @@ public final class InitiateTransferTask {
                 }
                 complete(with: .failure(Error.authenticationFailed(payload)))
             case .disabled:
-                complete(with: .failure(Error.disabledCredentials(credentials.statusPayload)))
+                complete(with: .failure(Error.disabled(credentials.statusPayload)))
             case .sessionExpired:
                 complete(with: .failure(Error.sessionExpired(credentials.statusPayload)))
             case .unknown:
