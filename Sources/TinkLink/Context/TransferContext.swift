@@ -26,7 +26,7 @@ public final class TransferContext {
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
-    ) -> InitiateTransferTask? {
+    ) -> InitiateTransferTask {
 
         let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completionHandler: completion)
 
@@ -62,7 +62,7 @@ public final class TransferContext {
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
-    ) -> InitiateTransferTask? {
+    ) -> InitiateTransferTask {
         guard let source = TransferEntityURI(account: source) else {
             preconditionFailure("Source account doesn't have a URI.")
         }
