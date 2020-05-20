@@ -119,22 +119,7 @@ extension TransferViewController {
                 self.showSupplementalInformation(for: task)
             }
         case .awaitingThirdPartyAppAuthentication(let task):
-            task.handle { [weak self] taskStatus in
-                DispatchQueue.main.async {
-                    self?.handleThirdPartyAppAuthentication(taskStatus)
-                }
-            }
-        }
-    }
-
-    private func handleThirdPartyAppAuthentication(_ taskStatus: ThirdPartyAppAuthenticationTask.Status) {
-        switch taskStatus {
-        case .awaitAuthenticationOnAnotherDevice:
-            showStatus("Awaiting Authentication on Another Device")
-        case .qrImage(let image):
-            hideStatus(animated: true) {
-                self.showQR(image)
-            }
+            task.handle()
         }
     }
 
