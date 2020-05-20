@@ -25,7 +25,7 @@ public struct TransferEntityURI {
         public let value: String
     }
 
-    init?(kind: Kind, accountNumber: AccountNumber) {
+    public init?(kind: Kind, accountNumber: AccountNumber) {
         var urlComponents = URLComponents()
         urlComponents.scheme = kind.value
         urlComponents.host = accountNumber.value
