@@ -18,8 +18,8 @@ public final class TransferContext {
     }
 
     public func initiateTransfer(
-        from source: TransferEntityURI,
-        to destination: TransferEntityURI,
+        from accountWithURI: TransferEntityURI,
+        to beneficiaryWithURI: TransferEntityURI,
         amount: CurrencyDenominatedAmount,
         sourceMessage: String? = nil,
         destinationMessage: String,
@@ -38,8 +38,8 @@ public final class TransferContext {
             sourceMessage: sourceMessage,
             destinationMessage: destinationMessage,
             dueDate: nil,
-            destinationUri: destination.uri,
-            sourceUri: source.uri
+            destinationUri: accountWithURI.uri,
+            sourceUri: beneficiaryWithURI.uri
         )
 
         task.canceller = transferService.transfer(transfer: transfer) { [weak task] result in
