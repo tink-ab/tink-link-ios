@@ -93,7 +93,6 @@ public final class InitiateTransferTask {
                 if credentialsStatusPollingTask == nil {
                     guard let credentialsID = signableOperation.credentialsID else {
                         throw Error.failed("Failed to get credentials ID.")
-                        return
                     }
                     credentialsStatusPollingTask = CredentialsStatusPollingTask(
                         id: credentialsID,
