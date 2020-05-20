@@ -21,8 +21,7 @@ public final class InitiateTransferTask {
     /// Indicates the task for authentication when initiate a transfer.
     ///
     /// - Note: The states have actions which need to be performed to continue the transfer initiation process.
-    public enum Authentication {
-        /// Trigger for the client to prompt the user to fill out supplemental information.
+    public enum AuthenticationTask {
         case awaitingSupplementalInformation(SupplementInformationTask)
         /// Trigger for the client to prompt the user to open the third party authentication flow
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
@@ -54,7 +53,7 @@ public final class InitiateTransferTask {
     private let credentialsService: CredentialsService
     private let appUri: URL
     private let progressHandler: (Status) -> Void
-    private let authenticationHandler: (Authentication) -> Void
+    private let authenticationHandler: (AuthenticationTask) -> Void
     private let completionHandler: (Result<Receipt, Swift.Error>) -> Void
 
     private var transferStatusPollingTask: TransferStatusPollingTask?
@@ -62,7 +61,7 @@ public final class InitiateTransferTask {
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private var isCancelled = false
 
-    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, authenticationHandler: @escaping (Authentication) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
+    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, authenticationHandler: @escaping (AuthenticationTask) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
         self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri

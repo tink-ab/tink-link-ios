@@ -15,12 +15,12 @@ public struct Account {
         case external
     }
 
-    public enum Flag {
+    enum Flag {
         case business
         case mandate
     }
 
-    public enum AccountExclusion {
+    enum AccountExclusion {
         case aggregation
         case pfmAndSearch
         case pfmData
@@ -63,7 +63,7 @@ public struct Account {
     public let name: String
 
     /// The ownership ratio indicating how much of the account is owned by the user. The ownership determine the percentage of the amounts on transactions belonging to this account, that should be attributed to the user when statistics are calculated. This property has a default value, and it can only be updated by you in a update account request.
-    public let ownership: Double
+    let ownership: Double
 
     /// The type of the account. This property can be updated in a update account request.
     public let kind: Kind
@@ -94,7 +94,7 @@ public struct Account {
     /// `PFM_AND_SEARCH`: Personal Finance Management Features are excluded, and transactions belonging to this account are not searchable. This is the equivalent of the, now deprecated, boolean flag `excluded`.
     /// `AGGREGATION`: No data will be aggregated for this account and, all data associated with the account is removed (except account name and account number).
     /// This property can be updated in a update account request.
-    public let accountExclusion: AccountExclusion?
+    let accountExclusion: AccountExclusion?
 
     /// The current balance of the account.
     /// The definition of the balance property differ between account types.

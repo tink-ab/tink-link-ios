@@ -59,34 +59,28 @@ public final class TransferContext {
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The add credentials task.
     public func initiateTransfer(
+        fromAccountWithURI: TransferEntityURI,
+        toBeneficiaryWithURI: TransferEntityURI,
         amount: CurrencyDenominatedAmount,
-        source: Account,
-        destination: Beneficiary,
         sourceMessage: String? = nil,
         destinationMessage: String,
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
-        authenticationHandler: @escaping (InitiateTransferTask.Authentication) -> Void,
+        authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask? {
-        guard let sourceURI = source.transferSourceIdentifiers?.first else {
-            preconditionFailure("Source account doesn't have a URI.")
-        }
-        guard let destinationURI = destination.uri else {
-            preconditionFailure("Transfer destination doesn't have a URI.")
-        }
 
         let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completionHandler: completion)
 
         let transfer = Transfer(
             amount: amount.value,
             id: nil,
-            credentialsID: source.credentialsID,
+            credentialsID: nil,
             currency: amount.currencyCode,
             sourceMessage: sourceMessage,
             destinationMessage: destinationMessage,
             dueDate: nil,
-            destinationUri: destinationURI,
-            sourceUri: sourceURI
+            destinationUri: fromAccountWithURI.uri,
+            sourceUri: toBeneficiaryWithURI.uri
         )
 
         task.canceller = transferService.transfer(transfer: transfer) { [weak task] result in
@@ -98,6 +92,26 @@ public final class TransferContext {
             }
         }
         return task
+    }
+
+    public func initiateTransfer(
+        from source: Account,
+        to destination: Beneficiary,
+        amount: CurrencyDenominatedAmount,
+        sourceMessage: String? = nil,
+        destinationMessage: String,
+        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
+        authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
+        completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
+    ) -> InitiateTransferTask? {
+        guard let source = TransferEntityURI(account: source) else {
+            preconditionFailure("Source account doesn't have a URI.")
+        }
+        guard let destination = TransferEntityURI(beneficiary: destination) else {
+            preconditionFailure("Transfer destination doesn't have a URI.")
+        }
+
+        return initiateTransfer(fromAccountWithURI: source, toBeneficiaryWithURI: destination, amount: amount, destinationMessage: destinationMessage, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
     }
 
     // MARK: - Fetching Accounts
@@ -116,13 +130,11 @@ public final class TransferContext {
     /// - Parameter account: Account for beneficiary to fetch
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
     public func fetchBeneficiaries(for account: Account, completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        return transferService.accounts(destinationUris: []) { result in
+        return transferService.beneficiaries { result in
             do {
-                let accounts = try result.get()
-                let transferDestinations = accounts.first { $0.id == account.id }?.transferDestinations ?? []
-                let filteredTransferDestinations = transferDestinations.filter { !($0.isMatchingMultipleDestinations ?? false) }
-                let beneficiaries = filteredTransferDestinations.map { Beneficiary(account: account, transferDestination: $0) }
-                completion(.success(beneficiaries))
+                let beneficiaries = try result.get()
+                let filteredBeneficiaries = beneficiaries.filter { $0.accountID == account.id }
+                completion(.success(filteredBeneficiaries))
             } catch {
                 completion(.failure(error))
             }
@@ -135,16 +147,11 @@ public final class TransferContext {
     ///
     /// - Parameter completion: A result representing either a list of account ID and beneficiaries pair or an error.
     public func fetchAllBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
-        transferService.accounts(destinationUris: []) { result in
+        transferService.beneficiaries() { result in
             do {
-                let accounts = try result.get()
-                let mappedTransferDestinations = accounts.reduce(into: [Account.ID: [Beneficiary]]()) { result, account in
-                    let destinations = account.transferDestinations ?? []
-                    let filteredTransferDestinations = destinations.filter { !($0.isMatchingMultipleDestinations ?? false) }
-                    let beneficiaries = filteredTransferDestinations.map { Beneficiary(account: account, transferDestination: $0) }
-                    result[account.id] = beneficiaries
-                }
-                completion(.success(mappedTransferDestinations))
+                let beneficiaries = try result.get()
+                let groupedBeneficiariesByAccountID = Dictionary(grouping: beneficiaries, by: \.accountID)
+                completion(.success(groupedBeneficiariesByAccountID))
             } catch {
                 completion(.failure(error))
             }
