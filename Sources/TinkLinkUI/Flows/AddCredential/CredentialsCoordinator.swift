@@ -57,7 +57,7 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.addCredentialsSession.authenticateCredentials(credentials: credentials) { result in
-                    self.completion(result.map { ($0, nil) } )
+                    self.handleCompletion(for: result.map { ($0, nil) } )
                 }
             }
             viewController = LoadingViewController()
@@ -66,7 +66,7 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.addCredentialsSession.refreshCredentials(credentials: credentials) { result in
-                    self.completion(result.map { ($0, nil) } )
+                    self.handleCompletion(for: result.map { ($0, nil) } )
                 }
             }
             viewController = LoadingViewController()
@@ -144,7 +144,7 @@ extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
     func submit(form: Form) {
 
         switch action {
-            
+
         case .add(provider: let provider, mode: let mode):
             addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
                 self?.handleCompletion(for: result)
