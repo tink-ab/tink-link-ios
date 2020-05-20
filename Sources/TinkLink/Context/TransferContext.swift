@@ -29,9 +29,9 @@ public final class TransferContext {
     /// You need to handle authentication changes in `authenticationHandler` to successfuly initiate a transfer.
     /// Also if needed, you can get the progress status change in `progressHandler`, and present them accordingly.
     ///    initiateTransferTask = transferContext.initiateTransfer(
+    ///        source: sourceAccountURI,
+    ///        destination: transferBeneficiaryURI,
     ///        amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-    ///        source: sourceAccount,
-    ///        destination: transferDestination,
     ///        destinationMessage: message,
     ///        progressHandler: { status in
     ///            <#Present the progress status change if needed#>
@@ -49,9 +49,9 @@ public final class TransferContext {
     ///        }
     ///    )
     /// - Parameters:
+    ///   - fromAccountWithURI: The transfer's source account URI.
+    ///   - toBeneficiaryWithURI: The transfer's destination beneficiary URI.
     ///   - amount: The amount and currency of the transfer.
-    ///   - source: The transfer's source account.
-    ///   - destination: The transfer's destination beneficiary.
     ///   - sourceMessage: Optional, The transfer description on the source account for the transfer.
     ///   - destinationMessage: The message to the recipient. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
     ///   - progressHandler: Indicates the state changes of initiating a transfer.
@@ -94,6 +94,42 @@ public final class TransferContext {
         return task
     }
 
+    // MARK: - Initiate Transfer
+
+    /// Initiate a transfer for the user.
+    ///
+    /// You need to handle authentication changes in `authenticationHandler` to successfuly initiate a transfer.
+    /// Also if needed, you can get the progress status change in `progressHandler`, and present them accordingly.
+    ///    initiateTransferTask = transferContext.initiateTransfer(
+    ///        from: sourceAccount,
+    ///        to: transferBeneficiary,
+    ///        amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
+    ///        destinationMessage: message,
+    ///        progressHandler: { status in
+    ///            <#Present the progress status change if needed#>
+    ///        },
+    ///        authenticationHandler: { task in
+    ///            switch task {
+    ///            case .awaitingSupplementalInformation(let task):
+    ///                <#Present form for supplemental information task#>
+    ///            case .awaitingThirdPartyAppAuthentication(let task):
+    ///                <#Handle the third party app deep link URL#>
+    ///             }
+    ///        },
+    ///        completion: { [weak self] result in
+    ///            <#Handle result#>
+    ///        }
+    ///    )
+    /// - Parameters:
+    ///   - from: The transfer's source account.
+    ///   - to: The transfer's destination beneficiary.
+    ///   - amount: The amount and currency of the transfer.
+    ///   - sourceMessage: Optional, The transfer description on the source account for the transfer.
+    ///   - destinationMessage: The message to the recipient. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
+    ///   - progressHandler: Indicates the state changes of initiating a transfer.
+    ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
+    ///   - result: A result representing either a transfer initiation receipt or an error.
+    /// - Returns: The add credentials task.
     public func initiateTransfer(
         from source: Account,
         to destination: Beneficiary,
