@@ -6,7 +6,7 @@ public final class InitiateTransferTask {
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
     public enum Status {
-        case created
+        case created(Transfer.ID)
         case authenticating
         case executing(status: String)
     }
@@ -84,7 +84,11 @@ public final class InitiateTransferTask {
             let signableOperation = try result.get()
             switch signableOperation.status {
             case .created:
-                progressHandler(.created)
+                guard let transferID = signableOperation.transferID else {
+                    complete(with: .failure(Error.failed("Failed to get transfer ID.")))
+                    return
+                }
+                progressHandler(.created(transferID))
             case .awaitingCredentials, .awaitingThirdPartyAppAuthentication:
                 transferStatusPollingTask?.stopPolling()
                 if credentialsStatusPollingTask == nil {
