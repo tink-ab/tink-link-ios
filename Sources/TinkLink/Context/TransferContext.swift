@@ -18,34 +18,28 @@ public final class TransferContext {
     }
 
     public func initiateTransfer(
+        fromAccountWithURI: TransferEntityURI,
+        toBeneficiaryWithURI: TransferEntityURI,
         amount: CurrencyDenominatedAmount,
-        source: Account,
-        destination: Beneficiary,
         sourceMessage: String? = nil,
         destinationMessage: String,
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask? {
-        guard let sourceURI = source.transferSourceIdentifiers?.first else {
-            preconditionFailure("Source account doesn't have a URI.")
-        }
-        guard let destinationURI = destination.uri else {
-            preconditionFailure("Transfer destination doesn't have a URI.")
-        }
 
         let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completionHandler: completion)
 
         let transfer = Transfer(
             amount: amount.value,
             id: nil,
-            credentialsID: source.credentialsID,
+            credentialsID: nil,
             currency: amount.currencyCode,
             sourceMessage: sourceMessage,
             destinationMessage: destinationMessage,
             dueDate: nil,
-            destinationUri: destinationURI,
-            sourceUri: sourceURI
+            destinationUri: fromAccountWithURI.uri,
+            sourceUri: toBeneficiaryWithURI.uri
         )
 
         task.canceller = transferService.transfer(transfer: transfer) { [weak task] result in
@@ -57,6 +51,26 @@ public final class TransferContext {
             }
         }
         return task
+    }
+
+    public func initiateTransfer(
+        from source: Account,
+        to destination: Beneficiary,
+        amount: CurrencyDenominatedAmount,
+        sourceMessage: String? = nil,
+        destinationMessage: String,
+        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
+        authenticationHandler: @escaping (InitiateTransferTask.Authentication) -> Void,
+        completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
+    ) -> InitiateTransferTask? {
+        guard let source = TransferEntityURI(account: source) else {
+            preconditionFailure("Source account doesn't have a URI.")
+        }
+        guard let destination = TransferEntityURI(beneficiary: destination) else {
+            preconditionFailure("Transfer destination doesn't have a URI.")
+        }
+
+        return initiateTransfer(fromAccountWithURI: source, toBeneficiaryWithURI: destination, amount: amount, destinationMessage: destinationMessage, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
     }
 
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {

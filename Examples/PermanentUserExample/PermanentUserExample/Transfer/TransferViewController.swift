@@ -65,9 +65,9 @@ extension TransferViewController {
             else { return }
 
         initiateTransferTask = transferContext.initiateTransfer(
+            from: sourceAccount,
+            to: transferDestination,
             amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-            source: sourceAccount,
-            destination: transferDestination,
             destinationMessage: message,
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
