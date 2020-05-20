@@ -70,7 +70,12 @@ final class CredentialsCoordinator {
 
         case .update(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
-                // Show form 
+                self.fetchProvider(with: credentials.providerID) { provider in
+                    let credentialsViewController = CredentialsFormViewController(credentials: credentials, provider: provider, credentialsController: self.credentialsController, clientName: self.clientDescription.name, isAggregator: self.clientDescription.isAggregator, isVerified: self.clientDescription.isVerified)
+                    credentialsViewController.delegate = self
+                    credentialsViewController.prefillStrategy = self.prefillStrategy
+                    self.containerViewController.setViewController(credentialsViewController)
+                }
             }
             viewController = LoadingViewController()
         }

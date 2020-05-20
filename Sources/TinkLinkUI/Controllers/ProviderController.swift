@@ -85,7 +85,7 @@ final class ProviderController {
         })
     }
 
-    private func fetchProvider(with id: Provider.ID, completion: @escaping ((Result<Provider, Swift.Error>) -> Void)) {
+    func fetchProvider(with id: Provider.ID, completion: @escaping ((Result<Provider, Swift.Error>) -> Void)) {
 
         providerContext.fetchProvider(with: id, completion: { [weak self] result in
 

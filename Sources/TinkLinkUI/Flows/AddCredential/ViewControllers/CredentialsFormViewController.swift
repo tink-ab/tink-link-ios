@@ -52,6 +52,18 @@ final class CredentialsFormViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    init(credentials: Credentials, provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
+        self.provider = provider
+        let form = Form(credentials: credentials)
+        self.formTableViewController = FormTableViewController(form: form)
+        self.credentialsController = credentialsController
+        self.clientName = clientName
+        self.isAggregator = isAggregator
+        self.isVerified = isVerified
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
