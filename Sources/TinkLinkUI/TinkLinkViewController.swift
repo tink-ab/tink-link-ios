@@ -39,7 +39,6 @@ import TinkLink
 ///
 /// You can also start the aggregation flow if you have an authorization code or an access token:
 /// ```swift
-///
 /// // With authorization code:
 /// let authorizationCode = "YOUR_AUTHORIZATION_CODE"
 /// let tinkLinkViewcontroller = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)!, operation: .create(providerPredicate: .kinds(.all))) { result in
@@ -49,7 +48,6 @@ import TinkLink
 ///
 /// // With access token:
 /// let accessToken = "YOUR_ACCESS_TOKEN"
-///
 /// let tinkLinkViewcontroller = TinkLinkViewController(userSession: .accessToken(accessToken), operation: .create(providerPredicate: .kinds(.all))) { result in
 ///     // Handle result
 /// }
@@ -86,13 +84,13 @@ public class TinkLinkViewController: UINavigationController {
 
     /// Strategy for different operations.
     public enum Operation {
-        /// Show a list of providers to create a new credenital.
+        /// Create credentials.
         case create(providerPredicate: ProviderPredicate)
         /// Authenticate credentials.
         case authenticate(credentialsID: Credentials.ID)
         /// Refresh credentials.
         case refresh(credentialsID: Credentials.ID)
-        /// Update credentials. 
+        /// Update credentials.
         case update(credentialsID: Credentials.ID)
     }
 
@@ -148,7 +146,7 @@ public class TinkLinkViewController: UINavigationController {
     /// Initializes a new TinkLinkViewController with the current user session associated with this Tink object.
     /// - Parameters:
     ///   - tink: A configured `Tink` object.
-    ///   - userSession: The current session associated with this Tink object.
+    ///   - userSession: The user session associated with the TinkLinkViewController.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
     public init(tink: Tink = .shared, userSession: UserSession, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
