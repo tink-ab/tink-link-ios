@@ -89,6 +89,32 @@ final class CredentialsCoordinator {
         parentViewController.show(containerViewController, sender: self)
     }
 
+    private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
+        do {
+            let _ = try result.get()
+            self.result = result
+            showAddCredentialSuccess()
+        } catch let error as ThirdPartyAppAuthenticationTask.Error {
+            showDownloadPrompt(for: error)
+        } catch ServiceError.cancelled {
+            // No-op
+        } catch {
+            showAlert(for: error)
+        }
+    }
+
+    func showAddCredentialSuccess() {
+        let viewController = CredentialsSuccessfullyAddedViewController(companyName: clientDescription.name) { [weak self] in
+            guard let self = self, let result = self.result else { return }
+            self.completion(result)
+        }
+        parentViewController.show(viewController, sender: self)
+    }
+}
+
+// MARK: - Fetcher Helpers
+extension CredentialsCoordinator {
+
     private func fetchCredentials(with id: Credentials.ID, then: @escaping (Credentials) -> Void) {
         credentialsController.credentials(id: id) { (result) in
             do {
@@ -112,10 +138,9 @@ final class CredentialsCoordinator {
     }
 }
 
-extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
+extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
 
     func showScopeDescriptions() {
-
         let scopeList: [Scope]
         if case .add(provider: _, mode: let mode) = action, case let .anonymous(scopes) = mode {
             scopeList = scopes
@@ -133,13 +158,6 @@ extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
         containerViewController.present(viewController, animated: true)
     }
 
-    @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
-        containerViewController.dismiss(animated: true)
-    }
-
-    @objc private func cancel() {
-        completion(.failure(TinkLinkError.userCancelled))
-    }
 
     func submit(form: Form) {
 
@@ -164,14 +182,22 @@ extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
             break
         }
     }
+}
 
-    func showAddCredentialSuccess() {
-        let viewController = CredentialsSuccessfullyAddedViewController(companyName: clientDescription.name) { [weak self] in
-            guard let self = self, let result = self.result else { return }
-            self.completion(result)
-        }
-        parentViewController.show(viewController, sender: self)
+// MARK: - Actions
+extension CredentialsCoordinator {
+
+    @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
+        containerViewController.dismiss(animated: true)
     }
+
+    @objc private func cancel() {
+        completion(.failure(TinkLinkError.userCancelled))
+    }
+}
+
+// MARK: - Alerts
+extension CredentialsCoordinator {
 
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
         let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
@@ -189,20 +215,6 @@ extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
         }
 
         parentViewController.present(alertController, animated: true)
-    }
-
-    private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
-        do {
-            let _ = try result.get()
-            self.result = result
-            showAddCredentialSuccess()
-        } catch let error as ThirdPartyAppAuthenticationTask.Error {
-            showDownloadPrompt(for: error)
-        } catch ServiceError.cancelled {
-            // No-op
-        } catch {
-            showAlert(for: error)
-        }
     }
 
     private func showAlert(for error: Error) {

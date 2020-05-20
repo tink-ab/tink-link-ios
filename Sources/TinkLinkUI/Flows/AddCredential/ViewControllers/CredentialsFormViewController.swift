@@ -2,7 +2,7 @@ import Down
 import TinkLink
 import UIKit
 
-protocol AddCredentialsViewControllerDelegate: AnyObject {
+protocol CredentialsFormViewControllerDelegate: AnyObject {
     func showScopeDescriptions()
     func showWebContent(with url: URL)
     func submit(form: Form)
@@ -11,7 +11,7 @@ protocol AddCredentialsViewControllerDelegate: AnyObject {
 final class CredentialsFormViewController: UIViewController {
     let provider: Provider
 
-    weak var delegate: AddCredentialsViewControllerDelegate?
+    weak var delegate: CredentialsFormViewControllerDelegate?
 
     var prefillStrategy: TinkLinkViewController.PrefillStrategy {
         get { formTableViewController.prefillStrategy }
