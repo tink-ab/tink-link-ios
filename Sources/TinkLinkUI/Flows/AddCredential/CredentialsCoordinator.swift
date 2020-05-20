@@ -31,6 +31,7 @@ final class CredentialsCoordinator {
     private let containerViewController = ContainerViewController()
 
     private var result: Result<(Credentials, AuthorizationCode?), Error>?
+    private var fetchedCredentials: Credentials?
 
     init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, parentViewController: UIViewController, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), Error>) -> Void) {
         self.authorizationController = authorizationController
@@ -54,6 +55,7 @@ final class CredentialsCoordinator {
 
         case .authenticate(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
+                self.fetchedCredentials = credentials
                 self.addCredentialsSession.authenticateCredentials(credentials: credentials) { result in
                     self.completion(result.map { ($0, nil) } )
                 }
@@ -62,6 +64,7 @@ final class CredentialsCoordinator {
 
         case .refresh(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
+                self.fetchedCredentials = credentials
                 self.addCredentialsSession.refreshCredentials(credentials: credentials) { result in
                     self.completion(result.map { ($0, nil) } )
                 }
@@ -70,6 +73,7 @@ final class CredentialsCoordinator {
 
         case .update(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
+                self.fetchedCredentials = credentials
                 self.fetchProvider(with: credentials.providerID) { provider in
                     let credentialsViewController = CredentialsFormViewController(credentials: credentials, provider: provider, credentialsController: self.credentialsController, clientName: self.clientDescription.name, isAggregator: self.clientDescription.isAggregator, isVerified: self.clientDescription.isVerified)
                     credentialsViewController.delegate = self
@@ -139,21 +143,25 @@ extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
 
     func submit(form: Form) {
 
-        //TODO: Make it work for Update too 
-        guard case .add(provider: let provider, mode: let mode) = action else { return }
-
-        addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
-            do {
-                let _ = try result.get()
-                self?.result = result
-                self?.showAddCredentialSuccess()
-            } catch let error as ThirdPartyAppAuthenticationTask.Error {
-                self?.showDownloadPrompt(for: error)
-            } catch ServiceError.cancelled {
-                // No-op
-            } catch {
-                self?.showAlert(for: error)
+        switch action {
+            
+        case .add(provider: let provider, mode: let mode):
+            addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
+                self?.handleCompletion(for: result)
             }
+
+        case .update(credentialsID: let id):
+            guard let fetchedCredentials = fetchedCredentials else {
+                fatalError()
+            }
+            assert(id == fetchedCredentials.id)
+
+            addCredentialsSession.updateCredentials(credentials: fetchedCredentials, form: form) { [weak self] result in
+                self?.handleCompletion(for: result.map { ($0, nil) })
+            }
+
+        case .authenticate, .refresh:
+            break
         }
     }
 
@@ -181,6 +189,20 @@ extension CredentialsCoordinator: AddCredentialsViewControllerDelegate {
         }
 
         parentViewController.present(alertController, animated: true)
+    }
+
+    private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
+        do {
+            let _ = try result.get()
+            self.result = result
+            showAddCredentialSuccess()
+        } catch let error as ThirdPartyAppAuthenticationTask.Error {
+            showDownloadPrompt(for: error)
+        } catch ServiceError.cancelled {
+            // No-op
+        } catch {
+            showAlert(for: error)
+        }
     }
 
     private func showAlert(for error: Error) {
