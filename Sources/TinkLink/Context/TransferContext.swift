@@ -39,7 +39,7 @@ public final class TransferContext {
         let transfer = Transfer(
             amount: amount.value,
             id: nil,
-            credentialsID: source.credentialsID,
+            credentialsID: nil,
             currency: amount.currencyCode,
             sourceMessage: sourceMessage,
             destinationMessage: destinationMessage,
