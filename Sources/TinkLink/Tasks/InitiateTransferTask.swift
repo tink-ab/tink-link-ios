@@ -8,7 +8,7 @@ public final class InitiateTransferTask: Cancellable {
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
-    /// Indicates the status of initiate transfer progress.
+    /// Indicates the status of a transfer initiation.
     public enum Status {
         /// Initial status
         case created(Transfer.ID)
@@ -18,7 +18,7 @@ public final class InitiateTransferTask: Cancellable {
         case executing(status: String)
     }
 
-    /// Indicates the task for authentication when initiate a transfer.
+    /// Indicates a task for authenticating a transfer initiation.
     ///
     /// - Note: The states have actions which need to be performed to continue the transfer initiation process.
     public enum AuthenticationTask {

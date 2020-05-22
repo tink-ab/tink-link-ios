@@ -6,7 +6,7 @@ public struct ExactNumber: Equatable, Hashable {
 }
 
 extension ExactNumber {
-    /// Creates a `ExactNumber`.
+    /// Creates an `ExactNumber`.
     ///
     /// - Parameters:
     ///   - value: The amount of the exact value.
@@ -34,7 +34,7 @@ extension ExactNumber {
         self.unscaledValue = normalizedSignificand ?? 0
     }
 
-    /// Creates a `ExactNumber`.
+    /// Creates an `ExactNumber`.
     ///
     /// - Parameters:
     ///   - value: The amount of the exact value.

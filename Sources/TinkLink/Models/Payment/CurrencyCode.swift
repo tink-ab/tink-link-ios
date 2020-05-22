@@ -7,7 +7,7 @@ public struct CurrencyCode: Hashable, Equatable, ExpressibleByStringLiteral {
     /// Creates a currency code.
     ///
     /// - Parameters:
-    ///   - value: The `String` that represent the ISO 4217 currecny code.
+    ///   - value: The `String` that represent the ISO 4217 currency code.
     public init(_ value: String) {
         self.value = value
     }
@@ -15,9 +15,8 @@ public struct CurrencyCode: Hashable, Equatable, ExpressibleByStringLiteral {
     /// Creates a currency code.
     ///
     /// - Parameters:
-    ///   - stringLiteral: The `String` that represent the ISO 4217 currecny code.
+    ///   - stringLiteral: The `String` that represent the ISO 4217 currency code.
     public init(stringLiteral value: String) {
         self.value = value
     }
 }
-

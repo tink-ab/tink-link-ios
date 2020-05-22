@@ -1,7 +1,7 @@
 import Foundation
 
-/// A TransferEntityURIrepresents the URI for making or reciving transfers.
-/// A TransferEntityURIrepresents is composed with two parts, A kind with value of `iban`, `sepa-eur` etc. And an account number.
+/// A TransferEntityURI represents the URI for making or reciving transfers.
+/// A TransferEntityURI is composed with two parts, a kind with value of e.g. `iban` and an account number.
 public struct TransferEntityURI {
     public struct Kind: ExpressibleByStringLiteral {
         public init(stringLiteral value: String) {

@@ -6,9 +6,9 @@ public struct Beneficiary: Equatable {
     public let type: String
     /// beneficiary name
     public let name: String?
-    /// Account ID that linked to hte beneficiary
+    /// Account ID that's associated with this beneficiary.
     public let accountID: Account.ID
-    /// Account name that linked to hte beneficiary
+    /// Account number that's associated with this beneficiary.
     public let accountNumber: String?
 
     let uri: URL?
