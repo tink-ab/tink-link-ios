@@ -63,7 +63,7 @@ public final class TransferContext {
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
-    /// - Returns: The add credentials task.
+    /// - Returns: The initiate transfer task.
     public func initiateTransfer(
         fromAccountWithURI: TransferEntityURI,
         toBeneficiaryWithURI: TransferEntityURI,
@@ -138,7 +138,7 @@ public final class TransferContext {
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
-    /// - Returns: The add credentials task.
+    /// - Returns: The initiate transfer task.
     public func initiateTransfer(
         from source: Account,
         to destination: Beneficiary,
