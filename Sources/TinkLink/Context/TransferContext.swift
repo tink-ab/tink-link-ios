@@ -23,6 +23,8 @@ public final class TransferContext {
         self.credentialsService = credentialsService
     }
 
+    // MARK: - Initiate Transfer
+
     /// Initiate a transfer for the user.
     ///
     /// You need to handle authentication changes in `authenticationHandler` to successfuly initiate a transfer.
@@ -93,8 +95,6 @@ public final class TransferContext {
         }
         return task
     }
-
-    // MARK: - Initiate Transfer
 
     /// Initiate a transfer for the user.
     ///
