@@ -54,7 +54,8 @@ public final class TransferContext {
     ///   - amount: The amount and currency of the transfer.
     ///   - sourceMessage: Optional, The transfer description on the source account for the transfer.
     ///   - destinationMessage: The message to the recipient. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
-    ///   - progressHandler: Indicates the state changes of initiating a transfer.
+    ///   - progressHandler: Optional, Indicates the state changes of initiating a transfer.
+    ///   - authenticationHandler: Indicates the authentication task for initiate the transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The add credentials task.
@@ -126,7 +127,8 @@ public final class TransferContext {
     ///   - amount: The amount and currency of the transfer.
     ///   - sourceMessage: Optional, The transfer description on the source account for the transfer.
     ///   - destinationMessage: The message to the recipient. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
-    ///   - progressHandler: Indicates the state changes of initiating a transfer.
+    ///   - progressHandler: Optional, Indicates the state changes of initiating a transfer.
+    ///   - authenticationHandler: Indicates the authentication task for initiate the transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The add credentials task.
