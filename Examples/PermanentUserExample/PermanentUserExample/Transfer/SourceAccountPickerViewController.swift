@@ -32,7 +32,7 @@ class SourceAccountPickerViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "Cell")
 
         canceller = transferContext.fetchAccounts { [weak self] (result) in
             DispatchQueue.main.async {
@@ -54,6 +54,7 @@ class SourceAccountPickerViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let account = sourceAccounts[indexPath.row]
         cell.textLabel?.text = account.name
+        cell.detailTextLabel?.text = account.accountNumber
         cell.accessoryType = account.id == selectedAccount?.id ? .checkmark : .none
         return cell
     }
