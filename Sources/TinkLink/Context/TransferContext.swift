@@ -1,5 +1,6 @@
 import Foundation
-/// An object that you use to access the user's account, beneficiaries and transfer functionality.
+
+/// An object that you use to access the user's accounts, beneficiaries and transfer functionality.
 public final class TransferContext {
     private let tink: Tink
     private let transferService: TransferService
@@ -7,7 +8,7 @@ public final class TransferContext {
 
     // MARK: - Creating a Context
 
-    /// Creates a context to access the user's transfer and beneficiary account and initiate transfer.
+    /// Creates a context to use for initiating transfers.
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
@@ -22,30 +23,36 @@ public final class TransferContext {
         self.credentialsService = credentialsService
     }
 
+    // MARK: - Initiate Transfer
+
     /// Initiate a transfer for the user.
     ///
-    /// You need to handle authentication changes in `authenticationHandler` to successfuly initiate a transfer.
-    /// Also if needed, you can get the progress status change in `progressHandler`, and present them accordingly.
-    ///    initiateTransferTask = transferContext.initiateTransfer(
-    ///        fromAccountWithURI: sourceAccountURI,
-    ///        toBeneficiaryWithURI: transferBeneficiaryURI,
-    ///        amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-    ///        destinationMessage: message,
-    ///        authentication: { task in
-    ///            switch task {
-    ///            case .awaitingSupplementalInformation(let task):
-    ///                <#Present form for supplemental information task#>
-    ///            case .awaitingThirdPartyAppAuthentication(let task):
-    ///                <#Handle the third party app deep link URL#>
-    ///             }
-    ///        },
-    ///        progress: { status in
-    ///            <#Present the progress status change if needed#>
-    ///        },
-    ///        completion: { [weak self] result in
-    ///            <#Handle result#>
-    ///        }
-    ///    )
+    /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
+    /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
+    ///
+    /// ```swift
+    /// initiateTransferTask = transferContext.initiateTransfer(
+    ///     fromAccountWithURI: sourceAccountURI,
+    ///     toBeneficiaryWithURI: transferBeneficiaryURI,
+    ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
+    ///     destinationMessage: message,
+    ///     authentication: { task in
+    ///         switch task {
+    ///         case .awaitingSupplementalInformation(let task):
+    ///             <#Present form for supplemental information task#>
+    ///         case .awaitingThirdPartyAppAuthentication(let task):
+    ///             <#Handle the third party app deep link URL#>
+    ///          }
+    ///     },
+    ///     progress: { status in
+    ///         <#Present the progress status change if needed#>
+    ///     },
+    ///     completion: { result in
+    ///         <#Handle result#>
+    ///     }
+    /// )
+    /// ```
+    ///
     /// - Parameters:
     ///   - fromAccountWithURI: The transfer's source account URI.
     ///   - toBeneficiaryWithURI: The transfer's destination beneficiary URI.
@@ -56,7 +63,7 @@ public final class TransferContext {
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
-    /// - Returns: The add credentials task.
+    /// - Returns: The initiate transfer task.
     public func initiateTransfer(
         fromAccountWithURI: TransferEntityURI,
         toBeneficiaryWithURI: TransferEntityURI,
@@ -93,32 +100,34 @@ public final class TransferContext {
         return task
     }
 
-    // MARK: - Initiate Transfer
-
     /// Initiate a transfer for the user.
     ///
-    /// You need to handle authentication changes in `authenticationHandler` to successfuly initiate a transfer.
-    /// Also if needed, you can get the progress status change in `progressHandler`, and present them accordingly.
-    ///    initiateTransferTask = transferContext.initiateTransfer(
-    ///        from: sourceAccount,
-    ///        to: transferBeneficiary,
-    ///        amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-    ///        destinationMessage: message,
-    ///        authentication: { task in
-    ///            switch task {
-    ///            case .awaitingSupplementalInformation(let task):
-    ///                <#Present form for supplemental information task#>
-    ///            case .awaitingThirdPartyAppAuthentication(let task):
-    ///                <#Handle the third party app deep link URL#>
-    ///             }
-    ///        },
-    ///        progress: { status in
-    ///            <#Present the progress status change if needed#>
-    ///        },
-    ///        completion: { [weak self] result in
-    ///            <#Handle result#>
-    ///        }
-    ///    )
+    /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
+    /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
+    ///
+    /// ```swift
+    /// initiateTransferTask = transferContext.initiateTransfer(
+    ///     from: sourceAccount,
+    ///     to: transferBeneficiary,
+    ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
+    ///     destinationMessage: message,
+    ///     authentication: { task in
+    ///         switch task {
+    ///         case .awaitingSupplementalInformation(let task):
+    ///             <#Present form for supplemental information task#>
+    ///         case .awaitingThirdPartyAppAuthentication(let task):
+    ///             <#Handle the third party app deep link URL#>
+    ///          }
+    ///     },
+    ///     progress: { status in
+    ///         <#Present the progress status change if needed#>
+    ///     },
+    ///     completion: { result in
+    ///         <#Handle result#>
+    ///     }
+    /// )
+    /// ```
+    ///
     /// - Parameters:
     ///   - from: The transfer's source account.
     ///   - to: The transfer's destination beneficiary.
@@ -129,7 +138,7 @@ public final class TransferContext {
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
-    /// - Returns: The add credentials task.
+    /// - Returns: The initiate transfer task.
     public func initiateTransfer(
         from source: Account,
         to destination: Beneficiary,
