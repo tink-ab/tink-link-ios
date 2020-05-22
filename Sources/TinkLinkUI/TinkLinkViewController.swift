@@ -473,23 +473,6 @@ extension TinkLinkViewController {
             startCredentialCoordinator(with: .add(provider: provider, mode: .user))
         }
     }
-
-    func showAddCredentialSuccess() {
-        guard let clientDescription = clientDescription else {
-            clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
-                self?.showAddCredentialSuccess()
-            }
-            loadingViewController.showLoadingIndicator()
-            show(loadingViewController, sender: nil)
-            return
-        }
-        let viewController = CredentialsSuccessfullyAddedViewController(companyName: clientDescription.name) { [weak self] in
-            guard let self = self else { return }
-            self.completionHandler()
-            self.dismiss(animated: true)
-        }
-        setViewControllers([viewController], animated: true)
-    }
 }
 
 // MARK: - LoadingViewControllerDelegate
