@@ -14,7 +14,11 @@ public struct TransferEntityURI {
     }
 
     public init?(kind: Kind, accountNumber: String) {
-        guard let uri = URL(string: "\(kind.value)://\(accountNumber)") else { return nil }
+        var urlComponents = URLComponents()
+        urlComponents.scheme = kind.value
+        urlComponents.host = accountNumber
+        
+        guard let uri = urlComponents.url else { return nil }
 
         self.init(uri: uri)
     }
