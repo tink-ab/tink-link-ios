@@ -30,28 +30,28 @@ public final class TransferContext {
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
     /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
-    ///    ```swift
-    ///    initiateTransferTask = transferContext.initiateTransfer(
-    ///        fromAccountWithURI: sourceAccountURI,
-    ///        toBeneficiaryWithURI: transferBeneficiaryURI,
-    ///        amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-    ///        destinationMessage: message,
-    ///        authentication: { task in
-    ///            switch task {
-    ///            case .awaitingSupplementalInformation(let task):
-    ///                <#Present form for supplemental information task#>
-    ///            case .awaitingThirdPartyAppAuthentication(let task):
-    ///                <#Handle the third party app deep link URL#>
-    ///             }
-    ///        },
-    ///        progress: { status in
-    ///            <#Present the progress status change if needed#>
-    ///        },
-    ///        completion: { [weak self] result in
-    ///            <#Handle result#>
-    ///        }
-    ///    )
-    ///    ```
+    /// ```swift
+    /// initiateTransferTask = transferContext.initiateTransfer(
+    ///     fromAccountWithURI: sourceAccountURI,
+    ///     toBeneficiaryWithURI: transferBeneficiaryURI,
+    ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
+    ///     destinationMessage: message,
+    ///     authentication: { task in
+    ///         switch task {
+    ///         case .awaitingSupplementalInformation(let task):
+    ///             <#Present form for supplemental information task#>
+    ///         case .awaitingThirdPartyAppAuthentication(let task):
+    ///             <#Handle the third party app deep link URL#>
+    ///          }
+    ///     },
+    ///     progress: { status in
+    ///         <#Present the progress status change if needed#>
+    ///     },
+    ///     completion: { [weak self] result in
+    ///         <#Handle result#>
+    ///     }
+    /// )
+    /// ```
     ///
     /// - Parameters:
     ///   - fromAccountWithURI: The transfer's source account URI.
@@ -105,28 +105,28 @@ public final class TransferContext {
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
     /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
-    ///    ```swift
-    ///    initiateTransferTask = transferContext.initiateTransfer(
-    ///        from: sourceAccount,
-    ///        to: transferBeneficiary,
-    ///        amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-    ///        destinationMessage: message,
-    ///        authentication: { task in
-    ///            switch task {
-    ///            case .awaitingSupplementalInformation(let task):
-    ///                <#Present form for supplemental information task#>
-    ///            case .awaitingThirdPartyAppAuthentication(let task):
-    ///                <#Handle the third party app deep link URL#>
-    ///             }
-    ///        },
-    ///        progress: { status in
-    ///            <#Present the progress status change if needed#>
-    ///        },
-    ///        completion: { [weak self] result in
-    ///            <#Handle result#>
-    ///        }
-    ///    )
-    ///    ```
+    /// ```swift
+    /// initiateTransferTask = transferContext.initiateTransfer(
+    ///     from: sourceAccount,
+    ///     to: transferBeneficiary,
+    ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
+    ///     destinationMessage: message,
+    ///     authentication: { task in
+    ///         switch task {
+    ///         case .awaitingSupplementalInformation(let task):
+    ///             <#Present form for supplemental information task#>
+    ///         case .awaitingThirdPartyAppAuthentication(let task):
+    ///             <#Handle the third party app deep link URL#>
+    ///          }
+    ///     },
+    ///     progress: { status in
+    ///         <#Present the progress status change if needed#>
+    ///     },
+    ///     completion: { [weak self] result in
+    ///         <#Handle result#>
+    ///     }
+    /// )
+    /// ```
     ///
     /// - Parameters:
     ///   - from: The transfer's source account.
