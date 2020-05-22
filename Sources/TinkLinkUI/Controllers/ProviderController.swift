@@ -31,7 +31,7 @@ final class ProviderController {
     private(set) var error: Swift.Error?
     private var providers: [Provider] = []
     private lazy var providerContext = ProviderContext(tink: tink)
-    private let providerPredicate: TinkLinkViewController.ProviderPredicate
+    var providerPredicate: TinkLinkViewController.ProviderPredicate
 
     init(tink: Tink, providerPredicate: TinkLinkViewController.ProviderPredicate = .kinds(.defaultKinds)) {
         self.tink = tink
