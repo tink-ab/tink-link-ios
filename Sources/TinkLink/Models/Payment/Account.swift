@@ -3,15 +3,25 @@ import Foundation
 /// An account could either be a debit account, a credit card, a loan or mortgage.
 public struct Account {
 
+    /// The kind of the account.
     public enum Kind {
+        /// A checking account
         case checking
+        /// A savings account
         case savings
+        /// An investment account
         case investment
+        /// A mortgage account
         case mortgage
+        /// A creditCard account
         case creditCard
+        /// A loan account
         case loan
+        /// A pension account
         case pension
+        /// Other type account
         case other
+        /// An external account
         case external
     }
 

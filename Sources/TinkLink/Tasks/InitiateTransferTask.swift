@@ -1,21 +1,33 @@
 import Foundation
 
+/// A task that manages progress of initiating a transfer.
+///
+/// Use `TransferContext` to create a task.
 public final class InitiateTransferTask: Cancellable {
 
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
+    /// Indicates the status of a transfer initiation.
     public enum Status {
+        /// Initial status
         case created(Transfer.ID)
+        /// When starting the authentication process
         case authenticating
+        /// User has been successfully authenticated, now executing the transfer initiation.
         case executing(status: String)
     }
 
+    /// Indicates a task for authenticating a transfer initiation.
+    ///
+    /// - Note: The states have actions which need to be performed to continue the transfer initiation process.
     public enum AuthenticationTask {
         case awaitingSupplementalInformation(SupplementInformationTask)
+        /// Trigger for the client to prompt the user to open the third party authentication flow
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
     }
 
+    /// Error that the `InitiateTransferTask` can throw.
     public enum Error: Swift.Error {
         /// The authentication failed. The payload from the backend can be found in the associated value.
         case authenticationFailed(String?)
@@ -25,8 +37,11 @@ public final class InitiateTransferTask: Cancellable {
         case failed(String?)
     }
 
+    /// Indicates the result of transfer initiation.
     public struct Receipt {
+        /// Transfer ID
         public let id: Transfer.ID
+        /// Receipt message
         public let message: String?
     }
 
@@ -207,6 +222,7 @@ public final class InitiateTransferTask: Cancellable {
         }
     }
 
+    /// Cancel the task.
     public func cancel() {
         isCancelled = true
         transferStatusPollingTask?.stopPolling()
