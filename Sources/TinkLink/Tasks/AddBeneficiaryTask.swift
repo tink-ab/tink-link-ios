@@ -14,6 +14,7 @@ public final class AddBeneficiaryTask: Cancellable {
         case permanentFailure(String)
         case disabledCredentials(String)
         case sessionExpired(String)
+        case addingFailed(String)
     }
 
     private let transferService: TransferService
@@ -158,6 +159,20 @@ public final class AddBeneficiaryTask: Cancellable {
         credentialsStatusPollingTask?.stopPolling()
         do {
             let credentials = try result.get()
+            transferService.beneficiaries { [weak self, accountID = sourceAccount.id, accountNumber] (beneficiariesResult) in
+                do {
+                    let beneficiaries = try beneficiariesResult.get()
+                    let beneficiary = beneficiaries.first(where: { beneficiary in
+                        beneficiary.ownerAccountID == accountID && beneficiary.accountNumber == accountNumber
+                    })
+                    guard let addedBeneficiary = beneficiary else {
+                        throw Error.addingFailed("Could not find added beneficiary.")
+                    }
+                    self?.completionHandler(.success(addedBeneficiary))
+                } catch {
+                    self?.completionHandler(.failure(error))
+                }
+            }
             // TODO: Fetch beneficiaries endpoint and get added beneficiary.
         } catch {
             completionHandler(.failure(error))
