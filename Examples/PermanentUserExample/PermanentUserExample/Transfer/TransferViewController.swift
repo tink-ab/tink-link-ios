@@ -69,14 +69,14 @@ extension TransferViewController {
             to: transferDestination,
             amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
             destinationMessage: message,
-            progressHandler: { [weak self] status in
-                DispatchQueue.main.async {
-                    self?.handleTransferProgress(status)
-                }
-            },
-            authenticationHandler: { [weak self] status in
+            authentication: { [weak self] status in
                 DispatchQueue.main.async {
                     self?.handleTransferAuthentication(status)
+                }
+            },
+            progress: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleTransferProgress(status)
                 }
             },
             completion: { [weak self] result in
