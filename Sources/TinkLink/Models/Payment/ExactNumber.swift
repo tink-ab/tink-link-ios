@@ -6,6 +6,10 @@ public struct ExactNumber: Equatable, Hashable {
 }
 
 extension ExactNumber {
+    /// Creates a `ExactNumber`.
+    ///
+    /// - Parameters:
+    ///   - value: The amount of the exact value.
     public init(value: Decimal) {
         var value = value
         var normalizedSignificand: Int64?
@@ -30,6 +34,10 @@ extension ExactNumber {
         self.unscaledValue = normalizedSignificand ?? 0
     }
 
+    /// Creates a `ExactNumber`.
+    ///
+    /// - Parameters:
+    ///   - value: The amount of the exact value.
     public init(value: Int) {
         self.scale = 0
         self.unscaledValue = Int64(value)
