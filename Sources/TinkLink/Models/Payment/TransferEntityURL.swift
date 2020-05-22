@@ -19,12 +19,10 @@ public struct TransferEntityURI {
         var urlComponents = URLComponents()
         urlComponents.scheme = kind.value
         urlComponents.host = accountNumber
+        
+        guard let uri = urlComponents.url else { return nil }
 
-        if let uri = urlComponents.url {
-            self.init(uri: uri)
-        } else {
-            return nil
-        }
+        self.init(uri: uri)
     }
 
     init(uri: URL) {
@@ -36,20 +34,16 @@ public struct TransferEntityURI {
 
 extension TransferEntityURI {
     init?(account: Account) {
-        if let uri = account.transferSourceIdentifiers?.first {
-            self.init(uri: uri)
-        } else {
-            return nil
-        }
+        guard let uri = account.transferSourceIdentifiers?.first else { return  nil }
+
+        self.init(uri: uri)
     }
 }
 
 extension TransferEntityURI {
     init?(beneficiary: Beneficiary) {
-        if let uri = beneficiary.uri {
-            self.init(uri: uri)
-        } else {
-            return nil
-        }
+        guard let uri = beneficiary.uri else { return  nil }
+
+        self.init(uri: uri)
     }
 }
