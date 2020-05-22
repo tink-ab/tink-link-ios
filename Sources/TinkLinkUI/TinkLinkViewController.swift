@@ -480,7 +480,7 @@ extension TinkLinkViewController: LoadingViewControllerDelegate {
 
 // MARK: - Helpers
 extension TinkLinkViewController {
-    private var didShowAddCredentialForm: Bool {
+    private var didShowCredentialsForm: Bool {
         credentialsCoordinator != nil
     }
 
@@ -518,6 +518,6 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
 
     /// :nodoc:
     public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        return !didShowAddCredentialForm
+        return !didShowCredentialsForm
     }
 }
