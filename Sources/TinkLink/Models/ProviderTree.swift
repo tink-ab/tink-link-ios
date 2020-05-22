@@ -66,10 +66,13 @@ public struct ProviderTree {
                 self.value = value
             }
 
+            /// Creates an instance initialized to the given string value.
+            /// - Parameter value: The value of the new instance.
             public init(_ value: String) {
                 self.value = value
             }
 
+            /// The string value of the ID.
             public let value: String
         }
 
@@ -107,10 +110,13 @@ public struct ProviderTree {
                 self.value = value
             }
 
+            /// Creates an instance initialized to the given string value.
+            /// - Parameter value: The value of the new instance.
             public init(_ value: String) {
                 self.value = value
             }
 
+            /// The string value of the ID.
             public let value: String
         }
 
@@ -188,10 +194,13 @@ public struct ProviderTree {
                 self.value = value
             }
 
+            /// Creates an instance initialized to the given string value.
+            /// - Parameter value: The value of the new instance.
             public init(_ value: String) {
                 self.value = value
             }
 
+            /// The string value of the ID.
             public let value: String
         }
 
@@ -267,10 +276,13 @@ public struct ProviderTree {
                 self.value = value
             }
 
+            /// Creates an instance initialized to the given string value.
+            /// - Parameter value: The value of the new instance.
             public init(_ value: String) {
                 self.value = value
             }
 
+            /// The string value of the ID.
             public let value: String
         }
 
