@@ -54,7 +54,7 @@ final class CredentialsFormViewController: UIViewController {
 
     init(credentials: Credentials, provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
-        let form = Form(credentials: credentials)
+        let form = Form(updatingCredentials: credentials, provider: provider)
         self.formTableViewController = FormTableViewController(form: form)
         self.credentialsController = credentialsController
         self.clientName = clientName
