@@ -29,7 +29,6 @@ public final class ConsentContext {
     /// Creates a context to authorize for an authorization code for a user with requested scopes.
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
-    /// - Parameter user: `User` that will be used for authorizing scope with the Tink API.
     public init(tink: Tink = .shared) {
         self.tink = tink
         self.service = RESTAuthenticationService(client: tink.client)

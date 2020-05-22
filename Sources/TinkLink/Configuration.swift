@@ -13,24 +13,19 @@ extension Tink {
         /// The environment to use.
         public var environment: Environment
 
-        /// Certificate to use with gRPC API.
-        public var grpcCertificateURL: URL?
-
-        /// Certificate to use with REST API.
+        /// Certificate to use with the API.
         public var restCertificateURL: URL?
 
         /// - Parameters:
         ///   - clientID: The client id for your app.
         ///   - redirectURI: The URI you've setup in Console.
         ///   - environment: The environment to use, defaults to production.
-        ///   - grpcCertificateURL: URL to a certificate file to use with gRPC API.
-        ///   - restCertificateURL: URL to a certificate file to use with REST API.
+        ///   - certificateURL: URL to a certificate file to use with the API.
         public init(
             clientID: String,
             redirectURI: URL,
             environment: Environment = .production,
-            grpcCertificateURL: URL? = nil,
-            restCertificateURL: URL? = nil
+            certificateURL: URL? = nil
         ) throws {
             guard let host = redirectURI.host, !host.isEmpty else {
                 throw NSError(domain: URLError.errorDomain, code: URLError.cannotFindHost.rawValue)
@@ -38,8 +33,24 @@ extension Tink {
             self.clientID = clientID
             self.redirectURI = redirectURI
             self.environment = environment
-            self.grpcCertificateURL = grpcCertificateURL
-            self.restCertificateURL = restCertificateURL
+            self.restCertificateURL = certificateURL
+        }
+
+        /// - Parameters:
+        ///   - clientID: The client id for your app.
+        ///   - redirectURI: The URI you've setup in Console.
+        ///   - environment: The environment to use, defaults to production.
+        ///   - grpcCertificateURL: URL to a certificate file to use with the gRPC API.
+        ///   - restCertificateURL: URL to a certificate file to use with the REST API.
+        @available(*, deprecated, message: "Use init(clientID:redirectURI:environment:certificateURL:) instead")
+        public init(
+            clientID: String,
+            redirectURI: URL,
+            environment: Environment = .production,
+            grpcCertificateURL: URL? = nil,
+            restCertificateURL: URL? = nil
+        ) throws {
+            try self.init(clientID: clientID, redirectURI: redirectURI, environment: environment, certificateURL: restCertificateURL)
         }
     }
 }
@@ -65,7 +76,6 @@ extension Tink.Configuration {
         self.clientID = clientID
         self.redirectURI = redirectURI
         self.environment = processInfo.tinkEnvironment ?? .production
-        self.grpcCertificateURL = processInfo.tinkGrpcCertificateURL
         self.restCertificateURL = processInfo.tinkRestCertificateURL
     }
 }
