@@ -109,7 +109,7 @@ public class TinkLinkViewController: UINavigationController {
     public let scopes: [Scope]?
     private let tink: Tink
     private let market: Market?
-    private var providerController: ProviderController
+    private lazy var providerController = ProviderController(tink: tink)
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
@@ -134,7 +134,6 @@ public class TinkLinkViewController: UINavigationController {
         self.tink = tink
         self.market = market
         self.scopes = scopes
-        self.providerController = ProviderController(tink: tink, providerPredicate: providerPredicate)
         self.operation = .create(providerPredicate: providerPredicate)
         self.temporaryCompletion = completion
         self.permanentCompletion = nil
@@ -154,7 +153,6 @@ public class TinkLinkViewController: UINavigationController {
         self.operation = operation
         self.scopes = nil
         self.market = nil
-        self.providerController = ProviderController(tink: tink)
         self.permanentCompletion = completion
         self.temporaryCompletion = nil
 
@@ -174,7 +172,6 @@ public class TinkLinkViewController: UINavigationController {
         self.userSession = nil
         self.scopes = nil
         self.market = nil
-        self.providerController = ProviderController(tink: tink)
         self.permanentCompletion = completion
         self.temporaryCompletion = nil
 
@@ -290,8 +287,8 @@ public class TinkLinkViewController: UINavigationController {
 
 
     func fetchProviders(providerPredicate: ProviderPredicate) {
-        providerController.providerPredicate = providerPredicate
-        providerController.fetch { (result) in
+
+        providerController.fetch(with: providerPredicate) { (result) in
             DispatchQueue.main.async {
                 self.loadingViewController.hideLoadingIndicator()
                 switch result {

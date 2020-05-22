@@ -31,14 +31,12 @@ final class ProviderController {
     private(set) var error: Swift.Error?
     private var providers: [Provider] = []
     private lazy var providerContext = ProviderContext(tink: tink)
-    var providerPredicate: TinkLinkViewController.ProviderPredicate
 
-    init(tink: Tink, providerPredicate: TinkLinkViewController.ProviderPredicate = .kinds(.defaultKinds)) {
+    init(tink: Tink) {
         self.tink = tink
-        self.providerPredicate = providerPredicate
     }
 
-    func fetch(completion: ((Result<[Provider], Swift.Error>) -> Void)? = nil) {
+    func fetch(with providerPredicate: TinkLinkViewController.ProviderPredicate, completion: ((Result<[Provider], Swift.Error>) -> Void)? = nil) {
         guard !isFetching else { return }
         isFetching = true
         NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)
