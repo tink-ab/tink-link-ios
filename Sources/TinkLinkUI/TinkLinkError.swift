@@ -8,6 +8,10 @@ public enum TinkLinkError: Error {
     case unableToFetchProviders
     /// Lost internet connection.
     case missingInternetConnection
+    /// The credentials could not be found.
+    case credentialsNotFound
+    /// The provider could not be found.
+    case providerNotFound
 
     init?(error: Error) {
         if let error = error as? ProviderController.Error {

@@ -24,16 +24,16 @@ final class CredentialsCoordinator {
     private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, parentViewController: self.parentViewController)
 
     private let action: Action
-    private let completion: (Result<(Credentials, AuthorizationCode?), Error>) -> Void
+    private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void
     private let parentViewController: UIViewController
     private let clientDescription: ClientDescription
 
     private let containerViewController = ContainerViewController()
 
-    private var result: Result<(Credentials, AuthorizationCode?), Error>?
+    private var result: Result<(Credentials, AuthorizationCode?), TinkLinkError>?
     private var fetchedCredentials: Credentials?
 
-    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, parentViewController: UIViewController, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), Error>) -> Void) {
+    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, parentViewController: UIViewController, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
         self.providerController = providerController
@@ -91,8 +91,8 @@ final class CredentialsCoordinator {
 
     private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
         do {
-            let _ = try result.get()
-            self.result = result
+            let values = try result.get()
+            self.result = .success(values)
             showAddCredentialSuccess()
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
@@ -121,7 +121,8 @@ extension CredentialsCoordinator {
                 let credentials = try result.get()
                 then(credentials)
             } catch {
-                self.completion(.failure(error))
+                // TODO: This error should be improved
+                self.completion(.failure(.credentialsNotFound))
             }
         }
     }
@@ -132,7 +133,8 @@ extension CredentialsCoordinator {
                 let provider = try result.get()
                 then(provider)
             } catch {
-                self.completion(.failure(error))
+                // TODO: This error should be improved
+                self.completion(.failure(.providerNotFound))
             }
         }
     }

@@ -279,12 +279,12 @@ public class TinkLinkViewController: UINavigationController {
         switch self.operation {
         case .create(providerPredicate: let providerPredicate):
             fetchProviders(providerPredicate: providerPredicate)
-        case .authenticate: break
-            // TODO
-        case .refresh: break
-            // TODO
-        case .update: break
-            // TODO
+        case .authenticate(let id):
+            startCredentialCoordinator(with: .authenticate(credentialsID: id))
+        case .refresh(let id):
+            startCredentialCoordinator(with: .refresh(credentialsID: id))
+        case .update(let id):
+            startCredentialCoordinator(with: .update(credentialsID: id))
         }
     }
 
@@ -312,6 +312,30 @@ public class TinkLinkViewController: UINavigationController {
                 }
             }
         }
+    }
+
+    func startCredentialCoordinator(with operation: CredentialsCoordinator.Action) {
+        guard let clientDescription = clientDescription else {
+            clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
+                self?.startCredentialCoordinator(with: operation)
+            }
+            loadingViewController.showLoadingIndicator()
+            show(loadingViewController, sender: nil)
+            return
+        }
+
+        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, parentViewController: self, clientDescription: clientDescription, action: operation, completion: { [weak self] result in
+            let mappedResult = result.map { (credentials, code) -> ResultType in
+                if let code = code {
+                    return .authorizationCode(code)
+                } else {
+                    return .credentials(credentials)
+                }
+            }
+            self?.result = mappedResult
+            self?.completionHandler()
+        })
+        credentialsCoordinator?.start()
     }
 
     @objc private func cancel() {
@@ -438,24 +462,11 @@ extension TinkLinkViewController {
     }
 
     func showAddCredentials(for provider: Provider, animated: Bool = true) {
-        guard let clientDescription = clientDescription else {
-            clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
-                self?.showAddCredentials(for: provider, animated: animated)
-            }
-            loadingViewController.showLoadingIndicator()
-            show(loadingViewController, sender: nil)
-            return
+        if let scopes = scopes {
+            startCredentialCoordinator(with: .add(provider: provider, mode: .anonymous(scopes: scopes)))
+        } else {
+            startCredentialCoordinator(with: .add(provider: provider, mode: .user))
         }
-
-        guard let scopes = scopes else {
-            return
-        }
-
-        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, parentViewController: self, clientDescription: clientDescription, action: .add(provider: provider, mode: .anonymous(scopes: scopes)), completion: { (result) in
-            // Propagate completion to user 
-        })
-
-        credentialsCoordinator?.start()
     }
 
     func showAddCredentialSuccess() {
