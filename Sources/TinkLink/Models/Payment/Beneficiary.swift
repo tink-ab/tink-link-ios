@@ -2,9 +2,9 @@ import Foundation
 
 /// A beneficiary is a payment or transfer destination account.
 public struct Beneficiary: Equatable {
-    /// beneficiary type
+    /// The beneficiary type
     public let type: String
-    /// beneficiary name
+    /// The beneficiary name
     public let name: String?
     /// Account ID that's associated with this beneficiary.
     public let accountID: Account.ID
