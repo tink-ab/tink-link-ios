@@ -44,7 +44,8 @@ final class CredentialsCoordinator {
     }
 
     func start() {
-        let viewController: UIViewController
+
+        var viewController: UIViewController? = nil
         switch action {
         case .add(provider: let provider, _):
             let credentialsViewController = CredentialsFormViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
@@ -60,7 +61,6 @@ final class CredentialsCoordinator {
                     self.handleCompletion(for: result.map { ($0, nil) } )
                 }
             }
-            viewController = LoadingViewController()
 
         case .refresh(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -69,7 +69,6 @@ final class CredentialsCoordinator {
                     self.handleCompletion(for: result.map { ($0, nil) } )
                 }
             }
-            viewController = LoadingViewController()
 
         case .update(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -84,9 +83,11 @@ final class CredentialsCoordinator {
             viewController = LoadingViewController()
         }
 
-        containerViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-        containerViewController.setViewController(viewController)
-        parentViewController.show(containerViewController, sender: self)
+        if let viewController = viewController {
+            containerViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+            containerViewController.setViewController(viewController)
+            parentViewController.show(containerViewController, sender: self)
+        }
     }
 
     private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
