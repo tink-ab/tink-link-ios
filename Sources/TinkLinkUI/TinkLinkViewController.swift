@@ -290,6 +290,7 @@ public class TinkLinkViewController: UINavigationController {
 
 
     func fetchProviders(providerPredicate: ProviderPredicate) {
+        providerController.providerPredicate = providerPredicate
         providerController.fetch { (result) in
             DispatchQueue.main.async {
                 self.loadingViewController.hideLoadingIndicator()
