@@ -15,8 +15,11 @@ final class QRImageViewController: UIViewController {
     weak var delegate: QRImageViewControllerDelegate?
 
     init(qrImage: UIImage) {
-        imageView.image = qrImage
-
+        if let image = qrImage.cgImage?.withMaskedWhiteChannel {
+            imageView.image = UIImage(cgImage: image).withRenderingMode(.alwaysTemplate)
+        } else {
+            imageView.image = qrImage
+        }
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -40,7 +43,7 @@ final class QRImageViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         imageView.layer.magnificationFilter = .nearest
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        borderedCornersView.tintColor = Color.separator
+        borderedCornersView.tintColor = Color.accent
         borderedCornersView.translatesAutoresizingMaskIntoConstraints = false
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
 

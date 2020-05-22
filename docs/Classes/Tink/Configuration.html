@@ -14,7 +14,7 @@
     <a title="Configuration Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">TinkLink 0.11.0 Docs</a> (78% documented)</p>
+        <p><a href="../../index.html">TinkLink 0.11.1 Docs</a> (78% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -302,7 +302,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Configuration.swift#L8">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.1/Sources/TinkLink/Configuration.swift#L8">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -332,7 +332,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Configuration.swift#L11">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.1/Sources/TinkLink/Configuration.swift#L11">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -362,37 +362,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Configuration.swift#L14">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:8TinkLink0A0C13ConfigurationV18grpcCertificateURL10Foundation0F0VSgvp"></a>
-                    <a name="//apple_ref/swift/Property/grpcCertificateURL" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8TinkLink0A0C13ConfigurationV18grpcCertificateURL10Foundation0F0VSgvp">grpcCertificateURL</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Certificate to use with gRPC API.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">grpcCertificateURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Configuration.swift#L17">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.1/Sources/TinkLink/Configuration.swift#L14">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -410,7 +380,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Certificate to use with REST API.</p>
+                        <p>Certificate to use with the API.</p>
 
                       </div>
                       <div class="declaration">
@@ -422,7 +392,96 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Configuration.swift#L20">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.1/Sources/TinkLink/Configuration.swift#L17">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8TinkLink0A0C13ConfigurationV8clientID11redirectURI11environment14certificateURLAESS_10Foundation0J0VAA11EnvironmentOALSgtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(clientID:redirectURI:environment:certificateURL:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8TinkLink0A0C13ConfigurationV8clientID11redirectURI11environment14certificateURLAESS_10Foundation0J0VAA11EnvironmentOALSgtKcfc">init(clientID:<wbr>redirectURI:<wbr>environment:<wbr>certificateURL:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">clientID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">redirectURI</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+    <span class="nv">environment</span><span class="p">:</span> <span class="kt"><a href="../../Enums/Environment.html">Environment</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">production</span><span class="p">,</span>
+    <span class="nv">certificateURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>clientID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The client id for your app.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>redirectURI</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URI you&rsquo;ve setup in Console.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>environment</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The environment to use, defaults to production.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>certificateURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>URL to a certificate file to use with the API.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.1/Sources/TinkLink/Configuration.swift#L24-L37">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -446,7 +505,8 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Use init(clientID:redirectURI:environment:certificateURL:﹚ instead"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
     <span class="nv">clientID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">redirectURI</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
     <span class="nv">environment</span><span class="p">:</span> <span class="kt"><a href="../../Enums/Environment.html">Environment</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">production</span><span class="p">,</span>
@@ -504,7 +564,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>URL to a certificate file to use with gRPC API.</p>
+                                  <p>URL to a certificate file to use with the gRPC API.</p>
                                 </div>
                               </td>
                             </tr>
@@ -516,7 +576,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>URL to a certificate file to use with REST API.</p>
+                                  <p>URL to a certificate file to use with the REST API.</p>
                                 </div>
                               </td>
                             </tr>
@@ -524,7 +584,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.0/Sources/TinkLink/Configuration.swift#L28-L43">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.1/Sources/TinkLink/Configuration.swift#L46-L54">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -534,7 +594,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-05-06)</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-05-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
