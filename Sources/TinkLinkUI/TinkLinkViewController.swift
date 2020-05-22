@@ -334,6 +334,7 @@ public class TinkLinkViewController: UINavigationController {
             }
             self?.result = mappedResult
             self?.completionHandler()
+            self?.dismiss(animated: true)
         })
         credentialsCoordinator?.start()
     }
