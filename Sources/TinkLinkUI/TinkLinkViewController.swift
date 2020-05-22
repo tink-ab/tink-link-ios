@@ -339,6 +339,7 @@ public class TinkLinkViewController: UINavigationController {
             self?.result = mappedResult
             self?.completionHandler()
             self?.dismiss(animated: true)
+            self?.credentialsCoordinator = nil
         })
         credentialsCoordinator?.start()
     }
@@ -487,7 +488,7 @@ extension TinkLinkViewController: LoadingViewControllerDelegate {
 // MARK: - Helpers
 extension TinkLinkViewController {
     private var didShowAddCredentialForm: Bool {
-        viewControllers.contains(where: { $0 is CredentialsFormViewController })
+        credentialsCoordinator != nil
     }
 
     private func showDiscardActionSheet() {
