@@ -22,8 +22,6 @@ public final class TransferContext {
         self.credentialsService = credentialsService
     }
 
-    // MARK: - Initiate Transfer
-
     /// Initiate a transfer for the user.
     ///
     /// You need to handle authentication changes in `authenticationHandler` to successfuly initiate a transfer.
@@ -33,16 +31,16 @@ public final class TransferContext {
     ///        toBeneficiaryWithURI: transferBeneficiaryURI,
     ///        amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
     ///        destinationMessage: message,
-    ///        progressHandler: { status in
-    ///            <#Present the progress status change if needed#>
-    ///        },
-    ///        authenticationHandler: { task in
+    ///        authentication: { task in
     ///            switch task {
     ///            case .awaitingSupplementalInformation(let task):
     ///                <#Present form for supplemental information task#>
     ///            case .awaitingThirdPartyAppAuthentication(let task):
     ///                <#Handle the third party app deep link URL#>
     ///             }
+    ///        },
+    ///        progress: { status in
+    ///            <#Present the progress status change if needed#>
     ///        },
     ///        completion: { [weak self] result in
     ///            <#Handle result#>
@@ -106,16 +104,16 @@ public final class TransferContext {
     ///        to: transferBeneficiary,
     ///        amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
     ///        destinationMessage: message,
-    ///        progressHandler: { status in
-    ///            <#Present the progress status change if needed#>
-    ///        },
-    ///        authenticationHandler: { task in
+    ///        authentication: { task in
     ///            switch task {
     ///            case .awaitingSupplementalInformation(let task):
     ///                <#Present form for supplemental information task#>
     ///            case .awaitingThirdPartyAppAuthentication(let task):
     ///                <#Handle the third party app deep link URL#>
     ///             }
+    ///        },
+    ///        progress: { status in
+    ///            <#Present the progress status change if needed#>
     ///        },
     ///        completion: { [weak self] result in
     ///            <#Handle result#>
@@ -178,8 +176,6 @@ public final class TransferContext {
             }
         }
     }
-
-    // MARK: - Fetching All Beneficiaries
 
     /// Fetches all transfer beneficiaries for all accounts.
     ///
