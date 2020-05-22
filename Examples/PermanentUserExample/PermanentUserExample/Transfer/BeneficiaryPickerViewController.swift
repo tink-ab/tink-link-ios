@@ -41,7 +41,7 @@ class BeneficiaryPickerViewController: UITableViewController {
             }
         }
 
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,6 +52,7 @@ class BeneficiaryPickerViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let beneficiary = beneficiaries[indexPath.row]
         cell.textLabel?.text = beneficiary.name
+        cell.detailTextLabel?.text = beneficiary.accountNumber
         cell.accessoryType = beneficiary == selectedBeneficiary ? .checkmark : .none
         return cell
     }
