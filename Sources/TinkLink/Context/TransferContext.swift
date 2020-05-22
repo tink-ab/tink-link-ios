@@ -27,8 +27,8 @@ public final class TransferContext {
 
     /// Initiate a transfer for the user.
     ///
-    /// You need to handle authentication changes in `authenticationHandler` to successfuly initiate a transfer.
-    /// Also if needed, you can get the progress status change in `progressHandler`, and present them accordingly.
+    /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
+    /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
     ///    initiateTransferTask = transferContext.initiateTransfer(
     ///        fromAccountWithURI: sourceAccountURI,
     ///        toBeneficiaryWithURI: transferBeneficiaryURI,
@@ -98,8 +98,8 @@ public final class TransferContext {
 
     /// Initiate a transfer for the user.
     ///
-    /// You need to handle authentication changes in `authenticationHandler` to successfuly initiate a transfer.
-    /// Also if needed, you can get the progress status change in `progressHandler`, and present them accordingly.
+    /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
+    /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
     ///    initiateTransferTask = transferContext.initiateTransfer(
     ///        from: sourceAccount,
     ///        to: transferBeneficiary,
