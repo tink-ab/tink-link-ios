@@ -316,12 +316,15 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     func startCredentialCoordinator(with operation: CredentialsCoordinator.Action) {
+
         guard let clientDescription = clientDescription else {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.startCredentialCoordinator(with: operation)
             }
             loadingViewController.showLoadingIndicator()
-            show(loadingViewController, sender: nil)
+            if viewControllers.last !== loadingViewController {
+                show(loadingViewController, sender: nil)
+            }
             return
         }
 
