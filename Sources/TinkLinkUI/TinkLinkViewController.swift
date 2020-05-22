@@ -148,7 +148,7 @@ public class TinkLinkViewController: UINavigationController {
     ///   - userSession: The user session associated with the TinkLinkViewController.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, userSession: UserSession, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, userSession: UserSession, operation: Operation = .create(providerPredicate: .kinds(.defaultKinds)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.tink = tink
         self.userSession = userSession
         self.operation = operation
@@ -167,7 +167,7 @@ public class TinkLinkViewController: UINavigationController {
     ///   - authorizationCode: Authenticate with a `AuthorizationCode` that delegated from Tink to exchanged for a user object.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation = .create(providerPredicate: .kinds(.defaultKinds)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.tink = tink
         self.authorizationCode = authorizationCode
         self.operation = operation
