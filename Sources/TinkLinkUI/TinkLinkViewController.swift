@@ -447,13 +447,6 @@ extension TinkLinkViewController {
 
 extension TinkLinkViewController {
 
-    private func replaceTopViewController(with viewController: UIViewController, animated: Bool) {
-        var newViewControllers = viewControllers
-        _ = newViewControllers.popLast()
-        newViewControllers.append(viewController)
-        setViewControllers(newViewControllers, animated: animated)
-    }
-
     func showProviderPicker() {
         providerPickerCoordinator.start { [weak self] (result) in
             do {
