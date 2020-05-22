@@ -23,12 +23,12 @@ public final class TransferContext {
         amount: CurrencyDenominatedAmount,
         sourceMessage: String? = nil,
         destinationMessage: String,
-        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
-        authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
+        authentication: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
+        progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
 
-        let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completionHandler: completion)
+        let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progress, authenticationHandler: authentication, completionHandler: completion)
 
         let transfer = Transfer(
             amount: amount.value,
@@ -59,8 +59,8 @@ public final class TransferContext {
         amount: CurrencyDenominatedAmount,
         sourceMessage: String? = nil,
         destinationMessage: String,
-        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
-        authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
+        authentication: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
+        progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
         guard let source = TransferEntityURI(account: source) else {
@@ -70,7 +70,7 @@ public final class TransferContext {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
-        return initiateTransfer(fromAccountWithURI: source, toBeneficiaryWithURI: destination, amount: amount, destinationMessage: destinationMessage, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
+        return initiateTransfer(fromAccountWithURI: source, toBeneficiaryWithURI: destination, amount: amount, destinationMessage: destinationMessage, authentication: authentication, progress: progress, completion: completion)
     }
 
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
