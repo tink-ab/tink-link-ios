@@ -3,7 +3,7 @@ import Foundation
 /// A task that manages progress of initiating a transfer.
 ///
 /// Use `TransferContext` to create a task.
-public final class InitiateTransferTask {
+public final class InitiateTransferTask: Cancellable {
 
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
