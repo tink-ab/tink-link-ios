@@ -14,11 +14,9 @@ public struct TransferEntityURI {
     }
 
     public init?(kind: Kind, accountNumber: String) {
-        if let uri = URL(string: "\(kind.value)://\(accountNumber)") {
-            self.init(uri: uri)
-        } else {
-            return nil
-        }
+        guard let uri = URL(string: "\(kind.value)://\(accountNumber)") else { return nil }
+
+        self.init(uri: uri)
     }
 
     init(uri: URL) {
@@ -30,20 +28,16 @@ public struct TransferEntityURI {
 
 extension TransferEntityURI {
     init?(account: Account) {
-        if let uri = account.transferSourceIdentifiers?.first {
-            self.init(uri: uri)
-        } else {
-            return nil
-        }
+        guard let uri = account.transferSourceIdentifiers?.first else { return  nil }
+
+        self.init(uri: uri)
     }
 }
 
 extension TransferEntityURI {
     init?(beneficiary: Beneficiary) {
-        if let uri = beneficiary.uri {
-            self.init(uri: uri)
-        } else {
-            return nil
-        }
+        guard let uri = beneficiary.uri else { return  nil }
+
+        self.init(uri: uri)
     }
 }
