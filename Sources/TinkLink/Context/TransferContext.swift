@@ -8,7 +8,7 @@ public final class TransferContext {
 
     // MARK: - Creating a Context
 
-    /// Creates a context to access the user's transfer and beneficiary account and initiate transfer.
+    /// Creates a context to use for initiating transfers.
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
