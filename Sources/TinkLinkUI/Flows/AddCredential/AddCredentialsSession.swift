@@ -25,7 +25,7 @@ final class AddCredentialsSession {
     private var timer: Timer?
     private var providerID: Provider.ID?
 
-    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, parentViewController: UIViewController) {
+    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, parentViewController: UIViewController?) {
         self.parentViewController = parentViewController
         self.providerController = providerController
         self.credentialsController = credentialsController

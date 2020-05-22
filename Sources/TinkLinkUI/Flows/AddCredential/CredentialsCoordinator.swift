@@ -25,7 +25,7 @@ final class CredentialsCoordinator {
 
     private let action: Action
     private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void
-    private let parentViewController: UIViewController
+    private weak var parentViewController: UIViewController?
     private let clientDescription: ClientDescription
 
     private let containerViewController = ContainerViewController()
@@ -86,7 +86,7 @@ final class CredentialsCoordinator {
         if let viewController = viewController {
             containerViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
             containerViewController.setViewController(viewController)
-            parentViewController.show(containerViewController, sender: self)
+            parentViewController?.show(containerViewController, sender: self)
         }
     }
 
@@ -110,7 +110,7 @@ final class CredentialsCoordinator {
                 guard let self = self, let result = self.result else { return }
                 self.completion(result)
             }
-            self.parentViewController.show(viewController, sender: self)
+            self.parentViewController?.show(viewController, sender: self)
         }
     }
 }
@@ -219,7 +219,7 @@ extension CredentialsCoordinator {
             alertController.addAction(okAction)
         }
 
-        parentViewController.present(alertController, animated: true)
+        parentViewController?.present(alertController, animated: true)
     }
 
     private func showAlert(for error: Error) {
@@ -238,6 +238,6 @@ extension CredentialsCoordinator {
         let okAction = UIAlertAction(title: Strings.Generic.Alert.ok, style: .default)
         alertController.addAction(okAction)
 
-        parentViewController.present(alertController, animated: true)
+        parentViewController?.present(alertController, animated: true)
     }
 }
