@@ -47,7 +47,7 @@ public final class TransferContext {
     ///     progress: { status in
     ///         <#Present the progress status change if needed#>
     ///     },
-    ///     completion: { [weak self] result in
+    ///     completion: { result in
     ///         <#Handle result#>
     ///     }
     /// )
@@ -122,7 +122,7 @@ public final class TransferContext {
     ///     progress: { status in
     ///         <#Present the progress status change if needed#>
     ///     },
-    ///     completion: { [weak self] result in
+    ///     completion: { result in
     ///         <#Handle result#>
     ///     }
     /// )
