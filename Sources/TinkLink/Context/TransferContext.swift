@@ -38,8 +38,8 @@ public final class TransferContext {
             sourceMessage: sourceMessage,
             destinationMessage: destinationMessage,
             dueDate: nil,
-            destinationUri: fromAccountWithURI.uri,
-            sourceUri: toBeneficiaryWithURI.uri
+            destinationUri: toBeneficiaryWithURI.uri,
+            sourceUri: fromAccountWithURI.uri
         )
 
         task.canceller = transferService.transfer(transfer: transfer) { [weak task] result in
