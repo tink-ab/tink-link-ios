@@ -29,6 +29,8 @@ public final class TransferContext {
     ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
     /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
+    ///
+    ///    ```swift
     ///    initiateTransferTask = transferContext.initiateTransfer(
     ///        fromAccountWithURI: sourceAccountURI,
     ///        toBeneficiaryWithURI: transferBeneficiaryURI,
@@ -49,6 +51,8 @@ public final class TransferContext {
     ///            <#Handle result#>
     ///        }
     ///    )
+    ///    ```
+    ///
     /// - Parameters:
     ///   - fromAccountWithURI: The transfer's source account URI.
     ///   - toBeneficiaryWithURI: The transfer's destination beneficiary URI.
@@ -100,6 +104,8 @@ public final class TransferContext {
     ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
     /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
+    ///
+    ///    ```swift
     ///    initiateTransferTask = transferContext.initiateTransfer(
     ///        from: sourceAccount,
     ///        to: transferBeneficiary,
@@ -120,6 +126,8 @@ public final class TransferContext {
     ///            <#Handle result#>
     ///        }
     ///    )
+    ///    ```
+    ///
     /// - Parameters:
     ///   - from: The transfer's source account.
     ///   - to: The transfer's destination beneficiary.
