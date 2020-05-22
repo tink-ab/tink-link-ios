@@ -51,5 +51,19 @@ class ViewController: UIViewController {
         let tinkLinkViewController = TinkLinkViewController(market: "SE", scopes: scopes, providerPredicate: .kinds(.all)) { _ in }
         present(tinkLinkViewController, animated: true)
     }
+
+    @objc func showTinkLinkWithAuthrorizationCode() {
+        let authorizationCode = "YOUR_AUTHORIZATION_CODE"
+
+        let tinkLinkViewcontroller = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)!, operation: .create(providerPredicate: .kinds(.all))) { _ in }
+        present(tinkLinkViewcontroller, animated: true)
+    }
+
+    @objc private func showTinkLinkWithUserSession() {
+        let accessToken = "YOUR_ACCESS_TOKEN"
+
+        let tinkLinkViewcontroller = TinkLinkViewController(userSession: .accessToken(accessToken), operation: .create(providerPredicate: .kinds(.all))) { _ in }
+        present(tinkLinkViewcontroller, animated: true)
+    }
 }
 
