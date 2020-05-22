@@ -227,6 +227,8 @@ public final class TransferContext {
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
+            sourceAccount: account,
+            accountNumber: accountNumber,
             authenticationHandler: authenticationHandler,
             completionHandler: completion
         )

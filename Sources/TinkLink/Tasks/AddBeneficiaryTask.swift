@@ -19,6 +19,8 @@ public final class AddBeneficiaryTask: Cancellable {
     private let transferService: TransferService
     private let credentialsService: CredentialsService
     private let appUri: URL
+    private let sourceAccount: Account
+    private let accountNumber: String
     private let authenticationHandler: (Authentication) -> Void
     private let completionHandler: (Result<Beneficiary, Swift.Error>) -> Void
 
@@ -32,12 +34,16 @@ public final class AddBeneficiaryTask: Cancellable {
         transferService: TransferService,
         credentialsService: CredentialsService,
         appUri: URL,
+        sourceAccount: Account,
+        accountNumber: String,
         authenticationHandler: @escaping (Authentication) -> Void,
         completionHandler: @escaping (Result<Beneficiary, Swift.Error>) -> Void
     ) {
         self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri
+        self.sourceAccount = sourceAccount
+        self.accountNumber = accountNumber
         self.authenticationHandler = authenticationHandler
         self.completionHandler = completionHandler
     }
