@@ -23,8 +23,8 @@ public final class TransferContext {
         amount: CurrencyDenominatedAmount,
         sourceMessage: String? = nil,
         destinationMessage: String,
-        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
+        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
 
@@ -59,8 +59,8 @@ public final class TransferContext {
         amount: CurrencyDenominatedAmount,
         sourceMessage: String? = nil,
         destinationMessage: String,
-        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
+        progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
         guard let source = TransferEntityURI(account: source) else {
@@ -70,7 +70,7 @@ public final class TransferContext {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
-        return initiateTransfer(fromAccountWithURI: source, toBeneficiaryWithURI: destination, amount: amount, destinationMessage: destinationMessage, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
+        return initiateTransfer(fromAccountWithURI: source, toBeneficiaryWithURI: destination, amount: amount, destinationMessage: destinationMessage, authenticationHandler: authenticationHandler, progressHandler: progressHandler, completion: completion)
     }
 
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
