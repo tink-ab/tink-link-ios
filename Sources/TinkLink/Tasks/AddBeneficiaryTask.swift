@@ -16,6 +16,7 @@ public final class AddBeneficiaryTask: Cancellable {
         case sessionExpired(String)
     }
 
+    private let transferService: TransferService
     private let credentialsService: CredentialsService
     private let appUri: URL
     private let authenticationHandler: (Authentication) -> Void
@@ -28,11 +29,13 @@ public final class AddBeneficiaryTask: Cancellable {
     private var isCancelled = false
 
     init(
+        transferService: TransferService,
         credentialsService: CredentialsService,
         appUri: URL,
         authenticationHandler: @escaping (Authentication) -> Void,
         completionHandler: @escaping (Result<Beneficiary, Swift.Error>) -> Void
     ) {
+        self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri
         self.authenticationHandler = authenticationHandler
