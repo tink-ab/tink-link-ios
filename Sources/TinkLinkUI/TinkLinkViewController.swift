@@ -345,7 +345,7 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     @objc private func cancel() {
-        if didShowAddCredentialForm {
+        if didShowCredentialsForm {
             showDiscardActionSheet()
         } else {
             closeTinkLink()
