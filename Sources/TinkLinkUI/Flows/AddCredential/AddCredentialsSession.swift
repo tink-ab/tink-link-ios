@@ -65,7 +65,7 @@ final class AddCredentialsSession {
             },
             completion: { [weak self] result in
                 DispatchQueue.main.async {
-                    self?.handleAddCredentialsCompletion(result, onCompletion: onCompletion)
+                    self?.handleCompletion(result, onCompletion: onCompletion)
                 }
             }
         )
@@ -78,7 +78,10 @@ final class AddCredentialsSession {
             self.scopes = scopes
             shouldAuthorize = true
         }
-        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+
+        DispatchQueue.main.async {
+            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        }
     }
 
     func updateCredentials(credentials: Credentials, form: Form, completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -86,11 +89,20 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
-            }, completion: completion)
+            }, completion: { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.handleCompletion(result) { result in
+                        completion(result.map{ $0.0 })
+                    }
+                }
+            })
 
         providerID = credentials.providerID
         shouldAuthorize = false
-        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+
+        DispatchQueue.main.async {
+            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        }
     }
 
     func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -98,11 +110,20 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
-        }, completion: completion)
+        }, completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.handleCompletion(result) { result in
+                    completion(result.map{ $0.0 })
+                }
+            }
+        })
 
         providerID = credentials.providerID
         shouldAuthorize = false
-        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+
+        DispatchQueue.main.async {
+            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        }
     }
 
     func authenticateCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -110,11 +131,20 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
-        }, completion: completion)
+        }, completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.handleCompletion(result) { result in
+                    completion(result.map{ $0.0 })
+                }
+            }
+        })
 
         providerID = credentials.providerID
         shouldAuthorize = false
-        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+
+        DispatchQueue.main.async {
+            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        }
     }
 
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
@@ -175,7 +205,7 @@ final class AddCredentialsSession {
         }
     }
 
-    private func handleAddCredentialsCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
+    private func handleCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
         timer?.invalidate()
         authorizeIfNeeded(onError: { [weak self] error in
             DispatchQueue.main.async {

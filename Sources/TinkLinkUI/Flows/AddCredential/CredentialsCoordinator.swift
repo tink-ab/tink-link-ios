@@ -105,11 +105,13 @@ final class CredentialsCoordinator {
     }
 
     func showAddCredentialSuccess() {
-        let viewController = CredentialsSuccessfullyAddedViewController(companyName: clientDescription.name) { [weak self] in
-            guard let self = self, let result = self.result else { return }
-            self.completion(result)
+        DispatchQueue.main.async {
+            let viewController = CredentialsSuccessfullyAddedViewController(companyName: self.clientDescription.name) { [weak self] in
+                guard let self = self, let result = self.result else { return }
+                self.completion(result)
+            }
+            self.parentViewController.show(viewController, sender: self)
         }
-        parentViewController.show(viewController, sender: self)
     }
 }
 
