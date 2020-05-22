@@ -67,7 +67,7 @@ public final class TransferContext {
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
-    ) -> InitiateTransferTask? {
+    ) -> InitiateTransferTask {
 
         let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completionHandler: completion)
 
@@ -79,8 +79,8 @@ public final class TransferContext {
             sourceMessage: sourceMessage,
             destinationMessage: destinationMessage,
             dueDate: nil,
-            destinationUri: fromAccountWithURI.uri,
-            sourceUri: toBeneficiaryWithURI.uri
+            destinationUri: toBeneficiaryWithURI.uri,
+            sourceUri: fromAccountWithURI.uri
         )
 
         task.canceller = transferService.transfer(transfer: transfer) { [weak task] result in
@@ -139,7 +139,7 @@ public final class TransferContext {
         progressHandler: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         authenticationHandler: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
-    ) -> InitiateTransferTask? {
+    ) -> InitiateTransferTask {
         guard let source = TransferEntityURI(account: source) else {
             preconditionFailure("Source account doesn't have a URI.")
         }
@@ -182,7 +182,7 @@ public final class TransferContext {
     /// Fetches all transfer beneficiaries for all accounts.
     ///
     /// - Parameter completion: A result representing either a list of account ID and beneficiaries pair or an error.
-    public func fetchAllBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
+    public func fetchBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
         transferService.beneficiaries() { result in
             do {
                 let beneficiaries = try result.get()

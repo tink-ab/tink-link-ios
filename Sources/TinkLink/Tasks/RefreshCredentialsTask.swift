@@ -13,7 +13,7 @@ public typealias UpdateCredentialsTask = RefreshCredentialsTask
 /// A task that manages progress of refreshing a credential.
 ///
 /// Use `CredentialsContext` to create a task.
-public final class RefreshCredentialsTask: Identifiable {
+public final class RefreshCredentialsTask: Identifiable, Cancellable {
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
     /// Indicates the state of a credentials being refreshed.
     ///
