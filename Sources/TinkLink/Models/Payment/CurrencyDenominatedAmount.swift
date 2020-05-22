@@ -1,5 +1,6 @@
 import Foundation
 
+/// A amount that denominated with a `CurrencyCode`
 public struct CurrencyDenominatedAmount: Equatable {
     /// The exact value of the amount
     public let value: ExactNumber
