@@ -18,7 +18,7 @@ class SourceAccountPickerViewController: UITableViewController {
     init(selectedAccount: Account? = nil) {
         self.selectedAccount = selectedAccount
         super.init(style: .plain)
-        title = "Accounts"
+        title = "Select Account"
     }
 
     required init?(coder: NSCoder) {

@@ -20,7 +20,7 @@ class BeneficiaryPickerViewController: UITableViewController {
         self.beneficiaries = []
         self.selectedBeneficiary = selectedBeneficiary
         super.init(style: .plain)
-        title = "Beneficiaries"
+        title = "Select Beneficiary"
     }
 
     required init?(coder: NSCoder) {
