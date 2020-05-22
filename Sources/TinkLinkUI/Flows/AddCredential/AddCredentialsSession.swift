@@ -19,7 +19,7 @@ final class AddCredentialsSession {
 
     private var authorizationCode: AuthorizationCode?
     private var didCallAuthorize = false
-    private var shouldAuthorize = false
+    private var shouldAuthorize: Bool { !scopes.isEmpty }
     private var authorizationGroup = DispatchGroup()
 
     private var timer: Timer?
@@ -73,10 +73,8 @@ final class AddCredentialsSession {
         switch mode {
         case .user:
             scopes = []
-            shouldAuthorize = false
         case .anonymous(scopes: let scopes):
             self.scopes = scopes
-            shouldAuthorize = true
         }
 
         DispatchQueue.main.async {
@@ -98,7 +96,6 @@ final class AddCredentialsSession {
             })
 
         providerID = credentials.providerID
-        shouldAuthorize = false
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
@@ -119,7 +116,6 @@ final class AddCredentialsSession {
         })
 
         providerID = credentials.providerID
-        shouldAuthorize = false
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
@@ -140,7 +136,6 @@ final class AddCredentialsSession {
         })
 
         providerID = credentials.providerID
-        shouldAuthorize = false
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
