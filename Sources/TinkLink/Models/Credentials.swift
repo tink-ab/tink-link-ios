@@ -8,10 +8,13 @@ public struct Credentials: Identifiable {
             self.value = value
         }
 
+        /// Creates an instance initialized to the given string value.
+        /// - Parameter value: The value of the new instance.
         public init(_ value: String) {
             self.value = value
         }
 
+        /// The string value of the ID.
         public let value: String
     }
 
@@ -23,6 +26,7 @@ public struct Credentials: Identifiable {
 
     /// Indicates how Tink authenticates the user to a financial institution.
     public enum Kind: CustomStringConvertible {
+        /// An unknown kind of credentials.
         case unknown
 
         /// The user will authenticate the credentials with a password.
@@ -80,6 +84,7 @@ public struct Credentials: Identifiable {
 
     /// The status indicates the state of a credentials.
     public enum Status {
+        /// An unknown credentials status.
         case unknown
 
         /// The credentials was just created.
@@ -176,6 +181,7 @@ public struct Credentials: Identifiable {
         /// URL that the app should open on iOS. Can be of another scheme than app scheme.
         public let deepLinkURL: URL?
 
+        /// A Boolean value indicating if the deeplink URL has an autostart token.
         public var hasAutoStartToken: Bool {
             deepLinkURL?.query?.contains("autostartToken") ?? false
         }
