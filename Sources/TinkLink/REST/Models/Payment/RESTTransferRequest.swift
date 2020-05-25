@@ -25,6 +25,8 @@ struct RESTTransferRequest: Codable {
     var destinationUri: String
     /// The source account of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
     var sourceUri: String
+
+    var redirectUri: String?
 }
 
 

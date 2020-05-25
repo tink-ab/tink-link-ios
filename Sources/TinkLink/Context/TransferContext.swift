@@ -89,7 +89,7 @@ public final class TransferContext {
             sourceUri: fromAccountWithURI.uri
         )
 
-        task.canceller = transferService.transfer(transfer: transfer) { [weak task] result in
+        task.canceller = transferService.transfer(transfer: transfer, redirectURI: tink.configuration.redirectURI) { [weak task] result in
             do {
                 let signableOperation = try result.get()
                 task?.startObserving(signableOperation)
