@@ -34,6 +34,8 @@ final class RefreshCredentialsViewController: UITableViewController {
 
     private let dateFormatter = DateFormatter()
 
+    private var statusViewController: AddCredentialsStatusViewController?
+
     private var refreshCredentialsTask: RefreshCredentialsTask? {
         didSet {
             if isViewLoaded {
@@ -298,6 +300,33 @@ extension RefreshCredentialsViewController {
         supplementalInformationViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
         show(navigationController, sender: nil)
+    }
+
+    private func showStatus(_ status: String, animated: Bool) {
+        if statusViewController == nil {
+            navigationItem.setRightBarButton(updateBarButtonItem, animated: true)
+            let statusViewController = AddCredentialsStatusViewController()
+            statusViewController.modalTransitionStyle = .crossDissolve
+            statusViewController.modalPresentationStyle = .overFullScreen
+            present(statusViewController, animated: animated)
+            UIView.animate(withDuration: 0.3) {
+                self.view.tintAdjustmentMode = .dimmed
+            }
+            self.statusViewController = statusViewController
+        }
+        statusViewController?.status = status
+    }
+
+    private func hideStatus(animated: Bool, completion: (() -> Void)? = nil) {
+        guard statusViewController != nil else {
+            completion?()
+            return
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.view.tintAdjustmentMode = .automatic
+        }
+        dismiss(animated: animated, completion: completion)
+        statusViewController = nil
     }
 
     private func showAlert(for error: Error) {
