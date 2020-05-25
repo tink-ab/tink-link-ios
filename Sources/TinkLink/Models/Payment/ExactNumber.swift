@@ -1,7 +1,10 @@
 import Foundation
 
+/// A number represented as a scale and unscaled value together.
 public struct ExactNumber: Equatable, Hashable {
+    /// The unscaled value of the number.
     let unscaledValue: Int64
+    /// The scale of the number.
     let scale: Int64
 }
 
@@ -43,6 +46,7 @@ extension ExactNumber {
         self.unscaledValue = Int64(value)
     }
 
+    /// The number's value expressed as a double.
     public var doubleValue: Double {
         Double(unscaledValue) * pow(10, Double(-scale))
     }

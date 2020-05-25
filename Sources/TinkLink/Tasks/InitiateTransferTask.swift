@@ -22,6 +22,7 @@ public final class InitiateTransferTask: Cancellable {
     ///
     /// - Note: The states have actions which need to be performed to continue the transfer initiation process.
     public enum AuthenticationTask {
+        /// Trigger for the client to prompt the user to fill out supplemental information.
         case awaitingSupplementalInformation(SupplementInformationTask)
         /// Trigger for the client to prompt the user to open the third party authentication flow
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
@@ -31,9 +32,13 @@ public final class InitiateTransferTask: Cancellable {
     public enum Error: Swift.Error {
         /// The authentication failed. The payload from the backend can be found in the associated value.
         case authenticationFailed(String?)
+        /// The credentials are disabled. The payload from the backend can be found in the associated value.
         case disabledCredentials(String?)
-        case sessionExpired(String?)
+        /// The credentials session was expired. The payload from the backend can be found in the associated value.
+        case credentialsSessionExpired(String?)
+        /// The transfer was cancelled. The payload from the backend can be found in the associated value.
         case cancelled(String?)
+        /// The transfer failed. The payload from the backend can be found in the associated value.
         case failed(String?)
     }
 
@@ -196,7 +201,7 @@ public final class InitiateTransferTask: Cancellable {
             case .disabled:
                 throw Error.disabledCredentials(credentials.statusPayload)
             case .sessionExpired:
-                throw Error.sessionExpired(credentials.statusPayload)
+                throw Error.credentialsSessionExpired(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }
