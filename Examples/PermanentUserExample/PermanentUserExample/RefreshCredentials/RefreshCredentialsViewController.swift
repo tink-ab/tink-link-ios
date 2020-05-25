@@ -247,16 +247,26 @@ extension RefreshCredentialsViewController {
         switch status {
         case .authenticating:
             if isPresentingQR {
-                dismiss(animated: true)
+                dismiss(animated: true) {
+                    self.showStatus("Authenticating…", animated: true)
+                }
+            } else {
+                showStatus("Authenticating…", animated: true)
             }
             self.credentials = refreshedCredentials
-        case .updating:
+        case .updating(let status):
             if isPresentingQR {
-                dismiss(animated: true)
+                dismiss(animated: true) {
+                    self.showStatus(status, animated: true)
+                }
+            } else {
+                showStatus(status, animated: true)
             }
             self.credentials = refreshedCredentials
         case .awaitingSupplementalInformation(let task):
-            showSupplementalInformation(for: task)
+            hideStatus(animated: true) {
+                self.showSupplementalInformation(for: task)
+            }
         case .awaitingThirdPartyAppAuthentication(let task):
             self.credentials = refreshedCredentials
             task.handle { [weak self] taskStatus in
@@ -284,8 +294,11 @@ extension RefreshCredentialsViewController {
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
             self.credentials = try result.get()
+            hideStatus(animated: true)
         } catch {
-            showAlert(for: error)
+            hideStatus(animated: true) {
+                self.showAlert(for: error)
+            }
         }
         refreshCredentialsTask = nil
     }
