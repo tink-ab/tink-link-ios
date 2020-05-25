@@ -26,6 +26,7 @@ public struct Credentials: Identifiable {
 
     /// Indicates how Tink authenticates the user to a financial institution.
     public enum Kind: CustomStringConvertible {
+        /// An unknown kind of credentials.
         case unknown
 
         /// The user will authenticate the credentials with a password.
