@@ -84,6 +84,7 @@ public struct Credentials: Identifiable {
 
     /// The status indicates the state of a credentials.
     public enum Status {
+        /// An unknown credentials status.
         case unknown
 
         /// The credentials was just created.
