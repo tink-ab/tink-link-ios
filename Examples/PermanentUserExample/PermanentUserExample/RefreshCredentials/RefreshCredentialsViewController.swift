@@ -165,12 +165,15 @@ extension RefreshCredentialsViewController {
             tableView.deselectRow(at: indexPath, animated: true)
         case .delete:
             isDeleting = true
+            showStatus("Deleting…", animated: true)
             credentialsContext.delete(credentials) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.isDeleting = false
                     do {
                         _ = try result.get()
-                        self?.navigationController?.popViewController(animated: true)
+                        self?.hideStatus(animated: true) {
+                            self?.navigationController?.popViewController(animated: true)
+                        }
                     } catch {
                         // Handle any errors
                     }
