@@ -35,7 +35,7 @@ public final class InitiateTransferTask: Cancellable {
         /// The credentials are disabled. The payload from the backend can be found in the associated value.
         case disabledCredentials(String?)
         /// The credentials session was expired. The payload from the backend can be found in the associated value.
-        case sessionExpired(String?)
+        case credentialsSessionExpired(String?)
         /// The transfer was cancelled. The payload from the backend can be found in the associated value.
         case cancelled(String?)
         /// The transfer failed. The payload from the backend can be found in the associated value.
@@ -201,7 +201,7 @@ public final class InitiateTransferTask: Cancellable {
             case .disabled:
                 throw Error.disabledCredentials(credentials.statusPayload)
             case .sessionExpired:
-                throw Error.sessionExpired(credentials.statusPayload)
+                throw Error.credentialsSessionExpired(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }
