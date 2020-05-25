@@ -181,6 +181,7 @@ public struct Credentials: Identifiable {
         /// URL that the app should open on iOS. Can be of another scheme than app scheme.
         public let deepLinkURL: URL?
 
+        /// A Boolean value indicating if the deeplink URL has an autostart token.
         public var hasAutoStartToken: Bool {
             deepLinkURL?.query?.contains("autostartToken") ?? false
         }
