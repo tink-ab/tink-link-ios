@@ -98,7 +98,12 @@ final class CredentialsCoordinator {
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
         } catch ServiceError.cancelled {
-            // No-op
+            switch action {
+            case .authenticate, .refresh:
+                completion(.failure(.userCancelled))
+            default:
+                break // NO-OP
+            }
         } catch {
             showAlert(for: error)
         }
