@@ -4,8 +4,7 @@ import Foundation
 class MockedSuccessTransferService: TransferService {
     @discardableResult
     func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
-        let testAccount = Account(accountNumber: "testNumber", balance: 200.0, credentialsID: Credentials.ID("testCredentialsID"), isFavored: false, id: Account.ID("testAccountID"), name: "testAccount", ownership: 1.0, kind: .checking, transferSourceIdentifiers: nil, transferDestinations: nil, details: nil, holderName: "test", isClosed: nil, flags: nil, accountExclusion: nil, currencyDenominatedBalance: CurrencyDenominatedAmount(value: 200.0, currencyCode: "EUR"), refreshed: nil, financialInstitutionID: Provider.FinancialInstitution.ID("testFinancialInstitutionID"))
-        completion(.success([testAccount]))
+        completion(.success([Account.checkingTestAccount]))
         return TestRetryCanceller { [weak self] in
             guard let self = self else { return }
             self.accounts(destinationUris: destinationUris, completion: completion)
@@ -13,14 +12,7 @@ class MockedSuccessTransferService: TransferService {
     }
 
     func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        let testBeneficiary = Beneficiary(
-            type: "test",
-            name: "testBeneficiary",
-            accountID: Account.ID("testAccountID"),
-            accountNumber: "testNumber",
-            uri: URL(string: "test://testBeneficiary")
-        )
-        completion(.success([testBeneficiary]))
+        completion(.success([Beneficiary.savingBeneficiary]))
         return nil
     }
 
