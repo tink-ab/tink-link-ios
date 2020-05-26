@@ -51,4 +51,17 @@ class AccountRESTTest: XCTestCase {
         XCTAssertEqual(account.kind, Account.Kind(restAccountType: restAccount.type))
         XCTAssertNil(account.details)
     }
+
+    func testCurrencyDenominatedAmountMapping() {
+        let restCurrencyDenominatedAmount = RESTCurrencyDenominatedAmount(
+            unscaledValue: 6861,
+            scale: 2,
+            currencyCode: "EUR"
+        )
+        let currencyDenominatedAmount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restCurrencyDenominatedAmount)
+        XCTAssertEqual(currencyDenominatedAmount.currencyCode.value, restCurrencyDenominatedAmount.currencyCode)
+        XCTAssertEqual(currencyDenominatedAmount.value.scale, Int64(restCurrencyDenominatedAmount.scale))
+        XCTAssertEqual(currencyDenominatedAmount.value.unscaledValue, restCurrencyDenominatedAmount.unscaledValue)
+
+    }
 }
