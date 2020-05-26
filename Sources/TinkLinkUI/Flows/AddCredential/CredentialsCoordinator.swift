@@ -16,7 +16,7 @@ final class CredentialsCoordinator {
     }
 
     enum Action {
-        case add(provider: Provider, mode: AddCredentialsMode)
+        case create(provider: Provider, mode: AddCredentialsMode)
         case update(credentialsID: Credentials.ID)
         case refresh(credentialsID: Credentials.ID)
         case authenticate(credentialsID: Credentials.ID)
@@ -51,7 +51,7 @@ final class CredentialsCoordinator {
     func start() {
 
         switch action {
-        case .add(provider: let provider, _):
+        case .create(provider: let provider, _):
             let credentialsViewController = CredentialsFormViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
             credentialsViewController.delegate = self
             credentialsViewController.prefillStrategy = prefillStrategy
@@ -152,7 +152,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
 
     func showScopeDescriptions() {
         let scopeList: [Scope]
-        if case .add(provider: _, mode: let mode) = action, case let .anonymous(scopes) = mode {
+        if case .create(provider: _, mode: let mode) = action, case let .anonymous(scopes) = mode {
             scopeList = scopes
         } else {
             scopeList = []
@@ -173,7 +173,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
 
         switch action {
 
-        case .add(provider: let provider, mode: let mode):
+        case .create(provider: let provider, mode: let mode):
             addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
                 self?.handleCompletion(for: result)
             }

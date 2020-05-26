@@ -466,9 +466,9 @@ extension TinkLinkViewController {
 
     func showAddCredentials(for provider: Provider, animated: Bool = true) {
         if let scopes = scopes {
-            startCredentialCoordinator(with: .add(provider: provider, mode: .anonymous(scopes: scopes)))
+            startCredentialCoordinator(with: .create(provider: provider, mode: .anonymous(scopes: scopes)))
         } else {
-            startCredentialCoordinator(with: .add(provider: provider, mode: .user))
+            startCredentialCoordinator(with: .create(provider: provider, mode: .user))
         }
     }
 }
