@@ -1,7 +1,7 @@
 import Foundation
 @testable import TinkLink
 
-class MockTransferService: TransferService {
+class MockedSuccessTransferService: TransferService {
     @discardableResult
     func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         let testAccount = Account(accountNumber: "testNumber", balance: 200.0, credentialsID: Credentials.ID("testCredentialsID"), isFavored: false, id: Account.ID("testAccountID"), name: "testAccount", ownership: 1.0, kind: .checking, transferSourceIdentifiers: nil, transferDestinations: nil, details: nil, holderName: "test", isClosed: nil, flags: nil, accountExclusion: nil, currencyDenominatedBalance: CurrencyDenominatedAmount(value: 200.0, currencyCode: "EUR"), refreshed: nil, financialInstitutionID: Provider.FinancialInstitution.ID("testFinancialInstitutionID"))
