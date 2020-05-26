@@ -85,7 +85,7 @@ public class TinkLinkViewController: UINavigationController {
     /// Strategy for different operations.
     public enum Operation {
         /// Create credentials.
-        case create(providerPredicate: ProviderPredicate)
+        case create(providerPredicate: ProviderPredicate = .kinds(.defaultKinds))
         /// Authenticate credentials.
         case authenticate(credentialsID: Credentials.ID)
         /// Refresh credentials.
