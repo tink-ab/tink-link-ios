@@ -35,7 +35,6 @@ final class CredentialsCoordinator {
     private weak var presenter: CredentialsCoordinatorPresenting?
     private let clientDescription: ClientDescription
 
-    private var result: Result<(Credentials, AuthorizationCode?), TinkLinkError>?
     private var fetchedCredentials: Credentials?
 
     init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
@@ -93,8 +92,7 @@ final class CredentialsCoordinator {
     private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
         do {
             let values = try result.get()
-            self.result = .success(values)
-            showAddCredentialSuccess()
+            showAddCredentialSuccess(with: .success(values))
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
         } catch ServiceError.cancelled {
@@ -109,11 +107,10 @@ final class CredentialsCoordinator {
         }
     }
 
-    func showAddCredentialSuccess() {
+    func showAddCredentialSuccess(with result: Result<(Credentials, AuthorizationCode?), TinkLinkError>) {
         DispatchQueue.main.async {
             let viewController = CredentialsSuccessfullyAddedViewController(companyName: self.clientDescription.name) { [weak self] in
-                guard let self = self, let result = self.result else { return }
-                self.completion(result)
+                self?.completion(result)
             }
             self.presenter?.show(viewController)
         }
