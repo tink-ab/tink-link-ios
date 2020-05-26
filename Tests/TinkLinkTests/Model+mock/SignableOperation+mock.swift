@@ -49,4 +49,5 @@ extension SignableOperation {
         transferID: Transfer.ID("ff3de94f21a54701be12f481de760eb1"),
         updated: Date(),
         userID: User.ID("64b63e21d8ce4c60b240bbd35471de5e")
+    )
 }

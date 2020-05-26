@@ -19,7 +19,11 @@ class MockedSuccessTransferService: TransferService {
 
     @discardableResult
     func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
-        return nil
+        completion(.success(SignableOperation.createdSignableOperation))
+        return TestRetryCanceller { [weak self] in
+            guard let self = self else { return }
+            self.transfer(transfer: transfer, redirectURI: redirectURI, completion: completion)
+        }
     }
 
     @discardableResult
