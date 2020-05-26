@@ -100,6 +100,7 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private let operation: Operation
+    private let providerPredicate: ProviderPredicate
     private var userSession: UserSession?
     private var authorizationCode: AuthorizationCode?
 
@@ -137,6 +138,7 @@ public class TinkLinkViewController: UINavigationController {
         self.scopes = scopes
         self.providerController = ProviderController(tink: tink, providerPredicate: providerPredicate)
         self.operation = .create(providerPredicate: providerPredicate)
+        self.providerPredicate = providerPredicate
         self.temporaryCompletion = completion
         self.permanentCompletion = nil
 
@@ -149,10 +151,11 @@ public class TinkLinkViewController: UINavigationController {
     ///   - userSession: The user session associated with the TinkLinkViewController.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, userSession: UserSession, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, userSession: UserSession, operation: Operation = .create(providerPredicate: .kinds(.defaultKinds)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.tink = tink
         self.userSession = userSession
         self.operation = operation
+        self.providerPredicate = .kinds(.defaultKinds)
         self.scopes = nil
         self.market = nil
         self.providerController = ProviderController(tink: tink)
@@ -168,10 +171,11 @@ public class TinkLinkViewController: UINavigationController {
     ///   - authorizationCode: Authenticate with a `AuthorizationCode` that delegated from Tink to exchanged for a user object.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation = .create(providerPredicate: .kinds(.defaultKinds)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.tink = tink
         self.authorizationCode = authorizationCode
         self.operation = operation
+        self.providerPredicate = .kinds(.defaultKinds)
         self.userSession = nil
         self.scopes = nil
         self.market = nil
@@ -183,7 +187,7 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     @available(*, deprecated, message: "use tink:market:scopes:providerPredicate: instead")
-    public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+    public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind>, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.init(tink: tink, market: market, scopes: scopes, providerPredicate: .kinds(providerKinds), completion: completion)
     }
 
