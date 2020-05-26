@@ -3,7 +3,7 @@ import TinkLink
 
 final class AddCredentialsSession {
 
-    weak var parentViewController: UIViewController?
+    weak var presenter: CredentialsCoordinatorPresenting?
 
     private let providerController: ProviderController
     private let credentialsController: CredentialsController
@@ -25,8 +25,8 @@ final class AddCredentialsSession {
     private var timer: Timer?
     private var providerID: Provider.ID?
 
-    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, parentViewController: UIViewController?) {
-        self.parentViewController = parentViewController
+    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, presenter: CredentialsCoordinatorPresenting?) {
+        self.presenter = presenter
         self.providerController = providerController
         self.credentialsController = credentialsController
         self.authorizationController = authorizationController
@@ -248,7 +248,7 @@ extension AddCredentialsSession {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
-            self.parentViewController?.show(navigationController, sender: nil)
+            self.presenter?.show(navigationController)
         }
     }
 
@@ -256,7 +256,7 @@ extension AddCredentialsSession {
         hideQRCodeViewIfNeeded {
             if let statusViewController = self.statusViewController {
                 if statusViewController.presentingViewController == nil {
-                    self.parentViewController?.present(statusViewController, animated: true)
+                    self.presenter?.present(statusViewController, animated: true, completion: nil)
                 }
             } else {
                 let statusViewController = AddCredentialsStatusViewController()
@@ -264,7 +264,7 @@ extension AddCredentialsSession {
                 statusViewController.modalTransitionStyle = .crossDissolve
                 statusViewController.modalPresentationStyle = .custom
                 statusViewController.transitioningDelegate = self.statusPresentationManager
-                self.parentViewController?.present(statusViewController, animated: true)
+                self.presenter?.present(statusViewController, animated: true, completion: nil)
                 self.statusViewController = statusViewController
             }
             self.statusViewController?.status = status
@@ -277,7 +277,7 @@ extension AddCredentialsSession {
             completion?()
             return
         }
-        parentViewController?.dismiss(animated: animated, completion: completion)
+        presenter?.dismiss(animated: animated, completion: completion)
     }
 
     private func showQRCodeView(qrImage: UIImage) {
@@ -285,7 +285,7 @@ extension AddCredentialsSession {
             let qrImageViewController = QRImageViewController(qrImage: qrImage)
             self.qrImageViewController = qrImageViewController
             qrImageViewController.delegate = self
-            self.parentViewController?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true)
+            self.presenter?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true, completion: nil)
         }
     }
 
@@ -294,7 +294,7 @@ extension AddCredentialsSession {
             completion?()
             return
         }
-        parentViewController?.dismiss(animated: animated, completion: completion)
+        presenter?.dismiss(animated: animated, completion: completion)
     }
 }
 
@@ -312,14 +312,14 @@ extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
 
 extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
-        parentViewController?.dismiss(animated: true) {
+        presenter?.dismiss(animated: true) {
             self.supplementInfoTask?.cancel()
             self.showUpdating(status: Strings.AddCredentials.Status.cancelling)
         }
     }
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
-        parentViewController?.dismiss(animated: true) {
+        presenter?.dismiss(animated: true) {
             self.supplementInfoTask?.submit(form)
             self.showUpdating(status: Strings.AddCredentials.Status.sending)
         }
@@ -328,7 +328,7 @@ extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
 
 extension AddCredentialsSession: QRImageViewControllerDelegate {
     func qrImageViewControllerDidCancel(_ viewController: QRImageViewController) {
-        parentViewController?.dismiss(animated: true) {
+        presenter?.dismiss(animated: true) {
             self.task?.cancel()
         }
     }

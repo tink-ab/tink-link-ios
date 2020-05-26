@@ -1,6 +1,13 @@
 import UIKit
 import TinkLink
 
+protocol CredentialsCoordinatorPresenting: AnyObject {
+    func showLoadingIndicator()
+    func show(_ viewController: UIViewController)
+    func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
+    func dismiss(animated: Bool, completion: (() -> Void)?)
+}
+
 final class CredentialsCoordinator {
 
     enum AddCredentialsMode {
@@ -21,38 +28,35 @@ final class CredentialsCoordinator {
     private let credentialsController: CredentialsController
     private let providerController: ProviderController
 
-    private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, parentViewController: self.parentViewController)
+    private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, presenter: self.presenter)
 
     private let action: Action
     private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void
-    private weak var parentViewController: UIViewController?
+    private weak var presenter: CredentialsCoordinatorPresenting?
     private let clientDescription: ClientDescription
-
-    private let containerViewController = ContainerViewController()
 
     private var result: Result<(Credentials, AuthorizationCode?), TinkLinkError>?
     private var fetchedCredentials: Credentials?
 
-    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, parentViewController: UIViewController, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
+    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
         self.providerController = providerController
         self.action = action
         self.completion = completion
-        self.parentViewController = parentViewController
+        self.presenter = presenter
         self.clientDescription = clientDescription
     }
 
     func start() {
 
-        var viewController: UIViewController? = nil
         switch action {
         case .add(provider: let provider, _):
             let credentialsViewController = CredentialsFormViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
             credentialsViewController.delegate = self
             credentialsViewController.prefillStrategy = prefillStrategy
 
-            viewController = credentialsViewController
+            presenter?.show(credentialsViewController)
 
         case .authenticate(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -61,6 +65,7 @@ final class CredentialsCoordinator {
                     self.handleCompletion(for: result.map { ($0, nil) } )
                 }
             }
+            presenter?.showLoadingIndicator()
 
         case .refresh(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -69,6 +74,7 @@ final class CredentialsCoordinator {
                     self.handleCompletion(for: result.map { ($0, nil) } )
                 }
             }
+            presenter?.showLoadingIndicator()
 
         case .update(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -77,16 +83,10 @@ final class CredentialsCoordinator {
                     let credentialsViewController = CredentialsFormViewController(credentials: credentials, provider: provider, credentialsController: self.credentialsController, clientName: self.clientDescription.name, isAggregator: self.clientDescription.isAggregator, isVerified: self.clientDescription.isVerified)
                     credentialsViewController.delegate = self
                     credentialsViewController.prefillStrategy = self.prefillStrategy
-                    self.containerViewController.setViewController(credentialsViewController)
+                    self.presenter?.show(credentialsViewController)
                 }
             }
-            viewController = LoadingViewController()
-        }
-
-        if let viewController = viewController {
-            containerViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-            containerViewController.setViewController(viewController)
-            parentViewController?.show(containerViewController, sender: self)
+            presenter?.showLoadingIndicator()
         }
     }
 
@@ -110,7 +110,7 @@ final class CredentialsCoordinator {
                 guard let self = self, let result = self.result else { return }
                 self.completion(result)
             }
-            self.parentViewController?.show(viewController, sender: self)
+            self.presenter?.show(viewController)
         }
     }
 }
@@ -155,12 +155,12 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scopes: scopeList)
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
         let navigationController = TinkNavigationController(rootViewController: viewController)
-        containerViewController.present(navigationController, animated: true)
+        presenter?.present(navigationController, animated: true, completion: nil)
     }
 
     func showWebContent(with url: URL) {
         let viewController = LegalViewController(url: url)
-        containerViewController.present(viewController, animated: true)
+        presenter?.present(viewController, animated: true, completion: nil)
     }
 
 
@@ -193,7 +193,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
 extension CredentialsCoordinator {
 
     @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
-        containerViewController.dismiss(animated: true)
+        presenter?.dismiss(animated: true, completion: nil)
     }
 
     @objc private func cancel() {
@@ -219,7 +219,7 @@ extension CredentialsCoordinator {
             alertController.addAction(okAction)
         }
 
-        parentViewController?.present(alertController, animated: true)
+        presenter?.present(alertController, animated: true, completion: nil)
     }
 
     private func showAlert(for error: Error) {
@@ -238,6 +238,6 @@ extension CredentialsCoordinator {
         let okAction = UIAlertAction(title: Strings.Generic.Alert.ok, style: .default)
         alertController.addAction(okAction)
 
-        parentViewController?.present(alertController, animated: true)
+        presenter?.present(alertController, animated: true, completion: nil)
     }
 }

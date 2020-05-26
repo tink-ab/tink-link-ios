@@ -325,7 +325,7 @@ public class TinkLinkViewController: UINavigationController {
             return
         }
 
-        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, parentViewController: self, clientDescription: clientDescription, action: operation, completion: { [weak self] result in
+        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, clientDescription: clientDescription, action: operation, completion: { [weak self] result in
             let mappedResult = result.map { (credentials, code) -> ResultType in
                 if let code = code {
                     return .authorizationCode(code)
@@ -444,6 +444,13 @@ extension TinkLinkViewController {
 
 extension TinkLinkViewController {
 
+    private func replaceTopViewController(with viewController: UIViewController, animated: Bool) {
+        var newViewControllers = viewControllers
+        _ = newViewControllers.popLast()
+        newViewControllers.append(viewController)
+        setViewControllers(newViewControllers, animated: animated)
+    }
+
     func showProviderPicker() {
         providerPickerCoordinator.start { [weak self] (result) in
             do {
@@ -516,5 +523,25 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
     /// :nodoc:
     public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return !didShowCredentialsForm
+    }
+}
+
+extension TinkLinkViewController: CredentialsCoordinatorPresenting {
+
+    func showLoadingIndicator() {
+        if topViewController is LoadingViewController {
+            return
+        }
+
+        show(loadingViewController, sender: self)
+    }
+
+    func show(_ viewController: UIViewController) {
+
+        if topViewController is LoadingViewController {
+            replaceTopViewController(with: viewController, animated: true)
+        } else {
+            show(viewController, sender: self)
+        }
     }
 }
