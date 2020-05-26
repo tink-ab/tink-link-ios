@@ -34,6 +34,8 @@ final class RefreshCredentialsViewController: UITableViewController {
 
     private let dateFormatter = DateFormatter()
 
+    private var statusViewController: AddCredentialsStatusViewController?
+
     private var refreshCredentialsTask: RefreshCredentialsTask? {
         didSet {
             if isViewLoaded {
@@ -163,12 +165,15 @@ extension RefreshCredentialsViewController {
             tableView.deselectRow(at: indexPath, animated: true)
         case .delete:
             isDeleting = true
+            showStatus("Deleting…", animated: true)
             credentialsContext.delete(credentials) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.isDeleting = false
                     do {
                         _ = try result.get()
-                        self?.navigationController?.popViewController(animated: true)
+                        self?.hideStatus(animated: true) {
+                            self?.navigationController?.popViewController(animated: true)
+                        }
                     } catch {
                         // Handle any errors
                     }
@@ -243,16 +248,26 @@ extension RefreshCredentialsViewController {
         switch status {
         case .authenticating:
             if isPresentingQR {
-                dismiss(animated: true)
+                dismiss(animated: true) {
+                    self.showStatus("Authenticating…", animated: true)
+                }
+            } else {
+                showStatus("Authenticating…", animated: true)
             }
             self.credentials = refreshedCredentials
-        case .updating:
+        case .updating(let status):
             if isPresentingQR {
-                dismiss(animated: true)
+                dismiss(animated: true) {
+                    self.showStatus(status, animated: true)
+                }
+            } else {
+                showStatus(status, animated: true)
             }
             self.credentials = refreshedCredentials
         case .awaitingSupplementalInformation(let task):
-            showSupplementalInformation(for: task)
+            hideStatus(animated: true) {
+                self.showSupplementalInformation(for: task)
+            }
         case .awaitingThirdPartyAppAuthentication(let task):
             self.credentials = refreshedCredentials
             task.handle { [weak self] taskStatus in
@@ -280,8 +295,11 @@ extension RefreshCredentialsViewController {
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
             self.credentials = try result.get()
+            hideStatus(animated: true)
         } catch {
-            showAlert(for: error)
+            hideStatus(animated: true) {
+                self.showAlert(for: error)
+            }
         }
         refreshCredentialsTask = nil
     }
@@ -296,6 +314,32 @@ extension RefreshCredentialsViewController {
         supplementalInformationViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
         show(navigationController, sender: nil)
+    }
+
+    private func showStatus(_ status: String, animated: Bool) {
+        if statusViewController == nil {
+            let statusViewController = AddCredentialsStatusViewController()
+            statusViewController.modalTransitionStyle = .crossDissolve
+            statusViewController.modalPresentationStyle = .overFullScreen
+            present(statusViewController, animated: animated)
+            UIView.animate(withDuration: 0.3) {
+                self.view.tintAdjustmentMode = .dimmed
+            }
+            self.statusViewController = statusViewController
+        }
+        statusViewController?.status = status
+    }
+
+    private func hideStatus(animated: Bool, completion: (() -> Void)? = nil) {
+        guard statusViewController != nil else {
+            completion?()
+            return
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.view.tintAdjustmentMode = .automatic
+        }
+        dismiss(animated: animated, completion: completion)
+        statusViewController = nil
     }
 
     private func showAlert(for error: Error) {
