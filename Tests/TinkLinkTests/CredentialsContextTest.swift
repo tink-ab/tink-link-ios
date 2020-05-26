@@ -17,7 +17,7 @@ class CredentialsContextTests: XCTestCase {
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
-        let statusChangedToupdating = expectation(description: "add credentials status should be changed to updating")
+        let statusChangedToUpdating = expectation(description: "add credentials status should be changed to updating")
 
         let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
         task = credentialsContextUnderTest.add(for: Provider.nordeaPassword, form: Form(provider: Provider.nordeaPassword), completionPredicate: completionPredicate, progressHandler: { status in
@@ -27,7 +27,7 @@ class CredentialsContextTests: XCTestCase {
             case .authenticating, .awaitingSupplementalInformation, .awaitingThirdPartyAppAuthentication:
                 break
             case .updating:
-                statusChangedToupdating.fulfill()
+                statusChangedToUpdating.fulfill()
             }
         }) { result in
             do {
@@ -50,7 +50,7 @@ class CredentialsContextTests: XCTestCase {
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
-        let statusChangedToupdating = expectation(description: "add credentials status should be changed to updating")
+        let statusChangedToUpdating = expectation(description: "add credentials status should be changed to updating")
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "add credentials status should be changed to awaitingSupplementalInformation")
 
         let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
@@ -64,7 +64,7 @@ class CredentialsContextTests: XCTestCase {
                 form.fields[0].text = "test"
                 supplementalInformationTask.submit(form)
             case .updating:
-                statusChangedToupdating.fulfill()
+                statusChangedToUpdating.fulfill()
             case .authenticating, .awaitingThirdPartyAppAuthentication:
                 break
             }
