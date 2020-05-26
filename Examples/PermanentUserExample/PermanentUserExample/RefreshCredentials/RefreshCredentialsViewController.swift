@@ -318,7 +318,6 @@ extension RefreshCredentialsViewController {
 
     private func showStatus(_ status: String, animated: Bool) {
         if statusViewController == nil {
-            navigationItem.setRightBarButton(updateBarButtonItem, animated: true)
             let statusViewController = AddCredentialsStatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
