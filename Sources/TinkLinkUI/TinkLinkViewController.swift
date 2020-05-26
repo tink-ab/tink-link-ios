@@ -41,14 +41,14 @@ import TinkLink
 /// ```swift
 /// // With authorization code:
 /// let authorizationCode = "YOUR_AUTHORIZATION_CODE"
-/// let tinkLinkViewcontroller = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)!, operation: .create(providerPredicate: .kinds(.all))) { result in
+/// let tinkLinkViewcontroller = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)) { result in
 ///     // Handle result
 /// }
 /// present(tinkLinkViewcontroller, animated: true)
 ///
 /// // With access token:
 /// let accessToken = "YOUR_ACCESS_TOKEN"
-/// let tinkLinkViewcontroller = TinkLinkViewController(userSession: .accessToken(accessToken), operation: .create(providerPredicate: .kinds(.all))) { result in
+/// let tinkLinkViewcontroller = TinkLinkViewController(userSession: .accessToken(accessToken)) { result in
 ///     // Handle result
 /// }
 ///
