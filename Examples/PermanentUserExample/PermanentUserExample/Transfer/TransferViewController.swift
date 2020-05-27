@@ -165,7 +165,7 @@ extension TransferViewController {
                 cell.detailTextLabel?.text = sourceAccount?.name
             case .to:
                 cell.textLabel?.text = "To:"
-                cell.detailTextLabel?.text = beneficiary?.name
+                cell.detailTextLabel?.text = beneficiary?.name ?? beneficiaryURI?.value
             }
             return cell
         case .details(let fields):
@@ -351,6 +351,7 @@ extension TransferViewController: BeneficiaryPickerViewControllerDelegate {
         self.beneficiary = nil
         self.beneficiaryURI = beneficiaryURI
         navigationController?.popToViewController(self, animated: true)
+        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
     }
 }
 
