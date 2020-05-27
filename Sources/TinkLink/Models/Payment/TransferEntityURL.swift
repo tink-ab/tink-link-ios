@@ -18,6 +18,12 @@ public struct TransferEntityURI {
 
         /// The `String` that represent the account kind.
         public let value: String
+
+        public static let iban: Kind = "iban"
+        public static let se: Kind = "se"
+        public static let seBankGiro: Kind = "se-bg"
+        public static let sePlusGiro: Kind = "se-pg"
+        public static let sortCode: Kind = "sort-code"
     }
 
     /// Creates a TransferEntityURI.
