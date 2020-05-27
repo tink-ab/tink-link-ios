@@ -5,23 +5,6 @@ import Foundation
 /// A TransferEntityURI is composed with two parts, a kind with value of e.g. `iban` and an account number.
 public struct TransferEntityURI {
 
-    /// Creates a TransferEntityURI.
-    ///
-    /// Returns `nil` if a URI cannot be formed with the kind and account number (for example if the number contains characters that are illegal, or is an empty string).
-    ///
-    /// - Parameters:
-    ///   - kind: The kind of account URI.
-    ///   - accountNumber: The account number. The structure of this parameter depends on the `kind`.
-    public init?(kind: Kind, accountNumber: String) {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = kind.value
-        urlComponents.host = accountNumber
-        
-        guard let uri = urlComponents.url else { return nil }
-
-        self.init(uri: uri)
-    }
-
     init(uri: URL) {
         self.uri = uri
     }
@@ -50,6 +33,25 @@ extension TransferEntityURI {
         public static let seBankGiro: Kind = "se-bg"
         public static let sePlusGiro: Kind = "se-pg"
         public static let sortCode: Kind = "sort-code"
+    }
+}
+
+extension TransferEntityURI {
+    /// Creates a TransferEntityURI.
+    ///
+    /// Returns `nil` if a URI cannot be formed with the kind and account number (for example if the number contains characters that are illegal, or is an empty string).
+    ///
+    /// - Parameters:
+    ///   - kind: The kind of account URI.
+    ///   - accountNumber: The account number. The structure of this parameter depends on the `kind`.
+    public init?(kind: Kind, accountNumber: String) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = kind.value
+        urlComponents.host = accountNumber
+
+        guard let uri = urlComponents.url else { return nil }
+
+        self.init(uri: uri)
     }
 }
 
