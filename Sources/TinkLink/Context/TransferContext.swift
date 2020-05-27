@@ -57,8 +57,7 @@ public final class TransferContext {
     ///   - fromAccountWithURI: The transfer's source account URI.
     ///   - toBeneficiaryWithURI: The transfer's destination beneficiary URI.
     ///   - amount: The amount and currency of the transfer.
-    ///   - sourceMessage: Optional, The transfer description on the source account for the transfer.
-    ///   - destinationMessage: The message to the recipient. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
+    ///   - message: The message.
     ///   - authentication: Indicates the authentication task for initiate the transfer.
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
@@ -68,8 +67,7 @@ public final class TransferContext {
         fromAccountWithURI: Account.URI,
         toBeneficiaryWithURI: Beneficiary.URI,
         amount: CurrencyDenominatedAmount,
-        sourceMessage: String? = nil,
-        destinationMessage: String,
+        message: TransferMessage,
         authentication: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
         progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
@@ -89,8 +87,8 @@ public final class TransferContext {
             id: nil,
             credentialsID: nil,
             currency: amount.currencyCode,
-            sourceMessage: sourceMessage,
-            destinationMessage: destinationMessage,
+            sourceMessage: message.sourceMessage,
+            destinationMessage: message.destinationMessage,
             dueDate: nil,
             destinationUri: toBeneficiaryWithURI.uri,
             sourceUri: fromAccountWithURI.uri
@@ -139,8 +137,7 @@ public final class TransferContext {
     ///   - from: The transfer's source account.
     ///   - to: The transfer's destination beneficiary.
     ///   - amount: The amount and currency of the transfer.
-    ///   - sourceMessage: Optional, The transfer description on the source account for the transfer.
-    ///   - destinationMessage: The message to the recipient. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
+    ///   - message: The message.
     ///   - authentication: Indicates the authentication task for initiate the transfer.
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
@@ -150,8 +147,7 @@ public final class TransferContext {
         from source: Account,
         to destination: Beneficiary,
         amount: CurrencyDenominatedAmount,
-        sourceMessage: String? = nil,
-        destinationMessage: String,
+        message: TransferMessage,
         authentication: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
         progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
@@ -167,8 +163,7 @@ public final class TransferContext {
             fromAccountWithURI: source,
             toBeneficiaryWithURI: destination,
             amount: amount,
-            sourceMessage: sourceMessage,
-            destinationMessage: destinationMessage,
+            message: message,
             authentication: authentication,
             progress: progress,
             completion: completion
