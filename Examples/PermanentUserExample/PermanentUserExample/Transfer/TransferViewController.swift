@@ -350,6 +350,7 @@ extension TransferViewController: BeneficiaryPickerViewControllerDelegate {
     func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didEnterBeneficiaryURI beneficiaryURI: Beneficiary.URI) {
         self.beneficiary = nil
         self.beneficiaryURI = beneficiaryURI
+        navigationController?.popToViewController(self, animated: true)
     }
 }
 
