@@ -31,7 +31,7 @@ class BeneficiaryPickerViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBeneficiary))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(enterBeneficiary))
 
         canceller = transferContext.fetchBeneficiaries(for: sourceAccount) { [weak self] result in
             DispatchQueue.main.async {
@@ -47,7 +47,7 @@ class BeneficiaryPickerViewController: UITableViewController {
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 
-    @objc private func addBeneficiary(_ sender: Any) {
+    @objc private func enterBeneficiary(_ sender: Any) {
         let alert = UIAlertController(title: "Enter Beneficiary URI", message: nil, preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.placeholder = "Type"
