@@ -36,7 +36,7 @@ class BeneficiaryPickerViewController: UITableViewController {
                     self?.beneficiaries = try result.get()
                     self?.tableView.reloadData()
                 } catch {
-                    // Handle any error
+                    self?.showAlert(for: error)
                 }
             }
         }
