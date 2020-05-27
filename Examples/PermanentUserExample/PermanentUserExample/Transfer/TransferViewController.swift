@@ -65,49 +65,9 @@ extension TransferViewController {
             else { return }
 
         if let beneficiary = beneficiary {
-            initiateTransferTask = transferContext.initiateTransfer(
-                from: sourceAccount,
-                to: beneficiary,
-                amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-                message: .init(destination: message),
-                authentication: { [weak self] status in
-                    DispatchQueue.main.async {
-                        self?.handleTransferAuthentication(status)
-                    }
-                },
-                progress: { [weak self] status in
-                    DispatchQueue.main.async {
-                        self?.handleTransferProgress(status)
-                    }
-                },
-                completion: { [weak self] result in
-                    DispatchQueue.main.async {
-                        self?.handleTransferCompletion(result)
-                    }
-                }
-            )
+            initiateTransfer(from: sourceAccount, to: beneficiary, amount: amount, currencyCode: balance.currencyCode)
         } else if let accountURI = Account.URI(account: sourceAccount), let beneficiaryURI = beneficiaryURI {
-            initiateTransferTask = transferContext.initiateTransfer(
-                fromAccountWithURI: accountURI,
-                toBeneficiaryWithURI: beneficiaryURI,
-                amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-                message: .init(destination: message),
-                authentication: { [weak self] status in
-                    DispatchQueue.main.async {
-                        self?.handleTransferAuthentication(status)
-                    }
-                },
-                progress: { [weak self] status in
-                    DispatchQueue.main.async {
-                        self?.handleTransferProgress(status)
-                    }
-                },
-                completion: { [weak self] result in
-                    DispatchQueue.main.async {
-                        self?.handleTransferCompletion(result)
-                    }
-                }
-            )
+            initiateTransfer(fromAccountWithURI: accountURI, toBeneficiaryWithURI: beneficiaryURI, amount: amount, currencyCode: balance.currencyCode)
         }
     }
 
@@ -125,6 +85,54 @@ extension TransferViewController {
 // MARK: - Transfer Handling
 
 extension TransferViewController {
+    private func initiateTransfer(from account: Account, to beneficiary: Beneficiary, amount: Decimal, currencyCode: CurrencyCode) {
+        initiateTransferTask = transferContext.initiateTransfer(
+            from: account,
+            to: beneficiary,
+            amount: CurrencyDenominatedAmount(value: amount, currencyCode: currencyCode),
+            message: .init(destination: message),
+            authentication: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleTransferAuthentication(status)
+                }
+            },
+            progress: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleTransferProgress(status)
+                }
+            },
+            completion: { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.handleTransferCompletion(result)
+                }
+            }
+        )
+    }
+
+    private func initiateTransfer(fromAccountWithURI accountURI: Account.URI, toBeneficiaryWithURI beneficiaryURI: Beneficiary.URI, amount: Decimal, currencyCode: CurrencyCode) {
+        initiateTransferTask = transferContext.initiateTransfer(
+            fromAccountWithURI: accountURI,
+            toBeneficiaryWithURI: beneficiaryURI,
+            amount: CurrencyDenominatedAmount(value: amount, currencyCode: currencyCode),
+            message: .init(destination: message),
+            authentication: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleTransferAuthentication(status)
+                }
+            },
+            progress: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleTransferProgress(status)
+                }
+            },
+            completion: { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.handleTransferCompletion(result)
+                }
+            }
+        )
+    }
+
     private func handleTransferProgress(_ status: InitiateTransferTask.Status) {
         switch status {
         case .created:
