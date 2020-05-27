@@ -8,7 +8,7 @@ final class AddCredentialsSession {
     private let providerController: ProviderController
     private let credentialsController: CredentialsController
     private let authorizationController: AuthorizationController
-    private var scopes: [Scope] = []
+    private var addCredentialsMode: CredentialsCoordinator.AddCredentialsMode = .user
 
     private var task: Cancellable?
     private var supplementInfoTask: SupplementInformationTask?
@@ -19,7 +19,13 @@ final class AddCredentialsSession {
 
     private var authorizationCode: AuthorizationCode?
     private var didCallAuthorize = false
-    private var shouldAuthorize: Bool { !scopes.isEmpty }
+    private var shouldAuthorize: Bool {
+        if case .anonymous = addCredentialsMode {
+            return true
+        } else {
+            return false
+        }
+    }
     private var authorizationGroup = DispatchGroup()
 
     private var timer: Timer?
@@ -45,10 +51,18 @@ final class AddCredentialsSession {
     }
     func addCredential(provider: Provider, form: Form, mode: CredentialsCoordinator.AddCredentialsMode, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
 
+        let refreshableItems: RefreshableItems
+        switch mode {
+        case .anonymous(scopes: let scopes):
+            refreshableItems = RefreshableItems.makeRefreshableItems(scopes: scopes, provider: provider)
+        case .user:
+            refreshableItems = .all
+        }
+
         task = credentialsController.addCredentials(
             provider,
             form: form,
-            scopes: scopes, 
+            refreshableItems: refreshableItems,
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
                     self?.handleAddCredentialStatus(status) {
@@ -70,12 +84,7 @@ final class AddCredentialsSession {
             }
         )
         providerID = provider.id
-        switch mode {
-        case .user:
-            scopes = []
-        case .anonymous(scopes: let scopes):
-            self.scopes = scopes
-        }
+        addCredentialsMode = mode
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
@@ -226,6 +235,8 @@ final class AddCredentialsSession {
 
     private func authorizeIfNeeded(onError: @escaping (Error) -> Void) {
         if didCallAuthorize || !shouldAuthorize { return }
+
+        guard case let .anonymous(scopes) = addCredentialsMode else { return }
 
         didCallAuthorize = true
         authorizationGroup.enter()
