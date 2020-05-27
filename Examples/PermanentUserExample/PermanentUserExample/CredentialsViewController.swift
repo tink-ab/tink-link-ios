@@ -74,7 +74,7 @@ extension CredentialsViewController {
                     let providers = try result.get()
                     self?.providersByID = Dictionary(grouping: providers, by: { $0.id }).compactMapValues({ $0.first })
                 } catch {
-                    // Handle any errors
+                    self?.showAlert(for: error)
                 }
             }
         }
