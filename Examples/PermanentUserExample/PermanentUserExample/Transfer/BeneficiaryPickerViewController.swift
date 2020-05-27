@@ -3,6 +3,7 @@ import TinkLink
 
 protocol BeneficiaryPickerViewControllerDelegate: AnyObject {
     func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: Beneficiary)
+    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didEnterBeneficiaryURI beneficiaryURI: Beneficiary.URI)
 }
 
 class BeneficiaryPickerViewController: UITableViewController {
@@ -65,6 +66,7 @@ class BeneficiaryPickerViewController: UITableViewController {
             guard let uri = Beneficiary.URI(kind: .init(type), accountNumber: accountNumber) else {
                 return
             }
+            self.delegate?.beneficiaryPickerViewController(self, didEnterBeneficiaryURI: uri)
         }))
         present(alert, animated: true)
     }

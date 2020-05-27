@@ -344,6 +344,9 @@ extension TransferViewController: BeneficiaryPickerViewControllerDelegate {
         navigationController?.popToViewController(self, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
     }
+
+    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didEnterBeneficiaryURI beneficiaryURI: Beneficiary.URI) {
+    }
 }
 
 // MARK: - SupplementalInformationViewControllerDelegate
