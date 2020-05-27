@@ -48,6 +48,49 @@ class MockedSuccessTransferService: TransferService {
     }
 }
 
+class MockedCancelledTransferService: TransferService {
+    private var signableOperation: SignableOperation?
+
+    @discardableResult
+    func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+        return nil
+    }
+
+    @discardableResult
+    func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
+        return nil
+    }
+
+    @discardableResult
+    func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+        signableOperation = SignableOperation.createdSignableOperation
+        completion(.success(SignableOperation.createdSignableOperation))
+        return TestRetryCanceller { [weak self] in
+            guard let self = self else { return }
+            self.transfer(transfer: transfer, redirectURI: redirectURI, completion: completion)
+        }
+    }
+
+    @discardableResult
+    func transferStatus(transferID: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+        switch signableOperation?.status {
+        case .created:
+            signableOperation = SignableOperation.awaitingCredentialsSignableOperation
+            completion(.success(SignableOperation.awaitingCredentialsSignableOperation))
+        case .awaitingCredentials, .awaitingThirdPartyAppAuthentication, .executing:
+            signableOperation = SignableOperation.cancelledSignableOperation
+            completion(.success(SignableOperation.cancelledSignableOperation))
+        default:
+            break
+        }
+        return TestRetryCanceller { [weak self] in
+            guard let self = self else { return }
+            self.transferStatus(transferID: transferID, completion: completion)
+        }
+    }
+}
+
+
 class MockedUnauthenticatedErrorTransferService: TransferService {
     func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
@@ -68,6 +111,4 @@ class MockedUnauthenticatedErrorTransferService: TransferService {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
-
-
 }
