@@ -60,32 +60,55 @@ extension TransferViewController {
     @objc private func transfer(_ sender: Any) {
         guard
             let sourceAccount = sourceAccount,
-            let transferDestination = beneficiary,
             let balance = sourceAccount.currencyDenominatedBalance,
             let amount = amount
             else { return }
 
-        initiateTransferTask = transferContext.initiateTransfer(
-            from: sourceAccount,
-            to: transferDestination,
-            amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-            message: .init(destination: message),
-            authentication: { [weak self] status in
-                DispatchQueue.main.async {
-                    self?.handleTransferAuthentication(status)
+        if let beneficiary = beneficiary {
+            initiateTransferTask = transferContext.initiateTransfer(
+                from: sourceAccount,
+                to: beneficiary,
+                amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
+                message: .init(destination: message),
+                authentication: { [weak self] status in
+                    DispatchQueue.main.async {
+                        self?.handleTransferAuthentication(status)
+                    }
+                },
+                progress: { [weak self] status in
+                    DispatchQueue.main.async {
+                        self?.handleTransferProgress(status)
+                    }
+                },
+                completion: { [weak self] result in
+                    DispatchQueue.main.async {
+                        self?.handleTransferCompletion(result)
+                    }
                 }
-            },
-            progress: { [weak self] status in
-                DispatchQueue.main.async {
-                    self?.handleTransferProgress(status)
+            )
+        } else if let accountURI = Account.URI(account: sourceAccount), let beneficiaryURI = beneficiaryURI {
+            initiateTransferTask = transferContext.initiateTransfer(
+                fromAccountWithURI: accountURI,
+                toBeneficiaryWithURI: beneficiaryURI,
+                amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
+                message: .init(destination: message),
+                authentication: { [weak self] status in
+                    DispatchQueue.main.async {
+                        self?.handleTransferAuthentication(status)
+                    }
+                },
+                progress: { [weak self] status in
+                    DispatchQueue.main.async {
+                        self?.handleTransferProgress(status)
+                    }
+                },
+                completion: { [weak self] result in
+                    DispatchQueue.main.async {
+                        self?.handleTransferCompletion(result)
+                    }
                 }
-            },
-            completion: { [weak self] result in
-                DispatchQueue.main.async {
-                    self?.handleTransferCompletion(result)
-                }
-            }
-        )
+            )
+        }
     }
 
     @objc private func cancel(_ sender: Any) {
