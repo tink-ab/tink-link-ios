@@ -342,11 +342,13 @@ extension TransferViewController: SourceAccountPickerViewControllerDelegate {
 extension TransferViewController: BeneficiaryPickerViewControllerDelegate {
     func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: Beneficiary) {
         self.beneficiary = beneficiary
+        self.beneficiaryURI = nil
         navigationController?.popToViewController(self, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
     }
 
     func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didEnterBeneficiaryURI beneficiaryURI: Beneficiary.URI) {
+        self.beneficiary = nil
         self.beneficiaryURI = beneficiaryURI
     }
 }
