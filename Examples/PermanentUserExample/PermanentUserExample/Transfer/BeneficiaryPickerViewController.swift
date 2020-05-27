@@ -47,6 +47,23 @@ class BeneficiaryPickerViewController: UITableViewController {
     }
 
     @objc private func addBeneficiary(_ sender: Any) {
+        let alert = UIAlertController(title: "Enter Beneficiary URI", message: nil, preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Type"
+            textField.autocorrectionType = .no
+            textField.autocapitalizationType = .none
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = "Account Number"
+            textField.autocorrectionType = .no
+            textField.autocapitalizationType = .none
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
+            let type = alert.textFields![0].text!
+            let accountNumber = alert.textFields![1].text!
+        }))
+        present(alert, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
