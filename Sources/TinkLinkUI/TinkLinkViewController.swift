@@ -85,7 +85,7 @@ public class TinkLinkViewController: UINavigationController {
     /// Strategy for different operations.
     public enum Operation {
         /// Create credentials.
-        case create(providerPredicate: ProviderPredicate)
+        case create(providerPredicate: ProviderPredicate = .kinds(.defaultKinds))
         /// Authenticate credentials.
         case authenticate(credentialsID: Credentials.ID)
         /// Refresh credentials.
@@ -109,14 +109,13 @@ public class TinkLinkViewController: UINavigationController {
     public let scopes: [Scope]?
     private let tink: Tink
     private let market: Market?
-    private var providerController: ProviderController
+    private lazy var providerController = ProviderController(tink: tink)
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
-
-    private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, scopes: scopes ?? [], parentViewController: self)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
-    private lazy var loadingViewController = LoadingViewController(providerController: providerController)
+    private lazy var loadingViewController = LoadingViewController()
 
+    private var credentialsCoordinator: CredentialsCoordinator?
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
     private var result: Result<ResultType, TinkLinkError>?
@@ -135,7 +134,6 @@ public class TinkLinkViewController: UINavigationController {
         self.tink = tink
         self.market = market
         self.scopes = scopes
-        self.providerController = ProviderController(tink: tink, providerPredicate: providerPredicate)
         self.operation = .create(providerPredicate: providerPredicate)
         self.temporaryCompletion = completion
         self.permanentCompletion = nil
@@ -155,7 +153,6 @@ public class TinkLinkViewController: UINavigationController {
         self.operation = operation
         self.scopes = nil
         self.market = nil
-        self.providerController = ProviderController(tink: tink)
         self.permanentCompletion = completion
         self.temporaryCompletion = nil
 
@@ -175,7 +172,6 @@ public class TinkLinkViewController: UINavigationController {
         self.userSession = nil
         self.scopes = nil
         self.market = nil
-        self.providerController = ProviderController(tink: tink)
         self.permanentCompletion = completion
         self.temporaryCompletion = nil
 
@@ -280,18 +276,19 @@ public class TinkLinkViewController: UINavigationController {
         switch self.operation {
         case .create(providerPredicate: let providerPredicate):
             fetchProviders(providerPredicate: providerPredicate)
-        case .authenticate: break
-            // TODO
-        case .refresh: break
-            // TODO
-        case .update: break
-            // TODO
+        case .authenticate(let id):
+            startCredentialCoordinator(with: .authenticate(credentialsID: id))
+        case .refresh(let id):
+            startCredentialCoordinator(with: .refresh(credentialsID: id))
+        case .update(let id):
+            startCredentialCoordinator(with: .update(credentialsID: id))
         }
     }
 
 
     func fetchProviders(providerPredicate: ProviderPredicate) {
-        providerController.fetch { (result) in
+
+        providerController.fetch(with: providerPredicate) { (result) in
             DispatchQueue.main.async {
                 self.loadingViewController.hideLoadingIndicator()
                 switch result {
@@ -315,8 +312,37 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
+    func startCredentialCoordinator(with operation: CredentialsCoordinator.Action) {
+
+        guard let clientDescription = clientDescription else {
+            clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
+                self?.startCredentialCoordinator(with: operation)
+            }
+            loadingViewController.showLoadingIndicator()
+            if viewControllers.last !== loadingViewController {
+                show(loadingViewController, sender: nil)
+            }
+            return
+        }
+
+        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, clientDescription: clientDescription, action: operation, completion: { [weak self] result in
+            let mappedResult = result.map { (credentials, code) -> ResultType in
+                if let code = code {
+                    return .authorizationCode(code)
+                } else {
+                    return .credentials(credentials)
+                }
+            }
+            self?.result = mappedResult
+            self?.completionHandler()
+            self?.dismiss(animated: true)
+            self?.credentialsCoordinator = nil
+        })
+        credentialsCoordinator?.start()
+    }
+
     @objc private func cancel() {
-        if didShowAddCredentialForm {
+        if didShowCredentialsForm {
             showDiscardActionSheet()
         } else {
             closeTinkLink()
@@ -394,24 +420,6 @@ extension TinkLinkViewController {
         present(alertController, animated: true)
     }
 
-    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
-        let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
-
-        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
-            let cancelAction = UIAlertAction(title: Strings.ThirdPartyAppAuthentication.DownloadAlert.cancel, style: .cancel)
-            let downloadAction = UIAlertAction(title: Strings.ThirdPartyAppAuthentication.DownloadAlert.download, style: .default, handler: { _ in
-                UIApplication.shared.open(appStoreURL)
-            })
-            alertController.addAction(cancelAction)
-            alertController.addAction(downloadAction)
-        } else {
-            let okAction = UIAlertAction(title: Strings.ThirdPartyAppAuthentication.DownloadAlert.dismiss, style: .default)
-            alertController.addAction(okAction)
-        }
-
-        present(alertController, animated: true)
-    }
-
     private func showAlert(for error: Error) {
         let title: String?
         let message: String?
@@ -430,7 +438,6 @@ extension TinkLinkViewController {
 
         present(alertController, animated: true)
     }
-
 }
 
 //MARK: - Navigation
@@ -458,40 +465,11 @@ extension TinkLinkViewController {
     }
 
     func showAddCredentials(for provider: Provider, animated: Bool = true) {
-        guard let clientDescription = clientDescription else {
-            clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
-                self?.showAddCredentials(for: provider, animated: animated)
-            }
-            loadingViewController.showLoadingIndicator()
-            show(loadingViewController, sender: nil)
-            return
-        }
-        let addCredentialsViewController = AddCredentialsViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
-        addCredentialsViewController.prefillStrategy = prefill
-        addCredentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-        addCredentialsViewController.delegate = self
-        if viewControllers.last is LoadingViewController {
-            replaceTopViewController(with: addCredentialsViewController, animated: true)
+        if let scopes = scopes {
+            startCredentialCoordinator(with: .create(provider: provider, mode: .anonymous(scopes: scopes)))
         } else {
-            show(addCredentialsViewController, sender: nil)
+            startCredentialCoordinator(with: .create(provider: provider, mode: .user))
         }
-    }
-
-    func showAddCredentialSuccess() {
-        guard let clientDescription = clientDescription else {
-            clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
-                self?.showAddCredentialSuccess()
-            }
-            loadingViewController.showLoadingIndicator()
-            show(loadingViewController, sender: nil)
-            return
-        }
-        let viewController = CredentialsSuccessfullyAddedViewController(companyName: clientDescription.name) { [weak self] in
-            guard let self = self else { return }
-            self.completionHandler()
-            self.dismiss(animated: true)
-        }
-        setViewControllers([viewController], animated: true)
     }
 }
 
@@ -504,42 +482,10 @@ extension TinkLinkViewController: LoadingViewControllerDelegate {
     }
 }
 
-// MARK: - AddCredentialsViewControllerDelegate
-
-extension TinkLinkViewController: AddCredentialsViewControllerDelegate {
-    func showScopeDescriptions() {
-        let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scopes: scopes ?? [])
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
-        let navigationController = TinkNavigationController(rootViewController: viewController)
-        present(navigationController, animated: true)
-    }
-
-    func showWebContent(with url: URL) {
-        let viewController = LegalViewController(url: url)
-        present(viewController, animated: true)
-    }
-
-    func addCredential(provider: Provider, form: Form) {
-        addCredentialsSession.addCredential(provider: provider, form: form) { [weak self] result in
-            do {
-                let authorizationCode = try result.get()
-                self?.result = .success(ResultType.authorizationCode(authorizationCode))
-                self?.showAddCredentialSuccess()
-            } catch let error as ThirdPartyAppAuthenticationTask.Error {
-                self?.showDownloadPrompt(for: error)
-            } catch ServiceError.cancelled {
-                // No-op
-            } catch {
-                self?.showAlert(for: error)
-            }
-        }
-    }
-}
-
 // MARK: - Helpers
 extension TinkLinkViewController {
-    private var didShowAddCredentialForm: Bool {
-        viewControllers.contains(where: { $0 is AddCredentialsViewController })
+    private var didShowCredentialsForm: Bool {
+        credentialsCoordinator != nil
     }
 
     private func showDiscardActionSheet() {
@@ -576,6 +522,27 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
 
     /// :nodoc:
     public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        return !didShowAddCredentialForm
+        return !didShowCredentialsForm
+    }
+}
+
+extension TinkLinkViewController: CredentialsCoordinatorPresenting {
+
+    func showLoadingIndicator(isCancellingAllowed: Bool) {
+        loadingViewController.navigationItem.rightBarButtonItem?.isEnabled = isCancellingAllowed
+        if topViewController is LoadingViewController {
+            return
+        }
+
+        show(loadingViewController, sender: self)
+    }
+
+    func show(_ viewController: UIViewController) {
+
+        if topViewController is LoadingViewController {
+            replaceTopViewController(with: viewController, animated: true)
+        } else {
+            show(viewController, sender: self)
+        }
     }
 }

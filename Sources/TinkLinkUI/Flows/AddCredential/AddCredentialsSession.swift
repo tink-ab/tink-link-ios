@@ -3,15 +3,14 @@ import TinkLink
 
 final class AddCredentialsSession {
 
-    weak var parentViewController: UIViewController?
+    weak var presenter: CredentialsCoordinatorPresenting?
 
     private let providerController: ProviderController
     private let credentialsController: CredentialsController
     private let authorizationController: AuthorizationController
-    private let scopes: [Scope]
+    private var addCredentialsMode: CredentialsCoordinator.AddCredentialsMode = .user
 
     private var task: Cancellable?
-
     private var supplementInfoTask: SupplementInformationTask?
 
     private var statusViewController: AddCredentialsStatusViewController?
@@ -19,17 +18,24 @@ final class AddCredentialsSession {
     private var statusPresentationManager = AddCredentialsStatusPresentationManager()
 
     private var authorizationCode: AuthorizationCode?
+    private var cancelCallback: (() -> Void)?
     private var didCallAuthorize = false
+    private var shouldAuthorize: Bool {
+        if case .anonymous = addCredentialsMode {
+            return true
+        } else {
+            return false
+        }
+    }
     private var authorizationGroup = DispatchGroup()
 
     private var timer: Timer?
     private var providerID: Provider.ID?
 
-    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, scopes: [Scope], parentViewController: UIViewController) {
-        self.parentViewController = parentViewController
+    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, presenter: CredentialsCoordinatorPresenting?) {
+        self.presenter = presenter
         self.providerController = providerController
         self.credentialsController = credentialsController
-        self.scopes = scopes
         self.authorizationController = authorizationController
     }
 
@@ -44,13 +50,20 @@ final class AddCredentialsSession {
             self?.showUpdating(status: "Process is taking longer than expected")
         }
     }
+    func addCredential(provider: Provider, form: Form, mode: CredentialsCoordinator.AddCredentialsMode, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
 
-    func addCredential(provider: Provider, form: Form, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
+        let refreshableItems: RefreshableItems
+        switch mode {
+        case .anonymous(scopes: let scopes):
+            refreshableItems = RefreshableItems.makeRefreshableItems(scopes: scopes, provider: provider)
+        case .user:
+            refreshableItems = .all
+        }
 
         task = credentialsController.addCredentials(
             provider,
             form: form,
-            scopes: scopes, 
+            refreshableItems: refreshableItems,
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
                     self?.handleAddCredentialStatus(status) {
@@ -67,12 +80,19 @@ final class AddCredentialsSession {
             },
             completion: { [weak self] result in
                 DispatchQueue.main.async {
-                    self?.handleAddCredentialsCompletion(result, onCompletion: onCompletion)
+                    self?.handleCompletion(result, onCompletion: onCompletion)
                 }
             }
         )
         providerID = provider.id
-        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        addCredentialsMode = mode
+        cancelCallback = {
+            onCompletion(.failure(ServiceError.cancelled))
+        }
+
+        DispatchQueue.main.async {
+            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        }
     }
 
     func updateCredentials(credentials: Credentials, form: Form, completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -80,10 +100,22 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
-            }, completion: completion)
+            }, completion: { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.handleCompletion(result) { result in
+                        completion(result.map{ $0.0 })
+                    }
+                }
+            })
 
         providerID = credentials.providerID
-        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        cancelCallback = {
+            completion(.failure(ServiceError.cancelled))
+        }
+
+        DispatchQueue.main.async {
+            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        }
     }
 
     func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -91,10 +123,22 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
-        }, completion: completion)
+        }, completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.handleCompletion(result) { result in
+                    completion(result.map{ $0.0 })
+                }
+            }
+        })
 
         providerID = credentials.providerID
-        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        cancelCallback = {
+            completion(.failure(ServiceError.cancelled))
+        }
+
+        DispatchQueue.main.async {
+            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        }
     }
 
     func authenticateCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -102,10 +146,22 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
-        }, completion: completion)
+        }, completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.handleCompletion(result) { result in
+                    completion(result.map{ $0.0 })
+                }
+            }
+        })
 
         providerID = credentials.providerID
-        self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        cancelCallback = {
+            completion(.failure(ServiceError.cancelled))
+        }
+
+        DispatchQueue.main.async {
+            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+        }
     }
 
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
@@ -166,7 +222,7 @@ final class AddCredentialsSession {
         }
     }
 
-    private func handleAddCredentialsCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<AuthorizationCode, Error>) -> Void)) {
+    private func handleCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
         timer?.invalidate()
         authorizeIfNeeded(onError: { [weak self] error in
             DispatchQueue.main.async {
@@ -176,12 +232,11 @@ final class AddCredentialsSession {
             }
         })
         do {
-            _ = try result.get()
+            let credentials = try result.get()
             authorizationGroup.notify(queue: .main) { [weak self] in
-                if let authorizationCode = self?.authorizationCode {
-                    self?.hideUpdatingView(animated: true) {
-                        onCompletion(.success(authorizationCode))
-                    }
+                self?.hideUpdatingView(animated: true) {
+                    self?.cancelCallback = nil
+                    onCompletion(.success((credentials, self?.authorizationCode)))
                 }
             }
         } catch {
@@ -193,7 +248,9 @@ final class AddCredentialsSession {
     }
 
     private func authorizeIfNeeded(onError: @escaping (Error) -> Void) {
-        if didCallAuthorize { return }
+        if didCallAuthorize || !shouldAuthorize { return }
+
+        guard case let .anonymous(scopes) = addCredentialsMode else { return }
 
         didCallAuthorize = true
         authorizationGroup.enter()
@@ -216,7 +273,7 @@ extension AddCredentialsSession {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
-            self.parentViewController?.show(navigationController, sender: nil)
+            self.presenter?.show(navigationController)
         }
     }
 
@@ -224,7 +281,7 @@ extension AddCredentialsSession {
         hideQRCodeViewIfNeeded {
             if let statusViewController = self.statusViewController {
                 if statusViewController.presentingViewController == nil {
-                    self.parentViewController?.present(statusViewController, animated: true)
+                    self.presenter?.present(statusViewController, animated: true, completion: nil)
                 }
             } else {
                 let statusViewController = AddCredentialsStatusViewController()
@@ -232,7 +289,7 @@ extension AddCredentialsSession {
                 statusViewController.modalTransitionStyle = .crossDissolve
                 statusViewController.modalPresentationStyle = .custom
                 statusViewController.transitioningDelegate = self.statusPresentationManager
-                self.parentViewController?.present(statusViewController, animated: true)
+                self.presenter?.present(statusViewController, animated: true, completion: nil)
                 self.statusViewController = statusViewController
             }
             self.statusViewController?.status = status
@@ -245,7 +302,7 @@ extension AddCredentialsSession {
             completion?()
             return
         }
-        parentViewController?.dismiss(animated: animated, completion: completion)
+        presenter?.dismiss(animated: animated, completion: completion)
     }
 
     private func showQRCodeView(qrImage: UIImage) {
@@ -253,7 +310,7 @@ extension AddCredentialsSession {
             let qrImageViewController = QRImageViewController(qrImage: qrImage)
             self.qrImageViewController = qrImageViewController
             qrImageViewController.delegate = self
-            self.parentViewController?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true)
+            self.presenter?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true, completion: nil)
         }
     }
 
@@ -262,7 +319,7 @@ extension AddCredentialsSession {
             completion?()
             return
         }
-        parentViewController?.dismiss(animated: animated, completion: completion)
+        presenter?.dismiss(animated: animated, completion: completion)
     }
 }
 
@@ -272,7 +329,10 @@ extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
     func addCredentialsStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
         task?.cancel()
         timer?.invalidate()
-        hideUpdatingView(animated: true) 
+        hideUpdatingView(animated: true) {
+            self.cancelCallback?()
+            self.cancelCallback = nil
+        }
     }
 }
 
@@ -280,14 +340,14 @@ extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
 
 extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
-        parentViewController?.dismiss(animated: true) {
+        presenter?.dismiss(animated: true) {
             self.supplementInfoTask?.cancel()
             self.showUpdating(status: Strings.AddCredentials.Status.cancelling)
         }
     }
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
-        parentViewController?.dismiss(animated: true) {
+        presenter?.dismiss(animated: true) {
             self.supplementInfoTask?.submit(form)
             self.showUpdating(status: Strings.AddCredentials.Status.sending)
         }
@@ -296,7 +356,7 @@ extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
 
 extension AddCredentialsSession: QRImageViewControllerDelegate {
     func qrImageViewControllerDidCancel(_ viewController: QRImageViewController) {
-        parentViewController?.dismiss(animated: true) {
+        presenter?.dismiss(animated: true) {
             self.task?.cancel()
         }
     }
