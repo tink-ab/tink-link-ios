@@ -1,6 +1,7 @@
 import Foundation
 
 /// A TransferEntityURI represents the URI for making or reciving transfers.
+///
 /// A TransferEntityURI is composed with two parts, a kind with value of e.g. `iban` and an account number.
 public struct TransferEntityURI {
     /// A type representing an kind of account URI.
