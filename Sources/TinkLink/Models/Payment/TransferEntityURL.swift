@@ -4,11 +4,6 @@ import Foundation
 ///
 /// A TransferEntityURI is composed with two parts, a kind with value of e.g. `iban` and an account number.
 public struct TransferEntityURI {
-
-    init(uri: URL) {
-        self.uri = uri
-    }
-
     let uri: URL
 }
 
