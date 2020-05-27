@@ -167,8 +167,7 @@ public final class TransferContext {
             fromAccountWithURI: source,
             toBeneficiaryWithURI: destination,
             amount: amount,
-            sourceMessage:
-            sourceMessage,
+            sourceMessage: sourceMessage,
             destinationMessage: destinationMessage,
             authentication: authentication,
             progress: progress,
