@@ -1,9 +1,9 @@
 import Foundation
 
 extension Beneficiary {
-    /// A Beneficiary.URI represents the URI for making or reciving transfers.
+    /// A type representing the URI for reciving transfers.
     ///
-    /// A Beneficiary.URI is composed with two parts, a kind with value of e.g. `iban` and an account number.
+    /// A URI is composed with two parts, a kind with value of e.g. `iban` and an account number.
     public struct URI {
         let uri: URL
     }
@@ -34,7 +34,7 @@ extension Beneficiary.URI {
 }
 
 extension Beneficiary.URI {
-    /// Creates a Beneficiary.URI.
+    /// Creates a URI.
     ///
     /// Returns `nil` if a URI cannot be formed with the kind and account number (for example if the number contains characters that are illegal, or is an empty string).
     ///
@@ -53,7 +53,7 @@ extension Beneficiary.URI {
 }
 
 extension Beneficiary.URI {
-    /// Creates a Beneficiary.URI for a beneficiary.
+    /// Creates a URI for a beneficiary.
     /// - Parameter beneficiary: The beneficiary.
     public init?(beneficiary: Beneficiary) {
         guard let uri = beneficiary.uri else { return  nil }
