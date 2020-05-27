@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     @objc func showTinkLinkWithAuthrorizationCode() {
         let authorizationCode = "YOUR_AUTHORIZATION_CODE"
 
-        let tinkLinkViewController = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)!) { _ in }
+        let tinkLinkViewController = TinkLinkViewController(authorizationCode: AuthorizationCode(authorizationCode)) { _ in }
         present(tinkLinkViewController, animated: true)
     }
 

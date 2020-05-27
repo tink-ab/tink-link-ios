@@ -41,10 +41,10 @@ import TinkLink
 /// ```swift
 /// // With authorization code:
 /// let authorizationCode = "YOUR_AUTHORIZATION_CODE"
-/// let tinkLinkViewController = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)) { result in
+/// let tinkLinkViewController = TinkLinkViewController(authorizationCode: AuthorizationCode(authorizationCode)) { result in
 ///     // Handle result
 /// }
-/// present(tinkLinkViewcontroller, animated: true)
+/// present(tinkLinkViewController, animated: true)
 ///
 /// // With access token:
 /// let accessToken = "YOUR_ACCESS_TOKEN"
