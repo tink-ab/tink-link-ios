@@ -61,11 +61,10 @@ class BeneficiaryPickerViewController: UITableViewController {
         }
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
-            let type = alert.textFields![0].text!
-            let accountNumber = alert.textFields![1].text!
-            guard let uri = Beneficiary.URI(kind: .init(type), accountNumber: accountNumber) else {
-                return
-            }
+            guard let type = alert.textFields?[0].text,
+                let accountNumber = alert.textFields?[1].text,
+                let uri = Beneficiary.URI(kind: .init(type), accountNumber: accountNumber)
+                else { return }
             self.delegate?.beneficiaryPickerViewController(self, didEnterBeneficiaryURI: uri)
         }))
         present(alert, animated: true)
