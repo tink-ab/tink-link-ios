@@ -3,12 +3,13 @@ import Foundation
 import XCTest
 
 class TransferContextTests: XCTestCase {
-    var mockedSuccessTransferService: MockedSuccessTransferService!
-    var mockedCancelledTransferService: MockedCancelledTransferService!
-    var mockedUnauthenticatedErrorTransferService: MockedUnauthenticatedErrorTransferService!
+    var mockedSuccessTransferService: TransferService!
+    var mockedCancelledTransferService: TransferService!
+    var mockedUnauthenticatedErrorTransferService: TransferService!
 
-    var mockedSuccessCredentialsService: MockedSuccessCredentialsServiceForPayment!
-    var mockedUnauthenticatedErrorCredentialsService: MockedUnauthenticatedErrorCredentialsService!
+    var mockedSuccessCredentialsService: CredentialsService!
+    var mockedAuthenticationErrorCredentialsService: CredentialsService!
+    var mockedUnauthenticatedErrorCredentialsService: CredentialsService!
 
     var task: InitiateTransferTask?
 
@@ -19,7 +20,8 @@ class TransferContextTests: XCTestCase {
         mockedCancelledTransferService = MockedCancelledTransferService()
         mockedUnauthenticatedErrorTransferService = MockedUnauthenticatedErrorTransferService()
 
-        mockedSuccessCredentialsService = MockedSuccessCredentialsServiceForPayment()
+        mockedSuccessCredentialsService = MockedSuccessPaymentCredentialsService()
+        mockedAuthenticationErrorCredentialsService = MockedAuthenticationErrorCredentialsService()
         mockedUnauthenticatedErrorCredentialsService = MockedUnauthenticatedErrorCredentialsService()
     }
 
@@ -82,7 +84,7 @@ class TransferContextTests: XCTestCase {
                     supplementInformationTask.submit(form)
                     statusChangedToAwaitingSupplementalInformation.fulfill()
                 }
-        },
+            },
             progress: { status in
                 switch status {
                 case .created:
@@ -129,7 +131,7 @@ class TransferContextTests: XCTestCase {
                     supplementInformationTask.submit(form)
                     statusChangedToAwaitingSupplementalInformation.fulfill()
                 }
-        },
+            },
             progress: { status in
                 switch status {
                 case .created:
@@ -139,7 +141,7 @@ class TransferContextTests: XCTestCase {
                 default:
                     break
                 }
-        }
+            }
         ) { result in
             do {
                 _ = try result.get()
@@ -162,4 +164,50 @@ class TransferContextTests: XCTestCase {
             }
         }
     }
+
+    func testInitiateTransferWithUnauthenticatedError() {
+        let transferContext = TransferContext(tink: .shared, transferService: mockedCancelledTransferService, credentialsService: mockedAuthenticationErrorCredentialsService)
+        let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
+        let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
+        let initiateTransferUnauthenticatedError = expectation(description: "initiate transfer completion with cancelled error should be called")
+
+        task = transferContext.initiateTransfer(
+            from: Account.checkingTestAccount,
+            to: Beneficiary.savingBeneficiary,
+            amount: CurrencyDenominatedAmount(10, currencyCode: CurrencyCode("EUR")),
+            destinationMessage: "test",
+            authentication: { _ in },
+            progress: { status in
+                switch status {
+                case .created:
+                    statusChangedToCreated.fulfill()
+                case .authenticating:
+                    statusChangedToAuthenticating.fulfill()
+                default:
+                    break
+                }
+        }
+        ) { result in
+            do {
+                _ = try result.get()
+                XCTFail("Initiate transfer should be failed")
+            } catch {
+                if let initiateTransferTaskError = error as? InitiateTransferTask.Error {
+                    switch initiateTransferTaskError {
+                    case .authenticationFailed:
+                        initiateTransferUnauthenticatedError.fulfill()
+                    default:
+                        XCTFail("Failed to initiate transfer with: \(error)")
+                    }
+                }
+            }
+        }
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }
+    }
+
 }
