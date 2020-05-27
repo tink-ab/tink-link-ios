@@ -53,16 +53,6 @@ extension Beneficiary.URI {
 }
 
 extension Beneficiary.URI {
-    /// Creates a Beneficiary.URI for an account.
-    /// - Parameter account: The account.
-    public init?(account: Account) {
-        guard let uri = account.transferSourceIdentifiers?.first else { return  nil }
-
-        self.init(uri: uri)
-    }
-}
-
-extension Beneficiary.URI {
     /// Creates a Beneficiary.URI for a beneficiary.
     /// - Parameter beneficiary: The beneficiary.
     public init?(beneficiary: Beneficiary) {
