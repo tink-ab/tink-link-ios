@@ -3,7 +3,7 @@ import Foundation
 /// A amount that's denominated with a `CurrencyCode`.
 public struct CurrencyDenominatedAmount: Equatable {
     /// The exact value of the amount
-    public let value: ExactNumber
+    public let value: Decimal
     /// The ISO 4217 currency code of the amount
     public let currencyCode: CurrencyCode
 
@@ -12,7 +12,7 @@ public struct CurrencyDenominatedAmount: Equatable {
     /// - Parameters:
     ///   - value: The exact value of the amount.
     ///   - currencyCode: The ISO 4217 currency code of the amount.
-    public init(_ value: ExactNumber, currencyCode: CurrencyCode) {
+    public init(_ value: Decimal, currencyCode: CurrencyCode) {
         self.value = value
         self.currencyCode = currencyCode
     }
@@ -23,7 +23,7 @@ public struct CurrencyDenominatedAmount: Equatable {
     ///   - value: The exact value of the amount.
     ///   - currencyCode: The ISO 4217 currency code of the amount.
     public init(_ value: Int, currencyCode: CurrencyCode) {
-        self.value = ExactNumber(value: value)
+        self.value = Decimal(value)
         self.currencyCode = currencyCode
     }
 
@@ -33,7 +33,7 @@ public struct CurrencyDenominatedAmount: Equatable {
     ///   - value: The exact value of the amount.
     ///   - currencyCode: The ISO 4217 currency code of the amount.
     public init(value: Decimal, currencyCode: CurrencyCode) {
-        self.value = ExactNumber(value: value)
+        self.value = value
         self.currencyCode = currencyCode
     }
 }
