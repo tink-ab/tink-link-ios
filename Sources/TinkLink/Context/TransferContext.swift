@@ -75,7 +75,14 @@ public final class TransferContext {
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
 
-        let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progress, authenticationHandler: authentication, completionHandler: completion)
+        let task = InitiateTransferTask(
+            transferService: transferService,
+            credentialsService: credentialsService,
+            appUri: tink.configuration.redirectURI,
+            progressHandler: progress,
+            authenticationHandler: authentication,
+            completionHandler: completion
+        )
 
         let transfer = Transfer(
             amount: amount.value,
