@@ -175,11 +175,11 @@ class MockedUnauthenticatedErrorCredentialsService: CredentialsService {
 }
 
 class MockedSuccessCredentialsServiceForPayment: CredentialsService {
-    let updatedCredentials = Credentials(
+    var credentials = Credentials(
         id: Credentials.ID("test"),
         providerID: Provider.ID("test"),
         kind: .password,
-        status: .updated,
+        status: .created,
         statusPayload: "",
         statusUpdated: nil,
         updated: Date(),
@@ -189,13 +189,23 @@ class MockedSuccessCredentialsServiceForPayment: CredentialsService {
         sessionExpiryDate: Date())
     // Just return updated credentials
     func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
-        completion(.success([updatedCredentials]))
+        completion(.success([credentials]))
         return nil
     }
 
     // Just return updated credentials
     func credentials(id: Credentials.ID, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
-        completion(.success(updatedCredentials))
+        switch credentials.status {
+        case .created:
+            credentials = Credentials(credentials: credentials, status: .authenticating)
+        case .authenticating:
+            credentials = Credentials(credentials: credentials, status: .awaitingSupplementalInformation)
+        case .awaitingMobileBankIDAuthentication, .awaitingThirdPartyAppAuthentication, .awaitingSupplementalInformation:
+            credentials = Credentials(credentials: credentials, status: .updating)
+        default:
+            credentials = Credentials(credentials: credentials, status: .updated)
+        }
+        completion(.success(credentials))
         return nil
     }
 
@@ -216,7 +226,7 @@ class MockedSuccessCredentialsServiceForPayment: CredentialsService {
     }
 
     func supplementInformation(credentialsID: Credentials.ID, fields: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(ServiceError.unauthenticatedError))
+        completion(.success)
         return nil
     }
 

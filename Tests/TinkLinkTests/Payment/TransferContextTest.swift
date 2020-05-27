@@ -62,6 +62,8 @@ class TransferContextTests: XCTestCase {
     func testInitiateTransfer() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: mockedSuccessCredentialsService)
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
+        let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
+        let statusChangedToAwaitingSupplementalInformation = expectation(description: "initiate transfer status should be changed to awaitingSupplementalInformation")
         let initiateTransferCompletionCalled = expectation(description: "initiate transfer completion should be called")
 
         task = transferContext.initiateTransfer(
@@ -69,13 +71,21 @@ class TransferContextTests: XCTestCase {
             to: Beneficiary.savingBeneficiary,
             amount: CurrencyDenominatedAmount(10, currencyCode: CurrencyCode("EUR")),
             destinationMessage: "test",
-            authentication: { _ in },
+            authentication: { task in
+                switch task {
+                case .awaitingThirdPartyAppAuthentication: break
+                case .awaitingSupplementalInformation(let supplementInformationTask):
+                    let form = Form(credentials: supplementInformationTask.credentials)
+                    supplementInformationTask.submit(form)
+                    statusChangedToAwaitingSupplementalInformation.fulfill()
+                }
+        },
             progress: { status in
                 switch status {
                 case .created:
                     statusChangedToCreated.fulfill()
                 case .authenticating:
-                    print("something happen here")
+                    statusChangedToAuthenticating.fulfill()
                 default:
                     break
                 }
