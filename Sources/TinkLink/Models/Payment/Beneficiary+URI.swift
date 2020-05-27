@@ -1,13 +1,15 @@
 import Foundation
 
-/// A TransferEntityURI represents the URI for making or reciving transfers.
-///
-/// A TransferEntityURI is composed with two parts, a kind with value of e.g. `iban` and an account number.
-public struct TransferEntityURI {
-    let uri: URL
+extension Beneficiary {
+    /// A Beneficiary.URI represents the URI for making or reciving transfers.
+    ///
+    /// A Beneficiary.URI is composed with two parts, a kind with value of e.g. `iban` and an account number.
+    public struct URI {
+        let uri: URL
+    }
 }
 
-extension TransferEntityURI {
+extension Beneficiary.URI {
     /// A type representing an kind of account URI.
     public struct Kind: ExpressibleByStringLiteral {
         public init(stringLiteral value: String) {
@@ -31,8 +33,8 @@ extension TransferEntityURI {
     }
 }
 
-extension TransferEntityURI {
-    /// Creates a TransferEntityURI.
+extension Beneficiary.URI {
+    /// Creates a Beneficiary.URI.
     ///
     /// Returns `nil` if a URI cannot be formed with the kind and account number (for example if the number contains characters that are illegal, or is an empty string).
     ///
@@ -50,8 +52,8 @@ extension TransferEntityURI {
     }
 }
 
-extension TransferEntityURI {
-    /// Creates a TransferEntityURI for an account.
+extension Beneficiary.URI {
+    /// Creates a Beneficiary.URI for an account.
     /// - Parameter account: The account.
     public init?(account: Account) {
         guard let uri = account.transferSourceIdentifiers?.first else { return  nil }
@@ -60,8 +62,8 @@ extension TransferEntityURI {
     }
 }
 
-extension TransferEntityURI {
-    /// Creates a TransferEntityURI for a beneficiary.
+extension Beneficiary.URI {
+    /// Creates a Beneficiary.URI for a beneficiary.
     /// - Parameter beneficiary: The beneficiary.
     public init?(beneficiary: Beneficiary) {
         guard let uri = beneficiary.uri else { return  nil }
