@@ -41,18 +41,18 @@ import TinkLink
 /// ```swift
 /// // With authorization code:
 /// let authorizationCode = "YOUR_AUTHORIZATION_CODE"
-/// let tinkLinkViewcontroller = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)!, operation: .create(providerPredicate: .kinds(.all))) { result in
+/// let tinkLinkViewController = TinkLinkViewController(authorizationCode: AuthorizationCode(authorizationCode)) { result in
 ///     // Handle result
 /// }
-/// present(tinkLinkViewcontroller, animated: true)
+/// present(tinkLinkViewController, animated: true)
 ///
 /// // With access token:
 /// let accessToken = "YOUR_ACCESS_TOKEN"
-/// let tinkLinkViewcontroller = TinkLinkViewController(userSession: .accessToken(accessToken), operation: .create(providerPredicate: .kinds(.all))) { result in
+/// let tinkLinkViewController = TinkLinkViewController(userSession: .accessToken(accessToken)) { result in
 ///     // Handle result
 /// }
 ///
-/// present(tinkLinkViewcontroller, animated: true)
+/// present(tinkLinkViewController, animated: true)
 /// ```
 /// 
 /// After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can [exchange](https://docs.tink.com/resources/getting-started/retrieve-access-token) for an access token. If something went wrong the result will contain an error.
@@ -149,7 +149,7 @@ public class TinkLinkViewController: UINavigationController {
     ///   - userSession: The user session associated with the TinkLinkViewController.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, userSession: UserSession, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, userSession: UserSession, operation: Operation = .create(providerPredicate: .kinds(.defaultKinds)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.tink = tink
         self.userSession = userSession
         self.operation = operation
@@ -168,7 +168,7 @@ public class TinkLinkViewController: UINavigationController {
     ///   - authorizationCode: Authenticate with a `AuthorizationCode` that delegated from Tink to exchanged for a user object.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation, completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation = .create(providerPredicate: .kinds(.defaultKinds)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.tink = tink
         self.authorizationCode = authorizationCode
         self.operation = operation
@@ -183,7 +183,7 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     @available(*, deprecated, message: "use tink:market:scopes:providerPredicate: instead")
-    public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind> = .defaultKinds, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+    public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind>, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
         self.init(tink: tink, market: market, scopes: scopes, providerPredicate: .kinds(providerKinds), completion: completion)
     }
 
