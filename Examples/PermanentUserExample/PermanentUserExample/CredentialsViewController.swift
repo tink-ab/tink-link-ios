@@ -166,7 +166,7 @@ extension CredentialsViewController {
                     _ = try result.get()
                     self?.credentialsList.remove(at: indexPath.item)
                 } catch {
-                    // Handle any errors
+                    self?.showAlert(for: error)
                 }
             }
         }

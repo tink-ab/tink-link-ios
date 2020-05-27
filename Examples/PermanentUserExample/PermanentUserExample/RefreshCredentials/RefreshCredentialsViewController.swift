@@ -172,7 +172,7 @@ extension RefreshCredentialsViewController {
                         _ = try result.get()
                         self?.navigationController?.popViewController(animated: true)
                     } catch {
-                        // Handle any errors
+                        self?.showAlert(for: error)
                     }
                 }
             }
