@@ -30,6 +30,8 @@ class BeneficiaryPickerViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBeneficiary))
+
         canceller = transferContext.fetchBeneficiaries(for: sourceAccount) { [weak self] result in
             DispatchQueue.main.async {
                 do {
@@ -42,6 +44,9 @@ class BeneficiaryPickerViewController: UITableViewController {
         }
 
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+
+    @objc private func addBeneficiary(_ sender: Any) {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
