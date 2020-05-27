@@ -33,7 +33,7 @@ public struct TransferEntityURI {
 }
 
 extension TransferEntityURI {
-    init?(account: Account) {
+    public init?(account: Account) {
         guard let uri = account.transferSourceIdentifiers?.first else { return  nil }
 
         self.init(uri: uri)
@@ -41,7 +41,7 @@ extension TransferEntityURI {
 }
 
 extension TransferEntityURI {
-    init?(beneficiary: Beneficiary) {
+    public init?(beneficiary: Beneficiary) {
         guard let uri = beneficiary.uri else { return  nil }
 
         self.init(uri: uri)
