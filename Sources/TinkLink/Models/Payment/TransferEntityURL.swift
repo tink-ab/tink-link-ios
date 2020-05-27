@@ -42,6 +42,8 @@ public struct TransferEntityURI {
 }
 
 extension TransferEntityURI {
+    /// Creates a TransferEntityURI for an account.
+    /// - Parameter account: The account.
     public init?(account: Account) {
         guard let uri = account.transferSourceIdentifiers?.first else { return  nil }
 
@@ -50,6 +52,8 @@ extension TransferEntityURI {
 }
 
 extension TransferEntityURI {
+    /// Creates a TransferEntityURI for a beneficiary.
+    /// - Parameter beneficiary: The beneficiary.
     public init?(beneficiary: Beneficiary) {
         guard let uri = beneficiary.uri else { return  nil }
 
