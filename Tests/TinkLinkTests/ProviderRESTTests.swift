@@ -1,7 +1,7 @@
 @testable import TinkLink
 import XCTest
 
-class ProviderGRPCTests: XCTestCase {
+class ProviderRESTTests: XCTestCase {
     func testProviderMapping() {
         let restProvider = RESTProvider(
             accessType: .other,
