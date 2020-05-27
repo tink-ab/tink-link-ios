@@ -87,8 +87,8 @@ public final class TransferContext {
             id: nil,
             credentialsID: nil,
             currency: amount.currencyCode,
-            sourceMessage: message.sourceMessage,
-            destinationMessage: message.destinationMessage,
+            sourceMessage: message.source,
+            destinationMessage: message.destination,
             dueDate: nil,
             destinationUri: toBeneficiaryWithURI.uri,
             sourceUri: fromAccountWithURI.uri
