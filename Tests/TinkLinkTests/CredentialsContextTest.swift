@@ -2,8 +2,8 @@ import XCTest
 @testable import TinkLink
 
 class CredentialsContextTests: XCTestCase {
-    var mockedSuccessCredentialsService: MockedSuccessCredentialsService!
-    var mockedUnauthenticatedErrorCredentialsService: MockedUnauthenticatedErrorCredentialsService!
+    var mockedSuccessCredentialsService: CredentialsService!
+    var mockedUnauthenticatedErrorCredentialsService: CredentialsService!
     var task: AddCredentialsTask?
 
     override func setUp() {
