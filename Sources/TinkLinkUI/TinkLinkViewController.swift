@@ -528,7 +528,8 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
 
 extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 
-    func showLoadingIndicator() {
+    func showLoadingIndicator(isCancellingAllowed: Bool) {
+        loadingViewController.navigationItem.rightBarButtonItem?.isEnabled = isCancellingAllowed
         if topViewController is LoadingViewController {
             return
         }
