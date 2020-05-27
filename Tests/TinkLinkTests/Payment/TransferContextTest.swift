@@ -75,7 +75,7 @@ class TransferContextTests: XCTestCase {
             from: Account.checkingTestAccount,
             to: Beneficiary.savingBeneficiary,
             amount: CurrencyDenominatedAmount(10, currencyCode: CurrencyCode("EUR")),
-            destinationMessage: "test",
+            message: InitiateTransferTask.Message(destination: "test"),
             authentication: { task in
                 switch task {
                 case .awaitingThirdPartyAppAuthentication: break
@@ -122,7 +122,7 @@ class TransferContextTests: XCTestCase {
             from: Account.checkingTestAccount,
             to: Beneficiary.savingBeneficiary,
             amount: CurrencyDenominatedAmount(10, currencyCode: CurrencyCode("EUR")),
-            destinationMessage: "test",
+            message: InitiateTransferTask.Message(destination: "test"),
             authentication: { task in
                 switch task {
                 case .awaitingThirdPartyAppAuthentication: break
@@ -175,7 +175,7 @@ class TransferContextTests: XCTestCase {
             from: Account.checkingTestAccount,
             to: Beneficiary.savingBeneficiary,
             amount: CurrencyDenominatedAmount(10, currencyCode: CurrencyCode("EUR")),
-            destinationMessage: "test",
+            message: InitiateTransferTask.Message(destination: "test"),
             authentication: { _ in },
             progress: { status in
                 switch status {
