@@ -75,7 +75,14 @@ public final class TransferContext {
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
 
-        let task = InitiateTransferTask(transferService: transferService, credentialsService: credentialsService, appUri: tink.configuration.redirectURI, progressHandler: progress, authenticationHandler: authentication, completionHandler: completion)
+        let task = InitiateTransferTask(
+            transferService: transferService,
+            credentialsService: credentialsService,
+            appUri: tink.configuration.redirectURI,
+            progressHandler: progress,
+            authenticationHandler: authentication,
+            completionHandler: completion
+        )
 
         let transfer = Transfer(
             amount: amount.value,
@@ -156,7 +163,16 @@ public final class TransferContext {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
-        return initiateTransfer(fromAccountWithURI: source, toBeneficiaryWithURI: destination, amount: amount, destinationMessage: destinationMessage, authentication: authentication, progress: progress, completion: completion)
+        return initiateTransfer(
+            fromAccountWithURI: source,
+            toBeneficiaryWithURI: destination,
+            amount: amount,
+            sourceMessage: sourceMessage,
+            destinationMessage: destinationMessage,
+            authentication: authentication,
+            progress: progress,
+            completion: completion
+        )
     }
 
     // MARK: - Fetching Accounts
