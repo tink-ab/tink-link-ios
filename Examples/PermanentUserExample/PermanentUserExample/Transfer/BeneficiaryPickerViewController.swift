@@ -62,6 +62,9 @@ class BeneficiaryPickerViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
             let type = alert.textFields![0].text!
             let accountNumber = alert.textFields![1].text!
+            guard let uri = Beneficiary.URI(kind: .init(type), accountNumber: accountNumber) else {
+                return
+            }
         }))
         present(alert, animated: true)
     }
