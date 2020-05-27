@@ -156,7 +156,7 @@ public final class TransferContext {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
-        return initiateTransfer(fromAccountWithURI: source, toBeneficiaryWithURI: destination, amount: amount, destinationMessage: destinationMessage, authentication: authentication, progress: progress, completion: completion)
+        return initiateTransfer(fromAccountWithURI: source, toBeneficiaryWithURI: destination, amount: amount, sourceMessage: sourceMessage, destinationMessage: destinationMessage, authentication: authentication, progress: progress, completion: completion)
     }
 
     // MARK: - Fetching Accounts
