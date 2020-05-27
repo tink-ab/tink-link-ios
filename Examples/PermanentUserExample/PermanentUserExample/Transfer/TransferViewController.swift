@@ -68,7 +68,7 @@ extension TransferViewController {
             from: sourceAccount,
             to: transferDestination,
             amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-            destinationMessage: message,
+            message: .init(destination: message),
             authentication: { [weak self] status in
                 DispatchQueue.main.async {
                     self?.handleTransferAuthentication(status)
