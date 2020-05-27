@@ -6,6 +6,7 @@ class TransferViewController: UITableViewController {
 
     private var sourceAccount: Account?
     private var beneficiary: Beneficiary?
+    private var beneficiaryURI: Beneficiary.URI?
     private var amount: Decimal?
     private var message = ""
 
@@ -346,6 +347,7 @@ extension TransferViewController: BeneficiaryPickerViewControllerDelegate {
     }
 
     func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didEnterBeneficiaryURI beneficiaryURI: Beneficiary.URI) {
+        self.beneficiaryURI = beneficiaryURI
     }
 }
 
