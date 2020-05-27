@@ -1,8 +1,8 @@
 import Foundation
 
 struct RESTBeneficiary: Codable {
-    var type: String
+    var accountNumberType: String
     var accountNumber: String
     var name: String?
-    var accountId: String
+    var ownerAccountId: String
 }

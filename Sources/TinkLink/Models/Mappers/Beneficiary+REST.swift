@@ -2,13 +2,13 @@ import Foundation
 
 extension Beneficiary {
     init(restBeneficiary beneficiary: RESTBeneficiary) {
-        self.type = beneficiary.type
-        self.accountID = Account.ID(stringLiteral: beneficiary.accountId)
+        self.type = beneficiary.accountNumberType
+        self.accountID = Account.ID(stringLiteral: beneficiary.ownerAccountId)
         self.accountNumber = beneficiary.accountNumber
         self.name = beneficiary.name
 
         var urlComponents = URLComponents()
-        urlComponents.scheme = beneficiary.type
+        urlComponents.scheme = beneficiary.accountNumberType
         urlComponents.host = beneficiary.accountNumber
         if let beneficiaryName = beneficiary.name, !beneficiaryName.isEmpty {
             urlComponents.queryItems = [URLQueryItem(name: "name", value: beneficiaryName)]
