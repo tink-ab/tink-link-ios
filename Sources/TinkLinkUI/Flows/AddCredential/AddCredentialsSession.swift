@@ -18,6 +18,7 @@ final class AddCredentialsSession {
     private var statusPresentationManager = AddCredentialsStatusPresentationManager()
 
     private var authorizationCode: AuthorizationCode?
+    private var cancelCallback: (() -> Void)?
     private var didCallAuthorize = false
     private var shouldAuthorize: Bool {
         if case .anonymous = addCredentialsMode {
@@ -85,6 +86,9 @@ final class AddCredentialsSession {
         )
         providerID = provider.id
         addCredentialsMode = mode
+        cancelCallback = {
+            onCompletion(.failure(ServiceError.cancelled))
+        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
@@ -105,6 +109,9 @@ final class AddCredentialsSession {
             })
 
         providerID = credentials.providerID
+        cancelCallback = {
+            completion(.failure(ServiceError.cancelled))
+        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
@@ -125,6 +132,9 @@ final class AddCredentialsSession {
         })
 
         providerID = credentials.providerID
+        cancelCallback = {
+            completion(.failure(ServiceError.cancelled))
+        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
@@ -145,6 +155,9 @@ final class AddCredentialsSession {
         })
 
         providerID = credentials.providerID
+        cancelCallback = {
+            completion(.failure(ServiceError.cancelled))
+        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
@@ -222,6 +235,7 @@ final class AddCredentialsSession {
             let credentials = try result.get()
             authorizationGroup.notify(queue: .main) { [weak self] in
                 self?.hideUpdatingView(animated: true) {
+                    self?.cancelCallback = nil
                     onCompletion(.success((credentials, self?.authorizationCode)))
                 }
             }
@@ -315,7 +329,10 @@ extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
     func addCredentialsStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
         task?.cancel()
         timer?.invalidate()
-        hideUpdatingView(animated: true) 
+        hideUpdatingView(animated: true) {
+            self.cancelCallback?()
+            self.cancelCallback = nil
+        }
     }
 }
 
