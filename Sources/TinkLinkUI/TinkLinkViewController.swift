@@ -41,18 +41,18 @@ import TinkLink
 /// ```swift
 /// // With authorization code:
 /// let authorizationCode = "YOUR_AUTHORIZATION_CODE"
-/// let tinkLinkViewcontroller = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)) { result in
+/// let tinkLinkViewController = TinkLinkViewController(authorizationCode: AuthorizationCode(rawValue: authorizationCode)) { result in
 ///     // Handle result
 /// }
 /// present(tinkLinkViewcontroller, animated: true)
 ///
 /// // With access token:
 /// let accessToken = "YOUR_ACCESS_TOKEN"
-/// let tinkLinkViewcontroller = TinkLinkViewController(userSession: .accessToken(accessToken)) { result in
+/// let tinkLinkViewController = TinkLinkViewController(userSession: .accessToken(accessToken)) { result in
 ///     // Handle result
 /// }
 ///
-/// present(tinkLinkViewcontroller, animated: true)
+/// present(tinkLinkViewController, animated: true)
 /// ```
 /// 
 /// After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can [exchange](https://docs.tink.com/resources/getting-started/retrieve-access-token) for an access token. If something went wrong the result will contain an error.
@@ -100,7 +100,6 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private let operation: Operation
-    private let providerPredicate: ProviderPredicate
     private var userSession: UserSession?
     private var authorizationCode: AuthorizationCode?
 
@@ -138,7 +137,6 @@ public class TinkLinkViewController: UINavigationController {
         self.scopes = scopes
         self.providerController = ProviderController(tink: tink, providerPredicate: providerPredicate)
         self.operation = .create(providerPredicate: providerPredicate)
-        self.providerPredicate = providerPredicate
         self.temporaryCompletion = completion
         self.permanentCompletion = nil
 
@@ -155,7 +153,6 @@ public class TinkLinkViewController: UINavigationController {
         self.tink = tink
         self.userSession = userSession
         self.operation = operation
-        self.providerPredicate = .kinds(.defaultKinds)
         self.scopes = nil
         self.market = nil
         self.providerController = ProviderController(tink: tink)
@@ -175,7 +172,6 @@ public class TinkLinkViewController: UINavigationController {
         self.tink = tink
         self.authorizationCode = authorizationCode
         self.operation = operation
-        self.providerPredicate = .kinds(.defaultKinds)
         self.userSession = nil
         self.scopes = nil
         self.market = nil
