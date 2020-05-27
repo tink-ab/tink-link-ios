@@ -65,7 +65,7 @@ public final class TransferContext {
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
     public func initiateTransfer(
-        fromAccountWithURI: Beneficiary.URI,
+        fromAccountWithURI: Account.URI,
         toBeneficiaryWithURI: Beneficiary.URI,
         amount: CurrencyDenominatedAmount,
         sourceMessage: String? = nil,
@@ -149,7 +149,7 @@ public final class TransferContext {
         progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
-        guard let source = Beneficiary.URI(account: source) else {
+        guard let source = Account.URI(account: source) else {
             preconditionFailure("Source account doesn't have a URI.")
         }
         guard let destination = Beneficiary.URI(beneficiary: destination) else {
