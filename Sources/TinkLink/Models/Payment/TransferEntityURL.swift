@@ -20,6 +20,10 @@ public struct TransferEntityURI {
         public let value: String
     }
 
+    /// Creates a TransferEntityURI.
+    /// - Parameters:
+    ///   - kind: The kind of account URI.
+    ///   - accountNumber: The account number. The structure of this parameter depends on the `kind`.
     public init?(kind: Kind, accountNumber: String) {
         var urlComponents = URLComponents()
         urlComponents.scheme = kind.value
