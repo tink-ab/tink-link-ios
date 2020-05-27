@@ -21,6 +21,9 @@ public struct TransferEntityURI {
     }
 
     /// Creates a TransferEntityURI.
+    ///
+    /// Returns `nil` if a URI cannot be formed with the kind and account number (for example if the number contains characters that are illegal, or is an empty string).
+    ///
     /// - Parameters:
     ///   - kind: The kind of account URI.
     ///   - accountNumber: The account number. The structure of this parameter depends on the `kind`.
