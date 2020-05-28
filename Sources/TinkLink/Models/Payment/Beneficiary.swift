@@ -10,6 +10,4 @@ public struct Beneficiary: Equatable {
     public let ownerAccountID: Account.ID
     /// The account number for the beneficiary. The structure of this field depends on the type.
     public let accountNumber: String?
-
-    let uri: URL?
 }
