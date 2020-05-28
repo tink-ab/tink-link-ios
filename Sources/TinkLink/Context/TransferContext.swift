@@ -53,6 +53,8 @@ public final class TransferContext {
     /// )
     /// ```
     ///
+    /// - Note: You need to retain the returned task until the transfer has completed.
+    ///
     /// - Parameters:
     ///   - fromAccountWithURI: The URI for the source account of the transfer.
     ///   - toBeneficiaryWithURI: The URI of the beneficiary the transfer is sent to.
@@ -132,6 +134,8 @@ public final class TransferContext {
     ///     }
     /// )
     /// ```
+    ///
+    /// - Note: You need to retain the returned task until the transfer has completed.
     ///
     /// - Parameters:
     ///   - from: The source account of this transfer.
