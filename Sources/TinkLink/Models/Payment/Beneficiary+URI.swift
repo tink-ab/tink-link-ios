@@ -6,6 +6,8 @@ extension Beneficiary {
     /// A URI is composed with two parts, a kind with value of e.g. `iban` and an account number.
     public struct URI {
         let uri: URL
+
+        public var value: String { uri.absoluteString }
     }
 }
 

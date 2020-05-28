@@ -3,6 +3,7 @@ import TinkLink
 
 protocol BeneficiaryPickerViewControllerDelegate: AnyObject {
     func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: Beneficiary)
+    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didEnterBeneficiaryURI beneficiaryURI: Beneficiary.URI)
 }
 
 class BeneficiaryPickerViewController: UITableViewController {
@@ -30,6 +31,8 @@ class BeneficiaryPickerViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(enterBeneficiary))
+
         canceller = transferContext.fetchBeneficiaries(for: sourceAccount) { [weak self] result in
             DispatchQueue.main.async {
                 do {
@@ -42,6 +45,29 @@ class BeneficiaryPickerViewController: UITableViewController {
         }
 
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+
+    @objc private func enterBeneficiary(_ sender: Any) {
+        let alert = UIAlertController(title: "Enter Beneficiary URI", message: nil, preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Type"
+            textField.autocorrectionType = .no
+            textField.autocapitalizationType = .none
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = "Account Number"
+            textField.autocorrectionType = .no
+            textField.autocapitalizationType = .none
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
+            guard let type = alert.textFields?[0].text,
+                let accountNumber = alert.textFields?[1].text,
+                let uri = Beneficiary.URI(kind: .init(type), accountNumber: accountNumber)
+                else { return }
+            self.delegate?.beneficiaryPickerViewController(self, didEnterBeneficiaryURI: uri)
+        }))
+        present(alert, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
