@@ -40,7 +40,7 @@ class SourceAccountPickerViewController: UITableViewController {
                     self?.sourceAccounts = try result.get()
                     self?.tableView.reloadData()
                 } catch {
-                    // Handle any error
+                    self?.showAlert(for: error)
                 }
             }
         }

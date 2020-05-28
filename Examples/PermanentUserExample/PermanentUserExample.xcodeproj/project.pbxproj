@@ -11,6 +11,7 @@
 		20164862243F0D1300D3C1E0 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */; };
 		20358153246597900075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20358152246597900075F1EA /* Error+LocalizedError.swift */; };
 		20358158246975050075F1EA /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20358157246975050075F1EA /* TransferViewController.swift */; };
+		20A25781247ECD0D0030957F /* UIViewController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A25780247ECD0D0030957F /* UIViewController+Error.swift */; };
 		20FD9612243F169B00603B5A /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD9611243F169B00603B5A /* QRViewController.swift */; };
 		6B5198D6246987F80099C045 /* Value2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5198D5246987F80099C045 /* Value2TableViewCell.swift */; };
 		6BB8C3A924698FB300C2C999 /* SourceAccountPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8C3A824698FB300C2C999 /* SourceAccountPickerViewController.swift */; };
@@ -40,6 +41,7 @@
 		20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		20358152246597900075F1EA /* Error+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+LocalizedError.swift"; sourceTree = "<group>"; };
 		20358157246975050075F1EA /* TransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
+		20A25780247ECD0D0030957F /* UIViewController+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Error.swift"; sourceTree = "<group>"; };
 		20FD9611243F169B00603B5A /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
 		6B5198D5246987F80099C045 /* Value2TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value2TableViewCell.swift; sourceTree = "<group>"; };
 		6BB8C3A824698FB300C2C999 /* SourceAccountPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAccountPickerViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */,
 				8F39F02823D5BC79009D785E /* CredentialsViewController.swift */,
 				20358152246597900075F1EA /* Error+LocalizedError.swift */,
+				20A25780247ECD0D0030957F /* UIViewController+Error.swift */,
 				20358156246974F90075F1EA /* Transfer */,
 				8FDA297723D1F5B900EC810F /* RefreshCredentials */,
 				8FDA296223D1EDF800EC810F /* AddCredentials */,
@@ -272,6 +275,7 @@
 				8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */,
 				8FDA297123D1EE5300EC810F /* FixedImageSizeTableViewCell.swift in Sources */,
 				20358158246975050075F1EA /* TransferViewController.swift in Sources */,
+				20A25781247ECD0D0030957F /* UIViewController+Error.swift in Sources */,
 				8FDA296F23D1EE5300EC810F /* TextFieldTableViewCell.swift in Sources */,
 				20164860243F0CFE00D3C1E0 /* ButtonTableViewCell.swift in Sources */,
 			);
