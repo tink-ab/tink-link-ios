@@ -18,7 +18,7 @@ extension Account {
         isClosed: false,
         flags: [],
         accountExclusion: nil,
-        currencyDenominatedBalance: CurrencyDenominatedAmount(value: Decimal(68.61), currencyCode: CurrencyCode("EUR")),
+        currencyDenominatedBalance: CurrencyDenominatedAmount(Decimal(68.61), currencyCode: CurrencyCode("EUR")),
         refreshed: Date(),
         financialInstitutionID: Provider.FinancialInstitution.ID("f58e31ebaf625c15a9601aa4deac83d0")
     )
