@@ -7,13 +7,13 @@ extension AddCredentialsTask.Error: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .permanentFailure:
-            return Strings.AddCredentials.Error.permanentFailure
+            return Strings.Credentials.Error.permanentFailure
         case .temporaryFailure:
-            return Strings.AddCredentials.Error.temporaryFailure
+            return Strings.Credentials.Error.temporaryFailure
         case .authenticationFailed:
-            return Strings.AddCredentials.Error.authenticationFailed
+            return Strings.Credentials.Error.authenticationFailed
         case .credentialsAlreadyExists:
-            return Strings.AddCredentials.Error.credentialsAlreadyExists
+            return Strings.Generic.error
         }
     }
 
@@ -24,7 +24,7 @@ extension AddCredentialsTask.Error: LocalizedError {
             // TODO: Localize this somehow?
             return payload
         case .credentialsAlreadyExists:
-            return Strings.AddCredentials.Error.credentialsAlreadyExistsDetail
+            return Strings.Credentials.Error.credentialsAlreadyExistsDetail
         }
     }
 }
@@ -34,13 +34,13 @@ extension RefreshCredentialsTask.Error: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .permanentFailure:
-            return Strings.AddCredentials.Error.permanentFailure
+            return Strings.Credentials.Error.permanentFailure
         case .temporaryFailure:
-            return Strings.AddCredentials.Error.temporaryFailure
+            return Strings.Credentials.Error.temporaryFailure
         case .authenticationFailed:
-            return Strings.AddCredentials.Error.authenticationFailed
+            return Strings.Credentials.Error.authenticationFailed
         case .disabled:
-            return Strings.AddCredentials.Error.credentialsDisabled
+            return Strings.Generic.error
         }
     }
 

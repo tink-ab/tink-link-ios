@@ -53,7 +53,7 @@ final class ProviderLoadingErrorView: UIView {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.setLineHeight(lineHeight: 20)
 
-        retryButton.text = Strings.ProviderPicker.Error.retryButton
+        retryButton.text = Strings.Generic.retry
         retryButton.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -90,12 +90,12 @@ final class ProviderLoadingErrorView: UIView {
     }
 
     func configure(with error: Error?) {
-        textLabel.text = Strings.ProviderPicker.Error.title
+        textLabel.text = Strings.ProviderList.Error.title
         if error is ProviderController.Error {
-            descriptionLabel.text = Strings.ProviderPicker.Error.temporary
+            descriptionLabel.text = Strings.ProviderList.Error.temporary
             retryButton.isHidden = false
         } else {
-            descriptionLabel.text = Strings.ProviderPicker.Error.description
+            descriptionLabel.text = Strings.ProviderList.Error.description
             retryButton.isHidden = true
         }
     }

@@ -60,9 +60,9 @@ class ViewController: UIViewController {
     }
 
     @objc private func showTinkLinkWithUserSession() {
-        let accessToken = "YOUR_ACCESS_TOKEN"
+        let accessToken = "YOU_ACCESS_TOKEN"
 
-        let tinkLinkViewController = TinkLinkViewController(userSession: .accessToken(accessToken)) { _ in }
+        let tinkLinkViewController = TinkLinkViewController(userSession: .accessToken(accessToken), operation: .create(providerPredicate: .kinds(.all))) { _ in }
         present(tinkLinkViewController, animated: true)
     }
 }

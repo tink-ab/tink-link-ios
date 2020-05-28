@@ -210,14 +210,14 @@ extension CredentialsCoordinator {
         let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
 
         if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
-            let cancelAction = UIAlertAction(title: Strings.ThirdPartyAppAuthentication.DownloadAlert.cancel, style: .cancel)
+            let cancelAction = UIAlertAction(title: Strings.Generic.cancel, style: .cancel)
             let downloadAction = UIAlertAction(title: Strings.ThirdPartyAppAuthentication.DownloadAlert.download, style: .default, handler: { _ in
                 UIApplication.shared.open(appStoreURL)
             })
             alertController.addAction(cancelAction)
             alertController.addAction(downloadAction)
         } else {
-            let okAction = UIAlertAction(title: Strings.ThirdPartyAppAuthentication.DownloadAlert.dismiss, style: .default)
+            let okAction = UIAlertAction(title: Strings.Generic.dismiss, style: .default)
             alertController.addAction(okAction)
         }
 
@@ -231,13 +231,13 @@ extension CredentialsCoordinator {
             title = error.errorDescription
             message = error.failureReason
         } else {
-            title = Strings.Generic.Alert.title
+            title = Strings.Generic.error
             message = error.localizedDescription
         }
 
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let okAction = UIAlertAction(title: Strings.Generic.Alert.ok, style: .default)
+        let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default)
         alertController.addAction(okAction)
 
         presenter?.present(alertController, animated: true, completion: nil)

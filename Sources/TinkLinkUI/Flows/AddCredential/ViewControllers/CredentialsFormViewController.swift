@@ -33,7 +33,7 @@ final class CredentialsFormViewController: UIViewController {
     private lazy var gradientView = GradientView()
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
-        button.text = Strings.AddCredentials.Form.continue
+        button.text = Strings.Generic.continue
         return button
     }()
 
@@ -131,7 +131,7 @@ extension CredentialsFormViewController {
             buttonBottomConstraint,
         ])
 
-        navigationItem.title = Strings.AddCredentials.Form.title
+        navigationItem.title = Strings.Credentials.Form.authenticate
         navigationItem.largeTitleDisplayMode = .never
         button.isEnabled = formTableViewController.form.fields.filter({ $0.attributes.isEditable }).isEmpty
 
@@ -148,7 +148,7 @@ extension CredentialsFormViewController {
             self?.addCredential()
         }
 
-        formTableViewController.errorText = isVerified ? nil : Strings.AddCredentials.Warning.unverifiedClient
+        formTableViewController.errorText = isVerified ? nil : Strings.Credentials.Warning.unverifiedClient
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -166,9 +166,9 @@ extension CredentialsFormViewController {
         switch provider.credentialsKind {
         case .mobileBankID:
             button.image = UIImage(icon: .bankID)
-            button.text = Strings.AddCredentials.Form.openBankID
+            button.text = Strings.Credentials.openBankID
         default:
-            button.text = Strings.AddCredentials.Form.continue
+            button.text = Strings.Generic.continue
         }
     }
     

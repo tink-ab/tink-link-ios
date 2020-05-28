@@ -22,8 +22,8 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
     }
     
     //TODO: Use real strings
-    private let titleText = Strings.AddCredentials.Success.title
-    private let subtitleText = Strings.AddCredentials.Success.subtitle
+    private let titleText = Strings.ConnectionSuccess.title
+    private let subtitleText = Strings.ConnectionSuccess.subtitle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         detailLabel.font = Font.footnote
         detailLabel.textColor = Color.label
         
-        doneButton.text = Strings.AddCredentials.Success.confirm
+        doneButton.text = Strings.Generic.done
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
         
         iconView.translatesAutoresizingMaskIntoConstraints = false

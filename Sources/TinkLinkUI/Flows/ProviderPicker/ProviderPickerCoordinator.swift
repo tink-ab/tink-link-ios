@@ -26,7 +26,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func start(completion: @escaping ((Result<Provider, Error>) -> Void)) {
         DispatchQueue.main.async {
-            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: Strings.ProviderPicker.List.financialInstitutionsTitle)
+            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: Strings.ProviderList.title)
         }
         
         self.completion = completion
@@ -61,7 +61,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
-        let titleFormat = Strings.ProviderPicker.List.accessTypeTitle
+        let titleFormat = Strings.ProviderList.accessTypeTitle
         let formattedTitle = String(format: titleFormat, name)
         setupNavigationItem(for: viewController, title: formattedTitle)
         viewController.providerPickerCoordinator = self
@@ -70,7 +70,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
         let viewController = CredentialsKindPickerViewController(credentialsKindNodes: credentialsKindNodes)
-        let title = Strings.ProviderPicker.List.credentialTypeTitle
+        let title = Strings.ProviderList.credentialsTypeTitle
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)

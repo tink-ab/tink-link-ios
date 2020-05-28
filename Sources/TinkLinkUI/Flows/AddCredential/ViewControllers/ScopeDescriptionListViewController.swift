@@ -25,8 +25,8 @@ final class ScopeDescriptionListViewController: UITableViewController {
         self.scopes = scopes
         self.sections = [
             .intro(
-                title: Strings.AddCredentials.ScopeDescriptions.title,
-                description: Strings.AddCredentials.ScopeDescriptions.body
+                title: Strings.ConsentInformation.title,
+                description: Strings.ConsentInformation.description
             )
         ]
         super.init(nibName: nil, bundle: nil)
