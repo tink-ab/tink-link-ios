@@ -1,8 +1,8 @@
 import Foundation
 
-/// A task that manages progress of initiating a transfer.
+/// A task that manages the authentication and status of a transfer.
 ///
-/// Use `TransferContext` to create a task.
+/// Use `TransferContext` to create this task.
 public final class InitiateTransferTask: Cancellable {
 
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
@@ -18,9 +18,9 @@ public final class InitiateTransferTask: Cancellable {
         case executing(status: String)
     }
 
-    /// Indicates a task for authenticating a transfer initiation.
+    /// Represents an authentication that needs to be completed by the user.
     ///
-    /// - Note: The states have actions which need to be performed to continue the transfer initiation process.
+    /// - Note: Each case have an associated tasks which need to be completed by the user to continue the transfer initiation process.
     public enum AuthenticationTask {
         /// Trigger for the client to prompt the user to fill out supplemental information.
         case awaitingSupplementalInformation(SupplementInformationTask)

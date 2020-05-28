@@ -1,6 +1,6 @@
 import Foundation
 
-/// An object that you use to access the user's accounts, beneficiaries and transfer functionality.
+/// An object that you use to initiate transfers and access the user's accounts and beneficiaries.
 public final class TransferContext {
     private let tink: Tink
     private let transferService: TransferService
@@ -35,7 +35,7 @@ public final class TransferContext {
     ///     fromAccountWithURI: sourceAccountURI,
     ///     toBeneficiaryWithURI: transferBeneficiaryURI,
     ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-    ///     destinationMessage: message,
+    ///     message: .init(destination: message),
     ///     authentication: { task in
     ///         switch task {
     ///         case .awaitingSupplementalInformation(let task):
@@ -53,12 +53,14 @@ public final class TransferContext {
     /// )
     /// ```
     ///
+    /// - Note: You need to retain the returned task until the transfer has completed.
+    ///
     /// - Parameters:
-    ///   - fromAccountWithURI: The transfer's source account URI.
-    ///   - toBeneficiaryWithURI: The transfer's destination beneficiary URI.
-    ///   - amount: The amount and currency of the transfer.
-    ///   - message: The message.
-    ///   - authentication: Indicates the authentication task for initiate the transfer.
+    ///   - fromAccountWithURI: The URI for the source account of the transfer.
+    ///   - toBeneficiaryWithURI: The URI of the beneficiary the transfer is sent to.
+    ///   - amount: The amount that should be transferred. It's `CurrencyCode` should be the same as the source account's currency.
+    ///   - message: The message used for the transfer.
+    ///   - authentication: Indicates the authentication task for initiating a transfer.
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
@@ -115,7 +117,7 @@ public final class TransferContext {
     ///     from: sourceAccount,
     ///     to: transferBeneficiary,
     ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-    ///     destinationMessage: message,
+    ///     message: .init(destination: message),
     ///     authentication: { task in
     ///         switch task {
     ///         case .awaitingSupplementalInformation(let task):
@@ -133,12 +135,14 @@ public final class TransferContext {
     /// )
     /// ```
     ///
+    /// - Note: You need to retain the returned task until the transfer has completed.
+    ///
     /// - Parameters:
-    ///   - from: The transfer's source account.
-    ///   - to: The transfer's destination beneficiary.
-    ///   - amount: The amount and currency of the transfer.
-    ///   - message: The message.
-    ///   - authentication: Indicates the authentication task for initiate the transfer.
+    ///   - from: The source account of this transfer.
+    ///   - to: The beneficiary of this transfer.
+    ///   - amount: The amount that should be transferred. It's `CurrencyCode` should be the same as the source account's currency.
+    ///   - message: The message used for the transfer.
+    ///   - authentication: Indicates the authentication task for initiating a transfer.
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
@@ -172,7 +176,7 @@ public final class TransferContext {
 
     // MARK: - Fetching Accounts
 
-    /// Fetches transfer accounts for the user.
+    /// Fetch all accounts of the user that are suitable to pick as the source of a transfer.
     ///
     /// - Parameter completion: A result representing either a list of accounts or an error.
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
@@ -181,9 +185,9 @@ public final class TransferContext {
 
     // MARK: - Fetching Beneficiaries
 
-    /// Fetches transfer beneficiaries for an account.
+    /// Fetch beneficiaries for a specific account of the user.
     ///
-    /// - Parameter account: Account for beneficiary to fetch
+    /// - Parameter account: Account for beneficiaries to fetch
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
     public func fetchBeneficiaries(for account: Account, completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         return transferService.beneficiaries { result in
@@ -197,7 +201,9 @@ public final class TransferContext {
         }
     }
 
-    /// Fetches all transfer beneficiaries for all accounts.
+    /// Fetch all beneficiaries of the user.
+    ///
+    /// The beneficiaries will be grouped by account id.
     ///
     /// - Parameter completion: A result representing either a list of account ID and beneficiaries pair or an error.
     public func fetchBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
