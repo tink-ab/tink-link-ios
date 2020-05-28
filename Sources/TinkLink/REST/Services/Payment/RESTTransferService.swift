@@ -14,7 +14,7 @@ final class RESTTransferService: TransferService {
             DestinationParameter("destination[]", $0.absoluteString)
         }
 
-        let request = RESTResourceRequest<RESTAccountListResponse>(path: "/api/v1/accounts/list", method: .get, contentType: .json, parameters: parameters) { result in
+        let request = RESTResourceRequest<RESTAccountListResponse>(path: "/api/v1/transfer/accounts", method: .get, contentType: .json, parameters: parameters) { result in
             let mappedResult = result.map { $0.accounts.map { Account(restAccount: $0) } }
             completion(mappedResult)
         }
