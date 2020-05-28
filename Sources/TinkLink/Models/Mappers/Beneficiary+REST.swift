@@ -2,7 +2,7 @@ import Foundation
 
 extension Beneficiary {
     init(restBeneficiary beneficiary: RESTBeneficiary) {
-        self.type = beneficiary.accountNumberType
+        self.accountNumberType = beneficiary.accountNumberType
         self.accountID = Account.ID(stringLiteral: beneficiary.ownerAccountId)
         self.accountNumber = beneficiary.accountNumber
         self.name = beneficiary.name
