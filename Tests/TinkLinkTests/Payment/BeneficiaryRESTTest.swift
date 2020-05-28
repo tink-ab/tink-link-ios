@@ -13,10 +13,14 @@ class BeneficiaryRESTTest: XCTestCase {
 
         let beneficiary = Beneficiary(restBeneficiary: restBeneficiary)
 
-        XCTAssertEqual(beneficiary.accountID.value, restBeneficiary.ownerAccountId)
+        XCTAssertEqual(beneficiary.ownerAccountID.value, restBeneficiary.ownerAccountId)
         XCTAssertEqual(beneficiary.accountNumber, restBeneficiary.accountNumber)
         XCTAssertEqual(beneficiary.name, restBeneficiary.name)
-        XCTAssertEqual(beneficiary.uri?.scheme, restBeneficiary.accountNumberType)
-        XCTAssertEqual(beneficiary.uri?.host, restBeneficiary.accountNumber)
+    }
+
+    func testBeneficiaryURIMapping() {
+        let beneficiary = Beneficiary.savingBeneficiary
+        let uri = Beneficiary.URI(beneficiary: beneficiary)
+        XCTAssertEqual(uri?.value, "se://254fa71273394c5890de54fb3d20ac0f?name=Savings%20Account%20tink")
     }
 }

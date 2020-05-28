@@ -58,7 +58,13 @@ extension Beneficiary.URI {
     /// Creates a URI for a beneficiary.
     /// - Parameter beneficiary: The beneficiary.
     public init?(beneficiary: Beneficiary) {
-        guard let uri = beneficiary.uri else { return  nil }
+        var urlComponents = URLComponents()
+        urlComponents.scheme = beneficiary.accountNumberType
+        urlComponents.host = beneficiary.accountNumber
+        if let beneficiaryName = beneficiary.name, !beneficiaryName.isEmpty {
+            urlComponents.queryItems = [URLQueryItem(name: "name", value: beneficiaryName)]
+        }
+        guard let uri = urlComponents.url else { return  nil }
 
         self.init(uri: uri)
     }
