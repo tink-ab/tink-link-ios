@@ -1,7 +1,7 @@
 import Foundation
 
 extension Beneficiary {
-    /// A type representing the URI for reciving transfers.
+    /// A type representing the URI for receiving transfers.
     ///
     /// A URI is composed with two parts, a kind with value of e.g. `iban` and an account number.
     public struct URI {
