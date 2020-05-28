@@ -60,7 +60,7 @@ public final class TransferContext {
     ///   - toBeneficiaryWithURI: The URI of the beneficiary the transfer is sent to.
     ///   - amount: The amount that should be transferred. It's `CurrencyCode` should be the same as the source account's currency.
     ///   - message: The message used for the transfer.
-    ///   - authentication: Indicates the authentication task for initiate the transfer.
+    ///   - authentication: Indicates the authentication task for initiating a transfer.
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
@@ -142,7 +142,7 @@ public final class TransferContext {
     ///   - to: The beneficiary of this transfer.
     ///   - amount: The amount that should be transferred. It's `CurrencyCode` should be the same as the source account's currency.
     ///   - message: The message used for the transfer.
-    ///   - authentication: Indicates the authentication task for initiate the transfer.
+    ///   - authentication: Indicates the authentication task for initiating a transfer.
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
