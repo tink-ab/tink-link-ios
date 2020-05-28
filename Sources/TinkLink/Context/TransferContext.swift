@@ -181,7 +181,7 @@ public final class TransferContext {
 
     // MARK: - Fetching Beneficiaries
 
-    /// Fetches transfer beneficiaries for an account.
+    /// Fetch beneficiaries for a specific account of the user.
     ///
     /// - Parameter account: Account for beneficiaries to fetch
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
@@ -197,7 +197,9 @@ public final class TransferContext {
         }
     }
 
-    /// Fetches all transfer beneficiaries for all accounts.
+    /// Fetch all beneficiaries of the user.
+    ///
+    /// The beneficiaries will be grouped by account id.
     ///
     /// - Parameter completion: A result representing either a list of account ID and beneficiaries pair or an error.
     public func fetchBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
