@@ -26,14 +26,4 @@ public struct CurrencyDenominatedAmount: Equatable {
         self.value = Decimal(value)
         self.currencyCode = currencyCode
     }
-
-    /// Creates a currency denominated amount with the amount specified as a decimal value.
-    ///
-    /// - Parameters:
-    ///   - value: The exact value of the amount.
-    ///   - currencyCode: The ISO 4217 currency code of the amount.
-    public init(value: Decimal, currencyCode: CurrencyCode) {
-        self.value = value
-        self.currencyCode = currencyCode
-    }
 }
