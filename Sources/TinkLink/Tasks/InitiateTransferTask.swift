@@ -22,9 +22,11 @@ public final class InitiateTransferTask: Cancellable {
     ///
     /// - Note: Each case have an associated tasks which need to be completed by the user to continue the transfer initiation process.
     public enum AuthenticationTask {
-        /// Trigger for the client to prompt the user to fill out supplemental information.
+        /// Indicates that there is additional information required from the user to proceed.
+        ///
+        /// This can for example be an OTP sent via SMS or authetication app.
         case awaitingSupplementalInformation(SupplementInformationTask)
-        /// Trigger for the client to prompt the user to open the third party authentication flow
+        /// Indicates that there is an authentication in a third party app necessary to proceed with the authentication.
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
     }
 
