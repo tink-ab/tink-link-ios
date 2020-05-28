@@ -189,7 +189,7 @@ public final class TransferContext {
         return transferService.beneficiaries { result in
             do {
                 let beneficiaries = try result.get()
-                let filteredBeneficiaries = beneficiaries.filter { $0.accountID == account.id }
+                let filteredBeneficiaries = beneficiaries.filter { $0.ownerAccountID == account.id }
                 completion(.success(filteredBeneficiaries))
             } catch {
                 completion(.failure(error))
@@ -204,7 +204,7 @@ public final class TransferContext {
         transferService.beneficiaries() { result in
             do {
                 let beneficiaries = try result.get()
-                let groupedBeneficiariesByAccountID = Dictionary(grouping: beneficiaries, by: \.accountID)
+                let groupedBeneficiariesByAccountID = Dictionary(grouping: beneficiaries, by: \.ownerAccountID)
                 completion(.success(groupedBeneficiariesByAccountID))
             } catch {
                 completion(.failure(error))

@@ -7,7 +7,7 @@ public struct Beneficiary: Equatable {
     /// The name chosen by the user for this beneficiary.
     public let name: String?
     /// The identifier of the account that this beneficiary belongs to.
-    public let accountID: Account.ID
+    public let ownerAccountID: Account.ID
     /// The account number for the beneficiary. The structure of this field depends on the type.
     public let accountNumber: String?
 
