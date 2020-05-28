@@ -183,7 +183,7 @@ public final class TransferContext {
 
     /// Fetches transfer beneficiaries for an account.
     ///
-    /// - Parameter account: Account for beneficiary to fetch
+    /// - Parameter account: Account for beneficiaries to fetch
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
     public func fetchBeneficiaries(for account: Account, completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         return transferService.beneficiaries { result in
