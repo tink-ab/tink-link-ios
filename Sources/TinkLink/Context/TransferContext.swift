@@ -1,6 +1,6 @@
 import Foundation
 
-/// An object that you use to access the user's accounts, beneficiaries and transfer functionality.
+/// An object that you use to initiate transfers and access the user's accounts and beneficiaries.
 public final class TransferContext {
     private let tink: Tink
     private let transferService: TransferService
