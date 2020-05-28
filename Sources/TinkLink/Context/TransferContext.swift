@@ -35,7 +35,7 @@ public final class TransferContext {
     ///     fromAccountWithURI: sourceAccountURI,
     ///     toBeneficiaryWithURI: transferBeneficiaryURI,
     ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-    ///     destinationMessage: message,
+    ///     message: .init(destination: message),
     ///     authentication: { task in
     ///         switch task {
     ///         case .awaitingSupplementalInformation(let task):
@@ -115,7 +115,7 @@ public final class TransferContext {
     ///     from: sourceAccount,
     ///     to: transferBeneficiary,
     ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-    ///     destinationMessage: message,
+    ///     message: .init(destination: message),
     ///     authentication: { task in
     ///         switch task {
     ///         case .awaitingSupplementalInformation(let task):
