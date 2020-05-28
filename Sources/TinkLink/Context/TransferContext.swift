@@ -56,7 +56,7 @@ public final class TransferContext {
     /// - Parameters:
     ///   - fromAccountWithURI: The transfer's source account URI.
     ///   - toBeneficiaryWithURI: The transfer's destination beneficiary URI.
-    ///   - amount: The amount and currency of the transfer.
+    ///   - amount: The amount that should be transferred. It's `CurrencyCode` should be the same as the source account's currency.
     ///   - message: The message used for the transfer.
     ///   - authentication: Indicates the authentication task for initiate the transfer.
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
@@ -136,7 +136,7 @@ public final class TransferContext {
     /// - Parameters:
     ///   - from: The transfer's source account.
     ///   - to: The transfer's destination beneficiary.
-    ///   - amount: The amount and currency of the transfer.
+    ///   - amount: The amount that should be transferred. It's `CurrencyCode` should be the same as the source account's currency.
     ///   - message: The message used for the transfer.
     ///   - authentication: Indicates the authentication task for initiate the transfer.
     ///   - progress: Optional, Indicates the state changes of initiating a transfer.
