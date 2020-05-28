@@ -1,8 +1,8 @@
 import Foundation
 
-/// A task that manages progress of initiating a transfer.
+/// A task that manages the authentication and status of a transfer.
 ///
-/// Use `TransferContext` to create a task.
+/// Use `TransferContext` to create this task.
 public final class InitiateTransferTask: Cancellable {
 
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
