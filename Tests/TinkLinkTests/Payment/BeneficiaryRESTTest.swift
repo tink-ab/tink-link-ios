@@ -17,4 +17,11 @@ class BeneficiaryRESTTest: XCTestCase {
         XCTAssertEqual(beneficiary.accountNumber, restBeneficiary.accountNumber)
         XCTAssertEqual(beneficiary.name, restBeneficiary.name)
     }
+
+    func testBeneficiaryURIMapping() {
+        let beneficiary = Beneficiary.savingBeneficiary
+        let uri = Beneficiary.URI(beneficiary: beneficiary)
+        XCTAssertEqual(uri?.uri.scheme, beneficiary.accountNumberType)
+        XCTAssertEqual(uri?.uri.host, beneficiary.accountNumber)
+    }
 }
