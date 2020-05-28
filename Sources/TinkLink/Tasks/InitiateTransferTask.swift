@@ -18,7 +18,7 @@ public final class InitiateTransferTask: Cancellable {
         case executing(status: String)
     }
 
-    /// Indicates a task for authenticating a transfer initiation.
+    /// Represents an authentication that needs to be completed by the user.
     ///
     /// - Note: The states have actions which need to be performed to continue the transfer initiation process.
     public enum AuthenticationTask {
