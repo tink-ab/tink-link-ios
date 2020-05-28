@@ -1,6 +1,9 @@
 import Foundation
 
-/// A beneficiary is a payment or transfer destination account.
+/// A beneficiary is a payment or transfer destination account which has been authorized by the bank.
+///
+/// Each beneficiary belongs to an account, which means that the given account can send money to that beneficiary.
+/// - Note: Different banks treat beneficiaries in different ways. Some treat them as fully trusted, meaning no signing at all is required when transferring money to the beneficiary. Other banks treat them more as address books of registered recipients
 public struct Beneficiary: Equatable {
     /// The type of the accountNumber that this beneficiary has.
     public let accountNumberType: String
