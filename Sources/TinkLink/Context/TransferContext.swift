@@ -172,7 +172,7 @@ public final class TransferContext {
 
     // MARK: - Fetching Accounts
 
-    /// Fetches transfer accounts for the user.
+    /// Fetch all accounts of the user that are suitable to pick as the source of a transfer.
     ///
     /// - Parameter completion: A result representing either a list of accounts or an error.
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
