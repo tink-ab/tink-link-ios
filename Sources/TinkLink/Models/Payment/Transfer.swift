@@ -24,7 +24,7 @@ public struct Transfer {
     let amount: ExactNumber
     /// The unique identifier of the transfer.
     let id: ID?
-    /// The id of the Credentials used to make the transfer. For PIS with AIS will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.
+    /// The id of the Credentials used to make the transfer. For PIS with AIS it will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.
     let credentialsID: Credentials.ID?
     /// The currency of the amount to be transferred. Should match the SourceUri's currency.
     let currency: CurrencyCode
