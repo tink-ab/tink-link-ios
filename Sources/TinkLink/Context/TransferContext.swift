@@ -205,7 +205,7 @@ public final class TransferContext {
     ///
     /// The beneficiaries will be grouped by account id.
     ///
-    /// - Parameter completion: A result representing either a list of account ID and beneficiaries pair or an error.
+    /// - Parameter completion: A result representing either a list of beneficiaries or an error.
     public func fetchBeneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         transferService.beneficiaries() { result in
             do {
