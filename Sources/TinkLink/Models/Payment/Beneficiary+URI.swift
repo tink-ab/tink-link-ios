@@ -4,10 +4,19 @@ extension Beneficiary {
     /// A type representing the URI for receiving transfers.
     ///
     /// A URI is composed with two parts, a kind with value of e.g. `iban` and an account number.
-    public struct URI {
-        let uri: URL
+    public struct URI: Equatable, ExpressibleByStringLiteral {
+        /// The `String` that represent the URI.
+        public let value: String
 
-        public var value: String { uri.absoluteString }
+        /// Creates a kind.
+        /// - Parameter value: The `String` that represents the URI.
+        public init(_ value: String) {
+            self.value = value
+        }
+
+        public init(stringLiteral value: String) {
+            self.value = value
+        }
     }
 }
 
@@ -50,7 +59,7 @@ extension Beneficiary.URI {
 
         guard let uri = urlComponents.url else { return nil }
 
-        self.init(uri: uri)
+        self.value = uri.absoluteString
     }
 }
 
@@ -66,6 +75,6 @@ extension Beneficiary.URI {
         }
         guard let uri = urlComponents.url else { return  nil }
 
-        self.init(uri: uri)
+        self.value = uri.absoluteString
     }
 }
