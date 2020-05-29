@@ -20,7 +20,7 @@ public final class InitiateTransferTask: Cancellable {
 
     /// Represents an authentication that needs to be completed by the user.
     ///
-    /// - Note: Each case have an associated tasks which need to be completed by the user to continue the transfer initiation process.
+    /// - Note: Each case have an associated task which need to be completed by the user to continue the transfer initiation process.
     public enum AuthenticationTask {
         /// Indicates that there is additional information required from the user to proceed.
         ///
