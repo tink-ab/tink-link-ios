@@ -7,7 +7,7 @@ struct RESTTransferRequest: Codable {
 
     /// The amount that will be transferred. Should be positive.
     var amount: Double
-    /// The id of the Credentials used to make the transfer. For PIS with AIS will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.
+    /// The id of the Credentials used to make the transfer. For PIS with AIS it will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.
     var credentialsId: String?
     /// The currency of the amount to be transferred. Should match the SourceUri&#39;s currency.
     var currency: String

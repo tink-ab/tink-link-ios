@@ -24,7 +24,7 @@ public struct Transfer {
     let amount: Decimal
     /// The unique identifier of the transfer.
     let id: ID?
-    /// The id of the Credentials used to make the transfer. For PIS with AIS will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.
+    /// The id of the Credentials used to make the transfer. For PIS with AIS it will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.
     let credentialsID: Credentials.ID?
     /// The currency of the amount to be transferred. Should match the SourceUri's currency.
     let currency: CurrencyCode
@@ -32,7 +32,7 @@ public struct Transfer {
     let sourceMessage: String?
     /// The message to the recipient. Optional for bank transfers but required for payments. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
     let destinationMessage: String
-    /// The date when the payment or bank transfer should be executed. If no dueDate is given, it will be executed immediately.
+    /// The date when the payment or bank transfer should be executed. If no `dueDate` is given, it will be executed immediately.
     let dueDate: Date?
     /// The destination account or recipient of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
     let destinationUri: Beneficiary.URI

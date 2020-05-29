@@ -10,7 +10,7 @@ public final class TransferContext {
 
     /// Creates a context to use for initiating transfers.
     ///
-    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
+    /// - Parameter tink: Tink instance. Will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let transferService = RESTTransferService(client: tink.client)
         let credentialsService = RESTCredentialsService(client: tink.client)
@@ -58,10 +58,10 @@ public final class TransferContext {
     /// - Parameters:
     ///   - fromAccountWithURI: The URI for the source account of the transfer.
     ///   - toBeneficiaryWithURI: The URI of the beneficiary the transfer is sent to.
-    ///   - amount: The amount that should be transferred. It's `CurrencyCode` should be the same as the source account's currency.
+    ///   - amount: The amount that should be transferred. Its `CurrencyCode` should be the same as the source account's currency.
     ///   - message: The message used for the transfer.
     ///   - authentication: Indicates the authentication task for initiating a transfer.
-    ///   - progress: Optional, Indicates the state changes of initiating a transfer.
+    ///   - progress: Optional, indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
@@ -110,7 +110,7 @@ public final class TransferContext {
     /// Initiate a transfer for the user.
     ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
-    /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
+    /// Also, if needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.initiateTransfer(
@@ -140,10 +140,10 @@ public final class TransferContext {
     /// - Parameters:
     ///   - from: The source account of this transfer.
     ///   - to: The beneficiary of this transfer.
-    ///   - amount: The amount that should be transferred. It's `CurrencyCode` should be the same as the source account's currency.
+    ///   - amount: The amount that should be transferred. Its `CurrencyCode` should be the same as the source account's currency.
     ///   - message: The message used for the transfer.
     ///   - authentication: Indicates the authentication task for initiating a transfer.
-    ///   - progress: Optional, Indicates the state changes of initiating a transfer.
+    ///   - progress: Optional, indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
