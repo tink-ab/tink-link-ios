@@ -206,12 +206,11 @@ public final class TransferContext {
     /// The beneficiaries will be grouped by account id.
     ///
     /// - Parameter completion: A result representing either a list of account ID and beneficiaries pair or an error.
-    public func fetchBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
+    public func fetchBeneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         transferService.beneficiaries() { result in
             do {
                 let beneficiaries = try result.get()
-                let groupedBeneficiariesByAccountID = Dictionary(grouping: beneficiaries, by: \.ownerAccountID)
-                completion(.success(groupedBeneficiariesByAccountID))
+                completion(.success(beneficiaries))
             } catch {
                 completion(.failure(error))
             }
