@@ -32,7 +32,7 @@ public struct Transfer {
     let sourceMessage: String?
     /// The message to the recipient. Optional for bank transfers but required for payments. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
     let destinationMessage: String
-    /// The date when the payment or bank transfer should be executed. If no dueDate is given, it will be executed immediately.
+    /// The date when the payment or bank transfer should be executed. If no `dueDate` is given, it will be executed immediately.
     let dueDate: Date?
     /// The destination account or recipient of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
     let destinationUri: URL
