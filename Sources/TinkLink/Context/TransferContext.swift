@@ -61,7 +61,7 @@ public final class TransferContext {
     ///   - amount: The amount that should be transferred. Its `CurrencyCode` should be the same as the source account's currency.
     ///   - message: The message used for the transfer.
     ///   - authentication: Indicates the authentication task for initiating a transfer.
-    ///   - progress: Optional, Indicates the state changes of initiating a transfer.
+    ///   - progress: Optional, indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
@@ -143,7 +143,7 @@ public final class TransferContext {
     ///   - amount: The amount that should be transferred. Its `CurrencyCode` should be the same as the source account's currency.
     ///   - message: The message used for the transfer.
     ///   - authentication: Indicates the authentication task for initiating a transfer.
-    ///   - progress: Optional, Indicates the state changes of initiating a transfer.
+    ///   - progress: Optional, indicates the state changes of initiating a transfer.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
