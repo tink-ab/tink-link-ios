@@ -89,7 +89,7 @@ extension TransferViewController {
         initiateTransferTask = transferContext.initiateTransfer(
             from: account,
             to: beneficiary,
-            amount: CurrencyDenominatedAmount(value: amount, currencyCode: currencyCode),
+            amount: CurrencyDenominatedAmount(amount, currencyCode: currencyCode),
             message: .init(destination: message),
             authentication: { [weak self] status in
                 DispatchQueue.main.async {
@@ -113,7 +113,7 @@ extension TransferViewController {
         initiateTransferTask = transferContext.initiateTransfer(
             fromAccountWithURI: accountURI,
             toBeneficiaryWithURI: beneficiaryURI,
-            amount: CurrencyDenominatedAmount(value: amount, currencyCode: currencyCode),
+            amount: CurrencyDenominatedAmount(amount, currencyCode: currencyCode),
             message: .init(destination: message),
             authentication: { [weak self] status in
                 DispatchQueue.main.async {

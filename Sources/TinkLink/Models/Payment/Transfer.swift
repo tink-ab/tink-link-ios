@@ -21,7 +21,7 @@ public struct Transfer {
     }
 
     /// The amount that will be transferred. Should be positive.
-    let amount: ExactNumber
+    let amount: Decimal
     /// The unique identifier of the transfer.
     let id: ID?
     /// The id of the Credentials used to make the transfer. For PIS with AIS will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.

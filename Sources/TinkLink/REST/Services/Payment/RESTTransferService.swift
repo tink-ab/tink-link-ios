@@ -33,7 +33,7 @@ final class RESTTransferService: TransferService {
 
     func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         let body = RESTTransferRequest(
-            amount: transfer.amount.doubleValue,
+            amount: NSDecimalNumber(decimal: transfer.amount).doubleValue,
             credentialsId: transfer.credentialsID?.value,
             currency: transfer.currency.value,
             destinationMessage: transfer.destinationMessage,
