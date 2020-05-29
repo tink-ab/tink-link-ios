@@ -203,18 +203,15 @@ public final class TransferContext {
 
     /// Fetch all beneficiaries of the user.
     ///
-    /// The beneficiaries will be grouped by account id.
+    /// The result list may include duplicate beneficiaries for different source accounts.
+    /// You can group the list by account id as follow:
     ///
-    /// - Parameter completion: A result representing either a list of account ID and beneficiaries pair or an error.
-    public func fetchBeneficiaries(completion: @escaping (Result<[Account.ID: [Beneficiary]], Error>) -> Void) -> RetryCancellable? {
-        transferService.beneficiaries() { result in
-            do {
-                let beneficiaries = try result.get()
-                let groupedBeneficiariesByAccountID = Dictionary(grouping: beneficiaries, by: \.ownerAccountID)
-                completion(.success(groupedBeneficiariesByAccountID))
-            } catch {
-                completion(.failure(error))
-            }
-        }
+    /// ```swift
+    /// let groupedBeneficiariesByAccountID = Dictionary(grouping: fetchedBeneficiaries, by: \.ownerAccountID)
+    /// ```
+    ///
+    /// - Parameter completion: A result representing either a list of beneficiaries or an error.
+    public func fetchBeneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
+        transferService.beneficiaries(completion: completion)
     }
 }
