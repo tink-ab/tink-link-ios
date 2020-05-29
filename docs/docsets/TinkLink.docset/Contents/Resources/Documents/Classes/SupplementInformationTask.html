@@ -14,7 +14,7 @@
     <a title="SupplementInformationTask Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">TinkLink 0.11.1 Docs</a> (78% documented)</p>
+        <p><a href="../index.html">TinkLink 0.12.0 Docs</a> (83% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -59,6 +59,24 @@
                 <a href="../Classes/CredentialsContext.html">CredentialsContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/InitiateTransferTask.html">InitiateTransferTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InitiateTransferTask/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InitiateTransferTask/AuthenticationTask.html">– AuthenticationTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InitiateTransferTask/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InitiateTransferTask/Receipt.html">– Receipt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InitiateTransferTask/Message.html">– Message</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/ProviderContext.html">ProviderContext</a>
               </li>
               <li class="nav-group-task">
@@ -93,6 +111,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Tink/UserError.html">– UserError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TransferContext.html">TransferContext</a>
               </li>
             </ul>
           </li>
@@ -139,7 +160,25 @@
                 <a href="../Structs/AccessToken.html">AccessToken</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/Account.html">Account</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Account/Kind.html">– Kind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Account/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Account/URI.html">– URI</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/AuthorizationCode.html">AuthorizationCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Beneficiary.html">Beneficiary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Beneficiary/URI.html">– URI</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ClientDescription.html">ClientDescription</a>
@@ -158,6 +197,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Credentials/ThirdPartyAppAuthentication.html">– ThirdPartyAppAuthentication</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CurrencyCode.html">CurrencyCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CurrencyDenominatedAmount.html">CurrencyDenominatedAmount</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Form.html">Form</a>
@@ -241,7 +286,16 @@
                 <a href="../Structs/ScopeDescription.html">ScopeDescription</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/Transfer.html">Transfer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Transfer/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/User.html">User</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/User/ID.html">– ID</a>
               </li>
             </ul>
           </li>
@@ -271,14 +325,14 @@
 
                 </div>
               </div>
-            <p>A task that handles submitting supplemental information for a credentials.</p>
+            <p>A task that handles submitting supplemental information.</p>
 
-<p>This task is provided when an <code><a href="../Classes/AddCredentialsTask.html">AddCredentialsTask</a></code>&lsquo;s status changes to <code>awaitingSupplementalInformation</code>.</p>
+<p>This task is provided when e.g. an <code><a href="../Classes/AddCredentialsTask.html">AddCredentialsTask</a></code>&lsquo;s status changes to <code>awaitingSupplementalInformation</code>.</p>
 
-<p>When a credentials&rsquo; status is <code>awaitingSupplementalInformation</code> the user needs to provide additional information to finish adding the credentials.</p>
+<p>When a task&rsquo;s status is <code>awaitingSupplementalInformation</code> the user needs to provide additional information to finish the task.</p>
 
-<p>Create a form for the provided credential.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">form</span> <span class="o">=</span> <span class="kt">Form</span><span class="p">(</span><span class="nv">credential</span><span class="p">:</span> <span class="n">supplementInformationTask</span><span class="o">.</span><span class="n">credential</span><span class="p">)</span>
+<p>Create a form for the provided task.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">form</span> <span class="o">=</span> <span class="kt">Form</span><span class="p">(</span><span class="nv">supplementInformationTask</span><span class="p">:</span> <span class="n">supplementInformationTask</span><span class="p">)</span>
 <span class="n">form</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">String</span><span class="err">#</span><span class="o">&gt;</span>
 <span class="n">form</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">String</span><span class="err">#</span><span class="o">&gt;</span>
 </code></pre>
@@ -292,7 +346,7 @@
 <span class="p">}</span>
 </code></pre>
 
-<p>After submitting the form new status updates will sent to the <code>progressHandler</code> in the <code>addCredential</code> call.</p>
+<p>After submitting the form, the parent task will continue.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     If the user dismiss supplementing information, by e.g. closing the form, you need to call <code>cancel()</code> to stop adding the credentials.
@@ -337,7 +391,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.1/Sources/TinkLink/Tasks/SupplementInformationTask.swift#L36">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.12.0/Sources/TinkLink/Tasks/SupplementInformationTask.swift#L36">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -399,7 +453,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.1/Sources/TinkLink/Tasks/SupplementInformationTask.swift#L51-L56">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.12.0/Sources/TinkLink/Tasks/SupplementInformationTask.swift#L51-L56">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -444,7 +498,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.11.1/Sources/TinkLink/Tasks/SupplementInformationTask.swift#L63-L73">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.12.0/Sources/TinkLink/Tasks/SupplementInformationTask.swift#L63-L73">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -454,7 +508,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-05-13)</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-05-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

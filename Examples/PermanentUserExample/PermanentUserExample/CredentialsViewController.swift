@@ -38,6 +38,12 @@ extension CredentialsViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredentials))
 
+        toolbarItems = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Transfer", style: .plain, target: self, action: #selector(transfer)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        ]
+
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
         
         tableView.refreshControl = UIRefreshControl()
@@ -68,7 +74,7 @@ extension CredentialsViewController {
                     let providers = try result.get()
                     self?.providersByID = Dictionary(grouping: providers, by: { $0.id }).compactMapValues({ $0.first })
                 } catch {
-                    // Handle any errors
+                    self?.showAlert(for: error)
                 }
             }
         }
@@ -105,6 +111,12 @@ extension CredentialsViewController {
 
     @objc private func cancelAddingCredentials(_ sender: Any) {
         dismiss(animated: true)
+    }
+
+    @objc private func transfer(_ sender: UIBarButtonItem) {
+        let transferViewController = TransferViewController()
+        let navigationController = UINavigationController(rootViewController: transferViewController)
+        present(navigationController, animated: true)
     }
 }
 
@@ -154,7 +166,7 @@ extension CredentialsViewController {
                     _ = try result.get()
                     self?.credentialsList.remove(at: indexPath.item)
                 } catch {
-                    // Handle any errors
+                    self?.showAlert(for: error)
                 }
             }
         }

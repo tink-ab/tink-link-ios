@@ -1,20 +1,24 @@
 import Foundation
 
-class CredentialsStatusPollingTask {
-    private var service: CredentialsService
-    private var callRetryCancellable: RetryCancellable?
-    private var retryInterval: TimeInterval = 1
-    private var credentials: Credentials
-    private var updateHandler: (Result<Credentials, Error>) -> Void
-
+final class PollingTask<ID, Model> {
+    private let request: (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?
+    private let id: ID
+    private let predicate: (_ old: Model, _ new: Model) -> Bool
+    private let updateHandler: (Result<Model, Error>) -> Void
     private let applicationObserver = ApplicationObserver()
+    private let retryInterval: TimeInterval = 1
+
+    private var responseValue: Model?
+    private var callRetryCancellable: RetryCancellable?
 
     private var isPaused = true
     private var isActive = true
 
-    init(credentialsService: CredentialsService, credentials: Credentials, updateHandler: @escaping (Result<Credentials, Error>) -> Void) {
-        self.service = credentialsService
-        self.credentials = credentials
+    init(id: ID, initialValue: Model?, request: @escaping (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?, predicate: @escaping (_ old: Model, _ new: Model) -> Bool, updateHandler: @escaping (Result<Model, Error>) -> Void) {
+        self.id = id
+        self.responseValue = initialValue
+        self.predicate = predicate
+        self.request = request
         self.updateHandler = updateHandler
 
         applicationObserver.didBecomeActive = { [weak self] in
@@ -39,35 +43,32 @@ class CredentialsStatusPollingTask {
         }
 
         isPaused = false
-        retryInterval = 1
         DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) {
             self.pollStatus()
         }
     }
 
     private func pollStatus() {
-
         if isPaused || !isActive {
             return
         }
 
-        self.callRetryCancellable = self.service.credentials(id: self.credentials.id) { [weak self] result in
+        callRetryCancellable = request(id) { [weak self] result in
             guard let self = self else { return }
             self.callRetryCancellable = nil
             do {
-                let credentials = try result.get()
+                let newValue = try result.get()
 
                 defer {
                     self.retry()
                 }
 
-                // Only call updateHandler if status has actually changed.
-                guard credentials.statusUpdated != self.credentials.statusUpdated || credentials.status != self.credentials.status else {
+                if let oldValue = self.responseValue, !self.predicate(oldValue, newValue) {
                     return
                 }
 
-                self.credentials = credentials
-                self.updateHandler(.success(credentials))
+                self.responseValue = newValue
+                self.updateHandler(.success(newValue))
             } catch {
                 self.updateHandler(.failure(error))
             }
@@ -85,4 +86,5 @@ class CredentialsStatusPollingTask {
         callRetryCancellable?.cancel()
         isPaused = true
     }
+
 }

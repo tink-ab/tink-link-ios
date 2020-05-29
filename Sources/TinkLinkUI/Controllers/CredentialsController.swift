@@ -3,16 +3,15 @@ import Foundation
 
 final class CredentialsController {
     let tink: Tink
-    private(set) var credentialsContext: CredentialsContext?
+    private(set) lazy var credentialsContext = CredentialsContext(tink: tink)
 
     init(tink: Tink) {
         self.tink = tink
-        self.credentialsContext = CredentialsContext(tink: tink)
     }
 
     func addCredentials(_ provider: Provider, form: Form, scopes: [Scope], progressHandler: @escaping (AddCredentialsTask.Status) -> Void, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask? {
         tink._beginUITask()
-        return credentialsContext?.add(
+        return credentialsContext.add(
             for: provider,
             form: form,
             refreshableItems: RefreshableItems.makeRefreshableItems(scopes: scopes, provider: provider),
@@ -23,5 +22,58 @@ final class CredentialsController {
                 completion(result)
             }
         )
+    }
+
+    func update(
+        _ credentials: Credentials,
+        form: Form? = nil,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+        progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
+        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
+    ) -> UpdateCredentialsTask? {
+        tink._beginUITask()
+        return credentialsContext.update(
+            credentials,
+            form: form,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
+            progressHandler: progressHandler,
+            completion: { [weak tink] result in
+                tink?._endUITask()
+                completion(result)
+            }
+       )
+    }
+
+    func refresh(
+        _ credentials: Credentials,
+        refreshableItems: RefreshableItems = .all,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+        progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
+        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
+    ) -> RefreshCredentialsTask {
+        tink._beginUITask()
+        return credentialsContext.refresh(
+            credentials,
+            refreshableItems: refreshableItems,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
+            progressHandler: progressHandler,
+            completion: { [weak tink] result in
+                tink?._endUITask()
+                completion(result)
+            }
+        )
+    }
+
+    public func authenticate(
+        _ credentials: Credentials,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+        progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
+        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
+    ) -> AuthenticateCredentialsTask {
+        tink._beginUITask()
+        return credentialsContext.authenticate(credentials, progressHandler: progressHandler) { [weak tink] result in
+            tink?._endUITask()
+            completion(result)
+        }
     }
 }

@@ -342,6 +342,15 @@ extension Form {
         }
         self.init(fieldSpecifications: fieldSpecifications)
     }
+
+    /// Creates a form for the given task.
+    ///
+    /// This creates a form to use for supplementing information.
+    ///
+    /// - Parameter supplementInformationTask: The supplemental information task to create a form for.
+    public init(supplementInformationTask: SupplementInformationTask) {
+        self.init(credentials: supplementInformationTask.credentials)
+    }
 }
 
 extension Form.Fields {

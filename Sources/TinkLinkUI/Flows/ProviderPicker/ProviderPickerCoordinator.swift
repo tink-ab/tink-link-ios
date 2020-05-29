@@ -26,7 +26,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func start(completion: @escaping ((Result<Provider, Error>) -> Void)) {
         DispatchQueue.main.async {
-            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: NSLocalizedString("ProviderPicker.List.FinancialInstitutionsTitle", tableName: "TinkLinkUI", bundle: .tinkLinkUI, value: "Choose bank", comment: "Title for list of all providers."))
+            self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: Strings.ProviderPicker.List.financialInstitutionsTitle)
         }
         
         self.completion = completion
