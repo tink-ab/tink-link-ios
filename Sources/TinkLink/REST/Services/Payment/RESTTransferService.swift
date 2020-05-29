@@ -41,8 +41,8 @@ final class RESTTransferService: TransferService {
             sourceMessage: transfer.sourceMessage,
             dueDate: transfer.dueDate,
             messageType: nil,
-            destinationUri: transfer.destinationUri.absoluteString,
-            sourceUri: transfer.sourceUri.absoluteString,
+            destinationUri: transfer.destinationUri,
+            sourceUri: transfer.sourceUri,
             redirectUri: redirectURI.absoluteString
         )
         do {
