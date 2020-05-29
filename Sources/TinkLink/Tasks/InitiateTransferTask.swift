@@ -10,7 +10,7 @@ public final class InitiateTransferTask: Cancellable {
 
     /// Indicates the status of a transfer initiation.
     public enum Status {
-        /// Initial status
+        /// The transfer request has been created.
         case created(Transfer.ID)
         /// The user needs to be authenticated.
         case authenticating
