@@ -12,7 +12,7 @@ public final class InitiateTransferTask: Cancellable {
     public enum Status {
         /// Initial status
         case created(Transfer.ID)
-        /// When starting the authentication process
+        /// The user needs to be authenticated.
         case authenticating
         /// User has been successfully authenticated, the transfer initiation is now being executed.
         case executing(status: String)
