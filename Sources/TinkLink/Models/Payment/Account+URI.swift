@@ -4,8 +4,20 @@ extension Account {
     /// A type representing the URI for making transfers.
     ///
     /// A URI is composed with two parts, a kind with value of e.g. `iban` and an account number.
-    public struct URI {
-        let uri: URL
+    public struct URI: Equatable, ExpressibleByStringLiteral {
+        /// The `String` that represent the URI.
+        public let value: String
+
+        /// Creates a kind.
+        /// - Parameter value: The `String` that represents the URI.
+        public init(_ value: String) {
+            self.value = value
+        }
+
+        public init(stringLiteral value: String) {
+            self.value = value
+        }
+
     }
 }
 
@@ -48,7 +60,7 @@ extension Account.URI {
 
         guard let uri = urlComponents.url else { return nil }
 
-        self.init(uri: uri)
+        self.value = uri.absoluteString
     }
 }
 
@@ -58,6 +70,6 @@ extension Account.URI {
     public init?(account: Account) {
         guard let uri = account.transferSourceIdentifiers?.first else { return  nil }
 
-        self.init(uri: uri)
+        self.value = uri.absoluteString
     }
 }
