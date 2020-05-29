@@ -5,23 +5,23 @@ public struct Account {
 
     /// The kind of the account.
     public enum Kind {
-        /// A checking account
+        /// A checking account.
         case checking
-        /// A savings account
+        /// A savings account.
         case savings
-        /// An investment account
+        /// An investment account.
         case investment
-        /// A mortgage account
+        /// A mortgage account.
         case mortgage
-        /// A creditCard account
+        /// A creditCard account.
         case creditCard
-        /// A loan account
+        /// A loan account.
         case loan
-        /// A pension account
+        /// A pension account.
         case pension
-        /// Other type account
+        /// Other type account.
         case other
-        /// An external account
+        /// An external account.
         case external
     }
 
