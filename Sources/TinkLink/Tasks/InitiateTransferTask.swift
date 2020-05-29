@@ -14,7 +14,7 @@ public final class InitiateTransferTask: Cancellable {
         case created(Transfer.ID)
         /// When starting the authentication process
         case authenticating
-        /// User has been successfully authenticated, now executing the transfer initiation.
+        /// User has been successfully authenticated, the transfer initiation is now being executed.
         case executing(status: String)
     }
 
