@@ -65,6 +65,7 @@ extension TransferViewController {
     }
     
     @objc private func transfer(_ sender: Any) {
+        view.endEditing(false)
         guard
             let sourceAccount = sourceAccount,
             let balance = sourceAccount.currencyDenominatedBalance,
@@ -79,6 +80,7 @@ extension TransferViewController {
     }
 
     @objc private func cancel(_ sender: Any) {
+        view.endEditing(false)
         initiateTransferTask?.cancel()
         dismiss(animated: true)
     }
