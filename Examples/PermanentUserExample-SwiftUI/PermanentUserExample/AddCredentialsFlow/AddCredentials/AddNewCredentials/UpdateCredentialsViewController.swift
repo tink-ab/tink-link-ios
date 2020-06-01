@@ -187,8 +187,8 @@ extension UpdateCredentialsViewController {
         switch status {
         case .authenticating:
             showUpdating(status: "Authenticating…")
-        case .updating(let status):
-            showUpdating(status: status)
+        case .updating:
+            showUpdating(status: "Connecting…")
         case .awaitingSupplementalInformation(let task):
             showSupplementalInformation(for: task)
         case .awaitingThirdPartyAppAuthentication(let task):

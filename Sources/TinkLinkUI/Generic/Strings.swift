@@ -33,6 +33,10 @@ enum Strings {
 
             /// Message for error shown when credentials already exists.
             static let credentialsAlreadyExistsDetail = NSLocalizedString("AddCredentials.Error.CredentialsAlreadyExists.FailureReason", tableName: tableName, bundle: bundle, value: "You already have a connection to this bank or service.", comment: "Message for error shown when credentials already exists.")
+
+            /// Title for error shown when credentials already exists.
+            static let credentialsDisabled =
+                NSLocalizedString("AddCredentials.Error.Disabled", tableName: tableName, bundle: bundle, value: "Error", comment: "Title for error shown when credentials is disabled.")
         }
 
         enum Form {

@@ -194,6 +194,9 @@ public struct Form {
 
         /// Attributes to apply to a UI element that will represent a field.
         public struct Attributes {
+            /// Input type for a field.
+            ///
+            /// Represents the different input types a field can have.
             public enum InputType {
                 /// An input type suitable for normal text input.
                 case `default`
