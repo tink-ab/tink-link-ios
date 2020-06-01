@@ -20,6 +20,12 @@ class MockedSuccessTransferService: TransferService {
     }
 
     @discardableResult
+    func addBeneficiaries(createBeneficiaryRequest: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        completion(.success)
+        return nil
+    }
+
+    @discardableResult
     func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         signableOperation = SignableOperation.createdSignableOperation
         completion(.success(SignableOperation.createdSignableOperation))
@@ -53,12 +59,16 @@ class MockedCancelledTransferService: TransferService {
 
     @discardableResult
     func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
-        return nil
+        fatalError("\(#function) should not be called")
     }
 
     @discardableResult
     func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        return nil
+        fatalError("\(#function) should not be called")
+    }
+
+    func addBeneficiaries(createBeneficiaryRequest: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        fatalError("\(#function) should not be called")
     }
 
     @discardableResult
@@ -98,6 +108,11 @@ class MockedUnauthenticatedErrorTransferService: TransferService {
     }
 
     func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
+        completion(.failure(ServiceError.unauthenticatedError))
+        return nil
+    }
+
+    func addBeneficiaries(createBeneficiaryRequest: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
