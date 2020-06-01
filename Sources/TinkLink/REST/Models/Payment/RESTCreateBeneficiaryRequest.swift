@@ -1,5 +1,6 @@
 import Foundation
 
+/// Initiates a request to add beneficiary to the given account belonging to the authenticated user.
 struct RESTCreateBeneficiaryRequest: Codable {
     /// The type of the `accountNumber` that this beneficiary has.
     var accountNumberType: String
