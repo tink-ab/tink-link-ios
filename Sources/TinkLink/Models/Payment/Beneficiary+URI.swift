@@ -68,7 +68,7 @@ extension Beneficiary.URI {
     /// - Parameter beneficiary: The beneficiary.
     public init?(beneficiary: Beneficiary) {
         var urlComponents = URLComponents()
-        urlComponents.scheme = beneficiary.accountNumberType
+        urlComponents.scheme = beneficiary.accountNumberKind
         urlComponents.host = beneficiary.accountNumber
         if let beneficiaryName = beneficiary.name, !beneficiaryName.isEmpty {
             urlComponents.queryItems = [URLQueryItem(name: "name", value: beneficiaryName)]
