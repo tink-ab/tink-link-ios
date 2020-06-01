@@ -65,7 +65,7 @@ final class ProviderController {
 
             self?.isFetching = false
             do {
-                let providers = try result.get()
+                let providers = try result.get().filter { $0.status == .enabled }
                 guard !providers.isEmpty else { throw Error.emptyProviderList }
                 NotificationCenter.default.post(name: .providerControllerDidFetchProviders, object: self)
                 let tree = ProviderTree(providers: providers)
