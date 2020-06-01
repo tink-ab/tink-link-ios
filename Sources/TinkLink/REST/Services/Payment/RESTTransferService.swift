@@ -31,13 +31,13 @@ final class RESTTransferService: TransferService {
         return client.performRequest(request)
     }
 
-    func addBeneficiaries(createBeneficiaryRequest: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         let body = RESTCreateBeneficiaryRequest(
-            accountNumberType: createBeneficiaryRequest.accountNumberType,
-            accountNumber: createBeneficiaryRequest.accountNumber,
-            name: createBeneficiaryRequest.name,
-            ownerAccountId: createBeneficiaryRequest.ownerAccountId.value,
-            credentialsId: createBeneficiaryRequest.credentialsId.value
+            accountNumberType: request.accountNumberKind,
+            accountNumber: request.accountNumber,
+            name: request.name,
+            ownerAccountId: request.ownerAccountID.value,
+            credentialsId: request.credentialsID.value
         )
         do {
             let data = try JSONEncoder().encode(body)
