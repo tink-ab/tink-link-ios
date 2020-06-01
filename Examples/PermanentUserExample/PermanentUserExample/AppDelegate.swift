@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let credentialsViewController = CredentialsViewController(style: .grouped)
         let navigationController = UINavigationController(rootViewController: credentialsViewController)
         navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.isToolbarHidden = false
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
