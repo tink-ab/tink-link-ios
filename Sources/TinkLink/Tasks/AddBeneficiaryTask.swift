@@ -70,6 +70,7 @@ public final class AddBeneficiaryTask: Cancellable {
     }
 
     public func cancel() {
+        callCanceller?.cancel()
         isCancelled = true
     }
 
