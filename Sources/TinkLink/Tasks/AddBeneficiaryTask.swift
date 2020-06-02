@@ -96,7 +96,7 @@ extension AddBeneficiaryTask {
         }
     }
 
-    func startObservingCredentials(id: Credentials.ID) {
+    private func startObservingCredentials(id: Credentials.ID) {
         if isCancelled { return }
 
         progressHandler(.created)
