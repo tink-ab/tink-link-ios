@@ -214,4 +214,31 @@ public final class TransferContext {
     public func fetchBeneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         transferService.beneficiaries(completion: completion)
     }
+
+    public func addBeneficiary(
+        to account: Account,
+        name: String,
+        accountNumberType: String,
+        accountNumber: String,
+        authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
+        progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
+        completion: @escaping (Result<Beneficiary, Error>) -> Void
+    ) -> AddBeneficiaryTask {
+        let task = AddBeneficiaryTask(
+            transferService: transferService,
+            credentialsService: credentialsService,
+            appUri: tink.configuration.redirectURI,
+            ownerAccount: account,
+            name: name,
+            accountNumberType: accountNumberType,
+            accountNumber: accountNumber,
+            progressHandler: progress,
+            authenticationHandler: authentication,
+            completionHandler: completion
+        )
+
+        task.start()
+
+        return task
+    }
 }
