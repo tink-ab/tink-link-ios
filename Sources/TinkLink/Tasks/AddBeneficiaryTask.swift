@@ -32,6 +32,7 @@ public final class AddBeneficiaryTask: Cancellable {
     var callCanceller: Cancellable?
 
     private var isCancelled = false
+    private var didComplete = false
 
     init(
         transferService: TransferService,
@@ -159,6 +160,9 @@ public final class AddBeneficiaryTask: Cancellable {
     }
 
     private func complete(with result: Result<Credentials, Swift.Error>) {
+        if didComplete { return }
+        defer { didComplete = true }
+        
         credentialsStatusPollingTask?.stopPolling()
         do {
             let credentials = try result.get()
