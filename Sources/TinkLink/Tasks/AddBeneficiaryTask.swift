@@ -110,7 +110,7 @@ public final class AddBeneficiaryTask: Cancellable {
                 thirdPartyAppAuthenticationTask = task
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
-                break
+                complete(with: .success(credentials))
             case .updated:
                 complete(with: .success(credentials))
             case .permanentError:
