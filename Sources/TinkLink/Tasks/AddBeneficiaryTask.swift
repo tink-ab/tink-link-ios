@@ -1,6 +1,7 @@
 import Foundation
 
 public final class AddBeneficiaryTask: Cancellable {
+    // MARK: Types
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
     public enum Authentication {
@@ -17,23 +18,29 @@ public final class AddBeneficiaryTask: Cancellable {
         case addingFailed(String)
     }
 
+    // MARK: Dependencies
     private let transferService: TransferService
     private let credentialsService: CredentialsService
+
+    // MARK: Properties
     private let appUri: URL
     private let sourceAccount: Account
     private let accountNumber: String
     private let authenticationHandler: (Authentication) -> Void
     private let completionHandler: (Result<Beneficiary, Swift.Error>) -> Void
 
+    // MARK: Tasks
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
     private var supplementInformationTask: SupplementInformationTask?
     private var thirdPartyAppAuthenticationTask: ThirdPartyAppAuthenticationTask?
 
     var callCanceller: Cancellable?
 
+    // MARK: State
     private var isCancelled = false
     private var didComplete = false
 
+    // MARK: Initializers
     init(
         transferService: TransferService,
         credentialsService: CredentialsService,
@@ -51,7 +58,11 @@ public final class AddBeneficiaryTask: Cancellable {
         self.authenticationHandler = authenticationHandler
         self.completionHandler = completionHandler
     }
+}
 
+// MARK: - Task Lifecycle
+
+extension AddBeneficiaryTask {
     func startObservingCredentials(for account: Account) {
         if isCancelled { return }
 
@@ -139,7 +150,11 @@ public final class AddBeneficiaryTask: Cancellable {
             complete(with: .failure(error))
         }
     }
+}
 
+// MARK: - Awaiting Authentication Helpers
+
+extension AddBeneficiaryTask {
     private func makeSupplementInformationTask(for credentials: Credentials, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> SupplementInformationTask {
         return SupplementInformationTask(credentialsService: credentialsService, credentials: credentials, completionHandler: completion)
     }
@@ -158,11 +173,15 @@ public final class AddBeneficiaryTask: Cancellable {
             completionHandler: completion
         )
     }
+}
 
+// MARK: - Task Completion
+
+extension AddBeneficiaryTask {
     private func complete(with result: Result<Credentials, Swift.Error>) {
         if didComplete { return }
         defer { didComplete = true }
-        
+
         credentialsStatusPollingTask?.stopPolling()
         do {
             let credentials = try result.get()
