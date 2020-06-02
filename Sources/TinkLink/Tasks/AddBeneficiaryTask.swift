@@ -17,8 +17,6 @@ public final class AddBeneficiaryTask: Cancellable {
 
     public enum Error: Swift.Error {
         case authenticationFailed(String)
-        case temporaryFailure(String)
-        case permanentFailure(String)
         case disabledCredentials(String)
         case credentialsSessionExpired(String)
         case notFound(String)
@@ -149,9 +147,9 @@ extension AddBeneficiaryTask {
         case .updated:
             complete(with: .success(credentials))
         case .permanentError:
-            throw Error.permanentFailure(credentials.statusPayload)
+            throw Error.authenticationFailed(credentials.statusPayload)
         case .temporaryError:
-            throw Error.temporaryFailure(credentials.statusPayload)
+            throw Error.authenticationFailed(credentials.statusPayload)
         case .authenticationError:
             var payload: String
             // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
