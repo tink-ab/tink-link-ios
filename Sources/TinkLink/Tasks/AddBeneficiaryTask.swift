@@ -156,7 +156,11 @@ extension AddBeneficiaryTask {
 
 extension AddBeneficiaryTask {
     private func makeSupplementInformationTask(for credentials: Credentials, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> SupplementInformationTask {
-        return SupplementInformationTask(credentialsService: credentialsService, credentials: credentials, completionHandler: completion)
+        return SupplementInformationTask(
+            credentialsService: credentialsService,
+            credentials: credentials,
+            completionHandler: completion
+        )
     }
 
     private func makeThirdPartyAppAuthenticationTask(for credentials: Credentials, completion: @escaping (Result<Void, Swift.Error>) -> Void) throws -> ThirdPartyAppAuthenticationTask {
