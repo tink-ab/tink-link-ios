@@ -201,16 +201,9 @@ extension AddBeneficiaryTask {
         do {
             let credentials = try result.get()
             progressHandler(.searching)
-            transferService.beneficiaries { [weak self, accountID = sourceAccount.id, accountNumber] (beneficiariesResult) in
+            fetchBeneficiary(accountID: sourceAccount.id, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
                 do {
-                    let beneficiaries = try beneficiariesResult.get()
-                    let beneficiary = beneficiaries.first(where: { beneficiary in
-                        // TODO: Check accountNumberType also.
-                        beneficiary.ownerAccountID == accountID && beneficiary.accountNumber == accountNumber
-                    })
-                    guard let addedBeneficiary = beneficiary else {
-                        throw Error.addingFailed("Could not find added beneficiary.")
-                    }
+                    let addedBeneficiary = try beneficiaryResult.get()
                     self?.completionHandler(.success(addedBeneficiary))
                 } catch {
                     self?.completionHandler(.failure(error))
@@ -218,6 +211,24 @@ extension AddBeneficiaryTask {
             }
         } catch {
             completionHandler(.failure(error))
+        }
+    }
+
+    private func fetchBeneficiary(accountID: Account.ID, accountNumber: String, completion: @escaping (Result<Beneficiary, Swift.Error>) -> Void) {
+        transferService.beneficiaries { result in
+            do {
+                let beneficiaries = try result.get()
+                let beneficiary = beneficiaries.first(where: { beneficiary in
+                    // TODO: Check accountNumberType also.
+                    beneficiary.ownerAccountID == accountID && beneficiary.accountNumber == accountNumber
+                })
+                guard let matchingBeneficiary = beneficiary else {
+                    throw Error.addingFailed("Could not find added beneficiary.")
+                }
+                completion(.success(matchingBeneficiary))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 }
