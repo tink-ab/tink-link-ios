@@ -31,6 +31,7 @@ public final class AddBeneficiaryTask: Cancellable {
     // MARK: Properties
     private let appUri: URL
     private let sourceAccount: Account
+    private let accountNumberType: String
     private let accountNumber: String
     private let progressHandler: (Status) -> Void
     private let authenticationHandler: (Authentication) -> Void
@@ -54,6 +55,7 @@ public final class AddBeneficiaryTask: Cancellable {
         credentialsService: CredentialsService,
         appUri: URL,
         sourceAccount: Account,
+        accountNumberType: String,
         accountNumber: String,
         progressHandler: @escaping (Status) -> Void,
         authenticationHandler: @escaping (Authentication) -> Void,
@@ -63,6 +65,7 @@ public final class AddBeneficiaryTask: Cancellable {
         self.credentialsService = credentialsService
         self.appUri = appUri
         self.sourceAccount = sourceAccount
+        self.accountNumberType = accountNumberType
         self.accountNumber = accountNumber
         self.progressHandler = progressHandler
         self.authenticationHandler = authenticationHandler
@@ -203,7 +206,7 @@ extension AddBeneficiaryTask {
         do {
             let credentials = try result.get()
             progressHandler(.searching)
-            fetchBeneficiary(accountID: sourceAccount.id, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
+            fetchBeneficiary(accountID: sourceAccount.id, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
                 do {
                     let addedBeneficiary = try beneficiaryResult.get()
                     self?.completionHandler(.success(addedBeneficiary))
@@ -216,13 +219,12 @@ extension AddBeneficiaryTask {
         }
     }
 
-    private func fetchBeneficiary(accountID: Account.ID, accountNumber: String, completion: @escaping (Result<Beneficiary, Swift.Error>) -> Void) {
+    private func fetchBeneficiary(accountID: Account.ID, accountNumberType: String, accountNumber: String, completion: @escaping (Result<Beneficiary, Swift.Error>) -> Void) {
         fetchBeneficiariesCanceller = transferService.beneficiaries { result in
             do {
                 let beneficiaries = try result.get()
                 let beneficiary = beneficiaries.first(where: { beneficiary in
-                    // TODO: Check accountNumberType also.
-                    beneficiary.ownerAccountID == accountID && beneficiary.accountNumber == accountNumber
+                    beneficiary.ownerAccountID == accountID && beneficiary.accountNumberType == accountNumberType && beneficiary.accountNumber == accountNumber
                 })
                 guard let matchingBeneficiary = beneficiary else {
                     throw Error.addingFailed("Could not find added beneficiary.")
