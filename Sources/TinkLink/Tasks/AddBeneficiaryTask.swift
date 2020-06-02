@@ -87,7 +87,12 @@ extension AddBeneficiaryTask {
         )
 
         callCanceller = transferService.addBeneficiary(request: request) { [weak self, credentialsID = sourceAccount.credentialsID] (result) in
-            self?.startObservingCredentials(id: credentialsID)
+            do {
+                try result.get()
+                self?.startObservingCredentials(id: credentialsID)
+            } catch {
+                self?.complete(with: .failure(error))
+            }
         }
     }
 
