@@ -32,7 +32,11 @@ class BeneficiaryPickerViewController: UITableViewController {
     deinit {
         addBeneficiaryTask?.cancel()
     }
+}
 
+// MARK: - View Lifecycle
+
+extension BeneficiaryPickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,7 +58,11 @@ class BeneficiaryPickerViewController: UITableViewController {
 
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
+}
 
+// MARK: - Actions
+
+extension BeneficiaryPickerViewController {
     @objc private func enterBeneficiary(_ sender: Any) {
         let alert = UIAlertController(title: "Enter Beneficiary URI", message: nil, preferredStyle: .alert)
         alert.addTextField { (textField) in
@@ -104,7 +112,11 @@ class BeneficiaryPickerViewController: UITableViewController {
         }))
         present(alert, animated: true)
     }
+}
 
+// MARK: - Adding a Beneficiary
+
+extension BeneficiaryPickerViewController {
     private func addBeneficiary(name: String, accountNumberType: String, accountNumber: String) {
         addBeneficiaryTask = transferContext.addBeneficiary(
             to: sourceAccount,
@@ -145,7 +157,11 @@ class BeneficiaryPickerViewController: UITableViewController {
         let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
         show(navigationController, sender: nil)
     }
+}
 
+// MARK: - UITableViewDataSource
+
+extension BeneficiaryPickerViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return beneficiaries.count
     }
