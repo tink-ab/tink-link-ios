@@ -29,6 +29,8 @@ public final class AddBeneficiaryTask: Cancellable {
     private var supplementInformationTask: SupplementInformationTask?
     private var thirdPartyAppAuthenticationTask: ThirdPartyAppAuthenticationTask?
 
+    var callCanceller: Cancellable?
+
     private var isCancelled = false
 
     init(

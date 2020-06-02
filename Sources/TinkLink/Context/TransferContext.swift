@@ -240,7 +240,7 @@ public final class TransferContext {
             ownerAccountID: account.id,
             credentialsID: account.credentialsID
         )
-        transferService.addBeneficiary(request: request) { (result) in
+        task.callCanceller = transferService.addBeneficiary(request: request) { (result) in
             task.startObservingCredentials(for: account)
         }
 
