@@ -219,7 +219,12 @@ extension AddBeneficiaryTask {
         }
     }
 
-    private func fetchBeneficiary(accountID: Account.ID, accountNumberType: String, accountNumber: String, completion: @escaping (Result<Beneficiary, Swift.Error>) -> Void) {
+    private func fetchBeneficiary(
+        accountID: Account.ID,
+        accountNumberType: String,
+        accountNumber: String,
+        completion: @escaping (Result<Beneficiary, Swift.Error>) -> Void
+    ) {
         fetchBeneficiariesCanceller = transferService.beneficiaries { result in
             do {
                 let beneficiaries = try result.get()
