@@ -102,6 +102,7 @@ public class TinkLinkViewController: UINavigationController {
     private let operation: Operation
     private var userSession: UserSession?
     private var authorizationCode: AuthorizationCode?
+    private var userHasConnected: Bool = false
 
     /// The prefilling strategy to use.
     public var prefill: PrefillStrategy = .none
@@ -325,7 +326,7 @@ public class TinkLinkViewController: UINavigationController {
             return
         }
 
-        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, clientDescription: clientDescription, action: operation, completion: { [weak self] result in
+        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, delegate: self, clientDescription: clientDescription, action: operation, completion: { [weak self] result in
             let mappedResult = result.map { (credentials, code) -> ResultType in
                 if let code = code {
                     return .authorizationCode(code)
@@ -544,5 +545,13 @@ extension TinkLinkViewController: CredentialsCoordinatorPresenting {
         } else {
             show(viewController, sender: self)
         }
+    }
+}
+
+// MARK: - CredentialsCoordinatorCompletionDelegate
+extension TinkLinkViewController: CredentialsCoordinatorCompletionDelegate {
+    /// :nodoc:
+    func didFinishCredentialsForm(isCancellingAllowed: Bool) {
+        userHasConnected = isCancellingAllowed
     }
 }
