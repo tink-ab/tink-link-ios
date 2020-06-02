@@ -15,6 +15,7 @@ class BeneficiaryPickerViewController: UITableViewController {
     private var beneficiaries: [Beneficiary]
     private let selectedBeneficiary: Beneficiary?
     private var canceller: RetryCancellable?
+    private var addBeneficiaryTask: AddBeneficiaryTask?
 
     init(sourceAccount: Account, selectedBeneficiary: Beneficiary? = nil) {
         self.sourceAccount = sourceAccount
@@ -95,8 +96,22 @@ class BeneficiaryPickerViewController: UITableViewController {
                 let accountNumberType = alert.textFields?[1].text,
                 let accountNumber = alert.textFields?[2].text
                 else { return }
+            self.addBeneficiary(name: name, accountNumberType: accountNumberType, accountNumber: accountNumber)
         }))
         present(alert, animated: true)
+    }
+
+    private func addBeneficiary(name: String, accountNumberType: String, accountNumber: String) {
+        addBeneficiaryTask = transferContext.addBeneficiary(
+            to: sourceAccount,
+            name: name,
+            accountNumberType: accountNumberType,
+            accountNumber: accountNumber,
+            authentication: { [weak self] task in
+            },
+            completion: { [weak self] result in
+            }
+        )
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
