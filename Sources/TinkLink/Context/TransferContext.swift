@@ -233,9 +233,16 @@ public final class TransferContext {
             completionHandler: completion
         )
 
-        // TODO: Call beneficiary service
-
-        task.startObservingCredentials(for: account)
+        let request = CreateBeneficiaryRequest(
+            accountNumberType: accountNumberType,
+            accountNumber: accountNumber,
+            name: name,
+            ownerAccountID: account.id,
+            credentialsID: account.credentialsID
+        )
+        transferService.addBeneficiary(request: request) { (result) in
+            task.startObservingCredentials(for: account)
+        }
 
         return task
     }
