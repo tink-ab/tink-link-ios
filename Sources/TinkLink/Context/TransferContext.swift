@@ -221,6 +221,7 @@ public final class TransferContext {
         accountNumberType: String,
         accountNumber: String,
         authentication: @escaping (AddBeneficiaryTask.Authentication) -> Void,
+        progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (Result<Beneficiary, Error>) -> Void
     ) -> AddBeneficiaryTask {
         let task = AddBeneficiaryTask(
@@ -229,7 +230,7 @@ public final class TransferContext {
             appUri: tink.configuration.redirectURI,
             sourceAccount: account,
             accountNumber: accountNumber,
-            progressHandler: { _ in },
+            progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
         )
