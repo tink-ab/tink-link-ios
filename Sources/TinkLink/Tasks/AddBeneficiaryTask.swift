@@ -21,7 +21,7 @@ public final class AddBeneficiaryTask: Cancellable {
         case permanentFailure(String)
         case disabledCredentials(String)
         case sessionExpired(String)
-        case addingFailed(String)
+        case notFound(String)
     }
 
     // MARK: Dependencies
@@ -232,7 +232,7 @@ extension AddBeneficiaryTask {
                     beneficiary.ownerAccountID == accountID && beneficiary.accountNumberType == accountNumberType && beneficiary.accountNumber == accountNumber
                 })
                 guard let matchingBeneficiary = beneficiary else {
-                    throw Error.addingFailed("Could not find added beneficiary.")
+                    throw Error.notFound("Could not find added beneficiary.")
                 }
                 completion(.success(matchingBeneficiary))
             } catch {
