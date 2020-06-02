@@ -204,7 +204,7 @@ extension AddBeneficiaryTask {
 
         credentialsStatusPollingTask?.stopPolling()
         do {
-            let credentials = try result.get()
+            _ = try result.get()
             progressHandler(.searching)
             fetchBeneficiary(accountID: sourceAccount.id, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
                 do {
