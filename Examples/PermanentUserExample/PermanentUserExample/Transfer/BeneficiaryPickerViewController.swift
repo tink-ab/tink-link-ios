@@ -91,7 +91,7 @@ class BeneficiaryPickerViewController: UITableViewController {
             textField.autocapitalizationType = .none
         }
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
             guard let name = alert.textFields?[0].text,
                 let accountNumberType = alert.textFields?[1].text,
                 let accountNumber = alert.textFields?[2].text
