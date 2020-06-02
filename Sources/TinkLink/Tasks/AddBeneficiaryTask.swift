@@ -216,7 +216,6 @@ extension AddBeneficiaryTask {
                     self?.completionHandler(.failure(error))
                 }
             }
-            // TODO: Fetch beneficiaries endpoint and get added beneficiary.
         } catch {
             completionHandler(.failure(error))
         }
