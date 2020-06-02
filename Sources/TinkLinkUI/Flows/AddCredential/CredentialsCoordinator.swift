@@ -2,7 +2,8 @@ import UIKit
 import TinkLink
 
 protocol CredentialsCoordinatorPresenting: AnyObject {
-    func showLoadingIndicator(isCancellingAllowed: Bool)
+    func showLoadingIndicator(text: String?, isCancellingAllowed: Bool)
+    func hideLoadingIndicator()
     func show(_ viewController: UIViewController)
     func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
     func dismiss(animated: Bool, completion: (() -> Void)?)
@@ -70,7 +71,7 @@ final class CredentialsCoordinator {
                     self.handleCompletion(for: result.map { ($0, nil) } )
                 }
             }
-            presenter?.showLoadingIndicator(isCancellingAllowed: false)
+            presenter?.showLoadingIndicator(text: nil, isCancellingAllowed: false)
 
         case .refresh(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -79,7 +80,7 @@ final class CredentialsCoordinator {
                     self.handleCompletion(for: result.map { ($0, nil) } )
                 }
             }
-            presenter?.showLoadingIndicator(isCancellingAllowed: false)
+            presenter?.showLoadingIndicator(text: nil, isCancellingAllowed: false)
 
         case .update(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -91,12 +92,13 @@ final class CredentialsCoordinator {
                     self.presenter?.show(credentialsViewController)
                 }
             }
-            presenter?.showLoadingIndicator(isCancellingAllowed: true)
+            presenter?.showLoadingIndicator(text: nil, isCancellingAllowed: true)
         }
     }
 
     private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
         do {
+            presenter?.hideLoadingIndicator()
             let values = try result.get()
             delegate?.didFinishCredentialsForm()
             showAddCredentialSuccess(with: .success(values), for: action)

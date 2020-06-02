@@ -27,6 +27,7 @@ final class AddCredentialsSession {
             return false
         }
     }
+    private var showFullscreenLoadingIndicator = true
     private var authorizationGroup = DispatchGroup()
 
     private var providerID: Provider.ID?
@@ -262,12 +263,18 @@ extension AddCredentialsSession {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
-            self.presenter?.show(navigationController)
+            self.presenter?.present(navigationController, animated: true, completion: nil)
         }
     }
 
     private func showUpdating(status: String) {
         hideQRCodeViewIfNeeded {
+
+            guard !self.showFullscreenLoadingIndicator else {
+                self.presenter?.showLoadingIndicator(text: status, isCancellingAllowed: true)
+                return
+            }
+
             if let statusViewController = self.statusViewController {
                 if statusViewController.presentingViewController == nil {
                     self.presenter?.present(statusViewController, animated: true, completion: nil)

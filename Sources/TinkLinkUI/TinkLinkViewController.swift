@@ -114,6 +114,8 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
+
+    private var overlayView: UIView?
     private lazy var loadingViewController = LoadingViewController()
 
     private var credentialsCoordinator: CredentialsCoordinator?
@@ -194,8 +196,8 @@ public class TinkLinkViewController: UINavigationController {
         setupNavigationBarAppearance()
 
         view.backgroundColor = Color.background
-        loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-        setViewControllers([loadingViewController], animated: false)
+
+        showLoadingOverlay()
 
         presentationController?.delegate = self
         loadingViewController.delegate = self
@@ -203,8 +205,12 @@ public class TinkLinkViewController: UINavigationController {
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
 
+    public override func show(_ vc: UIViewController, sender: Any?) {
+        super.show(vc, sender: sender)
+        hideLoadingOverlay()
+    }
+
     private func start(userSession: UserSession?, authorizationCode: AuthorizationCode?) {
-        loadingViewController.showLoadingIndicator()
         tink._beginUITask()
         defer { tink._endUITask() }
         if let userSession = userSession {
@@ -291,10 +297,8 @@ public class TinkLinkViewController: UINavigationController {
 
         providerController.fetch(with: providerPredicate) { (result) in
             DispatchQueue.main.async {
-                self.loadingViewController.hideLoadingIndicator()
                 switch result {
                 case .success(let providers):
-                    self.setViewControllers([], animated: false)
                     switch providerPredicate {
                     case .kinds:
                         self.showProviderPicker()
@@ -319,10 +323,7 @@ public class TinkLinkViewController: UINavigationController {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.startCredentialCoordinator(with: operation)
             }
-            loadingViewController.showLoadingIndicator()
-            if viewControllers.last !== loadingViewController {
-                show(loadingViewController, sender: nil)
-            }
+            showLoadingOverlay()
             return
         }
 
@@ -529,22 +530,42 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
 
 extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 
-    func showLoadingIndicator(isCancellingAllowed: Bool) {
-        loadingViewController.navigationItem.rightBarButtonItem?.isEnabled = isCancellingAllowed
-        if topViewController is LoadingViewController {
-            return
-        }
+    func showLoadingIndicator(text: String?, isCancellingAllowed: Bool) {
+        showLoadingOverlay()
+    }
 
-        show(loadingViewController, sender: self)
+    func hideLoadingIndicator() {
+        hideLoadingOverlay()
     }
 
     func show(_ viewController: UIViewController) {
+        show(viewController, sender: self)
+    }
 
-        if topViewController is LoadingViewController {
-            replaceTopViewController(with: viewController, animated: true)
-        } else {
-            show(viewController, sender: self)
+    func showLoadingOverlay() {
+        guard overlayView == nil else {
+            return
         }
+
+        let overlay = UIView()
+        let loadingViewController = LoadingViewController()
+
+        view.addSubview(overlay)
+        overlay.frame = view.bounds
+        overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        loadingViewController.willMove(toParent: self)
+        overlay.addSubview(loadingViewController.view)
+        addChild(loadingViewController)
+        loadingViewController.didMove(toParent: self)
+        loadingViewController.showLoadingIndicator()
+        self.loadingViewController = loadingViewController
+        self.overlayView = overlay
+    }
+
+    func hideLoadingOverlay() {
+        loadingViewController.removeFromParent()
+        overlayView?.removeFromSuperview()
+        overlayView = nil
     }
 }
 
