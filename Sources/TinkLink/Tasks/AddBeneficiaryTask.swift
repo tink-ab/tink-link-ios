@@ -5,7 +5,7 @@ public final class AddBeneficiaryTask: Cancellable {
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
     public enum Status {
-        case created
+        case started
         case authenticating
         case searching
     }
@@ -89,7 +89,7 @@ extension AddBeneficiaryTask {
         callCanceller = transferService.addBeneficiary(request: request) { [weak self, credentialsID = sourceAccount.credentialsID] (result) in
             do {
                 try result.get()
-                self?.progressHandler(.created)
+                self?.progressHandler(.started)
                 self?.startObservingCredentials(id: credentialsID)
             } catch {
                 self?.complete(with: .failure(error))
