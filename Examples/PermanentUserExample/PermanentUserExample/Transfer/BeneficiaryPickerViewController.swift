@@ -114,6 +114,15 @@ class BeneficiaryPickerViewController: UITableViewController {
             authentication: { [weak self] task in
             },
             completion: { [weak self] result in
+                DispatchQueue.main.async {
+                    do {
+                        let beneficiary = try result.get()
+                        self?.beneficiaries.append(beneficiary)
+                        self?.tableView.reloadData()
+                    } catch {
+                        self?.showAlert(for: error)
+                    }
+                }
             }
         )
     }
