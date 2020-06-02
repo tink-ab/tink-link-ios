@@ -33,7 +33,7 @@ final class RESTTransferService: TransferService {
 
     func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         let body = RESTCreateBeneficiaryRequest(
-            accountNumberType: request.accountNumberKind,
+            accountNumberType: request.accountNumberType,
             accountNumber: request.accountNumber,
             name: request.name,
             ownerAccountId: request.ownerAccountID.value,

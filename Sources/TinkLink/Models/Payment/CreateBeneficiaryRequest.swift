@@ -3,8 +3,8 @@ import Foundation
 /// Initiates a request to add beneficiary to the given account belonging to the authenticated user.
 struct CreateBeneficiaryRequest {
     /// The type of the `accountNumber` that this beneficiary has.
-    var accountNumberKind: String
-    /// The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
+    var accountNumberType: String
+    /// The account number for the beneficiary. The structure of this field depends on the `accountNumberType`.
     var accountNumber: String
     /// The name chosen by the user for this beneficiary.
     var name: String
