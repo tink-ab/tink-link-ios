@@ -112,6 +112,9 @@ class BeneficiaryPickerViewController: UITableViewController {
             accountNumberType: accountNumberType,
             accountNumber: accountNumber,
             authentication: { [weak self] task in
+                DispatchQueue.main.async {
+                    self?.handleAddBeneficiaryAuthentication(task)
+                }
             },
             completion: { [weak self] result in
                 DispatchQueue.main.async {
@@ -125,6 +128,15 @@ class BeneficiaryPickerViewController: UITableViewController {
                 }
             }
         )
+    }
+
+    private func handleAddBeneficiaryAuthentication(_ authenticationTask: AddBeneficiaryTask.AuthenticationTask) {
+        switch authenticationTask {
+        case .awaitingSupplementalInformation(let task):
+            showSupplementalInformation(for: task)
+        case .awaitingThirdPartyAppAuthentication(let task):
+            task.handle()
+        }
     }
 
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
