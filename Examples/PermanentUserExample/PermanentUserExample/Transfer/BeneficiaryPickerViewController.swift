@@ -38,7 +38,7 @@ class BeneficiaryPickerViewController: UITableViewController {
 
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(enterBeneficiary)),
-            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBeneficiary)),
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBeneficiary(_:))),
         ]
 
         canceller = transferContext.fetchBeneficiaries(for: sourceAccount) { [weak self] result in
