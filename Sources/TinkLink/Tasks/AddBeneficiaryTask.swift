@@ -29,6 +29,7 @@ public final class AddBeneficiaryTask: Cancellable {
     // MARK: Properties
     private let appUri: URL
     private let sourceAccount: Account
+    private let name: String
     private let accountNumberType: String
     private let accountNumber: String
     private let progressHandler: (Status) -> Void
@@ -53,6 +54,7 @@ public final class AddBeneficiaryTask: Cancellable {
         credentialsService: CredentialsService,
         appUri: URL,
         sourceAccount: Account,
+        name: String,
         accountNumberType: String,
         accountNumber: String,
         progressHandler: @escaping (Status) -> Void,
@@ -63,6 +65,7 @@ public final class AddBeneficiaryTask: Cancellable {
         self.credentialsService = credentialsService
         self.appUri = appUri
         self.sourceAccount = sourceAccount
+        self.name = name
         self.accountNumberType = accountNumberType
         self.accountNumber = accountNumber
         self.progressHandler = progressHandler
@@ -74,6 +77,20 @@ public final class AddBeneficiaryTask: Cancellable {
 // MARK: - Task Lifecycle
 
 extension AddBeneficiaryTask {
+    func start() {
+        let request = CreateBeneficiaryRequest(
+            accountNumberType: accountNumberType,
+            accountNumber: accountNumber,
+            name: name,
+            ownerAccountID: sourceAccount.id,
+            credentialsID: sourceAccount.credentialsID
+        )
+
+        callCanceller = transferService.addBeneficiary(request: request) { [weak self, credentialsID = sourceAccount.credentialsID] (result) in
+            self?.startObservingCredentials(id: credentialsID)
+        }
+    }
+
     func startObservingCredentials(id: Credentials.ID) {
         if isCancelled { return }
 

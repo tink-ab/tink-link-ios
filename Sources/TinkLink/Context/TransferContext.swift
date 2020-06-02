@@ -229,6 +229,7 @@ public final class TransferContext {
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
             sourceAccount: account,
+            name: name,
             accountNumberType: accountNumberType,
             accountNumber: accountNumber,
             progressHandler: progress,
@@ -236,16 +237,7 @@ public final class TransferContext {
             completionHandler: completion
         )
 
-        let request = CreateBeneficiaryRequest(
-            accountNumberType: accountNumberType,
-            accountNumber: accountNumber,
-            name: name,
-            ownerAccountID: account.id,
-            credentialsID: account.credentialsID
-        )
-        task.callCanceller = transferService.addBeneficiary(request: request) { (result) in
-            task.startObservingCredentials(id: account.credentialsID)
-        }
+        task.start()
 
         return task
     }
