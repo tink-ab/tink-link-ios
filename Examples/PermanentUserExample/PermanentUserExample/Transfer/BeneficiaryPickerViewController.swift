@@ -17,6 +17,8 @@ class BeneficiaryPickerViewController: UITableViewController {
     private var canceller: RetryCancellable?
     private var addBeneficiaryTask: AddBeneficiaryTask?
 
+    private var statusViewController: AddCredentialsStatusViewController?
+
     init(sourceAccount: Account, selectedBeneficiary: Beneficiary? = nil) {
         self.sourceAccount = sourceAccount
         self.beneficiaries = []
@@ -128,14 +130,21 @@ extension BeneficiaryPickerViewController {
                     self?.handleAddBeneficiaryAuthentication(task)
                 }
             },
+            progress: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleAddBeneficiaryProgress(status)
+                }
+            },
             completion: { [weak self] result in
                 DispatchQueue.main.async {
-                    do {
-                        let beneficiary = try result.get()
-                        self?.beneficiaries.append(beneficiary)
-                        self?.tableView.reloadData()
-                    } catch {
-                        self?.showAlert(for: error)
+                    self?.hideStatus(animated: true) {
+                        do {
+                            let beneficiary = try result.get()
+                            self?.beneficiaries.append(beneficiary)
+                            self?.tableView.reloadData()
+                        } catch {
+                            self?.showAlert(for: error)
+                        }
                     }
                 }
             }
@@ -145,9 +154,22 @@ extension BeneficiaryPickerViewController {
     private func handleAddBeneficiaryAuthentication(_ authenticationTask: AddBeneficiaryTask.AuthenticationTask) {
         switch authenticationTask {
         case .awaitingSupplementalInformation(let task):
-            showSupplementalInformation(for: task)
+            hideStatus(animated: false) {
+                self.showSupplementalInformation(for: task)
+            }
         case .awaitingThirdPartyAppAuthentication(let task):
             task.handle()
+        }
+    }
+
+    private func handleAddBeneficiaryProgress(_ status: AddBeneficiaryTask.Status) {
+        switch status {
+        case .requestSent:
+            showStatus("Request sent")
+        case .authenticating:
+            showStatus("Authenticating…")
+        case .searchingForAddedBeneficiary:
+            showStatus("Searching for added beneficiary…")
         }
     }
 
@@ -156,6 +178,32 @@ extension BeneficiaryPickerViewController {
         supplementalInformationViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
         show(navigationController, sender: nil)
+    }
+
+    private func showStatus(_ status: String) {
+        if statusViewController == nil {
+            let statusViewController = AddCredentialsStatusViewController()
+            statusViewController.modalTransitionStyle = .crossDissolve
+            statusViewController.modalPresentationStyle = .overFullScreen
+            present(statusViewController, animated: true)
+            UIView.animate(withDuration: 0.3) {
+                self.view.tintAdjustmentMode = .dimmed
+            }
+            self.statusViewController = statusViewController
+        }
+        statusViewController?.status = status
+    }
+
+    private func hideStatus(animated: Bool, completion: (() -> Void)? = nil) {
+        guard statusViewController != nil else {
+            completion?()
+            return
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.view.tintAdjustmentMode = .automatic
+        }
+        dismiss(animated: animated, completion: completion)
+        statusViewController = nil
     }
 }
 
