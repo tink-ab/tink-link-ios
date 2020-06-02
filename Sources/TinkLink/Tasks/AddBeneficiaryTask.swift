@@ -20,7 +20,7 @@ public final class AddBeneficiaryTask: Cancellable {
         case temporaryFailure(String)
         case permanentFailure(String)
         case disabledCredentials(String)
-        case sessionExpired(String)
+        case credentialsSessionExpired(String)
         case notFound(String)
     }
 
@@ -165,7 +165,7 @@ extension AddBeneficiaryTask {
         case .disabled:
             throw Error.disabledCredentials(credentials.statusPayload)
         case .sessionExpired:
-            throw Error.sessionExpired(credentials.statusPayload)
+            throw Error.credentialsSessionExpired(credentials.statusPayload)
         case .unknown:
             assertionFailure("Unknown credentials status!")
         }
