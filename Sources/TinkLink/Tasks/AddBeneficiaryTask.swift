@@ -42,6 +42,7 @@ public final class AddBeneficiaryTask: Cancellable {
     private var thirdPartyAppAuthenticationTask: ThirdPartyAppAuthenticationTask?
 
     var callCanceller: Cancellable?
+    private var fetchBeneficiariesCanceller: Cancellable?
 
     // MARK: State
     private var isCancelled = false
@@ -94,6 +95,7 @@ extension AddBeneficiaryTask {
 
     public func cancel() {
         callCanceller?.cancel()
+        fetchBeneficiariesCanceller?.cancel()
         isCancelled = true
     }
 
@@ -215,7 +217,7 @@ extension AddBeneficiaryTask {
     }
 
     private func fetchBeneficiary(accountID: Account.ID, accountNumber: String, completion: @escaping (Result<Beneficiary, Swift.Error>) -> Void) {
-        transferService.beneficiaries { result in
+        fetchBeneficiariesCanceller = transferService.beneficiaries { result in
             do {
                 let beneficiaries = try result.get()
                 let beneficiary = beneficiaries.first(where: { beneficiary in
