@@ -31,6 +31,27 @@ final class RESTTransferService: TransferService {
         return client.performRequest(request)
     }
 
+    func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        let body = RESTCreateBeneficiaryRequest(
+            accountNumberType: request.accountNumberType,
+            accountNumber: request.accountNumber,
+            name: request.name,
+            ownerAccountId: request.ownerAccountID.value,
+            credentialsId: request.credentialsID.value
+        )
+        do {
+            let data = try JSONEncoder().encode(body)
+            // TODO: update this when the endpoint is ready
+            let request = RESTResourceRequest<Data>(path: "/api/v1/beneficiaries", method: .post, body: data, contentType: .json) { result in
+                completion(result.map { _ in })
+            }
+            return client.performRequest(request)
+        } catch {
+            completion(.failure(error))
+            return nil
+        }
+    }
+
     func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         let body = RESTTransferRequest(
             amount: NSDecimalNumber(decimal: transfer.amount).doubleValue,
