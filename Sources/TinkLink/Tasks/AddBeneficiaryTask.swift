@@ -233,6 +233,7 @@ extension AddBeneficiaryTask {
         do {
             _ = try result.get()
             progressHandler(.searching)
+            // TODO: Wait a bit or retry if beneficiary can't be found.
             fetchBeneficiary(accountID: ownerAccount.id, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
                 do {
                     let addedBeneficiary = try beneficiaryResult.get()
