@@ -215,7 +215,7 @@ public final class TransferContext {
         transferService.beneficiaries(completion: completion)
     }
 
-    func addBeneficiary(
+    public func addBeneficiary(
         to account: Account,
         name: String,
         accountNumberType: String,
