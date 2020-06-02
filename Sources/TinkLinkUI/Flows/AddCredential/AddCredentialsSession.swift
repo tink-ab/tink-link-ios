@@ -29,7 +29,6 @@ final class AddCredentialsSession {
     }
     private var authorizationGroup = DispatchGroup()
 
-    private var timer: Timer?
     private var providerID: Provider.ID?
 
     init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, presenter: CredentialsCoordinatorPresenting?) {
@@ -41,15 +40,8 @@ final class AddCredentialsSession {
 
     deinit {
         task?.cancel()
-        timer?.invalidate()
     }
 
-    private func countUpdatingProcessTime() {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 45.0, repeats: false) { [weak self] timer in
-            self?.showUpdating(status: "Process is taking longer than expected")
-        }
-    }
     func addCredential(provider: Provider, form: Form, mode: CredentialsCoordinator.AddCredentialsMode, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
 
         let refreshableItems: RefreshableItems
@@ -181,7 +173,6 @@ final class AddCredentialsSession {
                 status = Strings.AddCredentials.Status.updatingFallback
             }
             showUpdating(status: status)
-            countUpdatingProcessTime()
             authorizeIfNeeded(onError: onError)
         }
     }
@@ -203,7 +194,6 @@ final class AddCredentialsSession {
                 status = Strings.AddCredentials.Status.updatingFallback
             }
             showUpdating(status: status)
-            countUpdatingProcessTime()
         }
     }
 
@@ -223,7 +213,6 @@ final class AddCredentialsSession {
     }
 
     private func handleCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
-        timer?.invalidate()
         authorizeIfNeeded(onError: { [weak self] error in
             DispatchQueue.main.async {
                 self?.hideUpdatingView(animated: true) {
@@ -328,7 +317,6 @@ extension AddCredentialsSession {
 extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
     func addCredentialsStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
         task?.cancel()
-        timer?.invalidate()
         hideUpdatingView(animated: true) {
             self.cancelCallback?()
             self.cancelCallback = nil
