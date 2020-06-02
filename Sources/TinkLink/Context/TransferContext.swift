@@ -229,6 +229,7 @@ public final class TransferContext {
             appUri: tink.configuration.redirectURI,
             sourceAccount: account,
             accountNumber: accountNumber,
+            progressHandler: { _ in },
             authenticationHandler: authentication,
             completionHandler: completion
         )

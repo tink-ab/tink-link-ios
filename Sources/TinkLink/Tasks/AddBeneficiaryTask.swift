@@ -4,6 +4,12 @@ public final class AddBeneficiaryTask: Cancellable {
     // MARK: Types
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
+    public enum Status {
+        case created
+        case authenticating
+        case searching
+    }
+
     public enum Authentication {
         case awaitingSupplementalInformation(SupplementInformationTask)
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
@@ -26,6 +32,7 @@ public final class AddBeneficiaryTask: Cancellable {
     private let appUri: URL
     private let sourceAccount: Account
     private let accountNumber: String
+    private let progressHandler: (Status) -> Void
     private let authenticationHandler: (Authentication) -> Void
     private let completionHandler: (Result<Beneficiary, Swift.Error>) -> Void
 
@@ -47,6 +54,7 @@ public final class AddBeneficiaryTask: Cancellable {
         appUri: URL,
         sourceAccount: Account,
         accountNumber: String,
+        progressHandler: @escaping (Status) -> Void,
         authenticationHandler: @escaping (Authentication) -> Void,
         completionHandler: @escaping (Result<Beneficiary, Swift.Error>) -> Void
     ) {
@@ -55,6 +63,7 @@ public final class AddBeneficiaryTask: Cancellable {
         self.appUri = appUri
         self.sourceAccount = sourceAccount
         self.accountNumber = accountNumber
+        self.progressHandler = progressHandler
         self.authenticationHandler = authenticationHandler
         self.completionHandler = completionHandler
     }
@@ -65,6 +74,8 @@ public final class AddBeneficiaryTask: Cancellable {
 extension AddBeneficiaryTask {
     func startObservingCredentials(for account: Account) {
         if isCancelled { return }
+
+        progressHandler(.created)
 
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
             id: account.credentialsID,
@@ -94,7 +105,7 @@ extension AddBeneficiaryTask {
             case .created:
                 break
             case .authenticating:
-                break
+                progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
                 self.credentialsStatusPollingTask?.stopPolling()
                 let task = makeSupplementInformationTask(for: credentials) { [weak self] result in
@@ -189,6 +200,7 @@ extension AddBeneficiaryTask {
         credentialsStatusPollingTask?.stopPolling()
         do {
             let credentials = try result.get()
+            progressHandler(.searching)
             transferService.beneficiaries { [weak self, accountID = sourceAccount.id, accountNumber] (beneficiariesResult) in
                 do {
                     let beneficiaries = try beneficiariesResult.get()
