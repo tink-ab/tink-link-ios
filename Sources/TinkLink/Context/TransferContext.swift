@@ -220,7 +220,7 @@ public final class TransferContext {
         name: String,
         accountNumberType: String,
         accountNumber: String,
-        authentication: @escaping (AddBeneficiaryTask.Authentication) -> Void,
+        authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
         progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (Result<Beneficiary, Error>) -> Void
     ) -> AddBeneficiaryTask {

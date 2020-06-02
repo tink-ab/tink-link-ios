@@ -10,7 +10,7 @@ public final class AddBeneficiaryTask: Cancellable {
         case searching
     }
 
-    public enum Authentication {
+    public enum AuthenticationTask {
         case awaitingSupplementalInformation(SupplementInformationTask)
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
     }
@@ -32,7 +32,7 @@ public final class AddBeneficiaryTask: Cancellable {
     private let accountNumberType: String
     private let accountNumber: String
     private let progressHandler: (Status) -> Void
-    private let authenticationHandler: (Authentication) -> Void
+    private let authenticationHandler: (AuthenticationTask) -> Void
     private let completionHandler: (Result<Beneficiary, Swift.Error>) -> Void
 
     // MARK: Tasks
@@ -56,7 +56,7 @@ public final class AddBeneficiaryTask: Cancellable {
         accountNumberType: String,
         accountNumber: String,
         progressHandler: @escaping (Status) -> Void,
-        authenticationHandler: @escaping (Authentication) -> Void,
+        authenticationHandler: @escaping (AuthenticationTask) -> Void,
         completionHandler: @escaping (Result<Beneficiary, Swift.Error>) -> Void
     ) {
         self.transferService = transferService
