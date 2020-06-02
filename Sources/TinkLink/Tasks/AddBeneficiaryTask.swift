@@ -96,6 +96,16 @@ extension AddBeneficiaryTask {
         }
     }
 
+    public func cancel() {
+        callCanceller?.cancel()
+        fetchBeneficiariesCanceller?.cancel()
+        isCancelled = true
+    }
+}
+
+// MARK: - Credentials Observing
+
+extension AddBeneficiaryTask {
     private func startObservingCredentials(id: Credentials.ID) {
         if isCancelled { return }
 
@@ -114,12 +124,6 @@ extension AddBeneficiaryTask {
         )
 
         credentialsStatusPollingTask?.startPolling()
-    }
-
-    public func cancel() {
-        callCanceller?.cancel()
-        fetchBeneficiariesCanceller?.cancel()
-        isCancelled = true
     }
 
     private func handleUpdate(for result: Result<Credentials, Swift.Error>) {
