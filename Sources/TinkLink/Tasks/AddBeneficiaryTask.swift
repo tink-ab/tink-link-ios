@@ -233,6 +233,7 @@ extension AddBeneficiaryTask {
         do {
             _ = try result.get()
             progressHandler(.searching)
+            // TODO: Check if we need to refresh credentials before doing this.
             // TODO: Wait a bit or retry if beneficiary can't be found.
             fetchBeneficiary(accountID: ownerAccount.id, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
                 do {
