@@ -1,24 +1,43 @@
 import Foundation
 
+/// A task that manages progress of adding a beneficiary to an account.
+///
+/// Use `TransferContext` to create a task.
 public final class AddBeneficiaryTask: Cancellable {
     // MARK: Types
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
+    /// Indicates the state of a beneficiary being added.
     public enum Status {
+        /// The adding beneficiary request has been sent.
         case requestSent
+        /// The user needs to be authenticated.
         case authenticating
+        /// Searching for the newly added beneficiary
         case searchingForAddedBeneficiary
     }
 
+    /// Represents an authentication that needs to be completed by the user.
+    ///
+    /// - Note: Each case have an associated task which need to be completed by the user to continue the transfer initiation process.
     public enum AuthenticationTask {
+        /// Indicates that there is additional information required from the user to proceed.
+        ///
+        /// This can for example be an OTP sent via SMS or authetication app.
         case awaitingSupplementalInformation(SupplementInformationTask)
+        /// Indicates that there is an authentication in a third party app necessary to proceed with the authentication.
         case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
     }
 
+    /// Error that the `AddBeneficiaryTask` can throw.
     public enum Error: Swift.Error {
+        /// The authentication failed. The payload from the backend can be found in the associated value.
         case authenticationFailed(String)
+        /// The credentials are disabled. The payload from the backend can be found in the associated value.
         case disabledCredentials(String)
+        /// The credentials session was expired. The payload from the backend can be found in the associated value.
         case credentialsSessionExpired(String)
+        /// The beneficiary could not be found.
         case notFound(String)
     }
 
@@ -97,6 +116,7 @@ extension AddBeneficiaryTask {
         }
     }
 
+    /// Cancel the task.
     public func cancel() {
         callCanceller?.cancel()
         fetchBeneficiariesCanceller?.cancel()
