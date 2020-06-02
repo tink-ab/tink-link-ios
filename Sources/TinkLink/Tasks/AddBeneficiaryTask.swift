@@ -89,6 +89,7 @@ extension AddBeneficiaryTask {
         callCanceller = transferService.addBeneficiary(request: request) { [weak self, credentialsID = sourceAccount.credentialsID] (result) in
             do {
                 try result.get()
+                self?.progressHandler(.created)
                 self?.startObservingCredentials(id: credentialsID)
             } catch {
                 self?.complete(with: .failure(error))
@@ -108,8 +109,6 @@ extension AddBeneficiaryTask {
 extension AddBeneficiaryTask {
     private func startObservingCredentials(id: Credentials.ID) {
         if isCancelled { return }
-
-        progressHandler(.created)
 
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
             id: id,
