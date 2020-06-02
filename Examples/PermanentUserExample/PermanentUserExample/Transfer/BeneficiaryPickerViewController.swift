@@ -127,6 +127,13 @@ class BeneficiaryPickerViewController: UITableViewController {
         )
     }
 
+    private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
+        let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
+        supplementalInformationViewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: supplementalInformationViewController)
+        show(navigationController, sender: nil)
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return beneficiaries.count
     }
@@ -143,5 +150,17 @@ class BeneficiaryPickerViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let beneficiary = beneficiaries[indexPath.row]
         delegate?.beneficiaryPickerViewController(self, didSelectBeneficiary: beneficiary)
+    }
+}
+
+// MARK: - SupplementalInformationViewControllerDelegate
+
+extension BeneficiaryPickerViewController: SupplementalInformationViewControllerDelegate {
+    func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
+        dismiss(animated: true)
+    }
+
+    func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credentials) {
+        dismiss(animated: true)
     }
 }
