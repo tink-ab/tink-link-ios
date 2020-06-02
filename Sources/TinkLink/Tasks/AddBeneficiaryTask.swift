@@ -28,7 +28,7 @@ public final class AddBeneficiaryTask: Cancellable {
 
     // MARK: Properties
     private let appUri: URL
-    private let sourceAccount: Account
+    private let ownerAccount: Account
     private let name: String
     private let accountNumberType: String
     private let accountNumber: String
@@ -53,7 +53,7 @@ public final class AddBeneficiaryTask: Cancellable {
         transferService: TransferService,
         credentialsService: CredentialsService,
         appUri: URL,
-        sourceAccount: Account,
+        ownerAccount: Account,
         name: String,
         accountNumberType: String,
         accountNumber: String,
@@ -64,7 +64,7 @@ public final class AddBeneficiaryTask: Cancellable {
         self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri
-        self.sourceAccount = sourceAccount
+        self.ownerAccount = ownerAccount
         self.name = name
         self.accountNumberType = accountNumberType
         self.accountNumber = accountNumber
@@ -82,11 +82,11 @@ extension AddBeneficiaryTask {
             accountNumberType: accountNumberType,
             accountNumber: accountNumber,
             name: name,
-            ownerAccountID: sourceAccount.id,
-            credentialsID: sourceAccount.credentialsID
+            ownerAccountID: ownerAccount.id,
+            credentialsID: ownerAccount.credentialsID
         )
 
-        callCanceller = transferService.addBeneficiary(request: request) { [weak self, credentialsID = sourceAccount.credentialsID] (result) in
+        callCanceller = transferService.addBeneficiary(request: request) { [weak self, credentialsID = ownerAccount.credentialsID] (result) in
             do {
                 try result.get()
                 self?.progressHandler(.started)
@@ -233,7 +233,7 @@ extension AddBeneficiaryTask {
         do {
             _ = try result.get()
             progressHandler(.searching)
-            fetchBeneficiary(accountID: sourceAccount.id, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
+            fetchBeneficiary(accountID: ownerAccount.id, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
                 do {
                     let addedBeneficiary = try beneficiaryResult.get()
                     self?.completionHandler(.success(addedBeneficiary))
