@@ -31,7 +31,10 @@ class BeneficiaryPickerViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(enterBeneficiary))
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(enterBeneficiary)),
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBeneficiary)),
+        ]
 
         canceller = transferContext.fetchBeneficiaries(for: sourceAccount) { [weak self] result in
             DispatchQueue.main.async {
@@ -68,6 +71,10 @@ class BeneficiaryPickerViewController: UITableViewController {
             self.delegate?.beneficiaryPickerViewController(self, didEnterBeneficiaryURI: uri)
         }))
         present(alert, animated: true)
+    }
+
+    @objc private func addBeneficiary(_ sender: Any) {
+        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
