@@ -205,6 +205,7 @@ extension AddBeneficiaryTask {
                 do {
                     let beneficiaries = try beneficiariesResult.get()
                     let beneficiary = beneficiaries.first(where: { beneficiary in
+                        // TODO: Check accountNumberType also.
                         beneficiary.ownerAccountID == accountID && beneficiary.accountNumber == accountNumber
                     })
                     guard let addedBeneficiary = beneficiary else {
