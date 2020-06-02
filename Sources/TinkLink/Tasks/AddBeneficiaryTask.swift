@@ -7,7 +7,7 @@ public final class AddBeneficiaryTask: Cancellable {
     public enum Status {
         case started
         case authenticating
-        case searching
+        case searchingForAddedBeneficiary
     }
 
     public enum AuthenticationTask {
@@ -232,7 +232,7 @@ extension AddBeneficiaryTask {
         credentialsStatusPollingTask?.stopPolling()
         do {
             _ = try result.get()
-            progressHandler(.searching)
+            progressHandler(.searchingForAddedBeneficiary)
             // TODO: Check if we need to refresh credentials before doing this.
             // TODO: Wait a bit or retry if beneficiary can't be found.
             fetchBeneficiary(accountID: ownerAccount.id, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
