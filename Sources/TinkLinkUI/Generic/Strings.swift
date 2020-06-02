@@ -44,7 +44,7 @@ enum Strings {
             static let authenticationFailed = NSLocalizedString("Credentials.Error.AuthenticationFailed", tableName: tableName, bundle: bundle, value: "Authentication failed", comment: "Title for error shown when authentication failed while adding credentials.")
 
             /// Message for error shown when credentials already exists.
-            static let credentialsAlreadyExistsDetail = NSLocalizedString("Credentials.Error.CredentialsAlreadyExistsDetail", tableName: tableName, bundle: bundle, value: "You already have a connection to this bank or service.", comment: "Message for error shown when credentials already exists.")
+            static let credentialsAlreadyExists = NSLocalizedString("Credentials.Error.CredentialsAlreadyExists", tableName: tableName, bundle: bundle, value: "You already have a connection to this bank or service.", comment: "Message for error shown when credentials already exists.")
         }
 
         enum Warning {

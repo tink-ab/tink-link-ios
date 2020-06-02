@@ -24,7 +24,7 @@ extension AddCredentialsTask.Error: LocalizedError {
             // TODO: Localize this somehow?
             return payload
         case .credentialsAlreadyExists:
-            return Strings.Credentials.Error.credentialsAlreadyExistsDetail
+            return Strings.Credentials.Error.credentialsAlreadyExists
         }
     }
 }
