@@ -74,13 +74,13 @@ public final class AddBeneficiaryTask: Cancellable {
 // MARK: - Task Lifecycle
 
 extension AddBeneficiaryTask {
-    func startObservingCredentials(for account: Account) {
+    func startObservingCredentials(id: Credentials.ID) {
         if isCancelled { return }
 
         progressHandler(.created)
 
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
-            id: account.credentialsID,
+            id: id,
             initialValue: nil,
             request: credentialsService.credentials,
             predicate: { (old, new) in
