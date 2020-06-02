@@ -29,6 +29,10 @@ class BeneficiaryPickerViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        addBeneficiaryTask?.cancel()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
