@@ -9,7 +9,7 @@ protocol CredentialsCoordinatorPresenting: AnyObject {
 }
 
 protocol CredentialsCoordinatorDelegate: AnyObject {
-    func didFinishCredentialsForm(isCancellingAllowed: Bool)
+    func didFinishCredentialsForm()
 }
 
 final class CredentialsCoordinator {
@@ -98,7 +98,7 @@ final class CredentialsCoordinator {
     private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
         do {
             let values = try result.get()
-            delegate?.didFinishCredentialsForm(isCancellingAllowed: true)
+            delegate?.didFinishCredentialsForm()
             showAddCredentialSuccess(with: .success(values))
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
