@@ -6,6 +6,8 @@ class MutableCredentialsService: CredentialsService {
 
     var createCredentialsKind: Credentials.Kind = .password
     var credentialsStatusAfterUpdate: Credentials.Status = .authenticating
+    var credentialsStatusAfterRefresh: Credentials.Status = .authenticating
+    var credentialsStatusAfterManualAuthentication: Credentials.Status = .authenticating
     var credentialsStatusAfterSupplementalInformation: Credentials.Status = .updating
 
     func modifyCredentials(id: Credentials.ID, status: Credentials.Status, supplementalInformationFields: [Provider.FieldSpecification] = [], thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil) {
@@ -95,7 +97,8 @@ class MutableCredentialsService: CredentialsService {
     }
 
     func refreshCredentials(credentialsID: Credentials.ID, refreshableItems: RefreshableItems, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        fatalError("\(#function) should not be called")
+        modifyCredentials(id: credentialsID, status: credentialsStatusAfterRefresh)
+        return nil
     }
 
     func supplementInformation(credentialsID: Credentials.ID, fields: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
@@ -195,7 +198,8 @@ class MutableCredentialsService: CredentialsService {
     }
 
     func manualAuthentication(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        fatalError("\(#function) should not be called")
+        modifyCredentials(id: credentialsID, status: credentialsStatusAfterManualAuthentication)
+        return nil
     }
 
     func qr(credentialsID: Credentials.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable? {
