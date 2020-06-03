@@ -34,7 +34,7 @@ extension Account.URI {
     /// - Parameters:
     ///   - kind: The kind of account URI.
     ///   - accountNumber: The account number. The structure of this parameter depends on the `kind`.
-    public init?(kind: Kind, accountNumber: String) {
+    public init?(kind: AccountNumberKind, accountNumber: String) {
         var urlComponents = URLComponents()
         urlComponents.scheme = kind.value
         urlComponents.host = accountNumber
