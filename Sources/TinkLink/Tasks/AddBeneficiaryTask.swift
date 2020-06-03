@@ -47,7 +47,8 @@ public final class AddBeneficiaryTask: Cancellable {
 
     // MARK: Properties
     private let appUri: URL
-    private let ownerAccount: Account
+    private let ownerAccountID: Account.ID
+    private let ownerAccountCredentialsID: Credentials.ID
     private let name: String
     private let accountNumberType: String
     private let accountNumber: String
@@ -72,7 +73,8 @@ public final class AddBeneficiaryTask: Cancellable {
         transferService: TransferService,
         credentialsService: CredentialsService,
         appUri: URL,
-        ownerAccount: Account,
+        ownerAccountID: Account.ID,
+        ownerAccountCredentialsID: Credentials.ID,
         name: String,
         accountNumberType: String,
         accountNumber: String,
@@ -83,7 +85,8 @@ public final class AddBeneficiaryTask: Cancellable {
         self.transferService = transferService
         self.credentialsService = credentialsService
         self.appUri = appUri
-        self.ownerAccount = ownerAccount
+        self.ownerAccountID = ownerAccountID
+        self.ownerAccountCredentialsID = ownerAccountCredentialsID
         self.name = name
         self.accountNumberType = accountNumberType
         self.accountNumber = accountNumber
@@ -101,11 +104,11 @@ extension AddBeneficiaryTask {
             accountNumberType: accountNumberType,
             accountNumber: accountNumber,
             name: name,
-            ownerAccountID: ownerAccount.id,
-            credentialsID: ownerAccount.credentialsID
+            ownerAccountID: ownerAccountID,
+            credentialsID: ownerAccountCredentialsID
         )
 
-        callCanceller = transferService.addBeneficiary(request: request) { [weak self, credentialsID = ownerAccount.credentialsID] (result) in
+        callCanceller = transferService.addBeneficiary(request: request) { [weak self, credentialsID = ownerAccountCredentialsID] (result) in
             do {
                 try result.get()
                 self?.progressHandler(.requestSent)
@@ -255,7 +258,7 @@ extension AddBeneficiaryTask {
             progressHandler(.searchingForAddedBeneficiary)
             // TODO: Check if we need to refresh credentials before doing this.
             // TODO: Wait a bit or retry if beneficiary can't be found.
-            fetchBeneficiary(accountID: ownerAccount.id, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
+            fetchBeneficiary(accountID: ownerAccountID, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
                 do {
                     let addedBeneficiary = try beneficiaryResult.get()
                     self?.completionHandler(.success(addedBeneficiary))

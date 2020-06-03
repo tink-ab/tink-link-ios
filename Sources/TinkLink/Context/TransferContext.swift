@@ -228,7 +228,37 @@ public final class TransferContext {
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
-            ownerAccount: account,
+            ownerAccountID: account.id,
+            ownerAccountCredentialsID: account.credentialsID,
+            name: name,
+            accountNumberType: accountNumberType,
+            accountNumber: accountNumber,
+            progressHandler: progress,
+            authenticationHandler: authentication,
+            completionHandler: completion
+        )
+
+        task.start()
+
+        return task
+    }
+
+    public func addBeneficiary(
+        toAccountWithID accountID: Account.ID,
+        onCredentialsWithID credentialsID: Credentials.ID,
+        name: String,
+        accountNumberType: String,
+        accountNumber: String,
+        authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
+        progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
+        completion: @escaping (Result<Beneficiary, Error>) -> Void
+    ) -> AddBeneficiaryTask {
+        let task = AddBeneficiaryTask(
+            transferService: transferService,
+            credentialsService: credentialsService,
+            appUri: tink.configuration.redirectURI,
+            ownerAccountID: accountID,
+            ownerAccountCredentialsID: credentialsID,
             name: name,
             accountNumberType: accountNumberType,
             accountNumber: accountNumber,
