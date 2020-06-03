@@ -14,7 +14,10 @@ enum Strings {
 
         static let privacyPolicy = NSLocalizedString("Credentials.PrivacyPolicy", tableName: tableName, bundle: bundle, value: "Privacy Policy", comment: "Privacy policy clickable text used in Credentials.TermsText.")
 
-    enum ConsentInformation {
+        /// Text for the warning shown when the developer is unverified.
+        static let unverifiedClient = NSLocalizedString("Credentials.UnverifiedClient", tableName: tableName, bundle: bundle, value: "Unverified - This solution is only made for development purposes. Do not enter your bank credentials unless you trust the developer.", comment: "Text for the warning shown when the developer is unverified.")
+
+        enum ConsentInformation {
 
             /// Text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.
             static let text = NSLocalizedString("ConsentInformation.Text", tableName: tableName, bundle: bundle, value: "%@ will obtain some of your financial information. Read More", comment: "Text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.")
@@ -37,11 +40,6 @@ enum Strings {
 
             /// Message for error shown when credentials already exists.
             static let credentialsAlreadyExists = NSLocalizedString("Credentials.Error.CredentialsAlreadyExists", tableName: tableName, bundle: bundle, value: "You already have a connection to this bank or service.", comment: "Message for error shown when credentials already exists.")
-        }
-
-        enum Warning {
-            /// Text for the warning shown when the developer is unverified.
-            static let unverifiedClient = NSLocalizedString("Credentials.Warning.UnverifiedClient", tableName: tableName, bundle: bundle, value: "Unverified - This solution is only made for development purposes. Do not enter your bank credentials unless you trust the developer.", comment: "Text for the warning shown when the developer is unverified.")
         }
 
         enum Discard {

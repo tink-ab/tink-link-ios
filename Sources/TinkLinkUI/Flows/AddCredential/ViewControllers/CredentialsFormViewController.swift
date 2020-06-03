@@ -148,7 +148,7 @@ extension CredentialsFormViewController {
             self?.addCredential()
         }
 
-        formTableViewController.errorText = isVerified ? nil : Strings.Credentials.Warning.unverifiedClient
+        formTableViewController.errorText = isVerified ? nil : Strings.Credentials.unverifiedClient
     }
 
     override func viewDidAppear(_ animated: Bool) {
