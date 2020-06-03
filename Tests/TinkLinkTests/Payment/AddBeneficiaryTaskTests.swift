@@ -5,7 +5,7 @@ import XCTest
 class AddBeneficiaryTaskTests: XCTestCase {
     var mockedSuccessTransferService: TransferService!
 
-    var mockedSuccessCredentialsService: CredentialsService!
+    var credentialsService: MutableCredentialsService!
 
     var task: AddBeneficiaryTask?
 
@@ -14,11 +14,48 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
         mockedSuccessTransferService = MockedSuccessTransferService()
 
-        mockedSuccessCredentialsService = MockedSuccessPaymentCredentialsService()
+        credentialsService = MutableCredentialsService()
     }
 
     func testSuccessfulAddBeneficiaryTask() {
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: mockedSuccessCredentialsService)
+        let credentials = Credentials(
+            id: Credentials.ID(UUID().uuidString),
+            providerID: Provider.ID("test-provider"),
+            kind: .password,
+            status: .updated,
+            statusPayload: "",
+            statusUpdated: Date(),
+            updated: Date(),
+            fields: ["username": "test", "password": "12345678"],
+            supplementalInformationFields: [],
+            thirdPartyAppAuthentication: nil,
+            sessionExpiryDate: nil
+        )
+
+        let account = Account(
+            accountNumber: "FR1420041010050015664355590",
+            balance: 68.61,
+            credentialsID: credentials.id,
+            isFavored: false,
+            id: Account.ID(UUID().uuidString),
+            name: "Checking Account tink 1",
+            ownership: 1.0,
+            kind: .checking,
+            transferSourceIdentifiers: [URL(string: "iban://FR1420041010050015664355590?name=testAccount")!],
+            transferDestinations: nil,
+            details: nil,
+            holderName: nil,
+            isClosed: false,
+            flags: [],
+            accountExclusion: nil,
+            currencyDenominatedBalance: CurrencyDenominatedAmount(Decimal(68.61), currencyCode: CurrencyCode("EUR")),
+            refreshed: Date(),
+            financialInstitutionID: Provider.FinancialInstitution.ID(UUID().uuidString)
+        )
+
+        credentialsService.credentialsByID = [credentials.id: credentials]
+
+        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
 
         let statusChangedToRequestSent = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
@@ -26,7 +63,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let addBeneficiaryCompletionCalled = expectation(description: "initiate transfer completion should be called")
 
         task = transferContext.addBeneficiary(
-            to: Account.checkingTestAccount,
+            to: account,
             name: "Example Inc",
             accountNumberType: "iban",
             accountNumber: "FR7630006000011234567890189",
@@ -43,8 +80,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 switch status {
                 case .requestSent:
                     statusChangedToRequestSent.fulfill()
+                    self.credentialsService.modifyCredentials(id: credentials.id, status: .authenticating)
                 case .authenticating:
                     statusChangedToAuthenticating.fulfill()
+                    self.credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
                 }
             }
         ) { result in
