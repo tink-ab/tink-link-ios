@@ -513,9 +513,7 @@ extension TinkLinkViewController {
 extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
     /// :nodoc:
     public func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        if !userHasConnected || didShowCredentialsForm {
-            showDiscardActionSheet()
-        }
+        showDiscardActionSheet()
     }
 
     /// :nodoc:
