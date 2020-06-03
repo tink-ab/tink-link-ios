@@ -138,13 +138,9 @@ extension BeneficiaryPickerViewController {
             completion: { [weak self] result in
                 DispatchQueue.main.async {
                     self?.hideStatus(animated: true) {
-                        do {
-                            let beneficiary = try result.get()
-                            self?.beneficiaries.append(beneficiary)
-                            self?.tableView.reloadData()
-                        } catch {
-                            self?.showAlert(for: error)
-                        }
+                        let alert = UIAlertController(title: "The request for adding beneficiary has sent successfully", message: "It could take up to three days for adding it.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                        self?.present(alert, animated: true)
                     }
                 }
             }
