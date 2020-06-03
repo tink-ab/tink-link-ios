@@ -195,7 +195,9 @@ class MutableCredentialsService: CredentialsService {
     }
 
     func thirdPartyCallback(state: String, parameters: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        modifyCredentials(id: credentialsID, status: credentialsStatusAfterThirdPartyCallback)
+        for id in credentialsByID.keys {
+            modifyCredentials(id: id, status: credentialsStatusAfterThirdPartyCallback)
+        }
         return nil
     }
 
