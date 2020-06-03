@@ -6,6 +6,26 @@ class MutableCredentialsService: CredentialsService {
 
     var createCredentialsKind: Credentials.Kind = .password
 
+    func modifyCredentials(id: Credentials.ID, status: Credentials.Status, supplementalInformationFields: [Provider.FieldSpecification] = [], thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil) {
+        let credentials = credentialsByID[id]!
+
+        let modifiedCredentials = Credentials(
+            id: credentials.id,
+            providerID: credentials.providerID,
+            kind: credentials.kind,
+            status: status,
+            statusPayload: "",
+            statusUpdated: Date(),
+            updated: Date(),
+            fields: credentials.fields,
+            supplementalInformationFields: supplementalInformationFields,
+            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
+            sessionExpiryDate: nil
+        )
+
+        credentialsByID[id] = modifiedCredentials
+    }
+
     func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
         completion(.success(Array(credentialsByID.values)))
         return nil
