@@ -222,7 +222,7 @@ public final class TransferContext {
         accountNumber: String,
         authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
         progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
-        completion: @escaping (Result<Beneficiary, Error>) -> Void
+        completion: @escaping (Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
         let task = AddBeneficiaryTask(
             transferService: transferService,
@@ -251,7 +251,7 @@ public final class TransferContext {
         accountNumber: String,
         authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
         progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
-        completion: @escaping (Result<Beneficiary, Error>) -> Void
+        completion: @escaping (Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
         let task = AddBeneficiaryTask(
             transferService: transferService,

@@ -52,7 +52,7 @@ public final class AddBeneficiaryTask: Cancellable {
     private let accountNumber: String
     private let progressHandler: (Status) -> Void
     private let authenticationHandler: (AuthenticationTask) -> Void
-    private let completionHandler: (Result<Beneficiary, Swift.Error>) -> Void
+    private let completionHandler: (Result<Void, Swift.Error>) -> Void
 
     // MARK: Tasks
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
@@ -78,7 +78,7 @@ public final class AddBeneficiaryTask: Cancellable {
         accountNumber: String,
         progressHandler: @escaping (Status) -> Void,
         authenticationHandler: @escaping (AuthenticationTask) -> Void,
-        completionHandler: @escaping (Result<Beneficiary, Swift.Error>) -> Void
+        completionHandler: @escaping (Result<Void, Swift.Error>) -> Void
     ) {
         self.transferService = transferService
         self.credentialsService = credentialsService
@@ -253,8 +253,7 @@ extension AddBeneficiaryTask {
         credentialsStatusPollingTask?.stopPolling()
         do {
             _ = try result.get()
-            let beneficiary = Beneficiary(accountNumberType: accountNumberType, name: name, ownerAccountID: ownerAccountID, accountNumber: accountNumber)
-            completionHandler(.success(beneficiary))
+            completionHandler(.success)
         } catch {
             completionHandler(.failure(error))
         }
