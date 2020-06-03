@@ -8,7 +8,7 @@ protocol CredentialsCoordinatorPresenting: AnyObject {
     func dismiss(animated: Bool, completion: (() -> Void)?)
 }
 
-protocol CredentialsCoordinatorCompletionDelegate: AnyObject {
+protocol CredentialsCoordinatorDelegate: AnyObject {
     func didFinishCredentialsForm(isCancellingAllowed: Bool)
 }
 
@@ -37,12 +37,12 @@ final class CredentialsCoordinator {
     private let action: Action
     private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void
     private weak var presenter: CredentialsCoordinatorPresenting?
-    private weak var delegate: CredentialsCoordinatorCompletionDelegate?
+    private weak var delegate: CredentialsCoordinatorDelegate?
     private let clientDescription: ClientDescription
 
     private var fetchedCredentials: Credentials?
 
-    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorCompletionDelegate, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
+    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
         self.providerController = providerController

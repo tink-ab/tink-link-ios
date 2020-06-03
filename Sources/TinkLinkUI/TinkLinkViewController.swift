@@ -550,8 +550,8 @@ extension TinkLinkViewController: CredentialsCoordinatorPresenting {
     }
 }
 
-// MARK: - CredentialsCoordinatorCompletionDelegate
-extension TinkLinkViewController: CredentialsCoordinatorCompletionDelegate {
+// MARK: - CredentialsCoordinatorDelegate
+extension TinkLinkViewController: CredentialsCoordinatorDelegate {
     /// :nodoc:
     func didFinishCredentialsForm(isCancellingAllowed: Bool) {
         userHasConnected = isCancellingAllowed
