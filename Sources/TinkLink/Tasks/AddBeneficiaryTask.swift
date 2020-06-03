@@ -69,33 +69,6 @@ public final class AddBeneficiaryTask: Cancellable {
     private var didComplete = false
 
     // MARK: Initializers
-    convenience init(
-        transferService: TransferService,
-        credentialsService: CredentialsService,
-        appUri: URL,
-        ownerAccount: Account,
-        name: String,
-        accountNumberType: String,
-        accountNumber: String,
-        progressHandler: @escaping (Status) -> Void,
-        authenticationHandler: @escaping (AuthenticationTask) -> Void,
-        completionHandler: @escaping (Result<Beneficiary, Swift.Error>) -> Void
-    ) {
-        self.init(
-            transferService: transferService,
-            credentialsService: credentialsService,
-            appUri: appUri,
-            ownerAccountID: ownerAccount.id,
-            ownerAccountCredentialsID: ownerAccount.credentialsID,
-            name: name,
-            accountNumberType: accountNumberType,
-            accountNumber: accountNumber,
-            progressHandler: progressHandler,
-            authenticationHandler: authenticationHandler,
-            completionHandler: completionHandler
-        )
-    }
-
     init(
         transferService: TransferService,
         credentialsService: CredentialsService,
