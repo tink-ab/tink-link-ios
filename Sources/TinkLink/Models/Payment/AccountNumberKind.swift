@@ -1,5 +1,5 @@
 /// A type representing an kind of account number.
-public struct AccountNumberKind: ExpressibleByStringLiteral {
+public struct AccountNumberKind: Hashable, ExpressibleByStringLiteral {
     public init(stringLiteral value: String) {
         self.value = value
     }
