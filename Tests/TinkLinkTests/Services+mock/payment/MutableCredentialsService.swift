@@ -5,6 +5,8 @@ class MutableCredentialsService: CredentialsService {
     var credentialsByID: [Credentials.ID: Credentials] = [:]
 
     var createCredentialsKind: Credentials.Kind = .password
+    var credentialsStatusAfterUpdate: Credentials.Status = .authenticating
+    var credentialsStatusAfterSupplementalInformation: Credentials.Status = .updating
 
     func modifyCredentials(id: Credentials.ID, status: Credentials.Status, supplementalInformationFields: [Provider.FieldSpecification] = [], thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil) {
         let credentials = credentialsByID[id]!
@@ -75,7 +77,7 @@ class MutableCredentialsService: CredentialsService {
                 id: credentials.id,
                 providerID: credentials.providerID,
                 kind: credentials.kind,
-                status: .updating,
+                status: credentialsStatusAfterUpdate,
                 statusPayload: "",
                 statusUpdated: Date(),
                 updated: Date(),
@@ -102,7 +104,7 @@ class MutableCredentialsService: CredentialsService {
                 id: credentials.id,
                 providerID: credentials.providerID,
                 kind: credentials.kind,
-                status: .updating,
+                status: credentialsStatusAfterSupplementalInformation,
                 statusPayload: "",
                 statusUpdated: Date(),
                 updated: Date(),
