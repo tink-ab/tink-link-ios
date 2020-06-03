@@ -61,7 +61,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
-        let titleFormat = Strings.ProviderList.accessTypeTitle
+        let titleFormat = Strings.SelectAccessType.title
         let formattedTitle = String(format: titleFormat, name)
         setupNavigationItem(for: viewController, title: formattedTitle)
         viewController.providerPickerCoordinator = self
@@ -70,7 +70,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
         let viewController = CredentialsKindPickerViewController(credentialsKindNodes: credentialsKindNodes)
-        let title = Strings.ProviderList.credentialsTypeTitle
+        let title = Strings.SelectAccessType.information
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)

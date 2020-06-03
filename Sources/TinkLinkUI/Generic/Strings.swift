@@ -103,9 +103,6 @@ enum Strings {
         /// Title for cancelling an action or event.
         static let cancel = NSLocalizedString("Generic.Cancel", tableName: tableName, bundle: bundle, value: "Cancel", comment: "Text shown for Cancel button.")
 
-        /// Title for button to send supplemental information when adding credentials.
-        static let submit = NSLocalizedString("Generic.Submit", tableName: tableName, bundle: bundle, value: "Submit", comment: "Title for button to send supplemental information when adding credentials.")
-
         /// Title for action to dismiss error alert.
         static let dismiss = NSLocalizedString("Generic.Dismiss", tableName: tableName, bundle: bundle, value: "Dismiss", comment: "Title for action to dismiss error alert.")
 
