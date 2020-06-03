@@ -17,16 +17,13 @@ enum Strings {
         /// Text for the warning shown when the developer is unverified.
         static let unverifiedClient = NSLocalizedString("Credentials.UnverifiedClient", tableName: tableName, bundle: bundle, value: "Unverified - This solution is only made for development purposes. Do not enter your bank credentials unless you trust the developer.", comment: "Text for the warning shown when the developer is unverified.")
 
-        enum ConsentInformation {
+        /// Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.
+        static let termsText = NSLocalizedString("Credentials.TermsText", tableName: tableName, bundle: bundle, value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.")
 
-            /// Text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.
-            static let text = NSLocalizedString("ConsentInformation.Text", tableName: tableName, bundle: bundle, value: "%@ will obtain some of your financial information. Read More", comment: "Text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.")
+        /// Text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.
+        static let consentText = NSLocalizedString("Credentials.ConsentText", tableName: tableName, bundle: bundle, value: "%@ will obtain some of your financial information. Read More", comment: "Text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.")
 
-            static let readMore = NSLocalizedString("ConsentInformation.ReadMore", tableName: tableName, bundle: bundle, value: "Read More", comment: "Read more text (clickable) to lead to consent information.")
-
-            /// Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.
-            static let serviceAgreement = NSLocalizedString("ConsentInformation.ServiceAgreement", tableName: tableName, bundle: bundle, value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.")
-        }
+        static let readMore = NSLocalizedString("Credentials.ReadMore", tableName: tableName, bundle: bundle, value: "Read More", comment: "Read more text (clickable) to lead to consent information.")
 
         enum Error {
             /// Title for error shown when a permanent failure occured while adding credentials.

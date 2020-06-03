@@ -23,7 +23,7 @@ final class AddCredentialsFooterView: UIView {
         ]
         descriptionTextView.textContainer.lineFragmentPadding = 0
         descriptionTextView.textContainerInset = .zero
-        let text = Strings.Credentials.ConsentInformation.serviceAgreement
+        let text = Strings.Credentials.termsText
         let attributeText = NSMutableAttributedString(
             string: text,
             attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.footnote])
