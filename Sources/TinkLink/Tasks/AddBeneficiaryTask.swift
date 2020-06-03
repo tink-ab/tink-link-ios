@@ -13,8 +13,6 @@ public final class AddBeneficiaryTask: Cancellable {
         case requestSent
         /// The user needs to be authenticated.
         case authenticating
-        /// Searching for the newly added beneficiary
-        case searchingForAddedBeneficiary
     }
 
     /// Represents an authentication that needs to be completed by the user.
@@ -255,7 +253,6 @@ extension AddBeneficiaryTask {
         credentialsStatusPollingTask?.stopPolling()
         do {
             _ = try result.get()
-            progressHandler(.searchingForAddedBeneficiary)
             // TODO: Check if we need to refresh credentials before doing this.
             // TODO: Wait a bit or retry if beneficiary can't be found.
             fetchBeneficiary(accountID: ownerAccountID, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
