@@ -13,9 +13,9 @@ public struct AccountNumberKind: Hashable, ExpressibleByStringLiteral {
     /// The `String` that represent the account number kind.
     public let value: String
 
-    public static let iban: Kind = "iban"
-    public static let se: Kind = "se"
-    public static let seBankGiro: Kind = "se-bg"
-    public static let sePlusGiro: Kind = "se-pg"
-    public static let sortCode: Kind = "sort-code"
+    public static let iban: Self = "iban"
+    public static let se: Self = "se"
+    public static let seBankGiro: Self = "se-bg"
+    public static let sePlusGiro: Self = "se-pg"
+    public static let sortCode: Self = "sort-code"
 }
