@@ -253,40 +253,10 @@ extension AddBeneficiaryTask {
         credentialsStatusPollingTask?.stopPolling()
         do {
             _ = try result.get()
-            // TODO: Check if we need to refresh credentials before doing this.
-            // TODO: Wait a bit or retry if beneficiary can't be found.
-            fetchBeneficiary(accountID: ownerAccountID, accountNumberType: accountNumberType, accountNumber: accountNumber) { [weak self] (beneficiaryResult) in
-                do {
-                    let addedBeneficiary = try beneficiaryResult.get()
-                    self?.completionHandler(.success(addedBeneficiary))
-                } catch {
-                    self?.completionHandler(.failure(error))
-                }
-            }
+            let beneficiary = Beneficiary(accountNumberType: accountNumberType, name: name, ownerAccountID: ownerAccountID, accountNumber: accountNumber)
+            completionHandler(.success(beneficiary))
         } catch {
             completionHandler(.failure(error))
-        }
-    }
-
-    private func fetchBeneficiary(
-        accountID: Account.ID,
-        accountNumberType: String,
-        accountNumber: String,
-        completion: @escaping (Result<Beneficiary, Swift.Error>) -> Void
-    ) {
-        fetchBeneficiariesCanceller = transferService.beneficiaries { result in
-            do {
-                let beneficiaries = try result.get()
-                let beneficiary = beneficiaries.first(where: { beneficiary in
-                    beneficiary.ownerAccountID == accountID && beneficiary.accountNumberType == accountNumberType && beneficiary.accountNumber == accountNumber
-                })
-                guard let matchingBeneficiary = beneficiary else {
-                    throw Error.notFound("Could not find added beneficiary.")
-                }
-                completion(.success(matchingBeneficiary))
-            } catch {
-                completion(.failure(error))
-            }
         }
     }
 }
