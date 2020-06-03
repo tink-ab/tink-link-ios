@@ -7,6 +7,7 @@ class MutableCredentialsService: CredentialsService {
     var createCredentialsKind: Credentials.Kind = .password
     var credentialsStatusAfterUpdate: Credentials.Status = .authenticating
     var credentialsStatusAfterRefresh: Credentials.Status = .authenticating
+    var credentialsStatusAfterThirdPartyCallback: Credentials.Status = .authenticating
     var credentialsStatusAfterManualAuthentication: Credentials.Status = .authenticating
     var credentialsStatusAfterSupplementalInformation: Credentials.Status = .updating
 
@@ -194,7 +195,8 @@ class MutableCredentialsService: CredentialsService {
     }
 
     func thirdPartyCallback(state: String, parameters: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        fatalError("\(#function) should not be called")
+        modifyCredentials(id: credentialsID, status: credentialsStatusAfterThirdPartyCallback)
+        return nil
     }
 
     func manualAuthentication(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
