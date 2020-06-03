@@ -22,6 +22,7 @@ extension Beneficiary {
 
 extension Beneficiary.URI {
     /// A type representing an kind of account URI.
+    @available(*, deprecated, renamed: "AccountNumberKind")
     public typealias Kind = AccountNumberKind
 }
 

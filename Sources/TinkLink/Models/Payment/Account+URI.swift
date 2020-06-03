@@ -23,6 +23,7 @@ extension Account {
 
 extension Account.URI {
     /// A type representing an kind of account URI.
+    @available(*, deprecated, renamed: "AccountNumberKind")
     public typealias Kind = AccountNumberKind
 }
 
