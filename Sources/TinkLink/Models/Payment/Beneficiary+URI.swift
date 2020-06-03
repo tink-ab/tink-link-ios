@@ -22,26 +22,7 @@ extension Beneficiary {
 
 extension Beneficiary.URI {
     /// A type representing an kind of account URI.
-    public struct Kind: ExpressibleByStringLiteral {
-        public init(stringLiteral value: String) {
-            self.value = value
-        }
-
-        /// Creates a kind.
-        /// - Parameter value: The `String` that represents the account kind.
-        public init(_ value: String) {
-            self.value = value
-        }
-
-        /// The `String` that represent the account kind.
-        public let value: String
-
-        public static let iban: Kind = "iban"
-        public static let se: Kind = "se"
-        public static let seBankGiro: Kind = "se-bg"
-        public static let sePlusGiro: Kind = "se-pg"
-        public static let sortCode: Kind = "sort-code"
-    }
+    public typealias Kind = AccountNumberKind
 }
 
 extension Beneficiary.URI {
