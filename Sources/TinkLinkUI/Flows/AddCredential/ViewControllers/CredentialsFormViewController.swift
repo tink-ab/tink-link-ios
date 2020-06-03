@@ -131,7 +131,7 @@ extension CredentialsFormViewController {
             buttonBottomConstraint,
         ])
 
-        navigationItem.title = Strings.Credentials.Form.authenticate
+        navigationItem.title = Strings.Credentials.title
         navigationItem.largeTitleDisplayMode = .never
         button.isEnabled = formTableViewController.form.fields.filter({ $0.attributes.isEditable }).isEmpty
 

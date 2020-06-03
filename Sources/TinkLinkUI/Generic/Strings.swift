@@ -10,8 +10,6 @@ enum Strings {
 
         static let openBankID = NSLocalizedString("Credentials.OpenBankID", tableName: tableName, bundle: bundle, value: "Open BankID", comment: "Text for BankID button shown in the add credentials/authenticate screen.")
 
-        static let termsText = NSLocalizedString("Credentials.TermsText", tableName: tableName, bundle: bundle, value: "By using this service, you agree to Tink's %@ and %@ ", comment: "Text for BankID button shown in the add credentials/authenticate screen.")
-
         static let termsAndConditions = NSLocalizedString("Credentials.TermsAndConditions", tableName: tableName, bundle: bundle, value: "Terms and Conditions", comment: "Terms and conditions clickable text used in Credentials.TermsText.")
 
         static let privacyPolicy = NSLocalizedString("Credentials.PrivacyPolicy", tableName: tableName, bundle: bundle, value: "Privacy Policy", comment: "Privacy policy clickable text used in Credentials.TermsText.")
@@ -25,12 +23,6 @@ enum Strings {
 
             /// Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.
             static let serviceAgreement = NSLocalizedString("ConsentInformation.ServiceAgreement", tableName: tableName, bundle: bundle, value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.")
-
-            /// Title of the Privacy Policy link. This has to match the mention of the Privacy Policy in the `AddCredentials.Consent.ServiceAgreement` string.
-            static let privacyPolicy = NSLocalizedString("ConsentInformation.PrivacyPolicy", tableName: tableName, bundle: bundle, value: "Privacy Policy", comment: "Title of the Privacy Policy link. This has to match the mention of the Privacy Policy in the `AddCredentials.Consent.ServiceAgreement` string.")
-
-            /// Title of the Privacy Policy link. This has to match the mention of the Terms and Conditions in the `AddCredentials.Consent.ServiceAgreement` string.
-            static let termsAndConditions = NSLocalizedString("ConsentInformation.TermsAndConditions", tableName: tableName, bundle: bundle, value: "Terms and Conditions", comment: "Title of the Privacy Policy link. This has to match the mention of the Terms and Conditions in the `AddCredentials.Consent.ServiceAgreement` string.")
         }
 
         enum Error {
@@ -61,12 +53,6 @@ enum Strings {
 
             /// Title for action to continue adding credentials.
             static let continueAction = NSLocalizedString("Credentials.Discard.ContinueAction", tableName: tableName, bundle: bundle, value: "Continue Editing", comment: "Title for action to continue adding credentials.")
-        }
-
-        enum Form {
-
-            /// Title for screen where user fills in form to add credentials.
-            static let authenticate = NSLocalizedString("Credentials.Form.Authenticate", tableName: tableName, bundle: bundle, value: "Authenticate", comment: "Title for screen where user fills in form to add credentials.")
         }
     }
 
@@ -102,14 +88,6 @@ enum Strings {
 
         /// Text shown when adding credentials and waiting for authentication on another device.
         static let waitingForAuthenticationOnAnotherDevice = NSLocalizedString("CredentialsStatus.WaitingForAuthenticationOnAnotherDevice", tableName: tableName, bundle: bundle, value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authentication on another device.")
-
-        enum Connection {
-
-            static let title = NSLocalizedString("CredentialsStatus.Connection.Title", tableName: tableName, bundle: bundle, value: "Connection successful", comment: "Title shown for connection successful screen.")
-
-            static let description = NSLocalizedString("CredentialsStatus.Connection.Description", tableName: tableName, bundle: bundle, value: "Your accounts have been successfully added to %@", comment: "Description shown for connection successful screen.")
-
-        }
     }
 
     enum Generic {
@@ -151,13 +129,6 @@ enum Strings {
     }
 
     enum ProviderList {
-
-        /// Title for screen where user selects which access type to use when adding credentials.
-        static let accessTypeTitle = NSLocalizedString("ProviderList.AccessTypeTitle", tableName: tableName, bundle: bundle, value: "Add %@", comment: "Title for screen where user selects which access type to use when adding credentials.")
-
-        /// Title for screen where user selects which authentication type to use when adding credentials.
-        static let credentialsTypeTitle = NSLocalizedString("ProviderList.CredentialsTypeTitle", tableName: tableName, bundle: bundle, value: "Sign in method", comment: "Title for screen where user selects which authentication type to use when adding credentials.")
-
         /// Title for list of all providers.
         static let title = NSLocalizedString("ProviderList.Title", tableName: tableName, bundle: bundle, value: "Choose bank", comment: "Title for list of all providers.")
 
@@ -212,26 +183,14 @@ enum Strings {
     }
 
     enum SelectAccessType {
+        /// Title for screen where user selects which access type to use when adding credentials.
         static let title = NSLocalizedString("SelectAccessType.Title", tableName: tableName, bundle: bundle, value: "Select account types", comment: "Title of the choose access type screen.")
 
         static let information = NSLocalizedString("SelectAccessType.Information", tableName: tableName, bundle: bundle, value: "Information about account types", comment: "Text for information button shown in the choose access type screen.")
-
-        enum AccessType {
-            /// Title for the group of providers that use Open Banking.
-            static let openBankingTitle = NSLocalizedString("SelectAccessType.AccessType.OpenBankingTitle", tableName: tableName, bundle: bundle, value: "Checking accounts", comment: "Title for the group of providers that use Open Banking.")
-
-            /// Text describing the group of providers that use Open Banking.
-            static let openBankingDetail = NSLocalizedString("SelectAccessType.AccessType.OpenBankingDetail", tableName: tableName, bundle: bundle, value: "Including everyday accounts, such as your salary account.", comment: "Text describing the group of providers that use Open Banking.")
-
-            /// Title for the group of providers that does not use Open Banking.
-            static let otherTitle = NSLocalizedString("SelectAccessType.AccessType.OtherTitle", tableName: tableName, bundle: bundle, value: "Other account types", comment: "Title for the group of providers that does not use Open Banking.")
-
-            /// Text describing the group of providers that does not use Open Banking.
-            static let otherDetail = NSLocalizedString("SelectAccessType.AccessType.OtherDetail", tableName: tableName, bundle: bundle, value: "Including saving accounts, credit cards, loans, investments and your personal information.", comment: "Text describing the group of providers that does not use Open Banking.")
-        }
     }
 
     enum SelectCredentialsType {
+        /// Title for screen where user selects which authentication type to use when adding credentials.
         static let title = NSLocalizedString("SelectCredentialsType.Title", tableName: tableName, bundle: bundle, value: "Sign in method", comment: "Title for choose credential type screen.")
     }
 

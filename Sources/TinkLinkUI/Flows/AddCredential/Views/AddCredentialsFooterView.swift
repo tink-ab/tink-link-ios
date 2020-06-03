@@ -29,11 +29,11 @@ final class AddCredentialsFooterView: UIView {
             attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.footnote])
         let languageCode = Locale.current.languageCode ?? ""
         let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
-        let privacyPolicyText = Strings.Credentials.ConsentInformation.privacyPolicy
+        let privacyPolicyText = Strings.Credentials.privacyPolicy
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
         self.privacyPolicyRange = privacyPolicyRange
         attributeText.addAttributes([.link: privacyPolicyUrl,], range: privacyPolicyRange)
-        let termsAndConditionsText = Strings.Credentials.ConsentInformation.termsAndConditions
+        let termsAndConditionsText = Strings.Credentials.termsAndConditions
         let termsAndConditionsUrl = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
         self.termsAndConditionsRange = termsAndConditionsRange
