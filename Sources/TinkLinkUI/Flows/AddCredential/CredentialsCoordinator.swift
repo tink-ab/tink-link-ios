@@ -8,6 +8,10 @@ protocol CredentialsCoordinatorPresenting: AnyObject {
     func dismiss(animated: Bool, completion: (() -> Void)?)
 }
 
+protocol CredentialsCoordinatorDelegate: AnyObject {
+    func didFinishCredentialsForm()
+}
+
 final class CredentialsCoordinator {
 
     enum AddCredentialsMode {
@@ -33,17 +37,19 @@ final class CredentialsCoordinator {
     private let action: Action
     private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void
     private weak var presenter: CredentialsCoordinatorPresenting?
+    private weak var delegate: CredentialsCoordinatorDelegate?
     private let clientDescription: ClientDescription
 
     private var fetchedCredentials: Credentials?
 
-    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
+    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
         self.providerController = providerController
         self.action = action
         self.completion = completion
         self.presenter = presenter
+        self.delegate = delegate
         self.clientDescription = clientDescription
     }
 
@@ -92,6 +98,7 @@ final class CredentialsCoordinator {
     private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
         do {
             let values = try result.get()
+            delegate?.didFinishCredentialsForm()
             showAddCredentialSuccess(with: .success(values))
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
