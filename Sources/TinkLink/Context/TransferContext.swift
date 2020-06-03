@@ -228,7 +228,8 @@ public final class TransferContext {
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
-            ownerAccount: account,
+            ownerAccountID: account.id,
+            ownerAccountCredentialsID: account.credentialsID,
             name: name,
             accountNumberType: accountNumberType,
             accountNumber: accountNumber,
@@ -243,8 +244,8 @@ public final class TransferContext {
     }
 
     public func addBeneficiary(
-        toAccountWithID: Account.ID,
-        onCredentialsWithID: Credentials.ID,
+        toAccountWithID accountID: Account.ID,
+        onCredentialsWithID credentialsID: Credentials.ID,
         name: String,
         accountNumberType: String,
         accountNumber: String,
@@ -256,8 +257,8 @@ public final class TransferContext {
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
-            ownerAccountID: toAccountWithID,
-            ownerAccountCredentialsID: onCredentialsWithID,
+            ownerAccountID: accountID,
+            ownerAccountCredentialsID: credentialsID,
             name: name,
             accountNumberType: accountNumberType,
             accountNumber: accountNumber,
