@@ -70,8 +70,8 @@ extension Beneficiary.URI {
         var urlComponents = URLComponents()
         urlComponents.scheme = beneficiary.accountNumberType
         urlComponents.host = beneficiary.accountNumber
-        if let beneficiaryName = beneficiary.name, !beneficiaryName.isEmpty {
-            urlComponents.queryItems = [URLQueryItem(name: "name", value: beneficiaryName)]
+        if !beneficiary.name.isEmpty {
+            urlComponents.queryItems = [URLQueryItem(name: "name", value: beneficiary.name)]
         }
         guard let uri = urlComponents.url else { return  nil }
 
