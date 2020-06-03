@@ -86,6 +86,8 @@ enum Strings {
     }
 
     enum Generic {
+        static let and = NSLocalizedString("Generic.And", tableName: tableName, bundle: bundle, value: "and", comment: "Text used to form a list.")
+
         /// Title for action to confirm alert.
         static let ok = NSLocalizedString("Generic.OK", tableName: tableName, bundle: bundle, value: "OK", comment: "Title for action to confirm alert.")
 
@@ -112,12 +114,6 @@ enum Strings {
             static let fallbackTitle = NSLocalizedString("Generic.ServiceAlert.FallbackTitle", tableName: tableName, bundle: bundle, value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description.")
 
         }
-
-        enum Formatter {
-            /// Text used to form a list.
-            static let and = NSLocalizedString("Generic.Formatter.And", tableName: tableName, bundle: bundle, value: "and", comment: "Text used to form a list.")
-        }
-        
     }
 
     enum ProviderList {
