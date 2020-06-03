@@ -18,40 +18,13 @@ class AddBeneficiaryTaskTests: XCTestCase {
     }
 
     func testSuccessfulAddBeneficiaryTask() {
-        let credentials = Credentials(
-            id: Credentials.ID(UUID().uuidString),
-            providerID: Provider.ID("test-provider"),
+        let credentials = Credentials.makeTestCredentials(
+            providerID: "test-provider",
             kind: .password,
-            status: .updated,
-            statusPayload: "",
-            statusUpdated: Date(),
-            updated: Date(),
-            fields: ["username": "test", "password": "12345678"],
-            supplementalInformationFields: [],
-            thirdPartyAppAuthentication: nil,
-            sessionExpiryDate: nil
+            status: .updated
         )
 
-        let account = Account(
-            accountNumber: "FR1420041010050015664355590",
-            balance: 68.61,
-            credentialsID: credentials.id,
-            isFavored: false,
-            id: Account.ID(UUID().uuidString),
-            name: "Checking Account tink 1",
-            ownership: 1.0,
-            kind: .checking,
-            transferSourceIdentifiers: [URL(string: "iban://FR1420041010050015664355590?name=testAccount")!],
-            transferDestinations: nil,
-            details: nil,
-            holderName: nil,
-            isClosed: false,
-            flags: [],
-            accountExclusion: nil,
-            currencyDenominatedBalance: CurrencyDenominatedAmount(Decimal(68.61), currencyCode: CurrencyCode("EUR")),
-            refreshed: Date(),
-            financialInstitutionID: Provider.FinancialInstitution.ID(UUID().uuidString)
-        )
+        let account = Account.makeTestAccount(credentials: credentials)
 
         credentialsService.credentialsByID = [credentials.id: credentials]
 

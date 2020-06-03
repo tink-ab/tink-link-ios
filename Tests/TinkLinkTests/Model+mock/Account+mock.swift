@@ -22,4 +22,29 @@ extension Account {
         refreshed: Date(),
         financialInstitutionID: Provider.FinancialInstitution.ID("f58e31ebaf625c15a9601aa4deac83d0")
     )
+
+    static func makeTestAccount(
+        credentials: Credentials
+    ) -> Account {
+        return Account(
+            accountNumber: "FR1420041010050015664355590",
+            balance: 68.61,
+            credentialsID: credentials.id,
+            isFavored: false,
+            id: Account.ID(UUID().uuidString),
+            name: "Checking Account tink 1",
+            ownership: 1.0,
+            kind: .checking,
+            transferSourceIdentifiers: [URL(string: "iban://FR1420041010050015664355590?name=testAccount")!],
+            transferDestinations: nil,
+            details: nil,
+            holderName: nil,
+            isClosed: false,
+            flags: [],
+            accountExclusion: nil,
+            currencyDenominatedBalance: CurrencyDenominatedAmount(Decimal(68.61), currencyCode: CurrencyCode("EUR")),
+            refreshed: Date(),
+            financialInstitutionID: Provider.FinancialInstitution.ID(UUID().uuidString)
+        )
+    }
 }
