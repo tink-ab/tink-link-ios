@@ -2,17 +2,35 @@ import UIKit
 import TinkLink
 
 class CredentialsSuccessfullyAddedViewController: UIViewController {
+
+    enum Operation {
+        case create
+        case other
+
+        var localizedOperationText: [String] {
+            switch self {
+            case .create:
+                return [Strings.AddCredentials.Success.title, Strings.AddCredentials.Success.subtitle]
+            case .other:
+                // TODO: Use Strings
+                return ["Update Successful", "Your connection to %@ has been updated."]
+            }
+        }
+    }
+
     let companyName: String
     let doneActionHandler: () -> Void
 
+    private var operation: Operation
     private let iconView = CheckmarkView(style: .large)
     private let containerView = UIView()
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
     private let doneButton = FloatingButton()
     
-    init(companyName: String, doneActionHandler: @escaping () -> Void) {
+    init(companyName: String, operation: Operation = .create, doneActionHandler: @escaping () -> Void) {
         self.companyName = companyName
+        self.operation = operation
         self.doneActionHandler = doneActionHandler
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,12 +39,11 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //TODO: Use real strings
-    private let titleText = Strings.AddCredentials.Success.title
-    private let subtitleText = Strings.AddCredentials.Success.subtitle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let titleText = operation.localizedOperationText[0]
+        let subtitleText = operation.localizedOperationText[1]
         
         view.backgroundColor = Color.background
         navigationController?.setNavigationBarHidden(true, animated: false)
