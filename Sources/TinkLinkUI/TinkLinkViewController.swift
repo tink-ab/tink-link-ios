@@ -115,8 +115,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var authorizationController = AuthorizationController(tink: tink)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
 
-    private var overlayView: UIView?
-    private lazy var loadingViewController = LoadingViewController()
+    private var loadingViewController: LoadingViewController?
 
     private var credentialsCoordinator: CredentialsCoordinator?
     private var clientDescription: ClientDescription?
@@ -197,10 +196,10 @@ public class TinkLinkViewController: UINavigationController {
 
         view.backgroundColor = Color.background
 
-        showLoadingOverlay()
+        showLoadingOverlay(withText: nil)
 
         presentationController?.delegate = self
-        loadingViewController.delegate = self
+        loadingViewController?.delegate = self
 
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
@@ -311,7 +310,7 @@ public class TinkLinkViewController: UINavigationController {
                     if let tinkLinkError = TinkLinkError(error: error) {
                         self.result = .failure(tinkLinkError)
                     }
-                    self.loadingViewController.update(error)
+                    self.loadingViewController?.setError(error)
                 }
             }
         }
@@ -323,7 +322,7 @@ public class TinkLinkViewController: UINavigationController {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.startCredentialCoordinator(with: operation)
             }
-            showLoadingOverlay()
+            showLoadingOverlay(withText: nil)
             return
         }
 
@@ -391,10 +390,9 @@ extension TinkLinkViewController {
             message: localizedError?.failureReason ?? error.localizedDescription,
             preferredStyle: .alert
         )
-        loadingViewController.hideLoadingIndicator()
+
         let retryAction = UIAlertAction(title: Strings.Generic.retry, style: .default) { _ in
-            self.loadingViewController.showLoadingIndicator()
-            self.setViewControllers([self.loadingViewController], animated: false)
+            self.showLoadingOverlay(withText: nil)
             self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
         }
         alertController.addAction(retryAction)
@@ -446,13 +444,6 @@ extension TinkLinkViewController {
 
 extension TinkLinkViewController {
 
-    private func replaceTopViewController(with viewController: UIViewController, animated: Bool) {
-        var newViewControllers = viewControllers
-        _ = newViewControllers.popLast()
-        newViewControllers.append(viewController)
-        setViewControllers(newViewControllers, animated: animated)
-    }
-
     func showProviderPicker() {
         providerPickerCoordinator.start { [weak self] (result) in
             do {
@@ -473,13 +464,68 @@ extension TinkLinkViewController {
             startCredentialCoordinator(with: .create(provider: provider, mode: .user))
         }
     }
+
+    func showLoadingOverlay(withText text: String?, animated: Bool = true) {
+        guard loadingViewController == nil else {
+            loadingViewController?.update(text)
+            return
+        }
+
+        let loadingViewController = LoadingViewController()
+        loadingViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+        loadingViewController.willMove(toParent: self)
+        addChild(loadingViewController)
+        view.addSubview(loadingViewController.view)
+        loadingViewController.didMove(toParent: self)
+
+        loadingViewController.showLoadingIndicator()
+        loadingViewController.update(text)
+        self.loadingViewController = loadingViewController
+
+        NSLayoutConstraint.activate([
+            loadingViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            loadingViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            loadingViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
+        if animated {
+            loadingViewController.view.alpha = 0.0
+            UIView.animate(withDuration: 0.2) {
+                loadingViewController.view.alpha = 1.0
+            }
+        }
+    }
+
+    func hideLoadingOverlay(animated: Bool = true) {
+        guard let loadingViewController = loadingViewController else { return }
+
+        let removeView = {
+            loadingViewController.view.removeFromSuperview()
+            loadingViewController.removeFromParent()
+            self.loadingViewController = nil
+        }
+
+        if animated {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2, animations: {
+                    loadingViewController.view.alpha = 0.0
+                }, completion: { _ in
+                    removeView()
+                })
+            }
+        } else {
+            removeView()
+        }
+    }
 }
 
 // MARK: - LoadingViewControllerDelegate
 
 extension TinkLinkViewController: LoadingViewControllerDelegate {
     func loadingViewControllerDidPressRetry(_ viewController: LoadingViewController) {
-        loadingViewController.showLoadingIndicator()
+        loadingViewController?.showLoadingIndicator()
         operate()
     }
 }
@@ -531,7 +577,7 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
 extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 
     func showLoadingIndicator(text: String?, isCancellingAllowed: Bool) {
-        showLoadingOverlay()
+        showLoadingOverlay(withText: text)
     }
 
     func hideLoadingIndicator() {
@@ -540,32 +586,6 @@ extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 
     func show(_ viewController: UIViewController) {
         show(viewController, sender: self)
-    }
-
-    func showLoadingOverlay() {
-        guard overlayView == nil else {
-            return
-        }
-
-        let overlay = UIView()
-        let loadingViewController = LoadingViewController()
-
-        view.addSubview(overlay)
-        overlay.frame = view.bounds
-        overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        loadingViewController.willMove(toParent: self)
-        overlay.addSubview(loadingViewController.view)
-        addChild(loadingViewController)
-        loadingViewController.didMove(toParent: self)
-        loadingViewController.showLoadingIndicator()
-        self.loadingViewController = loadingViewController
-        self.overlayView = overlay
-    }
-
-    func hideLoadingOverlay() {
-        loadingViewController.removeFromParent()
-        overlayView?.removeFromSuperview()
-        overlayView = nil
     }
 }
 
