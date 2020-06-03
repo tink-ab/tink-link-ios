@@ -212,7 +212,7 @@ extension BeneficiaryPickerViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let beneficiary = beneficiaries[indexPath.row]
         cell.textLabel?.text = beneficiary.name
-        cell.detailTextLabel?.text = "\(beneficiary.accountNumberType): \(beneficiary.accountNumber)"
+        cell.detailTextLabel?.text = "\(beneficiary.accountNumberKind.value): \(beneficiary.accountNumber)"
         cell.accessoryType = beneficiary == selectedBeneficiary ? .checkmark : .none
         return cell
     }
