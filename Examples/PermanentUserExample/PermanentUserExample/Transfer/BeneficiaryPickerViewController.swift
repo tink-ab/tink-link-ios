@@ -168,8 +168,6 @@ extension BeneficiaryPickerViewController {
             showStatus("Request sent")
         case .authenticating:
             showStatus("Authenticating…")
-        case .searchingForAddedBeneficiary:
-            showStatus("Searching for added beneficiary…")
         }
     }
 
