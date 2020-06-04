@@ -47,6 +47,8 @@ public struct Provider: Identifiable {
         public static var defaultKinds: Set<Provider.Kind> = [.bank, .creditCard, .broker, .other]
         /// A set of all providers kinds except for the test providers.
         public static var excludingTest: Set<Provider.Kind> = [.unknown, .bank, .creditCard, .broker, .other, .fraud]
+        /// A set for the test providers kind.
+        public static var onlyTest: Set<Provider.Kind> = [.test]
         /// A set of all providers kinds. Note that this also includes test providers.
         public static var all: Set<Provider.Kind> = [.unknown, .bank, .creditCard, .broker, .other, .test, .fraud]
     }
