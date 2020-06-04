@@ -239,10 +239,10 @@ public final class TransferContext {
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.addBeneficiary(
-    ///     to: sourceAccount,
-    ///     name: <#Beneficiary name#>,
-    ///     accountNumberType: <#Account Number Type#>,
-    ///     accountNumber: <#Account Number#>
+    ///     name: <#String#>,
+    ///     accountNumberKind: <#AccountNumberKind#>,
+    ///     accountNumber: <#String#>
+    ///     to: <#Account#>,
     ///     authentication: { task in
     ///         switch task {
     ///         case .awaitingSupplementalInformation(let task):
@@ -310,10 +310,11 @@ public final class TransferContext {
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.addBeneficiary(
-    ///     toAccountWithID: <#Account ID#>
-    ///     onCredentialsWithID: <#Credentials ID#>,
-    ///     accountNumberType: <#Account Number Type#>,
-    ///     accountNumber: <#Account Number#>
+    ///     name: <#String#>,
+    ///     accountNumberKind: <#AccountNumberKind#>,
+    ///     accountNumber: <#String#>
+    ///     toAccountWithID: <#Account.ID#>
+    ///     onCredentialsWithID: <#Credentials.ID#>,
     ///     authentication: { task in
     ///         switch task {
     ///         case .awaitingSupplementalInformation(let task):
