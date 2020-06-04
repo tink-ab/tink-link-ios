@@ -323,4 +323,50 @@ class AddBeneficiaryTaskTests: XCTestCase {
             }
         }
     }
+
+    func testAddingBeneficiaryUnauthenticated() {
+        let credentials = Credentials.makeTestCredentials(
+            providerID: "test-provider",
+            kind: .password,
+            status: .updated
+        )
+        let account = Account.makeTestAccount(credentials: credentials)
+
+        let credentialsService = MockedAuthenticationErrorCredentialsService()
+        let transferService = MockedUnauthenticatedErrorTransferService()
+
+        let transferContext = TransferContext(tink: .shared, transferService: transferService, credentialsService: credentialsService)
+
+        let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
+
+        task = transferContext.addBeneficiary(
+            name: "Example Inc",
+            accountNumberKind: .iban,
+            accountNumber: "FR7630006000011234567890189",
+            to: account,
+            authentication: { task in
+                XCTFail("Didn't expect an authentication task")
+            },
+            progress: { status in
+                XCTFail("Didn't expect any status")
+            },
+            completion: { result in
+                do {
+                    _ = try result.get()
+                    XCTFail("Expected failure.")
+                } catch ServiceError.unauthenticated {
+                    XCTAssertTrue(true)
+                } catch {
+                    XCTFail("Failed to add beneficiary with: \(error)")
+                }
+                addBeneficiaryCompletionCalled.fulfill()
+            }
+        )
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }
+    }
 }
