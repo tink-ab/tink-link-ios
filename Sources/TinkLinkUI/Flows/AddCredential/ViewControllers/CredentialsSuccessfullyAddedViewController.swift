@@ -7,13 +7,23 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         case create
         case other
 
-        var localizedOperationText: [String] {
+        var localizedTitle: String {
             switch self {
             case .create:
-                return [Strings.AddCredentials.Success.title, Strings.AddCredentials.Success.subtitle]
+                return Strings.AddCredentials.Success.title
             case .other:
-                // TODO: Use Strings
-                return ["Update Successful", "Your connection to %@ has been updated."]
+                // TODO: Use real Strings
+                return "Update successful"
+            }
+        }
+
+        var localizedSubtitle: String {
+            switch self {
+            case .create:
+                return Strings.AddCredentials.Success.subtitle
+            case .other:
+                // TODO: Use real Strings
+                return "You connection to %@ has successfully been updated"
             }
         }
     }
@@ -42,8 +52,8 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let titleText = operation.localizedOperationText[0]
-        let subtitleText = operation.localizedOperationText[1]
+        let titleText = operation.localizedTitle
+        let subtitleText = operation.localizedSubtitle
         
         view.backgroundColor = Color.background
         navigationController?.setNavigationBarHidden(true, animated: false)
