@@ -5,20 +5,26 @@ import XCTest
 class AddBeneficiaryTaskTests: XCTestCase {
     var mockedSuccessTransferService: TransferService!
 
-    var mockedSuccessCredentialsService: CredentialsService!
-
     var task: AddBeneficiaryTask?
 
     override func setUp() {
         try! Tink.configure(with: .init(clientID: "testID", redirectURI: URL(string: "app://callback")!))
 
         mockedSuccessTransferService = MockedSuccessTransferService()
-
-        mockedSuccessCredentialsService = MockedSuccessPaymentCredentialsService()
     }
 
     func testSuccessfulAddBeneficiaryTask() {
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: mockedSuccessCredentialsService)
+        let credentials = Credentials.makeTestCredentials(
+            providerID: "test-provider",
+            kind: .password,
+            status: .updated
+        )
+
+        let credentialsService = MutableCredentialsService(credentialsList: [credentials])
+
+        let account = Account.makeTestAccount(credentials: credentials)
+
+        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
 
         let statusChangedToRequestSent = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
@@ -26,7 +32,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let addBeneficiaryCompletionCalled = expectation(description: "initiate transfer completion should be called")
 
         task = transferContext.addBeneficiary(
-            to: Account.checkingTestAccount,
+            to: account,
             name: "Example Inc",
             accountNumberType: "iban",
             accountNumber: "FR7630006000011234567890189",
@@ -43,8 +49,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 switch status {
                 case .requestSent:
                     statusChangedToRequestSent.fulfill()
+                    credentialsService.modifyCredentials(id: credentials.id, status: .authenticating)
                 case .authenticating:
                     statusChangedToAuthenticating.fulfill()
+                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
                 }
             }
         ) { result in
