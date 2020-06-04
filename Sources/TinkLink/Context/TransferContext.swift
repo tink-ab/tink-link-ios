@@ -272,7 +272,6 @@ public final class TransferContext {
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
-
     public func addBeneficiary(
         name: String,
         accountNumberKind: AccountNumberKind,
