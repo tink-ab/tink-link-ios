@@ -428,7 +428,10 @@ public final class TransferContext {
             if let error = errors.first {
                 completion(.failure(error))
             } else {
-                let capableCredentialsList = self.credentialsListCapableOfAddingBeneficiaries(to: account, credentialsList: credentialsList, providerList: providers)
+                let filteredProviders = providers.filter { $0.financialInstitution.id == account.financialInstitutionID && $0.capabilities.contains(.createBeneficiaries) }
+                let capableCredentialsList = credentialsList.filter { credentials in
+                    filteredProviders.contains { credentials.providerID == $0.id }
+                }
                 completion(.success(capableCredentialsList))
             }
         }
