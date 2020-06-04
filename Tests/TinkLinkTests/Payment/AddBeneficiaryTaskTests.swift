@@ -60,7 +60,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 _ = try result.get()
                 addBeneficiaryCompletionCalled.fulfill()
             } catch {
-                XCTFail("Failed to initiate transfer with: \(error)")
+                XCTFail("Failed to add beneficiary with: \(error)")
             }
         }
 
