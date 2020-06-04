@@ -28,7 +28,8 @@ public final class TransferContext {
     /// Initiate a transfer for the user.
     ///
     /// Required scopes:
-    ///   - transfer: execute
+    ///   - transfer:execute
+    ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
     /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
@@ -112,7 +113,7 @@ public final class TransferContext {
     /// Initiate a transfer for the user.
     ///
     /// Required scopes:
-    ///   - transfer: execute
+    ///   - transfer:execute
     ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
     /// Also, if needed, you can get the progress status change in `progress`, and present them accordingly.
