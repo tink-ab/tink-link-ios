@@ -400,10 +400,12 @@ public final class TransferContext {
     public func fetchCredentialsListCapableOfAddingBeneficiaries(to account: Account, completion: @escaping (Result<[Credentials], Error>) -> Void) {
         var credentialsList: [Credentials]
         var providers: [Provider]
+        var errors: [Error] = []
         credentialsService.credentialsList { result in
             do {
                 credentialsList = try result.get()
             } catch {
+                errors.append(error)
             }
         }
 
@@ -411,6 +413,7 @@ public final class TransferContext {
             do {
                 providers = try result.get()
             } catch {
+                errors.append(error)
             }
         }
     }
