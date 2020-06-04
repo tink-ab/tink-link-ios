@@ -27,8 +27,11 @@ public final class TransferContext {
 
     /// Initiate a transfer for the user.
     ///
+    /// Required scopes:
+    ///   - transfer:execute
+    ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
-    /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
+    /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.initiateTransfer(
@@ -109,8 +112,11 @@ public final class TransferContext {
 
     /// Initiate a transfer for the user.
     ///
+    /// Required scopes:
+    ///   - transfer:execute
+    ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
-    /// Also, if needed, you can get the progress status change in `progress`, and present them accordingly.
+    /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.initiateTransfer(
@@ -178,6 +184,9 @@ public final class TransferContext {
 
     /// Fetch all accounts of the user that are suitable to pick as the source of a transfer.
     ///
+    /// Required scopes:
+    ///   - transfer:read
+    ///
     /// - Parameter completion: A result representing either a list of accounts or an error.
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: [], completion: completion)
@@ -203,6 +212,9 @@ public final class TransferContext {
 
     /// Fetch all beneficiaries of the user.
     ///
+    /// Required scopes:
+    /// - beneficiaries:read
+    /// 
     /// The result list may include duplicate beneficiaries for different source accounts.
     /// You can group the list by account id as follow:
     ///
@@ -214,6 +226,52 @@ public final class TransferContext {
     public func fetchBeneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         transferService.beneficiaries(completion: completion)
     }
+
+    // MARK: - Adding Beneficiaries
+
+    /// Initiate the request for adding a beneficiary to the user's account.
+    ///
+    /// Required scopes:
+    /// - beneficiaries:write
+    ///
+    /// You need to handle authentication changes in `authentication` to successfuly initiate an adding beneficiary request.
+    /// If needed, you can get the progress status change in `progress`, and present them accordingly.
+    ///
+    /// ```swift
+    /// initiateTransferTask = transferContext.addBeneficiary(
+    ///     to: sourceAccount,
+    ///     name: <#Beneficiary name#>,
+    ///     accountNumberType: <#Account Number Type#>,
+    ///     accountNumber: <#Account Number#>
+    ///     authentication: { task in
+    ///         switch task {
+    ///         case .awaitingSupplementalInformation(let task):
+    ///             <#Present form for supplemental information task#>
+    ///         case .awaitingThirdPartyAppAuthentication(let task):
+    ///             <#Handle the third party app deep link URL#>
+    ///          }
+    ///     },
+    ///     progress: { status in
+    ///         <#Present the progress status change if needed#>
+    ///     },
+    ///     completion: { result in
+    ///         <#Handle result#>
+    ///     }
+    /// )
+    /// ```
+    ///
+    /// - Note: You need to retain the returned task until the add beneficiary request has completed.
+    ///
+    /// - Parameters:
+    ///   - to: The account that the beneficiary should be added to.
+    ///   - name: The name for this beneficiary.
+    ///   - accountNumberType: The type of the `accountNumber` that this beneficiary has.
+    ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberType`.
+    ///   - authentication: Indicates the authentication task for adding a beneficiary.
+    ///   - progress: Optional, indicates the state changes of adding a beneficiary.
+    ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
+    ///   - result: A result representing either an adding beneficiary initiation success or an error.
+    /// - Returns: The initiate transfer task.
 
     public func addBeneficiary(
         to account: Account,
@@ -243,6 +301,50 @@ public final class TransferContext {
         return task
     }
 
+    /// Initiate the request for adding a beneficiary to the user's account.
+    ///
+    /// Required scopes:
+    /// - beneficiaries:write
+    ///
+    /// You need to handle authentication changes in `authentication` to successfuly initiate an adding beneficiary request.
+    /// If needed, you can get the progress status change in `progress`, and present them accordingly.
+    ///
+    /// ```swift
+    /// initiateTransferTask = transferContext.addBeneficiary(
+    ///     toAccountWithID: <#Account ID#>
+    ///     onCredentialsWithID: <#Credentials ID#>,
+    ///     accountNumberType: <#Account Number Type#>,
+    ///     accountNumber: <#Account Number#>
+    ///     authentication: { task in
+    ///         switch task {
+    ///         case .awaitingSupplementalInformation(let task):
+    ///             <#Present form for supplemental information task#>
+    ///         case .awaitingThirdPartyAppAuthentication(let task):
+    ///             <#Handle the third party app deep link URL#>
+    ///          }
+    ///     },
+    ///     progress: { status in
+    ///         <#Present the progress status change if needed#>
+    ///     },
+    ///     completion: { result in
+    ///         <#Handle result#>
+    ///     }
+    /// )
+    /// ```
+    ///
+    /// - Note: You need to retain the returned task until the add beneficiary request has completed.
+    ///
+    /// - Parameters:
+    ///   - toAccountWithID: The source account ID for adding a beneficiary.
+    ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have double credentials for one financial institution, due to PSD2 regulations.
+    ///   - name: The name for this beneficiary.
+    ///   - accountNumberType: The type of the `accountNumber` that this beneficiary has.
+    ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberType`.
+    ///   - authentication: Indicates the authentication task for adding a beneficiary.
+    ///   - progress: Optional, indicates the state changes of adding a beneficiary.
+    ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
+    ///   - result: A result representing either an adding beneficiary initiation success or an error.
+    /// - Returns: The initiate transfer task.
     public func addBeneficiary(
         toAccountWithID accountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
@@ -272,6 +374,15 @@ public final class TransferContext {
         return task
     }
 
+    // MARK: - Find all credentials that are suitable for adding a beneficiary.
+
+    /// This functionality exists to support the case when a user has two credentials for one financial institution due to PSD2 regulations.
+    /// Use this helper function to find the credentials that has the capibility for adding beneficiaries.
+    /// - Parameters:
+    ///   - to: The account that the beneficiary should be added to.
+    ///   - credentialsList: The user's existing credentials list.
+    ///   - providerList: The available provider list.
+    /// - Returns: The credentials list that suitable for adding the beneficiary. Returns an empty array if no credentials are suitable for adding a beneficiary with.
     public func credentialsListSuitableForAddingBeneficiary(to account: Account, credentialsList: [Credentials], providerList: [Provider]) -> [Credentials] {
         let filteredProviders = providerList.filter ({ $0.financialInstitution.id == account.financialInstitutionID && $0.capabilities.contains(.createBeneficiaries) })
         return credentialsList.filter { credentials in
