@@ -427,6 +427,9 @@ public final class TransferContext {
         let workItem = DispatchWorkItem {
             if let error = errors.first {
                 completion(.failure(error))
+            } else {
+                let capableCredentialsList = self.credentialsListCapableOfAddingBeneficiaries(to: account, credentialsList: credentialsList, providerList: providers)
+                completion(.success(capableCredentialsList))
             }
         }
 
