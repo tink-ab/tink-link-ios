@@ -53,6 +53,9 @@ public final class CredentialsContext {
 
     /// Adds a credentials for the user.
     ///
+    /// Required scopes:
+    /// - credentials:write
+    ///
     /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
     ///
     ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, progressHandler: { status in
@@ -124,6 +127,10 @@ public final class CredentialsContext {
     // MARK: - Fetching Credentials
 
     /// Gets the user's credentials.
+    ///
+    /// Required scopes:
+    /// - credentials:read
+    ///
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
     @available(*, deprecated, renamed: "fetchCredentialsList")
@@ -133,6 +140,10 @@ public final class CredentialsContext {
     }
 
     /// Fetch a list of the current user's credentials.
+    ///
+    /// Required scopes:
+    /// - credentials:read
+    ///
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
     @discardableResult
@@ -149,6 +160,10 @@ public final class CredentialsContext {
     }
 
     /// Fetch a credentials by ID.
+    ///
+    /// Required scopes:
+    /// - credentials:read
+    ///
     /// - Parameter id: The id of the credentials to fetch.
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contains the credentials or an error if the fetch failed.
@@ -167,6 +182,10 @@ public final class CredentialsContext {
     // MARK: - Managing Credentials
 
     /// Refresh the user's credentials.
+    ///
+    /// Required scopes:
+    /// - credentials:refresh
+    ///
     /// - Parameters:
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
@@ -210,6 +229,10 @@ public final class CredentialsContext {
     }
 
     /// Update the user's credentials.
+    ///
+    /// Required scopes:
+    /// - credentials:write
+    ///
     /// - Parameters:
     ///   - credentials: Credentials that needs to be updated.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
@@ -257,6 +280,10 @@ public final class CredentialsContext {
     }
 
     /// Delete the user's credentials.
+    ///
+    /// Required scopes:
+    /// - credentials:write
+    ///
     /// - Parameters:
     ///   - credentials: The credentials to delete.
     ///   - completion: The block to execute when the credentials has been deleted successfuly or if it failed.
@@ -270,6 +297,10 @@ public final class CredentialsContext {
     // MARK: - Authenticate Credentials
 
     /// Authenticate the user's `OPEN_BANKING` access type credentials.
+    ///
+    /// Required scopes:
+    /// - credentials:refresh
+    ///
     /// - Parameters:
     ///   - credentials: Credentials that needs to be authenticated.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
