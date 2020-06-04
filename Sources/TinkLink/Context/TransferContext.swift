@@ -31,7 +31,7 @@ public final class TransferContext {
     ///   - transfer:execute
     ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
-    /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
+    /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.initiateTransfer(
@@ -116,7 +116,7 @@ public final class TransferContext {
     ///   - transfer:execute
     ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
-    /// Also, if needed, you can get the progress status change in `progress`, and present them accordingly.
+    /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.initiateTransfer(
@@ -235,7 +235,7 @@ public final class TransferContext {
     /// - beneficiaries:write
     ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate an adding beneficiary request.
-    /// Also, if needed, you can get the progress status change in `progress`, and present them accordingly.
+    /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.addBeneficiary(
@@ -307,7 +307,7 @@ public final class TransferContext {
     /// - beneficiaries:write
     ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate an adding beneficiary request.
-    /// Also, if needed, you can get the progress status change in `progress`, and present them accordingly.
+    /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.addBeneficiary(
