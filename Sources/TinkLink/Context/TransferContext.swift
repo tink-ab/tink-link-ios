@@ -381,7 +381,7 @@ public final class TransferContext {
     ///   - to: The account that the beneficiary should be added to.
     ///   - credentialsList: The user's existing credentials list.
     ///   - providerList: The available provider list.
-    /// - Returns: The credentials list that suitable for adding the beneficiary.
+    /// - Returns: The credentials list that suitable for adding the beneficiary. Returns an empty array if no credentials are suitable for adding a beneficiary with.
     public func credentialsListSuitableForAddingBeneficiary(to account: Account, credentialsList: [Credentials], providerList: [Provider]) -> [Credentials] {
         let filteredProviders = providerList.filter ({ $0.financialInstitution.id == account.financialInstitutionID && $0.capabilities.contains(.createBeneficiaries) })
         return credentialsList.filter { credentials in
