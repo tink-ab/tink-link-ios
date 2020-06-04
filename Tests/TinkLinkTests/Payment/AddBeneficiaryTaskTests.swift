@@ -136,4 +136,56 @@ class AddBeneficiaryTaskTests: XCTestCase {
             }
         }
     }
+
+    func testAddBeneficiaryTaskWithNoAuthenticationStep() {
+        let credentials = Credentials.makeTestCredentials(
+            providerID: "test-provider",
+            kind: .password,
+            status: .updated
+        )
+
+        let credentialsService = MutableCredentialsService(credentialsList: [credentials])
+
+        let account = Account.makeTestAccount(credentials: credentials)
+
+        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
+
+        let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
+        let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
+        let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
+
+        task = transferContext.addBeneficiary(
+            name: "Example Inc",
+            accountNumberKind: .iban,
+            accountNumber: "FR7630006000011234567890189",
+            to: account,
+            authentication: { task in
+                XCTFail("Didn't expect an authentication task")
+            },
+            progress: { status in
+                switch status {
+                case .requestSent:
+                    statusChangedToRequestSent.fulfill()
+                    credentialsService.modifyCredentials(id: credentials.id, status: .authenticating)
+                case .authenticating:
+                    statusChangedToAuthenticating.fulfill()
+                    credentialsService.modifyCredentials(id: credentials.id, status: .updated)
+                }
+            },
+            completion: { result in
+                do {
+                    _ = try result.get()
+                } catch {
+                    XCTFail("Failed to add beneficiary with: \(error)")
+                }
+                addBeneficiaryCompletionCalled.fulfill()
+            }
+        )
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }
+    }
 }
