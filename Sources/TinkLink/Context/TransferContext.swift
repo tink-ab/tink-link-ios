@@ -375,7 +375,7 @@ public final class TransferContext {
 
     // MARK: - Find all credentials that are suitable for adding a beneficiary.
 
-    /// This functionality exists to support the case where you may have double credentials for one financial institution, due to PSD2 regulations.
+    /// This functionality exists to support the case when a user has two credentials for one financial institution due to PSD2 regulations.
     /// Use this helper function to find the credentials that has the capibility for adding beneficiaries.
     /// - Parameters:
     ///   - to: The source account for adding a beneficiary.
