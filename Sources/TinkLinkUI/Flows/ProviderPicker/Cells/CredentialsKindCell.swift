@@ -53,11 +53,11 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
             iconBackgroundView.centerYAnchor.constraint(equalTo: iconView.centerYAnchor),
             iconBackgroundView.centerXAnchor.constraint(equalTo: iconView.centerXAnchor),
             iconBackgroundView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            iconBackgroundView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -iconTitleSpacing),
 
             iconView.widthAnchor.constraint(equalToConstant: iconSize),
             iconView.heightAnchor.constraint(equalToConstant: iconSize),
             iconView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            iconView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -iconTitleSpacing),
 
             titleLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
