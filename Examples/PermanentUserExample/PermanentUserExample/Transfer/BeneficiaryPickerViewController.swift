@@ -147,7 +147,7 @@ extension BeneficiaryPickerViewController {
         )
     }
 
-    private func handleAddBeneficiaryAuthentication(_ authenticationTask: AddBeneficiaryTask.AuthenticationTask) {
+    private func handleAddBeneficiaryAuthentication(_ authenticationTask: AuthenticationTask) {
         switch authenticationTask {
         case .awaitingSupplementalInformation(let task):
             hideStatus(animated: false) {
