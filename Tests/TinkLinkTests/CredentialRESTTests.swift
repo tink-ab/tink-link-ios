@@ -1,7 +1,7 @@
 @testable import TinkLink
 import XCTest
 
-class CredentialGRPCTests: XCTestCase {
+class CredentialRESTTests: XCTestCase {
     func testCreatedCapabilitiesMapping() {
         let restCredentials = RESTCredentials(
             id: "6e68cc6287704273984567b3300c5822",

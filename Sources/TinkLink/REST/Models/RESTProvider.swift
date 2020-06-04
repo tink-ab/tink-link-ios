@@ -31,6 +31,8 @@ struct RESTProvider: Codable {
         case investments = "INVESTMENTS"
         case payments = "PAYMENTS"
         case identityData = "IDENTITY_DATA"
+        case createBeneficiaries = "CREATE_BENEFICIARIES"
+        case listBeneficiaries = "LIST_BENEFICIARIES"
     }
 
     enum CredentialsType: String, Codable {

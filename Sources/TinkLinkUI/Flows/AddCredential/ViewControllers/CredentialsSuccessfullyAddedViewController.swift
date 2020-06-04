@@ -2,17 +2,45 @@ import UIKit
 import TinkLink
 
 class CredentialsSuccessfullyAddedViewController: UIViewController {
+
+    enum Operation {
+        case create
+        case other
+
+        var localizedTitle: String {
+            switch self {
+            case .create:
+                return Strings.ConnectionSuccess.title
+            case .other:
+                // TODO: Use real Strings
+                return "Update successful"
+            }
+        }
+
+        var localizedSubtitle: String {
+            switch self {
+            case .create:
+                return Strings.ConnectionSuccess.subtitle
+            case .other:
+                // TODO: Use real Strings
+                return "You connection to %@ has successfully been updated"
+            }
+        }
+    }
+
     let companyName: String
     let doneActionHandler: () -> Void
 
+    private var operation: Operation
     private let iconView = CheckmarkView(style: .large)
     private let containerView = UIView()
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
     private let doneButton = FloatingButton()
     
-    init(companyName: String, doneActionHandler: @escaping () -> Void) {
+    init(companyName: String, operation: Operation = .create, doneActionHandler: @escaping () -> Void) {
         self.companyName = companyName
+        self.operation = operation
         self.doneActionHandler = doneActionHandler
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,12 +49,11 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //TODO: Use real strings
-    private let titleText = Strings.ConnectionSuccess.title
-    private let subtitleText = Strings.ConnectionSuccess.subtitle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let titleText = operation.localizedTitle
+        let subtitleText = operation.localizedSubtitle
         
         view.backgroundColor = Color.background
         navigationController?.setNavigationBarHidden(true, animated: false)

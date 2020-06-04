@@ -8,6 +8,10 @@ protocol CredentialsCoordinatorPresenting: AnyObject {
     func dismiss(animated: Bool, completion: (() -> Void)?)
 }
 
+protocol CredentialsCoordinatorDelegate: AnyObject {
+    func didFinishCredentialsForm()
+}
+
 final class CredentialsCoordinator {
 
     enum AddCredentialsMode {
@@ -33,17 +37,19 @@ final class CredentialsCoordinator {
     private let action: Action
     private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void
     private weak var presenter: CredentialsCoordinatorPresenting?
+    private weak var delegate: CredentialsCoordinatorDelegate?
     private let clientDescription: ClientDescription
 
     private var fetchedCredentials: Credentials?
 
-    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
+    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
         self.providerController = providerController
         self.action = action
         self.completion = completion
         self.presenter = presenter
+        self.delegate = delegate
         self.clientDescription = clientDescription
     }
 
@@ -92,7 +98,8 @@ final class CredentialsCoordinator {
     private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
         do {
             let values = try result.get()
-            showAddCredentialSuccess(with: .success(values))
+            delegate?.didFinishCredentialsForm()
+            showAddCredentialSuccess(with: .success(values), for: action)
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
         } catch ServiceError.cancelled {
@@ -107,10 +114,18 @@ final class CredentialsCoordinator {
         }
     }
 
-    func showAddCredentialSuccess(with result: Result<(Credentials, AuthorizationCode?), TinkLinkError>) {
+    func showAddCredentialSuccess(with result: Result<(Credentials, AuthorizationCode?), TinkLinkError>, for: Action) {
         DispatchQueue.main.async {
-            let viewController = CredentialsSuccessfullyAddedViewController(companyName: self.clientDescription.name) { [weak self] in
-                self?.completion(result)
+            var viewController: CredentialsSuccessfullyAddedViewController
+            switch self.action {
+            case .create:
+                viewController = CredentialsSuccessfullyAddedViewController(companyName: self.clientDescription.name, operation: .create) { [weak self] in
+                    self?.completion(result)
+                }
+            default:
+                viewController = CredentialsSuccessfullyAddedViewController(companyName: self.clientDescription.name, operation: .other) { [weak self] in
+                    self?.completion(result)
+                }
             }
             self.presenter?.show(viewController)
         }
