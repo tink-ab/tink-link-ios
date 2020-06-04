@@ -467,7 +467,9 @@ extension TinkLinkViewController {
 
     func showLoadingOverlay(withText text: String?, animated: Bool = true) {
         guard loadingViewController == nil else {
-            loadingViewController?.update(text)
+            loadingViewController?.update(text) {
+                print("cancel")
+            }
             return
         }
 
@@ -480,7 +482,9 @@ extension TinkLinkViewController {
         loadingViewController.didMove(toParent: self)
 
         loadingViewController.showLoadingIndicator()
-        loadingViewController.update(text)
+        loadingViewController.update(text) {
+            print("cancel")
+        }
         self.loadingViewController = loadingViewController
 
         NSLayoutConstraint.activate([
