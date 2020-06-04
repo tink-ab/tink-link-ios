@@ -26,10 +26,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
         let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
 
-        let statusChangedToRequestSent = expectation(description: "initiate transfer status should be changed to created")
-        let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
-        let statusChangedToAwaitingSupplementalInformation = expectation(description: "initiate transfer status should be changed to awaitingSupplementalInformation")
-        let addBeneficiaryCompletionCalled = expectation(description: "initiate transfer completion should be called")
+        let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
+        let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
+        let statusChangedToAwaitingSupplementalInformation = expectation(description: "add beneficiary status should be changed to awaitingSupplementalInformation")
+        let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
         task = transferContext.addBeneficiary(
             name: "Example Inc",
