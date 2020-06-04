@@ -397,7 +397,8 @@ public final class TransferContext {
     /// - Parameters:
     ///   - to: The account that the beneficiary should be added to.
     ///   - completion: A closure that's called with the result containing either the credentials or an error. Contains an empty array if no credentials are suitable for adding a beneficiary with.
-    public func fetchCredentialsListCapableOfAddingBeneficiaries(to account: Account, completion: @escaping (Result<[Credentials], Error>) -> Void) {
+    /// - Returns: A cancellation handle.
+    public func fetchCredentialsListCapableOfAddingBeneficiaries(to account: Account, completion: @escaping (Result<[Credentials], Error>) -> Void) -> Cancellable {
         let group = DispatchGroup()
 
         var credentialsList: [Credentials]
@@ -437,5 +438,7 @@ public final class TransferContext {
         }
 
         group.notify(queue: .main, work: workItem)
+
+        return workItem
     }
 }
