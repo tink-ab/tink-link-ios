@@ -263,21 +263,20 @@ public final class TransferContext {
     /// - Note: You need to retain the returned task until the add beneficiary request has completed.
     ///
     /// - Parameters:
-    ///   - to: The account that the beneficiary should be added to.
     ///   - name: The name for this beneficiary.
     ///   - accountNumberKind: The kind of the `accountNumber` that this beneficiary has.
     ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
+    ///   - to: The account that the beneficiary should be added to.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
-
     public func addBeneficiary(
-        to account: Account,
         name: String,
         accountNumberKind: AccountNumberKind,
         accountNumber: String,
+        to account: Account,
         authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
         progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (Result<Void, Error>) -> Void
@@ -335,22 +334,22 @@ public final class TransferContext {
     /// - Note: You need to retain the returned task until the add beneficiary request has completed.
     ///
     /// - Parameters:
-    ///   - toAccountWithID: The source account ID for adding a beneficiary.
-    ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have double credentials for one financial institution, due to PSD2 regulations.
     ///   - name: The name for this beneficiary.
     ///   - accountNumberKind: The kind of the `accountNumber` that this beneficiary has.
     ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
+    ///   - toAccountWithID: The source account ID for adding a beneficiary.
+    ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have double credentials for one financial institution, due to PSD2 regulations.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     public func addBeneficiary(
-        toAccountWithID accountID: Account.ID,
-        onCredentialsWithID credentialsID: Credentials.ID,
         name: String,
         accountNumberKind: AccountNumberKind,
         accountNumber: String,
+        toAccountWithID accountID: Account.ID,
+        onCredentialsWithID credentialsID: Credentials.ID,
         authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
         progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (Result<Void, Error>) -> Void

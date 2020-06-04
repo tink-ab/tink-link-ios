@@ -121,10 +121,10 @@ extension BeneficiaryPickerViewController {
 extension BeneficiaryPickerViewController {
     private func addBeneficiary(name: String, accountNumberKind: AccountNumberKind, accountNumber: String) {
         addBeneficiaryTask = transferContext.addBeneficiary(
-            to: sourceAccount,
             name: name,
             accountNumberKind: accountNumberKind,
             accountNumber: accountNumber,
+            to: sourceAccount,
             authentication: { [weak self] task in
                 DispatchQueue.main.async {
                     self?.handleAddBeneficiaryAuthentication(task)

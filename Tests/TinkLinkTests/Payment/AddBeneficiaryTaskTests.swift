@@ -32,10 +32,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let addBeneficiaryCompletionCalled = expectation(description: "initiate transfer completion should be called")
 
         task = transferContext.addBeneficiary(
-            to: account,
             name: "Example Inc",
             accountNumberKind: .iban,
             accountNumber: "FR7630006000011234567890189",
+            to: account,
             authentication: { task in
                 switch task {
                 case .awaitingThirdPartyAppAuthentication: break
