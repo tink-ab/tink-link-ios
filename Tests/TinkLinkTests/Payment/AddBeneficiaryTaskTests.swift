@@ -55,14 +55,15 @@ class AddBeneficiaryTaskTests: XCTestCase {
                     credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
                 }
             }
-        ) { result in
-            do {
-                _ = try result.get()
-                addBeneficiaryCompletionCalled.fulfill()
-            } catch {
-                XCTFail("Failed to add beneficiary with: \(error)")
+            completion: { result in
+                do {
+                    _ = try result.get()
+                    addBeneficiaryCompletionCalled.fulfill()
+                } catch {
+                    XCTFail("Failed to add beneficiary with: \(error)")
+                }
             }
-        }
+        )
 
         waitForExpectations(timeout: 10) { error in
             if let error = error {
