@@ -227,7 +227,7 @@ public final class TransferContext {
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
     @discardableResult
     public func fetchBeneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        transferService.beneficiaries(completion: completion)
+        return transferService.beneficiaries(completion: completion)
     }
 
     // MARK: - Adding Beneficiaries
