@@ -40,7 +40,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 switch task {
                 case .awaitingThirdPartyAppAuthentication: break
                 case .awaitingSupplementalInformation(let supplementInformationTask):
-                    let form = Form(credentials: supplementInformationTask.credentials)
+                    let form = Form(supplementInformationTask: supplementInformationTask)
                     supplementInformationTask.submit(form)
                     statusChangedToAwaitingSupplementalInformation.fulfill()
                 }
@@ -100,7 +100,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 switch task {
                 case .awaitingThirdPartyAppAuthentication: break
                 case .awaitingSupplementalInformation(let supplementInformationTask):
-                    let form = Form(credentials: supplementInformationTask.credentials)
+                    let form = Form(supplementInformationTask: supplementInformationTask)
                     supplementInformationTask.submit(form)
                     statusChangedToAwaitingSupplementalInformation.fulfill()
                 }
