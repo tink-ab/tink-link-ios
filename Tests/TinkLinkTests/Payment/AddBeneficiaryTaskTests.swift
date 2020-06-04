@@ -55,7 +55,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                     statusChangedToAuthenticating.fulfill()
                     credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
                 }
-            }
+            },
             completion: { result in
                 do {
                     _ = try result.get()
