@@ -73,7 +73,7 @@ public final class TransferContext {
         toBeneficiaryWithURI: Beneficiary.URI,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
-        authentication: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
+        authentication: @escaping (AuthenticationTask) -> Void,
         progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
@@ -158,7 +158,7 @@ public final class TransferContext {
         to destination: Beneficiary,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
-        authentication: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
+        authentication: @escaping (AuthenticationTask) -> Void,
         progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
