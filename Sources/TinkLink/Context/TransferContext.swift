@@ -234,7 +234,7 @@ public final class TransferContext {
     /// Required scopes:
     /// - beneficiaries:write
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate an adding beneficiary request.
+    /// You need to handle authentication changes in `authentication` to successfuly initiate an add beneficiary request.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
@@ -305,7 +305,7 @@ public final class TransferContext {
     /// Required scopes:
     /// - beneficiaries:write
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate an adding beneficiary request.
+    /// You need to handle authentication changes in `authentication` to successfuly initiate an add beneficiary request.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
