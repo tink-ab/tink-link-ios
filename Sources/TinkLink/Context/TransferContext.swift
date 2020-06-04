@@ -27,6 +27,8 @@ public final class TransferContext {
 
     /// Initiate a transfer for the user.
     ///
+    /// Required scopes:
+    ///   - transfer: execute
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
     /// Also if needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
@@ -109,6 +111,9 @@ public final class TransferContext {
 
     /// Initiate a transfer for the user.
     ///
+    /// Required scopes:
+    ///   - transfer: execute
+    ///
     /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
     /// Also, if needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
@@ -178,6 +183,9 @@ public final class TransferContext {
 
     /// Fetch all accounts of the user that are suitable to pick as the source of a transfer.
     ///
+    /// Required scopes:
+    ///   - transfer:read
+    ///
     /// - Parameter completion: A result representing either a list of accounts or an error.
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: [], completion: completion)
@@ -203,6 +211,9 @@ public final class TransferContext {
 
     /// Fetch all beneficiaries of the user.
     ///
+    /// Required scopes:
+    /// - beneficiaries:read
+    /// 
     /// The result list may include duplicate beneficiaries for different source accounts.
     /// You can group the list by account id as follow:
     ///
