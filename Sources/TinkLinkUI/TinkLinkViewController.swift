@@ -196,7 +196,7 @@ public class TinkLinkViewController: UINavigationController {
 
         view.backgroundColor = Color.background
 
-        showLoadingOverlay(withText: nil)
+        showLoadingOverlay(withText: nil, onCancel: nil)
 
         presentationController?.delegate = self
         loadingViewController?.delegate = self
@@ -322,7 +322,7 @@ public class TinkLinkViewController: UINavigationController {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.startCredentialCoordinator(with: operation)
             }
-            showLoadingOverlay(withText: nil)
+            showLoadingOverlay(withText: nil, onCancel: nil)
             return
         }
 
@@ -392,7 +392,7 @@ extension TinkLinkViewController {
         )
 
         let retryAction = UIAlertAction(title: Strings.Generic.retry, style: .default) { _ in
-            self.showLoadingOverlay(withText: nil)
+            self.showLoadingOverlay(withText: nil, onCancel: nil)
             self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
         }
         alertController.addAction(retryAction)
@@ -465,11 +465,9 @@ extension TinkLinkViewController {
         }
     }
 
-    func showLoadingOverlay(withText text: String?, animated: Bool = true) {
+    func showLoadingOverlay(withText text: String?, animated: Bool = true, onCancel: (() -> Void)?) {
         guard loadingViewController == nil else {
-            loadingViewController?.update(text) {
-                print("cancel")
-            }
+            loadingViewController?.update(text, onCancel: onCancel)
             return
         }
 
@@ -477,14 +475,14 @@ extension TinkLinkViewController {
         loadingViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
         loadingViewController.willMove(toParent: self)
+        loadingViewController.beginAppearanceTransition(true, animated: animated)
         addChild(loadingViewController)
         view.addSubview(loadingViewController.view)
         loadingViewController.didMove(toParent: self)
 
+        loadingViewController.update(text, onCancel: onCancel)
         loadingViewController.showLoadingIndicator()
-        loadingViewController.update(text) {
-            print("cancel")
-        }
+
         self.loadingViewController = loadingViewController
 
         NSLayoutConstraint.activate([
@@ -496,24 +494,31 @@ extension TinkLinkViewController {
 
         if animated {
             loadingViewController.view.alpha = 0.0
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.1, animations: {
                 loadingViewController.view.alpha = 1.0
-            }
+            }, completion: { _ in
+                loadingViewController.endAppearanceTransition()
+            })
+        } else {
+            loadingViewController.endAppearanceTransition()
         }
     }
 
     func hideLoadingOverlay(animated: Bool = true) {
         guard let loadingViewController = loadingViewController else { return }
 
+        loadingViewController.beginAppearanceTransition(false, animated: animated)
+
         let removeView = {
             loadingViewController.view.removeFromSuperview()
             loadingViewController.removeFromParent()
+            loadingViewController.endAppearanceTransition()
             self.loadingViewController = nil
         }
 
         if animated {
             DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.2, animations: {
+                UIView.animate(withDuration: 0.1, animations: {
                     loadingViewController.view.alpha = 0.0
                 }, completion: { _ in
                     removeView()
@@ -580,8 +585,8 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
 
 extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 
-    func showLoadingIndicator(text: String?, isCancellingAllowed: Bool) {
-        showLoadingOverlay(withText: text)
+    func showLoadingIndicator(text: String?, onCancel: (() -> Void)?) {
+        showLoadingOverlay(withText: text, onCancel: onCancel)
     }
 
     func hideLoadingIndicator() {

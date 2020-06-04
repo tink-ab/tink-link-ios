@@ -2,7 +2,7 @@ import UIKit
 import TinkLink
 
 protocol CredentialsCoordinatorPresenting: AnyObject {
-    func showLoadingIndicator(text: String?, isCancellingAllowed: Bool)
+    func showLoadingIndicator(text: String?, onCancel: (() -> Void)?)
     func hideLoadingIndicator()
     func show(_ viewController: UIViewController)
     func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
@@ -71,7 +71,7 @@ final class CredentialsCoordinator {
                     self.handleCompletion(for: result.map { ($0, nil) } )
                 }
             }
-            presenter?.showLoadingIndicator(text: nil, isCancellingAllowed: false)
+            presenter?.showLoadingIndicator(text: nil, onCancel: nil)
 
         case .refresh(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -80,7 +80,7 @@ final class CredentialsCoordinator {
                     self.handleCompletion(for: result.map { ($0, nil) } )
                 }
             }
-            presenter?.showLoadingIndicator(text: nil, isCancellingAllowed: false)
+            presenter?.showLoadingIndicator(text: nil, onCancel: nil)
 
         case .update(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -92,7 +92,7 @@ final class CredentialsCoordinator {
                     self.presenter?.show(credentialsViewController)
                 }
             }
-            presenter?.showLoadingIndicator(text: nil, isCancellingAllowed: true)
+            presenter?.showLoadingIndicator(text: nil, onCancel: nil)
         }
     }
 

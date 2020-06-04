@@ -254,6 +254,13 @@ final class AddCredentialsSession {
             self?.authorizationGroup.leave()
         }
     }
+    private func cancel() {
+        task?.cancel()
+        hideUpdatingView(animated: true) {
+            self.cancelCallback?()
+            self.cancelCallback = nil
+        }
+    }
 }
 
 extension AddCredentialsSession {
@@ -271,7 +278,9 @@ extension AddCredentialsSession {
         hideQRCodeViewIfNeeded {
 
             guard !self.showFullscreenLoadingIndicator else {
-                self.presenter?.showLoadingIndicator(text: status, isCancellingAllowed: true)
+                self.presenter?.showLoadingIndicator(text: status) { [weak self] in
+                    self?.cancel()
+                }
                 return
             }
 
@@ -323,11 +332,7 @@ extension AddCredentialsSession {
 
 extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
     func addCredentialsStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
-        task?.cancel()
-        hideUpdatingView(animated: true) {
-            self.cancelCallback?()
-            self.cancelCallback = nil
-        }
+        cancel()
     }
 }
 
