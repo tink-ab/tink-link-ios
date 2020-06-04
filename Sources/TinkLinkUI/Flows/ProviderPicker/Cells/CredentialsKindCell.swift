@@ -74,7 +74,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     override func layoutMarginsDidChange() {
         super.layoutMarginsDidChange()
 
-        separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
+        separatorInset.left = contentView.layoutMargins.left + iconBackgroundSize + iconTitleSpacing
     }
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
