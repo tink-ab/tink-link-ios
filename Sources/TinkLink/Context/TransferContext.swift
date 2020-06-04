@@ -262,7 +262,7 @@ public final class TransferContext {
     /// - Note: You need to retain the returned task until the add beneficiary request has completed.
     ///
     /// - Parameters:
-    ///   - to: The source account for adding a beneficiary.
+    ///   - to: The account that the beneficiary should be added to.
     ///   - name: The name for this beneficiary.
     ///   - accountNumberType: The type of the `accountNumber` that this beneficiary has.
     ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberType`.
