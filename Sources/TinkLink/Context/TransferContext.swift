@@ -423,5 +423,8 @@ public final class TransferContext {
             }
             group.leave()
         }
+
+        let workItem = DispatchWorkItem {
+        }
     }
 }
