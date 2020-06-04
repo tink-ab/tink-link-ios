@@ -251,4 +251,76 @@ class AddBeneficiaryTaskTests: XCTestCase {
             }
         }
     }
+
+    func testAddingBeneficiaryWithMultipleAuthenticationTasks() {
+        let credentials = Credentials.makeTestCredentials(
+            providerID: "test-provider",
+            kind: .mobileBankID,
+            status: .updated
+        )
+
+        let credentialsService = MutableCredentialsService(credentialsList: [credentials])
+
+        let account = Account.makeTestAccount(credentials: credentials)
+
+        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
+
+        let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
+        let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
+        let statusChangedToAwaitingThirdPartyAppAuthentication = expectation(description: "add beneficiary status should be changed to awaitingSupplementalInformation")
+        let statusChangedToAwaitingSupplementalInformation = expectation(description: "add beneficiary status should be changed to awaitingSupplementalInformation")
+        let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
+
+        task = transferContext.addBeneficiary(
+            name: "Example Inc",
+            accountNumberKind: .iban,
+            accountNumber: "FR7630006000011234567890189",
+            to: account,
+            authentication: { task in
+                switch task {
+                case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
+                    thirdPartyAppAuthenticationTask._complete(with: .success)
+                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
+                    statusChangedToAwaitingThirdPartyAppAuthentication.fulfill()
+                case .awaitingSupplementalInformation(let supplementInformationTask):
+                    let form = Form(supplementInformationTask: supplementInformationTask)
+                    supplementInformationTask.submit(form)
+                    statusChangedToAwaitingSupplementalInformation.fulfill()
+                }
+            },
+            progress: { status in
+                switch status {
+                case .requestSent:
+                    statusChangedToRequestSent.fulfill()
+                    credentialsService.modifyCredentials(id: credentials.id, status: .authenticating)
+                case .authenticating:
+                    statusChangedToAuthenticating.fulfill()
+                    let thirdPartyAppAuthentication = Credentials.ThirdPartyAppAuthentication(
+                        downloadTitle: nil,
+                        downloadMessage: nil,
+                        upgradeTitle: nil,
+                        upgradeMessage: nil,
+                        appStoreURL: nil,
+                        scheme: nil,
+                        deepLinkURL: URL(string: "app://test")
+                    )
+                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingThirdPartyAppAuthentication, thirdPartyAppAuthentication: thirdPartyAppAuthentication)
+                }
+            },
+            completion: { result in
+                do {
+                    _ = try result.get()
+                } catch {
+                    XCTFail("Failed to add beneficiary with: \(error)")
+                }
+                addBeneficiaryCompletionCalled.fulfill()
+            }
+        )
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }
+    }
 }
