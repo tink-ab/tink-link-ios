@@ -426,5 +426,7 @@ public final class TransferContext {
 
         let workItem = DispatchWorkItem {
         }
+
+        group.notify(queue: .main, work: workItem)
     }
 }
