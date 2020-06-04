@@ -6,6 +6,8 @@ class MutableTransferService: TransferService {
     private var accounts: [Account]
     private var beneficiaries: [Beneficiary]
 
+    var addBeneficiaryResult: Result<Void, Error> = .success
+
     init(accounts: [Account], beneficiaries: [Beneficiary]) {
         self.accounts = accounts
         self.beneficiaries = beneficiaries
@@ -25,7 +27,7 @@ class MutableTransferService: TransferService {
 
     @discardableResult
     func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.success)
+        completion(addBeneficiaryResult)
         return nil
     }
 
