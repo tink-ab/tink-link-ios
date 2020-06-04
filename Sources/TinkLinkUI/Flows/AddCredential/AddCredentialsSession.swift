@@ -258,6 +258,7 @@ final class AddCredentialsSession {
             self?.authorizationGroup.leave()
         }
     }
+    
     private func cancel() {
         task?.cancel()
         hideUpdatingView(animated: true) {
