@@ -13,7 +13,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         mockedSuccessTransferService = MockedSuccessTransferService()
     }
 
-    func testSuccessfulAddBeneficiaryTask() {
+    func testAddingBeneficiaryWithSupplementalInformationAuthentication() {
         let credentials = Credentials.makeTestCredentials(
             providerID: "test-provider",
             kind: .password,
@@ -73,7 +73,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         }
     }
 
-    func testFailedAuthenticationAddBeneficiaryTask() {
+    func testAddingBeneficiaryThatFailsSupplementalInformationAuthentication() {
         let credentials = Credentials.makeTestCredentials(
             providerID: "test-provider",
             kind: .password,
@@ -137,7 +137,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         }
     }
 
-    func testAddBeneficiaryTaskWithNoAuthenticationStep() {
+    func testAddingBeneficiaryWithNoAuthenticationStep() {
         let credentials = Credentials.makeTestCredentials(
             providerID: "test-provider",
             kind: .password,
@@ -189,7 +189,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         }
     }
 
-    func testAddBeneficiaryTaskWithDifferentCredentialsThanAccount() {
+    func testAddingBeneficiaryWithDifferentCredentialsThanAccount() {
         let credentialsWithoutCapability = Credentials.makeTestCredentials(
             providerID: "test-provider-a",
             kind: .password,
