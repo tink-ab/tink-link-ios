@@ -238,7 +238,7 @@ public final class TransferContext {
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
-    /// initiateTransferTask = transferContext.addBeneficiary(
+    /// task = transferContext.addBeneficiary(
     ///     name: <#String#>,
     ///     accountNumberKind: <#AccountNumberKind#>,
     ///     accountNumber: <#String#>
@@ -309,7 +309,7 @@ public final class TransferContext {
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
-    /// initiateTransferTask = transferContext.addBeneficiary(
+    /// task = transferContext.addBeneficiary(
     ///     name: <#String#>,
     ///     accountNumberKind: <#AccountNumberKind#>,
     ///     accountNumber: <#String#>
