@@ -77,6 +77,7 @@ final class AddCredentialsSession {
                 }
             }
         )
+        showFullscreenLoadingIndicator = false
         providerID = provider.id
         addCredentialsMode = mode
         cancelCallback = {
@@ -101,6 +102,7 @@ final class AddCredentialsSession {
                 }
             })
 
+        showFullscreenLoadingIndicator = false
         providerID = credentials.providerID
         cancelCallback = {
             completion(.failure(ServiceError.cancelled))
@@ -124,6 +126,7 @@ final class AddCredentialsSession {
             }
         })
 
+        showFullscreenLoadingIndicator = true
         providerID = credentials.providerID
         cancelCallback = {
             completion(.failure(ServiceError.cancelled))
@@ -147,6 +150,7 @@ final class AddCredentialsSession {
             }
         })
 
+        showFullscreenLoadingIndicator = true
         providerID = credentials.providerID
         cancelCallback = {
             completion(.failure(ServiceError.cancelled))
