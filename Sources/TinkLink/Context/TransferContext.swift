@@ -5,6 +5,7 @@ public final class TransferContext {
     private let tink: Tink
     private let transferService: TransferService
     private let credentialsService: CredentialsService
+    private let providerService: ProviderService
 
     // MARK: - Creating a Context
 
@@ -14,13 +15,15 @@ public final class TransferContext {
     public convenience init(tink: Tink = .shared) {
         let transferService = RESTTransferService(client: tink.client)
         let credentialsService = RESTCredentialsService(client: tink.client)
+        let providerService = RESTProviderService(client: tink.client)
         self.init(tink: tink, transferService: transferService, credentialsService: credentialsService)
     }
 
-    init(tink: Tink, transferService: TransferService, credentialsService: CredentialsService) {
+    init(tink: Tink, transferService: TransferService, credentialsService: CredentialsService, providerService: ProviderService) {
         self.tink = tink
         self.transferService = transferService
         self.credentialsService = credentialsService
+        self.providerService = providerService
     }
 
     // MARK: - Initiate Transfer
