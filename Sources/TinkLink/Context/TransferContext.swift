@@ -398,23 +398,30 @@ public final class TransferContext {
     ///   - to: The account that the beneficiary should be added to.
     ///   - completion: A closure that's called with the result containing either the credentials or an error. Contains an empty array if no credentials are suitable for adding a beneficiary with.
     public func fetchCredentialsListCapableOfAddingBeneficiaries(to account: Account, completion: @escaping (Result<[Credentials], Error>) -> Void) {
+        let group = DispatchGroup()
+
         var credentialsList: [Credentials]
         var providers: [Provider]
         var errors: [Error] = []
+
+        group.enter()
         credentialsService.credentialsList { result in
             do {
                 credentialsList = try result.get()
             } catch {
                 errors.append(error)
             }
+            group.leave()
         }
 
+        group.enter()
         providerService.providers(id: nil, capabilities: .createBeneficiaries, includeTestProviders: true) { result in
             do {
                 providers = try result.get()
             } catch {
                 errors.append(error)
             }
+            group.leave()
         }
     }
 }
