@@ -38,7 +38,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
             to: account,
             authentication: { task in
                 switch task {
-                case .awaitingThirdPartyAppAuthentication: break
+                case .awaitingThirdPartyAppAuthentication:
+                    XCTFail("Didn't expect a third party app authentication task")
                 case .awaitingSupplementalInformation(let supplementInformationTask):
                     let form = Form(supplementInformationTask: supplementInformationTask)
                     supplementInformationTask.submit(form)
@@ -98,7 +99,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
             to: account,
             authentication: { task in
                 switch task {
-                case .awaitingThirdPartyAppAuthentication: break
+                case .awaitingThirdPartyAppAuthentication:
+                    XCTFail("Didn't expect a third party app authentication task")
                 case .awaitingSupplementalInformation(let supplementInformationTask):
                     let form = Form(supplementInformationTask: supplementInformationTask)
                     supplementInformationTask.submit(form)
