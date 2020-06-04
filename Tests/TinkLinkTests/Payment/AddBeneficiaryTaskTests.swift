@@ -255,7 +255,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
     func testAddingBeneficiaryWithMultipleAuthenticationTasks() {
         let credentials = Credentials.makeTestCredentials(
             providerID: "test-provider",
-            kind: .mobileBankID,
+            kind: .password,
             status: .updated
         )
 
