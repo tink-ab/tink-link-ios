@@ -107,10 +107,10 @@ extension BeneficiaryPickerViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
             guard let name = alert.textFields?[0].text,
-                let accountNumberType = alert.textFields?[1].text,
+                let type = alert.textFields?[1].text,
                 let accountNumber = alert.textFields?[2].text
                 else { return }
-            self.addBeneficiary(name: name, accountNumberType: accountNumberType, accountNumber: accountNumber)
+            self.addBeneficiary(name: name, accountNumberKind: AccountNumberKind(type), accountNumber: accountNumber)
         }))
         present(alert, animated: true)
     }
@@ -119,11 +119,11 @@ extension BeneficiaryPickerViewController {
 // MARK: - Adding a Beneficiary
 
 extension BeneficiaryPickerViewController {
-    private func addBeneficiary(name: String, accountNumberType: String, accountNumber: String) {
+    private func addBeneficiary(name: String, accountNumberKind: AccountNumberKind, accountNumber: String) {
         addBeneficiaryTask = transferContext.addBeneficiary(
             to: sourceAccount,
             name: name,
-            accountNumberType: accountNumberType,
+            accountNumberKind: accountNumberKind,
             accountNumber: accountNumber,
             authentication: { [weak self] task in
                 DispatchQueue.main.async {

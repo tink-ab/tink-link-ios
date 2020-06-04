@@ -34,7 +34,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         task = transferContext.addBeneficiary(
             to: account,
             name: "Example Inc",
-            accountNumberType: "iban",
+            accountNumberKind: .iban,
             accountNumber: "FR7630006000011234567890189",
             authentication: { task in
                 switch task {

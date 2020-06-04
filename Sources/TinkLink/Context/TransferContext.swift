@@ -265,8 +265,8 @@ public final class TransferContext {
     /// - Parameters:
     ///   - to: The account that the beneficiary should be added to.
     ///   - name: The name for this beneficiary.
-    ///   - accountNumberType: The type of the `accountNumber` that this beneficiary has.
-    ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberType`.
+    ///   - accountNumberKind: The kind of the `accountNumber` that this beneficiary has.
+    ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
@@ -276,7 +276,7 @@ public final class TransferContext {
     public func addBeneficiary(
         to account: Account,
         name: String,
-        accountNumberType: String,
+        accountNumberKind: AccountNumberKind,
         accountNumber: String,
         authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
         progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
@@ -289,7 +289,7 @@ public final class TransferContext {
             ownerAccountID: account.id,
             ownerAccountCredentialsID: account.credentialsID,
             name: name,
-            accountNumberType: accountNumberType,
+            accountNumberType: accountNumberKind.value,
             accountNumber: accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
@@ -338,8 +338,8 @@ public final class TransferContext {
     ///   - toAccountWithID: The source account ID for adding a beneficiary.
     ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have double credentials for one financial institution, due to PSD2 regulations.
     ///   - name: The name for this beneficiary.
-    ///   - accountNumberType: The type of the `accountNumber` that this beneficiary has.
-    ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberType`.
+    ///   - accountNumberKind: The kind of the `accountNumber` that this beneficiary has.
+    ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
@@ -349,7 +349,7 @@ public final class TransferContext {
         toAccountWithID accountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
         name: String,
-        accountNumberType: String,
+        accountNumberKind: AccountNumberKind,
         accountNumber: String,
         authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
         progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
@@ -362,7 +362,7 @@ public final class TransferContext {
             ownerAccountID: accountID,
             ownerAccountCredentialsID: credentialsID,
             name: name,
-            accountNumberType: accountNumberType,
+            accountNumberType: accountNumberKind.value,
             accountNumber: accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
