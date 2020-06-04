@@ -8,8 +8,7 @@ final class LoadingViewController: UIViewController {
     
     weak var delegate: LoadingViewControllerDelegate?
 
-    var onCancel: (() -> Void)?
-
+    private var onCancel: (() -> Void)?
     private let activityIndicatorView = ActivityIndicatorView()
     private let label = UILabel()
     private let cancelButton = UIButton(type: .system)
