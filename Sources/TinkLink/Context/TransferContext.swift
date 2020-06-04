@@ -271,4 +271,11 @@ public final class TransferContext {
 
         return task
     }
+
+    public func credentialsListSuitableForAddingBeneficiary(to account: Account, credentialsList: [Credentials], providerList: [Provider]) -> [Credentials] {
+        let filteredProviders = providerList.filter ({ $0.financialInstitution.id == account.financialInstitutionID && $0.capabilities.contains(.createBeneficiaries) })
+        return credentialsList.filter { credentials in
+            filteredProviders.contains { credentials.providerID == $0.id }
+        }
+    }
 }
