@@ -388,4 +388,8 @@ public final class TransferContext {
             filteredProviders.contains { credentials.providerID == $0.id }
         }
     }
+
+    public func fetchCredentialsListCapableOfAddingBeneficiaries(to account: Account, completion: @escaping (Result<[Credentials], Error>) -> Void) {
+        
+    }
 }
