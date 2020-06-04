@@ -48,7 +48,7 @@ public final class ProviderContext {
     /// Fetches providers matching the provided attributes.
     ///
     /// Required scopes:
-    /// - providers:read
+    /// - credentials:read
     ///
     /// - Parameter attributes: Attributes for providers to fetch
     /// - Parameter completion: A result representing either a list of providers or an error.
@@ -70,7 +70,7 @@ public final class ProviderContext {
     /// Fetches a specific provider matching the provided id.
     ///
     /// Required scopes:
-    /// - providers:read
+    /// - credentials:read
     ///
     /// - Parameter id: ID of provider to fetch.
     /// - Parameter completion: A result representing either a single provider or an error.
