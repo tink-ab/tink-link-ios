@@ -75,7 +75,7 @@ public final class TransferContext {
         message: InitiateTransferTask.Message,
         authentication: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
         progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
-        completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
+        completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
 
         let task = InitiateTransferTask(
@@ -160,7 +160,7 @@ public final class TransferContext {
         message: InitiateTransferTask.Message,
         authentication: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
         progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
-        completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
+        completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
         guard let sourceURI = Account.URI(account: source) else {
             preconditionFailure("Source account doesn't have a URI.")
