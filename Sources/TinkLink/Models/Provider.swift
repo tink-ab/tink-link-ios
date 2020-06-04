@@ -142,8 +142,12 @@ public struct Provider: Identifiable {
         public static let identityData = Capabilities(rawValue: 1 << 10)
         /// The provider can fetch e-invoice data.
         public static let eInvoices = Capabilities(rawValue: 1 << 11)
+        /// The provider can list all beneficiaries.
+        public static let listBeneficiaries = Capabilities(rawValue: 1 << 12)
+        /// The provider can creat beneficiaries.
+        public static let createBeneficiaries = Capabilities(rawValue: 1 << 13)
         /// A list representing all possible capabilities.
-        public static let all: Capabilities = [.transfers, .mortgageAggregation, .checkingAccounts, .savingsAccounts, .creditCards, .investments, .loans, .payments, .mortgageLoan, .identityData]
+        public static let all: Capabilities = [.transfers, .mortgageAggregation, .checkingAccounts, .savingsAccounts, .creditCards, .investments, .loans, .payments, .mortgageLoan, .identityData, .listBeneficiaries, .createBeneficiaries]
     }
 
     /// Indicates what this provider is capable of, in terms of financial data it can aggregate and if it can execute payments.
