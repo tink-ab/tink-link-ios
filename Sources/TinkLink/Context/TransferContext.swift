@@ -272,7 +272,9 @@ public final class TransferContext {
     ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
     ///   - to: The account that the beneficiary should be added to.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
+    ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
+    ///   - status: Indicates the status of the beneficiary being added.
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
@@ -281,8 +283,8 @@ public final class TransferContext {
         accountNumberKind: AccountNumberKind,
         accountNumber: String,
         to account: Account,
-        authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
-        progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
+        authentication: @escaping (_ task: AddBeneficiaryTask.AuthenticationTask) -> Void,
+        progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
         let task = AddBeneficiaryTask(
@@ -344,7 +346,9 @@ public final class TransferContext {
     ///   - toAccountWithID: The source account ID for adding a beneficiary.
     ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have double credentials for one financial institution, due to PSD2 regulations.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
+    ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
+    ///   - status: Indicates the status of the beneficiary being added.
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
@@ -354,8 +358,8 @@ public final class TransferContext {
         accountNumber: String,
         toAccountWithID accountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
-        authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
-        progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
+        authentication: @escaping (_ task: AddBeneficiaryTask.AuthenticationTask) -> Void,
+        progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
         let task = AddBeneficiaryTask(
