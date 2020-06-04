@@ -188,6 +188,7 @@ public final class TransferContext {
     ///   - transfer:read
     ///
     /// - Parameter completion: A result representing either a list of accounts or an error.
+    @discardableResult
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: [], completion: completion)
     }
@@ -198,6 +199,7 @@ public final class TransferContext {
     ///
     /// - Parameter account: Account for beneficiaries to fetch
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
+    @discardableResult
     public func fetchBeneficiaries(for account: Account, completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         return transferService.beneficiaries { result in
             do {
@@ -223,6 +225,7 @@ public final class TransferContext {
     /// ```
     ///
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
+    @discardableResult
     public func fetchBeneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         transferService.beneficiaries(completion: completion)
     }
