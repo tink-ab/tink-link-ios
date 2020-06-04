@@ -2,7 +2,7 @@ import Foundation
 @testable import TinkLink
 
 class MutableCredentialsService: CredentialsService {
-    var credentialsByID: [Credentials.ID: Credentials] = [:]
+    private var credentialsByID: [Credentials.ID: Credentials] = [:]
 
     var createCredentialsKind: Credentials.Kind = .password
     var credentialsStatusAfterUpdate: Credentials.Status = .authenticating
@@ -10,6 +10,10 @@ class MutableCredentialsService: CredentialsService {
     var credentialsStatusAfterThirdPartyCallback: Credentials.Status = .authenticating
     var credentialsStatusAfterManualAuthentication: Credentials.Status = .authenticating
     var credentialsStatusAfterSupplementalInformation: Credentials.Status = .updating
+
+    init(credentialsList: [Credentials]) {
+        credentialsByID = Dictionary(grouping: credentialsList, by: \.id).compactMapValues(\.first)
+    }
 
     func modifyCredentials(id: Credentials.ID, status: Credentials.Status, supplementalInformationFields: [Provider.FieldSpecification] = [], thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil) {
         let credentials = credentialsByID[id]!

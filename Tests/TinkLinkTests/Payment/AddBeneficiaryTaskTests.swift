@@ -5,16 +5,12 @@ import XCTest
 class AddBeneficiaryTaskTests: XCTestCase {
     var mockedSuccessTransferService: TransferService!
 
-    var credentialsService: MutableCredentialsService!
-
     var task: AddBeneficiaryTask?
 
     override func setUp() {
         try! Tink.configure(with: .init(clientID: "testID", redirectURI: URL(string: "app://callback")!))
 
         mockedSuccessTransferService = MockedSuccessTransferService()
-
-        credentialsService = MutableCredentialsService()
     }
 
     func testSuccessfulAddBeneficiaryTask() {
@@ -24,9 +20,9 @@ class AddBeneficiaryTaskTests: XCTestCase {
             status: .updated
         )
 
-        let account = Account.makeTestAccount(credentials: credentials)
+        let credentialsService = MutableCredentialsService(credentialsList: [credentials])
 
-        credentialsService.credentialsByID = [credentials.id: credentials]
+        let account = Account.makeTestAccount(credentials: credentials)
 
         let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
 
@@ -53,10 +49,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 switch status {
                 case .requestSent:
                     statusChangedToRequestSent.fulfill()
-                    self.credentialsService.modifyCredentials(id: credentials.id, status: .authenticating)
+                    credentialsService.modifyCredentials(id: credentials.id, status: .authenticating)
                 case .authenticating:
                     statusChangedToAuthenticating.fulfill()
-                    self.credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
+                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
                 }
             }
         ) { result in
