@@ -277,7 +277,7 @@ public final class TransferContext {
         accountNumberKind: AccountNumberKind,
         accountNumber: String,
         to account: Account,
-        authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
+        authentication: @escaping (AuthenticationTask) -> Void,
         progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
@@ -350,7 +350,7 @@ public final class TransferContext {
         accountNumber: String,
         toAccountWithID accountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
-        authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
+        authentication: @escaping (AuthenticationTask) -> Void,
         progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
