@@ -75,7 +75,7 @@ public final class TransferContext {
         toBeneficiaryWithURI: Beneficiary.URI,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
-        authentication: @escaping (_ task: InitiateTransferTask.AuthenticationTask) -> Void,
+        authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
@@ -162,7 +162,7 @@ public final class TransferContext {
         to destination: Beneficiary,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
-        authentication: @escaping (_ task: InitiateTransferTask.AuthenticationTask) -> Void,
+        authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
@@ -286,7 +286,7 @@ public final class TransferContext {
         accountNumberKind: AccountNumberKind,
         accountNumber: String,
         to account: Account,
-        authentication: @escaping (_ task: AddBeneficiaryTask.AuthenticationTask) -> Void,
+        authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
@@ -361,7 +361,7 @@ public final class TransferContext {
         accountNumber: String,
         toAccountWithID accountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
-        authentication: @escaping (_ task: AddBeneficiaryTask.AuthenticationTask) -> Void,
+        authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
