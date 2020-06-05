@@ -16,7 +16,7 @@ public final class TransferContext {
         let transferService = RESTTransferService(client: tink.client)
         let credentialsService = RESTCredentialsService(client: tink.client)
         let providerService = RESTProviderService(client: tink.client)
-        self.init(tink: tink, transferService: transferService, credentialsService: credentialsService)
+        self.init(tink: tink, transferService: transferService, credentialsService: credentialsService, providerService: providerService)
     }
 
     init(tink: Tink, transferService: TransferService, credentialsService: CredentialsService, providerService: ProviderService) {
