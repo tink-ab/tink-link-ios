@@ -406,8 +406,8 @@ public final class TransferContext {
     public func fetchCredentialsListCapableOfAddingBeneficiaries(to account: Account, completion: @escaping (Result<[Credentials], Error>) -> Void) -> Cancellable {
         let group = DispatchGroup()
 
-        var credentialsList: [Credentials]
-        var providers: [Provider]
+        var credentialsList: [Credentials] = []
+        var providers: [Provider] = []
         var errors: [Error] = []
 
         group.enter()
