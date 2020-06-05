@@ -391,14 +391,14 @@ extension TinkLinkViewController {
             preferredStyle: .alert
         )
         loadingViewController.hideLoadingIndicator()
-        let retryAction = UIAlertAction(title: Strings.Generic.ServiceAlert.retry, style: .default) { _ in
+        let retryAction = UIAlertAction(title: Strings.Generic.retry, style: .default) { _ in
             self.loadingViewController.showLoadingIndicator()
             self.setViewControllers([self.loadingViewController], animated: false)
             self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
         }
         alertController.addAction(retryAction)
 
-        let dismissAction = UIAlertAction(title: Strings.Generic.Alert.dismiss, style: .cancel) { _ in
+        let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
         }
         alertController.addAction(dismissAction)
@@ -414,7 +414,7 @@ extension TinkLinkViewController {
             preferredStyle: .alert
         )
 
-        let dismissAction = UIAlertAction(title: Strings.Generic.Alert.dismiss, style: .cancel) { _ in
+        let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
             self.presentingViewController?.dismiss(animated: true)
         }
         alertController.addAction(dismissAction)
@@ -428,13 +428,13 @@ extension TinkLinkViewController {
             title = error.errorDescription
             message = error.failureReason
         } else {
-            title = Strings.Generic.Alert.title
+            title = Strings.Generic.error
             message = error.localizedDescription
         }
 
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let okAction = UIAlertAction(title: Strings.Generic.Alert.ok, style: .default)
+        let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default)
         alertController.addAction(okAction)
 
         present(alertController, animated: true)
@@ -490,16 +490,16 @@ extension TinkLinkViewController {
     }
 
     private func showDiscardActionSheet() {
-        let alertTitle = Strings.AddCredentials.Discard.title
+        let alertTitle = Strings.Credentials.Discard.title
         let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .actionSheet)
 
-        let discardActionTitle = Strings.AddCredentials.Discard.primaryAction
+        let discardActionTitle = Strings.Credentials.Discard.primaryAction
         let discardAction = UIAlertAction(title: discardActionTitle, style: .destructive) { _ in
             self.closeTinkLink()
         }
         alert.addAction(discardAction)
 
-        let continueActionTitle = Strings.AddCredentials.Discard.continueAction
+        let continueActionTitle = Strings.Credentials.Discard.continueAction
         let continueAction = UIAlertAction(title: continueActionTitle, style: .cancel)
         alert.addAction(continueAction)
 

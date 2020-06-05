@@ -10,7 +10,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         var localizedTitle: String {
             switch self {
             case .create:
-                return Strings.AddCredentials.Success.title
+                return Strings.ConnectionSuccess.title
             case .other:
                 // TODO: Use real Strings
                 return "Update successful"
@@ -20,7 +20,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         var localizedSubtitle: String {
             switch self {
             case .create:
-                return Strings.AddCredentials.Success.subtitle
+                return Strings.ConnectionSuccess.subtitle
             case .other:
                 // TODO: Use real Strings
                 return "You connection to %@ has successfully been updated"
@@ -81,7 +81,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         detailLabel.font = Font.footnote
         detailLabel.textColor = Color.label
         
-        doneButton.text = Strings.AddCredentials.Success.confirm
+        doneButton.text = Strings.Generic.done
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
         
         iconView.translatesAutoresizingMaskIntoConstraints = false

@@ -83,7 +83,7 @@ final class AddCredentialsSession {
         }
 
         DispatchQueue.main.async {
-            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -106,7 +106,7 @@ final class AddCredentialsSession {
         }
 
         DispatchQueue.main.async {
-            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -129,7 +129,7 @@ final class AddCredentialsSession {
         }
 
         DispatchQueue.main.async {
-            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -152,7 +152,7 @@ final class AddCredentialsSession {
         }
 
         DispatchQueue.main.async {
-            self.showUpdating(status: Strings.AddCredentials.Status.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -167,10 +167,10 @@ final class AddCredentialsSession {
         case .updating:
             let status: String
             if let providerID = providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
-                let statusFormatText = Strings.AddCredentials.Status.updating
+                let statusFormatText = Strings.CredentialsStatus.updating
                 status = String(format: statusFormatText, bankName)
             } else {
-                status = Strings.AddCredentials.Status.updatingFallback
+                status = Strings.CredentialsStatus.updatingFallback
             }
             showUpdating(status: status)
             authorizeIfNeeded(onError: onError)
@@ -188,10 +188,10 @@ final class AddCredentialsSession {
         case .updating:
             let status: String
             if let providerID = providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
-                let statusFormatText = Strings.AddCredentials.Status.updating
+                let statusFormatText = Strings.CredentialsStatus.updating
                 status = String(format: statusFormatText, bankName)
             } else {
-                status = Strings.AddCredentials.Status.updatingFallback
+                status = Strings.CredentialsStatus.updatingFallback
             }
             showUpdating(status: status)
         }
@@ -206,7 +206,7 @@ final class AddCredentialsSession {
                 }
             case .awaitAuthenticationOnAnotherDevice:
                 DispatchQueue.main.async {
-                    self?.showUpdating(status: Strings.AddCredentials.Status.waitingForAuthenticationOnAnotherDevice)
+                    self?.showUpdating(status: Strings.CredentialsStatus.waitingForAuthenticationOnAnotherDevice)
                 }
             }
         }
@@ -330,14 +330,14 @@ extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         presenter?.dismiss(animated: true) {
             self.supplementInfoTask?.cancel()
-            self.showUpdating(status: Strings.AddCredentials.Status.cancelling)
+            self.showUpdating(status: Strings.CredentialsStatus.cancelling)
         }
     }
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
         presenter?.dismiss(animated: true) {
             self.supplementInfoTask?.submit(form)
-            self.showUpdating(status: Strings.AddCredentials.Status.sending)
+            self.showUpdating(status: Strings.CredentialsStatus.sending)
         }
     }
 }
