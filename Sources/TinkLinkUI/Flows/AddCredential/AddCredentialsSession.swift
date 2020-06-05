@@ -114,7 +114,7 @@ final class AddCredentialsSession {
     }
 
     func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        task = credentialsController.refresh(credentials, progressHandler: { [weak self] status in
+        task = credentialsController.refresh(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
@@ -138,7 +138,7 @@ final class AddCredentialsSession {
     }
 
     func authenticateCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        task = credentialsController.authenticate(credentials, progressHandler: { [weak self] status in
+        task = credentialsController.authenticate(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
