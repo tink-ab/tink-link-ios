@@ -73,7 +73,7 @@ public final class TransferContext {
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
-    @available(*, deprecated, message: "Use the other initiateTransfer method with a `BeneficiaryAccount` instead.")
+    @available(*, deprecated, message: "Use the initiateTransfer(from:to:amount:message:authentication:progress:completion) method with a `BeneficiaryAccount` instead.")
     public func initiateTransfer(
         fromAccountWithURI: Account.URI,
         toBeneficiaryWithURI: Beneficiary.URI,
