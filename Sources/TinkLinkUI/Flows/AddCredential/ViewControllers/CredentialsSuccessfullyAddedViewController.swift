@@ -12,14 +12,14 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
             case .create:
                 return Strings.ConnectionSuccess.Create.title
             case .other:
-                return Strings.ConnectionSuccess.Update.subtitle
+                return Strings.ConnectionSuccess.Update.title
             }
         }
 
         var localizedSubtitle: String {
             switch self {
             case .create:
-                return Strings.ConnectionSuccess.Create.title
+                return Strings.ConnectionSuccess.Create.subtitle
             case .other:
                 return Strings.ConnectionSuccess.Update.subtitle
             }
