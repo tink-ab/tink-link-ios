@@ -62,7 +62,7 @@ extension Beneficiary.URI {
 
     /// Creates a URI for a transfer beneficiary.
     /// - Parameter beneficiary: The transfer beneficiary.
-    public init?(beneficiary: BeneficiaryProtocol) {
+    public init?(beneficiary: BeneficiaryAccountRepresentable) {
         var urlComponents = URLComponents()
         urlComponents.scheme = beneficiary.accountNumberKind.value
         urlComponents.host = beneficiary.accountNumber
