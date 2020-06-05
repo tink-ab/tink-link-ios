@@ -1,14 +1,14 @@
 import Foundation
 
-struct RESTProviders: Codable {
+struct RESTProviders: Decodable {
     let providers: [RESTProvider]
 }
 
 /// The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses
 /// the financial institution, metadata about the financialinstitution, and what financial information that can be accessed.
-struct RESTProvider: Codable {
+struct RESTProvider: Decodable {
 
-    enum AccessType: String, DefaultableDecodable, Encodable {
+    enum AccessType: String, DefaultableDecodable {
         case openBanking = "OPEN_BANKING"
         case other = "OTHER"
         case unknown = "UNKNOWN"
@@ -16,7 +16,7 @@ struct RESTProvider: Codable {
         static var decodeFallbackValue: RESTProvider.AccessType = .unknown
     }
 
-    enum AuthenticationFlow: String, DefaultableDecodable, Encodable {
+    enum AuthenticationFlow: String, DefaultableDecodable {
         case embedded = "EMBEDDED"
         case redirect = "REDIRECT"
         case decoupled = "DECOUPLED"
@@ -25,7 +25,7 @@ struct RESTProvider: Codable {
         static var decodeFallbackValue: RESTProvider.AuthenticationFlow = .unknown
     }
 
-    enum Capabilities: String, DefaultableDecodable, Encodable {
+    enum Capabilities: String, DefaultableDecodable {
         case unknown = "UNKNOWN"
         case transfers = "TRANSFERS"
         case einvoices = "EINVOICES"
@@ -43,7 +43,7 @@ struct RESTProvider: Codable {
         static var decodeFallbackValue: RESTProvider.Capabilities = .unknown
     }
 
-    enum CredentialsType: String, Codable {
+    enum CredentialsType: String, DefaultableDecodable {
         case password = "PASSWORD"
         case mobileBankid = "MOBILE_BANKID"
         case keyfob = "KEYFOB"
@@ -54,7 +54,7 @@ struct RESTProvider: Codable {
         static var decodeFallbackValue: RESTProvider.CredentialsType = .unknown
     }
 
-    enum Status: String, Codable {
+    enum Status: String, DefaultableDecodable {
         case enabled = "ENABLED"
         case temporaryDisabled = "TEMPORARY_DISABLED"
         case disabled = "DISABLED"
@@ -63,7 +63,7 @@ struct RESTProvider: Codable {
         static var decodeFallbackValue: RESTProvider.Status = .unknown
     }
 
-    enum ModelType: String, DefaultableDecodable, Encodable {
+    enum ModelType: String, DefaultableDecodable {
         case bank = "BANK"
         case creditCard = "CREDIT_CARD"
         case broker = "BROKER"
