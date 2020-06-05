@@ -271,7 +271,7 @@ public final class TransferContext {
     ///
     /// ```swift
     /// task = transferContext.addBeneficiary(
-    ///     account: <#BeneficiaryAccountRepresentable#>,
+    ///     account: <#BeneficiaryAccount#>,
     ///     name: <#String#>,
     ///     to: <#Account#>,
     ///     authentication: { task in
@@ -306,7 +306,7 @@ public final class TransferContext {
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     public func addBeneficiary(
-        account beneficiaryAccount: BeneficiaryAccountRepresentable,
+        account beneficiaryAccount: BeneficiaryAccount,
         name: String,
         to ownerAccount: Account,
         credentials: Credentials? = nil,
