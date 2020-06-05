@@ -50,7 +50,7 @@ class ProviderRESTTests: XCTestCase {
         XCTAssertEqual(provider.financialInstitution.name, restProvider.financialInstitutionName)
     }
 
-    func testProviderMappingWithNewCapabilities() {
+    func testProviderMappingWithNewCapabilities() throws {
         let testProviderJSON = """
             {
                 "accessType": "OPEN_BANKING",
@@ -102,11 +102,11 @@ class ProviderRESTTests: XCTestCase {
                 "type": "TEST"
             }
             """
-        guard let data = testProviderJSON.data(using: .utf8),
-            let provider = try? JSONDecoder().decode(RESTProvider.self, from: data) else {
+        guard let data = testProviderJSON.data(using: .utf8) else {
                 XCTFail("Failed to parse the JSON")
                 return
         }
+        let provider = try JSONDecoder().decode(RESTProvider.self, from: data)
         XCTAssertTrue(provider.capabilities.contains(.creditCards))
         XCTAssertTrue(provider.capabilities.contains(.unknown))
     }
