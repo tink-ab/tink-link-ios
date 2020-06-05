@@ -240,7 +240,7 @@ extension CredentialsCoordinator {
             alertController.addAction(cancelAction)
             alertController.addAction(downloadAction)
         } else {
-            let okAction = UIAlertAction(title: Strings.Strings.Generic.dismiss, style: .default) { _ in
+            let okAction = UIAlertAction(title: Strings.Generic.dismiss, style: .default) { _ in
                 if self.callCompletionOnError {
                     self.completion(.failure(.unableToOpenThirdPartyApp(thirdPartyAppAuthenticationError)))
                 }
