@@ -199,7 +199,6 @@ public class TinkLinkViewController: UINavigationController {
         showLoadingOverlay(withText: nil, onCancel: nil)
 
         presentationController?.delegate = self
-        loadingViewController?.delegate = self
 
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
@@ -310,7 +309,10 @@ public class TinkLinkViewController: UINavigationController {
                     if let tinkLinkError = TinkLinkError(error: error) {
                         self.result = .failure(tinkLinkError)
                     }
-                    self.loadingViewController?.setError(error)
+                    self.loadingViewController?.setError(error) {
+                        self.loadingViewController?.showLoadingIndicator()
+                        self.operate()
+                    }
                 }
             }
         }
@@ -527,15 +529,6 @@ extension TinkLinkViewController {
         } else {
             removeView()
         }
-    }
-}
-
-// MARK: - LoadingViewControllerDelegate
-
-extension TinkLinkViewController: LoadingViewControllerDelegate {
-    func loadingViewControllerDidPressRetry(_ viewController: LoadingViewController) {
-        loadingViewController?.showLoadingIndicator()
-        operate()
     }
 }
 

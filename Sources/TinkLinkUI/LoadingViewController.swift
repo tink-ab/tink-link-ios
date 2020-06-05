@@ -1,14 +1,10 @@
 import UIKit
 
-protocol LoadingViewControllerDelegate: AnyObject {
-    func loadingViewControllerDidPressRetry(_ viewController: LoadingViewController)
-}
-
 final class LoadingViewController: UIViewController {
-    
-    weak var delegate: LoadingViewControllerDelegate?
 
     private var onCancel: (() -> Void)?
+    private var onRetry: (() -> Void)?
+
     private let activityIndicatorView = ActivityIndicatorView()
     private let label = UILabel()
     private let cancelButton = UIButton(type: .system)
@@ -97,9 +93,10 @@ final class LoadingViewController: UIViewController {
         }
     }
 
-    func setError(_ error: Error?) {
+    func setError(_ error: Error?, onRetry: (() -> Void)?) {
         DispatchQueue.main.async {
             self.hideLoadingIndicator()
+            self.onRetry = onRetry
             self.errorView.isHidden = false
             self.errorView.configure(with: error)
         }
@@ -112,6 +109,6 @@ final class LoadingViewController: UIViewController {
 
 extension LoadingViewController: ProviderLoadingErrorViewDelegate {
     func reloadProviderList(providerLoadingErrorView: ProviderLoadingErrorView) {
-        delegate?.loadingViewControllerDidPressRetry(self)
+        onRetry?()
     }
 }
