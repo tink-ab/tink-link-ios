@@ -407,7 +407,7 @@ public final class TransferContext {
 
         group.enter()
         // TODO: Use returned cancellable for cancellation
-        credentialsService.credentialsList { result in
+        _ = credentialsService.credentialsList { result in
             do {
                 credentialsList = try result.get()
             } catch {
@@ -418,7 +418,7 @@ public final class TransferContext {
 
         group.enter()
         // TODO: Use returned cancellable for cancellation
-        providerService.providers(id: nil, capabilities: .createBeneficiaries, includeTestProviders: true) { result in
+        _ = providerService.providers(id: nil, capabilities: .createBeneficiaries, includeTestProviders: true) { result in
             do {
                 providers = try result.get()
             } catch {
