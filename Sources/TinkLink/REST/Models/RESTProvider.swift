@@ -19,7 +19,7 @@ struct RESTProvider: Codable {
         case decoupled = "DECOUPLED"
     }
 
-    enum Capabilities: String, DefaultableCodable {
+    enum Capabilities: String, DefaultableDecodable, Encodable {
         case unknown = "UNKNOWN"
         case transfers = "TRANSFERS"
         case einvoices = "EINVOICES"
@@ -34,7 +34,7 @@ struct RESTProvider: Codable {
         case createBeneficiaries = "CREATE_BENEFICIARIES"
         case listBeneficiaries = "LIST_BENEFICIARIES"
 
-        static var defaultValue: RESTProvider.Capabilities = .unknown
+        static var decodeFallbackValue: RESTProvider.Capabilities = .unknown
     }
 
     enum CredentialsType: String, Codable {

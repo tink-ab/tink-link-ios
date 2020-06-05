@@ -1,11 +1,11 @@
 import Foundation
 
-protocol DefaultableCodable: Codable, RawRepresentable where RawValue: Decodable {
-    static var defaultValue: Self { get set }
+protocol DefaultableDecodable: Decodable, RawRepresentable where RawValue: Decodable {
+    static var decodeFallbackValue: Self { get set }
 }
 
-extension DefaultableCodable {
+extension DefaultableDecodable {
     init(from decoder: Decoder) throws {
-        self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? Self.defaultValue
+        self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? Self.decodeFallbackValue
     }
 }
