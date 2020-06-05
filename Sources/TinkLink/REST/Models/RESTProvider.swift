@@ -11,14 +11,18 @@ struct RESTProvider: Codable {
     enum AccessType: String, DefaultableDecodable, Encodable {
         case openBanking = "OPEN_BANKING"
         case other = "OTHER"
+        case unknown = "UNKNOWN"
 
-        static var decodeFallbackValue: RESTProvider.Capabilities = .other
+        static var decodeFallbackValue: RESTProvider.AccessType = .unknown
     }
 
-    enum AuthenticationFlow: String, Codable {
+    enum AuthenticationFlow: String, DefaultableDecodable, Encodable {
         case embedded = "EMBEDDED"
         case redirect = "REDIRECT"
         case decoupled = "DECOUPLED"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTProvider.AuthenticationFlow = .unknown
     }
 
     enum Capabilities: String, DefaultableDecodable, Encodable {
@@ -45,12 +49,18 @@ struct RESTProvider: Codable {
         case keyfob = "KEYFOB"
         case thirdPartyApp = "THIRD_PARTY_APP"
         case fraud = "FRAUD"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTProvider.CredentialsType = .unknown
     }
 
     enum Status: String, Codable {
         case enabled = "ENABLED"
         case temporaryDisabled = "TEMPORARY_DISABLED"
         case disabled = "DISABLED"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTProvider.Status = .unknown
     }
 
     enum ModelType: String, DefaultableDecodable, Encodable {
@@ -60,8 +70,9 @@ struct RESTProvider: Codable {
         case test = "TEST"
         case fraud = "FRAUD"
         case other = "OTHER"
+        case unknown = "UNKNOWN"
 
-        static var decodeFallbackValue: RESTProvider.Capabilities = .other
+        static var decodeFallbackValue: RESTProvider.ModelType = .unknown
     }
 
     /// What Tink uses to access the data.
