@@ -14,4 +14,24 @@ public struct BeneficiaryAccount: BeneficiaryAccountRepresentable {
         self.accountNumberKind = accountNumberKind
         self.accountNumber = accountNumber
     }
+
+    static func iban(_ accountNumber: String) -> Self {
+        return .init(accountNumberKind: .iban, accountNumber: accountNumber)
+    }
+
+    static func se(_ accountNumber: String) -> Self {
+        return .init(accountNumberKind: .se, accountNumber: accountNumber)
+    }
+
+    static func seBankGiro(_ accountNumber: String) -> Self {
+        return .init(accountNumberKind: .seBankGiro, accountNumber: accountNumber)
+    }
+
+    static func sePlusGiro(_ accountNumber: String) -> Self {
+        return .init(accountNumberKind: .sePlusGiro, accountNumber: accountNumber)
+    }
+
+    static func sortCode(_ accountNumber: String) -> Self {
+        return .init(accountNumberKind: .sortCode, accountNumber: accountNumber)
+    }
 }
