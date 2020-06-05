@@ -27,7 +27,7 @@ final class AddCredentialsSession {
             return false
         }
     }
-    private var showFullscreenLoadingIndicator = true
+    private var isPresenterShowingStatusScreen = true
     private var authorizationGroup = DispatchGroup()
 
     private var providerID: Provider.ID?
@@ -77,7 +77,7 @@ final class AddCredentialsSession {
                 }
             }
         )
-        showFullscreenLoadingIndicator = false
+        isPresenterShowingStatusScreen = false
         providerID = provider.id
         addCredentialsMode = mode
         cancelCallback = {
@@ -102,7 +102,7 @@ final class AddCredentialsSession {
                 }
             })
 
-        showFullscreenLoadingIndicator = false
+        isPresenterShowingStatusScreen = false
         providerID = credentials.providerID
         cancelCallback = {
             completion(.failure(ServiceError.cancelled))
@@ -126,7 +126,7 @@ final class AddCredentialsSession {
             }
         })
 
-        showFullscreenLoadingIndicator = true
+        isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
         cancelCallback = {
             completion(.failure(ServiceError.cancelled))
@@ -150,7 +150,7 @@ final class AddCredentialsSession {
             }
         })
 
-        showFullscreenLoadingIndicator = true
+        isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
         cancelCallback = {
             completion(.failure(ServiceError.cancelled))
@@ -282,7 +282,7 @@ extension AddCredentialsSession {
     private func showUpdating(status: String) {
         hideQRCodeViewIfNeeded {
 
-            guard !self.showFullscreenLoadingIndicator else {
+            guard !self.isPresenterShowingStatusScreen else {
                 self.presenter?.showLoadingIndicator(text: status) { [weak self] in
                     self?.cancel()
                 }
