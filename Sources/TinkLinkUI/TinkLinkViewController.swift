@@ -196,7 +196,7 @@ public class TinkLinkViewController: UINavigationController {
 
         view.backgroundColor = Color.background
 
-        showLoadingOverlay(withText: nil, onCancel: nil)
+        showLoadingOverlay(withText: nil, animated: false, onCancel: nil)
 
         presentationController?.delegate = self
 
@@ -204,8 +204,8 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     public override func show(_ vc: UIViewController, sender: Any?) {
+        hideLoadingOverlay(animated: false)
         super.show(vc, sender: sender)
-        hideLoadingOverlay()
     }
 
     private func start(userSession: UserSession?, authorizationCode: AuthorizationCode?) {
@@ -324,7 +324,7 @@ public class TinkLinkViewController: UINavigationController {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.startCredentialCoordinator(with: operation)
             }
-            showLoadingOverlay(withText: nil, onCancel: nil)
+            showLoadingOverlay(withText: nil, animated: false, onCancel: nil)
             return
         }
 
@@ -562,7 +562,9 @@ extension TinkLinkViewController {
 extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
     /// :nodoc:
     public func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        showDiscardActionSheet()
+        if !userHasConnected {
+            showDiscardActionSheet()
+        }
     }
 
     /// :nodoc:
@@ -572,7 +574,7 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
 
     /// :nodoc:
     public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        return userHasConnected || !didShowCredentialsForm
+        return !didShowCredentialsForm
     }
 }
 
