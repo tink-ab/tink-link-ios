@@ -138,7 +138,7 @@ extension BeneficiaryPickerViewController {
             completion: { [weak self] result in
                 DispatchQueue.main.async {
                     self?.hideStatus(animated: true) {
-                        let alert = UIAlertController(title: "The request for adding the beneficiary has been sent successfully", message: "Note that depending on the bank, it could take up to three days before it has been added.", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "The request for adding the beneficiary has been sent successfully", message: nil, preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .cancel))
                         self?.present(alert, animated: true)
                     }
@@ -147,7 +147,7 @@ extension BeneficiaryPickerViewController {
         )
     }
 
-    private func handleAddBeneficiaryAuthentication(_ authenticationTask: AddBeneficiaryTask.AuthenticationTask) {
+    private func handleAddBeneficiaryAuthentication(_ authenticationTask: AuthenticationTask) {
         switch authenticationTask {
         case .awaitingSupplementalInformation(let task):
             hideStatus(animated: false) {

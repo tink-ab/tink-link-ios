@@ -67,7 +67,9 @@ public final class TransferContext {
     ///   - amount: The amount that should be transferred. Its `CurrencyCode` should be the same as the source account's currency.
     ///   - message: The message used for the transfer.
     ///   - authentication: Indicates the authentication task for initiating a transfer.
+    ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of initiating a transfer.
+    ///   - status: Indicates the status of the transfer initiation.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
@@ -76,9 +78,9 @@ public final class TransferContext {
         toBeneficiaryWithURI: Beneficiary.URI,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
-        authentication: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
-        progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
-        completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
+        authentication: @escaping (_ task: AuthenticationTask) -> Void,
+        progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
+        completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
 
         let task = InitiateTransferTask(
@@ -152,7 +154,9 @@ public final class TransferContext {
     ///   - amount: The amount that should be transferred. Its `CurrencyCode` should be the same as the source account's currency.
     ///   - message: The message used for the transfer.
     ///   - authentication: Indicates the authentication task for initiating a transfer.
+    ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of initiating a transfer.
+    ///   - status: Indicates the status of the transfer initiation.
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
@@ -161,9 +165,9 @@ public final class TransferContext {
         to destination: Beneficiary,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
-        authentication: @escaping (InitiateTransferTask.AuthenticationTask) -> Void,
-        progress: @escaping (InitiateTransferTask.Status) -> Void = { _ in },
-        completion: @escaping (Result<InitiateTransferTask.Receipt, Error>) -> Void
+        authentication: @escaping (_ task: AuthenticationTask) -> Void,
+        progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
+        completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
         guard let sourceURI = Account.URI(account: source) else {
             preconditionFailure("Source account doesn't have a URI.")
@@ -191,6 +195,7 @@ public final class TransferContext {
     ///   - transfer:read
     ///
     /// - Parameter completion: A result representing either a list of accounts or an error.
+    @discardableResult
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         return transferService.accounts(destinationUris: [], completion: completion)
     }
@@ -201,6 +206,7 @@ public final class TransferContext {
     ///
     /// - Parameter account: Account for beneficiaries to fetch
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
+    @discardableResult
     public func fetchBeneficiaries(for account: Account, completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         return transferService.beneficiaries { result in
             do {
@@ -226,8 +232,9 @@ public final class TransferContext {
     /// ```
     ///
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
+    @discardableResult
     public func fetchBeneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        transferService.beneficiaries(completion: completion)
+        return transferService.beneficiaries(completion: completion)
     }
 
     // MARK: - Adding Beneficiaries
@@ -237,15 +244,15 @@ public final class TransferContext {
     /// Required scopes:
     /// - beneficiaries:write
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate an adding beneficiary request.
+    /// You need to handle authentication changes in `authentication` to successfuly initiate an add beneficiary request.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
-    /// initiateTransferTask = transferContext.addBeneficiary(
-    ///     to: sourceAccount,
-    ///     name: <#Beneficiary name#>,
-    ///     accountNumberType: <#Account Number Type#>,
-    ///     accountNumber: <#Account Number#>
+    /// task = transferContext.addBeneficiary(
+    ///     name: <#String#>,
+    ///     accountNumberKind: <#AccountNumberKind#>,
+    ///     accountNumber: <#String#>
+    ///     to: <#Account#>,
     ///     authentication: { task in
     ///         switch task {
     ///         case .awaitingSupplementalInformation(let task):
@@ -271,7 +278,9 @@ public final class TransferContext {
     ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
     ///   - to: The account that the beneficiary should be added to.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
+    ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
+    ///   - status: Indicates the status of the beneficiary being added.
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
@@ -280,9 +289,9 @@ public final class TransferContext {
         accountNumberKind: AccountNumberKind,
         accountNumber: String,
         to account: Account,
-        authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
-        progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
-        completion: @escaping (Result<Void, Error>) -> Void
+        authentication: @escaping (_ task: AuthenticationTask) -> Void,
+        progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
+        completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
         let task = AddBeneficiaryTask(
             transferService: transferService,
@@ -308,15 +317,16 @@ public final class TransferContext {
     /// Required scopes:
     /// - beneficiaries:write
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate an adding beneficiary request.
+    /// You need to handle authentication changes in `authentication` to successfuly initiate an add beneficiary request.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
-    /// initiateTransferTask = transferContext.addBeneficiary(
-    ///     toAccountWithID: <#Account ID#>
-    ///     onCredentialsWithID: <#Credentials ID#>,
-    ///     accountNumberType: <#Account Number Type#>,
-    ///     accountNumber: <#Account Number#>
+    /// task = transferContext.addBeneficiary(
+    ///     name: <#String#>,
+    ///     accountNumberKind: <#AccountNumberKind#>,
+    ///     accountNumber: <#String#>
+    ///     toAccountWithID: <#Account.ID#>
+    ///     onCredentialsWithID: <#Credentials.ID#>,
     ///     authentication: { task in
     ///         switch task {
     ///         case .awaitingSupplementalInformation(let task):
@@ -343,7 +353,9 @@ public final class TransferContext {
     ///   - toAccountWithID: The source account ID for adding a beneficiary.
     ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have double credentials for one financial institution, due to PSD2 regulations.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
+    ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
+    ///   - status: Indicates the status of the beneficiary being added.
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
@@ -353,9 +365,9 @@ public final class TransferContext {
         accountNumber: String,
         toAccountWithID accountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
-        authentication: @escaping (AddBeneficiaryTask.AuthenticationTask) -> Void,
-        progress: @escaping (AddBeneficiaryTask.Status) -> Void = { _ in },
-        completion: @escaping (Result<Void, Error>) -> Void
+        authentication: @escaping (_ task: AuthenticationTask) -> Void,
+        progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
+        completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
         let task = AddBeneficiaryTask(
             transferService: transferService,
@@ -376,16 +388,16 @@ public final class TransferContext {
         return task
     }
 
-    // MARK: - Find all credentials that are suitable for adding a beneficiary.
+    // MARK: - Find all credentials that are capable of adding a beneficiary.
 
     /// This functionality exists to support the case when a user has two credentials for one financial institution due to PSD2 regulations.
-    /// Use this helper function to find the credentials that has the capibility for adding beneficiaries.
+    /// Use this helper function to find the credentials that has the capability to add beneficiaries.
     /// - Parameters:
     ///   - to: The account that the beneficiary should be added to.
     ///   - credentialsList: The user's existing credentials list.
     ///   - providerList: The available provider list.
     /// - Returns: The credentials list that suitable for adding the beneficiary. Returns an empty array if no credentials are suitable for adding a beneficiary with.
-    public func credentialsListSuitableForAddingBeneficiary(to account: Account, credentialsList: [Credentials], providerList: [Provider]) -> [Credentials] {
+    public func credentialsListCapableOfAddingBeneficiaries(to account: Account, credentialsList: [Credentials], providerList: [Provider]) -> [Credentials] {
         let filteredProviders = providerList.filter ({ $0.financialInstitution.id == account.financialInstitutionID && $0.capabilities.contains(.createBeneficiaries) })
         return credentialsList.filter { credentials in
             filteredProviders.contains { credentials.providerID == $0.id }
