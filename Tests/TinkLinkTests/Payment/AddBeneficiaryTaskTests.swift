@@ -231,8 +231,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
         task = transferContext.addBeneficiary(
             account: beneficiaryAccount,
             name: "Example Inc",
-            toAccountWithID: account.id,
-            onCredentialsWithID: credentialsWithCapability.id,
+            to: account,
+            credentials: credentialsWithCapability,
             authentication: { task in
                 XCTFail("Didn't expect an authentication task")
             },
