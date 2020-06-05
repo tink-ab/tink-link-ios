@@ -295,7 +295,7 @@ public final class TransferContext {
     /// - Note: You need to retain the returned task until the add beneficiary request has completed.
     ///
     /// - Parameters:
-    ///   - beneficiary: The beneficiary to add.
+    ///   - account: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
     ///   - to: The account that the beneficiary should be added to.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
@@ -305,8 +305,8 @@ public final class TransferContext {
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
-    public func add(
-        _ beneficiary: BeneficiaryAccountRepresentable,
+    public func addBeneficiary(
+        account: BeneficiaryAccountRepresentable,
         name: String,
         to account: Account,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
@@ -367,7 +367,7 @@ public final class TransferContext {
     /// - Note: You need to retain the returned task until the add beneficiary request has completed.
     ///
     /// - Parameters:
-    ///   - beneficiary: The beneficiary to add.
+    ///   - account: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
     ///   - accountNumberKind: The kind of the `accountNumber` that this beneficiary has.
     ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
@@ -380,8 +380,8 @@ public final class TransferContext {
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
-    public func add(
-        _ beneficiary: BeneficiaryAccountRepresentable,
+    public func addBeneficiary(
+        account: BeneficiaryAccountRepresentable,
         name: String,
         toAccountWithID accountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
