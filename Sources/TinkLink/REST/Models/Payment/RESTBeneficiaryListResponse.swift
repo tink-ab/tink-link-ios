@@ -1,5 +1,5 @@
 import Foundation
 
-struct RESTBeneficiaryListResponse: Codable {
+struct RESTBeneficiaryListResponse: Decodable {
     var beneficiaries: [RESTBeneficiary]
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-struct RESTBeneficiary: Codable {
+struct RESTBeneficiary: Decodable {
     var accountNumberType: String
     var accountNumber: String
     var name: String
