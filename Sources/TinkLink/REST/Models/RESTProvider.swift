@@ -8,9 +8,11 @@ struct RESTProviders: Codable {
 /// the financial institution, metadata about the financialinstitution, and what financial information that can be accessed.
 struct RESTProvider: Codable {
 
-    enum AccessType: String, Codable {
+    enum AccessType: String, DefaultableDecodable, Encodable {
         case openBanking = "OPEN_BANKING"
         case other = "OTHER"
+
+        static var decodeFallbackValue: RESTProvider.Capabilities = .other
     }
 
     enum AuthenticationFlow: String, Codable {
@@ -51,13 +53,15 @@ struct RESTProvider: Codable {
         case disabled = "DISABLED"
     }
 
-    enum ModelType: String, Codable {
+    enum ModelType: String, DefaultableDecodable, Encodable {
         case bank = "BANK"
         case creditCard = "CREDIT_CARD"
         case broker = "BROKER"
         case test = "TEST"
         case fraud = "FRAUD"
         case other = "OTHER"
+
+        static var decodeFallbackValue: RESTProvider.Capabilities = .other
     }
 
     /// What Tink uses to access the data.
