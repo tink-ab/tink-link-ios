@@ -179,7 +179,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
             scopeList = []
         }
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scopes: scopeList)
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeMoreInfo))
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.Generic.done, style: .plain, target: self, action: #selector(closeMoreInfo))
         let navigationController = TinkNavigationController(rootViewController: viewController)
         presenter?.present(navigationController, animated: true, completion: nil)
     }
