@@ -120,8 +120,8 @@ extension BeneficiaryPickerViewController {
 extension BeneficiaryPickerViewController {
     private func addBeneficiary(name: String, accountNumberKind: AccountNumberKind, accountNumber: String) {
         let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: accountNumberKind, accountNumber: accountNumber)
-        addBeneficiaryTask = transferContext.add(
-            beneficiaryAccount,
+        addBeneficiaryTask = transferContext.addBeneficiary(
+            account: beneficiaryAccount,
             name: name,
             to: sourceAccount,
             authentication: { [weak self] task in

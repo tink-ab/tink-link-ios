@@ -81,7 +81,7 @@ extension TransferViewController {
 // MARK: - Transfer Handling
 
 extension TransferViewController {
-    private func initiateTransfer(from account: Account, to beneficiary: TransferBeneficiary, amount: Decimal, currencyCode: CurrencyCode) {
+    private func initiateTransfer(from account: Account, to beneficiary: BeneficiaryAccountRepresentable, amount: Decimal, currencyCode: CurrencyCode) {
         initiateTransferTask = transferContext.initiateTransfer(
             from: account,
             to: beneficiary,
