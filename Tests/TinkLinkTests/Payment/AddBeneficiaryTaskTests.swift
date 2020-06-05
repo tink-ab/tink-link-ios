@@ -226,10 +226,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
-        let beneficiaryAccount = BeneficiaryAccount.iban("FR7630006000011234567890189")
-
         task = transferContext.addBeneficiary(
-            account: beneficiaryAccount,
+            account: .iban("FR7630006000011234567890189"),
             name: "Example Inc",
             to: account,
             credentials: credentialsWithCapability,
