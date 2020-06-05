@@ -5,6 +5,7 @@ public final class TransferContext {
     private let tink: Tink
     private let transferService: TransferService
     private let credentialsService: CredentialsService
+    private let providerService: ProviderService
 
     // MARK: - Creating a Context
 
@@ -14,13 +15,15 @@ public final class TransferContext {
     public convenience init(tink: Tink = .shared) {
         let transferService = RESTTransferService(client: tink.client)
         let credentialsService = RESTCredentialsService(client: tink.client)
-        self.init(tink: tink, transferService: transferService, credentialsService: credentialsService)
+        let providerService = RESTProviderService(client: tink.client)
+        self.init(tink: tink, transferService: transferService, credentialsService: credentialsService, providerService: providerService)
     }
 
-    init(tink: Tink, transferService: TransferService, credentialsService: CredentialsService) {
+    init(tink: Tink, transferService: TransferService, credentialsService: CredentialsService, providerService: ProviderService) {
         self.tink = tink
         self.transferService = transferService
         self.credentialsService = credentialsService
+        self.providerService = providerService
     }
 
     // MARK: - Initiate Transfer
@@ -399,5 +402,61 @@ public final class TransferContext {
         return credentialsList.filter { credentials in
             filteredProviders.contains { credentials.providerID == $0.id }
         }
+    }
+
+    /// Use this helper function to find the credentials that has the capability to add beneficiaries.
+    ///
+    /// Required scopes:
+    /// - credentials:read
+    ///
+    /// This functionality exists to support the case when a user has two credentials for one financial institution due to PSD2 regulations.
+    /// - Parameters:
+    ///   - to: The account that the beneficiary should be added to.
+    ///   - completion: A closure that's called with the result containing either the credentials or an error. Contains an empty array if no credentials are suitable for adding a beneficiary with.
+    /// - Returns: A cancellation handle.
+    @discardableResult
+    public func fetchCredentialsListCapableOfAddingBeneficiaries(to account: Account, completion: @escaping (Result<[Credentials], Error>) -> Void) -> Cancellable {
+        let group = DispatchGroup()
+
+        var credentialsList: [Credentials] = []
+        var providers: [Provider] = []
+        var errors: [Error] = []
+
+        group.enter()
+        // TODO: Use returned cancellable for cancellation
+        _ = credentialsService.credentialsList { result in
+            do {
+                credentialsList = try result.get()
+            } catch {
+                errors.append(error)
+            }
+            group.leave()
+        }
+
+        group.enter()
+        // TODO: Use returned cancellable for cancellation
+        _ = providerService.providers(id: nil, capabilities: .createBeneficiaries, includeTestProviders: true) { result in
+            do {
+                providers = try result.get()
+            } catch {
+                errors.append(error)
+            }
+            group.leave()
+        }
+
+        let workItem = DispatchWorkItem {
+            if let error = errors.first {
+                completion(.failure(error))
+            } else {
+                let filteredProviders = providers.filter { $0.financialInstitution.id == account.financialInstitutionID && $0.capabilities.contains(.createBeneficiaries) }
+                let credentialsByProviderID = Dictionary(grouping: credentialsList, by: \.providerID)
+                let capableCredentialsList = filteredProviders.flatMap { credentialsByProviderID[$0.id] ?? [] }
+                completion(.success(capableCredentialsList))
+            }
+        }
+
+        group.notify(queue: .main, work: workItem)
+
+        return workItem
     }
 }
