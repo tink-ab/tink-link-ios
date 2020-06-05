@@ -59,4 +59,14 @@ extension Beneficiary.URI {
 
         self.value = uri.absoluteString
     }
+
+    /// Creates a URI for a transfer beneficiary.
+    /// - Parameter beneficiary: The transfer beneficiary.
+    public init?(beneficiary: TransferBeneficiary) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = beneficiary.accountNumberKind.value
+        urlComponents.host = beneficiary.accountNumber
+        guard let uri = urlComponents.url else { return nil }
+        self.value = uri.absoluteString
+    }
 }
