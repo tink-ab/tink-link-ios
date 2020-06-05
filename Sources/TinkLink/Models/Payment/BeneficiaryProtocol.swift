@@ -1,5 +1,5 @@
 /// A transfer beneficiary is a transfer destination account.
-public protocol BeneficiaryAccountRepresentable {
+public protocol BeneficiaryProtocol {
     /// The type of the accountNumber that this beneficiary has.
     var accountNumberKind: AccountNumberKind { get }
     /// The account number for the beneficiary. The structure of this field depends on the type.
