@@ -6,6 +6,7 @@ protocol DefaultableDecodable: Decodable, RawRepresentable where RawValue: Decod
 
 extension DefaultableDecodable {
     init(from decoder: Decoder) throws {
-        self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? Self.decodeFallbackValue
+        let decodedStringValue = try decoder.singleValueContainer().decode(RawValue.self)
+        self = Self(rawValue: decodedStringValue) ?? Self.decodeFallbackValue
     }
 }
