@@ -71,14 +71,14 @@ enum Strings {
         /// Text shown when canceling supplementing information.
         static let cancelling = NSLocalizedString("CredentialsStatus.Cancelling", tableName: tableName, bundle: bundle, value: "Cancelling…", comment: "Text shown for dialog when supplemental information is cancelled and waiting for credential status update.")
 
+        /// Text shown when submitting supplemental information.
+        static let sending = NSLocalizedString("CredentialsStatus.Sending", tableName: tableName, bundle: bundle, value: "Sending…", comment: "Text shown for dialog when supplemental information is submitted and waiting for credential status update.")
+
         /// Text shown when updating credentials.
         static let updating = NSLocalizedString("CredentialsStatus.Updating", tableName: tableName, bundle: bundle, value: "Connecting to %@, please wait…", comment: "Text shown for progress indicator dialog when status is CredentialStatus.Updating.")
 
         /// Fallback text shown when fail to get bank name while updating credentials.
         static let updatingFallback = NSLocalizedString("CredentialsStatus.UpdatingFallback", tableName: tableName, bundle: bundle, value: "Connecting, please wait…", comment: "Fallback text shown when fail to get bank name while updating credentials.")
-
-        /// Text shown when submitting supplemental information.
-        static let sending = NSLocalizedString("CredentialsStatus.Sending", tableName: tableName, bundle: bundle, value: "Sending…", comment: "Text shown for dialog when supplemental information is submitted and waiting for credential status update.")
 
         /// Text shown when adding credentials and waiting for authentication on another device.
         static let waitingForAuthenticationOnAnotherDevice = NSLocalizedString("CredentialsStatus.WaitingForAuthenticationOnAnotherDevice", tableName: tableName, bundle: bundle, value: "Waiting for authentication on another device", comment: "Text shown when adding credentials and waiting for authentication on another device.")
