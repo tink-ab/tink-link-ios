@@ -317,8 +317,8 @@ public final class TransferContext {
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
-            ownerAccountID: account.id,
-            ownerAccountCredentialsID: account.credentialsID,
+            ownerAccountID: ownerAccount.id,
+            ownerAccountCredentialsID: ownerAccount.credentialsID,
             name: name,
             accountNumberType: beneficiaryAccount.accountNumberKind.value,
             accountNumber: beneficiaryAccount.accountNumber,
@@ -381,7 +381,7 @@ public final class TransferContext {
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     public func addBeneficiary(
-        account: BeneficiaryAccountRepresentable,
+        beneficiaryAccount: BeneficiaryAccountRepresentable,
         name: String,
         toAccountWithID ownerAccountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
