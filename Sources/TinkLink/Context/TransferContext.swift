@@ -390,20 +390,6 @@ public final class TransferContext {
 
     // MARK: - Find all credentials that are capable of adding a beneficiary.
 
-    /// This functionality exists to support the case when a user has two credentials for one financial institution due to PSD2 regulations.
-    /// Use this helper function to find the credentials that has the capability to add beneficiaries.
-    /// - Parameters:
-    ///   - to: The account that the beneficiary should be added to.
-    ///   - credentialsList: The user's existing credentials list.
-    ///   - providerList: The available provider list.
-    /// - Returns: The credentials list that suitable for adding the beneficiary. Returns an empty array if no credentials are suitable for adding a beneficiary with.
-    public func credentialsListCapableOfAddingBeneficiaries(to account: Account, credentialsList: [Credentials], providerList: [Provider]) -> [Credentials] {
-        let filteredProviders = providerList.filter ({ $0.financialInstitution.id == account.financialInstitutionID && $0.capabilities.contains(.createBeneficiaries) })
-        return credentialsList.filter { credentials in
-            filteredProviders.contains { credentials.providerID == $0.id }
-        }
-    }
-
     /// Use this helper function to find the credentials that has the capability to add beneficiaries.
     ///
     /// Required scopes:
