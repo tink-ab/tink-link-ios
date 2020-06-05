@@ -432,9 +432,8 @@ public final class TransferContext {
                 completion(.failure(error))
             } else {
                 let filteredProviders = providers.filter { $0.financialInstitution.id == account.financialInstitutionID && $0.capabilities.contains(.createBeneficiaries) }
-                let capableCredentialsList = credentialsList.filter { credentials in
-                    filteredProviders.contains { credentials.providerID == $0.id }
-                }
+                let credentialsByProviderID = Dictionary(grouping: credentialsList, by: \.providerID)
+                let capableCredentialsList = filteredProviders.flatMap { credentialsByProviderID[$0.id] ?? [] }
                 completion(.success(capableCredentialsList))
             }
         }
