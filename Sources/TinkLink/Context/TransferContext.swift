@@ -369,8 +369,6 @@ public final class TransferContext {
     /// - Parameters:
     ///   - account: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
-    ///   - accountNumberKind: The kind of the `accountNumber` that this beneficiary has.
-    ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
     ///   - toAccountWithID: The source account ID for adding a beneficiary.
     ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have double credentials for one financial institution, due to PSD2 regulations.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
