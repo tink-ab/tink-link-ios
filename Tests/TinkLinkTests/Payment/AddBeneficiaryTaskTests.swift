@@ -24,7 +24,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
         let account = Account.makeTestAccount(credentials: credentials)
 
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
+        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService, providerService: MockedSuccessProviderService())
 
         let statusChangedToRequestSent = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
