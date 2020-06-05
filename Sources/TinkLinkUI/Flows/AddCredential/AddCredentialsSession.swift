@@ -27,6 +27,7 @@ final class AddCredentialsSession {
             return false
         }
     }
+    private var isPresenterShowingStatusScreen = true
     private var authorizationGroup = DispatchGroup()
 
     private var providerID: Provider.ID?
@@ -76,6 +77,7 @@ final class AddCredentialsSession {
                 }
             }
         )
+        isPresenterShowingStatusScreen = false
         providerID = provider.id
         addCredentialsMode = mode
         cancelCallback = {
@@ -100,6 +102,7 @@ final class AddCredentialsSession {
                 }
             })
 
+        isPresenterShowingStatusScreen = false
         providerID = credentials.providerID
         cancelCallback = {
             completion(.failure(ServiceError.cancelled))
@@ -111,7 +114,7 @@ final class AddCredentialsSession {
     }
 
     func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        task = credentialsController.refresh(credentials, progressHandler: { [weak self] status in
+        task = credentialsController.refresh(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
@@ -123,6 +126,7 @@ final class AddCredentialsSession {
             }
         })
 
+        isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
         cancelCallback = {
             completion(.failure(ServiceError.cancelled))
@@ -134,7 +138,7 @@ final class AddCredentialsSession {
     }
 
     func authenticateCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        task = credentialsController.authenticate(credentials, progressHandler: { [weak self] status in
+        task = credentialsController.authenticate(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
@@ -146,6 +150,7 @@ final class AddCredentialsSession {
             }
         })
 
+        isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
         cancelCallback = {
             completion(.failure(ServiceError.cancelled))
@@ -253,6 +258,14 @@ final class AddCredentialsSession {
             self?.authorizationGroup.leave()
         }
     }
+    
+    private func cancel() {
+        task?.cancel()
+        hideUpdatingView(animated: true) {
+            self.cancelCallback?()
+            self.cancelCallback = nil
+        }
+    }
 }
 
 extension AddCredentialsSession {
@@ -262,12 +275,20 @@ extension AddCredentialsSession {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
-            self.presenter?.show(navigationController)
+            self.presenter?.present(navigationController, animated: true, completion: nil)
         }
     }
 
     private func showUpdating(status: String) {
         hideQRCodeViewIfNeeded {
+
+            guard !self.isPresenterShowingStatusScreen else {
+                self.presenter?.showLoadingIndicator(text: status) { [weak self] in
+                    self?.cancel()
+                }
+                return
+            }
+
             if let statusViewController = self.statusViewController {
                 if statusViewController.presentingViewController == nil {
                     self.presenter?.present(statusViewController, animated: true, completion: nil)
@@ -316,11 +337,7 @@ extension AddCredentialsSession {
 
 extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
     func addCredentialsStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
-        task?.cancel()
-        hideUpdatingView(animated: true) {
-            self.cancelCallback?()
-            self.cancelCallback = nil
-        }
+        cancel()
     }
 }
 

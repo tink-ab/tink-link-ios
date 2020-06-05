@@ -114,7 +114,8 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
-    private lazy var loadingViewController = LoadingViewController()
+
+    private var loadingViewController: LoadingViewController?
 
     private var credentialsCoordinator: CredentialsCoordinator?
     private var clientDescription: ClientDescription?
@@ -194,17 +195,20 @@ public class TinkLinkViewController: UINavigationController {
         setupNavigationBarAppearance()
 
         view.backgroundColor = Color.background
-        loadingViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-        setViewControllers([loadingViewController], animated: false)
+
+        showLoadingOverlay(withText: nil, onCancel: nil)
 
         presentationController?.delegate = self
-        loadingViewController.delegate = self
 
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
 
+    public override func show(_ vc: UIViewController, sender: Any?) {
+        super.show(vc, sender: sender)
+        hideLoadingOverlay()
+    }
+
     private func start(userSession: UserSession?, authorizationCode: AuthorizationCode?) {
-        loadingViewController.showLoadingIndicator()
         tink._beginUITask()
         defer { tink._endUITask() }
         if let userSession = userSession {
@@ -291,10 +295,8 @@ public class TinkLinkViewController: UINavigationController {
 
         providerController.fetch(with: providerPredicate) { (result) in
             DispatchQueue.main.async {
-                self.loadingViewController.hideLoadingIndicator()
                 switch result {
                 case .success(let providers):
-                    self.setViewControllers([], animated: false)
                     switch providerPredicate {
                     case .kinds:
                         self.showProviderPicker()
@@ -307,7 +309,10 @@ public class TinkLinkViewController: UINavigationController {
                     if let tinkLinkError = TinkLinkError(error: error) {
                         self.result = .failure(tinkLinkError)
                     }
-                    self.loadingViewController.update(error)
+                    self.loadingViewController?.setError(error) {
+                        self.loadingViewController?.showLoadingIndicator()
+                        self.operate()
+                    }
                 }
             }
         }
@@ -319,10 +324,7 @@ public class TinkLinkViewController: UINavigationController {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.startCredentialCoordinator(with: operation)
             }
-            loadingViewController.showLoadingIndicator()
-            if viewControllers.last !== loadingViewController {
-                show(loadingViewController, sender: nil)
-            }
+            showLoadingOverlay(withText: nil, onCancel: nil)
             return
         }
 
@@ -390,10 +392,9 @@ extension TinkLinkViewController {
             message: localizedError?.failureReason ?? error.localizedDescription,
             preferredStyle: .alert
         )
-        loadingViewController.hideLoadingIndicator()
+
         let retryAction = UIAlertAction(title: Strings.Generic.retry, style: .default) { _ in
-            self.loadingViewController.showLoadingIndicator()
-            self.setViewControllers([self.loadingViewController], animated: false)
+            self.showLoadingOverlay(withText: nil, onCancel: nil)
             self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
         }
         alertController.addAction(retryAction)
@@ -445,13 +446,6 @@ extension TinkLinkViewController {
 
 extension TinkLinkViewController {
 
-    private func replaceTopViewController(with viewController: UIViewController, animated: Bool) {
-        var newViewControllers = viewControllers
-        _ = newViewControllers.popLast()
-        newViewControllers.append(viewController)
-        setViewControllers(newViewControllers, animated: animated)
-    }
-
     func showProviderPicker() {
         providerPickerCoordinator.start { [weak self] (result) in
             do {
@@ -472,14 +466,69 @@ extension TinkLinkViewController {
             startCredentialCoordinator(with: .create(provider: provider, mode: .user))
         }
     }
-}
 
-// MARK: - LoadingViewControllerDelegate
+    func showLoadingOverlay(withText text: String?, animated: Bool = true, onCancel: (() -> Void)?) {
+        guard loadingViewController == nil else {
+            loadingViewController?.update(text, onCancel: onCancel)
+            return
+        }
 
-extension TinkLinkViewController: LoadingViewControllerDelegate {
-    func loadingViewControllerDidPressRetry(_ viewController: LoadingViewController) {
+        let loadingViewController = LoadingViewController()
+        loadingViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+        loadingViewController.willMove(toParent: self)
+        loadingViewController.beginAppearanceTransition(true, animated: animated)
+        addChild(loadingViewController)
+        view.addSubview(loadingViewController.view)
+        loadingViewController.didMove(toParent: self)
+
+        loadingViewController.update(text, onCancel: onCancel)
         loadingViewController.showLoadingIndicator()
-        operate()
+
+        self.loadingViewController = loadingViewController
+
+        NSLayoutConstraint.activate([
+            loadingViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            loadingViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            loadingViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
+        if animated {
+            loadingViewController.view.alpha = 0.0
+            UIView.animate(withDuration: 0.1, animations: {
+                loadingViewController.view.alpha = 1.0
+            }, completion: { _ in
+                loadingViewController.endAppearanceTransition()
+            })
+        } else {
+            loadingViewController.endAppearanceTransition()
+        }
+    }
+
+    func hideLoadingOverlay(animated: Bool = true) {
+        guard let loadingViewController = loadingViewController else { return }
+
+        loadingViewController.beginAppearanceTransition(false, animated: animated)
+
+        let removeView = {
+            loadingViewController.view.removeFromSuperview()
+            loadingViewController.removeFromParent()
+            loadingViewController.endAppearanceTransition()
+            self.loadingViewController = nil
+        }
+
+        if animated {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, animations: {
+                    loadingViewController.view.alpha = 0.0
+                }, completion: { _ in
+                    removeView()
+                })
+            }
+        } else {
+            removeView()
+        }
     }
 }
 
@@ -529,22 +578,16 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
 
 extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 
-    func showLoadingIndicator(isCancellingAllowed: Bool) {
-        loadingViewController.navigationItem.rightBarButtonItem?.isEnabled = isCancellingAllowed
-        if topViewController is LoadingViewController {
-            return
-        }
+    func showLoadingIndicator(text: String?, onCancel: (() -> Void)?) {
+        showLoadingOverlay(withText: text, onCancel: onCancel)
+    }
 
-        show(loadingViewController, sender: self)
+    func hideLoadingIndicator() {
+        hideLoadingOverlay()
     }
 
     func show(_ viewController: UIViewController) {
-
-        if topViewController is LoadingViewController {
-            replaceTopViewController(with: viewController, animated: true)
-        } else {
-            show(viewController, sender: self)
-        }
+        show(viewController, sender: self)
     }
 }
 
