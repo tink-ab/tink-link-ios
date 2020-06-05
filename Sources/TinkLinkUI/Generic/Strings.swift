@@ -5,11 +5,21 @@ private let bundle: Bundle = .tinkLinkUI
 
 enum Strings {
     enum ConnectionSuccess {
-        /// Subtitle for screen shown when credentials were added successfully.
-        static let subtitle = NSLocalizedString("ConnectionSuccess.Subtitle", tableName: tableName, bundle: bundle, value: "Your account has successfully connected to %@.", comment: "Subtitle for screen shown when credentials were added successfully.")
+        enum Create {
+            /// Subtitle for screen shown when credentials were added successfully.
+            static let subtitle = NSLocalizedString("ConnectionSuccess.Create.Subtitle", tableName: tableName, bundle: bundle, value: "Your account has successfully connected to %@.", comment: "Subtitle for screen shown when credentials were added successfully.")
 
-        /// Title for screen shown when credentials were added successfully.
-        static let title = NSLocalizedString("ConnectionSuccess.Title", tableName: tableName, bundle: bundle, value: "Connection successful", comment: "Title for screen shown when credentials were added successfully.")
+            /// Title for screen shown when credentials were added successfully.
+            static let title = NSLocalizedString("ConnectionSuccess.Create.Title", tableName: tableName, bundle: bundle, value: "Connection successful", comment: "Title for screen shown when credentials were added successfully.")
+        }
+
+        enum Update {
+            /// Subtitle for screen shown when credentials were added successfully.
+            static let subtitle = NSLocalizedString("ConnectionSuccess.Update.Subtitle", tableName: tableName, bundle: bundle, value: "Your connection to %@ has successfully updated.", comment: "Subtitle for screen shown when credentials were added successfully.")
+
+            /// Title for screen shown when credentials were added successfully.
+            static let title = NSLocalizedString("ConnectionSuccess.Update.Title", tableName: tableName, bundle: bundle, value: "Update successful", comment: "Title for screen shown when credentials were added successfully.")
+        }
     }
 
     enum ConsentInformation {

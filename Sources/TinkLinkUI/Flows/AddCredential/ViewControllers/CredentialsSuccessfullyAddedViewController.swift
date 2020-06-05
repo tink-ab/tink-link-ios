@@ -10,20 +10,18 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         var localizedTitle: String {
             switch self {
             case .create:
-                return Strings.ConnectionSuccess.title
+                return Strings.ConnectionSuccess.Create.title
             case .other:
-                // TODO: Use real Strings
-                return "Update successful"
+                return Strings.ConnectionSuccess.Update.subtitle
             }
         }
 
         var localizedSubtitle: String {
             switch self {
             case .create:
-                return Strings.ConnectionSuccess.subtitle
+                return Strings.ConnectionSuccess.Create.title
             case .other:
-                // TODO: Use real Strings
-                return "You connection to %@ has successfully been updated"
+                return Strings.ConnectionSuccess.Update.subtitle
             }
         }
     }
