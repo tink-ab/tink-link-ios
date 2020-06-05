@@ -3,17 +3,15 @@ import Foundation
 import XCTest
 
 class AddBeneficiaryTaskTests: XCTestCase {
-    var mockedSuccessTransferService: TransferService!
-
     var task: AddBeneficiaryTask?
 
     override func setUp() {
         try! Tink.configure(with: .init(clientID: "testID", redirectURI: URL(string: "app://callback")!))
-
-        mockedSuccessTransferService = MockedSuccessTransferService()
     }
 
     func testAddingBeneficiaryWithSupplementalInformationAuthentication() {
+        let transferService = MutableTransferService(accounts: [], beneficiaries: [])
+
         let credentials = Credentials.makeTestCredentials(
             providerID: "test-provider",
             kind: .password,
@@ -24,7 +22,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
         let account = Account.makeTestAccount(credentials: credentials)
 
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
+        let transferContext = TransferContext(tink: .shared, transferService: transferService, credentialsService: credentialsService)
 
         let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
@@ -74,6 +72,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
     }
 
     func testAddingBeneficiaryThatFailsSupplementalInformationAuthentication() {
+        let transferService = MutableTransferService(accounts: [], beneficiaries: [])
+
         let credentials = Credentials.makeTestCredentials(
             providerID: "test-provider",
             kind: .password,
@@ -85,7 +85,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
         let account = Account.makeTestAccount(credentials: credentials)
 
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
+        let transferContext = TransferContext(tink: .shared, transferService: transferService, credentialsService: credentialsService)
 
         let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
@@ -138,6 +138,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
     }
 
     func testAddingBeneficiaryWithNoAuthenticationStep() {
+        let transferService = MutableTransferService(accounts: [], beneficiaries: [])
+
         let credentials = Credentials.makeTestCredentials(
             providerID: "test-provider",
             kind: .password,
@@ -148,7 +150,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
         let account = Account.makeTestAccount(credentials: credentials)
 
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
+        let transferContext = TransferContext(tink: .shared, transferService: transferService, credentialsService: credentialsService)
 
         let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
@@ -190,6 +192,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
     }
 
     func testAddingBeneficiaryWithDifferentCredentialsThanAccount() {
+        let transferService = MutableTransferService(accounts: [], beneficiaries: [])
+
         let credentialsWithoutCapability = Credentials.makeTestCredentials(
             providerID: "test-provider-a",
             kind: .password,
@@ -209,7 +213,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         XCTAssertEqual(account.credentialsID, credentialsWithoutCapability.id)
         XCTAssertNotEqual(account.credentialsID, credentialsWithCapability.id)
 
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
+        let transferContext = TransferContext(tink: .shared, transferService: transferService, credentialsService: credentialsService)
 
         let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
@@ -253,6 +257,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
     }
 
     func testAddingBeneficiaryWithMultipleAuthenticationTasks() {
+        let transferService = MutableTransferService(accounts: [], beneficiaries: [])
+
         let credentials = Credentials.makeTestCredentials(
             providerID: "test-provider",
             kind: .password,
@@ -263,7 +269,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
         let account = Account.makeTestAccount(credentials: credentials)
 
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: credentialsService)
+        let transferContext = TransferContext(tink: .shared, transferService: transferService, credentialsService: credentialsService)
 
         let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
