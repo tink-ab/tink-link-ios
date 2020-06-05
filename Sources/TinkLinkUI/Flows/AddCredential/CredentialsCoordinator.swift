@@ -43,6 +43,15 @@ final class CredentialsCoordinator {
 
     private var fetchedCredentials: Credentials?
 
+    private var callCompletionOnError: Bool {
+        switch action {
+        case .authenticate, .refresh:
+            return true
+        case .update, .create:
+            return false
+        }
+    }
+
     init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
@@ -105,11 +114,8 @@ final class CredentialsCoordinator {
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
         } catch ServiceError.cancelled {
-            switch action {
-            case .authenticate, .refresh:
+            if callCompletionOnError {
                 completion(.failure(.userCancelled))
-            default:
-                break // NO-OP
             }
         } catch {
             showAlert(for: error)
@@ -226,7 +232,7 @@ extension CredentialsCoordinator {
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
         let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
 
-        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
+        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL), !callCompletionOnError {
             let cancelAction = UIAlertAction(title: Strings.Generic.cancel, style: .cancel)
             let downloadAction = UIAlertAction(title: Strings.ThirdPartyAppAuthentication.DownloadAlert.download, style: .default, handler: { _ in
                 UIApplication.shared.open(appStoreURL)
@@ -234,7 +240,11 @@ extension CredentialsCoordinator {
             alertController.addAction(cancelAction)
             alertController.addAction(downloadAction)
         } else {
-            let okAction = UIAlertAction(title: Strings.Generic.dismiss, style: .default)
+            let okAction = UIAlertAction(title: Strings.Strings.Generic.dismiss, style: .default) { _ in
+                if self.callCompletionOnError {
+                    self.completion(.failure(.unableToOpenThirdPartyApp(thirdPartyAppAuthenticationError)))
+                }
+            }
             alertController.addAction(okAction)
         }
 
@@ -254,7 +264,11 @@ extension CredentialsCoordinator {
 
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default)
+        let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default) { _ in
+            if self.callCompletionOnError {
+                self.completion(.failure(.internalError))
+            }
+        }
         alertController.addAction(okAction)
 
         presenter?.present(alertController, animated: true, completion: nil)
