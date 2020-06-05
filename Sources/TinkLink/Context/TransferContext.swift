@@ -306,9 +306,9 @@ public final class TransferContext {
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     public func addBeneficiary(
-        account: BeneficiaryAccountRepresentable,
+        account beneficiaryAccount: BeneficiaryAccountRepresentable,
         name: String,
-        to account: Account,
+        to ownerAccount: Account,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
@@ -320,8 +320,8 @@ public final class TransferContext {
             ownerAccountID: account.id,
             ownerAccountCredentialsID: account.credentialsID,
             name: name,
-            accountNumberType: beneficiary.accountNumberKind.value,
-            accountNumber: beneficiary.accountNumber,
+            accountNumberType: beneficiaryAccount.accountNumberKind.value,
+            accountNumber: beneficiaryAccount.accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
@@ -383,7 +383,7 @@ public final class TransferContext {
     public func addBeneficiary(
         account: BeneficiaryAccountRepresentable,
         name: String,
-        toAccountWithID accountID: Account.ID,
+        toAccountWithID ownerAccountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
@@ -393,11 +393,11 @@ public final class TransferContext {
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
-            ownerAccountID: accountID,
+            ownerAccountID: ownerAccountID,
             ownerAccountCredentialsID: credentialsID,
             name: name,
-            accountNumberType: beneficiary.accountNumberKind.value,
-            accountNumber: beneficiary.accountNumber,
+            accountNumberType: beneficiaryAccount.accountNumberKind.value,
+            accountNumber: beneficiaryAccount.accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
