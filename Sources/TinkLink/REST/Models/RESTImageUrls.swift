@@ -1,6 +1,6 @@
 import Foundation
 
-struct RESTImageUrls: Codable {
+struct RESTImageUrls: Decodable {
 
     var icon: String?
     var banner: String?
