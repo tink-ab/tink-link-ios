@@ -163,7 +163,7 @@ public final class TransferContext {
     /// - Returns: The initiate transfer task.
     public func initiateTransfer(
         from source: Account,
-        to destination: TransferBeneficiary,
+        to destination: BeneficiaryAccountRepresentable,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
@@ -306,7 +306,7 @@ public final class TransferContext {
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     public func add(
-        _ beneficiary: TransferBeneficiary,
+        _ beneficiary: BeneficiaryAccountRepresentable,
         name: String,
         to account: Account,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
@@ -381,7 +381,7 @@ public final class TransferContext {
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     public func add(
-        _ beneficiary: TransferBeneficiary,
+        _ beneficiary: BeneficiaryAccountRepresentable,
         name: String,
         toAccountWithID accountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
