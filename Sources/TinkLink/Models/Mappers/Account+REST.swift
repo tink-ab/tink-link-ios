@@ -45,6 +45,7 @@ extension Account.Kind {
         case .pension: self = .pension
         case .other: self = .other
         case .external: self = .external
+        case .unknown: self = .unknown
         }
     }
 }
@@ -54,6 +55,7 @@ extension Account.Flag {
         switch flags {
         case .business: self = .business
         case .mandate: self = .mandate
+        case .unknown: self = .unknown
         }
     }
 }
@@ -64,6 +66,7 @@ extension Account.AccountExclusion {
         case .aggregation: self = .aggregation
         case .pfmAndSearch: self = .pfmAndSearch
         case .pfmData: self = .pfmData
+        case .unknown: self = .unknown
         case ._none: return nil
         }
     }

@@ -1,20 +1,23 @@
 import Foundation
 
-struct RESTCredentialsList: Codable {
+struct RESTCredentialsList: Decodable {
     let credentials: [RESTCredentials]
 }
 
 /// The credentials model represents a user's connected providers from where financial data is accessed.
-struct RESTCredentials: Codable {
+struct RESTCredentials: Decodable {
 
-    enum ModelType: String, Codable {
+    enum ModelType: String, DefaultableDecodable {
         case password = "PASSWORD"
         case mobileBankid = "MOBILE_BANKID"
         case keyfob = "KEYFOB"
         case thirdPartyApp = "THIRD_PARTY_APP"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTCredentials.ModelType = .unknown
     }
 
-    enum Status: String, Codable {
+    enum Status: String, DefaultableDecodable {
         case created = "CREATED"
         case authenticating = "AUTHENTICATING"
         case awaitingMobileBankidAuthentication = "AWAITING_MOBILE_BANKID_AUTHENTICATION"
@@ -27,6 +30,9 @@ struct RESTCredentials: Codable {
         case awaitingThirdPartyAppAuthentication = "AWAITING_THIRD_PARTY_APP_AUTHENTICATION"
         case deleted = "DELETED"
         case sessionExpired = "SESSION_EXPIRED"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTCredentials.Status = .unknown
     }
     /// The unique identifier of the credentials.
     var id: String?

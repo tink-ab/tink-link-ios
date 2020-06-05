@@ -80,6 +80,8 @@ extension Credentials.Kind {
             self = .mobileBankID
         case .keyfob:
             self = .keyfob
+        case .unknown:
+            self = .unknown
         }
     }
 
@@ -95,6 +97,8 @@ extension Credentials.Kind {
             self = .keyfob
         case .fraud:
             self = .fraud
+        case .unknown:
+            self = .unknown
         }
     }
 
@@ -143,6 +147,8 @@ extension Credentials.Status {
             self = .sessionExpired
         case .deleted:
             self = .disabled
+        case .unknown:
+            self = .unknown
         }
     }
 }

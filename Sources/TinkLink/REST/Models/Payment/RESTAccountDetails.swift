@@ -1,8 +1,8 @@
 import Foundation
 
-struct RESTAccountDetails: Codable {
+struct RESTAccountDetails: Decodable {
 
-    enum ModelType: String, Codable {
+    enum ModelType: String, DefaultableDecodable {
         case mortgage = "MORTGAGE"
         case blanco = "BLANCO"
         case membership = "MEMBERSHIP"
@@ -11,6 +11,9 @@ struct RESTAccountDetails: Codable {
         case student = "STUDENT"
         case credit = "CREDIT"
         case other = "OTHER"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTAccountDetails.ModelType = .unknown
     }
     /// Interest of the account. Applicable for loans and savings accounts.
     var interest: Double?

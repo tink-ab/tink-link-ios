@@ -38,6 +38,8 @@ extension Provider.Kind {
             self = .test
         case .fraud:
             self = .fraud
+        case .unknown:
+            self = .unknown
         }
     }
 }
@@ -51,6 +53,8 @@ extension Provider.Status {
             self = .disabled
         case .temporaryDisabled:
             self = .temporaryDisabled
+        case .unknown:
+            self = .unknown
         }
     }
 }
@@ -129,6 +133,8 @@ extension Provider.AccessType {
             self = .openBanking
         case .other:
             self = .other
+        case .unknown:
+            self = .unknown
         }
     }
 }
