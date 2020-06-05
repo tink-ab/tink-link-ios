@@ -2,8 +2,7 @@ import UIKit
 import TinkLink
 
 protocol BeneficiaryPickerViewControllerDelegate: AnyObject {
-    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: Beneficiary)
-    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didEnterBeneficiaryURI beneficiaryURI: Beneficiary.URI)
+    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: TransferBeneficiary)
 }
 
 class BeneficiaryPickerViewController: UITableViewController {
@@ -80,10 +79,10 @@ extension BeneficiaryPickerViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
             guard let type = alert.textFields?[0].text,
-                let accountNumber = alert.textFields?[1].text,
-                let uri = Beneficiary.URI(kind: .init(type), accountNumber: accountNumber)
+                let accountNumber = alert.textFields?[1].text
                 else { return }
-            self.delegate?.beneficiaryPickerViewController(self, didEnterBeneficiaryURI: uri)
+            let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: .init(type), accountNumber: accountNumber)
+            self.delegate?.beneficiaryPickerViewController(self, didSelectBeneficiary: beneficiaryAccount)
         }))
         present(alert, animated: true)
     }
