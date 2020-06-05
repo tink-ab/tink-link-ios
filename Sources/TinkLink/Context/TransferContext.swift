@@ -241,15 +241,15 @@ public final class TransferContext {
     /// Required scopes:
     /// - beneficiaries:write
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate an adding beneficiary request.
+    /// You need to handle authentication changes in `authentication` to successfuly initiate an add beneficiary request.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
-    /// initiateTransferTask = transferContext.addBeneficiary(
-    ///     to: sourceAccount,
-    ///     name: <#Beneficiary name#>,
-    ///     accountNumberType: <#Account Number Type#>,
-    ///     accountNumber: <#Account Number#>
+    /// task = transferContext.addBeneficiary(
+    ///     name: <#String#>,
+    ///     accountNumberKind: <#AccountNumberKind#>,
+    ///     accountNumber: <#String#>
+    ///     to: <#Account#>,
     ///     authentication: { task in
     ///         switch task {
     ///         case .awaitingSupplementalInformation(let task):
@@ -314,15 +314,16 @@ public final class TransferContext {
     /// Required scopes:
     /// - beneficiaries:write
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate an adding beneficiary request.
+    /// You need to handle authentication changes in `authentication` to successfuly initiate an add beneficiary request.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
-    /// initiateTransferTask = transferContext.addBeneficiary(
-    ///     toAccountWithID: <#Account ID#>
-    ///     onCredentialsWithID: <#Credentials ID#>,
-    ///     accountNumberType: <#Account Number Type#>,
-    ///     accountNumber: <#Account Number#>
+    /// task = transferContext.addBeneficiary(
+    ///     name: <#String#>,
+    ///     accountNumberKind: <#AccountNumberKind#>,
+    ///     accountNumber: <#String#>
+    ///     toAccountWithID: <#Account.ID#>
+    ///     onCredentialsWithID: <#Credentials.ID#>,
     ///     authentication: { task in
     ///         switch task {
     ///         case .awaitingSupplementalInformation(let task):
