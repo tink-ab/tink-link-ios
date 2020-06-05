@@ -94,10 +94,11 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "add beneficiary status should be changed to awaitingSupplementalInformation")
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
-        task = transferContext.addBeneficiary(
+        let beneficiary = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "FR7630006000011234567890189")
+
+        task = transferContext.add(
+            beneficiary,
             name: "Example Inc",
-            accountNumberKind: .iban,
-            accountNumber: "FR7630006000011234567890189",
             to: account,
             authentication: { task in
                 switch task {
