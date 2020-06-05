@@ -73,6 +73,7 @@ public final class TransferContext {
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
+    @available(*, deprecated, message: "Use the other initiateTransfer method with a `BeneficiaryAccount` instead.")
     public func initiateTransfer(
         fromAccountWithURI: Account.URI,
         toBeneficiaryWithURI: Beneficiary.URI,
@@ -176,15 +177,36 @@ public final class TransferContext {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
-        return initiateTransfer(
-            fromAccountWithURI: sourceURI,
-            toBeneficiaryWithURI: beneficiaryURI,
-            amount: amount,
-            message: message,
-            authentication: authentication,
-            progress: progress,
-            completion: completion
+        let task = InitiateTransferTask(
+            transferService: transferService,
+            credentialsService: credentialsService,
+            appUri: tink.configuration.redirectURI,
+            progressHandler: progress,
+            authenticationHandler: authentication,
+            completionHandler: completion
         )
+
+        let transfer = Transfer(
+            amount: amount.value,
+            id: nil,
+            credentialsID: nil,
+            currency: amount.currencyCode,
+            sourceMessage: message.source,
+            destinationMessage: message.destination,
+            dueDate: nil,
+            destinationUri: beneficiaryURI,
+            sourceUri: sourceURI
+        )
+
+        task.canceller = transferService.transfer(transfer: transfer, redirectURI: tink.configuration.redirectURI) { [weak task] result in
+            do {
+                let signableOperation = try result.get()
+                task?.startObserving(signableOperation)
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        return task
     }
 
     // MARK: - Fetching Accounts
