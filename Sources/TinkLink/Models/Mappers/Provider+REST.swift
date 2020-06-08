@@ -35,7 +35,7 @@ extension Provider.Kind {
         case .other:
             self = .other
         case .test:
-            self = .demo
+            self = .test
         case .fraud:
             self = .fraud
         }
