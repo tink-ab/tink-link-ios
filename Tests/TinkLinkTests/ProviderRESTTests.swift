@@ -33,7 +33,7 @@ class ProviderRESTTests: XCTestCase {
 
         XCTAssertEqual(provider.id.value, restProvider.name)
         XCTAssertEqual(provider.displayName, restProvider.displayName)
-        XCTAssertEqual(provider.kind, .test)
+        XCTAssertEqual(provider.kind, .demo)
         XCTAssertEqual(provider.status, .enabled)
         XCTAssertEqual(provider.credentialsKind, .thirdPartyAuthentication)
         XCTAssertFalse(provider.isPopular)

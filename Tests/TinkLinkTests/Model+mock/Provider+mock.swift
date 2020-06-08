@@ -130,7 +130,7 @@ extension Provider {
     static let testSupplementalInformation = Provider(
         id: "se-test-multi-supplemental",
         displayName: "Test Multi-Supplemental",
-        kind: .test,
+        kind: .demo,
         status: .enabled,
         credentialsKind: .password,
         helpText: "Use the same username and password as you would in the bank\'s mobile app.",
