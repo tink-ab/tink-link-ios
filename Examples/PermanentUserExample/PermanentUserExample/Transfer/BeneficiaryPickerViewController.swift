@@ -2,7 +2,7 @@ import UIKit
 import TinkLink
 
 protocol BeneficiaryPickerViewControllerDelegate: AnyObject {
-    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: BeneficiaryAccountRepresentable)
+    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: AccountNumberRepresentable)
 }
 
 class BeneficiaryPickerViewController: UITableViewController {

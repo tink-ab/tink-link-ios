@@ -163,7 +163,7 @@ public final class TransferContext {
     /// - Returns: The initiate transfer task.
     public func initiateTransfer(
         from source: Account,
-        to destination: BeneficiaryAccountRepresentable,
+        to destination: AccountNumberRepresentable,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
