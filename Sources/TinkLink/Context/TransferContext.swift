@@ -126,8 +126,8 @@ public final class TransferContext {
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.initiateTransfer(
-    ///     from: sourceAccount,
-    ///     to: transferBeneficiary,
+    ///     from: account,
+    ///     to: beneficiary,
     ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
     ///     message: .init(destination: message),
     ///     authentication: { task in
