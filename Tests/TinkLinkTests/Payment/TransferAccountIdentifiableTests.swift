@@ -7,6 +7,11 @@ class TransferAccountIdentifiableTests: XCTestCase {
         XCTAssertEqual(account.transferAccountID, "iban://FR1420041010050015664355590?name=testAccount")
     }
 
+    func testAccountURIConformance() {
+        let uri = Account.URI(kind: .iban, accountNumber: "FR1420041010050015664355590")
+        XCTAssertEqual(uri.transferAccountID, "iban://FR1420041010050015664355590")
+    }
+
     func testBeneficiaryConformance() {
         let beneficiary = Beneficiary.savingBeneficiary
         XCTAssertEqual(beneficiary.transferAccountID, "se://254fa71273394c5890de54fb3d20ac0f?name=Savings%20Account%20tink")
