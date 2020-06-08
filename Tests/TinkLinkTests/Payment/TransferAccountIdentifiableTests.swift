@@ -11,4 +11,9 @@ class TransferAccountIdentifiableTests: XCTestCase {
         let beneficiary = Beneficiary.savingBeneficiary
         XCTAssertEqual(beneficiary.transferAccountID, "se://254fa71273394c5890de54fb3d20ac0f?name=Savings%20Account%20tink")
     }
+
+    func testBeneficiaryAccountConformance() {
+        let beneficiary = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "FR7630006000011234567890189")
+        XCTAssertEqual(beneficiary.transferAccountID, "iban://FR7630006000011234567890189")
+    }
 }
