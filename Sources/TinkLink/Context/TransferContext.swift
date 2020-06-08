@@ -343,9 +343,8 @@ public final class TransferContext {
     ///
     /// ```swift
     /// task = transferContext.addBeneficiary(
+    ///     account: <#BeneficiaryAccount#>,
     ///     name: <#String#>,
-    ///     accountNumberKind: <#AccountNumberKind#>,
-    ///     accountNumber: <#String#>
     ///     toAccountWithID: <#Account.ID#>
     ///     onCredentialsWithID: <#Credentials.ID#>,
     ///     authentication: { task in
