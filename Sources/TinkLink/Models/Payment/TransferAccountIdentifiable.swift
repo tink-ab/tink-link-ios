@@ -1,7 +1,8 @@
 import Foundation
 
-/// A type that provides values for an account number.
+/// A type that can be used as an to or from account when initiating a transfer.
 public protocol TransferAccountIdentifiable {
+     /// The identity of the account.
     var transferAccountID: String { get }
 }
 
