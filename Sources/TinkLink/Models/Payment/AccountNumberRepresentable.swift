@@ -1,3 +1,5 @@
+import Foundation
+
 /// A type that provides values for an account number.
 public protocol AccountNumberRepresentable {
     /// The kind of the `accountNumber`.
@@ -5,4 +7,13 @@ public protocol AccountNumberRepresentable {
     /// The account number.
     /// - Note: The structure of this value depends on the `accountNumberKind`.
     var accountNumber: String { get }
+}
+
+extension AccountNumberRepresentable {
+    var uri: URL? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = accountNumberKind.value
+        urlComponents.host = accountNumber
+        return urlComponents.url
+    }
 }
