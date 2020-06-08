@@ -347,9 +347,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
         let credentialsService = MockedAuthenticationErrorCredentialsService()
         let transferService = MockedUnauthenticatedErrorTransferService()
+        let beneficiaryService = MockedUnauthenticatedErrorBeneficiaryService()
         let providerService = MockedUnauthenticatedErrorProviderService()
 
-        let transferContext = TransferContext(tink: .shared, transferService: transferService, credentialsService: credentialsService, providerService: providerService)
+        let transferContext = TransferContext(tink: .shared, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
 
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 

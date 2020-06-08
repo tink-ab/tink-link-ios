@@ -7,6 +7,10 @@ class TransferContextTests: XCTestCase {
     var mockedCancelledTransferService: TransferService!
     var mockedUnauthenticatedErrorTransferService: TransferService!
 
+    var mockedSuccessBeneficiaryService: BeneficiaryService!
+    var mockedCancelledBeneficiaryService: BeneficiaryService!
+    var mockedUnauthenticatedErrorBeneficiaryService: BeneficiaryService!
+
     var mockedSuccessCredentialsService: CredentialsService!
     var mockedAuthenticationErrorCredentialsService: CredentialsService!
     var mockedUnauthenticatedErrorCredentialsService: CredentialsService!
@@ -22,6 +26,10 @@ class TransferContextTests: XCTestCase {
         mockedCancelledTransferService = MockedCancelledTransferService()
         mockedUnauthenticatedErrorTransferService = MockedUnauthenticatedErrorTransferService()
 
+        mockedSuccessBeneficiaryService = MockedSuccessBeneficiaryService()
+        mockedCancelledBeneficiaryService = MockedCancelledBeneficiaryService()
+        mockedUnauthenticatedErrorBeneficiaryService = MockedUnauthenticatedErrorBeneficiaryService()
+
         mockedSuccessCredentialsService = MockedSuccessPaymentCredentialsService()
         mockedAuthenticationErrorCredentialsService = MockedAuthenticationErrorCredentialsService()
         mockedUnauthenticatedErrorCredentialsService = MockedUnauthenticatedErrorCredentialsService()
@@ -30,7 +38,7 @@ class TransferContextTests: XCTestCase {
     }
 
     func testFetchAccounts() {
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
+        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
         let fetchAccountsCompletionCalled = expectation(description: "fetch accounts completion should be called")
 
         _ = transferContext.fetchAccounts { result in
@@ -50,7 +58,7 @@ class TransferContextTests: XCTestCase {
     }
 
     func testFetchAllBeneficiaries() {
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
+        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
         let fetchBeneficiariesCompletionCalled = expectation(description: "fetch beneficiaries completion should be called")
         _ = transferContext.fetchBeneficiaries { result in
             do {
@@ -69,7 +77,7 @@ class TransferContextTests: XCTestCase {
     }
 
     func testInitiateTransfer() {
-        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
+        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "initiate transfer status should be changed to awaitingSupplementalInformation")
@@ -116,7 +124,7 @@ class TransferContextTests: XCTestCase {
     }
 
     func testInitiateTransferThatGetCancelled() {
-        let transferContext = TransferContext(tink: .shared, transferService: mockedCancelledTransferService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
+        let transferContext = TransferContext(tink: .shared, transferService: mockedCancelledTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "initiate transfer status should be changed to awaitingSupplementalInformation")
@@ -170,7 +178,7 @@ class TransferContextTests: XCTestCase {
     }
 
     func testInitiateTransferWithUnauthenticatedError() {
-        let transferContext = TransferContext(tink: .shared, transferService: mockedCancelledTransferService, credentialsService: mockedAuthenticationErrorCredentialsService, providerService: mockedSuccessProviderService)
+        let transferContext = TransferContext(tink: .shared, transferService: mockedCancelledTransferService, beneficiaryService: mockedUnauthenticatedErrorBeneficiaryService, credentialsService: mockedAuthenticationErrorCredentialsService, providerService: mockedSuccessProviderService)
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
         let initiateTransferUnauthenticatedError = expectation(description: "initiate transfer completion with cancelled error should be called")
