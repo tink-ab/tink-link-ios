@@ -297,7 +297,7 @@ public final class TransferContext {
     ///   - account: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
     ///   - to: The account that the beneficiary should be added to.
-    ///   - credentials: The `Credentials` used to add the beneficiary. Note that you can use different credentials than the account belongs to. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations. If `nil` the beneficiary will be added to the credentials of the account.
+    ///   - credentials: Optional, the `Credentials` used to add the beneficiary. Note that you can use different credentials than the account belongs to. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations. If `nil` the beneficiary will be added to the credentials of the account.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
