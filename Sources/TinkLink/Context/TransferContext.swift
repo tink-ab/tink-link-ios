@@ -173,7 +173,7 @@ public final class TransferContext {
         guard let sourceURI = Account.URI(account: account) else {
             preconditionFailure("Source account doesn't have a URI.")
         }
-        guard let beneficiaryURI = Beneficiary.URI(beneficiary: beneficiary) else {
+        guard let beneficiaryURI = beneficiary.uri else {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
@@ -194,7 +194,7 @@ public final class TransferContext {
             sourceMessage: message.source,
             destinationMessage: message.destination,
             dueDate: nil,
-            destinationUri: beneficiaryURI.value,
+            destinationUri: beneficiaryURI.absoluteString,
             sourceUri: sourceURI.value
         )
 
