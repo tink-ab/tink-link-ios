@@ -49,9 +49,11 @@ extension Account.URI {
 extension Account.URI {
     /// Creates a URI for an account.
     /// - Parameter account: The account.
-    public init?(account: Account) {
-        guard let uri = account.transferSourceIdentifiers?.first else { return  nil }
-
-        self.value = uri.absoluteString
+    public init(account: Account) {
+        if let uri = account.transferSourceIdentifiers?.first {
+            self.value = uri.absoluteString
+        } else {
+            self.value = "tink://\(account.id.value)"
+        }
     }
 }
