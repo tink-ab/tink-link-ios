@@ -2,7 +2,8 @@
 public struct BeneficiaryAccount: AccountNumberRepresentable {
     /// The type of the `accountNumber` that this beneficiary has.
     public let accountNumberKind: AccountNumberKind
-    /// The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
+    /// The account number for the beneficiary.
+    /// - Note: The structure of this value depends on the `accountNumberKind`.
     public let accountNumber: String
 
     /// Creates a beneficiary account.

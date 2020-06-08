@@ -10,7 +10,8 @@ public struct Beneficiary: Equatable, AccountNumberRepresentable {
     public var accountNumberType: String { accountNumberKind.value }
     /// The type of the `accountNumber` that this beneficiary has.
     public let accountNumberKind: AccountNumberKind
-    /// The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
+    /// The account number for the beneficiary.
+    /// - Note: The structure of this value depends on the `accountNumberKind`.
     public let accountNumber: String
     /// The name chosen by the user for this beneficiary.
     public let name: String
