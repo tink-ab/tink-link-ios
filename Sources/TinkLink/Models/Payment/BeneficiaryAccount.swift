@@ -1,6 +1,6 @@
 /// A beneficiary account is a payment or transfer destination account.
 public struct BeneficiaryAccount: AccountNumberRepresentable {
-    /// The type of the `accountNumber` that this beneficiary has.
+    /// The kind of the `accountNumber` that this beneficiary has.
     public let accountNumberKind: AccountNumberKind
     /// The account number for the beneficiary.
     /// - Note: The structure of this value depends on the `accountNumberKind`.
@@ -9,8 +9,8 @@ public struct BeneficiaryAccount: AccountNumberRepresentable {
     /// Creates a beneficiary account.
     ///
     /// - Parameters:
-    ///   - accountNumberKind: The type of the `accountNumber` that this beneficiary has.
-    ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
+    ///   - accountNumberKind: The kind of the account number.
+    ///   - accountNumber: The account number for the beneficiary.
     public init(accountNumberKind: AccountNumberKind, accountNumber: String) {
         self.accountNumberKind = accountNumberKind
         self.accountNumber = accountNumber
