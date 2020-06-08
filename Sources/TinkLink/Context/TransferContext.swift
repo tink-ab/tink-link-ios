@@ -162,7 +162,7 @@ public final class TransferContext {
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
     public func initiateTransfer(
-        from account: Account,
+        from account: AccountNumberRepresentable,
         to beneficiary: AccountNumberRepresentable,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
@@ -170,7 +170,7 @@ public final class TransferContext {
         progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
-        guard let sourceURI = Account.URI(account: account) else {
+        guard let sourceURI = account.uri else {
             preconditionFailure("Source account doesn't have a URI.")
         }
         guard let beneficiaryURI = beneficiary.uri else {
@@ -195,7 +195,7 @@ public final class TransferContext {
             destinationMessage: message.destination,
             dueDate: nil,
             destinationUri: beneficiaryURI.absoluteString,
-            sourceUri: sourceURI.value
+            sourceUri: sourceURI.absoluteString
         )
 
         task.canceller = transferService.transfer(transfer: transfer, redirectURI: tink.configuration.redirectURI) { [weak task] result in
