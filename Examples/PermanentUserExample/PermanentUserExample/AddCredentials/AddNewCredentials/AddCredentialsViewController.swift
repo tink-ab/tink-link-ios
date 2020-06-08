@@ -204,13 +204,13 @@ extension AddCredentialsViewController {
             } else {
                 showUpdating(status: "Authenticating…")
             }
-        case .updating(let status):
+        case .updating:
             if isPresentingQR {
                 dismiss(animated: true) {
-                    self.showUpdating(status: status)
+                    self.showUpdating(status: "Connecting…")
                 }
             } else {
-                showUpdating(status: status)
+                showUpdating(status: "Connecting…")
             }
         case .awaitingSupplementalInformation(let task):
             hideUpdatingView(animated: false) {

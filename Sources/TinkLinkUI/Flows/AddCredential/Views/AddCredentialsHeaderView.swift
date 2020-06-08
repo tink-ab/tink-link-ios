@@ -190,14 +190,14 @@ final class AddCredentialsHeaderView: UIView {
         userInfoDescription.isHidden = isDescriptionHidden
         userInfoDescriptionBottomSpace?.isActive = !isDescriptionHidden
 
-        let readMoreFormat = Strings.AddCredentials.Consent.financialInformation
+        let readMoreFormat = Strings.Credentials.consentText
         let text = String(format: readMoreFormat, clientName)
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: Color.label,
             .font: Font.footnote
         ]
         let attributeText = NSMutableAttributedString(string: text, attributes: attributes)
-        let readMoreText = Strings.AddCredentials.Consent.readMore
+        let readMoreText = Strings.Credentials.readMore
         let readMoreRange = attributeText.mutableString.range(of: readMoreText)
         self.readMoreRange = readMoreRange
         attributeText.addAttributes([
