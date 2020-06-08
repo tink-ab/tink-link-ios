@@ -4,6 +4,7 @@ extension Beneficiary {
     /// A type representing the URI for receiving transfers.
     ///
     /// A URI is composed with two parts, a kind with value of e.g. `iban` and an account number.
+    @available(*, deprecated, message: "Use BeneficiaryAccount instead.")
     public struct URI: Equatable, ExpressibleByStringLiteral {
         /// The `String` that represent the URI.
         public let value: String
@@ -20,12 +21,14 @@ extension Beneficiary {
     }
 }
 
+@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
 extension Beneficiary.URI {
     /// A type representing an kind of account URI.
     @available(*, deprecated, renamed: "AccountNumberKind")
     public typealias Kind = AccountNumberKind
 }
 
+@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
 extension Beneficiary.URI {
     /// Creates a URI.
     ///
@@ -45,6 +48,7 @@ extension Beneficiary.URI {
     }
 }
 
+@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
 extension Beneficiary.URI {
     /// Creates a URI for a beneficiary.
     /// - Parameter beneficiary: The beneficiary.
