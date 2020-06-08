@@ -330,7 +330,7 @@ extension TransferViewController: TextFieldTableViewCellDelegate {
         case .details(let fields):
             switch fields[indexPath.row] {
             case .amount:
-                amount = Decimal(string: text)
+                amount = Decimal(string: text, locale: .current)
             case .message:
                 message = text
             }
