@@ -321,8 +321,8 @@ public final class TransferContext {
             ownerAccountID: ownerAccount.id,
             ownerAccountCredentialsID: credentials?.id ?? ownerAccount.credentialsID,
             name: name,
-            accountNumberType: beneficiaryAccount.transferAccountNumberKind.value,
-            accountNumber: beneficiaryAccount.transferAccountNumber,
+            accountNumberType: beneficiaryAccount.accountNumberKind.value,
+            accountNumber: beneficiaryAccount.accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
@@ -394,8 +394,8 @@ public final class TransferContext {
             ownerAccountID: ownerAccountID,
             ownerAccountCredentialsID: credentialsID,
             name: name,
-            accountNumberType: beneficiaryAccount.transferAccountNumberKind.value,
-            accountNumber: beneficiaryAccount.transferAccountNumber,
+            accountNumberType: beneficiaryAccount.accountNumberKind.value,
+            accountNumber: beneficiaryAccount.accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
