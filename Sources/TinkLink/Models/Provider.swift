@@ -205,6 +205,8 @@ public extension Set where Element == Provider.Kind {
     static var excludingTest: Set<Provider.Kind> { Provider.Kind.excludingTest }
     /// A set of default provider kinds
     static var defaultKinds: Set<Provider.Kind> = [.bank, .creditCard, .broker, .other]
+    /// A set of all test providers.
+    static var test: Set<Provider.Kind> { Provider.Kind.onlyTest }
 }
 
 public extension Set where Element == Provider.AccessType {
