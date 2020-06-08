@@ -18,8 +18,3 @@ public struct Beneficiary: Equatable {
     /// The identifier of the account that this beneficiary belongs to.
     public let ownerAccountID: Account.ID
 }
-
-extension Beneficiary: TransferAccountNumberRepresentable {
-    public var transferAccountNumberKind: AccountNumberKind { accountNumberKind }
-    public var transferAccountNumber: String { accountNumber }
-}

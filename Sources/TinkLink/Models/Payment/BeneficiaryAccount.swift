@@ -36,8 +36,3 @@ public struct BeneficiaryAccount {
         return .init(accountNumberKind: .sortCode, accountNumber: accountNumber)
     }
 }
-
-extension BeneficiaryAccount: TransferAccountNumberRepresentable {
-    public var transferAccountNumberKind: AccountNumberKind { accountNumberKind }
-    public var transferAccountNumber: String { accountNumber }
-}
