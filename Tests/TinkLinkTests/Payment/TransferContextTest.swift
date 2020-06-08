@@ -262,4 +262,53 @@ class TransferContextTests: XCTestCase {
             }
         }
     }
+
+    func testInitiateTransferToBeneficiaryAccount() {
+        let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
+        let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
+        let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
+        let statusChangedToAwaitingSupplementalInformation = expectation(description: "initiate transfer status should be changed to awaitingSupplementalInformation")
+        let initiateTransferCompletionCalled = expectation(description: "initiate transfer completion should be called")
+
+        let account = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "FR7630006000011234567890189")
+
+        task = transferContext.initiateTransfer(
+            from: Account.checkingTestAccount,
+            to: account,
+            amount: CurrencyDenominatedAmount(10, currencyCode: CurrencyCode("EUR")),
+            message: InitiateTransferTask.Message(destination: "test"),
+            authentication: { task in
+                switch task {
+                case .awaitingThirdPartyAppAuthentication: break
+                case .awaitingSupplementalInformation(let supplementInformationTask):
+                    let form = Form(credentials: supplementInformationTask.credentials)
+                    supplementInformationTask.submit(form)
+                    statusChangedToAwaitingSupplementalInformation.fulfill()
+                }
+            },
+            progress: { status in
+                switch status {
+                case .created:
+                    statusChangedToCreated.fulfill()
+                case .authenticating:
+                    statusChangedToAuthenticating.fulfill()
+                default:
+                    break
+                }
+            }
+        ) { result in
+            do {
+                _ = try result.get()
+                initiateTransferCompletionCalled.fulfill()
+            } catch {
+                XCTFail("Failed to initiate transfer with: \(error)")
+            }
+        }
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }
+    }
 }
