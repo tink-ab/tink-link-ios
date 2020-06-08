@@ -101,8 +101,8 @@ public final class TransferContext {
             sourceMessage: message.source,
             destinationMessage: message.destination,
             dueDate: nil,
-            destinationUri: toBeneficiaryWithURI,
-            sourceUri: fromAccountWithURI
+            destinationUri: toBeneficiaryWithURI.value,
+            sourceUri: fromAccountWithURI.value
         )
 
         task.canceller = transferService.transfer(transfer: transfer, redirectURI: tink.configuration.redirectURI) { [weak task] result in
@@ -194,8 +194,8 @@ public final class TransferContext {
             sourceMessage: message.source,
             destinationMessage: message.destination,
             dueDate: nil,
-            destinationUri: beneficiaryURI,
-            sourceUri: sourceURI
+            destinationUri: beneficiaryURI.value,
+            sourceUri: sourceURI.value
         )
 
         task.canceller = transferService.transfer(transfer: transfer, redirectURI: tink.configuration.redirectURI) { [weak task] result in
