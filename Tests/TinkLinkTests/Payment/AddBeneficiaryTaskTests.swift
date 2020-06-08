@@ -229,8 +229,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
         task = transferContext.addBeneficiary(
             account: .iban("FR7630006000011234567890189"),
             name: "Example Inc",
-            to: account,
-            credentials: credentialsWithCapability,
+            toAccountWithID: account.id,
+            onCredentialsWithID: credentialsWithCapability.id,
             authentication: { task in
                 XCTFail("Didn't expect an authentication task")
             },
