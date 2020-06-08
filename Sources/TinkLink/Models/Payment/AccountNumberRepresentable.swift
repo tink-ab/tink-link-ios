@@ -17,3 +17,10 @@ extension AccountNumberRepresentable {
         return urlComponents.url
     }
 }
+
+extension Account: AccountNumberRepresentable {
+    public var accountNumberKind: AccountNumberKind {
+        let kind = transferSourceIdentifiers?.first?.scheme ?? "tink"
+        return AccountNumberKind(kind)
+    }
+}
