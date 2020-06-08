@@ -22,7 +22,7 @@ public final class ProviderContext {
         }
 
         /// A default set of atttributes that contain all capabilities, all non-test kinds and all access types.
-        public static let `default` = Attributes(capabilities: .all, kinds: .excludingTest, accessTypes: .all)
+        public static let `default` = Attributes(capabilities: .all, kinds: .defaultKinds, accessTypes: .all)
     }
 
     private let tink: Tink
