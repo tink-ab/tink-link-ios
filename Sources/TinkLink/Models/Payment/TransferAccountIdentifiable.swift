@@ -12,6 +12,10 @@ extension Account: TransferAccountIdentifiable {
     }
 }
 
+extension Account.URI: TransferAccountIdentifiable {
+    public var transferAccountID: String { value }
+}
+
 extension Beneficiary: TransferAccountIdentifiable {
     public var transferAccountID: String {
         var urlComponents = URLComponents()
