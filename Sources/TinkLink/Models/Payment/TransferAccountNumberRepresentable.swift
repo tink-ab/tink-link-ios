@@ -2,25 +2,28 @@ import Foundation
 
 /// A type that provides values for an account number.
 public protocol TransferAccountNumberRepresentable {
-    /// The kind of the `accountNumber`.
-    var accountNumberKind: AccountNumberKind { get }
+    /// The kind of the `transferAccountNumber`.
+    var transferAccountNumberKind: AccountNumberKind { get }
     /// The account number.
-    /// - Note: The structure of this value depends on the `accountNumberKind`.
-    var accountNumber: String { get }
+    /// - Note: The structure of this value depends on the `transferAccountNumberKind`.
+    var transferAccountNumber: String { get }
 }
 
 extension TransferAccountNumberRepresentable {
     var uri: URL? {
         var urlComponents = URLComponents()
-        urlComponents.scheme = accountNumberKind.value
-        urlComponents.host = accountNumber
+        urlComponents.scheme = transferAccountNumberKind.value
+        urlComponents.host = transferAccountNumber
         return urlComponents.url
     }
 }
 
 extension Account: TransferAccountNumberRepresentable {
-    public var accountNumberKind: AccountNumberKind {
+    public var transferAccountNumberKind: AccountNumberKind {
         let kind = transferSourceIdentifiers?.first?.scheme ?? "tink"
         return AccountNumberKind(kind)
+    }
+    public var transferAccountNumber: String {
+        return transferSourceIdentifiers?.first?.host ?? id.value
     }
 }

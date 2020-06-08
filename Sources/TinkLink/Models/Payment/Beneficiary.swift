@@ -4,7 +4,7 @@ import Foundation
 ///
 /// Each beneficiary belongs to an account, which means that the given account can send money to that beneficiary.
 /// - Note: Different banks treat beneficiaries in different ways. Some treat them as fully trusted, meaning no signing at all is required when transferring money to the beneficiary. Other banks treat them more as address books of registered recipients
-public struct Beneficiary: Equatable, TransferAccountNumberRepresentable {
+public struct Beneficiary: Equatable {
     /// The type of the `accountNumber` that this beneficiary has.
     @available(*, deprecated, renamed: "accountNumberKind")
     public var accountNumberType: String { accountNumberKind.value }
@@ -17,4 +17,9 @@ public struct Beneficiary: Equatable, TransferAccountNumberRepresentable {
     public let name: String
     /// The identifier of the account that this beneficiary belongs to.
     public let ownerAccountID: Account.ID
+}
+
+extension Beneficiary: TransferAccountNumberRepresentable {
+    public var transferAccountNumberKind: AccountNumberKind { accountNumberKind }
+    public var transferAccountNumber: String { accountNumber }
 }

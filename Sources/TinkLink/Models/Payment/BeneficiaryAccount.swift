@@ -1,5 +1,5 @@
 /// A beneficiary account is a payment or transfer destination account.
-public struct BeneficiaryAccount: TransferAccountNumberRepresentable {
+public struct BeneficiaryAccount {
     /// The kind of the `accountNumber` that this beneficiary has.
     public let accountNumberKind: AccountNumberKind
     /// The account number for the beneficiary.
@@ -35,4 +35,9 @@ public struct BeneficiaryAccount: TransferAccountNumberRepresentable {
     static func sortCode(_ accountNumber: String) -> Self {
         return .init(accountNumberKind: .sortCode, accountNumber: accountNumber)
     }
+}
+
+extension BeneficiaryAccount: TransferAccountNumberRepresentable {
+    public var transferAccountNumberKind: AccountNumberKind { accountNumberKind }
+    public var transferAccountNumber: String { accountNumber }
 }
