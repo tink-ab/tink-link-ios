@@ -38,7 +38,7 @@ public struct Provider: Identifiable {
         case other
 
         /// Indicates a test provider.
-        case test
+        case demo
         case fraud
 
         case businessBank
@@ -46,9 +46,13 @@ public struct Provider: Identifiable {
 
         public static var defaultKinds: Set<Provider.Kind> = [.bank, .creditCard, .broker, .other]
         /// A set for the test providers kind.
-        public static var onlyTest: Set<Provider.Kind> = [.test]
+        public static var test: Set<Provider.Kind> = [.demo]
+        @available(*, deprecated)
+        public static var excludingTest: Set<Provider.Kind> = [.unknown, .bank, .creditCard, .broker, .other, .fraud]
+        @available(*, deprecated, renamed: "test")
+        public static var onlyTest: Set<Provider.Kind> = [.demo]
         /// A set of all providers kinds. Note that this also includes test providers.
-        public static var all: Set<Provider.Kind> = [.unknown, .bank, .creditCard, .broker, .other, .test, .fraud]
+        public static var all: Set<Provider.Kind> = [.unknown, .bank, .creditCard, .broker, .other, .demo, .fraud]
     }
 
     /// Indicates what kind of financial institution the provider represents.
@@ -202,7 +206,7 @@ public extension Set where Element == Provider.Kind {
     /// A set of default provider kinds
     static var defaultKinds: Set<Provider.Kind> = [.bank, .creditCard, .broker, .other]
     /// A set of all test providers.
-    static var test: Set<Provider.Kind> { Provider.Kind.onlyTest }
+    static var test: Set<Provider.Kind> { Provider.Kind.test }
 }
 
 public extension Set where Element == Provider.AccessType {
