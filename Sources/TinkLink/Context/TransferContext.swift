@@ -162,8 +162,8 @@ public final class TransferContext {
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
     public func initiateTransfer(
-        from account: AccountNumberRepresentable,
-        to beneficiary: AccountNumberRepresentable,
+        from account: TransferAccountNumberRepresentable,
+        to beneficiary: TransferAccountNumberRepresentable,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,

@@ -1,5 +1,5 @@
 /// A beneficiary account is a payment or transfer destination account.
-public struct BeneficiaryAccount: AccountNumberRepresentable {
+public struct BeneficiaryAccount: TransferAccountNumberRepresentable {
     /// The kind of the `accountNumber` that this beneficiary has.
     public let accountNumberKind: AccountNumberKind
     /// The account number for the beneficiary.

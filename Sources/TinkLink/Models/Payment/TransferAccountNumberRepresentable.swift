@@ -1,7 +1,7 @@
 import Foundation
 
 /// A type that provides values for an account number.
-public protocol AccountNumberRepresentable {
+public protocol TransferAccountNumberRepresentable {
     /// The kind of the `accountNumber`.
     var accountNumberKind: AccountNumberKind { get }
     /// The account number.
@@ -9,7 +9,7 @@ public protocol AccountNumberRepresentable {
     var accountNumber: String { get }
 }
 
-extension AccountNumberRepresentable {
+extension TransferAccountNumberRepresentable {
     var uri: URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = accountNumberKind.value
@@ -18,7 +18,7 @@ extension AccountNumberRepresentable {
     }
 }
 
-extension Account: AccountNumberRepresentable {
+extension Account: TransferAccountNumberRepresentable {
     public var accountNumberKind: AccountNumberKind {
         let kind = transferSourceIdentifiers?.first?.scheme ?? "tink"
         return AccountNumberKind(kind)
