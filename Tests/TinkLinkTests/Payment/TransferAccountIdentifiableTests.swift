@@ -9,6 +9,6 @@ class TransferAccountIdentifiableTests: XCTestCase {
 
     func testBeneficiaryConformance() {
         let beneficiary = Beneficiary.savingBeneficiary
-        XCTAssertEqual(beneficiary.transferAccountID, "se://254fa71273394c5890de54fb3d20ac0f")
+        XCTAssertEqual(beneficiary.transferAccountID, "se://254fa71273394c5890de54fb3d20ac0f?name=Savings%20Account%20tink")
     }
 }
