@@ -21,6 +21,9 @@ extension Beneficiary: TransferAccountIdentifiable {
         var urlComponents = URLComponents()
         urlComponents.scheme = accountNumberKind.value
         urlComponents.host = accountNumber
+        if !name.isEmpty {
+            urlComponents.queryItems = [URLQueryItem(name: "name", value: name)]
+        }
         return urlComponents.url?.absoluteString ?? "\(accountNumberKind.value)://\(accountNumber)"
     }
 }
