@@ -380,7 +380,7 @@ public final class TransferContext {
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     public func addBeneficiary(
-        account beneficiaryAccount: BeneficiaryAccountRepresentable,
+        account beneficiaryAccount: BeneficiaryAccount,
         name: String,
         toAccountWithID ownerAccountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
