@@ -73,6 +73,7 @@ public final class TransferContext {
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
+    @available(*, deprecated, message: "Use the initiateTransfer(from:to:amount:message:authentication:progress:completion) method with a `BeneficiaryAccount` instead.")
     public func initiateTransfer(
         fromAccountWithURI: Account.URI,
         toBeneficiaryWithURI: Beneficiary.URI,
@@ -100,8 +101,8 @@ public final class TransferContext {
             sourceMessage: message.source,
             destinationMessage: message.destination,
             dueDate: nil,
-            destinationUri: toBeneficiaryWithURI,
-            sourceUri: fromAccountWithURI
+            destinationUri: toBeneficiaryWithURI.value,
+            sourceUri: fromAccountWithURI.value
         )
 
         task.canceller = transferService.transfer(transfer: transfer, redirectURI: tink.configuration.redirectURI) { [weak task] result in
@@ -125,8 +126,8 @@ public final class TransferContext {
     ///
     /// ```swift
     /// initiateTransferTask = transferContext.initiateTransfer(
-    ///     from: sourceAccount,
-    ///     to: transferBeneficiary,
+    ///     from: account,
+    ///     to: beneficiary,
     ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
     ///     message: .init(destination: message),
     ///     authentication: { task in
@@ -161,30 +162,51 @@ public final class TransferContext {
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
     public func initiateTransfer(
-        from source: Account,
-        to destination: Beneficiary,
+        from account: Account,
+        to beneficiary: AccountNumberRepresentable,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
-        guard let sourceURI = Account.URI(account: source) else {
+        guard let sourceURI = Account.URI(account: account) else {
             preconditionFailure("Source account doesn't have a URI.")
         }
-        guard let beneficiaryURI = Beneficiary.URI(beneficiary: destination) else {
+        guard let beneficiaryURI = beneficiary.uri else {
             preconditionFailure("Transfer destination doesn't have a URI.")
         }
 
-        return initiateTransfer(
-            fromAccountWithURI: sourceURI,
-            toBeneficiaryWithURI: beneficiaryURI,
-            amount: amount,
-            message: message,
-            authentication: authentication,
-            progress: progress,
-            completion: completion
+        let task = InitiateTransferTask(
+            transferService: transferService,
+            credentialsService: credentialsService,
+            appUri: tink.configuration.redirectURI,
+            progressHandler: progress,
+            authenticationHandler: authentication,
+            completionHandler: completion
         )
+
+        let transfer = Transfer(
+            amount: amount.value,
+            id: nil,
+            credentialsID: nil,
+            currency: amount.currencyCode,
+            sourceMessage: message.source,
+            destinationMessage: message.destination,
+            dueDate: nil,
+            destinationUri: beneficiaryURI.absoluteString,
+            sourceUri: sourceURI.value
+        )
+
+        task.canceller = transferService.transfer(transfer: transfer, redirectURI: tink.configuration.redirectURI) { [weak task] result in
+            do {
+                let signableOperation = try result.get()
+                task?.startObserving(signableOperation)
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        return task
     }
 
     // MARK: - Fetching Accounts
@@ -249,9 +271,8 @@ public final class TransferContext {
     ///
     /// ```swift
     /// task = transferContext.addBeneficiary(
+    ///     account: <#BeneficiaryAccount#>,
     ///     name: <#String#>,
-    ///     accountNumberKind: <#AccountNumberKind#>,
-    ///     accountNumber: <#String#>
     ///     to: <#Account#>,
     ///     authentication: { task in
     ///         switch task {
@@ -273,10 +294,10 @@ public final class TransferContext {
     /// - Note: You need to retain the returned task until the add beneficiary request has completed.
     ///
     /// - Parameters:
+    ///   - account: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
-    ///   - accountNumberKind: The kind of the `accountNumber` that this beneficiary has.
-    ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
     ///   - to: The account that the beneficiary should be added to.
+    ///   - credentials: Optional, the `Credentials` used to add the beneficiary. Note that you can use different credentials than the account belongs to. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations. If `nil` the beneficiary will be added to the credentials of the account.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
@@ -285,10 +306,10 @@ public final class TransferContext {
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     public func addBeneficiary(
+        account beneficiaryAccount: BeneficiaryAccount,
         name: String,
-        accountNumberKind: AccountNumberKind,
-        accountNumber: String,
-        to account: Account,
+        to ownerAccount: Account,
+        credentials: Credentials? = nil,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
@@ -297,11 +318,11 @@ public final class TransferContext {
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
-            ownerAccountID: account.id,
-            ownerAccountCredentialsID: account.credentialsID,
+            ownerAccountID: ownerAccount.id,
+            ownerAccountCredentialsID: credentials?.id ?? ownerAccount.credentialsID,
             name: name,
-            accountNumberType: accountNumberKind.value,
-            accountNumber: accountNumber,
+            accountNumberType: beneficiaryAccount.accountNumberKind.value,
+            accountNumber: beneficiaryAccount.accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
@@ -322,9 +343,8 @@ public final class TransferContext {
     ///
     /// ```swift
     /// task = transferContext.addBeneficiary(
+    ///     account: <#BeneficiaryAccount#>,
     ///     name: <#String#>,
-    ///     accountNumberKind: <#AccountNumberKind#>,
-    ///     accountNumber: <#String#>
     ///     toAccountWithID: <#Account.ID#>
     ///     onCredentialsWithID: <#Credentials.ID#>,
     ///     authentication: { task in
@@ -347,11 +367,10 @@ public final class TransferContext {
     /// - Note: You need to retain the returned task until the add beneficiary request has completed.
     ///
     /// - Parameters:
+    ///   - account: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
-    ///   - accountNumberKind: The kind of the `accountNumber` that this beneficiary has.
-    ///   - accountNumber: The account number for the beneficiary. The structure of this field depends on the `accountNumberKind`.
     ///   - toAccountWithID: The source account ID for adding a beneficiary.
-    ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have double credentials for one financial institution, due to PSD2 regulations.
+    ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
@@ -360,10 +379,9 @@ public final class TransferContext {
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     public func addBeneficiary(
+        account beneficiaryAccount: BeneficiaryAccount,
         name: String,
-        accountNumberKind: AccountNumberKind,
-        accountNumber: String,
-        toAccountWithID accountID: Account.ID,
+        toAccountWithID ownerAccountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
@@ -373,11 +391,11 @@ public final class TransferContext {
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
-            ownerAccountID: accountID,
+            ownerAccountID: ownerAccountID,
             ownerAccountCredentialsID: credentialsID,
             name: name,
-            accountNumberType: accountNumberKind.value,
-            accountNumber: accountNumber,
+            accountNumberType: beneficiaryAccount.accountNumberKind.value,
+            accountNumber: beneficiaryAccount.accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion

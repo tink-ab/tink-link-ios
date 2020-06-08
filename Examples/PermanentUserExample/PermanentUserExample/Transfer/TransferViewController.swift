@@ -5,8 +5,7 @@ class TransferViewController: UITableViewController {
     private let transferContext = TransferContext()
 
     private var sourceAccount: Account?
-    private var beneficiary: Beneficiary?
-    private var beneficiaryURI: Beneficiary.URI?
+    private var beneficiary: AccountNumberRepresentable?
     private var amount: Decimal?
     private var message = ""
 
@@ -60,15 +59,12 @@ extension TransferViewController {
     @objc private func transfer(_ sender: Any) {
         guard
             let sourceAccount = sourceAccount,
+            let beneficiary = beneficiary,
             let balance = sourceAccount.currencyDenominatedBalance,
             let amount = amount
             else { return }
 
-        if let beneficiary = beneficiary {
-            initiateTransfer(from: sourceAccount, to: beneficiary, amount: amount, currencyCode: balance.currencyCode)
-        } else if let accountURI = Account.URI(account: sourceAccount), let beneficiaryURI = beneficiaryURI {
-            initiateTransfer(fromAccountWithURI: accountURI, toBeneficiaryWithURI: beneficiaryURI, amount: amount, currencyCode: balance.currencyCode)
-        }
+        initiateTransfer(from: sourceAccount, to: beneficiary, amount: amount, currencyCode: balance.currencyCode)
     }
 
     @objc private func cancel(_ sender: Any) {
@@ -85,34 +81,10 @@ extension TransferViewController {
 // MARK: - Transfer Handling
 
 extension TransferViewController {
-    private func initiateTransfer(from account: Account, to beneficiary: Beneficiary, amount: Decimal, currencyCode: CurrencyCode) {
+    private func initiateTransfer(from account: Account, to beneficiary: AccountNumberRepresentable, amount: Decimal, currencyCode: CurrencyCode) {
         initiateTransferTask = transferContext.initiateTransfer(
             from: account,
             to: beneficiary,
-            amount: CurrencyDenominatedAmount(amount, currencyCode: currencyCode),
-            message: .init(destination: message),
-            authentication: { [weak self] status in
-                DispatchQueue.main.async {
-                    self?.handleTransferAuthentication(status)
-                }
-            },
-            progress: { [weak self] status in
-                DispatchQueue.main.async {
-                    self?.handleTransferProgress(status)
-                }
-            },
-            completion: { [weak self] result in
-                DispatchQueue.main.async {
-                    self?.handleTransferCompletion(result)
-                }
-            }
-        )
-    }
-
-    private func initiateTransfer(fromAccountWithURI accountURI: Account.URI, toBeneficiaryWithURI beneficiaryURI: Beneficiary.URI, amount: Decimal, currencyCode: CurrencyCode) {
-        initiateTransferTask = transferContext.initiateTransfer(
-            fromAccountWithURI: accountURI,
-            toBeneficiaryWithURI: beneficiaryURI,
             amount: CurrencyDenominatedAmount(amount, currencyCode: currencyCode),
             message: .init(destination: message),
             authentication: { [weak self] status in
@@ -196,7 +168,7 @@ extension TransferViewController {
                 cell.detailTextLabel?.text = sourceAccount?.name
             case .to:
                 cell.textLabel?.text = "To:"
-                cell.detailTextLabel?.text = beneficiary?.name ?? beneficiaryURI?.value
+                cell.detailTextLabel?.text = (beneficiary as? Beneficiary)?.name ?? beneficiary?.accountNumber
             }
             return cell
         case .details(let fields):
@@ -269,7 +241,7 @@ extension TransferViewController {
     private func showTransferDestinationPicker(_ sender: Any) {
         guard let sourceAccount = sourceAccount else { return }
 
-        let transferDestinationPicker = BeneficiaryPickerViewController(sourceAccount: sourceAccount, selectedBeneficiary: beneficiary)
+        let transferDestinationPicker = BeneficiaryPickerViewController(sourceAccount: sourceAccount, selectedBeneficiary: beneficiary as? Beneficiary)
         transferDestinationPicker.delegate = self
         show(transferDestinationPicker, sender: sender)
     }
@@ -357,16 +329,8 @@ extension TransferViewController: SourceAccountPickerViewControllerDelegate {
 // MARK: - TransferDestinationPickerViewControllerDelegate
 
 extension TransferViewController: BeneficiaryPickerViewControllerDelegate {
-    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: Beneficiary) {
+    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: AccountNumberRepresentable) {
         self.beneficiary = beneficiary
-        self.beneficiaryURI = nil
-        navigationController?.popToViewController(self, animated: true)
-        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
-    }
-
-    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didEnterBeneficiaryURI beneficiaryURI: Beneficiary.URI) {
-        self.beneficiary = nil
-        self.beneficiaryURI = beneficiaryURI
         navigationController?.popToViewController(self, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
     }

@@ -2,8 +2,7 @@ import UIKit
 import TinkLink
 
 protocol BeneficiaryPickerViewControllerDelegate: AnyObject {
-    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: Beneficiary)
-    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didEnterBeneficiaryURI beneficiaryURI: Beneficiary.URI)
+    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: AccountNumberRepresentable)
 }
 
 class BeneficiaryPickerViewController: UITableViewController {
@@ -80,10 +79,10 @@ extension BeneficiaryPickerViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
             guard let type = alert.textFields?[0].text,
-                let accountNumber = alert.textFields?[1].text,
-                let uri = Beneficiary.URI(kind: .init(type), accountNumber: accountNumber)
+                let accountNumber = alert.textFields?[1].text
                 else { return }
-            self.delegate?.beneficiaryPickerViewController(self, didEnterBeneficiaryURI: uri)
+            let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: .init(type), accountNumber: accountNumber)
+            self.delegate?.beneficiaryPickerViewController(self, didSelectBeneficiary: beneficiaryAccount)
         }))
         present(alert, animated: true)
     }
@@ -110,7 +109,8 @@ extension BeneficiaryPickerViewController {
                 let type = alert.textFields?[1].text,
                 let accountNumber = alert.textFields?[2].text
                 else { return }
-            self.addBeneficiary(name: name, accountNumberKind: AccountNumberKind(type), accountNumber: accountNumber)
+            let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: AccountNumberKind(type), accountNumber: accountNumber)
+            self.addBeneficiary(account: beneficiaryAccount, name: name)
         }))
         present(alert, animated: true)
     }
@@ -119,11 +119,10 @@ extension BeneficiaryPickerViewController {
 // MARK: - Adding a Beneficiary
 
 extension BeneficiaryPickerViewController {
-    private func addBeneficiary(name: String, accountNumberKind: AccountNumberKind, accountNumber: String) {
+    private func addBeneficiary(account: BeneficiaryAccount, name: String) {
         addBeneficiaryTask = transferContext.addBeneficiary(
+            account: account,
             name: name,
-            accountNumberKind: accountNumberKind,
-            accountNumber: accountNumber,
             to: sourceAccount,
             authentication: { [weak self] task in
                 DispatchQueue.main.async {

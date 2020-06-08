@@ -30,10 +30,11 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "add beneficiary status should be changed to awaitingSupplementalInformation")
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
+        let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "FR7630006000011234567890189")
+
         task = transferContext.addBeneficiary(
+            account: beneficiaryAccount,
             name: "Example Inc",
-            accountNumberKind: .iban,
-            accountNumber: "FR7630006000011234567890189",
             to: account,
             authentication: { task in
                 switch task {
@@ -94,10 +95,11 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "add beneficiary status should be changed to awaitingSupplementalInformation")
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
+        let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "FR7630006000011234567890189")
+
         task = transferContext.addBeneficiary(
+            account: beneficiaryAccount,
             name: "Example Inc",
-            accountNumberKind: .iban,
-            accountNumber: "FR7630006000011234567890189",
             to: account,
             authentication: { task in
                 switch task {
@@ -159,10 +161,11 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
+        let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "FR7630006000011234567890189")
+
         task = transferContext.addBeneficiary(
+            account: beneficiaryAccount,
             name: "Example Inc",
-            accountNumberKind: .iban,
-            accountNumber: "FR7630006000011234567890189",
             to: account,
             authentication: { task in
                 XCTFail("Didn't expect an authentication task")
@@ -223,11 +226,9 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
-
         task = transferContext.addBeneficiary(
+            account: .iban("FR7630006000011234567890189"),
             name: "Example Inc",
-            accountNumberKind: .iban,
-            accountNumber: "FR7630006000011234567890189",
             toAccountWithID: account.id,
             onCredentialsWithID: credentialsWithCapability.id,
             authentication: { task in
@@ -282,10 +283,11 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "add beneficiary status should be changed to awaitingSupplementalInformation")
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
+        let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "FR7630006000011234567890189")
+
         task = transferContext.addBeneficiary(
+            account: beneficiaryAccount,
             name: "Example Inc",
-            accountNumberKind: .iban,
-            accountNumber: "FR7630006000011234567890189",
             to: account,
             authentication: { task in
                 switch task {
@@ -351,10 +353,11 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
+        let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "FR7630006000011234567890189")
+
         task = transferContext.addBeneficiary(
+            account: beneficiaryAccount,
             name: "Example Inc",
-            accountNumberKind: .iban,
-            accountNumber: "FR7630006000011234567890189",
             to: account,
             authentication: { task in
                 XCTFail("Didn't expect an authentication task")
