@@ -4,7 +4,8 @@ import UIKit
 #endif
 
 protocol URLResourceOpening {
-    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey : Any], completionHandler completion: ((Bool) -> Void)?)
+    func open(_ url: URL, options: [String : Any], completionHandler completion: ((Bool) -> Void)?)
+    var universalLinksOnlyOptionKey: String { get }
 }
 
 extension UIApplication: URLResourceOpening {}
