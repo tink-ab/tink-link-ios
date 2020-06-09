@@ -12,3 +12,9 @@ final class MultiCanceller: Cancellable {
         }
     }
 }
+
+extension Cancellable {
+    func store(in canceller: MultiCanceller) {
+        canceller.addCancellable(self)
+    }
+}
