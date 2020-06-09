@@ -1,7 +1,7 @@
 final class MultiCanceller: Cancellable {
     private var cancellers: [AnyCanceller] = []
 
-    func addCancellable<Canceller: Cancellable>(_ canceller: Canceller?) {
+    func add<Canceller: Cancellable>(_ canceller: Canceller?) {
         guard let canceller = canceller else { return }
         cancellers.append(AnyCanceller(canceller))
     }
@@ -15,6 +15,6 @@ final class MultiCanceller: Cancellable {
 
 extension Cancellable {
     func store(in canceller: MultiCanceller) {
-        canceller.addCancellable(self)
+        canceller.add(self)
     }
 }
