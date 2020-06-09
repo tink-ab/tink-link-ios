@@ -3,7 +3,7 @@ import Foundation
 
 class MockedSuccessCredentialsService: CredentialsService {
 
-    private var credentials = [Credentials]()
+    var credentials = [Credentials]()
 
     @discardableResult
     func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
@@ -103,6 +103,16 @@ class MockedSuccessCredentialsService: CredentialsService {
     }
 
     func qr(credentialsID: Credentials.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable? {
+        return nil
+    }
+}
+
+class MockedSuccessThirdPartyAuthenticationCredentialsService: MockedSuccessCredentialsService {
+    override func createCredentials(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String : String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        let credentialsID = String(credentials.count)
+        let addedCredential = Credentials(id: .init(credentialsID), providerID: providerID, kind: .thirdPartyAuthentication, status: .created, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: [], thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
+        credentials.append(addedCredential)
+        completion(.success(addedCredential))
         return nil
     }
 }
