@@ -301,9 +301,4 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         let updatedUrl = url.absoluteString.replacingOccurrences(of: tinkBankIDRedirect, with: bankIDredirect)
         return URL(string: updatedUrl)!
     }
-
-    // For testing only
-    func _complete(with result: Result<Void, Swift.Error>) {
-        completionHandler(result)
-    }
 }
