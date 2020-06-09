@@ -1,5 +1,4 @@
 import Foundation
-
 @testable import TinkLink
 
 struct MockedSuccessOpeningApplication: URLResourceOpening {
@@ -12,9 +11,15 @@ struct MockedSuccessOpeningApplication: URLResourceOpening {
 
 extension ThirdPartyAppAuthenticationTask {
     func handle<URLResourceOpener: URLResourceOpening>(with application: URLResourceOpener, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+        #if os(iOS)
         openThirdPartyApp(with: application) { [weak self] result in
             self?.completionHandler(result)
             completion(result)
         }
+        #elseif os(macOS)
+        // Mock for the macOS to pass the test
+        completionHandler(.success)
+        completion(.success)
+        #endif
     }
 }

@@ -9,6 +9,8 @@ protocol URLResourceOpening {
     var universalLinksOnlyOptionKey: URLResourceOpeningOptionKey { get }
 }
 
+#if os(iOS)
 extension UIApplication: URLResourceOpening {
     var universalLinksOnlyOptionKey: UIApplication.OpenExternalURLOptionsKey { OpenExternalURLOptionsKey.universalLinksOnly }
 }
+#endif
