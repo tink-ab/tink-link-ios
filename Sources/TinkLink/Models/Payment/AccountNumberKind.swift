@@ -17,7 +17,7 @@ public struct AccountNumberKind: Hashable, ExpressibleByStringLiteral {
     public static let iban: Self = "iban"
     /// A Swedish account number type.
     public static let se: Self = "se"
-    /// A Swedish BankGiro account number type.
+    /// A Swedish Bankgiro account number type.
     public static let seBankGiro: Self = "se-bg"
     /// A Swedish PlusGiro account number type.
     public static let sePlusGiro: Self = "se-pg"

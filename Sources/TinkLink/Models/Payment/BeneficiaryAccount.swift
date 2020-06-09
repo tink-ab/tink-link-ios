@@ -30,7 +30,7 @@ public struct BeneficiaryAccount {
         return .init(accountNumberKind: .se, accountNumber: accountNumber)
     }
 
-    /// Creates a beneficiary account with a Swedish BankGiro account number.
+    /// Creates a beneficiary account with a Swedish Bankgiro account number.
     /// - Parameter accountNumber: The account number for the beneficiary.
     /// - Returns: A beneficiary account.
     static func seBankGiro(_ accountNumber: String) -> Self {
