@@ -297,9 +297,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
             authentication: { task in
                 switch task {
                 case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-                    thirdPartyAppAuthenticationTask._complete(with: .success)
-                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
-                    statusChangedToAwaitingThirdPartyAppAuthentication.fulfill()
+                    thirdPartyAppAuthenticationTask.handle(with: MockedSuccessOpeningApplication()) { result in
+                        credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
+                        statusChangedToAwaitingThirdPartyAppAuthentication.fulfill()
+                    }
                 case .awaitingSupplementalInformation(let supplementInformationTask):
                     let form = Form(supplementInformationTask: supplementInformationTask)
                     supplementInformationTask.submit(form)

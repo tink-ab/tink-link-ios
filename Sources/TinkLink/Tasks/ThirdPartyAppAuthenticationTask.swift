@@ -123,7 +123,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Indicates whether the task should fail if a third party app could not be opened for authentication.
     public private(set) var shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
     private let appUri: URL
-    private let completionHandler: (Result<Void, Swift.Error>) -> Void
+    internal let completionHandler: (Result<Void, Swift.Error>) -> Void
     private var hasBankIDQRCode: Bool {
         // TODO: Double check the logic.
         // Not sure about this part, but maybe because of grpc, the supplemental info is always empty for bankid credential kind, so has to check the deeplink URL instead.
@@ -163,7 +163,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         openThirdPartyApp(with: application, completion: self.completionHandler)
     }
 
-    private func openThirdPartyApp(with application: UIApplication = .shared, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+    internal func openThirdPartyApp<URLResourceOpener: URLResourceOpening>(with urlResourceOpener: URLResourceOpener, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
         guard let url = thirdPartyAppAuthentication.deepLinkURL else {
             completion(.failure(Error.deeplinkURLNotFound))
             return
@@ -171,11 +171,11 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
         let deepLinkURL = sanitizeDeeplink(url, redirectUri: appUri)
         DispatchQueue.main.async {
-            application.open(deepLinkURL, options: [.universalLinksOnly: NSNumber(value: true)]) { didOpenUniversalLink in
+            urlResourceOpener.open(deepLinkURL, options: [urlResourceOpener.universalLinksOnlyOptionKey: NSNumber(value: true)]) { didOpenUniversalLink in
                 if didOpenUniversalLink {
                     completion(.success)
                 } else {
-                    application.open(deepLinkURL, options: [:], completionHandler: { didOpen in
+                    urlResourceOpener.open(deepLinkURL, options: [:], completionHandler: { didOpen in
                         if didOpen {
                             completion(.success)
                         } else {
@@ -196,7 +196,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
     /// Will try to open the third party app. If it fails then the add credentials task will be aborted.
     public func handle() {
-        openThirdPartyApp { [weak self] result in
+        openThirdPartyApp(with: UIApplication.shared) { [weak self] result in
             self?.completionHandler(result)
         }
     }
@@ -208,13 +208,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     public func handle(statusHandler: @escaping (_ status: Status) -> Void) {
         #if os(iOS)
         if shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
-            openThirdPartyApp { [weak self] result in
+            openThirdPartyApp(with: UIApplication.shared) { [weak self] result in
                 self?.completionHandler(result)
             }
             return
         }
 
-        openThirdPartyApp { [weak self] result in
+        openThirdPartyApp(with: UIApplication.shared) { [weak self] result in
             guard let self = self else { return }
             do {
                 try result.get()
@@ -300,10 +300,5 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         let bankIDredirect = redirectUri.appendingPathComponent("bankid").absoluteString
         let updatedUrl = url.absoluteString.replacingOccurrences(of: tinkBankIDRedirect, with: bankIDredirect)
         return URL(string: updatedUrl)!
-    }
-
-    // For testing only
-    func _complete(with result: Result<Void, Swift.Error>) {
-        completionHandler(result)
     }
 }
