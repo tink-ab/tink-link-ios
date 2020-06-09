@@ -3,8 +3,8 @@ PODS:
   - Kingfisher (5.13.4):
     - Kingfisher/Core (= 5.13.4)
   - Kingfisher/Core (5.13.4)
-  - TinkLink (0.12.0)
-  - TinkLinkUI (0.12.0):
+  - TinkLink (0.13.0)
+  - TinkLinkUI (0.13.0):
     - Down (~> 0.9)
     - Kingfisher (~> 5.13)
     - TinkLink
@@ -27,8 +27,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Down: 1f6a14846dff45ae8e7e4334b4e386a5fd3b2412
   Kingfisher: d2279a7abece3c7f25a80cd2b7f363ca5cf3f44c
-  TinkLink: cdef3ee69469c500ad056e6c49faa768758e0e7d
-  TinkLinkUI: 1e4188dc697753200e87fd067d4ec3ca80a74721
+  TinkLink: 9d646ad4e7658c34fff99716271a8d5c52af3eb6
+  TinkLinkUI: f88b6b4050668f42fb522e99f72071468899ec2b
 
 PODFILE CHECKSUM: dbf01eacfc6ae873722befb0ef92fe0734051573
 
