@@ -19,7 +19,7 @@ public struct AccountNumberKind: Hashable, ExpressibleByStringLiteral {
     public static let se: Self = "se"
     /// A Swedish BankGiro account number type.
     public static let seBankGiro: Self = "se-bg"
-    /// A Swedish PluGiro account number type.
+    /// A Swedish PlusGiro account number type.
     public static let sePlusGiro: Self = "se-pg"
     /// A sort code account number type.
     public static let sortCode: Self = "sort-code"
