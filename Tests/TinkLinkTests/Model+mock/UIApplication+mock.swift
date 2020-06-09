@@ -2,7 +2,7 @@ import Foundation
 
 @testable import TinkLink
 
-struct MockApplication: URLResourceOpening {
+struct MockedSuccessOpeningApplication: URLResourceOpening {
     func open(_ url: URL, options: [String : Any], completionHandler completion: ((Bool) -> Void)?) {
         completion?(true)
     }
