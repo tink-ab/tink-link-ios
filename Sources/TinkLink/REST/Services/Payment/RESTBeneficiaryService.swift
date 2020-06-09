@@ -26,7 +26,6 @@ class RESTBeneficiaryService: BeneficiaryService {
         )
         do {
             let data = try JSONEncoder().encode(body)
-            // TODO: update this when the endpoint is ready
             let request = RESTResourceRequest<Data>(path: "/api/v1/beneficiaries", method: .post, body: data, contentType: .json) { result in
                 completion(result.map { _ in })
             }

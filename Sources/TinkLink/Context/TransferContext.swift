@@ -422,27 +422,27 @@ public final class TransferContext {
         var providers: [Provider] = []
         var errors: [Error] = []
 
+        let canceller = MultiCanceller()
+
         group.enter()
-        // TODO: Use returned cancellable for cancellation
-        _ = credentialsService.credentialsList { result in
+        credentialsService.credentialsList { result in
             do {
                 credentialsList = try result.get()
             } catch {
                 errors.append(error)
             }
             group.leave()
-        }
+        }?.store(in: canceller)
 
         group.enter()
-        // TODO: Use returned cancellable for cancellation
-        _ = providerService.providers(id: nil, capabilities: .createBeneficiaries, includeTestProviders: true) { result in
+        providerService.providers(id: nil, capabilities: .createBeneficiaries, includeTestProviders: true) { result in
             do {
                 providers = try result.get()
             } catch {
                 errors.append(error)
             }
             group.leave()
-        }
+        }?.store(in: canceller)
 
         let workItem = DispatchWorkItem {
             if let error = errors.first {
@@ -454,9 +454,10 @@ public final class TransferContext {
                 completion(.success(capableCredentialsList))
             }
         }
+        canceller.add(canceller)
 
         group.notify(queue: .main, work: workItem)
 
-        return workItem
+        return canceller
     }
 }
