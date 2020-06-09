@@ -5,7 +5,7 @@ class TransferViewController: UITableViewController {
     private let transferContext = TransferContext()
 
     private var sourceAccount: Account?
-    private var beneficiary: AccountNumberRepresentable?
+    private var beneficiary: TransferAccountIdentifiable?
     private var amount: Decimal?
     private var message = ""
 
@@ -81,7 +81,7 @@ extension TransferViewController {
 // MARK: - Transfer Handling
 
 extension TransferViewController {
-    private func initiateTransfer(from account: Account, to beneficiary: AccountNumberRepresentable, amount: Decimal, currencyCode: CurrencyCode) {
+    private func initiateTransfer(from account: Account, to beneficiary: TransferAccountIdentifiable, amount: Decimal, currencyCode: CurrencyCode) {
         initiateTransferTask = transferContext.initiateTransfer(
             from: account,
             to: beneficiary,
@@ -168,7 +168,7 @@ extension TransferViewController {
                 cell.detailTextLabel?.text = sourceAccount?.name
             case .to:
                 cell.textLabel?.text = "To:"
-                cell.detailTextLabel?.text = (beneficiary as? Beneficiary)?.name ?? beneficiary?.accountNumber
+                cell.detailTextLabel?.text = (beneficiary as? Beneficiary)?.name ?? beneficiary?.transferAccountID
             }
             return cell
         case .details(let fields):
@@ -329,7 +329,7 @@ extension TransferViewController: SourceAccountPickerViewControllerDelegate {
 // MARK: - TransferDestinationPickerViewControllerDelegate
 
 extension TransferViewController: BeneficiaryPickerViewControllerDelegate {
-    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: AccountNumberRepresentable) {
+    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: TransferAccountIdentifiable) {
         self.beneficiary = beneficiary
         navigationController?.popToViewController(self, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
