@@ -39,7 +39,7 @@ class MockedSuccessCredentialsService: CredentialsService {
 
     func deleteCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         credentials.removeAll { $0.id == credentialsID }
-        completion(.success(()))
+        completion(.success)
         return nil
     }
 
@@ -54,7 +54,7 @@ class MockedSuccessCredentialsService: CredentialsService {
     }
 
     func refreshCredentials(credentialsID: Credentials.ID, refreshableItems: RefreshableItems, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.success(()))
+        completion(.success)
         return nil
     }
 
@@ -64,7 +64,7 @@ class MockedSuccessCredentialsService: CredentialsService {
             let credentialToBeUpdated = credentials[index]
             let credential = Credentials(id: credentialToBeUpdated.id, providerID: credentialToBeUpdated.providerID, kind: credentialToBeUpdated.kind, status: credentialToBeUpdated.status, statusPayload: "", statusUpdated: nil, updated: nil, fields: fields, supplementalInformationFields: credentialToBeUpdated.supplementalInformationFields, thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
             credentials[index] = credential
-            completion(.success(()))
+            completion(.success)
         }
         return TestRetryCanceller { [weak self] in
             guard let self = self else { return }
@@ -77,28 +77,28 @@ class MockedSuccessCredentialsService: CredentialsService {
             let credentialToBeUpdated = credentials[index]
             let credential = Credentials(id: credentialToBeUpdated.id, providerID: credentialToBeUpdated.providerID, kind: credentialToBeUpdated.kind, status: .awaitingSupplementalInformation, statusPayload: "", statusUpdated: nil, updated: nil, fields: credentialToBeUpdated.fields, supplementalInformationFields: credentialToBeUpdated.supplementalInformationFields, thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
             credentials[index] = credential
-            completion(.success(()))
+            completion(.success)
         }
         return nil
     }
 
     func enableCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.success(()))
+        completion(.success)
         return nil
     }
 
     func disableCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.success(()))
+        completion(.success)
         return nil
     }
 
     func thirdPartyCallback(state: String, parameters: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.success(()))
+        completion(.success)
         return nil
     }
 
     func manualAuthentication(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(.success(()))
+        completion(.success)
         return nil
     }
 
