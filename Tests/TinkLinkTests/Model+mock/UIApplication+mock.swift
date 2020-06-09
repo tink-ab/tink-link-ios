@@ -4,7 +4,7 @@ import UIKit
 #endif
 @testable import TinkLink
 
-struct MockUIApplication: URLResourceOpening {
+struct MockApplication: URLResourceOpening {
     func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey : Any], completionHandler completion: ((Bool) -> Void)?) {
         completion?(true)
     }

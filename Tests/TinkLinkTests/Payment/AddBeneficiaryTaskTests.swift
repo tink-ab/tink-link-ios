@@ -292,7 +292,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
             authentication: { task in
                 switch task {
                 case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-                    thirdPartyAppAuthenticationTask.handle(with: MockUIApplication()) { result in
+                    thirdPartyAppAuthenticationTask.handle(with: MockApplication()) { result in
                         credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
                         statusChangedToAwaitingThirdPartyAppAuthentication.fulfill()
                     }
