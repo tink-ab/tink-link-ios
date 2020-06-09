@@ -1,5 +1,5 @@
 /// An OAuth access token to access the Tink service.
-public struct AccessToken: Hashable, RawRepresentable, Decodable {
+public struct AccessToken: Hashable, RawRepresentable {
     public let rawValue: String
 
     public init?(rawValue: String) {
