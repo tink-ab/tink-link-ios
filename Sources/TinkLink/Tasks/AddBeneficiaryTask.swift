@@ -17,6 +17,10 @@ public final class AddBeneficiaryTask: Cancellable {
 
     /// Error that the `AddBeneficiaryTask` can throw.
     public enum Error: Swift.Error {
+        /// The beneficiary was invalid. If you get this error make sure that the `BeneficiaryAccount` is correct.
+        ///
+        /// The payload from the backend can be found in the associated value.
+        case invalidBeneficiary(String)
         /// The authentication failed.
         ///
         /// The payload from the backend can be found in the associated value.
@@ -31,6 +35,15 @@ public final class AddBeneficiaryTask: Cancellable {
         case credentialsSessionExpired(String)
         /// The beneficiary could not be found.
         case notFound(String)
+
+        init?(_ error: Swift.Error) {
+            switch error {
+            case ServiceError.invalidArgument(let message):
+                self = .invalidBeneficiary(message)
+            default:
+                return nil
+            }
+        }
     }
 
     // MARK: Dependencies
@@ -106,7 +119,7 @@ extension AddBeneficiaryTask {
                 self?.progressHandler(.requestSent)
                 self?.startObservingCredentials(id: credentialsID)
             } catch {
-                self?.complete(with: .failure(error))
+                self?.complete(with: .failure(Error(error) ?? error))
             }
         }
     }
