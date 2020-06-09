@@ -17,11 +17,17 @@ public final class AddBeneficiaryTask: Cancellable {
 
     /// Error that the `AddBeneficiaryTask` can throw.
     public enum Error: Swift.Error {
-        /// The authentication failed. The payload from the backend can be found in the associated value.
+        /// The authentication failed.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case authenticationFailed(String)
-        /// The credentials are disabled. The payload from the backend can be found in the associated value.
+        /// The credentials are disabled.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case disabledCredentials(String)
-        /// The credentials session was expired. The payload from the backend can be found in the associated value.
+        /// The credentials session was expired.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case credentialsSessionExpired(String)
         /// The beneficiary could not be found.
         case notFound(String)
