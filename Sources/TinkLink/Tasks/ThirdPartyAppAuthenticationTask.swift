@@ -163,7 +163,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         openThirdPartyApp(with: application, completion: self.completionHandler)
     }
 
-    internal func openThirdPartyApp(with application: URLResourceOpening = UIApplication.shared, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+    internal func openThirdPartyApp<URLResourceOpener: URLResourceOpening>(with urlResourceOpener: URLResourceOpener, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
         guard let url = thirdPartyAppAuthentication.deepLinkURL else {
             completion(.failure(Error.deeplinkURLNotFound))
             return
@@ -171,11 +171,11 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
         let deepLinkURL = sanitizeDeeplink(url, redirectUri: appUri)
         DispatchQueue.main.async {
-            application.open(deepLinkURL, options: [application.universalLinksOnlyOptionKey: NSNumber(value: true)]) { didOpenUniversalLink in
+            urlResourceOpener.open(deepLinkURL, options: [urlResourceOpener.universalLinksOnlyOptionKey: NSNumber(value: true)]) { didOpenUniversalLink in
                 if didOpenUniversalLink {
                     completion(.success)
                 } else {
-                    application.open(deepLinkURL, options: [:], completionHandler: { didOpen in
+                    urlResourceOpener.open(deepLinkURL, options: [:], completionHandler: { didOpen in
                         if didOpen {
                             completion(.success)
                         } else {
@@ -196,7 +196,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
     /// Will try to open the third party app. If it fails then the add credentials task will be aborted.
     public func handle() {
-        openThirdPartyApp { [weak self] result in
+        openThirdPartyApp(with: UIApplication.shared) { [weak self] result in
             self?.completionHandler(result)
         }
     }
@@ -208,13 +208,13 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     public func handle(statusHandler: @escaping (_ status: Status) -> Void) {
         #if os(iOS)
         if shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
-            openThirdPartyApp { [weak self] result in
+            openThirdPartyApp(with: UIApplication.shared) { [weak self] result in
                 self?.completionHandler(result)
             }
             return
         }
 
-        openThirdPartyApp { [weak self] result in
+        openThirdPartyApp(with: UIApplication.shared) { [weak self] result in
             guard let self = self else { return }
             do {
                 try result.get()

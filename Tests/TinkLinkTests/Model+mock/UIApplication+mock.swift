@@ -11,7 +11,7 @@ struct MockApplication: URLResourceOpening {
 }
 
 extension ThirdPartyAppAuthenticationTask {
-    func handle(with application: URLResourceOpening, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+    func handle<URLResourceOpener: URLResourceOpening>(with application: URLResourceOpener, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
         openThirdPartyApp(with: application) { [weak self] result in
             self?.completionHandler(result)
             completion(result)
