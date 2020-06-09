@@ -123,7 +123,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Indicates whether the task should fail if a third party app could not be opened for authentication.
     public private(set) var shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
     private let appUri: URL
-    private let completionHandler: (Result<Void, Swift.Error>) -> Void
+    internal let completionHandler: (Result<Void, Swift.Error>) -> Void
     private var hasBankIDQRCode: Bool {
         // TODO: Double check the logic.
         // Not sure about this part, but maybe because of grpc, the supplemental info is always empty for bankid credential kind, so has to check the deeplink URL instead.
@@ -163,7 +163,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         openThirdPartyApp(with: application, completion: self.completionHandler)
     }
 
-    private func openThirdPartyApp(with application: UIApplication = .shared, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+    internal func openThirdPartyApp(with application: URLResourceOpening = UIApplication.shared, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
         guard let url = thirdPartyAppAuthentication.deepLinkURL else {
             completion(.failure(Error.deeplinkURLNotFound))
             return
