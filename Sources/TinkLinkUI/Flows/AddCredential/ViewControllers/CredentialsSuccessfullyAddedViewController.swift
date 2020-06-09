@@ -2,17 +2,43 @@ import UIKit
 import TinkLink
 
 class CredentialsSuccessfullyAddedViewController: UIViewController {
+
+    enum Operation {
+        case create
+        case other
+
+        var localizedTitle: String {
+            switch self {
+            case .create:
+                return Strings.ConnectionSuccess.Create.title
+            case .other:
+                return Strings.ConnectionSuccess.Update.title
+            }
+        }
+
+        var localizedSubtitle: String {
+            switch self {
+            case .create:
+                return Strings.ConnectionSuccess.Create.subtitle
+            case .other:
+                return Strings.ConnectionSuccess.Update.subtitle
+            }
+        }
+    }
+
     let companyName: String
     let doneActionHandler: () -> Void
 
+    private var operation: Operation
     private let iconView = CheckmarkView(style: .large)
     private let containerView = UIView()
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
     private let doneButton = FloatingButton()
     
-    init(companyName: String, doneActionHandler: @escaping () -> Void) {
+    init(companyName: String, operation: Operation = .create, doneActionHandler: @escaping () -> Void) {
         self.companyName = companyName
+        self.operation = operation
         self.doneActionHandler = doneActionHandler
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,12 +47,11 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //TODO: Use real strings
-    private let titleText = Strings.AddCredentials.Success.title
-    private let subtitleText = Strings.AddCredentials.Success.subtitle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let titleText = operation.localizedTitle
+        let subtitleText = operation.localizedSubtitle
         
         view.backgroundColor = Color.background
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -54,7 +79,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         detailLabel.font = Font.footnote
         detailLabel.textColor = Color.label
         
-        doneButton.text = Strings.AddCredentials.Success.confirm
+        doneButton.text = Strings.Generic.done
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
         
         iconView.translatesAutoresizingMaskIntoConstraints = false

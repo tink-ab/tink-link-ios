@@ -23,7 +23,7 @@ struct RESTSignableOperation: Decodable {
         
         static var decodeFallbackValue: RESTSignableOperation.ModelType = .unknown
     }
-    /// The timestamp of the creation of the operation.
+    /// The timestamp for when the operation was created.
     var created: Date?
     /// The ID of the Credentials used to make the operation.
     var credentialsId: String?
@@ -37,7 +37,7 @@ struct RESTSignableOperation: Decodable {
     var type: ModelType?
     /// The ID of the actual transfer.
     var underlyingId: String?
-    /// The timestamp of the last update of the operation.
+    /// The timestamp for when the operation was updated.
     var updated: Date?
     /// The ID of the user making the operation.
     var userId: String?

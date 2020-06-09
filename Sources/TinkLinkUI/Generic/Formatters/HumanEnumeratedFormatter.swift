@@ -10,7 +10,7 @@ class HumanEnumeratedFormatter: Formatter {
             case .short:
                 return "&"
             case .long:
-                return Strings.Generic.Formatter.and
+                return Strings.Generic.and
             }
         }
     }

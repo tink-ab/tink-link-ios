@@ -2,16 +2,16 @@ import Down
 import TinkLink
 import UIKit
 
-protocol AddCredentialsViewControllerDelegate: AnyObject {
+protocol CredentialsFormViewControllerDelegate: AnyObject {
     func showScopeDescriptions()
     func showWebContent(with url: URL)
-    func addCredential(provider: Provider, form: Form)
+    func submit(form: Form)
 }
 
-final class AddCredentialsViewController: UIViewController {
+final class CredentialsFormViewController: UIViewController {
     let provider: Provider
 
-    weak var delegate: AddCredentialsViewControllerDelegate?
+    weak var delegate: CredentialsFormViewControllerDelegate?
 
     var prefillStrategy: TinkLinkViewController.PrefillStrategy {
         get { formTableViewController.prefillStrategy }
@@ -33,7 +33,7 @@ final class AddCredentialsViewController: UIViewController {
     private lazy var gradientView = GradientView()
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
-        button.text = Strings.AddCredentials.Form.continue
+        button.text = Strings.Generic.continue
         return button
     }()
 
@@ -52,6 +52,18 @@ final class AddCredentialsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    init(credentials: Credentials, provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
+        self.provider = provider
+        let form = Form(updatingCredentials: credentials, provider: provider)
+        self.formTableViewController = FormTableViewController(form: form)
+        self.credentialsController = credentialsController
+        self.clientName = clientName
+        self.isAggregator = isAggregator
+        self.isVerified = isVerified
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -59,7 +71,7 @@ final class AddCredentialsViewController: UIViewController {
 
 // MARK: - View Lifecycle
 
-extension AddCredentialsViewController {
+extension CredentialsFormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -119,7 +131,7 @@ extension AddCredentialsViewController {
             buttonBottomConstraint,
         ])
 
-        navigationItem.title = Strings.AddCredentials.Form.title
+        navigationItem.title = Strings.Credentials.title
         navigationItem.largeTitleDisplayMode = .never
         button.isEnabled = formTableViewController.form.fields.filter({ $0.attributes.isEditable }).isEmpty
 
@@ -136,7 +148,7 @@ extension AddCredentialsViewController {
             self?.addCredential()
         }
 
-        formTableViewController.errorText = isVerified ? nil : Strings.AddCredentials.Warning.unverifiedClient
+        formTableViewController.errorText = isVerified ? nil : Strings.Credentials.unverifiedClient
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -154,9 +166,9 @@ extension AddCredentialsViewController {
         switch provider.credentialsKind {
         case .mobileBankID:
             button.image = UIImage(icon: .bankID)
-            button.text = Strings.AddCredentials.Form.openBankID
+            button.text = Strings.Credentials.openBankID
         default:
-            button.text = Strings.AddCredentials.Form.continue
+            button.text = Strings.Generic.continue
         }
     }
     
@@ -181,7 +193,7 @@ extension AddCredentialsViewController {
 
 // MARK: - Help Footnote
 
-extension AddCredentialsViewController {
+extension CredentialsFormViewController {
     private func setupHelpFootnote() {
         guard let helpText = provider.helpText, !helpText.isEmpty else { return }
         helpLabel.configure(markdownString: helpText)
@@ -204,7 +216,7 @@ extension AddCredentialsViewController {
 }
 
 // MARK: - Keyboard Helper
-extension AddCredentialsViewController {
+extension CredentialsFormViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
         updateButtonBottomConstraint(notification)
     }
@@ -239,7 +251,7 @@ extension AddCredentialsViewController {
 
 // MARK: - Actions
 
-extension AddCredentialsViewController {
+extension CredentialsFormViewController {
     @objc private func startAddCredentialsFlow() {
         addCredential()
     }
@@ -248,7 +260,7 @@ extension AddCredentialsViewController {
         view.endEditing(false)
 
         if formTableViewController.validateFields() {
-            delegate?.addCredential(provider: provider, form: formTableViewController.form)
+            delegate?.submit(form: formTableViewController.form)
         }
     }
 
@@ -267,7 +279,7 @@ extension AddCredentialsViewController {
 
 // MARK: - AddCredentialsHeaderViewDelegate
 
-extension AddCredentialsViewController: AddCredentialsHeaderViewDelegate {
+extension CredentialsFormViewController: AddCredentialsHeaderViewDelegate {
     func addCredentialsHeaderViewDidTapReadMore(_ addCredentialsHeaderView: AddCredentialsHeaderView) {
         showMoreInfo()
     }
@@ -275,7 +287,7 @@ extension AddCredentialsViewController: AddCredentialsHeaderViewDelegate {
 
 // MARK: - AddCredentialFooterViewDelegate
 
-extension AddCredentialsViewController: AddCredentialsFooterViewDelegate {
+extension CredentialsFormViewController: AddCredentialsFooterViewDelegate {
     func addCredentialsFooterViewDidTapLink(_ addCredentialsFooterView: AddCredentialsFooterView, url: URL) {
         showPrivacyPolicy(url)
     }
@@ -283,7 +295,7 @@ extension AddCredentialsViewController: AddCredentialsFooterViewDelegate {
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension AddCredentialsViewController: UIGestureRecognizerDelegate {
+extension CredentialsFormViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return !button.frame.contains(gestureRecognizer.location(in: view))
     }
