@@ -47,6 +47,9 @@ extension TransferViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGestureRecognizer)
+
         tableView.register(Value2TableViewCell.self, forCellReuseIdentifier: "Value2")
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextField")
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
@@ -56,7 +59,12 @@ extension TransferViewController {
 // MARK: - Actions
 
 extension TransferViewController {
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     @objc private func transfer(_ sender: Any) {
+        view.endEditing(false)
         guard
             let sourceAccount = sourceAccount,
             let beneficiary = beneficiary,
@@ -68,6 +76,7 @@ extension TransferViewController {
     }
 
     @objc private func cancel(_ sender: Any) {
+        view.endEditing(false)
         initiateTransferTask?.cancel()
         dismiss(animated: true)
     }

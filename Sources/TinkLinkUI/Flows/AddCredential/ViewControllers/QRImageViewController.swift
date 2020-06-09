@@ -34,7 +34,7 @@ final class QRImageViewController: UIViewController {
     }
 
     private func setup() {
-        navigationItem.title = Strings.SupplementalInformation.Form.title
+        navigationItem.title = Strings.SupplementalInformation.title
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
 

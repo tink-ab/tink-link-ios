@@ -14,7 +14,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">TinkLinkUI 0.12.0 Docs</a> (98% documented)</p>
+        <p><a href="index.html">TinkLinkUI 0.13.0 Docs</a> (96% documented)</p>
         <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -46,6 +46,9 @@
               <li class="nav-group-task">
                 <a href="Classes/TinkLinkViewController/ProviderPredicate.html">– ProviderPredicate</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Classes/TinkLinkViewController/Operation.html">– Operation</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -65,6 +68,17 @@
               </li>
               <li class="nav-group-task">
                 <a href="Enums/TinkLinkError.html">TinkLinkError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/RefreshCredentialsTask.html#/s:8TinkLink22RefreshCredentialsTaskC5ErrorO">– Error</a>
               </li>
             </ul>
           </li>
@@ -128,7 +142,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.12.0/Sources/TinkLinkUI/Appearance/ColorProvider.swift#L4-L67">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.13.0/Sources/TinkLinkUI/Appearance/ColorProvider.swift#L4-L67">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -159,7 +173,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.12.0/Sources/TinkLinkUI/Appearance/FontProvider.swift#L4-L34">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.13.0/Sources/TinkLinkUI/Appearance/FontProvider.swift#L4-L34">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -197,7 +211,7 @@ To start using Tink Link UI, you need to first configure a <code>Tink</code> ins
        <span class="o">...</span>
 </code></pre>
 
-<p>Here&rsquo;s how you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
+<p>Here&rsquo;s one way you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
 You need to define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes. Then create a <code>TinkLinkViewController</code> with a market and the scopes to use. And present the view controller.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">scopes</span><span class="p">:</span> <span class="p">[</span><span class="kt">Scope</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="o">.</span><span class="nf">accounts</span><span class="p">(</span><span class="o">.</span><span class="n">read</span><span class="p">),</span>
@@ -207,6 +221,23 @@ You need to define scopes based on the type of data you want to fetch. For examp
 <span class="k">let</span> <span class="nv">tinkLinkViewController</span> <span class="o">=</span> <span class="kt">TinkLinkViewController</span><span class="p">(</span><span class="nv">market</span><span class="p">:</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">String</span><span class="err">#</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">scopes</span><span class="p">:</span> <span class="n">scopes</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
    <span class="c1">// Handle result</span>
 <span class="p">}</span>
+<span class="nf">present</span><span class="p">(</span><span class="n">tinkLinkViewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+</code></pre>
+
+<p>You can also start the aggregation flow if you have an authorization code or an access token:</p>
+<pre class="highlight swift"><code><span class="c1">// With authorization code:</span>
+<span class="k">let</span> <span class="nv">authorizationCode</span> <span class="o">=</span> <span class="s">"YOUR_AUTHORIZATION_CODE"</span>
+<span class="k">let</span> <span class="nv">tinkLinkViewController</span> <span class="o">=</span> <span class="kt">TinkLinkViewController</span><span class="p">(</span><span class="nv">authorizationCode</span><span class="p">:</span> <span class="kt">AuthorizationCode</span><span class="p">(</span><span class="n">authorizationCode</span><span class="p">))</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="c1">// Handle result</span>
+<span class="p">}</span>
+<span class="nf">present</span><span class="p">(</span><span class="n">tinkLinkViewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+
+<span class="c1">// With access token:</span>
+<span class="k">let</span> <span class="nv">accessToken</span> <span class="o">=</span> <span class="s">"YOUR_ACCESS_TOKEN"</span>
+<span class="k">let</span> <span class="nv">tinkLinkViewController</span> <span class="o">=</span> <span class="kt">TinkLinkViewController</span><span class="p">(</span><span class="nv">userSession</span><span class="p">:</span> <span class="o">.</span><span class="nf">accessToken</span><span class="p">(</span><span class="n">accessToken</span><span class="p">))</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="c1">// Handle result</span>
+<span class="p">}</span>
+
 <span class="nf">present</span><span class="p">(</span><span class="n">tinkLinkViewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
 </code></pre>
 
@@ -230,7 +261,7 @@ You need to define scopes based on the type of data you want to fetch. For examp
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.12.0/Sources/TinkLinkUI/TinkLinkViewController.swift#L49-L202">Show on GitHub</a>
+                        <a href="https://github.com/tink-ab/tink-link-ios/tree/v0.13.0/Sources/TinkLinkUI/TinkLinkViewController.swift#L67-L381">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -240,7 +271,7 @@ You need to define scopes based on the type of data you want to fetch. For examp
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-05-29)</p>
+          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-06-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
