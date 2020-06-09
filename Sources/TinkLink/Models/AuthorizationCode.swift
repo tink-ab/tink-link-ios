@@ -10,6 +10,8 @@ public struct AuthorizationCode: Hashable, RawRepresentable, ExpressibleByString
         self.rawValue = value
     }
 
+    /// Creates an authorization code.
+    /// - Parameter value: The authorization code
     public init(_ value: String) {
         self.rawValue = value
     }
