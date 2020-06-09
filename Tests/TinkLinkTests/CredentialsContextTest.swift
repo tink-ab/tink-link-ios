@@ -83,4 +83,41 @@ class CredentialsContextTests: XCTestCase {
             }
         }
     }
+
+    func testAddingThirdPartyAppAuthenticationCredentials() {
+        let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: MockedSuccessThirdPartyAuthenticationCredentialsService())
+
+        let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
+        let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
+        let statusChangedToUpdating = expectation(description: "add credentials status should be changed to updating")
+        let statusChangedToAwaitingThirdPartyAppAuthentication = expectation(description: "add credentials status should be changed to awaitingThirdPartyAppAuthentication")
+
+        let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
+        task = credentialsContextUnderTest.add(for: Provider.testThirdPartyAuthentication, form: Form(provider: Provider.testThirdPartyAuthentication), completionPredicate: completionPredicate, progressHandler: { status in
+            switch status {
+            case .created:
+                statusChangedToCreated.fulfill()
+            case .awaitingThirdPartyAppAuthentication(let task):
+                task.handle(with: MockedSuccessOpeningApplication()) { _ in statusChangedToAwaitingThirdPartyAppAuthentication.fulfill()
+                }
+            case .updating:
+                statusChangedToUpdating.fulfill()
+            case .authenticating, .awaitingSupplementalInformation:
+                break
+            }
+        }) { result in
+            do {
+                _ = try result.get()
+                addCredentialsCompletionCalled.fulfill()
+            } catch {
+                XCTFail("Failed to create credentials with: \(error)")
+            }
+        }
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }
+    }
 }
