@@ -85,7 +85,8 @@ class CredentialsContextTests: XCTestCase {
     }
 
     func testAddingThirdPartyAppAuthenticationCredentials() {
-        let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: MockedSuccessThirdPartyAuthenticationCredentialsService())
+        let credentialsService = MockedSuccessThirdPartyAuthenticationCredentialsService()
+        let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: credentialsService)
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
