@@ -28,7 +28,7 @@ public final class AddBeneficiaryTask: Cancellable {
     }
 
     // MARK: Dependencies
-    private let transferService: TransferService
+    private let beneficiaryService: BeneficiaryService
     private let credentialsService: CredentialsService
 
     // MARK: Properties
@@ -56,7 +56,7 @@ public final class AddBeneficiaryTask: Cancellable {
 
     // MARK: Initializers
     init(
-        transferService: TransferService,
+        beneficiaryService: BeneficiaryService,
         credentialsService: CredentialsService,
         appUri: URL,
         ownerAccountID: Account.ID,
@@ -68,7 +68,7 @@ public final class AddBeneficiaryTask: Cancellable {
         authenticationHandler: @escaping (AuthenticationTask) -> Void,
         completionHandler: @escaping (Result<Void, Swift.Error>) -> Void
     ) {
-        self.transferService = transferService
+        self.beneficiaryService = beneficiaryService
         self.credentialsService = credentialsService
         self.appUri = appUri
         self.ownerAccountID = ownerAccountID
@@ -94,7 +94,7 @@ extension AddBeneficiaryTask {
             credentialsID: ownerAccountCredentialsID
         )
 
-        callCanceller = transferService.addBeneficiary(request: request) { [weak self, credentialsID = ownerAccountCredentialsID] (result) in
+        callCanceller = beneficiaryService.addBeneficiary(request: request) { [weak self, credentialsID = ownerAccountCredentialsID] (result) in
             do {
                 try result.get()
                 self?.progressHandler(.requestSent)

@@ -4,6 +4,7 @@ import Foundation
 public final class TransferContext {
     private let tink: Tink
     private let transferService: TransferService
+    private let beneficiaryService: BeneficiaryService
     private let credentialsService: CredentialsService
     private let providerService: ProviderService
 
@@ -14,14 +15,16 @@ public final class TransferContext {
     /// - Parameter tink: Tink instance. Will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let transferService = RESTTransferService(client: tink.client)
+        let beneficiaryService = RESTBeneficiaryService(client: tink.client)
         let credentialsService = RESTCredentialsService(client: tink.client)
         let providerService = RESTProviderService(client: tink.client)
-        self.init(tink: tink, transferService: transferService, credentialsService: credentialsService, providerService: providerService)
+        self.init(tink: tink, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
     }
 
-    init(tink: Tink, transferService: TransferService, credentialsService: CredentialsService, providerService: ProviderService) {
+    init(tink: Tink, transferService: TransferService, beneficiaryService: BeneficiaryService, credentialsService: CredentialsService, providerService: ProviderService) {
         self.tink = tink
         self.transferService = transferService
+        self.beneficiaryService = beneficiaryService
         self.credentialsService = credentialsService
         self.providerService = providerService
     }
@@ -223,7 +226,7 @@ public final class TransferContext {
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
     @discardableResult
     public func fetchBeneficiaries(for account: Account, completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        return transferService.beneficiaries { result in
+        return beneficiaryService.beneficiaries { result in
             do {
                 let beneficiaries = try result.get()
                 let filteredBeneficiaries = beneficiaries.filter { $0.ownerAccountID == account.id }
@@ -249,7 +252,7 @@ public final class TransferContext {
     /// - Parameter completion: A result representing either a list of beneficiaries or an error.
     @discardableResult
     public func fetchBeneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        return transferService.beneficiaries(completion: completion)
+        return beneficiaryService.beneficiaries(completion: completion)
     }
 
     // MARK: - Adding Beneficiaries
@@ -308,7 +311,7 @@ public final class TransferContext {
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
         let task = AddBeneficiaryTask(
-            transferService: transferService,
+            beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
             ownerAccountID: ownerAccount.id,
@@ -381,7 +384,7 @@ public final class TransferContext {
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
         let task = AddBeneficiaryTask(
-            transferService: transferService,
+            beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
             appUri: tink.configuration.redirectURI,
             ownerAccountID: ownerAccountID,

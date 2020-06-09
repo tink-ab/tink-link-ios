@@ -4,30 +4,14 @@ import Foundation
 class MutableTransferService: TransferService {
     private var signableOperationsByTransferID: [Transfer.ID: SignableOperation] = [:]
     private var accounts: [Account]
-    private var beneficiaries: [Beneficiary]
 
-    var addBeneficiaryResult: Result<Void, Error> = .success
-
-    init(accounts: [Account], beneficiaries: [Beneficiary]) {
+    init(accounts: [Account]) {
         self.accounts = accounts
-        self.beneficiaries = beneficiaries
     }
 
     @discardableResult
     func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         completion(.success(accounts))
-        return nil
-    }
-
-    @discardableResult
-    func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        completion(.success(beneficiaries))
-        return nil
-    }
-
-    @discardableResult
-    func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        completion(addBeneficiaryResult)
         return nil
     }
 
