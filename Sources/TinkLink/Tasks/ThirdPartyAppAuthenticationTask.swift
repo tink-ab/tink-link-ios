@@ -171,7 +171,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
         let deepLinkURL = sanitizeDeeplink(url, redirectUri: appUri)
         DispatchQueue.main.async {
-            application.open(deepLinkURL, options: [.universalLinksOnly: NSNumber(value: true)]) { didOpenUniversalLink in
+            application.open(deepLinkURL, options: [application.universalLinksOnlyOptionKey: NSNumber(value: true)]) { didOpenUniversalLink in
                 if didOpenUniversalLink {
                     completion(.success)
                 } else {
