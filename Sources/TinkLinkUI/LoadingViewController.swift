@@ -98,7 +98,7 @@ final class LoadingViewController: UIViewController {
             self.hideLoadingIndicator()
             self.onRetry = onRetry
             self.errorView.isHidden = false
-            self.errorView.configure(with: error)
+            self.errorView.configure(with: error, showRetry: onRetry != nil)
         }
     }
 

@@ -89,14 +89,13 @@ final class ProviderLoadingErrorView: UIView {
         ])
     }
 
-    func configure(with error: Error?) {
+    func configure(with error: Error?, showRetry: Bool) {
         textLabel.text = Strings.ProviderList.Error.title
+        retryButton.isHidden = !showRetry
         if error is ProviderController.Error {
             descriptionLabel.text = Strings.ProviderList.Error.temporary
-            retryButton.isHidden = false
         } else {
             descriptionLabel.text = Strings.ProviderList.Error.description
-            retryButton.isHidden = true
         }
     }
 
