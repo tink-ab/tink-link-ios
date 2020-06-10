@@ -6,7 +6,7 @@ protocol LoadingErrorViewDelegate: AnyObject {
 }
 
 final class LoadingErrorView: UIView {
-    weak var delegate: ProviderLoadingErrorViewDelegate?
+    weak var delegate: LoadingErrorViewDelegate?
 
     private let stackView = UIStackView()
     private let iconBackgroundView = UIImageView()
@@ -112,7 +112,7 @@ final class LoadingErrorView: UIView {
     }
 
     @objc private func retryButtonTapped() {
-        delegate?.reloadProviderList(providerLoadingErrorView: self)
+        delegate?.reloadProviderList(loadingErrorView: self)
     }
 
     @objc private func cancel() {
