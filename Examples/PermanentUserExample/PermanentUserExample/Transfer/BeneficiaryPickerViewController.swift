@@ -128,7 +128,7 @@ extension BeneficiaryPickerViewController {
             account: account,
             name: name,
             toAccountWithID: sourceAccount.id,
-            onCredentialsWithID: credentialsID.flatMap({ Credentials.ID($0) }) ?? sourceAccount.credentialsID,
+            onCredentialsWithID: credentialsID.map({ Credentials.ID($0) }) ?? sourceAccount.credentialsID,
             authentication: { [weak self] task in
                 DispatchQueue.main.async {
                     self?.handleAddBeneficiaryAuthentication(task)
