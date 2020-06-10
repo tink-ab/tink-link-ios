@@ -17,7 +17,8 @@ public final class AddBeneficiaryTask: Cancellable {
 
     /// Error that the `AddBeneficiaryTask` can throw.
     public enum Error: Swift.Error {
-        /// The beneficiary was invalid. If you get this error make sure that the `BeneficiaryAccount` is correct.
+        /// The beneficiary was invalid.
+        /// If you get this error, make sure that the parameters for `addBeneficiary` are correct.
         ///
         /// The payload from the backend can be found in the associated value.
         case invalidBeneficiary(String)
