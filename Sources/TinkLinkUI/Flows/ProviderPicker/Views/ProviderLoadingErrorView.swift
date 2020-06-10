@@ -12,6 +12,7 @@ final class ProviderLoadingErrorView: UIView {
     private let iconView = UIImageView()
     private let textLabel =  UILabel()
     private let descriptionLabel =  UILabel()
+    private let cancelButton = UIButton(type: .system)
     private let retryButton = FloatingButton()
 
     convenience init() {
@@ -53,6 +54,11 @@ final class ProviderLoadingErrorView: UIView {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.setLineHeight(lineHeight: 20)
 
+        cancelButton.setTitleColor(Color.accent, for: .normal)
+        cancelButton.titleLabel?.font = Font.headline
+        cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        cancelButton.setTitle(Strings.Generic.cancel, for: .normal)
+
         retryButton.text = Strings.Generic.retry
         retryButton.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
 
@@ -60,10 +66,12 @@ final class ProviderLoadingErrorView: UIView {
         iconView.translatesAutoresizingMaskIntoConstraints = false
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
         retryButton.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(stackView)
         addSubview(retryButton)
+        addSubview(cancelButton)
 
         stackView.addArrangedSubview(iconBackgroundView)
         iconBackgroundView.addSubview(iconView)
@@ -84,6 +92,9 @@ final class ProviderLoadingErrorView: UIView {
             iconView.centerXAnchor.constraint(equalTo: iconBackgroundView.centerXAnchor),
             iconView.centerYAnchor.constraint(equalTo: iconBackgroundView.centerYAnchor),
 
+            cancelButton.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            cancelButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
+
             retryButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             retryButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
@@ -101,5 +112,9 @@ final class ProviderLoadingErrorView: UIView {
 
     @objc private func retryButtonTapped() {
         delegate?.reloadProviderList(providerLoadingErrorView: self)
+    }
+
+    @objc private func cancel() {
+        // close tink link
     }
 }
