@@ -23,17 +23,21 @@ public struct Account {
         case other
         /// An external account.
         case external
+        /// An unknown account.
+        case unknown
     }
 
     enum Flag {
         case business
         case mandate
+        case unknown
     }
 
     enum AccountExclusion {
         case aggregation
         case pfmAndSearch
         case pfmData
+        case unknown
     }
 
     /// A unique identifier of an `Account`.

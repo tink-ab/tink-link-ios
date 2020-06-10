@@ -5,8 +5,7 @@ class TransferViewController: UITableViewController {
     private let transferContext = TransferContext()
 
     private var sourceAccount: Account?
-    private var beneficiary: Beneficiary?
-    private var beneficiaryURI: Beneficiary.URI?
+    private var beneficiary: TransferAccountIdentifiable?
     private var amount: Decimal?
     private var message = ""
 
@@ -48,9 +47,6 @@ extension TransferViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGestureRecognizer)
-
         tableView.register(Value2TableViewCell.self, forCellReuseIdentifier: "Value2")
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "TextField")
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: "Button")
@@ -60,27 +56,18 @@ extension TransferViewController {
 // MARK: - Actions
 
 extension TransferViewController {
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
     @objc private func transfer(_ sender: Any) {
-        view.endEditing(false)
         guard
             let sourceAccount = sourceAccount,
+            let beneficiary = beneficiary,
             let balance = sourceAccount.currencyDenominatedBalance,
             let amount = amount
             else { return }
 
-        if let beneficiary = beneficiary {
-            initiateTransfer(from: sourceAccount, to: beneficiary, amount: amount, currencyCode: balance.currencyCode)
-        } else if let accountURI = Account.URI(account: sourceAccount), let beneficiaryURI = beneficiaryURI {
-            initiateTransfer(fromAccountWithURI: accountURI, toBeneficiaryWithURI: beneficiaryURI, amount: amount, currencyCode: balance.currencyCode)
-        }
+        initiateTransfer(from: sourceAccount, to: beneficiary, amount: amount, currencyCode: balance.currencyCode)
     }
 
     @objc private func cancel(_ sender: Any) {
-        view.endEditing(false)
         initiateTransferTask?.cancel()
         dismiss(animated: true)
     }
@@ -94,34 +81,10 @@ extension TransferViewController {
 // MARK: - Transfer Handling
 
 extension TransferViewController {
-    private func initiateTransfer(from account: Account, to beneficiary: Beneficiary, amount: Decimal, currencyCode: CurrencyCode) {
+    private func initiateTransfer(from account: Account, to beneficiary: TransferAccountIdentifiable, amount: Decimal, currencyCode: CurrencyCode) {
         initiateTransferTask = transferContext.initiateTransfer(
             from: account,
             to: beneficiary,
-            amount: CurrencyDenominatedAmount(amount, currencyCode: currencyCode),
-            message: .init(destination: message),
-            authentication: { [weak self] status in
-                DispatchQueue.main.async {
-                    self?.handleTransferAuthentication(status)
-                }
-            },
-            progress: { [weak self] status in
-                DispatchQueue.main.async {
-                    self?.handleTransferProgress(status)
-                }
-            },
-            completion: { [weak self] result in
-                DispatchQueue.main.async {
-                    self?.handleTransferCompletion(result)
-                }
-            }
-        )
-    }
-
-    private func initiateTransfer(fromAccountWithURI accountURI: Account.URI, toBeneficiaryWithURI beneficiaryURI: Beneficiary.URI, amount: Decimal, currencyCode: CurrencyCode) {
-        initiateTransferTask = transferContext.initiateTransfer(
-            fromAccountWithURI: accountURI,
-            toBeneficiaryWithURI: beneficiaryURI,
             amount: CurrencyDenominatedAmount(amount, currencyCode: currencyCode),
             message: .init(destination: message),
             authentication: { [weak self] status in
@@ -205,7 +168,7 @@ extension TransferViewController {
                 cell.detailTextLabel?.text = sourceAccount?.name
             case .to:
                 cell.textLabel?.text = "To:"
-                cell.detailTextLabel?.text = beneficiary?.name ?? beneficiaryURI?.value
+                cell.detailTextLabel?.text = beneficiary?.transferAccountID
             }
             return cell
         case .details(let fields):
@@ -278,7 +241,7 @@ extension TransferViewController {
     private func showTransferDestinationPicker(_ sender: Any) {
         guard let sourceAccount = sourceAccount else { return }
 
-        let transferDestinationPicker = BeneficiaryPickerViewController(sourceAccount: sourceAccount, selectedBeneficiary: beneficiary)
+        let transferDestinationPicker = BeneficiaryPickerViewController(sourceAccount: sourceAccount, selectedBeneficiary: beneficiary as? Beneficiary)
         transferDestinationPicker.delegate = self
         show(transferDestinationPicker, sender: sender)
     }
@@ -339,7 +302,7 @@ extension TransferViewController: TextFieldTableViewCellDelegate {
         case .details(let fields):
             switch fields[indexPath.row] {
             case .amount:
-                amount = Decimal(string: text)
+                amount = Decimal(string: text, locale: .current)
             case .message:
                 message = text
             }
@@ -366,16 +329,8 @@ extension TransferViewController: SourceAccountPickerViewControllerDelegate {
 // MARK: - TransferDestinationPickerViewControllerDelegate
 
 extension TransferViewController: BeneficiaryPickerViewControllerDelegate {
-    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: Beneficiary) {
+    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: TransferAccountIdentifiable) {
         self.beneficiary = beneficiary
-        self.beneficiaryURI = nil
-        navigationController?.popToViewController(self, animated: true)
-        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
-    }
-
-    func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didEnterBeneficiaryURI beneficiaryURI: Beneficiary.URI) {
-        self.beneficiary = nil
-        self.beneficiaryURI = beneficiaryURI
         navigationController?.popToViewController(self, animated: true)
         tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
     }

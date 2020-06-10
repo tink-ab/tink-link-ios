@@ -1,25 +1,31 @@
 import Foundation
 
-struct RESTProviders: Codable {
+struct RESTProviders: Decodable {
     let providers: [RESTProvider]
 }
 
 /// The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses
 /// the financial institution, metadata about the financialinstitution, and what financial information that can be accessed.
-struct RESTProvider: Codable {
+struct RESTProvider: Decodable {
 
-    enum AccessType: String, Codable {
+    enum AccessType: String, DefaultableDecodable {
         case openBanking = "OPEN_BANKING"
         case other = "OTHER"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTProvider.AccessType = .unknown
     }
 
-    enum AuthenticationFlow: String, Codable {
+    enum AuthenticationFlow: String, DefaultableDecodable {
         case embedded = "EMBEDDED"
         case redirect = "REDIRECT"
         case decoupled = "DECOUPLED"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTProvider.AuthenticationFlow = .unknown
     }
 
-    enum Capabilities: String, Codable {
+    enum Capabilities: String, DefaultableDecodable {
         case unknown = "UNKNOWN"
         case transfers = "TRANSFERS"
         case einvoices = "EINVOICES"
@@ -33,29 +39,40 @@ struct RESTProvider: Codable {
         case identityData = "IDENTITY_DATA"
         case createBeneficiaries = "CREATE_BENEFICIARIES"
         case listBeneficiaries = "LIST_BENEFICIARIES"
+
+        static var decodeFallbackValue: RESTProvider.Capabilities = .unknown
     }
 
-    enum CredentialsType: String, Codable {
+    enum CredentialsType: String, DefaultableDecodable {
         case password = "PASSWORD"
         case mobileBankid = "MOBILE_BANKID"
         case keyfob = "KEYFOB"
         case thirdPartyApp = "THIRD_PARTY_APP"
         case fraud = "FRAUD"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTProvider.CredentialsType = .unknown
     }
 
-    enum Status: String, Codable {
+    enum Status: String, DefaultableDecodable {
         case enabled = "ENABLED"
         case temporaryDisabled = "TEMPORARY_DISABLED"
         case disabled = "DISABLED"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTProvider.Status = .unknown
     }
 
-    enum ModelType: String, Codable {
+    enum ModelType: String, DefaultableDecodable {
         case bank = "BANK"
         case creditCard = "CREDIT_CARD"
         case broker = "BROKER"
         case test = "TEST"
         case fraud = "FRAUD"
         case other = "OTHER"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTProvider.ModelType = .unknown
     }
 
     /// What Tink uses to access the data.

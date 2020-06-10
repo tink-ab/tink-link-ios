@@ -21,26 +21,29 @@ public final class InitiateTransferTask: Cancellable {
     /// Represents an authentication that needs to be completed by the user.
     ///
     /// - Note: Each case have an associated task which need to be completed by the user to continue the transfer initiation process.
-    public enum AuthenticationTask {
-        /// Indicates that there is additional information required from the user to proceed.
-        ///
-        /// This can for example be an OTP sent via SMS or authetication app.
-        case awaitingSupplementalInformation(SupplementInformationTask)
-        /// Indicates that there is an authentication in a third party app necessary to proceed with the authentication.
-        case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
-    }
+    public typealias AuthenticationTask = TinkLink.AuthenticationTask
 
     /// Error that the `InitiateTransferTask` can throw.
     public enum Error: Swift.Error {
-        /// The authentication failed. The payload from the backend can be found in the associated value.
+        /// The authentication failed.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case authenticationFailed(String?)
-        /// The credentials are disabled. The payload from the backend can be found in the associated value.
+        /// The credentials are disabled.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case disabledCredentials(String?)
-        /// The credentials session was expired. The payload from the backend can be found in the associated value.
+        /// The credentials session was expired.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case credentialsSessionExpired(String?)
-        /// The transfer was cancelled. The payload from the backend can be found in the associated value.
+        /// The transfer was cancelled.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case cancelled(String?)
-        /// The transfer failed. The payload from the backend can be found in the associated value.
+        /// The transfer failed.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case failed(String?)
     }
 

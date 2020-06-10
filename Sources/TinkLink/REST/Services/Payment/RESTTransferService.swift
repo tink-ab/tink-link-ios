@@ -22,15 +22,6 @@ final class RESTTransferService: TransferService {
         return client.performRequest(request)
     }
 
-    func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
-        let request = RESTResourceRequest<RESTBeneficiaryListResponse>(path: "/api/v1/beneficiaries", method: .get, contentType: .json) { result in
-            let mappedResult = result.map { $0.beneficiaries.map { Beneficiary(restBeneficiary: $0) } }
-            completion(mappedResult)
-        }
-
-        return client.performRequest(request)
-    }
-
     func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         let body = RESTTransferRequest(
             amount: NSDecimalNumber(decimal: transfer.amount).doubleValue,
@@ -41,8 +32,8 @@ final class RESTTransferService: TransferService {
             sourceMessage: transfer.sourceMessage,
             dueDate: transfer.dueDate,
             messageType: nil,
-            destinationUri: transfer.destinationUri.value,
-            sourceUri: transfer.sourceUri.value,
+            destinationUri: transfer.destinationUri,
+            sourceUri: transfer.sourceUri,
             redirectUri: redirectURI.absoluteString
         )
         do {

@@ -16,9 +16,12 @@ struct RESTUser: Decodable {
 }
 
 struct RESTUserProfile: Decodable {
-    enum PeriodMode: String, Codable {
+    enum PeriodMode: String, DefaultableDecodable {
         case monthly = "MONTHLY"
         case monthlyAdjusted = "MONTHLY_ADJUSTED"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTUserProfile.PeriodMode = .unknown
     }
 
     var currency: String

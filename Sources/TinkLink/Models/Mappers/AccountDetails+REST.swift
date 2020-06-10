@@ -20,6 +20,7 @@ extension AccountDetails.Kind {
         case .student: self = .student
         case .credit: self = .credit
         case .other: self = .other
+        case .unknown: self = .unknown
         }
     }
 }

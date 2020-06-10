@@ -4,6 +4,7 @@ extension Beneficiary {
     /// A type representing the URI for receiving transfers.
     ///
     /// A URI is composed with two parts, a kind with value of e.g. `iban` and an account number.
+    @available(*, deprecated, message: "Use BeneficiaryAccount instead.")
     public struct URI: Equatable, ExpressibleByStringLiteral {
         /// The `String` that represent the URI.
         public let value: String
@@ -20,30 +21,14 @@ extension Beneficiary {
     }
 }
 
+@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
 extension Beneficiary.URI {
     /// A type representing an kind of account URI.
-    public struct Kind: ExpressibleByStringLiteral {
-        public init(stringLiteral value: String) {
-            self.value = value
-        }
-
-        /// Creates a kind.
-        /// - Parameter value: The `String` that represents the account kind.
-        public init(_ value: String) {
-            self.value = value
-        }
-
-        /// The `String` that represent the account kind.
-        public let value: String
-
-        public static let iban: Kind = "iban"
-        public static let se: Kind = "se"
-        public static let seBankGiro: Kind = "se-bg"
-        public static let sePlusGiro: Kind = "se-pg"
-        public static let sortCode: Kind = "sort-code"
-    }
+    @available(*, deprecated, renamed: "AccountNumberKind")
+    public typealias Kind = AccountNumberKind
 }
 
+@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
 extension Beneficiary.URI {
     /// Creates a URI.
     ///
@@ -52,7 +37,7 @@ extension Beneficiary.URI {
     /// - Parameters:
     ///   - kind: The kind of account URI.
     ///   - accountNumber: The account number. The structure of this parameter depends on the `kind`.
-    public init?(kind: Kind, accountNumber: String) {
+    public init?(kind: AccountNumberKind, accountNumber: String) {
         var urlComponents = URLComponents()
         urlComponents.scheme = kind.value
         urlComponents.host = accountNumber
@@ -63,15 +48,16 @@ extension Beneficiary.URI {
     }
 }
 
+@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
 extension Beneficiary.URI {
     /// Creates a URI for a beneficiary.
     /// - Parameter beneficiary: The beneficiary.
     public init?(beneficiary: Beneficiary) {
         var urlComponents = URLComponents()
-        urlComponents.scheme = beneficiary.accountNumberType
+        urlComponents.scheme = beneficiary.accountNumberKind.value
         urlComponents.host = beneficiary.accountNumber
-        if let beneficiaryName = beneficiary.name, !beneficiaryName.isEmpty {
-            urlComponents.queryItems = [URLQueryItem(name: "name", value: beneficiaryName)]
+        if !beneficiary.name.isEmpty {
+            urlComponents.queryItems = [URLQueryItem(name: "name", value: beneficiary.name)]
         }
         guard let uri = urlComponents.url else { return  nil }
 

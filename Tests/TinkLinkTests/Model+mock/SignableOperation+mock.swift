@@ -50,4 +50,18 @@ extension SignableOperation {
         updated: Date(),
         userID: User.ID("64b63e21d8ce4c60b240bbd35471de5e")
     )
+
+    static func makeSignableOperation(status: SignableOperation.Status, credentialsID: Credentials.ID, transferID: Transfer.ID, userID: User.ID) -> SignableOperation {
+        return SignableOperation(
+            created: Date(),
+            credentialsID: credentialsID,
+            id: ID(UUID().uuidString),
+            status: status,
+            statusMessage: nil,
+            kind: .transfer,
+            transferID: transferID,
+            updated: Date(),
+            userID: userID
+        )
+    }
 }

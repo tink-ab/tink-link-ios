@@ -35,7 +35,7 @@ public struct Transfer {
     /// The date when the payment or bank transfer should be executed. If no `dueDate` is given, it will be executed immediately.
     let dueDate: Date?
     /// The destination account or recipient of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
-    let destinationUri: Beneficiary.URI
+    let destinationUri: String
     /// The source account of the transfer, in the form of a uri. With possible scheme: `sepa-eur`, `se-bg`, `se-pg`
-    let sourceUri: Account.URI
+    let sourceUri: String
 }
