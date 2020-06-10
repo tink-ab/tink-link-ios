@@ -41,6 +41,7 @@ public struct Provider: Identifiable {
         case test
         case fraud
 
+        /// The provider is a business bank.
         case businessBank
         case firstParty
 
