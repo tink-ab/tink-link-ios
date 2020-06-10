@@ -91,7 +91,7 @@ class CredentialsContextTests: XCTestCase {
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
         let statusChangedToUpdating = expectation(description: "add credentials status should be changed to updating")
-        let statusChangedToAwaitingThirdPartyAppAuthentication = expectation(description: "add credentials status should be changed to awaitingThirdPartyAppAuthentication")
+        let handledThirdPartyAppAuthenticationTask = expectation(description: "add credentials status should be changed to awaitingThirdPartyAppAuthentication")
 
         let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
         task = credentialsContextUnderTest.add(for: Provider.testThirdPartyAuthentication, form: Form(provider: Provider.testThirdPartyAuthentication), completionPredicate: completionPredicate, progressHandler: { status in
@@ -99,7 +99,7 @@ class CredentialsContextTests: XCTestCase {
             case .created:
                 statusChangedToCreated.fulfill()
             case .awaitingThirdPartyAppAuthentication(let task):
-                task.handle(with: MockedSuccessOpeningApplication()) { _ in statusChangedToAwaitingThirdPartyAppAuthentication.fulfill()
+                task.handle(with: MockedSuccessOpeningApplication()) { _ in handledThirdPartyAppAuthenticationTask.fulfill()
                 }
             case .updating:
                 statusChangedToUpdating.fulfill()
