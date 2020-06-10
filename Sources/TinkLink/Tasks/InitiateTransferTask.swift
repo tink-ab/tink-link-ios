@@ -25,15 +25,25 @@ public final class InitiateTransferTask: Cancellable {
 
     /// Error that the `InitiateTransferTask` can throw.
     public enum Error: Swift.Error {
-        /// The authentication failed. The payload from the backend can be found in the associated value.
+        /// The authentication failed.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case authenticationFailed(String?)
-        /// The credentials are disabled. The payload from the backend can be found in the associated value.
+        /// The credentials are disabled.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case disabledCredentials(String?)
-        /// The credentials session was expired. The payload from the backend can be found in the associated value.
+        /// The credentials session was expired.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case credentialsSessionExpired(String?)
-        /// The transfer was cancelled. The payload from the backend can be found in the associated value.
+        /// The transfer was cancelled.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case cancelled(String?)
-        /// The transfer failed. The payload from the backend can be found in the associated value.
+        /// The transfer failed.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case failed(String?)
     }
 
