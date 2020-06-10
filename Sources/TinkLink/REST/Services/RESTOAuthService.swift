@@ -12,8 +12,7 @@ final class RESTOAuthService: OAuthService {
 
         let body = RESTAnonymousUserRequest(market: market?.code ?? "", origin: origin, locale: locale.identifier)
 
-        let data = try? JSONEncoder().encode(body)
-        let request = RESTResourceRequest<RESTAnonymousUserResponse>(path: "/api/v1/user/anonymous", method: .post, body: data, contentType: .json) { (result) in
+        let request = RESTResourceRequest<RESTAnonymousUserResponse>(path: "/api/v1/user/anonymous", method: .post, body: .encodable(AnyEncodable(body)), contentType: .json) { (result) in
 
             completion(result.map { AccessToken($0.access_token) })
         }
@@ -26,7 +25,7 @@ final class RESTOAuthService: OAuthService {
             completion(result.map(\.accessToken).map(AccessToken.init(_:)))
         }
         let body = ["code": code.rawValue]
-        request.body = try? JSONEncoder().encode(body)
+        request.body = .encodable(AnyEncodable(body))
 
         return client.performRequest(request)
     }

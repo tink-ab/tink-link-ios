@@ -38,9 +38,15 @@ final class RESTClient {
             return nil
         }
 
-        let task = URLSessionRetryCancellableTask(session: session, url: url, behavior: behavior, request: request)
-        task.start()
+        do {
+            let task = try URLSessionRetryCancellableTask(session: session, url: url, behavior: behavior, request: request)
+            task.start()
+            return task
+        } catch {
+            request.onResponse(.failure(error))
+            self.behavior.afterError(error: error)
+            return nil
+        }
 
-        return task
     }
 }
