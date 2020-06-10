@@ -144,4 +144,22 @@ extension Provider {
         marketCode: "SE",
         financialInstitution: .init(id: "3590cce61e1256dd9cb2c32bfacb713b", name: "Test Multi-Supplemental")
     )
+
+    static let testThirdPartyAuthentication = Provider(
+        id: "se-test-multi-third-party",
+        displayName: "Test Third Party Authentication",
+        kind: .test,
+        status: .enabled,
+        credentialsKind: .thirdPartyAuthentication,
+        helpText: "Use the same username and password as you would in the bank\'s mobile app.",
+        isPopular: true,
+        fields: [],
+        groupDisplayName: "Test Third Party Authentication",
+        image: nil,
+        displayDescription: "Test",
+        capabilities: .init(rawValue: 1276),
+        accessType: .other,
+        marketCode: "SE",
+        financialInstitution: .init(id: "3590cce61e1256dd9cb2c32bfacb713b", name: "Test Multi-Supplemental")
+    )
 }
