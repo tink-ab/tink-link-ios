@@ -8,7 +8,7 @@ final class LoadingViewController: UIViewController {
     private let activityIndicatorView = ActivityIndicatorView()
     private let label = UILabel()
     private let cancelButton = UIButton(type: .system)
-    private let errorView = ProviderLoadingErrorView()
+    private let errorView = LoadingErrorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,8 +107,8 @@ final class LoadingViewController: UIViewController {
     }
 }
 
-extension LoadingViewController: ProviderLoadingErrorViewDelegate {
-    func reloadProviderList(providerLoadingErrorView: ProviderLoadingErrorView) {
+extension LoadingViewController: LoadingErrorViewDelegate {
+    func reloadProviderList(loadingErrorView: LoadingErrorView) {
         onRetry?()
     }
 
