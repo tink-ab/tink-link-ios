@@ -391,4 +391,54 @@ class AddBeneficiaryTaskTests: XCTestCase {
             }
         }
     }
+
+    func testAddingBeneficiaryInvalidBeneficiaryError() {
+        let credentials = Credentials.makeTestCredentials(
+            providerID: "test-provider",
+            kind: .password,
+            status: .updated
+        )
+        let account = Account.makeTestAccount(credentials: credentials)
+
+        let credentialsService = MockedAuthenticationErrorCredentialsService()
+        let transferService = MockedUnauthenticatedErrorTransferService()
+        let beneficiaryService = MockedBadRequestErrorBeneficiaryService()
+        let providerService = MockedUnauthenticatedErrorProviderService()
+
+        let transferContext = TransferContext(tink: .shared, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
+
+        let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
+
+        let invalidBeneficiaryAccount = BeneficiaryAccount(accountNumberKind: "invalid kind", accountNumber: "FR7630006000011234567890189")
+
+        task = transferContext.addBeneficiary(
+            account: invalidBeneficiaryAccount,
+            name: "Example Inc",
+            to: account,
+            authentication: { task in
+                XCTFail("Didn't expect an authentication task")
+        },
+            progress: { status in
+                XCTFail("Didn't expect any status")
+        },
+            completion: { result in
+                do {
+                    _ = try result.get()
+                    XCTFail("Expected failure.")
+                } catch AddBeneficiaryTask.Error.invalidBeneficiary {
+                    XCTAssertTrue(true)
+                } catch {
+                    XCTFail("Failed to add beneficiary with: \(error)")
+                }
+                addBeneficiaryCompletionCalled.fulfill()
+        }
+        )
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }
+    }
+
 }

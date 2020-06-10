@@ -90,6 +90,8 @@ extension AddBeneficiaryTask.Error: LocalizedError {
             return "Credentials Session Expired"
         case .notFound:
             return "Not Found"
+        case .invalidBeneficiary:
+            return "Invalid beneficiary"
         }
     }
 
@@ -98,7 +100,8 @@ extension AddBeneficiaryTask.Error: LocalizedError {
         case .authenticationFailed(let payload),
              .disabledCredentials(let payload),
              .credentialsSessionExpired(let payload),
-             .notFound(let payload):
+             .notFound(let payload),
+             .invalidBeneficiary(let payload):
             return payload
         }
     }
