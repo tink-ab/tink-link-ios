@@ -409,10 +409,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
-        let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "FR7630006000011234567890189")
+        let invalidBeneficiaryAccount = BeneficiaryAccount(accountNumberKind: "invalid kind", accountNumber: "FR7630006000011234567890189")
 
         task = transferContext.addBeneficiary(
-            account: beneficiaryAccount,
+            account: invalidBeneficiaryAccount,
             name: "Example Inc",
             to: account,
             authentication: { task in
