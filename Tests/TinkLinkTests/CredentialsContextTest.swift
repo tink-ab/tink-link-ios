@@ -99,7 +99,13 @@ class CredentialsContextTests: XCTestCase {
             case .created:
                 statusChangedToCreated.fulfill()
             case .awaitingThirdPartyAppAuthentication(let task):
-                task.handle(with: MockedSuccessOpeningApplication()) { _ in handledThirdPartyAppAuthenticationTask.fulfill()
+                task.handle(with: MockedSuccessOpeningApplication()) { result in
+                    do {
+                        _ = try result.get()
+                        handledThirdPartyAppAuthenticationTask.fulfill()
+                    } catch {
+                        XCTFail("Failed to handle third party app authentication task with: \(error)")
+                    }
                 }
             case .updating:
                 statusChangedToUpdating.fulfill()
