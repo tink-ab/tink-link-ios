@@ -177,7 +177,7 @@ extension TransferViewController {
                 cell.detailTextLabel?.text = sourceAccount?.name
             case .to:
                 cell.textLabel?.text = "To:"
-                cell.detailTextLabel?.text = (beneficiary as? Beneficiary)?.name ?? beneficiary?.transferAccountID
+                cell.detailTextLabel?.text = beneficiary?.transferAccountID
             }
             return cell
         case .details(let fields):
