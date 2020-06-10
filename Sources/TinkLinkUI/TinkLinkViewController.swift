@@ -292,7 +292,6 @@ public class TinkLinkViewController: UINavigationController {
 
 
     func fetchProviders(providerPredicate: ProviderPredicate) {
-
         providerController.fetch(with: providerPredicate) { (result) in
             DispatchQueue.main.async {
                 switch result {
