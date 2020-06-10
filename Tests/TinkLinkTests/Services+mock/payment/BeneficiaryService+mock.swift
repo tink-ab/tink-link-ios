@@ -39,3 +39,15 @@ class MockedUnauthenticatedErrorBeneficiaryService: BeneficiaryService {
         return nil
     }
 }
+
+class MockedBadRequestErrorBeneficiaryService: BeneficiaryService {
+    func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
+        completion(.failure(ServiceError.invalidArgumentError))
+        return nil
+    }
+
+    func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        completion(.failure(ServiceError.invalidArgumentError))
+        return nil
+    }
+}
