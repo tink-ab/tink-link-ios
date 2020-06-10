@@ -90,7 +90,7 @@ extension AddBeneficiaryTask.Error: LocalizedError {
             return "Credentials Session Expired"
         case .notFound:
             return "Not Found"
-        case .invalidBeneficiary(_):
+        case .invalidBeneficiary:
             return "Invalid beneficiary"
         }
     }
