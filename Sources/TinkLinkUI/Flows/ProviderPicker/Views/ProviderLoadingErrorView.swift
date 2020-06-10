@@ -2,6 +2,7 @@ import UIKit
 
 protocol ProviderLoadingErrorViewDelegate: AnyObject {
     func reloadProviderList(providerLoadingErrorView: ProviderLoadingErrorView)
+    func closeErrorView()
 }
 
 final class ProviderLoadingErrorView: UIView {
@@ -115,6 +116,6 @@ final class ProviderLoadingErrorView: UIView {
     }
 
     @objc private func cancel() {
-        // close tink link
+        delegate?.closeErrorView()
     }
 }

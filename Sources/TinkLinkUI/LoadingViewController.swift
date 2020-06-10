@@ -111,4 +111,10 @@ extension LoadingViewController: ProviderLoadingErrorViewDelegate {
     func reloadProviderList(providerLoadingErrorView: ProviderLoadingErrorView) {
         onRetry?()
     }
+
+    func closeErrorView() {
+        self.dismiss(animated: true) {
+            //TinkLinkError.userCancelled
+        }
+    }
 }
