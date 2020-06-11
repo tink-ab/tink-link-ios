@@ -4,6 +4,7 @@ final class LoadingViewController: UIViewController {
 
     private var onCancel: (() -> Void)?
     private var onRetry: (() -> Void)?
+    private var onClose: (() -> Void)?
 
     private let activityIndicatorView = ActivityIndicatorView()
     private let label = UILabel()
@@ -102,6 +103,13 @@ final class LoadingViewController: UIViewController {
         }
     }
 
+    func close(onClose: (() -> Void)?) {
+        DispatchQueue.main.async {
+            self.onClose = onClose
+            self.errorView.isHidden = true
+        }
+    }
+
     @objc private func cancel() {
         onCancel?()
     }
@@ -112,9 +120,7 @@ extension LoadingViewController: LoadingErrorViewDelegate {
         onRetry?()
     }
 
-    func closeErrorView() {
-        self.dismiss(animated: true) {
-            //TinkLinkError.userCancelled
-        }
+    func closeErrorView(loadingErrorView: LoadingErrorView) {
+        onClose?()
     }
 }

@@ -2,7 +2,7 @@ import UIKit
 
 protocol LoadingErrorViewDelegate: AnyObject {
     func reloadProviderList(loadingErrorView: LoadingErrorView)
-    func closeErrorView()
+    func closeErrorView(loadingErrorView: LoadingErrorView)
 }
 
 final class LoadingErrorView: UIView {
@@ -116,6 +116,6 @@ final class LoadingErrorView: UIView {
     }
 
     @objc private func cancel() {
-        delegate?.closeErrorView()
+        delegate?.closeErrorView(loadingErrorView: self)
     }
 }

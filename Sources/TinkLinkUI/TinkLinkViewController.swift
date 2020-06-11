@@ -308,6 +308,11 @@ public class TinkLinkViewController: UINavigationController {
                     if let tinkLinkError = TinkLinkError(error: error) {
                         self.result = .failure(tinkLinkError)
                     }
+                    self.loadingViewController?.close() {
+                        self.loadingViewController?.hideLoadingIndicator()
+                        self.result = .failure(.userCancelled)
+                        self.closeTinkLink()
+                    }
                     self.loadingViewController?.setError(error) {
                         self.loadingViewController?.showLoadingIndicator()
                         self.operate()
