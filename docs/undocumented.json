@@ -1,579 +1,579 @@
 {
   "warnings": [
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
       "line": 38,
       "symbol": "Provider.Kind.other",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
       "line": 42,
       "symbol": "Provider.Kind.fraud",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
       "line": 46,
       "symbol": "Provider.Kind.firstParty",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
       "line": 48,
       "symbol": "Provider.Kind.default",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
       "line": 50,
       "symbol": "Provider.Kind.defaultKinds",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
       "line": 54,
       "symbol": "Provider.Kind.excludingTest",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
       "line": 175,
       "symbol": "Provider.AccessType.unknown",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
       "line": 176,
       "symbol": "Provider.AccessType.openBanking",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Provider.swift",
       "line": 177,
       "symbol": "Provider.AccessType.other",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 29,
       "symbol": "ProviderTree.financialInstitutionGroups",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 31,
       "symbol": "ProviderTree.init(providers:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 37,
       "symbol": "ProviderTree.makeFinancialInstitutions()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 79,
       "symbol": "ProviderTree.CredentialsKindNode.id",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 81,
       "symbol": "ProviderTree.CredentialsKindNode.provider",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 83,
       "symbol": "ProviderTree.CredentialsKindNode.credentialsKind",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 85,
       "symbol": "ProviderTree.CredentialsKindNode.displayDescription",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 87,
       "symbol": "ProviderTree.CredentialsKindNode.imageURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 123,
       "symbol": "ProviderTree.AccessTypeNode.provider(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 124,
       "symbol": "ProviderTree.AccessTypeNode.credentialsKinds(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 138,
       "symbol": "ProviderTree.AccessTypeNode.id",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 140,
       "symbol": "ProviderTree.AccessTypeNode.providers",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 167,
       "symbol": "ProviderTree.AccessTypeNode.accessType",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 169,
       "symbol": "ProviderTree.AccessTypeNode.imageURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 207,
       "symbol": "ProviderTree.FinancialInstitutionNode.provider(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 208,
       "symbol": "ProviderTree.FinancialInstitutionNode.credentialsKinds(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 209,
       "symbol": "ProviderTree.FinancialInstitutionNode.accessTypes(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 231,
       "symbol": "ProviderTree.FinancialInstitutionNode.id",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 233,
       "symbol": "ProviderTree.FinancialInstitutionNode.providers",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 266,
       "symbol": "ProviderTree.FinancialInstitutionNode.financialInstitution",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 268,
       "symbol": "ProviderTree.FinancialInstitutionNode.imageURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 289,
       "symbol": "ProviderTree.FinancialInstitutionGroupNode.provider(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 290,
       "symbol": "ProviderTree.FinancialInstitutionGroupNode.credentialsKinds(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 291,
       "symbol": "ProviderTree.FinancialInstitutionGroupNode.accessTypes(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 292,
       "symbol": "ProviderTree.FinancialInstitutionGroupNode.financialInstitutions(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 324,
       "symbol": "ProviderTree.FinancialInstitutionGroupNode.providers",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 363,
       "symbol": "ProviderTree.FinancialInstitutionGroupNode.displayName",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 371,
       "symbol": "ProviderTree.FinancialInstitutionGroupNode.imageURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/ProviderTree.swift",
       "line": 376,
       "symbol": "Array.makeFinancialInstitutions()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 24,
       "symbol": "Scope.ReadAccess",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 25,
       "symbol": "Scope.ReadAccess.read",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 28,
       "symbol": "Scope.ReadWriteAccess",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 29,
       "symbol": "Scope.ReadWriteAccess.read",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 29,
       "symbol": "Scope.ReadWriteAccess.write",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 32,
       "symbol": "Scope.AuthorizationAccess",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 33,
       "symbol": "Scope.AuthorizationAccess.grant",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 33,
       "symbol": "Scope.AuthorizationAccess.read",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 33,
       "symbol": "Scope.AuthorizationAccess.revoke",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 36,
       "symbol": "Scope.CredentialsAccess",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 37,
       "symbol": "Scope.CredentialsAccess.read",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 37,
       "symbol": "Scope.CredentialsAccess.refresh",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 37,
       "symbol": "Scope.CredentialsAccess.write",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 40,
       "symbol": "Scope.TransactionAccess",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 41,
       "symbol": "Scope.TransactionAccess.categorize",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 41,
       "symbol": "Scope.TransactionAccess.read",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 41,
       "symbol": "Scope.TransactionAccess.write",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 44,
       "symbol": "Scope.TransferAccess",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 45,
       "symbol": "Scope.TransferAccess.execute",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 45,
       "symbol": "Scope.TransferAccess.read",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 48,
       "symbol": "Scope.UserAccess",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 49,
       "symbol": "Scope.UserAccess.create",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 49,
       "symbol": "Scope.UserAccess.delete",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 49,
       "symbol": "Scope.UserAccess.read",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 49,
       "symbol": "Scope.UserAccess.webHooks",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 49,
       "symbol": "Scope.UserAccess.write",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 57,
       "symbol": "Scope.activities(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 61,
       "symbol": "Scope.authorization(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 65,
       "symbol": "Scope.beneficiaries(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 69,
       "symbol": "Scope.budgets(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 73,
       "symbol": "Scope.calendar(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 77,
       "symbol": "Scope.categories(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 81,
       "symbol": "Scope.contacts(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 90,
       "symbol": "Scope.dataExports(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 94,
       "symbol": "Scope.documents(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 98,
       "symbol": "Scope.follow(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 107,
       "symbol": "Scope.insights(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 116,
       "symbol": "Scope.properties(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 120,
       "symbol": "Scope.providers(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 129,
       "symbol": "Scope.suggestions(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Models/Scope.swift",
       "line": 138,
       "symbol": "Scope.transfer(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Services/Cancellable.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Services/Cancellable.swift",
       "line": 3,
       "symbol": "Cancellable.cancel()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Services/Retriable.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Services/Retriable.swift",
       "line": 3,
       "symbol": "Retriable.retry()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/kl/Applications/Tink/tink-link-ios/Sources/TinkLink/Tink.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLink/Tink.swift",
       "line": 132,
       "symbol": "Tink.UserError",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/kl/Applications/Tink/tink-link-ios"
+  "source_directory": "/Users/kasperlahti/Applications/tink-link-ios"
 }
