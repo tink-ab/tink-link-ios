@@ -14,6 +14,10 @@ public final class InitiateTransferTask: Cancellable {
         case created(Transfer.ID)
         /// The user needs to be authenticated.
         case authenticating
+        /// The credentials are updating.
+        ///
+        /// The payload from the backend can be found in the associated value.
+        case updating(status: String)
         /// User has been successfully authenticated, the transfer initiation is now being executed.
         case executing(status: String)
     }
@@ -187,7 +191,7 @@ public final class InitiateTransferTask: Cancellable {
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
                 // Need to keep polling here, updated is the state when the authentication is done.
-                break
+                progressHandler(.updating(status: credentials.statusPayload))
             case .updated:
                 // Stops polling when the credentials status is updating
                 credentialsStatusPollingTask?.stopPolling()
