@@ -29,7 +29,11 @@ struct RESTSimpleRequest: RESTRequest {
     init<Body: Encodable>(path: String, method: RESTMethod, body: Body?, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<URLResponse, Error>) -> Void)) {
         self.path = path
         self.method = method
-        self.body = AnyEncodable(body)
+        if let body = body {
+            self.body = AnyEncodable(body)
+        } else {
+            self.body = nil
+        }
         self.contentType = contentType
         self.queryParameters = parameters
         self.completion = completion
@@ -64,11 +68,15 @@ struct RESTResourceRequest<T: Decodable>: RESTRequest {
         let body: AnyEncodable? = nil
         self.init(path: path, method: method, body: body, contentType: contentType, parameters: parameters, completion: completion)
     }
-    
+
     init<Body: Encodable>(path: String, method: RESTMethod, body: Body?, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<T, Error>) -> Void)) {
         self.path = path
         self.method = method
-        self.body = AnyEncodable(body)
+        if let body = body {
+            self.body = AnyEncodable(body)
+        } else {
+            self.body = nil
+        }
         self.contentType = contentType
         self.queryParameters = parameters
         self.completion = completion

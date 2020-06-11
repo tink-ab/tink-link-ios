@@ -26,6 +26,8 @@ class URLSessionRetryCancellableTask: RetryCancellable {
 
         if let body = request.body {
             urlRequest.httpBody = try JSONEncoder().encode(body)
+        } else {
+            urlRequest.httpBody = nil
         }
 
         for header in request.headers {
