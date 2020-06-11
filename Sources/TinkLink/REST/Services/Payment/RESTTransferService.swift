@@ -8,11 +8,8 @@ final class RESTTransferService: TransferService {
     }
 
     func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
-        typealias DestinationParameter = (name: String, value: String)
 
-        let parameters: [DestinationParameter] = destinationUris.map {
-            DestinationParameter("destination[]", $0.absoluteString)
-        }
+        let parameters: [URLQueryItem] = destinationUris.map { URLQueryItem(name: "destination[]", value: $0.absoluteString) }
 
         let request = RESTResourceRequest<RESTAccountListResponse>(path: "/api/v1/transfer/accounts", method: .get, contentType: .json, parameters: parameters) { result in
             let mappedResult = result.map { $0.accounts.map { Account(restAccount: $0) } }
