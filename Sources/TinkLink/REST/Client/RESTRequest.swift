@@ -64,6 +64,7 @@ struct RESTResourceRequest<T: Decodable>: RESTRequest {
         let body: AnyEncodable? = nil
         self.init(path: path, method: method, body: body, contentType: contentType, parameters: parameters, completion: completion)
     }
+    
     init<Body: Encodable>(path: String, method: RESTMethod, body: Body?, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<T, Error>) -> Void)) {
         self.path = path
         self.method = method
