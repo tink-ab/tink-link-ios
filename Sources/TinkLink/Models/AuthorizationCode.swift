@@ -1,5 +1,5 @@
 /// An authorization code from the Tink backend.
-public struct AuthorizationCode: Hashable, RawRepresentable, Decodable, ExpressibleByStringLiteral {
+public struct AuthorizationCode: Hashable, RawRepresentable, ExpressibleByStringLiteral {
     public let rawValue: String
 
     public init?(rawValue: String) {
@@ -10,6 +10,8 @@ public struct AuthorizationCode: Hashable, RawRepresentable, Decodable, Expressi
         self.rawValue = value
     }
 
+    /// Creates an authorization code.
+    /// - Parameter value: The authorization code
     public init(_ value: String) {
         self.rawValue = value
     }

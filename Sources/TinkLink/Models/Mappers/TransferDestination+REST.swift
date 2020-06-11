@@ -21,6 +21,7 @@ extension TransferDestination.Kind {
         case .investment: self = .investment
         case .loan: self = .loan
         case .savings: self = .savings
+        case .unknown: self = .unknown
         }
     }
 }

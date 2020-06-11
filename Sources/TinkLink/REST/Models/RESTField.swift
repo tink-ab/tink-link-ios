@@ -1,6 +1,6 @@
 import Foundation
 
-struct RESTFieldsString: Codable {
+struct RESTFieldsString: Decodable {
     let fields: [RESTField]
 
     init(from decoder: Decoder) throws {
@@ -12,7 +12,7 @@ struct RESTFieldsString: Codable {
         }
     }
 }
-struct RESTField: Codable {
+struct RESTField: Decodable {
 
     var defaultValue: String?
     var _description: String?

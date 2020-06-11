@@ -1,26 +1,26 @@
 {
   "warnings": [
     {
-      "file": "/Users/pontus.orraryd/Tink/tink-link-ios/Sources/TinkLinkUI/TinkLinkError.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/TinkLinkError.swift",
       "line": 19,
       "symbol": "TinkLinkError.internalError",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pontus.orraryd/Tink/tink-link-ios/Sources/TinkLinkUI/TinkLinkViewController.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/TinkLinkViewController.swift",
       "line": 184,
       "symbol": "TinkLinkViewController.init(tink:market:scopes:providerKinds:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pontus.orraryd/Tink/tink-link-ios/Sources/TinkLinkUI/TinkLinkViewController.swift",
+      "file": "/Users/kasperlahti/Applications/tink-link-ios/Sources/TinkLinkUI/TinkLinkViewController.swift",
       "line": 206,
       "symbol": "TinkLinkViewController.show(_:sender:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/pontus.orraryd/Tink/tink-link-ios"
+  "source_directory": "/Users/kasperlahti/Applications/tink-link-ios"
 }

@@ -153,8 +153,7 @@ extension Tink {
     public func authenticateUser(authorizationCode: AuthorizationCode, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
         return oAuthService.authenticate(code: authorizationCode, completion: { [weak self] result in
             do {
-                let authenticateResponse = try result.get()
-                let accessToken = authenticateResponse.accessToken
+                let accessToken = try result.get()
                 self?.userSession = .accessToken(accessToken.rawValue)
                 completion(.success)
             } catch {

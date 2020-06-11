@@ -4,9 +4,9 @@ import XCTest
 
 extension Beneficiary {
     static let savingBeneficiary = Beneficiary(
-        accountNumberType: "se",
+        accountNumberKind: "se",
+        accountNumber: "254fa71273394c5890de54fb3d20ac0f",
         name: "Savings Account tink",
-        ownerAccountID: "1078646804708704",
-        accountNumber: "254fa71273394c5890de54fb3d20ac0f"
+        ownerAccountID: "1078646804708704"
     )
 }

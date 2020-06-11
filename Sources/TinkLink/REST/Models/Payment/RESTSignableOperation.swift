@@ -1,9 +1,9 @@
 import Foundation
 
 /// SignableOperation object with the status of the transfer.
-struct RESTSignableOperation: Codable {
+struct RESTSignableOperation: Decodable {
 
-    enum Status: String, Codable {
+    enum Status: String, DefaultableDecodable {
         case awaitingCredentials = "AWAITING_CREDENTIALS"
         case awaitingThirdPartyAppAuthentication = "AWAITING_THIRD_PARTY_APP_AUTHENTICATION"
         case created = "CREATED"
@@ -13,10 +13,15 @@ struct RESTSignableOperation: Codable {
         case failed = "FAILED"
         case cancelled = "CANCELLED"
         case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTSignableOperation.Status = .unknown
     }
 
-    enum ModelType: String, Codable {
+    enum ModelType: String, DefaultableDecodable {
         case transfer = "TRANSFER"
+        case unknown = "UNKNOWN"
+        
+        static var decodeFallbackValue: RESTSignableOperation.ModelType = .unknown
     }
     /// The timestamp for when the operation was created.
     var created: Date?

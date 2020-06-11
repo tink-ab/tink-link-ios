@@ -21,7 +21,7 @@ final class RESTAuthenticationService: AuthenticationService {
         return client.performRequest(request)
     }
 
-    func authorize(clientID: String, redirectURI: URL, scopes: [Scope], completion: @escaping (Result<AuthorizationResponse, Error>) -> Void) -> RetryCancellable? {
+    func authorize(clientID: String, redirectURI: URL, scopes: [Scope], completion: @escaping (Result<AuthorizationCode, Error>) -> Void) -> RetryCancellable? {
 
         let body = [
             "clientId": clientID,
@@ -30,7 +30,9 @@ final class RESTAuthenticationService: AuthenticationService {
         ]
         let data = try? JSONEncoder().encode(body)
 
-        let request = RESTResourceRequest(path: "/api/v1/oauth/authorize", method: .post, body: data, contentType: .json, completion:  completion)
+        let request = RESTResourceRequest<RESTAuthorizationResponse>(path: "/api/v1/oauth/authorize", method: .post, body: data, contentType: .json, completion: { result in
+            completion(result.map(\.code).map(AuthorizationCode.init(_:)))
+        })
 
         return client.performRequest(request)
     }

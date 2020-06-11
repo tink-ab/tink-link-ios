@@ -79,6 +79,34 @@ extension InitiateTransferTask.Error: LocalizedError {
     }
 }
 
+extension AddBeneficiaryTask.Error: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .authenticationFailed:
+            return "Authentication Failed"
+        case .disabledCredentials:
+            return "Disabled Credentials"
+        case .credentialsSessionExpired:
+            return "Credentials Session Expired"
+        case .notFound:
+            return "Not Found"
+        case .invalidBeneficiary:
+            return "Invalid beneficiary"
+        }
+    }
+
+    public var failureReason: String? {
+        switch self {
+        case .authenticationFailed(let payload),
+             .disabledCredentials(let payload),
+             .credentialsSessionExpired(let payload),
+             .notFound(let payload),
+             .invalidBeneficiary(let payload):
+            return payload
+        }
+    }
+}
+
 extension ServiceError: LocalizedError {
     public var errorDescription: String? {
         switch self {
