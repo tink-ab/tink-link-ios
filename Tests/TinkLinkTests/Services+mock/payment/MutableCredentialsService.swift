@@ -9,7 +9,7 @@ class MutableCredentialsService: CredentialsService {
     var credentialsStatusAfterRefresh: Credentials.Status = .authenticating
     var credentialsStatusAfterThirdPartyCallback: Credentials.Status = .authenticating
     var credentialsStatusAfterManualAuthentication: Credentials.Status = .authenticating
-    var credentialsStatusAfterSupplementalInformation: Credentials.Status = .updating
+    var credentialsStatusAfterSupplementalInformation: Credentials.Status = .updated
 
     init(credentialsList: [Credentials]) {
         credentialsByID = Dictionary(grouping: credentialsList, by: \.id).compactMapValues(\.first)

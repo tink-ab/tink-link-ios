@@ -25,9 +25,11 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         case .created:
             credentials = Credentials(credentials: credentials, status: .authenticating)
         case .authenticating:
+            credentials = Credentials(credentials: credentials, status: .updating)
+        case .updating:
             credentials = Credentials(credentials: credentials, status: .awaitingSupplementalInformation)
         case .awaitingMobileBankIDAuthentication, .awaitingThirdPartyAppAuthentication, .awaitingSupplementalInformation:
-            credentials = Credentials(credentials: credentials, status: .updating)
+            credentials = Credentials(credentials: credentials, status: .updated)
         default:
             credentials = Credentials(credentials: credentials, status: .updated)
         }

@@ -111,6 +111,8 @@ extension TransferViewController {
             showStatus("Created")
         case .authenticating:
             showStatus("Authenticating…")
+        case .updating(let status):
+            showStatus(status)
         case .executing(let status):
             showStatus(status)
         }
