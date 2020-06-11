@@ -197,7 +197,8 @@ extension AddBeneficiaryTask {
             thirdPartyAppAuthenticationTask = task
             authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
         case .updating:
-            complete(with: .success(credentials))
+            // Need to keep polling here, updated is the state when the authentication is done.
+            break
         case .updated:
             complete(with: .success(credentials))
         case .permanentError:

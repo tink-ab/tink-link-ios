@@ -185,7 +185,10 @@ public final class InitiateTransferTask: Cancellable {
                 }
                 thirdPartyAuthenticationTask = task
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
-            case .updating, .updated:
+            case .updating:
+                // Need to keep polling here, updated is the state when the authentication is done.
+                break
+            case .updated:
                 // Stops polling when the credentials status is updating
                 credentialsStatusPollingTask?.stopPolling()
                 transferStatusPollingTask?.startPolling()
