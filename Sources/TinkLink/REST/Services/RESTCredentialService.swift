@@ -38,7 +38,7 @@ final class RESTCredentialsService: CredentialsService {
             parameters = []
         }
 
-        let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials", method: .post, body: .encodable(AnyEncodable(body)), contentType: .json, parameters: parameters) { result in
+        let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials", method: .post, body: body, contentType: .json, parameters: parameters) { result in
             completion(result.map(Credentials.init))
         }
 
@@ -56,7 +56,7 @@ final class RESTCredentialsService: CredentialsService {
 
     func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         let body = RESTUpdateCredentialsRequest(providerName: providerID.value, fields: fields, callbackUri: nil, appUri: appUri?.absoluteString)
-        let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials/\(credentialsID.value)", method: .put, body: .encodable(AnyEncodable(body)), contentType: .json) { result in
+        let request = RESTResourceRequest<RESTCredentials>(path: "/api/v1/credentials/\(credentialsID.value)", method: .put, body: body, contentType: .json) { result in
             completion(result.map(Credentials.init))
         }
 
@@ -85,7 +85,7 @@ final class RESTCredentialsService: CredentialsService {
     func supplementInformation(credentialsID: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
         let information = RESTSupplementalInformation(information: fields)
-        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/supplemental-information", method: .post, body: .encodable(AnyEncodable(information)), contentType: .json) { (result) in
+        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/supplemental-information", method: .post, body: information, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
         return client.performRequest(request)
@@ -93,7 +93,7 @@ final class RESTCredentialsService: CredentialsService {
 
     func cancelSupplementInformation(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         let information = RESTSupplementalInformation(information: [:])
-        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/supplemental-information", method: .post, body: .encodable(AnyEncodable(information)), contentType: .json) { (result) in
+        let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/supplemental-information", method: .post, body: information, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
         return client.performRequest(request)
@@ -117,7 +117,7 @@ final class RESTCredentialsService: CredentialsService {
     func thirdPartyCallback(state: String, parameters: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
         let relayedRequest = RESTCallbackRelayedRequest(state: state, parameters: parameters)
-        let request = RESTSimpleRequest(path: "/api/v1/credentials/third-party/callback/relayed", method: .post, body: .encodable(AnyEncodable(relayedRequest)), contentType: .json) { (result) in
+        let request = RESTSimpleRequest(path: "/api/v1/credentials/third-party/callback/relayed", method: .post, body: relayedRequest, contentType: .json) { (result) in
             completion(result.map { _ in })
         }
         return client.performRequest(request)

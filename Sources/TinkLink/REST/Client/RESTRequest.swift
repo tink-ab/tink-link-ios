@@ -3,7 +3,7 @@ import Foundation
 protocol RESTRequest {
     var path: String { get }
     var method: RESTMethod { get }
-    var body: RESTBody? { get }
+    var body: AnyEncodable? { get }
     var queryParameters: [URLQueryItem] { get }
     var contentType: RESTContentType? { get }
     var headers: [String: String] { get }
@@ -14,17 +14,22 @@ protocol RESTRequest {
 struct RESTSimpleRequest: RESTRequest {
     var path: String
     var method: RESTMethod
-    var body: RESTBody?
+    var body: AnyEncodable?
     var queryParameters: [URLQueryItem]
     var contentType: RESTContentType?
     var headers: [String: String] = [:]
 
     private var completion: ((Result<URLResponse, Error>) -> Void)
 
-    init(path: String, method: RESTMethod, body: RESTBody? = nil, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<URLResponse, Error>) -> Void)) {
+    init(path: String, method: RESTMethod, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<URLResponse, Error>) -> Void)) {
+        let body: AnyEncodable? = nil
+        self.init(path: path, method: method, body: body, contentType: contentType, parameters: parameters, completion: completion)
+    }
+
+    init<Body: Encodable>(path: String, method: RESTMethod, body: Body?, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<URLResponse, Error>) -> Void)) {
         self.path = path
         self.method = method
-        self.body = body
+        self.body = AnyEncodable(body)
         self.contentType = contentType
         self.queryParameters = parameters
         self.completion = completion
@@ -49,17 +54,20 @@ struct RESTResourceRequest<T: Decodable>: RESTRequest {
 
     var path: String
     var method: RESTMethod
-    var body: RESTBody?
+    var body: AnyEncodable?
     var queryParameters: [URLQueryItem]
     var contentType: RESTContentType?
     var headers: [String: String] = [:]
     
     private var completion: ((Result<T, Error>) -> Void)
-
-    init(path: String, method: RESTMethod, body: RESTBody? = nil, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<T, Error>) -> Void)) {
+    init(path: String, method: RESTMethod, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<T, Error>) -> Void)) {
+        let body: AnyEncodable? = nil
+        self.init(path: path, method: method, body: body, contentType: contentType, parameters: parameters, completion: completion)
+    }
+    init<Body: Encodable>(path: String, method: RESTMethod, body: Body?, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<T, Error>) -> Void)) {
         self.path = path
         self.method = method
-        self.body = body
+        self.body = AnyEncodable(body)
         self.contentType = contentType
         self.queryParameters = parameters
         self.completion = completion

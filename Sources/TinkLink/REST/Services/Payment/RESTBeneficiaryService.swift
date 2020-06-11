@@ -24,7 +24,7 @@ class RESTBeneficiaryService: BeneficiaryService {
             ownerAccountId: request.ownerAccountID.value,
             credentialsId: request.credentialsID.value
         )
-        let request = RESTResourceRequest<Data>(path: "/api/v1/beneficiaries", method: .post, body: .encodable(AnyEncodable(body)), contentType: .json) { result in
+        let request = RESTSimpleRequest(path: "/api/v1/beneficiaries", method: .post, body: body, contentType: .json) { result in
             completion(result.map { _ in })
         }
         return client.performRequest(request)

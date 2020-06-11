@@ -24,13 +24,8 @@ class URLSessionRetryCancellableTask: RetryCancellable {
             urlRequest.setValue(contentType.rawValue, forHTTPHeaderField: "Content-Type")
         }
 
-        switch request.body {
-        case .data(let data):
-            urlRequest.httpBody = data
-        case .encodable(let encodable):
-            urlRequest.httpBody = try JSONEncoder().encode(encodable)
-        case .none:
-            urlRequest.httpBody = nil
+        if let body = request.body {
+            urlRequest.httpBody = try JSONEncoder().encode(body)
         }
 
         for header in request.headers {

@@ -33,7 +33,7 @@ final class RESTTransferService: TransferService {
             sourceUri: transfer.sourceUri,
             redirectUri: redirectURI.absoluteString
         )
-        let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer", method: .post, body: .encodable(AnyEncodable(body)), contentType: .json) { result in
+        let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer", method: .post, body: body, contentType: .json) { result in
             let mappedResult = result.map { SignableOperation($0) }
             completion(mappedResult)
         }
