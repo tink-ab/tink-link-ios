@@ -400,6 +400,7 @@ extension TinkLinkViewController {
         alertController.addAction(retryAction)
 
         let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
+            self.completionHandler()
             self.presentingViewController?.dismiss(animated: true)
         }
         alertController.addAction(dismissAction)
@@ -416,6 +417,7 @@ extension TinkLinkViewController {
         )
 
         let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
+            self.completionHandler()
             self.presentingViewController?.dismiss(animated: true)
         }
         alertController.addAction(dismissAction)
