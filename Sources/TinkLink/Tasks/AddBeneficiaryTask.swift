@@ -58,6 +58,7 @@ public final class AddBeneficiaryTask: Cancellable {
     private let name: String
     private let accountNumberType: String
     private let accountNumber: String
+    private var fetchedCredentials: Credentials?
     private let progressHandler: (Status) -> Void
     private let authenticationHandler: (AuthenticationTask) -> Void
     private let completionHandler: (Result<Void, Swift.Error>) -> Void
@@ -106,6 +107,17 @@ public final class AddBeneficiaryTask: Cancellable {
 
 extension AddBeneficiaryTask {
     func start() {
+        callCanceller = credentialsService.credentials(id: ownerAccountCredentialsID) { [weak self] result in
+            do {
+                self?.fetchedCredentials = try result.get()
+                self?.createBeneficiary()
+            } catch {
+                self?.complete(with: .failure(Error(error) ?? error))
+            }
+        }
+    }
+
+    private func createBeneficiary() {
         let request = CreateBeneficiaryRequest(
             accountNumberType: accountNumberType,
             accountNumber: accountNumber,
@@ -141,7 +153,7 @@ extension AddBeneficiaryTask {
 
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
             id: id,
-            initialValue: nil,
+            initialValue: fetchedCredentials,
             request: credentialsService.credentials,
             predicate: { (old, new) in
                 guard let oldStatusUpdated = old.statusUpdated, let newStatusUpdated = new.statusUpdated else {
