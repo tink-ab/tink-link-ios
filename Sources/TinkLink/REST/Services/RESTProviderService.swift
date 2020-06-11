@@ -17,7 +17,11 @@ final class RESTProviderService: ProviderService {
         if let id = id {
             parameters.append((name: "name", value: id.value))
         }
-        
+
+        if let restCapabilities = capabilities?.restCapabilities, restCapabilities.count == 1 {
+            parameters.append((name: "capability", value: restCapabilities[0].rawValue))
+        }
+
         let request = RESTResourceRequest<RESTProviders>(path: "/api/v1/providers", method: .get, contentType: .json, parameters: parameters) { result in
 
             do {
