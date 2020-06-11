@@ -11,15 +11,15 @@ final class RESTProviderService: ProviderService {
     func providers(id: Provider.ID?, capabilities: Provider.Capabilities?, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
 
         var parameters = [
-            (name: "includeTestProviders", value: includeTestProviders ? "true" : "false")
+            URLQueryItem(name: "includeTestProviders", value: includeTestProviders ? "true" : "false")
         ]
 
         if let id = id {
-            parameters.append((name: "name", value: id.value))
+            parameters.append(.init(name: "name", value: id.value))
         }
 
         if let restCapabilities = capabilities?.restCapabilities, restCapabilities.count == 1 {
-            parameters.append((name: "capability", value: restCapabilities[0].rawValue))
+            parameters.append(.init(name: "capability", value: restCapabilities[0].rawValue))
         }
 
         let request = RESTResourceRequest<RESTProviders>(path: "/api/v1/providers", method: .get, contentType: .json, parameters: parameters) { result in

@@ -4,7 +4,7 @@ protocol RESTRequest {
     var path: String { get }
     var method: RESTMethod { get }
     var body: Data? { get }
-    var queryParameters: [(name: String, value: String)] { get }
+    var queryParameters: [URLQueryItem] { get }
     var contentType: RESTContentType? { get }
     var headers: [String: String] { get }
 
@@ -15,13 +15,13 @@ struct RESTSimpleRequest: RESTRequest {
     var path: String
     var method: RESTMethod
     var body: Data?
-    var queryParameters: [(name: String, value: String)]
+    var queryParameters: [URLQueryItem]
     var contentType: RESTContentType?
     var headers: [String: String] = [:]
 
     private var completion: ((Result<URLResponse, Error>) -> Void)
 
-    init(path: String, method: RESTMethod, body: Data? = nil, contentType: RESTContentType?, parameters: [(name: String, value: String)] = [], completion: @escaping ((Result<URLResponse, Error>) -> Void)) {
+    init(path: String, method: RESTMethod, body: Data? = nil, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<URLResponse, Error>) -> Void)) {
         self.path = path
         self.method = method
         self.body = body
@@ -50,13 +50,13 @@ struct RESTResourceRequest<T: Decodable>: RESTRequest {
     var path: String
     var method: RESTMethod
     var body: Data?
-    var queryParameters: [(name: String, value: String)]
+    var queryParameters: [URLQueryItem]
     var contentType: RESTContentType?
     var headers: [String: String] = [:]
     
     private var completion: ((Result<T, Error>) -> Void)
 
-    init(path: String, method: RESTMethod, body: Data? = nil, contentType: RESTContentType?, parameters: [(name: String, value: String)] = [], completion: @escaping ((Result<T, Error>) -> Void)) {
+    init(path: String, method: RESTMethod, body: Data? = nil, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<T, Error>) -> Void)) {
         self.path = path
         self.method = method
         self.body = body

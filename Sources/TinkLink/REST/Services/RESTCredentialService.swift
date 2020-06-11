@@ -32,9 +32,9 @@ final class RESTCredentialsService: CredentialsService {
         let body = RESTCreateCredentialsRequest(providerName: providerID.value, fields: fields, callbackUri: nil, appUri: appUri?.absoluteString, triggerRefresh: nil)
         let data = try? JSONEncoder().encode(body)
 
-        let parameters: [(name: String, value: String)]
+        let parameters: [URLQueryItem]
         if refreshableItems != .all {
-            parameters = refreshableItems.strings.map({ (name: "items", value: $0) })
+            parameters = refreshableItems.strings.map({ .init(name: "items", value: $0) })
         } else {
             parameters = []
         }
@@ -67,15 +67,15 @@ final class RESTCredentialsService: CredentialsService {
 
     func refreshCredentials(credentialsID: Credentials.ID, refreshableItems: RefreshableItems, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
 
-        var parameters: [(name: String, value: String)]
+        var parameters: [URLQueryItem]
         if refreshableItems != .all {
-            parameters = refreshableItems.strings.map({ (name: "items", value: $0) })
+            parameters = refreshableItems.strings.map({ .init(name: "items", value: $0) })
         } else {
             parameters = []
         }
 
         if optIn {
-            parameters.append((name: "optIn", value: "true"))
+            parameters.append(.init(name: "optIn", value: "true"))
         }
 
         let request = RESTSimpleRequest(path: "/api/v1/credentials/\(credentialsID.value)/refresh", method: .post, contentType: .json, parameters: parameters) { (result) in
