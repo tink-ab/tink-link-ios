@@ -156,9 +156,14 @@ extension AddBeneficiaryTask {
             initialValue: fetchedCredentials,
             request: credentialsService.credentials,
             predicate: { (old, new) in
-                guard let oldStatusUpdated = old.statusUpdated, let newStatusUpdated = new.statusUpdated else {
-                    return false
+                guard let oldStatusUpdated = old.statusUpdated else {
+                    return new.statusUpdated != nil || old.status != new.status
                 }
+
+                guard let newStatusUpdated = new.statusUpdated else {
+                    return old.status != new.status
+                }
+
                 return oldStatusUpdated < newStatusUpdated || old.status != new.status
             },
             updateHandler: { [weak self] result in
