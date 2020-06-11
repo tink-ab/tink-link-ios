@@ -53,10 +53,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
                     statusChangedToRequestSent.fulfill()
                     credentialsService.modifyCredentials(id: credentials.id, status: .authenticating)
                 case .authenticating:
+                    credentialsService.modifyCredentials(id: credentials.id, status: .updating)
+                case .updating:
                     statusChangedToAuthenticating.fulfill()
                     credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
-                case .updating:
-                    break
                 }
             },
             completion: { result in
@@ -121,10 +121,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
                     statusChangedToRequestSent.fulfill()
                     credentialsService.modifyCredentials(id: credentials.id, status: .authenticating)
                 case .authenticating:
+                    credentialsService.modifyCredentials(id: credentials.id, status: .updating)
+                case .updating:
                     statusChangedToAuthenticating.fulfill()
                     credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
-                case .updating:
-                    break
                 }
             },
             completion: { result in
@@ -183,10 +183,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
                     statusChangedToRequestSent.fulfill()
                     credentialsService.modifyCredentials(id: credentials.id, status: .authenticating)
                 case .authenticating:
+                    credentialsService.modifyCredentials(id: credentials.id, status: .updating)
+                case .updating:
                     statusChangedToAuthenticating.fulfill()
                     credentialsService.modifyCredentials(id: credentials.id, status: .updated)
-                case .updating:
-                    break
                 }
             },
             completion: { result in
@@ -250,10 +250,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
                     statusChangedToRequestSent.fulfill()
                     credentialsService.modifyCredentials(id: credentialsWithCapability.id, status: .authenticating)
                 case .authenticating:
+                    credentialsService.modifyCredentials(id: credentialsWithCapability.id, status: .updating)
+                case .updating:
                     statusChangedToAuthenticating.fulfill()
                     credentialsService.modifyCredentials(id: credentialsWithCapability.id, status: .updated)
-                case .updating:
-                    break
                 }
             },
             completion: { result in
