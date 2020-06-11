@@ -94,19 +94,13 @@ final class LoadingViewController: UIViewController {
         }
     }
 
-    func setError(_ error: Error?, onRetry: (() -> Void)?) {
+    func setError(_ error: Error?, onClose: @escaping () -> Void, onRetry: (() -> Void)?) {
         DispatchQueue.main.async {
             self.hideLoadingIndicator()
             self.onRetry = onRetry
+            self.onClose = onClose
             self.errorView.isHidden = false
             self.errorView.configure(with: error, showRetry: onRetry != nil)
-        }
-    }
-
-    func close(onClose: (() -> Void)?) {
-        DispatchQueue.main.async {
-            self.onClose = onClose
-            self.errorView.isHidden = true
         }
     }
 
