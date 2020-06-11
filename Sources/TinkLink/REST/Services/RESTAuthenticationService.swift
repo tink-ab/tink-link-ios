@@ -27,7 +27,7 @@ final class RESTAuthenticationService: AuthenticationService {
             "scope": scopes.scopeDescription,
         ]
         
-        let request = RESTResourceRequest(path: "/api/v1/oauth/authorize", method: .post, body: .encodable(AnyEncodable(body)), contentType: .json, completion: { result in
+        let request = RESTResourceRequest<RESTAuthorizationResponse>(path: "/api/v1/oauth/authorize", method: .post, body: .encodable(AnyEncodable(body)), contentType: .json, completion: { result in
             completion(result.map(\.code).map(AuthorizationCode.init(_:)))
         })
 
