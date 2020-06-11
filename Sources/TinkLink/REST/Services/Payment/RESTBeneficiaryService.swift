@@ -24,15 +24,9 @@ class RESTBeneficiaryService: BeneficiaryService {
             ownerAccountId: request.ownerAccountID.value,
             credentialsId: request.credentialsID.value
         )
-        do {
-            let data = try JSONEncoder().encode(body)
-            let request = RESTResourceRequest<Data>(path: "/api/v1/beneficiaries", method: .post, body: data, contentType: .json) { result in
-                completion(result.map { _ in })
-            }
-            return client.performRequest(request)
-        } catch {
-            completion(.failure(error))
-            return nil
+        let request = RESTSimpleRequest(path: "/api/v1/beneficiaries", method: .post, body: body, contentType: .json) { result in
+            completion(result.map { _ in })
         }
+        return client.performRequest(request)
     }
 }

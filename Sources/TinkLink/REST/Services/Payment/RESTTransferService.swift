@@ -33,18 +33,12 @@ final class RESTTransferService: TransferService {
             sourceUri: transfer.sourceUri,
             redirectUri: redirectURI.absoluteString
         )
-        do {
-            let data = try JSONEncoder().encode(body)
-            let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer", method: .post, body: data, contentType: .json) { result in
-                let mappedResult = result.map { SignableOperation($0) }
-                completion(mappedResult)
-            }
-
-            return client.performRequest(request)
-        } catch {
-            completion(.failure(error))
-            return nil
+        let request = RESTResourceRequest<RESTSignableOperation>(path: "/api/v1/transfer", method: .post, body: body, contentType: .json) { result in
+            let mappedResult = result.map { SignableOperation($0) }
+            completion(mappedResult)
         }
+
+        return client.performRequest(request)
     }
 
     func transferStatus(transferID: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {

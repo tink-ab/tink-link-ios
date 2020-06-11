@@ -8,7 +8,7 @@ class URLSessionRetryCancellableTask: RetryCancellable {
 
     private var task: URLSessionTask?
 
-    init(session: URLSession, url: URL, behavior: ClientBehavior, request: RESTRequest) {
+    init(session: URLSession, url: URL, behavior: ClientBehavior, request: RESTRequest) throws {
         self.session = session
         self.request = request
         self.behavior = behavior
@@ -24,7 +24,12 @@ class URLSessionRetryCancellableTask: RetryCancellable {
             urlRequest.setValue(contentType.rawValue, forHTTPHeaderField: "Content-Type")
         }
 
-        urlRequest.httpBody = request.body
+        if let body = request.body {
+            urlRequest.httpBody = try JSONEncoder().encode(body)
+        } else {
+            urlRequest.httpBody = nil
+        }
+
         for header in request.headers {
             urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
         }

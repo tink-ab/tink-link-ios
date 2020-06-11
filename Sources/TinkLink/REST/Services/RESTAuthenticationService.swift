@@ -12,9 +12,7 @@ final class RESTAuthenticationService: AuthenticationService {
 
         let body = RESTDescribeOAuth2ClientRequest(clientId: clientID, redirectUri: redirectURI.absoluteString, scope: scopes.scopeDescription)
 
-        let data = try? JSONEncoder().encode(body)
-
-        let request = RESTResourceRequest<RESTDescribeOAuth2ClientResponse>(path: "/api/v1/oauth/describe", method: .post, body: data, contentType: .json, completion: { result in
+        let request = RESTResourceRequest<RESTDescribeOAuth2ClientResponse>(path: "/api/v1/oauth/describe", method: .post, body: body, contentType: .json, completion: { result in
             completion(result.map(ClientDescription.init))
         })
 
@@ -28,9 +26,8 @@ final class RESTAuthenticationService: AuthenticationService {
             "redirectUri": redirectURI.absoluteString,
             "scope": scopes.scopeDescription,
         ]
-        let data = try? JSONEncoder().encode(body)
-
-        let request = RESTResourceRequest<RESTAuthorizationResponse>(path: "/api/v1/oauth/authorize", method: .post, body: data, contentType: .json, completion: { result in
+        
+        let request = RESTResourceRequest<RESTAuthorizationResponse>(path: "/api/v1/oauth/authorize", method: .post, body: body, contentType: .json, completion: { result in
             completion(result.map(\.code).map(AuthorizationCode.init(_:)))
         })
 
