@@ -55,6 +55,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 case .authenticating:
                     statusChangedToAuthenticating.fulfill()
                     credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
+                case .updating:
+                    break
                 }
             },
             completion: { result in
@@ -121,6 +123,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 case .authenticating:
                     statusChangedToAuthenticating.fulfill()
                     credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
+                case .updating:
+                    break
                 }
             },
             completion: { result in
@@ -181,6 +185,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 case .authenticating:
                     statusChangedToAuthenticating.fulfill()
                     credentialsService.modifyCredentials(id: credentials.id, status: .updated)
+                case .updating:
+                    break
                 }
             },
             completion: { result in
@@ -246,6 +252,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 case .authenticating:
                     statusChangedToAuthenticating.fulfill()
                     credentialsService.modifyCredentials(id: credentialsWithCapability.id, status: .updated)
+                case .updating:
+                    break
                 }
             },
             completion: { result in
@@ -324,6 +332,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
                         deepLinkURL: URL(string: "app://test")
                     )
                     credentialsService.modifyCredentials(id: credentials.id, status: .awaitingThirdPartyAppAuthentication, thirdPartyAppAuthentication: thirdPartyAppAuthentication)
+                case .updating:
+                    break
                 }
             },
             completion: { result in
