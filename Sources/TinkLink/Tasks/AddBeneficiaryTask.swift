@@ -144,7 +144,7 @@ extension AddBeneficiaryTask {
             initialValue: nil,
             request: credentialsService.credentials,
             predicate: { (old, new) in
-                old.statusUpdated != new.statusUpdated || old.status != new.status
+                old.statusUpdated < new.statusUpdated || old.status != new.status
             },
             updateHandler: { [weak self] result in
                 self?.handleUpdate(for: result)

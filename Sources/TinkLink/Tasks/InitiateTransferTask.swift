@@ -124,7 +124,7 @@ public final class InitiateTransferTask: Cancellable {
                         initialValue: nil,
                         request: credentialsService.credentials,
                         predicate: {  (old, new) -> Bool in
-                            return old.statusUpdated != new.statusUpdated || old.status != new.status
+                            return old.statusUpdated < new.statusUpdated || old.status != new.status
                     }) { [weak self] result in
                         self?.handleUpdate(for: result)
                     }
