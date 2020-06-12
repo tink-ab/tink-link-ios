@@ -28,8 +28,8 @@ final class RESTClient {
                 if let error = error {
                     request.onResponse(.failure(error))
                     self.behavior.afterError(error: error)
-                } else if let data = data, let response = response as? HTTPURLResponse {
-                    if let error = RESTError(statusCode: response.statusCode) {
+                } else if let data = data, let response = response {
+                    if let response = response as? HTTPURLResponse, let error = RESTError(statusCode: response.statusCode) {
                         request.onResponse(.failure(error))
                         self.behavior.afterError(error: error)
                     } else {
