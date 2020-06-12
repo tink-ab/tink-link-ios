@@ -135,6 +135,7 @@
 		8FDA297723D1F5B900EC810F /* Credentials */ = {
 			isa = PBXGroup;
 			children = (
+				8F39F02823D5BC79009D785E /* CredentialsPickerViewController.swift */,
 				8FDA296423D1EE4D00EC810F /* AddCredentialsViewController.swift */,
 				8FD3A6F823D89714002E97EF /* CredentialsDetailViewController.swift */,
 				8F348AE5245994F1009B9973 /* UpdateCredentialsViewController.swift */,
@@ -163,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */,
-				8F39F02823D5BC79009D785E /* CredentialsPickerViewController.swift */,
 				8FDA296123D1EDF000EC810F /* Providers */,
 				8FDA297723D1F5B900EC810F /* Credentials */,
 				20358156246974F90075F1EA /* Transfer */,
