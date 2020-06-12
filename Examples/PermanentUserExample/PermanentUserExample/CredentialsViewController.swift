@@ -35,7 +35,6 @@ extension CredentialsViewController {
 
         title = "Credentials"
 
-        navigationItem.leftBarButtonItem = editButtonItem
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredentials))
 
         toolbarItems = [
@@ -153,22 +152,4 @@ extension CredentialsViewController {
 // MARK: - UITableViewDelegate
 
 extension CredentialsViewController {
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == .delete else { return }
-        let credentials = credentialsList[indexPath.row]
-        credentialsContext.delete(credentials) { [weak self] (result) in
-            DispatchQueue.main.async {
-                do {
-                    _ = try result.get()
-                    self?.credentialsList.remove(at: indexPath.item)
-                } catch {
-                    self?.showAlert(for: error)
-                }
-            }
-        }
-    }
 }
