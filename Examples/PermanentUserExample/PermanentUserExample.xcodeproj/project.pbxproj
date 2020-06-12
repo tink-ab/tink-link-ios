@@ -18,7 +18,7 @@
 		6BB8C3AB246A961200C2C999 /* BeneficiaryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8C3AA246A961200C2C999 /* BeneficiaryPickerViewController.swift */; };
 		8F348AE6245994F1009B9973 /* UpdateCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE5245994F1009B9973 /* UpdateCredentialsViewController.swift */; };
 		8F39F02923D5BC79009D785E /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39F02823D5BC79009D785E /* CredentialsViewController.swift */; };
-		8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */; };
+		8FD3A6F923D89714002E97EF /* CredentialsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3A6F823D89714002E97EF /* CredentialsDetailViewController.swift */; };
 		8FDA296623D1EE4D00EC810F /* AddCredentialsStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296323D1EE4D00EC810F /* AddCredentialsStatusViewController.swift */; };
 		8FDA296723D1EE4D00EC810F /* AddCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296423D1EE4D00EC810F /* AddCredentialsViewController.swift */; };
 		8FDA296823D1EE4D00EC810F /* SupplementalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */; };
@@ -48,7 +48,7 @@
 		6BB8C3AA246A961200C2C999 /* BeneficiaryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeneficiaryPickerViewController.swift; sourceTree = "<group>"; };
 		8F348AE5245994F1009B9973 /* UpdateCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsViewController.swift; sourceTree = "<group>"; };
 		8F39F02823D5BC79009D785E /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
-		8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCredentialsViewController.swift; sourceTree = "<group>"; };
+		8FD3A6F823D89714002E97EF /* CredentialsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailViewController.swift; sourceTree = "<group>"; };
 		8FDA296323D1EE4D00EC810F /* AddCredentialsStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialsStatusViewController.swift; sourceTree = "<group>"; };
 		8FDA296423D1EE4D00EC810F /* AddCredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialsViewController.swift; sourceTree = "<group>"; };
 		8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementalInformationViewController.swift; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 		8FDA297723D1F5B900EC810F /* ManageCredentials */ = {
 			isa = PBXGroup;
 			children = (
-				8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */,
+				8FD3A6F823D89714002E97EF /* CredentialsDetailViewController.swift */,
 				8F348AE5245994F1009B9973 /* UpdateCredentialsViewController.swift */,
 				20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */,
 				2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */,
@@ -280,7 +280,7 @@
 				6BB8C3A924698FB300C2C999 /* SourceAccountPickerViewController.swift in Sources */,
 				20164862243F0D1300D3C1E0 /* SubtitleTableViewCell.swift in Sources */,
 				8FDA296623D1EE4D00EC810F /* AddCredentialsStatusViewController.swift in Sources */,
-				8FD3A6F923D89714002E97EF /* RefreshCredentialsViewController.swift in Sources */,
+				8FD3A6F923D89714002E97EF /* CredentialsDetailViewController.swift in Sources */,
 				8FDA297123D1EE5300EC810F /* FixedImageSizeTableViewCell.swift in Sources */,
 				20358158246975050075F1EA /* TransferViewController.swift in Sources */,
 				20A25781247ECD0D0030957F /* UIViewController+Error.swift in Sources */,

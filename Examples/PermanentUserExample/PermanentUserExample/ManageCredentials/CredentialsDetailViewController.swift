@@ -1,7 +1,7 @@
 import UIKit
 import TinkLink
 
-final class RefreshCredentialsViewController: UITableViewController {
+final class CredentialsDetailViewController: UITableViewController {
     private let credentialsContext = CredentialsContext()
     private var credentials: Credentials {
         didSet {
@@ -74,7 +74,7 @@ final class RefreshCredentialsViewController: UITableViewController {
 
 // MARK: - View Lifecycle
 
-extension RefreshCredentialsViewController {
+extension CredentialsDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -85,7 +85,7 @@ extension RefreshCredentialsViewController {
 
 // MARK: - UITableViewDataSource
 
-extension RefreshCredentialsViewController {
+extension CredentialsDetailViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
 
@@ -139,7 +139,7 @@ extension RefreshCredentialsViewController {
 
 // MARK: - UITableViewDelegate
 
-extension RefreshCredentialsViewController {
+extension CredentialsDetailViewController {
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         switch sections[indexPath.section] {
         case .status:
@@ -187,7 +187,7 @@ extension RefreshCredentialsViewController {
 
 // MARK: - Actions
 
-extension RefreshCredentialsViewController {
+extension CredentialsDetailViewController {
     private func refresh() {
         refreshCredentialsTask = credentialsContext.refresh(
             credentials,
@@ -347,7 +347,7 @@ extension RefreshCredentialsViewController {
 
 // MARK: - SupplementalInformationViewControllerDelegate
 
-extension RefreshCredentialsViewController: SupplementalInformationViewControllerDelegate {
+extension CredentialsDetailViewController: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credentials) {
         self.credentials = credential
         dismiss(animated: true)

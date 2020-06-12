@@ -144,7 +144,7 @@ extension CredentialsViewController {
             fatalError("Cannot find corresponding provider")
         }
 
-        let refreshCredentialsViewController = RefreshCredentialsViewController(credentials: credentials, provider: provider)
+        let refreshCredentialsViewController = CredentialsDetailViewController(credentials: credentials, provider: provider)
         refreshCredentialsViewController.title = provider.displayName
         show(refreshCredentialsViewController, sender: self)
     }
