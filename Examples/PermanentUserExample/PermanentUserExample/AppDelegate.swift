@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let credentialsViewController = CredentialsPickerViewController(style: .grouped)
+        credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredentials))
         credentialsViewController.toolbarItems = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(title: "Transfer", style: .plain, target: self, action: #selector(transfer)),
@@ -36,6 +37,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
+    @objc private func addCredentials(sender: UIBarButtonItem) {
+        let providerListViewController = ProviderListViewController()
+        providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAddingCredentials))
+        let navigationController = UINavigationController(rootViewController: providerListViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        window?.rootViewController?.present(navigationController, animated: true)
+    }
+
+    @objc private func cancelAddingCredentials(_ sender: Any) {
+        window?.rootViewController?.dismiss(animated: true)
+    }
+
     @objc private func transfer(_ sender: UIBarButtonItem) {
         let transferViewController = TransferViewController()
         let navigationController = UINavigationController(rootViewController: transferViewController)

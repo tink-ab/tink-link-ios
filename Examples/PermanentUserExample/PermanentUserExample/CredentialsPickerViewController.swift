@@ -35,8 +35,6 @@ extension CredentialsPickerViewController {
 
         title = "Credentials"
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredentials))
-
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
         
         tableView.refreshControl = UIRefreshControl()
@@ -93,19 +91,6 @@ extension CredentialsPickerViewController {
             refreshControl.endRefreshing()
         }
     }
-
-    @objc private func addCredentials(sender: UIBarButtonItem) {
-        let providerListViewController = ProviderListViewController()
-        providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAddingCredentials))
-        let navigationController = UINavigationController(rootViewController: providerListViewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
-    }
-
-    @objc private func cancelAddingCredentials(_ sender: Any) {
-        dismiss(animated: true)
-    }
-
 }
 
 // MARK: - UITableViewDataSource
