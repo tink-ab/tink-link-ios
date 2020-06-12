@@ -27,7 +27,7 @@ class TransferViewController: UITableViewController {
 
     private var initiateTransferTask: InitiateTransferTask?
 
-    private var statusViewController: AddCredentialsStatusViewController?
+    private var statusViewController: StatusViewController?
 
     init() {
         super.init(style: .insetGrouped)
@@ -250,7 +250,7 @@ extension TransferViewController {
 
     private func showStatus(_ status: String) {
         if statusViewController == nil {
-            let statusViewController = AddCredentialsStatusViewController()
+            let statusViewController = StatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
             present(statusViewController, animated: true)

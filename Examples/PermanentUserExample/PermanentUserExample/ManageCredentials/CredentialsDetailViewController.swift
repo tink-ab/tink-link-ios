@@ -34,7 +34,7 @@ final class CredentialsDetailViewController: UITableViewController {
 
     private let dateFormatter = DateFormatter()
 
-    private var statusViewController: AddCredentialsStatusViewController?
+    private var statusViewController: StatusViewController?
 
     private var refreshCredentialsTask: RefreshCredentialsTask? {
         didSet {
@@ -320,7 +320,7 @@ extension CredentialsDetailViewController {
 
     private func showStatus(_ status: String, animated: Bool) {
         if statusViewController == nil {
-            let statusViewController = AddCredentialsStatusViewController()
+            let statusViewController = StatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
             present(statusViewController, animated: animated)

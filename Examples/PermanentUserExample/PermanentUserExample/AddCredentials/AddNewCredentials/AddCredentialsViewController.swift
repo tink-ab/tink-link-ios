@@ -17,7 +17,7 @@ final class AddCredentialsViewController: UITableViewController {
     private var credentials: Credentials?
 
     private var addCredentialsTask: AddCredentialsTask?
-    private var statusViewController: AddCredentialsStatusViewController?
+    private var statusViewController: StatusViewController?
     private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private var didFirstFieldBecomeFirstResponder = false
 
@@ -271,7 +271,7 @@ extension AddCredentialsViewController {
     private func showUpdating(status: String) {
         if statusViewController == nil {
             navigationItem.setRightBarButton(addBarButtonItem, animated: true)
-            let statusViewController = AddCredentialsStatusViewController()
+            let statusViewController = StatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
             present(statusViewController, animated: true)
