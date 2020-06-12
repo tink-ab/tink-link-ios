@@ -12,6 +12,8 @@ protocol RESTRequest {
 }
 
 struct RESTSimpleRequest: RESTRequest {
+    typealias ResultType = Result<(data: Data, urlResponse: URLResponse), Error>
+
     var path: String
     var method: RESTMethod
     var body: AnyEncodable?
@@ -19,14 +21,14 @@ struct RESTSimpleRequest: RESTRequest {
     var contentType: RESTContentType?
     var headers: [String: String] = [:]
 
-    private var completion: ((Result<URLResponse, Error>) -> Void)
+    private var completion: (ResultType) -> Void
 
-    init(path: String, method: RESTMethod, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<URLResponse, Error>) -> Void)) {
+    init(path: String, method: RESTMethod, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((ResultType) -> Void)) {
         let body: AnyEncodable? = nil
         self.init(path: path, method: method, body: body, contentType: contentType, parameters: parameters, completion: completion)
     }
 
-    init<Body: Encodable>(path: String, method: RESTMethod, body: Body?, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<URLResponse, Error>) -> Void)) {
+    init<Body: Encodable>(path: String, method: RESTMethod, body: Body?, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping (ResultType) -> Void) {
         self.path = path
         self.method = method
         if let body = body {
@@ -46,7 +48,7 @@ struct RESTSimpleRequest: RESTRequest {
                 let serviceError = ServiceError(errorResponse) {
                 completion(.failure(serviceError))
             } else {
-                completion(.success(response.urlResponse))
+                completion(.success((data: response.data, urlResponse: response.urlResponse)))
             }
         } catch {
             completion(.failure(ServiceError(error) ?? error))
