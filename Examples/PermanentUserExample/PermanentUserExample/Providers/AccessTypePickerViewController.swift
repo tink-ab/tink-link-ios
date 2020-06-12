@@ -1,7 +1,6 @@
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider grouped by access type
 final class AccessTypePickerViewController: UITableViewController {
     var accessTypeNodes: [ProviderTree.AccessTypeNode] = []
 }

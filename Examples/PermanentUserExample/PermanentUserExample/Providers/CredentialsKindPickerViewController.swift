@@ -1,7 +1,6 @@
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider grouped by credential type
 final class CredentialsKindPickerViewController: UITableViewController {
     var credentialsKindNodes: [ProviderTree.CredentialsKindNode] = []
 }

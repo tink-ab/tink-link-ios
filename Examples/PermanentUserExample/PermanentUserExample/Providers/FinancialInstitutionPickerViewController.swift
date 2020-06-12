@@ -1,7 +1,6 @@
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider grouped by financialInstitution
 final class FinancialInstitutionPickerViewController: UITableViewController {
     var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
 }

@@ -1,7 +1,6 @@
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider grouped by names
 final class FinancialInstitutionGroupPickerViewController: UITableViewController {
     private let providerContext = ProviderContext()
 

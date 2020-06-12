@@ -2,7 +2,6 @@ import Down
 import TinkLink
 import UIKit
 
-/// Example of how to update credential
 final class UpdateCredentialsViewController: UITableViewController {
     private let provider: Provider
     private var credentials: Credentials

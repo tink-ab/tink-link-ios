@@ -2,7 +2,6 @@ import Down
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider field specification to add credential
 final class AddCredentialsViewController: UITableViewController {
     let provider: Provider
 
