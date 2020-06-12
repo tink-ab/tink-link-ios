@@ -34,7 +34,11 @@ extension FinancialInstitutionPickerViewController {
         }
         return cell
     }
+}
 
+// MARK: - UITableViewDelegate
+
+extension FinancialInstitutionPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let financialInstitutionNode = financialInstitutionNodes[indexPath.row]
         switch financialInstitutionNode {

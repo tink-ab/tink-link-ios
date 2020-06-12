@@ -63,7 +63,11 @@ extension FinancialInstitutionGroupPickerViewController {
         cell.imageURL = group.imageURL
         return cell
     }
+}
 
+// MARK: - UITableViewDelegate
+
+extension FinancialInstitutionGroupPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
         switch financialInstitutionGroupNode {
