@@ -91,6 +91,15 @@
 			path = Transfer;
 			sourceTree = "<group>";
 		};
+		6B5CA12E24935D72009A9CBE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				20358152246597900075F1EA /* Error+LocalizedError.swift */,
+				20A25780247ECD0D0030957F /* UIViewController+Error.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		8FDA296023D1EDDB00EC810F /* AddNewCredentials */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,11 +166,10 @@
 			children = (
 				8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */,
 				8F39F02823D5BC79009D785E /* CredentialsViewController.swift */,
-				20358152246597900075F1EA /* Error+LocalizedError.swift */,
-				20A25780247ECD0D0030957F /* UIViewController+Error.swift */,
 				20358156246974F90075F1EA /* Transfer */,
 				8FDA297723D1F5B900EC810F /* RefreshCredentials */,
 				8FDA296223D1EDF800EC810F /* AddCredentials */,
+				6B5CA12E24935D72009A9CBE /* Extensions */,
 				8FFAE4E123D1E7D400784CBC /* Assets.xcassets */,
 				8FFAE4E323D1E7D400784CBC /* LaunchScreen.storyboard */,
 				8FFAE4E623D1E7D400784CBC /* Info.plist */,
