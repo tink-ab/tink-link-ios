@@ -409,7 +409,7 @@ extension TinkLinkViewController {
         present(alertController, animated: true)
     }
 
-    private func showErrorAlert(for error: Error) {
+    private func showLocalizedAlert(for error: Error) {
         let title: String?
         let message: String?
         if let error = error as? LocalizedError {
@@ -441,7 +441,7 @@ extension TinkLinkViewController {
             } catch CocoaError.userCancelled {
                 self?.cancel()
             } catch {
-                self?.showErrorAlert(for: error)
+                self?.showLocalizedAlert(for: error)
             }
         }
     }
