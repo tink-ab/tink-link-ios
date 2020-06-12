@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let credentialsViewController = CredentialsViewController(style: .grouped)
+        let credentialsViewController = CredentialsPickerViewController(style: .grouped)
         let navigationController = UINavigationController(rootViewController: credentialsViewController)
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.isToolbarHidden = false

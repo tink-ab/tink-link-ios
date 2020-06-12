@@ -1,7 +1,7 @@
 import TinkLink
 import UIKit
 
-class CredentialsViewController: UITableViewController {
+class CredentialsPickerViewController: UITableViewController {
     private let dateFormatter = DateFormatter()
 
     private let credentialsContext = CredentialsContext()
@@ -23,7 +23,7 @@ class CredentialsViewController: UITableViewController {
 
 // MARK: - View Lifecycle
 
-extension CredentialsViewController {
+extension CredentialsPickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,7 +64,7 @@ extension CredentialsViewController {
 
 // MARK: - Data
 
-extension CredentialsViewController {
+extension CredentialsPickerViewController {
     private func updateList(completion: (() -> Void)? = nil) {
         let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
         providerContext.fetchProviders(attributes: attributes) { [weak self] result in
@@ -93,7 +93,7 @@ extension CredentialsViewController {
 
 // MARK: - Actions
 
-extension CredentialsViewController {
+extension CredentialsPickerViewController {
     @objc private func refresh(_ refreshControl: UIRefreshControl) {
         updateList {
             refreshControl.endRefreshing()
@@ -121,7 +121,7 @@ extension CredentialsViewController {
 
 // MARK: - UITableViewDataSource
 
-extension CredentialsViewController {
+extension CredentialsPickerViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return credentialsList.count
     }
@@ -140,7 +140,7 @@ extension CredentialsViewController {
 
 // MARK: - UITableViewDelegate
 
-extension CredentialsViewController {
+extension CredentialsPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let credentials = credentialsList[indexPath.row]
         guard let provider = providersByID[credentials.providerID] else {
