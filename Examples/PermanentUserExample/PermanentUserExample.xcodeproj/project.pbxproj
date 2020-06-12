@@ -121,7 +121,7 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		8FDA296123D1EDF000EC810F /* ListProviders */ = {
+		8FDA296123D1EDF000EC810F /* Providers */ = {
 			isa = PBXGroup;
 			children = (
 				8FDA296D23D1EE5300EC810F /* AccessTypePickerViewController.swift */,
@@ -129,7 +129,7 @@
 				8FDA296A23D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift */,
 				8FDA296C23D1EE5300EC810F /* ProviderListViewController.swift */,
 			);
-			path = ListProviders;
+			path = Providers;
 			sourceTree = "<group>";
 		};
 		8FDA296223D1EDF800EC810F /* AddCredentials */ = {
@@ -171,7 +171,7 @@
 			children = (
 				8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */,
 				8F39F02823D5BC79009D785E /* CredentialsPickerViewController.swift */,
-				8FDA296123D1EDF000EC810F /* ListProviders */,
+				8FDA296123D1EDF000EC810F /* Providers */,
 				8FDA296223D1EDF800EC810F /* AddCredentials */,
 				8FDA297723D1F5B900EC810F /* ManageCredentials */,
 				20358156246974F90075F1EA /* Transfer */,
