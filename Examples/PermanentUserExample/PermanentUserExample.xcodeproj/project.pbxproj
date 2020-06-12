@@ -133,7 +133,7 @@
 			path = AddCredentials;
 			sourceTree = "<group>";
 		};
-		8FDA297723D1F5B900EC810F /* RefreshCredentials */ = {
+		8FDA297723D1F5B900EC810F /* ManageCredentials */ = {
 			isa = PBXGroup;
 			children = (
 				8FD3A6F823D89714002E97EF /* RefreshCredentialsViewController.swift */,
@@ -141,7 +141,7 @@
 				20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */,
 				2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */,
 			);
-			path = RefreshCredentials;
+			path = ManageCredentials;
 			sourceTree = "<group>";
 		};
 		8FFAE4CC23D1E7D100784CBC = {
@@ -167,7 +167,7 @@
 				8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */,
 				8F39F02823D5BC79009D785E /* CredentialsViewController.swift */,
 				20358156246974F90075F1EA /* Transfer */,
-				8FDA297723D1F5B900EC810F /* RefreshCredentials */,
+				8FDA297723D1F5B900EC810F /* ManageCredentials */,
 				8FDA296223D1EDF800EC810F /* AddCredentials */,
 				6B5CA12E24935D72009A9CBE /* Extensions */,
 				8FFAE4E123D1E7D400784CBC /* Assets.xcassets */,
