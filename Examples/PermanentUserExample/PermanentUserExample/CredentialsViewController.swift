@@ -136,7 +136,11 @@ extension CredentialsViewController {
         cell.accessoryType = .disclosureIndicator
         return cell
     }
+}
 
+// MARK: - UITableViewDelegate
+
+extension CredentialsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let credentials = credentialsList[indexPath.row]
         guard let provider = providersByID[credentials.providerID] else {
@@ -147,9 +151,4 @@ extension CredentialsViewController {
         refreshCredentialsViewController.title = provider.displayName
         show(refreshCredentialsViewController, sender: self)
     }
-}
-
-// MARK: - UITableViewDelegate
-
-extension CredentialsViewController {
 }
