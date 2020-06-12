@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     @objc private func addCredentials(sender: UIBarButtonItem) {
-        let providerListViewController = ProviderListViewController()
+        let providerListViewController = FinancialInstitutionGroupPickerViewController()
         providerListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAddingCredentials))
         let navigationController = UINavigationController(rootViewController: providerListViewController)
         navigationController.modalPresentationStyle = .fullScreen

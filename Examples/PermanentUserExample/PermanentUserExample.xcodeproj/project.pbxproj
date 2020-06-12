@@ -25,7 +25,7 @@
 		8FDA296F23D1EE5300EC810F /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296923D1EE5300EC810F /* TextFieldTableViewCell.swift */; };
 		8FDA297023D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296A23D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift */; };
 		8FDA297123D1EE5300EC810F /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296B23D1EE5300EC810F /* FixedImageSizeTableViewCell.swift */; };
-		8FDA297223D1EE5300EC810F /* ProviderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296C23D1EE5300EC810F /* ProviderListViewController.swift */; };
+		8FDA297223D1EE5300EC810F /* FinancialInstitutionGroupPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296C23D1EE5300EC810F /* FinancialInstitutionGroupPickerViewController.swift */; };
 		8FDA297323D1EE5300EC810F /* AccessTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296D23D1EE5300EC810F /* AccessTypePickerViewController.swift */; };
 		8FDA297423D1EE5300EC810F /* CredentialsKindPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA296E23D1EE5300EC810F /* CredentialsKindPickerViewController.swift */; };
 		8FFAE4D923D1E7D100784CBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */; };
@@ -55,7 +55,7 @@
 		8FDA296923D1EE5300EC810F /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		8FDA296A23D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionPickerViewController.swift; sourceTree = "<group>"; };
 		8FDA296B23D1EE5300EC810F /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
-		8FDA296C23D1EE5300EC810F /* ProviderListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderListViewController.swift; sourceTree = "<group>"; };
+		8FDA296C23D1EE5300EC810F /* FinancialInstitutionGroupPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionGroupPickerViewController.swift; sourceTree = "<group>"; };
 		8FDA296D23D1EE5300EC810F /* AccessTypePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTypePickerViewController.swift; sourceTree = "<group>"; };
 		8FDA296E23D1EE5300EC810F /* CredentialsKindPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsKindPickerViewController.swift; sourceTree = "<group>"; };
 		8FFAE4D523D1E7D100784CBC /* PermanentUserExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PermanentUserExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,7 +127,7 @@
 				8FDA296D23D1EE5300EC810F /* AccessTypePickerViewController.swift */,
 				8FDA296E23D1EE5300EC810F /* CredentialsKindPickerViewController.swift */,
 				8FDA296A23D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift */,
-				8FDA296C23D1EE5300EC810F /* ProviderListViewController.swift */,
+				8FDA296C23D1EE5300EC810F /* FinancialInstitutionGroupPickerViewController.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -278,7 +278,7 @@
 				8F39F02923D5BC79009D785E /* CredentialsPickerViewController.swift in Sources */,
 				8FDA296823D1EE4D00EC810F /* SupplementalInformationViewController.swift in Sources */,
 				6BB8C3AB246A961200C2C999 /* BeneficiaryPickerViewController.swift in Sources */,
-				8FDA297223D1EE5300EC810F /* ProviderListViewController.swift in Sources */,
+				8FDA297223D1EE5300EC810F /* FinancialInstitutionGroupPickerViewController.swift in Sources */,
 				8FDA297423D1EE5300EC810F /* CredentialsKindPickerViewController.swift in Sources */,
 				8FDA296723D1EE4D00EC810F /* AddCredentialsViewController.swift in Sources */,
 				6B5198D6246987F80099C045 /* Value2TableViewCell.swift in Sources */,
