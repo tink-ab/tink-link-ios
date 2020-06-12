@@ -15,7 +15,7 @@ class BeneficiaryPickerViewController: UITableViewController {
     private let selectedBeneficiary: Beneficiary?
     private var canceller: RetryCancellable?
     private var addBeneficiaryTask: AddBeneficiaryTask?
-    private var statusViewController: AddCredentialsStatusViewController?
+    private var statusViewController: StatusViewController?
 
     init(sourceAccount: Account, selectedBeneficiary: Beneficiary? = nil) {
         self.sourceAccount = sourceAccount
@@ -189,7 +189,7 @@ extension BeneficiaryPickerViewController {
 
     private func showStatus(_ status: String) {
         if statusViewController == nil {
-            let statusViewController = AddCredentialsStatusViewController()
+            let statusViewController = StatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
             present(statusViewController, animated: true)

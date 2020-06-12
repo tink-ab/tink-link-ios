@@ -1,7 +1,6 @@
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider grouped by credential type
 final class CredentialsKindPickerViewController: UITableViewController {
     var credentialsKindNodes: [ProviderTree.CredentialsKindNode] = []
 }
@@ -33,7 +32,11 @@ extension CredentialsKindPickerViewController {
         cell.accessoryType = .disclosureIndicator
         return cell
     }
+}
 
+// MARK: - UITableViewDelegate
+
+extension CredentialsKindPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let credentialsKindNode = credentialsKindNodes[indexPath.row]
         showAddCredential(for: credentialsKindNode.provider)

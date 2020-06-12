@@ -1,8 +1,7 @@
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider grouped by names
-final class ProviderListViewController: UITableViewController {
+final class FinancialInstitutionGroupPickerViewController: UITableViewController {
     private let providerContext = ProviderContext()
 
     private let searchController = UISearchController(searchResultsController: nil)
@@ -16,7 +15,7 @@ final class ProviderListViewController: UITableViewController {
 
 // MARK: - View Lifecycle
 
-extension ProviderListViewController {
+extension FinancialInstitutionGroupPickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,7 +50,7 @@ extension ProviderListViewController {
 
 // MARK: - UITableViewDataSource
 
-extension ProviderListViewController {
+extension FinancialInstitutionGroupPickerViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return financialInstitutionGroupNodes.count
     }
@@ -64,7 +63,11 @@ extension ProviderListViewController {
         cell.imageURL = group.imageURL
         return cell
     }
+}
 
+// MARK: - UITableViewDelegate
+
+extension FinancialInstitutionGroupPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let financialInstitutionGroupNode = financialInstitutionGroupNodes[indexPath.row]
         switch financialInstitutionGroupNode {
@@ -82,7 +85,7 @@ extension ProviderListViewController {
 
 // MARK: - Navigation
 
-extension ProviderListViewController {
+extension FinancialInstitutionGroupPickerViewController {
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], title: String?) {
         let viewController = FinancialInstitutionPickerViewController()
         viewController.title = title
@@ -111,7 +114,7 @@ extension ProviderListViewController {
 
 // MARK: - UISearchResultsUpdating
 
-extension ProviderListViewController: UISearchResultsUpdating {
+extension FinancialInstitutionGroupPickerViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text, !text.isEmpty {
             financialInstitutionGroupNodes = originalFinancialInstitutionGroupNodes.filter { $0.displayName.localizedCaseInsensitiveContains(text) }
