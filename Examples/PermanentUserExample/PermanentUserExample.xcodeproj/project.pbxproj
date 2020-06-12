@@ -111,12 +111,20 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		6BC4AF102493667100AD97D5 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				8FDA296323D1EE4D00EC810F /* StatusViewController.swift */,
+				8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */,
+				20FD9611243F169B00603B5A /* QRViewController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		8FDA296023D1EDDB00EC810F /* AddNewCredentials */ = {
 			isa = PBXGroup;
 			children = (
 				8FDA296423D1EE4D00EC810F /* AddCredentialsViewController.swift */,
-				8FDA296523D1EE4D00EC810F /* SupplementalInformationViewController.swift */,
-				20FD9611243F169B00603B5A /* QRViewController.swift */,
 			);
 			path = AddNewCredentials;
 			sourceTree = "<group>";
@@ -172,10 +180,10 @@
 			children = (
 				8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */,
 				8F39F02823D5BC79009D785E /* CredentialsPickerViewController.swift */,
-				8FDA296323D1EE4D00EC810F /* StatusViewController.swift */,
 				20358156246974F90075F1EA /* Transfer */,
 				8FDA297723D1F5B900EC810F /* ManageCredentials */,
 				8FDA296223D1EDF800EC810F /* AddCredentials */,
+				6BC4AF102493667100AD97D5 /* Authentication */,
 				6BC4AF0F2493620F00AD97D5 /* Cells */,
 				6B5CA12E24935D72009A9CBE /* Extensions */,
 				8FFAE4E123D1E7D400784CBC /* Assets.xcassets */,
