@@ -4,11 +4,12 @@ final class LoadingViewController: UIViewController {
 
     private var onCancel: (() -> Void)?
     private var onRetry: (() -> Void)?
+    private var onClose: (() -> Void)?
 
     private let activityIndicatorView = ActivityIndicatorView()
     private let label = UILabel()
     private let cancelButton = UIButton(type: .system)
-    private let errorView = ProviderLoadingErrorView()
+    private let errorView = LoadingErrorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,12 +94,13 @@ final class LoadingViewController: UIViewController {
         }
     }
 
-    func setError(_ error: Error?, onRetry: (() -> Void)?) {
+    func setError(_ error: Error?, onClose: @escaping () -> Void, onRetry: (() -> Void)?) {
         DispatchQueue.main.async {
             self.hideLoadingIndicator()
             self.onRetry = onRetry
+            self.onClose = onClose
             self.errorView.isHidden = false
-            self.errorView.configure(with: error)
+            self.errorView.configure(with: error, showRetry: onRetry != nil)
         }
     }
 
@@ -107,8 +109,12 @@ final class LoadingViewController: UIViewController {
     }
 }
 
-extension LoadingViewController: ProviderLoadingErrorViewDelegate {
-    func reloadProviderList(providerLoadingErrorView: ProviderLoadingErrorView) {
+extension LoadingViewController: LoadingErrorViewDelegate {
+    func reloadProviderList(loadingErrorView: LoadingErrorView) {
         onRetry?()
+    }
+
+    func closeErrorView(loadingErrorView: LoadingErrorView) {
+        onClose?()
     }
 }

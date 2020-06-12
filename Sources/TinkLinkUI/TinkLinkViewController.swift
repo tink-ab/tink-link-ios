@@ -292,7 +292,6 @@ public class TinkLinkViewController: UINavigationController {
 
 
     func fetchProviders(providerPredicate: ProviderPredicate) {
-
         providerController.fetch(with: providerPredicate) { (result) in
             DispatchQueue.main.async {
                 switch result {
@@ -309,10 +308,14 @@ public class TinkLinkViewController: UINavigationController {
                     if let tinkLinkError = TinkLinkError(error: error) {
                         self.result = .failure(tinkLinkError)
                     }
-                    self.loadingViewController?.setError(error) {
-                        self.loadingViewController?.showLoadingIndicator()
-                        self.operate()
-                    }
+                    self.loadingViewController?.setError(error, onClose: { [weak self] in
+                        self?.loadingViewController?.hideLoadingIndicator()
+                        self?.result = .failure(.userCancelled)
+                        self?.closeTinkLink()
+                    }, onRetry: { [weak self] in
+                        self?.loadingViewController?.showLoadingIndicator()
+                        self?.operate()
+                    })
                 }
             }
         }
