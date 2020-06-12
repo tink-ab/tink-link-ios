@@ -86,7 +86,6 @@
 				20358157246975050075F1EA /* TransferViewController.swift */,
 				6BB8C3A824698FB300C2C999 /* SourceAccountPickerViewController.swift */,
 				6BB8C3AA246A961200C2C999 /* BeneficiaryPickerViewController.swift */,
-				6B5198D5246987F80099C045 /* Value2TableViewCell.swift */,
 			);
 			path = Transfer;
 			sourceTree = "<group>";
@@ -98,6 +97,18 @@
 				20A25780247ECD0D0030957F /* UIViewController+Error.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6BC4AF0F2493620F00AD97D5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */,
+				8FDA296B23D1EE5300EC810F /* FixedImageSizeTableViewCell.swift */,
+				20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */,
+				8FDA296923D1EE5300EC810F /* TextFieldTableViewCell.swift */,
+				6B5198D5246987F80099C045 /* Value2TableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		8FDA296023D1EDDB00EC810F /* AddNewCredentials */ = {
@@ -117,9 +128,7 @@
 				8FDA296D23D1EE5300EC810F /* AccessTypePickerViewController.swift */,
 				8FDA296E23D1EE5300EC810F /* CredentialsKindPickerViewController.swift */,
 				8FDA296A23D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift */,
-				8FDA296B23D1EE5300EC810F /* FixedImageSizeTableViewCell.swift */,
 				8FDA296C23D1EE5300EC810F /* ProviderListViewController.swift */,
-				8FDA296923D1EE5300EC810F /* TextFieldTableViewCell.swift */,
 			);
 			path = ListProviders;
 			sourceTree = "<group>";
@@ -138,8 +147,6 @@
 			children = (
 				8FD3A6F823D89714002E97EF /* CredentialsDetailViewController.swift */,
 				8F348AE5245994F1009B9973 /* UpdateCredentialsViewController.swift */,
-				20164861243F0D1300D3C1E0 /* SubtitleTableViewCell.swift */,
-				2016485F243F0CFE00D3C1E0 /* ButtonTableViewCell.swift */,
 			);
 			path = ManageCredentials;
 			sourceTree = "<group>";
@@ -169,6 +176,7 @@
 				20358156246974F90075F1EA /* Transfer */,
 				8FDA297723D1F5B900EC810F /* ManageCredentials */,
 				8FDA296223D1EDF800EC810F /* AddCredentials */,
+				6BC4AF0F2493620F00AD97D5 /* Cells */,
 				6B5CA12E24935D72009A9CBE /* Extensions */,
 				8FFAE4E123D1E7D400784CBC /* Assets.xcassets */,
 				8FFAE4E323D1E7D400784CBC /* LaunchScreen.storyboard */,
