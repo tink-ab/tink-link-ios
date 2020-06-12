@@ -124,10 +124,10 @@
 		8FDA296123D1EDF000EC810F /* Providers */ = {
 			isa = PBXGroup;
 			children = (
+				8FDA296C23D1EE5300EC810F /* FinancialInstitutionGroupPickerViewController.swift */,
+				8FDA296A23D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift */,
 				8FDA296D23D1EE5300EC810F /* AccessTypePickerViewController.swift */,
 				8FDA296E23D1EE5300EC810F /* CredentialsKindPickerViewController.swift */,
-				8FDA296A23D1EE5300EC810F /* FinancialInstitutionPickerViewController.swift */,
-				8FDA296C23D1EE5300EC810F /* FinancialInstitutionGroupPickerViewController.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
