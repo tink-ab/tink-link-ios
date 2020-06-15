@@ -61,9 +61,8 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String) {
         let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
-        let titleFormat = Strings.SelectAccessType.title
-        let formattedTitle = String(format: titleFormat, name)
-        setupNavigationItem(for: viewController, title: formattedTitle)
+        let title = Strings.SelectAccessType.title
+        setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
     }
