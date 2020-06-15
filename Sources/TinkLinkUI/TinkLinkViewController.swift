@@ -236,7 +236,9 @@ public class TinkLinkViewController: UINavigationController {
                 } catch {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
-                    self.showAlert(for: error, allowsRetry: true)
+                    self.showAlert(for: error, onRetry: {
+                        self.retryOperation()
+                    })
                 }
             }
         }
@@ -254,7 +256,9 @@ public class TinkLinkViewController: UINavigationController {
                 } catch {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
-                    self.showAlert(for: error, allowsRetry: true)
+                    self.showAlert(for: error, onRetry: {
+                        self.retryOperation()
+                    })
                 }
             }
         }
@@ -270,7 +274,7 @@ public class TinkLinkViewController: UINavigationController {
                         self.clientDescription = try clientDescriptionResult.get()
                         self.clientDescriptorLoadingGroup.leave()
                     } catch {
-                        self.showAlert(for: error, allowsRetry: false)
+                        self.showAlert(for: error, onRetry: nil)
                     }
                 }
             }
@@ -384,19 +388,27 @@ public class TinkLinkViewController: UINavigationController {
 
 extension TinkLinkViewController {
 
-    private func showAlert(for error: Error, allowsRetry: Bool) {
-        let localizedError = error as? LocalizedError
+    private func showAlert(for error: Error, onRetry: (() -> Void)?) {
+        let title: String?
+        let message: String?
+
+        if let error = error as? LocalizedError {
+            title = error.errorDescription
+            message = error.failureReason
+        } else {
+            title = Strings.Generic.error
+            message = error.localizedDescription
+        }
 
         let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? Strings.Generic.ServiceAlert.fallbackTitle,
-            message: localizedError?.failureReason ?? error.localizedDescription,
+            title: title,
+            message: message,
             preferredStyle: .alert
         )
 
-        if allowsRetry {
+        if onRetry != nil {
             let retryAction = UIAlertAction(title: Strings.Generic.retry, style: .default) { _ in
-                self.showLoadingOverlay(withText: nil, onCancel: nil)
-                self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
+                onRetry?()
             }
             alertController.addAction(retryAction)
         }
@@ -409,23 +421,9 @@ extension TinkLinkViewController {
         present(alertController, animated: true)
     }
 
-    private func showLocalizedAlert(for error: Error) {
-        let title: String?
-        let message: String?
-        if let error = error as? LocalizedError {
-            title = error.errorDescription
-            message = error.failureReason
-        } else {
-            title = Strings.Generic.error
-            message = error.localizedDescription
-        }
-
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default)
-        alertController.addAction(okAction)
-
-        present(alertController, animated: true)
+    private func retryOperation() {
+        self.showLoadingOverlay(withText: nil, onCancel: nil)
+        self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
     }
 }
 
@@ -441,7 +439,7 @@ extension TinkLinkViewController {
             } catch CocoaError.userCancelled {
                 self?.cancel()
             } catch {
-                self?.showLocalizedAlert(for: error)
+                self?.showAlert(for: error, onRetry: nil)
             }
         }
     }
