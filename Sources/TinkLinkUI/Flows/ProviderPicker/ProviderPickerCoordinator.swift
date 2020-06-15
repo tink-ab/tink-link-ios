@@ -28,7 +28,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         DispatchQueue.main.async {
             self.showFinancialInstitutionGroupNodes(for: self.providerController.financialInstitutionGroupNodes, title: Strings.ProviderList.title)
         }
-        
+
         self.completion = completion
     }
 
@@ -70,7 +70,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
 
     func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
         let viewController = CredentialsKindPickerViewController(credentialsKindNodes: credentialsKindNodes)
-        let title = Strings.SelectAccessType.information
+        let title = Strings.SelectCredentialsType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
