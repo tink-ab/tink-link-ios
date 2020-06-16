@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tink.shared.userSession = .accessToken("YOUR_ACCESS_TOKEN")
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        
+
         let credentialsViewController = CredentialsPickerViewController(style: .grouped)
         credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCredentials))
         credentialsViewController.toolbarItems = [
@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: credentialsViewController)
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.isToolbarHidden = false
-        
+
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 

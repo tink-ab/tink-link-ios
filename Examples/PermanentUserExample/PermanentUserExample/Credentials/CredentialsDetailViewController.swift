@@ -88,8 +88,8 @@ extension CredentialsDetailViewController {
 extension CredentialsDetailViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
-
     }
+
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch sections[section] {
         case .status:
@@ -256,7 +256,7 @@ extension CredentialsDetailViewController {
             } else {
                 showStatus("Authenticating…", animated: true)
             }
-            self.credentials = refreshedCredentials
+            credentials = refreshedCredentials
         case .updating(let status):
             if isPresentingQR {
                 dismiss(animated: true) {
@@ -265,13 +265,13 @@ extension CredentialsDetailViewController {
             } else {
                 showStatus(status, animated: true)
             }
-            self.credentials = refreshedCredentials
+            credentials = refreshedCredentials
         case .awaitingSupplementalInformation(let task):
             hideStatus(animated: true) {
                 self.showSupplementalInformation(for: task)
             }
         case .awaitingThirdPartyAppAuthentication(let task):
-            self.credentials = refreshedCredentials
+            credentials = refreshedCredentials
             task.handle { [weak self] taskStatus in
                 DispatchQueue.main.async {
                     self?.handleThirdPartyAppAuthentication(taskStatus)
@@ -294,9 +294,10 @@ extension CredentialsDetailViewController {
             present(navigationController, animated: true)
         }
     }
+
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
-            self.credentials = try result.get()
+            credentials = try result.get()
             hideStatus(animated: true)
         } catch {
             hideStatus(animated: true) {
@@ -349,7 +350,7 @@ extension CredentialsDetailViewController {
 
 extension CredentialsDetailViewController: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credentials) {
-        self.credentials = credential
+        credentials = credential
         dismiss(animated: true)
     }
 

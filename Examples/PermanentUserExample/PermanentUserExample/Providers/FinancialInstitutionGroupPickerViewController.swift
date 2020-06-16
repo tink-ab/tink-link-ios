@@ -8,7 +8,7 @@ final class FinancialInstitutionGroupPickerViewController: UITableViewController
     private var originalFinancialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
     private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = [] {
         didSet {
-            self.tableView.reloadData()
+            tableView.reloadData()
         }
     }
 }
