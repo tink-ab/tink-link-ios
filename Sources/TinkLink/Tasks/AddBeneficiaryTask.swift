@@ -136,7 +136,7 @@ extension AddBeneficiaryTask {
             credentialsID: ownerAccountCredentialsID
         )
 
-        callCanceller = beneficiaryService.addBeneficiary(request: request) { [weak self, credentialsID = ownerAccountCredentialsID] result in
+        callCanceller = beneficiaryService.createBeneficiary(request: request, appURI: appUri) { [weak self, credentialsID = ownerAccountCredentialsID] result in
             do {
                 try result.get()
                 self?.progressHandler(.requestSent)
