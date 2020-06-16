@@ -1,4 +1,5 @@
 import Foundation
+import TinkCore
 
 extension ProcessInfo {
     var tinkClientID: String? {

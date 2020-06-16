@@ -1,4 +1,5 @@
 import Foundation
+import TinkCore
 
 /// An object that you use to access the user's credentials and supports the flow for adding credentials.
 public final class CredentialsContext {
