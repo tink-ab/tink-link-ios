@@ -9,7 +9,7 @@ extension URLComponents {
         for keyValuePair in fragment.split(separator: "&") {
             guard let indexOfEqualCharacter = keyValuePair.firstIndex(of: "="),
                 indexOfEqualCharacter < keyValuePair.endIndex
-                else { continue }
+            else { continue }
 
             let key = String(keyValuePair[..<indexOfEqualCharacter])
             let valueStartIndex = keyValuePair.index(after: indexOfEqualCharacter)

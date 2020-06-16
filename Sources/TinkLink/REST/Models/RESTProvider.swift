@@ -7,7 +7,6 @@ struct RESTProviders: Decodable {
 /// The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses
 /// the financial institution, metadata about the financialinstitution, and what financial information that can be accessed.
 struct RESTProvider: Decodable {
-
     enum AccessType: String, DefaultableDecodable {
         case openBanking = "OPEN_BANKING"
         case other = "OTHER"

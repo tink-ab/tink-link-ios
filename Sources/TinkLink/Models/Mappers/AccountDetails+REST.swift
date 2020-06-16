@@ -3,7 +3,7 @@ import Foundation
 extension AccountDetails {
     init(restAccountDetails accountDetails: RESTAccountDetails) {
         self.interest = accountDetails.interest
-        self.kind = accountDetails.type.flatMap({ AccountDetails.Kind(restAccountDetailsType: $0) }) ?? .unknown
+        self.kind = accountDetails.type.flatMap { AccountDetails.Kind(restAccountDetailsType: $0) } ?? .unknown
         self.nextDayOfTermsChange = accountDetails.nextDayOfTermsChange
         self.numberOfMonthsBound = accountDetails.numMonthsBound
     }

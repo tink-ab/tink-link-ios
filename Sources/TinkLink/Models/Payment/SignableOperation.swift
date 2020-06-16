@@ -2,7 +2,6 @@ import Foundation
 
 /// SignableOperation object with the status of the transfer.
 struct SignableOperation {
-
     /// A unique identifier of a `SignableOperation`.
     struct ID: Hashable, ExpressibleByStringLiteral {
         init(stringLiteral value: String) {

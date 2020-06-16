@@ -4,7 +4,6 @@ import Foundation
 /// By consequence, its success does not represent that money has been successfully transferred from one account to another because the payment initiation relays the responsibility of properly executing the monetary reallocation to the financial institution.
 /// The source account must belong to the authenticated user. Source and destination accounts are sent in a special URI format.
 struct RESTTransferRequest: Codable {
-
     /// The amount that will be transferred. Should be positive.
     var amount: Double
     /// The id of the Credentials used to make the transfer. For PIS with AIS it will be the credentials of which the source account belongs to. For PIS without AIS it is not linked to source account.
@@ -28,5 +27,3 @@ struct RESTTransferRequest: Codable {
 
     var redirectUri: String?
 }
-
-

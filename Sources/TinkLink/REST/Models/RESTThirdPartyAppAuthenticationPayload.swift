@@ -1,7 +1,6 @@
 import Foundation
 
 struct RESTThirdPartyAppAuthenticationPayload: Codable {
-    
     struct Ios: Codable {
         let appStoreUrl: URL?
         let scheme: String

@@ -1,6 +1,7 @@
 import Foundation
 
 // MARK: - Locales
+
 extension Tink {
     /// Available locales for TinkLink
     public static var availableLocales: [Locale] {

@@ -76,7 +76,6 @@ public final class ProviderContext {
     /// - Parameter completion: A result representing either a single provider or an error.
     @discardableResult
     public func fetchProvider(with id: Provider.ID, completion: @escaping (Result<Provider, Error>) -> Void) -> RetryCancellable? {
-
         return service.providers(id: id, capabilities: nil, includeTestProviders: true) { result in
             do {
                 let fetchedProviders = try result.get()
@@ -85,9 +84,9 @@ public final class ProviderContext {
                 } else {
                     throw ServiceError.notFound("")
                 }
-               } catch {
-                   completion(.failure(error))
-               }
-           }
-       }
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
 }

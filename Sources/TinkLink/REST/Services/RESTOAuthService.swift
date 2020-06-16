@@ -1,7 +1,6 @@
 import Foundation
 
 final class RESTOAuthService: OAuthService {
-
     private let client: RESTClient
 
     init(client: RESTClient) {
@@ -9,10 +8,9 @@ final class RESTOAuthService: OAuthService {
     }
 
     func createAnonymous(market: Market?, locale: Locale, origin: String?, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
-
         let body = RESTAnonymousUserRequest(market: market?.code ?? "", origin: origin, locale: locale.identifier)
 
-        let request = RESTResourceRequest<RESTAnonymousUserResponse>(path: "/api/v1/user/anonymous", method: .post, body: body, contentType: .json) { (result) in
+        let request = RESTResourceRequest<RESTAnonymousUserResponse>(path: "/api/v1/user/anonymous", method: .post, body: body, contentType: .json) { result in
 
             completion(result.map { AccessToken($0.access_token) })
         }
