@@ -16,7 +16,7 @@ class RESTBeneficiaryService: BeneficiaryService {
         return client.performRequest(request)
     }
 
-    func addBeneficiary(request: CreateBeneficiaryRequest, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func createBeneficiary(request: CreateBeneficiaryRequest, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         let body = RESTCreateBeneficiaryRequest(
             accountNumberType: request.accountNumberType,
             accountNumber: request.accountNumber,
