@@ -406,9 +406,9 @@ extension TinkLinkViewController {
             preferredStyle: .alert
         )
 
-        if onRetry != nil {
+        if let onRetry = onRetry {
             let retryAction = UIAlertAction(title: Strings.Generic.retry, style: .default) { _ in
-                onRetry?()
+                onRetry()
             }
             alertController.addAction(retryAction)
         }
