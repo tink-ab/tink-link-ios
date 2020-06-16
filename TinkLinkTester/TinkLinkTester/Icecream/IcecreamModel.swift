@@ -2,7 +2,6 @@ import Foundation
 import TinkLinkUI
 
 final class IcecreamModel {
-
     private(set) var needsReload = false
 
     enum RowIdentifier {
@@ -19,7 +18,7 @@ final class IcecreamModel {
         let identifier: RowIdentifier
     }
 
-    lazy private(set) var sections = makeSections()
+    private(set) lazy var sections = makeSections()
 
     private func makeSections() -> [Section] {
         [Section(title: "Theme", rows: [
