@@ -235,7 +235,9 @@ public class TinkLinkViewController: UINavigationController {
                 } catch {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
-                    self.showCreateTemporaryUserAlert(for: error)
+                    self.showAlert(for: error, onRetry: {
+                        self.retryOperation()
+                    })
                 }
             }
         }
@@ -253,7 +255,9 @@ public class TinkLinkViewController: UINavigationController {
                 } catch {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
-                    self.showCreateTemporaryUserAlert(for: error)
+                    self.showAlert(for: error, onRetry: {
+                        self.retryOperation()
+                    })
                 }
             }
         }
@@ -269,7 +273,7 @@ public class TinkLinkViewController: UINavigationController {
                         self.clientDescription = try clientDescriptionResult.get()
                         self.clientDescriptorLoadingGroup.leave()
                     } catch {
-                        self.showUnknownAggregatorAlert(for: error)
+                        self.showAlert(for: error, onRetry: nil)
                     }
                 }
             }
@@ -383,47 +387,10 @@ public class TinkLinkViewController: UINavigationController {
 // MARK: - Alerts
 
 extension TinkLinkViewController {
-    private func showCreateTemporaryUserAlert(for error: Error) {
-        let localizedError = error as? LocalizedError
-
-        let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? Strings.Generic.ServiceAlert.fallbackTitle,
-            message: localizedError?.failureReason ?? error.localizedDescription,
-            preferredStyle: .alert
-        )
-
-        let retryAction = UIAlertAction(title: Strings.Generic.retry, style: .default) { _ in
-            self.showLoadingOverlay(withText: nil, onCancel: nil)
-            self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
-        }
-        alertController.addAction(retryAction)
-
-        let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
-            self.presentingViewController?.dismiss(animated: true)
-        }
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true)
-    }
-
-    private func showUnknownAggregatorAlert(for error: Error) {
-        let localizedError = error as? LocalizedError
-
-        let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? Strings.Generic.ServiceAlert.fallbackTitle,
-            message: localizedError?.failureReason ?? error.localizedDescription,
-            preferredStyle: .alert
-        )
-
-        let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
-            self.presentingViewController?.dismiss(animated: true)
-        }
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true)
-    }
-
-    private func showAlert(for error: Error) {
+    private func showAlert(for error: Error, onRetry: (() -> Void)? = nil) {
         let title: String?
         let message: String?
+
         if let error = error as? LocalizedError {
             title = error.errorDescription
             message = error.failureReason
@@ -432,12 +399,30 @@ extension TinkLinkViewController {
             message = error.localizedDescription
         }
 
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
 
-        let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default)
-        alertController.addAction(okAction)
+        if let onRetry = onRetry {
+            let retryAction = UIAlertAction(title: Strings.Generic.retry, style: .default) { _ in
+                onRetry()
+            }
+            alertController.addAction(retryAction)
+        }
 
+        let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
+            self.completionHandler()
+            self.presentingViewController?.dismiss(animated: true)
+        }
+        alertController.addAction(dismissAction)
         present(alertController, animated: true)
+    }
+
+    private func retryOperation() {
+        self.showLoadingOverlay(withText: nil, onCancel: nil)
+        self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
     }
 }
 
