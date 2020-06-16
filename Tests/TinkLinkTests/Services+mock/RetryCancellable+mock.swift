@@ -3,10 +3,12 @@
 struct TestRetryCanceller: RetryCancellable {
     var retryBlock: () -> Void
     init(_ block: @escaping () -> Void) {
-        retryBlock = block
+        self.retryBlock = block
     }
+
     func retry() {
         retryBlock()
     }
+
     func cancel() {}
 }

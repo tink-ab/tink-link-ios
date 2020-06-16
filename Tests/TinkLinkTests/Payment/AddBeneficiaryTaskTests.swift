@@ -427,10 +427,10 @@ class AddBeneficiaryTaskTests: XCTestCase {
             to: account,
             authentication: { task in
                 XCTFail("Didn't expect an authentication task")
-        },
+            },
             progress: { status in
                 XCTFail("Didn't expect any status")
-        },
+            },
             completion: { result in
                 do {
                     _ = try result.get()
@@ -441,7 +441,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                     XCTFail("Failed to add beneficiary with: \(error)")
                 }
                 addBeneficiaryCompletionCalled.fulfill()
-        }
+            }
         )
 
         waitForExpectations(timeout: 10) { error in
@@ -450,5 +450,4 @@ class AddBeneficiaryTaskTests: XCTestCase {
             }
         }
     }
-
 }

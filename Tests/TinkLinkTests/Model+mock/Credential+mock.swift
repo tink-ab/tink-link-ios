@@ -63,6 +63,5 @@ extension Credentials {
             thirdPartyAppAuthentication: nil,
             sessionExpiryDate: nil
         )
-
     }
 }

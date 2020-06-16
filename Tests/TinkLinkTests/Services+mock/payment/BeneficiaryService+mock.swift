@@ -26,8 +26,6 @@ class MockedCancelledBeneficiaryService: BeneficiaryService {
     }
 }
 
-
-
 class MockedUnauthenticatedErrorBeneficiaryService: BeneficiaryService {
     func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
