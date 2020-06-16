@@ -7,7 +7,7 @@ final class AddCredentialsViewController: UITableViewController {
     typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
     let provider: Provider
-    
+
     private let credentialsContext: CredentialsContext
     private var form: Form
     private var formError: Form.ValidationError? {
@@ -201,7 +201,7 @@ extension AddCredentialsViewController {
     }
 
     private func onCompletion(result: Result<Credentials, Error>) {
-        navigationItem.rightBarButtonItem = self.addBarButtonItem
+        navigationItem.rightBarButtonItem = addBarButtonItem
 
         do {
             let credential = try result.get()

@@ -3,7 +3,7 @@ import SwiftUI
 
 final class ProviderController: ObservableObject {
     @Published var providers: [Provider] = []
-    
+
     private var providerContext = ProviderContext()
 
     func performFetch() {

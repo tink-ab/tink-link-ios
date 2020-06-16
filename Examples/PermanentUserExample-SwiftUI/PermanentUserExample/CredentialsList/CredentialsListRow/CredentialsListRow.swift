@@ -20,5 +20,3 @@ struct CredentialListRow_Previews: PreviewProvider {
         CredentialsListRow(providerName: "Foo", updatedDate: "bar")
     }
 }
-
-

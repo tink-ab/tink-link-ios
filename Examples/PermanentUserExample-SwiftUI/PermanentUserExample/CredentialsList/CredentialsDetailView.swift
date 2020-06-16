@@ -15,6 +15,7 @@ struct CredentialsDetailView: View {
     private var updatedCredentials: Credentials {
         credentialsController.credentials.first(where: { $0.id == credentials.id }) ?? credentials
     }
+
     private var canAuthenticate: Bool {
         provider?.accessType == .openBanking
     }
@@ -61,8 +62,8 @@ struct CredentialsDetailView: View {
             }
         }
         .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
-        .sheet(item: .init(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) { (task) in
-            SupplementalInformationForm(supplementInformationTask: task) { (result) in
+        .sheet(item: .init(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) { task in
+            SupplementalInformationForm(supplementInformationTask: task) { result in
                 self.credentialsController.supplementInformationTask = nil
             }
         }
@@ -76,7 +77,7 @@ struct CredentialsDetailView: View {
 
     private func refresh() {
         isRefreshing = true
-        credentialsController.performRefresh(credentials: credentials) { (result) in
+        credentialsController.performRefresh(credentials: credentials) { result in
             self.isRefreshing = false
         }
     }
@@ -87,7 +88,7 @@ struct CredentialsDetailView: View {
 
     private func authenticate() {
         isAuthenticating = true
-        credentialsController.performAuthentication(credentials: credentials) { (result) in
+        credentialsController.performAuthentication(credentials: credentials) { result in
             self.isAuthenticating = false
         }
     }
