@@ -1,4 +1,5 @@
 import Foundation
+@testable import TinkCore
 @testable import TinkLink
 
 class MockedSuccessCredentialsService: CredentialsService {
