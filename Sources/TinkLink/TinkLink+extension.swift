@@ -47,3 +47,13 @@ extension Tink {
         return true
     }
 }
+
+extension Tink {
+    public func _beginUITask() {
+        // TODO:
+    }
+
+    public func _endUITask() {
+        // TODO:
+    }
+}
