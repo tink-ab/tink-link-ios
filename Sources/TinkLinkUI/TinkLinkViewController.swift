@@ -388,7 +388,7 @@ public class TinkLinkViewController: UINavigationController {
 
 extension TinkLinkViewController {
 
-    private func showAlert(for error: Error, onRetry: (() -> Void)?) {
+    private func showAlert(for error: Error, onRetry: (() -> Void)? = nil) {
         let title: String?
         let message: String?
 
@@ -439,7 +439,7 @@ extension TinkLinkViewController {
             } catch CocoaError.userCancelled {
                 self?.cancel()
             } catch {
-                self?.showAlert(for: error, onRetry: nil)
+                self?.showAlert(for: error)
             }
         }
     }
