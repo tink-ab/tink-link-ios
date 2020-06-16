@@ -31,7 +31,7 @@ public final class ConsentContext {
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
         self.tink = tink
-        self.service = RESTAuthenticationService(client: tink.client)
+        self.service = RESTAuthenticationService(tink: tink)
     }
 
     // MARK: - Getting Descriptions for Requested Scopes

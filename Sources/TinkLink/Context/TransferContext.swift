@@ -14,10 +14,10 @@ public final class TransferContext {
     ///
     /// - Parameter tink: Tink instance. Will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
-        let transferService = RESTTransferService(client: tink.client)
-        let beneficiaryService = RESTBeneficiaryService(client: tink.client)
-        let credentialsService = RESTCredentialsService(client: tink.client)
-        let providerService = RESTProviderService(client: tink.client)
+        let transferService = RESTTransferService(tink: tink)
+        let beneficiaryService = RESTBeneficiaryService(tink: tink)
+        let credentialsService = RESTCredentialsService(tink: tink)
+        let providerService = RESTProviderService(tink: tink)
         self.init(tink: tink, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
     }
 
@@ -95,19 +95,18 @@ public final class TransferContext {
             completionHandler: completion
         )
 
-        let transfer = Transfer(
+        task.canceller = transferService.transfer(
             amount: amount.value,
-            id: nil,
-            credentialsID: nil,
             currency: amount.currencyCode,
+            credentialsID: nil,
+            transferID: nil,
+            sourceURI: fromAccountWithURI.value,
+            destinationURI: toBeneficiaryWithURI.value,
             sourceMessage: message.source,
             destinationMessage: message.destination,
             dueDate: nil,
-            destinationUri: toBeneficiaryWithURI.value,
-            sourceUri: fromAccountWithURI.value
-        )
-
-        task.canceller = transferService.transfer(transfer: transfer, redirectURI: tink.configuration.redirectURI) { [weak task] result in
+            redirectURI: tink.configuration.redirectURI
+        ) { [weak task] result in
             do {
                 let signableOperation = try result.get()
                 task?.startObserving(signableOperation)
@@ -181,19 +180,18 @@ public final class TransferContext {
             completionHandler: completion
         )
 
-        let transfer = Transfer(
+        task.canceller = transferService.transfer(
             amount: amount.value,
-            id: nil,
-            credentialsID: nil,
             currency: amount.currencyCode,
+            credentialsID: nil,
+            transferID: nil,
+            sourceURI: account.transferAccountID,
+            destinationURI: beneficiary.transferAccountID,
             sourceMessage: message.source,
             destinationMessage: message.destination,
             dueDate: nil,
-            destinationUri: beneficiary.transferAccountID,
-            sourceUri: account.transferAccountID
-        )
-
-        task.canceller = transferService.transfer(transfer: transfer, redirectURI: tink.configuration.redirectURI) { [weak task] result in
+            redirectURI: tink.configuration.redirectURI
+        ) { [weak task] result in
             do {
                 let signableOperation = try result.get()
                 task?.startObserving(signableOperation)
