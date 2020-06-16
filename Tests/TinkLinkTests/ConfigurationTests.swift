@@ -29,7 +29,7 @@ class ConfigurationTests: XCTestCase {
     }
 
     func testConfigureSharedTinkLinkWithConfigurationWithAppURI() {
-        Tink._shared = nil
+        // FIXME: Tink._shared = nil
         let redirectURI = URL(string: "my-customer-app://authentication")!
         let configuration = try! Tink.Configuration(clientID: "abc", redirectURI: redirectURI, environment: .production)
         Tink.configure(with: configuration)
