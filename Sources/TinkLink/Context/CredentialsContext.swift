@@ -102,7 +102,7 @@ public final class CredentialsContext {
         )
 
         if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = service.updateCredentials(credentialsID: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appUri: appUri, fields: form.makeFields()) { result in
+            task.callCanceller = service.updateCredentials(credentialsID: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appUri: appUri, callbackUri: nil, fields: form.makeFields()) { result in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
@@ -269,6 +269,7 @@ public final class CredentialsContext {
             credentialsID: credentials.id,
             providerID: credentials.providerID,
             appUri: appUri,
+            callbackUri: nil,
             fields: form?.makeFields() ?? [:],
             completion: { result in
                 switch result {
