@@ -1,3 +1,4 @@
+--exclude Carthage
 --disable unusedArguments,trailingCommas,andOperator,sortedImports
 --self init-only
 --patternlet inline
