@@ -1,7 +1,6 @@
 import Foundation
 
-struct RESTAccountListResponse: Codable {
-    /// A list of accounts 
+struct RESTAccountListResponse: Decodable {
+    /// A list of accounts
     var accounts: [RESTAccount]
 }
-

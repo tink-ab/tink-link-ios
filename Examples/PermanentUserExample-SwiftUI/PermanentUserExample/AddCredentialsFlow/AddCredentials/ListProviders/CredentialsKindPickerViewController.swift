@@ -6,7 +6,7 @@ final class CredentialsKindPickerViewController: UITableViewController {
     typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
     var credentialsKindNodes: [ProviderTree.CredentialsKindNode] = []
-    
+
     private let credentialsContext: CredentialsContext
 
     init(credentialsContext: CredentialsContext) {

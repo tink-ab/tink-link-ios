@@ -1,20 +1,22 @@
 import Foundation
 
-struct RESTCredentialsList: Codable {
+struct RESTCredentialsList: Decodable {
     let credentials: [RESTCredentials]
 }
 
 /// The credentials model represents a user's connected providers from where financial data is accessed.
-struct RESTCredentials: Codable {
-
-    enum ModelType: String, Codable {
+struct RESTCredentials: Decodable {
+    enum ModelType: String, DefaultableDecodable {
         case password = "PASSWORD"
         case mobileBankid = "MOBILE_BANKID"
         case keyfob = "KEYFOB"
         case thirdPartyApp = "THIRD_PARTY_APP"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTCredentials.ModelType = .unknown
     }
 
-    enum Status: String, Codable {
+    enum Status: String, DefaultableDecodable {
         case created = "CREATED"
         case authenticating = "AUTHENTICATING"
         case awaitingMobileBankidAuthentication = "AWAITING_MOBILE_BANKID_AUTHENTICATION"
@@ -27,7 +29,11 @@ struct RESTCredentials: Codable {
         case awaitingThirdPartyAppAuthentication = "AWAITING_THIRD_PARTY_APP_AUTHENTICATION"
         case deleted = "DELETED"
         case sessionExpired = "SESSION_EXPIRED"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTCredentials.Status = .unknown
     }
+
     /// The unique identifier of the credentials.
     var id: String?
 
@@ -50,7 +56,7 @@ struct RESTCredentials: Codable {
     var updated: Date?
 
     /// This is a key-value map of `Field` name and value found on the `Provider` to which the credentials belongs to. This parameter is required when creating credentials.
-    var fields: [String:String]
+    var fields: [String: String]
 
     /// A key-value structure to handle if status of credentials are `AWAITING_SUPPLEMENTAL_INFORMATION` or `AWAITING_THIRD_PARTY_APP_AUTHENTICATION`
     var supplementalInformation: String?
@@ -61,4 +67,3 @@ struct RESTCredentials: Codable {
     /// The ID of the user that the credentials belongs to.
     var userId: String?
 }
-

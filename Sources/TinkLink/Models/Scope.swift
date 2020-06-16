@@ -20,7 +20,6 @@ extension Array where Element == Scope {
 }
 
 public extension Scope {
-
     enum ReadAccess: String {
         case read
     }
@@ -60,6 +59,10 @@ public extension Scope {
 
     static func authorization(_ access: AuthorizationAccess...) -> Scope {
         return Scope(name: "authorization", access: access.map(\.rawValue))
+    }
+
+    static func beneficiaries(_ access: ReadWriteAccess...) -> Scope {
+        return Scope(name: "beneficiaries", access: access.map(\.rawValue))
     }
 
     static func budgets(_ access: ReadWriteAccess...) -> Scope {

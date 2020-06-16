@@ -43,4 +43,25 @@ extension Credentials {
         }()
         return nextStatus
     }
+
+    static func makeTestCredentials(
+        providerID: Provider.ID,
+        kind: Kind,
+        status: Status,
+        fields: [String: String] = [:]
+    ) -> Credentials {
+        return Credentials(
+            id: Credentials.ID(UUID().uuidString),
+            providerID: providerID,
+            kind: kind,
+            status: status,
+            statusPayload: "",
+            statusUpdated: Date(),
+            updated: Date(),
+            fields: fields,
+            supplementalInformationFields: [],
+            thirdPartyAppAuthentication: nil,
+            sessionExpiryDate: nil
+        )
+    }
 }

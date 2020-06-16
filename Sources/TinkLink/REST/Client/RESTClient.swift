@@ -21,6 +21,37 @@ final class RESTClient {
     }
 
     func performRequest(_ request: RESTRequest) -> RetryCancellable? {
+        do {
+            let urlRequest = try makeURLRequest(from: request)
+
+            let task = URLSessionRetryCancellableTask(session: session, urlRequest: urlRequest) { data, response, error in
+                if let error = error {
+                    request.onResponse(.failure(error))
+                    self.behavior.afterError(error: error)
+                } else if let data = data, let response = response {
+                    if let response = response as? HTTPURLResponse, let error = RESTError(statusCode: response.statusCode) {
+                        request.onResponse(.failure(error))
+                        self.behavior.afterError(error: error)
+                    } else {
+                        request.onResponse(.success((data, response)))
+                        self.behavior.afterSuccess(response: data, urlResponse: response)
+                    }
+                } else {
+                    request.onResponse(.failure(URLError(.unknown)))
+                    self.behavior.afterError(error: URLError(.unknown))
+                }
+            }
+            task.start()
+            return task
+
+        } catch {
+            request.onResponse(.failure(error))
+            behavior.afterError(error: error)
+            return nil
+        }
+    }
+
+    private func makeURLRequest(from request: RESTRequest) throws -> URLRequest {
         var urlComponents = URLComponents(url: restURL, resolvingAgainstBaseURL: false)!
         urlComponents.path = request.path
 
@@ -33,14 +64,30 @@ final class RESTClient {
         }
 
         guard let url = urlComponents.url else {
-            request.onResponse(.failure(URLError(.unknown)))
-            self.behavior.afterError(error: URLError(.unknown))
-            return nil
+            throw URLError(.unknown)
         }
 
-        let task = URLSessionRetryCancellableTask(session: session, url: url, behavior: behavior, request: request)
-        task.start()
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = request.method.rawValue
 
-        return task
+        for (field, value) in behavior.headers {
+            urlRequest.setValue(value, forHTTPHeaderField: field)
+        }
+
+        if let contentType = request.contentType {
+            urlRequest.setValue(contentType.rawValue, forHTTPHeaderField: "Content-Type")
+        }
+
+        if let body = request.body {
+            urlRequest.httpBody = try JSONEncoder().encode(body)
+        } else {
+            urlRequest.httpBody = nil
+        }
+
+        for header in request.headers {
+            urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
+        }
+
+        return urlRequest
     }
 }

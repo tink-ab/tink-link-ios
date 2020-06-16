@@ -7,9 +7,9 @@ class MockedSuccessOAuthService: OAuthService {
         return nil
     }
 
-    func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
-        let authenticateResponse = AuthenticateResponse(accessToken: AccessToken("accessToken"))
-        completion(.success(authenticateResponse))
+    func authenticate(code: AuthorizationCode, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
+        let accessToken = AccessToken("accessToken")
+        completion(.success(accessToken))
         return nil
     }
 
@@ -20,13 +20,12 @@ class MockedSuccessOAuthService: OAuthService {
 }
 
 class MockedInvalidArgumentFailurefulOAuthService: OAuthService {
-    
     func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.invalidArgumentError))
         return nil
     }
 
-    func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
+    func authenticate(code: AuthorizationCode, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.invalidArgumentError))
         return nil
     }
@@ -38,13 +37,12 @@ class MockedInvalidArgumentFailurefulOAuthService: OAuthService {
 }
 
 class MockedUnauthenticatedErrorOAuthService: OAuthService {
-
     func createAnonymous(market: Market? = nil, locale: Locale, origin: String? = nil, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
 
-    func authenticate(code: AuthorizationCode, completion: @escaping (Result<AuthenticateResponse, Error>) -> Void) -> RetryCancellable? {
+    func authenticate(code: AuthorizationCode, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }

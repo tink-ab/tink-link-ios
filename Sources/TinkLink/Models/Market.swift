@@ -14,6 +14,8 @@ public struct Market: Hashable, RawRepresentable, ExpressibleByStringLiteral {
         self.rawValue = value
     }
 
+    /// Creates a market.
+    /// - Parameter value: The ISO 3166-1 alpha-2 formatted country code.
     public init(code value: String) {
         self.rawValue = value
     }

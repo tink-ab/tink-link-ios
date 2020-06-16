@@ -1,14 +1,16 @@
 import Foundation
 
-struct RESTTransferDestination: Codable {
-
-    enum ModelType: String, Codable {
+struct RESTTransferDestination: Decodable {
+    enum ModelType: String, DefaultableDecodable {
         case checking = "CHECKING"
         case savings = "SAVINGS"
         case investment = "INVESTMENT"
         case creditCard = "CREDIT_CARD"
         case loan = "LOAN"
         case external = "EXTERNAL"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTTransferDestination.ModelType = .unknown
     }
 
     /// The balance of the account. Will only be populated for accounts that is owned by the user.
@@ -33,4 +35,3 @@ struct RESTTransferDestination: Codable {
     /// If true, the uri will be a regular expression, for instance "se-pg://" meaning that the source account can make PG payments.
     var matchesMultiple: Bool?
 }
-

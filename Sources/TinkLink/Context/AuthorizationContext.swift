@@ -51,7 +51,7 @@ public final class AuthorizationContext {
     public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
         return service.authorize(clientID: tink.configuration.clientID, redirectURI: redirectURI, scopes: scopes) { result in
-            let mappedResult = result.map(\.code).mapError({ Error($0) ?? $0 })
+            let mappedResult = result.mapError { Error($0) ?? $0 }
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not authorize: " + message)
             }
@@ -68,8 +68,8 @@ public final class AuthorizationContext {
     public func fetchClientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
         let scopes: [Scope] = []
         let redirectURI = tink.configuration.redirectURI
-        return service.clientDescription(clientID: tink.configuration.clientID, scopes: scopes, redirectURI: redirectURI) { (result) in
-            let mappedResult = result.mapError({ Error($0) ?? $0 })
+        return service.clientDescription(clientID: tink.configuration.clientID, scopes: scopes, redirectURI: redirectURI) { result in
+            let mappedResult = result.mapError { Error($0) ?? $0 }
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not get client description: " + message)
             }

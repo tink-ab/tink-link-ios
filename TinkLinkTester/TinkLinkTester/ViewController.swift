@@ -37,7 +37,6 @@ class ViewController: UIViewController {
             button.heightAnchor.constraint(equalToConstant: 48),
             button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -48)
         ])
-        
     }
 
     @objc private func showTinkLink() {
@@ -66,4 +65,3 @@ class ViewController: UIViewController {
         present(tinkLinkViewController, animated: true)
     }
 }
-

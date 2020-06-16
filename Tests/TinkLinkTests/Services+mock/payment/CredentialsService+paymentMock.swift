@@ -13,7 +13,8 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         fields: [:],
         supplementalInformationFields: [],
         thirdPartyAppAuthentication: nil,
-        sessionExpiryDate: Date())
+        sessionExpiryDate: Date()
+    )
 
     func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
         completion(.success([credentials]))
@@ -25,9 +26,11 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         case .created:
             credentials = Credentials(credentials: credentials, status: .authenticating)
         case .authenticating:
+            credentials = Credentials(credentials: credentials, status: .updating)
+        case .updating:
             credentials = Credentials(credentials: credentials, status: .awaitingSupplementalInformation)
         case .awaitingMobileBankIDAuthentication, .awaitingThirdPartyAppAuthentication, .awaitingSupplementalInformation:
-            credentials = Credentials(credentials: credentials, status: .updating)
+            credentials = Credentials(credentials: credentials, status: .updated)
         default:
             credentials = Credentials(credentials: credentials, status: .updated)
         }
@@ -35,7 +38,7 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         return nil
     }
 
-    func createCredentials(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String : String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func createCredentials(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -43,7 +46,7 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         fatalError("\(#function) should not be called")
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -51,7 +54,7 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         fatalError("\(#function) should not be called")
     }
 
-    func supplementInformation(credentialsID: Credentials.ID, fields: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func supplementInformation(credentialsID: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.success)
         return nil
     }
@@ -68,7 +71,7 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         fatalError("\(#function) should not be called")
     }
 
-    func thirdPartyCallback(state: String, parameters: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func thirdPartyCallback(state: String, parameters: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -93,7 +96,8 @@ class MockedAuthenticationErrorCredentialsService: CredentialsService {
         fields: [:],
         supplementalInformationFields: [],
         thirdPartyAppAuthentication: nil,
-        sessionExpiryDate: Date())
+        sessionExpiryDate: Date()
+    )
 
     func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
         completion(.success([credentials]))
@@ -111,7 +115,7 @@ class MockedAuthenticationErrorCredentialsService: CredentialsService {
         return nil
     }
 
-    func createCredentials(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String : String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func createCredentials(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -119,7 +123,7 @@ class MockedAuthenticationErrorCredentialsService: CredentialsService {
         fatalError("\(#function) should not be called")
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -127,7 +131,7 @@ class MockedAuthenticationErrorCredentialsService: CredentialsService {
         return nil
     }
 
-    func supplementInformation(credentialsID: Credentials.ID, fields: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func supplementInformation(credentialsID: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.success)
         fatalError("\(#function) should not be called")
     }
@@ -147,7 +151,7 @@ class MockedAuthenticationErrorCredentialsService: CredentialsService {
         fatalError("\(#function) should not be called")
     }
 
-    func thirdPartyCallback(state: String, parameters: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func thirdPartyCallback(state: String, parameters: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -159,4 +163,3 @@ class MockedAuthenticationErrorCredentialsService: CredentialsService {
         fatalError("\(#function) should not be called")
     }
 }
-

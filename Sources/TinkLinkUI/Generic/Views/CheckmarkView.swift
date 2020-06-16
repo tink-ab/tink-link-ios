@@ -1,7 +1,6 @@
 import UIKit
 
 final class CheckmarkView: UIView {
-
     enum Style {
         case `default`
         case large
@@ -41,7 +40,7 @@ final class CheckmarkView: UIView {
         }
     }
 
-    @objc dynamic public var strokeTintColor: UIColor = .white {
+    @objc public dynamic var strokeTintColor: UIColor = .white {
         didSet {
             checkmarkLayer.strokeColor = strokeTintColor.cgColor
         }
@@ -123,7 +122,7 @@ final class CheckmarkView: UIView {
         circleLayer.frame = circleFrame
         checkboxLayer.frame = circleFrame
     }
-    
+
     override var intrinsicContentSize: CGSize { style.size }
 
     override func tintColorDidChange() {
@@ -132,4 +131,3 @@ final class CheckmarkView: UIView {
         checkboxLayer.fillColor = tintColor.cgColor
     }
 }
-

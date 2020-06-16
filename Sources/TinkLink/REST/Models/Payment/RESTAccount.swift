@@ -1,9 +1,8 @@
 import Foundation
 
 /// An account could either be a debit account, a credit card, a loan or mortgage.
-struct RESTAccount: Codable {
-
-    enum ModelType: String, Codable {
+struct RESTAccount: Decodable {
+    enum ModelType: String, DefaultableDecodable {
         case checking = "CHECKING"
         case savings = "SAVINGS"
         case investment = "INVESTMENT"
@@ -13,19 +12,29 @@ struct RESTAccount: Codable {
         case pension = "PENSION"
         case other = "OTHER"
         case external = "EXTERNAL"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTAccount.ModelType = .unknown
     }
 
-    enum Flag: String, Codable {
+    enum Flag: String, DefaultableDecodable {
         case business = "BUSINESS"
         case mandate = "MANDATE"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTAccount.Flag = .unknown
     }
 
-    enum AccountExclusion: String, Codable {
+    enum AccountExclusion: String, DefaultableDecodable {
         case aggregation = "AGGREGATION"
         case pfmAndSearch = "PFM_AND_SEARCH"
         case pfmData = "PFM_DATA"
         case _none = "NONE"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTAccount.AccountExclusion = .unknown
     }
+
     /// The account number of the account. The format of the account numbers may differ between account types and banks. This property can be updated in a update account request.
     var accountNumber: String
 
@@ -101,4 +110,3 @@ struct RESTAccount: Codable {
     /// A unique identifier to group accounts belonging the same financial institution. Available for aggregated accounts only.
     var financialInstitutionId: String?
 }
-

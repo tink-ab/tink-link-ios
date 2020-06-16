@@ -2,7 +2,6 @@ import UIKit
 
 extension UINavigationController {
     func setupNavigationBarAppearance() {
-
         navigationBar.tintColor = Color.accent
 
         if #available(iOS 13.0, *) {
@@ -33,10 +32,10 @@ extension UINavigationController {
             let barButtonItemAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [Self.self])
             barButtonItemAppearance.setTitleTextAttributes([
                 .font: Font.body
-                ], for: .normal)
+            ], for: .normal)
             barButtonItemAppearance.setTitleTextAttributes([
                 .font: Font.body
-                ], for: .highlighted)
+            ], for: .highlighted)
 
             // Navigation Bar
             let navigationBarAppearance = UINavigationBar.appearance(whenContainedInInstancesOf: [Self.self])
@@ -53,7 +52,6 @@ extension UINavigationController {
 
             navigationBar.isTranslucent = false
             navigationBar.barTintColor = Color.background
-            
         }
     }
 }

@@ -166,7 +166,9 @@ extension UpdateCredentialsViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         do {
             try form.validateFields()
-            updateCredentialsTask = credentialsContext.update(credentials, form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            updateCredentialsTask = credentialsContext.update(
+                credentials,
+                form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
                 progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
                         self?.handleProgress(status)
@@ -291,6 +293,7 @@ extension UpdateCredentialsViewController {
 }
 
 // MARK: - TextFieldTableViewCellDelegate
+
 extension UpdateCredentialsViewController: TextFieldCellDelegate {
     func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }

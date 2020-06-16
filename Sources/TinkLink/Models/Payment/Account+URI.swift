@@ -17,32 +17,13 @@ extension Account {
         public init(stringLiteral value: String) {
             self.value = value
         }
-
     }
 }
 
 extension Account.URI {
     /// A type representing an kind of account URI.
-    public struct Kind: ExpressibleByStringLiteral {
-        public init(stringLiteral value: String) {
-            self.value = value
-        }
-
-        /// Creates a kind.
-        /// - Parameter value: The `String` that represents the account kind.
-        public init(_ value: String) {
-            self.value = value
-        }
-
-        /// The `String` that represent the account kind.
-        public let value: String
-
-        public static let iban: Kind = "iban"
-        public static let se: Kind = "se"
-        public static let seBankGiro: Kind = "se-bg"
-        public static let sePlusGiro: Kind = "se-pg"
-        public static let sortCode: Kind = "sort-code"
-    }
+    @available(*, deprecated, renamed: "AccountNumberKind")
+    public typealias Kind = AccountNumberKind
 }
 
 extension Account.URI {
@@ -53,7 +34,7 @@ extension Account.URI {
     /// - Parameters:
     ///   - kind: The kind of account URI.
     ///   - accountNumber: The account number. The structure of this parameter depends on the `kind`.
-    public init?(kind: Kind, accountNumber: String) {
+    public init?(kind: AccountNumberKind, accountNumber: String) {
         var urlComponents = URLComponents()
         urlComponents.scheme = kind.value
         urlComponents.host = accountNumber
@@ -67,9 +48,11 @@ extension Account.URI {
 extension Account.URI {
     /// Creates a URI for an account.
     /// - Parameter account: The account.
-    public init?(account: Account) {
-        guard let uri = account.transferSourceIdentifiers?.first else { return  nil }
-
-        self.value = uri.absoluteString
+    public init(account: Account) {
+        if let uri = account.transferSourceIdentifiers?.first {
+            self.value = uri.absoluteString
+        } else {
+            self.value = "tink://\(account.id.value)"
+        }
     }
 }

@@ -1,7 +1,6 @@
 import UIKit
 
 class FloatingPlaceholderTextField: UITextField {
-
     private struct Constants {
         static let placeholderTextSize: CGFloat = 13.0
         static let editableTextHeightPadding: CGFloat = 8.0

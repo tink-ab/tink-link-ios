@@ -8,13 +8,13 @@ struct ComposableClientBehavior: ClientBehavior {
     }
 
     var headers: [String: String] {
-        return behaviors.reduce([:], { result, next in
+        return behaviors.reduce([:]) { result, next in
             var result = result
             for (k, v) in next.headers {
                 result.updateValue(v, forKey: k)
             }
             return result
-        })
+        }
     }
 
     func beforeRequest(request: URLRequest) {

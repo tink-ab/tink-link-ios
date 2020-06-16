@@ -51,6 +51,7 @@ public class Tink {
         get { authorizationBehavior.sessionCredential }
         set { authorizationBehavior.sessionCredential = newValue }
     }
+
     // MARK: - Creating a Tink Link Object
 
     private convenience init() {
@@ -98,7 +99,7 @@ public class Tink {
 
     // MARK: - Handling Redirects
 
-    /// 
+    ///
     /// For some providers the redirect needs to be a https link. Use the continue user activity method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
     ///
     /// ```swift
@@ -119,7 +120,7 @@ public class Tink {
         var parameters = Dictionary(grouping: urlComponents.queryItems ?? [], by: { $0.name })
             .compactMapValues { $0.first?.value }
 
-        parameters.merge(urlComponents.fragmentParameters, uniquingKeysWith: { (current, _) in current })
+        parameters.merge(urlComponents.fragmentParameters, uniquingKeysWith: { current, _ in current })
 
         NotificationCenter.default.post(name: .credentialThirdPartyCallback, object: nil, userInfo: parameters)
 
@@ -128,7 +129,6 @@ public class Tink {
 }
 
 extension Tink {
-
     public enum UserError: Swift.Error {
         /// The market and/or locale was invalid. The payload from the backend can be found in the associated value.
         case invalidMarketOrLocale(String)
@@ -153,8 +153,7 @@ extension Tink {
     public func authenticateUser(authorizationCode: AuthorizationCode, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
         return oAuthService.authenticate(code: authorizationCode, completion: { [weak self] result in
             do {
-                let authenticateResponse = try result.get()
-                let accessToken = authenticateResponse.accessToken
+                let accessToken = try result.get()
                 self?.userSession = .accessToken(accessToken.rawValue)
                 completion(.success)
             } catch {

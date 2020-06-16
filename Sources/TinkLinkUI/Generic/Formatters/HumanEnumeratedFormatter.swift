@@ -24,14 +24,14 @@ class HumanEnumeratedFormatter: Formatter {
 
     public func string(for items: [String]) -> String {
         var output = [String]()
-        items.enumerated().forEach({ offset, elem in
+        items.enumerated().forEach { offset, elem in
             output.append(elem)
             if offset == items.count - 2 {
                 output.append(" " + style.localizedLastJoinWord + " ")
             } else if offset < items.count - 2 {
                 output.append(", ")
             }
-        })
+        }
 
         return output.joined()
     }

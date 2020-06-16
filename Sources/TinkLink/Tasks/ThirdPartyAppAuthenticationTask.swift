@@ -1,8 +1,8 @@
 import Foundation
 #if os(iOS)
-import UIKit
+    import UIKit
 #elseif os(macOS)
-import AppKit
+    import AppKit
 #endif
 
 /// A task that handles opening third party apps.
@@ -107,11 +107,11 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Indicates a user action required for the third party app authentication task to succeed.
     public enum Status {
         #if os(iOS)
-        /// Indicates that a QR image needs to be scanned by the user to authenticate with the third party app.
-        case qrImage(UIImage)
+            /// Indicates that a QR image needs to be scanned by the user to authenticate with the third party app.
+            case qrImage(UIImage)
         #elseif os(macOS)
-        /// Indicates that a QR image needs to be scanned by the user to authenticate with the third party app.
-        case qrImage(NSImage)
+            /// Indicates that a QR image needs to be scanned by the user to authenticate with the third party app.
+            case qrImage(NSImage)
         #endif
         /// Indicates that the task will wait for the user to authenticate with the third party app on another device.
         case awaitAuthenticationOnAnotherDevice
@@ -123,7 +123,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Indicates whether the task should fail if a third party app could not be opened for authentication.
     public private(set) var shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
     private let appUri: URL
-    private let completionHandler: (Result<Void, Swift.Error>) -> Void
+    internal let completionHandler: (Result<Void, Swift.Error>) -> Void
     private var hasBankIDQRCode: Bool {
         // TODO: Double check the logic.
         // Not sure about this part, but maybe because of grpc, the supplemental info is always empty for bankid credential kind, so has to check the deeplink URL instead.
@@ -158,48 +158,47 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         /// Tries to open the third party app.
         ///
         /// - Parameter application: The object that controls and coordinates your app. Defaults to the shared instance.
-    @available(*, deprecated, renamed: "handle")
-    public func openThirdPartyApp(with application: UIApplication = .shared) {
-        openThirdPartyApp(with: application, completion: self.completionHandler)
-    }
-
-    private func openThirdPartyApp(with application: UIApplication = .shared, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
-        guard let url = thirdPartyAppAuthentication.deepLinkURL else {
-            completion(.failure(Error.deeplinkURLNotFound))
-            return
+        @available(*, deprecated, renamed: "handle")
+        public func openThirdPartyApp(with application: UIApplication = .shared) {
+            openThirdPartyApp(with: application, completion: completionHandler)
         }
 
-        let deepLinkURL = sanitizeDeeplink(url, redirectUri: appUri)
-        DispatchQueue.main.async {
-            application.open(deepLinkURL, options: [.universalLinksOnly: NSNumber(value: true)]) { didOpenUniversalLink in
-                if didOpenUniversalLink {
-                    completion(.success)
-                } else {
-                    application.open(deepLinkURL, options: [:], completionHandler: { didOpen in
-                        if didOpen {
-                            completion(.success)
-                        } else {
+        internal func openThirdPartyApp<URLResourceOpener: URLResourceOpening>(with urlResourceOpener: URLResourceOpener, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+            guard let url = thirdPartyAppAuthentication.deepLinkURL else {
+                completion(.failure(Error.deeplinkURLNotFound))
+                return
+            }
 
-                            let downloadRequiredError = Error.downloadRequired(
-                                title: self.thirdPartyAppAuthentication.downloadTitle,
-                                message: self.thirdPartyAppAuthentication.downloadMessage,
-                                appStoreURL: self.thirdPartyAppAuthentication.appStoreURL
-                            )
+            let deepLinkURL = sanitizeDeeplink(url, redirectUri: appUri)
+            DispatchQueue.main.async {
+                urlResourceOpener.open(deepLinkURL, options: [urlResourceOpener.universalLinksOnlyOptionKey: NSNumber(value: true)]) { didOpenUniversalLink in
+                    if didOpenUniversalLink {
+                        completion(.success)
+                    } else {
+                        urlResourceOpener.open(deepLinkURL, options: [:], completionHandler: { didOpen in
+                            if didOpen {
+                                completion(.success)
+                            } else {
+                                let downloadRequiredError = Error.downloadRequired(
+                                    title: self.thirdPartyAppAuthentication.downloadTitle,
+                                    message: self.thirdPartyAppAuthentication.downloadMessage,
+                                    appStoreURL: self.thirdPartyAppAuthentication.appStoreURL
+                                )
 
-                            completion(.failure(downloadRequiredError))
-                        }
+                                completion(.failure(downloadRequiredError))
+                            }
                     })
+                    }
                 }
             }
         }
-    }
 
-    /// Will try to open the third party app. If it fails then the add credentials task will be aborted.
-    public func handle() {
-        openThirdPartyApp { [weak self] result in
-            self?.completionHandler(result)
+        /// Will try to open the third party app. If it fails then the add credentials task will be aborted.
+        public func handle() {
+            openThirdPartyApp(with: UIApplication.shared) { [weak self] result in
+                self?.completionHandler(result)
+            }
         }
-    }
     #endif
 
     /// Will try to open the third party app.
@@ -207,61 +206,61 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// - Parameter status: The specific status that require an action.
     public func handle(statusHandler: @escaping (_ status: Status) -> Void) {
         #if os(iOS)
-        if shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
-            openThirdPartyApp { [weak self] result in
-                self?.completionHandler(result)
+            if shouldFailOnThirdPartyAppAuthenticationDownloadRequired {
+                openThirdPartyApp(with: UIApplication.shared) { [weak self] result in
+                    self?.completionHandler(result)
+                }
+                return
             }
-            return
-        }
 
-        openThirdPartyApp { [weak self] result in
-            guard let self = self else { return }
-            do {
-                try result.get()
-                self.completionHandler(.success)
-            } catch {
-                if self.hasBankIDQRCode {
-                    self.qr { result in
-                        do {
-                            let qrImage = try result.get()
-                            statusHandler(.qrImage(qrImage))
-                            self.completionHandler(.success)
-                        } catch {
-                            self.completionHandler(.failure(error))
-                        }
-                    }
-                } else if self.credentials.kind == .mobileBankID {
-                    statusHandler(.awaitAuthenticationOnAnotherDevice)
+            openThirdPartyApp(with: UIApplication.shared) { [weak self] result in
+                guard let self = self else { return }
+                do {
+                    try result.get()
                     self.completionHandler(.success)
-                } else {
-                    self.completionHandler(.failure(error))
+                } catch {
+                    if self.hasBankIDQRCode {
+                        self.qr { result in
+                            do {
+                                let qrImage = try result.get()
+                                statusHandler(.qrImage(qrImage))
+                                self.completionHandler(.success)
+                            } catch {
+                                self.completionHandler(.failure(error))
+                            }
+                        }
+                    } else if self.credentials.kind == .mobileBankID {
+                        statusHandler(.awaitAuthenticationOnAnotherDevice)
+                        self.completionHandler(.success)
+                    } else {
+                        self.completionHandler(.failure(error))
+                    }
                 }
             }
-        }
         #elseif os(macOS)
-        qr { [weak self, credentialsKind = credentials.kind] result in
-            do {
-                let qrImage = try result.get()
-                statusHandler(.qrImage(qrImage))
-                self?.completionHandler(.success)
-            } catch Error.doesNotSupportAuthenticatingOnAnotherDevice {
-                if credentialsKind == .mobileBankID {
-                    statusHandler(.awaitAuthenticationOnAnotherDevice)
+            qr { [weak self, credentialsKind = credentials.kind] result in
+                do {
+                    let qrImage = try result.get()
+                    statusHandler(.qrImage(qrImage))
                     self?.completionHandler(.success)
-                } else {
-                    self?.completionHandler(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
+                } catch Error.doesNotSupportAuthenticatingOnAnotherDevice {
+                    if credentialsKind == .mobileBankID {
+                        statusHandler(.awaitAuthenticationOnAnotherDevice)
+                        self?.completionHandler(.success)
+                    } else {
+                        self?.completionHandler(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
+                    }
+                } catch {
+                    self?.completionHandler(.failure(error))
                 }
-            } catch {
-                self?.completionHandler(.failure(error))
             }
-        }
         #endif
     }
 
     #if os(iOS)
-    typealias Image = UIImage
+        typealias Image = UIImage
     #elseif os(macOS)
-    typealias Image = NSImage
+        typealias Image = NSImage
     #endif
 
     private func qr(completion: @escaping (Result<Image, Swift.Error>) -> Void) {

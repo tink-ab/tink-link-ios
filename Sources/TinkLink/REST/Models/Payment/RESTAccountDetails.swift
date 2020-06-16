@@ -1,8 +1,7 @@
 import Foundation
 
-struct RESTAccountDetails: Codable {
-
-    enum ModelType: String, Codable {
+struct RESTAccountDetails: Decodable {
+    enum ModelType: String, DefaultableDecodable {
         case mortgage = "MORTGAGE"
         case blanco = "BLANCO"
         case membership = "MEMBERSHIP"
@@ -11,7 +10,11 @@ struct RESTAccountDetails: Codable {
         case student = "STUDENT"
         case credit = "CREDIT"
         case other = "OTHER"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTAccountDetails.ModelType = .unknown
     }
+
     /// Interest of the account. Applicable for loans and savings accounts.
     var interest: Double?
 
@@ -24,4 +27,3 @@ struct RESTAccountDetails: Codable {
     /// A timestamp of the next day of terms change of the account. Applicable for loans.
     var nextDayOfTermsChange: Date?
 }
-

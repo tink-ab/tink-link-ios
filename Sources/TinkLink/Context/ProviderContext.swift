@@ -22,7 +22,7 @@ public final class ProviderContext {
         }
 
         /// A default set of atttributes that contain all capabilities, all non-test kinds and all access types.
-        public static let `default` = Attributes(capabilities: .all, kinds: .excludingTest, accessTypes: .all)
+        public static let `default` = Attributes(capabilities: .all, kinds: .default, accessTypes: .all)
     }
 
     private let tink: Tink
@@ -47,6 +47,9 @@ public final class ProviderContext {
 
     /// Fetches providers matching the provided attributes.
     ///
+    /// Required scopes:
+    /// - credentials:read
+    ///
     /// - Parameter attributes: Attributes for providers to fetch
     /// - Parameter completion: A result representing either a list of providers or an error.
     @discardableResult
@@ -66,11 +69,13 @@ public final class ProviderContext {
 
     /// Fetches a specific provider matching the provided id.
     ///
+    /// Required scopes:
+    /// - credentials:read
+    ///
     /// - Parameter id: ID of provider to fetch.
     /// - Parameter completion: A result representing either a single provider or an error.
     @discardableResult
     public func fetchProvider(with id: Provider.ID, completion: @escaping (Result<Provider, Error>) -> Void) -> RetryCancellable? {
-
         return service.providers(id: id, capabilities: nil, includeTestProviders: true) { result in
             do {
                 let fetchedProviders = try result.get()
@@ -79,9 +84,9 @@ public final class ProviderContext {
                 } else {
                     throw ServiceError.notFound("")
                 }
-               } catch {
-                   completion(.failure(error))
-               }
-           }
-       }
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
 }
