@@ -11,8 +11,8 @@ final class LoadingErrorView: UIView {
     private let stackView = UIStackView()
     private let iconBackgroundView = UIImageView()
     private let iconView = UIImageView()
-    private let textLabel =  UILabel()
-    private let descriptionLabel =  UILabel()
+    private let textLabel = UILabel()
+    private let descriptionLabel = UILabel()
     private let cancelButton = UIButton(type: .system)
     private let retryButton = FloatingButton()
 

@@ -2,7 +2,6 @@ import UIKit
 import TinkLink
 
 final class ScopeDescriptionListViewController: UITableViewController {
-
     private let authorizationController: AuthorizationController
 
     private let scopes: [Scope]
@@ -38,6 +37,7 @@ final class ScopeDescriptionListViewController: UITableViewController {
 }
 
 // MARK: - View Lifecycle
+
 extension ScopeDescriptionListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +70,7 @@ extension ScopeDescriptionListViewController {
 }
 
 // MARK: - UITableViewDataSource
+
 extension ScopeDescriptionListViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count

@@ -1,7 +1,6 @@
 import UIKit
 
 final class FormTableViewErrorView: UIView {
-
     private let contentView = UIView()
     private let errorLabel = UILabel()
 

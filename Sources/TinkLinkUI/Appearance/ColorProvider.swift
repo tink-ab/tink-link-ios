@@ -2,7 +2,6 @@ import UIKit
 
 /// A type that can provide custom colors for Tink views.
 public class ColorProvider: ColorProviding {
-
     /// Color for the main background of the interface.
     public var background: UIColor = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
     /// Color for content layered on top of the main background.

@@ -2,7 +2,6 @@ import UIKit
 import TinkLink
 
 final class FormTableViewController: UITableViewController {
-
     var onSubmit: (() -> Void)?
     var formDidChange: (() -> Void)?
     var errorText: String?
@@ -29,7 +28,6 @@ final class FormTableViewController: UITableViewController {
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
     }
-
 
     func validateFields() -> Bool {
         view.endEditing(false)
@@ -63,7 +61,6 @@ final class FormTableViewController: UITableViewController {
 // MARK: - UITableViewDataSource
 
 extension FormTableViewController {
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let field = form.fields[indexPath.item]
 
@@ -98,6 +95,7 @@ extension FormTableViewController {
 }
 
 // MARK: - TextFieldCellDelegate
+
 extension FormTableViewController: FormFieldTableViewCellDelegate {
     func formFieldCellShouldReturn(_ cell: FormFieldTableViewCell) -> Bool {
         guard let indexPath = tableView.indexPath(for: cell) else {
@@ -115,9 +113,9 @@ extension FormTableViewController: FormFieldTableViewCellDelegate {
         guard form.fields.count > nextIndexPath.item,
             form.fields[indexPath.item + 1].attributes.isEditable,
             let nextCell = tableView.cellForRow(at: nextIndexPath)
-            else {
-                cell.resignFirstResponder()
-                return true
+        else {
+            cell.resignFirstResponder()
+            return true
         }
 
         nextCell.becomeFirstResponder()

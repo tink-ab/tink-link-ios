@@ -10,7 +10,7 @@ struct KeyboardNotification {
             let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
             let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval,
             let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int
-            else { return nil }
+        else { return nil }
 
         self.frame = value.cgRectValue
         self.duration = duration
@@ -19,7 +19,6 @@ struct KeyboardNotification {
 }
 
 final class KeyboardObserver {
-
     var willShow: ((KeyboardNotification) -> Void)?
     var willHide: ((KeyboardNotification) -> Void)?
 

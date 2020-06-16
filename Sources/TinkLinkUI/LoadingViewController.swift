@@ -1,7 +1,6 @@
 import UIKit
 
 final class LoadingViewController: UIViewController {
-
     private var onCancel: (() -> Void)?
     private var onRetry: (() -> Void)?
     private var onClose: (() -> Void)?
@@ -60,7 +59,7 @@ final class LoadingViewController: UIViewController {
 
             cancelButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-            
+
             errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             errorView.topAnchor.constraint(equalTo: view.topAnchor),
             errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

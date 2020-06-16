@@ -26,7 +26,8 @@ final class AddCredentialsFooterView: UIView {
         let text = Strings.Credentials.termsText
         let attributeText = NSMutableAttributedString(
             string: text,
-            attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.footnote])
+            attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.footnote]
+        )
         let languageCode = Locale.current.languageCode ?? ""
         let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
         let privacyPolicyText = Strings.Credentials.privacyPolicy
@@ -60,7 +61,6 @@ final class AddCredentialsFooterView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 
     private func setup() {
         addSubview(descriptionTextView)

@@ -26,7 +26,6 @@ class BorderedCornersView: UIView {
     override func tintColorDidChange() {
         super.tintColorDidChange()
 
-
         cornerLayers.values.forEach { $0.strokeColor = tintColor.cgColor }
     }
 

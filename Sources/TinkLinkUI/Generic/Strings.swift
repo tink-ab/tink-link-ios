@@ -52,7 +52,7 @@ enum Strings {
             /// Title for action to continue adding credentials.
             static let continueAction = NSLocalizedString("Credentials.Discard.ContinueAction", tableName: tableName, bundle: bundle, value: "Continue Editing", comment: "Title for action to continue adding credentials.")
 
-            ///Title for action to discard adding credentials.
+            /// Title for action to discard adding credentials.
             static let primaryAction = NSLocalizedString("Credentials.Discard.PrimaryAction", tableName: tableName, bundle: bundle, value: "Discard Changes", comment: "Title for action to discard adding credentials.")
 
             /// Title for action sheet presented when user tries to dismiss modal while adding credentials.
@@ -180,7 +180,7 @@ enum Strings {
 
     enum SelectAccessType {
         static let information = NSLocalizedString("SelectAccessType.Information", tableName: tableName, bundle: bundle, value: "Information about account types", comment: "Text for information button shown in the choose access type screen.")
-        
+
         /// Title for screen where user selects which access type to use when adding credentials.
         static let title = NSLocalizedString("SelectAccessType.Title", tableName: tableName, bundle: bundle, value: "Select account types", comment: "Title of the choose access type screen.")
     }
@@ -203,6 +203,7 @@ enum Strings {
         /// Title for form asking user to supplement information when adding credentials.
         static let title = NSLocalizedString("SupplementalInformation.Title", tableName: tableName, bundle: bundle, value: "Supplemental information", comment: "Title of the supplemental information dialog.")
     }
+
     enum ThirdPartyAppAuthentication {
         enum DownloadAlert {
             /// Title for action to download app for third-party app authentication.
