@@ -46,7 +46,7 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         fatalError("\(#function) should not be called")
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, callbackUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -123,7 +123,7 @@ class MockedAuthenticationErrorCredentialsService: CredentialsService {
         fatalError("\(#function) should not be called")
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, callbackUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
