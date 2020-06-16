@@ -14,13 +14,10 @@ class MockedSuccessTransferService: TransferService {
     }
 
     @discardableResult
-    func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+    func transfer(amount: Decimal, currency: CurrencyCode, credentialsID: Credentials.ID?, transferID: Transfer.ID?, sourceURI: String, destinationURI: String, sourceMessage: String?, destinationMessage: String, dueDate: Date?, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         signableOperation = SignableOperation.createdSignableOperation
         completion(.success(SignableOperation.createdSignableOperation))
-        return TestRetryCanceller { [weak self] in
-            guard let self = self else { return }
-            self.transfer(transfer: transfer, redirectURI: redirectURI, completion: completion)
-        }
+        return nil
     }
 
     @discardableResult
@@ -51,13 +48,10 @@ class MockedCancelledTransferService: TransferService {
     }
 
     @discardableResult
-    func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+    func transfer(amount: Decimal, currency: CurrencyCode, credentialsID: Credentials.ID?, transferID: Transfer.ID?, sourceURI: String, destinationURI: String, sourceMessage: String?, destinationMessage: String, dueDate: Date?, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         signableOperation = SignableOperation.createdSignableOperation
         completion(.success(SignableOperation.createdSignableOperation))
-        return TestRetryCanceller { [weak self] in
-            guard let self = self else { return }
-            self.transfer(transfer: transfer, redirectURI: redirectURI, completion: completion)
-        }
+        return nil
     }
 
     @discardableResult
@@ -85,7 +79,7 @@ class MockedUnauthenticatedErrorTransferService: TransferService {
         return nil
     }
 
-    func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+    func transfer(amount: Decimal, currency: CurrencyCode, credentialsID: Credentials.ID?, transferID: Transfer.ID?, sourceURI: String, destinationURI: String, sourceMessage: String?, destinationMessage: String, dueDate: Date?, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
