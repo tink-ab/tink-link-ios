@@ -1,7 +1,6 @@
 import Foundation
 
 struct RESTTransferDestination: Decodable {
-
     enum ModelType: String, DefaultableDecodable {
         case checking = "CHECKING"
         case savings = "SAVINGS"
@@ -36,4 +35,3 @@ struct RESTTransferDestination: Decodable {
     /// If true, the uri will be a regular expression, for instance "se-pg://" meaning that the source account can make PG payments.
     var matchesMultiple: Bool?
 }
-

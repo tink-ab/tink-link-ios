@@ -1,7 +1,6 @@
 import Foundation
 
 struct TransferDestination: Equatable {
-
     enum Kind: Equatable {
         case checking
         case savings
@@ -34,4 +33,3 @@ struct TransferDestination: Equatable {
     /// If true, the uri will be a regular expression, for instance "se-pg://" meaning that the source account can make PG payments.
     let isMatchingMultipleDestinations: Bool?
 }
-

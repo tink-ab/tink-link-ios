@@ -12,7 +12,7 @@ class MutableCredentialsService: CredentialsService {
     var credentialsStatusAfterSupplementalInformation: Credentials.Status = .updated
 
     init(credentialsList: [Credentials]) {
-        credentialsByID = Dictionary(grouping: credentialsList, by: \.id).compactMapValues(\.first)
+        self.credentialsByID = Dictionary(grouping: credentialsList, by: \.id).compactMapValues(\.first)
     }
 
     func modifyCredentials(id: Credentials.ID, status: Credentials.Status, supplementalInformationFields: [Provider.FieldSpecification] = [], thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil) {
@@ -49,7 +49,7 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func createCredentials(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String : String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func createCredentials(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         let credentials = Credentials(
             id: Credentials.ID(UUID().uuidString),
             providerID: providerID,
@@ -78,7 +78,7 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String : String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         if let credentials = credentialsByID[credentialsID] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
@@ -106,7 +106,7 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func supplementInformation(credentialsID: Credentials.ID, fields: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func supplementInformation(credentialsID: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         if let credentials = credentialsByID[credentialsID] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
@@ -198,7 +198,7 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func thirdPartyCallback(state: String, parameters: [String : String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func thirdPartyCallback(state: String, parameters: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         for id in credentialsByID.keys {
             modifyCredentials(id: id, status: credentialsStatusAfterThirdPartyCallback)
         }

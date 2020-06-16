@@ -7,6 +7,7 @@ final class AddCredentialsStatusPresentationController: UIPresentationController
         shapeLayer.fillRule = .evenOdd
         return shapeLayer
     }()
+
     private lazy var visualEffectView: UIVisualEffectView = {
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         visualEffectView.layer.cornerRadius = 10
@@ -29,7 +30,6 @@ final class AddCredentialsStatusPresentationController: UIPresentationController
             size: presentedViewSize
         )
     }
-
 
     override var presentedView: UIView? {
         return visualEffectView
@@ -73,7 +73,6 @@ final class AddCredentialsStatusPresentationController: UIPresentationController
     }
 
     override func dismissalTransitionWillBegin() {
-
         if let transitionCoordinator = presentingViewController.transitionCoordinator {
             transitionCoordinator.animate(alongsideTransition: { _ in
                 self.hide()

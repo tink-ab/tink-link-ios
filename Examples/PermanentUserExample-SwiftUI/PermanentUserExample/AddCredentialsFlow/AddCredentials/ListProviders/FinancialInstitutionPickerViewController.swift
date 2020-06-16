@@ -6,7 +6,7 @@ final class FinancialInstitutionPickerViewController: UITableViewController {
     typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
     var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
-    
+
     private let credentialsContext: CredentialsContext
 
     init(credentialsContext: CredentialsContext) {

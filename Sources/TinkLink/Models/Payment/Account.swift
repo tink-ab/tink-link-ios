@@ -2,7 +2,6 @@ import Foundation
 
 /// An account could either be a debit account, a credit card, a loan or mortgage.
 public struct Account {
-
     /// The kind of the account.
     public enum Kind {
         /// A checking account.
@@ -128,4 +127,3 @@ public struct Account {
     /// A unique identifier to group accounts belonging the same financial institution. Available for aggregated accounts only.
     public let financialInstitutionID: Provider.FinancialInstitution.ID?
 }
-

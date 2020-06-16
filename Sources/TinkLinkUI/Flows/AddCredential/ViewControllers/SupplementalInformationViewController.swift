@@ -8,7 +8,6 @@ protocol SupplementalInformationViewControllerDelegate: AnyObject {
 
 /// Example of how to use the credential field supplemental information to update credential
 final class SupplementalInformationViewController: UIViewController {
-
     weak var delegate: SupplementalInformationViewControllerDelegate?
 
     private let button = FloatingButton()
@@ -45,7 +44,7 @@ extension SupplementalInformationViewController {
         formTableViewController.didMove(toParent: self)
 
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.isEnabled = formTableViewController.form.fields.filter({ $0.attributes.isEditable }).isEmpty
+        button.isEnabled = formTableViewController.form.fields.filter { $0.attributes.isEditable }.isEmpty
         button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
         button.text = Strings.Generic.done
 
@@ -106,7 +105,6 @@ extension SupplementalInformationViewController {
 
     @objc private func doneButtonPressed(_ sender: UIBarButtonItem) {
         submit()
-
     }
 
     func submit() {
@@ -117,6 +115,7 @@ extension SupplementalInformationViewController {
 }
 
 // MARK: - Keyboard Helper
+
 extension SupplementalInformationViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
         let keyboardHeight = notification.frame.height

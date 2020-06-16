@@ -2,7 +2,6 @@ import UIKit
 import WebKit
 
 final class LegalViewController: UIViewController {
-
     private var webView: WKWebView { view as! WKWebView }
     private lazy var activityIndicator = ActivityIndicatorView()
 
@@ -62,9 +61,9 @@ extension LegalViewController: WKNavigationDelegate {
 extension LegalViewController {
     private func setupCloseButtonHandler() {
         let js = """
-            document.querySelector("button").addEventListener("click", function() { window.close() }, null);
-            """
-        webView.evaluateJavaScript(js, completionHandler: { [weak self, retryDelay] (a, error) in
+        document.querySelector("button").addEventListener("click", function() { window.close() }, null);
+        """
+        webView.evaluateJavaScript(js, completionHandler: { [weak self, retryDelay] a, error in
             if case WKError.javaScriptExceptionOccurred? = error {
                 DispatchQueue.main.asyncAfter(deadline: .now() + retryDelay) {
                     self?.setupCloseButtonHandler()

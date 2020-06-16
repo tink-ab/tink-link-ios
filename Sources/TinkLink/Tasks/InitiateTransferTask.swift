@@ -4,7 +4,6 @@ import Foundation
 ///
 /// Use `TransferContext` to create this task.
 public final class InitiateTransferTask: Cancellable {
-
     typealias TransferStatusPollingTask = PollingTask<Transfer.ID, SignableOperation>
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
@@ -99,8 +98,9 @@ public final class InitiateTransferTask: Cancellable {
             initialValue: signableOperation,
             request: transferService.transferStatus,
             predicate: { (old, new) -> Bool in
-                return old.updated != new.updated || old.status != new.status
-        }) { [weak self] result in
+                old.updated != new.updated || old.status != new.status
+            }
+        ) { [weak self] result in
             self?.handleUpdate(for: result)
         }
 
@@ -127,7 +127,7 @@ public final class InitiateTransferTask: Cancellable {
                         id: credentialsID,
                         initialValue: nil,
                         request: credentialsService.credentials,
-                        predicate: {  (old, new) -> Bool in
+                        predicate: { (old, new) -> Bool in
                             guard let oldStatusUpdated = old.statusUpdated else {
                                 return new.statusUpdated != nil || old.status != new.status
                             }
@@ -137,7 +137,8 @@ public final class InitiateTransferTask: Cancellable {
                             }
 
                             return oldStatusUpdated < newStatusUpdated || old.status != new.status
-                    }) { [weak self] result in
+                        }
+                    ) { [weak self] result in
                         self?.handleUpdate(for: result)
                     }
                 }
@@ -168,7 +169,7 @@ public final class InitiateTransferTask: Cancellable {
             case .authenticating:
                 progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
-                self.credentialsStatusPollingTask?.stopPolling()
+                credentialsStatusPollingTask?.stopPolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
                     guard let self = self else { return }
                     do {
@@ -180,7 +181,7 @@ public final class InitiateTransferTask: Cancellable {
                 }
                 authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
-                self.credentialsStatusPollingTask?.stopPolling()
+                credentialsStatusPollingTask?.stopPolling()
                 guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
                     throw Error.authenticationFailed("Missing third party app authentication information.")
                 }

@@ -5,7 +5,6 @@ protocol IcecreamViewControllerDelegate: AnyObject {
 }
 
 final class IcecreamViewController: UITableViewController {
-
     weak var delegate: IcecreamViewControllerDelegate?
 
     let model = IcecreamModel()
@@ -24,7 +23,6 @@ final class IcecreamViewController: UITableViewController {
 }
 
 extension IcecreamViewController {
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return model.sections.count
     }

@@ -6,14 +6,14 @@ struct RESTFieldsString: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let stringData = try container.decode(String.self).data(using: .utf8) {
-            fields = try JSONDecoder().decode([RESTField].self, from: stringData)
+            self.fields = try JSONDecoder().decode([RESTField].self, from: stringData)
         } else {
-            fields = []
+            self.fields = []
         }
     }
 }
-struct RESTField: Decodable {
 
+struct RESTField: Decodable {
     var defaultValue: String?
     var _description: String?
     /** Text displayed next to the input field */
@@ -80,6 +80,4 @@ struct RESTField: Decodable {
         case checkbox
         case additionalInfo
     }
-
 }
-

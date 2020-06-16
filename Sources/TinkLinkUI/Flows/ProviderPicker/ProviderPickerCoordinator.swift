@@ -10,7 +10,6 @@ protocol ProviderPickerCoordinating: AnyObject {
 }
 
 class ProviderPickerCoordinator: ProviderPickerCoordinating {
-
     private let providerController: ProviderController
     private weak var parentViewController: UIViewController?
     private var completion: ((Result<Provider, Error>) -> Void)?
@@ -38,7 +37,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     @objc func cancel() {
-        self.completion?(.failure(CocoaError(.userCancelled)))
+        completion?(.failure(CocoaError(.userCancelled)))
     }
 
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?) {
@@ -79,4 +78,3 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         completion?(.success(provider))
     }
 }
-

@@ -11,7 +11,6 @@ extension ReusableCell where Self: UIView {
 }
 
 extension UITableView {
-
     func registerReusableCell<T: UITableViewCell & ReusableCell>(ofType typeName: T.Type) {
         register(typeName, forCellReuseIdentifier: typeName.reuseIdentifier)
     }
@@ -32,7 +31,6 @@ extension UITableView {
 }
 
 extension UICollectionView {
-
     func registerReusableCell<T: UICollectionViewCell & ReusableCell>(ofType typeName: T.Type) {
         register(typeName, forCellWithReuseIdentifier: typeName.reuseIdentifier)
     }

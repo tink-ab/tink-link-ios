@@ -28,21 +28,19 @@ extension Font {
 }
 
 extension Font {
-    
     enum Size: UInt {
-
         /// 21
         case mega = 21
-        
+
         /// 17
         case hecto = 17
-        
+
         /// 15
         case deci = 15
-        
+
         /// 13
         case micro = 13
-        
+
         /// 11
         case nano = 11
 
@@ -60,11 +58,11 @@ extension Font {
                 return UIFont.TextStyle.caption2
             }
         }
-        
+
         var pointSize: CGFloat {
             return CGFloat(rawValue)
         }
-        
+
         var lineHeight: CGFloat {
             switch self {
             case .mega:
@@ -80,7 +78,7 @@ extension Font {
             }
         }
     }
-    
+
     private static func regular(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .regular, size: size)
@@ -88,7 +86,7 @@ extension Font {
             return font(weight: .regular, size: size)
         }
     }
-    
+
     private static func bold(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .bold, size: size)
@@ -96,13 +94,13 @@ extension Font {
             return font(weight: .bold, size: size)
         }
     }
-    
+
     static func lineSpacing(weight: Weight, size: Size) -> CGFloat {
         let maxLineHeight = size.lineHeight * 1.5
         let scaledLineHeight = UIFontMetrics(forTextStyle: size.textStyle).scaledValue(for: size.lineHeight)
         return min(maxLineHeight, scaledLineHeight) - scaledFont(weight: weight, size: size).lineHeight
     }
-    
+
     private static func font(weight: Weight, size: Size) -> UIFont {
         switch Appearance.fontProvider.font(for: weight) {
         case .custom(let fontName):
@@ -111,7 +109,7 @@ extension Font {
             return UIFont.systemFont(ofSize: size.pointSize, weight: weight.fontWeight)
         }
     }
-    
+
     private static func scaledFont(weight: Weight, size: Size) -> UIFont {
         let lotaGrotesque = font(weight: weight, size: size)
         return UIFontMetrics(forTextStyle: size.textStyle).scaledFont(for: lotaGrotesque, maximumPointSize: size.pointSize * 1.5)

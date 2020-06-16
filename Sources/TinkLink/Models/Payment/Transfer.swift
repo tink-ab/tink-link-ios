@@ -28,7 +28,7 @@ public struct Transfer {
     let credentialsID: Credentials.ID?
     /// The currency of the amount to be transferred. Should match the SourceUri's currency.
     let currency: CurrencyCode
-     /// The transaction description on the source account for the transfer.
+    /// The transaction description on the source account for the transfer.
     let sourceMessage: String?
     /// The message to the recipient. Optional for bank transfers but required for payments. If the payment recipient requires a structured (specially formatted) message, it should be set in this field.
     let destinationMessage: String

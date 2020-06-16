@@ -11,7 +11,7 @@ protocol ClientBehavior {
 extension ClientBehavior {
     var headers: [String: String] { return [:] }
 
-    func beforeRequest(request: URLRequest) { }
-    func afterSuccess(response: Any?, urlResponse: URLResponse?) { }
-    func afterError(error: Error) { }
+    func beforeRequest(request: URLRequest) {}
+    func afterSuccess(response: Any?, urlResponse: URLResponse?) {}
+    func afterError(error: Error) {}
 }

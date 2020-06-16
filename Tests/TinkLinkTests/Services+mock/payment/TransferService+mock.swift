@@ -79,7 +79,6 @@ class MockedCancelledTransferService: TransferService {
     }
 }
 
-
 class MockedUnauthenticatedErrorTransferService: TransferService {
     func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))

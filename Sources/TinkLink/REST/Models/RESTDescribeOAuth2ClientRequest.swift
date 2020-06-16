@@ -7,12 +7,11 @@ struct RESTDescribeOAuth2ClientRequest: Codable {
 }
 
 struct RESTDescribeOAuth2ClientResponse: Codable {
-
     struct RESTScopeDescription: Codable {
         let title: String
         let description: String
     }
-    
+
     let clientName: String
     let clientUrl: String
     let clientIconUrl: String

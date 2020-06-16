@@ -20,7 +20,7 @@ struct CredentialsList: View {
                     NavigationLink(destination: CredentialsDetailView(credentials: credentials, provider: self.providerController.provider(providerID: credentials.providerID))) {
                         CredentialsListRow(
                             providerName: self.providerController.provider(providerID: credentials.providerID)?.displayName ?? "",
-                            updatedDate: (self.dateFormatter.string(from: credentials.updated ?? Date()))
+                            updatedDate: self.dateFormatter.string(from: credentials.updated ?? Date())
                         )
                     }
                 }

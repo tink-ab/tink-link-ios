@@ -2,7 +2,6 @@ import UIKit
 
 /// A type that can provide colors for Tink views.
 public protocol ColorProviding {
-
     /// Color for the main background of the interface.
     var background: UIColor { get }
     /// Color for content layered on top of the main background.

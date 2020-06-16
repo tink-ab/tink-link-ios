@@ -6,7 +6,6 @@ struct RESTCredentialsList: Decodable {
 
 /// The credentials model represents a user's connected providers from where financial data is accessed.
 struct RESTCredentials: Decodable {
-
     enum ModelType: String, DefaultableDecodable {
         case password = "PASSWORD"
         case mobileBankid = "MOBILE_BANKID"
@@ -34,6 +33,7 @@ struct RESTCredentials: Decodable {
 
         static var decodeFallbackValue: RESTCredentials.Status = .unknown
     }
+
     /// The unique identifier of the credentials.
     var id: String?
 
@@ -56,7 +56,7 @@ struct RESTCredentials: Decodable {
     var updated: Date?
 
     /// This is a key-value map of `Field` name and value found on the `Provider` to which the credentials belongs to. This parameter is required when creating credentials.
-    var fields: [String:String]
+    var fields: [String: String]
 
     /// A key-value structure to handle if status of credentials are `AWAITING_SUPPLEMENTAL_INFORMATION` or `AWAITING_THIRD_PARTY_APP_AUTHENTICATION`
     var supplementalInformation: String?
@@ -67,4 +67,3 @@ struct RESTCredentials: Decodable {
     /// The ID of the user that the credentials belongs to.
     var userId: String?
 }
-
