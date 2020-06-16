@@ -2,7 +2,7 @@ import Foundation
 import TinkCore
 
 /// An object that accesses providers for a specific market and supports the grouping of providers.
-final class ProviderContext {
+public final class ProviderContext {
     /// Attributes representing which providers a context should access.
     public struct Attributes: Hashable {
         /// The capabilities that the providers have.
@@ -26,7 +26,7 @@ final class ProviderContext {
         public static let `default` = Attributes(capabilities: .all, kinds: .default, accessTypes: .all)
     }
 
-    private let tink: Tink
+    private let redirectURI: URL
     private let service: ProviderService
 
     // MARK: - Creating a Context
@@ -41,7 +41,7 @@ final class ProviderContext {
     }
 
     init(tink: Tink, providerService: ProviderService) {
-        self.tink = tink
+        self.redirectURI = tink.configuration.redirectURI
         self.service = providerService
     }
 

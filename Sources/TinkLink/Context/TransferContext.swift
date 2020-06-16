@@ -2,7 +2,7 @@ import Foundation
 
 /// An object that you use to initiate transfers and access the user's accounts and beneficiaries.
 public final class TransferContext {
-    private let tink: Tink
+    private let redirectURI: URL
     private let transferService: TransferService
     private let beneficiaryService: BeneficiaryService
     private let credentialsService: CredentialsService
@@ -23,7 +23,7 @@ public final class TransferContext {
     }
 
     init(tink: Tink, transferService: TransferService, beneficiaryService: BeneficiaryService, credentialsService: CredentialsService, providerService: ProviderService) {
-        self.tink = tink
+        self.redirectURI = tink.configuration.redirectURI
         self.transferService = transferService
         self.beneficiaryService = beneficiaryService
         self.credentialsService = credentialsService
@@ -90,7 +90,7 @@ public final class TransferContext {
         let task = InitiateTransferTask(
             transferService: transferService,
             credentialsService: credentialsService,
-            appUri: tink.configuration.redirectURI,
+            appUri: redirectURI,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
@@ -106,7 +106,7 @@ public final class TransferContext {
             sourceMessage: message.source,
             destinationMessage: message.destination,
             dueDate: nil,
-            redirectURI: tink.configuration.redirectURI
+            redirectURI: redirectURI
         ) { [weak task] result in
             do {
                 let signableOperation = try result.get()
@@ -175,7 +175,7 @@ public final class TransferContext {
         let task = InitiateTransferTask(
             transferService: transferService,
             credentialsService: credentialsService,
-            appUri: tink.configuration.redirectURI,
+            appUri: redirectURI,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
@@ -191,7 +191,7 @@ public final class TransferContext {
             sourceMessage: message.source,
             destinationMessage: message.destination,
             dueDate: nil,
-            redirectURI: tink.configuration.redirectURI
+            redirectURI: redirectURI
         ) { [weak task] result in
             do {
                 let signableOperation = try result.get()
@@ -311,7 +311,7 @@ public final class TransferContext {
         let task = AddBeneficiaryTask(
             beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
-            appUri: tink.configuration.redirectURI,
+            appUri: redirectURI,
             ownerAccountID: ownerAccount.id,
             ownerAccountCredentialsID: credentials?.id ?? ownerAccount.credentialsID,
             name: name,
@@ -384,7 +384,7 @@ public final class TransferContext {
         let task = AddBeneficiaryTask(
             beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
-            appUri: tink.configuration.redirectURI,
+            appUri: redirectURI,
             ownerAccountID: ownerAccountID,
             ownerAccountCredentialsID: credentialsID,
             name: name,
