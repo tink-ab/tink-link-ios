@@ -59,7 +59,7 @@ extension Beneficiary.URI {
         if !beneficiary.name.isEmpty {
             urlComponents.queryItems = [URLQueryItem(name: "name", value: beneficiary.name)]
         }
-        guard let uri = urlComponents.url else { return  nil }
+        guard let uri = urlComponents.url else { return nil }
 
         self.value = uri.absoluteString
     }

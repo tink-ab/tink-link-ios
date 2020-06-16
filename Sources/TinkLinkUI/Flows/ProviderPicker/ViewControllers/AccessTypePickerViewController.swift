@@ -3,7 +3,6 @@ import UIKit
 
 /// Example of how to use the provider grouped by access type
 final class AccessTypePickerViewController: UITableViewController {
-
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let accessTypeNodes: [ProviderTree.AccessTypeNode]
@@ -44,7 +43,7 @@ extension AccessTypePickerViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let node = accessTypeNodes[indexPath.row]
-        
+
         let cell = tableView.dequeueReusableCell(ofType: ProviderCell.self, for: indexPath)
         if let url = node.imageURL {
             cell.setImage(url: url)

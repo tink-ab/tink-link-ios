@@ -12,6 +12,7 @@ class CredentialsPickerViewController: UITableViewController {
             tableView.reloadData()
         }
     }
+
     private var credentialsList: [Credentials] = [] {
         didSet {
             tableView.reloadData()
@@ -36,7 +37,7 @@ extension CredentialsPickerViewController {
         title = "Credentials"
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
-        
+
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
 
@@ -63,7 +64,7 @@ extension CredentialsPickerViewController {
             DispatchQueue.main.async {
                 do {
                     let providers = try result.get()
-                    self?.providersByID = Dictionary(grouping: providers, by: { $0.id }).compactMapValues({ $0.first })
+                    self?.providersByID = Dictionary(grouping: providers, by: { $0.id }).compactMapValues { $0.first }
                 } catch {
                     self?.showAlert(for: error)
                 }

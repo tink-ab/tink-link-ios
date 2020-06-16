@@ -2,7 +2,6 @@ import UIKit
 import Down
 
 final class AddCredentialsHelpTextView: UIView {
-
     private let helpTextView = UnselectableTextView()
 
     override init(frame: CGRect) {
@@ -64,7 +63,7 @@ final class AddCredentialsHelpTextView: UIView {
 
         mutableAttributedString.addAttributes([.font: Font.footnote, .foregroundColor: Color.secondaryLabel], range: NSRange(location: 0, length: attributedString.length))
 
-        //There can be an extra newline in the end of the
+        // There can be an extra newline in the end of the
         // string (Down doing this?) so we need to remove it.
         let lastCharRange = NSRange(location: mutableAttributedString.length - 1, length: 1)
         if mutableAttributedString.string.hasSuffix("\n") {

@@ -6,7 +6,7 @@ final class UnselectableTextView: UITextView {
         guard
             let position = closestPosition(to: point),
             let range = tokenizer.rangeEnclosingPosition(position, with: .character, inDirection: .layout(.left))
-            else { return false }
+        else { return false }
 
         let startIndex = offset(from: beginningOfDocument, to: range.start)
 

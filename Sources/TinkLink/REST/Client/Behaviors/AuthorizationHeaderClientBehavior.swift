@@ -1,13 +1,12 @@
 import Foundation
 
 final class AuthorizationHeaderClientBehavior: ClientBehavior {
-
     var sessionCredential: UserSession?
-    
+
     init(sessionCredential: UserSession?) {
         self.sessionCredential = sessionCredential
     }
-    
+
     var headers: [String: String] {
         switch sessionCredential {
         case .sessionID(let sessionID):

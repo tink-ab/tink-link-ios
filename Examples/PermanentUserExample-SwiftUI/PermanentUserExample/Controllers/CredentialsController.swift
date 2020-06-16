@@ -6,9 +6,9 @@ final class CredentialsController: ObservableObject {
 
     @Published var supplementInformationTask: SupplementInformationTask?
 
-    private(set) var credentialsContext =  CredentialsContext()
+    private(set) var credentialsContext = CredentialsContext()
     private var task: RefreshCredentialsTask?
-    
+
     func performFetch() {
         credentialsContext.fetchCredentialsList(completion: { [weak self] result in
             do {
@@ -80,7 +80,7 @@ final class CredentialsController: ObservableObject {
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
         case .updating:
-            if let index = credentials.firstIndex (where: { $0.id == refreshedCredentials.id }) {
+            if let index = credentials.firstIndex(where: { $0.id == refreshedCredentials.id }) {
                 DispatchQueue.main.async { [weak self] in
                     self?.credentials[index] = refreshedCredentials
                 }
@@ -91,7 +91,7 @@ final class CredentialsController: ObservableObject {
     private func refreshCompletionHandler(result: Result<Credentials, Error>) {
         do {
             let updatedCredentials = try result.get()
-            if let index = credentials.firstIndex (where: { $0.id == updatedCredentials.id }) {
+            if let index = credentials.firstIndex(where: { $0.id == updatedCredentials.id }) {
                 DispatchQueue.main.async { [weak self] in
                     self?.credentials[index] = updatedCredentials
                 }

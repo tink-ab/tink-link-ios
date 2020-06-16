@@ -17,7 +17,6 @@ extension Account {
         public init(stringLiteral value: String) {
             self.value = value
         }
-
     }
 }
 

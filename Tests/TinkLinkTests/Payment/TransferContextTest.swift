@@ -198,7 +198,7 @@ class TransferContextTests: XCTestCase {
                 default:
                     break
                 }
-        }
+            }
         ) { result in
             do {
                 _ = try result.get()

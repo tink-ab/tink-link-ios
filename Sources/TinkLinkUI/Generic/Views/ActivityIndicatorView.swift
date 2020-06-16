@@ -60,6 +60,7 @@ final class ActivityIndicatorView: UIView {
     }
 
     // MARK: - Initializers
+
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     }
@@ -98,6 +99,7 @@ final class ActivityIndicatorView: UIView {
     }
 
     // MARK: - Layout
+
     override func layoutSubviews() {
         super.layoutSubviews()
         circleLayer.frame = CGRect(x: (bounds.width - size) / 2, y: (bounds.height - size) / 2, width: size, height: size)
@@ -106,12 +108,14 @@ final class ActivityIndicatorView: UIView {
     override var intrinsicContentSize: CGSize { CGSize(width: size, height: size) }
 
     // MARK: - Color
+
     override func tintColorDidChange() {
         super.tintColorDidChange()
         circleLayer.strokeColor = tintColor.cgColor
     }
 
     // MARK: - Animation
+
     private enum AnimationKeys: String {
         case strokeStart
         case strokeEnd
@@ -187,6 +191,7 @@ private extension ActivityIndicatorView {
             circleLayer.add(animation, forKey: AnimationKeys.rotation.rawValue)
         }
     }
+
     func startRepeatingAnimation() {
         let duration = 1.25 as CFTimeInterval
 
@@ -287,9 +292,7 @@ extension ActivityIndicatorView {
 }
 
 extension ActivityIndicatorView: CAAnimationDelegate {
-    func animationDidStart(_ anim: CAAnimation) {
-
-    }
+    func animationDidStart(_ anim: CAAnimation) {}
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if shouldBeAnimating {

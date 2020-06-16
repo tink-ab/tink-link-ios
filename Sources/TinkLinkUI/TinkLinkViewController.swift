@@ -54,7 +54,7 @@ import TinkLink
 ///
 /// present(tinkLinkViewController, animated: true)
 /// ```
-/// 
+///
 /// After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can [exchange](https://docs.tink.com/resources/getting-started/retrieve-access-token) for an access token. If something went wrong the result will contain an error.
 /// ```swift
 /// do {
@@ -65,7 +65,6 @@ import TinkLink
 /// }
 /// ```
 public class TinkLinkViewController: UINavigationController {
-
     /// Strategy for different types of prefilling
     public enum PrefillStrategy {
         /// No prefilling will occur.
@@ -127,7 +126,7 @@ public class TinkLinkViewController: UINavigationController {
     /// Initializes a new TinkLinkViewController.
     /// - Parameters:
     ///   - tink: A configured `Tink` object.
-    ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from. 
+    ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from.
     ///   - scope: A set of scopes that will be aggregated.
     ///   - providerKinds: The kind of providers that will be listed.
     ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
@@ -190,7 +189,7 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     /// :nodoc:
-    override public func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarAppearance()
 
@@ -213,13 +212,13 @@ public class TinkLinkViewController: UINavigationController {
         defer { tink._endUITask() }
         if let userSession = userSession {
             tink.userSession = userSession
-            self.startOperation()
+            startOperation()
         } else if let authorizationCode = authorizationCode {
             authorizePermanentUser(authorizationCode: authorizationCode) {
                 self.startOperation()
             }
         } else {
-            createTemporaryUser() {
+            createTemporaryUser {
                 self.startOperation()
             }
         }
@@ -236,7 +235,9 @@ public class TinkLinkViewController: UINavigationController {
                 } catch {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
-                    self.showCreateTemporaryUserAlert(for: error)
+                    self.showAlert(for: error, onRetry: {
+                        self.retryOperation()
+                    })
                 }
             }
         }
@@ -254,7 +255,9 @@ public class TinkLinkViewController: UINavigationController {
                 } catch {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
-                    self.showCreateTemporaryUserAlert(for: error)
+                    self.showAlert(for: error, onRetry: {
+                        self.retryOperation()
+                    })
                 }
             }
         }
@@ -264,13 +267,13 @@ public class TinkLinkViewController: UINavigationController {
         DispatchQueue.main.async {
             self.operate()
             self.clientDescriptorLoadingGroup.enter()
-            self.authorizationController.clientDescription { (clientDescriptionResult) in
+            self.authorizationController.clientDescription { clientDescriptionResult in
                 DispatchQueue.main.async {
                     do {
                         self.clientDescription = try clientDescriptionResult.get()
                         self.clientDescriptorLoadingGroup.leave()
                     } catch {
-                        self.showUnknownAggregatorAlert(for: error)
+                        self.showAlert(for: error, onRetry: nil)
                     }
                 }
             }
@@ -278,7 +281,7 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     func operate() {
-        switch self.operation {
+        switch operation {
         case .create(providerPredicate: let providerPredicate):
             fetchProviders(providerPredicate: providerPredicate)
         case .authenticate(let id):
@@ -290,9 +293,8 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
-
     func fetchProviders(providerPredicate: ProviderPredicate) {
-        providerController.fetch(with: providerPredicate) { (result) in
+        providerController.fetch(with: providerPredicate) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let providers):
@@ -304,7 +306,7 @@ public class TinkLinkViewController: UINavigationController {
                             self.showAddCredentials(for: provider, animated: false)
                         }
                     }
-                case .failure (let error):
+                case .failure(let error):
                     if let tinkLinkError = TinkLinkError(error: error) {
                         self.result = .failure(tinkLinkError)
                     }
@@ -322,7 +324,6 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     func startCredentialCoordinator(with operation: CredentialsCoordinator.Action) {
-
         guard let clientDescription = clientDescription else {
             clientDescriptorLoadingGroup.notify(queue: .main) { [weak self] in
                 self?.startCredentialCoordinator(with: operation)
@@ -386,48 +387,10 @@ public class TinkLinkViewController: UINavigationController {
 // MARK: - Alerts
 
 extension TinkLinkViewController {
-
-    private func showCreateTemporaryUserAlert(for error: Error) {
-        let localizedError = error as? LocalizedError
-
-        let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? Strings.Generic.ServiceAlert.fallbackTitle,
-            message: localizedError?.failureReason ?? error.localizedDescription,
-            preferredStyle: .alert
-        )
-
-        let retryAction = UIAlertAction(title: Strings.Generic.retry, style: .default) { _ in
-            self.showLoadingOverlay(withText: nil, onCancel: nil)
-            self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
-        }
-        alertController.addAction(retryAction)
-
-        let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
-            self.presentingViewController?.dismiss(animated: true)
-        }
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true)
-    }
-
-    private func showUnknownAggregatorAlert(for error: Error) {
-        let localizedError = error as? LocalizedError
-
-        let alertController = UIAlertController(
-            title: localizedError?.errorDescription ?? Strings.Generic.ServiceAlert.fallbackTitle,
-            message: localizedError?.failureReason ?? error.localizedDescription,
-            preferredStyle: .alert
-        )
-
-        let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
-            self.presentingViewController?.dismiss(animated: true)
-        }
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true)
-    }
-
-    private func showAlert(for error: Error) {
+    private func showAlert(for error: Error, onRetry: (() -> Void)? = nil) {
         let title: String?
         let message: String?
+
         if let error = error as? LocalizedError {
             title = error.errorDescription
             message = error.failureReason
@@ -436,21 +399,38 @@ extension TinkLinkViewController {
             message = error.localizedDescription
         }
 
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
 
-        let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default)
-        alertController.addAction(okAction)
+        if let onRetry = onRetry {
+            let retryAction = UIAlertAction(title: Strings.Generic.retry, style: .default) { _ in
+                onRetry()
+            }
+            alertController.addAction(retryAction)
+        }
 
+        let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
+            self.completionHandler()
+            self.presentingViewController?.dismiss(animated: true)
+        }
+        alertController.addAction(dismissAction)
         present(alertController, animated: true)
+    }
+
+    private func retryOperation() {
+        self.showLoadingOverlay(withText: nil, onCancel: nil)
+        self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
     }
 }
 
-//MARK: - Navigation
+// MARK: - Navigation
 
 extension TinkLinkViewController {
-
     func showProviderPicker() {
-        providerPickerCoordinator.start { [weak self] (result) in
+        providerPickerCoordinator.start { [weak self] result in
             do {
                 let provider = try result.get()
                 self?.showAddCredentials(for: provider)
@@ -536,6 +516,7 @@ extension TinkLinkViewController {
 }
 
 // MARK: - Helpers
+
 extension TinkLinkViewController {
     private var didShowCredentialsForm: Bool {
         credentialsCoordinator != nil
@@ -560,6 +541,7 @@ extension TinkLinkViewController {
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
+
 /// :nodoc:
 @available(iOS 13.0, *)
 extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
@@ -582,7 +564,6 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
 }
 
 extension TinkLinkViewController: CredentialsCoordinatorPresenting {
-
     func showLoadingIndicator(text: String?, onCancel: (() -> Void)?) {
         showLoadingOverlay(withText: text, onCancel: onCancel)
     }
@@ -597,6 +578,7 @@ extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 }
 
 // MARK: - CredentialsCoordinatorDelegate
+
 extension TinkLinkViewController: CredentialsCoordinatorDelegate {
     /// :nodoc:
     func didFinishCredentialsForm() {

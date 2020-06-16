@@ -86,7 +86,6 @@ public final class TransferContext {
         progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
-
         let task = InitiateTransferTask(
             transferService: transferService,
             credentialsService: credentialsService,
@@ -241,7 +240,7 @@ public final class TransferContext {
     ///
     /// Required scopes:
     /// - beneficiaries:read
-    /// 
+    ///
     /// The result list may include duplicate beneficiaries for different source accounts.
     /// You can group the list by account id as follow:
     ///

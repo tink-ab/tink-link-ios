@@ -77,9 +77,10 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             id: credentials.id,
             initialValue: credentials,
             request: credentialsService.credentials,
-            predicate: {  (old, new) -> Bool in
-                return old.statusUpdated != new.statusUpdated || old.status != new.status
-        }) { [weak self] result in
+            predicate: { (old, new) -> Bool in
+                old.statusUpdated != new.statusUpdated || old.status != new.status
+            }
+        ) { [weak self] result in
             self?.handleUpdate(for: result)
         }
 

@@ -2,16 +2,16 @@ import UIKit
 import TinkLink
 
 final class FinancialInstitutionSearchViewController: UITableViewController {
-
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     var originalFinancialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
-    
+
     private var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = [] {
         didSet {
-            self.tableView.reloadData()
+            tableView.reloadData()
         }
     }
+
     init() {
         super.init(style: .plain)
     }
@@ -88,4 +88,3 @@ extension FinancialInstitutionSearchViewController: UISearchResultsUpdating {
         return filteredFinancialInstitutionNodes
     }
 }
-

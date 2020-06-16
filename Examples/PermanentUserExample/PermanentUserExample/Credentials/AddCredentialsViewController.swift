@@ -77,7 +77,6 @@ extension AddCredentialsViewController {
 
 extension AddCredentialsViewController {
     private func setupHelpFootnote() {
-
         guard let helpText = provider.helpText, !helpText.isEmpty else { return }
         let markdown = Down(markdownString: helpText)
         helpLabel.attributedText = try? markdown.toAttributedString()
@@ -314,6 +313,7 @@ extension AddCredentialsViewController {
 }
 
 // MARK: - TextFieldTableViewCellDelegate
+
 extension AddCredentialsViewController: TextFieldTableViewCellDelegate {
     func textFieldTableViewCell(_ cell: TextFieldTableViewCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }

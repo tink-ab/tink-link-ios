@@ -14,10 +14,12 @@ class TransferViewController: UITableViewController {
             case from
             case to
         }
+
         enum DetailField {
             case amount
             case message
         }
+
         case accounts([AccountField])
         case details([DetailField])
         case action
@@ -62,7 +64,7 @@ extension TransferViewController {
             let beneficiary = beneficiary,
             let balance = sourceAccount.currencyDenominatedBalance,
             let amount = amount
-            else { return }
+        else { return }
 
         initiateTransfer(from: sourceAccount, to: beneficiary, amount: amount, currencyCode: balance.currencyCode)
     }
@@ -313,9 +315,7 @@ extension TransferViewController: TextFieldTableViewCellDelegate {
         }
     }
 
-    func textFieldTableViewCellDidEndEditing(_ cell: TextFieldTableViewCell) {
-
-    }
+    func textFieldTableViewCellDidEndEditing(_ cell: TextFieldTableViewCell) {}
 }
 
 // MARK: - SourceAccountPickerViewControllerDelegate

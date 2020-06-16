@@ -2,7 +2,6 @@ import TinkLink
 
 extension RefreshableItems {
     static func makeRefreshableItems(scopes: [Scope], provider: Provider) -> RefreshableItems {
-
         var requestedRefreshableItems: RefreshableItems = [.accounts, .eInvoices, .transferDestinations]
 
         // Based on: https://github.com/tink-ab/tink-backend/blob/39c97c74a0eba4d039b5347de3781df378c3692f/src/main-system-features/aggregation_controller_v1/src/main/java/se/tink/libraries/aggregation_controller_v1/enums/RefreshableItem.java#L36

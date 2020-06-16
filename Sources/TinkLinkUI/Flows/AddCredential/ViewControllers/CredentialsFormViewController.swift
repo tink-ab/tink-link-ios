@@ -133,7 +133,7 @@ extension CredentialsFormViewController {
 
         navigationItem.title = Strings.Credentials.title
         navigationItem.largeTitleDisplayMode = .never
-        button.isEnabled = formTableViewController.form.fields.filter({ $0.attributes.isEditable }).isEmpty
+        button.isEnabled = formTableViewController.form.fields.filter { $0.attributes.isEditable }.isEmpty
 
         setupHelpFootnote()
         layoutHelpFootnote()
@@ -171,7 +171,7 @@ extension CredentialsFormViewController {
             button.text = Strings.Generic.continue
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
@@ -200,7 +200,7 @@ extension CredentialsFormViewController {
         formTableViewController.tableView.tableFooterView = helpLabel
     }
 
-    private func layoutHelpFootnote() { 
+    private func layoutHelpFootnote() {
         guard let footerView = formTableViewController.tableView.tableFooterView else {
             return
         }
@@ -208,14 +208,14 @@ extension CredentialsFormViewController {
         let footerSize = footerView.systemLayoutSizeFitting(CGSize(width: view.bounds.width, height: 0), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
 
         footerView.frame = CGRect(origin: .zero, size: CGSize(
-                width: view.bounds.width,
-                height: footerSize.height
-            )
-        )
+            width: view.bounds.width,
+            height: footerSize.height
+        ))
     }
 }
 
 // MARK: - Keyboard Helper
+
 extension CredentialsFormViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
         updateButtonBottomConstraint(notification)

@@ -12,6 +12,7 @@ final class AddCredentialsHeaderView: UIView {
         bankIconView.contentMode = .scaleAspectFit
         return bankIconView
     }()
+
     private lazy var bankLabel: UILabel = {
         let bankLabel = UILabel()
         bankLabel.font = Font.headline
@@ -20,6 +21,7 @@ final class AddCredentialsHeaderView: UIView {
         bankLabel.numberOfLines = 0
         return bankLabel
     }()
+
     private let userInfoContainerView = UIView()
     private let userInfoIconBackgroundView: UIView = {
         let userInfoIconBackgroundView = UIView()
@@ -28,12 +30,14 @@ final class AddCredentialsHeaderView: UIView {
 
         return userInfoIconBackgroundView
     }()
+
     private let userInfoIconView: UIImageView = {
         let userInfoIconView = UIImageView()
         userInfoIconView.tintColor = Color.accent
         userInfoIconView.image = UIImage(icon: .profile)?.withRenderingMode(.alwaysTemplate)
         return userInfoIconView
     }()
+
     private lazy var userInfoDescription: UITextView = {
         let userInfoDescription = UnselectableTextView()
         userInfoDescription.textContainerInset = .zero
@@ -49,6 +53,7 @@ final class AddCredentialsHeaderView: UIView {
         userInfoDescription.setLineHeight(lineHeight: 20)
         return userInfoDescription
     }()
+
     private lazy var dashLine: UIView = {
         let dashLine = UIView()
         dashLine.backgroundColor = .clear
@@ -63,12 +68,13 @@ final class AddCredentialsHeaderView: UIView {
 
         return dashLine
     }()
+
     private lazy var dashLayer: CAShapeLayer = {
         let dashLayer = CAShapeLayer()
         dashLayer.fillColor = UIColor.clear.cgColor
         dashLayer.strokeColor = UIColor.darkGray.cgColor
         dashLayer.lineWidth = 1
-        dashLayer.lineDashPattern = [1,3]
+        dashLayer.lineDashPattern = [1, 3]
         return dashLayer
     }()
 
@@ -164,7 +170,7 @@ final class AddCredentialsHeaderView: UIView {
 
     func configure(with provider: Provider, clientName: String, isAggregator: Bool) {
         configure(provider)
-        
+
         let shouldHideUserInfoContainer = isAggregator
         guard !shouldHideUserInfoContainer else {
             userInfoContainerView.isHidden = true

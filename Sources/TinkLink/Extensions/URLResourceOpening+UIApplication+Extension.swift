@@ -1,6 +1,6 @@
 import Foundation
 #if os(iOS)
-import UIKit
+    import UIKit
 #endif
 
 protocol URLResourceOpening {
@@ -10,7 +10,7 @@ protocol URLResourceOpening {
 }
 
 #if os(iOS)
-extension UIApplication: URLResourceOpening {
-    var universalLinksOnlyOptionKey: UIApplication.OpenExternalURLOptionsKey { OpenExternalURLOptionsKey.universalLinksOnly }
-}
+    extension UIApplication: URLResourceOpening {
+        var universalLinksOnlyOptionKey: UIApplication.OpenExternalURLOptionsKey { OpenExternalURLOptionsKey.universalLinksOnly }
+    }
 #endif

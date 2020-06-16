@@ -6,7 +6,7 @@ final class AccessTypePickerViewController: UITableViewController {
     typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler?
     var accessTypeNodes: [ProviderTree.AccessTypeNode] = []
-    
+
     private let credentialsContext: CredentialsContext
 
     init(credentialsContext: CredentialsContext) {

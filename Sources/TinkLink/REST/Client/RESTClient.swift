@@ -24,7 +24,7 @@ final class RESTClient {
         do {
             let urlRequest = try makeURLRequest(from: request)
 
-            let task = URLSessionRetryCancellableTask(session: session, urlRequest: urlRequest) { (data, response, error) in
+            let task = URLSessionRetryCancellableTask(session: session, urlRequest: urlRequest) { data, response, error in
                 if let error = error {
                     request.onResponse(.failure(error))
                     self.behavior.afterError(error: error)
@@ -46,7 +46,7 @@ final class RESTClient {
 
         } catch {
             request.onResponse(.failure(error))
-            self.behavior.afterError(error: error)
+            behavior.afterError(error: error)
             return nil
         }
     }

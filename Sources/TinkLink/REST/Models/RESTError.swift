@@ -1,7 +1,6 @@
 import Foundation
 
 struct RESTError: Error, LocalizedError, Decodable {
-
     let errorMessage: String?
     let errorCode: String
 

@@ -2,7 +2,6 @@ import Foundation
 
 /// An account could either be a debit account, a credit card, a loan or mortgage.
 struct RESTAccount: Decodable {
-
     enum ModelType: String, DefaultableDecodable {
         case checking = "CHECKING"
         case savings = "SAVINGS"
@@ -35,6 +34,7 @@ struct RESTAccount: Decodable {
 
         static var decodeFallbackValue: RESTAccount.AccountExclusion = .unknown
     }
+
     /// The account number of the account. The format of the account numbers may differ between account types and banks. This property can be updated in a update account request.
     var accountNumber: String
 
@@ -110,4 +110,3 @@ struct RESTAccount: Decodable {
     /// A unique identifier to group accounts belonging the same financial institution. Available for aggregated accounts only.
     var financialInstitutionId: String?
 }
-

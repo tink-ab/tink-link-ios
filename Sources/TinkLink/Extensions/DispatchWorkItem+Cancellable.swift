@@ -1,3 +1,3 @@
 import Foundation
 
-extension DispatchWorkItem: Cancellable { }
+extension DispatchWorkItem: Cancellable {}
