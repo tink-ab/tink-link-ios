@@ -2,7 +2,7 @@ import Foundation
 import TinkCore
 
 /// An object that accesses providers for a specific market and supports the grouping of providers.
-public final class ProviderContext {
+final class ProviderContext {
     /// Attributes representing which providers a context should access.
     public struct Attributes: Hashable {
         /// The capabilities that the providers have.
