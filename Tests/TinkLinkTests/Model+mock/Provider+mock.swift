@@ -1,4 +1,4 @@
-@testable import TinkLink
+@testable import TinkCore
 
 extension Provider {
     static let nordeaBankID = Provider(
