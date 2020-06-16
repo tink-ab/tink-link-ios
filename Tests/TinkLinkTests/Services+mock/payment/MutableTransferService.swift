@@ -1,5 +1,5 @@
 import Foundation
-@testable import TinkLink
+@testable import TinkCore
 
 class MutableTransferService: TransferService {
     private var signableOperationsByTransferID: [Transfer.ID: SignableOperation] = [:]
