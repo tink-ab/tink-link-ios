@@ -1,5 +1,5 @@
 import Foundation
-@testable import TinkLink
+@testable import TinkCore
 
 class MockedSuccessTransferService: TransferService {
     private var signableOperation: SignableOperation?
