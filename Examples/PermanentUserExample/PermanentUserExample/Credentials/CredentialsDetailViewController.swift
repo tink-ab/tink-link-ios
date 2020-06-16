@@ -210,7 +210,7 @@ extension CredentialsDetailViewController {
             do {
                 self?.credentials = try result.get()
             } catch {
-
+                // Handle any errors
             }
             self?.dismiss(animated: true)
         }
