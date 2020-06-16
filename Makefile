@@ -28,7 +28,7 @@ docs:
 		--author Tink \
 		--author_url https://tink.com \
 		--github_url https://github.com/tink-ab/tink-link-ios \
-		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
+		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/$(VERSION) \
 		--module-version $(VERSION) \
 		--module TinkLink \
 		--swift-build-tool xcodebuild \
@@ -39,7 +39,7 @@ docs:
 		--author Tink \
 		--author_url https://tink.com \
 		--github_url https://github.com/tink-ab/tink-link-ios \
-		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/v$(VERSION) \
+		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/$(VERSION) \
 		--module-version $(VERSION) \
 		--module TinkLinkUI \
 		--swift-build-tool xcodebuild \
