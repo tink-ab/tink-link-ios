@@ -5,7 +5,7 @@ import UIKit
 final class AddCredentialsViewController: UITableViewController {
     let provider: Provider
 
-    private let credentialsContext = CredentialsContext()
+    private let credentialsContext = Tink.shared.credentialsContext
     private var form: Form
     private var formError: Form.ValidationError? {
         didSet {

@@ -6,7 +6,7 @@ final class UpdateCredentialsViewController: UITableViewController {
     private let provider: Provider
     private var credentials: Credentials
     private let completion: (Result<Credentials, Error>) -> Void
-    private let credentialsContext = CredentialsContext()
+    private let credentialsContext = Tink.shared.credentialsContext
     private var form: Form
     private var formError: Form.ValidationError? {
         didSet {

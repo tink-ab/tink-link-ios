@@ -6,7 +6,7 @@ protocol BeneficiaryPickerViewControllerDelegate: AnyObject {
 }
 
 class BeneficiaryPickerViewController: UITableViewController {
-    private let transferContext = TransferContext()
+    private let transferContext = Tink.shared.transferContext
 
     weak var delegate: BeneficiaryPickerViewControllerDelegate?
 

@@ -6,7 +6,7 @@ protocol SourceAccountPickerViewControllerDelegate: AnyObject {
 }
 
 class SourceAccountPickerViewController: UITableViewController {
-    private let transferContext = TransferContext()
+    private let transferContext = Tink.shared.transferContext
 
     weak var delegate: SourceAccountPickerViewControllerDelegate?
 
