@@ -12,11 +12,6 @@ class MockedSuccessOAuthService: OAuthService {
         completion(.success(accessToken))
         return nil
     }
-
-    func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
-        completion(.success(UserProfile(username: "test-user", nationalID: "test-id")))
-        return nil
-    }
 }
 
 class MockedInvalidArgumentFailurefulOAuthService: OAuthService {
@@ -29,11 +24,6 @@ class MockedInvalidArgumentFailurefulOAuthService: OAuthService {
         completion(.failure(ServiceError.invalidArgumentError))
         return nil
     }
-
-    func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(ServiceError.invalidArgumentError))
-        return nil
-    }
 }
 
 class MockedUnauthenticatedErrorOAuthService: OAuthService {
@@ -43,11 +33,6 @@ class MockedUnauthenticatedErrorOAuthService: OAuthService {
     }
 
     func authenticate(code: AuthorizationCode, completion: @escaping (Result<AccessToken, Error>) -> Void) -> RetryCancellable? {
-        completion(.failure(ServiceError.unauthenticatedError))
-        return nil
-    }
-
-    func userProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }

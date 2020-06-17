@@ -1,5 +1,5 @@
 import Foundation
-@testable import TinkLink
+@testable import TinkCore
 
 class MutableCredentialsService: CredentialsService {
     private var credentialsByID: [Credentials.ID: Credentials] = [:]
@@ -78,7 +78,7 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, callbackUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         if let credentials = credentialsByID[credentialsID] {
             let updatedCredentials = Credentials(
                 id: credentials.id,

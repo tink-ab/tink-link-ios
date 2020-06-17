@@ -1,5 +1,5 @@
 import Foundation
-@testable import TinkLink
+@testable import TinkCore
 
 class MutableTransferService: TransferService {
     private var signableOperationsByTransferID: [Transfer.ID: SignableOperation] = [:]
@@ -16,11 +16,11 @@ class MutableTransferService: TransferService {
     }
 
     @discardableResult
-    func transfer(transfer: Transfer, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
-        let transferID = transfer.id ?? Transfer.ID(UUID().uuidString)
+    func transfer(amount: Decimal, currency: CurrencyCode, credentialsID: Credentials.ID?, transferID: Transfer.ID?, sourceURI: String, destinationURI: String, sourceMessage: String?, destinationMessage: String, dueDate: Date?, redirectURI: URL, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+        let transferID = transferID ?? Transfer.ID(UUID().uuidString)
         let signableOperation = SignableOperation.makeSignableOperation(
             status: .created,
-            credentialsID: transfer.credentialsID!,
+            credentialsID: credentialsID!,
             transferID: transferID,
             userID: User.ID(UUID().uuidString)
         )
