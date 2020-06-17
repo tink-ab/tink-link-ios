@@ -18,7 +18,7 @@ PODS:
     - TinkLink (= 0.14.0)
 
 DEPENDENCIES:
-  - TinkCore (from `https://github.com/tink-ab/tink-core-ios-private`)
+  - "TinkCore (from `git@github.com:tink-ab/tink-core-ios-private`)"
   - TinkLink (from `../`)
   - TinkLink/TinkLinkTests (from `../`)
   - TinkLinkUI (from `../`)
@@ -31,7 +31,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   TinkCore:
-    :git: https://github.com/tink-ab/tink-core-ios-private
+    :git: "git@github.com:tink-ab/tink-core-ios-private"
   TinkLink:
     :path: "../"
   TinkLinkUI:
@@ -39,8 +39,8 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   TinkCore:
-    :commit: fce56041afb8bf71fdaf2a6ae77106ef699d4891
-    :git: https://github.com/tink-ab/tink-core-ios-private
+    :commit: 0d7ce9dbc2d20427d82ac53ed0a33e58a6ab94d9
+    :git: "git@github.com:tink-ab/tink-core-ios-private"
 
 SPEC CHECKSUMS:
   Down: 1f6a14846dff45ae8e7e4334b4e386a5fd3b2412
@@ -49,6 +49,6 @@ SPEC CHECKSUMS:
   TinkLink: 81a4d2258480f5e2fb7c07c205eb686beb724949
   TinkLinkUI: 13a07a23f553d15388bc51026361fffba930a0e6
 
-PODFILE CHECKSUM: a233938ea73d2bb6717a91b318dd2f85e72f9525
+PODFILE CHECKSUM: 81df411ce0c0071f308b1762931a020bfa6d7215
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3
