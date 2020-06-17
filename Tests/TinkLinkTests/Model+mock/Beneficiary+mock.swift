@@ -1,6 +1,5 @@
 import Foundation
 @testable import TinkCore
-import XCTest
 
 extension Beneficiary {
     static let savingBeneficiary = Beneficiary(

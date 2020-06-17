@@ -1,6 +1,5 @@
 import Foundation
 @testable import TinkCore
-@testable import TinkLink
 
 extension Credentials {
     // Extension to update the status for test
