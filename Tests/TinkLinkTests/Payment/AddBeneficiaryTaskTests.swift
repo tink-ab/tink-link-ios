@@ -1,5 +1,4 @@
 import Foundation
-@testable import TinkCore
 @testable import TinkLink
 import XCTest
 
@@ -323,15 +322,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                     credentialsService.modifyCredentials(id: credentials.id, status: .authenticating)
                 case .authenticating:
                     statusChangedToAuthenticating.fulfill()
-                    let thirdPartyAppAuthentication = Credentials.ThirdPartyAppAuthentication(
-                        downloadTitle: nil,
-                        downloadMessage: nil,
-                        upgradeTitle: nil,
-                        upgradeMessage: nil,
-                        appStoreURL: nil,
-                        scheme: nil,
-                        deepLinkURL: URL(string: "app://test")
-                    )
+                    let thirdPartyAppAuthentication = Credentials.ThirdPartyAppAuthentication.makeThirdPartyAppAuthentication(deepLinkURL: URL(string: "app://test"))
                     credentialsService.modifyCredentials(id: credentials.id, status: .awaitingThirdPartyAppAuthentication, thirdPartyAppAuthentication: thirdPartyAppAuthentication)
                 case .updating:
                     break
