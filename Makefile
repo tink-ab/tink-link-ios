@@ -60,7 +60,7 @@ test:
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
 build-uikit-example:
-	bundle exec pod install --project-directory="./Examples/PermanentUserExample/"
+	bundle exec pod install --project-directory="./Examples/PermanentUserExample/" --repo-update
 	xcodebuild clean build \
 		-workspace Examples/PermanentUserExample-SwiftUI/PermanentUserExample.xcworkspace \
 		-scheme PermanentUserExample \
