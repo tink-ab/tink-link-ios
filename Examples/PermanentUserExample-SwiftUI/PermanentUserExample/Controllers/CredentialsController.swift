@@ -6,7 +6,7 @@ final class CredentialsController: ObservableObject {
 
     @Published var supplementInformationTask: SupplementInformationTask?
 
-    private(set) var credentialsContext = CredentialsContext()
+    private(set) var credentialsContext = Tink.shared.credentialsContext
     private var task: RefreshCredentialsTask?
 
     func performFetch() {
