@@ -3,17 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2028F40F242237CE00EF17B5 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 2028F40E242237CE00EF17B5 /* TinkLink */; };
 		202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */; };
 		2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035815424659C390075F1EA /* Error+LocalizedError.swift */; };
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
-		8F1BF8FE23C5EEC5007464F8 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 8F1BF8FD23C5EEC5007464F8 /* Down */; };
-		8F1BF90123C5EEE3007464F8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8F1BF90023C5EEE3007464F8 /* Kingfisher */; };
 		8F3459BA2396ADEB007DCD75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* AppDelegate.swift */; };
 		8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459BD2396ADEB007DCD75 /* ContentView.swift */; };
 		8F3459C02396ADED007DCD75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459BF2396ADED007DCD75 /* Assets.xcassets */; };
@@ -39,7 +36,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2028F40D2422376700EF17B5 /* tink-link-ios-private */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios-private"; path = ../..; sourceTree = "<group>"; };
 		202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		2035815424659C390075F1EA /* Error+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+LocalizedError.swift"; sourceTree = "<group>"; };
 		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
@@ -75,9 +71,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2028F40F242237CE00EF17B5 /* TinkLink in Frameworks */,
-				8F1BF90123C5EEE3007464F8 /* Kingfisher in Frameworks */,
-				8F1BF8FE23C5EEC5007464F8 /* Down in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +90,6 @@
 			children = (
 				8F3459B82396ADEB007DCD75 /* PermanentUserExample */,
 				8F3459B72396ADEB007DCD75 /* Products */,
-				92CC022C0FBD2A588CBA7DCD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -207,14 +199,6 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		92CC022C0FBD2A588CBA7DCD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2028F40D2422376700EF17B5 /* tink-link-ios-private */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -232,9 +216,6 @@
 			);
 			name = PermanentUserExample;
 			packageProductDependencies = (
-				8F1BF8FD23C5EEC5007464F8 /* Down */,
-				8F1BF90023C5EEE3007464F8 /* Kingfisher */,
-				2028F40E242237CE00EF17B5 /* TinkLink */,
 			);
 			productName = PermanentUserProviderSelection;
 			productReference = 8F3459B62396ADEB007DCD75 /* PermanentUserExample.app */;
@@ -265,8 +246,6 @@
 			);
 			mainGroup = 8F3459AD2396ADEB007DCD75;
 			packageReferences = (
-				8F1BF8FC23C5EEC5007464F8 /* XCRemoteSwiftPackageReference "Down" */,
-				8F1BF8FF23C5EEE3007464F8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 8F3459B72396ADEB007DCD75 /* Products */;
 			projectDirPath = "";
@@ -509,42 +488,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		8F1BF8FC23C5EEC5007464F8 /* XCRemoteSwiftPackageReference "Down" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/iwasrobbed/Down";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.0;
-			};
-		};
-		8F1BF8FF23C5EEE3007464F8 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.12.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		2028F40E242237CE00EF17B5 /* TinkLink */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TinkLink;
-		};
-		8F1BF8FD23C5EEC5007464F8 /* Down */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8F1BF8FC23C5EEC5007464F8 /* XCRemoteSwiftPackageReference "Down" */;
-			productName = Down;
-		};
-		8F1BF90023C5EEE3007464F8 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8F1BF8FF23C5EEE3007464F8 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8F3459AE2396ADEB007DCD75 /* Project object */;
 }
