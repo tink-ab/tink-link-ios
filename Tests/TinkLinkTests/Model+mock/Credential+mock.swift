@@ -64,4 +64,64 @@ extension Credentials {
             sessionExpiryDate: nil
         )
     }
+
+    mutating func modify(
+        fields: [String: String],
+        status: Status,
+        statusPayload: String = ""
+    ) {
+        self = Credentials(
+            id: id,
+            providerID: providerID,
+            kind: kind,
+            status: status,
+            statusPayload: statusPayload,
+            statusUpdated: Date(),
+            updated: updated,
+            fields: fields,
+            supplementalInformationFields: supplementalInformationFields,
+            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
+            sessionExpiryDate: sessionExpiryDate
+        )
+    }
+
+    mutating func modify(
+        supplementalInformationFields: [Provider.FieldSpecification],
+        status: Status,
+        statusPayload: String = ""
+    ) {
+        self = Credentials(
+            id: id,
+            providerID: providerID,
+            kind: kind,
+            status: status,
+            statusPayload: statusPayload,
+            statusUpdated: Date(),
+            updated: updated,
+            fields: fields,
+            supplementalInformationFields: supplementalInformationFields,
+            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
+            sessionExpiryDate: sessionExpiryDate
+        )
+    }
+
+    mutating func modify(
+        thirdPartyAppAuthentication: ThirdPartyAppAuthentication?,
+        status: Status,
+        statusPayload: String = ""
+    ) {
+        self = Credentials(
+            id: id,
+            providerID: providerID,
+            kind: kind,
+            status: status,
+            statusPayload: statusPayload,
+            statusUpdated: Date(),
+            updated: updated,
+            fields: fields,
+            supplementalInformationFields: supplementalInformationFields,
+            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
+            sessionExpiryDate: sessionExpiryDate
+        )
+    }
 }
