@@ -1,5 +1,4 @@
 import Foundation
-import TinkCore
 
 /// An object that you use to get user consent.
 public final class ConsentContext {

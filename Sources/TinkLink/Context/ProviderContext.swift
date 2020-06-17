@@ -1,5 +1,4 @@
 import Foundation
-import TinkCore
 
 /// An object that accesses providers for a specific market and supports the grouping of providers.
 public final class ProviderContext {

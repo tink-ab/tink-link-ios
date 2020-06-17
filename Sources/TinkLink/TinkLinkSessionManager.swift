@@ -1,4 +1,3 @@
-import TinkCore
 import Foundation
 
 public final class TinkLinkSessionManager: SessionManager {
