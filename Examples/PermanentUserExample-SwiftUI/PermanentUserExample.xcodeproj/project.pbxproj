@@ -10,6 +10,7 @@
 		202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */; };
 		2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035815424659C390075F1EA /* Error+LocalizedError.swift */; };
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
+		5271A7A0B37BB0540FEA05B8 /* Pods_PermanentUserExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D456535E9A4F2F6771A5C35E /* Pods_PermanentUserExample.framework */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
 		8F3459BA2396ADEB007DCD75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* AppDelegate.swift */; };
 		8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459BD2396ADEB007DCD75 /* ContentView.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EE242E63BADD2A331DD902A /* Pods-PermanentUserExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PermanentUserExample.debug.xcconfig"; path = "Target Support Files/Pods-PermanentUserExample/Pods-PermanentUserExample.debug.xcconfig"; sourceTree = "<group>"; };
 		202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		2035815424659C390075F1EA /* Error+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+LocalizedError.swift"; sourceTree = "<group>"; };
 		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
@@ -64,6 +66,8 @@
 		8FF1F393239E776E00968AB9 /* AccessTypePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTypePickerViewController.swift; sourceTree = "<group>"; };
 		8FF1F394239E776E00968AB9 /* CredentialsKindPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsKindPickerViewController.swift; sourceTree = "<group>"; };
 		8FF1F395239E776F00968AB9 /* FinancialInstitutionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionPickerViewController.swift; sourceTree = "<group>"; };
+		D456535E9A4F2F6771A5C35E /* Pods_PermanentUserExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PermanentUserExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7AF61B3EDFD2CDDE981BB91 /* Pods-PermanentUserExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PermanentUserExample.release.xcconfig"; path = "Target Support Files/Pods-PermanentUserExample/Pods-PermanentUserExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5271A7A0B37BB0540FEA05B8 /* Pods_PermanentUserExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +95,8 @@
 			children = (
 				8F3459B82396ADEB007DCD75 /* PermanentUserExample */,
 				8F3459B72396ADEB007DCD75 /* Products */,
+				947D00244F022EABAFC948AA /* Pods */,
+				FDE0A87175E58461AAA94376 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -199,6 +206,24 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		947D00244F022EABAFC948AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0EE242E63BADD2A331DD902A /* Pods-PermanentUserExample.debug.xcconfig */,
+				F7AF61B3EDFD2CDDE981BB91 /* Pods-PermanentUserExample.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FDE0A87175E58461AAA94376 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D456535E9A4F2F6771A5C35E /* Pods_PermanentUserExample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -206,17 +231,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F3459CA2396ADED007DCD75 /* Build configuration list for PBXNativeTarget "PermanentUserExample" */;
 			buildPhases = (
+				E6A968FF204696A03DE6D28B /* [CP] Check Pods Manifest.lock */,
 				8F3459B22396ADEB007DCD75 /* Sources */,
 				8F3459B32396ADEB007DCD75 /* Frameworks */,
 				8F3459B42396ADEB007DCD75 /* Resources */,
+				576C69EB59D26CFABB0AA0D8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = PermanentUserExample;
-			packageProductDependencies = (
-			);
 			productName = PermanentUserProviderSelection;
 			productReference = 8F3459B62396ADEB007DCD75 /* PermanentUserExample.app */;
 			productType = "com.apple.product-type.application";
@@ -245,8 +270,6 @@
 				Base,
 			);
 			mainGroup = 8F3459AD2396ADEB007DCD75;
-			packageReferences = (
-			);
 			productRefGroup = 8F3459B72396ADEB007DCD75 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -268,6 +291,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		576C69EB59D26CFABB0AA0D8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PermanentUserExample/Pods-PermanentUserExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PermanentUserExample/Pods-PermanentUserExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PermanentUserExample/Pods-PermanentUserExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6A968FF204696A03DE6D28B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PermanentUserExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8F3459B22396ADEB007DCD75 /* Sources */ = {
@@ -430,6 +495,7 @@
 		};
 		8F3459CB2396ADED007DCD75 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EE242E63BADD2A331DD902A /* Pods-PermanentUserExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
@@ -449,6 +515,7 @@
 		};
 		8F3459CC2396ADED007DCD75 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7AF61B3EDFD2CDDE981BB91 /* Pods-PermanentUserExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
