@@ -106,7 +106,7 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func supplementInformation(id: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func addSupplementalInformation(id: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
@@ -129,7 +129,7 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func cancelSupplementInformation(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func cancelSupplementalInformation(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
@@ -205,12 +205,12 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func manualAuthentication(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func authenticateCredentials(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         modifyCredentials(id: id, status: credentialsStatusAfterManualAuthentication)
         return nil
     }
 
-    func qr(id: Credentials.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable? {
+    func qrCode(id: Credentials.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 }
