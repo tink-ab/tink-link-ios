@@ -53,6 +53,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
+	cp ./TinkLinkTester/.TestPodfile ./TinkLinkTester/Podfile
 	bundle exec pod install --project-directory="./TinkLinkTester/"
 	xcodebuild test \
 		-workspace ./TinkLinkTester/TinkLink.xcworkspace \
