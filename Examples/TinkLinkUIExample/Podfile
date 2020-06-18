@@ -3,8 +3,8 @@ use_frameworks!
 
 target "TinkLinkUIExample" do
 
-    pod "TinkCore", :git => "git@github.com-core:tink-ab/tink-core-ios-private"
-    pod "TinkLink", :path => "../../"
-    pod "TinkLinkUI", :path => "../../"
+    pod "TinkCore"
+    pod "TinkLink"
+    pod "TinkLinkUI"
 
 end

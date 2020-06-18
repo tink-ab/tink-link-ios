@@ -1,0 +1,11 @@
+platform :ios, "11.0"
+use_frameworks!
+
+target "PermanentUserExample" do
+
+    pod "TinkCore"
+    pod "TinkLink"
+    pod "Down", "~> 0.9"
+    pod "Kingfisher", "~> 5.13"
+
+end

@@ -1,0 +1,40 @@
+PODS:
+  - Down (0.9.3)
+  - Kingfisher (5.14.0):
+    - Kingfisher/Core (= 5.14.0)
+  - Kingfisher/Core (5.14.0)
+  - TinkCore (0.1.0)
+  - TinkLink (0.14.0):
+    - TinkCore
+
+DEPENDENCIES:
+  - Down (~> 0.9)
+  - Kingfisher (~> 5.13)
+  - "TinkCore (from `git@github.com-core:tink-ab/tink-core-ios-private`)"
+  - TinkLink (from `../../`)
+
+SPEC REPOS:
+  trunk:
+    - Down
+    - Kingfisher
+
+EXTERNAL SOURCES:
+  TinkCore:
+    :git: "git@github.com-core:tink-ab/tink-core-ios-private"
+  TinkLink:
+    :path: "../../"
+
+CHECKOUT OPTIONS:
+  TinkCore:
+    :commit: 05f4bb381abd79a58e99cbfcc6bd2a4d89801d66
+    :git: "git@github.com-core:tink-ab/tink-core-ios-private"
+
+SPEC CHECKSUMS:
+  Down: 4553b984236807e384fa0ef7c7e360ef9f7c425d
+  Kingfisher: 7b64389a43139c903ec434788344c288217c792d
+  TinkCore: ae4f425f66b939aa56b2c18f255537a5f072d6e3
+  TinkLink: 81a4d2258480f5e2fb7c07c205eb686beb724949
+
+PODFILE CHECKSUM: aa4973ea0da6520cd73511814fcac85af040f923
+
+COCOAPODS: 1.9.3

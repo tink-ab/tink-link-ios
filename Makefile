@@ -53,6 +53,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
+	cp ./TinkLinkTester/.TestPodfile ./TinkLinkTester/Podfile
 	bundle exec pod install --project-directory="./TinkLinkTester/"
 	xcodebuild test \
 		-workspace ./TinkLinkTester/TinkLink.xcworkspace \
@@ -60,18 +61,23 @@ test:
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
 build-uikit-example:
+	cp ./Examples/PermanentUserExample/.TestPodfile ./Examples/PermanentUserExample/Podfile
+	bundle exec pod install --project-directory="./Examples/PermanentUserExample/"
 	xcodebuild clean build \
-		-project Examples/PermanentUserExample/PermanentUserExample.xcodeproj \
+		-workspace Examples/PermanentUserExample/PermanentUserExample.xcworkspace \
 		-scheme PermanentUserExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-swiftui-example:
+	cp ./Examples/PermanentUserExample-SwiftUI/.TestPodfile ./Examples/PermanentUserExample-SwiftUI/Podfile
+	bundle exec pod install --project-directory="./Examples/PermanentUserExample-SwiftUI/"
 	xcodebuild clean build \
-		-project Examples/PermanentUserExample-SwiftUI/PermanentUserExample.xcodeproj \
+		-workspace Examples/PermanentUserExample-SwiftUI/PermanentUserExample.xcworkspace \
 		-scheme PermanentUserExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-tinklinkui-example:
+	cp ./Examples/TinkLinkUIExample/.TestPodfile ./Examples/TinkLinkUIExample/Podfile
 	bundle exec pod install --project-directory="./Examples/TinkLinkUIExample/"
 	xcodebuild clean build \
 		-workspace Examples/TinkLinkUIExample/TinkLinkUIExample.xcworkspace \
