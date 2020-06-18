@@ -14,10 +14,10 @@ public final class TransferContext {
     ///
     /// - Parameter tink: Tink instance. Will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
-        let transferService = RESTTransferService(tink: tink)
-        let beneficiaryService = RESTBeneficiaryService(tink: tink)
-        let credentialsService = RESTCredentialsService(tink: tink)
-        let providerService = RESTProviderService(tink: tink)
+        let transferService = tink.services.transferService
+        let beneficiaryService = tink.services.beneficiaryService
+        let credentialsService = tink.services.credentialsService
+        let providerService = tink.services.providerService
         self.init(tink: tink, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
     }
 

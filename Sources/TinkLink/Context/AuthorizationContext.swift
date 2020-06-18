@@ -34,7 +34,7 @@ public final class AuthorizationContext {
     public init(tink: Tink = .shared) {
         self.clientID = tink.configuration.clientID
         self.redirectURI = tink.configuration.redirectURI
-        self.service = RESTAuthenticationService(tink: tink)
+        self.service = tink.services.authenticationService
     }
 
     // MARK: - Authorizing a User

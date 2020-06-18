@@ -15,7 +15,7 @@ public final class CredentialsContext {
     ///
     /// - Parameter tink: Tink instance, defaults to `shared` if not provided.
     public convenience init(tink: Tink = .shared) {
-        let service = RESTCredentialsService(tink: tink)
+        let service = tink.services.credentialsService
         self.init(tink: tink, credentialsService: service)
     }
 
