@@ -33,7 +33,6 @@ public final class ProviderContext {
     /// Creates a context to access providers that matches the provided attributes.
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
-    @available(*, deprecated, message: "This initializer will be removed soon. Use `tink.providerContext` instead")
     public convenience init(tink: Tink = .shared) {
         let service = RESTProviderService(tink: tink)
         self.init(tink: tink, providerService: service)

@@ -31,7 +31,6 @@ public final class AuthorizationContext {
     /// Creates a context to authorize for an authorization code for a user with requested scopes.
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
-    @available(*, deprecated, message: "This initializer will be removed soon. Use `tink.authorizationContext` instead")
     public init(tink: Tink = .shared) {
         self.clientID = tink.configuration.clientID
         self.redirectURI = tink.configuration.redirectURI

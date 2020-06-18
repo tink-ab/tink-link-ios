@@ -14,7 +14,6 @@ public final class CredentialsContext {
     /// Creates a new CredentialsContext for the given Tink instance.
     ///
     /// - Parameter tink: Tink instance, defaults to `shared` if not provided.
-    @available(*, deprecated, message: "This initializer will be removed soon. Use `tink.credentialsContext` instead")
     public convenience init(tink: Tink = .shared) {
         let service = RESTCredentialsService(tink: tink)
         self.init(tink: tink, credentialsService: service)

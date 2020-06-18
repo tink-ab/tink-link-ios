@@ -13,7 +13,6 @@ public final class TransferContext {
     /// Creates a context to use for initiating transfers.
     ///
     /// - Parameter tink: Tink instance. Will use the shared instance if nothing is provided.
-    @available(*, deprecated, message: "This initializer will be removed soon. Use `tink.transferContext` instead")
     public convenience init(tink: Tink = .shared) {
         let transferService = RESTTransferService(tink: tink)
         let beneficiaryService = RESTBeneficiaryService(tink: tink)
