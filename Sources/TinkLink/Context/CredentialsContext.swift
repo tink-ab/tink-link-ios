@@ -323,7 +323,7 @@ public final class CredentialsContext {
 
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.manualAuthentication(id: credentials.id, completion: { result in
+        task.callCanceller = service.authenticateCredentials(id: credentials.id, completion: { result in
             switch result {
             case .success:
                 task.startObserving()
