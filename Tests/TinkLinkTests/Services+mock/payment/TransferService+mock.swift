@@ -5,11 +5,11 @@ class MockedSuccessTransferService: TransferService {
     private var signableOperation: SignableOperation?
 
     @discardableResult
-    func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+    func accounts(destinationURIs: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         completion(.success([Account.checkingTestAccount]))
         return TestRetryCanceller { [weak self] in
             guard let self = self else { return }
-            self.accounts(destinationUris: destinationUris, completion: completion)
+            self.accounts(destinationURIs: destinationURIs, completion: completion)
         }
     }
 
@@ -21,7 +21,7 @@ class MockedSuccessTransferService: TransferService {
     }
 
     @discardableResult
-    func transferStatus(transferID: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+    func transferStatus(id: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         switch signableOperation?.status {
         case .created:
             signableOperation = SignableOperation.awaitingCredentialsSignableOperation
@@ -34,7 +34,7 @@ class MockedSuccessTransferService: TransferService {
         }
         return TestRetryCanceller { [weak self] in
             guard let self = self else { return }
-            self.transferStatus(transferID: transferID, completion: completion)
+            self.transferStatus(id: id, completion: completion)
         }
     }
 }
@@ -43,7 +43,7 @@ class MockedCancelledTransferService: TransferService {
     private var signableOperation: SignableOperation?
 
     @discardableResult
-    func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+    func accounts(destinationURIs: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -55,7 +55,7 @@ class MockedCancelledTransferService: TransferService {
     }
 
     @discardableResult
-    func transferStatus(transferID: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+    func transferStatus(id: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         switch signableOperation?.status {
         case .created:
             signableOperation = SignableOperation.awaitingCredentialsSignableOperation
@@ -68,13 +68,13 @@ class MockedCancelledTransferService: TransferService {
         }
         return TestRetryCanceller { [weak self] in
             guard let self = self else { return }
-            self.transferStatus(transferID: transferID, completion: completion)
+            self.transferStatus(id: id, completion: completion)
         }
     }
 }
 
 class MockedUnauthenticatedErrorTransferService: TransferService {
-    func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+    func accounts(destinationURIs: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
@@ -84,7 +84,7 @@ class MockedUnauthenticatedErrorTransferService: TransferService {
         return nil
     }
 
-    func transferStatus(transferID: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+    func transferStatus(id: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }

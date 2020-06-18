@@ -10,7 +10,7 @@ class MutableTransferService: TransferService {
     }
 
     @discardableResult
-    func accounts(destinationUris: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
+    func accounts(destinationURIs: [URL], completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
         completion(.success(accounts))
         return nil
     }
@@ -30,11 +30,11 @@ class MutableTransferService: TransferService {
     }
 
     @discardableResult
-    func transferStatus(transferID: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
-        if let signableOperation = signableOperationsByTransferID[transferID] {
+    func transferStatus(id: Transfer.ID, completion: @escaping (Result<SignableOperation, Error>) -> Void) -> RetryCancellable? {
+        if let signableOperation = signableOperationsByTransferID[id] {
             completion(.success(signableOperation))
         } else {
-            completion(.failure(ServiceError.notFound("No signable operation for transfer with id: \(transferID.value)")))
+            completion(.failure(ServiceError.notFound("No signable operation for transfer with id: \(id.value)")))
         }
         return nil
     }
