@@ -61,6 +61,7 @@ test:
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
 build-uikit-example:
+	cp ./Examples/PermanentUserExample/.TestPodfile ./Examples/PermanentUserExample/Podfile
 	bundle exec pod install --project-directory="./Examples/PermanentUserExample/"
 	xcodebuild clean build \
 		-workspace Examples/PermanentUserExample/PermanentUserExample.xcworkspace \
