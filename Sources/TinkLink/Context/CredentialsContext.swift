@@ -2,7 +2,7 @@ import Foundation
 
 /// An object that you use to access the user's credentials and supports the flow for adding credentials.
 public final class CredentialsContext {
-    private let tink: Tink
+    private let redirectURI: URL
     private let service: CredentialsService
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
@@ -20,7 +20,7 @@ public final class CredentialsContext {
     }
 
     init(tink: Tink, credentialsService: CredentialsService) {
-        self.tink = tink
+        self.redirectURI = tink.configuration.redirectURI
         self.service = credentialsService
         addStoreObservers()
     }
@@ -89,7 +89,7 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
-        let appUri = tink.configuration.redirectURI
+        let appUri = redirectURI
 
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
 
@@ -203,7 +203,7 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> RefreshCredentialsTask {
-        let appUri = tink.configuration.redirectURI
+        let appUri = redirectURI
 
         // TODO: Filter out refreshableItems not supported by provider capabilities.
 
@@ -254,7 +254,7 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> UpdateCredentialsTask {
-        let appUri = tink.configuration.redirectURI
+        let appUri = redirectURI
 
         let task = UpdateCredentialsTask(
             credentials: credentials,
@@ -319,7 +319,7 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> AuthenticateCredentialsTask {
-        let appUri = tink.configuration.redirectURI
+        let appUri = redirectURI
 
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
 

@@ -196,7 +196,7 @@ extension AddCredentialsViewController {
             thirdPartyAppAuthenticationTask.handle()
         case .updating:
             let status = "Connecting to \(provider.displayName), please wait..."
-            showUpdating(status: "Connecting…")
+            showUpdating(status: status)
         }
     }
 
