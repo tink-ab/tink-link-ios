@@ -212,7 +212,7 @@ public final class TransferContext {
     /// - Parameter completion: A result representing either a list of accounts or an error.
     @discardableResult
     public func fetchAccounts(completion: @escaping (Result<[Account], Error>) -> Void) -> RetryCancellable? {
-        return transferService.accounts(destinationUris: [], completion: completion)
+        return transferService.accounts(destinationURIs: [], completion: completion)
     }
 
     // MARK: - Fetching Beneficiaries
