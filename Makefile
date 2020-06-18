@@ -69,6 +69,7 @@ build-uikit-example:
 		-destination 'generic/platform=iOS Simulator'
 
 build-swiftui-example:
+	cp ./Examples/PermanentUserExample-SwiftUI/.TestPodfile ./Examples/PermanentUserExample-SwiftUI/Podfile
 	bundle exec pod install --project-directory="./Examples/PermanentUserExample-SwiftUI/"
 	xcodebuild clean build \
 		-workspace Examples/PermanentUserExample-SwiftUI/PermanentUserExample.xcworkspace \
