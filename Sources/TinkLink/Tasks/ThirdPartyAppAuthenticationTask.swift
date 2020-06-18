@@ -265,7 +265,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
     private func qr(completion: @escaping (Result<Image, Swift.Error>) -> Void) {
         if hasBankIDQRCode {
-            callRetryCancellable = credentialsService.qr(credentialsID: credentials.id) { [weak self] result in
+            callRetryCancellable = credentialsService.qr(id: credentials.id) { [weak self] result in
                 do {
                     let qrData = try result.get()
                     guard let qrImage = Image(data: qrData) else {
