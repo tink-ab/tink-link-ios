@@ -15,6 +15,9 @@ endif
 ifeq ($(strip $(shell command -v swiftformat 2> /dev/null)),)
 	brew install swiftformat
 endif
+ifeq ($(strip $(shell command -v swift doc 2> /dev/null)),)
+	brew install swiftdocorg/formulae/swift-doc
+endif
 ifeq ($(strip $(shell command -v bundle 2> /dev/null)),)
 	gem install bundler
 endif
