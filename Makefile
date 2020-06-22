@@ -24,7 +24,7 @@ endif
 	bundle install
 
 docs:
-	swift doc generate Sources/TinkLink/ ../tink-core-ios/Sources/TinkCore/ \
+	swift doc generate Sources/TinkLink/ ../tink-core-ios/Sources/TinkCore/Shared/ ../tink-core-ios/Sources/TinkCore/TinkLink/ \
 		--module-name TinkLink \
 		--output docs \
 		--format html \
