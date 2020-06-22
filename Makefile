@@ -29,6 +29,11 @@ docs:
 		--output docs \
 		--format html \
 		--base-url "https://tink-ab.github.io/tink-link-ios/"
+	swift doc generate Sources/TinkLinkUI/ \
+		--module-name TinkLinkUI \
+		--output docs/tinklinkui \
+		--format html \
+		--base-url "https://tink-ab.github.io/tink-link-ios/tinklinkui/"
 
 lint:
 	swiftlint 2> /dev/null
