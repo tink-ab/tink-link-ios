@@ -33,7 +33,7 @@ public final class ConsentContext {
     public init(tink: Tink = .shared) {
         self.clientID = tink.configuration.clientID
         self.redirectURI = tink.configuration.redirectURI
-        self.service = RESTAuthenticationService(tink: tink)
+        self.service = tink.services.authenticationService
     }
 
     // MARK: - Getting Descriptions for Requested Scopes

@@ -128,15 +128,14 @@ extension AddBeneficiaryTask {
     }
 
     private func createBeneficiary() {
-        let request = CreateBeneficiaryRequest(
-            accountNumberType: accountNumberType,
+        callCanceller = beneficiaryService.createBeneficiary(
+            accountNumberKind: .init(accountNumberType),
             accountNumber: accountNumber,
             name: name,
             ownerAccountID: ownerAccountID,
-            credentialsID: ownerAccountCredentialsID
-        )
-
-        callCanceller = beneficiaryService.createBeneficiary(request: request, appURI: appUri) { [weak self, credentialsID = ownerAccountCredentialsID] result in
+            credentialsID: ownerAccountCredentialsID,
+            appURI: appUri
+        ) { [weak self, credentialsID = ownerAccountCredentialsID] result in
             do {
                 try result.get()
                 self?.progressHandler(.requestSent)

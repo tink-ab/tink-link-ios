@@ -49,7 +49,7 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func createCredentials(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appUri: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func createCredentials(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         let credentials = Credentials(
             id: Credentials.ID(UUID().uuidString),
             providerID: providerID,
@@ -68,18 +68,18 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func deleteCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        if credentialsByID[credentialsID] != nil {
-            credentialsByID[credentialsID] = nil
+    func deleteCredentials(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        if credentialsByID[id] != nil {
+            credentialsByID[id] = nil
             completion(.success)
         } else {
-            completion(.failure(ServiceError.notFound("No credentials with id: \(credentialsID.value)")))
+            completion(.failure(ServiceError.notFound("No credentials with id: \(id.value)")))
         }
         return nil
     }
 
-    func updateCredentials(credentialsID: Credentials.ID, providerID: Provider.ID, appUri: URL?, callbackUri: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
-        if let credentials = credentialsByID[credentialsID] {
+    func updateCredentials(id: Credentials.ID, providerID: Provider.ID, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
                 providerID: credentials.providerID,
@@ -93,21 +93,21 @@ class MutableCredentialsService: CredentialsService {
                 thirdPartyAppAuthentication: nil,
                 sessionExpiryDate: nil
             )
-            credentialsByID[credentialsID] = updatedCredentials
+            credentialsByID[id] = updatedCredentials
             completion(.success(updatedCredentials))
         } else {
-            completion(.failure(ServiceError.notFound("No credentials with id: \(credentialsID.value)")))
+            completion(.failure(ServiceError.notFound("No credentials with id: \(id.value)")))
         }
         return nil
     }
 
-    func refreshCredentials(credentialsID: Credentials.ID, refreshableItems: RefreshableItems, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        modifyCredentials(id: credentialsID, status: credentialsStatusAfterRefresh)
+    func refreshCredentials(id: Credentials.ID, refreshableItems: RefreshableItems, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        modifyCredentials(id: id, status: credentialsStatusAfterRefresh)
         return nil
     }
 
-    func supplementInformation(credentialsID: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        if let credentials = credentialsByID[credentialsID] {
+    func addSupplementalInformation(id: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
                 providerID: credentials.providerID,
@@ -121,16 +121,16 @@ class MutableCredentialsService: CredentialsService {
                 thirdPartyAppAuthentication: nil,
                 sessionExpiryDate: nil
             )
-            credentialsByID[credentialsID] = updatedCredentials
+            credentialsByID[id] = updatedCredentials
             completion(.success)
         } else {
-            completion(.failure(ServiceError.notFound("No credentials with id: \(credentialsID.value)")))
+            completion(.failure(ServiceError.notFound("No credentials with id: \(id.value)")))
         }
         return nil
     }
 
-    func cancelSupplementInformation(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        if let credentials = credentialsByID[credentialsID] {
+    func cancelSupplementalInformation(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
                 providerID: credentials.providerID,
@@ -144,16 +144,16 @@ class MutableCredentialsService: CredentialsService {
                 thirdPartyAppAuthentication: nil,
                 sessionExpiryDate: nil
             )
-            credentialsByID[credentialsID] = updatedCredentials
+            credentialsByID[id] = updatedCredentials
             completion(.success)
         } else {
-            completion(.failure(ServiceError.notFound("No credentials with id: \(credentialsID.value)")))
+            completion(.failure(ServiceError.notFound("No credentials with id: \(id.value)")))
         }
         return nil
     }
 
-    func enableCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        if let credentials = credentialsByID[credentialsID] {
+    func enableCredentials(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
                 providerID: credentials.providerID,
@@ -167,16 +167,16 @@ class MutableCredentialsService: CredentialsService {
                 thirdPartyAppAuthentication: nil,
                 sessionExpiryDate: nil
             )
-            credentialsByID[credentialsID] = updatedCredentials
+            credentialsByID[id] = updatedCredentials
             completion(.success)
         } else {
-            completion(.failure(ServiceError.notFound("No credentials with id: \(credentialsID.value)")))
+            completion(.failure(ServiceError.notFound("No credentials with id: \(id.value)")))
         }
         return nil
     }
 
-    func disableCredentials(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        if let credentials = credentialsByID[credentialsID] {
+    func disableCredentials(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
                 providerID: credentials.providerID,
@@ -190,10 +190,10 @@ class MutableCredentialsService: CredentialsService {
                 thirdPartyAppAuthentication: nil,
                 sessionExpiryDate: nil
             )
-            credentialsByID[credentialsID] = updatedCredentials
+            credentialsByID[id] = updatedCredentials
             completion(.success)
         } else {
-            completion(.failure(ServiceError.notFound("No credentials with id: \(credentialsID.value)")))
+            completion(.failure(ServiceError.notFound("No credentials with id: \(id.value)")))
         }
         return nil
     }
@@ -205,12 +205,12 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func manualAuthentication(credentialsID: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
-        modifyCredentials(id: credentialsID, status: credentialsStatusAfterManualAuthentication)
+    func authenticateCredentials(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        modifyCredentials(id: id, status: credentialsStatusAfterManualAuthentication)
         return nil
     }
 
-    func qr(credentialsID: Credentials.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable? {
+    func qrCode(id: Credentials.ID, completion: @escaping (Result<Data, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 }

@@ -34,7 +34,7 @@ public final class ProviderContext {
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
-        let service = RESTProviderService(tink: tink)
+        let service = tink.services.providerService
         self.init(tink: tink, providerService: service)
     }
 
