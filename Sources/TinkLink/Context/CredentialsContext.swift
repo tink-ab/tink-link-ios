@@ -102,7 +102,7 @@ public final class CredentialsContext {
         )
 
         if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = service.updateCredentials(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: appUri, callbackURI: nil, fields: form.makeFields()) { result in
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: appUri, callbackURI: nil, fields: form.makeFields()) { result in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
@@ -112,7 +112,7 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = service.createCredentials(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: appUri, callbackURI: nil) { [weak task, weak self] result in
+            task.callCanceller = service.create(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: appUri, callbackURI: nil) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[provider.id] = credential
@@ -209,7 +209,7 @@ public final class CredentialsContext {
 
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.refreshCredentials(id: credentials.id, refreshableItems: refreshableItems, optIn: false, completion: { result in
+        task.callCanceller = service.refresh(id: credentials.id, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
             case .success:
                 task.startObserving()
@@ -265,7 +265,7 @@ public final class CredentialsContext {
             completion: completion
         )
 
-        task.callCanceller = service.updateCredentials(
+        task.callCanceller = service.update(
             id: credentials.id,
             providerID: credentials.providerID,
             appURI: appUri,
@@ -296,7 +296,7 @@ public final class CredentialsContext {
     /// - Returns: A cancellation handler.
     @discardableResult
     public func delete(_ credentials: Credentials, completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
-        return service.deleteCredentials(id: credentials.id, completion: completion)
+        return service.delete(id: credentials.id, completion: completion)
     }
 
     // MARK: - Authenticate Credentials
@@ -323,7 +323,7 @@ public final class CredentialsContext {
 
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.authenticateCredentials(id: credentials.id, completion: { result in
+        task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
             switch result {
             case .success:
                 task.startObserving()
