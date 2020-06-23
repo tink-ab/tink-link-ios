@@ -12,6 +12,8 @@ targets:
         - name: TinkLinkTests_${platform}
     sources:
       - Sources/TinkLink
+    dependencies:
+      - carthage: TinkCore
   TinkLinkTests:
     type: bundle.unit-test
     platform: [iOS, macOS]
