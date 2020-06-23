@@ -34,7 +34,7 @@ steps:
 
   - wait
 
-  - trigger: "tink_sdk_demo_ios"
+  - trigger: "buildkite_pipeline.tink_sdk_demo_ios.slug"
     label: ":pipeline: Distribution"
     branches: "master"
     async: true
@@ -45,7 +45,7 @@ steps:
 
   - wait
 
-  - trigger: "tink_sdk_demo_ios"
+  - trigger: "buildkite_pipeline.tink_sdk_demo_ios.slug"
     label: ":pipeline: Distribution"
     branches: "master"
     async: true
