@@ -49,7 +49,7 @@ steps:
     label: ":pipeline: Distribution"
     branches: "master"
     async: true
-    if: build.tag == null
+    if: build.tag != null
     build:
       message: "Triggered [Demo app] from TinkLink release ${BUILDKITE_MESSAGE}"
       branch: "master"
