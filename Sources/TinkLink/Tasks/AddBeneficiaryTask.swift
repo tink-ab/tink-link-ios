@@ -128,7 +128,7 @@ extension AddBeneficiaryTask {
     }
 
     private func createBeneficiary() {
-        callCanceller = beneficiaryService.createBeneficiary(
+        callCanceller = beneficiaryService.create(
             accountNumberKind: .init(accountNumberType),
             accountNumber: accountNumber,
             name: name,
