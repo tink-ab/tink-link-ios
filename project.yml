@@ -1,0 +1,52 @@
+name: TinkLink
+targets:
+  TinkLink:
+    type: framework
+    platform: [iOS, macOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLink"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      MACOSX_DEPLOYMENT_TARGET: 10.13
+    scheme:
+      testTargets:
+        - name: TinkLinkTests_${platform}
+    sources:
+      - Sources/TinkLink
+  TinkLinkTests:
+    type: bundle.unit-test
+    platform: [iOS, macOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkTests"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      MACOSX_DEPLOYMENT_TARGET: 10.13
+    sources:
+      - Tests/TinkLinkTests
+    dependencies:
+      - target: TinkLink_iOS
+  TinkLinkUI:
+    type: framework
+    platform: [iOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUI"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+    scheme:
+      testTargets:
+        - name: TinkLinkUITests_${platform}
+    sources:
+      - Sources/TinkLinkUI
+    dependencies:
+      - target: TinkLink_${platform}
+      - carthage: Kingfisher
+      - carthage: Down
+  TinkLinkUITests:
+    type: bundle.unit-test
+    platform: [iOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUITests"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+    sources:
+      - Tests/TinkLinkUITests
+    dependencies:
+      - target: TinkLinkUI_${platform}
+      - carthage: Kingfisher
+      - carthage: Down
