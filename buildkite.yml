@@ -36,7 +36,6 @@ steps:
 
   - trigger: "buildkite_pipeline.tink_sdk_demo_ios.slug"
     label: ":pipeline: Distribution"
-    branches: "master"
     async: true
     if: build.tag == null && build.branch == "master"
     build:
@@ -47,7 +46,6 @@ steps:
 
   - trigger: "buildkite_pipeline.tink_sdk_demo_ios.slug"
     label: ":pipeline: Distribution"
-    branches: "master"
     async: true
     if: build.tag != null
     build:
