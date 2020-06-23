@@ -10,7 +10,7 @@ class MockedSuccessBeneficiaryService: BeneficiaryService {
     }
 
     @discardableResult
-    func createBeneficiary(accountNumberKind: AccountNumberKind, accountNumber: String, name: String, ownerAccountID: Account.ID, credentialsID: Credentials.ID, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func create(accountNumberKind: AccountNumberKind, accountNumber: String, name: String, ownerAccountID: Account.ID, credentialsID: Credentials.ID, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.success)
         return nil
     }
@@ -22,7 +22,7 @@ class MockedCancelledBeneficiaryService: BeneficiaryService {
         fatalError("\(#function) should not be called")
     }
 
-    func createBeneficiary(accountNumberKind: AccountNumberKind, accountNumber: String, name: String, ownerAccountID: Account.ID, credentialsID: Credentials.ID, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func create(accountNumberKind: AccountNumberKind, accountNumber: String, name: String, ownerAccountID: Account.ID, credentialsID: Credentials.ID, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 }
@@ -33,7 +33,7 @@ class MockedUnauthenticatedErrorBeneficiaryService: BeneficiaryService {
         return nil
     }
 
-    func createBeneficiary(accountNumberKind: AccountNumberKind, accountNumber: String, name: String, ownerAccountID: Account.ID, credentialsID: Credentials.ID, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func create(accountNumberKind: AccountNumberKind, accountNumber: String, name: String, ownerAccountID: Account.ID, credentialsID: Credentials.ID, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
@@ -45,7 +45,7 @@ class MockedBadRequestErrorBeneficiaryService: BeneficiaryService {
         return nil
     }
 
-    func createBeneficiary(accountNumberKind: AccountNumberKind, accountNumber: String, name: String, ownerAccountID: Account.ID, credentialsID: Credentials.ID, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func create(accountNumberKind: AccountNumberKind, accountNumber: String, name: String, ownerAccountID: Account.ID, credentialsID: Credentials.ID, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.invalidArgumentError))
         return nil
     }
