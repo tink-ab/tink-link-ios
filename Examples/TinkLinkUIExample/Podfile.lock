@@ -31,7 +31,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   TinkCore:
-    :commit: 0f972092c0e0b77da0fc9be9a5d10edbf9b78c0f
+    :commit: db80f127a6d2e71d2c59efd09af59cfd8e86000b
     :git: "git@github.com-core:tink-ab/tink-core-ios-private"
 
 SPEC CHECKSUMS:
