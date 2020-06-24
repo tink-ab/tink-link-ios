@@ -187,7 +187,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
                                 completion(.failure(downloadRequiredError))
                             }
-                    })
+                        })
                     }
                 }
             }
