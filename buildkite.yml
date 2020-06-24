@@ -37,7 +37,7 @@ steps:
   - trigger: "distribute-tink-sdk-demo-ios"
     label: ":pipeline: Distribution"
     async: true
-    if: build.tag == null && build.branch == "master"
+    if: build.tag == null && build.pull_request.base_branch == "master"
     build:
       message: "Triggered from TinkLink ${BUILDKITE_MESSAGE}"
       branch: "master"
