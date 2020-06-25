@@ -99,7 +99,7 @@ final class AddCredentialsSession {
                     completion(result.map { $0.0 })
                 }
             }
-            })
+        })
 
         isPresenterShowingStatusScreen = false
         providerID = credentials.providerID

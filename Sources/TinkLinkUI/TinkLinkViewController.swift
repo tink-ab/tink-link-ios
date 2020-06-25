@@ -421,8 +421,8 @@ extension TinkLinkViewController {
     }
 
     private func retryOperation() {
-        self.showLoadingOverlay(withText: nil, onCancel: nil)
-        self.start(userSession: self.userSession, authorizationCode: self.authorizationCode)
+        showLoadingOverlay(withText: nil, onCancel: nil)
+        start(userSession: userSession, authorizationCode: authorizationCode)
     }
 }
 
