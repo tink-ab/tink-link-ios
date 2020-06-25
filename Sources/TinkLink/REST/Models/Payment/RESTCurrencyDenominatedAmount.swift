@@ -8,4 +8,3 @@ struct RESTCurrencyDenominatedAmount: Codable {
     /// The ISO 4217 currency code of the amount
     var currencyCode: String
 }
-

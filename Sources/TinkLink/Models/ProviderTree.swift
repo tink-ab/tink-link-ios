@@ -27,18 +27,18 @@ import Foundation
 /// ```
 public struct ProviderTree {
     public let financialInstitutionGroups: [FinancialInstitutionGroupNode]
-    
+
     public init(providers: [Provider]) {
         self.financialInstitutionGroups = Dictionary(grouping: providers, by: { $0.groupDisplayName.isEmpty ? $0.financialInstitution.id.value : $0.groupDisplayName })
             .sorted(by: { $0.key < $1.key })
             .map { FinancialInstitutionGroupNode(providers: $0.value) }
     }
-    
+
     public func makeFinancialInstitutions() -> [FinancialInstitutionNode] {
         let institutions: [FinancialInstitutionNode] = financialInstitutionGroups.flatMap { node -> [FinancialInstitutionNode] in
             switch node {
             case .accessTypes(let accessType):
-                return [FinancialInstitutionNode(providers: accessType.flatMap(\.providers)) ]
+                return [FinancialInstitutionNode(providers: accessType.flatMap(\.providers))]
             case .credentialsKinds(let kinds):
                 return [FinancialInstitutionNode(providers: kinds.map(\.provider))]
             case .provider(let provider):
@@ -255,7 +255,7 @@ public struct ProviderTree {
         fileprivate var significantProvider: Provider {
             switch self {
             case .accessTypes(let accessTypeGroups):
-                return (accessTypeGroups.first { $0.imageURL != nil})?.significantProvider ?? firstProvider
+                return (accessTypeGroups.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
             case .credentialsKinds(let groups):
                 return (groups.first { $0.imageURL != nil })?.provider ?? firstProvider
             case .provider(let provider):
@@ -352,7 +352,7 @@ public struct ProviderTree {
             case .financialInstitutions(let nodes):
                 return (nodes.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
             case .accessTypes(let accessTypeGroups):
-                return (accessTypeGroups.first { $0.imageURL != nil})?.significantProvider ?? firstProvider
+                return (accessTypeGroups.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
             case .credentialsKinds(let groups):
                 return (groups.first { $0.imageURL != nil })?.provider ?? firstProvider
             case .provider(let provider):
@@ -374,10 +374,10 @@ public struct ProviderTree {
 
 extension Array where Element == ProviderTree.FinancialInstitutionGroupNode {
     public func makeFinancialInstitutions() -> [ProviderTree.FinancialInstitutionNode] {
-        let institutions: [ProviderTree.FinancialInstitutionNode] = self.flatMap { node -> [ProviderTree.FinancialInstitutionNode] in
+        let institutions: [ProviderTree.FinancialInstitutionNode] = flatMap { node -> [ProviderTree.FinancialInstitutionNode] in
             switch node {
             case .accessTypes(let accessType):
-                return [ProviderTree.FinancialInstitutionNode(providers: accessType.flatMap(\.providers)) ]
+                return [ProviderTree.FinancialInstitutionNode(providers: accessType.flatMap(\.providers))]
             case .credentialsKinds(let kinds):
                 return [ProviderTree.FinancialInstitutionNode(providers: kinds.map(\.provider))]
             case .provider(let provider):

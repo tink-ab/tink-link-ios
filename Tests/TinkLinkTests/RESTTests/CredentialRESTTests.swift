@@ -14,7 +14,8 @@ class CredentialRESTTests: XCTestCase {
             fields: ["username": "180012121234"],
             supplementalInformation: nil,
             sessionExpiryDate: nil,
-            userId: nil)
+            userId: nil
+        )
 
         let credential = Credentials(restCredentials: restCredentials)
 
@@ -44,7 +45,8 @@ class CredentialRESTTests: XCTestCase {
             fields: ["username": "180012121234"],
             supplementalInformation: nil,
             sessionExpiryDate: nil,
-            userId: nil)
+            userId: nil
+        )
 
         let credential = Credentials(restCredentials: restCredentials)
 
@@ -61,7 +63,6 @@ class CredentialRESTTests: XCTestCase {
     }
 
     func testAwaitingThirdPartyAppAuthenticationCredentialMapping() {
-
         let restCredentials = RESTCredentials(
             id: "6e68cc6287704273984567b3300c5822",
             providerName: "handelsbanken-bankid",
@@ -73,7 +74,8 @@ class CredentialRESTTests: XCTestCase {
             fields: ["username": "180012121234"],
             supplementalInformation: "{\"android\":{\"packageName\":\"this.is.not.a.valid.package.name\",\"requiredMinimumVersion\":0,\"intent\":\"this.is.not.a.valid.intent\"},\"ios\":{\"appStoreUrl\":\"https://itunes.apple.com\",\"scheme\":\"this.is.not.a.valid.app.scheme\",\"deepLinkUrl\":\"this.is.not.a.valid.deeplink\"},\"desktop\":{\"url\":\"https://test.com\"},\"downloadTitle\":\"Download Tink Demo Authentication app\",\"downloadMessage\":\"You need to download the Tink Demo Authentication app in order to continue.\",\"upgradeTitle\":\"Upgrade Tink Demo Authentication app\",\"upgradeMessage\":\"You need to upgrade the Tink Demo Authentication app in order to continue.\"}",
             sessionExpiryDate: nil,
-            userId: nil)
+            userId: nil
+        )
 
         let credential = Credentials(restCredentials: restCredentials)
 
@@ -99,7 +101,6 @@ class CredentialRESTTests: XCTestCase {
     }
 
     func testAwaitingBankIDCredentialMapping() {
-
         let restCredentials = RESTCredentials(
             id: "6e68cc6287704273984567b3300c5822",
             providerName: "handelsbanken-bankid",
@@ -111,7 +112,8 @@ class CredentialRESTTests: XCTestCase {
             fields: ["username": "180012121234"],
             supplementalInformation: "TOKEN",
             sessionExpiryDate: nil,
-            userId: nil)
+            userId: nil
+        )
 
         let credential = Credentials(restCredentials: restCredentials)
 

@@ -1,6 +1,6 @@
 import UIKit
 
-final class AddCredentialsStatusViewController: UIViewController {
+final class StatusViewController: UIViewController {
     private lazy var shadowLayer = CAShapeLayer()
     private lazy var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)

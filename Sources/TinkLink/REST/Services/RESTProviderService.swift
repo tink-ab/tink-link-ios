@@ -1,7 +1,6 @@
 import Foundation
 
 final class RESTProviderService: ProviderService {
-
     private let client: RESTClient
 
     init(client: RESTClient) {
@@ -9,7 +8,6 @@ final class RESTProviderService: ProviderService {
     }
 
     func providers(id: Provider.ID?, capabilities: Provider.Capabilities?, includeTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
-
         var parameters = [
             URLQueryItem(name: "includeTestProviders", value: includeTestProviders ? "true" : "false")
         ]
@@ -39,6 +37,5 @@ final class RESTProviderService: ProviderService {
         }
 
         return client.performRequest(request)
-
     }
 }

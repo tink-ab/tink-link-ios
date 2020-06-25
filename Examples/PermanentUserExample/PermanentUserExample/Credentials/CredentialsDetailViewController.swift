@@ -1,7 +1,7 @@
 import UIKit
 import TinkLink
 
-final class RefreshCredentialsViewController: UITableViewController {
+final class CredentialsDetailViewController: UITableViewController {
     private let credentialsContext = CredentialsContext()
     private var credentials: Credentials {
         didSet {
@@ -34,7 +34,7 @@ final class RefreshCredentialsViewController: UITableViewController {
 
     private let dateFormatter = DateFormatter()
 
-    private var statusViewController: AddCredentialsStatusViewController?
+    private var statusViewController: StatusViewController?
 
     private var refreshCredentialsTask: RefreshCredentialsTask? {
         didSet {
@@ -74,7 +74,7 @@ final class RefreshCredentialsViewController: UITableViewController {
 
 // MARK: - View Lifecycle
 
-extension RefreshCredentialsViewController {
+extension CredentialsDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -85,11 +85,11 @@ extension RefreshCredentialsViewController {
 
 // MARK: - UITableViewDataSource
 
-extension RefreshCredentialsViewController {
+extension CredentialsDetailViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
-
     }
+
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch sections[section] {
         case .status:
@@ -139,7 +139,7 @@ extension RefreshCredentialsViewController {
 
 // MARK: - UITableViewDelegate
 
-extension RefreshCredentialsViewController {
+extension CredentialsDetailViewController {
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         switch sections[indexPath.section] {
         case .status:
@@ -187,7 +187,7 @@ extension RefreshCredentialsViewController {
 
 // MARK: - Actions
 
-extension RefreshCredentialsViewController {
+extension CredentialsDetailViewController {
     private func refresh() {
         refreshCredentialsTask = credentialsContext.refresh(
             credentials,
@@ -210,7 +210,7 @@ extension RefreshCredentialsViewController {
             do {
                 self?.credentials = try result.get()
             } catch {
-
+                // Handle any errors
             }
             self?.dismiss(animated: true)
         }
@@ -256,7 +256,7 @@ extension RefreshCredentialsViewController {
             } else {
                 showStatus("Authenticating…", animated: true)
             }
-            self.credentials = refreshedCredentials
+            credentials = refreshedCredentials
         case .updating(let status):
             if isPresentingQR {
                 dismiss(animated: true) {
@@ -265,13 +265,13 @@ extension RefreshCredentialsViewController {
             } else {
                 showStatus(status, animated: true)
             }
-            self.credentials = refreshedCredentials
+            credentials = refreshedCredentials
         case .awaitingSupplementalInformation(let task):
             hideStatus(animated: true) {
                 self.showSupplementalInformation(for: task)
             }
         case .awaitingThirdPartyAppAuthentication(let task):
-            self.credentials = refreshedCredentials
+            credentials = refreshedCredentials
             task.handle { [weak self] taskStatus in
                 DispatchQueue.main.async {
                     self?.handleThirdPartyAppAuthentication(taskStatus)
@@ -294,9 +294,10 @@ extension RefreshCredentialsViewController {
             present(navigationController, animated: true)
         }
     }
+
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
-            self.credentials = try result.get()
+            credentials = try result.get()
             hideStatus(animated: true)
         } catch {
             hideStatus(animated: true) {
@@ -320,7 +321,7 @@ extension RefreshCredentialsViewController {
 
     private func showStatus(_ status: String, animated: Bool) {
         if statusViewController == nil {
-            let statusViewController = AddCredentialsStatusViewController()
+            let statusViewController = StatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
             present(statusViewController, animated: animated)
@@ -347,9 +348,9 @@ extension RefreshCredentialsViewController {
 
 // MARK: - SupplementalInformationViewControllerDelegate
 
-extension RefreshCredentialsViewController: SupplementalInformationViewControllerDelegate {
+extension CredentialsDetailViewController: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credentials) {
-        self.credentials = credential
+        credentials = credential
         dismiss(animated: true)
     }
 

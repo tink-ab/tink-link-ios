@@ -16,23 +16,18 @@ class RESTBeneficiaryService: BeneficiaryService {
         return client.performRequest(request)
     }
 
-    func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func createBeneficiary(request: CreateBeneficiaryRequest, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         let body = RESTCreateBeneficiaryRequest(
             accountNumberType: request.accountNumberType,
             accountNumber: request.accountNumber,
             name: request.name,
             ownerAccountId: request.ownerAccountID.value,
-            credentialsId: request.credentialsID.value
+            credentialsId: request.credentialsID.value,
+            appUri: appURI.absoluteString
         )
-        do {
-            let data = try JSONEncoder().encode(body)
-            let request = RESTResourceRequest<Data>(path: "/api/v1/beneficiaries", method: .post, body: data, contentType: .json) { result in
-                completion(result.map { _ in })
-            }
-            return client.performRequest(request)
-        } catch {
-            completion(.failure(error))
-            return nil
+        let request = RESTSimpleRequest(path: "/api/v1/beneficiaries", method: .post, body: body, contentType: .json) { result in
+            completion(result.map { _ in })
         }
+        return client.performRequest(request)
     }
 }

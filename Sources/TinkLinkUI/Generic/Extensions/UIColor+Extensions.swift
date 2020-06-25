@@ -35,7 +35,8 @@ extension UIColor {
                 red: 1 - (1 - c1.red) * (1 - c2.red),
                 green: 1 - (1 - c1.green) * (1 - c2.green),
                 blue: 1 - (1 - c1.blue) * (1 - c2.blue),
-                alpha: 1 - (1 - c1.alpha) * (1 - c2.alpha))
+                alpha: 1 - (1 - c1.alpha) * (1 - c2.alpha)
+            )
         }
 
         return self
@@ -75,7 +76,7 @@ extension UIColor {
 
     private func adjust(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) -> UIColor {
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        getRed(&r, green: &g, blue: &b, alpha: &a)
         return UIColor(red: r + red, green: g + green, blue: b + blue, alpha: a + alpha)
     }
 
@@ -83,4 +84,3 @@ extension UIColor {
         return adjust(red: adjustment, green: adjustment, blue: adjustment, alpha: 0)
     }
 }
-

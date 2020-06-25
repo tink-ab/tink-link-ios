@@ -2,7 +2,7 @@ import Foundation
 
 /// A type that can be used as an to or from account when initiating a transfer.
 public protocol TransferAccountIdentifiable {
-     /// The identity of the account.
+    /// The identity of the account.
     var transferAccountID: String { get }
 }
 

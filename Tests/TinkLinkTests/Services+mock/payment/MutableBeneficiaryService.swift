@@ -17,7 +17,7 @@ class MutableBeneficiaryService: BeneficiaryService {
     }
 
     @discardableResult
-    func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func createBeneficiary(request: CreateBeneficiaryRequest, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(addBeneficiaryResult)
         return nil
     }

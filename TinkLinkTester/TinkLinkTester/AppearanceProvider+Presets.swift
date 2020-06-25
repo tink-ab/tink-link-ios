@@ -2,7 +2,6 @@ import UIKit
 import TinkLinkUI
 
 extension AppearanceProvider {
-
     private static func makeProvider(folderName: String) -> AppearanceProvider {
         let color = ColorProvider()
         color.background = UIColor(named: "\(folderName)/Background")!
@@ -32,7 +31,7 @@ extension AppearanceProvider {
         color.critical = UIColor(named: "\(colorFolderName)/Critical")!
         return AppearanceProvider(colors: color)
     }
-    
+
     private static func makeProviderWithFonts(folderName: String, regular: String, bold: String) -> AppearanceProvider {
         let color = ColorProvider()
         let font = FontProvider()

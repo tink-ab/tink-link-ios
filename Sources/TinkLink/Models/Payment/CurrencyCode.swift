@@ -2,7 +2,6 @@ import Foundation
 
 /// The ISO 4217 currency code of the amount.
 public struct CurrencyCode: Hashable, Equatable, ExpressibleByStringLiteral {
-
     /// The `String` that represent the ISO 4217 currency code.
     public let value: String
 

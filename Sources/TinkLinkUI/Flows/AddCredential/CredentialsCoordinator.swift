@@ -14,7 +14,6 @@ protocol CredentialsCoordinatorDelegate: AnyObject {
 }
 
 final class CredentialsCoordinator {
-
     enum AddCredentialsMode {
         case anonymous(scopes: [Scope])
         case user
@@ -64,7 +63,6 @@ final class CredentialsCoordinator {
     }
 
     func start() {
-
         switch action {
         case .create(provider: let provider, _):
             let credentialsViewController = CredentialsFormViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
@@ -77,7 +75,7 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.addCredentialsSession.authenticateCredentials(credentials: credentials) { result in
-                    self.handleCompletion(for: result.map { ($0, nil) } )
+                    self.handleCompletion(for: result.map { ($0, nil) })
                 }
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
@@ -86,7 +84,7 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.addCredentialsSession.refreshCredentials(credentials: credentials) { result in
-                    self.handleCompletion(for: result.map { ($0, nil) } )
+                    self.handleCompletion(for: result.map { ($0, nil) })
                 }
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
@@ -142,10 +140,10 @@ final class CredentialsCoordinator {
 }
 
 // MARK: - Fetcher Helpers
-extension CredentialsCoordinator {
 
+extension CredentialsCoordinator {
     private func fetchCredentials(with id: Credentials.ID, then: @escaping (Credentials) -> Void) {
-        credentialsController.credentials(id: id) { (result) in
+        credentialsController.credentials(id: id) { result in
             do {
                 let credentials = try result.get()
                 then(credentials)
@@ -170,10 +168,9 @@ extension CredentialsCoordinator {
 }
 
 extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
-
     func showScopeDescriptions() {
         let scopeList: [Scope]
-        if case .create(provider: _, mode: let mode) = action, case let .anonymous(scopes) = mode {
+        if case .create(provider: _, mode: let mode) = action, case .anonymous(let scopes) = mode {
             scopeList = scopes
         } else {
             scopeList = []
@@ -189,11 +186,8 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
         presenter?.present(viewController, animated: true, completion: nil)
     }
 
-
     func submit(form: Form) {
-
         switch action {
-
         case .create(provider: let provider, mode: let mode):
             addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
                 self?.handleCompletion(for: result)
@@ -216,8 +210,8 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
 }
 
 // MARK: - Actions
-extension CredentialsCoordinator {
 
+extension CredentialsCoordinator {
     @objc private func closeMoreInfo(_ sender: UIBarButtonItem) {
         presenter?.dismiss(animated: true, completion: nil)
     }
@@ -228,8 +222,8 @@ extension CredentialsCoordinator {
 }
 
 // MARK: - Alerts
-extension CredentialsCoordinator {
 
+extension CredentialsCoordinator {
     private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
         let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
 

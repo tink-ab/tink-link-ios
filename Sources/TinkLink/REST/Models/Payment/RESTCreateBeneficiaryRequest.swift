@@ -12,4 +12,5 @@ struct RESTCreateBeneficiaryRequest: Codable {
     var ownerAccountId: String
     /// The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have double credentials for one financial institution, due to PSD2 regulations.
     var credentialsId: String
+    var appUri: String?
 }

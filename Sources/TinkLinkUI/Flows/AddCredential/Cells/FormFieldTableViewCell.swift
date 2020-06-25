@@ -8,7 +8,6 @@ protocol FormFieldTableViewCellDelegate: AnyObject {
 }
 
 class FormFieldTableViewCell: UITableViewCell, ReusableCell {
-
     struct ViewModel {
         enum InputType {
             case text, number
@@ -36,6 +35,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         label.setLineHeight(lineHeight: 20)
         return label
     }()
+
     lazy var textField = FloatingPlaceholderTextField()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -58,7 +58,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
     }
 
     override var canBecomeFirstResponder: Bool { true }
-    
+
     private func setup() {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.tintColor = Color.accent
@@ -102,7 +102,6 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
 }
 
 extension FormFieldTableViewCell: UITextFieldDelegate {
-
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let fieldText: String
         // If the textField is password and it has an initial value, then when begin to edit the textfield will clear the text, so need to also reset the form field text cache.
@@ -141,7 +140,7 @@ extension FloatingPlaceholderTextField {
         case .number:
             inputType = .number
         }
-        
+
         isEnabled = viewModel.isEditable
         text = viewModel.text
         placeholder = viewModel.placeholderText

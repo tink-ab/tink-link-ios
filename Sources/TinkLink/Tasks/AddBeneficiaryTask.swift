@@ -5,6 +5,7 @@ import Foundation
 /// Use `TransferContext` to create a task.
 public final class AddBeneficiaryTask: Cancellable {
     // MARK: Types
+
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
 
     /// Indicates the state of a beneficiary being added.
@@ -52,10 +53,12 @@ public final class AddBeneficiaryTask: Cancellable {
     }
 
     // MARK: Dependencies
+
     private let beneficiaryService: BeneficiaryService
     private let credentialsService: CredentialsService
 
     // MARK: Properties
+
     private let appUri: URL
     private let ownerAccountID: Account.ID
     private let ownerAccountCredentialsID: Credentials.ID
@@ -68,6 +71,7 @@ public final class AddBeneficiaryTask: Cancellable {
     private let completionHandler: (Result<Void, Swift.Error>) -> Void
 
     // MARK: Tasks
+
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
     private var supplementInformationTask: SupplementInformationTask?
     private var thirdPartyAppAuthenticationTask: ThirdPartyAppAuthenticationTask?
@@ -76,10 +80,12 @@ public final class AddBeneficiaryTask: Cancellable {
     private var fetchBeneficiariesCanceller: Cancellable?
 
     // MARK: State
+
     private var isCancelled = false
     private var didComplete = false
 
     // MARK: Initializers
+
     init(
         beneficiaryService: BeneficiaryService,
         credentialsService: CredentialsService,
@@ -130,7 +136,7 @@ extension AddBeneficiaryTask {
             credentialsID: ownerAccountCredentialsID
         )
 
-        callCanceller = beneficiaryService.addBeneficiary(request: request) { [weak self, credentialsID = ownerAccountCredentialsID] (result) in
+        callCanceller = beneficiaryService.createBeneficiary(request: request, appURI: appUri) { [weak self, credentialsID = ownerAccountCredentialsID] result in
             do {
                 try result.get()
                 self?.progressHandler(.requestSent)
@@ -159,7 +165,7 @@ extension AddBeneficiaryTask {
             id: id,
             initialValue: fetchedCredentials,
             request: credentialsService.credentials,
-            predicate: { (old, new) in
+            predicate: { old, new in
                 guard let oldStatusUpdated = old.statusUpdated else {
                     return new.statusUpdated != nil || old.status != new.status
                 }
@@ -195,7 +201,7 @@ extension AddBeneficiaryTask {
         case .authenticating:
             progressHandler(.authenticating)
         case .awaitingSupplementalInformation:
-            self.credentialsStatusPollingTask?.stopPolling()
+            credentialsStatusPollingTask?.stopPolling()
             let task = makeSupplementInformationTask(for: credentials) { [weak self] result in
                 do {
                     try result.get()
@@ -208,7 +214,7 @@ extension AddBeneficiaryTask {
             supplementInformationTask = task
             authenticationHandler(.awaitingSupplementalInformation(task))
         case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
-            self.credentialsStatusPollingTask?.stopPolling()
+            credentialsStatusPollingTask?.stopPolling()
             let task = try makeThirdPartyAppAuthenticationTask(for: credentials) { [weak self] result in
                 do {
                     try result.get()

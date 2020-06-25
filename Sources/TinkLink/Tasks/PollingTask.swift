@@ -36,7 +36,6 @@ final class PollingTask<ID, Model> {
     }
 
     func startPolling() {
-
         // Only start polling if we're not currently polling.
         guard isPaused else {
             return
@@ -86,5 +85,4 @@ final class PollingTask<ID, Model> {
         callRetryCancellable?.cancel()
         isPaused = true
     }
-
 }

@@ -1,7 +1,6 @@
 import Foundation
 
 struct AccountDetails {
-
     enum Kind {
         case mortgage
         case blanco
@@ -13,6 +12,7 @@ struct AccountDetails {
         case other
         case unknown
     }
+
     /// Interest of the account. Applicable for loans and savings accounts.
     let interest: Double?
 
@@ -25,4 +25,3 @@ struct AccountDetails {
     /// A timestamp of the next day of terms change of the account. Applicable for loans.
     let nextDayOfTermsChange: Date?
 }
-

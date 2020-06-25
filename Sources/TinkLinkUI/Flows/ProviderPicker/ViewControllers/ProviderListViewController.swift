@@ -3,13 +3,12 @@ import UIKit
 
 /// Example of how to use the provider grouped by names
 final class ProviderListViewController: UITableViewController {
-
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     private let searchViewController = FinancialInstitutionSearchViewController()
-    
+
     private lazy var searchController = TinkSearchController(searchResultsController: searchViewController)
-    
+
     private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode]
 
     init(financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode]) {
@@ -31,12 +30,12 @@ extension ProviderListViewController {
 
         definesPresentationContext = true
         extendedLayoutIncludesOpaqueBars = true
-        
+
         searchViewController.providerPickerCoordinator = providerPickerCoordinator
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = Strings.ProviderList.searchHint
         searchController.searchResultsUpdater = searchViewController
- 
+
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
 

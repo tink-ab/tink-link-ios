@@ -15,7 +15,7 @@ class BeneficiaryPickerViewController: UITableViewController {
     private let selectedBeneficiary: Beneficiary?
     private var canceller: RetryCancellable?
     private var addBeneficiaryTask: AddBeneficiaryTask?
-    private var statusViewController: AddCredentialsStatusViewController?
+    private var statusViewController: StatusViewController?
 
     init(sourceAccount: Account, selectedBeneficiary: Beneficiary? = nil) {
         self.sourceAccount = sourceAccount
@@ -65,12 +65,12 @@ extension BeneficiaryPickerViewController {
 extension BeneficiaryPickerViewController {
     @objc private func enterBeneficiary(_ sender: Any) {
         let alert = UIAlertController(title: "Enter Beneficiary URI", message: nil, preferredStyle: .alert)
-        alert.addTextField { (textField) in
+        alert.addTextField { textField in
             textField.placeholder = "Type"
             textField.autocorrectionType = .no
             textField.autocapitalizationType = .none
         }
-        alert.addTextField { (textField) in
+        alert.addTextField { textField in
             textField.placeholder = "Account Number"
             textField.autocorrectionType = .no
             textField.autocapitalizationType = .none
@@ -79,7 +79,7 @@ extension BeneficiaryPickerViewController {
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
             guard let kind = alert.textFields?[0].text,
                 let accountNumber = alert.textFields?[1].text
-                else { return }
+            else { return }
             let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: AccountNumberKind(kind), accountNumber: accountNumber)
             self.delegate?.beneficiaryPickerViewController(self, didSelectBeneficiary: beneficiaryAccount)
         }))
@@ -88,21 +88,21 @@ extension BeneficiaryPickerViewController {
 
     @objc private func addBeneficiary(_ sender: Any) {
         let alert = UIAlertController(title: "Add Beneficiary", message: nil, preferredStyle: .alert)
-        alert.addTextField { (textField) in
+        alert.addTextField { textField in
             textField.placeholder = "Name"
             textField.autocapitalizationType = .words
         }
-        alert.addTextField { (textField) in
+        alert.addTextField { textField in
             textField.placeholder = "Type"
             textField.autocorrectionType = .no
             textField.autocapitalizationType = .none
         }
-        alert.addTextField { (textField) in
+        alert.addTextField { textField in
             textField.placeholder = "Account Number"
             textField.autocorrectionType = .no
             textField.autocapitalizationType = .none
         }
-        alert.addTextField { (textField) in
+        alert.addTextField { textField in
             textField.placeholder = "Optional - Credentials ID"
             textField.autocorrectionType = .no
             textField.autocapitalizationType = .none
@@ -112,7 +112,7 @@ extension BeneficiaryPickerViewController {
             guard let name = alert.textFields?[0].text,
                 let accountNumberKind = alert.textFields?[1].text,
                 let accountNumber = alert.textFields?[2].text
-                else { return }
+            else { return }
             let credentialsID = alert.textFields?[3].text ?? ""
             self.addBeneficiary(account: BeneficiaryAccount(accountNumberKind: AccountNumberKind(accountNumberKind), accountNumber: accountNumber), name: name, credentialsID: credentialsID.isEmpty ? nil : credentialsID)
         }))
@@ -128,7 +128,7 @@ extension BeneficiaryPickerViewController {
             account: account,
             name: name,
             toAccountWithID: sourceAccount.id,
-            onCredentialsWithID: credentialsID.map({ Credentials.ID($0) }) ?? sourceAccount.credentialsID,
+            onCredentialsWithID: credentialsID.map { Credentials.ID($0) } ?? sourceAccount.credentialsID,
             authentication: { [weak self] task in
                 DispatchQueue.main.async {
                     self?.handleAddBeneficiaryAuthentication(task)
@@ -189,7 +189,7 @@ extension BeneficiaryPickerViewController {
 
     private func showStatus(_ status: String) {
         if statusViewController == nil {
-            let statusViewController = AddCredentialsStatusViewController()
+            let statusViewController = StatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
             present(statusViewController, animated: true)

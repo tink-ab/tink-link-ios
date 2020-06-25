@@ -47,7 +47,7 @@ final class CredentialsController {
                 tink?._endUITask()
                 completion(result)
             }
-       )
+        )
     }
 
     func refresh(

@@ -2,11 +2,9 @@ import Down
 import TinkLink
 import UIKit
 
-/// Example of how to update credential
-final class UpdateCredentialsViewController: UITableViewController {
-    private let provider: Provider
-    private var credentials: Credentials
-    private let completion: (Result<Credentials, Error>) -> Void
+final class AddCredentialsViewController: UITableViewController {
+    let provider: Provider
+
     private let credentialsContext = CredentialsContext()
     private var form: Form
     private var formError: Form.ValidationError? {
@@ -15,18 +13,18 @@ final class UpdateCredentialsViewController: UITableViewController {
         }
     }
 
-    private var updateCredentialsTask: UpdateCredentialsTask?
-    private var statusViewController: AddCredentialsStatusViewController?
-    private lazy var updateBarButtonItem = UIBarButtonItem(title: "Update", style: .done, target: self, action: #selector(updateCredential))
+    private var credentials: Credentials?
+
+    private var addCredentialsTask: AddCredentialsTask?
+    private var statusViewController: StatusViewController?
+    private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
 
-    init(provider: Provider, credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
+    init(provider: Provider) {
         self.provider = provider
-        self.credentials = credentials
-        self.completion = completion
-        self.form = Form(updatingCredentials: credentials, provider: provider)
+        self.form = Form(provider: provider)
 
         if #available(iOS 13.0, *) {
             super.init(style: .insetGrouped)
@@ -42,18 +40,18 @@ final class UpdateCredentialsViewController: UITableViewController {
 
 // MARK: - View Lifecycle
 
-extension UpdateCredentialsViewController {
+extension AddCredentialsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: TextFieldTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
 
-        navigationItem.prompt = "Update Credentials"
+        navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItem = updateBarButtonItem
-        navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
+        navigationItem.rightBarButtonItem = addBarButtonItem
+        navigationItem.rightBarButtonItem?.isEnabled = form.fields.isEmpty
 
         setupHelpFootnote()
         layoutHelpFootnote()
@@ -77,7 +75,7 @@ extension UpdateCredentialsViewController {
 
 // MARK: - Help Footnote
 
-extension UpdateCredentialsViewController {
+extension AddCredentialsViewController {
     private func setupHelpFootnote() {
         guard let helpText = provider.helpText, !helpText.isEmpty else { return }
         let markdown = Down(markdownString: helpText)
@@ -116,7 +114,7 @@ extension UpdateCredentialsViewController {
 
 // MARK: - UITableViewDataSource
 
-extension UpdateCredentialsViewController {
+extension AddCredentialsViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return form.fields.count
     }
@@ -155,8 +153,8 @@ extension UpdateCredentialsViewController {
 
 // MARK: - Actions
 
-extension UpdateCredentialsViewController {
-    @objc private func updateCredential(_ sender: UIBarButtonItem) {
+extension AddCredentialsViewController {
+    @objc private func addCredential(_ sender: UIBarButtonItem) {
         view.endEditing(false)
 
         let activityIndicator = UIActivityIndicatorView(style: .medium)
@@ -164,7 +162,13 @@ extension UpdateCredentialsViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         do {
             try form.validateFields()
-            updateCredentialsTask = credentialsContext.update(credentials, form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            addCredentialsTask = credentialsContext.add(
+                for: provider,
+                form: form,
+                completionPredicate: .init(
+                    successPredicate: .updated,
+                    shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false
+                ),
                 progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
                         self?.handleProgress(status)
@@ -186,8 +190,10 @@ extension UpdateCredentialsViewController {
         return navigationController.topViewController is QRViewController
     }
 
-    private func handleProgress(_ status: UpdateCredentialsTask.Status) {
+    private func handleProgress(_ status: AddCredentialsTask.Status) {
         switch status {
+        case .created:
+            showUpdating(status: "Created Credentials")
         case .authenticating:
             if isPresentingQR {
                 dismiss(animated: true) {
@@ -224,7 +230,7 @@ extension UpdateCredentialsViewController {
         case .qrImage(let image):
             hideUpdatingView(animated: true) {
                 let qrViewController = QRViewController(image: image)
-                qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelQRCode))
+                qrViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(Self.cancelRefreshingCredentials(_:)))
                 let navigationController = UINavigationController(rootViewController: qrViewController)
                 self.present(navigationController, animated: true)
             }
@@ -233,25 +239,26 @@ extension UpdateCredentialsViewController {
 
     private func handleCompletion(_ result: Result<Credentials, Error>) {
         do {
-            let credentials = try result.get()
-            completion(.success(credentials))
+            _ = try result.get()
+            hideUpdatingView(animated: false) {
+                self.dismiss(animated: true)
+            }
         } catch {
-            navigationItem.rightBarButtonItem = updateBarButtonItem
             hideUpdatingView(animated: false) {
                 self.showAlert(for: error)
             }
         }
     }
 
-    @objc private func cancelQRCode(_ sender: Any) {
-        updateCredentialsTask?.cancel()
-        completion(.failure(CocoaError(.userCancelled)))
+    @objc private func cancelRefreshingCredentials(_ sender: Any) {
+        addCredentialsTask?.cancel()
+        dismiss(animated: true)
     }
 }
 
 // MARK: - Navigation
 
-extension UpdateCredentialsViewController {
+extension AddCredentialsViewController {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
         let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
         supplementalInformationViewController.delegate = self
@@ -261,8 +268,8 @@ extension UpdateCredentialsViewController {
 
     private func showUpdating(status: String) {
         if statusViewController == nil {
-            navigationItem.setRightBarButton(updateBarButtonItem, animated: true)
-            let statusViewController = AddCredentialsStatusViewController()
+            navigationItem.setRightBarButton(addBarButtonItem, animated: true)
+            let statusViewController = StatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
             present(statusViewController, animated: true)
@@ -306,7 +313,8 @@ extension UpdateCredentialsViewController {
 }
 
 // MARK: - TextFieldTableViewCellDelegate
-extension UpdateCredentialsViewController: TextFieldTableViewCellDelegate {
+
+extension AddCredentialsViewController: TextFieldTableViewCellDelegate {
     func textFieldTableViewCell(_ cell: TextFieldTableViewCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
@@ -324,7 +332,7 @@ extension UpdateCredentialsViewController: TextFieldTableViewCellDelegate {
 
 // MARK: - SupplementalInformationViewControllerDelegate
 
-extension UpdateCredentialsViewController: SupplementalInformationViewControllerDelegate {
+extension AddCredentialsViewController: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         dismiss(animated: true)
     }

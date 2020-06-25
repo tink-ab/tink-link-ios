@@ -9,7 +9,7 @@ class MockedSuccessBeneficiaryService: BeneficiaryService {
     }
 
     @discardableResult
-    func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func createBeneficiary(request: CreateBeneficiaryRequest, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.success)
         return nil
     }
@@ -21,12 +21,10 @@ class MockedCancelledBeneficiaryService: BeneficiaryService {
         fatalError("\(#function) should not be called")
     }
 
-    func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func createBeneficiary(request: CreateBeneficiaryRequest, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 }
-
-
 
 class MockedUnauthenticatedErrorBeneficiaryService: BeneficiaryService {
     func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
@@ -34,7 +32,7 @@ class MockedUnauthenticatedErrorBeneficiaryService: BeneficiaryService {
         return nil
     }
 
-    func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func createBeneficiary(request: CreateBeneficiaryRequest, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
@@ -46,7 +44,7 @@ class MockedBadRequestErrorBeneficiaryService: BeneficiaryService {
         return nil
     }
 
-    func addBeneficiary(request: CreateBeneficiaryRequest, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func createBeneficiary(request: CreateBeneficiaryRequest, appURI: URL, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.invalidArgumentError))
         return nil
     }

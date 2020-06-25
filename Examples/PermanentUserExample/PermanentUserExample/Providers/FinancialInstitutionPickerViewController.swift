@@ -1,7 +1,6 @@
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider grouped by financialInstitution
 final class FinancialInstitutionPickerViewController: UITableViewController {
     var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
 }
@@ -35,7 +34,11 @@ extension FinancialInstitutionPickerViewController {
         }
         return cell
     }
+}
 
+// MARK: - UITableViewDelegate
+
+extension FinancialInstitutionPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let financialInstitutionNode = financialInstitutionNodes[indexPath.row]
         switch financialInstitutionNode {

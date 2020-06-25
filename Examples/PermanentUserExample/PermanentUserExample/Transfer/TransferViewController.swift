@@ -14,10 +14,12 @@ class TransferViewController: UITableViewController {
             case from
             case to
         }
+
         enum DetailField {
             case amount
             case message
         }
+
         case accounts([AccountField])
         case details([DetailField])
         case action
@@ -27,7 +29,7 @@ class TransferViewController: UITableViewController {
 
     private var initiateTransferTask: InitiateTransferTask?
 
-    private var statusViewController: AddCredentialsStatusViewController?
+    private var statusViewController: StatusViewController?
 
     init() {
         super.init(style: .insetGrouped)
@@ -62,7 +64,7 @@ extension TransferViewController {
             let beneficiary = beneficiary,
             let balance = sourceAccount.currencyDenominatedBalance,
             let amount = amount
-            else { return }
+        else { return }
 
         initiateTransfer(from: sourceAccount, to: beneficiary, amount: amount, currencyCode: balance.currencyCode)
     }
@@ -250,7 +252,7 @@ extension TransferViewController {
 
     private func showStatus(_ status: String) {
         if statusViewController == nil {
-            let statusViewController = AddCredentialsStatusViewController()
+            let statusViewController = StatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
             present(statusViewController, animated: true)
@@ -313,9 +315,7 @@ extension TransferViewController: TextFieldTableViewCellDelegate {
         }
     }
 
-    func textFieldTableViewCellDidEndEditing(_ cell: TextFieldTableViewCell) {
-
-    }
+    func textFieldTableViewCellDidEndEditing(_ cell: TextFieldTableViewCell) {}
 }
 
 // MARK: - SourceAccountPickerViewControllerDelegate

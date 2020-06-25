@@ -2,7 +2,6 @@ import UIKit
 import TinkLink
 
 final class AddCredentialsSession {
-
     weak var presenter: CredentialsCoordinatorPresenting?
 
     private let providerController: ProviderController
@@ -27,6 +26,7 @@ final class AddCredentialsSession {
             return false
         }
     }
+
     private var isPresenterShowingStatusScreen = true
     private var authorizationGroup = DispatchGroup()
 
@@ -44,7 +44,6 @@ final class AddCredentialsSession {
     }
 
     func addCredential(provider: Provider, form: Form, mode: CredentialsCoordinator.AddCredentialsMode, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
-
         let refreshableItems: RefreshableItems
         switch mode {
         case .anonymous(scopes: let scopes):
@@ -94,13 +93,13 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
-            }, completion: { [weak self] result in
-                DispatchQueue.main.async {
-                    self?.handleCompletion(result) { result in
-                        completion(result.map{ $0.0 })
-                    }
+        }, completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.handleCompletion(result) { result in
+                    completion(result.map { $0.0 })
                 }
-            })
+            }
+        })
 
         isPresenterShowingStatusScreen = false
         providerID = credentials.providerID
@@ -121,7 +120,7 @@ final class AddCredentialsSession {
         }, completion: { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleCompletion(result) { result in
-                    completion(result.map{ $0.0 })
+                    completion(result.map { $0.0 })
                 }
             }
         })
@@ -145,7 +144,7 @@ final class AddCredentialsSession {
         }, completion: { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleCompletion(result) { result in
-                    completion(result.map{ $0.0 })
+                    completion(result.map { $0.0 })
                 }
             }
         })
@@ -244,7 +243,7 @@ final class AddCredentialsSession {
     private func authorizeIfNeeded(onError: @escaping (Error) -> Void) {
         if didCallAuthorize || !shouldAuthorize { return }
 
-        guard case let .anonymous(scopes) = addCredentialsMode else { return }
+        guard case .anonymous(let scopes) = addCredentialsMode else { return }
 
         didCallAuthorize = true
         authorizationGroup.enter()
@@ -258,7 +257,7 @@ final class AddCredentialsSession {
             self?.authorizationGroup.leave()
         }
     }
-    
+
     private func cancel() {
         task?.cancel()
         hideUpdatingView(animated: true) {
@@ -270,7 +269,7 @@ final class AddCredentialsSession {
 
 extension AddCredentialsSession {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
-        self.supplementInfoTask = supplementInformationTask
+        supplementInfoTask = supplementInformationTask
         hideUpdatingView(animated: true) {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
@@ -281,7 +280,6 @@ extension AddCredentialsSession {
 
     private func showUpdating(status: String) {
         hideQRCodeViewIfNeeded {
-
             guard !self.isPresenterShowingStatusScreen else {
                 self.presenter?.showLoadingIndicator(text: status) { [weak self] in
                     self?.cancel()

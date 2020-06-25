@@ -1,6 +1,5 @@
 /// Represents a set of data types that you can aggregate from a provider.
 public struct RefreshableItems: OptionSet {
-
     public let rawValue: Int
 
     public init(rawValue: Int) {
@@ -94,7 +93,6 @@ public struct RefreshableItems: OptionSet {
 }
 
 public extension RefreshableItems {
-
     /// Creates a set of refreshable items that corresponds to the providers capabilities.
     init(providerCapabilities: Provider.Capabilities) {
         var refreshableItems: RefreshableItems = []

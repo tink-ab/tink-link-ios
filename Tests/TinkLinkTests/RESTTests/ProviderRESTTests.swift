@@ -27,7 +27,8 @@ class ProviderRESTTests: XCTestCase {
             popular: false,
             status: .enabled,
             transactional: true,
-            type: .test)
+            type: .test
+        )
 
         let provider = Provider(restProvider: restProvider)
 
@@ -52,59 +53,59 @@ class ProviderRESTTests: XCTestCase {
 
     func testProviderMappingWithNewCapabilities() throws {
         let testProviderJSON = """
-            {
-                "accessType": "OPEN_BANKING",
-                "authenticationUserType": "PERSONAL",
-                "capabilities": ["CREDIT_CARDS", "TEST_CAPABILITIES"],
-                "credentialsType": "THIRD_PARTY_APP",
-                "currency": "SEK",
-                "displayName": "Demo Open Banking Decoupled",
-                "displayDescription": "TEST",
-                "fields": [
-                    {
-                        "defaultValue": null,
-                        "description": "Nom d'utilisateur",
-                        "exposed": true,
-                        "children": null,
-                        "helpText": null,
-                        "hint": null,
-                        "immutable": true,
-                        "masked": false,
-                        "maxLength": null,
-                        "minLength": null,
-                        "name": "username",
-                        "numeric": false,
-                        "optional": false,
-                        "options": null,
-                        "pattern": null,
-                        "patternError": null,
-                        "type": null,
-                        "value": null,
-                        "sensitive": false,
-                        "checkbox": false,
-                        "additionalInfo": null
-                    }
-                ],
-                "financialInstitutionId": "dbcebf1e6b575dd787532560cc9638b7",
-                "financialInstitutionName": "Demo Open Banking Decoupled",
-                "groupDisplayName": "Demo providers",
-                "images": {
-                    "icon": "https://cdn.tink.se/provider-images/placeholder.png",
-                    "banner": null
-                },
-                "market": "SE",
-                "multiFactor": true,
-                "name": "se-test-open-banking-decoupled-successful",
-                "passwordHelpText": "TEST.",
-                "popular": false,
-                "status": "ENABLED",
-                "transactional": true,
-                "type": "TEST"
-            }
-            """
+        {
+            "accessType": "OPEN_BANKING",
+            "authenticationUserType": "PERSONAL",
+            "capabilities": ["CREDIT_CARDS", "TEST_CAPABILITIES"],
+            "credentialsType": "THIRD_PARTY_APP",
+            "currency": "SEK",
+            "displayName": "Demo Open Banking Decoupled",
+            "displayDescription": "TEST",
+            "fields": [
+                {
+                    "defaultValue": null,
+                    "description": "Nom d'utilisateur",
+                    "exposed": true,
+                    "children": null,
+                    "helpText": null,
+                    "hint": null,
+                    "immutable": true,
+                    "masked": false,
+                    "maxLength": null,
+                    "minLength": null,
+                    "name": "username",
+                    "numeric": false,
+                    "optional": false,
+                    "options": null,
+                    "pattern": null,
+                    "patternError": null,
+                    "type": null,
+                    "value": null,
+                    "sensitive": false,
+                    "checkbox": false,
+                    "additionalInfo": null
+                }
+            ],
+            "financialInstitutionId": "dbcebf1e6b575dd787532560cc9638b7",
+            "financialInstitutionName": "Demo Open Banking Decoupled",
+            "groupDisplayName": "Demo providers",
+            "images": {
+                "icon": "https://cdn.tink.se/provider-images/placeholder.png",
+                "banner": null
+            },
+            "market": "SE",
+            "multiFactor": true,
+            "name": "se-test-open-banking-decoupled-successful",
+            "passwordHelpText": "TEST.",
+            "popular": false,
+            "status": "ENABLED",
+            "transactional": true,
+            "type": "TEST"
+        }
+        """
         guard let data = testProviderJSON.data(using: .utf8) else {
-                XCTFail("Failed to parse the JSON")
-                return
+            XCTFail("Failed to parse the JSON")
+            return
         }
         let provider = try JSONDecoder().decode(RESTProvider.self, from: data)
         XCTAssertTrue(provider.capabilities.contains(.creditCards))

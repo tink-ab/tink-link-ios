@@ -9,7 +9,6 @@ extension Notification.Name {
 }
 
 final class ProviderController {
-
     enum Error: Swift.Error, LocalizedError {
         case emptyProviderList
         case missingInternetConnection
@@ -25,7 +24,7 @@ final class ProviderController {
     }
 
     let tink: Tink
-    
+
     private(set) var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []
     private(set) var isFetching = false
     private(set) var error: Swift.Error?

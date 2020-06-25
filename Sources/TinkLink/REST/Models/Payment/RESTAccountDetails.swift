@@ -1,7 +1,6 @@
 import Foundation
 
 struct RESTAccountDetails: Decodable {
-
     enum ModelType: String, DefaultableDecodable {
         case mortgage = "MORTGAGE"
         case blanco = "BLANCO"
@@ -15,6 +14,7 @@ struct RESTAccountDetails: Decodable {
 
         static var decodeFallbackValue: RESTAccountDetails.ModelType = .unknown
     }
+
     /// Interest of the account. Applicable for loans and savings accounts.
     var interest: Double?
 
@@ -27,4 +27,3 @@ struct RESTAccountDetails: Decodable {
     /// A timestamp of the next day of terms change of the account. Applicable for loans.
     var nextDayOfTermsChange: Date?
 }
-

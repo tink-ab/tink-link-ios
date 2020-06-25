@@ -112,8 +112,8 @@ public final class ConsentContext {
     @discardableResult
     public func fetchScopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
         let redirectURI = tink.configuration.redirectURI
-        return service.clientDescription(clientID: tink.configuration.clientID, scopes: scopes, redirectURI: redirectURI) { (result) in
-            let mappedResult = result.map(\.scopes).mapError({ Error($0) ?? $0 })
+        return service.clientDescription(clientID: tink.configuration.clientID, scopes: scopes, redirectURI: redirectURI) { result in
+            let mappedResult = result.map(\.scopes).mapError { Error($0) ?? $0 }
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not fetch scope descriptions: " + message)
             }
@@ -142,8 +142,8 @@ public final class ConsentContext {
     /// - Note: Not all languages are supported.
     ///         The link will display the page in English if the requested language is not available.
     public func termsAndConditions(for locale: Locale = .current) -> URL {
-         let languageCode = locale.languageCode ?? ""
-         return URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
+        let languageCode = locale.languageCode ?? ""
+        return URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
     }
 
     /// Get a link to the Privacy Policy for TinkLink.
@@ -165,7 +165,7 @@ public final class ConsentContext {
     /// - Note: Not all languages are supported.
     ///         The link will display the page in English if the requested language is not available.
     public func privacyPolicy(for locale: Locale = .current) -> URL {
-         let languageCode = locale.languageCode ?? ""
-         return URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
+        let languageCode = locale.languageCode ?? ""
+        return URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
     }
 }

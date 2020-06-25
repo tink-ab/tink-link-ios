@@ -1,4 +1,5 @@
---exclude Sources/TinkLink/GRPC
---disable unusedArguments,trailingCommas,andOperator
+--exclude Carthage
+--disable unusedArguments,trailingCommas,andOperator,sortedImports
 --self init-only
 --patternlet inline
+--ranges no-space

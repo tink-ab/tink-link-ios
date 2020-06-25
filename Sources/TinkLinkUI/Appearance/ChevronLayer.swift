@@ -13,7 +13,6 @@ enum ChevronSize {
 }
 
 class ChevronLayer: CAShapeLayer {
-
     var size: ChevronSize = .large {
         didSet {
             updatePath()
@@ -66,7 +65,7 @@ private extension ChevronLayer {
 
     func chevronPath(for direction: ChevronDirection, size: ChevronSize) -> CGPath {
         let chevronPath = UIBezierPath()
-        
+
         switch size {
         case .small:
             chevronPath.move(to: CGPoint(x: 0, y: 4.06))

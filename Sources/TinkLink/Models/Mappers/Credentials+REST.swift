@@ -47,12 +47,13 @@ extension Credentials {
                 upgradeMessage: "",
                 appStoreURL: URL(string: "itms://itunes.apple.com/se/app/bankid-sakerhetsapp/id433151512"),
                 scheme: "bankid://",
-                deepLinkURL: deepLinkURL)
+                deepLinkURL: deepLinkURL
+            )
 
         case .awaitingThirdPartyAppAuthentication:
             guard let payloadData = string?.data(using: .utf8),
                 let payload = try? JSONDecoder().decode(RESTThirdPartyAppAuthenticationPayload.self, from: payloadData)
-                else { return nil }
+            else { return nil }
 
             return ThirdPartyAppAuthentication(
                 downloadTitle: payload.downloadTitle,

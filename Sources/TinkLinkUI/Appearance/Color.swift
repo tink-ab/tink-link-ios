@@ -1,9 +1,7 @@
 import UIKit
 
 /// A namespace for custom colors.
-public enum Color {
-
-}
+public enum Color {}
 
 // Shorthands for readability
 extension Color {
@@ -17,7 +15,7 @@ extension Color {
     static var accent: UIColor { Appearance.colorProvider.accent }
 
     static var warning: UIColor { Appearance.colorProvider.warning }
-    static var critical : UIColor { Appearance.colorProvider.critical }
+    static var critical: UIColor { Appearance.colorProvider.critical }
 }
 
 // Derived colors
@@ -26,5 +24,5 @@ extension Color {
 
     static var accentBackground: UIColor { accent.mixedWith(color: Color.background, factor: 0.95) }
 
-    static var warningBackground: UIColor { warning.mixedWith(color: Color.background, factor: 0.8)}
+    static var warningBackground: UIColor { warning.mixedWith(color: Color.background, factor: 0.8) }
 }

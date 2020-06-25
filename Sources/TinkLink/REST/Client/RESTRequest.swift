@@ -3,7 +3,7 @@ import Foundation
 protocol RESTRequest {
     var path: String { get }
     var method: RESTMethod { get }
-    var body: Data? { get }
+    var body: AnyEncodable? { get }
     var queryParameters: [URLQueryItem] { get }
     var contentType: RESTContentType? { get }
     var headers: [String: String] { get }
@@ -12,19 +12,30 @@ protocol RESTRequest {
 }
 
 struct RESTSimpleRequest: RESTRequest {
+    typealias ResultType = Result<(data: Data, urlResponse: URLResponse), Error>
+
     var path: String
     var method: RESTMethod
-    var body: Data?
+    var body: AnyEncodable?
     var queryParameters: [URLQueryItem]
     var contentType: RESTContentType?
     var headers: [String: String] = [:]
 
-    private var completion: ((Result<URLResponse, Error>) -> Void)
+    private var completion: (ResultType) -> Void
 
-    init(path: String, method: RESTMethod, body: Data? = nil, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<URLResponse, Error>) -> Void)) {
+    init(path: String, method: RESTMethod, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((ResultType) -> Void)) {
+        let body: AnyEncodable? = nil
+        self.init(path: path, method: method, body: body, contentType: contentType, parameters: parameters, completion: completion)
+    }
+
+    init<Body: Encodable>(path: String, method: RESTMethod, body: Body?, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping (ResultType) -> Void) {
         self.path = path
         self.method = method
-        self.body = body
+        if let body = body {
+            self.body = AnyEncodable(body)
+        } else {
+            self.body = nil
+        }
         self.contentType = contentType
         self.queryParameters = parameters
         self.completion = completion
@@ -37,7 +48,7 @@ struct RESTSimpleRequest: RESTRequest {
                 let serviceError = ServiceError(errorResponse) {
                 completion(.failure(serviceError))
             } else {
-                completion(.success(response.urlResponse))
+                completion(.success((data: response.data, urlResponse: response.urlResponse)))
             }
         } catch {
             completion(.failure(ServiceError(error) ?? error))
@@ -46,20 +57,27 @@ struct RESTSimpleRequest: RESTRequest {
 }
 
 struct RESTResourceRequest<T: Decodable>: RESTRequest {
-
     var path: String
     var method: RESTMethod
-    var body: Data?
+    var body: AnyEncodable?
     var queryParameters: [URLQueryItem]
     var contentType: RESTContentType?
     var headers: [String: String] = [:]
-    
-    private var completion: ((Result<T, Error>) -> Void)
 
-    init(path: String, method: RESTMethod, body: Data? = nil, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<T, Error>) -> Void)) {
+    private var completion: (Result<T, Error>) -> Void
+    init(path: String, method: RESTMethod, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<T, Error>) -> Void)) {
+        let body: AnyEncodable? = nil
+        self.init(path: path, method: method, body: body, contentType: contentType, parameters: parameters, completion: completion)
+    }
+
+    init<Body: Encodable>(path: String, method: RESTMethod, body: Body?, contentType: RESTContentType?, parameters: [URLQueryItem] = [], completion: @escaping ((Result<T, Error>) -> Void)) {
         self.path = path
         self.method = method
-        self.body = body
+        if let body = body {
+            self.body = AnyEncodable(body)
+        } else {
+            self.body = nil
+        }
         self.contentType = contentType
         self.queryParameters = parameters
         self.completion = completion

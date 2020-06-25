@@ -1,7 +1,6 @@
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider grouped by access type
 final class AccessTypePickerViewController: UITableViewController {
     var accessTypeNodes: [ProviderTree.AccessTypeNode] = []
 }
@@ -32,7 +31,11 @@ extension AccessTypePickerViewController {
         cell.accessoryType = .disclosureIndicator
         return cell
     }
+}
 
+// MARK: - UITableViewDelegate
+
+extension AccessTypePickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let accessTypeNode = accessTypeNodes[indexPath.row]
         switch accessTypeNode {

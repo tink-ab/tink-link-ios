@@ -20,7 +20,6 @@ extension Array where Element == Scope {
 }
 
 public extension Scope {
-
     enum ReadAccess: String {
         case read
     }

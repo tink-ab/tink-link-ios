@@ -20,7 +20,7 @@ class CurrencyDenominatedAmountTests: XCTestCase {
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
         XCTAssertEqual(amount.doubleValue, 0.0)
-        XCTAssertEqual(amount.value,  Decimal(string: "0.0"))
+        XCTAssertEqual(amount.value, Decimal(string: "0.0"))
     }
 
     func testOne() {
@@ -31,7 +31,7 @@ class CurrencyDenominatedAmountTests: XCTestCase {
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
         XCTAssertEqual(amount.doubleValue, 1.0)
-        XCTAssertEqual(amount.value,  Decimal(string: "1.0"))
+        XCTAssertEqual(amount.value, Decimal(string: "1.0"))
     }
 
     func testMinusOne() {
@@ -42,7 +42,7 @@ class CurrencyDenominatedAmountTests: XCTestCase {
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
         XCTAssertEqual(amount.doubleValue, -1.0)
-        XCTAssertEqual(amount.value,  Decimal(string: "-1.0"))
+        XCTAssertEqual(amount.value, Decimal(string: "-1.0"))
     }
 
     func testFive() {
@@ -53,7 +53,7 @@ class CurrencyDenominatedAmountTests: XCTestCase {
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
         XCTAssertEqual(amount.doubleValue, 0.5)
-        XCTAssertEqual(amount.value,  Decimal(string: "0.5"))
+        XCTAssertEqual(amount.value, Decimal(string: "0.5"))
     }
 
     func testMinusFive() {
@@ -64,7 +64,7 @@ class CurrencyDenominatedAmountTests: XCTestCase {
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
         XCTAssertEqual(amount.doubleValue, -0.5)
-        XCTAssertEqual(amount.value,  Decimal(string: "-0.5"))
+        XCTAssertEqual(amount.value, Decimal(string: "-0.5"))
     }
 
     func testOneThousandTwoHundredAndThirtyFour() {
@@ -75,7 +75,7 @@ class CurrencyDenominatedAmountTests: XCTestCase {
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
         XCTAssertEqual(amount.doubleValue, 1234.0)
-        XCTAssertEqual(amount.value,  Decimal(string: "1234"))
+        XCTAssertEqual(amount.value, Decimal(string: "1234"))
     }
 
     func testMinusOneThousandTwoHundredAndThirtyFour() {
@@ -86,7 +86,7 @@ class CurrencyDenominatedAmountTests: XCTestCase {
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
         XCTAssertEqual(amount.doubleValue, -1234.0)
-        XCTAssertEqual(amount.value,  Decimal(string: "-1234"))
+        XCTAssertEqual(amount.value, Decimal(string: "-1234"))
     }
 
     func testNineDividedByFour() {
@@ -96,8 +96,8 @@ class CurrencyDenominatedAmountTests: XCTestCase {
             currencyCode: "SEK"
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
-        XCTAssertEqual(amount.doubleValue,  9.0 / 4.0)
-        XCTAssertEqual(amount.value,  Decimal(string: "2.25"))
+        XCTAssertEqual(amount.doubleValue, 9.0 / 4.0)
+        XCTAssertEqual(amount.value, Decimal(string: "2.25"))
     }
 
     func testMinusNineDividedByFour() {
@@ -107,8 +107,8 @@ class CurrencyDenominatedAmountTests: XCTestCase {
             currencyCode: "SEK"
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
-        XCTAssertEqual(amount.doubleValue,  -9.0 / 4.0)
-        XCTAssertEqual(amount.value,  Decimal(string: "-2.25"))
+        XCTAssertEqual(amount.doubleValue, -9.0 / 4.0)
+        XCTAssertEqual(amount.value, Decimal(string: "-2.25"))
     }
 
     func testElevenPointSeven() {
@@ -118,8 +118,8 @@ class CurrencyDenominatedAmountTests: XCTestCase {
             currencyCode: "SEK"
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
-        XCTAssertEqual(amount.doubleValue,  11.7)
-        XCTAssertEqual(amount.value,  Decimal(string: "11.7"))
+        XCTAssertEqual(amount.doubleValue, 11.7)
+        XCTAssertEqual(amount.value, Decimal(string: "11.7"))
     }
 
     func testElevenPointSeventyTwo() {
@@ -129,8 +129,8 @@ class CurrencyDenominatedAmountTests: XCTestCase {
             currencyCode: "SEK"
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
-        XCTAssertEqual(amount.doubleValue,  11.72)
-        XCTAssertEqual(amount.value,  Decimal(string: "11.72"))
+        XCTAssertEqual(amount.doubleValue, 11.72)
+        XCTAssertEqual(amount.value, Decimal(string: "11.72"))
     }
 
     func testElevenPointSevenHundredThousandOne() {
@@ -140,8 +140,8 @@ class CurrencyDenominatedAmountTests: XCTestCase {
             currencyCode: "SEK"
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
-        XCTAssertEqual(amount.doubleValue,  11.700001)
-        XCTAssertEqual(amount.value,  Decimal(string: "11.700001"))
+        XCTAssertEqual(amount.doubleValue, 11.700001)
+        XCTAssertEqual(amount.value, Decimal(string: "11.700001"))
     }
 
     func testElevenPointSevenBillionSomethingOne() {
@@ -151,8 +151,8 @@ class CurrencyDenominatedAmountTests: XCTestCase {
             currencyCode: "SEK"
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
-        XCTAssertEqual(amount.doubleValue,  11.700000000000001, accuracy: 0.00000000000001)
-        XCTAssertEqual(amount.value,  Decimal(string: "11.700000000000001"))
+        XCTAssertEqual(amount.doubleValue, 11.700000000000001, accuracy: 0.00000000000001)
+        XCTAssertEqual(amount.value, Decimal(string: "11.700000000000001"))
     }
 
     func testMinusElevenPointSevenBillionSomethingOne() {
@@ -162,8 +162,8 @@ class CurrencyDenominatedAmountTests: XCTestCase {
             currencyCode: "SEK"
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
-        XCTAssertEqual(amount.doubleValue,  -11.700000000000001, accuracy: 0.00000000000001)
-        XCTAssertEqual(amount.value,  Decimal(string: "-11.700000000000001"))
+        XCTAssertEqual(amount.doubleValue, -11.700000000000001, accuracy: 0.00000000000001)
+        XCTAssertEqual(amount.value, Decimal(string: "-11.700000000000001"))
     }
 
     func testZeroPointSevenBillionSomethingOne() {
@@ -173,8 +173,8 @@ class CurrencyDenominatedAmountTests: XCTestCase {
             currencyCode: "SEK"
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
-        XCTAssertEqual(amount.doubleValue,  0.700000000000001, accuracy: 0.00000000000001)
-        XCTAssertEqual(amount.value,  Decimal(string: "0.700000000000001"))
+        XCTAssertEqual(amount.doubleValue, 0.700000000000001, accuracy: 0.00000000000001)
+        XCTAssertEqual(amount.value, Decimal(string: "0.700000000000001"))
     }
 
     func testMinusZeroPointSevenBillionSomethingOne() {
@@ -184,8 +184,8 @@ class CurrencyDenominatedAmountTests: XCTestCase {
             currencyCode: "SEK"
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
-        XCTAssertEqual(amount.doubleValue,  -0.700000000000001, accuracy: 0.00000000000001)
-        XCTAssertEqual(amount.value,  Decimal(string: "-0.700000000000001"))
+        XCTAssertEqual(amount.doubleValue, -0.700000000000001, accuracy: 0.00000000000001)
+        XCTAssertEqual(amount.value, Decimal(string: "-0.700000000000001"))
     }
 
     func testElevenBillionSomethingOne() {
@@ -195,7 +195,7 @@ class CurrencyDenominatedAmountTests: XCTestCase {
             currencyCode: "SEK"
         )
         let amount = CurrencyDenominatedAmount(restCurrencyDenominatedAmount: restAmount)
-        XCTAssertEqual(amount.int64Value,  11_700_000_000_000_000)
-        XCTAssertEqual(amount.value,  Decimal(string: "11700000000000000.0"))
+        XCTAssertEqual(amount.int64Value, 11_700_000_000_000_000)
+        XCTAssertEqual(amount.value, Decimal(string: "11700000000000000.0"))
     }
 }
