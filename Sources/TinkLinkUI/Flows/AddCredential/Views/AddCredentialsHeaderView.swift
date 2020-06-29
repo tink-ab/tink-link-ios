@@ -15,7 +15,7 @@ final class AddCredentialsHeaderView: UIView {
 
     private lazy var tinkIconView: UIImageView = {
         let tinkIconView = UIImageView()
-        tinkIconView.image = UIImage(icon: .tink)?.withRenderingMode(.alwaysOriginal)
+        tinkIconView.image = UIImage(icon: .tink)
         tinkIconView.contentMode = .scaleAspectFit
         return tinkIconView 
     }()
