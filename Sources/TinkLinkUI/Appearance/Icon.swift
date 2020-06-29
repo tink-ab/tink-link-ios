@@ -5,6 +5,7 @@ enum Icon {
     case password
     case profile
     case warning
+    case tink
 
     fileprivate var name: String {
         switch self {
@@ -16,6 +17,8 @@ enum Icon {
             return "profile"
         case .warning:
             return "warning"
+        case .tink:
+            return "tink"
         }
     }
 }
