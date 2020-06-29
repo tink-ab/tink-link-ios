@@ -180,10 +180,6 @@ extension CredentialsFormViewController {
         formTableViewController.tableView.contentInset.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
         formTableViewController.tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : formTableViewController.tableView.contentInset.bottom
     }
-
-    override func viewLayoutMarginsDidChange() {
-        super.viewLayoutMarginsDidChange()
-    }
 }
 
 // MARK: - Keyboard Helper
