@@ -194,12 +194,14 @@ extension CredentialsFormViewController {
     }
 
     private func updateButtonBottomConstraint(_ notification: KeyboardNotification) {
-        let frameHeight = notification.frame.height
-        buttonBottomConstraint.constant = max(24, frameHeight - addCredentialFooterView.bounds.height)
-        buttonWidthConstraint.constant = view.frame.size.width
-        button.rounded = false
-        UIView.animate(withDuration: notification.duration) {
-            self.view.layoutIfNeeded()
+        if let window = view.window {
+            let keyboardFrameHeight = addCredentialFooterView.frame.minY - window.convert(notification.frame, to: view).minY
+            buttonBottomConstraint.constant = max(24, keyboardFrameHeight)
+            buttonWidthConstraint.constant = view.frame.size.width
+            button.rounded = false
+            UIView.animate(withDuration: notification.duration) {
+                self.view.layoutIfNeeded()
+            }
         }
     }
 
