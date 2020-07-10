@@ -237,35 +237,7 @@ private extension ActivityIndicatorView {
     }
 
     func endAnimation() {
-        let start = circleLayer.presentation()?.strokeStart ?? 0.0
-        let end = circleLayer.presentation()?.strokeEnd ?? 0.0
-
-        let duration = 1.0 as CFTimeInterval
-
-        do {
-            let animation = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeStart))
-            animation.fromValue = start
-            animation.toValue = 0.0
-            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
-            animation.repeatCount = 1
-            animation.duration = duration * 0.5
-            animation.isAdditive = true
-            circleLayer.strokeStart = 0.0
-            circleLayer.add(animation, forKey: AnimationKeys.strokeStart.rawValue)
-        }
-
-        do {
-            let animation = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeEnd))
-            animation.fromValue = end
-            animation.toValue = 0.0
-            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
-            animation.repeatCount = 1
-            animation.isAdditive = true
-            animation.duration = duration
-            animation.delegate = self
-            circleLayer.strokeEnd = 0.0
-            circleLayer.add(animation, forKey: AnimationKeys.strokeEnd.rawValue)
-        }
+        circleLayer.isHidden = true
     }
 }
 
