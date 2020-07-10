@@ -162,6 +162,8 @@ extension ActivityIndicatorView {
 
 private extension ActivityIndicatorView {
     func beginAnimation() {
+        circleLayer.isHidden = false
+
         let duration = 0.5 as CFTimeInterval
         do {
             let animation = CAKeyframeAnimation(keyPath: #keyPath(CAShapeLayer.strokeEnd))
@@ -193,6 +195,8 @@ private extension ActivityIndicatorView {
     }
 
     func startRepeatingAnimation() {
+        circleLayer.isHidden = false
+        
         let duration = 1.25 as CFTimeInterval
 
         do {
