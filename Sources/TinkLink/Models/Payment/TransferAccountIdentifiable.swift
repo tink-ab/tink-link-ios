@@ -20,7 +20,11 @@ extension Beneficiary: TransferAccountIdentifiable {
     public var transferAccountID: String {
         var urlComponents = URLComponents()
         urlComponents.scheme = accountNumberKind.value
-        urlComponents.host = accountNumber
+        var items = accountNumber.components(separatedBy: "/")
+        urlComponents.host = items.removeFirst()
+        if !items.isEmpty {
+            urlComponents.path = "/" + items.joined(separator: "/")
+        }
         if !name.isEmpty {
             urlComponents.queryItems = [URLQueryItem(name: "name", value: name)]
         }
@@ -32,7 +36,11 @@ extension BeneficiaryAccount: TransferAccountIdentifiable {
     public var transferAccountID: String {
         var urlComponents = URLComponents()
         urlComponents.scheme = accountNumberKind.value
-        urlComponents.host = accountNumber
+        var items = accountNumber.components(separatedBy: "/")
+        urlComponents.host = items.removeFirst()
+        if !items.isEmpty {
+            urlComponents.path = "/" + items.joined(separator: "/")
+        }
         return urlComponents.url?.absoluteString ?? "\(accountNumberKind.value)://\(accountNumber)"
     }
 }

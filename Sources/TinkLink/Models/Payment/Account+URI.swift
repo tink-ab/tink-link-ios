@@ -37,7 +37,11 @@ extension Account.URI {
     public init?(kind: AccountNumberKind, accountNumber: String) {
         var urlComponents = URLComponents()
         urlComponents.scheme = kind.value
-        urlComponents.host = accountNumber
+        var items = accountNumber.components(separatedBy: "/")
+        urlComponents.host = items.removeFirst()
+        if !items.isEmpty {
+            urlComponents.path = "/" + items.joined(separator: "/")
+        }
 
         guard let uri = urlComponents.url else { return nil }
 
