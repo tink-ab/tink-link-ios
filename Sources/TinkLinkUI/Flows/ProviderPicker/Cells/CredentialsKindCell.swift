@@ -28,7 +28,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
 
-        contentView.layoutMargins = .init(top: 32, left: 24, bottom: 32, right: 16)
+        contentView.layoutMargins = .init(top: 32, left: 24, bottom: 32, right: 24)
 
         iconBackgroundView.backgroundColor = Color.accent
         iconBackgroundView.clipsToBounds = true
