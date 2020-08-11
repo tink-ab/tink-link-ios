@@ -5,8 +5,8 @@ install! 'cocoapods', :disable_input_output_paths => true
 
 target "TinkLinkTester" do
 
-    pod "TinkCore"
-    pod "TinkLink"
-    pod "TinkLinkUI"
+    pod "TinkCore", :path => "../../tink-core-ios"
+    pod "TinkLink", :path => "../"
+    pod "TinkLinkUI", :path => "../"
 
 end

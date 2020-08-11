@@ -21,4 +21,14 @@ class TransferAccountIdentifiableTests: XCTestCase {
         let beneficiary = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "FR7630006000011234567890189")
         XCTAssertEqual(beneficiary.transferAccountID, "iban://FR7630006000011234567890189")
     }
+
+    func testBICAccountURI() {
+        let uri = Account.URI(kind: .iban, accountNumber: "AGROFRPR772/FR1420041010050015664355590")
+        XCTAssertEqual(uri?.transferAccountID, "iban://AGROFRPR772/FR1420041010050015664355590")
+    }
+
+    func testBICBeneficiaryAccount() {
+        let beneficiary = BeneficiaryAccount(accountNumberKind: .iban, accountNumber: "AGROFRPR772/FR7630006000011234567890189")
+        XCTAssertEqual(beneficiary.transferAccountID, "iban://AGROFRPR772/FR7630006000011234567890189")
+    }
 }

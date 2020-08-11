@@ -31,3 +31,23 @@ steps:
     command: 'make build-tinklinkui-example'
     agents:
       queue: 'macos'
+
+  - wait
+
+  - trigger: "distribute-tink-sdk-demo-ios"
+    label: ":pipeline: Distribution"
+    async: true
+    if: build.tag == null && build.pull_request.base_branch == "master"
+    build:
+      message: "Triggered from TinkLink ${BUILDKITE_MESSAGE}"
+      branch: "master"
+
+  - wait
+
+  - trigger: "distribute-tink-sdk-demo-ios"
+    label: ":pipeline: Distribution"
+    async: true
+    if: build.tag != null
+    build:
+      message: "Triggered [Demo app] from TinkLink release ${BUILDKITE_MESSAGE}"
+      branch: "master"
