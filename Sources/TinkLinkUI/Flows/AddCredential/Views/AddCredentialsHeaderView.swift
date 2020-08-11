@@ -17,7 +17,7 @@ final class AddCredentialsHeaderView: UIView {
         let tinkIconView = UIImageView()
         tinkIconView.image = UIImage(icon: .tink)
         tinkIconView.contentMode = .scaleAspectFit
-        return tinkIconView 
+        return tinkIconView
     }()
 
     private lazy var bankLabel: UILabel = {
