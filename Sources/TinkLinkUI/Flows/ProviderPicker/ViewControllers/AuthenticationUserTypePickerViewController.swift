@@ -42,7 +42,7 @@ extension AuthenticationUserTypePickerViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let node = authenticationUserTypeNodes[indexPath.row]
-        let icon: Icon = node.authenticationUserType == .business ? .bankID : .password
+        let icon: Icon = node.authenticationUserType == .business ? .business : .profile
 
         let cell = tableView.dequeueReusableCell(ofType: CredentialsKindCell.self, for: indexPath)
         cell.setIcon(icon)
