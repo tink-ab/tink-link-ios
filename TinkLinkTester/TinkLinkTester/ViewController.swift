@@ -7,6 +7,16 @@ class ViewController: UIViewController {
         case temporaryUser
         case authorizationCode(String)
         case accessToken(String)
+
+        init() {
+            if let code = ProcessInfo.processInfo.environment["TINK_LINK_TESTER_AUTHORIZATION_CODE"] {
+                self = .authorizationCode(code)
+            } else if let token = ProcessInfo.processInfo.environment["TINK_LINK_TESTER_ACCESS_TOKEN"] {
+                self = .accessToken(token)
+            } else {
+                self = .temporaryUser
+            }
+        }
     }
 
     override func viewDidLoad() {
