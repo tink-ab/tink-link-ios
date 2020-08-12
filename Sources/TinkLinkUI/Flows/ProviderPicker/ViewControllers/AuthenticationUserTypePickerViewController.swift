@@ -49,9 +49,9 @@ extension AuthenticationUserTypePickerViewController {
 
         switch node.authenticationUserType {
         case .business:
-            cell.setTitle(text: NSLocalizedString("SelectAuthenticationUserType.Business.Title", comment: "Title for the business authentication user type"))
+            cell.setTitle(text: Strings.SelectAuthenticationUserType.business)
         case .personal:
-            cell.setTitle(text: NSLocalizedString("SelectAuthenticationUserType.Personal.Title", comment: "Title for the personal authentication user type"))
+            cell.setTitle(text: Strings.SelectAuthenticationUserType.personal)
         case .unknown:
             fatalError("Unknow authentication user type")
         }
