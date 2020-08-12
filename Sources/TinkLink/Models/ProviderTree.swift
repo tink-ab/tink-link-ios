@@ -233,6 +233,7 @@ public struct ProviderTree {
 
         public var authenticationUserType: Provider.AuthenticationUserType { firstProvider.authenticationUserType }
 
+        public var imageURL: URL? { significantProvider.image }
     }
 
     /// A parent node of the tree structure, with a list of either `AccessTypeNode`, `CredentialsKindNode` children or a single `Provider`.
@@ -299,6 +300,8 @@ public struct ProviderTree {
 
         public var providers: [Provider] {
             switch self {
+            case .authenticationUserTypes(let nodes):
+                return nodes.flatMap(\.providers)
             case .accessTypes(let nodes):
                 return nodes.flatMap(\.providers)
             case .credentialsKinds(let nodes):
@@ -310,6 +313,8 @@ public struct ProviderTree {
 
         fileprivate var firstProvider: Provider {
             switch self {
+            case .authenticationUserTypes(let nodes):
+                return nodes[0].firstProvider
             case .accessTypes(let accessTypeGroups):
                 return accessTypeGroups[0].firstProvider
             case .credentialsKinds(let groups):
@@ -321,6 +326,8 @@ public struct ProviderTree {
 
         fileprivate var significantProvider: Provider {
             switch self {
+            case .authenticationUserTypes(let types):
+                return (types.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
             case .accessTypes(let accessTypeGroups):
                 return (accessTypeGroups.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
             case .credentialsKinds(let groups):
@@ -393,6 +400,8 @@ public struct ProviderTree {
             switch self {
             case .financialInstitutions(let nodes):
                 return nodes.flatMap(\.providers)
+            case .authenticationUserTypes(let nodes):
+                return nodes.flatMap(\.providers)
             case .accessTypes(let nodes):
                 return nodes.flatMap(\.providers)
             case .credentialsKinds(let nodes):
@@ -405,6 +414,8 @@ public struct ProviderTree {
         private var firstProvider: Provider {
             switch self {
             case .financialInstitutions(let nodes):
+                return nodes[0].firstProvider
+            case .authenticationUserTypes(let nodes):
                 return nodes[0].firstProvider
             case .accessTypes(let nodes):
                 return nodes[0].firstProvider
@@ -419,6 +430,8 @@ public struct ProviderTree {
             switch self {
             case .financialInstitutions(let nodes):
                 return (nodes.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
+            case .authenticationUserTypes(let types):
+                return (types.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
             case .accessTypes(let accessTypeGroups):
                 return (accessTypeGroups.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
             case .credentialsKinds(let groups):
