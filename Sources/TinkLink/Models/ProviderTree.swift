@@ -37,6 +37,8 @@ public struct ProviderTree {
     public func makeFinancialInstitutions() -> [FinancialInstitutionNode] {
         let institutions: [FinancialInstitutionNode] = financialInstitutionGroups.flatMap { node -> [FinancialInstitutionNode] in
             switch node {
+            case .authenticationUserTypes(let nodes):
+                return [FinancialInstitutionNode(providers: nodes.flatMap(\.providers))]
             case .accessTypes(let accessType):
                 return [FinancialInstitutionNode(providers: accessType.flatMap(\.providers))]
             case .credentialsKinds(let kinds):
@@ -457,6 +459,8 @@ extension Array where Element == ProviderTree.FinancialInstitutionGroupNode {
     public func makeFinancialInstitutions() -> [ProviderTree.FinancialInstitutionNode] {
         let institutions: [ProviderTree.FinancialInstitutionNode] = flatMap { node -> [ProviderTree.FinancialInstitutionNode] in
             switch node {
+            case .authenticationUserTypes(let nodes):
+                return [ProviderTree.FinancialInstitutionNode(providers: nodes.flatMap(\.providers))]
             case .accessTypes(let accessType):
                 return [ProviderTree.FinancialInstitutionNode(providers: accessType.flatMap(\.providers))]
             case .credentialsKinds(let kinds):
