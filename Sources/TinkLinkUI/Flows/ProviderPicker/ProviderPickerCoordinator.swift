@@ -4,6 +4,7 @@ import TinkLink
 protocol ProviderPickerCoordinating: AnyObject {
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?)
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], name: String)
+    func showAuthenticationUserTypePicker(for authenticationUserNodes: [ProviderTree.AuthenticationUserTypeNode])
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String)
     func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode])
     func didSelectProvider(_ provider: Provider)
@@ -56,6 +57,10 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         setupNavigationItem(for: viewController, title: name)
         viewController.providerPickerCoordinator = self
         parentViewController?.show(viewController, sender: nil)
+    }
+
+    func showAuthenticationUserTypePicker(for authenticationUserNodes: [ProviderTree.AuthenticationUserTypeNode]) {
+
     }
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String) {
