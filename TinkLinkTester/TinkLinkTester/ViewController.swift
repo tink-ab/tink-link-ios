@@ -3,6 +3,12 @@ import TinkLink
 import TinkLinkUI
 
 class ViewController: UIViewController {
+    enum AuthorizationKind {
+        case temporaryUser
+        case authorizationCode(String)
+        case accessToken(String)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
