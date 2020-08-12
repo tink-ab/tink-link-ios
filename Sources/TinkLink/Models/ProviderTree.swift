@@ -169,6 +169,12 @@ public struct ProviderTree {
         public var imageURL: URL? { significantProvider.image }
     }
 
+    public enum AuthenticationUserTypeNode: Comparable {
+        case provider(Provider)
+        case credentialsKinds([CredentialsKindNode])
+        case accessTypes([AccessTypeNode])
+    }
+
     /// A parent node of the tree structure, with a list of either `AccessTypeNode`, `CredentialsKindNode` children or a single `Provider`.
     public enum FinancialInstitutionNode: Comparable {
         public static func < (lhs: ProviderTree.FinancialInstitutionNode, rhs: ProviderTree.FinancialInstitutionNode) -> Bool {
@@ -207,6 +213,7 @@ public struct ProviderTree {
         case provider(Provider)
         case credentialsKinds([CredentialsKindNode])
         case accessTypes([AccessTypeNode])
+        case authenticationUserTypes([AuthenticationUserTypeNode])
 
         init(providers: [Provider]) {
             precondition(!providers.isEmpty)
@@ -290,6 +297,7 @@ public struct ProviderTree {
         case credentialsKinds([CredentialsKindNode])
         case accessTypes([AccessTypeNode])
         case financialInstitutions([FinancialInstitutionNode])
+        case authenticationUserTypes([AuthenticationUserTypeNode])
 
         init(providers: [Provider]) {
             precondition(!providers.isEmpty)
