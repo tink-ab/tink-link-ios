@@ -54,6 +54,8 @@ extension FinancialInstitutionPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let financialInstitutionNode = financialInstitutionNodes[indexPath.row]
         switch financialInstitutionNode {
+        case .authenticationUserTypes(let authenticationUserTypeGroups):
+            providerPickerCoordinator?.showAuthenticationUserTypePicker(for: authenticationUserTypeGroups)
         case .accessTypes(let accessTypeGroups):
             providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, name: financialInstitutionNode.financialInstitution.name)
         case .credentialsKinds(let groups):
