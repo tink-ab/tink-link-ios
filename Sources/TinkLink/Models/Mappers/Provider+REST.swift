@@ -4,6 +4,7 @@ extension Provider {
     init(restProvider: RESTProvider) {
         self.id = .init(restProvider.name)
         self.displayName = restProvider.displayName
+        self.authenticationUserType = .init(restType: restProvider.authenticationUserType)
         self.kind = .init(restType: restProvider.type)
         self.status = Status(restStatus: restProvider.status)
         self.helpText = restProvider.passwordHelpText
@@ -20,6 +21,19 @@ extension Provider {
             id: .init(restProvider.financialInstitutionId),
             name: restProvider.financialInstitutionName
         )
+    }
+}
+
+extension Provider.AuthenticationUserType {
+    init(restType: RESTProvider.AuthenticationUserType) {
+        switch restType {
+        case .business:
+            self = .business
+        case .personal:
+            self = .personal
+        case .unknown:
+            self = .unknown
+        }
     }
 }
 
