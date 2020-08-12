@@ -41,10 +41,6 @@ public struct Provider: Identifiable {
         case test
         case fraud
 
-        /// The provider is a business bank.
-        case businessBank
-        case firstParty
-
         public static var `default`: Set<Provider.Kind> = [.bank, .creditCard, .broker, .other]
         @available(*, deprecated, renamed: "default")
         public static var defaultKinds: Set<Provider.Kind> = [.bank, .creditCard, .broker, .other]
