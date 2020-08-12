@@ -60,7 +60,11 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func showAuthenticationUserTypePicker(for authenticationUserNodes: [ProviderTree.AuthenticationUserTypeNode]) {
-
+        let viewController = AuthenticationUserTypePickerViewController(authenticationUserTypeNodes: authenticationUserNodes)
+        let title = NSLocalizedString("SelectAuthenticationUserType.Title", comment: "Title when picking authentication user type.")
+        setupNavigationItem(for: viewController, title: title)
+        viewController.providerPickerCoordinator = self
+        parentViewController?.show(viewController, sender: nil)
     }
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String) {

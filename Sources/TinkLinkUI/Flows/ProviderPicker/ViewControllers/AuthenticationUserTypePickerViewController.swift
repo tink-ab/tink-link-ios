@@ -60,6 +60,13 @@ extension AuthenticationUserTypePickerViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let authenticationUserTypeNode = authenticationUserTypeNodes[indexPath.row]
-//        providerPickerCoordinator?.didSelectProvider(credentialsKindNode.provider)
+        switch authenticationUserTypeNode {
+        case .accessTypes(let accessTypeGroups):
+            providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, name: authenticationUserTypeNode.financialInstitution.name)
+        case .credentialsKinds(let groups):
+            providerPickerCoordinator?.showCredentialsKindPicker(for: groups)
+        case .provider(let provider):
+            providerPickerCoordinator?.didSelectProvider(provider)
+        }
     }
 }
