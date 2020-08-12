@@ -3,6 +3,24 @@ import TinkLink
 import TinkLinkUI
 
 class ViewController: UIViewController {
+    enum AuthorizationKind {
+        case temporaryUser
+        case authorizationCode(String)
+        case accessToken(String)
+
+        init() {
+            if let code = ProcessInfo.processInfo.environment["TINK_LINK_TESTER_AUTHORIZATION_CODE"] {
+                self = .authorizationCode(code)
+            } else if let token = ProcessInfo.processInfo.environment["TINK_LINK_TESTER_ACCESS_TOKEN"] {
+                self = .accessToken(token)
+            } else {
+                self = .temporaryUser
+            }
+        }
+    }
+
+    private let authorizationKind = AuthorizationKind()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,6 +58,17 @@ class ViewController: UIViewController {
     }
 
     @objc private func showTinkLink() {
+        switch authorizationKind {
+        case .temporaryUser:
+            showTinkLinkWithTemporaryUser()
+        case .authorizationCode(let code):
+            showTinkLinkWithAuthrorizationCode(code)
+        case .accessToken(let token):
+            showTinkLinkWithUserSession(token)
+        }
+    }
+
+    private func showTinkLinkWithTemporaryUser() {
         let scopes: [Scope] = [
             .statistics(.read),
             .transactions(.read),
@@ -51,16 +80,12 @@ class ViewController: UIViewController {
         present(tinkLinkViewController, animated: true)
     }
 
-    @objc func showTinkLinkWithAuthrorizationCode() {
-        let authorizationCode = "YOUR_AUTHORIZATION_CODE"
-
+    private func showTinkLinkWithAuthrorizationCode(_ authorizationCode: String) {
         let tinkLinkViewController = TinkLinkViewController(authorizationCode: AuthorizationCode(authorizationCode)) { _ in }
         present(tinkLinkViewController, animated: true)
     }
 
-    @objc private func showTinkLinkWithUserSession() {
-        let accessToken = "YOUR_ACCESS_TOKEN"
-
+    private func showTinkLinkWithUserSession(_ accessToken: String) {
         let tinkLinkViewController = TinkLinkViewController(userSession: .accessToken(accessToken), operation: .create(providerPredicate: .kinds(.all))) { _ in }
         present(tinkLinkViewController, animated: true)
     }
