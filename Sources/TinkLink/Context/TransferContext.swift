@@ -432,7 +432,7 @@ public final class TransferContext {
         }?.store(in: canceller)
 
         group.enter()
-        providerService.providers(id: nil, capabilities: .createBeneficiaries, includeTestProviders: true) { result in
+        providerService.providers(id: nil, capabilities: .createBeneficiaries, includeTestProviders: true, excludeNonTestProviders: false) { result in
             do {
                 providers = try result.get()
             } catch {
