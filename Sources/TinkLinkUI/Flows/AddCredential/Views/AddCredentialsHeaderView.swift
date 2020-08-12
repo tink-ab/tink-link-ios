@@ -13,6 +13,13 @@ final class AddCredentialsHeaderView: UIView {
         return bankIconView
     }()
 
+    private lazy var tinkIconView: UIImageView = {
+        let tinkIconView = UIImageView()
+        tinkIconView.image = UIImage(icon: .tink)
+        tinkIconView.contentMode = .scaleAspectFit
+        return tinkIconView
+    }()
+
     private lazy var bankLabel: UILabel = {
         let bankLabel = UILabel()
         bankLabel.font = Font.headline
@@ -108,6 +115,7 @@ final class AddCredentialsHeaderView: UIView {
 
         bankLabel.translatesAutoresizingMaskIntoConstraints = false
         bankIconView.translatesAutoresizingMaskIntoConstraints = false
+        tinkIconView.translatesAutoresizingMaskIntoConstraints = false
         userInfoContainerView.translatesAutoresizingMaskIntoConstraints = false
         dashLine.translatesAutoresizingMaskIntoConstraints = false
         userInfoIconBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -116,6 +124,7 @@ final class AddCredentialsHeaderView: UIView {
 
         addSubview(bankLabel)
         addSubview(bankIconView)
+        addSubview(tinkIconView)
         addSubview(userInfoContainerView)
 
         userInfoContainerView.addSubview(dashLine)
@@ -139,6 +148,11 @@ final class AddCredentialsHeaderView: UIView {
             bankIconView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             bankIconView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             bankIconView.trailingAnchor.constraint(equalTo: bankLabel.leadingAnchor, constant: -10),
+
+            tinkIconView.widthAnchor.constraint(equalToConstant: 40),
+            tinkIconView.heightAnchor.constraint(equalToConstant: 20),
+            tinkIconView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            tinkIconView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
 
             bankLabel.centerYAnchor.constraint(equalTo: bankIconView.centerYAnchor),
             bankLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
