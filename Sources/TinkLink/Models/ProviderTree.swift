@@ -196,6 +196,26 @@ public struct ProviderTree {
             }
         }
 
+        init(providers: [Provider]) {
+            precondition(!providers.isEmpty)
+            if providers.count == 1, let provider = providers.first {
+                self = .provider(provider)
+            } else {
+                let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
+                if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
+                    let providersGroupedByCredentialsKind = providers
+                        .map(CredentialsKindNode.init(provider:))
+                        .sorted()
+                    self = .credentialsKinds(providersGroupedByCredentialsKind)
+                } else {
+                    let providersGroupedByAccessType = providersGroupedByAccessTypes.values
+                        .map(AccessTypeNode.init(providers:))
+                        .sorted()
+                    self = .accessTypes(providersGroupedByAccessType)
+                }
+            }
+        }
+
         case provider(Provider)
         case credentialsKinds([CredentialsKindNode])
         case accessTypes([AccessTypeNode])
@@ -283,17 +303,26 @@ public struct ProviderTree {
             if providers.count == 1, let provider = providers.first {
                 self = .provider(provider)
             } else {
-                let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
-                if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
-                    let providersGroupedByCredentialsKind = providers
-                        .map(CredentialsKindNode.init(provider:))
-                        .sorted()
-                    self = .credentialsKinds(providersGroupedByCredentialsKind)
+                let providersGroupedByAuthenticationUserTypes = Dictionary(grouping: providers, by: \.authenticationUserType)
+
+                if providersGroupedByAuthenticationUserTypes.count == 1, let providers = providersGroupedByAuthenticationUserTypes.values.first {
+                    let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
+                    if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
+                        let providersGroupedByCredentialsKind = providers
+                            .map(CredentialsKindNode.init(provider:))
+                            .sorted()
+                        self = .credentialsKinds(providersGroupedByCredentialsKind)
+                    } else {
+                        let providersGroupedByAccessType = providersGroupedByAccessTypes.values
+                            .map(AccessTypeNode.init(providers:))
+                            .sorted()
+                        self = .accessTypes(providersGroupedByAccessType)
+                    }
                 } else {
-                    let providersGroupedByAccessType = providersGroupedByAccessTypes.values
-                        .map(AccessTypeNode.init(providers:))
+                    let providersGroupedByAuthenticaitonUserType = providersGroupedByAuthenticationUserTypes.values
+                        .map(AuthenticationUserTypeNode.init)
                         .sorted()
-                    self = .accessTypes(providersGroupedByAccessType)
+                    self = .authenticationUserTypes(providersGroupedByAuthenticaitonUserType)
                 }
             }
         }
