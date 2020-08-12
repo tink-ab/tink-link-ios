@@ -170,9 +170,69 @@ public struct ProviderTree {
     }
 
     public enum AuthenticationUserTypeNode: Comparable {
+        public static func < (lhs: ProviderTree.AuthenticationUserTypeNode, rhs: ProviderTree.AuthenticationUserTypeNode) -> Bool {
+            switch (lhs.authenticationUserType, rhs.authenticationUserType) {
+            case (.personal, _):
+                return true
+            case (_, .business):
+                return true
+            default:
+                return false
+            }
+        }
+
+        public static func == (lhs: ProviderTree.AuthenticationUserTypeNode, rhs: ProviderTree.AuthenticationUserTypeNode) -> Bool {
+            switch (lhs, rhs) {
+            case (.accessTypes(let l), .accessTypes(let r)):
+                return l == r
+            case (.credentialsKinds(let l), .credentialsKinds(let r)):
+                return l == r
+            case (.provider(let l), .provider(let r)):
+                return l.id == r.id
+            default:
+                return false
+            }
+        }
+
         case provider(Provider)
         case credentialsKinds([CredentialsKindNode])
         case accessTypes([AccessTypeNode])
+
+        public var providers: [Provider] {
+            switch self {
+            case .accessTypes(let nodes):
+                return nodes.flatMap(\.providers)
+            case .credentialsKinds(let nodes):
+                return nodes.map(\.provider)
+            case .provider(let provider):
+                return [provider]
+            }
+        }
+
+        fileprivate var firstProvider: Provider {
+            switch self {
+            case .accessTypes(let accessTypeGroups):
+                return accessTypeGroups[0].firstProvider
+            case .credentialsKinds(let groups):
+                return groups[0].provider
+            case .provider(let provider):
+                return provider
+            }
+        }
+
+        fileprivate var significantProvider: Provider {
+            switch self {
+            case .accessTypes(let accessTypeGroups):
+                return (accessTypeGroups.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
+            case .credentialsKinds(let groups):
+                return (groups.first { $0.imageURL != nil })?.provider ?? firstProvider
+            case .provider(let provider):
+                return provider
+            }
+        }
+
+        public var authenticationUserType: Provider.AuthenticationUserType { firstProvider.authenticationUserType }
+
     }
 
     /// A parent node of the tree structure, with a list of either `AccessTypeNode`, `CredentialsKindNode` children or a single `Provider`.
