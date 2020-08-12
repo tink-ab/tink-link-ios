@@ -25,6 +25,15 @@ public struct Provider: Identifiable {
     /// The display name of the provider.
     public let displayName: String
 
+    public enum AuthenticationUserType {
+        case unknown
+        case business
+        case personal
+    }
+
+    /// Indicates if a user authenticates toward the bank as a person or a business.
+    public let authenticationUserType: AuthenticationUserType
+
     /// Indicates what kind of financial institution the provider represents.
     public enum Kind {
         /// The kind of the provider is unknown.
