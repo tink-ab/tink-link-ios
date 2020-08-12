@@ -256,6 +256,8 @@ public struct ProviderTree {
         public var authenticationUserType: Provider.AuthenticationUserType { firstProvider.authenticationUserType }
 
         public var imageURL: URL? { significantProvider.image }
+
+        public var financialInstitution: Provider.FinancialInstitution { firstProvider.financialInstitution }
     }
 
     /// A parent node of the tree structure, with a list of either `AccessTypeNode`, `CredentialsKindNode` children or a single `Provider`.
@@ -404,17 +406,26 @@ public struct ProviderTree {
             } else {
                 let providersGroupedByFinancialInstitution = Dictionary(grouping: providers, by: \.financialInstitution)
                 if providersGroupedByFinancialInstitution.count == 1, let providers = providersGroupedByFinancialInstitution.values.first {
-                    let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
-                    if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
-                        let providersGroupedByCredentialsKind = providers
-                            .map(CredentialsKindNode.init(provider:))
-                            .sorted()
-                        self = .credentialsKinds(providersGroupedByCredentialsKind)
+                    let providersGroupedByAuthenticationUserTypes = Dictionary(grouping: providers, by: \.authenticationUserType)
+
+                    if providersGroupedByAuthenticationUserTypes.count == 1, let providers = providersGroupedByAuthenticationUserTypes.values.first {
+                        let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
+                        if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
+                            let providersGroupedByCredentialsKind = providers
+                                .map(CredentialsKindNode.init(provider:))
+                                .sorted()
+                            self = .credentialsKinds(providersGroupedByCredentialsKind)
+                        } else {
+                            let providersGroupedByAccessType = providersGroupedByAccessTypes.values
+                                .map(AccessTypeNode.init(providers:))
+                                .sorted()
+                            self = .accessTypes(providersGroupedByAccessType)
+                        }
                     } else {
-                        let providersGroupedByAccessType = providersGroupedByAccessTypes.values
-                            .map(AccessTypeNode.init(providers:))
+                        let providersGroupedByAuthenticaitonUserType = providersGroupedByAuthenticationUserTypes.values
+                            .map(AuthenticationUserTypeNode.init)
                             .sorted()
-                        self = .accessTypes(providersGroupedByAccessType)
+                        self = .authenticationUserTypes(providersGroupedByAuthenticaitonUserType)
                     }
                 } else {
                     let providersGroupedByFinancialInstitution = providersGroupedByFinancialInstitution.values
