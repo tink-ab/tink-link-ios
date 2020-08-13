@@ -12,6 +12,7 @@ final class FinancialInstitutionPickerViewController: UITableViewController {
 
     init(financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode]) {
         self.financialInstitutionNodes = financialInstitutionNodes
+        searchViewController.originalFinancialInstitutionNodes = financialInstitutionNodes
         super.init(style: .plain)
     }
 
@@ -28,6 +29,14 @@ extension FinancialInstitutionPickerViewController {
 
         navigationItem.largeTitleDisplayMode = .never
 
+        searchViewController.providerPickerCoordinator = providerPickerCoordinator
+        searchController.obscuresBackgroundDuringPresentation = true
+        searchController.searchBar.placeholder = Strings.ProviderList.searchHint
+        searchController.searchResultsUpdater = searchViewController
+
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
         tableView.registerReusableCell(ofType: ProviderCell.self)
         tableView.tableFooterView = UIView(frame: .zero)
 
