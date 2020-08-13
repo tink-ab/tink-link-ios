@@ -51,9 +51,15 @@ extension Tink {
 extension Tink {
     public func _beginUITask() {
         tinkLinkSessionManager.uiTaskCount += 1
+        updateSDKName()
     }
 
     public func _endUITask() {
         tinkLinkSessionManager.uiTaskCount -= 1
+        updateSDKName()
+    }
+
+    private func updateSDKName() {
+        _sdkName = tinkLinkSessionManager.uiTaskCount > 0 ? "Tink Link UI iOS" : "Tink Link iOS"
     }
 }
