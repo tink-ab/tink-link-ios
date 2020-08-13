@@ -7,6 +7,8 @@ public final class TinkLinkSessionManager: SessionManager {
     let providerContext: ProviderContext
     let transferContext: TransferContext
 
+    fileprivate var uiTaskCount = 0
+
     public init(tink: Tink = .shared) {
         authorizationContext = AuthorizationContext(tink: tink)
         consentContext = ConsentContext(tink: tink)
@@ -43,5 +45,21 @@ extension Tink {
     }
     public var transferContext: TransferContext {
         return tinkLinkSessionManager.transferContext
+    }
+}
+
+extension Tink {
+    public func _beginUITask() {
+        tinkLinkSessionManager.uiTaskCount += 1
+        updateSDKName()
+    }
+
+    public func _endUITask() {
+        tinkLinkSessionManager.uiTaskCount -= 1
+        updateSDKName()
+    }
+
+    private func updateSDKName() {
+        _sdkName = tinkLinkSessionManager.uiTaskCount > 0 ? "Tink Link UI iOS" : "Tink Link iOS"
     }
 }
