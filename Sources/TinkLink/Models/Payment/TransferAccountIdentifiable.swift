@@ -41,6 +41,9 @@ extension BeneficiaryAccount: TransferAccountIdentifiable {
         if !items.isEmpty {
             urlComponents.path = "/" + items.joined(separator: "/")
         }
+        if let name = name, !name.isEmpty {
+            urlComponents.queryItems = [URLQueryItem(name: "name", value: name)]
+        }
         return urlComponents.url?.absoluteString ?? "\(accountNumberKind.value)://\(accountNumber)"
     }
 }
