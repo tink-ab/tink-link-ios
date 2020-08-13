@@ -75,12 +75,17 @@ extension BeneficiaryPickerViewController {
             textField.autocorrectionType = .no
             textField.autocapitalizationType = .none
         }
+        alert.addTextField { textField in
+            textField.placeholder = "Optional - Name"
+            textField.autocapitalizationType = .words
+        }
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
             guard let kind = alert.textFields?[0].text,
                 let accountNumber = alert.textFields?[1].text
             else { return }
-            let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: AccountNumberKind(kind), accountNumber: accountNumber)
+            let name = alert.textFields?[2].text ?? ""
+            let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: AccountNumberKind(kind), accountNumber: accountNumber, name: name.isEmpty ? nil : name)
             self.delegate?.beneficiaryPickerViewController(self, didSelectBeneficiary: beneficiaryAccount)
         }))
         present(alert, animated: true)
