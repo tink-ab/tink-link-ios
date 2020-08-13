@@ -50,8 +50,10 @@ extension Tink {
 
 extension Tink {
     public func _beginUITask() {
+        tinkLinkSessionManager.uiTaskCount += 1
     }
 
     public func _endUITask() {
+        tinkLinkSessionManager.uiTaskCount -= 1
     }
 }
