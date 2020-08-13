@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,9 @@
 		20358158246975050075F1EA /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20358157246975050075F1EA /* TransferViewController.swift */; };
 		20A25781247ECD0D0030957F /* UIViewController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A25780247ECD0D0030957F /* UIViewController+Error.swift */; };
 		20FD9612243F169B00603B5A /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD9611243F169B00603B5A /* QRViewController.swift */; };
+		20FE0AAC24E56DD3006977F4 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0AAB24E56DD3006977F4 /* Down */; };
+		20FE0AAF24E56E07006977F4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0AAE24E56E07006977F4 /* Kingfisher */; };
+		20FE0AB324E56EA3006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0AB224E56EA3006977F4 /* TinkLink */; };
 		6B5198D6246987F80099C045 /* Value2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5198D5246987F80099C045 /* Value2TableViewCell.swift */; };
 		6BB8C3A924698FB300C2C999 /* SourceAccountPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8C3A824698FB300C2C999 /* SourceAccountPickerViewController.swift */; };
 		6BB8C3AB246A961200C2C999 /* BeneficiaryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8C3AA246A961200C2C999 /* BeneficiaryPickerViewController.swift */; };
@@ -40,6 +43,7 @@
 		20358157246975050075F1EA /* TransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
 		20A25780247ECD0D0030957F /* UIViewController+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Error.swift"; sourceTree = "<group>"; };
 		20FD9611243F169B00603B5A /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
+		20FE0AB024E56E21006977F4 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
 		6B5198D5246987F80099C045 /* Value2TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value2TableViewCell.swift; sourceTree = "<group>"; };
 		6BB8C3A824698FB300C2C999 /* SourceAccountPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAccountPickerViewController.swift; sourceTree = "<group>"; };
 		6BB8C3AA246A961200C2C999 /* BeneficiaryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeneficiaryPickerViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +71,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20FE0AB324E56EA3006977F4 /* TinkLink in Frameworks */,
+				20FE0AAF24E56E07006977F4 /* Kingfisher in Frameworks */,
+				20FE0AAC24E56DD3006977F4 /* Down in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +88,14 @@
 				6BB8C3AA246A961200C2C999 /* BeneficiaryPickerViewController.swift */,
 			);
 			path = Transfer;
+			sourceTree = "<group>";
+		};
+		20FE0AB124E56E32006977F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				20FE0AB024E56E21006977F4 /* tink-link-ios */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6B5CA12E24935D72009A9CBE /* Extensions */ = {
@@ -141,6 +156,7 @@
 			children = (
 				8FFAE4D723D1E7D100784CBC /* PermanentUserExample */,
 				8FFAE4D623D1E7D100784CBC /* Products */,
+				20FE0AB124E56E32006977F4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -185,6 +201,11 @@
 			dependencies = (
 			);
 			name = PermanentUserExample;
+			packageProductDependencies = (
+				20FE0AAB24E56DD3006977F4 /* Down */,
+				20FE0AAE24E56E07006977F4 /* Kingfisher */,
+				20FE0AB224E56EA3006977F4 /* TinkLink */,
+			);
 			productName = "UIKit-PermanentUserProviderSelection";
 			productReference = 8FFAE4D523D1E7D100784CBC /* PermanentUserExample.app */;
 			productType = "com.apple.product-type.application";
@@ -213,6 +234,10 @@
 				Base,
 			);
 			mainGroup = 8FFAE4CC23D1E7D100784CBC;
+			packageReferences = (
+				20FE0AAA24E56DD3006977F4 /* XCRemoteSwiftPackageReference "Down" */,
+				20FE0AAD24E56E07006977F4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 8FFAE4D623D1E7D100784CBC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -448,6 +473,42 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		20FE0AAA24E56DD3006977F4 /* XCRemoteSwiftPackageReference "Down" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/iwasrobbed/Down.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.3;
+			};
+		};
+		20FE0AAD24E56E07006977F4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.14.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		20FE0AAB24E56DD3006977F4 /* Down */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20FE0AAA24E56DD3006977F4 /* XCRemoteSwiftPackageReference "Down" */;
+			productName = Down;
+		};
+		20FE0AAE24E56E07006977F4 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20FE0AAD24E56E07006977F4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		20FE0AB224E56EA3006977F4 /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8FFAE4CD23D1E7D100784CBC /* Project object */;
 }
