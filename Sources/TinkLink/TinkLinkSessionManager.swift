@@ -7,6 +7,8 @@ public final class TinkLinkSessionManager: SessionManager {
     let providerContext: ProviderContext
     let transferContext: TransferContext
 
+    fileprivate var uiTaskCount = 0
+
     public init(tink: Tink = .shared) {
         authorizationContext = AuthorizationContext(tink: tink)
         consentContext = ConsentContext(tink: tink)
