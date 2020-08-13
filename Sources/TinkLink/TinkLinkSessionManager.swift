@@ -45,3 +45,11 @@ extension Tink {
         return tinkLinkSessionManager.transferContext
     }
 }
+
+extension Tink {
+    public func _beginUITask() {
+    }
+
+    public func _endUITask() {
+    }
+}
