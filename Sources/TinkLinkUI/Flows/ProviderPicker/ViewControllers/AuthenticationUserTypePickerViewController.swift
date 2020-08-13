@@ -8,7 +8,7 @@ final class AuthenticationUserTypePickerViewController: UITableViewController {
     let authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode]
 
     init(authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode]) {
-        self.authenticationUserTypeNodes = authenticationUserTypeNodes
+        self.authenticationUserTypeNodes = authenticationUserTypeNodes.filter { $0.authenticationUserType != .unknown }
         super.init(style: .plain)
     }
 
