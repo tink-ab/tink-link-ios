@@ -29,13 +29,15 @@ extension FinancialInstitutionPickerViewController {
 
         navigationItem.largeTitleDisplayMode = .never
 
-        searchViewController.providerPickerCoordinator = providerPickerCoordinator
-        searchController.obscuresBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = Strings.ProviderList.searchHint
-        searchController.searchResultsUpdater = searchViewController
+        if financialInstitutionNodes.count > 5 {
+            searchViewController.providerPickerCoordinator = providerPickerCoordinator
+            searchController.obscuresBackgroundDuringPresentation = true
+            searchController.searchBar.placeholder = Strings.ProviderList.searchHint
+            searchController.searchResultsUpdater = searchViewController
 
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
+        }
         
         tableView.registerReusableCell(ofType: ProviderCell.self)
         tableView.tableFooterView = UIView(frame: .zero)
