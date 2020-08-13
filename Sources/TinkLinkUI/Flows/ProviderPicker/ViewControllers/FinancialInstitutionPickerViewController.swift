@@ -3,6 +3,9 @@ import UIKit
 
 /// Example of how to use the provider grouped by financialInstitution
 final class FinancialInstitutionPickerViewController: UITableViewController {
+    private let searchViewController = FinancialInstitutionSearchViewController()
+    private lazy var searchController = TinkSearchController(searchResultsController: searchViewController)
+
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode]
