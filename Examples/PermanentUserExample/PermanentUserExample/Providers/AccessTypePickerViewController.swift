@@ -27,7 +27,14 @@ extension AccessTypePickerViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = accessTypeNodes[indexPath.row].accessType.description
+        switch accessTypeNodes[indexPath.row].accessType {
+        case .openBanking:
+            cell.textLabel?.text = "Open Banking"
+        case .other:
+            cell.textLabel?.text = "Other"
+        case .unknown:
+            cell.textLabel?.text = "Unknown"
+        }
         cell.accessoryType = .disclosureIndicator
         return cell
     }

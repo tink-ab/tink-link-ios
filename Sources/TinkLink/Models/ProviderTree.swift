@@ -82,7 +82,7 @@ public struct ProviderTree {
 
         public var credentialsKind: Credentials.Kind { provider.credentialsKind }
 
-        public var displayDescription: String { provider.displayDescription.isEmpty ? provider.credentialsKind.description : provider.displayDescription }
+        public var displayDescription: String { provider.displayDescription }
 
         public var imageURL: URL? { provider.image }
     }
@@ -90,7 +90,14 @@ public struct ProviderTree {
     /// A parent node of the tree structure, with a list of either `CredentialsKindNode` children or a single `Provider`.
     public enum AccessTypeNode: Comparable {
         public static func < (lhs: ProviderTree.AccessTypeNode, rhs: ProviderTree.AccessTypeNode) -> Bool {
-            return lhs.accessType < rhs.accessType
+            switch (lhs.accessType, rhs.accessType) {
+            case (.openBanking, _):
+                return true
+            case (_, .unknown):
+                return true
+            default:
+                return false
+            }
         }
 
         public static func == (lhs: ProviderTree.AccessTypeNode, rhs: ProviderTree.AccessTypeNode) -> Bool {
