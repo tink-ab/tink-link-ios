@@ -82,7 +82,7 @@ public struct ProviderTree {
 
         public var credentialsKind: Credentials.Kind { provider.credentialsKind }
 
-        public var displayDescription: String { provider.displayDescription.isEmpty ? provider.credentialsKind.description : provider.displayDescription }
+        public var displayDescription: String { provider.displayDescription }
 
         public var imageURL: URL? { provider.image }
     }
