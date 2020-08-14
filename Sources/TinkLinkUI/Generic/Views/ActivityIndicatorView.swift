@@ -196,7 +196,7 @@ private extension ActivityIndicatorView {
 
     func startRepeatingAnimation() {
         circleLayer.isHidden = false
-        
+
         let duration = 1.25 as CFTimeInterval
 
         do {
