@@ -1,13 +1,13 @@
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider grouped by financialInstitution
-final class FinancialInstitutionPickerViewController: UITableViewController {
+/// Example of how to use the provider grouped by credential type
+final class AuthenticationUserTypePickerViewController: UITableViewController {
     typealias CompletionHandler = (Result<Credentials, Error>) -> Void
-    var onCompletion: CompletionHandler?
-    var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
-
     private let credentialsContext: CredentialsContext
+
+    var authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode] = []
+    var onCompletion: CompletionHandler?
 
     init(credentialsContext: CredentialsContext) {
         self.credentialsContext = credentialsContext
@@ -22,45 +22,48 @@ final class FinancialInstitutionPickerViewController: UITableViewController {
 
 // MARK: - View Lifecycle
 
-extension FinancialInstitutionPickerViewController {
+extension AuthenticationUserTypePickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.prompt = "Choose Financial Institution"
         navigationItem.largeTitleDisplayMode = .never
 
-        tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.tableFooterView = UIView(frame: .zero)
     }
 }
 
 // MARK: - UITableViewDataSource
 
-extension FinancialInstitutionPickerViewController {
+extension AuthenticationUserTypePickerViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return financialInstitutionNodes.count
+        return authenticationUserTypeNodes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let node = authenticationUserTypeNodes[indexPath.row]
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let node = financialInstitutionNodes[indexPath.row]
-        if let imageTableViewCell = cell as? FixedImageSizeTableViewCell {
-            if let url = node.imageURL {
-                imageTableViewCell.setImage(url: url)
-            }
-            imageTableViewCell.setTitle(text: node.financialInstitution.name)
+        cell.accessoryType = .disclosureIndicator
+
+        switch node.authenticationUserType {
+        case .business:
+            cell.textLabel?.text = "Business"
+        case .personal:
+            cell.textLabel?.text = "Personal"
+        case .unknown:
+            fatalError("Unknow authentication user type")
         }
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let financialInstitutionNode = financialInstitutionNodes[indexPath.row]
-        switch financialInstitutionNode {
-        case .authenticationUserTypes(let authenticationUserTypeNodes):
-            showAuthenticationUserTypePicker(for: authenticationUserTypeNodes, title: financialInstitutionNode.financialInstitution.name)
+        let authenticationUserTypeNode = authenticationUserTypeNodes[indexPath.row]
+        switch authenticationUserTypeNode {
         case .accessTypes(let accessTypeGroups):
-            showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionNode.financialInstitution.name)
+            showAccessTypePicker(for: accessTypeGroups, title: authenticationUserTypeNode.financialInstitution.name)
         case .credentialsKinds(let groups):
-            showCredentialsKindPicker(for: groups, title: financialInstitutionNode.financialInstitution.name)
+            showCredentialsKindPicker(for: groups, title: authenticationUserTypeNode.financialInstitution.name)
         case .provider(let provider):
             showAddCredentials(for: provider)
         }
@@ -69,15 +72,7 @@ extension FinancialInstitutionPickerViewController {
 
 // MARK: - Navigation
 
-extension FinancialInstitutionPickerViewController {
-    func showAuthenticationUserTypePicker(for authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode], title: String?) {
-        let viewController = AuthenticationUserTypePickerViewController(credentialsContext: credentialsContext)
-        viewController.authenticationUserTypeNodes = authenticationUserTypeNodes
-        viewController.onCompletion = onCompletion
-        viewController.title = title
-        show(viewController, sender: nil)
-    }
-
+extension AuthenticationUserTypePickerViewController {
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
         let viewController = AccessTypePickerViewController(credentialsContext: credentialsContext)
         viewController.onCompletion = onCompletion
