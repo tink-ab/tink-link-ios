@@ -5,6 +5,7 @@ class ProviderRESTTests: XCTestCase {
     func testProviderMapping() {
         let restProvider = RESTProvider(
             accessType: .other,
+            authenticationUserType: .personal,
             capabilities: [
                 .loans,
                 .savingsAccounts,

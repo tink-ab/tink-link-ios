@@ -74,10 +74,20 @@ struct RESTProvider: Decodable {
         static var decodeFallbackValue: RESTProvider.ModelType = .unknown
     }
 
+    enum AuthenticationUserType: String, DefaultableDecodable {
+        case business = "BUSINESS"
+        case personal = "PERSONAL"
+        case unknown = "UNKNOWN"
+
+        static var decodeFallbackValue: RESTProvider.AuthenticationUserType = .unknown
+    }
+
     /// What Tink uses to access the data.
     var accessType: AccessType
     /// (PSD2 change - Not yet implemented) - What type of authentication flow used to access the data.
 //    var authenticationFlow: AuthenticationFlow
+    /// Indicates if a user authenticates toward the bank as a person or a business.
+    var authenticationUserType: AuthenticationUserType
     /// Indicates what this provider is capable of, in terms of financial data it can aggregate and if it can execute payments.
     var capabilities: [Capabilities]
     /// When creating a new credential connected to the provider this will be the credentials type.

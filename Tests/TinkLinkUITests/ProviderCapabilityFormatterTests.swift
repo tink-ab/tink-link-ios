@@ -7,6 +7,7 @@ extension Provider {
         self.init(
             id: ID("test-provider"),
             displayName: "Test",
+            authenticationUserType: .personal,
             kind: .bank,
             status: .enabled,
             credentialsKind: .password,

@@ -2,6 +2,7 @@ import UIKit
 
 enum Icon {
     case bankID
+    case business
     case password
     case profile
     case warning
@@ -11,6 +12,8 @@ enum Icon {
         switch self {
         case .bankID:
             return "bankID"
+        case .business:
+            return "business"
         case .password:
             return "password"
         case .profile:
