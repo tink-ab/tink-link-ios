@@ -47,9 +47,9 @@ extension AccessTypePickerViewController {
         let accessTypeNode = accessTypeNodes[indexPath.row]
         switch accessTypeNode {
         case .credentialsKinds(let groups):
-            showCredentialKindPicker(for: groups)
+            showCredentialsKindPicker(for: groups)
         case .provider(let provider):
-            showAddCredential(for: provider)
+            showAddCredentials(for: provider)
         }
     }
 }
@@ -57,13 +57,13 @@ extension AccessTypePickerViewController {
 // MARK: - Navigation
 
 extension AccessTypePickerViewController {
-    func showCredentialKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
+    func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
         let viewController = CredentialsKindPickerViewController()
         viewController.credentialsKindNodes = credentialsKindNodes
         show(viewController, sender: nil)
     }
 
-    func showAddCredential(for provider: Provider) {
+    func showAddCredentials(for provider: Provider) {
         let addCredentialViewController = AddCredentialsViewController(provider: provider)
         show(addCredentialViewController, sender: nil)
     }

@@ -4,6 +4,7 @@ extension Provider {
     static let nordeaBankID = Provider(
         id: "nordea-bankid",
         displayName: "Nordea",
+        authenticationUserType: .personal,
         kind: .bank,
         status: .enabled,
         credentialsKind: .mobileBankID,
@@ -22,6 +23,7 @@ extension Provider {
     static let nordeaPassword = Provider(
         id: "nordea-password",
         displayName: "Nordea",
+        authenticationUserType: .personal,
         kind: .bank,
         status: .enabled,
         credentialsKind: .password,
@@ -40,6 +42,7 @@ extension Provider {
     static let nordeaOpenBanking = Provider(
         id: "se-nordea-ob",
         displayName: "Nordea Open Banking",
+        authenticationUserType: .personal,
         kind: .bank,
         status: .enabled,
         credentialsKind: .mobileBankID,
@@ -58,6 +61,7 @@ extension Provider {
     static let sparbankernaBankID = Provider(
         id: "savingsbank-bankid",
         displayName: "Sparbankerna",
+        authenticationUserType: .personal,
         kind: .bank,
         status: .enabled,
         credentialsKind: .mobileBankID,
@@ -76,6 +80,7 @@ extension Provider {
     static let sparbankernaPassword = Provider(
         id: "savingsbank-token",
         displayName: "Sparbankerna",
+        authenticationUserType: .personal,
         kind: .bank,
         status: .enabled,
         credentialsKind: .password,
@@ -94,6 +99,7 @@ extension Provider {
     static let swedbankBankID = Provider(
         id: "swedbank-bankid",
         displayName: "Swedbank",
+        authenticationUserType: .personal,
         kind: .bank,
         status: .enabled,
         credentialsKind: .mobileBankID,
@@ -112,6 +118,7 @@ extension Provider {
     static let swedbankPassword = Provider(
         id: "swedbank-token",
         displayName: "Swedbank",
+        authenticationUserType: .personal,
         kind: .bank,
         status: .enabled,
         credentialsKind: .password,
@@ -130,6 +137,7 @@ extension Provider {
     static let testSupplementalInformation = Provider(
         id: "se-test-multi-supplemental",
         displayName: "Test Multi-Supplemental",
+        authenticationUserType: .personal,
         kind: .test,
         status: .enabled,
         credentialsKind: .password,
@@ -148,6 +156,7 @@ extension Provider {
     static let testThirdPartyAuthentication = Provider(
         id: "se-test-multi-third-party",
         displayName: "Test Third Party Authentication",
+        authenticationUserType: .personal,
         kind: .test,
         status: .enabled,
         credentialsKind: .thirdPartyAuthentication,
