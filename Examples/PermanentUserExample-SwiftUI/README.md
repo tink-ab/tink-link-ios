@@ -20,6 +20,5 @@ Before running the example project open `AppDelegate.swift` and configure the fo
     ```
 
 ## Running the example app
-1. Run `pod install`
-2. Open `PermanentUserExample.xcworkspace` in Xcode.
+1. Open `PermanentUserExample.xcodeproj` in Xcode.
 3. Press the run button. If all went well, this should launch a simulator with the sample app running.
