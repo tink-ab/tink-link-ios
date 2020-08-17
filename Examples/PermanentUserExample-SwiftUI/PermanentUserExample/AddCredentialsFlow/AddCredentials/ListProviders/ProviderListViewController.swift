@@ -77,6 +77,8 @@ extension ProviderListViewController {
         switch financialInstitutionGroupNode {
         case .financialInstitutions(let financialInstitutionGroups):
             showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
+        case .authenticationUserTypes(let authenticationUserTypeNodes):
+            showAuthenticationUserTypePicker(for: authenticationUserTypeNodes, title: financialInstitutionGroupNode.displayName)
         case .accessTypes(let accessTypeGroups):
             showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
         case .credentialsKinds(let groups):
@@ -95,6 +97,14 @@ extension ProviderListViewController {
         viewController.onCompletion = onCompletion
         viewController.title = title
         viewController.financialInstitutionNodes = financialInstitutionNodes
+        show(viewController, sender: nil)
+    }
+
+    func showAuthenticationUserTypePicker(for authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode], title: String?) {
+        let viewController = AuthenticationUserTypePickerViewController(credentialsContext: credentialsContext)
+        viewController.authenticationUserTypeNodes = authenticationUserTypeNodes
+        viewController.onCompletion = onCompletion
+        viewController.title = title
         show(viewController, sender: nil)
     }
 

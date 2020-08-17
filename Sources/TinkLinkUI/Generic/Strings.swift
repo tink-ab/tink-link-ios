@@ -177,12 +177,22 @@ enum Strings {
             static let title = NSLocalizedString("ProviderList.Error.Title", tableName: tableName, bundle: bundle, value: "We’re sorry, but we couldn't load any banks at the moment", comment: "Title for when providers could not be loaded.")
         }
     }
-
     enum SelectAccessType {
         static let information = NSLocalizedString("SelectAccessType.Information", tableName: tableName, bundle: bundle, value: "Information about account types", comment: "Text for information button shown in the choose access type screen.")
 
         /// Title for screen where user selects which access type to use when adding credentials.
         static let title = NSLocalizedString("SelectAccessType.Title", tableName: tableName, bundle: bundle, value: "Select account types", comment: "Title of the choose access type screen.")
+    }
+
+    enum SelectAuthenticationUserType {
+        /// Title for the business authentication user type
+        static let business = NSLocalizedString("SelectAuthenticationUserType.Business", tableName: tableName, bundle: bundle, value: "Business", comment: "Title for the business authentication user type")
+
+        /// Title for the personal authentication user type
+        static let personal = NSLocalizedString("SelectAuthenticationUserType.Personal", tableName: tableName, bundle: bundle, value: "Personal", comment: "Title for the personal authentication user type")
+
+        /// Title when picking authentication user type.
+        static let title = NSLocalizedString("SelectAuthenticationUserType.Title", tableName: tableName, bundle: bundle, value: "Login type", comment: "Title when picking authentication user type.")
     }
 
     enum SelectCredentialsType {

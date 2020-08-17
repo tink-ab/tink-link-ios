@@ -3,12 +3,16 @@ import UIKit
 
 /// Example of how to use the provider grouped by financialInstitution
 final class FinancialInstitutionPickerViewController: UITableViewController {
+    private let searchViewController = FinancialInstitutionSearchViewController()
+    private lazy var searchController = TinkSearchController(searchResultsController: searchViewController)
+
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode]
 
     init(financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode]) {
         self.financialInstitutionNodes = financialInstitutionNodes
+        searchViewController.originalFinancialInstitutionNodes = financialInstitutionNodes
         super.init(style: .plain)
     }
 
@@ -25,6 +29,16 @@ extension FinancialInstitutionPickerViewController {
 
         navigationItem.largeTitleDisplayMode = .never
 
+        if financialInstitutionNodes.count > 5 {
+            searchViewController.providerPickerCoordinator = providerPickerCoordinator
+            searchController.obscuresBackgroundDuringPresentation = true
+            searchController.searchBar.placeholder = Strings.ProviderList.searchHint
+            searchController.searchResultsUpdater = searchViewController
+
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
+        }
+        
         tableView.registerReusableCell(ofType: ProviderCell.self)
         tableView.tableFooterView = UIView(frame: .zero)
 
@@ -54,6 +68,8 @@ extension FinancialInstitutionPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let financialInstitutionNode = financialInstitutionNodes[indexPath.row]
         switch financialInstitutionNode {
+        case .authenticationUserTypes(let authenticationUserTypeGroups):
+            providerPickerCoordinator?.showAuthenticationUserTypePicker(for: authenticationUserTypeGroups)
         case .accessTypes(let accessTypeGroups):
             providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, name: financialInstitutionNode.financialInstitution.name)
         case .credentialsKinds(let groups):

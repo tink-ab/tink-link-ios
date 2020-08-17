@@ -42,12 +42,14 @@ extension FinancialInstitutionPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let financialInstitutionNode = financialInstitutionNodes[indexPath.row]
         switch financialInstitutionNode {
+        case .authenticationUserTypes(let authenticationUserTypeNodes):
+            showAuthenticationUserTypePicker(for: authenticationUserTypeNodes, title: financialInstitutionNode.financialInstitution.name)
         case .accessTypes(let accessTypeGroups):
             showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionNode.financialInstitution.name)
         case .credentialsKinds(let groups):
-            showCredentialKindPicker(for: groups, title: financialInstitutionNode.financialInstitution.name)
+            showCredentialsKindPicker(for: groups, title: financialInstitutionNode.financialInstitution.name)
         case .provider(let provider):
-            showAddCredential(for: provider)
+            showAddCredentials(for: provider)
         }
     }
 }
@@ -55,6 +57,13 @@ extension FinancialInstitutionPickerViewController {
 // MARK: - Navigation
 
 extension FinancialInstitutionPickerViewController {
+    func showAuthenticationUserTypePicker(for authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode], title: String?) {
+        let viewController = AuthenticationUserTypePickerViewController()
+        viewController.authenticationUserTypeNodes = authenticationUserTypeNodes
+        viewController.title = title
+        show(viewController, sender: nil)
+    }
+
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
         let viewController = AccessTypePickerViewController()
         viewController.title = title
@@ -62,14 +71,14 @@ extension FinancialInstitutionPickerViewController {
         show(viewController, sender: nil)
     }
 
-    func showCredentialKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode], title: String?) {
+    func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode], title: String?) {
         let viewController = CredentialsKindPickerViewController()
         viewController.title = title
         viewController.credentialsKindNodes = credentialsKindNodes
         show(viewController, sender: nil)
     }
 
-    func showAddCredential(for provider: Provider) {
+    func showAddCredentials(for provider: Provider) {
         let addCredentialViewController = AddCredentialsViewController(provider: provider)
         show(addCredentialViewController, sender: nil)
     }

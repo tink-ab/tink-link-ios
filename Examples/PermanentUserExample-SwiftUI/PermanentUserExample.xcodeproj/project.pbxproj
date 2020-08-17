@@ -29,6 +29,7 @@
 		8F8BD78C23A27DFD00CC890C /* CredentialsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78B23A27DFD00CC890C /* CredentialsList.swift */; };
 		8F8BD78E23A27EBF00CC890C /* AddCredentialsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78D23A27EBF00CC890C /* AddCredentialsRow.swift */; };
 		8FA5F37B23A3ACC200083430 /* CredentialsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5F37A23A3ACC200083430 /* CredentialsListRow.swift */; };
+		8FD0625224E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD0625124E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift */; };
 		8FF1F388239E409300968AB9 /* ProviderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F387239E409300968AB9 /* ProviderController.swift */; };
 		8FF1F38D239E648400968AB9 /* ProviderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F38C239E648400968AB9 /* ProviderListViewController.swift */; };
 		8FF1F38F239E650600968AB9 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F38E239E650600968AB9 /* TextFieldCell.swift */; };
@@ -61,6 +62,7 @@
 		8F8BD78B23A27DFD00CC890C /* CredentialsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsList.swift; sourceTree = "<group>"; };
 		8F8BD78D23A27EBF00CC890C /* AddCredentialsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsRow.swift; sourceTree = "<group>"; };
 		8FA5F37A23A3ACC200083430 /* CredentialsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsListRow.swift; sourceTree = "<group>"; };
+		8FD0625124E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUserTypePickerViewController.swift; sourceTree = "<group>"; };
 		8FF1F387239E409300968AB9 /* ProviderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderController.swift; sourceTree = "<group>"; };
 		8FF1F38C239E648400968AB9 /* ProviderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderListViewController.swift; sourceTree = "<group>"; };
 		8FF1F38E239E650600968AB9 /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			children = (
 				8FF1F38C239E648400968AB9 /* ProviderListViewController.swift */,
 				8FF1F395239E776F00968AB9 /* FinancialInstitutionPickerViewController.swift */,
+				8FD0625124E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift */,
 				8FF1F393239E776E00968AB9 /* AccessTypePickerViewController.swift */,
 				8FF1F394239E776E00968AB9 /* CredentialsKindPickerViewController.swift */,
 				8FF1F38E239E650600968AB9 /* TextFieldCell.swift */,
@@ -304,6 +307,7 @@
 				8F3459BA2396ADEB007DCD75 /* AppDelegate.swift in Sources */,
 				8F8BD78E23A27EBF00CC890C /* AddCredentialsRow.swift in Sources */,
 				8FF1F392239E65D300968AB9 /* AddCredentialsFlowView.swift in Sources */,
+				8FD0625224E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift in Sources */,
 				8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */,
 				8FA5F37B23A3ACC200083430 /* CredentialsListRow.swift in Sources */,
 				8FF1F388239E409300968AB9 /* ProviderController.swift in Sources */,
