@@ -3,6 +3,6 @@ use_frameworks!
 
 target "TinkLinkUIExample" do
 
-    pod "TinkLinkUI"
+    pod "TinkLinkUI", :path => "../../"
 
 end
