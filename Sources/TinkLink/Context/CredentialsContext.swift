@@ -89,20 +89,18 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
-        let appUri = redirectURI
-
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
 
         let task = AddCredentialsTask(
             credentialsService: service,
             completionPredicate: completionPredicate,
-            appUri: appUri,
+            appUri: redirectURI,
             progressHandler: progressHandler,
             completion: completion
         )
 
         if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: appUri, callbackURI: nil, fields: form.makeFields()) { result in
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
@@ -112,7 +110,7 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = service.create(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: appUri, callbackURI: nil) { [weak task, weak self] result in
+            task.callCanceller = service.create(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[provider.id] = credential
@@ -203,11 +201,9 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> RefreshCredentialsTask {
-        let appUri = redirectURI
-
         // TODO: Filter out refreshableItems not supported by provider capabilities.
 
-        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
 
         task.callCanceller = service.refresh(id: credentials.id, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
@@ -254,13 +250,11 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> UpdateCredentialsTask {
-        let appUri = redirectURI
-
         let task = UpdateCredentialsTask(
             credentials: credentials,
             credentialsService: service,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
-            appUri: appUri,
+            appUri: redirectURI,
             progressHandler: progressHandler,
             completion: completion
         )
@@ -268,7 +262,7 @@ public final class CredentialsContext {
         task.callCanceller = service.update(
             id: credentials.id,
             providerID: credentials.providerID,
-            appURI: appUri,
+            appURI: redirectURI,
             callbackURI: nil,
             fields: form?.makeFields() ?? [:],
             completion: { result in
@@ -319,9 +313,7 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> AuthenticateCredentialsTask {
-        let appUri = redirectURI
-
-        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
 
         task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
             switch result {
