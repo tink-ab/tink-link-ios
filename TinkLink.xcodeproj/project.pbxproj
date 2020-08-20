@@ -129,7 +129,6 @@
 		923E976B31710C3C1DE8C123 /* TransferContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6E7CE9983FF9AE060B3AB3 /* TransferContext.swift */; };
 		92594A391E486F3C1704680F /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C10F680B83B493F68A952A0 /* ApplicationObserver.swift */; };
 		93217DF9BF12B98A04E73C81 /* PollingTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51FD51DBFC242BDFD5056AE /* PollingTask.swift */; };
-		93AD9EA1AB5A08927F391B75 /* AddCredentialsHelpTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1308A3B2469E6F7DCCA10ED /* AddCredentialsHelpTextView.swift */; };
 		9409FDCCC91E2CCE6F083DBF /* Credentials+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CCD4858523E6A6112ECDF9 /* Credentials+Extension.swift */; };
 		94A377C63F84E61C7BBBC91B /* UIApplication+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F0E74F55533422AF9DCFB /* UIApplication+mock.swift */; };
 		94DAD821EBD4FEB4D30D50BA /* AppearanceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EA9290A1694B7D7CD4A600 /* AppearanceProviding.swift */; };
@@ -215,9 +214,11 @@
 		EDF8110FE40AD740BD5432E5 /* SignableOperation+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCEEEFEFD68A617634C099 /* SignableOperation+mock.swift */; };
 		EF18F6B05322DADBB3661D58 /* CredentialsService+paymentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0531830C7E81A7790520A /* CredentialsService+paymentMock.swift */; };
 		F0BCBFADA3E08CF5A1BF9F34 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40022F21432E75E761F5E6 /* LoadingViewController.swift */; };
+		F11FC5B5EC884EBFCA9B294B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4CBFB32E4DEAAA7CBA363DD /* Assets.xcassets */; };
 		F388B60979FBE568FAE5B39A /* AddCredentialsStatusPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E377D1F011D6B8224E338A /* AddCredentialsStatusPresentationManager.swift */; };
 		F5512E9C8B0BBC1AFA919F21 /* RefreshCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */; };
 		F64F129B2827DA6D05E4B486 /* OAuthService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11643F0D9A1740B7CB5065F6 /* OAuthService+mock.swift */; };
+		F72D8C690A16D1CC965D6158 /* AuthenticationUserTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8106785D38F618325E76C /* AuthenticationUserTypePickerViewController.swift */; };
 		F7B72C6E2155D36027610A6F /* ChevronLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72837050F425EDA227E22F95 /* ChevronLayer.swift */; };
 		FD3BAF33CA5DE2BE074B31A4 /* FormTableViewErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C6392F7851C387256EDB0 /* FormTableViewErrorView.swift */; };
 		FDEF71D4A3C42DBEEF2EDF1A /* TinkLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -386,6 +387,7 @@
 		852F88BEFD7E20448FB17E67 /* FinancialInstitutionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionPickerViewController.swift; sourceTree = "<group>"; };
 		85A8120C0E3863E00CD7B4E3 /* UIFont+Bold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Bold.swift"; sourceTree = "<group>"; };
 		86F97AC0389FC4D763F642CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		88C8106785D38F618325E76C /* AuthenticationUserTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUserTypePickerViewController.swift; sourceTree = "<group>"; };
 		8B8A6E8EFA1FC1DD39A15470 /* ThirdPartyAppAuthenticationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyAppAuthenticationTask.swift; sourceTree = "<group>"; };
 		8C39CCF3D56F11277924C52B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		91719FA2AD2BD7D36D7E1D46 /* TinkCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TinkCore.framework; sourceTree = "<group>"; };
@@ -398,7 +400,6 @@
 		9AD3F9B9F02655297CED5D25 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		9C3CFEA1FD0CAE46A2F187F4 /* FontProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontProviding.swift; sourceTree = "<group>"; };
 		9D583783A5E3FD705C312B77 /* Assets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Assets.bundle; sourceTree = "<group>"; };
-		A1308A3B2469E6F7DCCA10ED /* AddCredentialsHelpTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsHelpTextView.swift; sourceTree = "<group>"; };
 		A29E0698F44D66A6ACD1003A /* RetryCancellable+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RetryCancellable+mock.swift"; sourceTree = "<group>"; };
 		A2D7046A9914B7EDF745FD39 /* CGImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extensions.swift"; sourceTree = "<group>"; };
 		A6C6C2DAB70310237BD31425 /* TinkLink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TinkLink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -415,6 +416,7 @@
 		B98C777DDEAE4EACE880C413 /* AddCredentialsStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsStatusViewController.swift; sourceTree = "<group>"; };
 		BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCredentialsTask.swift; sourceTree = "<group>"; };
 		C0ED584E832F47FBD0E3CD82 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		C4CBFB32E4DEAAA7CBA363DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4E3426456E75ABDEC7F0F38 /* CredentialsKindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsKindCell.swift; sourceTree = "<group>"; };
 		C4E52D353D223959B253AA3C /* Credential+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Credential+mock.swift"; sourceTree = "<group>"; };
 		C56AA37584764C1D7BE1E132 /* CredentialsContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsContext.swift; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 				7063E356EC1C358718743627 /* TinkLinkViewController.swift */,
 				3AA13F28159A3F4D6E9DB76C /* Translations.bundle */,
 				22626BA00F2442A91A047390 /* Appearance */,
+				813DF8FBC69ECA55F27D7F05 /* Assets */,
 				1BA9976FDE77868DF16A3FCB /* Controllers */,
 				63905C48173D910B20FB0947 /* Flows */,
 				2108C86E0469F08EB7C97F37 /* Generic */,
@@ -748,6 +751,14 @@
 			path = Mac;
 			sourceTree = "<group>";
 		};
+		813DF8FBC69ECA55F27D7F05 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				C4CBFB32E4DEAAA7CBA363DD /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		8152B6099ADAB34DBA88130D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -769,6 +780,7 @@
 			isa = PBXGroup;
 			children = (
 				465BE20FB5B8ADCEFDA32EA2 /* AccessTypePickerViewController.swift */,
+				88C8106785D38F618325E76C /* AuthenticationUserTypePickerViewController.swift */,
 				09EFF1CEAFF89E124C00BEBA /* CredentialsKindPickerViewController.swift */,
 				852F88BEFD7E20448FB17E67 /* FinancialInstitutionPickerViewController.swift */,
 				3618A35D3444EE8D4E34ACC2 /* FinancialInstitutionSearchViewController.swift */,
@@ -861,7 +873,6 @@
 			children = (
 				5777325BD0B5792A8588001C /* AddCredentialsFooterView.swift */,
 				E18F0CE5628F9A7DABE9AAB7 /* AddCredentialsHeaderView.swift */,
-				A1308A3B2469E6F7DCCA10ED /* AddCredentialsHelpTextView.swift */,
 				AD7C6392F7851C387256EDB0 /* FormTableViewErrorView.swift */,
 			);
 			path = Views;
@@ -957,6 +968,13 @@
 				ACD56FDEBF7C375BFD380EE5 /* TinkSearchController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		"TEMP_1AA14E5F-D1C5-439D-9861-633FE76F1127" /* REST */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = REST;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1103,6 +1121,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				289AC373F6623B4004AFDFD3 /* Assets.bundle in Resources */,
+				F11FC5B5EC884EBFCA9B294B /* Assets.xcassets in Resources */,
 				5C2231E6EA53AFC256E09E88 /* Translations.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1154,13 +1173,13 @@
 				5AE1EED3E16569105C152337 /* AddCredentialTaskError+Localized.swift in Sources */,
 				4D753D295DFD9CDA5B037048 /* AddCredentialsFooterView.swift in Sources */,
 				E870F2DAB28C8D2FB53C6B41 /* AddCredentialsHeaderView.swift in Sources */,
-				93AD9EA1AB5A08927F391B75 /* AddCredentialsHelpTextView.swift in Sources */,
 				B0095D7218AEC1D1C880EDB6 /* AddCredentialsSession.swift in Sources */,
 				4012F31DC7CEF3FCEC1D83F5 /* AddCredentialsStatusPresentationController.swift in Sources */,
 				F388B60979FBE568FAE5B39A /* AddCredentialsStatusPresentationManager.swift in Sources */,
 				168D375B1C204B04F66E4471 /* AddCredentialsStatusViewController.swift in Sources */,
 				52F9FEFF0720CB87203FC866 /* Appearance.swift in Sources */,
 				94DAD821EBD4FEB4D30D50BA /* AppearanceProviding.swift in Sources */,
+				F72D8C690A16D1CC965D6158 /* AuthenticationUserTypePickerViewController.swift in Sources */,
 				254F2705C0F80C843E52A791 /* AuthorizationController.swift in Sources */,
 				28B0CE6449E0A94C04D37489 /* BorderCornerRadiusImageView.swift in Sources */,
 				506B7EEE7C2FA50A8892955E /* Bundle+TinkLinkUI.swift in Sources */,
