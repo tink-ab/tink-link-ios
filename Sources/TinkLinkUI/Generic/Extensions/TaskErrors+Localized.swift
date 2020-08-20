@@ -70,10 +70,8 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .downloadRequired(_, let message, _):
             return message
         case .doesNotSupportAuthenticatingOnAnotherDevice:
-            // TODO: Copy
             return nil
         case .decodingQRCodeImageFailed:
-            // TODO: Copy
             return nil
         }
     }
