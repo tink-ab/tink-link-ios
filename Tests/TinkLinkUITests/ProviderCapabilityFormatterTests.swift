@@ -1,5 +1,5 @@
 import XCTest
-@testable import TinkLink
+@testable import TinkCore
 @testable import TinkLinkUI
 
 extension Provider {

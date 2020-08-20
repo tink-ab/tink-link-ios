@@ -2,7 +2,7 @@ import Foundation
 
 /// An object that you use to access the user's credentials and supports the flow for adding credentials.
 public final class CredentialsContext {
-    private let tink: Tink
+    private let redirectURI: URL
     private let service: CredentialsService
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
@@ -15,12 +15,12 @@ public final class CredentialsContext {
     ///
     /// - Parameter tink: Tink instance, defaults to `shared` if not provided.
     public convenience init(tink: Tink = .shared) {
-        let service = RESTCredentialsService(client: tink.client)
+        let service = tink.services.credentialsService
         self.init(tink: tink, credentialsService: service)
     }
 
     init(tink: Tink, credentialsService: CredentialsService) {
-        self.tink = tink
+        self.redirectURI = tink.configuration.redirectURI
         self.service = credentialsService
         addStoreObservers()
     }
@@ -89,20 +89,18 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
-        let appUri = tink.configuration.redirectURI
-
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
 
         let task = AddCredentialsTask(
             credentialsService: service,
             completionPredicate: completionPredicate,
-            appUri: appUri,
+            appUri: redirectURI,
             progressHandler: progressHandler,
             completion: completion
         )
 
         if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = service.updateCredentials(credentialsID: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appUri: appUri, fields: form.makeFields()) { result in
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
@@ -112,7 +110,7 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = service.createCredentials(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appUri: appUri) { [weak task, weak self] result in
+            task.callCanceller = service.create(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[provider.id] = credential
@@ -203,13 +201,11 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> RefreshCredentialsTask {
-        let appUri = tink.configuration.redirectURI
-
         // TODO: Filter out refreshableItems not supported by provider capabilities.
 
-        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.refreshCredentials(credentialsID: credentials.id, refreshableItems: refreshableItems, optIn: false, completion: { result in
+        task.callCanceller = service.refresh(id: credentials.id, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
             case .success:
                 task.startObserving()
@@ -254,21 +250,20 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> UpdateCredentialsTask {
-        let appUri = tink.configuration.redirectURI
-
         let task = UpdateCredentialsTask(
             credentials: credentials,
             credentialsService: service,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
-            appUri: appUri,
+            appUri: redirectURI,
             progressHandler: progressHandler,
             completion: completion
         )
 
-        task.callCanceller = service.updateCredentials(
-            credentialsID: credentials.id,
+        task.callCanceller = service.update(
+            id: credentials.id,
             providerID: credentials.providerID,
-            appUri: appUri,
+            appURI: redirectURI,
+            callbackURI: nil,
             fields: form?.makeFields() ?? [:],
             completion: { result in
                 switch result {
@@ -295,7 +290,7 @@ public final class CredentialsContext {
     /// - Returns: A cancellation handler.
     @discardableResult
     public func delete(_ credentials: Credentials, completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
-        return service.deleteCredentials(credentialsID: credentials.id, completion: completion)
+        return service.delete(id: credentials.id, completion: completion)
     }
 
     // MARK: - Authenticate Credentials
@@ -318,11 +313,9 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> AuthenticateCredentialsTask {
-        let appUri = tink.configuration.redirectURI
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
 
-        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appUri, progressHandler: progressHandler, completion: completion)
-
-        task.callCanceller = service.manualAuthentication(credentialsID: credentials.id, completion: { result in
+        task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
             switch result {
             case .success:
                 task.startObserving()

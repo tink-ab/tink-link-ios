@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "TinkCore",
+        "repositoryURL": "https://github.com/tink-ab/tink-core-ios",
+        "state": {
+          "branch": null,
+          "revision": "5d3f1218fe84995649b579b083401c53f71c056b",
+          "version": "0.1.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -21,4 +21,4 @@ Before running the example project open `AppDelegate.swift` and configure the fo
 
 ## Running the example app
 1. Open `PermanentUserExample.xcodeproj` in Xcode.
-2. Press the run button. If all went well, this should launch a simulator with the sample app running.
+3. Press the run button. If all went well, this should launch a simulator with the sample app running.

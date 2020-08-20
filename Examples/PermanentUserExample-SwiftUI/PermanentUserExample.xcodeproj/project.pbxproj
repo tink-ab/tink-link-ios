@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2028F40F242237CE00EF17B5 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 2028F40E242237CE00EF17B5 /* TinkLink */; };
 		202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */; };
 		2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035815424659C390075F1EA /* Error+LocalizedError.swift */; };
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
+		20FE0AB624E5706A006977F4 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0AB524E5706A006977F4 /* Down */; };
+		20FE0AB924E570C6006977F4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0AB824E570C6006977F4 /* Kingfisher */; };
+		20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0ABC24E5713C006977F4 /* TinkLink */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
-		8F1BF8FE23C5EEC5007464F8 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 8F1BF8FD23C5EEC5007464F8 /* Down */; };
-		8F1BF90123C5EEE3007464F8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8F1BF90023C5EEE3007464F8 /* Kingfisher */; };
 		8F3459BA2396ADEB007DCD75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* AppDelegate.swift */; };
 		8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459BD2396ADEB007DCD75 /* ContentView.swift */; };
 		8F3459C02396ADED007DCD75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459BF2396ADED007DCD75 /* Assets.xcassets */; };
@@ -40,10 +40,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2028F40D2422376700EF17B5 /* tink-link-ios-private */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios-private"; path = ../..; sourceTree = "<group>"; };
 		202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		2035815424659C390075F1EA /* Error+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+LocalizedError.swift"; sourceTree = "<group>"; };
 		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
+		20FE0ABA24E570D1006977F4 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
 		8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
 		8F3459B62396ADEB007DCD75 /* PermanentUserExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PermanentUserExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3459B92396ADEB007DCD75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,15 +77,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2028F40F242237CE00EF17B5 /* TinkLink in Frameworks */,
-				8F1BF90123C5EEE3007464F8 /* Kingfisher in Frameworks */,
-				8F1BF8FE23C5EEC5007464F8 /* Down in Frameworks */,
+				20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */,
+				20FE0AB924E570C6006977F4 /* Kingfisher in Frameworks */,
+				20FE0AB624E5706A006977F4 /* Down in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20FE0ABB24E570D9006977F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				20FE0ABA24E570D1006977F4 /* tink-link-ios */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8F1BF8F323C489FF007464F8 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,7 +107,7 @@
 			children = (
 				8F3459B82396ADEB007DCD75 /* PermanentUserExample */,
 				8F3459B72396ADEB007DCD75 /* Products */,
-				92CC022C0FBD2A588CBA7DCD /* Frameworks */,
+				20FE0ABB24E570D9006977F4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -210,14 +218,6 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		92CC022C0FBD2A588CBA7DCD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2028F40D2422376700EF17B5 /* tink-link-ios-private */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -235,9 +235,9 @@
 			);
 			name = PermanentUserExample;
 			packageProductDependencies = (
-				8F1BF8FD23C5EEC5007464F8 /* Down */,
-				8F1BF90023C5EEE3007464F8 /* Kingfisher */,
-				2028F40E242237CE00EF17B5 /* TinkLink */,
+				20FE0AB524E5706A006977F4 /* Down */,
+				20FE0AB824E570C6006977F4 /* Kingfisher */,
+				20FE0ABC24E5713C006977F4 /* TinkLink */,
 			);
 			productName = PermanentUserProviderSelection;
 			productReference = 8F3459B62396ADEB007DCD75 /* PermanentUserExample.app */;
@@ -268,8 +268,8 @@
 			);
 			mainGroup = 8F3459AD2396ADEB007DCD75;
 			packageReferences = (
-				8F1BF8FC23C5EEC5007464F8 /* XCRemoteSwiftPackageReference "Down" */,
-				8F1BF8FF23C5EEE3007464F8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				20FE0AB424E5706A006977F4 /* XCRemoteSwiftPackageReference "Down" */,
+				20FE0AB724E570C6006977F4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 8F3459B72396ADEB007DCD75 /* Products */;
 			projectDirPath = "";
@@ -515,38 +515,38 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8F1BF8FC23C5EEC5007464F8 /* XCRemoteSwiftPackageReference "Down" */ = {
+		20FE0AB424E5706A006977F4 /* XCRemoteSwiftPackageReference "Down" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/iwasrobbed/Down";
+			repositoryURL = "https://github.com/iwasrobbed/Down.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.0;
+				minimumVersion = 0.9.3;
 			};
 		};
-		8F1BF8FF23C5EEE3007464F8 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		20FE0AB724E570C6006977F4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.12.0;
+				minimumVersion = 5.14.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2028F40E242237CE00EF17B5 /* TinkLink */ = {
+		20FE0AB524E5706A006977F4 /* Down */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = TinkLink;
-		};
-		8F1BF8FD23C5EEC5007464F8 /* Down */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8F1BF8FC23C5EEC5007464F8 /* XCRemoteSwiftPackageReference "Down" */;
+			package = 20FE0AB424E5706A006977F4 /* XCRemoteSwiftPackageReference "Down" */;
 			productName = Down;
 		};
-		8F1BF90023C5EEE3007464F8 /* Kingfisher */ = {
+		20FE0AB824E570C6006977F4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F1BF8FF23C5EEE3007464F8 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = 20FE0AB724E570C6006977F4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		20FE0ABC24E5713C006977F4 /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -4,8 +4,8 @@ import UIKit
 class CredentialsPickerViewController: UITableViewController {
     private let dateFormatter = DateFormatter()
 
-    private let credentialsContext = CredentialsContext()
-    private let providerContext = ProviderContext()
+    private let credentialsContext = Tink.shared.credentialsContext
+    private let providerContext = Tink.shared.providerContext
 
     private var providersByID: [Provider.ID: Provider] = [:] {
         didSet {

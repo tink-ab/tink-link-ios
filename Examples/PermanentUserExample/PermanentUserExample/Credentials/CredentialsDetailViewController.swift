@@ -2,7 +2,7 @@ import UIKit
 import TinkLink
 
 final class CredentialsDetailViewController: UITableViewController {
-    private let credentialsContext = CredentialsContext()
+    private let credentialsContext = Tink.shared.credentialsContext
     private var credentials: Credentials {
         didSet {
             if isViewLoaded {

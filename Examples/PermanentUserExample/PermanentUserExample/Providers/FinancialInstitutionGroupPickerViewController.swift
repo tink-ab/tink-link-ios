@@ -2,7 +2,7 @@ import TinkLink
 import UIKit
 
 final class FinancialInstitutionGroupPickerViewController: UITableViewController {
-    private let providerContext = ProviderContext()
+    private let providerContext = Tink.shared.providerContext
 
     private let searchController = UISearchController(searchResultsController: nil)
     private var originalFinancialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode] = []

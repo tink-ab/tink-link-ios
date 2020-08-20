@@ -337,8 +337,7 @@ extension Form {
         let fieldSpecifications = providerFieldSpecifications.map { fieldSpecification -> Provider.FieldSpecification in
             if let text = credentialsFields[fieldSpecification.name] {
                 var multableFieldSpecification = fieldSpecification
-                multableFieldSpecification.initialValue = text
-                multableFieldSpecification.isImmutable = true
+                multableFieldSpecification.setImmutable(initialValue: text)
                 return multableFieldSpecification
             }
             return fieldSpecification

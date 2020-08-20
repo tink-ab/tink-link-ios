@@ -1,5 +1,5 @@
 import Foundation
-@testable import TinkLink
+@testable import TinkCore
 
 extension Credentials {
     // Extension to update the status for test
@@ -62,6 +62,66 @@ extension Credentials {
             supplementalInformationFields: [],
             thirdPartyAppAuthentication: nil,
             sessionExpiryDate: nil
+        )
+    }
+
+    mutating func modify(
+        fields: [String: String],
+        status: Status,
+        statusPayload: String = ""
+    ) {
+        self = Credentials(
+            id: id,
+            providerID: providerID,
+            kind: kind,
+            status: status,
+            statusPayload: statusPayload,
+            statusUpdated: Date(),
+            updated: updated,
+            fields: fields,
+            supplementalInformationFields: supplementalInformationFields,
+            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
+            sessionExpiryDate: sessionExpiryDate
+        )
+    }
+
+    mutating func modify(
+        supplementalInformationFields: [Provider.FieldSpecification],
+        status: Status,
+        statusPayload: String = ""
+    ) {
+        self = Credentials(
+            id: id,
+            providerID: providerID,
+            kind: kind,
+            status: status,
+            statusPayload: statusPayload,
+            statusUpdated: Date(),
+            updated: updated,
+            fields: fields,
+            supplementalInformationFields: supplementalInformationFields,
+            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
+            sessionExpiryDate: sessionExpiryDate
+        )
+    }
+
+    mutating func modify(
+        thirdPartyAppAuthentication: ThirdPartyAppAuthentication?,
+        status: Status,
+        statusPayload: String = ""
+    ) {
+        self = Credentials(
+            id: id,
+            providerID: providerID,
+            kind: kind,
+            status: status,
+            statusPayload: statusPayload,
+            statusUpdated: Date(),
+            updated: updated,
+            fields: fields,
+            supplementalInformationFields: supplementalInformationFields,
+            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
+            sessionExpiryDate: sessionExpiryDate
         )
     }
 }

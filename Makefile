@@ -15,36 +15,25 @@ endif
 ifeq ($(strip $(shell command -v swiftformat 2> /dev/null)),)
 	brew install swiftformat
 endif
+ifeq ($(strip $(shell command -v swift doc 2> /dev/null)),)
+	brew install swiftdocorg/formulae/swift-doc
+endif
 ifeq ($(strip $(shell command -v bundle 2> /dev/null)),)
 	gem install bundler
 endif
 	bundle install
 
 docs:
-	swift package generate-xcodeproj
-	bundle exec pod install --project-directory="./TinkLinkTester/"
-	bundle exec jazzy \
-		--clean \
-		--author Tink \
-		--author_url https://tink.com \
-		--github_url https://github.com/tink-ab/tink-link-ios \
-		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/$(VERSION) \
-		--module-version $(VERSION) \
-		--module TinkLink \
-		--swift-build-tool xcodebuild \
-		--sdk iphone \
-		--output docs
-	bundle exec jazzy \
-		--clean \
-		--author Tink \
-		--author_url https://tink.com \
-		--github_url https://github.com/tink-ab/tink-link-ios \
-		--github-file-prefix https://github.com/tink-ab/tink-link-ios/tree/$(VERSION) \
-		--module-version $(VERSION) \
-		--module TinkLinkUI \
-		--swift-build-tool xcodebuild \
-		--xcodebuild-arguments -workspace,TinkLinkTester/TinkLink.xcworkspace,-scheme,TinkLinkTester,-sdk,iphonesimulator,-destination,'generic/platform=iOS Simulator' \
-		--output docs/tinklinkui
+	swift doc generate Sources/TinkLink/ ../tink-core-ios/Sources/TinkCore/Shared/ ../tink-core-ios/Sources/TinkCore/AIS/ ../tink-core-ios/Sources/TinkCore/PIS/ \
+		--module-name TinkLink \
+		--output docs \
+		--format html \
+		--base-url "https://tink-ab.github.io/tink-link-ios/"
+	swift doc generate Sources/TinkLinkUI/ \
+		--module-name TinkLinkUI \
+		--output docs/tinklinkui \
+		--format html \
+		--base-url "https://tink-ab.github.io/tink-link-ios/tinklinkui/"
 
 lint:
 	swiftlint 2> /dev/null
@@ -53,7 +42,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-	bundle exec pod install --project-directory="./TinkLinkTester/"
+	bundle exec pod install --repo-update --project-directory="./TinkLinkTester/"
 	xcodebuild test \
 		-workspace ./TinkLinkTester/TinkLink.xcworkspace \
 		-scheme TinkLinkTester \
@@ -61,13 +50,13 @@ test:
 
 build-uikit-example:
 	xcodebuild clean build \
-		-project Examples/PermanentUserExample/PermanentUserExample.xcodeproj \
+		-workspace Examples/PermanentUserExample/PermanentUserExample.xcworkspace \
 		-scheme PermanentUserExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-swiftui-example:
 	xcodebuild clean build \
-		-project Examples/PermanentUserExample-SwiftUI/PermanentUserExample.xcodeproj \
+		-workspace Examples/PermanentUserExample-SwiftUI/PermanentUserExample.xcworkspace \
 		-scheme PermanentUserExample \
 		-destination 'generic/platform=iOS Simulator'
 
