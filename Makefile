@@ -42,8 +42,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-	cp ./TinkLinkTester/.TestPodfile ./TinkLinkTester/Podfile
-	bundle exec pod install --project-directory="./TinkLinkTester/"
+	bundle exec pod install --repo-update --project-directory="./TinkLinkTester/"
 	xcodebuild test \
 		-workspace ./TinkLinkTester/TinkLink.xcworkspace \
 		-scheme TinkLinkTester \
@@ -62,7 +61,6 @@ build-swiftui-example:
 		-destination 'generic/platform=iOS Simulator'
 
 build-tinklinkui-example:
-	cp ./Examples/TinkLinkUIExample/.TestPodfile ./Examples/TinkLinkUIExample/Podfile
 	bundle exec pod install --project-directory="./Examples/TinkLinkUIExample/"
 	xcodebuild clean build \
 		-workspace Examples/TinkLinkUIExample/TinkLinkUIExample.xcworkspace \
