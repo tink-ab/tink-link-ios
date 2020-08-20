@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - ProviderTree</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#providertree.init(providers:)">init(providers:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#providertree.financialinstitutiongroups">financial​Institution​Groups</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#providertree.makefinancialinstitutions()">make​Financial​Institutions()</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Structure</small>
+    <code class="name">Provider​Tree</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">ProviderTree</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Use the <code>ProviderTree</code> to group providers by financial institution, access type and credentials kind.</p>
+
+</div>
+<div class="discussion">
+    <p>You initialize a <code>ProviderTree</code> with a list of providers.</p>
+
+<html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">providerTree</span> = <span class="variable">ProviderTree</span>(<span class="variable">providers</span>: <span class="placeholder">&lt;#T##Providers#&gt;</span>)
+</code></pre></body></html>
+<p>Handle selection of a provider group by switching on the group to decide which screen should be shown next.</p>
+
+<html><body><pre class="highlight"><code><span class="attribute">override</span> <span class="keyword">func</span> <span class="function">tableView</span>(<span class="keyword">_</span> <span class="variable">tableView</span>: <span class="type">UITableView</span>, <span class="variable">didSelectRowAt</span> <span class="variable">indexPath</span>: <span class="type">IndexPath</span>) {
+    <span class="keyword">let</span> <span class="variable">financialInstitutionGroupNode</span> = <span class="variable">financialInstitutionGroupNodes</span>[<span class="variable">indexPath</span>.<span class="type">row</span>]
+    <span class="keyword">switch</span> <span class="variable">financialInstitutionGroupNode</span> {
+    <span class="keyword">case</span> .<span class="variable">financialInstitutions</span>(<span class="keyword">let</span> <span class="variable">financialInstitutionGroups</span>):
+        <span class="type">showFinancialInstitution</span>(<span class="variable">for</span>: <span class="type">financialInstitutionGroups</span>)
+    <span class="keyword">case</span> .<span class="variable">accessTypes</span>(<span class="keyword">let</span> <span class="variable">accessTypeGroups</span>):
+        <span class="type">showAccessTypePicker</span>(<span class="variable">for</span>: <span class="type">accessTypeGroups</span>)
+    <span class="keyword">case</span> .<span class="variable">credentialsKinds</span>(<span class="keyword">let</span> <span class="variable">groups</span>):
+        <span class="type">showCredentialsKindPicker</span>(<span class="variable">for</span>: <span class="type">groups</span>)
+    <span class="keyword">case</span> .<span class="variable">provider</span>(<span class="keyword">let</span> <span class="variable">provider</span>):
+        <span class="type">showAddCredentials</span>(<span class="variable">for</span>: <span class="type">provider</span>)
+    }
+}
+</code></pre></body></html>
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Nested Types</h3>
+<dl>
+    <dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_CredentialsKindNode">ProviderTree.CredentialsKindNode</a></code></dt>
+<dd><p>A parent node of the tree structure, with a <code>Provider</code> as it's leaf node.</p>
+</dd>
+<dt class="enumeration"><code><a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_AccessTypeNode">ProviderTree.AccessTypeNode</a></code></dt>
+<dd><p>A parent node of the tree structure, with a list of either <code>CredentialsKindNode</code> children or a single <code>Provider</code>.</p>
+</dd>
+<dt class="enumeration"><code><a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_AuthenticationUserTypeNode">ProviderTree.AuthenticationUserTypeNode</a></code></dt>
+<dd></dd>
+<dt class="enumeration"><code><a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_FinancialInstitutionNode">ProviderTree.FinancialInstitutionNode</a></code></dt>
+<dd><p>A parent node of the tree structure, with a list of either <code>AccessTypeNode</code>, <code>CredentialsKindNode</code> children or a single <code>Provider</code>.</p>
+</dd>
+<dt class="enumeration"><code><a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_FinancialInstitutionGroupNode">ProviderTree.FinancialInstitutionGroupNode</a></code></dt>
+<dd><p>A parent node of the tree structure, with a list of either <code>FinancialInstitutionNode</code>, <code>AccessTypeNode</code>, <code>CredentialsKindNode</code> children or a single <code>Provider</code>.</p>
+</dd>
+</dl>
+</section>
+    <section id="initializers">
+        <h2>Initializers</h2>
+
+        <div role="article" class="initializer" id="providertree.init(providers:)">
+    <h3>
+        <code>init(providers:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">providers</span>: [<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>])</code></pre></body></html>
+</div>
+    </section>
+    <section id="properties">
+        <h2>Properties</h2>
+
+        <div role="article" class="variable" id="providertree.financialinstitutiongroups">
+    <h3>
+        <code>financial​Institution​Groups</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">financialInstitutionGroups</span>: [<span class="type">FinancialInstitutionGroupNode</span>]</code></pre></body></html>
+</div>
+    </section>
+    <section id="methods">
+        <h2>Methods</h2>
+
+        <div role="article" class="function" id="providertree.makefinancialinstitutions()">
+    <h3>
+        <code>make​Financial​Institutions()</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">makeFinancialInstitutions</span>() -&gt; [<span class="type">FinancialInstitutionNode</span>]</code></pre></body></html>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T11:45:38+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

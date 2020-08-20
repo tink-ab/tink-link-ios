@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - OAuthService</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#requirements">Requirements</a><ul><li class="function"><a href="#oauthservice.createanonymous(market:locale:origin:completion:)">create​Anonymous(market:​locale:​origin:​completion:​)</a></li><li class="function"><a href="#oauthservice.authenticate(clientid:code:completion:)">authenticate(client​ID:​code:​completion:​)</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Protocol</small>
+    <code class="name">OAuth​Service</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">protocol</span> <span class="type">OAuthService</span></code></pre></body></html>
+
+
+
+
+    <section id="requirements">
+        <h2>Requirements</h2>
+
+        <div role="article" class="function" id="oauthservice.createanonymous(market:locale:origin:completion:)">
+    <h3>
+        <code>create​Anonymous(market:​locale:​origin:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">createAnonymous</span>(<span class="variable">market</span>: <a href="https://tink-ab.github.io/tink-link-ios/Market"><span class="type">Market</span></a>?, <span class="variable">locale</span>: <span class="type">Locale</span>, <span class="variable">origin</span>: <span class="type">String</span>?, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/AccessToken"><span class="type">AccessToken</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="oauthservice.authenticate(clientid:code:completion:)">
+    <h3>
+        <code>authenticate(client​ID:​code:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">authenticate</span>(<span class="variable">clientID</span>: <span class="type">String</span>, <span class="variable">code</span>: <a href="https://tink-ab.github.io/tink-link-ios/AuthorizationCode"><span class="type">AuthorizationCode</span></a>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/AccessToken"><span class="type">AccessToken</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+    </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T11:45:36+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

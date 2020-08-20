@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - AddCredentialsTask.CompletionPredicate</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li><li><a href="#relationships">Nested Types</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#addcredentialstask.completionpredicate.init(successpredicate:shouldfailonthirdpartyappauthenticationdownloadrequired:)">init(success​Predicate:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#addcredentialstask.completionpredicate.successpredicate">success​Predicate</a></li><li class="variable"><a href="#addcredentialstask.completionpredicate.shouldfailonthirdpartyappauthenticationdownloadrequired">should​Fail​OnThird​Party​App​Authentication​Download​Required</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Structure</small>
+    <code class="name">Add​Credentials​Task.​Completion​Predicate</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">CompletionPredicate</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Cases to evaluate when credentials status changes.</p>
+
+</div>
+<div class="discussion">
+    <p>Use with <code>CredentialsContext.addCredentials(for:form:completionPredicate:progressHandler:completion:)</code> to set when add credentials task should call completion handler if successful.</p>
+
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Member Of</h3>
+<dl>
+    <dt class="class"><code><a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask">AddCredentialsTask</a></code></dt>
+<dd><p>A task that manages progress of adding a credential.</p>
+</dd>
+</dl>
+<h3>Nested Types</h3>
+<dl>
+    <dt class="enumeration"><code><a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask_CompletionPredicate_SuccessPredicate">AddCredentialsTask.CompletionPredicate.SuccessPredicate</a></code></dt>
+<dd><p>Determines when the add credentials task is considered done.</p>
+</dd>
+</dl>
+</section>
+    <section id="initializers">
+        <h2>Initializers</h2>
+
+        <div role="article" class="initializer" id="addcredentialstask.completionpredicate.init(successpredicate:shouldfailonthirdpartyappauthenticationdownloadrequired:)">
+    <h3>
+        <code>init(success​Predicate:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">successPredicate</span>: <span class="type">SuccessPredicate</span>, <span class="variable">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span>: <span class="type">Bool</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Determines when the add credentials task is considered done or should fail.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>success​Predicate</th>
+    <td><code class="type">Success​Predicate</code></td>
+    <td><p>Predicate determining when the add credentials task should succeed.</p>
+</td>
+</tr>
+<tr>
+    <th>should​Fail​OnThird​Party​App​Authentication​Download​Required</th>
+    <td><code class="type">Bool</code></td>
+    <td><p>A Boolean value determining if the task should fail when a third party app could not be opened.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+    </section>
+    <section id="properties">
+        <h2>Properties</h2>
+
+        <div role="article" class="variable" id="addcredentialstask.completionpredicate.successpredicate">
+    <h3>
+        <code>success​Predicate</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">successPredicate</span>: <span class="type">SuccessPredicate</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Determines when the add credentials task is considered done.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="addcredentialstask.completionpredicate.shouldfailonthirdpartyappauthenticationdownloadrequired">
+    <h3>
+        <code>should​Fail​OnThird​Party​App​Authentication​Download​Required</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span>: <span class="type">Bool</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Determines if the add credentials task should fail if a third party app could not be opened for authentication.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T11:45:36+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

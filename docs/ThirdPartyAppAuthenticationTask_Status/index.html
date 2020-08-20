@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - ThirdPartyAppAuthenticationTask.Status</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#thirdpartyappauthenticationtask.status.qrimage">qr​Image</a></li><li class="case"><a href="#thirdpartyappauthenticationtask.status.qrimage">qr​Image</a></li><li class="case"><a href="#thirdpartyappauthenticationtask.status.awaitauthenticationonanotherdevice">await​Authentication​OnAnother​Device</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Enumeration</small>
+    <code class="name">Third​Party​App​Authentication​Task.​Status</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Status</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Indicates a user action required for the third party app authentication task to succeed.</p>
+
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Member Of</h3>
+<dl>
+    <dt class="class"><code><a href="https://tink-ab.github.io/tink-link-ios/ThirdPartyAppAuthenticationTask">ThirdPartyAppAuthenticationTask</a></code></dt>
+<dd><p>A task that handles opening third party apps.</p>
+</dd>
+</dl>
+</section>
+    <section id="enumeration cases">
+        <h2>Enumeration Cases</h2>
+
+        <div role="article" class="case" id="thirdpartyappauthenticationtask.status.qrimage">
+    <h3>
+        <code>qr​Image</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">qrImage</span>(: <span class="type">UIImage</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Indicates that a QR image needs to be scanned by the user to authenticate with the third party app.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="thirdpartyappauthenticationtask.status.qrimage">
+    <h3>
+        <code>qr​Image</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">qrImage</span>(: <span class="type">NSImage</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Indicates that a QR image needs to be scanned by the user to authenticate with the third party app.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="thirdpartyappauthenticationtask.status.awaitauthenticationonanotherdevice">
+    <h3>
+        <code>await​Authentication​OnAnother​Device</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">awaitAuthenticationOnAnotherDevice</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Indicates that the task will wait for the user to authenticate with the third party app on another device.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T11:45:36+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

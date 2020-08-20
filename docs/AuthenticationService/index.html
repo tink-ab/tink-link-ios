@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - AuthenticationService</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#requirements">Requirements</a><ul><li class="function"><a href="#authenticationservice.clientdescription(clientid:scopes:redirecturi:completion:)">client​Description(client​ID:​scopes:​redirect​URI:​completion:​)</a></li><li class="function"><a href="#authenticationservice.authorize(clientid:redirecturi:scopes:completion:)">authorize(client​ID:​redirect​URI:​scopes:​completion:​)</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Protocol</small>
+    <code class="name">Authentication​Service</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">protocol</span> <span class="type">AuthenticationService</span></code></pre></body></html>
+
+
+
+
+    <section id="requirements">
+        <h2>Requirements</h2>
+
+        <div role="article" class="function" id="authenticationservice.clientdescription(clientid:scopes:redirecturi:completion:)">
+    <h3>
+        <code>client​Description(client​ID:​scopes:​redirect​URI:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">clientDescription</span>(<span class="variable">clientID</span>: <span class="type">String</span>, <span class="variable">scopes</span>: [<a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>], <span class="variable">redirectURI</span>: <span class="type">URL</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/ClientDescription"><span class="type">ClientDescription</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="authenticationservice.authorize(clientid:redirecturi:scopes:completion:)">
+    <h3>
+        <code>authorize(client​ID:​redirect​URI:​scopes:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">authorize</span>(<span class="variable">clientID</span>: <span class="type">String</span>, <span class="variable">redirectURI</span>: <span class="type">URL</span>, <span class="variable">scopes</span>: [<a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/AuthorizationCode"><span class="type">AuthorizationCode</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+    </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T11:45:39+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

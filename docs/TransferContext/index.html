@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - TransferContext</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#transfercontext.init(tink:)">init(tink:​)</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#transfercontext.initiatetransfer(fromaccountwithuri:tobeneficiarywithuri:amount:message:authentication:progress:completion:)">initiate​Transfer(from​Account​With​URI:​to​Beneficiary​With​URI:​amount:​message:​authentication:​progress:​completion:​)</a></li><li class="function"><a href="#transfercontext.initiatetransfer(from:to:amount:message:authentication:progress:completion:)">initiate​Transfer(from:​to:​amount:​message:​authentication:​progress:​completion:​)</a></li><li class="function"><a href="#transfercontext.fetchaccounts(completion:)">fetch​Accounts(completion:​)</a></li><li class="function"><a href="#transfercontext.fetchbeneficiaries(for:completion:)">fetch​Beneficiaries(for:​completion:​)</a></li><li class="function"><a href="#transfercontext.fetchbeneficiaries(completion:)">fetch​Beneficiaries(completion:​)</a></li><li class="function"><a href="#transfercontext.addbeneficiary(account:name:to:credentials:authentication:progress:completion:)">add​Beneficiary(account:​name:​to:​credentials:​authentication:​progress:​completion:​)</a></li><li class="function"><a href="#transfercontext.addbeneficiary(account:name:toaccountwithid:oncredentialswithid:authentication:progress:completion:)">add​Beneficiary(account:​name:​to​Account​With​ID:​on​Credentials​With​ID:​authentication:​progress:​completion:​)</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Class</small>
+    <code class="name">Transfer​Context</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="attribute">final</span> <span class="keyword">class</span> <span class="type">TransferContext</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>An object that you use to initiate transfers and access the user's accounts and beneficiaries.</p>
+
+</div>
+
+    <section id="initializers">
+        <h2>Initializers</h2>
+
+        <div role="article" class="initializer" id="transfercontext.init(tink:)">
+    <h3>
+        <code>init(tink:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="attribute">convenience</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a> = .<span class="variable">shared</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Creates a context to use for initiating transfers.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>tink</th>
+    <td><code class="type">Tink</code></td>
+    <td><p>Tink instance. Will use the shared instance if nothing is provided.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+    </section>
+    <section id="methods">
+        <h2>Methods</h2>
+
+        <div role="article" class="function" id="transfercontext.initiatetransfer(fromaccountwithuri:tobeneficiarywithuri:amount:message:authentication:progress:completion:)">
+    <h3>
+        <code>initiate​Transfer(from​Account​With​URI:​to​Beneficiary​With​URI:​amount:​message:​authentication:​progress:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">message</span>: <span class="string literal">"Use the initiateTransfer(from:to:amount:message:authentication:progress:completion) method with a `BeneficiaryAccount` instead."</span>) <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">initiateTransfer</span>(<span class="variable">fromAccountWithURI</span>: <a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>.<span class="type">URI</span>, <span class="variable">toBeneficiaryWithURI</span>: <a href="https://tink-ab.github.io/tink-link-ios/Beneficiary"><span class="type">Beneficiary</span></a>.<span class="type">URI</span>, <span class="variable">amount</span>: <a href="https://tink-ab.github.io/tink-link-ios/CurrencyDenominatedAmount"><span class="type">CurrencyDenominatedAmount</span></a>, <span class="variable">message</span>: <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask"><span class="type">InitiateTransferTask</span></a>.<span class="type">Message</span>, <span class="variable">authentication</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">task</span>: <a href="https://tink-ab.github.io/tink-link-ios/AuthenticationTask"><span class="type">AuthenticationTask</span></a>) -&gt; <span class="type">Void</span>, <span class="variable">progress</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask"><span class="type">InitiateTransferTask</span></a>.<span class="type">Status</span>) -&gt; <span class="type">Void</span> = { <span class="keyword">_</span> <span class="keyword">in</span> }, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask"><span class="type">InitiateTransferTask</span></a>.<span class="type">Receipt</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask"><span class="type">InitiateTransferTask</span></a></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Initiate a transfer for the user.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>transfer:execute</p>
+</li>
+</ul>
+
+<p>You need to handle authentication changes in <code>authentication</code> to successfuly initiate a transfer.
+If needed, you can get the progress status change in <code>progress</code>, and present them accordingly.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">initiateTransferTask</span> = <span class="variable">transferContext</span>.<span class="type">initiateTransfer</span>(
+    <span class="variable">fromAccountWithURI</span>: <span class="type">sourceAccountURI</span>,
+    <span class="variable">toBeneficiaryWithURI</span>: <span class="type">transferBeneficiaryURI</span>,
+    <span class="variable">amount</span>: <a href="https://tink-ab.github.io/tink-link-ios/CurrencyDenominatedAmount"><span class="type">CurrencyDenominatedAmount</span></a>(<span class="variable">value</span>: <span class="type">amount</span>, <span class="variable">currencyCode</span>: <span class="type">balance</span>.<span class="type">currencyCode</span>),
+    <span class="variable">message</span>: .<span class="variable">init</span>(<span class="variable">destination</span>: <span class="type">message</span>),
+    <span class="variable">authentication</span>: { <span class="variable">task</span> <span class="keyword">in</span>
+        <span class="keyword">switch</span> <span class="variable">task</span> {
+        <span class="keyword">case</span> .<span class="variable">awaitingSupplementalInformation</span>(<span class="keyword">let</span> <span class="variable">task</span>):
+            <span class="placeholder">&lt;#Present form for supplemental information task#&gt;</span>
+        <span class="keyword">case</span> .<span class="variable">awaitingThirdPartyAppAuthentication</span>(<span class="keyword">let</span> <span class="variable">task</span>):
+            <span class="placeholder">&lt;#Handle the third party app deep link URL#&gt;</span>
+         }
+    },
+    <span class="variable">progress</span>: { <span class="variable">status</span> <span class="keyword">in</span>
+        <span class="placeholder">&lt;#Present the progress status change if needed#&gt;</span>
+    },
+    <span class="variable">completion</span>: { <span class="variable">result</span> <span class="keyword">in</span>
+        <span class="placeholder">&lt;#Handle result#&gt;</span>
+    }
+)
+</code></pre></body></html>
+<aside class="note">
+    <p>You need to retain the returned task until the transfer has completed.</p>
+
+</aside>
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>from​Account​With​URI</th>
+    <td><code class="type">Account.​URI</code></td>
+    <td><p>The URI for the source account of the transfer.</p>
+</td>
+</tr>
+<tr>
+    <th>to​Beneficiary​With​URI</th>
+    <td><code class="type">Beneficiary.​URI</code></td>
+    <td><p>The URI of the beneficiary the transfer is sent to.</p>
+</td>
+</tr>
+<tr>
+    <th>amount</th>
+    <td><code class="type">Currency​Denominated​Amount</code></td>
+    <td><p>The amount that should be transferred. Its <code>CurrencyCode</code> should be the same as the source account's currency.</p>
+</td>
+</tr>
+<tr>
+    <th>message</th>
+    <td><code class="type">Initiate​Transfer​Task.​Message</code></td>
+    <td><p>The message used for the transfer.</p>
+</td>
+</tr>
+<tr>
+    <th>authentication</th>
+    <td><code class="type">@escaping (_ task:​ Authentication​Task) -&gt; Void</code></td>
+    <td><p>Indicates the authentication task for initiating a transfer.</p>
+</td>
+</tr>
+<tr>
+    <th>task</th>
+    <td></td>
+    <td><p>Represents an authentication task that needs to be completed by the user.</p>
+</td>
+</tr>
+<tr>
+    <th>progress</th>
+    <td><code class="type">@escaping (_ status:​ Initiate​Transfer​Task.​Status) -&gt; Void</code></td>
+    <td><p>Optional, indicates the state changes of initiating a transfer.</p>
+</td>
+</tr>
+<tr>
+    <th>status</th>
+    <td></td>
+    <td><p>Indicates the status of the transfer initiation.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;Initiate​Transfer​Task.​Receipt, Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the transfer has been initiated successfuly or if it failed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result representing either a transfer initiation receipt or an error.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>The initiate transfer task.</p>
+
+</div>
+<div role="article" class="function" id="transfercontext.initiatetransfer(from:to:amount:message:authentication:progress:completion:)">
+    <h3>
+        <code>initiate​Transfer(from:​to:​amount:​message:​authentication:​progress:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">initiateTransfer</span>(<span class="variable">from</span> <span class="variable">account</span>: <a href="https://tink-ab.github.io/tink-link-ios/TransferAccountIdentifiable"><span class="type">TransferAccountIdentifiable</span></a>, <span class="variable">to</span> <span class="variable">beneficiary</span>: <a href="https://tink-ab.github.io/tink-link-ios/TransferAccountIdentifiable"><span class="type">TransferAccountIdentifiable</span></a>, <span class="variable">amount</span>: <a href="https://tink-ab.github.io/tink-link-ios/CurrencyDenominatedAmount"><span class="type">CurrencyDenominatedAmount</span></a>, <span class="variable">message</span>: <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask"><span class="type">InitiateTransferTask</span></a>.<span class="type">Message</span>, <span class="variable">authentication</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">task</span>: <a href="https://tink-ab.github.io/tink-link-ios/AuthenticationTask"><span class="type">AuthenticationTask</span></a>) -&gt; <span class="type">Void</span>, <span class="variable">progress</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask"><span class="type">InitiateTransferTask</span></a>.<span class="type">Status</span>) -&gt; <span class="type">Void</span> = { <span class="keyword">_</span> <span class="keyword">in</span> }, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask"><span class="type">InitiateTransferTask</span></a>.<span class="type">Receipt</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask"><span class="type">InitiateTransferTask</span></a></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Initiate a transfer for the user.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>transfer:execute</p>
+</li>
+</ul>
+
+<p>You need to handle authentication changes in <code>authentication</code> to successfuly initiate a transfer.
+If needed, you can get the progress status change in <code>progress</code>, and present them accordingly.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">initiateTransferTask</span> = <span class="variable">transferContext</span>.<span class="type">initiateTransfer</span>(
+    <span class="variable">from</span>: <span class="type">account</span>,
+    <span class="variable">to</span>: <span class="type">beneficiary</span>,
+    <span class="variable">amount</span>: <a href="https://tink-ab.github.io/tink-link-ios/CurrencyDenominatedAmount"><span class="type">CurrencyDenominatedAmount</span></a>(<span class="variable">value</span>: <span class="type">amount</span>, <span class="variable">currencyCode</span>: <span class="type">balance</span>.<span class="type">currencyCode</span>),
+    <span class="variable">message</span>: .<span class="variable">init</span>(<span class="variable">destination</span>: <span class="type">message</span>),
+    <span class="variable">authentication</span>: { <span class="variable">task</span> <span class="keyword">in</span>
+        <span class="keyword">switch</span> <span class="variable">task</span> {
+        <span class="keyword">case</span> .<span class="variable">awaitingSupplementalInformation</span>(<span class="keyword">let</span> <span class="variable">task</span>):
+            <span class="placeholder">&lt;#Present form for supplemental information task#&gt;</span>
+        <span class="keyword">case</span> .<span class="variable">awaitingThirdPartyAppAuthentication</span>(<span class="keyword">let</span> <span class="variable">task</span>):
+            <span class="placeholder">&lt;#Handle the third party app deep link URL#&gt;</span>
+         }
+    },
+    <span class="variable">progress</span>: { <span class="variable">status</span> <span class="keyword">in</span>
+        <span class="placeholder">&lt;#Present the progress status change if needed#&gt;</span>
+    },
+    <span class="variable">completion</span>: { <span class="variable">result</span> <span class="keyword">in</span>
+        <span class="placeholder">&lt;#Handle result#&gt;</span>
+    }
+)
+</code></pre></body></html>
+<aside class="note">
+    <p>You need to retain the returned task until the transfer has completed.</p>
+
+</aside>
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>from</th>
+    <td><code class="type">Transfer​Account​Identifiable</code></td>
+    <td><p>The source account of this transfer.</p>
+</td>
+</tr>
+<tr>
+    <th>to</th>
+    <td><code class="type">Transfer​Account​Identifiable</code></td>
+    <td><p>The beneficiary of this transfer.</p>
+</td>
+</tr>
+<tr>
+    <th>amount</th>
+    <td><code class="type">Currency​Denominated​Amount</code></td>
+    <td><p>The amount that should be transferred. Its <code>CurrencyCode</code> should be the same as the source account's currency.</p>
+</td>
+</tr>
+<tr>
+    <th>message</th>
+    <td><code class="type">Initiate​Transfer​Task.​Message</code></td>
+    <td><p>The message used for the transfer.</p>
+</td>
+</tr>
+<tr>
+    <th>authentication</th>
+    <td><code class="type">@escaping (_ task:​ Authentication​Task) -&gt; Void</code></td>
+    <td><p>Indicates the authentication task for initiating a transfer.</p>
+</td>
+</tr>
+<tr>
+    <th>task</th>
+    <td></td>
+    <td><p>Represents an authentication task that needs to be completed by the user.</p>
+</td>
+</tr>
+<tr>
+    <th>progress</th>
+    <td><code class="type">@escaping (_ status:​ Initiate​Transfer​Task.​Status) -&gt; Void</code></td>
+    <td><p>Optional, indicates the state changes of initiating a transfer.</p>
+</td>
+</tr>
+<tr>
+    <th>status</th>
+    <td></td>
+    <td><p>Indicates the status of the transfer initiation.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;Initiate​Transfer​Task.​Receipt, Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the transfer has been initiated successfuly or if it failed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result representing either a transfer initiation receipt or an error.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>The initiate transfer task.</p>
+
+</div>
+<div role="article" class="function" id="transfercontext.fetchaccounts(completion:)">
+    <h3>
+        <code>fetch​Accounts(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchAccounts</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch all accounts of the user that are suitable to pick as the source of a transfer.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>transfer:read</p>
+</li>
+</ul>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (Result&lt;[Account], Error&gt;) -&gt; Void</code></td>
+    <td><p>A result representing either a list of accounts or an error.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="transfercontext.fetchbeneficiaries(for:completion:)">
+    <h3>
+        <code>fetch​Beneficiaries(for:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchBeneficiaries</span>(<span class="variable">for</span> <span class="variable">account</span>: <a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Beneficiary"><span class="type">Beneficiary</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch beneficiaries for a specific account of the user.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>account</th>
+    <td><code class="type">Account</code></td>
+    <td><p>Account for beneficiaries to fetch</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (Result&lt;[Beneficiary], Error&gt;) -&gt; Void</code></td>
+    <td><p>A result representing either a list of beneficiaries or an error.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="transfercontext.fetchbeneficiaries(completion:)">
+    <h3>
+        <code>fetch​Beneficiaries(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchBeneficiaries</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Beneficiary"><span class="type">Beneficiary</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch all beneficiaries of the user.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>beneficiaries:read</p>
+</li>
+</ul>
+
+<p>The result list may include duplicate beneficiaries for different source accounts.
+You can group the list by account id as follow:</p>
+
+<html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">groupedBeneficiariesByAccountID</span> = <span class="variable">Dictionary</span>(<span class="variable">grouping</span>: <span class="type">fetchedBeneficiaries</span>, <span class="variable">by</span>: \.<span class="type">ownerAccountID</span>)
+</code></pre></body></html>
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (Result&lt;[Beneficiary], Error&gt;) -&gt; Void</code></td>
+    <td><p>A result representing either a list of beneficiaries or an error.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="transfercontext.addbeneficiary(account:name:to:credentials:authentication:progress:completion:)">
+    <h3>
+        <code>add​Beneficiary(account:​name:​to:​credentials:​authentication:​progress:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">addBeneficiary</span>(<span class="variable">account</span> <span class="variable">beneficiaryAccount</span>: <a href="https://tink-ab.github.io/tink-link-ios/BeneficiaryAccount"><span class="type">BeneficiaryAccount</span></a>, <span class="variable">name</span>: <span class="type">String</span>, <span class="variable">to</span> <span class="variable">ownerAccount</span>: <a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>, <span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>? = <span class="keyword">nil</span>, <span class="variable">authentication</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">task</span>: <a href="https://tink-ab.github.io/tink-link-ios/AuthenticationTask"><span class="type">AuthenticationTask</span></a>) -&gt; <span class="type">Void</span>, <span class="variable">progress</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/AddBeneficiaryTask"><span class="type">AddBeneficiaryTask</span></a>.<span class="type">Status</span>) -&gt; <span class="type">Void</span> = { <span class="keyword">_</span> <span class="keyword">in</span> }, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/AddBeneficiaryTask"><span class="type">AddBeneficiaryTask</span></a></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Initiate the request for adding a beneficiary to the user's account.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>beneficiaries:write</p>
+</li>
+</ul>
+
+<p>You need to handle authentication changes in <code>authentication</code> to successfuly initiate an add beneficiary request.
+If needed, you can get the progress status change in <code>progress</code>, and present them accordingly.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">task</span> = <span class="variable">transferContext</span>.<span class="type">addBeneficiary</span>(
+    <span class="variable">account</span>: <span class="placeholder">&lt;#BeneficiaryAccount#&gt;</span>,
+    <span class="variable">name</span>: <span class="placeholder">&lt;#String#&gt;</span>,
+    <span class="variable">to</span>: <span class="placeholder">&lt;#Account#&gt;</span>,
+    <span class="variable">authentication</span>: { <span class="variable">task</span> <span class="keyword">in</span>
+        <span class="keyword">switch</span> <span class="variable">task</span> {
+        <span class="keyword">case</span> .<span class="variable">awaitingSupplementalInformation</span>(<span class="keyword">let</span> <span class="variable">task</span>):
+            <span class="placeholder">&lt;#Present form for supplemental information task#&gt;</span>
+        <span class="keyword">case</span> .<span class="variable">awaitingThirdPartyAppAuthentication</span>(<span class="keyword">let</span> <span class="variable">task</span>):
+            <span class="placeholder">&lt;#Handle the third party app deep link URL#&gt;</span>
+         }
+    },
+    <span class="variable">progress</span>: { <span class="variable">status</span> <span class="keyword">in</span>
+        <span class="placeholder">&lt;#Present the progress status change if needed#&gt;</span>
+    },
+    <span class="variable">completion</span>: { <span class="variable">result</span> <span class="keyword">in</span>
+        <span class="placeholder">&lt;#Handle result#&gt;</span>
+    }
+)
+</code></pre></body></html>
+<aside class="note">
+    <p>You need to retain the returned task until the add beneficiary request has completed.</p>
+
+</aside>
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>account</th>
+    <td><code class="type">Beneficiary​Account</code></td>
+    <td><p>The account for this beneficiary.</p>
+</td>
+</tr>
+<tr>
+    <th>name</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name for this beneficiary.</p>
+</td>
+</tr>
+<tr>
+    <th>to</th>
+    <td><code class="type">Account</code></td>
+    <td><p>The account that the beneficiary should be added to.</p>
+</td>
+</tr>
+<tr>
+    <th>credentials</th>
+    <td><code class="type">Credentials?</code></td>
+    <td><p>Optional, the <code>Credentials</code> used to add the beneficiary. Note that you can use different credentials than the account belongs to. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations. If <code>nil</code> the beneficiary will be added to the credentials of the account.</p>
+</td>
+</tr>
+<tr>
+    <th>authentication</th>
+    <td><code class="type">@escaping (_ task:​ Authentication​Task) -&gt; Void</code></td>
+    <td><p>Indicates the authentication task for adding a beneficiary.</p>
+</td>
+</tr>
+<tr>
+    <th>task</th>
+    <td></td>
+    <td><p>Represents an authentication task that needs to be completed by the user.</p>
+</td>
+</tr>
+<tr>
+    <th>progress</th>
+    <td><code class="type">@escaping (_ status:​ Add​Beneficiary​Task.​Status) -&gt; Void</code></td>
+    <td><p>Optional, indicates the state changes of adding a beneficiary.</p>
+</td>
+</tr>
+<tr>
+    <th>status</th>
+    <td></td>
+    <td><p>Indicates the status of the beneficiary being added.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;Void, Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the adding beneficiary has been initiated successfuly or if it failed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result representing either an adding beneficiary initiation success or an error.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>The initiate transfer task.</p>
+
+</div>
+<div role="article" class="function" id="transfercontext.addbeneficiary(account:name:toaccountwithid:oncredentialswithid:authentication:progress:completion:)">
+    <h3>
+        <code>add​Beneficiary(account:​name:​to​Account​With​ID:​on​Credentials​With​ID:​authentication:​progress:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">addBeneficiary</span>(<span class="variable">account</span> <span class="variable">beneficiaryAccount</span>: <a href="https://tink-ab.github.io/tink-link-ios/BeneficiaryAccount"><span class="type">BeneficiaryAccount</span></a>, <span class="variable">name</span>: <span class="type">String</span>, <span class="variable">toAccountWithID</span> <span class="variable">ownerAccountID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>.<span class="type">ID</span>, <span class="variable">onCredentialsWithID</span> <span class="variable">credentialsID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">authentication</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">task</span>: <a href="https://tink-ab.github.io/tink-link-ios/AuthenticationTask"><span class="type">AuthenticationTask</span></a>) -&gt; <span class="type">Void</span>, <span class="variable">progress</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/AddBeneficiaryTask"><span class="type">AddBeneficiaryTask</span></a>.<span class="type">Status</span>) -&gt; <span class="type">Void</span> = { <span class="keyword">_</span> <span class="keyword">in</span> }, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/AddBeneficiaryTask"><span class="type">AddBeneficiaryTask</span></a></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Initiate the request for adding a beneficiary to the user's account.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>beneficiaries:write</p>
+</li>
+</ul>
+
+<p>You need to handle authentication changes in <code>authentication</code> to successfuly initiate an add beneficiary request.
+If needed, you can get the progress status change in <code>progress</code>, and present them accordingly.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">task</span> = <span class="variable">transferContext</span>.<span class="type">addBeneficiary</span>(
+    <span class="variable">account</span>: <span class="placeholder">&lt;#BeneficiaryAccount#&gt;</span>,
+    <span class="variable">name</span>: <span class="placeholder">&lt;#String#&gt;</span>,
+    <span class="variable">toAccountWithID</span>: <span class="placeholder">&lt;#Account.ID#&gt;</span>
+    <span class="variable">onCredentialsWithID</span>: <span class="placeholder">&lt;#Credentials.ID#&gt;</span>,
+    <span class="variable">authentication</span>: { <span class="variable">task</span> <span class="keyword">in</span>
+        <span class="keyword">switch</span> <span class="variable">task</span> {
+        <span class="keyword">case</span> .<span class="variable">awaitingSupplementalInformation</span>(<span class="keyword">let</span> <span class="variable">task</span>):
+            <span class="placeholder">&lt;#Present form for supplemental information task#&gt;</span>
+        <span class="keyword">case</span> .<span class="variable">awaitingThirdPartyAppAuthentication</span>(<span class="keyword">let</span> <span class="variable">task</span>):
+            <span class="placeholder">&lt;#Handle the third party app deep link URL#&gt;</span>
+         }
+    },
+    <span class="variable">progress</span>: { <span class="variable">status</span> <span class="keyword">in</span>
+        <span class="placeholder">&lt;#Present the progress status change if needed#&gt;</span>
+    },
+    <span class="variable">completion</span>: { <span class="variable">result</span> <span class="keyword">in</span>
+        <span class="placeholder">&lt;#Handle result#&gt;</span>
+    }
+)
+</code></pre></body></html>
+<aside class="note">
+    <p>You need to retain the returned task until the add beneficiary request has completed.</p>
+
+</aside>
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>account</th>
+    <td><code class="type">Beneficiary​Account</code></td>
+    <td><p>The account for this beneficiary.</p>
+</td>
+</tr>
+<tr>
+    <th>name</th>
+    <td><code class="type">String</code></td>
+    <td><p>The name for this beneficiary.</p>
+</td>
+</tr>
+<tr>
+    <th>to​Account​With​ID</th>
+    <td><code class="type">Account.​ID</code></td>
+    <td><p>The source account ID for adding a beneficiary.</p>
+</td>
+</tr>
+<tr>
+    <th>on​Credentials​With​ID</th>
+    <td><code class="type">Credentials.​ID</code></td>
+    <td><p>The ID of the <code>Credentials</code> used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations.</p>
+</td>
+</tr>
+<tr>
+    <th>authentication</th>
+    <td><code class="type">@escaping (_ task:​ Authentication​Task) -&gt; Void</code></td>
+    <td><p>Indicates the authentication task for adding a beneficiary.</p>
+</td>
+</tr>
+<tr>
+    <th>task</th>
+    <td></td>
+    <td><p>Represents an authentication task that needs to be completed by the user.</p>
+</td>
+</tr>
+<tr>
+    <th>progress</th>
+    <td><code class="type">@escaping (_ status:​ Add​Beneficiary​Task.​Status) -&gt; Void</code></td>
+    <td><p>Optional, indicates the state changes of adding a beneficiary.</p>
+</td>
+</tr>
+<tr>
+    <th>status</th>
+    <td></td>
+    <td><p>Indicates the status of the beneficiary being added.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;Void, Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the adding beneficiary has been initiated successfuly or if it failed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result representing either an adding beneficiary initiation success or an error.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>The initiate transfer task.</p>
+
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T11:45:38+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

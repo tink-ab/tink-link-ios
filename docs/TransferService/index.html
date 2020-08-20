@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - TransferService</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#requirements">Requirements</a><ul><li class="function"><a href="#transferservice.accounts(destinationuris:completion:)">accounts(destination​URIs:​completion:​)</a></li><li class="function"><a href="#transferservice.transfer(amount:currency:credentialsid:transferid:sourceuri:destinationuri:sourcemessage:destinationmessage:duedate:redirecturi:completion:)">transfer(amount:​currency:​credentials​ID:​transfer​ID:​source​URI:​destination​URI:​source​Message:​destination​Message:​due​Date:​redirect​URI:​completion:​)</a></li><li class="function"><a href="#transferservice.transferstatus(id:completion:)">transfer​Status(id:​completion:​)</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Protocol</small>
+    <code class="name">Transfer​Service</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">protocol</span> <span class="type">TransferService</span></code></pre></body></html>
+
+
+
+
+    <section id="requirements">
+        <h2>Requirements</h2>
+
+        <div role="article" class="function" id="transferservice.accounts(destinationuris:completion:)">
+    <h3>
+        <code>accounts(destination​URIs:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">accounts</span>(<span class="variable">destinationURIs</span>: [<span class="type">URL</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="transferservice.transfer(amount:currency:credentialsid:transferid:sourceuri:destinationuri:sourcemessage:destinationmessage:duedate:redirecturi:completion:)">
+    <h3>
+        <code>transfer(amount:​currency:​credentials​ID:​transfer​ID:​source​URI:​destination​URI:​source​Message:​destination​Message:​due​Date:​redirect​URI:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">transfer</span>(<span class="variable">amount</span>: <span class="type">Decimal</span>, <span class="variable">currency</span>: <a href="https://tink-ab.github.io/tink-link-ios/CurrencyCode"><span class="type">CurrencyCode</span></a>, <span class="variable">credentialsID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>?, <span class="variable">transferID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Transfer"><span class="type">Transfer</span></a>.<span class="type">ID</span>?, <span class="variable">sourceURI</span>: <span class="type">String</span>, <span class="variable">destinationURI</span>: <span class="type">String</span>, <span class="variable">sourceMessage</span>: <span class="type">String</span>?, <span class="variable">destinationMessage</span>: <span class="type">String</span>, <span class="variable">dueDate</span>: <span class="type">Date</span>?, <span class="variable">redirectURI</span>: <span class="type">URL</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/SignableOperation"><span class="type">SignableOperation</span></a>, <span class="type">Error</span>&gt;
+        ) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="transferservice.transferstatus(id:completion:)">
+    <h3>
+        <code>transfer​Status(id:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">transferStatus</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Transfer"><span class="type">Transfer</span></a>.<span class="type">ID</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/SignableOperation"><span class="type">SignableOperation</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+    </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T11:45:38+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>
