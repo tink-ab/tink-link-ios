@@ -42,7 +42,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-	bundle exec pod install --project-directory="./TinkLinkTester/"
+	bundle exec pod install --repo-update --project-directory="./TinkLinkTester/"
 	xcodebuild test \
 		-workspace ./TinkLinkTester/TinkLink.xcworkspace \
 		-scheme TinkLinkTester \
