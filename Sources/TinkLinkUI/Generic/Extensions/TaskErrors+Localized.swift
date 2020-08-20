@@ -59,8 +59,7 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return Strings.Credentials.Error.doesNotSupportAuthenticatingOnAnotherDevice
         case .decodingQRCodeImageFailed:
-            // TODO: Copy
-            return "Failed to decode the QR code image"
+            return Strings.Credentials.Error.decodingQRCodeImageFailed
         }
     }
 

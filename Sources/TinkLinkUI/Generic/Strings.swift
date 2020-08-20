@@ -74,6 +74,8 @@ enum Strings {
 
             /// Title for error shown when a bank does not support authenticating on another device.
             static let doesNotSupportAuthenticatingOnAnotherDevice = NSLocalizedString("Credentials.Error.DoesNotSupportAuthenticatingOnAnotherDevice", tableName: tableName, bundle: bundle, value: "This bank does not support authenticating on another device", comment: "Title for error shown when a bank does not support authenticating on another device.")
+
+            static let decodingQRCodeImageFailed = NSLocalizedString("Credentials.Error.DecodingQRCodeImageFailed", tableName: tableName, bundle: bundle, value: "Failed to decode the QR code image", comment: "Title for error shown when the QR code image to scan for authenticating credentials failed decoding.")
         }
     }
 
