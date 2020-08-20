@@ -57,8 +57,7 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .downloadRequired(let title, _, _):
             return title
         case .doesNotSupportAuthenticatingOnAnotherDevice:
-            // TODO: Copy
-            return "This bank does not support authenticating on another device"
+            return Strings.Credentials.Error.doesNotSupportAuthenticatingOnAnotherDevice
         case .decodingQRCodeImageFailed:
             // TODO: Copy
             return "Failed to decode the QR code image"

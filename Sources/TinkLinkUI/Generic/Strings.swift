@@ -71,6 +71,9 @@ enum Strings {
 
             /// Title for error shown when a temporary failure occured while adding credentials.
             static let temporaryFailure = NSLocalizedString("Credentials.Error.TemporaryFailure", tableName: tableName, bundle: bundle, value: "Temporary error", comment: "Title for error shown when a temporary failure occured while adding credentials.")
+
+            /// Title for error shown when a bank does not support authenticating on another device.
+            static let doesNotSupportAuthenticatingOnAnotherDevice = NSLocalizedString("Credentials.Error.DoesNotSupportAuthenticatingOnAnotherDevice", tableName: tableName, bundle: bundle, value: "This bank does not support authenticating on another device", comment: "Title for error shown when a bank does not support authenticating on another device.")
         }
     }
 
