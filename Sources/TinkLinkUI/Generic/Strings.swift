@@ -73,9 +73,9 @@ enum Strings {
             static let temporaryFailure = NSLocalizedString("Credentials.Error.TemporaryFailure", tableName: tableName, bundle: bundle, value: "Temporary error", comment: "Title for error shown when a temporary failure occured while adding credentials.")
 
             /// Title for error shown when a bank does not support authenticating on another device.
-            static let doesNotSupportAuthenticatingOnAnotherDevice = NSLocalizedString("Credentials.Error.DoesNotSupportAuthenticatingOnAnotherDevice", tableName: tableName, bundle: bundle, value: "This bank does not support authenticating on another device", comment: "Title for error shown when a bank does not support authenticating on another device.")
+            static let doesNotSupportAuthenticatingOnAnotherDevice = NSLocalizedString("Credentials.Error.DoesNotSupportAuthenticatingOnAnotherDevice", tableName: tableName, bundle: bundle, value: "This bank does not support authenticating on another device.", comment: "Title for error shown when a bank does not support authenticating on another device.")
 
-            static let decodingQRCodeImageFailed = NSLocalizedString("Credentials.Error.DecodingQRCodeImageFailed", tableName: tableName, bundle: bundle, value: "Failed to decode the QR code image", comment: "Title for error shown when the QR code image to scan for authenticating credentials failed decoding.")
+            static let decodingQRCodeImageFailed = NSLocalizedString("Credentials.Error.DecodingQRCodeImageFailed", tableName: tableName, bundle: bundle, value: "Failed to decode the QR code image.", comment: "Title for error shown when the QR code image to scan for authenticating credentials failed decoding.")
         }
     }
 
