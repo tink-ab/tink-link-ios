@@ -217,7 +217,6 @@ public final class CredentialsContext {
         return task
     }
 
-    /// :nodoc:
     @available(*, deprecated, message: "Use update(_:form:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:progressHandler:completion) method instead.")
     public func update(
         _ credentials: Credentials,
