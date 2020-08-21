@@ -144,7 +144,7 @@ extension AddCredentialsViewController {
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let field = form.fields[section]
         if let error = formError, let fieldError = error[fieldName: field.name] {
-            return fieldError.errorDescription
+            return fieldError.reason
         } else {
             return field.attributes.helpText
         }
