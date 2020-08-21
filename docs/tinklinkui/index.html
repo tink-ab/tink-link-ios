@@ -1,211 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>TinkLinkUI  Reference</title>
-    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
-    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
-    <meta charset='utf-8'>
-    <script src="js/jquery.min.js" defer></script>
-    <script src="js/jazzy.js" defer></script>
-    
-  </head>
-  <body>
-    <a title="TinkLinkUI  Reference"></a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLinkUI - TinkLinkUI</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/tinklinkui/all.css" media="all" />
+</head>
+<body>
     <header>
-      <div class="content-wrapper">
-        <p><a href="index.html">TinkLinkUI 0.14.2 Docs</a> (96% documented)</p>
-        <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="img/gh.png"/>View on GitHub</a></p>
-      </div>
+        <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/">
+            <strong>
+                TinkLinkUI
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
     </header>
-    <div class="content-wrapper">
-      <p id="breadcrumbs">
-        <a href="index.html">TinkLinkUI Reference</a>
-        <img id="carat" src="img/carat.png" />
-        TinkLinkUI  Reference
-      </p>
-    </div>
-    <div class="content-wrapper">
-      <nav class="sidebar">
-        <ul class="nav-groups">
-          <li class="nav-group-name">
-            <a href="Classes.html">Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Classes/ColorProvider.html">ColorProvider</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/FontProvider.html">FontProvider</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/TinkLinkViewController.html">TinkLinkViewController</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/TinkLinkViewController/PrefillStrategy.html">– PrefillStrategy</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/TinkLinkViewController/ProviderPredicate.html">– ProviderPredicate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/TinkLinkViewController/Operation.html">– Operation</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Enums.html">Enumerations</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Enums/Appearance.html">Appearance</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums.html#/s:10TinkLinkUI5ColorO">Color</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/Font.html">Font</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/Font/Weight.html">– Weight</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/TinkLinkError.html">TinkLinkError</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Extensions.html">Extensions</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Extensions/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Extensions/RefreshCredentialsTask.html#/s:8TinkLink22RefreshCredentialsTaskC5ErrorO">– Error</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Protocols.html">Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Protocols/AppearanceProviding.html">AppearanceProviding</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/ColorProviding.html">ColorProviding</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/FontProviding.html">FontProviding</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Structs.html">Structures</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Structs/AppearanceProvider.html">AppearanceProvider</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-      <article class="main-content">
-        <section>
-          <section class="section">
-            
-            <p><img src="https://img.shields.io/badge/platform-iOS-orange.svg" alt="Platform">
-<img src="https://img.shields.io/badge/languages-swift-orange.svg" alt="Languages"></p>
-<h1 id='tink-link-ios' class='heading'>Tink Link iOS</h1>
-<h2 id='prerequisites' class='heading'>Prerequisites</h2>
 
-<ol>
-<li>Follow the <a href="https://docs.tink.com/resources/getting-started/set-up-your-account">getting started guide</a> to retrieve your <code>client_id</code>.</li>
-<li>Add a deep link to your app with scheme and host (<code>yourapp://host</code>) to the <a href="https://console.tink.com/overview">list of redirect URIs under your app&rsquo;s settings</a>.</li>
-</ol>
-<h2 id='requirements' class='heading'>Requirements</h2>
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
 
-<ul>
-<li>iOS 11.0</li>
-<li>Xcode 11.4</li>
-</ul>
-<h2 id='installation' class='heading'>Installation</h2>
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#classes">Classes</a></li><li><a href="#structures">Structures</a></li><li><a href="#enumerations">Enumerations</a></li><li><a href="#protocols">Protocols</a></li></ol>
+        </div>
+    </nav>
 
-<p>There are two targets TinkLink and TinkLinkUI in the package Tink Link.</p>
+    <main>
+        <article>
+                <section id="classes">
+        <h2>Classes</h2>
+        <dl>
+            <dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/ColorProvider" title="class - ColorProvider">
+        Color​Provider
+    </a>
+</dt>
+<dd>
+    <p>A type that can provide custom colors for Tink views.</p>
 
-<ul>
-<li><p>TinkLink is a framework for aggregating bank credentials, you can build your own UI, suitable for enterprise plan customers that are aggregating with permanent users.</p></li>
-<li><p>TinkLinkUI is a framework with a predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast, suitable for customer aggregating with temporary users.</p></li>
-</ul>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/FontProvider" title="class - FontProvider">
+        Font​Provider
+    </a>
+</dt>
+<dd>
+    <p>A type that can provide custom fonts for Tink views.</p>
 
-<p>See the difference about the <a href="https://docs.tink.com/resources/tutorials/permanent-users">permanent user and temporary user</a></p>
-<h3 id='integrate-tinklink-into-your-project-using-swift-package-manager-cocoapods-or-carthage' class='heading'>Integrate TinkLink into your project using Swift Package Manager, CocoaPods or Carthage</h3>
-<h4 id='swift-package-manager' class='heading'>Swift Package Manager</h4>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkViewController" title="class - TinkLinkViewController">
+        Tink​Link​View​Controller
+    </a>
+</dt>
+<dd>
+    <p>A view controller for aggregating credentials.</p>
 
-<p>Follow these instructions to <a href="https://help.apple.com/xcode/mac/current/#/devb83d64851">link a target to a package product</a> and enter this URL <code>https://github.com/tink-ab/tink-link-ios</code> when asked for a package repository.</p>
+</dd>
+        </dl>
+    </section>
+    <section id="structures">
+        <h2>Structures</h2>
+        <dl>
+            <dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/AppearanceProvider" title="structure - AppearanceProvider">
+        Appearance​Provider
+    </a>
+</dt>
+<dd>
+    <p>An appearance provider that can provide colors and fonts for Tink views.</p>
 
-<p>When finished, you should be able to <code>import TinkLink</code> within your project.</p>
-<h4 id='using-cocoapods' class='heading'>Using CocoaPods</h4>
+</dd>
+        </dl>
+    </section>
+    <section id="enumerations">
+        <h2>Enumerations</h2>
+        <dl>
+            <dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/Appearance" title="enumeration - Appearance">
+        Appearance
+    </a>
+</dt>
+<dd>
+    <p>A custom appearance provider.</p>
 
-<p>Add <code>pod &#39;TinkLink&#39;</code> to your project&rsquo;s Podfile. Run <code>pod install</code> to install the TinkLink framework.</p>
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/Color" title="enumeration - Color">
+        Color
+    </a>
+</dt>
+<dd>
+    <p>A namespace for custom colors.</p>
 
-<p>When finished, you should be able to <code>import TinkLink</code> within your project.</p>
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/Font" title="enumeration - Font">
+        Font
+    </a>
+</dt>
+<dd>
+    <p>A type that represents a specific font.</p>
 
-<p>Use <code>pod update TinkLink</code> to update to the newer version.</p>
-<h4 id='using-carthage' class='heading'>Using Carthage</h4>
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/Font_Weight" title="enumeration - Font.Weight">
+        Font.​Weight
+    </a>
+</dt>
+<dd>
+    <p>A type that determines the weight of a font.</p>
 
-<p>Add <code>github &quot;tink-ab/tink-link-ios&quot;</code> to your project&rsquo;s Cartfile. Run <code>carthage update</code> to install TinkLink.</p>
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/HumanEnumeratedFormatter_Style" title="enumeration - HumanEnumeratedFormatter.Style">
+        Human​Enumerated​Formatter.​Style
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkError" title="enumeration - TinkLinkError">
+        Tink​Link​Error
+    </a>
+</dt>
+<dd>
+    <p>An error returned by TinkLinkUI when something went wrong during the aggregation.</p>
 
-<p>When finished, you should be able to <code>import TinkLink</code> within your project.</p>
-<h3 id='integrate-tinklinkui-into-your-project-using-cocoapods' class='heading'>Integrate TinkLinkUI into your project using CocoaPods.</h3>
-<h4 id='using-cocoapods' class='heading'>Using CocoaPods</h4>
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkViewController_PrefillStrategy" title="enumeration - TinkLinkViewController.PrefillStrategy">
+        Tink​Link​View​Controller.​Prefill​Strategy
+    </a>
+</dt>
+<dd>
+    <p>Strategy for different types of prefilling</p>
 
-<p>Add <code>pod &#39;TinkLinkUI&#39;</code> to your project&rsquo;s Podfile. Run <code>pod install</code> to install the TinkLinkUI framework.</p>
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkViewController_ProviderPredicate" title="enumeration - TinkLinkViewController.ProviderPredicate">
+        Tink​Link​View​Controller.​Provider​Predicate
+    </a>
+</dt>
+<dd>
+    <p>Strategy for what to fetch</p>
 
-<p>When finished, you should be able to <code>import TinkLink</code> and <code>import TinkLinkUI</code> within your project.</p>
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkViewController_Operation" title="enumeration - TinkLinkViewController.Operation">
+        Tink​Link​View​Controller.​Operation
+    </a>
+</dt>
+<dd>
+    <p>Strategy for different operations.</p>
 
-<p>Use <code>pod update TinkLinkUI</code> to update to the newer version.</p>
-<h2 id='configuration' class='heading'>Configuration</h2>
+</dd>
+        </dl>
+    </section>
+    <section id="protocols">
+        <h2>Protocols</h2>
+        <dl>
+            <dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/AppearanceProviding" title="protocol - AppearanceProviding">
+        Appearance​Providing
+    </a>
+</dt>
+<dd>
+    <p>A type that can provide colors and fonts for Tink views.</p>
 
-<p>To start using Tink Link, you will need to configure a <code>Tink</code> instance with your client ID and redirect URI.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Tink</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="nv">clientID</span><span class="p">:</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">String</span><span class="err">#</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">redirectURI</span><span class="p">:</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">URL</span><span class="err">#</span><span class="o">&gt;</span><span class="p">)</span>
-<span class="kt">Tink</span><span class="o">.</span><span class="nf">configure</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
-</code></pre>
-<h2 id='redirect-handling' class='heading'>Redirect handling</h2>
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/ColorProviding" title="protocol - ColorProviding">
+        Color​Providing
+    </a>
+</dt>
+<dd>
+    <p>A type that can provide colors for Tink views.</p>
 
-<p>You will need to add a custom URL scheme or support universal links to handle redirects from a third party authentication flow back into your app.</p>
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/FontProviding" title="protocol - FontProviding">
+        Font​Providing
+    </a>
+</dt>
+<dd>
+    <p>A type that can provide fonts for Tink views.</p>
 
-<p>Follow the instructions in one of these links to learn how to set this up:</p>
+</dd>
+        </dl>
+    </section>
+        </article>
+    </main>
 
-<ul>
-<li><a href="https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app">Defining a Custom URL Scheme for Your App</a></li>
-<li><a href="https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content">Allowing Apps and Websites to Link to Your Content</a></li>
-</ul>
-<h2 id='tutorials' class='heading'>Tutorials</h2>
-
-<ul>
-<li><a href="https://docs.tink.com/resources/tutorials/tink-link-sdk-ios-tutorial">Tink Link Tutorial</a> This tutorial outlines how to use the different classes and types provided by TinkLink.</li>
-<li><a href="https://docs.tink.com/resources/tutorials/tink-link-ui-sdk-ios-tutorial">Tink Link UI Tutorial</a> This tutorial outlines how integrate Tink Link UI in your app.</li>
-</ul>
-<h2 id='examples' class='heading'>Examples</h2>
-
-<p>These examples shows how to build a complete aggregation flow using TinkLink or TinkLinkUI.</p>
-
-<ul>
-<li><a href="Examples/PermanentUserExample">Permanent User</a></li>
-<li><a href="Examples/PermanentUserExample">Permanent User (SwiftUI)</a></li>
-<li><a href="Examples/TinkLinkUIExample">Tink Link UI</a></li>
-</ul>
-<h2 id='developer-documentation' class='heading'>Developer Documentation</h2>
-
-<ul>
-<li><a href="https://tink-ab.github.io/tink-link-ios">Tink Link iOS Reference</a></li>
-<li><a href="https://tink-ab.github.io/tink-link-ios/tinklinkui">Tink Link UI iOS Reference</a></li>
-</ul>
-
-          </section>
-        </section>
-        <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-08-11)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
-        </section>
-      </article>
-    </div>
-  </body>
-</div>
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T13:58:42+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
 </html>

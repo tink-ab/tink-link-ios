@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - InitiateTransferTask.Status</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#initiatetransfertask.status.created">created</a></li><li class="case"><a href="#initiatetransfertask.status.authenticating">authenticating</a></li><li class="case"><a href="#initiatetransfertask.status.updating">updating</a></li><li class="case"><a href="#initiatetransfertask.status.executing">executing</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Enumeration</small>
+    <code class="name">Initiate​Transfer​Task.​Status</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Status</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Indicates the status of a transfer initiation.</p>
+
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Member Of</h3>
+<dl>
+    <dt class="class"><code><a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask">InitiateTransferTask</a></code></dt>
+<dd><p>A task that manages the authentication and status of a transfer.</p>
+</dd>
+</dl>
+</section>
+    <section id="enumeration cases">
+        <h2>Enumeration Cases</h2>
+
+        <div role="article" class="case" id="initiatetransfertask.status.created">
+    <h3>
+        <code>created</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">created</span>(: <a href="https://tink-ab.github.io/tink-link-ios/Transfer"><span class="type">Transfer</span></a>.<span class="type">ID</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The transfer request has been created.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="initiatetransfertask.status.authenticating">
+    <h3>
+        <code>authenticating</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">authenticating</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The user needs to be authenticated.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="initiatetransfertask.status.updating">
+    <h3>
+        <code>updating</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">updating</span>(<span class="variable">status</span>: <span class="type">String</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The credentials are updating.</p>
+
+</div>
+<div class="discussion">
+    <p>The payload from the backend can be found in the associated value.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="initiatetransfertask.status.executing">
+    <h3>
+        <code>executing</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">executing</span>(<span class="variable">status</span>: <span class="type">String</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>User has been successfully authenticated, the transfer initiation is now being executed.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T13:58:38+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

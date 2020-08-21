@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - Provider.FieldSpecification</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#provider.fieldspecification.fielddescription">field​Description</a></li><li class="variable"><a href="#provider.fieldspecification.hint">hint</a></li><li class="variable"><a href="#provider.fieldspecification.maxlength">max​Length</a></li><li class="variable"><a href="#provider.fieldspecification.minlength">min​Length</a></li><li class="variable"><a href="#provider.fieldspecification.ismasked">is​Masked</a></li><li class="variable"><a href="#provider.fieldspecification.isnumeric">is​Numeric</a></li><li class="variable"><a href="#provider.fieldspecification.isimmutable">is​Immutable</a></li><li class="variable"><a href="#provider.fieldspecification.isoptional">is​Optional</a></li><li class="variable"><a href="#provider.fieldspecification.name">name</a></li><li class="variable"><a href="#provider.fieldspecification.initialvalue">initial​Value</a></li><li class="variable"><a href="#provider.fieldspecification.pattern">pattern</a></li><li class="variable"><a href="#provider.fieldspecification.patternerror">pattern​Error</a></li><li class="variable"><a href="#provider.fieldspecification.helptext">help​Text</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#provider.fieldspecification.setimmutable(initialvalue:)">set​Immutable(initial​Value:​)</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Structure</small>
+    <code class="name">Provider.​Field​Specification</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">FieldSpecification</span></code></pre></body></html>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Member Of</h3>
+<dl>
+    <dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/Provider">Provider</a></code></dt>
+<dd><p>The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses the financial institution, metadata about the financialinstitution, and what financial information that can be accessed.</p>
+</dd>
+</dl>
+</section>
+    <section id="properties">
+        <h2>Properties</h2>
+
+        <div role="article" class="variable" id="provider.fieldspecification.fielddescription">
+    <h3>
+        <code>field​Description</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">fieldDescription</span>: <span class="type">String</span></code></pre></body></html>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.hint">
+    <h3>
+        <code>hint</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">hint</span>: <span class="type">String</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Gray text in the input view (Similar to a placeholder)</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.maxlength">
+    <h3>
+        <code>max​Length</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">maxLength</span>: <span class="type">Int</span>?</code></pre></body></html>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.minlength">
+    <h3>
+        <code>min​Length</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">minLength</span>: <span class="type">Int</span>?</code></pre></body></html>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.ismasked">
+    <h3>
+        <code>is​Masked</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">isMasked</span>: <span class="type">Bool</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Controls whether or not the field should be shown masked, like a password field.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.isnumeric">
+    <h3>
+        <code>is​Numeric</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">isNumeric</span>: <span class="type">Bool</span></code></pre></body></html>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.isimmutable">
+    <h3>
+        <code>is​Immutable</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">isImmutable</span>: <span class="type">Bool</span></code></pre></body></html>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.isoptional">
+    <h3>
+        <code>is​Optional</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">isOptional</span>: <span class="type">Bool</span></code></pre></body></html>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.name">
+    <h3>
+        <code>name</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">name</span>: <span class="type">String</span></code></pre></body></html>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.initialvalue">
+    <h3>
+        <code>initial​Value</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">initialValue</span>: <span class="type">String</span></code></pre></body></html>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.pattern">
+    <h3>
+        <code>pattern</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">pattern</span>: <span class="type">String</span></code></pre></body></html>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.patternerror">
+    <h3>
+        <code>pattern​Error</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">patternError</span>: <span class="type">String</span></code></pre></body></html>
+</div>
+<div role="article" class="variable" id="provider.fieldspecification.helptext">
+    <h3>
+        <code>help​Text</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">helpText</span>: <span class="type">String</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Text displayed next to the input field</p>
+
+</div>
+</div>
+    </section>
+    <section id="methods">
+        <h2>Methods</h2>
+
+        <div role="article" class="function" id="provider.fieldspecification.setimmutable(initialvalue:)">
+    <h3>
+        <code>set​Immutable(initial​Value:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="attribute">mutating</span> <span class="keyword">func</span> <span class="function">setImmutable</span>(<span class="variable">initialValue</span> <span class="variable">newValue</span>: <span class="type">String</span>)</code></pre></body></html>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T13:58:38+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

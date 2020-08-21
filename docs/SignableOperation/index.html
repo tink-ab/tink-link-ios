@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - SignableOperation</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li></ul></li><li><a href="#nested type aliases">Nested Type Aliases</a><ul><li class="typealias"><a href="#signableoperation.id">ID</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#signableoperation.created">created</a></li><li class="variable"><a href="#signableoperation.credentialsid">credentials​ID</a></li><li class="variable"><a href="#signableoperation.id">id</a></li><li class="variable"><a href="#signableoperation.status">status</a></li><li class="variable"><a href="#signableoperation.statusmessage">status​Message</a></li><li class="variable"><a href="#signableoperation.kind">kind</a></li><li class="variable"><a href="#signableoperation.transferid">transfer​ID</a></li><li class="variable"><a href="#signableoperation.updated">updated</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Structure</small>
+    <code class="name">Signable​Operation</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">SignableOperation</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>SignableOperation object with the status of the transfer.</p>
+
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Nested Types</h3>
+<dl>
+    <dt class="enumeration"><code><a href="https://tink-ab.github.io/tink-link-ios/SignableOperation_Status">SignableOperation.Status</a></code></dt>
+<dd></dd>
+<dt class="enumeration"><code><a href="https://tink-ab.github.io/tink-link-ios/SignableOperation_Kind">SignableOperation.Kind</a></code></dt>
+<dd></dd>
+</dl>
+</section>
+    <section id="nested type aliases">
+        <h2>Nested Type Aliases</h2>
+
+        <div role="article" class="typealias" id="signableoperation.id">
+    <h3>
+        <code>ID</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">typealias</span> <span class="variable">ID</span> = <a href="https://tink-ab.github.io/tink-link-ios/Identifier"><span class="type">Identifier</span></a>&lt;<a href="https://tink-ab.github.io/tink-link-ios/SignableOperation"><span class="type">SignableOperation</span></a>&gt;</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>A unique identifier of a <code>SignableOperation</code>.</p>
+
+</div>
+</div>
+    </section>
+    <section id="properties">
+        <h2>Properties</h2>
+
+        <div role="article" class="variable" id="signableoperation.created">
+    <h3>
+        <code>created</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">created</span>: <span class="type">Date</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The timestamp of the creation of the operation.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="signableoperation.credentialsid">
+    <h3>
+        <code>credentials​ID</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">credentialsID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The ID of the Credentials used to make the operation.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="signableoperation.id">
+    <h3>
+        <code>id</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">id</span>: <span class="type">ID</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The unique identifier of this operation.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="signableoperation.status">
+    <h3>
+        <code>status</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">status</span>: <span class="type">Status</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The transfer status. The value of this field changes during payment initiation according to <code>/resources/payments/payment-status-transitions</code></p>
+
+</div>
+</div>
+<div role="article" class="variable" id="signableoperation.statusmessage">
+    <h3>
+        <code>status​Message</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">statusMessage</span>: <span class="type">String</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>A message with additional information regarding the current status of the transfer.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="signableoperation.kind">
+    <h3>
+        <code>kind</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">kind</span>: <span class="type">Kind</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The type of operation.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="signableoperation.transferid">
+    <h3>
+        <code>transfer​ID</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">transferID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Transfer"><span class="type">Transfer</span></a>.<span class="type">ID</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The ID of the actual transfer.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="signableoperation.updated">
+    <h3>
+        <code>updated</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">updated</span>: <span class="type">Date</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The timestamp of the last update of the operation.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T13:58:41+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - Credentials.ThirdPartyAppAuthentication</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#credentials.thirdpartyappauthentication.downloadtitle">download​Title</a></li><li class="variable"><a href="#credentials.thirdpartyappauthentication.downloadmessage">download​Message</a></li><li class="variable"><a href="#credentials.thirdpartyappauthentication.upgradetitle">upgrade​Title</a></li><li class="variable"><a href="#credentials.thirdpartyappauthentication.upgrademessage">upgrade​Message</a></li><li class="variable"><a href="#credentials.thirdpartyappauthentication.appstoreurl">app​Store​URL</a></li><li class="variable"><a href="#credentials.thirdpartyappauthentication.scheme">scheme</a></li><li class="variable"><a href="#credentials.thirdpartyappauthentication.deeplinkurl">deep​Link​URL</a></li><li class="variable"><a href="#credentials.thirdpartyappauthentication.hasautostarttoken">has​Auto​Start​Token</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Structure</small>
+    <code class="name">Credentials.​Third​Party​App​Authentication</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">ThirdPartyAppAuthentication</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Information about the third party authentication app.</p>
+
+</div>
+<div class="discussion">
+    <p>The ThirdPartyAppAuthentication contains specific deeplink urls and configuration for the third party app.</p>
+
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Member Of</h3>
+<dl>
+    <dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/Credentials">Credentials</a></code></dt>
+<dd><p>The credentials model represents users connected providers from where financial data is accessed.</p>
+</dd>
+</dl>
+</section>
+    <section id="properties">
+        <h2>Properties</h2>
+
+        <div role="article" class="variable" id="credentials.thirdpartyappauthentication.downloadtitle">
+    <h3>
+        <code>download​Title</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">downloadTitle</span>: <span class="type">String</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Title of the app to be downloaded.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="credentials.thirdpartyappauthentication.downloadmessage">
+    <h3>
+        <code>download​Message</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">downloadMessage</span>: <span class="type">String</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Detailed message about app to be downloaded.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="credentials.thirdpartyappauthentication.upgradetitle">
+    <h3>
+        <code>upgrade​Title</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">upgradeTitle</span>: <span class="type">String</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Title of the app to be upgraded.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="credentials.thirdpartyappauthentication.upgrademessage">
+    <h3>
+        <code>upgrade​Message</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">upgradeMessage</span>: <span class="type">String</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Detailed message about app to be upgraded</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="credentials.thirdpartyappauthentication.appstoreurl">
+    <h3>
+        <code>app​Store​URL</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">appStoreURL</span>: <span class="type">URL</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>URL to AppStore where the app can be downloaded on iOS.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="credentials.thirdpartyappauthentication.scheme">
+    <h3>
+        <code>scheme</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">scheme</span>: <span class="type">String</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Base scheme of the app on iOS.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="credentials.thirdpartyappauthentication.deeplinkurl">
+    <h3>
+        <code>deep​Link​URL</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">deepLinkURL</span>: <span class="type">URL</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>URL that the app should open on iOS. Can be of another scheme than app scheme.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="credentials.thirdpartyappauthentication.hasautostarttoken">
+    <h3>
+        <code>has​Auto​Start​Token</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">hasAutoStartToken</span>: <span class="type">Bool</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>A Boolean value indicating if the deeplink URL has an autostart token.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T13:58:38+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

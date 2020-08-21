@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLinkUI - TinkLinkViewController.Operation</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/tinklinkui/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/">
+            <strong>
+                TinkLinkUI
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#tinklinkviewcontroller.operation.create">create</a></li><li class="case"><a href="#tinklinkviewcontroller.operation.authenticate">authenticate</a></li><li class="case"><a href="#tinklinkviewcontroller.operation.refresh">refresh</a></li><li class="case"><a href="#tinklinkviewcontroller.operation.update">update</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Enumeration</small>
+    <code class="name">Tink​Link​View​Controller.​Operation</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Operation</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Strategy for different operations.</p>
+
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Member Of</h3>
+<dl>
+    <dt class="class"><code><a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkViewController">TinkLinkViewController</a></code></dt>
+<dd><p>A view controller for aggregating credentials.</p>
+</dd>
+</dl>
+</section>
+    <section id="enumeration cases">
+        <h2>Enumeration Cases</h2>
+
+        <div role="article" class="case" id="tinklinkviewcontroller.operation.create">
+    <h3>
+        <code>create</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">create</span>(<span class="variable">providerPredicate</span>: <span class="type">ProviderPredicate</span> = .<span class="variable">kinds</span>(.<span class="variable">default</span>))</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Create credentials.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="tinklinkviewcontroller.operation.authenticate">
+    <h3>
+        <code>authenticate</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">authenticate</span>(<span class="variable">credentialsID</span>: <span class="type">Credentials</span>.<span class="type">ID</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Authenticate credentials.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="tinklinkviewcontroller.operation.refresh">
+    <h3>
+        <code>refresh</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">refresh</span>(<span class="variable">credentialsID</span>: <span class="type">Credentials</span>.<span class="type">ID</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Refresh credentials.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="tinklinkviewcontroller.operation.update">
+    <h3>
+        <code>update</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">update</span>(<span class="variable">credentialsID</span>: <span class="type">Credentials</span>.<span class="type">ID</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Update credentials.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T13:58:42+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

@@ -41,8 +41,6 @@ public final class AuthorizationContext {
 
     /// Creates an authorization code with the requested scopes for the current user
     ///
-    /// :nodoc:
-    ///
     /// Once you have received the authorization code, you can exchange it for an access token on your backend and use the access token to access the user's data.
     /// Exchanging the authorization code for an access token requires the use of the client secret associated with your client identifier.
     ///

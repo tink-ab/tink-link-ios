@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - CredentialsService</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#requirements">Requirements</a><ul><li class="function"><a href="#credentialsservice.credentialslist(completion:)">credentials​List(completion:​)</a></li><li class="function"><a href="#credentialsservice.credentials(id:completion:)">credentials(id:​completion:​)</a></li><li class="function"><a href="#credentialsservice.create(providerid:refreshableitems:fields:appuri:callbackuri:completion:)">create(provider​ID:​refreshable​Items:​fields:​app​URI:​callback​URI:​completion:​)</a></li><li class="function"><a href="#credentialsservice.delete(id:completion:)">delete(id:​completion:​)</a></li><li class="function"><a href="#credentialsservice.update(id:providerid:appuri:callbackuri:fields:completion:)">update(id:​provider​ID:​app​URI:​callback​URI:​fields:​completion:​)</a></li><li class="function"><a href="#credentialsservice.refresh(id:refreshableitems:optin:completion:)">refresh(id:​refreshable​Items:​opt​In:​completion:​)</a></li><li class="function"><a href="#credentialsservice.addsupplementalinformation(id:fields:completion:)">add​Supplemental​Information(id:​fields:​completion:​)</a></li><li class="function"><a href="#credentialsservice.cancelsupplementalinformation(id:completion:)">cancel​Supplemental​Information(id:​completion:​)</a></li><li class="function"><a href="#credentialsservice.enable(id:completion:)">enable(id:​completion:​)</a></li><li class="function"><a href="#credentialsservice.disable(id:completion:)">disable(id:​completion:​)</a></li><li class="function"><a href="#credentialsservice.thirdpartycallback(state:parameters:completion:)">third​Party​Callback(state:​parameters:​completion:​)</a></li><li class="function"><a href="#credentialsservice.authenticate(id:completion:)">authenticate(id:​completion:​)</a></li><li class="function"><a href="#credentialsservice.qrcode(id:completion:)">qr​Code(id:​completion:​)</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Protocol</small>
+    <code class="name">Credentials​Service</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">protocol</span> <span class="type">CredentialsService</span></code></pre></body></html>
+
+
+
+
+    <section id="requirements">
+        <h2>Requirements</h2>
+
+        <div role="article" class="function" id="credentialsservice.credentialslist(completion:)">
+    <h3>
+        <code>credentials​List(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">credentialsList</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.credentials(id:completion:)">
+    <h3>
+        <code>credentials(id:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">credentials</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.create(providerid:refreshableitems:fields:appuri:callbackuri:completion:)">
+    <h3>
+        <code>create(provider​ID:​refreshable​Items:​fields:​app​URI:​callback​URI:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">create</span>(<span class="variable">providerID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">ID</span>, <span class="variable">refreshableItems</span>: <a href="https://tink-ab.github.io/tink-link-ios/RefreshableItems"><span class="type">RefreshableItems</span></a>, <span class="variable">fields</span>: [<span class="type">String</span>: <span class="type">String</span>], <span class="variable">appURI</span>: <span class="type">URL</span>?, <span class="variable">callbackURI</span>: <span class="type">URL</span>?, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.delete(id:completion:)">
+    <h3>
+        <code>delete(id:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">delete</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.update(id:providerid:appuri:callbackuri:fields:completion:)">
+    <h3>
+        <code>update(id:​provider​ID:​app​URI:​callback​URI:​fields:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">update</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">providerID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">ID</span>, <span class="variable">appURI</span>: <span class="type">URL</span>?, <span class="variable">callbackURI</span>: <span class="type">URL</span>?, <span class="variable">fields</span>: [<span class="type">String</span>: <span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.refresh(id:refreshableitems:optin:completion:)">
+    <h3>
+        <code>refresh(id:​refreshable​Items:​opt​In:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">refresh</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">refreshableItems</span>: <a href="https://tink-ab.github.io/tink-link-ios/RefreshableItems"><span class="type">RefreshableItems</span></a>, <span class="variable">optIn</span>: <span class="type">Bool</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.addsupplementalinformation(id:fields:completion:)">
+    <h3>
+        <code>add​Supplemental​Information(id:​fields:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">addSupplementalInformation</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">fields</span>: [<span class="type">String</span>: <span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.cancelsupplementalinformation(id:completion:)">
+    <h3>
+        <code>cancel​Supplemental​Information(id:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">cancelSupplementalInformation</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.enable(id:completion:)">
+    <h3>
+        <code>enable(id:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">enable</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.disable(id:completion:)">
+    <h3>
+        <code>disable(id:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">disable</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.thirdpartycallback(state:parameters:completion:)">
+    <h3>
+        <code>third​Party​Callback(state:​parameters:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">thirdPartyCallback</span>(<span class="variable">state</span>: <span class="type">String</span>, <span class="variable">parameters</span>: [<span class="type">String</span>: <span class="type">String</span>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.authenticate(id:completion:)">
+    <h3>
+        <code>authenticate(id:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">authenticate</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialsservice.qrcode(id:completion:)">
+    <h3>
+        <code>qr​Code(id:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">qrCode</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Data</span>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+    </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T13:58:38+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLinkUI - Appearance</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/tinklinkui/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/">
+            <strong>
+                TinkLinkUI
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#appearance.provider">provider</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Enumeration</small>
+    <code class="name">Appearance</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Appearance</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>A custom appearance provider.</p>
+
+</div>
+<div class="discussion">
+    <p>If you set a custom appearance provider, all TinkLinkUI views will use
+this provider to retreive colors and fonts.</p>
+
+<p>You can change the appearance of Tink Link UI to match the rest of your app.</p>
+
+<p>To change colors or fonts, update the <code>Appearance.provider</code> before initializing the <code>TinkLinkViewController</code>.</p>
+
+<html><body><pre class="highlight"><code><span class="variable">Appearance</span>.<span class="type">provider</span>.<span class="type">colors</span>.<span class="type">accent</span> = <span class="placeholder">&lt;#UIColor#&gt;</span>
+</code></pre></body></html>
+</div>
+
+    <section id="properties">
+        <h2>Properties</h2>
+
+        <div role="article" class="variable" id="appearance.provider">
+    <h3>
+        <code>provider</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">provider</span>: <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/AppearanceProviding"><span class="type">AppearanceProviding</span></a></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The current appearance provider.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T13:58:42+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

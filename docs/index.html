@@ -1,441 +1,1053 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>TinkLink  Reference</title>
-    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
-    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
-    <meta charset='utf-8'>
-    <script src="js/jquery.min.js" defer></script>
-    <script src="js/jazzy.js" defer></script>
-    
-  </head>
-  <body>
-    <a title="TinkLink  Reference"></a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - TinkLink</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
     <header>
-      <div class="content-wrapper">
-        <p><a href="index.html">TinkLink 0.14.2 Docs</a> (86% documented)</p>
-        <p class="header-right"><a href="https://github.com/tink-ab/tink-link-ios"><img src="img/gh.png"/>View on GitHub</a></p>
-      </div>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
     </header>
-    <div class="content-wrapper">
-      <p id="breadcrumbs">
-        <a href="index.html">TinkLink Reference</a>
-        <img id="carat" src="img/carat.png" />
-        TinkLink  Reference
-      </p>
-    </div>
-    <div class="content-wrapper">
-      <nav class="sidebar">
-        <ul class="nav-groups">
-          <li class="nav-group-name">
-            <a href="Classes.html">Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Classes/AddBeneficiaryTask.html">AddBeneficiaryTask</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AddBeneficiaryTask/Status.html">– Status</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AddBeneficiaryTask/Error.html">– Error</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AddCredentialsTask.html">AddCredentialsTask</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AddCredentialsTask/Status.html">– Status</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AddCredentialsTask/Error.html">– Error</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AddCredentialsTask/CompletionPredicate.html">– CompletionPredicate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AuthorizationContext.html">AuthorizationContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AuthorizationContext/Error.html">– Error</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/ConsentContext.html">ConsentContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/ConsentContext/Error.html">– Error</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/CredentialsContext.html">CredentialsContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/InitiateTransferTask.html">InitiateTransferTask</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/InitiateTransferTask/Status.html">– Status</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/InitiateTransferTask/Error.html">– Error</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/InitiateTransferTask/Receipt.html">– Receipt</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/InitiateTransferTask/Message.html">– Message</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/ProviderContext.html">ProviderContext</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/ProviderContext/Attributes.html">– Attributes</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/RefreshCredentialsTask.html">RefreshCredentialsTask</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/RefreshCredentialsTask/Status.html">– Status</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/RefreshCredentialsTask/Error.html">– Error</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/SupplementInformationTask.html">SupplementInformationTask</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/ThirdPartyAppAuthenticationTask.html">ThirdPartyAppAuthenticationTask</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/ThirdPartyAppAuthenticationTask/Error.html">– Error</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/ThirdPartyAppAuthenticationTask/Status.html">– Status</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Tink.html">Tink</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Tink/Configuration.html">– Configuration</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Tink/UserError.html">– UserError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/TransferContext.html">TransferContext</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Enums.html">Enumerations</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Enums/AuthenticationTask.html">AuthenticationTask</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/Environment.html">Environment</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/ServiceError.html">ServiceError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/UserSession.html">UserSession</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Extensions.html">Extensions</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Extensions/Array.html">Array</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Extensions.html#/s:8Dispatch0A8WorkItemC">DispatchWorkItem</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Extensions/Set.html">Set</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Protocols.html">Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Protocols/Cancellable.html">Cancellable</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/Retriable.html">Retriable</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/TransferAccountIdentifiable.html">TransferAccountIdentifiable</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Structs.html">Structures</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Structs/AccessToken.html">AccessToken</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Account.html">Account</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Account/Kind.html">– Kind</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Account/ID.html">– ID</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Account/URI.html">– URI</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/AccountNumberKind.html">AccountNumberKind</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/AuthorizationCode.html">AuthorizationCode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Beneficiary.html">Beneficiary</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Beneficiary/URI.html">– URI</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/BeneficiaryAccount.html">BeneficiaryAccount</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/ClientDescription.html">ClientDescription</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Credentials.html">Credentials</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Credentials/ID.html">– ID</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Credentials/Kind.html">– Kind</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Credentials/Status.html">– Status</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Credentials/ThirdPartyAppAuthentication.html">– ThirdPartyAppAuthentication</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/CurrencyCode.html">CurrencyCode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/CurrencyDenominatedAmount.html">CurrencyDenominatedAmount</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Form.html">Form</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Form/Fields.html">– Fields</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Form/Field.html">– Field</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Form/ValidationError.html">– ValidationError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Market.html">Market</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Provider.html">Provider</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Provider/ID.html">– ID</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Provider/Kind.html">– Kind</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Provider/Status.html">– Status</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Provider/Capabilities.html">– Capabilities</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Provider/AccessType.html">– AccessType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Provider/FinancialInstitution.html">– FinancialInstitution</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/ProviderTree.html">ProviderTree</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/ProviderTree/CredentialsKindNode.html">– CredentialsKindNode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/ProviderTree/AccessTypeNode.html">– AccessTypeNode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/ProviderTree/FinancialInstitutionNode.html">– FinancialInstitutionNode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/ProviderTree/FinancialInstitutionGroupNode.html">– FinancialInstitutionGroupNode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/RefreshableItems.html">RefreshableItems</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Scope.html">Scope</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Scope/ReadAccess.html">– ReadAccess</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Scope/ReadWriteAccess.html">– ReadWriteAccess</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Scope/AuthorizationAccess.html">– AuthorizationAccess</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Scope/CredentialsAccess.html">– CredentialsAccess</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Scope/TransactionAccess.html">– TransactionAccess</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Scope/TransferAccess.html">– TransferAccess</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Scope/UserAccess.html">– UserAccess</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/ScopeDescription.html">ScopeDescription</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Transfer.html">Transfer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Transfer/ID.html">– ID</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/User.html">User</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/User/ID.html">– ID</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Typealiases.html">Type Aliases</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Typealiases.html#/s:8TinkLink27AuthenticateCredentialsTaska">AuthenticateCredentialsTask</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Typealiases.html#/s:8TinkLink16RetryCancellablea">RetryCancellable</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Typealiases.html#/s:8TinkLink21UpdateCredentialsTaska">UpdateCredentialsTask</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-      <article class="main-content">
-        <section>
-          <section class="section">
-            
-            <p><img src="https://img.shields.io/badge/platform-iOS-orange.svg" alt="Platform">
-<img src="https://img.shields.io/badge/languages-swift-orange.svg" alt="Languages"></p>
-<h1 id='tink-link-ios' class='heading'>Tink Link iOS</h1>
-<h2 id='prerequisites' class='heading'>Prerequisites</h2>
 
-<ol>
-<li>Follow the <a href="https://docs.tink.com/resources/getting-started/set-up-your-account">getting started guide</a> to retrieve your <code>client_id</code>.</li>
-<li>Add a deep link to your app with scheme and host (<code>yourapp://host</code>) to the <a href="https://console.tink.com/overview">list of redirect URIs under your app&rsquo;s settings</a>.</li>
-</ol>
-<h2 id='requirements' class='heading'>Requirements</h2>
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
 
-<ul>
-<li>iOS 11.0</li>
-<li>Xcode 11.4</li>
-</ul>
-<h2 id='installation' class='heading'>Installation</h2>
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#classes">Classes</a></li><li><a href="#structures">Structures</a></li><li><a href="#enumerations">Enumerations</a></li><li><a href="#protocols">Protocols</a></li><li><a href="#typealiases">Typealiases</a></li></ol>
+        </div>
+    </nav>
 
-<p>There are two targets TinkLink and TinkLinkUI in the package Tink Link.</p>
+    <main>
+        <article>
+                <section id="classes">
+        <h2>Classes</h2>
+        <dl>
+            <dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/AuthorizationContext" title="class - AuthorizationContext">
+        Authorization​Context
+    </a>
+</dt>
+<dd>
+    <p>An object that you use to authorize for a user with requested scopes.</p>
 
-<ul>
-<li><p>TinkLink is a framework for aggregating bank credentials, you can build your own UI, suitable for enterprise plan customers that are aggregating with permanent users.</p></li>
-<li><p>TinkLinkUI is a framework with a predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast, suitable for customer aggregating with temporary users.</p></li>
-</ul>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/ConsentContext" title="class - ConsentContext">
+        Consent​Context
+    </a>
+</dt>
+<dd>
+    <p>An object that you use to get user consent.</p>
 
-<p>See the difference about the <a href="https://docs.tink.com/resources/tutorials/permanent-users">permanent user and temporary user</a></p>
-<h3 id='integrate-tinklink-into-your-project-using-swift-package-manager-cocoapods-or-carthage' class='heading'>Integrate TinkLink into your project using Swift Package Manager, CocoaPods or Carthage</h3>
-<h4 id='swift-package-manager' class='heading'>Swift Package Manager</h4>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/CredentialsContext" title="class - CredentialsContext">
+        Credentials​Context
+    </a>
+</dt>
+<dd>
+    <p>An object that you use to access the user's credentials and supports the flow for adding credentials.</p>
 
-<p>Follow these instructions to <a href="https://help.apple.com/xcode/mac/current/#/devb83d64851">link a target to a package product</a> and enter this URL <code>https://github.com/tink-ab/tink-link-ios</code> when asked for a package repository.</p>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderContext" title="class - ProviderContext">
+        Provider​Context
+    </a>
+</dt>
+<dd>
+    <p>An object that accesses providers for a specific market and supports the grouping of providers.</p>
 
-<p>When finished, you should be able to <code>import TinkLink</code> within your project.</p>
-<h4 id='using-cocoapods' class='heading'>Using CocoaPods</h4>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/TransferContext" title="class - TransferContext">
+        Transfer​Context
+    </a>
+</dt>
+<dd>
+    <p>An object that you use to initiate transfers and access the user's accounts and beneficiaries.</p>
 
-<p>Add <code>pod &#39;TinkLink&#39;</code> to your project&rsquo;s Podfile. Run <code>pod install</code> to install the TinkLink framework.</p>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/AddBeneficiaryTask" title="class - AddBeneficiaryTask">
+        Add​Beneficiary​Task
+    </a>
+</dt>
+<dd>
+    <p>A task that manages progress of adding a beneficiary to an account.</p>
 
-<p>When finished, you should be able to <code>import TinkLink</code> within your project.</p>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask" title="class - AddCredentialsTask">
+        Add​Credentials​Task
+    </a>
+</dt>
+<dd>
+    <p>A task that manages progress of adding a credential.</p>
 
-<p>Use <code>pod update TinkLink</code> to update to the newer version.</p>
-<h4 id='using-carthage' class='heading'>Using Carthage</h4>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask" title="class - InitiateTransferTask">
+        Initiate​Transfer​Task
+    </a>
+</dt>
+<dd>
+    <p>A task that manages the authentication and status of a transfer.</p>
 
-<p>Add <code>github &quot;tink-ab/tink-link-ios&quot;</code> to your project&rsquo;s Cartfile. Run <code>carthage update</code> to install TinkLink.</p>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask" title="class - RefreshCredentialsTask">
+        Refresh​Credentials​Task
+    </a>
+</dt>
+<dd>
+    <p>A task that manages progress of refreshing a credential.</p>
 
-<p>When finished, you should be able to <code>import TinkLink</code> within your project.</p>
-<h3 id='integrate-tinklinkui-into-your-project-using-cocoapods' class='heading'>Integrate TinkLinkUI into your project using CocoaPods.</h3>
-<h4 id='using-cocoapods' class='heading'>Using CocoaPods</h4>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/SupplementInformationTask" title="class - SupplementInformationTask">
+        Supplement​Information​Task
+    </a>
+</dt>
+<dd>
+    <p>A task that handles submitting supplemental information.</p>
 
-<p>Add <code>pod &#39;TinkLinkUI&#39;</code> to your project&rsquo;s Podfile. Run <code>pod install</code> to install the TinkLinkUI framework.</p>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/ThirdPartyAppAuthenticationTask" title="class - ThirdPartyAppAuthenticationTask">
+        Third​Party​App​Authentication​Task
+    </a>
+</dt>
+<dd>
+    <p>A task that handles opening third party apps.</p>
 
-<p>When finished, you should be able to <code>import TinkLink</code> and <code>import TinkLinkUI</code> within your project.</p>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/ServiceContainer" title="class - ServiceContainer">
+        Service​Container
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/Tink" title="class - Tink">
+        Tink
+    </a>
+</dt>
+<dd>
+    <p>The <code>Tink</code> class encapsulates a connection to the Tink API.</p>
 
-<p>Use <code>pod update TinkLinkUI</code> to update to the newer version.</p>
-<h2 id='configuration' class='heading'>Configuration</h2>
+</dd>
+<dt class="class">
+    <a href="https://tink-ab.github.io/tink-link-ios/TinkLinkSessionManager" title="class - TinkLinkSessionManager">
+        Tink​Link​Session​Manager
+    </a>
+</dt>
+<dd>
+    
+</dd>
+        </dl>
+    </section>
+    <section id="structures">
+        <h2>Structures</h2>
+        <dl>
+            <dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderContext_Attributes" title="structure - ProviderContext.Attributes">
+        Provider​Context.​Attributes
+    </a>
+</dt>
+<dd>
+    <p>Attributes representing which providers a context should access.</p>
 
-<p>To start using Tink Link, you will need to configure a <code><a href="Classes/Tink.html">Tink</a></code> instance with your client ID and redirect URI.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Tink</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="nv">clientID</span><span class="p">:</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">String</span><span class="err">#</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">redirectURI</span><span class="p">:</span> <span class="o">&lt;</span><span class="err">#</span><span class="kt">URL</span><span class="err">#</span><span class="o">&gt;</span><span class="p">)</span>
-<span class="kt">Tink</span><span class="o">.</span><span class="nf">configure</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
-</code></pre>
-<h2 id='redirect-handling' class='heading'>Redirect handling</h2>
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Identifier" title="structure - Identifier">
+        Identifier
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/AccessToken" title="structure - AccessToken">
+        Access​Token
+    </a>
+</dt>
+<dd>
+    <p>An OAuth access token to access the Tink service.</p>
 
-<p>You will need to add a custom URL scheme or support universal links to handle redirects from a third party authentication flow back into your app.</p>
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Account" title="structure - Account">
+        Account
+    </a>
+</dt>
+<dd>
+    <p>An account could either be a debit account, a credit card, a loan or mortgage.</p>
 
-<p>Follow the instructions in one of these links to learn how to set this up:</p>
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/AuthorizationCode" title="structure - AuthorizationCode">
+        Authorization​Code
+    </a>
+</dt>
+<dd>
+    <p>An authorization code from the Tink backend.</p>
 
-<ul>
-<li><a href="https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app">Defining a Custom URL Scheme for Your App</a></li>
-<li><a href="https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content">Allowing Apps and Websites to Link to Your Content</a></li>
-</ul>
-<h2 id='tutorials' class='heading'>Tutorials</h2>
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/ClientDescription" title="structure - ClientDescription">
+        Client​Description
+    </a>
+</dt>
+<dd>
+    <p>Description of a client using Tink.</p>
 
-<ul>
-<li><a href="https://docs.tink.com/resources/tutorials/tink-link-sdk-ios-tutorial">Tink Link Tutorial</a> This tutorial outlines how to use the different classes and types provided by TinkLink.</li>
-<li><a href="https://docs.tink.com/resources/tutorials/tink-link-ui-sdk-ios-tutorial">Tink Link UI Tutorial</a> This tutorial outlines how integrate Tink Link UI in your app.</li>
-</ul>
-<h2 id='examples' class='heading'>Examples</h2>
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/CurrencyCode" title="structure - CurrencyCode">
+        Currency​Code
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/CurrencyDenominatedAmount" title="structure - CurrencyDenominatedAmount">
+        Currency​Denominated​Amount
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Market" title="structure - Market">
+        Market
+    </a>
+</dt>
+<dd>
+    <p>Represents a market by a two-letter country code.</p>
 
-<p>These examples shows how to build a complete aggregation flow using TinkLink or TinkLinkUI.</p>
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Scope" title="structure - Scope">
+        Scope
+    </a>
+</dt>
+<dd>
+    <p>Access to Tink is divided into scopes which grant access to different API endpoints.
+Each API customer has a set of scopes which control the maximum permitted data access.
+To see the total set of scopes that you can use, go to app settings in the Tink Console.</p>
 
-<ul>
-<li><a href="Examples/PermanentUserExample">Permanent User</a></li>
-<li><a href="Examples/PermanentUserExample">Permanent User (SwiftUI)</a></li>
-<li><a href="Examples/TinkLinkUIExample">Tink Link UI</a></li>
-</ul>
-<h2 id='developer-documentation' class='heading'>Developer Documentation</h2>
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/ScopeDescription" title="structure - ScopeDescription">
+        Scope​Description
+    </a>
+</dt>
+<dd>
+    <p>A title and description explaining a specific scope.</p>
 
-<ul>
-<li><a href="https://tink-ab.github.io/tink-link-ios">Tink Link iOS Reference</a></li>
-<li><a href="https://tink-ab.github.io/tink-link-ios/tinklinkui">Tink Link UI iOS Reference</a></li>
-</ul>
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/SessionUser" title="structure - SessionUser">
+        Session​User
+    </a>
+</dt>
+<dd>
+    <p>A user in the Tink API.</p>
 
-          </section>
-        </section>
-        <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://tink.com" target="_blank" rel="external">Tink</a>. All rights reserved. (Last updated: 2020-08-11)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
-        </section>
-      </article>
-    </div>
-  </body>
-</div>
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/AccountNumberKind" title="structure - AccountNumberKind">
+        Account​Number​Kind
+    </a>
+</dt>
+<dd>
+    <p>A type representing an kind of account number.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Beneficiary" title="structure - Beneficiary">
+        Beneficiary
+    </a>
+</dt>
+<dd>
+    <p>A beneficiary is a payment or transfer destination account which has been authorized by the bank.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Credentials" title="structure - Credentials">
+        Credentials
+    </a>
+</dt>
+<dd>
+    <p>The credentials model represents users connected providers from where financial data is accessed.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Credentials_ThirdPartyAppAuthentication" title="structure - Credentials.ThirdPartyAppAuthentication">
+        Credentials.​Third​Party​App​Authentication
+    </a>
+</dt>
+<dd>
+    <p>Information about the third party authentication app.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_FinancialInstitution" title="structure - Provider.FinancialInstitution">
+        Provider.​Financial​Institution
+    </a>
+</dt>
+<dd>
+    <p>The FinancialInstitution model represents a financial institution.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form" title="structure - Form">
+        Form
+    </a>
+</dt>
+<dd>
+    <p>A <code>Form</code> is used to determine what a user needs to input in order to proceed. For example it could be a username and a password field.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form_Fields" title="structure - Form.Fields">
+        Form.​Fields
+    </a>
+</dt>
+<dd>
+    <p>A collection of fields.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form_Field" title="structure - Form.Field">
+        Form.​Field
+    </a>
+</dt>
+<dd>
+    <p>A <code>Field</code> represent one specific input (usually a text field) that the user need to enter in order to add a credential.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form_Field_ValidationRules" title="structure - Form.Field.ValidationRules">
+        Form.​Field.​Validation​Rules
+    </a>
+</dt>
+<dd>
+    <p>Validation rules for a field.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form_Field_Attributes" title="structure - Form.Field.Attributes">
+        Form.​Field.​Attributes
+    </a>
+</dt>
+<dd>
+    <p>Attributes to apply to a UI element that will represent a field.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form_ValidationError" title="structure - Form.ValidationError">
+        Form.​Validation​Error
+    </a>
+</dt>
+<dd>
+    <p>Describes a form validation error.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Account_URI" title="structure - Account.URI">
+        Account.​URI
+    </a>
+</dt>
+<dd>
+    <p>A type representing the URI for making transfers.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Beneficiary_URI" title="structure - Beneficiary.URI">
+        Beneficiary.​URI
+    </a>
+</dt>
+<dd>
+    <p>A type representing the URI for receiving transfers.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/BeneficiaryAccount" title="structure - BeneficiaryAccount">
+        Beneficiary​Account
+    </a>
+</dt>
+<dd>
+    <p>A beneficiary account is a payment or transfer destination account.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask_Message" title="structure - InitiateTransferTask.Message">
+        Initiate​Transfer​Task.​Message
+    </a>
+</dt>
+<dd>
+    <p>Message for a transfer, composed of a source and destination message.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider" title="structure - Provider">
+        Provider
+    </a>
+</dt>
+<dd>
+    <p>The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses the financial institution, metadata about the financialinstitution, and what financial information that can be accessed.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_FieldSpecification" title="structure - Provider.FieldSpecification">
+        Provider.​Field​Specification
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_Capabilities" title="structure - Provider.Capabilities">
+        Provider.​Capabilities
+    </a>
+</dt>
+<dd>
+    <p>Indicates what a provider is capable of.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree" title="structure - ProviderTree">
+        Provider​Tree
+    </a>
+</dt>
+<dd>
+    <p>Use the <code>ProviderTree</code> to group providers by financial institution, access type and credentials kind.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_CredentialsKindNode" title="structure - ProviderTree.CredentialsKindNode">
+        Provider​Tree.​Credentials​Kind​Node
+    </a>
+</dt>
+<dd>
+    <p>A parent node of the tree structure, with a <code>Provider</code> as it's leaf node.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_CredentialsKindNode_ID" title="structure - ProviderTree.CredentialsKindNode.ID">
+        Provider​Tree.​Credentials​Kind​Node.​ID
+    </a>
+</dt>
+<dd>
+    <p>A unique identifier of a <code>CredentialsKindNode</code>.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_AccessTypeNode_ID" title="structure - ProviderTree.AccessTypeNode.ID">
+        Provider​Tree.​Access​Type​Node.​ID
+    </a>
+</dt>
+<dd>
+    <p>A unique identifier of a <code>AccessTypeNode</code>.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_FinancialInstitutionNode_ID" title="structure - ProviderTree.FinancialInstitutionNode.ID">
+        Provider​Tree.​Financial​Institution​Node.​ID
+    </a>
+</dt>
+<dd>
+    <p>A unique identifier of a <code>FinancialInstitutionNode</code>.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_FinancialInstitutionGroupNode_ID" title="structure - ProviderTree.FinancialInstitutionGroupNode.ID">
+        Provider​Tree.​Financial​Institution​Group​Node.​ID
+    </a>
+</dt>
+<dd>
+    <p>A unique identifier of a <code>FinancialInstitutionGroupNode</code>.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/RefreshableItems" title="structure - RefreshableItems">
+        Refreshable​Items
+    </a>
+</dt>
+<dd>
+    <p>Represents a set of data types that you can aggregate from a provider.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/SignableOperation" title="structure - SignableOperation">
+        Signable​Operation
+    </a>
+</dt>
+<dd>
+    <p>SignableOperation object with the status of the transfer.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Transfer" title="structure - Transfer">
+        Transfer
+    </a>
+</dt>
+<dd>
+    <p>A Transfer on Tink represents the tentative action of requesting a payment initiation.
+By consequence, its success does not represent that money has been successfully transferred from one account to another because the payment initiation relays the responsibility of properly executing the monetary reallocation to the financial institution.
+The source account must belong to the authenticated user. Source and destination accounts are sent in a special URI format.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask_CompletionPredicate" title="structure - AddCredentialsTask.CompletionPredicate">
+        Add​Credentials​Task.​Completion​Predicate
+    </a>
+</dt>
+<dd>
+    <p>Cases to evaluate when credentials status changes.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask_Receipt" title="structure - InitiateTransferTask.Receipt">
+        Initiate​Transfer​Task.​Receipt
+    </a>
+</dt>
+<dd>
+    <p>Indicates the result of transfer initiation.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Tink_Configuration" title="structure - Tink.Configuration">
+        Tink.​Configuration
+    </a>
+</dt>
+<dd>
+    <p>Configuration used to set up the Tink</p>
+
+</dd>
+        </dl>
+    </section>
+    <section id="enumerations">
+        <h2>Enumerations</h2>
+        <dl>
+            <dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/HTTPStatusCodeError" title="enumeration - HTTPStatusCodeError">
+        HTTPStatus​Code​Error
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/AuthorizationContext_Error" title="enumeration - AuthorizationContext.Error">
+        Authorization​Context.​Error
+    </a>
+</dt>
+<dd>
+    <p>Error that the <code>AuthorizationContext</code> can throw.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/ConsentContext_Error" title="enumeration - ConsentContext.Error">
+        Consent​Context.​Error
+    </a>
+</dt>
+<dd>
+    <p>Error that the <code>ConsentContext</code> can throw.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Account_Kind" title="enumeration - Account.Kind">
+        Account.​Kind
+    </a>
+</dt>
+<dd>
+    <p>The kind of the account.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Scope_ReadAccess" title="enumeration - Scope.ReadAccess">
+        Scope.​Read​Access
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Scope_ReadWriteAccess" title="enumeration - Scope.ReadWriteAccess">
+        Scope.​Read​Write​Access
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Scope_AuthorizationAccess" title="enumeration - Scope.AuthorizationAccess">
+        Scope.​Authorization​Access
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Scope_CredentialsAccess" title="enumeration - Scope.CredentialsAccess">
+        Scope.​Credentials​Access
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Scope_TransactionAccess" title="enumeration - Scope.TransactionAccess">
+        Scope.​Transaction​Access
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Scope_TransferAccess" title="enumeration - Scope.TransferAccess">
+        Scope.​Transfer​Access
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Scope_UserAccess" title="enumeration - Scope.UserAccess">
+        Scope.​User​Access
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/ServiceError" title="enumeration - ServiceError">
+        Service​Error
+    </a>
+</dt>
+<dd>
+    <p>An error returned by Tink service requests when something went wrong.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Credentials_Kind" title="enumeration - Credentials.Kind">
+        Credentials.​Kind
+    </a>
+</dt>
+<dd>
+    <p>Indicates how Tink authenticates the user to a financial institution.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Credentials_Status" title="enumeration - Credentials.Status">
+        Credentials.​Status
+    </a>
+</dt>
+<dd>
+    <p>The status indicates the state of a credentials.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form_Field_Attributes_InputType" title="enumeration - Form.Field.Attributes.InputType">
+        Form.​Field.​Attributes.​Input​Type
+    </a>
+</dt>
+<dd>
+    <p>Input type for a field.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form_Field_ValidationError" title="enumeration - Form.Field.ValidationError">
+        Form.​Field.​Validation​Error
+    </a>
+</dt>
+<dd>
+    <p>Describes a field validation error.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_AuthenticationUserType" title="enumeration - Provider.AuthenticationUserType">
+        Provider.​Authentication​User​Type
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_Kind" title="enumeration - Provider.Kind">
+        Provider.​Kind
+    </a>
+</dt>
+<dd>
+    <p>Indicates what kind of financial institution the provider represents.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_Status" title="enumeration - Provider.Status">
+        Provider.​Status
+    </a>
+</dt>
+<dd>
+    <p>Indicates the current status of a provider.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_AccessType" title="enumeration - Provider.AccessType">
+        Provider.​Access​Type
+    </a>
+</dt>
+<dd>
+    <p>What Tink uses to access data.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_AccessTypeNode" title="enumeration - ProviderTree.AccessTypeNode">
+        Provider​Tree.​Access​Type​Node
+    </a>
+</dt>
+<dd>
+    <p>A parent node of the tree structure, with a list of either <code>CredentialsKindNode</code> children or a single <code>Provider</code>.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_AuthenticationUserTypeNode" title="enumeration - ProviderTree.AuthenticationUserTypeNode">
+        Provider​Tree.​Authentication​User​Type​Node
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_FinancialInstitutionNode" title="enumeration - ProviderTree.FinancialInstitutionNode">
+        Provider​Tree.​Financial​Institution​Node
+    </a>
+</dt>
+<dd>
+    <p>A parent node of the tree structure, with a list of either <code>AccessTypeNode</code>, <code>CredentialsKindNode</code> children or a single <code>Provider</code>.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_FinancialInstitutionGroupNode" title="enumeration - ProviderTree.FinancialInstitutionGroupNode">
+        Provider​Tree.​Financial​Institution​Group​Node
+    </a>
+</dt>
+<dd>
+    <p>A parent node of the tree structure, with a list of either <code>FinancialInstitutionNode</code>, <code>AccessTypeNode</code>, <code>CredentialsKindNode</code> children or a single <code>Provider</code>.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/SignableOperation_Status" title="enumeration - SignableOperation.Status">
+        Signable​Operation.​Status
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/SignableOperation_Kind" title="enumeration - SignableOperation.Kind">
+        Signable​Operation.​Kind
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/AddBeneficiaryTask_Status" title="enumeration - AddBeneficiaryTask.Status">
+        Add​Beneficiary​Task.​Status
+    </a>
+</dt>
+<dd>
+    <p>Indicates the state of a beneficiary being added.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/AddBeneficiaryTask_Error" title="enumeration - AddBeneficiaryTask.Error">
+        Add​Beneficiary​Task.​Error
+    </a>
+</dt>
+<dd>
+    <p>Error that the <code>AddBeneficiaryTask</code> can throw.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask_Status" title="enumeration - AddCredentialsTask.Status">
+        Add​Credentials​Task.​Status
+    </a>
+</dt>
+<dd>
+    <p>Indicates the state of a credentials being added.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask_Error" title="enumeration - AddCredentialsTask.Error">
+        Add​Credentials​Task.​Error
+    </a>
+</dt>
+<dd>
+    <p>Error that the <code>AddCredentialsTask</code> can throw.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask_CompletionPredicate_SuccessPredicate" title="enumeration - AddCredentialsTask.CompletionPredicate.SuccessPredicate">
+        Add​Credentials​Task.​Completion​Predicate.​Success​Predicate
+    </a>
+</dt>
+<dd>
+    <p>Determines when the add credentials task is considered done.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/AuthenticationTask" title="enumeration - AuthenticationTask">
+        Authentication​Task
+    </a>
+</dt>
+<dd>
+    <p>Represents an authentication that needs to be completed by the user.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask_Status" title="enumeration - InitiateTransferTask.Status">
+        Initiate​Transfer​Task.​Status
+    </a>
+</dt>
+<dd>
+    <p>Indicates the status of a transfer initiation.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask_Error" title="enumeration - InitiateTransferTask.Error">
+        Initiate​Transfer​Task.​Error
+    </a>
+</dt>
+<dd>
+    <p>Error that the <code>InitiateTransferTask</code> can throw.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask_Status" title="enumeration - RefreshCredentialsTask.Status">
+        Refresh​Credentials​Task.​Status
+    </a>
+</dt>
+<dd>
+    <p>Indicates the state of a credentials being refreshed.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask_Error" title="enumeration - RefreshCredentialsTask.Error">
+        Refresh​Credentials​Task.​Error
+    </a>
+</dt>
+<dd>
+    <p>Error that the <code>RefreshCredentialsTask</code> can throw.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/ThirdPartyAppAuthenticationTask_Error" title="enumeration - ThirdPartyAppAuthenticationTask.Error">
+        Third​Party​App​Authentication​Task.​Error
+    </a>
+</dt>
+<dd>
+    <p>Error associated with the <code>ThirdPartyAppAuthenticationTask</code>.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/ThirdPartyAppAuthenticationTask_Status" title="enumeration - ThirdPartyAppAuthenticationTask.Status">
+        Third​Party​App​Authentication​Task.​Status
+    </a>
+</dt>
+<dd>
+    <p>Indicates a user action required for the third party app authentication task to succeed.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Environment" title="enumeration - Environment">
+        Environment
+    </a>
+</dt>
+<dd>
+    <p>Represents which endpoints Tink will use.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Tink_UserError" title="enumeration - Tink.UserError">
+        Tink.​User​Error
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/UserSession" title="enumeration - UserSession">
+        User​Session
+    </a>
+</dt>
+<dd>
+    <p>A user session to use with the Tink object.</p>
+
+</dd>
+<dt class="enumeration">
+    <a href="https://tink-ab.github.io/tink-link-ios/Tink_UserError" title="enumeration - Tink.UserError">
+        Tink.​User​Error
+    </a>
+</dt>
+<dd>
+    
+</dd>
+        </dl>
+    </section>
+    <section id="protocols">
+        <h2>Protocols</h2>
+        <dl>
+            <dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/Cancellable" title="protocol - Cancellable">
+        Cancellable
+    </a>
+</dt>
+<dd>
+    <p>A type that represents something that can be cancelled.</p>
+
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/Retriable" title="protocol - Retriable">
+        Retriable
+    </a>
+</dt>
+<dd>
+    <p>A type that represents something that can be retried.</p>
+
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/TransferAccountIdentifiable" title="protocol - TransferAccountIdentifiable">
+        Transfer​Account​Identifiable
+    </a>
+</dt>
+<dd>
+    <p>A type that can be used as an to or from account when initiating a transfer.</p>
+
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/AuthenticationService" title="protocol - AuthenticationService">
+        Authentication​Service
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/BeneficiaryService" title="protocol - BeneficiaryService">
+        Beneficiary​Service
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/CredentialsService" title="protocol - CredentialsService">
+        Credentials​Service
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/OAuthService" title="protocol - OAuthService">
+        OAuth​Service
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderService" title="protocol - ProviderService">
+        Provider​Service
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/TransferService" title="protocol - TransferService">
+        Transfer​Service
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="protocol">
+    <a href="https://tink-ab.github.io/tink-link-ios/SessionManager" title="protocol - SessionManager">
+        Session​Manager
+    </a>
+</dt>
+<dd>
+    
+</dd>
+        </dl>
+    </section>
+    <section id="typealiases">
+        <h2>Typealiases</h2>
+        <dl>
+            <dt class="typealias">
+    <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable" title="typealias - RetryCancellable">
+        Retry​Cancellable
+    </a>
+</dt>
+<dd>
+    <p>A type that represents something that can be retried and cancelled.</p>
+
+</dd>
+<dt class="typealias">
+    <a href="https://tink-ab.github.io/tink-link-ios/AuthenticateCredentialsTask" title="typealias - AuthenticateCredentialsTask">
+        Authenticate​Credentials​Task
+    </a>
+</dt>
+<dd>
+    <p>A task that manages progress of authenticating a credential.</p>
+
+</dd>
+<dt class="typealias">
+    <a href="https://tink-ab.github.io/tink-link-ios/UpdateCredentialsTask" title="typealias - UpdateCredentialsTask">
+        Update​Credentials​Task
+    </a>
+</dt>
+<dd>
+    <p>A task that manages progress of updating a credential.</p>
+
+</dd>
+<dt class="typealias">
+    <a href="https://tink-ab.github.io/tink-link-ios/SessionCredential" title="typealias - SessionCredential">
+        Session​Credential
+    </a>
+</dt>
+<dd>
+    
+</dd>
+        </dl>
+    </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-08-20T13:58:42+0200">20 August 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
 </html>
