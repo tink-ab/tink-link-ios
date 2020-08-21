@@ -50,3 +50,31 @@ extension RefreshCredentialsTask.Error: LocalizedError {
         }
     }
 }
+
+extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .deeplinkURLNotFound:
+            return nil
+        case .downloadRequired(let title, _, _):
+            return title
+        case .doesNotSupportAuthenticatingOnAnotherDevice:
+            return "This bank does not support authenticating on another device."
+        case .decodingQRCodeImageFailed:
+            return "Failed to decode the QR code image."
+        }
+    }
+
+     public var failureReason: String? {
+        switch self {
+        case .deeplinkURLNotFound:
+            return nil
+        case .downloadRequired(_, let message, _):
+            return message
+        case .doesNotSupportAuthenticatingOnAnotherDevice:
+            return nil
+        case .decodingQRCodeImageFailed:
+            return nil
+        }
+    }
+}
