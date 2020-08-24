@@ -109,6 +109,8 @@ public class TinkLinkViewController: UINavigationController {
     public let scopes: [Scope]?
     private let tink: Tink
     private let market: Market?
+    private var user: User?
+
     private lazy var providerController = ProviderController(tink: tink)
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
@@ -211,14 +213,20 @@ public class TinkLinkViewController: UINavigationController {
         defer { tink._endUITask() }
         if let userSession = userSession {
             tink.userSession = userSession
-            startOperation()
+            getUser {
+                self.startOperation()
+            }
         } else if let authorizationCode = authorizationCode {
             authorizePermanentUser(authorizationCode: authorizationCode) {
-                self.startOperation()
+                self.getUser {
+                    self.startOperation()
+                }
             }
         } else {
             createTemporaryUser {
-                self.startOperation()
+                self.getUser {
+                    self.startOperation()
+                }
             }
         }
     }
@@ -258,6 +266,22 @@ public class TinkLinkViewController: UINavigationController {
                         self.retryOperation()
                     })
                 }
+            }
+        }
+    }
+
+    private func getUser(completion: @escaping () -> Void) {
+        tink.services.userService.user { result in
+            do {
+                let user  = try result.get()
+                self.user = user
+                completion()
+            } catch {
+                let viewController = UIViewController()
+                self.setViewControllers([viewController], animated: false)
+                self.showAlert(for: error, onRetry: {
+                    self.retryOperation()
+                })
             }
         }
     }
