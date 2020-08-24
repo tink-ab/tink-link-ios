@@ -41,7 +41,7 @@ enum TinkAnalyticsRequest {
         let clientId: String
         let sessionId: String
         let userId: String
-        let label: String
+        let label: String?
         let view: String
         let timestamp: Date
         let product: String
