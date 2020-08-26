@@ -39,6 +39,7 @@ final class CredentialsCoordinator {
     private weak var presenter: CredentialsCoordinatorPresenting?
     private weak var delegate: CredentialsCoordinatorDelegate?
     private let clientDescription: ClientDescription
+    private let tinkLinkTracker: TinkLinkTracker
 
     private var fetchedCredentials: Credentials?
 
@@ -51,7 +52,7 @@ final class CredentialsCoordinator {
         }
     }
 
-    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
+    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, tinkLinkTracker: TinkLinkTracker, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
         self.providerController = providerController
@@ -60,6 +61,7 @@ final class CredentialsCoordinator {
         self.presenter = presenter
         self.delegate = delegate
         self.clientDescription = clientDescription
+        self.tinkLinkTracker = tinkLinkTracker
     }
 
     func start() {
@@ -70,6 +72,7 @@ final class CredentialsCoordinator {
             credentialsViewController.prefillStrategy = prefillStrategy
             credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
             presenter?.show(credentialsViewController)
+            tinkLinkTracker.send(event: .submitCredentialsScreen)
 
         case .authenticate(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -98,6 +101,7 @@ final class CredentialsCoordinator {
                     credentialsViewController.prefillStrategy = self.prefillStrategy
                     credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancel))
                     self.presenter?.show(credentialsViewController)
+                    self.tinkLinkTracker.send(event: .submitCredentialsScreen)
                 }
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
@@ -134,6 +138,7 @@ final class CredentialsCoordinator {
                     self?.completion(result)
                 }
             }
+            self.tinkLinkTracker.send(event: .successScreen)
             self.presenter?.show(viewController)
         }
     }

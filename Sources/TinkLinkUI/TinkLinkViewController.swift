@@ -113,7 +113,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var providerController = ProviderController(tink: tink)
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
-    private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController, tinkLinkTracker: tinkTracker)
+    private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController, tinkLinkTracker: tinkLinkTracker)
 
     private var loadingViewController: LoadingViewController?
 
@@ -124,7 +124,7 @@ public class TinkLinkViewController: UINavigationController {
     private let temporaryCompletion: ((Result<AuthorizationCode, TinkLinkError>) -> Void)?
     private let permanentCompletion: ((Result<Credentials, TinkLinkError>) -> Void)?
 
-    private lazy var tinkTracker = TinkLinkTracker(clientID: tink.configuration.clientID, operation: operation)
+    private lazy var tinkLinkTracker = TinkLinkTracker(clientID: tink.configuration.clientID, operation: operation)
     /// Initializes a new TinkLinkViewController.
     /// - Parameters:
     ///   - tink: A configured `Tink` object.
@@ -274,7 +274,7 @@ public class TinkLinkViewController: UINavigationController {
         _ = tink.services.userService.user { result in
             do {
                 let user  = try result.get()
-                self.tinkTracker.userID = user.id.value
+                self.tinkLinkTracker.userID = user.id.value
                 completion()
             } catch {
                 let viewController = UIViewController()
@@ -355,7 +355,7 @@ public class TinkLinkViewController: UINavigationController {
             return
         }
 
-        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, delegate: self, clientDescription: clientDescription, action: operation, completion: { [weak self] result in
+        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, delegate: self, clientDescription: clientDescription, action: operation, tinkLinkTracker: tinkLinkTracker, completion: { [weak self] result in
             let mappedResult = result.map { (credentials, code) -> ResultType in
                 if let code = code {
                     return .authorizationCode(code)
