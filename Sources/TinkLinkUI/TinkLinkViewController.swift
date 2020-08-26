@@ -113,7 +113,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var providerController = ProviderController(tink: tink)
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
-    private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
+    private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController, tinkLinkTracker: tinkTracker)
 
     private var loadingViewController: LoadingViewController?
 

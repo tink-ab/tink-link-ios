@@ -11,13 +11,16 @@ protocol ProviderPickerCoordinating: AnyObject {
 }
 
 class ProviderPickerCoordinator: ProviderPickerCoordinating {
+
+    private let tinkLinkTracker: TinkLinkTracker
     private let providerController: ProviderController
     private weak var parentViewController: UIViewController?
     private var completion: ((Result<Provider, Error>) -> Void)?
 
-    init(parentViewController: UIViewController, providerController: ProviderController) {
+    init(parentViewController: UIViewController, providerController: ProviderController, tinkLinkTracker: TinkLinkTracker) {
         self.providerController = providerController
         self.parentViewController = parentViewController
+        self.tinkLinkTracker = tinkLinkTracker
     }
 
     deinit {
@@ -46,7 +49,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         providerListViewController.navigationItem.hidesBackButton = true
         setupNavigationItem(for: providerListViewController, title: title)
         providerListViewController.providerPickerCoordinator = self
-
+        tinkLinkTracker.send(event: .financialInstitutionSelectionScreen)
         UIView.performWithoutAnimation {
             self.parentViewController?.show(providerListViewController, sender: self)
         }
@@ -64,6 +67,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         let title = Strings.SelectAuthenticationUserType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
+        tinkLinkTracker.send(event: .authenticationUserTypeSelectionScreen)
         parentViewController?.show(viewController, sender: nil)
     }
 
@@ -72,6 +76,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         let title = Strings.SelectAccessType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
+        tinkLinkTracker.send(event: .accessTypeSelectionScreen)
         parentViewController?.show(viewController, sender: nil)
     }
 
@@ -80,6 +85,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         let title = Strings.SelectCredentialsType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
+        tinkLinkTracker.send(event: .credentialsTypeSelectionScreen)
         parentViewController?.show(viewController, sender: nil)
     }
 
