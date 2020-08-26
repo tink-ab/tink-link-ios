@@ -32,7 +32,7 @@ final class CredentialsCoordinator {
     private let credentialsController: CredentialsController
     private let providerController: ProviderController
 
-    private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, presenter: self.presenter)
+    private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, tinkLinkTracker: tinkLinkTracker, presenter: self.presenter)
 
     private let action: Action
     private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void
