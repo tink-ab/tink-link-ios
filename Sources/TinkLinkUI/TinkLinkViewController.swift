@@ -341,6 +341,7 @@ public class TinkLinkViewController: UINavigationController {
                         self?.loadingViewController?.showLoadingIndicator()
                         self?.operate()
                     })
+                    self.tinkLinkTracker.send(event: .error)
                 }
             }
         }
@@ -441,6 +442,7 @@ extension TinkLinkViewController {
         }
         alertController.addAction(dismissAction)
         present(alertController, animated: true)
+        tinkLinkTracker.send(event: .error)
     }
 
     private func retryOperation() {
