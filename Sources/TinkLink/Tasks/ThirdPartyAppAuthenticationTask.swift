@@ -238,18 +238,18 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     #endif
 
     private func qr(completion: @escaping (Result<Image, Swift.Error>) -> Void) {
-            callRetryCancellable = credentialsService.qrCode(id: credentials.id) { [weak self] result in
-                do {
-                    let qrData = try result.get()
-                    guard let qrImage = Image(data: qrData) else {
-                        throw Error.decodingQRCodeImageFailed
-                    }
-                    completion(.success(qrImage))
-                } catch {
-                    completion(.failure(error))
+        callRetryCancellable = credentialsService.qrCode(id: credentials.id) { [weak self] result in
+            do {
+                let qrData = try result.get()
+                guard let qrImage = Image(data: qrData) else {
+                    throw Error.decodingQRCodeImageFailed
                 }
-                self?.callRetryCancellable = nil
+                completion(.success(qrImage))
+            } catch {
+                completion(.failure(error))
             }
+            self?.callRetryCancellable = nil
+        }
     }
 
     // MARK: - Controlling the Task
