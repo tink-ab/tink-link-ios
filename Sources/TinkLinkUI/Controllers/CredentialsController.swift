@@ -33,7 +33,7 @@ final class CredentialsController {
     func update(
         _ credentials: Credentials,
         form: Form? = nil,
-        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> UpdateCredentialsTask? {
@@ -53,7 +53,7 @@ final class CredentialsController {
     func refresh(
         _ credentials: Credentials,
         refreshableItems: RefreshableItems = .all,
-        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> RefreshCredentialsTask {
@@ -72,7 +72,7 @@ final class CredentialsController {
 
     public func authenticate(
         _ credentials: Credentials,
-        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> AuthenticateCredentialsTask {
