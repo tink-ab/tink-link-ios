@@ -109,7 +109,6 @@ public class TinkLinkViewController: UINavigationController {
     public let scopes: [Scope]?
     private let tink: Tink
     private let market: Market?
-    private var user: User?
 
     private lazy var providerController = ProviderController(tink: tink)
     private lazy var credentialsController = CredentialsController(tink: tink)
@@ -125,6 +124,7 @@ public class TinkLinkViewController: UINavigationController {
     private let temporaryCompletion: ((Result<AuthorizationCode, TinkLinkError>) -> Void)?
     private let permanentCompletion: ((Result<Credentials, TinkLinkError>) -> Void)?
 
+    private lazy var tinkTracker = TinkLinkTracker(clientID: tink.configuration.clientID, operation: operation)
     /// Initializes a new TinkLinkViewController.
     /// - Parameters:
     ///   - tink: A configured `Tink` object.
@@ -271,10 +271,10 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private func getUser(completion: @escaping () -> Void) {
-        tink.services.userService.user { result in
+        _ = tink.services.userService.user { result in
             do {
                 let user  = try result.get()
-                self.user = user
+                self.tinkTracker.userID = user.id.value
                 completion()
             } catch {
                 let viewController = UIViewController()
