@@ -77,9 +77,13 @@ final class CredentialsController {
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> AuthenticateCredentialsTask {
         tink._beginUITask()
-        return credentialsContext.authenticate(credentials, progressHandler: progressHandler) { [weak tink] result in
-            tink?._endUITask()
-            completion(result)
-        }
+        return credentialsContext.authenticate(
+            credentials,
+            progressHandler: progressHandler,
+            completion: { [weak tink] result in
+                tink?._endUITask()
+                completion(result)
+            }
+        )
     }
 }
