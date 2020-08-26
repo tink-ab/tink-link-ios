@@ -208,6 +208,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 }
             }
         #elseif os(macOS)
+        if hasBankIDQRCode {
             qr { [weak self, credentialsKind = credentials.kind] result in
                 do {
                     let qrImage = try result.get()
@@ -224,6 +225,9 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     self?.completionHandler(.failure(error))
                 }
             }
+        } else {
+            completion(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
+        }
         #endif
     }
 
@@ -234,7 +238,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     #endif
 
     private func qr(completion: @escaping (Result<Image, Swift.Error>) -> Void) {
-        if hasBankIDQRCode {
             callRetryCancellable = credentialsService.qrCode(id: credentials.id) { [weak self] result in
                 do {
                     let qrData = try result.get()
@@ -247,9 +250,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 }
                 self?.callRetryCancellable = nil
             }
-        } else {
-            completion(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
-        }
     }
 
     // MARK: - Controlling the Task
