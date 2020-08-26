@@ -59,7 +59,7 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return Strings.Generic.error
         case .decodingQRCodeImageFailed:
-            return Strings.Credentials.Error.decodingQRCodeImageFailed
+            return Strings.Generic.error
         }
     }
 
