@@ -15,7 +15,13 @@ final class CredentialsController {
         credentialsContext.fetchCredentials(with: id, completion: completion)
     }
 
-    func addCredentials(_ provider: Provider, form: Form, refreshableItems: RefreshableItems = .all, progressHandler: @escaping (AddCredentialsTask.Status) -> Void, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> AddCredentialsTask? {
+    func addCredentials(
+        _ provider: Provider,
+        form: Form,
+        refreshableItems: RefreshableItems = .all,
+        progressHandler: @escaping (AddCredentialsTask.Status) -> Void,
+        completion: @escaping (_ result: Result<Credentials, Error>) -> Void
+    ) -> AddCredentialsTask? {
         tink._beginUITask()
         return credentialsContext.add(
             for: provider,
