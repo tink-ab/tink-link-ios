@@ -2,13 +2,14 @@ import Foundation
 
 class TinkLinkTracker {
 
-    var isTest: Bool = false
     var userID: String? = nil
-    var credentialsID: String?
 
+    private let credentialsID: String?
     private let clientID: String
     private let flow: AnalyticsFlow
     private let sessionID = UUID().uuidString
+    private let isTest: Bool
+
     private let version: String = {
         if let infoDictionary = Bundle(for: TinkLinkTracker.self).infoDictionary,
            let shortVersion = infoDictionary["CFBundleShortVersionString"] as? String {
@@ -25,22 +26,31 @@ class TinkLinkTracker {
 
     init(clientID: String, operation: TinkLinkViewController.Operation) {
         self.clientID = clientID
+
         switch operation {
         case .authenticate(credentialsID: let id):
-            self.flow = .credentialsAuthenticate
-            self.credentialsID = id.value
+            flow = .credentialsAuthenticate
+            credentialsID = id.value
+            isTest = false
+
         case .create(providerPredicate: let predicate):
-            self.flow = .credentialsAdd
-            self.credentialsID = nil
+            flow = .credentialsAdd
+            credentialsID = nil
             if case .kinds(let kinds) = predicate {
                 isTest = kinds.contains(.test)
+            } else {
+                isTest = false
             }
+
         case .refresh(credentialsID: let id):
-            self.flow = .credentialsRefresh
-            self.credentialsID = id.value
+            flow = .credentialsRefresh
+            credentialsID = id.value
+            isTest = false
+
         case .update(credentialsID: let id):
-            self.flow = .credentialsAuthenticate
-            self.credentialsID = id.value
+            flow = .credentialsAuthenticate
+            credentialsID = id.value
+            isTest = false
         }
     }
 
