@@ -192,6 +192,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
     }
 
     func submit(form: Form) {
+        tinkLinkTracker.send(event: .submitCredentials, view: .submitCredentialsScreen)
         switch action {
         case .create(provider: let provider, mode: let mode):
             addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
