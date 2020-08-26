@@ -57,7 +57,7 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .downloadRequired(let title, _, _):
             return title
         case .doesNotSupportAuthenticatingOnAnotherDevice:
-            return Strings.Credentials.Error.doesNotSupportAuthenticatingOnAnotherDevice
+            return Strings.Generic.error
         case .decodingQRCodeImageFailed:
             return Strings.Credentials.Error.decodingQRCodeImageFailed
         }
