@@ -79,6 +79,7 @@ final class CredentialsController {
         tink._beginUITask()
         return credentialsContext.authenticate(
             credentials,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progressHandler,
             completion: { [weak tink] result in
                 tink?._endUITask()
