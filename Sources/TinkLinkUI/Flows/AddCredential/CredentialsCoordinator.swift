@@ -72,7 +72,7 @@ final class CredentialsCoordinator {
             credentialsViewController.prefillStrategy = prefillStrategy
             credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
             presenter?.show(credentialsViewController)
-            tinkLinkTracker.send(event: .submitCredentials)
+            tinkLinkTracker.track(screen: .submitCredentials)
 
         case .authenticate(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -101,7 +101,7 @@ final class CredentialsCoordinator {
                     credentialsViewController.prefillStrategy = self.prefillStrategy
                     credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancel))
                     self.presenter?.show(credentialsViewController)
-                    self.tinkLinkTracker.send(event: .submitCredentials)
+                    self.tinkLinkTracker.track(screen: .submitCredentials)
                 }
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
@@ -116,14 +116,14 @@ final class CredentialsCoordinator {
             showAddCredentialSuccess(with: .success(values), for: action)
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
-            tinkLinkTracker.send(event: .error)
+            tinkLinkTracker.track(screen: .error)
         } catch ServiceError.cancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }
         } catch {
             showAlert(for: error)
-            tinkLinkTracker.send(event: .error)
+            tinkLinkTracker.track(screen: .error)
         }
     }
 
@@ -140,7 +140,7 @@ final class CredentialsCoordinator {
                     self?.completion(result)
                 }
             }
-            self.tinkLinkTracker.send(event: .success)
+            self.tinkLinkTracker.track(screen: .success)
             self.presenter?.show(viewController)
         }
     }
@@ -194,7 +194,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
     }
 
     func submit(form: Form) {
-        tinkLinkTracker.send(event: .submitCredentials, view: .submitCredentials)
+        tinkLinkTracker.track(interaction: .submitCredentials, screen: .submitCredentials)
         switch action {
         case .create(provider: let provider, mode: let mode):
             addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in

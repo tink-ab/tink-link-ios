@@ -54,7 +54,7 @@ class TinkLinkTracker {
         }
     }
 
-    func send(event: InteractionEvent, view: ScreenEvent) {
+    func track(interaction: InteractionEvent, screen: ScreenEvent) {
         guard let userID = userID else {
             return
         }
@@ -63,16 +63,16 @@ class TinkLinkTracker {
             sessionId: sessionID,
             userId: userID,
             label: nil,
-            view: view.rawValue,
+            view: screen.rawValue,
             timestamp: Date(),
             product: product,
-            action: event.rawValue,
+            action: interaction.rawValue,
             device: device)
         )
         api.sendRequest(request)
     }
 
-    func send(event: ScreenEvent) {
+    func track(screen: ScreenEvent) {
         guard let userID = userID else {
             return
         }
@@ -86,7 +86,7 @@ class TinkLinkTracker {
             device: device,
             userId: userID,
             flow: flow.rawValue,
-            view: event.rawValue,
+            view: screen.rawValue,
             timestamp: Date())
         )
         api.sendRequest(request)
