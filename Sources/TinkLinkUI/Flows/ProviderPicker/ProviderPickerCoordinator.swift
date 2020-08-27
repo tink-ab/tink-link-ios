@@ -59,6 +59,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes)
         setupNavigationItem(for: viewController, title: name)
         viewController.providerPickerCoordinator = self
+        tinkLinkTracker.send(event: .providerSelection)
         parentViewController?.show(viewController, sender: nil)
     }
 
