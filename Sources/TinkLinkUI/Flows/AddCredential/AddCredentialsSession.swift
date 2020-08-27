@@ -277,7 +277,7 @@ extension AddCredentialsSession {
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
             self.presenter?.present(navigationController, animated: true, completion: nil)
-            self.tinkLinkTracker.send(event: .supplementalInformationScreen)
+            self.tinkLinkTracker.send(event: .supplementalInformation)
         }
     }
 

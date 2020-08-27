@@ -49,7 +49,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         providerListViewController.navigationItem.hidesBackButton = true
         setupNavigationItem(for: providerListViewController, title: title)
         providerListViewController.providerPickerCoordinator = self
-        tinkLinkTracker.send(event: .financialInstitutionSelectionScreen)
+        tinkLinkTracker.send(event: .financialInstitutionSelection)
         UIView.performWithoutAnimation {
             self.parentViewController?.show(providerListViewController, sender: self)
         }
@@ -67,7 +67,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         let title = Strings.SelectAuthenticationUserType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
-        tinkLinkTracker.send(event: .authenticationUserTypeSelectionScreen)
+        tinkLinkTracker.send(event: .authenticationUserTypeSelection)
         parentViewController?.show(viewController, sender: nil)
     }
 
@@ -76,7 +76,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         let title = Strings.SelectAccessType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
-        tinkLinkTracker.send(event: .accessTypeSelectionScreen)
+        tinkLinkTracker.send(event: .accessTypeSelection)
         parentViewController?.show(viewController, sender: nil)
     }
 
@@ -85,7 +85,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         let title = Strings.SelectCredentialsType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
-        tinkLinkTracker.send(event: .credentialsTypeSelectionScreen)
+        tinkLinkTracker.send(event: .credentialsTypeSelection)
         parentViewController?.show(viewController, sender: nil)
     }
 
