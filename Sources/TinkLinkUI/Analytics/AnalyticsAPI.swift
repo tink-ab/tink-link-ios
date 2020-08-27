@@ -14,7 +14,11 @@ class AnalyticsAPI {
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        urlRequest.httpBody = try? encoder.encode(request)
+        guard let body = try? encoder.encode(request) else {
+            return
+        }
+        
+        urlRequest.httpBody = body
 
         let task = URLSession.shared.dataTask(with: urlRequest)
         task.resume()
