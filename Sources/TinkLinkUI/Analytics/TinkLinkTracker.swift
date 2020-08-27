@@ -48,7 +48,7 @@ class TinkLinkTracker {
             isTest = false
 
         case .update(credentialsID: let id):
-            flow = .credentialsAuthenticate
+            flow = .credentialsUpdate
             credentialsID = id.value
             isTest = false
         }
