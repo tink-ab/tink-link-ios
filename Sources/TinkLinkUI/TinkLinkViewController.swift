@@ -213,17 +213,20 @@ public class TinkLinkViewController: UINavigationController {
         defer { tink._endUITask() }
         if let userSession = userSession {
             tink.userSession = userSession
-            getUser {
+            getUser { [weak self] in
+                guard let self = self else { return }
                 self.startOperation()
             }
         } else if let authorizationCode = authorizationCode {
-            authorizePermanentUser(authorizationCode: authorizationCode) {
+            authorizePermanentUser(authorizationCode: authorizationCode) { [weak self] in
+                guard let self = self else { return }
                 self.getUser {
                     self.startOperation()
                 }
             }
         } else {
-            createTemporaryUser {
+            createTemporaryUser { [weak self] in
+                guard let self = self else { return }
                 self.getUser {
                     self.startOperation()
                 }
@@ -271,9 +274,12 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private func getUser(completion: @escaping () -> Void) {
-        _ = tink.services.userService.user { result in
+        tink._beginUITask()
+        defer { tink._endUITask() }
+        _ = tink.services.userService.user { [weak self] result in
+            guard let self = self else { return }
             do {
-                let user  = try result.get()
+                let user = try result.get()
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
             } catch {
