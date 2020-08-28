@@ -109,10 +109,11 @@ public class TinkLinkViewController: UINavigationController {
     public let scopes: [Scope]?
     private let tink: Tink
     private let market: Market?
+
     private lazy var providerController = ProviderController(tink: tink)
     private lazy var credentialsController = CredentialsController(tink: tink)
     private lazy var authorizationController = AuthorizationController(tink: tink)
-    private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController)
+    private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController, tinkLinkTracker: tinkLinkTracker)
 
     private var loadingViewController: LoadingViewController?
 
@@ -123,6 +124,7 @@ public class TinkLinkViewController: UINavigationController {
     private let temporaryCompletion: ((Result<AuthorizationCode, TinkLinkError>) -> Void)?
     private let permanentCompletion: ((Result<Credentials, TinkLinkError>) -> Void)?
 
+    private lazy var tinkLinkTracker = TinkLinkTracker(clientID: tink.configuration.clientID, operation: operation)
     /// Initializes a new TinkLinkViewController.
     /// - Parameters:
     ///   - tink: A configured `Tink` object.
@@ -211,14 +213,23 @@ public class TinkLinkViewController: UINavigationController {
         defer { tink._endUITask() }
         if let userSession = userSession {
             tink.userSession = userSession
-            startOperation()
-        } else if let authorizationCode = authorizationCode {
-            authorizePermanentUser(authorizationCode: authorizationCode) {
+            getUser { [weak self] in
+                guard let self = self else { return }
                 self.startOperation()
             }
+        } else if let authorizationCode = authorizationCode {
+            authorizePermanentUser(authorizationCode: authorizationCode) { [weak self] in
+                guard let self = self else { return }
+                self.getUser {
+                    self.startOperation()
+                }
+            }
         } else {
-            createTemporaryUser {
-                self.startOperation()
+            createTemporaryUser { [weak self] in
+                guard let self = self else { return }
+                self.getUser {
+                    self.startOperation()
+                }
             }
         }
     }
@@ -258,6 +269,25 @@ public class TinkLinkViewController: UINavigationController {
                         self.retryOperation()
                     })
                 }
+            }
+        }
+    }
+
+    private func getUser(completion: @escaping () -> Void) {
+        tink._beginUITask()
+        defer { tink._endUITask() }
+        _ = tink.services.userService.user { [weak self] result in
+            guard let self = self else { return }
+            do {
+                let user = try result.get()
+                self.tinkLinkTracker.userID = user.id.value
+                completion()
+            } catch {
+                let viewController = UIViewController()
+                self.setViewControllers([viewController], animated: false)
+                self.showAlert(for: error, onRetry: {
+                    self.retryOperation()
+                })
             }
         }
     }
@@ -317,6 +347,7 @@ public class TinkLinkViewController: UINavigationController {
                         self?.loadingViewController?.showLoadingIndicator()
                         self?.operate()
                     })
+                    self.tinkLinkTracker.track(screen: .error)
                 }
             }
         }
@@ -331,7 +362,7 @@ public class TinkLinkViewController: UINavigationController {
             return
         }
 
-        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, delegate: self, clientDescription: clientDescription, action: operation, completion: { [weak self] result in
+        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, delegate: self, clientDescription: clientDescription, action: operation, tinkLinkTracker: tinkLinkTracker, completion: { [weak self] result in
             let mappedResult = result.map { (credentials, code) -> ResultType in
                 if let code = code {
                     return .authorizationCode(code)
@@ -417,6 +448,7 @@ extension TinkLinkViewController {
         }
         alertController.addAction(dismissAction)
         present(alertController, animated: true)
+        tinkLinkTracker.track(screen: .error)
     }
 
     private func retryOperation() {
