@@ -95,7 +95,7 @@ public class TinkLinkViewController: UINavigationController {
 
     enum ResultType {
         case credentials(Credentials)
-        case authorizationCode(AuthorizationCode)
+        case authorizationCode(AuthorizationCode, Credentials)
     }
 
     private let operation: Operation
@@ -121,10 +121,11 @@ public class TinkLinkViewController: UINavigationController {
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
     private var result: Result<ResultType, TinkLinkError>?
-    private let temporaryCompletion: ((Result<AuthorizationCode, TinkLinkError>) -> Void)?
+    private let temporaryCompletion: ((Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void)?
     private let permanentCompletion: ((Result<Credentials, TinkLinkError>) -> Void)?
 
     private lazy var tinkLinkTracker = TinkLinkTracker(clientID: tink.configuration.clientID, operation: operation)
+
     /// Initializes a new TinkLinkViewController.
     /// - Parameters:
     ///   - tink: A configured `Tink` object.
@@ -133,12 +134,34 @@ public class TinkLinkViewController: UINavigationController {
     ///   - providerKinds: The kind of providers that will be listed.
     ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void) {
         self.tink = tink
         self.market = market
         self.scopes = scopes
         self.operation = .create(providerPredicate: providerPredicate)
         self.temporaryCompletion = completion
+        self.permanentCompletion = nil
+
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    /// Initializes a new TinkLinkViewController.
+    /// - Parameters:
+    ///   - tink: A configured `Tink` object.
+    ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from.
+    ///   - scope: A set of scopes that will be aggregated.
+    ///   - providerKinds: The kind of providers that will be listed.
+    ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
+    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
+    @available(*, unavailable, renamed: "init(tink:market:scopes:providerPredicate:completion:)")
+    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
+        self.tink = tink
+        self.market = market
+        self.scopes = scopes
+        self.operation = .create(providerPredicate: providerPredicate)
+        self.temporaryCompletion = { (result: Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) in
+            completion(result.map(\.code))
+        }
         self.permanentCompletion = nil
 
         super.init(nibName: nil, bundle: nil)
@@ -181,9 +204,12 @@ public class TinkLinkViewController: UINavigationController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    @available(*, deprecated, message: "use tink:market:scopes:providerPredicate: instead")
+    @available(*, unavailable, renamed: "init(tink:market:scopes:providerPredicate:completion:)")
     public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind>, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
-        self.init(tink: tink, market: market, scopes: scopes, providerPredicate: .kinds(providerKinds), completion: completion)
+        let mappedCompletion = { (result: Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) in
+            completion(result.map(\.code))
+        }
+        self.init(tink: tink, market: market, scopes: scopes, providerPredicate: .kinds(providerKinds), completion: mappedCompletion)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -365,7 +391,7 @@ public class TinkLinkViewController: UINavigationController {
         credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, delegate: self, clientDescription: clientDescription, action: operation, tinkLinkTracker: tinkLinkTracker, completion: { [weak self] result in
             let mappedResult = result.map { (credentials, code) -> ResultType in
                 if let code = code {
-                    return .authorizationCode(code)
+                    return .authorizationCode(code, credentials)
                 } else {
                     return .credentials(credentials)
                 }
@@ -400,8 +426,8 @@ public class TinkLinkViewController: UINavigationController {
         case .success(.credentials(let credentials)):
             permanentCompletion?(.success(credentials))
 
-        case .success(.authorizationCode(let code)):
-            temporaryCompletion?(.success(code))
+        case .success(.authorizationCode(let code, let credentials)):
+            temporaryCompletion?(.success((code: code, credentials: credentials)))
 
         case .failure(let error):
             temporaryCompletion?(.failure(error))
