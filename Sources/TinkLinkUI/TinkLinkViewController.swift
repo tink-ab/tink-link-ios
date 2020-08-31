@@ -397,8 +397,9 @@ public class TinkLinkViewController: UINavigationController {
                 }
             }
             self?.result = mappedResult
-            self?.completionHandler()
-            self?.dismiss(animated: true)
+            self?.dismiss(animated: true) {
+                self?.completionHandler()
+            }
             self?.credentialsCoordinator = nil
         })
         credentialsCoordinator?.start()
@@ -417,8 +418,9 @@ public class TinkLinkViewController: UINavigationController {
     }
 
     private func closeTinkLink() {
-        completionHandler()
-        dismiss(animated: true)
+        dismiss(animated: true) {
+            self.completionHandler()
+        }
     }
 
     private func completionHandler() {
@@ -469,8 +471,9 @@ extension TinkLinkViewController {
         }
 
         let dismissAction = UIAlertAction(title: Strings.Generic.dismiss, style: .cancel) { _ in
-            self.completionHandler()
-            self.presentingViewController?.dismiss(animated: true)
+            self.presentingViewController?.dismiss(animated: true) {
+                self.completionHandler()
+            }
         }
         alertController.addAction(dismissAction)
         present(alertController, animated: true)
@@ -607,7 +610,7 @@ extension TinkLinkViewController: UIAdaptivePresentationControllerDelegate {
         }
     }
 
-    public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         completionHandler()
     }
 
