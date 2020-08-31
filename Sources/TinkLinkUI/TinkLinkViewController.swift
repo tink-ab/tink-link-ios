@@ -283,11 +283,13 @@ public class TinkLinkViewController: UINavigationController {
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
             } catch {
-                let viewController = UIViewController()
-                self.setViewControllers([viewController], animated: false)
-                self.showAlert(for: error, onRetry: {
-                    self.retryOperation()
-                })
+                DispatchQueue.main.async {
+                    let viewController = UIViewController()
+                    self.setViewControllers([viewController], animated: false)
+                    self.showAlert(for: error, onRetry: {
+                        self.retryOperation()
+                    })
+                }
             }
         }
     }
