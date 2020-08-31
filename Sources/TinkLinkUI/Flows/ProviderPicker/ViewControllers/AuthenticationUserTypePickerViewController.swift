@@ -42,17 +42,18 @@ extension AuthenticationUserTypePickerViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let node = authenticationUserTypeNodes[indexPath.row]
-        let icon: Icon = node.authenticationUserType == .business ? .business : .profile
 
         let cell = tableView.dequeueReusableCell(ofType: CredentialsKindCell.self, for: indexPath)
-        cell.setIcon(icon)
 
         switch node.authenticationUserType {
         case .business:
+            cell.setIcon(.business)
             cell.setTitle(text: Strings.SelectAuthenticationUserType.business)
         case .personal:
+            cell.setIcon(.profile)
             cell.setTitle(text: Strings.SelectAuthenticationUserType.personal)
         case .corporate:
+            cell.setIcon(.corporate)
             cell.setTitle(text: Strings.SelectAuthenticationUserType.corporate)
         case .unknown:
             fatalError("Unknow authentication user type")
