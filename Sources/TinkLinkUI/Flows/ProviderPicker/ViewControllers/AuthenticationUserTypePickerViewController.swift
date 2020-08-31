@@ -52,6 +52,8 @@ extension AuthenticationUserTypePickerViewController {
             cell.setTitle(text: Strings.SelectAuthenticationUserType.business)
         case .personal:
             cell.setTitle(text: Strings.SelectAuthenticationUserType.personal)
+        case .corporate:
+            cell.setTitle(text: Strings.SelectAuthenticationUserType.corporate)
         case .unknown:
             fatalError("Unknow authentication user type")
         }
