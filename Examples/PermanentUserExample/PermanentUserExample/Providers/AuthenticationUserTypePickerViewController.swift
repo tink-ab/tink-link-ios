@@ -37,6 +37,8 @@ extension AuthenticationUserTypePickerViewController {
             cell.textLabel?.text = "Business"
         case .personal:
             cell.textLabel?.text = "Personal"
+        case .corporate:
+            cell.textLabel?.text = "Corporate"
         case .unknown:
             fatalError("Unknow authentication user type")
         }

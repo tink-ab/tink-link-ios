@@ -191,6 +191,9 @@ enum Strings {
         /// Title for the personal authentication user type
         static let personal = NSLocalizedString("SelectAuthenticationUserType.Personal", tableName: tableName, bundle: bundle, value: "Personal", comment: "Title for the personal authentication user type")
 
+        /// Title for the corporate authentication user type
+        static let corporate = NSLocalizedString("SelectAuthenticationUserType.Corporate", tableName: tableName, bundle: bundle, value: "Corporate", comment: "Title for the corporate authentication user type")
+
         /// Title when picking authentication user type.
         static let title = NSLocalizedString("SelectAuthenticationUserType.Title", tableName: tableName, bundle: bundle, value: "Login type", comment: "Title when picking authentication user type.")
     }
