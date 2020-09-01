@@ -157,7 +157,7 @@
 		8FFAE4CC23D1E7D100784CBC = {
 			isa = PBXGroup;
 			children = (
-				8FFAE4D723D1E7D100784CBC /* PermanentUserExample */,
+				8FFAE4D723D1E7D100784CBC /* HeadlessExample */,
 				8FFAE4D623D1E7D100784CBC /* Products */,
 				20FE0AB124E56E32006977F4 /* Frameworks */,
 			);
@@ -171,7 +171,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8FFAE4D723D1E7D100784CBC /* PermanentUserExample */ = {
+		8FFAE4D723D1E7D100784CBC /* HeadlessExample */ = {
 			isa = PBXGroup;
 			children = (
 				8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */,
@@ -185,7 +185,7 @@
 				8FFAE4E323D1E7D400784CBC /* LaunchScreen.storyboard */,
 				8FFAE4E623D1E7D400784CBC /* Info.plist */,
 			);
-			path = PermanentUserExample;
+			path = HeadlessExample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -426,7 +426,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				INFOPLIST_FILE = "$(SRCROOT)/PermanentUserExample/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/HeadlessExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -443,7 +443,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				INFOPLIST_FILE = "$(SRCROOT)/PermanentUserExample/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/HeadlessExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
