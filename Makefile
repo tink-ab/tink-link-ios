@@ -53,21 +53,21 @@ test:
 
 build-uikit-example:
 	xcodebuild clean build \
-		-workspace Examples/PermanentUserExample/PermanentUserExample.xcworkspace \
+		-workspace Examples/HeadlessExample/HeadlessExample.xcworkspace \
 		-scheme PermanentUserExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-swiftui-example:
 	xcodebuild clean build \
-		-workspace Examples/PermanentUserExample-SwiftUI/PermanentUserExample.xcworkspace \
+		-workspace Examples/HeadlessExample-SwiftUI/HeadlessExample.xcworkspace \
 		-scheme PermanentUserExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-tinklinkui-example:
-	bundle exec pod install --project-directory="./Examples/TinkLinkUIExample/"
+	bundle exec pod install --project-directory="./Examples/TinkLinkExample/"
 	xcodebuild clean build \
-		-workspace Examples/TinkLinkUIExample/TinkLinkUIExample.xcworkspace \
-		-scheme TinkLinkUIExample \
+		-workspace Examples/TinkLinkExample/TinkLinkExample.xcworkspace \
+		-scheme TinkLinkExample \
 		-destination 'generic/platform=iOS Simulator'
 
 translations:
