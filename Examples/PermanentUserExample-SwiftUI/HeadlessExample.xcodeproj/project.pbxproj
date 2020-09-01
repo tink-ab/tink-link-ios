@@ -45,7 +45,7 @@
 		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
 		20FE0ABA24E570D1006977F4 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
 		8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
-		8F3459B62396ADEB007DCD75 /* PermanentUserExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PermanentUserExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F3459B62396ADEB007DCD75 /* HeadlessExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeadlessExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3459B92396ADEB007DCD75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F3459BD2396ADEB007DCD75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8F3459BF2396ADED007DCD75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 		8F3459B72396ADEB007DCD75 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8F3459B62396ADEB007DCD75 /* PermanentUserExample.app */,
+				8F3459B62396ADEB007DCD75 /* HeadlessExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -221,9 +221,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8F3459B52396ADEB007DCD75 /* PermanentUserExample */ = {
+		8F3459B52396ADEB007DCD75 /* HeadlessExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8F3459CA2396ADED007DCD75 /* Build configuration list for PBXNativeTarget "PermanentUserExample" */;
+			buildConfigurationList = 8F3459CA2396ADED007DCD75 /* Build configuration list for PBXNativeTarget "HeadlessExample" */;
 			buildPhases = (
 				8F3459B22396ADEB007DCD75 /* Sources */,
 				8F3459B32396ADEB007DCD75 /* Frameworks */,
@@ -233,14 +233,14 @@
 			);
 			dependencies = (
 			);
-			name = PermanentUserExample;
+			name = HeadlessExample;
 			packageProductDependencies = (
 				20FE0AB524E5706A006977F4 /* Down */,
 				20FE0AB824E570C6006977F4 /* Kingfisher */,
 				20FE0ABC24E5713C006977F4 /* TinkLink */,
 			);
 			productName = PermanentUserProviderSelection;
-			productReference = 8F3459B62396ADEB007DCD75 /* PermanentUserExample.app */;
+			productReference = 8F3459B62396ADEB007DCD75 /* HeadlessExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -258,7 +258,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8F3459B12396ADEB007DCD75 /* Build configuration list for PBXProject "PermanentUserExample" */;
+			buildConfigurationList = 8F3459B12396ADEB007DCD75 /* Build configuration list for PBXProject "HeadlessExample" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -275,7 +275,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8F3459B52396ADEB007DCD75 /* PermanentUserExample */,
+				8F3459B52396ADEB007DCD75 /* HeadlessExample */,
 			);
 		};
 /* End PBXProject section */
@@ -494,7 +494,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8F3459B12396ADEB007DCD75 /* Build configuration list for PBXProject "PermanentUserExample" */ = {
+		8F3459B12396ADEB007DCD75 /* Build configuration list for PBXProject "HeadlessExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3459C82396ADED007DCD75 /* Debug */,
@@ -503,7 +503,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8F3459CA2396ADED007DCD75 /* Build configuration list for PBXNativeTarget "PermanentUserExample" */ = {
+		8F3459CA2396ADED007DCD75 /* Build configuration list for PBXNativeTarget "HeadlessExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3459CB2396ADED007DCD75 /* Debug */,
