@@ -50,7 +50,7 @@
 		8FC06D1523F196A700CD7B88 = {
 			isa = PBXGroup;
 			children = (
-				8FC06D2023F196A700CD7B88 /* TinkLinkUIExample */,
+				8FC06D2023F196A700CD7B88 /* TinkLinkExample */,
 				8FC06D1F23F196A700CD7B88 /* Products */,
 				8F7C465C0116CF637CE9E7F1 /* Pods */,
 				C2F9C545EF6A0270B8AD524D /* Frameworks */,
@@ -65,7 +65,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8FC06D2023F196A700CD7B88 /* TinkLinkUIExample */ = {
+		8FC06D2023F196A700CD7B88 /* TinkLinkExample */ = {
 			isa = PBXGroup;
 			children = (
 				8FC06D2123F196A700CD7B88 /* AppDelegate.swift */,
@@ -74,7 +74,7 @@
 				8FC06D2C23F196A900CD7B88 /* LaunchScreen.storyboard */,
 				8FC06D2F23F196A900CD7B88 /* Info.plist */,
 			);
-			path = TinkLinkUIExample;
+			path = TinkLinkExample;
 			sourceTree = "<group>";
 		};
 		C2F9C545EF6A0270B8AD524D /* Frameworks */ = {
