@@ -144,28 +144,6 @@ public class TinkLinkViewController: UINavigationController {
 
         super.init(nibName: nil, bundle: nil)
     }
-    
-    /// Initializes a new TinkLinkViewController.
-    /// - Parameters:
-    ///   - tink: A configured `Tink` object.
-    ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from.
-    ///   - scope: A set of scopes that will be aggregated.
-    ///   - providerKinds: The kind of providers that will be listed.
-    ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
-    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    @available(*, unavailable, renamed: "init(tink:market:scopes:providerPredicate:completion:)")
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
-        self.tink = tink
-        self.market = market
-        self.scopes = scopes
-        self.operation = .create(providerPredicate: providerPredicate)
-        self.temporaryCompletion = { (result: Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) in
-            completion(result.map(\.code))
-        }
-        self.permanentCompletion = nil
-
-        super.init(nibName: nil, bundle: nil)
-    }
 
     /// Initializes a new TinkLinkViewController with the current user session associated with this Tink object.
     /// - Parameters:
