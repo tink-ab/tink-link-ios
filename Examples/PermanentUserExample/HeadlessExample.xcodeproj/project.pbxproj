@@ -61,7 +61,7 @@
 		8FDA296C23D1EE5300EC810F /* FinancialInstitutionGroupPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionGroupPickerViewController.swift; sourceTree = "<group>"; };
 		8FDA296D23D1EE5300EC810F /* AccessTypePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTypePickerViewController.swift; sourceTree = "<group>"; };
 		8FDA296E23D1EE5300EC810F /* CredentialsKindPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsKindPickerViewController.swift; sourceTree = "<group>"; };
-		8FFAE4D523D1E7D100784CBC /* PermanentUserExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PermanentUserExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FFAE4D523D1E7D100784CBC /* HeadlessExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeadlessExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FFAE4D823D1E7D100784CBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FFAE4E123D1E7D400784CBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FFAE4E423D1E7D400784CBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 		8FFAE4D623D1E7D100784CBC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8FFAE4D523D1E7D100784CBC /* PermanentUserExample.app */,
+				8FFAE4D523D1E7D100784CBC /* HeadlessExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,9 +191,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8FFAE4D423D1E7D100784CBC /* PermanentUserExample */ = {
+		8FFAE4D423D1E7D100784CBC /* HeadlessExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8FFAE4E923D1E7D400784CBC /* Build configuration list for PBXNativeTarget "PermanentUserExample" */;
+			buildConfigurationList = 8FFAE4E923D1E7D400784CBC /* Build configuration list for PBXNativeTarget "HeadlessExample" */;
 			buildPhases = (
 				8FFAE4D123D1E7D100784CBC /* Sources */,
 				8FFAE4D223D1E7D100784CBC /* Frameworks */,
@@ -203,14 +203,14 @@
 			);
 			dependencies = (
 			);
-			name = PermanentUserExample;
+			name = HeadlessExample;
 			packageProductDependencies = (
 				20FE0AAB24E56DD3006977F4 /* Down */,
 				20FE0AAE24E56E07006977F4 /* Kingfisher */,
 				20FE0AB224E56EA3006977F4 /* TinkLink */,
 			);
 			productName = "UIKit-PermanentUserProviderSelection";
-			productReference = 8FFAE4D523D1E7D100784CBC /* PermanentUserExample.app */;
+			productReference = 8FFAE4D523D1E7D100784CBC /* HeadlessExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -228,7 +228,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8FFAE4D023D1E7D100784CBC /* Build configuration list for PBXProject "PermanentUserExample" */;
+			buildConfigurationList = 8FFAE4D023D1E7D100784CBC /* Build configuration list for PBXProject "HeadlessExample" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -245,7 +245,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8FFAE4D423D1E7D100784CBC /* PermanentUserExample */,
+				8FFAE4D423D1E7D100784CBC /* HeadlessExample */,
 			);
 		};
 /* End PBXProject section */
@@ -431,7 +431,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tink.PermanentUserExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tink.HeadlessExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -448,7 +448,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tink.PermanentUserExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tink.HeadlessExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -458,7 +458,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8FFAE4D023D1E7D100784CBC /* Build configuration list for PBXProject "PermanentUserExample" */ = {
+		8FFAE4D023D1E7D100784CBC /* Build configuration list for PBXProject "HeadlessExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8FFAE4E723D1E7D400784CBC /* Debug */,
@@ -467,7 +467,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8FFAE4E923D1E7D400784CBC /* Build configuration list for PBXNativeTarget "PermanentUserExample" */ = {
+		8FFAE4E923D1E7D400784CBC /* Build configuration list for PBXNativeTarget "HeadlessExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8FFAE4EA23D1E7D400784CBC /* Debug */,
