@@ -3,6 +3,10 @@ targets:
   TinkLink:
     type: framework
     platform: [iOS, macOS]
+    info:
+      path: Sources/TinkLink/Info.plist
+      properties:
+        CFBundleShortVersionString: 0.14.2
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLink"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
@@ -28,6 +32,10 @@ targets:
   TinkLinkUI:
     type: framework
     platform: [iOS]
+    info:
+      path: Sources/TinkLinkUI/Info.plist
+      properties:
+        CFBundleShortVersionString: 0.14.2
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUI"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
