@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8FC06D1D23F196A700CD7B88"
-               BuildableName = "TinkLinkUIExample.app"
-               BlueprintName = "TinkLinkUIExample"
-               ReferencedContainer = "container:TinkLinkUIExample.xcodeproj">
+               BuildableName = "TinkLinkExample.app"
+               BlueprintName = "TinkLinkExample"
+               ReferencedContainer = "container:TinkLinkExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8FC06D1D23F196A700CD7B88"
-            BuildableName = "TinkLinkUIExample.app"
-            BlueprintName = "TinkLinkUIExample"
-            ReferencedContainer = "container:TinkLinkUIExample.xcodeproj">
+            BuildableName = "TinkLinkExample.app"
+            BlueprintName = "TinkLinkExample"
+            ReferencedContainer = "container:TinkLinkExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8FC06D1D23F196A700CD7B88"
-            BuildableName = "TinkLinkUIExample.app"
-            BlueprintName = "TinkLinkUIExample"
-            ReferencedContainer = "container:TinkLinkUIExample.xcodeproj">
+            BuildableName = "TinkLinkExample.app"
+            BlueprintName = "TinkLinkExample"
+            ReferencedContainer = "container:TinkLinkExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -17,7 +17,7 @@
 /* Begin PBXFileReference section */
 		1F6B6352F51D1CF0332E4680 /* Pods-TinkLinkUIExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkLinkUIExample.debug.xcconfig"; path = "Target Support Files/Pods-TinkLinkUIExample/Pods-TinkLinkUIExample.debug.xcconfig"; sourceTree = "<group>"; };
 		2071952323F2B7A20042B2FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8FC06D1E23F196A700CD7B88 /* TinkLinkUIExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkLinkUIExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FC06D1E23F196A700CD7B88 /* TinkLinkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkLinkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC06D2123F196A700CD7B88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FC06D2A23F196A900CD7B88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FC06D2D23F196A900CD7B88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		8FC06D1F23F196A700CD7B88 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8FC06D1E23F196A700CD7B88 /* TinkLinkUIExample.app */,
+				8FC06D1E23F196A700CD7B88 /* TinkLinkExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,9 +88,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8FC06D1D23F196A700CD7B88 /* TinkLinkUIExample */ = {
+		8FC06D1D23F196A700CD7B88 /* TinkLinkExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8FC06D3223F196A900CD7B88 /* Build configuration list for PBXNativeTarget "TinkLinkUIExample" */;
+			buildConfigurationList = 8FC06D3223F196A900CD7B88 /* Build configuration list for PBXNativeTarget "TinkLinkExample" */;
 			buildPhases = (
 				479597E7C21DE49DD924DAD8 /* [CP] Check Pods Manifest.lock */,
 				8FC06D1A23F196A700CD7B88 /* Sources */,
@@ -102,9 +102,9 @@
 			);
 			dependencies = (
 			);
-			name = TinkLinkUIExample;
+			name = TinkLinkExample;
 			productName = TinkLinkUIExample;
-			productReference = 8FC06D1E23F196A700CD7B88 /* TinkLinkUIExample.app */;
+			productReference = 8FC06D1E23F196A700CD7B88 /* TinkLinkExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -122,7 +122,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8FC06D1923F196A700CD7B88 /* Build configuration list for PBXProject "TinkLinkUIExample" */;
+			buildConfigurationList = 8FC06D1923F196A700CD7B88 /* Build configuration list for PBXProject "TinkLinkExample" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -135,7 +135,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8FC06D1D23F196A700CD7B88 /* TinkLinkUIExample */,
+				8FC06D1D23F196A700CD7B88 /* TinkLinkExample */,
 			);
 		};
 /* End PBXProject section */
@@ -343,7 +343,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUIExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -361,7 +361,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUIExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -371,7 +371,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8FC06D1923F196A700CD7B88 /* Build configuration list for PBXProject "TinkLinkUIExample" */ = {
+		8FC06D1923F196A700CD7B88 /* Build configuration list for PBXProject "TinkLinkExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8FC06D3023F196A900CD7B88 /* Debug */,
@@ -380,7 +380,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8FC06D3223F196A900CD7B88 /* Build configuration list for PBXNativeTarget "TinkLinkUIExample" */ = {
+		8FC06D3223F196A900CD7B88 /* Build configuration list for PBXNativeTarget "TinkLinkExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8FC06D3323F196A900CD7B88 /* Debug */,
