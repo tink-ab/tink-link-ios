@@ -54,13 +54,13 @@ test:
 build-uikit-example:
 	xcodebuild clean build \
 		-workspace Examples/HeadlessExample/HeadlessExample.xcworkspace \
-		-scheme PermanentUserExample \
+		-scheme HeadlessExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-swiftui-example:
 	xcodebuild clean build \
 		-workspace Examples/HeadlessExample-SwiftUI/HeadlessExample.xcworkspace \
-		-scheme PermanentUserExample \
+		-scheme HeadlessExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-tinklinkui-example:
