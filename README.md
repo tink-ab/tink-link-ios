@@ -52,6 +52,12 @@ When finished, you should be able to `import TinkLink` and `import TinkLinkUI` w
 
 Use `pod update TinkLinkUI` to update to the newer version.
 
+#### Using Carthage
+
+Add `github "tink-ab/tink-link-ios"` to your project's Cartfile. Run `carthage update` to install TinkLinkUI.
+
+When finished, you should be able to `import TinkLinkUI` within your project.
+
 ## Configuration
 
 To start using Tink Link, you will need to configure a `Tink` instance with your client ID and redirect URI.
