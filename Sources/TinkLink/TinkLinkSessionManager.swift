@@ -10,11 +10,11 @@ public final class TinkLinkSessionManager: SessionManager {
     fileprivate var uiTaskCount = 0
 
     public init(tink: Tink = .shared) {
-        authorizationContext = AuthorizationContext(tink: tink)
-        consentContext = ConsentContext(tink: tink)
-        credentialsContext = CredentialsContext(tink: tink)
-        providerContext = ProviderContext(tink: tink)
-        transferContext = TransferContext(tink: tink)
+        self.authorizationContext = AuthorizationContext(tink: tink)
+        self.consentContext = ConsentContext(tink: tink)
+        self.credentialsContext = CredentialsContext(tink: tink)
+        self.providerContext = ProviderContext(tink: tink)
+        self.transferContext = TransferContext(tink: tink)
     }
 }
 
@@ -34,15 +34,19 @@ extension Tink {
     public var authorizationContext: AuthorizationContext {
         return tinkLinkSessionManager.authorizationContext
     }
+
     public var consentContext: ConsentContext {
         return tinkLinkSessionManager.consentContext
     }
+
     public var credentialsContext: CredentialsContext {
         return tinkLinkSessionManager.credentialsContext
     }
+
     public var providerContext: ProviderContext {
         return tinkLinkSessionManager.providerContext
     }
+
     public var transferContext: TransferContext {
         return tinkLinkSessionManager.transferContext
     }

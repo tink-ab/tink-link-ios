@@ -121,7 +121,7 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         }
     }
 
-     public var failureReason: String? {
+    public var failureReason: String? {
         switch self {
         case .deeplinkURLNotFound:
             return nil

@@ -177,6 +177,7 @@ enum Strings {
             static let title = NSLocalizedString("ProviderList.Error.Title", tableName: tableName, bundle: bundle, value: "We’re sorry, but we couldn't load any banks at the moment", comment: "Title for when providers could not be loaded.")
         }
     }
+
     enum SelectAccessType {
         static let information = NSLocalizedString("SelectAccessType.Information", tableName: tableName, bundle: bundle, value: "Information about account types", comment: "Text for information button shown in the choose access type screen.")
 

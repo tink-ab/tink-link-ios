@@ -2,7 +2,6 @@ import Foundation
 @testable import TinkLink
 
 class MockedSuccessBeneficiaryService: BeneficiaryService {
-
     @discardableResult
     func beneficiaries(completion: @escaping (Result<[Beneficiary], Error>) -> Void) -> RetryCancellable? {
         completion(.success([Beneficiary.savingBeneficiary]))

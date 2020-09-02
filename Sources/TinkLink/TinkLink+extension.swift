@@ -2,7 +2,6 @@
 import Foundation
 
 extension Tink {
-
     // MARK: - Handling Redirects
 
     ///
@@ -26,7 +25,7 @@ extension Tink {
         var parameters = Dictionary(grouping: urlComponents.queryItems ?? [], by: { $0.name })
             .compactMapValues { $0.first?.value }
 
-        parameters.merge(urlComponents.fragmentParameters, uniquingKeysWith: { (current, _) in current })
+        parameters.merge(urlComponents.fragmentParameters, uniquingKeysWith: { current, _ in current })
 
         NotificationCenter.default.post(name: .credentialThirdPartyCallback, object: nil, userInfo: parameters)
 

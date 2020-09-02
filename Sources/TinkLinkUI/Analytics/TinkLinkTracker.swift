@@ -1,8 +1,7 @@
 import Foundation
 
 class TinkLinkTracker {
-
-    var userID: String? = nil
+    var userID: String?
 
     private let credentialsID: String?
     private let clientID: String
@@ -12,12 +11,13 @@ class TinkLinkTracker {
 
     private let version: String = {
         if let infoDictionary = Bundle(for: TinkLinkTracker.self).infoDictionary,
-           let shortVersion = infoDictionary["CFBundleShortVersionString"] as? String {
+            let shortVersion = infoDictionary["CFBundleShortVersionString"] as? String {
             return shortVersion
         } else {
             return "-"
         }
     }()
+
     private let product = "CREDENTIALS" // Can only be credentials right now.
     private let platform = "IOS"
     private let device = "MOBILE"
@@ -29,28 +29,28 @@ class TinkLinkTracker {
 
         switch operation {
         case .authenticate(credentialsID: let id):
-            flow = .credentialsAuthenticate
-            credentialsID = id.value
-            isTest = false
+            self.flow = .credentialsAuthenticate
+            self.credentialsID = id.value
+            self.isTest = false
 
         case .create(providerPredicate: let predicate):
-            flow = .credentialsAdd
-            credentialsID = nil
+            self.flow = .credentialsAdd
+            self.credentialsID = nil
             if case .kinds(let kinds) = predicate {
                 isTest = kinds.contains(.test)
             } else {
-                isTest = false
+                self.isTest = false
             }
 
         case .refresh(credentialsID: let id):
-            flow = .credentialsRefresh
-            credentialsID = id.value
-            isTest = false
+            self.flow = .credentialsRefresh
+            self.credentialsID = id.value
+            self.isTest = false
 
         case .update(credentialsID: let id):
-            flow = .credentialsUpdate
-            credentialsID = id.value
-            isTest = false
+            self.flow = .credentialsUpdate
+            self.credentialsID = id.value
+            self.isTest = false
         }
     }
 
@@ -67,7 +67,8 @@ class TinkLinkTracker {
             timestamp: Date(),
             product: product,
             action: interaction.rawValue,
-            device: device)
+            device: device
+        )
         )
         api.sendRequest(request)
     }
@@ -87,9 +88,9 @@ class TinkLinkTracker {
             userId: userID,
             flow: flow.rawValue,
             view: screen.rawValue,
-            timestamp: Date())
+            timestamp: Date()
+        )
         )
         api.sendRequest(request)
     }
 }
-

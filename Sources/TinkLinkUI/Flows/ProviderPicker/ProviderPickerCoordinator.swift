@@ -11,7 +11,6 @@ protocol ProviderPickerCoordinating: AnyObject {
 }
 
 class ProviderPickerCoordinator: ProviderPickerCoordinating {
-
     private let tinkLinkTracker: TinkLinkTracker
     private let providerController: ProviderController
     private weak var parentViewController: UIViewController?

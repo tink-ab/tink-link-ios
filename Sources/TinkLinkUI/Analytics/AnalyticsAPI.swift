@@ -1,7 +1,6 @@
 import Foundation
 
 class AnalyticsAPI {
-
     private let encoder: JSONEncoder = {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
@@ -17,7 +16,7 @@ class AnalyticsAPI {
         guard let body = try? encoder.encode(request) else {
             return
         }
-        
+
         urlRequest.httpBody = body
 
         let task = URLSession.shared.dataTask(with: urlRequest)
@@ -26,7 +25,6 @@ class AnalyticsAPI {
 }
 
 enum TinkAnalyticsRequest {
-
     struct ViewEvent: Encodable {
         let clientId: String
         let sessionId: String
@@ -58,7 +56,6 @@ enum TinkAnalyticsRequest {
 }
 
 extension TinkAnalyticsRequest: Encodable {
-
     private enum CodingKeys: String, CodingKey {
         case type, viewEvent, interactionEvent
     }
