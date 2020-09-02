@@ -45,10 +45,10 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-	bundle exec pod install --repo-update --project-directory="./TinkLinkTester/"
+	bundle exec pod install --repo-update --project-directory="./Examples/TinkLinkExample/"
 	xcodebuild test \
-		-workspace ./TinkLinkTester/TinkLink.xcworkspace \
-		-scheme TinkLinkTester \
+		-workspace Examples/TinkLinkExample/TinkLinkExample.xcworkspace \
+		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
 build-uikit-example:
