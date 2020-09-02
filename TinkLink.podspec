@@ -18,5 +18,5 @@ Pod::Spec.new do |spec|
       test_spec.source_files = "Tests/TinkLinkTests/**/*.swift"
   end
 
-  spec.dependency "TinkCore", "0.1.2"
+  spec.dependency "TinkCore", "0.1.3"
 end
