@@ -44,7 +44,7 @@ Refer to these [instructions](https://github.com/Carthage/Carthage#installing-ca
 2. Run `carthage update` in your project directory.
 3. If you're building for iOS, in your copy frameworks run script, add `$(SRCROOT)/Carthage/Build/iOS/TinkLink.framework` and `$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLink.framework` paths to your input and output file lists respectivly.
 
-When finished, you should be able to `import TinkLink` within your project.
+When finished, you should be able to `import TinkLink` and `import TinkLinkUI` within your project.
 
 ### Integrate TinkLinkUI into your project using CocoaPods.
 #### Using CocoaPods
