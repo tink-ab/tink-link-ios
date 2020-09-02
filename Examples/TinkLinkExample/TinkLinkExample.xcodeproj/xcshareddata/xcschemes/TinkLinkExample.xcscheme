@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "58C83C65FDDE82965EE08CB4EF07AB18"
+               BuildableName = "TinkLink-Unit-TinkLinkTests.xctest"
+               BlueprintName = "TinkLink-Unit-TinkLinkTests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9459DFA8B43E94B9192544B42E1FFA38"
+               BuildableName = "TinkLinkUI-Unit-TinkLinkUITests.xctest"
+               BlueprintName = "TinkLinkUI-Unit-TinkLinkUITests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
