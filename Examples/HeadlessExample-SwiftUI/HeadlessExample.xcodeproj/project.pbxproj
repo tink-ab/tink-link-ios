@@ -105,7 +105,7 @@
 		8F3459AD2396ADEB007DCD75 = {
 			isa = PBXGroup;
 			children = (
-				8F3459B82396ADEB007DCD75 /* HeadelessExample */,
+				8F3459B82396ADEB007DCD75 /* HeadlessExample */,
 				8F3459B72396ADEB007DCD75 /* Products */,
 				20FE0ABB24E570D9006977F4 /* Frameworks */,
 			);
@@ -119,7 +119,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8F3459B82396ADEB007DCD75 /* HeadelessExample */ = {
+		8F3459B82396ADEB007DCD75 /* HeadlessExample */ = {
 			isa = PBXGroup;
 			children = (
 				8F3459B92396ADEB007DCD75 /* AppDelegate.swift */,
@@ -134,7 +134,7 @@
 				8F3459C72396ADED007DCD75 /* Info.plist */,
 				8F3459C12396ADED007DCD75 /* Preview Content */,
 			);
-			path = HeadelessExample;
+			path = HeadlessExample;
 			sourceTree = "<group>";
 		};
 		8F3459C12396ADED007DCD75 /* Preview Content */ = {
