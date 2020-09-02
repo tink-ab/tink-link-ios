@@ -1,4 +1,4 @@
-# Permanent User Example
+# Headless Example
 
 ## Prerequisites
 1. Follow the [getting started guide](https://docs.tink.com/resources/getting-started/set-up-your-account) to retrieve your `client_id`.
@@ -20,5 +20,5 @@ Before running the example project open `AppDelegate.swift` and configure the fo
     ```
 
 ## Running the example app
-1. Open `PermanentUserExample.xcodeproj` in Xcode.
+1. Open `HeadlessExample.xcodeproj` in Xcode.
 2. Press the run button. If all went well, this should launch a simulator with the sample app running.

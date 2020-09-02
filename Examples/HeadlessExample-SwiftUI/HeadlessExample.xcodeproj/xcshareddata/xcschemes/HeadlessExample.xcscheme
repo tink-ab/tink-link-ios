@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1130"
+   LastUpgradeVersion = "1120"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8FC06D1D23F196A700CD7B88"
-               BuildableName = "TinkLinkUIExample.app"
-               BlueprintName = "TinkLinkUIExample"
-               ReferencedContainer = "container:TinkLinkUIExample.xcodeproj">
+               BlueprintIdentifier = "8F3459B52396ADEB007DCD75"
+               BuildableName = "HeadlessExample.app"
+               BlueprintName = "HeadlessExample"
+               ReferencedContainer = "container:HeadlessExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,10 +44,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8FC06D1D23F196A700CD7B88"
-            BuildableName = "TinkLinkUIExample.app"
-            BlueprintName = "TinkLinkUIExample"
-            ReferencedContainer = "container:TinkLinkUIExample.xcodeproj">
+            BlueprintIdentifier = "8F3459B52396ADEB007DCD75"
+            BuildableName = "HeadlessExample.app"
+            BlueprintName = "HeadlessExample"
+            ReferencedContainer = "container:HeadlessExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,10 +61,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8FC06D1D23F196A700CD7B88"
-            BuildableName = "TinkLinkUIExample.app"
-            BlueprintName = "TinkLinkUIExample"
-            ReferencedContainer = "container:TinkLinkUIExample.xcodeproj">
+            BlueprintIdentifier = "8F3459B52396ADEB007DCD75"
+            BuildableName = "HeadlessExample.app"
+            BlueprintName = "HeadlessExample"
+            ReferencedContainer = "container:HeadlessExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
