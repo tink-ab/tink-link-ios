@@ -30,12 +30,16 @@ Follow these instructions to [link a target to a package product](https://help.a
 When finished, you should be able to `import TinkLink` within your project.
 
 #### Using CocoaPods
+Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) for usage and installation instructions.
 
-Add `pod 'TinkLink'` to your project's Podfile. Run `pod install` to install the TinkLink framework.
+1. Add TinkLink to your Podfile.
+    ```
+    pod "TinkLink"
+    ```
 
-When finished, you should be able to `import TinkLink` within your project.
+2. Run `pod install` in your project directory.
 
-Use `pod update TinkLink` to update to the newer version.
+3. Open your `.xcworkspace` file to see the project in Xcode.
 
 #### Using Carthage
 Refer to these [instructions](https://github.com/Carthage/Carthage#installing-carthage) for usage and installation details.
@@ -48,12 +52,17 @@ When finished, you should be able to `import TinkLink` and `import TinkLinkUI` w
 
 ### Integrate TinkLinkUI into your project using CocoaPods.
 #### Using CocoaPods
+Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) for usage and installation instructions.
 
-Add `pod 'TinkLinkUI'` to your project's Podfile. Run `pod install` to install the TinkLinkUI framework.
+1. Add TinkLink and TinkLinkUI to your Podfile.
+    ```
+    pod "TinkLink"
+    pod "TinkLinkUI"
+    ```
 
-When finished, you should be able to `import TinkLink` and `import TinkLinkUI` within your project.
+2. Run `pod install` in your project directory.
 
-Use `pod update TinkLinkUI` to update to the newer version.
+3. Open your `.xcworkspace` file to see the project in Xcode.
 
 #### Using Carthage
 Refer to these [instructions](https://github.com/Carthage/Carthage#installing-carthage) for usage and installation details.
