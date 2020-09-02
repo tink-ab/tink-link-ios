@@ -1,6 +1,5 @@
 import Foundation
 
-
 /// An object that you use to authorize for a user with requested scopes.
 public final class AuthorizationContext {
     private let clientID: String

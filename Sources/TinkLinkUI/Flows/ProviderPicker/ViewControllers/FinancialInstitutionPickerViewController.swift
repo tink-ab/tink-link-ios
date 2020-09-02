@@ -38,7 +38,7 @@ extension FinancialInstitutionPickerViewController {
             navigationItem.searchController = searchController
             navigationItem.hidesSearchBarWhenScrolling = false
         }
-        
+
         tableView.registerReusableCell(ofType: ProviderCell.self)
         tableView.tableFooterView = UIView(frame: .zero)
 
