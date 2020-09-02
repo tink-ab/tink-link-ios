@@ -62,7 +62,7 @@ class ViewController: UIViewController {
         case .temporaryUser:
             showTinkLinkWithTemporaryUser()
         case .authorizationCode(let code):
-            showTinkLinkWithAuthrorizationCode(code)
+            showTinkLinkWithAuthorizationCode(code)
         case .accessToken(let token):
             showTinkLinkWithUserSession(token)
         }
