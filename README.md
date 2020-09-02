@@ -76,9 +76,9 @@ Follow the instructions in one of these links to learn how to set this up:
 
 ## Examples
 These examples shows how to build a complete aggregation flow using TinkLink or TinkLinkUI.
-- [Permanent User](Examples/PermanentUserExample) 
-- [Permanent User (SwiftUI)](Examples/PermanentUserExample)
-- [Tink Link UI](Examples/TinkLinkUIExample)
+- [Tink Link](Examples/TinkLinkExample)
+- [Headless](Examples/HeadlessExample) 
+- [Headless (SwiftUI)](Examples/HeadlessExample-SwiftUI)
 
 ## Developer Documentation
 - [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios)
