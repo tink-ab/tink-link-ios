@@ -6,7 +6,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let configuration = try! Tink.Configuration(clientID: "YOUR_CLIENT_ID", redirectURI: URL(string: "link-demo://tink")!, environment: .production)
+        let configuration = try! Tink.Configuration(
+            clientID: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_CLIENT_ID"] ?? "YOUR_CLIENT_ID",
+            redirectURI: URL(string: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_REDIRECT_URI"] ?? "tinklink://example")!,
+            environment: .production
+        )
 
         Tink.configure(with: configuration)
         window = UIWindow(frame: UIScreen.main.bounds)
