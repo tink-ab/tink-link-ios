@@ -2,6 +2,7 @@ import Down
 import TinkLink
 import UIKit
 
+/// A view controller presenting an interface to add credentials.
 final class AddCredentialsViewController: UITableViewController {
     let provider: Provider
 

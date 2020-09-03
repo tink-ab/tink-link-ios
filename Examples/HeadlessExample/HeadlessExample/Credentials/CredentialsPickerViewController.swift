@@ -1,6 +1,7 @@
 import TinkLink
 import UIKit
 
+/// A view controller that displays an interface for picking credentials.
 final class CredentialsPickerViewController: UITableViewController {
     private let dateFormatter = DateFormatter()
 

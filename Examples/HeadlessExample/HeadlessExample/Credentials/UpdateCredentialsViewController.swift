@@ -2,6 +2,7 @@ import Down
 import TinkLink
 import UIKit
 
+/// A view controller presenting an interface to update credentials.
 final class UpdateCredentialsViewController: UITableViewController {
     private let provider: Provider
     private var credentials: Credentials

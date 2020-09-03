@@ -1,6 +1,7 @@
 import TinkLink
 import UIKit
 
+/// A view controller that displays an interface for picking credentials types.
 final class CredentialsKindPickerViewController: UITableViewController {
     var credentialsKindNodes: [ProviderTree.CredentialsKindNode] = []
 }

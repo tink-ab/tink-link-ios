@@ -1,7 +1,7 @@
 import TinkLink
 import UIKit
 
-/// Example of how to use the provider grouped by credential type
+/// A view controller that displays an interface for picking authentication user types.
 final class AuthenticationUserTypePickerViewController: UITableViewController {
     var authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode] = []
 }

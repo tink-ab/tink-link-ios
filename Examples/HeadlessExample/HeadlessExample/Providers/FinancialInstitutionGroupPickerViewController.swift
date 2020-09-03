@@ -1,6 +1,7 @@
 import TinkLink
 import UIKit
 
+/// A view controller that displays an interface for picking financial institution groups.
 final class FinancialInstitutionGroupPickerViewController: UITableViewController {
     private let providerContext = Tink.shared.providerContext
 
