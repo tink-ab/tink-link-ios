@@ -1,7 +1,8 @@
 import UIKit
 import TinkLink
 
-class TransferViewController: UITableViewController {
+/// A view controller presenting an interface to initiate a transfer.
+final class TransferViewController: UITableViewController {
     private let transferContext = Tink.shared.transferContext
 
     private var sourceAccount: Account?

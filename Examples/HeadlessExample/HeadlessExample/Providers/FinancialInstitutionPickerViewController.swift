@@ -1,6 +1,7 @@
 import TinkLink
 import UIKit
 
+/// A view controller that displays an interface for picking financial institutions.
 final class FinancialInstitutionPickerViewController: UITableViewController {
     var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = []
 }

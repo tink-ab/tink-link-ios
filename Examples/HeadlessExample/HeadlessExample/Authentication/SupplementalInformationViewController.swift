@@ -6,7 +6,7 @@ protocol SupplementalInformationViewControllerDelegate: AnyObject {
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didSupplementInformationForCredential credential: Credentials)
 }
 
-/// Example of how to use the credential field supplemental information to update credential
+/// A view controller that displays a form for submitting supplemental information.
 final class SupplementalInformationViewController: UITableViewController {
     let supplementInformationTask: SupplementInformationTask
 

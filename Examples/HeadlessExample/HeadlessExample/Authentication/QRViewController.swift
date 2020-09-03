@@ -1,6 +1,7 @@
 import UIKit
 
-class QRViewController: UIViewController {
+/// A view controller that displays a QR code.
+final class QRViewController: UIViewController {
     private let image: UIImage
 
     init(image: UIImage) {

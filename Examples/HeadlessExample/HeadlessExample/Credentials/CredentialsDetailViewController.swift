@@ -1,6 +1,7 @@
 import UIKit
 import TinkLink
 
+/// A view controller that presents credentials details.
 final class CredentialsDetailViewController: UITableViewController {
     private let credentialsContext = Tink.shared.credentialsContext
     private var credentials: Credentials {

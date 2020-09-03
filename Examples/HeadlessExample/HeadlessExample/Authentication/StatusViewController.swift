@@ -1,5 +1,6 @@
 import UIKit
 
+/// A view controller that displays status for an ongoing task.
 final class StatusViewController: UIViewController {
     private lazy var shadowLayer = CAShapeLayer()
     private lazy var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
