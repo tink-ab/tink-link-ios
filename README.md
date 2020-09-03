@@ -46,7 +46,15 @@ Refer to these [instructions](https://github.com/Carthage/Carthage#installing-ca
 
 1. Add `github "tink-ab/tink-link-ios"` to your project's Cartfile. 
 2. Run `carthage update` in your project directory.
-3. If you're building for iOS, in your copy frameworks run script, add `$(SRCROOT)/Carthage/Build/iOS/TinkLink.framework` and `$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLink.framework` paths to your input and output file lists respectivly.
+3. If you're building for iOS, in your copy frameworks run script, add these paths to your input and output file lists respectivly.
+```
+$(SRCROOT)/Carthage/Build/iOS/TinkCore.framework
+$(SRCROOT)/Carthage/Build/iOS/TinkLink.framework
+```
+```
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkCore.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLink.framework
+```
 
 When finished, you should be able to `import TinkLink` within your project.
 
@@ -71,10 +79,12 @@ Refer to these [instructions](https://github.com/Carthage/Carthage#installing-ca
 2. Run `carthage update` in your project directory.
 3. In your copy frameworks run script, add these paths to your input and output file lists respectivly.
 ```
+$(SRCROOT)/Carthage/Build/iOS/TinkCore.framework
 $(SRCROOT)/Carthage/Build/iOS/TinkLink.framework
 $(SRCROOT)/Carthage/Build/iOS/TinkLinkUI.framework
 ```
 ```
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkCore.framework
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLink.framework
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLinkUI.framework
 ```
