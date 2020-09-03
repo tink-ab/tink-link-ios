@@ -1,6 +1,6 @@
 import UIKit
 
-class QRViewController: UIViewController {
+final class QRViewController: UIViewController {
     private let image: UIImage
 
     init(image: UIImage) {

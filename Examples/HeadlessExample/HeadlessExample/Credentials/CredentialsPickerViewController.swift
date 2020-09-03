@@ -1,7 +1,7 @@
 import TinkLink
 import UIKit
 
-class CredentialsPickerViewController: UITableViewController {
+final class CredentialsPickerViewController: UITableViewController {
     private let dateFormatter = DateFormatter()
 
     private let credentialsContext = Tink.shared.credentialsContext

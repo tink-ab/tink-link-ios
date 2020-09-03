@@ -5,7 +5,7 @@ protocol BeneficiaryPickerViewControllerDelegate: AnyObject {
     func beneficiaryPickerViewController(_ viewController: BeneficiaryPickerViewController, didSelectBeneficiary beneficiary: TransferAccountIdentifiable)
 }
 
-class BeneficiaryPickerViewController: UITableViewController {
+final class BeneficiaryPickerViewController: UITableViewController {
     private let transferContext = Tink.shared.transferContext
 
     weak var delegate: BeneficiaryPickerViewControllerDelegate?
