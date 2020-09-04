@@ -25,7 +25,7 @@ public final class ProviderContext {
         public static let `default` = Attributes(capabilities: .all, kinds: .default, accessTypes: .all)
     }
 
-    private let tink: Tink
+    private let redirectURI: URL
     private let service: ProviderService
 
     // MARK: - Creating a Context
@@ -34,12 +34,12 @@ public final class ProviderContext {
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
-        let service = RESTProviderService(client: tink.client)
+        let service = tink.services.providerService
         self.init(tink: tink, providerService: service)
     }
 
     init(tink: Tink, providerService: ProviderService) {
-        self.tink = tink
+        self.redirectURI = tink.configuration.redirectURI
         self.service = providerService
     }
 
@@ -54,7 +54,7 @@ public final class ProviderContext {
     /// - Parameter completion: A result representing either a list of providers or an error.
     @discardableResult
     public func fetchProviders(attributes: Attributes = .default, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
-        return service.providers(id: nil, capabilities: attributes.capabilities, includeTestProviders: attributes.kinds.contains(.test)) { result in
+        return service.providers(id: nil, capabilities: attributes.capabilities, includeTestProviders: attributes.kinds.contains(.test), excludeNonTestProviders: attributes.kinds == [.test]) { result in
             do {
                 let fetchedProviders = try result.get()
                 let filteredProviders = fetchedProviders.filter { attributes.accessTypes.contains($0.accessType) && attributes.kinds.contains($0.kind) }
@@ -76,7 +76,7 @@ public final class ProviderContext {
     /// - Parameter completion: A result representing either a single provider or an error.
     @discardableResult
     public func fetchProvider(with id: Provider.ID, completion: @escaping (Result<Provider, Error>) -> Void) -> RetryCancellable? {
-        return service.providers(id: id, capabilities: nil, includeTestProviders: true) { result in
+        return service.providers(id: id, capabilities: nil, includeTestProviders: true, excludeNonTestProviders: false) { result in
             do {
                 let fetchedProviders = try result.get()
                 if let provider = fetchedProviders.first {

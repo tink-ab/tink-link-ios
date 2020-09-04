@@ -1,0 +1,68 @@
+name: TinkLink
+targets:
+  TinkLink:
+    type: framework
+    platform: [iOS, macOS]
+    info:
+      path: Sources/TinkLink/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLink"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      MACOSX_DEPLOYMENT_TARGET: 10.13
+      MARKETING_VERSION: 0.14.2
+      CURRENT_PROJECT_VERSION: 1
+    scheme:
+      testTargets:
+        - name: TinkLinkTests_${platform}
+    sources:
+      - Sources/TinkLink
+    dependencies:
+      - carthage: TinkCore
+  TinkLinkTests:
+    type: bundle.unit-test
+    platform: [iOS, macOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkTests"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      MACOSX_DEPLOYMENT_TARGET: 10.13
+    sources:
+      - Tests/TinkLinkTests
+    dependencies:
+      - target: TinkLink_iOS
+  TinkLinkUI:
+    type: framework
+    platform: [iOS]
+    info:
+      path: Sources/TinkLinkUI/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUI"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      MARKETING_VERSION: 0.14.2
+      CURRENT_PROJECT_VERSION: 1
+    scheme:
+      testTargets:
+        - name: TinkLinkUITests_${platform}
+    sources:
+      - Sources/TinkLinkUI
+    dependencies:
+      - target: TinkLink_${platform}
+      - carthage: Kingfisher
+      - carthage: Down
+  TinkLinkUITests:
+    type: bundle.unit-test
+    platform: [iOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUITests"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+    sources:
+      - Tests/TinkLinkUITests
+    dependencies:
+      - target: TinkLinkUI_${platform}
+      - carthage: Kingfisher
+      - carthage: Down

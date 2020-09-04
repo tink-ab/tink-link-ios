@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - CredentialsContext</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#credentialscontext.init(tink:)">init(tink:​)</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#credentialscontext.add(for:form:refreshableitems:completionpredicate:progresshandler:completion:)">add(for:​form:​refreshable​Items:​completion​Predicate:​progress​Handler:​completion:​)</a></li><li class="function"><a href="#credentialscontext.fetchcredentials(completion:)">fetch​Credentials(completion:​)</a></li><li class="function"><a href="#credentialscontext.fetchcredentialslist(completion:)">fetch​Credentials​List(completion:​)</a></li><li class="function"><a href="#credentialscontext.fetchcredentials(with:completion:)">fetch​Credentials(with:​completion:​)</a></li><li class="function"><a href="#credentialscontext.refresh(_:refreshableitems:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">refresh(_:​refreshable​Items:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</a></li><li class="function"><a href="#credentialscontext.update(_:form:completion:)">update(_:​form:​completion:​)</a></li><li class="function"><a href="#credentialscontext.update(_:form:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">update(_:​form:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</a></li><li class="function"><a href="#credentialscontext.delete(_:completion:)">delete(_:​completion:​)</a></li><li class="function"><a href="#credentialscontext.authenticate(_:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">authenticate(_:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Class</small>
+    <code class="name">Credentials​Context</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="attribute">final</span> <span class="keyword">class</span> <span class="type">CredentialsContext</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>An object that you use to access the user's credentials and supports the flow for adding credentials.</p>
+
+</div>
+
+    <section id="initializers">
+        <h2>Initializers</h2>
+
+        <div role="article" class="initializer" id="credentialscontext.init(tink:)">
+    <h3>
+        <code>init(tink:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="attribute">convenience</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a> = .<span class="variable">shared</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Creates a new CredentialsContext for the given Tink instance.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>tink</th>
+    <td><code class="type">Tink</code></td>
+    <td><p>Tink instance, defaults to <code>shared</code> if not provided.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+    </section>
+    <section id="methods">
+        <h2>Methods</h2>
+
+        <div role="article" class="function" id="credentialscontext.add(for:form:refreshableitems:completionpredicate:progresshandler:completion:)">
+    <h3>
+        <code>add(for:​form:​refreshable​Items:​completion​Predicate:​progress​Handler:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">add</span>(<span class="variable">for</span> <span class="variable">provider</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>, <span class="variable">form</span>: <a href="https://tink-ab.github.io/tink-link-ios/Form"><span class="type">Form</span></a>, <span class="variable">refreshableItems</span>: <a href="https://tink-ab.github.io/tink-link-ios/RefreshableItems"><span class="type">RefreshableItems</span></a> = .<span class="variable">all</span>, <span class="variable">completionPredicate</span>: <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask"><span class="type">AddCredentialsTask</span></a>.<span class="type">CompletionPredicate</span> = .<span class="variable">init</span>(<span class="variable">successPredicate</span>: .<span class="variable">updated</span>, <span class="variable">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span>: <span class="keyword">true</span>), <span class="variable">progressHandler</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask"><span class="type">AddCredentialsTask</span></a>.<span class="type">Status</span>) -&gt; <span class="type">Void</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask"><span class="type">AddCredentialsTask</span></a></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Adds a credentials for the user.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>credentials:write</p>
+</li>
+</ul>
+
+<p>You need to handle status changes in <code>progressHandler</code> to successfuly add a credentials for some providers.</p>
+
+<html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">addCredentialsTask</span> = <span class="variable">credentialsContext</span>.<span class="type">add</span>(<span class="variable">for</span>: <span class="type">provider</span>, <span class="variable">form</span>: <span class="type">form</span>, <span class="variable">progressHandler</span>: { <span class="variable">status</span> <span class="keyword">in</span>
+    <span class="keyword">switch</span> <span class="variable">status</span> {
+    <span class="keyword">case</span> .<span class="variable">awaitingSupplementalInformation</span>(<span class="keyword">let</span> <span class="variable">supplementInformationTask</span>):
+        <span class="placeholder">&lt;#Present form for supplemental information task#&gt;</span>
+    <span class="keyword">case</span> .<span class="variable">awaitingThirdPartyAppAuthentication</span>(<span class="keyword">let</span> <span class="variable">thirdPartyAppAuthentication</span>):
+        <span class="placeholder">&lt;#Open third party app deep link URL#&gt;</span>
+    <span class="keyword">default</span>:
+        <span class="keyword">break</span>
+    }
+}, <span class="variable">completion</span>: { <span class="variable">result</span> <span class="keyword">in</span>
+    <span class="placeholder">&lt;#Handle result#&gt;</span>
+}
+</code></pre></body></html>
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>provider</th>
+    <td><code class="type">Provider</code></td>
+    <td><p>The provider (financial institution) that the credentials is connected to.</p>
+</td>
+</tr>
+<tr>
+    <th>form</th>
+    <td><code class="type">Form</code></td>
+    <td><p>This is a form with fields from the Provider to which the credentials belongs to.</p>
+</td>
+</tr>
+<tr>
+    <th>refreshable​Items</th>
+    <td><code class="type">Refreshable​Items</code></td>
+    <td><p>The data types to aggregate from the provider. Defaults to all types.</p>
+</td>
+</tr>
+<tr>
+    <th>completion​Predicate</th>
+    <td><code class="type">Add​Credentials​Task.​Completion​Predicate</code></td>
+    <td><p>Predicate for when credentials task should complete.</p>
+</td>
+</tr>
+<tr>
+    <th>progress​Handler</th>
+    <td><code class="type">@escaping (_ status:​ Add​Credentials​Task.​Status) -&gt; Void</code></td>
+    <td><p>The block to execute with progress information about the credential's status.</p>
+</td>
+</tr>
+<tr>
+    <th>status</th>
+    <td></td>
+    <td><p>Indicates the state of a credentials being added.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;Credentials, Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the credentials has been added successfuly or if it failed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>Represents either a successfully added credentials or an error if adding the credentials failed.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>The add credentials task.</p>
+
+</div>
+<div role="article" class="function" id="credentialscontext.fetchcredentials(completion:)">
+    <h3>
+        <code>fetch​Credentials(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">renamed</span>: <span class="string literal">"fetchCredentialsList"</span>) <span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchCredentials</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Gets the user's credentials.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>credentials:read</p>
+</li>
+</ul>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;[Credentials], Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the call is completed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result that either contain a list of the user credentials or an error if the fetch failed.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="credentialscontext.fetchcredentialslist(completion:)">
+    <h3>
+        <code>fetch​Credentials​List(completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchCredentialsList</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a list of the current user's credentials.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>credentials:read</p>
+</li>
+</ul>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;[Credentials], Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the call is completed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result that either contain a list of the user credentials or an error if the fetch failed.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="credentialscontext.fetchcredentials(with:completion:)">
+    <h3>
+        <code>fetch​Credentials(with:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchCredentials</span>(<span class="variable">with</span> <span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fetch a credentials by ID.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>credentials:read</p>
+</li>
+</ul>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>id</th>
+    <td><code class="type">Credentials.​ID</code></td>
+    <td><p>The id of the credentials to fetch.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;Credentials, Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the call is completed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result that either contains the credentials or an error if the fetch failed.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="function" id="credentialscontext.refresh(_:refreshableitems:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">
+    <h3>
+        <code>refresh(_:​refreshable​Items:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">refresh</span>(<span class="keyword">_</span> <span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="variable">refreshableItems</span>: <a href="https://tink-ab.github.io/tink-link-ios/RefreshableItems"><span class="type">RefreshableItems</span></a> = .<span class="variable">all</span>, <span class="variable">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span>: <span class="type">Bool</span> = <span class="keyword">true</span>, <span class="variable">progressHandler</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask"><span class="type">RefreshCredentialsTask</span></a>.<span class="type">Status</span>) -&gt; <span class="type">Void</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask"><span class="type">RefreshCredentialsTask</span></a></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Refresh the user's credentials.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>credentials:refresh</p>
+</li>
+</ul>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>refreshable​Items</th>
+    <td><code class="type">Refreshable​Items</code></td>
+    <td><p>The data types to aggregate from the provider. Defaults to all types.</p>
+</td>
+</tr>
+<tr>
+    <th>should​Fail​OnThird​Party​App​Authentication​Download​Required</th>
+    <td><code class="type">Bool</code></td>
+    <td><p>Determines how the task handles the case when a user doesn't have the required authentication app installed.</p>
+</td>
+</tr>
+<tr>
+    <th>progress​Handler</th>
+    <td><code class="type">@escaping (_ status:​ Refresh​Credentials​Task.​Status) -&gt; Void</code></td>
+    <td><p>The block to execute with progress information about the credential's status.</p>
+</td>
+</tr>
+<tr>
+    <th>status</th>
+    <td></td>
+    <td><p>Indicates the state of a credentials being refreshed.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;Credentials, Swift.​Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the credentials has been refreshed successfuly or if it failed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result that either contains the refreshed credentials or an error if the refresh failed.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>The refresh credentials task.</p>
+
+</div>
+<div role="article" class="function" id="credentialscontext.update(_:form:completion:)">
+    <h3>
+        <code>update(_:​form:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">message</span>: <span class="string literal">"Use update(_:form:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:progressHandler:completion) method instead."</span>) <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">update</span>(<span class="keyword">_</span> <span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="variable">form</span>: <a href="https://tink-ab.github.io/tink-link-ios/Form"><span class="type">Form</span></a>? = <span class="keyword">nil</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+</div>
+<div role="article" class="function" id="credentialscontext.update(_:form:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">
+    <h3>
+        <code>update(_:​form:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">update</span>(<span class="keyword">_</span> <span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="variable">form</span>: <a href="https://tink-ab.github.io/tink-link-ios/Form"><span class="type">Form</span></a>? = <span class="keyword">nil</span>, <span class="variable">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span>: <span class="type">Bool</span> = <span class="keyword">true</span>, <span class="variable">progressHandler</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/UpdateCredentialsTask"><span class="type">UpdateCredentialsTask</span></a>.<span class="type">Status</span>) -&gt; <span class="type">Void</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/UpdateCredentialsTask"><span class="type">UpdateCredentialsTask</span></a></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Update the user's credentials.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>credentials:write</p>
+</li>
+</ul>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>credentials</th>
+    <td><code class="type">Credentials</code></td>
+    <td><p>Credentials that needs to be updated.</p>
+</td>
+</tr>
+<tr>
+    <th>form</th>
+    <td><code class="type">Form?</code></td>
+    <td><p>This is a form with fields from the Provider to which the credentials belongs to.</p>
+</td>
+</tr>
+<tr>
+    <th>should​Fail​OnThird​Party​App​Authentication​Download​Required</th>
+    <td><code class="type">Bool</code></td>
+    <td><p>Determines how the task handles the case when a user doesn't have the required authentication app installed.</p>
+</td>
+</tr>
+<tr>
+    <th>progress​Handler</th>
+    <td><code class="type">@escaping (_ status:​ Update​Credentials​Task.​Status) -&gt; Void</code></td>
+    <td><p>The block to execute with progress information about the credential's status.</p>
+</td>
+</tr>
+<tr>
+    <th>status</th>
+    <td></td>
+    <td><p>Indicates the state of a credentials being updated.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;Credentials, Swift.​Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the credentials has been updated successfuly or if it failed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result with either an updated credentials if the update succeeded or an error if failed.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>The update credentials task.</p>
+
+</div>
+<div role="article" class="function" id="credentialscontext.delete(_:completion:)">
+    <h3>
+        <code>delete(_:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">delete</span>(<span class="keyword">_</span> <span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<span class="type">Void</span>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Delete the user's credentials.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>credentials:write</p>
+</li>
+</ul>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>credentials</th>
+    <td><code class="type">Credentials</code></td>
+    <td><p>The credentials to delete.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;Void, Swift.​Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the credentials has been deleted successfuly or if it failed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result representing that the delete succeeded or an error if failed.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>A cancellation handler.</p>
+
+</div>
+<div role="article" class="function" id="credentialscontext.authenticate(_:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">
+    <h3>
+        <code>authenticate(_:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">authenticate</span>(<span class="keyword">_</span> <span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="variable">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span>: <span class="type">Bool</span> = <span class="keyword">true</span>, <span class="variable">progressHandler</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/AuthenticateCredentialsTask"><span class="type">AuthenticateCredentialsTask</span></a>.<span class="type">Status</span>) -&gt; <span class="type">Void</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/AuthenticateCredentialsTask"><span class="type">AuthenticateCredentialsTask</span></a></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Authenticate the user's <code>OPEN_BANKING</code> access type credentials.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>credentials:refresh</p>
+</li>
+</ul>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>credentials</th>
+    <td><code class="type">Credentials</code></td>
+    <td><p>Credentials that needs to be authenticated.</p>
+</td>
+</tr>
+<tr>
+    <th>should​Fail​OnThird​Party​App​Authentication​Download​Required</th>
+    <td><code class="type">Bool</code></td>
+    <td><p>Determines how the task handles the case when a user doesn't have the required authentication app installed.</p>
+</td>
+</tr>
+<tr>
+    <th>progress​Handler</th>
+    <td><code class="type">@escaping (_ status:​ Authenticate​Credentials​Task.​Status) -&gt; Void</code></td>
+    <td><p>The block to execute with progress information about the credential's status.</p>
+</td>
+</tr>
+<tr>
+    <th>status</th>
+    <td></td>
+    <td><p>Indicates the state of a credentials being authenticated.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (_ result:​ Result&lt;Credentials, Swift.​Error&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the credentials has been authenticated successfuly or if it failed.</p>
+</td>
+</tr>
+<tr>
+    <th>result</th>
+    <td></td>
+    <td><p>A result representing that the authentication succeeded or an error if failed.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>The authenticate credentials task.</p>
+
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-09-02T11:24:21+0200">2 September 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

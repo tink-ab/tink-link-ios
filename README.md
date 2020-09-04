@@ -30,27 +30,66 @@ Follow these instructions to [link a target to a package product](https://help.a
 When finished, you should be able to `import TinkLink` within your project.
 
 #### Using CocoaPods
+Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) for usage and installation instructions.
 
-Add `pod 'TinkLink'` to your project's Podfile. Run `pod install` to install the TinkLink framework.
+1. Add TinkLink to your Podfile.
+    ```
+    pod "TinkLink"
+    ```
 
-When finished, you should be able to `import TinkLink` within your project.
+2. Run `pod install` in your project directory.
 
-Use `pod update TinkLink` to update to the newer version.
+3. Open your `.xcworkspace` file to see the project in Xcode.
 
 #### Using Carthage
+Refer to these [instructions](https://github.com/Carthage/Carthage#installing-carthage) for usage and installation details.
 
-Add `github "tink-ab/tink-link-ios"` to your project's Cartfile. Run `carthage update` to install TinkLink.
+1. Add `github "tink-ab/tink-link-ios"` to your project's Cartfile. 
+2. Run `carthage update` in your project directory.
+3. If you're building for iOS, in your copy frameworks run script, add these paths to your input and output file lists respectivly.
+```
+$(SRCROOT)/Carthage/Build/iOS/TinkCore.framework
+$(SRCROOT)/Carthage/Build/iOS/TinkLink.framework
+```
+```
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkCore.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLink.framework
+```
 
 When finished, you should be able to `import TinkLink` within your project.
 
-### Integrate TinkLinkUI into your project using CocoaPods.
+### Integrate TinkLinkUI into your project.
 #### Using CocoaPods
+Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) for usage and installation instructions.
 
-Add `pod 'TinkLinkUI'` to your project's Podfile. Run `pod install` to install the TinkLinkUI framework.
+1. Add TinkLink and TinkLinkUI to your Podfile.
+    ```
+    pod "TinkLink"
+    pod "TinkLinkUI"
+    ```
 
-When finished, you should be able to `import TinkLink` and `import TinkLinkUI` within your project.
+2. Run `pod install` in your project directory.
 
-Use `pod update TinkLinkUI` to update to the newer version.
+3. Open your `.xcworkspace` file to see the project in Xcode.
+
+#### Using Carthage
+Refer to these [instructions](https://github.com/Carthage/Carthage#installing-carthage) for usage and installation details.
+
+1. Add `github "tink-ab/tink-link-ios"` to your project's Cartfile. 
+2. Run `carthage update` in your project directory.
+3. In your copy frameworks run script, add these paths to your input and output file lists respectivly.
+```
+$(SRCROOT)/Carthage/Build/iOS/TinkCore.framework
+$(SRCROOT)/Carthage/Build/iOS/TinkLink.framework
+$(SRCROOT)/Carthage/Build/iOS/TinkLinkUI.framework
+```
+```
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkCore.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLink.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLinkUI.framework
+```
+
+When finished, you should be able to  and `import TinkLinkUI`  and `import TinkLinkUI` within your project.
 
 ## Configuration
 
@@ -76,9 +115,9 @@ Follow the instructions in one of these links to learn how to set this up:
 
 ## Examples
 These examples shows how to build a complete aggregation flow using TinkLink or TinkLinkUI.
-- [Permanent User](Examples/PermanentUserExample) 
-- [Permanent User (SwiftUI)](Examples/PermanentUserExample)
-- [Tink Link UI](Examples/TinkLinkUIExample)
+- [Tink Link](Examples/TinkLinkExample)
+- [Headless](Examples/HeadlessExample) 
+- [Headless (SwiftUI)](Examples/HeadlessExample-SwiftUI)
 
 ## Developer Documentation
 - [Tink Link iOS Reference](https://tink-ab.github.io/tink-link-ios)

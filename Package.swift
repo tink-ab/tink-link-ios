@@ -14,9 +14,13 @@ let package = Package(
             targets: ["TinkLink"]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/tink-ab/tink-core-ios", .exact("0.1.3"))
+    ],
     targets: [
         .target(
-            name: "TinkLink"
+            name: "TinkLink",
+            dependencies: ["TinkCore"]
         ),
         .testTarget(
             name: "TinkLinkTests",

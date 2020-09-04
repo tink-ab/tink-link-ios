@@ -2,7 +2,8 @@ import Foundation
 
 /// An object that you use to authorize for a user with requested scopes.
 public final class AuthorizationContext {
-    private let tink: Tink
+    private let clientID: String
+    private let redirectURI: URL
     private let service: AuthenticationService
 
     /// Error that the `AuthorizationContext` can throw.
@@ -30,15 +31,14 @@ public final class AuthorizationContext {
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
-        self.tink = tink
-        self.service = RESTAuthenticationService(client: tink.client)
+        self.clientID = tink.configuration.clientID
+        self.redirectURI = tink.configuration.redirectURI
+        self.service = tink.services.authenticationService
     }
 
     // MARK: - Authorizing a User
 
     /// Creates an authorization code with the requested scopes for the current user
-    ///
-    /// :nodoc:
     ///
     /// Once you have received the authorization code, you can exchange it for an access token on your backend and use the access token to access the user's data.
     /// Exchanging the authorization code for an access token requires the use of the client secret associated with your client identifier.
@@ -49,8 +49,7 @@ public final class AuthorizationContext {
     /// - Parameter result: Represents either an authorization code if authorization was successful or an error if authorization failed.
     @discardableResult
     public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
-        let redirectURI = tink.configuration.redirectURI
-        return service.authorize(clientID: tink.configuration.clientID, redirectURI: redirectURI, scopes: scopes) { result in
+        return service.authorize(clientID: clientID, redirectURI: redirectURI, scopes: scopes) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not authorize: " + message)
@@ -67,8 +66,7 @@ public final class AuthorizationContext {
     @discardableResult
     public func fetchClientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
         let scopes: [Scope] = []
-        let redirectURI = tink.configuration.redirectURI
-        return service.clientDescription(clientID: tink.configuration.clientID, scopes: scopes, redirectURI: redirectURI) { result in
+        return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: redirectURI) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not get client description: " + message)

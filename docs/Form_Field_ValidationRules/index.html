@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - Form.Field.ValidationRules</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#form.field.validationrules.isoptional">is​Optional</a></li><li class="variable"><a href="#form.field.validationrules.maxlength">max​Length</a></li><li class="variable"><a href="#form.field.validationrules.minlength">min​Length</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Structure</small>
+    <code class="name">Form.​Field.​Validation​Rules</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">ValidationRules</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Validation rules for a field.</p>
+
+</div>
+<div class="discussion">
+    <p>Represents the rules for validating a form field.</p>
+
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Member Of</h3>
+<dl>
+    <dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/Form_Field">Form.Field</a></code></dt>
+<dd><p>A <code>Field</code> represent one specific input (usually a text field) that the user need to enter in order to add a credential.</p>
+</dd>
+</dl>
+</section>
+    <section id="properties">
+        <h2>Properties</h2>
+
+        <div role="article" class="variable" id="form.field.validationrules.isoptional">
+    <h3>
+        <code>is​Optional</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">isOptional</span>: <span class="type">Bool</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>If <code>true</code> the field is not required to have text for the field to be valid.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="form.field.validationrules.maxlength">
+    <h3>
+        <code>max​Length</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">maxLength</span>: <span class="type">Int</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Maximum length of value.</p>
+
+</div>
+<div class="discussion">
+    <p>Use this to e.g. limit user input to only accept input until <code>maxLength</code> is reached.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="form.field.validationrules.minlength">
+    <h3>
+        <code>min​Length</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">minLength</span>: <span class="type">Int</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Minimum length of value.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-09-02T11:24:21+0200">2 September 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

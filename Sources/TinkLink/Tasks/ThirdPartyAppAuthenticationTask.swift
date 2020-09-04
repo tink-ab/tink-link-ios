@@ -49,7 +49,7 @@ import Foundation
 /// This error can tell you if the user needs to download the app.
 public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Error associated with the `ThirdPartyAppAuthenticationTask`.
-    public enum Error: Swift.Error, LocalizedError {
+    public enum Error: Swift.Error {
         /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
         case deeplinkURLNotFound
         /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
@@ -58,36 +58,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         case doesNotSupportAuthenticatingOnAnotherDevice
         /// Decoding the QR code image failed.
         case decodingQRCodeImageFailed
-
-        public var errorDescription: String? {
-            switch self {
-            case .deeplinkURLNotFound:
-                return nil
-            case .downloadRequired(let title, _, _):
-                return title
-            case .doesNotSupportAuthenticatingOnAnotherDevice:
-                // TODO: Copy
-                return "This bank does not support authenticating on another device"
-            case .decodingQRCodeImageFailed:
-                // TODO: Copy
-                return "Failed to decode the QR code image"
-            }
-        }
-
-        public var failureReason: String? {
-            switch self {
-            case .deeplinkURLNotFound:
-                return nil
-            case .downloadRequired(_, let message, _):
-                return message
-            case .doesNotSupportAuthenticatingOnAnotherDevice:
-                // TODO: Copy
-                return nil
-            case .decodingQRCodeImageFailed:
-                // TODO: Copy
-                return nil
-            }
-        }
 
         /// If the error is `downloadRequired` this property can have an App Store URL to the third party app required for authentication.
         public var appStoreURL: URL? {
@@ -238,21 +208,25 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 }
             }
         #elseif os(macOS)
-            qr { [weak self, credentialsKind = credentials.kind] result in
-                do {
-                    let qrImage = try result.get()
-                    statusHandler(.qrImage(qrImage))
-                    self?.completionHandler(.success)
-                } catch Error.doesNotSupportAuthenticatingOnAnotherDevice {
-                    if credentialsKind == .mobileBankID {
-                        statusHandler(.awaitAuthenticationOnAnotherDevice)
+            if hasBankIDQRCode {
+                qr { [weak self, credentialsKind = credentials.kind] result in
+                    do {
+                        let qrImage = try result.get()
+                        statusHandler(.qrImage(qrImage))
                         self?.completionHandler(.success)
-                    } else {
-                        self?.completionHandler(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
+                    } catch Error.doesNotSupportAuthenticatingOnAnotherDevice {
+                        if credentialsKind == .mobileBankID {
+                            statusHandler(.awaitAuthenticationOnAnotherDevice)
+                            self?.completionHandler(.success)
+                        } else {
+                            self?.completionHandler(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
+                        }
+                    } catch {
+                        self?.completionHandler(.failure(error))
                     }
-                } catch {
-                    self?.completionHandler(.failure(error))
                 }
+            } else {
+                completion(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
             }
         #endif
     }
@@ -264,21 +238,17 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     #endif
 
     private func qr(completion: @escaping (Result<Image, Swift.Error>) -> Void) {
-        if hasBankIDQRCode {
-            callRetryCancellable = credentialsService.qr(credentialsID: credentials.id) { [weak self] result in
-                do {
-                    let qrData = try result.get()
-                    guard let qrImage = Image(data: qrData) else {
-                        throw Error.decodingQRCodeImageFailed
-                    }
-                    completion(.success(qrImage))
-                } catch {
-                    completion(.failure(error))
+        callRetryCancellable = credentialsService.qrCode(id: credentials.id) { [weak self] result in
+            do {
+                let qrData = try result.get()
+                guard let qrImage = Image(data: qrData) else {
+                    throw Error.decodingQRCodeImageFailed
                 }
-                self?.callRetryCancellable = nil
+                completion(.success(qrImage))
+            } catch {
+                completion(.failure(error))
             }
-        } else {
-            completion(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
+            self?.callRetryCancellable = nil
         }
     }
 

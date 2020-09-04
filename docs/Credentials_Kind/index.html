@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - Credentials.Kind</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#credentials.kind.unknown">unknown</a></li><li class="case"><a href="#credentials.kind.password">password</a></li><li class="case"><a href="#credentials.kind.mobilebankid">mobile​Bank​ID</a></li><li class="case"><a href="#credentials.kind.keyfob">keyfob</a></li><li class="case"><a href="#credentials.kind.fraud">fraud</a></li><li class="case"><a href="#credentials.kind.thirdpartyauthentication">third​Party​Authentication</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#credentials.kind.sortorder">sort​Order</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Enumeration</small>
+    <code class="name">Credentials.​Kind</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Kind</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Indicates how Tink authenticates the user to a financial institution.</p>
+
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Member Of</h3>
+<dl>
+    <dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/Credentials">Credentials</a></code></dt>
+<dd><p>The credentials model represents users connected providers from where financial data is accessed.</p>
+</dd>
+</dl>
+</section>
+    <section id="enumeration cases">
+        <h2>Enumeration Cases</h2>
+
+        <div role="article" class="case" id="credentials.kind.unknown">
+    <h3>
+        <code>unknown</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unknown</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>An unknown kind of credentials.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.kind.password">
+    <h3>
+        <code>password</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">password</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The user will authenticate the credentials with a password.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.kind.mobilebankid">
+    <h3>
+        <code>mobile​Bank​ID</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">mobileBankID</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The user will authenticate the credentials with Mobile BankID.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.kind.keyfob">
+    <h3>
+        <code>keyfob</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">keyfob</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The user will authenticate the credentials with a Key Fob.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.kind.fraud">
+    <h3>
+        <code>fraud</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">fraud</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Fraud</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.kind.thirdpartyauthentication">
+    <h3>
+        <code>third​Party​Authentication</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">thirdPartyAuthentication</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The user will authenticate the credentials with a third party app.</p>
+
+</div>
+</div>
+    </section>
+    <section id="properties">
+        <h2>Properties</h2>
+
+        <div role="article" class="variable" id="credentials.kind.sortorder">
+    <h3>
+        <code>sort​Order</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">sortOrder</span>: <span class="type">Int</span></code></pre></body></html>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-09-02T11:24:20+0200">2 September 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

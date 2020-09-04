@@ -224,7 +224,7 @@ public struct Form {
         }
 
         /// Describes a field validation error.
-        public enum ValidationError: Error, LocalizedError {
+        public enum ValidationError: Error {
             /// Field's `text` was invalid. See `reason` for explanation why.
             case invalid(fieldName: String, reason: String)
 
@@ -251,7 +251,7 @@ public struct Form {
             }
 
             /// An error message describing what is the reason for the validation failure.
-            public var errorDescription: String? {
+            public var reason: String? {
                 switch self {
                 case .invalid(_, let reason):
                     return reason
@@ -337,8 +337,7 @@ extension Form {
         let fieldSpecifications = providerFieldSpecifications.map { fieldSpecification -> Provider.FieldSpecification in
             if let text = credentialsFields[fieldSpecification.name] {
                 var multableFieldSpecification = fieldSpecification
-                multableFieldSpecification.initialValue = text
-                multableFieldSpecification.isImmutable = true
+                multableFieldSpecification.setImmutable(initialValue: text)
                 return multableFieldSpecification
             }
             return fieldSpecification

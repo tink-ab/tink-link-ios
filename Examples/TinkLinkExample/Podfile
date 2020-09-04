@@ -1,0 +1,9 @@
+platform :ios, "11.0"
+use_frameworks!
+
+target "TinkLinkExample" do
+
+    pod "TinkLink", :path => "../../", :testspecs => ['TinkLinkTests']
+    pod "TinkLinkUI", :path => "../../", :testspecs => ['TinkLinkUITests']
+
+end

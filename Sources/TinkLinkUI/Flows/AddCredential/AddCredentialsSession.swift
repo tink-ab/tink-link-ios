@@ -8,6 +8,7 @@ final class AddCredentialsSession {
     private let credentialsController: CredentialsController
     private let authorizationController: AuthorizationController
     private var addCredentialsMode: CredentialsCoordinator.AddCredentialsMode = .user
+    private let tinkLinkTracker: TinkLinkTracker
 
     private var task: Cancellable?
     private var supplementInfoTask: SupplementInformationTask?
@@ -32,11 +33,12 @@ final class AddCredentialsSession {
 
     private var providerID: Provider.ID?
 
-    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, presenter: CredentialsCoordinatorPresenting?) {
+    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, tinkLinkTracker: TinkLinkTracker, presenter: CredentialsCoordinatorPresenting?) {
         self.presenter = presenter
         self.providerController = providerController
         self.credentialsController = credentialsController
         self.authorizationController = authorizationController
+        self.tinkLinkTracker = tinkLinkTracker
     }
 
     deinit {
@@ -275,6 +277,7 @@ extension AddCredentialsSession {
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
             self.presenter?.present(navigationController, animated: true, completion: nil)
+            self.tinkLinkTracker.track(screen: .supplementalInformation)
         }
     }
 

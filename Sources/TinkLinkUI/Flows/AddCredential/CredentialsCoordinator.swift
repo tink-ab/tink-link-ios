@@ -32,13 +32,14 @@ final class CredentialsCoordinator {
     private let credentialsController: CredentialsController
     private let providerController: ProviderController
 
-    private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, presenter: self.presenter)
+    private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, tinkLinkTracker: tinkLinkTracker, presenter: self.presenter)
 
     private let action: Action
     private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void
     private weak var presenter: CredentialsCoordinatorPresenting?
     private weak var delegate: CredentialsCoordinatorDelegate?
     private let clientDescription: ClientDescription
+    private let tinkLinkTracker: TinkLinkTracker
 
     private var fetchedCredentials: Credentials?
 
@@ -51,7 +52,7 @@ final class CredentialsCoordinator {
         }
     }
 
-    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
+    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, tinkLinkTracker: TinkLinkTracker, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
         self.providerController = providerController
@@ -60,6 +61,7 @@ final class CredentialsCoordinator {
         self.presenter = presenter
         self.delegate = delegate
         self.clientDescription = clientDescription
+        self.tinkLinkTracker = tinkLinkTracker
     }
 
     func start() {
@@ -70,6 +72,7 @@ final class CredentialsCoordinator {
             credentialsViewController.prefillStrategy = prefillStrategy
             credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
             presenter?.show(credentialsViewController)
+            tinkLinkTracker.track(screen: .submitCredentials)
 
         case .authenticate(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
@@ -98,6 +101,7 @@ final class CredentialsCoordinator {
                     credentialsViewController.prefillStrategy = self.prefillStrategy
                     credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancel))
                     self.presenter?.show(credentialsViewController)
+                    self.tinkLinkTracker.track(screen: .submitCredentials)
                 }
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
@@ -112,12 +116,14 @@ final class CredentialsCoordinator {
             showAddCredentialSuccess(with: .success(values), for: action)
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
+            tinkLinkTracker.track(screen: .error)
         } catch ServiceError.cancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }
         } catch {
             showAlert(for: error)
+            tinkLinkTracker.track(screen: .error)
         }
     }
 
@@ -134,6 +140,7 @@ final class CredentialsCoordinator {
                     self?.completion(result)
                 }
             }
+            self.tinkLinkTracker.track(screen: .success)
             self.presenter?.show(viewController)
         }
     }
@@ -187,6 +194,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
     }
 
     func submit(form: Form) {
+        tinkLinkTracker.track(interaction: .submitCredentials, screen: .submitCredentials)
         switch action {
         case .create(provider: let provider, mode: let mode):
             addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
@@ -247,10 +255,10 @@ extension CredentialsCoordinator {
     }
 
     private func showAlert(for error: Error) {
-        let title: String?
+        let title: String
         let message: String?
         if let error = error as? LocalizedError {
-            title = error.errorDescription
+            title = error.errorDescription ?? Strings.Generic.error
             message = error.failureReason
         } else {
             title = Strings.Generic.error

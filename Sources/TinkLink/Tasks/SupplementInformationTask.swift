@@ -49,7 +49,7 @@ public final class SupplementInformationTask: Identifiable {
     ///
     /// - Parameter form: This is a form with fields from the credentials that had status `awaitingSupplementalInformation`.
     public func submit(_ form: Form) {
-        callRetryCancellable = credentialsService.supplementInformation(credentialsID: credentials.id, fields: form.makeFields(), completion: { [weak self] result in
+        callRetryCancellable = credentialsService.addSupplementalInformation(id: credentials.id, fields: form.makeFields(), completion: { [weak self] result in
             self?.completionHandler(result)
             self?.callRetryCancellable = nil
         })
@@ -61,7 +61,7 @@ public final class SupplementInformationTask: Identifiable {
     ///
     /// Call this method if the user dismiss the form to supplement information.
     public func cancel() {
-        callRetryCancellable = credentialsService.cancelSupplementInformation(credentialsID: credentials.id, completion: { [weak self] result in
+        callRetryCancellable = credentialsService.cancelSupplementalInformation(id: credentials.id, completion: { [weak self] result in
             switch result {
             case .success:
                 self?.completionHandler(.failure(ServiceError.cancelled))

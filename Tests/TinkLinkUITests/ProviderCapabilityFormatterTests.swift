@@ -1,5 +1,5 @@
 import XCTest
-@testable import TinkLink
+@testable import TinkCore
 @testable import TinkLinkUI
 
 extension Provider {
@@ -7,6 +7,7 @@ extension Provider {
         self.init(
             id: ID("test-provider"),
             displayName: "Test",
+            authenticationUserType: .personal,
             kind: .bank,
             status: .enabled,
             credentialsKind: .password,

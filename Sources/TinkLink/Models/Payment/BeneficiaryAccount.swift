@@ -5,15 +5,19 @@ public struct BeneficiaryAccount {
     /// The account number for the beneficiary.
     /// - Note: The structure of this value depends on the `accountNumberKind`.
     public let accountNumber: String
+    /// The name of the beneficiary. Optional.
+    public let name: String?
 
     /// Creates a beneficiary account.
     ///
     /// - Parameters:
     ///   - accountNumberKind: The kind of the account number.
     ///   - accountNumber: The account number for the beneficiary.
-    public init(accountNumberKind: AccountNumberKind, accountNumber: String) {
+    ///   - name: The name of the beneficiary.
+    public init(accountNumberKind: AccountNumberKind, accountNumber: String, name: String? = nil) {
         self.accountNumberKind = accountNumberKind
         self.accountNumber = accountNumber
+        self.name = name
     }
 
     /// Creates a beneficiary account with an IBAN account number.

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - AuthenticationTask</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#authenticationtask.awaitingsupplementalinformation">awaiting​Supplemental​Information</a></li><li class="case"><a href="#authenticationtask.awaitingthirdpartyappauthentication">awaiting​Third​Party​App​Authentication</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Enumeration</small>
+    <code class="name">Authentication​Task</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">AuthenticationTask</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Represents an authentication that needs to be completed by the user.</p>
+
+</div>
+<div class="discussion">
+    <aside class="note">
+    <p>Each case have an associated task which need to be completed by the user to continue the process.</p>
+
+</aside>
+</div>
+
+    <section id="enumeration cases">
+        <h2>Enumeration Cases</h2>
+
+        <div role="article" class="case" id="authenticationtask.awaitingsupplementalinformation">
+    <h3>
+        <code>awaiting​Supplemental​Information</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">awaitingSupplementalInformation</span>(: <a href="https://tink-ab.github.io/tink-link-ios/SupplementInformationTask"><span class="type">SupplementInformationTask</span></a>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Indicates that there is additional information required from the user to proceed.</p>
+
+</div>
+<div class="discussion">
+    <p>This can for example be an OTP sent via SMS or authetication app.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="authenticationtask.awaitingthirdpartyappauthentication">
+    <h3>
+        <code>awaiting​Third​Party​App​Authentication</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">awaitingThirdPartyAppAuthentication</span>(: <a href="https://tink-ab.github.io/tink-link-ios/ThirdPartyAppAuthenticationTask"><span class="type">ThirdPartyAppAuthenticationTask</span></a>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Indicates that there is an authentication in a third party app necessary to proceed with the authentication.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-09-02T11:24:18+0200">2 September 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>

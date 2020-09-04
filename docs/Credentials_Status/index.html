@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLink - Credentials.Status</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/">
+            <strong>
+                TinkLink
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#credentials.status.unknown">unknown</a></li><li class="case"><a href="#credentials.status.created">created</a></li><li class="case"><a href="#credentials.status.authenticating">authenticating</a></li><li class="case"><a href="#credentials.status.updating">updating</a></li><li class="case"><a href="#credentials.status.updated">updated</a></li><li class="case"><a href="#credentials.status.temporaryerror">temporary​Error</a></li><li class="case"><a href="#credentials.status.authenticationerror">authentication​Error</a></li><li class="case"><a href="#credentials.status.permanenterror">permanent​Error</a></li><li class="case"><a href="#credentials.status.awaitingmobilebankidauthentication">awaiting​Mobile​Bank​IDAuthentication</a></li><li class="case"><a href="#credentials.status.awaitingsupplementalinformation">awaiting​Supplemental​Information</a></li><li class="case"><a href="#credentials.status.disabled">disabled</a></li><li class="case"><a href="#credentials.status.awaitingthirdpartyappauthentication">awaiting​Third​Party​App​Authentication</a></li><li class="case"><a href="#credentials.status.sessionexpired">session​Expired</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Enumeration</small>
+    <code class="name">Credentials.​Status</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Status</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The status indicates the state of a credentials.</p>
+
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Member Of</h3>
+<dl>
+    <dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/Credentials">Credentials</a></code></dt>
+<dd><p>The credentials model represents users connected providers from where financial data is accessed.</p>
+</dd>
+</dl>
+</section>
+    <section id="enumeration cases">
+        <h2>Enumeration Cases</h2>
+
+        <div role="article" class="case" id="credentials.status.unknown">
+    <h3>
+        <code>unknown</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unknown</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>An unknown credentials status.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.created">
+    <h3>
+        <code>created</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">created</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The credentials was just created.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.authenticating">
+    <h3>
+        <code>authenticating</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">authenticating</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The credentials is in the process of authenticating.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.updating">
+    <h3>
+        <code>updating</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">updating</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The credentials is done authenticating and is updating accounts and transactions.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.updated">
+    <h3>
+        <code>updated</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">updated</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The credentials has finished authenticating and updating accounts and transactions.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.temporaryerror">
+    <h3>
+        <code>temporary​Error</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">temporaryError</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>There was a temporary error, see <code>statusPayload</code> for text describing the error.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.authenticationerror">
+    <h3>
+        <code>authentication​Error</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">authenticationError</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>There was an authentication error, see <code>statusPayload</code> for text describing the error.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.permanenterror">
+    <h3>
+        <code>permanent​Error</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">permanentError</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>There was a permanent error, see <code>statusPayload</code> for text describing the error.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.awaitingmobilebankidauthentication">
+    <h3>
+        <code>awaiting​Mobile​Bank​IDAuthentication</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">awaitingMobileBankIDAuthentication</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The credentials is awaiting authentication with Mobile BankID.</p>
+
+</div>
+<div class="discussion">
+    <aside class="note">
+    <p>Will be deprecated and replaced with <code>awaitingThirdPartyAppAuthentication</code></p>
+
+</aside>
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.awaitingsupplementalinformation">
+    <h3>
+        <code>awaiting​Supplemental​Information</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">awaitingSupplementalInformation</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The credentials is awaiting supplemental information.</p>
+
+</div>
+<div class="discussion">
+    <p>If the authentication flow requires multiple steps with input from the user, as for example a SMS OTP authentication flow,
+the client should expect the <code>awaitingSupplementalInformation</code> status on the credential.</p>
+
+<p>Create a <code>Form</code> with this credentials to let the user supplement the required information.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.disabled">
+    <h3>
+        <code>disabled</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">disabled</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The credentials has been disabled.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.awaitingthirdpartyappauthentication">
+    <h3>
+        <code>awaiting​Third​Party​App​Authentication</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">awaitingThirdPartyAppAuthentication</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The credentials is awaiting authentication with a third party app.</p>
+
+</div>
+<div class="discussion">
+    <p>If a provider is using third party services in their authentication flow, the client
+should expect the <code>awaitingThirdPartyAppAuthentication</code> status on the credentials.
+In order for the aggregation of data to be successful, the system expects the third
+party authentication flow to be successful as well.</p>
+
+<p>To handle this status, check <code>thirdPartyAppAuthentication</code> to get a deeplink url to the third party app and open it so the user can authenticate.
+If the app can't open the deeplink, ask the user to to download or upgrade the app from the AppStore.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="credentials.status.sessionexpired">
+    <h3>
+        <code>session​Expired</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">sessionExpired</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The credentials' session has expired, check <code>sessionExpiryDate</code> to see when it expired.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-09-02T11:24:21+0200">2 September 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+</p>
+    </footer>
+</body>
+</html>
