@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2068267F25022EAF00666CF3 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2068268025022EDF00666CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2068268125022EE500666CF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2068268225022EEC00666CF3 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2068268325022F0100666CF3 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2068268425023C8100666CF3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2068268525023C8500666CF3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2068268625023C8A00666CF3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2068268725023C9900666CF3 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2071952323F2B7A20042B2FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3780AB4970173A4422933788 /* Pods_TinkLinkExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinkLinkExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		418B71F8EC9C79DD25BA9CD2 /* Pods-TinkLinkExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkLinkExample.release.xcconfig"; path = "Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +138,15 @@
 			knownRegions = (
 				en,
 				Base,
+				pt,
+				fr,
+				de,
+				nl,
+				nb,
+				it,
+				es,
+				da,
+				fi,
 			);
 			mainGroup = 8FC06D1523F196A700CD7B88;
 			productRefGroup = 8FC06D1F23F196A700CD7B88 /* Products */;
@@ -211,6 +229,15 @@
 			isa = PBXVariantGroup;
 			children = (
 				8FC06D2D23F196A900CD7B88 /* Base */,
+				2068267F25022EAF00666CF3 /* pt */,
+				2068268025022EDF00666CF3 /* fr */,
+				2068268125022EE500666CF3 /* de */,
+				2068268225022EEC00666CF3 /* nl */,
+				2068268325022F0100666CF3 /* nb */,
+				2068268425023C8100666CF3 /* it */,
+				2068268525023C8500666CF3 /* es */,
+				2068268625023C8A00666CF3 /* da */,
+				2068268725023C9900666CF3 /* fi */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -222,6 +249,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -282,6 +310,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
