@@ -58,7 +58,7 @@ $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLink.framework
 
 When finished, you should be able to `import TinkLink` within your project.
 
-### Integrate TinkLinkUI into your project using CocoaPods.
+### Integrate TinkLinkUI into your project.
 #### Using CocoaPods
 Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) for usage and installation instructions.
 
