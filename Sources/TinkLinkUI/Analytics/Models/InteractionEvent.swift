@@ -1,3 +1,3 @@
 enum InteractionEvent: String {
-    case submitCredentials = "submit_credentials_screen/submit_credentials"
+    case submitCredentials = "SUBMIT_CREDENTIALS_SCREEN/SUBMIT_CREDENTIALS"
 }
