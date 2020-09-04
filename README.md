@@ -23,7 +23,7 @@ See the difference about the [permanent user and temporary user](https://docs.ti
 
 ### Integrate TinkLink into your project
 
-#### Swift Package Manager
+#### Using Swift Package Manager
 
 Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-ios` when asked for a package repository.
 
