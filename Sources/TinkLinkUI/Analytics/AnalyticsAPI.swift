@@ -26,6 +26,9 @@ class AnalyticsAPI {
 
 enum TinkAnalyticsRequest {
     struct ViewEvent: Encodable {
+        let appName: String?
+        let appIdentifier: String?
+        let appVersion: String?
         let clientId: String
         let sessionId: String
         let isTest: Bool
@@ -40,6 +43,9 @@ enum TinkAnalyticsRequest {
     }
 
     struct InteractionEvent: Encodable {
+        let appName: String?
+        let appIdentifier: String?
+        let appVersion: String?
         let clientId: String
         let sessionId: String
         let userId: String
