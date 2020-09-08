@@ -14,6 +14,8 @@ Pod::Spec.new do |spec|
 
   spec.source_files = "Sources/TinkLink/**/*.swift"
 
+  spec.swift_version = ["5.1", "5.2"]
+
   spec.test_spec 'TinkLinkTests' do |test_spec|
       test_spec.source_files = "Tests/TinkLinkTests/**/*.swift"
   end
