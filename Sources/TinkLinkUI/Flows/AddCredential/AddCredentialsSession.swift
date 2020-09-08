@@ -254,6 +254,7 @@ final class AddCredentialsSession {
                 let authorizationCode = try result.get()
                 self?.authorizationCode = authorizationCode
             } catch {
+                self?.didCallAuthorize = false
                 onError(AddCredentialsTask.Error.temporaryFailure("A temporary error has occurred"))
             }
             self?.authorizationGroup.leave()

@@ -226,7 +226,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     }
                 }
             } else {
-                completion(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
+                completionHandler(.failure(Error.doesNotSupportAuthenticatingOnAnotherDevice))
             }
         #endif
     }

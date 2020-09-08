@@ -1,6 +1,6 @@
 enum AnalyticsFlow: String {
-    case credentialsAuthenticate = "credentials_authenticate"
-    case credentialsAdd = "credentials_add"
-    case credentialsRefresh = "credentials_refresh"
-    case credentialsUpdate = "credentials_update"
+    case credentialsAuthenticate = "CREDENTIALS_AUTHENTICATE"
+    case credentialsAdd = "CREDENTIALS_ADD"
+    case credentialsRefresh = "CREDENTIALS_REFRESH"
+    case credentialsUpdate = "CREDENTIALS_UPDATE"
 }

@@ -1,6 +1,12 @@
 import Foundation
 
 class TinkLinkTracker {
+
+    private struct AppInfo {
+        let bundleID: String?
+        let name: String?
+        let version: String?
+    }
     var userID: String?
 
     private let credentialsID: String?
@@ -16,6 +22,13 @@ class TinkLinkTracker {
         } else {
             return "-"
         }
+    }()
+
+    private let appInfo: AppInfo = {
+        let bundleIdentifier = Bundle.main.bundleIdentifier
+        let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        return AppInfo(bundleID: bundleIdentifier, name: appName, version: appVersion)
     }()
 
     private let product = "CREDENTIALS" // Can only be credentials right now.
@@ -59,6 +72,9 @@ class TinkLinkTracker {
             return
         }
         let request = TinkAnalyticsRequest.interactionEvent(.init(
+            appName: appInfo.name,
+            appIdentifier: appInfo.bundleID,
+            appVersion: appInfo.version,
             clientId: clientID,
             sessionId: sessionID,
             userId: userID,
@@ -78,6 +94,9 @@ class TinkLinkTracker {
             return
         }
         let request = TinkAnalyticsRequest.viewEvent(.init(
+            appName: appInfo.name,
+            appIdentifier: appInfo.bundleID,
+            appVersion: appInfo.version,
             clientId: clientID,
             sessionId: sessionID,
             isTest: isTest,
