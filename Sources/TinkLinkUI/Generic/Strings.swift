@@ -216,6 +216,9 @@ enum Strings {
 
         /// Title for form asking user to supplement information when adding credentials.
         static let title = NSLocalizedString("SupplementalInformation.Title", tableName: tableName, bundle: bundle, value: "Supplemental information", comment: "Title of the supplemental information dialog.")
+
+        /// Title for button to submit supplemental information.
+        static let submit = NSLocalizedString("SupplementalInformation.Submit", tableName: tableName, bundle: bundle, value: "Submit", comment: "Title for button to submit supplemental information.")
     }
 
     enum ThirdPartyAppAuthentication {
