@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2071952423F2B7A20042B2FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2071952323F2B7A20042B2FB /* ViewController.swift */; };
+		6B39C92D25090EED006FA37C /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 6B39C92C25090EED006FA37C /* TinkLink */; };
+		6B39C92F25090EED006FA37C /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B39C92E25090EED006FA37C /* TinkLinkUI */; };
 		8FC06D2223F196A700CD7B88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC06D2123F196A700CD7B88 /* AppDelegate.swift */; };
 		8FC06D2B23F196A900CD7B88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC06D2A23F196A900CD7B88 /* Assets.xcassets */; };
 		8FC06D2E23F196A900CD7B88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC06D2C23F196A900CD7B88 /* LaunchScreen.storyboard */; };
@@ -38,6 +40,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B39C92F25090EED006FA37C /* TinkLinkUI in Frameworks */,
+				6B39C92D25090EED006FA37C /* TinkLink in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +101,10 @@
 			dependencies = (
 			);
 			name = TinkLinkExample;
+			packageProductDependencies = (
+				6B39C92C25090EED006FA37C /* TinkLink */,
+				6B39C92E25090EED006FA37C /* TinkLinkUI */,
+			);
 			productName = TinkLinkUIExample;
 			productReference = 8FC06D1E23F196A700CD7B88 /* TinkLinkExample.app */;
 			productType = "com.apple.product-type.application";
@@ -364,6 +372,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6B39C92C25090EED006FA37C /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
+		};
+		6B39C92E25090EED006FA37C /* TinkLinkUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLinkUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8FC06D1623F196A700CD7B88 /* Project object */;
 }
