@@ -83,11 +83,15 @@ Refer to these [instructions](https://github.com/Carthage/Carthage#installing-ca
 $(SRCROOT)/Carthage/Build/iOS/TinkCore.framework
 $(SRCROOT)/Carthage/Build/iOS/TinkLink.framework
 $(SRCROOT)/Carthage/Build/iOS/TinkLinkUI.framework
+$(SRCROOT)/Carthage/Build/iOS/Down.framework
+$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework
 ```
 ```
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkCore.framework
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLink.framework
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLinkUI.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Down.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Kingfisher.framework
 ```
 
 When finished, you should be able to  and `import TinkLinkUI`  and `import TinkLinkUI` within your project.
