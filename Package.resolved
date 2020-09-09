@@ -2,6 +2,24 @@
   "object": {
     "pins": [
       {
+        "package": "Down",
+        "repositoryURL": "https://github.com/iwasrobbed/Down",
+        "state": {
+          "branch": null,
+          "revision": "427aec0a0ab342246ec02369dea398597b61174a",
+          "version": "0.9.3"
+        }
+      },
+      {
+        "package": "Kingfisher",
+        "repositoryURL": "https://github.com/onevcat/Kingfisher",
+        "state": {
+          "branch": null,
+          "revision": "175eeb4618b0a6ef4d69a7409b6a74ddd235a093",
+          "version": "5.15.0"
+        }
+      },
+      {
         "package": "TinkCore",
         "repositoryURL": "https://github.com/tink-ab/tink-core-ios",
         "state": {
