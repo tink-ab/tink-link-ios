@@ -28,4 +28,6 @@ Pod::Spec.new do |spec|
   spec.dependency "TinkLink", "0.15.1"
   spec.dependency "Down", "~> 0.9"
   spec.dependency "Kingfisher", "~> 5.13"
+
+  spec.static_framework = true
 end
