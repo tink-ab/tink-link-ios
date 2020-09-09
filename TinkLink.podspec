@@ -21,4 +21,6 @@ Pod::Spec.new do |spec|
   end
 
   spec.dependency "TinkCore", "0.1.3"
+
+  spec.static_framework = true
 end
