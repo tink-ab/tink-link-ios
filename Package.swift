@@ -26,7 +26,8 @@ let package = Package(
     targets: [
         .target(
             name: "TinkLink",
-            dependencies: ["TinkCore"]
+            dependencies: ["TinkCore"],
+            exclude: ["Info.plist"]
         ),
         .testTarget(
             name: "TinkLinkTests",
