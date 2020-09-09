@@ -25,6 +25,7 @@
 		2068268725023C9900666CF3 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2071952323F2B7A20042B2FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		20C584A22507A24600B7C771 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		6B39C92B25090EB4006FA37C /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
 		8FC06D1E23F196A700CD7B88 /* TinkLinkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkLinkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC06D2123F196A700CD7B88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FC06D2A23F196A900CD7B88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,11 +44,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B39C92A25090EAD006FA37C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6B39C92B25090EB4006FA37C /* tink-link-ios */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8FC06D1523F196A700CD7B88 = {
 			isa = PBXGroup;
 			children = (
 				8FC06D2023F196A700CD7B88 /* TinkLinkExample */,
 				8FC06D1F23F196A700CD7B88 /* Products */,
+				6B39C92A25090EAD006FA37C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
