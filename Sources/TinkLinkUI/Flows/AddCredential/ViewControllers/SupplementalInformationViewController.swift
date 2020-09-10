@@ -46,7 +46,7 @@ extension SupplementalInformationViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = formTableViewController.form.fields.filter { $0.attributes.isEditable }.isEmpty
         button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
-        button.text = Strings.Generic.done
+        button.text = Strings.SupplementalInformation.submit
 
         navigationItem.title = Strings.SupplementalInformation.title
         navigationItem.largeTitleDisplayMode = .never
