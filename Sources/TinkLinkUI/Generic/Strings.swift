@@ -224,4 +224,17 @@ enum Strings {
             static let download = NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Download", tableName: tableName, bundle: bundle, value: "Download", comment: "Title for action to download app for third-party app authentication.")
         }
     }
+
+    enum Field {
+        enum ValidationError {
+            /// Text for field validation error shown when field exceeds character limit.
+            static let maxLengthLimit = NSLocalizedString("Field.Validation.MaxLengthLimit", tableName: tableName, bundle: bundle, value: "%@ cannot be longer than %d characters.", comment: "Text for field validation error shown when text entered exceeds character limit.")
+
+            /// Text for field validation error shown when text entered is shorter than required.
+            static let minLengthLimit = NSLocalizedString("Field.Validation.MinLengthLimit", tableName: tableName, bundle: bundle, value: "%@ must be at least %d characters.", comment: "Text for field validation error shown when text entered is shorter than required.")
+
+            ///Text for field validation error shown when no text is entered for a required field.
+            static let requiredFieldEmptyValue = NSLocalizedString("Field.Validation.RequiredFieldEmptyValue", tableName: tableName, bundle: bundle, value: "You must enter %@.", comment: "Text for field validation error shown when no text is entered for a required field.")
+        }
+    }
 }
