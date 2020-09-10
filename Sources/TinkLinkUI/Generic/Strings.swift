@@ -110,7 +110,7 @@ enum Strings {
         static let done = NSLocalizedString("Generic.Done", tableName: tableName, bundle: bundle, value: "Done", comment: "Title for action to confirm an event.")
 
         /// Title generic alert.
-        static let error = NSLocalizedString("Generic.Error", tableName: tableName, bundle: bundle, value: "Error", comment: "Title generic alert.")
+        static let error = NSLocalizedString("Generic.Error", tableName: tableName, bundle: bundle, value: "Something went wrong. Please try again later.", comment: "Title generic alert.")
 
         /// Title for action to confirm alert.
         static let ok = NSLocalizedString("Generic.OK", tableName: tableName, bundle: bundle, value: "OK", comment: "Title for action to confirm alert.")
