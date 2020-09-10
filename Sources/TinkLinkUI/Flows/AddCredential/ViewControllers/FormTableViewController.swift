@@ -80,7 +80,7 @@ extension FormTableViewController {
         }
         cell.configure(with: viewModel)
         cell.delegate = self
-        cell.setError(with: errors[indexPath]?.reason)
+        cell.setError(with: errors[indexPath]?.localizedDescription)
         cell.textField.returnKeyType = indexPath.row < (form.fields.count - 1) ? .next : .continue
         return cell
     }
