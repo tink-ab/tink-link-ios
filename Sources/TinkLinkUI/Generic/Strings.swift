@@ -226,7 +226,7 @@ enum Strings {
     }
 
     enum Field {
-        enum Validation {
+        enum ValidationError {
             /// Text for field validation error shown when field exceeds character limit.
             static let maxLengthLimit = NSLocalizedString("Field.Validation.MaxLengthLimit", tableName: tableName, bundle: bundle, value: "%@ cannot be longer than %d characters.", comment: "Text for field validation error shown when text entered exceeds character limit.")
 
