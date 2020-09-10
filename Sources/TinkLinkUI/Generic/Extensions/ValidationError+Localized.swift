@@ -6,12 +6,12 @@ extension Form.Field.ValidationError: LocalizedError {
         switch self {
         case .invalid(_, let reason):
             return reason
-        case .maxLengthLimit(let fieldName, let maxLength):
-            return String(format: Strings.Field.ValidationError.maxLengthLimit, fieldName, maxLength)
+        case .maxLengthLimit(_, let maxLength):
+            return String(format: Strings.Field.ValidationError.maxLengthLimit, maxLength)
         case .minLengthLimit:
             return nil
-        case .requiredFieldEmptyValue(let fieldName):
-            return String(format: Strings.Field.ValidationError.requiredFieldEmptyValue, fieldName)
+        case .requiredFieldEmptyValue:
+            return Strings.Field.ValidationError.requiredFieldEmptyValue
         }
     }
 }
