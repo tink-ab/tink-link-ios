@@ -107,6 +107,7 @@
 				8FC06D1B23F196A700CD7B88 /* Frameworks */,
 				8FC06D1C23F196A700CD7B88 /* Resources */,
 				07936E61D4D6390CBE7225C4 /* [CP] Embed Pods Frameworks */,
+				37E4AB6991C801E9BA44A52D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -186,6 +187,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		37E4AB6991C801E9BA44A52D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		479597E7C21DE49DD924DAD8 /* [CP] Check Pods Manifest.lock */ = {
