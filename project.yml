@@ -12,8 +12,8 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLink"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
       MACOSX_DEPLOYMENT_TARGET: 10.13
-      MARKETING_VERSION: 0.14.2
-      CURRENT_PROJECT_VERSION: 1
+      MARKETING_VERSION: 0.15.2
+      CURRENT_PROJECT_VERSION: 3
     scheme:
       testTargets:
         - name: TinkLinkTests_${platform}
@@ -43,8 +43,8 @@ targets:
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUI"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
-      MARKETING_VERSION: 0.14.2
-      CURRENT_PROJECT_VERSION: 1
+      MARKETING_VERSION: 0.15.2
+      CURRENT_PROJECT_VERSION: 3
     scheme:
       testTargets:
         - name: TinkLinkUITests_${platform}
