@@ -110,7 +110,7 @@ enum Strings {
         static let done = NSLocalizedString("Generic.Done", tableName: tableName, bundle: bundle, value: "Done", comment: "Title for action to confirm an event.")
 
         /// Title generic alert.
-        static let error = NSLocalizedString("Generic.Error", tableName: tableName, bundle: bundle, value: "Error", comment: "Title generic alert.")
+        static let error = NSLocalizedString("Generic.Error", tableName: tableName, bundle: bundle, value: "Something went wrong. Please try again later.", comment: "Title generic alert.")
 
         /// Title for action to confirm alert.
         static let ok = NSLocalizedString("Generic.OK", tableName: tableName, bundle: bundle, value: "OK", comment: "Title for action to confirm alert.")
@@ -216,12 +216,25 @@ enum Strings {
 
         /// Title for form asking user to supplement information when adding credentials.
         static let title = NSLocalizedString("SupplementalInformation.Title", tableName: tableName, bundle: bundle, value: "Supplemental information", comment: "Title of the supplemental information dialog.")
+
+        /// Title for button to submit supplemental information.
+        static let submit = NSLocalizedString("SupplementalInformation.Submit", tableName: tableName, bundle: bundle, value: "Submit", comment: "Title for button to submit supplemental information.")
     }
 
     enum ThirdPartyAppAuthentication {
         enum DownloadAlert {
             /// Title for action to download app for third-party app authentication.
             static let download = NSLocalizedString("ThirdPartyAppAuthentication.DownloadAlert.Download", tableName: tableName, bundle: bundle, value: "Download", comment: "Title for action to download app for third-party app authentication.")
+        }
+    }
+
+    enum Field {
+        enum ValidationError {
+            /// Text for field validation error shown when field exceeds character limit.
+            static let maxLengthLimit = NSLocalizedString("Field.Validation.MaxLengthLimit", tableName: tableName, bundle: bundle, value: "This field cannot be longer than %d characters", comment: "Text for field validation error shown when text entered exceeds character limit.")
+
+            ///Text for field validation error shown when no text is entered for a required field.
+            static let requiredFieldEmptyValue = NSLocalizedString("Field.Validation.RequiredFieldEmptyValue", tableName: tableName, bundle: bundle, value: "This field cannot be empty", comment: "Text for field validation error shown when no text is entered for a required field.")
         }
     }
 }

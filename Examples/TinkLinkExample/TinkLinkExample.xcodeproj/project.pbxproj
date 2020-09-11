@@ -25,6 +25,7 @@
 		2068268625023C8A00666CF3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2068268725023C9900666CF3 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2071952323F2B7A20042B2FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		20C584A22507A24600B7C771 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		3780AB4970173A4422933788 /* Pods_TinkLinkExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinkLinkExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		418B71F8EC9C79DD25BA9CD2 /* Pods-TinkLinkExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkLinkExample.release.xcconfig"; path = "Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample.release.xcconfig"; sourceTree = "<group>"; };
 		8FC06D1E23F196A700CD7B88 /* TinkLinkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkLinkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +107,7 @@
 				8FC06D1B23F196A700CD7B88 /* Frameworks */,
 				8FC06D1C23F196A700CD7B88 /* Resources */,
 				07936E61D4D6390CBE7225C4 /* [CP] Embed Pods Frameworks */,
+				37E4AB6991C801E9BA44A52D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -147,6 +149,7 @@
 				es,
 				da,
 				fi,
+				sv,
 			);
 			mainGroup = 8FC06D1523F196A700CD7B88;
 			productRefGroup = 8FC06D1F23F196A700CD7B88 /* Products */;
@@ -184,6 +187,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		37E4AB6991C801E9BA44A52D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		479597E7C21DE49DD924DAD8 /* [CP] Check Pods Manifest.lock */ = {
@@ -236,6 +254,7 @@
 				2068268525023C8500666CF3 /* es */,
 				2068268625023C8A00666CF3 /* da */,
 				2068268725023C9900666CF3 /* fi */,
+				20C584A22507A24600B7C771 /* sv */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
