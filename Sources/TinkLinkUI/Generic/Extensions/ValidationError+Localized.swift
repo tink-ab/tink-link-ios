@@ -9,7 +9,7 @@ extension Form.Field.ValidationError: LocalizedError {
         case .maxLengthLimit(_, let maxLength):
             return String(format: Strings.Field.ValidationError.maxLengthLimit, maxLength)
         case .minLengthLimit:
-            return nil
+            return ""
         case .requiredFieldEmptyValue:
             return Strings.Field.ValidationError.requiredFieldEmptyValue
         }
