@@ -6,7 +6,7 @@ final class ProviderCapabilityFormatter: Formatter {
 
     let listFormatter = HumanEnumeratedFormatter()
 
-    var excludedCapabilities: Provider.Capabilities = [.transfers, .payments, .mortgageAggregation]
+    var excludedCapabilities: Provider.Capabilities = [.transfers, .payments, .createBeneficiaries]
 
     override init() {
         super.init()
