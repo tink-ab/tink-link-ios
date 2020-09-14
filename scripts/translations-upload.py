@@ -15,7 +15,7 @@ PROJECTS = [
     }
 ]
 
-GENSTRINGS_COMMAND = "find ./sources/TinkLinkUI -name '*.swift' -print0 | xargs -0 genstrings -s NSLocalizedString -o ."
+GENSTRINGS_COMMAND = "find ./Sources/TinkLinkUI -name '*.swift' -print0 | xargs -0 genstrings -o ."
 
 
 if __name__ == '__main__':
