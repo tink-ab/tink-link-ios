@@ -40,8 +40,6 @@ if __name__ == '__main__':
     file = os.path.join(root_directory, ONESKY_FILE)
     os.rename(os.path.join(root_directory, 'Localizable.strings'), file)
 
-    print args.apikey
-
     raw_input('Press enter to continue with upload...')
 
     for project in PROJECTS:
