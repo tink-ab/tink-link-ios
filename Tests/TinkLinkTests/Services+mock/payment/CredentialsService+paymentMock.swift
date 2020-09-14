@@ -1,5 +1,6 @@
 import Foundation
 import TinkCore
+@testable import TinkLink
 
 class MockedSuccessPaymentCredentialsService: CredentialsService {
     var credentials = Credentials(
