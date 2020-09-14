@@ -13,7 +13,7 @@ PROJECTS = [
     {
         'name': 'TinkLinkUI',
         'project_id': '170340', # Tink - SDK iOS
-        'locales': ['en-US', 'sv-SE']
+        'locales': ['da', 'de-DE', 'en-US', 'es-ES', 'fi', 'fr-FR', 'it-IT', 'nl-NL', 'no', 'pt-PT', 'sv-SE']
     }
 ]
 
