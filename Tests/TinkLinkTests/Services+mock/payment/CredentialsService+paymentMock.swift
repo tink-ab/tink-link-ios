@@ -1,5 +1,5 @@
 import Foundation
-@testable import TinkCore
+import TinkCore
 
 class MockedSuccessPaymentCredentialsService: CredentialsService {
     var credentials = Credentials(

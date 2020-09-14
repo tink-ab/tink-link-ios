@@ -1,5 +1,5 @@
 import Foundation
-@testable import TinkCore
+import TinkCore
 
 extension Credentials.ThirdPartyAppAuthentication {
     static func makeThirdPartyAppAuthentication(deepLinkURL: URL?) -> Self {
