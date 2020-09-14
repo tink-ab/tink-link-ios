@@ -28,8 +28,8 @@ if __name__ == '__main__':
     parser.add_argument('--api-secret', type=str)
     args = parser.parse_args()
 
-    onesky_api_key = args.apikey
-    onesky_api_secret = args.apisecret
+    onesky_api_key = args.api_key
+    onesky_api_secret = args.api_secret
 
     script_directory = os.path.dirname(__file__)
     root_directory = os.path.dirname(script_directory)
