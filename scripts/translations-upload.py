@@ -45,7 +45,7 @@ if __name__ == '__main__':
     for project in PROJECTS:
         with open(file, "r") as f:
             try:
-                # upload(onesky_api_key, onesky_api_secret, project['project_id'], ONESKY_FILE, f)
+                upload(onesky_api_key, onesky_api_secret, project['project_id'], ONESKY_FILE, f)
                 print '✅  %s: %s' % (project['name'], ONESKY_FILE)
             except Exception as e:
                 print '🚨  %s: %s' % (project['name'], ONESKY_FILE)
