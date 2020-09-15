@@ -13,6 +13,13 @@ steps:
 
   - wait
 
+  - name: ':pipeline: UI Test'
+    command: 'make ui-test'
+    agents:
+      queue: 'macos'
+
+  - wait
+
   - name: ':pipeline: Build UIKit Example'
     command: 'make build-uikit-example'
     agents:
