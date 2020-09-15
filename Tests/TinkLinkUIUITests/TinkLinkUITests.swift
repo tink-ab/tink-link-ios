@@ -81,7 +81,7 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(statusText.waitForExistence(timeout: 10))
 
         let doneButton = app.buttons["Done"]
-        XCTAssertTrue(doneButton.waitForExistence(timeout: 30))
+        XCTAssertTrue(doneButton.waitForExistence(timeout: 60))
         app.buttons["Done"].tap()
 
         XCTAssertTrue(getStartedButton.isHittable)
