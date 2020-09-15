@@ -81,3 +81,15 @@ targets:
       - target: TinkLinkUI_${platform}
       - carthage: Kingfisher
       - carthage: Down
+  TinkLinkUIUITestsHost:
+    type: application
+    platform: [iOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUITests"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+    sources:
+      - Sources/TinkLinkUIUITestsHost
+    dependencies:
+      - target: TinkLinkUI_${platform}
+      - carthage: Kingfisher
+      - carthage: Down
