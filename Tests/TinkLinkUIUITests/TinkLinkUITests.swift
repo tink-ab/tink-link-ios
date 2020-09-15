@@ -52,4 +52,38 @@ class TinkLinkUITests: XCTestCase {
 
         XCTAssertTrue(getStartedButton.isHittable)
     }
+
+    func testAddingTestPasswordCredentials() {
+        app.launch()
+
+        let getStartedButton = app.buttons["Get Started"]
+        XCTAssertTrue(getStartedButton.exists)
+        getStartedButton.tap()
+
+        let tablesQuery = app.tables
+
+        let passwordProviderCell = tablesQuery.staticTexts["Test Password"]
+
+        XCTAssertTrue(passwordProviderCell.waitForExistence(timeout: 5))
+        passwordProviderCell.tap()
+
+        let usernameField = tablesQuery.textFields["Username"]
+        usernameField.tap()
+        usernameField.typeText("tink")
+
+        let passwordField = tablesQuery.secureTextFields["Password"]
+        passwordField.tap()
+        passwordField.typeText("tink-1234")
+
+        app.buttons["Continue"].tap()
+
+        let statusText = app.staticTexts["Connecting to Test Password, please wait…"]
+        XCTAssertTrue(statusText.waitForExistence(timeout: 10))
+
+        let doneButton = app.buttons["Done"]
+        XCTAssertTrue(doneButton.waitForExistence(timeout: 30))
+        app.buttons["Done"].tap()
+
+        XCTAssertTrue(getStartedButton.isHittable)
+    }
 }
