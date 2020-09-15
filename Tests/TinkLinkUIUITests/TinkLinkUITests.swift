@@ -1,6 +1,6 @@
 import XCTest
 
-class TinkPFMUITests: XCTestCase {
+class TinkLinkUITests: XCTestCase {
     let app = XCUIApplication()
 
     override func setUp() {
