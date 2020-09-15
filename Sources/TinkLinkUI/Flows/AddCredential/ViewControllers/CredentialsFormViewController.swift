@@ -226,9 +226,8 @@ extension CredentialsFormViewController {
     }
 
     private func addCredential() {
-        view.endEditing(false)
-
         if formTableViewController.validateFields() {
+            view.endEditing(false)
             delegate?.submit(form: formTableViewController.form)
         }
     }
