@@ -56,6 +56,10 @@ test:
 
 	swift test
 
+build-carthage-frameworks:
+	xcodegen generate
+	carthage build --platform iOS --no-skip-current
+
 build-uikit-example:
 	xcodebuild clean build \
 		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
