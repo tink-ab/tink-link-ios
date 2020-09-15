@@ -73,7 +73,7 @@ targets:
     type: bundle.ui-testing
     platform: [iOS]
     settings:
-      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUITests"
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUIUITests"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
       TEST_TARGET_NAME: "TinkLinkUIUITestsHost_iOS"
     sources:
@@ -89,7 +89,7 @@ targets:
     type: application
     platform: [iOS]
     settings:
-      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUITests"
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUIUITestsHost"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
     sources:
       - Sources/TinkLinkUIUITestsHost
