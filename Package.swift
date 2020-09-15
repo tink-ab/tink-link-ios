@@ -15,7 +15,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/tink-ab/tink-core-ios", .exact("0.1.3"))
+        .package(url: "https://github.com/tink-ab/tink-core-ios", .exact("0.1.5"))
     ],
     targets: [
         .target(
