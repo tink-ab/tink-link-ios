@@ -57,6 +57,7 @@ test:
 	swift test
 
 build-carthage-frameworks:
+	carthage bootstrap --platform iOS
 	xcodegen generate
 	carthage build --platform iOS --no-skip-current
 
