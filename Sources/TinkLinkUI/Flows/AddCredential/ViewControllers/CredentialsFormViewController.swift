@@ -135,10 +135,6 @@ extension CredentialsFormViewController {
 
         setupButton()
 
-        formTableViewController.formDidChange = { [weak self] in
-            guard let self = self else { return }
-        }
-
         formTableViewController.onSubmit = { [weak self] in
             self?.addCredential()
         }
