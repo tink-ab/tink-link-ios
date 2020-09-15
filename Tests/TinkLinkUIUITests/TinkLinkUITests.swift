@@ -29,4 +29,27 @@ class TinkLinkUITests: XCTestCase {
 
         XCTAssertTrue(getStartedButton.isHittable)
     }
+
+    func testAddingTestBankIDCredentials() {
+        app.launch()
+
+        let getStartedButton = app.buttons["Get Started"]
+        XCTAssertTrue(getStartedButton.exists)
+        getStartedButton.tap()
+
+        let tablesQuery = app.tables
+        XCTAssertTrue(tablesQuery.staticTexts["Test BankID"].waitForExistence(timeout: 3))
+        tablesQuery.staticTexts["Test BankID"].tap()
+        tablesQuery.staticTexts["Test BankID (successful)"].tap()
+        let numberField = tablesQuery.textFields["Social security number"]
+        numberField.tap()
+        numberField.typeText("180012121212")
+
+        app.buttons["Open BankID"].tap()
+        let doneButton = app.buttons["Done"]
+        XCTAssertTrue(doneButton.waitForExistence(timeout: 30))
+        app.buttons["Done"].tap()
+
+        XCTAssertTrue(getStartedButton.isHittable)
+    }
 }
