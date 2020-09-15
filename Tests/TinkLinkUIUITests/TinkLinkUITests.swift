@@ -6,10 +6,12 @@ class TinkLinkUITests: XCTestCase {
     override func setUp() {
         continueAfterFailure = false
 
-        app.launchEnvironment = [:]
+        app.launchEnvironment = ["TINK_LINK_UI_TESTS_HOST_CLIENT_ID": ""]
     }
 
     func testUnauthenticatedAlert() {
+        app.launchEnvironment["TINK_LINK_UI_TESTS_HOST_CLIENT_ID"] = nil
+
         app.launch()
 
         let getStartedButton = app.buttons["Get Started"]
