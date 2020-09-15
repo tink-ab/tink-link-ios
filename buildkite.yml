@@ -34,6 +34,13 @@ steps:
 
   - wait
 
+  - name: ':pipeline: Build Carthage Frameworks'
+    command: 'make build-carthage-frameworks'
+    agents:
+      queue: 'macos'
+
+  - wait
+
   - trigger: "distribute-tink-sdk-demo-ios"
     label: ":pipeline: Distribution"
     async: true
