@@ -158,6 +158,8 @@ extension ServiceError: LocalizedError {
             return "Resource exhausted"
         case .failedPrecondition:
             return "Precondition failed"
+        case .unavailableForLegalReasons:
+            return "The request cannot be fulfilled because of legal/contractual reasons."
         case .aborted:
             return "The request is aborted"
         case .outOfRange:
@@ -188,6 +190,7 @@ extension ServiceError: LocalizedError {
              .unauthenticated(let payload),
              .resourceExhausted(let payload),
              .failedPrecondition(let payload),
+             .unavailableForLegalReasons(let payload),
              .aborted(let payload),
              .outOfRange(let payload),
              .unimplemented(let payload),
