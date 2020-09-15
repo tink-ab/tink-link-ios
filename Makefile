@@ -46,7 +46,7 @@ format:
 
 test:
 	bundle exec pod install --repo-update --project-directory="./Examples/TinkLinkExample/"
-	xcodebuild test \
+	xcodebuild clean test \
 		-workspace Examples/TinkLinkExample/TinkLinkExample.xcworkspace \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
