@@ -31,7 +31,7 @@ targets:
     sources:
       - Tests/TinkLinkTests
     dependencies:
-      - target: TinkLink_iOS
+      - target: TinkLink_${platform}
   TinkLinkUI:
     type: framework
     platform: [iOS]
