@@ -91,6 +91,56 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(getStartedButton.isHittable)
     }
 
+    func testAddingTestMultiSupplementalProvider() {
+        app.launch()
+
+        let getStartedButton = app.buttons["Get Started"]
+        XCTAssertTrue(getStartedButton.exists)
+        getStartedButton.tap()
+
+        let tablesQuery = app.tables
+
+        tablesQuery.staticTexts["Test Multi-Supplemental"].tap()
+
+        let usernameField = tablesQuery.textFields["Username"]
+        usernameField.tap()
+        usernameField.typeText("tink-test")
+
+        app.buttons["Continue"].tap()
+
+        let authorizingStatusText = app.staticTexts["Authorizing…"]
+        XCTAssertTrue(authorizingStatusText.waitForExistence(timeout: 5))
+
+        let inputCodeField = app.tables.textFields["Input Code"]
+        inputCodeField.tap()
+        inputCodeField.typeText("1234")
+
+        let supplementalInformationNavigationBar = app.navigationBars["Supplemental information"]
+        XCTAssertTrue(supplementalInformationNavigationBar.waitForExistence(timeout: 5))
+
+        let submitButton = app.buttons["Submit"]
+        submitButton.tap()
+
+        XCTAssertTrue(supplementalInformationNavigationBar.waitForExistence(timeout: 5))
+
+        inputCodeField.tap()
+        inputCodeField.typeText("4321")
+
+        submitButton.tap()
+
+        let sendingStatusText = app.staticTexts["Sending…"]
+        XCTAssertTrue(sendingStatusText.waitForExistence(timeout: 5))
+
+        let connectingStatusText = app.staticTexts["Connecting to Test Multi-Supplemental, please wait…"]
+        XCTAssertTrue(connectingStatusText.waitForExistence(timeout: 10))
+
+        let doneButton = app.buttons["Done"]
+        XCTAssertTrue(doneButton.waitForExistence(timeout: 60))
+        doneButton.tap()
+
+        XCTAssertTrue(getStartedButton.isHittable)
+    }
+
     func testSearch() {
         app.launch()
 
