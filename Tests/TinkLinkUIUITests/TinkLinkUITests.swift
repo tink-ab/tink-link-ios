@@ -86,4 +86,32 @@ class TinkLinkUITests: XCTestCase {
 
         XCTAssertTrue(getStartedButton.isHittable)
     }
+
+    func testSearch() {
+        app.launch()
+
+        let getStartedButton = app.buttons["Get Started"]
+        XCTAssertTrue(getStartedButton.exists)
+        getStartedButton.tap()
+
+        let chooseBankNavigationBar = app.navigationBars["Choose bank"]
+        let searchField = chooseBankNavigationBar.searchFields["Search for a bank or card"]
+        searchField.tap()
+
+        let qrCodeProviderCell = app.tables["Search results"].staticTexts["Test BankID with QR code (successful)"]
+        XCTAssertFalse(qrCodeProviderCell.exists)
+
+        searchField.typeText("Test")
+
+        XCTAssertTrue(qrCodeProviderCell.exists)
+        XCTAssertTrue(qrCodeProviderCell.isHittable)
+        qrCodeProviderCell.tap()
+
+        let tablesQuery = app.tables
+        tablesQuery.staticTexts["Test BankID with QR code (successful)"].tap()
+        tablesQuery.textFields["Social security number"].tap()
+        app.navigationBars["Authentication"].buttons["Cancel"].tap()
+
+        XCTAssertTrue(getStartedButton.isHittable)
+    }
 }
