@@ -6,8 +6,7 @@ class TinkPFMUITests: XCTestCase {
     override func setUp() {
         continueAfterFailure = false
 
-        app.launchEnvironment = [
-        ]
+        app.launchEnvironment = [:]
     }
 
     func testLaunch() {
