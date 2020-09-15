@@ -109,7 +109,7 @@ class TinkLinkUITests: XCTestCase {
 
         let tablesQuery = app.tables
         tablesQuery.staticTexts["Test BankID with QR code (successful)"].tap()
-        tablesQuery.textFields["Social security number"].tap()
+        XCTAssertTrue(tablesQuery.textFields["Social security number"].exists)
         app.navigationBars["Authentication"].buttons["Cancel"].tap()
 
         XCTAssertTrue(getStartedButton.isHittable)
