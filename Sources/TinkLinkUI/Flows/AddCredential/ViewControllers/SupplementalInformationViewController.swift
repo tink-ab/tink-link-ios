@@ -65,10 +65,6 @@ extension SupplementalInformationViewController {
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
 
-        formTableViewController.formDidChange = { [weak self] in
-            guard let self = self else { return }
-        }
-
         formTableViewController.onSubmit = { [weak self] in
             self?.submit()
         }
