@@ -3,7 +3,6 @@ import TinkLink
 
 final class FormTableViewController: UITableViewController {
     var onSubmit: (() -> Void)?
-    var formDidChange: (() -> Void)?
     var errorText: String?
     var prefillStrategy: TinkLinkViewController.PrefillStrategy = .none
 
@@ -132,7 +131,6 @@ extension FormTableViewController: FormFieldTableViewCellDelegate {
         cell.setError(with: nil)
         tableView.endUpdates()
         currentScrollPos = nil
-        formDidChange?()
     }
 
     func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell) {
@@ -153,7 +151,6 @@ extension FormTableViewController: FormFieldTableViewCellDelegate {
         currentScrollPos = tableView.contentOffset.y
         tableView.reloadRows(at: [indexPath], with: .automatic)
         currentScrollPos = nil
-        formDidChange?()
     }
 
     // To fix the issue for scroll view jumping while animating the cell, inspired by
