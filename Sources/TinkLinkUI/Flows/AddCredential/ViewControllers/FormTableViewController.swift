@@ -61,6 +61,10 @@ final class FormTableViewController: UITableViewController {
 // MARK: - UITableViewDataSource
 
 extension FormTableViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return form.fields.count
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let field = form.fields[indexPath.item]
 
@@ -163,9 +167,5 @@ extension FormTableViewController: FormFieldTableViewCellDelegate {
         if let currentScrollPos = currentScrollPos {
             tableView.setContentOffset(CGPoint(x: 0, y: currentScrollPos), animated: false)
         }
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return form.fields.count
     }
 }

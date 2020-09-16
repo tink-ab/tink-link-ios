@@ -90,9 +90,7 @@ extension SupplementalInformationViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        formTableViewController.tableView.contentInset.top = 16.0
-        formTableViewController.tableView.contentInset.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
-        formTableViewController.tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : formTableViewController.tableView.contentInset.bottom
+        formTableViewController.additionalSafeAreaInsets.bottom = button.rounded ? 0 : view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
     }
 }
 
