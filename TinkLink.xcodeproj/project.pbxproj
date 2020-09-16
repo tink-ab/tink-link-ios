@@ -1104,7 +1104,7 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		"TEMP_A087900A-0866-46E5-A973-3976A07639AC" /* REST */ = {
+		"TEMP_E7826976-A3DD-44D4-A15D-38C5ECA3F04F" /* REST */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1263,6 +1263,9 @@
 			attributes = {
 				LastUpgradeCheck = 1020;
 				TargetAttributes = {
+					69E020C938A4A5693095A371 = {
+						TestTargetID = B5CB16B08C86C5DAAACD43E0;
+					};
 				};
 			};
 			buildConfigurationList = AABC2E406915CCB945671985 /* Build configuration list for PBXProject "TinkLink" */;
@@ -1767,6 +1770,7 @@
 				PRODUCT_NAME = TinkLinkUIUITests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TinkLinkUIUITestsHost_iOS;
 			};
 			name = Release;
 		};
@@ -2024,6 +2028,7 @@
 				PRODUCT_NAME = TinkLinkUIUITests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TinkLinkUIUITestsHost_iOS;
 			};
 			name = Debug;
 		};

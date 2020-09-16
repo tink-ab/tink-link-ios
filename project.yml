@@ -75,6 +75,7 @@ targets:
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUITests"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      TEST_TARGET_NAME: "TinkLinkUIUITestsHost_iOS"
     sources:
       - Tests/TinkLinkUIUITests
     dependencies:
