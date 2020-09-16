@@ -24,7 +24,7 @@ extension ServiceError: LocalizedError {
             return "Resource exhausted"
         case .failedPrecondition:
             return "Failed precondition"
-        case .unavailableForLegalReasons(_):
+        case .unavailableForLegalReasons:
             return "Unavailable for legal reasons"
         case .aborted:
             return "Aborted"
