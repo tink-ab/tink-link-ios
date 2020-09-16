@@ -268,6 +268,13 @@
 			remoteGlobalIDString = 069114309B16BF85A2D4F4AE;
 			remoteInfo = TinkLink_iOS;
 		};
+		26A7713AB4A35FF99718E47A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6486A5AC59C1F3DC01BCB4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B5CB16B08C86C5DAAACD43E0;
+			remoteInfo = TinkLinkUIUITestsHost_iOS;
+		};
 		4B8304FD965106523A56026D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D6486A5AC59C1F3DC01BCB4F /* Project object */;
@@ -1214,6 +1221,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F16438AA3D8F31913BCD95BB /* PBXTargetDependency */,
 				4D22734A30621A6F6A0E2E4D /* PBXTargetDependency */,
 				B055C14EAD04701E590231C8 /* PBXTargetDependency */,
 			);
@@ -1644,6 +1652,11 @@
 			isa = PBXTargetDependency;
 			target = CCA9EED7AF59038F1EB07B25 /* TinkLink_macOS */;
 			targetProxy = EF174387CFE25EF7B9E1FBE8 /* PBXContainerItemProxy */;
+		};
+		F16438AA3D8F31913BCD95BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B5CB16B08C86C5DAAACD43E0 /* TinkLinkUIUITestsHost_iOS */;
+			targetProxy = 26A7713AB4A35FF99718E47A /* PBXContainerItemProxy */;
 		};
 		F3D4E3C64DC5D1C1DD90644A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

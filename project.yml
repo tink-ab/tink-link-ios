@@ -79,6 +79,7 @@ targets:
     sources:
       - Tests/TinkLinkUIUITests
     dependencies:
+      - target: TinkLinkUIUITestsHost_${platform}
       - target: TinkLink_${platform}
       - target: TinkLinkUI_${platform}
       - carthage: TinkCore
