@@ -108,14 +108,13 @@ class TinkLinkUITests: XCTestCase {
 
         app.buttons["Continue"].tap()
 
-        let authorizingStatusText = app.staticTexts["Authorizing…"]
-        XCTAssertTrue(authorizingStatusText.waitForExistence(timeout: 5))
+        let supplementalInformationNavigationBar = app.navigationBars["Supplemental information"]
+        XCTAssertTrue(supplementalInformationNavigationBar.waitForExistence(timeout: 5))
 
         let inputCodeField = app.tables.textFields["Input Code"]
         inputCodeField.tap()
         inputCodeField.typeText("1234")
 
-        let supplementalInformationNavigationBar = app.navigationBars["Supplemental information"]
         XCTAssertTrue(supplementalInformationNavigationBar.waitForExistence(timeout: 5))
 
         let submitButton = app.buttons["Submit"]
