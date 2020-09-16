@@ -78,8 +78,6 @@ targets:
       TEST_TARGET_NAME: "TinkLinkUIUITestsHost_iOS"
     sources:
       - Tests/TinkLinkUIUITests
-    scheme:
-      gatherCoverageData: false
     dependencies:
       - target: TinkLinkUIUITestsHost_${platform}
       - target: TinkLink_${platform}
@@ -95,6 +93,9 @@ targets:
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
     sources:
       - Sources/TinkLinkUIUITestsHost
+    scheme:
+      testTargets:
+      - name: TinkLinkUIUITests_${platform}
     dependencies:
       - target: TinkLink_${platform}
       - target: TinkLinkUI_${platform}
