@@ -1104,13 +1104,6 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		"TEMP_E7826976-A3DD-44D4-A15D-38C5ECA3F04F" /* REST */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = REST;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
