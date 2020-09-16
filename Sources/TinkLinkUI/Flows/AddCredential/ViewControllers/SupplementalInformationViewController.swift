@@ -44,7 +44,6 @@ extension SupplementalInformationViewController {
         formTableViewController.didMove(toParent: self)
 
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.isEnabled = formTableViewController.form.fields.filter { $0.attributes.isEditable }.isEmpty
         button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
         button.text = Strings.SupplementalInformation.submit
 
@@ -65,11 +64,6 @@ extension SupplementalInformationViewController {
             buttonWidthConstraint,
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-
-        formTableViewController.formDidChange = { [weak self] in
-            guard let self = self else { return }
-            self.button.isEnabled = self.formTableViewController.form.areFieldsValid
-        }
 
         formTableViewController.onSubmit = { [weak self] in
             self?.submit()

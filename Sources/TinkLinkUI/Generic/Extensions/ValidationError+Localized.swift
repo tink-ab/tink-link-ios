@@ -8,8 +8,8 @@ extension Form.Field.ValidationError: LocalizedError {
             return reason
         case .maxLengthLimit(_, let maxLength):
             return String(format: Strings.Field.ValidationError.maxLengthLimit, maxLength)
-        case .minLengthLimit:
-            return ""
+        case .minLengthLimit(_, let minLength):
+            return String(format: Strings.Field.ValidationError.minLengthLimit, minLength)
         case .requiredFieldEmptyValue:
             return Strings.Field.ValidationError.requiredFieldEmptyValue
         }

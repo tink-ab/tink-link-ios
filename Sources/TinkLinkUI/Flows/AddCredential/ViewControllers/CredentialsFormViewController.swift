@@ -132,14 +132,8 @@ extension CredentialsFormViewController {
 
         navigationItem.title = Strings.Credentials.title
         navigationItem.largeTitleDisplayMode = .never
-        button.isEnabled = formTableViewController.form.fields.filter { $0.attributes.isEditable }.isEmpty
 
         setupButton()
-
-        formTableViewController.formDidChange = { [weak self] in
-            guard let self = self else { return }
-            self.button.isEnabled = self.formTableViewController.form.areFieldsValid
-        }
 
         formTableViewController.onSubmit = { [weak self] in
             self?.addCredential()
@@ -226,9 +220,8 @@ extension CredentialsFormViewController {
     }
 
     private func addCredential() {
-        view.endEditing(false)
-
         if formTableViewController.validateFields() {
+            view.endEditing(false)
             delegate?.submit(form: formTableViewController.form)
         }
     }
