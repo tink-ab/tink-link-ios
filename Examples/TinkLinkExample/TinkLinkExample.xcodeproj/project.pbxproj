@@ -103,6 +103,7 @@
 			buildConfigurationList = 8FC06D3223F196A900CD7B88 /* Build configuration list for PBXNativeTarget "TinkLinkExample" */;
 			buildPhases = (
 				479597E7C21DE49DD924DAD8 /* [CP] Check Pods Manifest.lock */,
+				B8E1B74CC8A4723D1997363B /* [CP] Prepare Artifacts */,
 				8FC06D1A23F196A700CD7B88 /* Sources */,
 				8FC06D1B23F196A700CD7B88 /* Frameworks */,
 				8FC06D1C23F196A700CD7B88 /* Resources */,
@@ -224,6 +225,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8E1B74CC8A4723D1997363B /* [CP] Prepare Artifacts */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Prepare Artifacts";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample-artifacts.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

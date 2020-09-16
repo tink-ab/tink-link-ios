@@ -101,6 +101,7 @@
 		65CD854D310128E5E540942E /* InteractionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2E0DE29DE4BBE606CE003 /* InteractionEvent.swift */; };
 		6829A11CEEEC398E7A3425B5 /* ConsentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FECFCD8AB8B77F497B3735 /* ConsentContext.swift */; };
 		69D8E6CFBA5838AE0972C407 /* ProviderService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE87D565B53F32B26FAF711E /* ProviderService+mock.swift */; };
+		71F330533B07851FA1BFB98E /* TinkCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91719FA2AD2BD7D36D7E1D46 /* TinkCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		72414246A2E3BB76CAB5A161 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7301A7AF1553F901C72BE367 /* ProviderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7D63EB1C5FDD6E6C5A1C22 /* ProviderContext.swift */; };
 		73C3D047084F1E4104AC60AA /* TinkSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD56FDEBF7C375BFD380EE5 /* TinkSearchController.swift */; };
@@ -113,6 +114,7 @@
 		7CF0B8528E66BCD9B9B3B605 /* AccessTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465BE20FB5B8ADCEFDA32EA2 /* AccessTypePickerViewController.swift */; };
 		7E3FB2E738D0B3FBCBDB76A8 /* FloatingPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA1971343E6F408F10CAB9 /* FloatingPlaceholderTextField.swift */; };
 		7E8453A5C458A227930EF4B2 /* Beneficiary+URI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE35289B9BE207D97F23B86 /* Beneficiary+URI.swift */; };
+		7F6DDB6CADBFF25459C69F2B /* TinkLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8399BE1FDFA2C503CC04C71 /* TinkLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		801735702F9545A4A2D74CE2 /* ScopeDescriptionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63C7E13073E993B0B251C /* ScopeDescriptionListViewController.swift */; };
 		82467352B8DD185235FE10CA /* FormTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987825A510E085C113C6ABAA /* FormTableViewController.swift */; };
 		841C36BE8EEC01C9D4F8A66B /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80938EC83D308F92735171B4 /* Icon.swift */; };
@@ -157,7 +159,6 @@
 		AC74F4FE3BB8D0EEBC6E27A8 /* CredentialsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56AA37584764C1D7BE1E132 /* CredentialsContext.swift */; };
 		AD49441B456FF4FE57426F26 /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C99E4F1C68B011B3EC303 /* CheckmarkView.swift */; };
 		AF637411A12669DB0C939119 /* AnalyticsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144498CD010B89A093E7D954 /* AnalyticsAPI.swift */; };
-		AFAF3235A620D0619E6CD949 /* TinkLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; };
 		AFB9D83ACEB0F1C1EB113522 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC36675393995F589CD0C32 /* ActivityIndicatorView.swift */; };
 		B0095D7218AEC1D1C880EDB6 /* AddCredentialsSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E03EE70807522B4271D42B /* AddCredentialsSession.swift */; };
 		B04ACAEA4981AD9664DE95C2 /* ThirdPartyAppAuthentication+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1578C2D8AEB7C7C4CD76CA1E /* ThirdPartyAppAuthentication+mock.swift */; };
@@ -165,8 +166,8 @@
 		B2DECDCC61B18BB69CBD4E55 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; };
 		B383600BB11435F40631D0B6 /* SupplementalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389A4D5B9E9631E1E257C85D /* SupplementalInformationViewController.swift */; };
 		B3FCF013962EAFC335B0FBBA /* TinkLinkUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B198F7C21791DF1A6D737CFE /* TinkLinkUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B434D5A39162F761DC091124 /* TinkLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8399BE1FDFA2C503CC04C71 /* TinkLink.framework */; };
 		B438A4743E0D27CE69D31CA0 /* TransferAccountIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B50EA966B4352058089CE /* TransferAccountIdentifiable.swift */; };
-		B56863346088D0A9CF1296DE /* TinkLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B822692710490854B02E9673 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543E58EF45210737B2765AB1 /* TinkCore.framework */; };
 		B95E7FB776D43FCBC148569C /* ProviderCapabilityFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3088EB17C87CDA1FCA245254 /* ProviderCapabilityFormatterTests.swift */; };
 		B964EEBDE31F1B08346C0CB1 /* ProviderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5DDF7BDBD9C6483996E6AA /* ProviderController.swift */; };
@@ -243,19 +244,19 @@
 			remoteGlobalIDString = 069114309B16BF85A2D4F4AE;
 			remoteInfo = TinkLink_iOS;
 		};
-		26B965C2B4399A6CB49F4854 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D6486A5AC59C1F3DC01BCB4F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 069114309B16BF85A2D4F4AE;
-			remoteInfo = TinkLink_iOS;
-		};
 		AA5AB8D5A77D23C59EDBF972 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D6486A5AC59C1F3DC01BCB4F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 069114309B16BF85A2D4F4AE;
 			remoteInfo = TinkLink_iOS;
+		};
+		EF174387CFE25EF7B9E1FBE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6486A5AC59C1F3DC01BCB4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CCA9EED7AF59038F1EB07B25;
+			remoteInfo = TinkLink_macOS;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -292,7 +293,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B56863346088D0A9CF1296DE /* TinkLink.framework in Embed Frameworks */,
+				7F6DDB6CADBFF25459C69F2B /* TinkLink.framework in Embed Frameworks */,
+				71F330533B07851FA1BFB98E /* TinkCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,7 +473,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFAF3235A620D0619E6CD949 /* TinkLink.framework in Frameworks */,
+				B434D5A39162F761DC091124 /* TinkLink.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,13 +991,6 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		"TEMP_F38D1A24-44E3-4308-A951-50C5222A6FF7" /* REST */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = REST;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1080,7 +1075,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5ADDFAEE57A5B4C7BD98675F /* PBXTargetDependency */,
+				E47B642D4A1496A4976043E2 /* PBXTargetDependency */,
 			);
 			name = TinkLinkTests_macOS;
 			productName = TinkLinkTests_macOS;
@@ -1402,15 +1397,15 @@
 			target = 069114309B16BF85A2D4F4AE /* TinkLink_iOS */;
 			targetProxy = 24206F85E936C1D3CDA04DC0 /* PBXContainerItemProxy */;
 		};
-		5ADDFAEE57A5B4C7BD98675F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 069114309B16BF85A2D4F4AE /* TinkLink_iOS */;
-			targetProxy = 26B965C2B4399A6CB49F4854 /* PBXContainerItemProxy */;
-		};
 		64A977D05CCE5A14E5D38D82 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 069114309B16BF85A2D4F4AE /* TinkLink_iOS */;
 			targetProxy = AA5AB8D5A77D23C59EDBF972 /* PBXContainerItemProxy */;
+		};
+		E47B642D4A1496A4976043E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CCA9EED7AF59038F1EB07B25 /* TinkLink_macOS */;
+			targetProxy = EF174387CFE25EF7B9E1FBE8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1420,6 +1415,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Tests/TinkLinkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1713,6 +1712,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Tests/TinkLinkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

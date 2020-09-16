@@ -1,5 +1,6 @@
 import Foundation
-@testable import TinkCore
+import TinkCore
+@testable import TinkLink
 
 class MutableCredentialsService: CredentialsService {
     private var credentialsByID: [Credentials.ID: Credentials] = [:]

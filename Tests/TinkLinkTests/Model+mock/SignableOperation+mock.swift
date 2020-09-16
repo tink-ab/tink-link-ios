@@ -1,5 +1,5 @@
 import Foundation
-@testable import TinkCore
+import TinkCore
 
 extension SignableOperation {
     static let createdSignableOperation = SignableOperation(

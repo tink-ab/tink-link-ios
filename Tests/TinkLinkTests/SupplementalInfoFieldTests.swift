@@ -1,4 +1,4 @@
-@testable import TinkCore
+import TinkCore
 @testable import TinkLink
 import XCTest
 
