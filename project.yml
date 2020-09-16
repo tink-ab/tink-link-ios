@@ -79,6 +79,7 @@ targets:
     sources:
       - Tests/TinkLinkUIUITests
     dependencies:
+      - target: TinkLink_${platform}
       - target: TinkLinkUI_${platform}
       - carthage: TinkCore
       - carthage: Kingfisher
@@ -92,6 +93,7 @@ targets:
     sources:
       - Sources/TinkLinkUIUITestsHost
     dependencies:
+      - target: TinkLink_${platform}
       - target: TinkLinkUI_${platform}
       - carthage: TinkCore
       - carthage: Kingfisher
