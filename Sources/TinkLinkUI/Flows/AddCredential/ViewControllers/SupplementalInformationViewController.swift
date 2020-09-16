@@ -66,8 +66,6 @@ extension SupplementalInformationViewController {
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
 
-        formTableViewController.additionalSafeAreaInsets.top = 16
-
         formTableViewController.formDidChange = { [weak self] in
             guard let self = self else { return }
             self.button.isEnabled = self.formTableViewController.form.areFieldsValid
