@@ -23,6 +23,8 @@ public enum TinkLinkError: Error {
             switch error {
             case .emptyProviderList:
                 self = .unableToFetchProviders
+            case .providerNotFound:
+                self = .providerNotFound
             case .missingInternetConnection:
                 self = .missingInternetConnection
             }
