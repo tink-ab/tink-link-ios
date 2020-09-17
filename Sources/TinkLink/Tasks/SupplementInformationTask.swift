@@ -30,6 +30,10 @@ public final class SupplementInformationTask: Identifiable {
     private let credentialsService: CredentialsService
     private var callRetryCancellable: RetryCancellable?
 
+    public enum Error: Swift.Error {
+        case userCancelled
+    }
+
     // MARK: Getting the Credentials
 
     /// The credentials that's awaiting supplemental information.
@@ -64,7 +68,7 @@ public final class SupplementInformationTask: Identifiable {
         callRetryCancellable = credentialsService.cancelSupplementalInformation(id: credentials.id, completion: { [weak self] result in
             switch result {
             case .success:
-                self?.completionHandler(.failure(CocoaError(.userCancelled)))
+                self?.completionHandler(.failure(Error.userCancelled))
             case .failure(let error):
                 self?.completionHandler(.failure(error))
             }
