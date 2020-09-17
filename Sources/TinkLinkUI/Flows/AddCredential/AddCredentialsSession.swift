@@ -115,17 +115,40 @@ final class AddCredentialsSession {
     }
 
     func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        task = credentialsController.refresh(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
-            DispatchQueue.main.async {
-                self?.handleUpdateTaskStatus(status)
-            }
-        }, completion: { [weak self] result in
-            DispatchQueue.main.async {
-                self?.handleCompletion(result) { result in
-                    completion(result.map { $0.0 })
+        if let provider = providerController.provider(providerID: credentials.providerID),
+            provider.accessType == .openBanking,
+            let sessionExpiryDate = credentials.sessionExpiryDate,
+            sessionExpiryDate <= Date() {
+            task = credentialsController.authenticate(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleUpdateTaskStatus(status)
                 }
-            }
-        })
+                }, completion: { [weak self] result in
+                    DispatchQueue.main.async {
+                        do {
+                            let authenticatedCredentials = try result.get()
+                            self?.refreshCredentials(credentials: authenticatedCredentials, completion: completion)
+                        } catch {
+                            self?.handleCompletion(.failure(error)) { result in
+                                completion(result.map { $0.0 })
+                            }
+                        }
+
+                    }
+            })
+        } else {
+            task = credentialsController.refresh(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.handleUpdateTaskStatus(status)
+                }
+                }, completion: { [weak self] result in
+                    DispatchQueue.main.async {
+                        self?.handleCompletion(result) { result in
+                            completion(result.map { $0.0 })
+                        }
+                    }
+            })
+        }
 
         isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
