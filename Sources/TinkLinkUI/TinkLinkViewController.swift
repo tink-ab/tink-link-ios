@@ -247,6 +247,10 @@ public class TinkLinkViewController: UINavigationController {
 
                     completion()
                 } catch {
+                    if let tinkLinkError = TinkLinkError(error: error) {
+                        self.result = .failure(tinkLinkError)
+                    }
+
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
                     self.showAlert(for: error, onRetry: {
@@ -267,6 +271,10 @@ public class TinkLinkViewController: UINavigationController {
 
                     completion()
                 } catch {
+                    if let tinkLinkError = TinkLinkError(error: error) {
+                        self.result = .failure(tinkLinkError)
+                    }
+
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
                     self.showAlert(for: error, onRetry: {
@@ -287,6 +295,9 @@ public class TinkLinkViewController: UINavigationController {
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
             } catch {
+                if let tinkLinkError = TinkLinkError(error: error) {
+                    self.result = .failure(tinkLinkError)
+                }
                 DispatchQueue.main.async {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
