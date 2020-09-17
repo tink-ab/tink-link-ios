@@ -35,9 +35,9 @@ public final class SupplementInformationTask: Identifiable {
     /// The credentials that's awaiting supplemental information.
     public let credentials: Credentials
 
-    private let completionHandler: (Result<Void, Error>) -> Void
+    private let completionHandler: (Result<Void, Swift.Error>) -> Void
 
-    init(credentialsService: CredentialsService, credentials: Credentials, completionHandler: @escaping (Result<Void, Error>) -> Void) {
+    init(credentialsService: CredentialsService, credentials: Credentials, completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
         self.credentialsService = credentialsService
         self.credentials = credentials
         self.completionHandler = completionHandler
