@@ -347,7 +347,6 @@ public class TinkLinkViewController: UINavigationController {
                     }
                     self.loadingViewController?.setError(error, onClose: { [weak self] in
                         self?.loadingViewController?.hideLoadingIndicator()
-                        self?.result = .failure(.userCancelled)
                         self?.closeTinkLink()
                     }, onRetry: { [weak self] in
                         self?.loadingViewController?.showLoadingIndicator()
