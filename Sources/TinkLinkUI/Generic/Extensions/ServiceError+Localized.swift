@@ -16,7 +16,7 @@ extension ServiceError: LocalizedError {
              .failedPrecondition(let message),
              .unavailableForLegalReasons(let message),
              .internalError(let message):
-            return message
+            return message.isEmpty ? nil : message
         }
     }
 }
