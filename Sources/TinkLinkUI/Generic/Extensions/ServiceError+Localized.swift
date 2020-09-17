@@ -3,10 +3,7 @@ import TinkLink
 
 extension ServiceError: LocalizedError {
     public var errorDescription: String? {
-        switch self {
-        default:
-            return Strings.Generic.ServiceAlert.fallbackTitle
-        }
+        Strings.Generic.ServiceAlert.fallbackTitle
     }
 
     public var failureReason: String? {
