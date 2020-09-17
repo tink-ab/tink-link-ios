@@ -114,6 +114,10 @@ final class CredentialsCoordinator {
             let values = try result.get()
             delegate?.didFinishCredentialsForm()
             showAddCredentialSuccess(with: .success(values), for: action)
+        } catch ThirdPartyAppAuthenticationTask.Error.userCancelled {
+            if callCompletionOnError {
+                completion(.failure(.userCancelled))
+            }
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
             tinkLinkTracker.track(screen: .error)

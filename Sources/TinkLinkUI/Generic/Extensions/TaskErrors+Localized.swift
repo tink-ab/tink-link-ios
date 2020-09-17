@@ -60,6 +60,8 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
             return nil
         case .decodingQRCodeImageFailed:
             return nil
+        case .userCancelled:
+            return nil
         }
     }
 
@@ -72,6 +74,8 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
+            return nil
+        case .userCancelled:
             return nil
         }
     }
