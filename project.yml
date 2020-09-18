@@ -95,7 +95,9 @@ targets:
       - Sources/TinkLinkUIUITestsHost
     scheme:
       testTargets:
-      - name: TinkLinkUIUITests_${platform}
+        - name: TinkLinkUIUITests_${platform}
+      environmentVariables:
+        TINK_LINK_UI_TESTS_HOST_CLIENT_ID: $TINK_LINK_UI_TESTER_CLIENT_ID
     dependencies:
       - target: TinkLink_${platform}
       - target: TinkLinkUI_${platform}
