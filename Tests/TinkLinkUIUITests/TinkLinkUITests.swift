@@ -6,7 +6,7 @@ class TinkLinkUITests: XCTestCase {
     override func setUp() {
         continueAfterFailure = false
 
-        app.launchEnvironment = ["TINK_LINK_UI_TESTS_HOST_CLIENT_ID": ""]
+        app.launchEnvironment["TINK_LINK_UI_TESTS_HOST_CLIENT_ID"] = ProcessInfo.processInfo.environment["TINK_LINK_UI_TESTS_HOST_CLIENT_ID"]
     }
 
     func testUnauthenticatedAlert() {
