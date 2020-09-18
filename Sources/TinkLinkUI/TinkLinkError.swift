@@ -16,6 +16,8 @@ public enum TinkLinkError: Error {
     /// Tink Link was not able to open the third party app.
     case unableToOpenThirdPartyApp(ThirdPartyAppAuthenticationTask.Error)
 
+    case unauthenticated
+
     case internalError
 
     init?(error: Error) {
@@ -23,9 +25,13 @@ public enum TinkLinkError: Error {
             switch error {
             case .emptyProviderList:
                 self = .unableToFetchProviders
+            case .providerNotFound:
+                self = .providerNotFound
             case .missingInternetConnection:
                 self = .missingInternetConnection
             }
+        } else if case ServiceError.unauthenticated = error {
+            self = .unauthenticated
         } else {
             return nil
         }

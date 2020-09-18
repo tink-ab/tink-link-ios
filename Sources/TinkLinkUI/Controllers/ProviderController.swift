@@ -11,6 +11,7 @@ extension Notification.Name {
 final class ProviderController {
     enum Error: Swift.Error, LocalizedError {
         case emptyProviderList
+        case providerNotFound
         case missingInternetConnection
 
         init?(fetchProviderError error: Swift.Error) {
@@ -94,6 +95,8 @@ final class ProviderController {
                 DispatchQueue.main.async {
                     completion(Result.success(provider))
                 }
+            } catch ServiceError.notFound {
+                completion(.failure(Error.providerNotFound))
             } catch {
                 self?.error = Error(fetchProviderError: error) ?? error
                 completion(.failure(Error(fetchProviderError: error) ?? error))

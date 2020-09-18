@@ -247,6 +247,10 @@ public class TinkLinkViewController: UINavigationController {
 
                     completion()
                 } catch {
+                    if let tinkLinkError = TinkLinkError(error: error) {
+                        self.result = .failure(tinkLinkError)
+                    }
+
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
                     self.showAlert(for: error, onRetry: {
@@ -267,6 +271,10 @@ public class TinkLinkViewController: UINavigationController {
 
                     completion()
                 } catch {
+                    if let tinkLinkError = TinkLinkError(error: error) {
+                        self.result = .failure(tinkLinkError)
+                    }
+
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
                     self.showAlert(for: error, onRetry: {
@@ -287,6 +295,9 @@ public class TinkLinkViewController: UINavigationController {
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
             } catch {
+                if let tinkLinkError = TinkLinkError(error: error) {
+                    self.result = .failure(tinkLinkError)
+                }
                 DispatchQueue.main.async {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
@@ -347,7 +358,6 @@ public class TinkLinkViewController: UINavigationController {
                     }
                     self.loadingViewController?.setError(error, onClose: { [weak self] in
                         self?.loadingViewController?.hideLoadingIndicator()
-                        self?.result = .failure(.userCancelled)
                         self?.closeTinkLink()
                     }, onRetry: { [weak self] in
                         self?.loadingViewController?.showLoadingIndicator()
@@ -461,6 +471,7 @@ extension TinkLinkViewController {
     }
 
     private func retryOperation() {
+        self.result = nil
         showLoadingOverlay(withText: nil, onCancel: nil)
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
