@@ -37,7 +37,7 @@ let package = Package(
             name: "TinkLinkUI",
             dependencies: ["TinkCore", "TinkLink", "Down", "Kingfisher"],
             exclude: ["Generic/Extensions/Bundle+Module.swift"],
-            resources: [.copy("Assets.bundle"), .process("Translations.bundle")]
+            resources: [.process("Assets.xcassets"), .process("Translations.bundle")]
         ),
         .testTarget(
             name: "TinkLinkUITests",
