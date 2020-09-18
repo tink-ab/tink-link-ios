@@ -12,10 +12,16 @@ let package = Package(
         .library(
             name: "TinkLink",
             targets: ["TinkLink"]
+        ),
+        .library(
+            name: "TinkLinkUI",
+            targets: ["TinkLinkUI"]
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/tink-ab/tink-core-ios", .exact("0.1.5"))
+        .package(url: "https://github.com/tink-ab/tink-core-ios", .exact("0.1.5")),
+        .package(url: "https://github.com/iwasrobbed/Down", .upToNextMajor(from: "0.9.3")),
+        .package(url: "https://github.com/onevcat/Kingfisher", .upToNextMajor(from: "5.14.1"))
     ],
     targets: [
         .target(
@@ -25,6 +31,14 @@ let package = Package(
         .testTarget(
             name: "TinkLinkTests",
             dependencies: ["TinkLink"]
+        ),
+        .target(
+            name: "TinkLinkUI",
+            dependencies: ["TinkCore", "TinkLink", "Down", "Kingfisher"],
+        ),
+        .testTarget(
+            name: "TinkLinkUITests",
+            dependencies: ["TinkLinkUI"]
         ),
     ]
 )
