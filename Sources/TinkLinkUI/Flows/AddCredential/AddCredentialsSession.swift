@@ -114,41 +114,41 @@ final class AddCredentialsSession {
         }
     }
 
-    func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
+    func refreshCredentialsIfPossible(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
         if let provider = providerController.provider(providerID: credentials.providerID),
             provider.accessType == .openBanking,
             let sessionExpiryDate = credentials.sessionExpiryDate,
             sessionExpiryDate <= Date() {
-            task = credentialsController.authenticate(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
-                DispatchQueue.main.async {
-                    self?.handleUpdateTaskStatus(status)
-                }
-                }, completion: { [weak self] result in
+            // TODO: Adding a flag to call refresh with force authentication, not sure if we need to do extra call for refresh after that
+            authenticateCredentials(credentials: credentials) { [weak self] result in
+                do {
+                    let authenticatedCredentials = try result.get()
+                    self?.refreshCredentials(credentials: authenticatedCredentials, completion: completion)
+                } catch {
                     DispatchQueue.main.async {
-                        do {
-                            let authenticatedCredentials = try result.get()
-                            self?.refreshCredentials(credentials: authenticatedCredentials, completion: completion)
-                        } catch {
-                            self?.handleCompletion(.failure(error)) { result in
-                                completion(result.map { $0.0 })
-                            }
+                        self?.handleCompletion(.failure(error)) { result in
+                            completion(.failure(error))
                         }
-
                     }
-            })
+                }
+            }
         } else {
-            task = credentialsController.refresh(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
-                DispatchQueue.main.async {
-                    self?.handleUpdateTaskStatus(status)
-                }
-                }, completion: { [weak self] result in
-                    DispatchQueue.main.async {
-                        self?.handleCompletion(result) { result in
-                            completion(result.map { $0.0 })
-                        }
-                    }
-            })
+            refreshCredentials(credentials: credentials, completion: completion)
         }
+    }
+
+    private func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        task = credentialsController.refresh(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
+            DispatchQueue.main.async {
+                self?.handleUpdateTaskStatus(status)
+            }
+            }, completion: { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.handleCompletion(result) { result in
+                        completion(result.map { $0.0 })
+                    }
+                }
+        })
 
         isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
