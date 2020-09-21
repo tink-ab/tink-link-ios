@@ -70,7 +70,7 @@ build-tinklinkui-example:
 	xcodebuild clean build \
 		-workspace Examples/TinkLinkExample/TinkLinkExample.xcworkspace \
 		-scheme TinkLinkExample \
-		-destination 'generic/platform=iOS Simulator'
+		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
 translations:
 	rm -rf Sources/TinkLinkUI/Translations.bundle/Base.lproj/
