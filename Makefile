@@ -62,7 +62,7 @@ build-carthage-frameworks:
 	carthage build --platform iOS --no-skip-current
 
 ui-test:
-	carthage bootstrap --platform iOS
+	carthage bootstrap --platform iOS --no-use-binaries
 	xcodegen generate
 	xcodebuild test \
 		-project TinkLink.xcodeproj \
