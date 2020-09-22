@@ -182,14 +182,6 @@ public class TinkLinkViewController: UINavigationController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    @available(*, unavailable, renamed: "init(tink:market:scopes:providerPredicate:completion:)")
-    public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerKinds: Set<Provider.Kind>, completion: @escaping (Result<AuthorizationCode, TinkLinkError>) -> Void) {
-        let mappedCompletion = { (result: Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) in
-            completion(result.map(\.code))
-        }
-        self.init(tink: tink, market: market, scopes: scopes, providerPredicate: .kinds(providerKinds), completion: mappedCompletion)
-    }
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
