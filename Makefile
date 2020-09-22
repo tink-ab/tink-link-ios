@@ -50,8 +50,6 @@ test:
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
-	swift test
-
 build-uikit-example:
 	xcodebuild clean build \
 		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
