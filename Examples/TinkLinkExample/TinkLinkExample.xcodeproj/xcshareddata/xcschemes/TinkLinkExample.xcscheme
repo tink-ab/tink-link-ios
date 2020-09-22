@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TinkLinkTests"
+               BuildableName = "TinkLinkTests"
+               BlueprintName = "TinkLinkTests"
+               ReferencedContainer = "container:../..">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TinkLinkUITests"
+               BuildableName = "TinkLinkUITests"
+               BlueprintName = "TinkLinkUITests"
+               ReferencedContainer = "container:../..">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
