@@ -59,6 +59,7 @@ test:
 build-carthage-frameworks:
 	# Xcode 12 workaround: https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
 	export XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig
+	echo $(XCODE_XCCONFIG_FILE)
 	carthage bootstrap --platform iOS --no-use-binaries
 	xcodegen generate
 	carthage build --platform iOS --no-skip-current
