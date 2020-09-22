@@ -114,8 +114,8 @@ final class AddCredentialsSession {
         }
     }
 
-    func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        task = credentialsController.refresh(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
+    func refreshCredentials(credentials: Credentials, authenticate: Bool, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        task = credentialsController.refresh(credentials, authenticate: authenticate,  shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }

@@ -86,7 +86,7 @@ final class CredentialsCoordinator {
         case .refresh(credentialsID: let id, let authenticateIfExpired):
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
-                self.addCredentialsSession.refreshCredentials(credentials: credentials) { result in
+                self.addCredentialsSession.refreshCredentials(credentials: credentials, authenticate: authenticateIfExpired) { result in
                     self.handleCompletion(for: result.map { ($0, nil) })
                 }
             }
