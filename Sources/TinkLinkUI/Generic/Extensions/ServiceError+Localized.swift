@@ -8,6 +8,8 @@ extension ServiceError: LocalizedError {
 
     public var failureReason: String? {
         switch self {
+        case .cancelled:
+            return nil
         case .invalidArgument(let message),
              .notFound(let message),
              .alreadyExists(let message),
