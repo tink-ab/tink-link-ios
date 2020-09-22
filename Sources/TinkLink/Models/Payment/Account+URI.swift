@@ -21,12 +21,6 @@ extension Account {
 }
 
 extension Account.URI {
-    /// A type representing an kind of account URI.
-    @available(*, deprecated, renamed: "AccountNumberKind")
-    public typealias Kind = AccountNumberKind
-}
-
-extension Account.URI {
     /// Creates a URI.
     ///
     /// Returns `nil` if a URI cannot be formed with the kind and account number (for example if the number contains characters that are illegal, or is an empty string).

@@ -124,21 +124,6 @@ public final class CredentialsContext {
         return task
     }
 
-    // MARK: - Fetching Credentials
-
-    /// Gets the user's credentials.
-    ///
-    /// Required scopes:
-    /// - credentials:read
-    ///
-    /// - Parameter completion: The block to execute when the call is completed.
-    /// - Parameter result: A result that either contain a list of the user credentials or an error if the fetch failed.
-    @available(*, deprecated, renamed: "fetchCredentialsList")
-    @discardableResult
-    public func fetchCredentials(completion: @escaping (_ result: Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
-        return fetchCredentialsList(completion: completion)
-    }
-
     /// Fetch a list of the current user's credentials.
     ///
     /// Required scopes:
@@ -215,16 +200,6 @@ public final class CredentialsContext {
         })
 
         return task
-    }
-
-    @available(*, deprecated, message: "Use update(_:form:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:progressHandler:completion) method instead.")
-    public func update(
-        _ credentials: Credentials,
-        form: Form? = nil,
-        completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> RetryCancellable? {
-        update(credentials, form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true, progressHandler: { _ in }, completion: completion)
-        return nil
     }
 
     /// Update the user's credentials.

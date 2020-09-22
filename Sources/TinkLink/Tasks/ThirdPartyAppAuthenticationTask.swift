@@ -125,15 +125,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     // MARK: - Opening an App
 
     #if os(iOS)
-        /// Tries to open the third party app.
-        ///
-        /// - Parameter application: The object that controls and coordinates your app. Defaults to the shared instance.
-        @available(*, deprecated, renamed: "handle")
-        public func openThirdPartyApp(with application: UIApplication = .shared) {
-            openThirdPartyApp(with: application, completion: completionHandler)
-        }
-
-        internal func openThirdPartyApp<URLResourceOpener: URLResourceOpening>(with urlResourceOpener: URLResourceOpener, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
+        func openThirdPartyApp<URLResourceOpener: URLResourceOpening>(with urlResourceOpener: URLResourceOpener, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
             guard let url = thirdPartyAppAuthentication.deepLinkURL else {
                 completion(.failure(Error.deeplinkURLNotFound))
                 return
