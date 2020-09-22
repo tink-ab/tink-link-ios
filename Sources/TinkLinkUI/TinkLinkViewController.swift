@@ -88,7 +88,7 @@ public class TinkLinkViewController: UINavigationController {
         /// Authenticate credentials.
         case authenticate(credentialsID: Credentials.ID)
         /// Refresh credentials.
-        case refresh(credentialsID: Credentials.ID)
+        case refresh(credentialsID: Credentials.ID, authenticateIfExpired: Bool = false)
         /// Update credentials.
         case update(credentialsID: Credentials.ID)
     }
@@ -332,8 +332,8 @@ public class TinkLinkViewController: UINavigationController {
             fetchProviders(providerPredicate: providerPredicate)
         case .authenticate(let id):
             startCredentialCoordinator(with: .authenticate(credentialsID: id))
-        case .refresh(let id):
-            startCredentialCoordinator(with: .refresh(credentialsID: id))
+        case .refresh(let id, let authenticateIfExpired):
+            startCredentialCoordinator(with: .refresh(credentialsID: id, authenticateIfExpired: authenticateIfExpired))
         case .update(let id):
             startCredentialCoordinator(with: .update(credentialsID: id))
         }
