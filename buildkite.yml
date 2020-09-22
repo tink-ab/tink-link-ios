@@ -36,6 +36,8 @@ steps:
 
   - name: ':pipeline: Build Carthage Frameworks'
     command: 'make build-carthage-frameworks'
+    env:
+        "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
     agents:
       queue: 'macos'
 
