@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		035391B9E0E0E5C7CB96A59C /* FormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C4C4891F51CEFAC747830 /* FormTests.swift */; };
 		039F0E24B3FA4400E94EAC1A /* ProviderCapabilityFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1581430B58823F58A7A53919 /* ProviderCapabilityFormatter.swift */; };
-		0831BA5ECC3E43F5F35BDDF4 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543E58EF45210737B2765AB1 /* TinkCore.framework */; };
 		05378516DC0601E0ABC582B8 /* TinkLinkUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B198F7C21791DF1A6D737CFE /* TinkLinkUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		06B337B3EBE240093E3136A8 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; };
+		0831BA5ECC3E43F5F35BDDF4 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543E58EF45210737B2765AB1 /* TinkCore.framework */; };
 		08CCB20D99C7A16B264E3EB8 /* CredentialsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56AA37584764C1D7BE1E132 /* CredentialsContext.swift */; };
 		0AD80F46344ABC35DBEABB5C /* ProviderTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D825DBE7224FB81468CDDFAA /* ProviderTree.swift */; };
 		0BF5070A9F88946D0074544A /* ThirdPartyCallbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B0262406D22298AA0EA73 /* ThirdPartyCallbackTests.swift */; };
@@ -36,7 +36,6 @@
 		26D6E3E737D4EEEAA2EEA687 /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3906B996DD066DAD3468C7 /* Down.framework */; };
 		273B1C47F9E74344166070B6 /* Down.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3906B996DD066DAD3468C7 /* Down.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		27984844B56927DB4A81939F /* SupplementalInfoFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0BF918520BA0B136035F8B /* SupplementalInfoFieldTests.swift */; };
-		289AC373F6623B4004AFDFD3 /* Assets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D583783A5E3FD705C312B77 /* Assets.bundle */; };
 		28B0CE6449E0A94C04D37489 /* BorderCornerRadiusImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948CF3495EB5FFB2D741A0C /* BorderCornerRadiusImageView.swift */; };
 		29570930692B5704E442866C /* FinancialInstitutionSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3618A35D3444EE8D4E34ACC2 /* FinancialInstitutionSearchViewController.swift */; };
 		2C8F34DDF462E0AC7CF9E9B8 /* ProviderPickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ED57E15DD2A5AB70292A97 /* ProviderPickerCoordinator.swift */; };
@@ -45,6 +44,7 @@
 		2FD5AF189CBC58F70D83D80C /* ProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F9A7103F895BACC6D4CB4 /* ProviderCell.swift */; };
 		302093F036FD7B9ED626E984 /* TinkLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; };
 		31905C079BD8A5AF9B96A881 /* ProviderTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59362C877F1182E863649B58 /* ProviderTreeTests.swift */; };
+		325EA42C25F14A7340E85B9F /* Bundle+Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA48FE393289322823645E /* Bundle+Module.swift */; };
 		33D4851F5A3E8F043E6DA120 /* TinkLinkUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B198F7C21791DF1A6D737CFE /* TinkLinkUI.framework */; };
 		3453974BCDAB362D741E813F /* TransferAccountIdentifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C892427D852CFACE1F6E91 /* TransferAccountIdentifiableTests.swift */; };
 		34B894DFB5CB1B5D78A285E8 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; };
@@ -168,6 +168,7 @@
 		A2CD24451D1500680B3C2B84 /* ColorProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38052B5C233E11D047557DCF /* ColorProviding.swift */; };
 		A2ECBEF703767AA4283643FC /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA11E22021C054B6A460745 /* Form.swift */; };
 		A506916ED0511F7EDC279586 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38934531B880EE4AFE67F3F1 /* Strings.swift */; };
+		A555714C9FE6C520431F978A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D86D6981FBD842BB916D5FC8 /* Assets.xcassets */; };
 		A557C575D93259F710C4E8FC /* ConsentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FECFCD8AB8B77F497B3735 /* ConsentContext.swift */; };
 		A5AA0A69FE166407DB17A12B /* CredentialsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCE291775E3371ED19EC4D /* CredentialsCoordinator.swift */; };
 		A66E0ACA3375A5EB8762310E /* MutableTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75E9442B66E9D4C7E393301 /* MutableTransferService.swift */; };
@@ -432,6 +433,7 @@
 		389A4D5B9E9631E1E257C85D /* SupplementalInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementalInformationViewController.swift; sourceTree = "<group>"; };
 		3AA13F28159A3F4D6E9DB76C /* Translations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Translations.bundle; sourceTree = "<group>"; };
 		3AE35289B9BE207D97F23B86 /* Beneficiary+URI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Beneficiary+URI.swift"; sourceTree = "<group>"; };
+		3AEA48FE393289322823645E /* Bundle+Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Module.swift"; sourceTree = "<group>"; };
 		3E65ACD80BFCB3C993AB78F6 /* DefaultableCodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DefaultableCodable+Extension.swift"; sourceTree = "<group>"; };
 		3F3906B996DD066DAD3468C7 /* Down.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Down.framework; sourceTree = "<group>"; };
 		41C892427D852CFACE1F6E91 /* TransferAccountIdentifiableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferAccountIdentifiableTests.swift; sourceTree = "<group>"; };
@@ -496,7 +498,6 @@
 		9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Kingfisher.framework; sourceTree = "<group>"; };
 		9AD3F9B9F02655297CED5D25 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		9C3CFEA1FD0CAE46A2F187F4 /* FontProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontProviding.swift; sourceTree = "<group>"; };
-		9D583783A5E3FD705C312B77 /* Assets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Assets.bundle; sourceTree = "<group>"; };
 		A29E0698F44D66A6ACD1003A /* RetryCancellable+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RetryCancellable+mock.swift"; sourceTree = "<group>"; };
 		A2D7046A9914B7EDF745FD39 /* CGImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extensions.swift"; sourceTree = "<group>"; };
 		A6C6C2DAB70310237BD31425 /* TinkLink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TinkLink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -533,6 +534,7 @@
 		D7BDDC8A8556C18724B94F85 /* TransferService+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransferService+mock.swift"; sourceTree = "<group>"; };
 		D7F86F7DC52E6883821FA63A /* URLResourceOpening+UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLResourceOpening+UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		D825DBE7224FB81468CDDFAA /* ProviderTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderTree.swift; sourceTree = "<group>"; };
+		D86D6981FBD842BB916D5FC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBA411E842D89EDB34699943 /* TinkLinkTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkTracker.swift; sourceTree = "<group>"; };
 		DD1D1D111D7765CAF139E92F /* BeneficiaryService+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BeneficiaryService+mock.swift"; sourceTree = "<group>"; };
 		DD2A0FE5936A6754A0E5C4C7 /* QRImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRImageViewController.swift; sourceTree = "<group>"; };
@@ -658,7 +660,7 @@
 		05F5D27A276C2A7A509ECD98 /* TinkLinkUI */ = {
 			isa = PBXGroup;
 			children = (
-				9D583783A5E3FD705C312B77 /* Assets.bundle */,
+				D86D6981FBD842BB916D5FC8 /* Assets.xcassets */,
 				A6F5BBF5CB6A314FF721629E /* Info.plist */,
 				CB40022F21432E75E761F5E6 /* LoadingViewController.swift */,
 				6DBE20B969F478CB9A3ADA68 /* TinkLinkError.swift */,
@@ -781,6 +783,7 @@
 		37254CCF6D263D0E6166242D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3AEA48FE393289322823645E /* Bundle+Module.swift */,
 				F64D781133391AA97C329E95 /* Bundle+TinkLinkUI.swift */,
 				A2D7046A9914B7EDF745FD39 /* CGImage+Extensions.swift */,
 				214E654C69928066F1E565DA /* ProviderCapability+LocalizedDescriptions.swift */,
@@ -1325,7 +1328,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				289AC373F6623B4004AFDFD3 /* Assets.bundle in Resources */,
+				A555714C9FE6C520431F978A /* Assets.xcassets in Resources */,
 				5C2231E6EA53AFC256E09E88 /* Translations.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1410,6 +1413,7 @@
 				F72D8C690A16D1CC965D6158 /* AuthenticationUserTypePickerViewController.swift in Sources */,
 				254F2705C0F80C843E52A791 /* AuthorizationController.swift in Sources */,
 				28B0CE6449E0A94C04D37489 /* BorderCornerRadiusImageView.swift in Sources */,
+				325EA42C25F14A7340E85B9F /* Bundle+Module.swift in Sources */,
 				506B7EEE7C2FA50A8892955E /* Bundle+TinkLinkUI.swift in Sources */,
 				95689B690A884F9846D06922 /* CGImage+Extensions.swift in Sources */,
 				AD49441B456FF4FE57426F26 /* CheckmarkView.swift in Sources */,
