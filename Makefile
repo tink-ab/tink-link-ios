@@ -48,13 +48,10 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-	bundle exec pod install --project-directory="./Examples/TinkLinkExample/"
 	xcodebuild clean test \
-		-workspace Examples/TinkLinkExample/TinkLinkExample.xcworkspace \
+		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
-
-	swift test
 
 build-carthage-frameworks:
 	# Xcode 12 workaround: https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
@@ -77,9 +74,8 @@ build-swiftui-example:
 		-destination 'generic/platform=iOS Simulator'
 
 build-tinklinkui-example:
-	bundle exec pod install --project-directory="./Examples/TinkLinkExample/"
 	xcodebuild clean build \
-		-workspace Examples/TinkLinkExample/TinkLinkExample.xcworkspace \
+		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
