@@ -21,6 +21,9 @@ endif
 ifeq ($(strip $(shell command -v xcodegen 2> /dev/null)),)
 	brew install xcodegen
 endif
+ifeq ($(strip $(shell command -v carthage 2> /dev/null)),)
+	brew install carthage
+endif
 ifeq ($(strip $(shell command -v bundle 2> /dev/null)),)
 	gem install bundler
 endif
@@ -49,6 +52,14 @@ test:
 		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
+
+build-carthage-frameworks:
+	# Xcode 12 workaround: https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
+	export XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig
+	echo $(XCODE_XCCONFIG_FILE)
+	carthage bootstrap --platform iOS --no-use-binaries
+	xcodegen generate
+	carthage build --platform iOS --no-skip-current
 
 build-uikit-example:
 	xcodebuild clean build \
