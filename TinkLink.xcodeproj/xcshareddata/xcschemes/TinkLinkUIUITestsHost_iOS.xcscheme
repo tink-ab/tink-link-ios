@@ -26,23 +26,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      onlyGenerateCoverageForSpecifiedTargets = "NO"
       shouldUseLaunchSchemeArgsEnv = "NO">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B5CB16B08C86C5DAAACD43E0"
-            BuildableName = "TinkLinkUIUITestsHost.app"
-            BlueprintName = "TinkLinkUIUITestsHost_iOS"
-            ReferencedContainer = "container:TinkLink.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "TINK_LINK_UI_TESTS_HOST_CLIENT_ID"
-            value = "$TINK_LINK_UI_TESTER_CLIENT_ID"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -55,6 +40,24 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B5CB16B08C86C5DAAACD43E0"
+            BuildableName = "TinkLinkUIUITestsHost.app"
+            BlueprintName = "TinkLinkUIUITestsHost_iOS"
+            ReferencedContainer = "container:TinkLink.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <CommandLineArguments>
+      </CommandLineArguments>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "TINK_LINK_UI_TESTS_HOST_CLIENT_ID"
+            value = "$TINK_LINK_UI_TESTER_CLIENT_ID"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -76,6 +79,8 @@
             ReferencedContainer = "container:TinkLink.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "TINK_LINK_UI_TESTS_HOST_CLIENT_ID"
@@ -100,6 +105,8 @@
             ReferencedContainer = "container:TinkLink.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "TINK_LINK_UI_TESTS_HOST_CLIENT_ID"
