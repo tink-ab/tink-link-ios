@@ -83,10 +83,10 @@ final class CredentialsCoordinator {
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
 
-        case .refresh(credentialsID: let id, let authenticateIfExpired):
+        case .refresh(credentialsID: let id, let forceAuthenticateIfExpired):
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
-                self.addCredentialsSession.refreshCredentials(credentials: credentials, authenticateIfExpired: authenticateIfExpired) { result in
+                self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticateIfExpired: forceAuthenticateIfExpired) { result in
                     self.handleCompletion(for: result.map { ($0, nil) })
                 }
             }
