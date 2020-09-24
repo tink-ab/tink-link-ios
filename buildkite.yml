@@ -13,6 +13,15 @@ steps:
 
   - wait
 
+  - name: ':pipeline: UI Test'
+    command: 'make ui-test'
+    env:
+        "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
+    agents:
+      queue: 'macos'
+
+  - wait
+
   - name: ':pipeline: Build UIKit Example'
     command: 'make build-uikit-example'
     agents:
@@ -34,20 +43,19 @@ steps:
 
   - wait
 
-  - trigger: "distribute-tink-sdk-demo-ios"
-    label: ":pipeline: Distribution"
-    async: true
-    if: build.tag == null && build.pull_request.base_branch == "master"
-    build:
-      message: "Triggered from TinkLink ${BUILDKITE_MESSAGE}"
-      branch: "master"
+  - name: ':pipeline: Build Carthage Frameworks'
+    command: 'make build-carthage-frameworks'
+    env:
+        "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
+    agents:
+      queue: 'macos'
 
   - wait
 
   - trigger: "distribute-tink-sdk-demo-ios"
     label: ":pipeline: Distribution"
     async: true
-    if: build.tag != null
+    if: build.env("BUILDKITE_MESSAGE") =~ /\[Demo app\]/
     build:
-      message: "Triggered [Demo app] from TinkLink release ${BUILDKITE_MESSAGE}"
+      message: "Triggered [Demo app] from TinkLink merge to master ${BUILDKITE_MESSAGE}"
       branch: "master"

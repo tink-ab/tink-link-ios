@@ -18,7 +18,7 @@ Pod::Spec.new do |spec|
 
   spec.resource_bundles = {
     "Translations" => ["Sources/TinkLinkUI/Translations.bundle/*.lproj"],
-    "Assets" => ["Sources/TinkLinkUI/Assets.bundle/*.xcassets"]
+    "Assets" => ["Sources/TinkLinkUI/Assets.xcassets"]
   }
 
   spec.test_spec 'TinkLinkUITests' do |test_spec|

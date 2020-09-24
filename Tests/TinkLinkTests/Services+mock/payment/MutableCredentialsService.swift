@@ -102,7 +102,7 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func refresh(id: Credentials.ID, refreshableItems: RefreshableItems, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+    func refresh(id: Credentials.ID, authenticate: Bool, refreshableItems: RefreshableItems, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         modifyCredentials(id: id, status: credentialsStatusAfterRefresh)
         return nil
     }

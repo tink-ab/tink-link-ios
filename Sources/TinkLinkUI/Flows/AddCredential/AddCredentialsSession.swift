@@ -114,31 +114,19 @@ final class AddCredentialsSession {
         }
     }
 
-    func refreshCredentialsIfPossible(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        if let provider = providerController.provider(providerID: credentials.providerID),
-            provider.accessType == .openBanking,
-            let sessionExpiryDate = credentials.sessionExpiryDate,
-            sessionExpiryDate <= Date() {
-            // TODO: Adding a flag to call refresh with force authentication, not sure if we need to do extra call for refresh after that
-            authenticateCredentials(credentials: credentials) { [weak self] result in
-                do {
-                    let authenticatedCredentials = try result.get()
-                    self?.refreshCredentials(credentials: authenticatedCredentials, completion: completion)
-                } catch {
-                    DispatchQueue.main.async {
-                        self?.handleCompletion(.failure(error)) { result in
-                            completion(.failure(error))
-                        }
-                    }
-                }
+    func refreshCredentials(credentials: Credentials, authenticateIfExpired: Bool, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        var authenticate: Bool {
+            if let provider = providerController.provider(providerID: credentials.providerID),
+               provider.accessType == .openBanking,
+               let sessionExpiryDate = credentials.sessionExpiryDate,
+               sessionExpiryDate <= Date() {
+                // TODO: Adding a flag to call refresh with force authentication, not sure if we need to do extra call for refresh after that
+                return true
             }
-        } else {
-            refreshCredentials(credentials: credentials, completion: completion)
+            return false
         }
-    }
 
-    private func refreshCredentials(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
-        task = credentialsController.refresh(credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
+        task = credentialsController.refresh(credentials, authenticate: authenticate,  shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }

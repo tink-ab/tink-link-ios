@@ -140,12 +140,8 @@ extension ServiceError: LocalizedError {
         switch self {
         case .cancelled:
             return "Request is cancelled"
-        case .unknown:
-            return "Unknown error"
         case .invalidArgument:
             return "Invalid argurment"
-        case .deadlineExceeded:
-            return "Deadline exceeded"
         case .notFound:
             return "Not found"
         case .alreadyExists:
@@ -154,26 +150,12 @@ extension ServiceError: LocalizedError {
             return "The user has no permission"
         case .unauthenticated:
             return "The user has not authenticated"
-        case .resourceExhausted:
-            return "Resource exhausted"
         case .failedPrecondition:
             return "Precondition failed"
         case .unavailableForLegalReasons:
             return "The request cannot be fulfilled because of legal/contractual reasons."
-        case .aborted:
-            return "The request is aborted"
-        case .outOfRange:
-            return "Out of range"
-        case .unimplemented:
-            return "Not implemented"
         case .internalError:
             return "Internal error"
-        case .unavailable:
-            return "The server is not available"
-        case .dataLoss:
-            return "Data loss"
-        case .missingInternetConnection:
-            return "The internet connection is missing"
         }
     }
 
@@ -181,25 +163,15 @@ extension ServiceError: LocalizedError {
         switch self {
         case .cancelled:
             return nil
-        case .unknown(let payload),
-             .invalidArgument(let payload),
-             .deadlineExceeded(let payload),
+        case .invalidArgument(let payload),
              .notFound(let payload),
              .alreadyExists(let payload),
              .permissionDenied(let payload),
              .unauthenticated(let payload),
-             .resourceExhausted(let payload),
              .failedPrecondition(let payload),
              .unavailableForLegalReasons(let payload),
-             .aborted(let payload),
-             .outOfRange(let payload),
-             .unimplemented(let payload),
-             .internalError(let payload),
-             .unavailable(let payload),
-             .dataLoss(let payload):
+             .internalError(let payload):
             return payload
-        case .missingInternetConnection:
-            return nil
         }
     }
 }

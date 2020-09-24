@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2071952423F2B7A20042B2FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2071952323F2B7A20042B2FB /* ViewController.swift */; };
-		793731719AEF641CD64DDA2E /* Pods_TinkLinkExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3780AB4970173A4422933788 /* Pods_TinkLinkExample.framework */; };
+		6B39C92D25090EED006FA37C /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 6B39C92C25090EED006FA37C /* TinkLink */; };
+		6B39C92F25090EED006FA37C /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B39C92E25090EED006FA37C /* TinkLinkUI */; };
 		8FC06D2223F196A700CD7B88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC06D2123F196A700CD7B88 /* AppDelegate.swift */; };
 		8FC06D2B23F196A900CD7B88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC06D2A23F196A900CD7B88 /* Assets.xcassets */; };
 		8FC06D2E23F196A900CD7B88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC06D2C23F196A900CD7B88 /* LaunchScreen.storyboard */; };
@@ -26,14 +27,12 @@
 		2068268725023C9900666CF3 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2071952323F2B7A20042B2FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		20C584A22507A24600B7C771 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		3780AB4970173A4422933788 /* Pods_TinkLinkExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinkLinkExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		418B71F8EC9C79DD25BA9CD2 /* Pods-TinkLinkExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkLinkExample.release.xcconfig"; path = "Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample.release.xcconfig"; sourceTree = "<group>"; };
+		6B39C92B25090EB4006FA37C /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
 		8FC06D1E23F196A700CD7B88 /* TinkLinkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkLinkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC06D2123F196A700CD7B88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FC06D2A23F196A900CD7B88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FC06D2D23F196A900CD7B88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FC06D2F23F196A900CD7B88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		99221692805F34EA1BC88BC9 /* Pods-TinkLinkExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkLinkExample.debug.xcconfig"; path = "Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,28 +40,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				793731719AEF641CD64DDA2E /* Pods_TinkLinkExample.framework in Frameworks */,
+				6B39C92F25090EED006FA37C /* TinkLinkUI in Frameworks */,
+				6B39C92D25090EED006FA37C /* TinkLink in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7A5F97AAA6E7856B24C6F879 /* Frameworks */ = {
+		6B39C92A25090EAD006FA37C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3780AB4970173A4422933788 /* Pods_TinkLinkExample.framework */,
+				6B39C92B25090EB4006FA37C /* tink-link-ios */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		8F7C465C0116CF637CE9E7F1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				99221692805F34EA1BC88BC9 /* Pods-TinkLinkExample.debug.xcconfig */,
-				418B71F8EC9C79DD25BA9CD2 /* Pods-TinkLinkExample.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		8FC06D1523F196A700CD7B88 = {
@@ -70,8 +61,7 @@
 			children = (
 				8FC06D2023F196A700CD7B88 /* TinkLinkExample */,
 				8FC06D1F23F196A700CD7B88 /* Products */,
-				8F7C465C0116CF637CE9E7F1 /* Pods */,
-				7A5F97AAA6E7856B24C6F879 /* Frameworks */,
+				6B39C92A25090EAD006FA37C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,19 +92,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8FC06D3223F196A900CD7B88 /* Build configuration list for PBXNativeTarget "TinkLinkExample" */;
 			buildPhases = (
-				479597E7C21DE49DD924DAD8 /* [CP] Check Pods Manifest.lock */,
-				B8E1B74CC8A4723D1997363B /* [CP] Prepare Artifacts */,
 				8FC06D1A23F196A700CD7B88 /* Sources */,
 				8FC06D1B23F196A700CD7B88 /* Frameworks */,
 				8FC06D1C23F196A700CD7B88 /* Resources */,
-				07936E61D4D6390CBE7225C4 /* [CP] Embed Pods Frameworks */,
-				37E4AB6991C801E9BA44A52D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TinkLinkExample;
+			packageProductDependencies = (
+				6B39C92C25090EED006FA37C /* TinkLink */,
+				6B39C92E25090EED006FA37C /* TinkLinkUI */,
+			);
 			productName = TinkLinkUIExample;
 			productReference = 8FC06D1E23F196A700CD7B88 /* TinkLinkExample.app */;
 			productType = "com.apple.product-type.application";
@@ -126,7 +116,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = Tink;
 				TargetAttributes = {
 					8FC06D1D23F196A700CD7B88 = {
@@ -173,76 +163,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		07936E61D4D6390CBE7225C4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		37E4AB6991C801E9BA44A52D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		479597E7C21DE49DD924DAD8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TinkLinkExample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B8E1B74CC8A4723D1997363B /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			name = "[CP] Prepare Artifacts";
-			outputFileListPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinkLinkExample/Pods-TinkLinkExample-artifacts.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8FC06D1A23F196A700CD7B88 /* Sources */ = {
@@ -305,6 +225,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -366,6 +287,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -396,7 +318,6 @@
 		};
 		8FC06D3323F196A900CD7B88 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 99221692805F34EA1BC88BC9 /* Pods-TinkLinkExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
@@ -414,7 +335,6 @@
 		};
 		8FC06D3423F196A900CD7B88 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 418B71F8EC9C79DD25BA9CD2 /* Pods-TinkLinkExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
@@ -452,6 +372,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6B39C92C25090EED006FA37C /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
+		};
+		6B39C92E25090EED006FA37C /* TinkLinkUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLinkUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8FC06D1623F196A700CD7B88 /* Project object */;
 }
