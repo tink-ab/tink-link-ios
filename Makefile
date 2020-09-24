@@ -61,6 +61,14 @@ build-carthage-frameworks:
 	xcodegen generate
 	carthage build --platform iOS --no-skip-current
 
+ui-test:
+	carthage bootstrap --platform iOS --no-use-binaries
+	xcodegen generate
+	xcodebuild test \
+		-project TinkLink.xcodeproj \
+		-scheme TinkLinkUIUITestsHost_iOS \
+		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
+
 build-uikit-example:
 	xcodebuild clean build \
 		-resolvePackageDependencies \
