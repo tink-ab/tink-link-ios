@@ -120,7 +120,6 @@ final class AddCredentialsSession {
                provider.accessType == .openBanking,
                let sessionExpiryDate = credentials.sessionExpiryDate,
                sessionExpiryDate <= Date() {
-                // TODO: Adding a flag to call refresh with force authentication, not sure if we need to do extra call for refresh after that
                 return true
             }
             return false
