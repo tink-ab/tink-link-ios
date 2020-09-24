@@ -121,6 +121,12 @@ enum Strings {
         enum ServiceAlert {
             /// Title for error alert if error doesn't contain a description.
             static let fallbackTitle = NSLocalizedString("Generic.ServiceAlert.FallbackTitle", tableName: tableName, bundle: bundle, value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description.")
+
+            /// Title for error alert if device is missing internet connection.
+            static let missingInternetConnectionTitle = NSLocalizedString("Generic.ServiceAlert.MissingInternetConnectionTitle", tableName: tableName, bundle: bundle, value: "Missing internet connection", comment: "Title for error alert if device is missing internet connection.")
+
+            /// Message for error alert if device is missing internet connection.
+            static let missingInternetConnectionMessage = NSLocalizedString("Generic.ServiceAlert.MissingInternetConnectionMessage", tableName: tableName, bundle: bundle, value: "No internet connection was found.", comment: "Message for error alert if device is missing internet connection.")
         }
     }
 
