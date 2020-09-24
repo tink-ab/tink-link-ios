@@ -32,6 +32,7 @@ targets:
       - Tests/TinkLinkTests
     dependencies:
       - target: TinkLink_${platform}
+      - carthage: TinkCore
   TinkLinkUI:
     type: framework
     platform: [iOS]
@@ -52,6 +53,7 @@ targets:
       - Sources/TinkLinkUI
     dependencies:
       - target: TinkLink_${platform}
+      - carthage: TinkCore
       - carthage: Kingfisher
       - carthage: Down
   TinkLinkUITests:
@@ -64,5 +66,6 @@ targets:
       - Tests/TinkLinkUITests
     dependencies:
       - target: TinkLinkUI_${platform}
+      - carthage: TinkCore
       - carthage: Kingfisher
       - carthage: Down

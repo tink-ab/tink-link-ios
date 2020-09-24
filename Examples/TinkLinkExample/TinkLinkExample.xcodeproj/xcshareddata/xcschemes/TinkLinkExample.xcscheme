@@ -32,20 +32,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "58C83C65FDDE82965EE08CB4EF07AB18"
-               BuildableName = "TinkLink-Unit-TinkLinkTests.xctest"
-               BlueprintName = "TinkLink-Unit-TinkLinkTests"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+               BlueprintIdentifier = "TinkLinkTests"
+               BuildableName = "TinkLinkTests"
+               BlueprintName = "TinkLinkTests"
+               ReferencedContainer = "container:../..">
             </BuildableReference>
          </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9459DFA8B43E94B9192544B42E1FFA38"
-               BuildableName = "TinkLinkUI-Unit-TinkLinkUITests.xctest"
-               BlueprintName = "TinkLinkUI-Unit-TinkLinkUITests"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+               BlueprintIdentifier = "TinkLinkUITests"
+               BuildableName = "TinkLinkUITests"
+               BlueprintName = "TinkLinkUITests"
+               ReferencedContainer = "container:../..">
             </BuildableReference>
          </TestableReference>
       </Testables>

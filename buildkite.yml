@@ -34,6 +34,15 @@ steps:
 
   - wait
 
+  - name: ':pipeline: Build Carthage Frameworks'
+    command: 'make build-carthage-frameworks'
+    env:
+        "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
+    agents:
+      queue: 'macos'
+
+  - wait
+
   - trigger: "distribute-tink-sdk-demo-ios"
     label: ":pipeline: Distribution"
     async: true
