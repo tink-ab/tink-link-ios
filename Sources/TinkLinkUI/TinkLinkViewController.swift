@@ -84,12 +84,21 @@ public class TinkLinkViewController: UINavigationController {
     /// Strategy for different operations.
     public enum Operation {
         /// Create credentials.
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to create.
         case create(providerPredicate: ProviderPredicate = .kinds(.default))
         /// Authenticate credentials.
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to authenticate.
         case authenticate(credentialsID: Credentials.ID)
         /// Refresh credentials.
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to refresh.
+        ///   - authenticateIfExpired: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
         case refresh(credentialsID: Credentials.ID, authenticateIfExpired: Bool = false)
         /// Update credentials.
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to update.
         case update(credentialsID: Credentials.ID)
     }
 
