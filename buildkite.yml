@@ -55,7 +55,7 @@ steps:
   - trigger: "distribute-tink-sdk-demo-ios"
     label: ":pipeline: Distribution"
     async: true
-    if: build.pull_request.base_branch == "master"
+    if: build.env("BUILDKITE_MESSAGE") =~ /\[Demo app\]/
     build:
       message: "Triggered [Demo app] from TinkLink merge to master ${BUILDKITE_MESSAGE}"
       branch: "master"
