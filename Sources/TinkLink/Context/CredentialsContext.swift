@@ -187,7 +187,7 @@ public final class CredentialsContext {
     /// - credentials:refresh
     ///
     /// - Parameters:
-    ///   - authenticate: Force an authenticate before refresh, designed for open banking credentials Defaults to false.
+    ///   - authenticate: Force an authentication before the refresh, designed for open banking credentials. Defaults to false.
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
