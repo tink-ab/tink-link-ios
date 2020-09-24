@@ -27,8 +27,6 @@ public enum TinkLinkError: Error {
                 self = .unableToFetchProviders
             case .providerNotFound:
                 self = .providerNotFound
-            case .missingInternetConnection:
-                self = .missingInternetConnection
             }
         } else if case ServiceError.unauthenticated = error {
             self = .unauthenticated

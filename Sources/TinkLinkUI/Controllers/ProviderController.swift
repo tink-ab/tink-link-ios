@@ -12,7 +12,6 @@ final class ProviderController {
     enum Error: Swift.Error, LocalizedError {
         case emptyProviderList
         case providerNotFound
-        case missingInternetConnection
     }
 
     let tink: Tink
