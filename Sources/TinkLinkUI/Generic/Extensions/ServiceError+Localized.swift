@@ -4,8 +4,6 @@ import TinkLink
 extension ServiceError: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .cancelled:
-            return CocoaError(.userCancelled).localizedDescription
         case .missingInternetConnection:
             return Strings.Generic.ServiceAlert.missingInternetConnectionTitle
         default:
@@ -15,8 +13,6 @@ extension ServiceError: LocalizedError {
 
     public var failureReason: String? {
         switch self {
-        case .cancelled:
-            return nil
         case .invalidArgument(let message),
              .notFound(let message),
              .alreadyExists(let message),

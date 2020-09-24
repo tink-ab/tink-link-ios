@@ -64,7 +64,7 @@ public final class SupplementInformationTask: Identifiable {
         callRetryCancellable = credentialsService.cancelSupplementalInformation(id: credentials.id, completion: { [weak self] result in
             switch result {
             case .success:
-                self?.completionHandler(.failure(ServiceError.cancelled))
+                self?.completionHandler(.failure(CocoaError(.userCancelled)))
             case .failure(let error):
                 self?.completionHandler(.failure(error))
             }
