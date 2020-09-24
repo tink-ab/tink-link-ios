@@ -6,22 +6,10 @@ extension ServiceError: LocalizedError {
         switch self {
         case .cancelled:
             return "Cancelled"
-        case .invalidArgument:
-            return "Invalid argument"
-        case .notFound:
-            return "Not found"
-        case .alreadyExists:
-            return "Already exists"
-        case .permissionDenied:
-            return "Permission denied"
-        case .unauthenticated:
-            return "Unauthenticated"
-        case .failedPrecondition:
-            return "Failed precondition"
-        case .unavailableForLegalReasons:
-            return "Unavailable for legal reasons"
-        case .internalError:
-            return "Internal error"
+        case .missingInternetConnection:
+            return "Missing internet connection"
+        default:
+            return Strings.Generic.ServiceAlert.fallbackTitle
         }
     }
 
