@@ -104,7 +104,11 @@ final class LoadingErrorView: UIView {
     func configure(with error: Error?, showRetry: Bool) {
         textLabel.text = Strings.ProviderList.Error.title
         retryButton.isHidden = !showRetry
-        descriptionLabel.text = Strings.ProviderList.Error.description
+        if error is ProviderController.Error {
+            descriptionLabel.text = Strings.ProviderList.Error.temporary
+        } else {
+            descriptionLabel.text = Strings.ProviderList.Error.description
+        }
     }
 
     @objc private func retryButtonTapped() {
