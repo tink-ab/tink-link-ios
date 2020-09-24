@@ -71,18 +71,21 @@ ui-test:
 
 build-uikit-example:
 	xcodebuild clean build \
+		-resolvePackageDependencies \
 		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
 		-scheme HeadlessExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-swiftui-example:
 	xcodebuild clean build \
+		-resolvePackageDependencies \
 		-project Examples/HeadlessExample-SwiftUI/HeadlessExample.xcodeproj \
 		-scheme HeadlessExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-tinklinkui-example:
 	xcodebuild clean build \
+		-resolvePackageDependencies \
 		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'

@@ -20,7 +20,7 @@ class TinkLinkUITests: XCTestCase {
 
         XCTAssertFalse(getStartedButton.isHittable)
 
-        let alert = app.alerts["Unauthenticated"]
+        let alert = app.alerts["Could not find the OAuth client"]
         XCTAssertTrue(alert.waitForExistence(timeout: 3))
 
         alert.buttons["Dismiss"].tap()
