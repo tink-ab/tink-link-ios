@@ -69,3 +69,38 @@ targets:
       - carthage: TinkCore
       - carthage: Kingfisher
       - carthage: Down
+  TinkLinkUIUITests:
+    type: bundle.ui-testing
+    platform: [iOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUIUITests"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      TEST_TARGET_NAME: "TinkLinkUIUITestsHost_iOS"
+    sources:
+      - Tests/TinkLinkUIUITests
+    dependencies:
+      - target: TinkLinkUIUITestsHost_${platform}
+      - target: TinkLink_${platform}
+      - target: TinkLinkUI_${platform}
+      - carthage: TinkCore
+      - carthage: Kingfisher
+      - carthage: Down
+  TinkLinkUIUITestsHost:
+    type: application
+    platform: [iOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUIUITestsHost"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+    sources:
+      - Sources/TinkLinkUIUITestsHost
+    scheme:
+      testTargets:
+        - name: TinkLinkUIUITests_${platform}
+      environmentVariables:
+        TINK_LINK_UI_TESTS_HOST_CLIENT_ID: $TINK_LINK_UI_TESTER_CLIENT_ID
+    dependencies:
+      - target: TinkLink_${platform}
+      - target: TinkLinkUI_${platform}
+      - carthage: TinkCore
+      - carthage: Kingfisher
+      - carthage: Down
