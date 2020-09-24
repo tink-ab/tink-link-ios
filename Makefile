@@ -54,7 +54,6 @@ test:
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
 build-carthage-frameworks:
-	carthage bootstrap --platform iOS --no-use-binaries
 	xcodegen generate
 	carthage build --platform iOS --no-skip-current
 
