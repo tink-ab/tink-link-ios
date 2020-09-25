@@ -114,7 +114,7 @@ final class AddCredentialsSession {
         }
     }
 
-    func refreshCredentials(credentials: Credentials, forceAuthenticateIfExpired: Bool, completion: @escaping (Result<Credentials, Error>) -> Void) {
+    func refreshCredentials(credentials: Credentials, forceAuthenticate: Bool, completion: @escaping (Result<Credentials, Error>) -> Void) {
         var authenticate: Bool {
             if let provider = providerController.provider(providerID: credentials.providerID),
                provider.accessType == .openBanking,

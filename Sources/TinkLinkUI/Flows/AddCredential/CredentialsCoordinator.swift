@@ -22,7 +22,7 @@ final class CredentialsCoordinator {
     enum Action {
         case create(provider: Provider, mode: AddCredentialsMode)
         case update(credentialsID: Credentials.ID)
-        case refresh(credentialsID: Credentials.ID, authenticateIfExpired: Bool = false)
+        case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
         case authenticate(credentialsID: Credentials.ID)
     }
 
@@ -83,10 +83,10 @@ final class CredentialsCoordinator {
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
 
-        case .refresh(credentialsID: let id, let forceAuthenticateIfExpired):
+        case .refresh(credentialsID: let id, let forceAuthenticate):
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
-                self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticateIfExpired: forceAuthenticateIfExpired) { result in
+                self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate) { result in
                     self.handleCompletion(for: result.map { ($0, nil) })
                 }
             }
