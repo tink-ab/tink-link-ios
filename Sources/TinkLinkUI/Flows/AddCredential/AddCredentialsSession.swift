@@ -122,7 +122,7 @@ final class AddCredentialsSession {
                sessionExpiryDate <= Date() {
                 return true
             }
-            return false
+            return forceAuthenticate
         }
 
         task = credentialsController.refresh(credentials, authenticate: authenticate,  shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
