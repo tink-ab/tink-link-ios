@@ -125,7 +125,7 @@ final class CredentialsCoordinator {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }
-        } catch CocoaError.userCancelled {
+        } catch TinkLinkError.userCancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }
