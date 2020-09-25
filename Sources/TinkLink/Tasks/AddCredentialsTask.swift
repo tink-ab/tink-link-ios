@@ -35,6 +35,8 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         case permanentFailure(String)
         /// The credentials already exists.
         case credentialsAlreadyExists(String)
+        /// The task was cancelled.
+        case cancelled
 
         init?(addCredentialsError error: Swift.Error) {
             switch error {
@@ -128,7 +130,12 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
     public func cancel() {
         isCancelled = true
         credentialsStatusPollingTask?.stopPolling()
-        callCanceller?.cancel()
+        if let canceller = callCanceller {
+            canceller.cancel()
+            callCanceller = nil
+        } else {
+            complete(with: .failure(Error.cancelled))
+        }
     }
 
     private func complete(with result: Result<Credentials, Swift.Error>) {
@@ -207,6 +214,8 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }
+        } catch ServiceError.cancelled {
+            complete(with: .failure(Error.cancelled))
         } catch {
             complete(with: .failure(error))
         }
