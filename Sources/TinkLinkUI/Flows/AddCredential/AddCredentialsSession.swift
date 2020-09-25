@@ -129,12 +129,12 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
-            }, completion: { [weak self] result in
-                DispatchQueue.main.async {
-                    self?.handleCompletion(result) { result in
-                        completion(result.map { $0.0 })
-                    }
+        }, completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.handleCompletion(result) { result in
+                    completion(result.map { $0.0 })
                 }
+            }
         })
 
         isPresenterShowingStatusScreen = true

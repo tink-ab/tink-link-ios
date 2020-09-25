@@ -94,8 +94,7 @@ public class TinkLinkViewController: UINavigationController {
         /// Refresh credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.
-        ///   - forceAuthenticate: The flag to force an authentication before refresh. Used for open banking credentials.
-        ///   Default to false.
+        ///   - forceAuthenticate: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
         case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
         /// Update credentials.
         /// - Parameters:
