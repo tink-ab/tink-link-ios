@@ -265,9 +265,7 @@ extension CredentialsCoordinator {
     private func showAlert(for error: Error) {
         let title: String
         let message: String?
-        if case ServiceError.cancelled = error {
-            return
-        } else if let error = error as? LocalizedError {
+        if let error = error as? LocalizedError {
             title = error.errorDescription ?? Strings.Generic.error
             message = error.failureReason
         } else {
