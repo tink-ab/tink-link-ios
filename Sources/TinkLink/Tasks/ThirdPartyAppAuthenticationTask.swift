@@ -58,7 +58,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         case doesNotSupportAuthenticatingOnAnotherDevice
         /// Decoding the QR code image failed.
         case decodingQRCodeImageFailed
-        case userCancelled
+        case cancelled
 
         /// If the error is `downloadRequired` this property can have an App Store URL to the third party app required for authentication.
         public var appStoreURL: URL? {
@@ -71,7 +71,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 return nil
             case .decodingQRCodeImageFailed:
                 return nil
-            case .userCancelled:
+            case .cancelled:
                 return nil
             }
         }
@@ -263,7 +263,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     public func cancel() {
         callRetryCancellable?.cancel()
         callRetryCancellable = nil
-        completionHandler(.failure(Error.userCancelled))
+        completionHandler(.failure(Error.cancelled))
     }
 
     private func sanitizeDeeplink(_ url: URL, redirectUri: URL) -> URL {

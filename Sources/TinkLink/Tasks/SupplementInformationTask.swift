@@ -31,7 +31,7 @@ public final class SupplementInformationTask: Identifiable {
     private var callRetryCancellable: RetryCancellable?
 
     public enum Error: Swift.Error {
-        case userCancelled
+        case cancelled
     }
 
     // MARK: Getting the Credentials
@@ -68,7 +68,7 @@ public final class SupplementInformationTask: Identifiable {
         callRetryCancellable = credentialsService.cancelSupplementalInformation(id: credentials.id, completion: { [weak self] result in
             switch result {
             case .success:
-                self?.completionHandler(.failure(Error.userCancelled))
+                self?.completionHandler(.failure(Error.cancelled))
             case .failure(let error):
                 self?.completionHandler(.failure(error))
             }
