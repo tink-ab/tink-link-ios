@@ -248,6 +248,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     throw Error.decodingQRCodeImageFailed
                 }
                 completion(.success(qrImage))
+            } catch ServiceError.cancelled {
+                completion(.failure(Error.cancelled))
             } catch {
                 completion(.failure(error))
             }
@@ -261,9 +263,12 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     ///
     /// Call this method if you have a UI that lets the user choose to open the third party app and the user cancels.
     public func cancel() {
-        callRetryCancellable?.cancel()
-        callRetryCancellable = nil
-        completionHandler(.failure(Error.cancelled))
+        if let cancellable = callRetryCancellable {
+            cancellable.cancel()
+            callRetryCancellable = nil
+        } else {
+            completionHandler(.failure(Error.cancelled))
+        }
     }
 
     private func sanitizeDeeplink(_ url: URL, redirectUri: URL) -> URL {
