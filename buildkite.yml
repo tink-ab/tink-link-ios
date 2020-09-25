@@ -44,7 +44,7 @@ steps:
   - wait
 
   - name: ':pipeline: Build Carthage Frameworks'
-    command: 'make build-carthage-frameworks'
+    command: 'carthage build --platform iOS --no-skip-current'
     env:
         "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
     agents:
