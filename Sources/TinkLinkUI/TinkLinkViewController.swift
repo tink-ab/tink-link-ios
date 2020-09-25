@@ -93,9 +93,9 @@ public class TinkLinkViewController: UINavigationController {
         case authenticate(credentialsID: Credentials.ID)
         /// Refresh credentials.
         /// - Parameters:
-        ///   - credentialsID: The ID of Credentials to refresh.
-        ///   - authenticateIfExpired: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
-        case refresh(credentialsID: Credentials.ID, authenticateIfExpired: Bool = false)
+        ///   - credentialsID: The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.
+        ///   - forceAuthenticate: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
+        case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
         /// Update credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to update.
@@ -341,8 +341,8 @@ public class TinkLinkViewController: UINavigationController {
             fetchProviders(providerPredicate: providerPredicate)
         case .authenticate(let id):
             startCredentialCoordinator(with: .authenticate(credentialsID: id))
-        case .refresh(let id, let authenticateIfExpired):
-            startCredentialCoordinator(with: .refresh(credentialsID: id, authenticateIfExpired: authenticateIfExpired))
+        case .refresh(let id, let forceAuthenticate):
+            startCredentialCoordinator(with: .refresh(credentialsID: id, forceAuthenticate: forceAuthenticate))
         case .update(let id):
             startCredentialCoordinator(with: .update(credentialsID: id))
         }
