@@ -41,6 +41,8 @@ extension RefreshCredentialsTask.Error: LocalizedError {
             return Strings.Credentials.Error.authenticationFailed
         case .disabled:
             return Strings.Generic.error
+        case .cancelled:
+            return Strings.Generic.cancelled
         }
     }
 
@@ -49,6 +51,8 @@ extension RefreshCredentialsTask.Error: LocalizedError {
         case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload), .disabled(let payload):
             // TODO: Localize this somehow?
             return payload
+        case .cancelled:
+            return nil
         }
     }
 }
