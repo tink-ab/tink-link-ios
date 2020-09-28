@@ -9,3 +9,5 @@ public enum AuthenticationTask {
     /// Indicates that there is an authentication in a third party app necessary to proceed with the authentication.
     case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
 }
+
+public typealias AuthenticationTaskHandler = (AuthenticationTask) -> Void

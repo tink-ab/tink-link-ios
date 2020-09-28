@@ -5,24 +5,17 @@ import Foundation
 /// Use `CredentialsContext` to create a task.
 public final class AddCredentialsTask: Identifiable, Cancellable {
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
+
     /// Indicates the state of a credentials being added.
-    ///
-    /// - Note: For some states there are actions which need to be performed on the credentials.
     public enum Status {
         /// Initial status
-        case created
+        case created(Credentials.ID)
 
-        /// When starting the authentication process
+        /// The user needs to be authenticated.
         case authenticating
 
-        /// User has been successfully authenticated, now downloading data.
+        /// User has been successfully authenticated, now fetching data.
         case updating(status: String)
-
-        /// Trigger for the client to prompt the user to fill out supplemental information.
-        case awaitingSupplementalInformation(SupplementInformationTask)
-
-        /// Trigger for the client to prompt the user to open the third party authentication flow
-        case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
     }
 
     /// Error that the `AddCredentialsTask` can throw.
@@ -50,7 +43,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
 
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
-
+    private let authenticationHandler: AuthenticationTaskHandler
     /// The credentials that are being added.
     public private(set) var credentials: Credentials?
 
@@ -97,11 +90,12 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
     var callCanceller: Cancellable?
     private var isCancelled = false
 
-    init(credentialsService: CredentialsService, completionPredicate: CompletionPredicate, appUri: URL, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
+    init(credentialsService: CredentialsService, completionPredicate: CompletionPredicate, appUri: URL, progressHandler: @escaping (Status) -> Void, authenticationHandler: @escaping AuthenticationTaskHandler, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
         self.credentialsService = credentialsService
         self.completionPredicate = completionPredicate
         self.appUri = appUri
         self.progressHandler = progressHandler
+        self.authenticationHandler = authenticationHandler
         self.completion = completion
     }
 
@@ -149,7 +143,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
             let credentials = try result.get()
             switch credentials.status {
             case .created:
-                progressHandler(.created)
+                progressHandler(.created(credentials.id))
             case .authenticating:
                 progressHandler(.authenticating)
             case .awaitingSupplementalInformation:
@@ -163,7 +157,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                         self.complete(with: .failure(error))
                     }
                 }
-                progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
+                authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 credentialsStatusPollingTask?.stopPolling()
                 guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
@@ -182,7 +176,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                     self.thirdPartyAuthenticationTask = nil
                 }
                 thirdPartyAuthenticationTask = task
-                progressHandler(.awaitingThirdPartyAppAuthentication(task))
+                authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
                 if completionPredicate.successPredicate == .updating {
                     complete(with: .success(credentials))

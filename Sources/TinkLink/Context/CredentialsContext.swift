@@ -87,6 +87,7 @@ public final class CredentialsContext {
         refreshableItems: RefreshableItems = .all,
         completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
+        authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
@@ -96,6 +97,7 @@ public final class CredentialsContext {
             completionPredicate: completionPredicate,
             appUri: redirectURI,
             progressHandler: progressHandler,
+            authenticationHandler: authenticationHandler, 
             completion: completion
         )
 
@@ -186,11 +188,12 @@ public final class CredentialsContext {
         refreshableItems: RefreshableItems = .all,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
+        authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> RefreshCredentialsTask {
         // TODO: Filter out refreshableItems not supported by provider capabilities.
 
-        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
 
         task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
@@ -224,6 +227,7 @@ public final class CredentialsContext {
         form: Form? = nil,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
+        authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> UpdateCredentialsTask {
         let task = UpdateCredentialsTask(
@@ -232,6 +236,7 @@ public final class CredentialsContext {
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             appUri: redirectURI,
             progressHandler: progressHandler,
+            authenticationHandler: authenticationHandler,
             completion: completion
         )
 
@@ -287,9 +292,10 @@ public final class CredentialsContext {
     public func authenticate(
         _ credentials: Credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
+        authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> AuthenticateCredentialsTask {
-        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
 
         task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
             switch result {

@@ -71,6 +71,8 @@ final class AddCredentialsSession {
                         }
                     }
                 }
+            }, authenticationHandler: { [weak self] authentication in
+                self?.handleAuthenticationTask(authentication: authentication)
             },
             completion: { [weak self] result in
                 DispatchQueue.main.async {
@@ -95,6 +97,8 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
+        }, authenticationHandler: { [weak self] authentication in
+            self?.handleAuthenticationTask(authentication: authentication)
         }, completion: { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleCompletion(result) { result in
@@ -127,6 +131,8 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
+        }, authenticationHandler: { [weak self] authentication in
+            self?.handleAuthenticationTask(authentication: authentication)
         }, completion: { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleCompletion(result) { result in
@@ -151,6 +157,8 @@ final class AddCredentialsSession {
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }
+        }, authenticationHandler: { [weak self] authentication in
+            self?.handleAuthenticationTask(authentication: authentication)
         }, completion: { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleCompletion(result) { result in
@@ -174,10 +182,6 @@ final class AddCredentialsSession {
         switch status {
         case .created, .authenticating:
             break
-        case .awaitingSupplementalInformation(let supplementInformationTask):
-            showSupplementalInformation(for: supplementInformationTask)
-        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-            handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
         case .updating:
             let status: String
             if let providerID = providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
@@ -195,10 +199,6 @@ final class AddCredentialsSession {
         switch status {
         case .authenticating:
             break
-        case .awaitingSupplementalInformation(let supplementInformationTask):
-            showSupplementalInformation(for: supplementInformationTask)
-        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-            handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
         case .updating:
             let status: String
             if let providerID = providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
@@ -208,6 +208,15 @@ final class AddCredentialsSession {
                 status = Strings.CredentialsStatus.updatingFallback
             }
             showUpdating(status: status)
+        }
+    }
+
+    private func handleAuthenticationTask(authentication: AuthenticationTask) {
+        switch authentication {
+        case .awaitingSupplementalInformation(let supplementInformationTask):
+            showSupplementalInformation(for: supplementInformationTask)
+        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
+            handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
         }
     }
 
