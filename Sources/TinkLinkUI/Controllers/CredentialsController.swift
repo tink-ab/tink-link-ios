@@ -29,8 +29,8 @@ final class CredentialsController {
             form: form,
             refreshableItems: refreshableItems,
             completionPredicate: AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false),
-            progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
+            progressHandler: progressHandler,
             completion: { [weak tink] result in
                 tink?._endUITask()
                 completion(result)
@@ -51,8 +51,8 @@ final class CredentialsController {
             credentials,
             form: form,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
-            progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
+            progressHandler: progressHandler,
             completion: { [weak tink] result in
                 tink?._endUITask()
                 completion(result)
@@ -75,8 +75,8 @@ final class CredentialsController {
             authenticate: authenticate,
             refreshableItems: refreshableItems,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
-            progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
+            progressHandler: progressHandler,
             completion: { [weak tink] result in
                 tink?._endUITask()
                 completion(result)
@@ -95,8 +95,8 @@ final class CredentialsController {
         return credentialsContext.authenticate(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
-            progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
+            progressHandler: progressHandler,
             completion: { [weak tink] result in
                 tink?._endUITask()
                 completion(result)
