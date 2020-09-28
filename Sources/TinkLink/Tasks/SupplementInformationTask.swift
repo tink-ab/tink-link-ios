@@ -30,14 +30,20 @@ public final class SupplementInformationTask: Identifiable {
     private let credentialsService: CredentialsService
     private var callRetryCancellable: RetryCancellable?
 
+    /// Error that the `SupplementInformationTask` can throw.
+    public enum Error: Swift.Error {
+        /// The task was cancelled.
+        case cancelled
+    }
+
     // MARK: Getting the Credentials
 
     /// The credentials that's awaiting supplemental information.
     public let credentials: Credentials
 
-    private let completionHandler: (Result<Void, Error>) -> Void
+    private let completionHandler: (Result<Void, Swift.Error>) -> Void
 
-    init(credentialsService: CredentialsService, credentials: Credentials, completionHandler: @escaping (Result<Void, Error>) -> Void) {
+    init(credentialsService: CredentialsService, credentials: Credentials, completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
         self.credentialsService = credentialsService
         self.credentials = credentials
         self.completionHandler = completionHandler
@@ -64,7 +70,7 @@ public final class SupplementInformationTask: Identifiable {
         callRetryCancellable = credentialsService.cancelSupplementalInformation(id: credentials.id, completion: { [weak self] result in
             switch result {
             case .success:
-                self?.completionHandler(.failure(ServiceError.cancelled))
+                self?.completionHandler(.failure(Error.cancelled))
             case .failure(let error):
                 self?.completionHandler(.failure(error))
             }

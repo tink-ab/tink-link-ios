@@ -494,7 +494,7 @@ extension TinkLinkViewController {
             do {
                 let provider = try result.get()
                 self?.showAddCredentials(for: provider)
-            } catch CocoaError.userCancelled {
+            } catch TinkLinkError.userCancelled {
                 self?.cancel()
             } catch {
                 self?.showAlert(for: error)

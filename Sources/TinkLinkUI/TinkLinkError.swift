@@ -30,6 +30,8 @@ public enum TinkLinkError: Error {
             }
         } else if case ServiceError.unauthenticated = error {
             self = .unauthenticated
+        } else if let error = error as? URLError, error.code == .notConnectedToInternet {
+            self = .missingInternetConnection
         } else {
             return nil
         }

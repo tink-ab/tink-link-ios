@@ -82,7 +82,7 @@ final class AddCredentialsSession {
         providerID = provider.id
         addCredentialsMode = mode
         cancelCallback = {
-            onCompletion(.failure(ServiceError.cancelled))
+            onCompletion(.failure(TinkLinkError.userCancelled))
         }
 
         DispatchQueue.main.async {
@@ -106,7 +106,7 @@ final class AddCredentialsSession {
         isPresenterShowingStatusScreen = false
         providerID = credentials.providerID
         cancelCallback = {
-            completion(.failure(ServiceError.cancelled))
+            completion(.failure(TinkLinkError.userCancelled))
         }
 
         DispatchQueue.main.async {
@@ -138,7 +138,7 @@ final class AddCredentialsSession {
         isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
         cancelCallback = {
-            completion(.failure(ServiceError.cancelled))
+            completion(.failure(TinkLinkError.userCancelled))
         }
 
         DispatchQueue.main.async {
@@ -162,7 +162,7 @@ final class AddCredentialsSession {
         isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
         cancelCallback = {
-            completion(.failure(ServiceError.cancelled))
+            completion(.failure(TinkLinkError.userCancelled))
         }
 
         DispatchQueue.main.async {
