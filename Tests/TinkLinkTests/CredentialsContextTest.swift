@@ -24,11 +24,13 @@ class CredentialsContextTests: XCTestCase {
             switch status {
             case .created:
                 statusChangedToCreated.fulfill()
-            case .authenticating, .awaitingSupplementalInformation, .awaitingThirdPartyAppAuthentication:
+            case .authenticating:
                 break
             case .updating:
                 statusChangedToUpdating.fulfill()
             }
+        }, authenticationHandler: { task in
+            return
         }) { result in
             do {
                 _ = try result.get()
@@ -58,14 +60,19 @@ class CredentialsContextTests: XCTestCase {
             switch status {
             case .created:
                 statusChangedToCreated.fulfill()
-            case .awaitingSupplementalInformation(let supplementalInformationTask):
-                statusChangedToAwaitingSupplementalInformation.fulfill()
-                var form = Form(credentials: supplementalInformationTask.credentials)
-                form.fields[0].text = "test"
-                supplementalInformationTask.submit(form)
             case .updating:
                 statusChangedToUpdating.fulfill()
-            case .authenticating, .awaitingThirdPartyAppAuthentication:
+            case .authenticating:
+                break
+            }
+        }, authenticationHandler: { task in
+            switch task {
+            case .awaitingSupplementalInformation(let task):
+                statusChangedToAwaitingSupplementalInformation.fulfill()
+                var form = Form(credentials: task.credentials)
+                form.fields[0].text = "test"
+                task.submit(form)
+            case .awaitingThirdPartyAppAuthentication:
                 break
             }
         }) { result in
@@ -98,6 +105,15 @@ class CredentialsContextTests: XCTestCase {
             switch status {
             case .created:
                 statusChangedToCreated.fulfill()
+            case .updating:
+                statusChangedToUpdating.fulfill()
+            case .authenticating:
+                break
+            }
+        }, authenticationHandler: { task in
+            switch task {
+            case .awaitingSupplementalInformation:
+                break
             case .awaitingThirdPartyAppAuthentication(let task):
                 task.handle(with: MockedSuccessOpeningApplication()) { result in
                     do {
@@ -107,10 +123,6 @@ class CredentialsContextTests: XCTestCase {
                         XCTFail("Failed to handle third party app authentication task with: \(error)")
                     }
                 }
-            case .updating:
-                statusChangedToUpdating.fulfill()
-            case .authenticating, .awaitingSupplementalInformation:
-                break
             }
         }) { result in
             do {
