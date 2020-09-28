@@ -84,12 +84,21 @@ public class TinkLinkViewController: UINavigationController {
     /// Strategy for different operations.
     public enum Operation {
         /// Create credentials.
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to create.
         case create(providerPredicate: ProviderPredicate = .kinds(.default))
         /// Authenticate credentials.
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to authenticate.
         case authenticate(credentialsID: Credentials.ID)
         /// Refresh credentials.
-        case refresh(credentialsID: Credentials.ID)
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.
+        ///   - forceAuthenticate: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
+        case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
         /// Update credentials.
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to update.
         case update(credentialsID: Credentials.ID)
     }
 
@@ -324,8 +333,8 @@ public class TinkLinkViewController: UINavigationController {
             fetchProviders(providerPredicate: providerPredicate)
         case .authenticate(let id):
             startCredentialCoordinator(with: .authenticate(credentialsID: id))
-        case .refresh(let id):
-            startCredentialCoordinator(with: .refresh(credentialsID: id))
+        case .refresh(let id, let forceAuthenticate):
+            startCredentialCoordinator(with: .refresh(credentialsID: id, forceAuthenticate: forceAuthenticate))
         case .update(let id):
             startCredentialCoordinator(with: .update(credentialsID: id))
         }
@@ -477,7 +486,7 @@ extension TinkLinkViewController {
             do {
                 let provider = try result.get()
                 self?.showAddCredentials(for: provider)
-            } catch CocoaError.userCancelled {
+            } catch TinkLinkError.userCancelled {
                 self?.cancel()
             } catch {
                 self?.showAlert(for: error)

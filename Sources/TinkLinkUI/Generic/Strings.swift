@@ -118,6 +118,9 @@ enum Strings {
         /// Title for action to retry a failed request.
         static let retry = NSLocalizedString("Generic.Retry", tableName: tableName, bundle: bundle, value: "Try again", comment: "Title for action to retry a failed request.")
 
+        /// Title for cancelled request.
+        static let cancelled = NSLocalizedString("Generic.Cancelled", tableName: tableName, bundle: bundle, value: "Cancelled", comment: "Title for cancelled request.")
+
         enum ServiceAlert {
             /// Title for error alert if error doesn't contain a description.
             static let fallbackTitle = NSLocalizedString("Generic.ServiceAlert.FallbackTitle", tableName: tableName, bundle: bundle, value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description.")

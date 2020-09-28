@@ -10,8 +10,6 @@
 		202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */; };
 		2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035815424659C390075F1EA /* Error+LocalizedError.swift */; };
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
-		20FE0AB624E5706A006977F4 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0AB524E5706A006977F4 /* Down */; };
-		20FE0AB924E570C6006977F4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0AB824E570C6006977F4 /* Kingfisher */; };
 		20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0ABC24E5713C006977F4 /* TinkLink */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
 		8F3459BA2396ADEB007DCD75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* AppDelegate.swift */; };
@@ -28,6 +26,8 @@
 		8F579BA5239E8CA400013FE1 /* SupplementalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F579BA0239E8CA400013FE1 /* SupplementalInformationViewController.swift */; };
 		8F8BD78C23A27DFD00CC890C /* CredentialsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78B23A27DFD00CC890C /* CredentialsList.swift */; };
 		8F8BD78E23A27EBF00CC890C /* AddCredentialsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78D23A27EBF00CC890C /* AddCredentialsRow.swift */; };
+		8F9F2F7F251C9EB300037DB5 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 8F9F2F7E251C9EB300037DB5 /* Down */; };
+		8F9F2F81251C9EB600037DB5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8F9F2F80251C9EB600037DB5 /* Kingfisher */; };
 		8FA5F37B23A3ACC200083430 /* CredentialsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5F37A23A3ACC200083430 /* CredentialsListRow.swift */; };
 		8FD0625224E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD0625124E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift */; };
 		8FF1F388239E409300968AB9 /* ProviderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F387239E409300968AB9 /* ProviderController.swift */; };
@@ -77,9 +77,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F9F2F81251C9EB600037DB5 /* Kingfisher in Frameworks */,
+				8F9F2F7F251C9EB300037DB5 /* Down in Frameworks */,
 				20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */,
-				20FE0AB924E570C6006977F4 /* Kingfisher in Frameworks */,
-				20FE0AB624E5706A006977F4 /* Down in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,9 +235,9 @@
 			);
 			name = HeadlessExample;
 			packageProductDependencies = (
-				20FE0AB524E5706A006977F4 /* Down */,
-				20FE0AB824E570C6006977F4 /* Kingfisher */,
 				20FE0ABC24E5713C006977F4 /* TinkLink */,
+				8F9F2F7E251C9EB300037DB5 /* Down */,
+				8F9F2F80251C9EB600037DB5 /* Kingfisher */,
 			);
 			productName = PermanentUserProviderSelection;
 			productReference = 8F3459B62396ADEB007DCD75 /* HeadlessExample.app */;
@@ -250,7 +250,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1120;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = Tink;
 				TargetAttributes = {
 					8F3459B52396ADEB007DCD75 = {
@@ -365,6 +365,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -425,6 +426,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -534,19 +536,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		20FE0AB524E5706A006977F4 /* Down */ = {
+		20FE0ABC24E5713C006977F4 /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
+		};
+		8F9F2F7E251C9EB300037DB5 /* Down */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 20FE0AB424E5706A006977F4 /* XCRemoteSwiftPackageReference "Down" */;
 			productName = Down;
 		};
-		20FE0AB824E570C6006977F4 /* Kingfisher */ = {
+		8F9F2F80251C9EB600037DB5 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 20FE0AB724E570C6006977F4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		20FE0ABC24E5713C006977F4 /* TinkLink */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TinkLink;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -172,6 +172,7 @@ public final class CredentialsContext {
     /// - credentials:refresh
     ///
     /// - Parameters:
+    ///   - authenticate: Force an authentication before the refresh, designed for open banking credentials. Defaults to false.
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
@@ -181,6 +182,7 @@ public final class CredentialsContext {
     /// - Returns: The refresh credentials task.
     public func refresh(
         _ credentials: Credentials,
+        authenticate: Bool = false,
         refreshableItems: RefreshableItems = .all,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
@@ -190,7 +192,7 @@ public final class CredentialsContext {
 
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
 
-        task.callCanceller = service.refresh(id: credentials.id, refreshableItems: refreshableItems, optIn: false, completion: { result in
+        task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
             case .success:
                 task.startObserving()

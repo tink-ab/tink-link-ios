@@ -21,6 +21,9 @@ endif
 ifeq ($(strip $(shell command -v xcodegen 2> /dev/null)),)
 	brew install xcodegen
 endif
+ifeq ($(strip $(shell command -v carthage 2> /dev/null)),)
+	brew install carthage
+endif
 ifeq ($(strip $(shell command -v bundle 2> /dev/null)),)
 	gem install bundler
 endif
@@ -45,30 +48,45 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-	bundle exec pod install --repo-update --project-directory="./Examples/TinkLinkExample/"
 	xcodebuild clean test \
-		-workspace Examples/TinkLinkExample/TinkLinkExample.xcworkspace \
+		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
-	swift test
+build-carthage-frameworks:
+	# Xcode 12 workaround: https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
+	export XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig
+	echo $(XCODE_XCCONFIG_FILE)
+	carthage bootstrap --platform iOS --no-use-binaries
+	xcodegen generate
+	carthage build --platform iOS --no-skip-current
+
+ui-test:
+	carthage bootstrap --platform iOS --no-use-binaries
+	xcodegen generate
+	xcodebuild test \
+		-project TinkLink.xcodeproj \
+		-scheme TinkLinkUIUITestsHost_iOS \
+		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
 build-uikit-example:
 	xcodebuild clean build \
+		-resolvePackageDependencies \
 		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
 		-scheme HeadlessExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-swiftui-example:
 	xcodebuild clean build \
+		-resolvePackageDependencies \
 		-project Examples/HeadlessExample-SwiftUI/HeadlessExample.xcodeproj \
 		-scheme HeadlessExample \
 		-destination 'generic/platform=iOS Simulator'
 
 build-tinklinkui-example:
-	bundle exec pod install --project-directory="./Examples/TinkLinkExample/"
 	xcodebuild clean build \
-		-workspace Examples/TinkLinkExample/TinkLinkExample.xcworkspace \
+		-resolvePackageDependencies \
+		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 

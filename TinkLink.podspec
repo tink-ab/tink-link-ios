@@ -14,13 +14,13 @@ Pod::Spec.new do |spec|
 
   spec.source_files = "Sources/TinkLink/**/*.swift"
 
-  spec.swift_version = ["5.1", "5.2"]
+  spec.swift_version = ["5.1", "5.2", "5.3"]
 
   spec.test_spec 'TinkLinkTests' do |test_spec|
       test_spec.source_files = "Tests/TinkLinkTests/**/*.swift"
   end
 
-  spec.dependency "TinkCore", "0.1.5"
+  spec.dependency "TinkCore", "~> 0.1.6"
 
   spec.static_framework = true
 end

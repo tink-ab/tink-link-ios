@@ -12,16 +12,6 @@ final class ProviderController {
     enum Error: Swift.Error, LocalizedError {
         case emptyProviderList
         case providerNotFound
-        case missingInternetConnection
-
-        init?(fetchProviderError error: Swift.Error) {
-            switch error {
-            case ServiceError.missingInternetConnection:
-                self = .missingInternetConnection
-            default:
-                return nil
-            }
-        }
     }
 
     let tink: Tink
@@ -76,8 +66,8 @@ final class ProviderController {
                     NotificationCenter.default.post(name: .providerControllerDidUpdateProviders, object: self)
                 }
             } catch {
-                self?.error = Error(fetchProviderError: error) ?? error
-                completion?(.failure(Error(fetchProviderError: error) ?? error))
+                self?.error = error
+                completion?(.failure(error))
                 NotificationCenter.default.post(name: .providerControllerDidFailWithError, object: self)
             }
         })
@@ -98,8 +88,8 @@ final class ProviderController {
             } catch ServiceError.notFound {
                 completion(.failure(Error.providerNotFound))
             } catch {
-                self?.error = Error(fetchProviderError: error) ?? error
-                completion(.failure(Error(fetchProviderError: error) ?? error))
+                self?.error = error
+                completion(.failure(error))
             }
         })
     }

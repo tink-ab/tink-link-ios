@@ -22,7 +22,7 @@ final class CredentialsCoordinator {
     enum Action {
         case create(provider: Provider, mode: AddCredentialsMode)
         case update(credentialsID: Credentials.ID)
-        case refresh(credentialsID: Credentials.ID)
+        case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
         case authenticate(credentialsID: Credentials.ID)
     }
 
@@ -83,10 +83,10 @@ final class CredentialsCoordinator {
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
 
-        case .refresh(credentialsID: let id):
+        case .refresh(credentialsID: let id, let forceAuthenticate):
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
-                self.addCredentialsSession.refreshCredentials(credentials: credentials) { result in
+                self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate) { result in
                     self.handleCompletion(for: result.map { ($0, nil) })
                 }
             }
@@ -114,10 +114,18 @@ final class CredentialsCoordinator {
             let values = try result.get()
             delegate?.didFinishCredentialsForm()
             showAddCredentialSuccess(with: .success(values), for: action)
+        } catch ThirdPartyAppAuthenticationTask.Error.cancelled {
+            if callCompletionOnError {
+                completion(.failure(.userCancelled))
+            }
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
             tinkLinkTracker.track(screen: .error)
-        } catch ServiceError.cancelled {
+        } catch SupplementInformationTask.Error.cancelled {
+            if callCompletionOnError {
+                completion(.failure(.userCancelled))
+            }
+        } catch TinkLinkError.userCancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }

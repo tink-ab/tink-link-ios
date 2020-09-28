@@ -27,11 +27,11 @@ public enum TinkLinkError: Error {
                 self = .unableToFetchProviders
             case .providerNotFound:
                 self = .providerNotFound
-            case .missingInternetConnection:
-                self = .missingInternetConnection
             }
         } else if case ServiceError.unauthenticated = error {
             self = .unauthenticated
+        } else if let error = error as? URLError, error.code == .notConnectedToInternet {
+            self = .missingInternetConnection
         } else {
             return nil
         }

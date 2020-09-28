@@ -55,7 +55,7 @@ class TinkLinkTracker {
                 self.isTest = false
             }
 
-        case .refresh(credentialsID: let id):
+        case .refresh(credentialsID: let id, _):
             self.flow = .credentialsRefresh
             self.credentialsID = id.value
             self.isTest = false
