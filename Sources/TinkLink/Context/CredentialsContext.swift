@@ -87,7 +87,7 @@ public final class CredentialsContext {
         refreshableItems: RefreshableItems = .all,
         completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
         authenticationHandler: @escaping AuthenticationTaskHandler,
-        progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
+        progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
@@ -188,7 +188,7 @@ public final class CredentialsContext {
         refreshableItems: RefreshableItems = .all,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authenticationHandler: @escaping AuthenticationTaskHandler,
-        progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
+        progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> RefreshCredentialsTask {
         // TODO: Filter out refreshableItems not supported by provider capabilities.
@@ -227,7 +227,7 @@ public final class CredentialsContext {
         form: Form? = nil,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authenticationHandler: @escaping AuthenticationTaskHandler,
-        progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
+        progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> UpdateCredentialsTask {
         let task = UpdateCredentialsTask(
@@ -292,7 +292,7 @@ public final class CredentialsContext {
     public func authenticate(
         _ credentials: Credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authenticationHandler: @escaping AuthenticationTaskHandler,
-        progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
+        progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> AuthenticateCredentialsTask {
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
