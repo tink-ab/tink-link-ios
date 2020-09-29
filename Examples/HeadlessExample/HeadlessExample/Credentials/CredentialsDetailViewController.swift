@@ -193,6 +193,11 @@ extension CredentialsDetailViewController {
         refreshCredentialsTask = credentialsContext.refresh(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            authenticationHandler: { [weak self] authentication in
+                DispatchQueue.main.async {
+                    self?.handleAuthentication(authentication)
+                }
+            },
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
                     self?.handleProgress(status)
@@ -228,6 +233,11 @@ extension CredentialsDetailViewController {
         refreshCredentialsTask = credentialsContext.authenticate(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            authenticationHandler: { [weak self] authentication in
+                DispatchQueue.main.async {
+                    self?.handleAuthentication(authentication)
+                }
+            },
             progressHandler: { [weak self] status in
                 DispatchQueue.main.async {
                     self?.handleProgress(status)
@@ -267,6 +277,12 @@ extension CredentialsDetailViewController {
                 showStatus(status, animated: true)
             }
             credentials = refreshedCredentials
+        }
+    }
+
+    private func handleAuthentication(_ authentication: AuthenticationTask) {
+        guard let refreshedCredentials = refreshCredentialsTask?.credentials else { return }
+        switch authentication {
         case .awaitingSupplementalInformation(let task):
             hideStatus(animated: true) {
                 self.showSupplementalInformation(for: task)
