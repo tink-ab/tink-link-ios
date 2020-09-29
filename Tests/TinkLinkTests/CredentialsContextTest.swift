@@ -20,7 +20,9 @@ class CredentialsContextTests: XCTestCase {
         let statusChangedToUpdating = expectation(description: "add credentials status should be changed to updating")
 
         let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
-        task = credentialsContextUnderTest.add(for: Provider.nordeaPassword, form: Form(provider: Provider.nordeaPassword), completionPredicate: completionPredicate, progressHandler: { status in
+        task = credentialsContextUnderTest.add(for: Provider.nordeaPassword, form: Form(provider: Provider.nordeaPassword), completionPredicate: completionPredicate, authenticationHandler: { task in
+            return
+        }, progressHandler: { status in
             switch status {
             case .created:
                 statusChangedToCreated.fulfill()
@@ -29,8 +31,6 @@ class CredentialsContextTests: XCTestCase {
             case .updating:
                 statusChangedToUpdating.fulfill()
             }
-        }, authenticationHandler: { task in
-            return
         }) { result in
             do {
                 _ = try result.get()
@@ -56,16 +56,7 @@ class CredentialsContextTests: XCTestCase {
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "add credentials status should be changed to awaitingSupplementalInformation")
 
         let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
-        task = credentialsContextUnderTest.add(for: Provider.testSupplementalInformation, form: Form(provider: Provider.testSupplementalInformation), completionPredicate: completionPredicate, progressHandler: { status in
-            switch status {
-            case .created:
-                statusChangedToCreated.fulfill()
-            case .updating:
-                statusChangedToUpdating.fulfill()
-            case .authenticating:
-                break
-            }
-        }, authenticationHandler: { task in
+        task = credentialsContextUnderTest.add(for: Provider.testSupplementalInformation, form: Form(provider: Provider.testSupplementalInformation), completionPredicate: completionPredicate, authenticationHandler: { task in
             switch task {
             case .awaitingSupplementalInformation(let task):
                 statusChangedToAwaitingSupplementalInformation.fulfill()
@@ -73,6 +64,15 @@ class CredentialsContextTests: XCTestCase {
                 form.fields[0].text = "test"
                 task.submit(form)
             case .awaitingThirdPartyAppAuthentication:
+                break
+            }
+        }, progressHandler: { status in
+            switch status {
+            case .created:
+                statusChangedToCreated.fulfill()
+            case .updating:
+                statusChangedToUpdating.fulfill()
+            case .authenticating:
                 break
             }
         }) { result in
@@ -101,16 +101,7 @@ class CredentialsContextTests: XCTestCase {
         let handledThirdPartyAppAuthenticationTask = expectation(description: "add credentials status should be changed to awaitingThirdPartyAppAuthentication")
 
         let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
-        task = credentialsContextUnderTest.add(for: Provider.testThirdPartyAuthentication, form: Form(provider: Provider.testThirdPartyAuthentication), completionPredicate: completionPredicate, progressHandler: { status in
-            switch status {
-            case .created:
-                statusChangedToCreated.fulfill()
-            case .updating:
-                statusChangedToUpdating.fulfill()
-            case .authenticating:
-                break
-            }
-        }, authenticationHandler: { task in
+        task = credentialsContextUnderTest.add(for: Provider.testThirdPartyAuthentication, form: Form(provider: Provider.testThirdPartyAuthentication), completionPredicate: completionPredicate, authenticationHandler: { task in
             switch task {
             case .awaitingSupplementalInformation:
                 break
@@ -123,6 +114,15 @@ class CredentialsContextTests: XCTestCase {
                         XCTFail("Failed to handle third party app authentication task with: \(error)")
                     }
                 }
+            }
+        }, progressHandler: { status in
+            switch status {
+            case .created:
+                statusChangedToCreated.fulfill()
+            case .updating:
+                statusChangedToUpdating.fulfill()
+            case .authenticating:
+                break
             }
         }) { result in
             do {
