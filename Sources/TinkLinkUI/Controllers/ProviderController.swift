@@ -50,8 +50,8 @@ final class ProviderController {
         tink._beginUITask()
         defer { tink._endUITask() }
 
-        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: kinds, accessTypes: .all)
-        providerContext.fetchProviders(attributes: attributes, completion: { [weak self] result in
+        let filter = ProviderContext.Filter(capabilities: .all, kinds: kinds, accessTypes: .all)
+        providerContext.fetchProviders(filter: filter, completion: { [weak self] result in
 
             self?.isFetching = false
             do {
