@@ -54,7 +54,7 @@ public final class ProviderContext {
     /// - Parameter completion: A result representing either a list of providers or an error.
     @discardableResult
     public func fetchProviders(filter: Filter = .default, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
-        return service.providers(id: nil, capabilities: filter.capabilities, includeTestProviders: filter.kinds.contains(.test), excludeNonTestProviders: filter.kinds == [.test]) { result in
+        return service.providers(name: nil, capabilities: filter.capabilities, includeTestProviders: filter.kinds.contains(.test), excludeNonTestProviders: filter.kinds == [.test]) { result in
             do {
                 let fetchedProviders = try result.get()
                 let filteredProviders = fetchedProviders.filter { filter.accessTypes.contains($0.accessType) && filter.kinds.contains($0.kind) }
@@ -75,8 +75,8 @@ public final class ProviderContext {
     /// - Parameter id: ID of provider to fetch.
     /// - Parameter completion: A result representing either a single provider or an error.
     @discardableResult
-    public func fetchProvider(with id: Provider.ID, completion: @escaping (Result<Provider, Error>) -> Void) -> RetryCancellable? {
-        return service.providers(id: id, capabilities: nil, includeTestProviders: true, excludeNonTestProviders: false) { result in
+    public func fetchProvider(with name: Provider.Name, completion: @escaping (Result<Provider, Error>) -> Void) -> RetryCancellable? {
+        return service.providers(name: name, capabilities: nil, includeTestProviders: true, excludeNonTestProviders: false) { result in
             do {
                 let fetchedProviders = try result.get()
                 if let provider = fetchedProviders.first {

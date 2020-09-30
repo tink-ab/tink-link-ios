@@ -344,7 +344,7 @@ public final class TransferContext {
         }?.store(in: canceller)
 
         group.enter()
-        providerService.providers(id: nil, capabilities: .createBeneficiaries, includeTestProviders: true, excludeNonTestProviders: false) { result in
+        providerService.providers(name: nil, capabilities: .createBeneficiaries, includeTestProviders: true, excludeNonTestProviders: false) { result in
             do {
                 providers = try result.get()
             } catch {
@@ -358,8 +358,8 @@ public final class TransferContext {
                 completion(.failure(error))
             } else {
                 let filteredProviders = providers.filter { $0.financialInstitution.id == account.financialInstitutionID && $0.capabilities.contains(.createBeneficiaries) }
-                let credentialsByProviderID = Dictionary(grouping: credentialsList, by: \.providerID)
-                let capableCredentialsList = filteredProviders.flatMap { credentialsByProviderID[$0.id] ?? [] }
+                let credentialsByProviderName = Dictionary(grouping: credentialsList, by: \.providerName)
+                let capableCredentialsList = filteredProviders.flatMap { credentialsByProviderName[$0.name] ?? [] }
                 completion(.success(capableCredentialsList))
             }
         }

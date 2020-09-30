@@ -7,7 +7,7 @@ public final class CredentialsContext {
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
 
-    private var newlyAddedCredentials: [Provider.ID: Credentials] = [:]
+    private var newlyAddedCredentials: [Provider.Name: Credentials] = [:]
 
     // MARK: - Creating a Credentials Context
 
@@ -101,8 +101,8 @@ public final class CredentialsContext {
             completion: completion
         )
 
-        if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
+        if let newlyAddedCredentials = newlyAddedCredentials[provider.name] {
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
@@ -112,10 +112,10 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = service.create(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
+            task.callCanceller = service.create(providerName: provider.name, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
-                    self?.newlyAddedCredentials[provider.id] = credential
+                    self?.newlyAddedCredentials[provider.name] = credential
                     task?.startObserving(credential)
                 } catch {
                     let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
@@ -242,7 +242,7 @@ public final class CredentialsContext {
 
         task.callCanceller = service.update(
             id: credentials.id,
-            providerID: credentials.providerID,
+            providerName: credentials.providerName,
             appURI: redirectURI,
             callbackURI: nil,
             fields: form?.makeFields() ?? [:],

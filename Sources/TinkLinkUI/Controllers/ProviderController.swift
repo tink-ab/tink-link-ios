@@ -94,7 +94,7 @@ final class ProviderController {
         })
     }
 
-    func provider(providerID: Provider.ID) -> Provider? {
-        return providers.first { $0.id == providerID }
+    func provider(providerName: Provider.Name) -> Provider? {
+        return providers.first { $0.name == providerName }
     }
 }
