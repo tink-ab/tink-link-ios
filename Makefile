@@ -70,8 +70,7 @@ ui-test:
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
 build-uikit-example:
-	xcodebuild clean build \
-		-resolvePackageDependencies \
+	xcodebuild -resolvePackageDependencies \
 		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
 
 	xcodebuild clean build \
@@ -80,8 +79,7 @@ build-uikit-example:
 		-destination 'generic/platform=iOS Simulator'
 
 build-swiftui-example:
-	xcodebuild clean build \
-		-resolvePackageDependencies \
+	xcodebuild -resolvePackageDependencies \
 		-project Examples/HeadlessExample-SwiftUI/HeadlessExample.xcodeproj \
 
 	xcodebuild clean build \
@@ -90,8 +88,7 @@ build-swiftui-example:
 		-destination 'generic/platform=iOS Simulator'
 
 build-tinklinkui-example:
-	xcodebuild clean build \
-		-resolvePackageDependencies \
+	xcodebuild -resolvePackageDependencies \
 		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 
 	xcodebuild clean build \
