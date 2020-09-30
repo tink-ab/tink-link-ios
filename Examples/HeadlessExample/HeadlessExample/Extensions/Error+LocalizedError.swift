@@ -12,6 +12,8 @@ extension AddCredentialsTask.Error: LocalizedError {
             return "Permanent Failure"
         case .temporaryFailure:
             return "Temporary Failure"
+        case .cancelled:
+            return "Cancelled"
         }
     }
 
@@ -22,6 +24,8 @@ extension AddCredentialsTask.Error: LocalizedError {
              .permanentFailure(let payload),
              .temporaryFailure(let payload):
             return payload
+        case .cancelled:
+            return nil
         }
     }
 }
@@ -37,6 +41,8 @@ extension RefreshCredentialsTask.Error: LocalizedError {
             return "Temporary Failure"
         case .disabled:
             return "Disabled"
+        case .cancelled:
+            return "Cancelled"
         }
     }
 
@@ -47,6 +53,8 @@ extension RefreshCredentialsTask.Error: LocalizedError {
              .temporaryFailure(let payload),
              .disabled(let payload):
             return payload
+        case .cancelled:
+            return nil
         }
     }
 }
@@ -118,6 +126,8 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
             return "This bank does not support authenticating on another device."
         case .decodingQRCodeImageFailed:
             return "Failed to decode the QR code image."
+        case .cancelled:
+            return "Cancelled"
         }
     }
 
@@ -130,6 +140,8 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
+            return nil
+        case .cancelled:
             return nil
         }
     }
