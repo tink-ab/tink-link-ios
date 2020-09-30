@@ -323,7 +323,11 @@ extension Form {
     ///
     /// - Parameter credential: The credentials to create a form for.
     public init(credentials: Credentials) {
-        self.init(fieldSpecifications: credentials.supplementalInformationFields)
+        if case let .awaitingSupplementalInformation(fields) = credentials.status {
+            self.init(fieldSpecifications: fields)
+        } else {
+            self.init(fieldSpecifications: [])
+        }
     }
 
     /// Creates a form for updating the given credentials.

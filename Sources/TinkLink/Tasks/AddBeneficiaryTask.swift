@@ -212,9 +212,9 @@ extension AddBeneficiaryTask {
             }
             supplementInformationTask = task
             authenticationHandler(.awaitingSupplementalInformation(task))
-        case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
+        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication), .awaitingMobileBankIDAuthentication(let thirdPartyAppAuthentication):
             credentialsStatusPollingTask?.stopPolling()
-            let task = try makeThirdPartyAppAuthenticationTask(for: credentials) { [weak self] result in
+            let task = try makeThirdPartyAppAuthenticationTask(for: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication) { [weak self] result in
                 do {
                     try result.get()
                     self?.credentialsStatusPollingTask?.startPolling()
@@ -227,27 +227,27 @@ extension AddBeneficiaryTask {
             authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
         case .updating:
             // Need to keep polling here, updated is the state when the authentication is done.
-            progressHandler(.updating(status: credentials.statusPayload))
+            progressHandler(.updating(status: ""))
         case .updated:
             complete(with: .success(credentials))
-        case .permanentError:
-            throw Error.authenticationFailed(credentials.statusPayload)
-        case .temporaryError:
-            throw Error.authenticationFailed(credentials.statusPayload)
-        case .authenticationError:
+        case .permanentError(let errorMessage):
+            throw Error.authenticationFailed(errorMessage ?? "")
+        case .temporaryError(let errorMessage):
+            throw Error.authenticationFailed(errorMessage ?? "")
+        case .authenticationError(let errorMessage):
             var payload: String
             // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
             // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
             if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                payload = credentials.statusPayload.isEmpty ? "Please try again later" : credentials.statusPayload
+                payload = (errorMessage ?? "").isEmpty ? "Please try again later" : ""
             } else {
-                payload = credentials.statusPayload
+                payload = errorMessage ?? ""
             }
             throw Error.authenticationFailed(payload)
         case .disabled:
-            throw Error.disabledCredentials(credentials.statusPayload)
+            throw Error.disabledCredentials("")
         case .sessionExpired:
-            throw Error.credentialsSessionExpired(credentials.statusPayload)
+            throw Error.credentialsSessionExpired("")
         case .unknown:
             assertionFailure("Unknown credentials status!")
         }
@@ -265,10 +265,7 @@ extension AddBeneficiaryTask {
         )
     }
 
-    private func makeThirdPartyAppAuthenticationTask(for credentials: Credentials, completion: @escaping (Result<Void, Swift.Error>) -> Void) throws -> ThirdPartyAppAuthenticationTask {
-        guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
-            throw Error.authenticationFailed("Missing third party app authentication deeplink URL.")
-        }
+    private func makeThirdPartyAppAuthenticationTask(for credentials: Credentials, thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication, completion: @escaping (Result<Void, Swift.Error>) -> Void) throws -> ThirdPartyAppAuthenticationTask {
 
         return ThirdPartyAppAuthenticationTask(
             credentials: credentials,

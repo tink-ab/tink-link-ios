@@ -158,12 +158,8 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                     }
                 }
                 authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
-            case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
+            case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication), .awaitingMobileBankIDAuthentication(let thirdPartyAppAuthentication):
                 credentialsStatusPollingTask?.stopPolling()
-                guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
-                    assertionFailure("Missing third pary app authentication deeplink URL!")
-                    return
-                }
 
                 let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
@@ -181,24 +177,24 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                 if completionPredicate.successPredicate == .updating {
                     complete(with: .success(credentials))
                 } else {
-                    progressHandler(.updating(status: credentials.statusPayload))
+                    progressHandler(.updating(status: ""))
                 }
             case .updated:
                 if completionPredicate.successPredicate == .updated {
                     complete(with: .success(credentials))
                 }
-            case .permanentError:
-                complete(with: .failure(AddCredentialsTask.Error.permanentFailure(credentials.statusPayload)))
-            case .temporaryError:
-                complete(with: .failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload)))
-            case .authenticationError:
+            case .permanentError(let errorMessage):
+                complete(with: .failure(AddCredentialsTask.Error.permanentFailure(errorMessage ?? "")))
+            case .temporaryError(let errorMessage):
+                complete(with: .failure(AddCredentialsTask.Error.temporaryFailure(errorMessage ?? "")))
+            case .authenticationError(let errorMessage):
                 var payload: String
                 // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
                 // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
                 if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                    payload = credentials.statusPayload.isEmpty ? "Please try again later" : credentials.statusPayload
+                    payload = (errorMessage ?? "").isEmpty ? "Please try again later" : ""
                 } else {
-                    payload = credentials.statusPayload
+                    payload = errorMessage ?? ""
                 }
                 complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(payload)))
             case .disabled:

@@ -99,7 +99,7 @@ public final class CredentialsContext {
             completion: completion
         )
 
-        if let newlyAddedCredentials = newlyAddedCredentials[provider.name] {
+        if let newlyAddedCredentials = newlyAddedCredentials[providerName] {
             task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
                 do {
                     let credentials = try result.get()
@@ -110,10 +110,10 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = service.create(providerName: provider.name, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
+            task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
-                    self?.newlyAddedCredentials[provider.name] = credential
+                    self?.newlyAddedCredentials[providerName] = credential
                     task?.startObserving(credential)
                 } catch {
                     let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
