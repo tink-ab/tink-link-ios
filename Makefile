@@ -79,6 +79,7 @@ build-uikit-example:
 		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
 		-scheme HeadlessExample \
 		-destination 'generic/platform=iOS Simulator' \
+		-derivedDataPath .tmp/DerivedData/ \
 		-clonedSourcePackagesDirPath .tmp/spm/
 
 build-swiftui-example:
@@ -92,6 +93,7 @@ build-swiftui-example:
 		-project Examples/HeadlessExample-SwiftUI/HeadlessExample.xcodeproj \
 		-scheme HeadlessExample \
 		-destination 'generic/platform=iOS Simulator' \
+		-derivedDataPath .tmp/DerivedData/ \
 		-clonedSourcePackagesDirPath .tmp/spm/
 
 build-tinklinkui-example:
@@ -105,6 +107,7 @@ build-tinklinkui-example:
 		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro' \
+		-derivedDataPath .tmp/DerivedData/ \
 		-clonedSourcePackagesDirPath .tmp/spm/
 
 translations:
