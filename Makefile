@@ -73,39 +73,39 @@ build-uikit-example:
 
 	xcodebuild -resolvePackageDependencies \
 		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
-		-clonedSourcePackagesDirPath $(TMPDIR)spm/
+		-clonedSourcePackagesDirPath .tmp/spm/
 
 	xcodebuild build \
 		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
 		-scheme HeadlessExample \
 		-destination 'generic/platform=iOS Simulator' \
-		-clonedSourcePackagesDirPath $(TMPDIR)spm/
+		-clonedSourcePackagesDirPath .tmp/spm/
 
 build-swiftui-example:
 	xcodebuild clean
 
 	xcodebuild -resolvePackageDependencies \
 		-project Examples/HeadlessExample-SwiftUI/HeadlessExample.xcodeproj \
-		-clonedSourcePackagesDirPath $(TMPDIR)spm/
+		-clonedSourcePackagesDirPath .tmp/spm/
 
 	xcodebuild build \
 		-project Examples/HeadlessExample-SwiftUI/HeadlessExample.xcodeproj \
 		-scheme HeadlessExample \
 		-destination 'generic/platform=iOS Simulator' \
-		-clonedSourcePackagesDirPath $(TMPDIR)spm/
+		-clonedSourcePackagesDirPath .tmp/spm/
 
 build-tinklinkui-example:
 	xcodebuild clean
 
 	xcodebuild -resolvePackageDependencies \
 		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
-		-clonedSourcePackagesDirPath $(TMPDIR)spm/
+		-clonedSourcePackagesDirPath .tmp/spm/
 
 	xcodebuild build \
 		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro' \
-		-clonedSourcePackagesDirPath $(TMPDIR)spm/
+		-clonedSourcePackagesDirPath .tmp/spm/
 
 translations:
 	rm -rf Sources/TinkLinkUI/Translations.bundle/Base.lproj/
@@ -117,6 +117,7 @@ carthage-project:
 
 clean: 
 	rm -rf ./docs
+	rm -rf ./.tmp
 
 release: format lint
 
