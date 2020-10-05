@@ -72,7 +72,9 @@ final class AddCredentialsSession {
                     }
                 }
             }, authenticationHandler: { [weak self] authentication in
-                self?.handleAuthenticationTask(authentication: authentication)
+                DispatchQueue.main.async {
+                    self?.handleAuthenticationTask(authentication: authentication)
+                }
             },
             completion: { [weak self] result in
                 DispatchQueue.main.async {
@@ -98,7 +100,9 @@ final class AddCredentialsSession {
                 self?.handleUpdateTaskStatus(status)
             }
         }, authenticationHandler: { [weak self] authentication in
-            self?.handleAuthenticationTask(authentication: authentication)
+            DispatchQueue.main.async {
+                self?.handleAuthenticationTask(authentication: authentication)
+            }
         }, completion: { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleCompletion(result) { result in
@@ -132,7 +136,9 @@ final class AddCredentialsSession {
                 self?.handleUpdateTaskStatus(status)
             }
         }, authenticationHandler: { [weak self] authentication in
-            self?.handleAuthenticationTask(authentication: authentication)
+            DispatchQueue.main.async {
+                self?.handleAuthenticationTask(authentication: authentication)
+            }
         }, completion: { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleCompletion(result) { result in
@@ -158,7 +164,9 @@ final class AddCredentialsSession {
                 self?.handleUpdateTaskStatus(status)
             }
         }, authenticationHandler: { [weak self] authentication in
-            self?.handleAuthenticationTask(authentication: authentication)
+            DispatchQueue.main.async {
+                self?.handleAuthenticationTask(authentication: authentication)
+            }
         }, completion: { [weak self] result in
             DispatchQueue.main.async {
                 self?.handleCompletion(result) { result in
