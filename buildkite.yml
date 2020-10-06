@@ -1,4 +1,11 @@
 steps:
+  - name: ':pipeline: clean'
+    command: 'make clean'
+    agents:
+      queue: 'macos'
+
+  - wait
+
   - name: ':pipeline: Bootstrap'
     command: 'make bootstrap'
     agents:
