@@ -73,6 +73,9 @@ build-uikit-example:
 
 	xcodebuild -resolvePackageDependencies \
 		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
+		-scheme HeadlessExample \
+		-destination 'generic/platform=iOS Simulator' \
+		-derivedDataPath .tmp/DerivedData/ \
 		-clonedSourcePackagesDirPath .tmp/spm/
 
 	xcodebuild build \
