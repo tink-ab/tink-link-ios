@@ -5,7 +5,7 @@ extension RefreshableItems {
         var requestedRefreshableItems: RefreshableItems = [.accounts, .eInvoices, .transferDestinations]
 
         // Based on: https://github.com/tink-ab/tink-backend/blob/39c97c74a0eba4d039b5347de3781df378c3692f/src/main-system-features/aggregation_controller_v1/src/main/java/se/tink/libraries/aggregation_controller_v1/enums/RefreshableItem.java#L36
-        if scopes.contains(.transactions(.read)) || scopes.contains(.transactions(.read, .write)) || scopes.contains(.transactions(.read, .write, .categorize)) {
+        if scopes.contains(.transactions(.read)) || scopes.contains(.transactions(.read, .write)) || scopes.contains(.transactions(.read, .write, .categorize)) || scopes.contains(.transactions(.read, .categorize)) {
             requestedRefreshableItems.formUnion(.transactions)
         }
 
