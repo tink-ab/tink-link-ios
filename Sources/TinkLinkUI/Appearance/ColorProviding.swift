@@ -23,10 +23,10 @@ public protocol ColorProviding {
     var buttonText: UIColor { get }
 
     /// Color for the main background of grouped interface components.
-    @available(*, deprecated, message: "Use accentBackground to update elements background")
+    @available(*, deprecated, message: "Use background to update elements background")
     var groupedBackground: UIColor { get }
     /// Color for content layered on top of the main background of grouped interface components.
-    @available(*, deprecated, message: "Use accentBackground to update elements background")
+    @available(*, deprecated, message: "Use secondaryBackground to update secondary elements background")
     var secondaryGroupedBackground: UIColor { get }
 
     // Semantic colors:

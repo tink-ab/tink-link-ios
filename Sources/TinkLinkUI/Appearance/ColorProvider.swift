@@ -13,10 +13,10 @@ public class ColorProvider: ColorProviding {
     /// Color for content layered on top of the main background.
     public var secondaryBackground: UIColor = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
     /// Color for the main background of grouped interface components.
-    @available(*, deprecated, message: "Use accentBackground to update elements background")
+    @available(*, deprecated, message: "Use background to update elements background")
     public var groupedBackground: UIColor = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
     /// Color for content layered on top of the main background of grouped interface components.
-    @available(*, deprecated, message: "Use accentBackground to update elements background")
+    @available(*, deprecated, message: "Use secondaryBackground to update secondary elements background")
     public var secondaryGroupedBackground: UIColor = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
     /// Primary text color.
     public var label: UIColor = UIColor(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.0)
