@@ -72,4 +72,31 @@ public class ColorProvider: ColorProviding {
         self.warning = warning
         self.critical = critical
     }
+
+    public init(
+        accent: UIColor,
+        accentBackground: UIColor?,
+        background: UIColor,
+        secondaryBackground: UIColor,
+        label: UIColor,
+        secondaryLabel: UIColor,
+        separator: UIColor,
+        warning: UIColor,
+        critical: UIColor,
+        button: UIColor? = nil,
+        buttonText: UIColor? = nil
+    ) {
+        self.accent = accent
+        self.accentBackground = accentBackground ?? accent.mixedWith(color: Color.background, factor: 0.95)
+        self.background = background
+        self.secondaryBackground = secondaryBackground
+        self.label = label
+        self.secondaryLabel = secondaryLabel
+        self.separator = separator
+        self.accent = accent
+        self.warning = warning
+        self.critical = critical
+        self.button = button ?? accent
+        self.buttonText = buttonText ?? background
+    }
 }
