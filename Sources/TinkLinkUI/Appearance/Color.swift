@@ -7,8 +7,6 @@ public enum Color {}
 extension Color {
     static var background: UIColor { Appearance.colorProvider.background }
     static var secondaryBackground: UIColor { Appearance.colorProvider.secondaryBackground }
-    static var groupedBackground: UIColor { Appearance.colorProvider.groupedBackground }
-    static var secondaryGroupedBackground: UIColor { Appearance.colorProvider.secondaryGroupedBackground }
     static var label: UIColor { Appearance.colorProvider.label }
     static var secondaryLabel: UIColor { Appearance.colorProvider.secondaryLabel }
     static var separator: UIColor { Appearance.colorProvider.separator }
