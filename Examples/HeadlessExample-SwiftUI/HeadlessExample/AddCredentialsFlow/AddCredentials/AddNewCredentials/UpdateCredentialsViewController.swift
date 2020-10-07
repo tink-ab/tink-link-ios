@@ -169,6 +169,11 @@ extension UpdateCredentialsViewController {
             updateCredentialsTask = credentialsContext.update(
                 credentials,
                 form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+                authenticationHandler: { [weak self] authentication in
+                    DispatchQueue.main.async {
+                        self?.handleAuthentication(authentication)
+                    }
+                },
                 progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
                         self?.handleProgress(status)
@@ -191,6 +196,11 @@ extension UpdateCredentialsViewController {
             showUpdating(status: "Authenticating…")
         case .updating:
             showUpdating(status: "Connecting…")
+        }
+    }
+
+    private func handleAuthentication(_ authentication: AuthenticationTask) {
+        switch authentication {
         case .awaitingSupplementalInformation(let task):
             showSupplementalInformation(for: task)
         case .awaitingThirdPartyAppAuthentication(let task):

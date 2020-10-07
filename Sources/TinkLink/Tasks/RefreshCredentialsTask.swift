@@ -15,21 +15,14 @@ public typealias UpdateCredentialsTask = RefreshCredentialsTask
 /// Use `CredentialsContext` to create a task.
 public final class RefreshCredentialsTask: Identifiable, Cancellable {
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
+
     /// Indicates the state of a credentials being refreshed.
-    ///
-    /// - Note: For some states there are actions which need to be performed on the credentials.
     public enum Status {
         /// When starting the authentication process
         case authenticating
 
         /// User has been successfully authenticated, now downloading data.
         case updating(status: String)
-
-        /// Trigger for the client to prompt the user to fill out supplemental information.
-        case awaitingSupplementalInformation(SupplementInformationTask)
-
-        /// Trigger for the client to prompt the user to open the third party authentication flow
-        case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
@@ -61,15 +54,18 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     private let credentialsService: CredentialsService
     private let appUri: URL
     let progressHandler: (Status) -> Void
+    private let authenticationHandler: AuthenticationTaskHandler
+
     let completion: (Result<Credentials, Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
 
-    init(credentials: Credentials, credentialsService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, appUri: URL, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
+    init(credentials: Credentials, credentialsService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, appUri: URL, progressHandler: @escaping (Status) -> Void, authenticationHandler: @escaping AuthenticationTaskHandler, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
         self.credentials = credentials
         self.credentialsService = credentialsService
         self.appUri = appUri
         self.progressHandler = progressHandler
+        self.authenticationHandler = authenticationHandler
         self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired
         self.completion = completion
     }
@@ -126,7 +122,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                         self.complete(with: .failure(error))
                     }
                 }
-                progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
+                authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
                 guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
                     assertionFailure("Missing third pary app authentication deeplink URL!")
@@ -142,7 +138,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                         self.complete(with: .failure(error))
                     }
                 }
-                progressHandler(.awaitingThirdPartyAppAuthentication(task))
+                authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
                 progressHandler(.updating(status: credentials.statusPayload))
             case .updated:

@@ -26,6 +26,9 @@ final class CredentialsController: ObservableObject {
         task = credentialsContext.refresh(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            authenticationHandler: { [weak self] authentication in
+                self?.handleAuthentication(authentication)
+            },
             progressHandler: { [weak self] in
                 self?.refreshProgressHandler(status: $0)
             },
@@ -40,6 +43,9 @@ final class CredentialsController: ObservableObject {
         task = credentialsContext.authenticate(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+            authenticationHandler: { [weak self] authentication in
+                self?.handleAuthentication(authentication)
+            },
             progressHandler: { [weak self] in
                 self?.refreshProgressHandler(status: $0)
             }, completion: { [weak self] result in
@@ -75,16 +81,21 @@ final class CredentialsController: ObservableObject {
         switch status {
         case .authenticating:
             break
-        case .awaitingSupplementalInformation(let supplementInformationTask):
-            self.supplementInformationTask = supplementInformationTask
-        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-            thirdPartyAppAuthenticationTask.handle()
         case .updating:
             if let index = credentials.firstIndex(where: { $0.id == refreshedCredentials.id }) {
                 DispatchQueue.main.async { [weak self] in
                     self?.credentials[index] = refreshedCredentials
                 }
             }
+        }
+    }
+
+    private func handleAuthentication(_ authentication: AuthenticationTask) {
+        switch authentication {
+        case .awaitingSupplementalInformation(let supplementInformationTask):
+            self.supplementInformationTask = supplementInformationTask
+        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
+            thirdPartyAppAuthenticationTask.handle()
         }
     }
 
