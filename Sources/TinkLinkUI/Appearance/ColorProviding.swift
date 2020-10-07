@@ -35,3 +35,8 @@ public protocol ColorProviding {
     /// Color representing critical cases.
     var critical: UIColor { get }
 }
+
+extension ColorProviding {
+    var groupedBackground: UIColor { background }
+    var secondaryGroupedBackground: UIColor { secondaryBackground }
+}
