@@ -69,9 +69,9 @@ public class ColorProvider: ColorProviding {
         self.secondaryLabel = secondaryLabel
         self.separator = separator
         self.accent = accent
-        self.accentBackground = accentBackground ?? accent.mixedWith(color: Color.background, factor: 0.95)
         self.warning = warning
         self.critical = critical
+        self.accentBackground = accent.mixedWith(color: Color.background, factor: 0.95)
         self.button = accent
         self.buttonText = background
     }
