@@ -57,7 +57,7 @@ final class AddCredentialsStatusViewController: UIViewController {
         cancelButton.titleLabel?.font = Font.callout
         cancelButton.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
         cancelButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        cancelButton.tintColor = Color.accent
+        cancelButton.tintColor = Color.button
 
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.topAnchor),
