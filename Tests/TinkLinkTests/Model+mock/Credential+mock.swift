@@ -2,6 +2,22 @@ import Foundation
 import TinkCore
 
 extension Credentials {
+    static let testPasswordCredentials = Credentials(
+        id: Credentials.ID("test"),
+        providerID: Provider.ID("test"),
+        kind: .password,
+        status: .created,
+        statusPayload: "",
+        statusUpdated: nil,
+        updated: Date(),
+        fields: [:],
+        supplementalInformationFields: [],
+        thirdPartyAppAuthentication: nil,
+        sessionExpiryDate: Date()
+    )
+}
+
+extension Credentials {
     // Extension to update the status for test
     init(credentials: Credentials, status: Credentials.Status) {
         var supplementalInformationFields = [Provider.FieldSpecification]()
@@ -45,13 +61,16 @@ extension Credentials {
     }
 
     static func makeTestCredentials(
+        id: Credentials.ID = Credentials.ID(UUID().uuidString),
         providerID: Provider.ID,
         kind: Kind,
         status: Status,
-        fields: [String: String] = [:]
+        fields: [String: String] = [:],
+        supplementalInformationFields: [Provider.FieldSpecification] = [],
+        thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil
     ) -> Credentials {
         return Credentials(
-            id: Credentials.ID(UUID().uuidString),
+            id: id,
             providerID: providerID,
             kind: kind,
             status: status,
@@ -59,8 +78,8 @@ extension Credentials {
             statusUpdated: Date(),
             updated: Date(),
             fields: fields,
-            supplementalInformationFields: [],
-            thirdPartyAppAuthentication: nil,
+            supplementalInformationFields: supplementalInformationFields,
+            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
             sessionExpiryDate: nil
         )
     }
