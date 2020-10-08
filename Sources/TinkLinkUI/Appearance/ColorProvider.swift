@@ -2,13 +2,21 @@ import UIKit
 
 /// A type that can provide custom colors for Tink views.
 public class ColorProvider: ColorProviding {
+    /// Colors for indicators and other similar elements background.
+    public var accentBackground: UIColor = UIColor(red: 236.0 / 255.0, green: 241.0 / 255.0, blue: 243.0 / 255.0, alpha: 1.0)
+    /// Color for primary buttons background and secondary buttons label.
+    public var button: UIColor = UIColor(red: 0.259, green: 0.467, blue: 0.514, alpha: 1.0)
+    /// Color for the primary buttons label.
+    public var buttonLabel: UIColor = .white
     /// Color for the main background of the interface.
     public var background: UIColor = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
     /// Color for content layered on top of the main background.
     public var secondaryBackground: UIColor = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
     /// Color for the main background of grouped interface components.
+    @available(*, deprecated, message: "Use background to update elements background")
     public var groupedBackground: UIColor = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
     /// Color for content layered on top of the main background of grouped interface components.
+    @available(*, deprecated, message: "Use secondaryBackground to update secondary elements background")
     public var secondaryGroupedBackground: UIColor = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
     /// Primary text color.
     public var label: UIColor = UIColor(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.0)
@@ -40,6 +48,7 @@ public class ColorProvider: ColorProviding {
     ///   - accent: Colors for buttons, indicators and other similar elements.
     ///   - warning:  Color representing a warning.
     ///   - critical: Color representing a critical error or warning
+    @available(*, deprecated, message: "Use init(accent:background:secondaryBackground:label:secondaryLabel:separator:warning:critical:) instead.")
     public init(
         background: UIColor,
         secondaryBackground: UIColor,
@@ -62,5 +71,37 @@ public class ColorProvider: ColorProviding {
         self.accent = accent
         self.warning = warning
         self.critical = critical
+        self.accentBackground = accent.mixedWith(color: Color.background, factor: 0.95)
+        self.button = accent
+        self.buttonLabel = background
+    }
+
+    public init(
+        accent: UIColor,
+        accentBackground: UIColor?,
+        background: UIColor,
+        secondaryBackground: UIColor,
+        label: UIColor,
+        secondaryLabel: UIColor,
+        separator: UIColor,
+        warning: UIColor,
+        critical: UIColor,
+        button: UIColor? = nil,
+        buttonText: UIColor? = nil
+    ) {
+        self.accent = accent
+        self.accentBackground = accentBackground ?? accent.mixedWith(color: Color.background, factor: 0.95)
+        self.background = background
+        self.secondaryBackground = secondaryBackground
+        self.label = label
+        self.secondaryLabel = secondaryLabel
+        self.separator = separator
+        self.accent = accent
+        self.warning = warning
+        self.critical = critical
+        self.button = button ?? accent
+        self.buttonLabel = buttonText ?? background
+        self.groupedBackground = background
+        self.secondaryGroupedBackground = secondaryBackground
     }
 }

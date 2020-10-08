@@ -20,7 +20,7 @@ final class LoadingViewController: UIViewController {
         errorView.delegate = self
         errorView.isHidden = true
 
-        cancelButton.setTitleColor(Color.accent, for: .normal)
+        cancelButton.setTitleColor(Color.button, for: .normal)
         cancelButton.titleLabel?.font = Font.headline
         cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         cancelButton.setTitle(Strings.Generic.cancel, for: .normal)
