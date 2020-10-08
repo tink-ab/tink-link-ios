@@ -15,40 +15,28 @@ final class ProviderHelpTextView: UIView {
     }
 
     private func setup() {
-        directionalLayoutMargins = .init(top: 16, leading: 24, bottom: 16, trailing: 24)
+        directionalLayoutMargins = .init(top: 0, leading: 24, bottom: 12, trailing: 24)
 
         helpTextView.linkTextAttributes = [
-            NSAttributedString.Key.font: Font.footnote.bold,
-            NSAttributedString.Key.foregroundColor: Color.accent
+            NSAttributedString.Key.font: Font.footnote,
+            NSAttributedString.Key.foregroundColor: Color.secondaryLabel
         ]
 
         helpTextView.textContainer.lineFragmentPadding = 0
-        helpTextView.textContainerInset = .init(top: 12, left: 12, bottom: 12, right: 12)
+        helpTextView.textContainerInset = .zero
         helpTextView.backgroundColor = .clear
         helpTextView.isScrollEnabled = false
         helpTextView.isEditable = false
         helpTextView.adjustsFontForContentSizeCategory = true
 
-        let containerView = UIView()
-        containerView.backgroundColor = Color.accentBackground
-        containerView.layer.cornerRadius = 4
-
-        addSubview(containerView)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-
-        containerView.addSubview(helpTextView)
+        addSubview(helpTextView)
         helpTextView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            containerView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            containerView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-            containerView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
-
-            helpTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            helpTextView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            helpTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            helpTextView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            helpTextView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            helpTextView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            helpTextView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            helpTextView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
     }
 
