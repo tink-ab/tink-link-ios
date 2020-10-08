@@ -31,7 +31,7 @@ final class AddCredentialsSession {
     private var isPresenterShowingStatusScreen = true
     private var authorizationGroup = DispatchGroup()
 
-    private var providerID: Provider.ID?
+    private var providerName: Provider.ID?
 
     init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, tinkLinkTracker: TinkLinkTracker, presenter: CredentialsCoordinatorPresenting?) {
         self.presenter = presenter
@@ -83,7 +83,7 @@ final class AddCredentialsSession {
             }
         )
         isPresenterShowingStatusScreen = false
-        providerID = provider.id
+        providerName = provider.id
         addCredentialsMode = mode
         cancelCallback = {
             onCompletion(.failure(TinkLinkError.userCancelled))
@@ -112,7 +112,7 @@ final class AddCredentialsSession {
         })
 
         isPresenterShowingStatusScreen = false
-        providerID = credentials.providerID
+        providerName = credentials.providerName
         cancelCallback = {
             completion(.failure(TinkLinkError.userCancelled))
         }
@@ -148,7 +148,7 @@ final class AddCredentialsSession {
         })
 
         isPresenterShowingStatusScreen = true
-        providerID = credentials.providerID
+        providerName = credentials.providerName
         cancelCallback = {
             completion(.failure(TinkLinkError.userCancelled))
         }
@@ -176,7 +176,7 @@ final class AddCredentialsSession {
         })
 
         isPresenterShowingStatusScreen = true
-        providerID = credentials.providerID
+        providerName = credentials.providerName
         cancelCallback = {
             completion(.failure(TinkLinkError.userCancelled))
         }
@@ -192,7 +192,7 @@ final class AddCredentialsSession {
             break
         case .updating:
             let status: String
-            if let providerID = providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
+            if let providerName = providerName, let bankName = providerController.provider(providerName: providerName)?.displayName {
                 let statusFormatText = Strings.CredentialsStatus.updating
                 status = String(format: statusFormatText, bankName)
             } else {
@@ -209,7 +209,7 @@ final class AddCredentialsSession {
             break
         case .updating:
             let status: String
-            if let providerID = providerID, let bankName = providerController.provider(providerID: providerID)?.displayName {
+            if let providerName = providerName, let bankName = providerController.provider(providerName: providerName)?.displayName {
                 let statusFormatText = Strings.CredentialsStatus.updating
                 status = String(format: statusFormatText, bankName)
             } else {

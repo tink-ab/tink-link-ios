@@ -7,7 +7,7 @@ public final class CredentialsContext {
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
 
-    private var newlyAddedCredentials: [Provider.ID: Credentials] = [:]
+    private var newlyAddedCredentials: [Provider.Name: Credentials] = [:]
 
     // MARK: - Creating a Credentials Context
 
@@ -58,6 +58,79 @@ public final class CredentialsContext {
     ///
     /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
     ///
+    ///     let addCredentialsTask = credentialsContext.add(forProviderWithName: providerName, form: form, progressHandler: { status in
+    ///         switch status {
+    ///         case .awaitingSupplementalInformation(let supplementInformationTask):
+    ///             <#Present form for supplemental information task#>
+    ///         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication):
+    ///             <#Open third party app deep link URL#>
+    ///         default:
+    ///             break
+    ///         }
+    ///     }, completion: { result in
+    ///         <#Handle result#>
+    ///     }
+    ///
+    /// - Parameters:
+    ///   - providerName: The provider (financial institution) that the credentials is connected to.
+    ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
+    ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
+    ///   - completionPredicate: Predicate for when credentials task should complete.
+    ///   - progressHandler: The block to execute with progress information about the credential's status.
+    ///   - status: Indicates the state of a credentials being added.
+    ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
+    ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
+    /// - Returns: The add credentials task.
+    public func add(
+        forProviderWithName providerName: Provider.Name,
+        form: Form,
+        refreshableItems: RefreshableItems = .all,
+        completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
+        authenticationHandler: @escaping AuthenticationTaskHandler,
+        progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void = { _ in },
+        completion: @escaping (_ result: Result<Credentials, Error>) -> Void
+    ) -> AddCredentialsTask {
+        let task = AddCredentialsTask(
+            credentialsService: service,
+            completionPredicate: completionPredicate,
+            appUri: redirectURI,
+            progressHandler: progressHandler,
+            authenticationHandler: authenticationHandler, 
+            completion: completion
+        )
+
+        if let newlyAddedCredentials = newlyAddedCredentials[provider.name] {
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
+                do {
+                    let credentials = try result.get()
+                    task.startObserving(credentials)
+                } catch {
+                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
+                    completion(.failure(mappedError))
+                }
+            }
+        } else {
+            task.callCanceller = service.create(providerName: provider.name, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
+                do {
+                    let credential = try result.get()
+                    self?.newlyAddedCredentials[provider.name] = credential
+                    task?.startObserving(credential)
+                } catch {
+                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
+                    completion(.failure(mappedError))
+                }
+            }
+        }
+        return task
+    }
+
+    /// Adds a credentials for the user.
+    ///
+    /// Required scopes:
+    /// - credentials:write
+    ///
+    /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
+    ///
     ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, progressHandler: { status in
     ///         switch status {
     ///         case .awaitingSupplementalInformation(let supplementInformationTask):
@@ -86,44 +159,12 @@ public final class CredentialsContext {
         form: Form,
         refreshableItems: RefreshableItems = .all,
         completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
-        authenticationHandler: @escaping AuthenticationTaskHandler,
-        progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void = { _ in },
+        progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
 
-        let task = AddCredentialsTask(
-            credentialsService: service,
-            completionPredicate: completionPredicate,
-            appUri: redirectURI,
-            progressHandler: progressHandler,
-            authenticationHandler: authenticationHandler, 
-            completion: completion
-        )
-
-        if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
-                do {
-                    let credentials = try result.get()
-                    task.startObserving(credentials)
-                } catch {
-                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
-                    completion(.failure(mappedError))
-                }
-            }
-        } else {
-            task.callCanceller = service.create(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
-                do {
-                    let credential = try result.get()
-                    self?.newlyAddedCredentials[provider.id] = credential
-                    task?.startObserving(credential)
-                } catch {
-                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
-                    completion(.failure(mappedError))
-                }
-            }
-        }
-        return task
+        return add(forProviderWithName: provider.name, form: form, refreshableItems: refreshableItems, completionPredicate: completionPredicate, progressHandler: progressHandler, completion: completion)
     }
 
     /// Fetch a list of the current user's credentials.
@@ -242,7 +283,7 @@ public final class CredentialsContext {
 
         task.callCanceller = service.update(
             id: credentials.id,
-            providerID: credentials.providerID,
+            providerName: credentials.providerName,
             appURI: redirectURI,
             callbackURI: nil,
             fields: form?.makeFields() ?? [:],

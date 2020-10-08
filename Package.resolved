@@ -21,11 +21,11 @@
       },
       {
         "package": "TinkCore",
-        "repositoryURL": "https://github.com/tink-ab/tink-core-ios",
+        "repositoryURL": "git@github.com:tink-ab/tink-core-ios-private.git",
         "state": {
-          "branch": null,
-          "revision": "44c282bcdee09c8e6e9c827ee875bd82d7fab620",
-          "version": "0.1.6"
+          "branch": "1.0",
+          "revision": "a893e27f91efe871437f3adb579ce5cc390c02d3",
+          "version": null
         }
       }
     ]
