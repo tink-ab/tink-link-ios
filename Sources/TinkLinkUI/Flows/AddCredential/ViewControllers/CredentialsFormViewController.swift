@@ -27,7 +27,7 @@ final class CredentialsFormViewController: UIViewController {
 
     private let formTableViewController: FormTableViewController
 
-    private lazy var helpLabel = AddCredentialsHelpTextView()
+    private lazy var helpLabel = ProviderHelpTextView()
     private lazy var headerView = AddCredentialsHeaderView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
     private lazy var gradientView = GradientView()

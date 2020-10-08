@@ -1,7 +1,7 @@
 import UIKit
 import Down
 
-final class AddCredentialsHelpTextView: UIView {
+final class ProviderHelpTextView: UIView {
     private let helpTextView = UnselectableTextView()
 
     override init(frame: CGRect) {
