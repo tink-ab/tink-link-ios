@@ -174,7 +174,8 @@ extension CredentialsFormViewController {
         frame.size.height = headerHeight
         formTableViewController.tableView.tableHeaderView = headerView
         formTableViewController.tableView.tableHeaderView?.frame = frame
-        formTableViewController.additionalSafeAreaInsets.bottom = button.rounded ? 0 : view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
+
+        formTableViewController.additionalSafeAreaInsets.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
     }
 
     override func viewLayoutMarginsDidChange() {
