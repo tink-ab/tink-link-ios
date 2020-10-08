@@ -7,7 +7,7 @@ public class ColorProvider: ColorProviding {
     /// Color for buttons background.
     public var button: UIColor = UIColor(red: 0.259, green: 0.467, blue: 0.514, alpha: 1.0)
     /// Color for buttons text.
-    public var buttonText: UIColor = .white
+    public var buttonLabel: UIColor = .white
     /// Color for the main background of the interface.
     public var background: UIColor = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
     /// Color for content layered on top of the main background.
@@ -73,7 +73,7 @@ public class ColorProvider: ColorProviding {
         self.critical = critical
         self.accentBackground = accent.mixedWith(color: Color.background, factor: 0.95)
         self.button = accent
-        self.buttonText = background
+        self.buttonLabel = background
     }
 
     public init(
@@ -100,7 +100,7 @@ public class ColorProvider: ColorProviding {
         self.warning = warning
         self.critical = critical
         self.button = button ?? accent
-        self.buttonText = buttonText ?? background
+        self.buttonLabel = buttonText ?? background
         self.groupedBackground = background
         self.secondaryGroupedBackground = secondaryBackground
     }

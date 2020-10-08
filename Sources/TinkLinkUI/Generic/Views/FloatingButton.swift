@@ -20,7 +20,7 @@ final class FloatingButton: UIControl {
         }
     }
 
-    var textColor: UIColor = Color.buttonText {
+    var textColor: UIColor = Color.buttonLabel {
         didSet {
             titleLabel.textColor = textColor
             imageView.tintColor = textColor

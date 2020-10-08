@@ -13,7 +13,7 @@ extension Color {
     static var accent: UIColor { Appearance.colorProvider.accent }
     static var accentBackground: UIColor { Appearance.colorProvider.accentBackground }
     static var button: UIColor { Appearance.colorProvider.button }
-    static var buttonText: UIColor { Appearance.colorProvider.buttonText }
+    static var buttonLabel: UIColor { Appearance.colorProvider.buttonLabel }
 
     static var warning: UIColor { Appearance.colorProvider.warning }
     static var critical: UIColor { Appearance.colorProvider.critical }

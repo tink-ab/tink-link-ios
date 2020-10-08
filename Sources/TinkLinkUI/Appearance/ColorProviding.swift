@@ -19,8 +19,8 @@ public protocol ColorProviding {
 
     /// Color for buttons background.
     var button: UIColor { get }
-    /// Color for buttons text.
-    var buttonText: UIColor { get }
+    /// Color for buttons label.
+    var buttonLabel: UIColor { get }
 
     /// Color for the main background of grouped interface components.
     @available(*, deprecated, message: "Use background to update elements background")
