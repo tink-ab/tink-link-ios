@@ -55,7 +55,7 @@ final class LoadingErrorView: UIView {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.setLineHeight(lineHeight: 20)
 
-        cancelButton.setTitleColor(Color.accent, for: .normal)
+        cancelButton.setTitleColor(Color.button, for: .normal)
         cancelButton.titleLabel?.font = Font.headline
         cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         cancelButton.setTitle(Strings.Generic.cancel, for: .normal)
