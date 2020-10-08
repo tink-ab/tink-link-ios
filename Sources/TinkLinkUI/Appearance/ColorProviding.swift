@@ -17,9 +17,9 @@ public protocol ColorProviding {
     /// Color for content layered on top of the main background.
     var secondaryBackground: UIColor { get }
 
-    /// Color for buttons background.
+    /// Color for primary buttons background and secondary buttons label.
     var button: UIColor { get }
-    /// Color for buttons label.
+    /// Color for the primary buttons label.
     var buttonLabel: UIColor { get }
 
     /// Color for the main background of grouped interface components.

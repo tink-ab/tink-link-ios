@@ -4,9 +4,9 @@ import UIKit
 public class ColorProvider: ColorProviding {
     /// Colors for indicators and other similar elements background.
     public var accentBackground: UIColor = UIColor(red: 236.0 / 255.0, green: 241.0 / 255.0, blue: 243.0 / 255.0, alpha: 1.0)
-    /// Color for buttons background.
+    /// Color for primary buttons background and secondary buttons label.
     public var button: UIColor = UIColor(red: 0.259, green: 0.467, blue: 0.514, alpha: 1.0)
-    /// Color for buttons text.
+    /// Color for the primary buttons label.
     public var buttonLabel: UIColor = .white
     /// Color for the main background of the interface.
     public var background: UIColor = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
