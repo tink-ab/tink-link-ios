@@ -3,19 +3,7 @@ import TinkCore
 @testable import TinkLink
 
 class MockedSuccessPaymentCredentialsService: CredentialsService {
-    var credentials = Credentials(
-        id: Credentials.ID("test"),
-        providerID: Provider.ID("test"),
-        kind: .password,
-        status: .created,
-        statusPayload: "",
-        statusUpdated: nil,
-        updated: Date(),
-        fields: [:],
-        supplementalInformationFields: [],
-        thirdPartyAppAuthentication: nil,
-        sessionExpiryDate: Date()
-    )
+    var credentials = Credentials.testPasswordCredentials
 
     func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
         completion(.success([credentials]))
@@ -86,19 +74,7 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
 }
 
 class MockedAuthenticationErrorCredentialsService: CredentialsService {
-    var credentials = Credentials(
-        id: Credentials.ID("test"),
-        providerID: Provider.ID("test"),
-        kind: .password,
-        status: .created,
-        statusPayload: "",
-        statusUpdated: nil,
-        updated: Date(),
-        fields: [:],
-        supplementalInformationFields: [],
-        thirdPartyAppAuthentication: nil,
-        sessionExpiryDate: Date()
-    )
+    var credentials = Credentials.testPasswordCredentials
 
     func credentialsList(completion: @escaping (Result<[Credentials], Error>) -> Void) -> RetryCancellable? {
         completion(.success([credentials]))
