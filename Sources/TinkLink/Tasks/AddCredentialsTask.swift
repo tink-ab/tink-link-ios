@@ -213,6 +213,8 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                 fatalError("Credential's session shouldn't expire during creation.")
             case .unknown:
                 assertionFailure("Unknown credentials status!")
+            @unknown default:
+                assertionFailure("Unknown credentials status!")
             }
         } catch ServiceError.cancelled {
             complete(with: .failure(Error.cancelled))
