@@ -56,9 +56,9 @@ extension AuthenticationUserTypePickerViewController {
             cell.setIcon(.corporate)
             cell.setTitle(text: Strings.SelectAuthenticationUserType.corporate)
         case .unknown:
-            fatalError("Unknow authentication user type")
+            assertionFailure("Unknow authentication user type")
         @unknown default:
-            fatalError("Unknow authentication user type")
+            assertionFailure("Unknow authentication user type")
         }
         return cell
     }
