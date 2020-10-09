@@ -1,0 +1,575 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TinkLink
+import Foundation
+import Security
+import Swift
+@_exported import TinkCore
+import UIKit
+extension Account {
+  public struct URI : Swift.Equatable, Swift.ExpressibleByStringLiteral {
+    public let value: Swift.String
+    public init(_ value: Swift.String)
+    public init(stringLiteral value: Swift.String)
+    public static func == (a: TinkCore.Account.URI, b: TinkCore.Account.URI) -> Swift.Bool
+    public typealias StringLiteralType = Swift.String
+    public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+    public typealias UnicodeScalarLiteralType = Swift.String
+  }
+}
+extension Account.URI {
+  @available(*, deprecated, renamed: "AccountNumberKind")
+  public typealias Kind = TinkCore.AccountNumberKind
+}
+extension Account.URI {
+  public init?(kind: TinkCore.AccountNumberKind, accountNumber: Swift.String)
+}
+extension Account.URI {
+  public init(account: TinkCore.Account)
+}
+@_hasMissingDesignatedInitializers final public class AddBeneficiaryTask : TinkCore.Cancellable {
+  public enum Status {
+    case requestSent
+    case authenticating
+    case updating(status: Swift.String)
+  }
+  public enum Error : Swift.Error {
+    case invalidBeneficiary(Swift.String)
+    case authenticationFailed(Swift.String)
+    case disabledCredentials(Swift.String)
+    case credentialsSessionExpired(Swift.String)
+    case notFound(Swift.String)
+  }
+  @objc deinit
+}
+extension AddBeneficiaryTask {
+  final public func cancel()
+}
+@_hasMissingDesignatedInitializers final public class AddCredentialsTask : Swift.Identifiable, TinkCore.Cancellable {
+  public enum Status {
+    case created
+    case authenticating
+    case updating(status: Swift.String)
+    case awaitingSupplementalInformation(TinkLink.SupplementInformationTask)
+    case awaitingThirdPartyAppAuthentication(TinkLink.ThirdPartyAppAuthenticationTask)
+  }
+  public enum Error : Swift.Error {
+    case authenticationFailed(Swift.String)
+    case temporaryFailure(Swift.String)
+    case permanentFailure(Swift.String)
+    case credentialsAlreadyExists(Swift.String)
+  }
+  final public var credentials: TinkCore.Credentials? {
+    get
+  }
+  public struct CompletionPredicate {
+    public enum SuccessPredicate {
+      case updating
+      case updated
+      public static func == (a: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate, b: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate) -> Swift.Bool
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+    }
+    public let successPredicate: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate
+    public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool
+    public init(successPredicate: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool)
+  }
+  final public let completionPredicate: TinkLink.AddCredentialsTask.CompletionPredicate
+  final public func cancel()
+  @objc deinit
+  public typealias ID = Swift.ObjectIdentifier
+}
+public enum AuthenticationTask {
+  case awaitingSupplementalInformation(TinkLink.SupplementInformationTask)
+  case awaitingThirdPartyAppAuthentication(TinkLink.ThirdPartyAppAuthenticationTask)
+}
+final public class AuthorizationContext {
+  public enum Error : Swift.Error {
+    case invalidScopeOrRedirectURI(Swift.String)
+  }
+  public init(tink: TinkCore.Tink = .shared)
+  @discardableResult
+  final public func _authorize(scopes: [TinkCore.Scope], completion: @escaping (Swift.Result<TinkCore.AuthorizationCode, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @discardableResult
+  final public func fetchClientDescription(completion: @escaping (Swift.Result<TinkCore.ClientDescription, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @objc deinit
+}
+extension Beneficiary {
+  @available(*, deprecated, message: "Use BeneficiaryAccount instead.")
+  public struct URI : Swift.Equatable, Swift.ExpressibleByStringLiteral {
+    public let value: Swift.String
+    public init(_ value: Swift.String)
+    public init(stringLiteral value: Swift.String)
+    public static func == (a: TinkCore.Beneficiary.URI, b: TinkCore.Beneficiary.URI) -> Swift.Bool
+    public typealias StringLiteralType = Swift.String
+    public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+    public typealias UnicodeScalarLiteralType = Swift.String
+  }
+}
+@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
+extension Beneficiary.URI {
+  @available(*, deprecated, renamed: "AccountNumberKind")
+  public typealias Kind = TinkCore.AccountNumberKind
+}
+@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
+extension Beneficiary.URI {
+  public init?(kind: TinkCore.AccountNumberKind, accountNumber: Swift.String)
+}
+@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
+extension Beneficiary.URI {
+  public init?(beneficiary: TinkCore.Beneficiary)
+}
+public struct BeneficiaryAccount {
+  public let accountNumberKind: TinkCore.AccountNumberKind
+  public let accountNumber: Swift.String
+  public let name: Swift.String?
+  public init(accountNumberKind: TinkCore.AccountNumberKind, accountNumber: Swift.String, name: Swift.String? = nil)
+}
+final public class ConsentContext {
+  public enum Error : Swift.Error {
+    case invalidScopeOrRedirectURI(Swift.String)
+  }
+  public init(tink: TinkCore.Tink = .shared)
+  @discardableResult
+  final public func fetchScopeDescriptions(scopes: [TinkCore.Scope], completion: @escaping (Swift.Result<[TinkCore.ScopeDescription], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  final public func termsAndConditions(for locale: Foundation.Locale = .current) -> Foundation.URL
+  final public func privacyPolicy(for locale: Foundation.Locale = .current) -> Foundation.URL
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class CredentialsContext {
+  convenience public init(tink: TinkCore.Tink = .shared)
+  @objc deinit
+  final public func add(for provider: TinkCore.Provider, form: TinkLink.Form, refreshableItems: TinkCore.RefreshableItems = .all, completionPredicate: TinkLink.AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true), progressHandler: @escaping (TinkLink.AddCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.AddCredentialsTask
+  @available(*, deprecated, renamed: "fetchCredentialsList")
+  @discardableResult
+  final public func fetchCredentials(completion: @escaping (Swift.Result<[TinkCore.Credentials], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @discardableResult
+  final public func fetchCredentialsList(completion: @escaping (Swift.Result<[TinkCore.Credentials], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @discardableResult
+  final public func fetchCredentials(with id: TinkCore.Credentials.ID, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  final public func refresh(_ credentials: TinkCore.Credentials, refreshableItems: TinkCore.RefreshableItems = .all, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.RefreshCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.RefreshCredentialsTask
+  @available(*, deprecated, message: "Use update(_:form:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:progressHandler:completion) method instead.")
+  final public func update(_ credentials: TinkCore.Credentials, form: TinkLink.Form? = nil, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @discardableResult
+  final public func update(_ credentials: TinkCore.Credentials, form: TinkLink.Form? = nil, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.UpdateCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.UpdateCredentialsTask
+  @discardableResult
+  final public func delete(_ credentials: TinkCore.Credentials, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  final public func authenticate(_ credentials: TinkCore.Credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.AuthenticateCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.AuthenticateCredentialsTask
+}
+extension DispatchWorkItem : TinkCore.Cancellable {
+}
+public struct Form {
+  public struct Fields : Swift.MutableCollection, Swift.RandomAccessCollection {
+    public var startIndex: Swift.Int {
+      get
+    }
+    public var endIndex: Swift.Int {
+      get
+    }
+    public subscript(position: Swift.Int) -> TinkLink.Form.Field {
+      get
+      set
+    }
+    public func index(after i: Swift.Int) -> Swift.Int
+    public subscript(name fieldName: Swift.String) -> TinkLink.Form.Field? {
+      get
+      set
+    }
+    public typealias Element = TinkLink.Form.Field
+    public typealias Index = Swift.Int
+    public typealias SubSequence = Swift.Slice<TinkLink.Form.Fields>
+    public typealias Indices = Swift.Range<TinkLink.Form.Fields.Index>
+    public typealias Iterator = Swift.IndexingIterator<TinkLink.Form.Fields>
+  }
+  public var fields: TinkLink.Form.Fields
+  public var areFieldsValid: Swift.Bool {
+    get
+  }
+  public func validateFields() throws
+  public struct Field {
+    public var text: Swift.String
+    public let name: Swift.String
+    public let validationRules: TinkLink.Form.Field.ValidationRules
+    public let attributes: TinkLink.Form.Field.Attributes
+    public struct ValidationRules {
+      public let isOptional: Swift.Bool
+      public let maxLength: Swift.Int?
+      public let minLength: Swift.Int?
+    }
+    public struct Attributes {
+      public enum InputType {
+        case `default`
+        case numeric
+        public static func == (a: TinkLink.Form.Field.Attributes.InputType, b: TinkLink.Form.Field.Attributes.InputType) -> Swift.Bool
+        public var hashValue: Swift.Int {
+          get
+        }
+        public func hash(into hasher: inout Swift.Hasher)
+      }
+      public let description: Swift.String
+      public let placeholder: Swift.String
+      public let helpText: Swift.String
+      public let isSecureTextEntry: Swift.Bool
+      public let inputType: TinkLink.Form.Field.Attributes.InputType
+      public let isEditable: Swift.Bool
+    }
+    public enum ValidationError : Swift.Error {
+      case invalid(fieldName: Swift.String, reason: Swift.String)
+      case maxLengthLimit(fieldName: Swift.String, maxLength: Swift.Int)
+      case minLengthLimit(fieldName: Swift.String, minLength: Swift.Int)
+      case requiredFieldEmptyValue(fieldName: Swift.String)
+      public var reason: Swift.String? {
+        get
+      }
+    }
+    public var isValid: Swift.Bool {
+      get
+    }
+    public func validate() throws
+  }
+  public struct ValidationError : Swift.Error {
+    public var errors: [TinkLink.Form.Field.ValidationError]
+    public subscript(fieldName fieldName: Swift.String) -> TinkLink.Form.Field.ValidationError? {
+      get
+    }
+  }
+}
+extension Form {
+  public init(provider: TinkCore.Provider)
+  public init(credentials: TinkCore.Credentials)
+  public init(updatingCredentials: TinkCore.Credentials, provider: TinkCore.Provider)
+  public init(supplementInformationTask: TinkLink.SupplementInformationTask)
+}
+@_hasMissingDesignatedInitializers final public class InitiateTransferTask : TinkCore.Cancellable {
+  public enum Status {
+    case created(TinkCore.Transfer.ID)
+    case authenticating
+    case updating(status: Swift.String)
+    case executing(status: Swift.String)
+  }
+  public typealias AuthenticationTask = TinkLink.AuthenticationTask
+  public enum Error : Swift.Error {
+    case authenticationFailed(Swift.String?)
+    case disabledCredentials(Swift.String?)
+    case credentialsSessionExpired(Swift.String?)
+    case cancelled(Swift.String?)
+    case failed(Swift.String?)
+  }
+  public struct Receipt {
+    public let id: TinkCore.Transfer.ID
+    public let message: Swift.String?
+  }
+  final public func cancel()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class ProviderContext {
+  public struct Attributes : Swift.Hashable {
+    public let capabilities: TinkCore.Provider.Capabilities
+    public let kinds: Swift.Set<TinkCore.Provider.Kind>
+    public let accessTypes: Swift.Set<TinkCore.Provider.AccessType>
+    public init(capabilities: TinkCore.Provider.Capabilities, kinds: Swift.Set<TinkCore.Provider.Kind>, accessTypes: Swift.Set<TinkCore.Provider.AccessType>)
+    public static let `default`: TinkLink.ProviderContext.Attributes
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: TinkLink.ProviderContext.Attributes, b: TinkLink.ProviderContext.Attributes) -> Swift.Bool
+  }
+  convenience public init(tink: TinkCore.Tink = .shared)
+  @discardableResult
+  final public func fetchProviders(attributes: TinkLink.ProviderContext.Attributes = .default, completion: @escaping (Swift.Result<[TinkCore.Provider], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @discardableResult
+  final public func fetchProvider(with id: TinkCore.Provider.ID, completion: @escaping (Swift.Result<TinkCore.Provider, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @objc deinit
+}
+public struct ProviderTree {
+  public let financialInstitutionGroups: [TinkLink.ProviderTree.FinancialInstitutionGroupNode]
+  public init(providers: [TinkCore.Provider])
+  public func makeFinancialInstitutions() -> [TinkLink.ProviderTree.FinancialInstitutionNode]
+  public struct CredentialsKindNode : Swift.Comparable {
+    public static func < (lhs: TinkLink.ProviderTree.CredentialsKindNode, rhs: TinkLink.ProviderTree.CredentialsKindNode) -> Swift.Bool
+    public static func == (lhs: TinkLink.ProviderTree.CredentialsKindNode, rhs: TinkLink.ProviderTree.CredentialsKindNode) -> Swift.Bool
+    public struct ID : Swift.Hashable, Swift.ExpressibleByStringLiteral {
+      public init(stringLiteral value: Swift.String)
+      public init(_ value: Swift.String)
+      public let value: Swift.String
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+      public typealias StringLiteralType = Swift.String
+      public static func == (a: TinkLink.ProviderTree.CredentialsKindNode.ID, b: TinkLink.ProviderTree.CredentialsKindNode.ID) -> Swift.Bool
+      public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+      public typealias UnicodeScalarLiteralType = Swift.String
+    }
+    public var id: TinkLink.ProviderTree.CredentialsKindNode.ID {
+      get
+    }
+    public let provider: TinkCore.Provider
+    public var credentialsKind: TinkCore.Credentials.Kind {
+      get
+    }
+    public var displayDescription: Swift.String {
+      get
+    }
+    public var imageURL: Foundation.URL? {
+      get
+    }
+  }
+  public enum AccessTypeNode : Swift.Comparable {
+    public static func < (lhs: TinkLink.ProviderTree.AccessTypeNode, rhs: TinkLink.ProviderTree.AccessTypeNode) -> Swift.Bool
+    public static func == (lhs: TinkLink.ProviderTree.AccessTypeNode, rhs: TinkLink.ProviderTree.AccessTypeNode) -> Swift.Bool
+    public struct ID : Swift.Hashable, Swift.ExpressibleByStringLiteral {
+      public init(stringLiteral value: Swift.String)
+      public init(_ value: Swift.String)
+      public let value: Swift.String
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+      public typealias StringLiteralType = Swift.String
+      public static func == (a: TinkLink.ProviderTree.AccessTypeNode.ID, b: TinkLink.ProviderTree.AccessTypeNode.ID) -> Swift.Bool
+      public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+      public typealias UnicodeScalarLiteralType = Swift.String
+    }
+    case provider(TinkCore.Provider)
+    case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
+    public var id: TinkLink.ProviderTree.AccessTypeNode.ID {
+      get
+    }
+    public var providers: [TinkCore.Provider] {
+      get
+    }
+    public var accessType: TinkCore.Provider.AccessType {
+      get
+    }
+    public var imageURL: Foundation.URL? {
+      get
+    }
+  }
+  public enum AuthenticationUserTypeNode : Swift.Comparable {
+    public static func < (lhs: TinkLink.ProviderTree.AuthenticationUserTypeNode, rhs: TinkLink.ProviderTree.AuthenticationUserTypeNode) -> Swift.Bool
+    public static func == (lhs: TinkLink.ProviderTree.AuthenticationUserTypeNode, rhs: TinkLink.ProviderTree.AuthenticationUserTypeNode) -> Swift.Bool
+    case provider(TinkCore.Provider)
+    case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
+    case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
+    public var providers: [TinkCore.Provider] {
+      get
+    }
+    public var authenticationUserType: TinkCore.Provider.AuthenticationUserType {
+      get
+    }
+    public var imageURL: Foundation.URL? {
+      get
+    }
+    public var financialInstitution: TinkCore.Provider.FinancialInstitution {
+      get
+    }
+  }
+  public enum FinancialInstitutionNode : Swift.Comparable {
+    public static func < (lhs: TinkLink.ProviderTree.FinancialInstitutionNode, rhs: TinkLink.ProviderTree.FinancialInstitutionNode) -> Swift.Bool
+    public static func == (lhs: TinkLink.ProviderTree.FinancialInstitutionNode, rhs: TinkLink.ProviderTree.FinancialInstitutionNode) -> Swift.Bool
+    public struct ID : Swift.Hashable, Swift.ExpressibleByStringLiteral {
+      public init(stringLiteral value: Swift.String)
+      public init(_ value: Swift.String)
+      public let value: Swift.String
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+      public typealias StringLiteralType = Swift.String
+      public static func == (a: TinkLink.ProviderTree.FinancialInstitutionNode.ID, b: TinkLink.ProviderTree.FinancialInstitutionNode.ID) -> Swift.Bool
+      public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+      public typealias UnicodeScalarLiteralType = Swift.String
+    }
+    case provider(TinkCore.Provider)
+    case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
+    case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
+    case authenticationUserTypes([TinkLink.ProviderTree.AuthenticationUserTypeNode])
+    public var id: TinkLink.ProviderTree.FinancialInstitutionNode.ID {
+      get
+    }
+    public var providers: [TinkCore.Provider] {
+      get
+    }
+    public var financialInstitution: TinkCore.Provider.FinancialInstitution {
+      get
+    }
+    public var imageURL: Foundation.URL? {
+      get
+    }
+  }
+  public enum FinancialInstitutionGroupNode : Swift.Identifiable {
+    public struct ID : Swift.Hashable, Swift.ExpressibleByStringLiteral {
+      public init(stringLiteral value: Swift.String)
+      public init(_ value: Swift.String)
+      public let value: Swift.String
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+      public typealias StringLiteralType = Swift.String
+      public static func == (a: TinkLink.ProviderTree.FinancialInstitutionGroupNode.ID, b: TinkLink.ProviderTree.FinancialInstitutionGroupNode.ID) -> Swift.Bool
+      public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+      public typealias UnicodeScalarLiteralType = Swift.String
+    }
+    case provider(TinkCore.Provider)
+    case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
+    case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
+    case financialInstitutions([TinkLink.ProviderTree.FinancialInstitutionNode])
+    case authenticationUserTypes([TinkLink.ProviderTree.AuthenticationUserTypeNode])
+    public var id: TinkLink.ProviderTree.FinancialInstitutionGroupNode.ID {
+      get
+    }
+    public var providers: [TinkCore.Provider] {
+      get
+    }
+    public var displayName: Swift.String {
+      get
+    }
+    public var imageURL: Foundation.URL? {
+      get
+    }
+  }
+}
+extension Array where Element == TinkLink.ProviderTree.FinancialInstitutionGroupNode {
+  public func makeFinancialInstitutions() -> [TinkLink.ProviderTree.FinancialInstitutionNode]
+}
+public typealias AuthenticateCredentialsTask = TinkLink.RefreshCredentialsTask
+public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
+@_hasMissingDesignatedInitializers final public class RefreshCredentialsTask : Swift.Identifiable, TinkCore.Cancellable {
+  public enum Status {
+    case authenticating
+    case updating(status: Swift.String)
+    case awaitingSupplementalInformation(TinkLink.SupplementInformationTask)
+    case awaitingThirdPartyAppAuthentication(TinkLink.ThirdPartyAppAuthenticationTask)
+  }
+  public enum Error : Swift.Error {
+    case authenticationFailed(Swift.String)
+    case temporaryFailure(Swift.String)
+    case permanentFailure(Swift.String)
+    case disabled(Swift.String)
+  }
+  final public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool
+  final public var credentials: TinkCore.Credentials {
+    get
+  }
+  final public func cancel()
+  @objc deinit
+  public typealias ID = Swift.ObjectIdentifier
+}
+@_hasMissingDesignatedInitializers final public class SupplementInformationTask : Swift.Identifiable {
+  final public let credentials: TinkCore.Credentials
+  final public func submit(_ form: TinkLink.Form)
+  final public func cancel()
+  @objc deinit
+  public typealias ID = Swift.ObjectIdentifier
+}
+@_hasMissingDesignatedInitializers public class ThirdPartyAppAuthenticationTask : Swift.Identifiable {
+  public enum Error : Swift.Error {
+    case deeplinkURLNotFound
+    case downloadRequired(title: Swift.String?, message: Swift.String?, appStoreURL: Foundation.URL?)
+    case doesNotSupportAuthenticatingOnAnotherDevice
+    case decodingQRCodeImageFailed
+    public var appStoreURL: Foundation.URL? {
+      get
+    }
+  }
+  public enum Status {
+    case qrImage(UIKit.UIImage)
+    case awaitAuthenticationOnAnotherDevice
+  }
+  public var thirdPartyAppAuthentication: TinkCore.Credentials.ThirdPartyAppAuthentication {
+    get
+  }
+  public var shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool {
+    get
+  }
+  @available(*, deprecated, renamed: "handle")
+  public func openThirdPartyApp(with application: UIKit.UIApplication = .shared)
+  public func handle()
+  public func handle(statusHandler: @escaping (TinkLink.ThirdPartyAppAuthenticationTask.Status) -> Swift.Void)
+  public func cancel()
+  @objc deinit
+  public typealias ID = Swift.ObjectIdentifier
+}
+extension Tink {
+  @available(iOS 9.0, *)
+  public func open(_ url: Foundation.URL, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)? = nil) -> Swift.Bool
+}
+final public class TinkLinkSessionManager : TinkCore.SessionManager {
+  public init(tink: TinkCore.Tink = .shared)
+  @objc deinit
+}
+extension Tink {
+  public var authorizationContext: TinkLink.AuthorizationContext {
+    get
+  }
+  public var consentContext: TinkLink.ConsentContext {
+    get
+  }
+  public var credentialsContext: TinkLink.CredentialsContext {
+    get
+  }
+  public var providerContext: TinkLink.ProviderContext {
+    get
+  }
+  public var transferContext: TinkLink.TransferContext {
+    get
+  }
+}
+extension Tink {
+  public func _beginUITask()
+  public func _endUITask()
+}
+public protocol TransferAccountIdentifiable {
+  var transferAccountID: Swift.String { get }
+}
+extension Account : TinkLink.TransferAccountIdentifiable {
+  public var transferAccountID: Swift.String {
+    get
+  }
+}
+extension Account.URI : TinkLink.TransferAccountIdentifiable {
+  public var transferAccountID: Swift.String {
+    get
+  }
+}
+extension Beneficiary : TinkLink.TransferAccountIdentifiable {
+  public var transferAccountID: Swift.String {
+    get
+  }
+}
+extension BeneficiaryAccount : TinkLink.TransferAccountIdentifiable {
+  public var transferAccountID: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class TransferContext {
+  convenience public init(tink: TinkCore.Tink = .shared)
+  @available(*, deprecated, message: "Use the initiateTransfer(from:to:amount:message:authentication:progress:completion) method with a `BeneficiaryAccount` instead.")
+  final public func initiateTransfer(fromAccountWithURI: TinkCore.Account.URI, toBeneficiaryWithURI: TinkCore.Beneficiary.URI, amount: TinkCore.CurrencyDenominatedAmount, message: TinkLink.InitiateTransferTask.Message, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.InitiateTransferTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkLink.InitiateTransferTask.Receipt, Swift.Error>) -> Swift.Void) -> TinkLink.InitiateTransferTask
+  final public func initiateTransfer(from account: TinkLink.TransferAccountIdentifiable, to beneficiary: TinkLink.TransferAccountIdentifiable, amount: TinkCore.CurrencyDenominatedAmount, message: TinkLink.InitiateTransferTask.Message, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.InitiateTransferTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkLink.InitiateTransferTask.Receipt, Swift.Error>) -> Swift.Void) -> TinkLink.InitiateTransferTask
+  @discardableResult
+  final public func fetchAccounts(completion: @escaping (Swift.Result<[TinkCore.Account], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @discardableResult
+  final public func fetchBeneficiaries(for account: TinkCore.Account, completion: @escaping (Swift.Result<[TinkCore.Beneficiary], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @discardableResult
+  final public func fetchBeneficiaries(completion: @escaping (Swift.Result<[TinkCore.Beneficiary], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  final public func addBeneficiary(account beneficiaryAccount: TinkLink.BeneficiaryAccount, name: Swift.String, to ownerAccount: TinkCore.Account, credentials: TinkCore.Credentials? = nil, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.AddBeneficiaryTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void) -> TinkLink.AddBeneficiaryTask
+  final public func addBeneficiary(account beneficiaryAccount: TinkLink.BeneficiaryAccount, name: Swift.String, toAccountWithID ownerAccountID: TinkCore.Account.ID, onCredentialsWithID credentialsID: TinkCore.Credentials.ID, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.AddBeneficiaryTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void) -> TinkLink.AddBeneficiaryTask
+  @objc deinit
+}
+extension InitiateTransferTask {
+  public struct Message {
+    public var source: Swift.String?
+    public var destination: Swift.String
+    public init(source: Swift.String? = nil, destination: Swift.String)
+  }
+}
+extension TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate : Swift.Equatable {}
+extension TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate : Swift.Hashable {}
+extension TinkLink.Form.Field.Attributes.InputType : Swift.Equatable {}
+extension TinkLink.Form.Field.Attributes.InputType : Swift.Hashable {}
