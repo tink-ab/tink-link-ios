@@ -48,6 +48,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
+# 	sh scripts/updateCoreForTest.sh
 	xcodebuild clean test \
 		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
