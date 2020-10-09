@@ -5,6 +5,8 @@ rm -rf ./tink-core-ios-private
 git clone -v git@github.com:tink-ab/tink-core-ios-private.git
 cd ./tink-core-ios-private
 
+git fetch origin pull/103/head:pr-103 && git checkout pr-103
+
 make internal-distribution-framework
 cp -r ./build/TinkCore-internal.xcframework ./TinkCore.xcframework
 cd ..
