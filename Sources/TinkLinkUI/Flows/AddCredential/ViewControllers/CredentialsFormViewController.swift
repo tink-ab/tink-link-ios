@@ -27,6 +27,7 @@ final class CredentialsFormViewController: UIViewController {
 
     private let formTableViewController: FormTableViewController
 
+    private lazy var helpLabel = ProviderHelpTextView()
     private lazy var headerView = AddCredentialsHeaderView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
     private lazy var gradientView = GradientView()
@@ -133,6 +134,8 @@ extension CredentialsFormViewController {
         navigationItem.title = Strings.Credentials.title
         navigationItem.largeTitleDisplayMode = .never
 
+        setupHelpFootnote()
+        layoutHelpFootnote()
         setupButton()
 
         formTableViewController.onSubmit = { [weak self] in
@@ -171,7 +174,37 @@ extension CredentialsFormViewController {
         frame.size.height = headerHeight
         formTableViewController.tableView.tableHeaderView = headerView
         formTableViewController.tableView.tableHeaderView?.frame = frame
-        formTableViewController.additionalSafeAreaInsets.bottom = button.rounded ? 0 : view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
+
+        formTableViewController.additionalSafeAreaInsets.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
+    }
+
+    override func viewLayoutMarginsDidChange() {
+        super.viewLayoutMarginsDidChange()
+
+        layoutHelpFootnote()
+    }
+}
+
+// MARK: - Help Footnote
+
+extension CredentialsFormViewController {
+    private func setupHelpFootnote() {
+        guard let helpText = provider.helpText, !helpText.isEmpty else { return }
+        helpLabel.configure(markdownString: helpText)
+        formTableViewController.tableView.tableFooterView = helpLabel
+    }
+
+    private func layoutHelpFootnote() {
+        guard let footerView = formTableViewController.tableView.tableFooterView else {
+            return
+        }
+
+        let footerSize = footerView.systemLayoutSizeFitting(CGSize(width: view.bounds.width, height: 0), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
+
+        footerView.frame = CGRect(origin: .zero, size: CGSize(
+            width: view.bounds.width,
+            height: footerSize.height
+        ))
     }
 }
 
