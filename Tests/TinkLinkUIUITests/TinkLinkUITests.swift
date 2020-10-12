@@ -148,7 +148,8 @@ class TinkLinkUITests: XCTestCase {
         getStartedButton.tap()
 
         let chooseBankNavigationBar = app.navigationBars["Choose bank"]
-        let searchField = chooseBankNavigationBar.searchFields["Search for a bank or card"]
+
+        let searchField = app.searchFields["Search for a bank or card"]
         searchField.tap()
 
         let qrCodeProviderCell = app.tables["Search results"].staticTexts["Test BankID with QR code (successful)"]
