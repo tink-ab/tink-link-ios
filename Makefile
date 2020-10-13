@@ -64,6 +64,7 @@ build-carthage-frameworks:
 ui-test:
 	carthage bootstrap --platform iOS --no-use-binaries
 	xcodegen generate
+	defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
 	xcodebuild test \
 		-project TinkLink.xcodeproj \
 		-scheme TinkLinkUIUITestsHost_iOS \
