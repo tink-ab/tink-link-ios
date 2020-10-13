@@ -42,6 +42,7 @@ class TinkLinkUITests: XCTestCase {
         tablesQuery.staticTexts["Test BankID"].tap()
         tablesQuery.staticTexts["Test BankID (successful)"].tap()
         let numberField = tablesQuery.textFields["Social security number"]
+        XCTAssert(numberField.waitForExistence(timeout: 5))
         numberField.tap()
         numberField.typeText("180012121212")
 
@@ -72,6 +73,7 @@ class TinkLinkUITests: XCTestCase {
         passwordProviderCell.tap()
 
         let usernameField = tablesQuery.textFields["Username"]
+        XCTAssert(usernameField.waitForExistence(timeout: 5))
         usernameField.tap()
         usernameField.typeText("tink")
 
@@ -103,6 +105,7 @@ class TinkLinkUITests: XCTestCase {
         tablesQuery.staticTexts["Test Multi-Supplemental"].tap()
 
         let usernameField = tablesQuery.textFields["Username"]
+        XCTAssert(usernameField.waitForExistence(timeout: 5))
         usernameField.tap()
         usernameField.typeText("tink-test")
 
@@ -112,6 +115,7 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(supplementalInformationNavigationBar.waitForExistence(timeout: 5))
 
         let inputCodeField = app.tables.textFields["Input Code"]
+        XCTAssert(inputCodeField.waitForExistence(timeout: 5))
         inputCodeField.tap()
         inputCodeField.typeText("1234")
 
@@ -122,6 +126,7 @@ class TinkLinkUITests: XCTestCase {
 
         XCTAssertTrue(supplementalInformationNavigationBar.waitForExistence(timeout: 5))
 
+        XCTAssert(inputCodeField.waitForExistence(timeout: 5))
         inputCodeField.tap()
         inputCodeField.typeText("4321")
 
@@ -151,6 +156,7 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(chooseBankNavigationBar.waitForExistence(timeout: 10))
 
         let searchField = app.searchFields["Search for a bank or card"]
+        XCTAssert(searchField.waitForExistence(timeout: 5))
         searchField.tap()
 
         let qrCodeProviderCell = app.tables["Search results"].staticTexts["Test BankID with QR code (successful)"]
