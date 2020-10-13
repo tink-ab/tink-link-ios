@@ -103,7 +103,9 @@ class TinkLinkUITests: XCTestCase {
 
         let tablesQuery = app.tables
 
-        tablesQuery.staticTexts["Test Multi-Supplemental"].tap()
+        let multiSupplementalCell = tablesQuery.cells.staticTexts["Test Multi-Supplemental"]
+        XCTAssert(multiSupplementalCell.waitForExistence(timeout: 5))
+        multiSupplementalCell.tap()
 
         let usernameField = tablesQuery.textFields["Username"]
         XCTAssert(usernameField.waitForExistence(timeout: 5))
