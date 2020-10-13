@@ -38,9 +38,10 @@ class TinkLinkUITests: XCTestCase {
         getStartedButton.tap()
 
         let tablesQuery = app.tables
-        XCTAssertTrue(tablesQuery.staticTexts["Test BankID"].waitForExistence(timeout: 3))
-        tablesQuery.staticTexts["Test BankID"].tap()
-        tablesQuery.staticTexts["Test BankID (successful)"].tap()
+        let bankIDCell = tablesQuery.cells.staticTexts["Test BankID"]
+        XCTAssertTrue(bankIDCell.waitForExistence(timeout: 3))
+        bankIDCell.tap()
+        tablesQuery.cells.staticTexts["Test BankID (successful)"].tap()
         let numberField = tablesQuery.textFields["Social security number"]
         XCTAssert(numberField.waitForExistence(timeout: 5))
         numberField.tap()
