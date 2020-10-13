@@ -67,7 +67,7 @@ ui-test:
 	xcodebuild test \
 		-project TinkLink.xcodeproj \
 		-scheme TinkLinkUIUITestsHost_iOS \
-		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
+		-destination 'platform=iOS Simulator,name=iPhone 8 Plus'
 
 build-uikit-example:
 	xcodebuild clean
