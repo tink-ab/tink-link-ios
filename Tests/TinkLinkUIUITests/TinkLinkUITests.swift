@@ -49,6 +49,9 @@ class TinkLinkUITests: XCTestCase {
 
         app.buttons["Open BankID"].tap()
 
+        let waitingStatusText = app.staticTexts["Waiting for authentication on another device."]
+        XCTAssertTrue(waitingStatusText.waitForExistence(timeout: 20))
+
         let statusText = app.staticTexts["Connecting to Test BankID (successful), please wait…"]
         XCTAssertTrue(statusText.waitForExistence(timeout: 20))
 
@@ -127,6 +130,9 @@ class TinkLinkUITests: XCTestCase {
         let submitButton = app.buttons["Submit"]
         submitButton.tap()
 
+        let sendingStatusText = app.staticTexts["Sending…"]
+        XCTAssertTrue(sendingStatusText.waitForExistence(timeout: 5))
+
         XCTAssertTrue(supplementalInformationNavigationBar.waitForExistence(timeout: 5))
 
         XCTAssert(inputCodeField.waitForExistence(timeout: 5))
@@ -135,7 +141,6 @@ class TinkLinkUITests: XCTestCase {
 
         submitButton.tap()
 
-        let sendingStatusText = app.staticTexts["Sending…"]
         XCTAssertTrue(sendingStatusText.waitForExistence(timeout: 5))
 
         let connectingStatusText = app.staticTexts["Connecting to Test Multi-Supplemental, please wait…"]
