@@ -67,7 +67,7 @@ class TinkLinkUITests: XCTestCase {
 
         let tablesQuery = app.tables
 
-        let passwordProviderCell = tablesQuery.staticTexts["Test Password"]
+        let passwordProviderCell = tablesQuery.cells.staticTexts["Test Password"]
 
         XCTAssertTrue(passwordProviderCell.waitForExistence(timeout: 5))
         passwordProviderCell.tap()
