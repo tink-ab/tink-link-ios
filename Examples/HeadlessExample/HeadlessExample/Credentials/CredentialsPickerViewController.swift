@@ -60,8 +60,8 @@ extension CredentialsPickerViewController {
 
 extension CredentialsPickerViewController {
     private func updateList(completion: (() -> Void)? = nil) {
-        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
-        providerContext.fetchProviders(attributes: attributes) { [weak self] result in
+        let filter = ProviderContext.Filter(capabilities: .all, kinds: .all, accessTypes: .all)
+        providerContext.fetchProviders(filter: filter) { [weak self] result in
             DispatchQueue.main.async {
                 do {
                     let providers = try result.get()
