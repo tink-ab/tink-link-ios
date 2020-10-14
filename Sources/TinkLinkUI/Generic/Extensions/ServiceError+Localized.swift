@@ -24,6 +24,8 @@ extension ServiceError: LocalizedError {
              .unavailableForLegalReasons(let message),
              .internalError(let message):
             return message.isEmpty ? nil : message
+        @unknown default:
+            return nil
         }
     }
 }

@@ -152,8 +152,9 @@ public final class InitiateTransferTask: Cancellable {
             case .failed:
                 throw Error.failed(signableOperation.statusMessage)
             case .unknown:
-                // Error handling?
-                break
+                assertionFailure("Unknown credentials status.")
+            @unknown default:
+                assertionFailure("Unknown credentials status.")
             }
         } catch {
             complete(with: .failure(error))
@@ -224,6 +225,8 @@ public final class InitiateTransferTask: Cancellable {
             case .sessionExpired:
                 throw Error.credentialsSessionExpired(credentials.statusPayload)
             case .unknown:
+                assertionFailure("Unknown credentials status!")
+            @unknown default:
                 assertionFailure("Unknown credentials status!")
             }
         } catch {
