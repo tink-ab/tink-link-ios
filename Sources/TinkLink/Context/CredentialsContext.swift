@@ -76,6 +76,7 @@ public final class CredentialsContext {
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - completionPredicate: Predicate for when credentials task should complete.
+    ///   - authenticationHandler: Indicates the authentication task for adding credentials.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
@@ -149,6 +150,7 @@ public final class CredentialsContext {
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - completionPredicate: Predicate for when credentials task should complete.
+    ///   - authenticationHandler: Indicates the authentication task for adding credentials.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
