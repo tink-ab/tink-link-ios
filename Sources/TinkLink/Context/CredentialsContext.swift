@@ -159,12 +159,13 @@ public final class CredentialsContext {
         form: Form,
         refreshableItems: RefreshableItems = .all,
         completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
+        authenticationHandler: @escaping AuthenticationTaskHandler,
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
 
-        return add(forProviderWithName: provider.name, form: form, refreshableItems: refreshableItems, completionPredicate: completionPredicate, progressHandler: progressHandler, completion: completion)
+        return add(forProviderWithName: provider.name, form: form, refreshableItems: refreshableItems, completionPredicate: completionPredicate, authenticationHandler: authenticationHandler, progressHandler: progressHandler, completion: completion)
     }
 
     /// Fetch a list of the current user's credentials.
