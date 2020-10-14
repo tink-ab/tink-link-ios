@@ -28,9 +28,9 @@ class MockedSuccessCredentialsService: CredentialsService {
         }
     }
 
-    func create(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func create(providerName: Provider.Name, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         let addedCredential = Credentials.makeTestCredentials(
-            providerID: providerID,
+            providerName: providerName,
             kind: .password,
             status: .created,
             fields: fields
@@ -46,7 +46,7 @@ class MockedSuccessCredentialsService: CredentialsService {
         return nil
     }
 
-    func update(id: Credentials.ID, providerID: Provider.ID, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func update(id: Credentials.ID, providerName: Provider.Name, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         if let index = credentials.firstIndex(where: { $0.id == id }) {
             credentials[index].modify(fields: fields, status: .updated)
             completion(.success(credentials[index]))
@@ -62,7 +62,7 @@ class MockedSuccessCredentialsService: CredentialsService {
     @discardableResult
     func addSupplementalInformation(id: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         if let index = credentials.firstIndex(where: { $0.id == id }) {
-            credentials[index].modify(supplementalInformationFields: [], status: .awaitingSupplementalInformation)
+            credentials[index].modify(status: .awaitingSupplementalInformation([]))
             completion(.success)
         }
         return TestRetryCanceller { [weak self] in
@@ -73,7 +73,7 @@ class MockedSuccessCredentialsService: CredentialsService {
 
     func cancelSupplementalInformation(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         if let index = credentials.firstIndex(where: { $0.id == id }) {
-            credentials[index].modify(supplementalInformationFields: [], status: .authenticationError)
+            credentials[index].modify(status: .authenticationError)
             completion(.success)
         }
         return nil
@@ -105,9 +105,9 @@ class MockedSuccessCredentialsService: CredentialsService {
 }
 
 class MockedSuccessThirdPartyAuthenticationCredentialsService: MockedSuccessCredentialsService {
-    override func create(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    override func create(providerName: Provider.Name, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         let addedCredential = Credentials.makeTestCredentials(
-            providerID: providerID,
+            providerName: providerName,
             kind: .thirdPartyAuthentication,
             status: .created,
             fields: fields
@@ -129,7 +129,7 @@ class MockedUnauthenticatedErrorCredentialsService: CredentialsService {
         return nil
     }
 
-    func create(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func create(providerName: Provider.Name, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }
@@ -139,7 +139,7 @@ class MockedUnauthenticatedErrorCredentialsService: CredentialsService {
         return nil
     }
 
-    func update(id: Credentials.ID, providerID: Provider.ID, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func update(id: Credentials.ID, providerName: Provider.Name, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }

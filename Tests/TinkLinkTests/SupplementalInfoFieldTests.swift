@@ -34,9 +34,9 @@ class SupplementalInfoFieldTests: XCTestCase {
             patternError: "",
             helpText: ""
         )
-        let supplementalInfoCredential = Credentials(id: .init(stringLiteral: "test-credential"), providerID: "test-multi-supplemental", kind: .password, status: .created, statusPayload: "", statusUpdated: nil, updated: nil, fields: ["username": "tink-test"], supplementalInformationFields: [firstFieldSpecification, secondFieldSpecification], thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
+        let supplementalInfoCredential = Credentials(id: .init(stringLiteral: "test-credential"), providerName: "test-multi-supplemental", kind: .password, status: .awaitingSupplementalInformation([firstFieldSpecification, secondFieldSpecification]), statusPayload: "", statusUpdated: nil, updated: nil, fields: ["username": "tink-test"], sessionExpiryDate: nil)
 
-        var form = Form(fieldSpecifications: supplementalInfoCredential.supplementalInformationFields)
+        var form = Form(credentials: supplementalInfoCredential)
 
         let editableForms = form.fields.filter { $0.attributes.isEditable }
         XCTAssertEqual(editableForms.count, 1)

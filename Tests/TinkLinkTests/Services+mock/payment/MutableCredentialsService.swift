@@ -16,20 +16,18 @@ class MutableCredentialsService: CredentialsService {
         self.credentialsByID = Dictionary(grouping: credentialsList, by: \.id).compactMapValues(\.first)
     }
 
-    func modifyCredentials(id: Credentials.ID, status: Credentials.Status, supplementalInformationFields: [Provider.FieldSpecification] = [], thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil) {
+    func modifyCredentials(id: Credentials.ID, status: Credentials.Status) {
         let credentials = credentialsByID[id]!
 
         let modifiedCredentials = Credentials(
             id: credentials.id,
-            providerID: credentials.providerID,
+            providerName: credentials.providerName,
             kind: credentials.kind,
             status: status,
             statusPayload: "",
             statusUpdated: Date(),
             updated: Date(),
             fields: credentials.fields,
-            supplementalInformationFields: supplementalInformationFields,
-            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
             sessionExpiryDate: nil
         )
 
@@ -50,18 +48,16 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func create(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func create(providerName: Provider.Name, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         let credentials = Credentials(
             id: Credentials.ID(UUID().uuidString),
-            providerID: providerID,
+            providerName: providerName,
             kind: createCredentialsKind,
             status: .created,
             statusPayload: "",
             statusUpdated: Date(),
             updated: nil,
             fields: fields,
-            supplementalInformationFields: [],
-            thirdPartyAppAuthentication: nil,
             sessionExpiryDate: nil
         )
         credentialsByID[credentials.id] = credentials
@@ -79,19 +75,17 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func update(id: Credentials.ID, providerID: Provider.ID, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func update(id: Credentials.ID, providerName: Provider.Name, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
-                providerID: credentials.providerID,
+                providerName: credentials.providerName,
                 kind: credentials.kind,
                 status: credentialsStatusAfterUpdate,
                 statusPayload: "",
                 statusUpdated: Date(),
                 updated: Date(),
                 fields: fields,
-                supplementalInformationFields: [],
-                thirdPartyAppAuthentication: nil,
                 sessionExpiryDate: nil
             )
             credentialsByID[id] = updatedCredentials
@@ -111,15 +105,13 @@ class MutableCredentialsService: CredentialsService {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
-                providerID: credentials.providerID,
+                providerName: credentials.providerName,
                 kind: credentials.kind,
                 status: credentialsStatusAfterSupplementalInformation,
                 statusPayload: "",
                 statusUpdated: Date(),
                 updated: Date(),
                 fields: credentials.fields,
-                supplementalInformationFields: [],
-                thirdPartyAppAuthentication: nil,
                 sessionExpiryDate: nil
             )
             credentialsByID[id] = updatedCredentials
@@ -134,15 +126,13 @@ class MutableCredentialsService: CredentialsService {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
-                providerID: credentials.providerID,
+                providerName: credentials.providerName,
                 kind: credentials.kind,
                 status: .authenticationError,
                 statusPayload: "",
                 statusUpdated: Date(),
                 updated: Date(),
                 fields: credentials.fields,
-                supplementalInformationFields: [],
-                thirdPartyAppAuthentication: nil,
                 sessionExpiryDate: nil
             )
             credentialsByID[id] = updatedCredentials
@@ -157,15 +147,13 @@ class MutableCredentialsService: CredentialsService {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
-                providerID: credentials.providerID,
+                providerName: credentials.providerName,
                 kind: credentials.kind,
                 status: .updated,
                 statusPayload: "",
                 statusUpdated: Date(),
                 updated: Date(),
                 fields: credentials.fields,
-                supplementalInformationFields: [],
-                thirdPartyAppAuthentication: nil,
                 sessionExpiryDate: nil
             )
             credentialsByID[id] = updatedCredentials
@@ -180,15 +168,13 @@ class MutableCredentialsService: CredentialsService {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials(
                 id: credentials.id,
-                providerID: credentials.providerID,
+                providerName: credentials.providerName,
                 kind: credentials.kind,
                 status: .disabled,
                 statusPayload: "",
                 statusUpdated: Date(),
                 updated: Date(),
                 fields: credentials.fields,
-                supplementalInformationFields: [],
-                thirdPartyAppAuthentication: nil,
                 sessionExpiryDate: nil
             )
             credentialsByID[id] = updatedCredentials

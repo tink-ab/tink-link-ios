@@ -5,7 +5,7 @@ import TinkCore
 extension Provider {
     init(capabilities: Capabilities) {
         self.init(
-            id: ID("test-provider"),
+            name: "test-provider",
             displayName: "Test",
             authenticationUserType: .personal,
             kind: .bank,
