@@ -137,19 +137,19 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 }
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
-                progressHandler(.updating(status: ""))
+                progressHandler(.updating(status: credentials.statusPayload ?? ""))
             case .updated:
                 complete(with: .success(credentials))
             case .sessionExpired:
                 break
-            case .authenticationError(let errorMessage):
-                throw Error.authenticationFailed(errorMessage ?? "")
-            case .permanentError(let errorMessage):
-                throw Error.permanentFailure(errorMessage ?? "")
-            case .temporaryError(let errorMessage):
-                throw Error.temporaryFailure(errorMessage ?? "")
+            case .authenticationError:
+                throw Error.authenticationFailed(credentials.statusPayload ?? "")
+            case .permanentError:
+                throw Error.permanentFailure(credentials.statusPayload ?? "")
+            case .temporaryError:
+                throw Error.temporaryFailure(credentials.statusPayload ?? "")
             case .disabled:
-                throw Error.disabled("")
+                throw Error.disabled(credentials.statusPayload ?? "")
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }

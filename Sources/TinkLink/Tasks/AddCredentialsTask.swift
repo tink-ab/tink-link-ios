@@ -177,24 +177,24 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                 if completionPredicate.successPredicate == .updating {
                     complete(with: .success(credentials))
                 } else {
-                    progressHandler(.updating(status: ""))
+                    progressHandler(.updating(status: credentials.statusPayload ?? ""))
                 }
             case .updated:
                 if completionPredicate.successPredicate == .updated {
                     complete(with: .success(credentials))
                 }
-            case .permanentError(let errorMessage):
-                complete(with: .failure(AddCredentialsTask.Error.permanentFailure(errorMessage ?? "")))
-            case .temporaryError(let errorMessage):
-                complete(with: .failure(AddCredentialsTask.Error.temporaryFailure(errorMessage ?? "")))
-            case .authenticationError(let errorMessage):
+            case .permanentError:
+                complete(with: .failure(AddCredentialsTask.Error.permanentFailure(credentials.statusPayload ?? "")))
+            case .temporaryError:
+                complete(with: .failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload ?? "")))
+            case .authenticationError:
                 var payload: String
                 // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
                 // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
                 if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                    payload = (errorMessage ?? "").isEmpty ? "Please try again later" : ""
+                    payload = (credentials.statusPayload ?? "").isEmpty ? "Please try again later" : ""
                 } else {
-                    payload = errorMessage ?? ""
+                    payload = credentials.statusPayload ?? ""
                 }
                 complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(payload)))
             case .disabled:

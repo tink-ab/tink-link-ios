@@ -227,27 +227,27 @@ extension AddBeneficiaryTask {
             authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
         case .updating:
             // Need to keep polling here, updated is the state when the authentication is done.
-            progressHandler(.updating(status: ""))
+            progressHandler(.updating(status: credentials.statusPayload ?? ""))
         case .updated:
             complete(with: .success(credentials))
-        case .permanentError(let errorMessage):
-            throw Error.authenticationFailed(errorMessage ?? "")
-        case .temporaryError(let errorMessage):
-            throw Error.authenticationFailed(errorMessage ?? "")
-        case .authenticationError(let errorMessage):
+        case .permanentError:
+            throw Error.authenticationFailed(credentials.statusPayload ?? "")
+        case .temporaryError:
+            throw Error.authenticationFailed(credentials.statusPayload ?? "")
+        case .authenticationError:
             var payload: String
             // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
             // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
             if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                payload = (errorMessage ?? "").isEmpty ? "Please try again later" : ""
+                payload = (credentials.statusPayload ?? "").isEmpty ? "Please try again later" : ""
             } else {
-                payload = errorMessage ?? ""
+                payload = credentials.statusPayload ?? ""
             }
             throw Error.authenticationFailed(payload)
         case .disabled:
-            throw Error.disabledCredentials("")
+            throw Error.disabledCredentials(credentials.statusPayload ?? "")
         case .sessionExpired:
-            throw Error.credentialsSessionExpired("")
+            throw Error.credentialsSessionExpired(credentials.statusPayload ?? "")
         case .unknown:
             assertionFailure("Unknown credentials status!")
         }
