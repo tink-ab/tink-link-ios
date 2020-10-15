@@ -21,6 +21,7 @@ make format
 git commit -am"Format project"
 
 make carthage-project
+git commit -am"Update Xcode project"
 
 xcodebuild -project TinkCore.xcodeproj -target "TinkCore_iOS" build | xcpretty
 swift test
