@@ -28,15 +28,14 @@ struct AccessTypePicker_Previews: PreviewProvider {
     }
 }
 
+@ViewBuilder
 func destinationView(for accessType: ProviderTree.AccessTypeNode, onSelection: @escaping (Provider) -> Void) -> some View {
-    Group {
-        switch accessType {
-        case .provider(let provider):
-            Button(action: { onSelection(provider) }) {
-                Text(provider.displayName)
-            }
-        case .credentialsKinds(let credentialsKinds):
-            CredentialsKindPicker(credentialsKinds: credentialsKinds)
+    switch accessType {
+    case .provider(let provider):
+        Button(action: { onSelection(provider) }) {
+            Text(provider.displayName)
         }
+    case .credentialsKinds(let credentialsKinds):
+        CredentialsKindPicker(credentialsKinds: credentialsKinds)
     }
 }

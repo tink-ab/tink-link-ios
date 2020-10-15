@@ -21,19 +21,18 @@ struct FinancialInsititutionPicker_Previews: PreviewProvider {
     }
 }
 
+@ViewBuilder
 func destinationView(for financialInstitution: ProviderTree.FinancialInstitutionNode, onSelection: @escaping (Provider) -> Void) -> some View {
-    Group {
-        switch financialInstitution {
-        case .provider(let provider):
-            Button(action: { onSelection(provider) }) {
-                Text(provider.displayName)
-            }
-        case .credentialsKinds(let credentialsKinds):
-            CredentialsKindPicker(credentialsKinds: credentialsKinds)
-        case .accessTypes(let accessTypes):
-            AccessTypePicker(accessTypes: accessTypes, onSelection: onSelection)
-        case .authenticationUserTypes(let authenticationUserTypes):
-            AuthenticationUserTypePicker(authenticationUserTypes: authenticationUserTypes, onSelection: onSelection)
+    switch financialInstitution {
+    case .provider(let provider):
+        Button(action: { onSelection(provider) }) {
+            Text(provider.displayName)
         }
+    case .credentialsKinds(let credentialsKinds):
+        CredentialsKindPicker(credentialsKinds: credentialsKinds)
+    case .accessTypes(let accessTypes):
+        AccessTypePicker(accessTypes: accessTypes, onSelection: onSelection)
+    case .authenticationUserTypes(let authenticationUserTypes):
+        AuthenticationUserTypePicker(authenticationUserTypes: authenticationUserTypes, onSelection: onSelection)
     }
 }

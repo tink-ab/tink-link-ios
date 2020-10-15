@@ -50,17 +50,16 @@ struct AuthenticationUserTypePicker_Previews: PreviewProvider {
     }
 }
 
+@ViewBuilder
 func destinationView(for authenticationUserType: ProviderTree.AuthenticationUserTypeNode, onSelection: @escaping (Provider) -> Void) -> some View {
-    Group {
-        switch authenticationUserType {
-        case .provider(let provider):
-            Button(action: { onSelection(provider) }) {
-                Text(provider.displayName)
-            }
-        case .credentialsKinds(let credentialsKinds):
-            CredentialsKindPicker(credentialsKinds: credentialsKinds)
-        case .accessTypes(let accessTypes):
-            AccessTypePicker(accessTypes: accessTypes, onSelection: onSelection)
+    switch authenticationUserType {
+    case .provider(let provider):
+        Button(action: { onSelection(provider) }) {
+            Text(provider.displayName)
         }
+    case .credentialsKinds(let credentialsKinds):
+        CredentialsKindPicker(credentialsKinds: credentialsKinds)
+    case .accessTypes(let accessTypes):
+        AccessTypePicker(accessTypes: accessTypes, onSelection: onSelection)
     }
 }
