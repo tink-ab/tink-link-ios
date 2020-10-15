@@ -16,11 +16,11 @@
 - Xcode 11.4
 
 ## Installation
-
-See the difference about the [permanent user and temporary user](https://docs.tink.com/resources/tutorials/permanent-users)
 There are two targets in the package Tink Link.
 - `TinkLink` is a framework for aggregating bank credentials, you can build your own UI, suitable for enterprise plan customers that are aggregating with permanent users.
 - `TinkLinkUI` is a framework with a predefined flow, a single entrypoint and configurable UI style, you can use this framework to bootstrap your application fast.
+
+See the difference about the [permanent user and temporary user](https://docs.tink.com/resources/tutorials/permanent-users)
 
 #### Using Swift Package Manager
 
