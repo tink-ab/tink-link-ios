@@ -18,6 +18,7 @@ sed -i "" 's/      MARKETING_VERSION: [0-9]\.[0-9]\.[0-9]/      MARKETING_VERSIO
 git commit -am"Update version"
 
 make docs
+make ui-docs
 git commit -am"Update docs"
 
 make format
