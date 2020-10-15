@@ -96,7 +96,7 @@ Tink.configure(with: configuration)
     ]
     ```
 
-3. Create a `TinkLinkViewController` with the market and list of scopes to use. By default, only real providers are shown. If you want to test with test providers without entering real credentials, you can specify a `ProviderPredicate` like this: `providerPredicate: .kinds(.onlyTest)`. Read more about the available test providers [here](https://docs.tink.com/resources/aggregation/available-test-providers).
+3. Create a `TinkLinkViewController` with the market and list of scopes to use.
     ```swift
     let tinkLinkViewController = TinkLinkViewController(market: "SE", scopes: scopes) { result in 
         // Handle result
@@ -108,7 +108,7 @@ Tink.configure(with: configuration)
     present(tinkLinkViewController, animated: true)
     ```
 
-5. After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. If the flow is launched with a temporary user, a successful authentication will return a result that contains an authorization code that you can [exchange for an access token](https://docs.tink.com/resources/getting-started/retrieve-access-token). If something went wrong the result will contain an error.
+5. After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. A successful authentication will return a result that contains an authorization code that you can [exchange for an access token](https://docs.tink.com/resources/getting-started/retrieve-access-token). If something went wrong the result will contain an error.
     ```swift
     do {
         let authorizationCode = try result.get()
