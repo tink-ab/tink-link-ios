@@ -68,7 +68,7 @@ $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Down.framework
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Kingfisher.framework
 ```
 
-When finished, you should be able to  and `import TinkLinkUI`  and `import TinkLinkUI` within your project.
+When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` within your project.
 
 > If you only need the headless SDK you don't need to include `TinkLinkUI.framework`, `Down.framework` and `Kingfisher.framework`.
 
