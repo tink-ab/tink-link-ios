@@ -72,20 +72,15 @@ When finished, you should be able to  and `import TinkLinkUI`  and `import TinkL
 
 > If you only need the headless SDK you don't need to include `TinkLinkUI.framework`, `Down.framework` and `Kingfisher.framework`.
 
-## Configuration
-
-To start using Tink Link, you will need to configure a `Tink` instance with your client ID and redirect URI.
-
-```swift
-let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
-Tink.configure(with: configuration)
-```
-
 ## How to display Tink Link
 
-1. Import the SDK
+1. Import the SDK and configure Tink with your client ID and redirect URI.
     ```swift
+    import TinkLink
     import TinkLinkUI
+    
+    let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
+    Tink.configure(with: configuration)
     ```
 
 2. Define the list of [scopes](https://docs.tink.com/api/#introduction-authentication-authorization-scopes) based on the type of data you want to fetch. For example, to retrieve accounts and transactions, define these scopes:
