@@ -160,6 +160,9 @@ clean:
 	rm -rf ./docs
 	rm -rf ./.tmp
 
+prerelease:
+	scripts/prerelease.sh
+
 release: format lint
 
 .PHONY: all docs
