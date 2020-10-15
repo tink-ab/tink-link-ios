@@ -29,6 +29,6 @@ struct CredentialsKindPicker: View {
 
 struct CredentialsKindPicker_Previews: PreviewProvider {
     static var previews: some View {
-        CredentialsKindPicker()
+        CredentialsKindPicker(credentialsKinds: [])
     }
 }

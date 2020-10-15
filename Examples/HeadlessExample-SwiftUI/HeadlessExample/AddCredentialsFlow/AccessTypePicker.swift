@@ -3,10 +3,11 @@ import TinkLink
 
 struct AccessTypePicker: View {
     var accessTypes: [ProviderTree.AccessTypeNode]
+    var onSelection: (Provider) -> Void
 
     var body: some View {
         List(accessTypes, id: \.id) { accessType in
-            NavigationLink(destination: destinationView(for: accessType)) {
+            NavigationLink(destination: destinationView(for: accessType, onSelection: onSelection)) {
                 switch accessType.accessType {
                 case .openBanking:
                     Text("Open Banking")
@@ -23,15 +24,17 @@ struct AccessTypePicker: View {
 
 struct AccessTypePicker_Previews: PreviewProvider {
     static var previews: some View {
-        AccessTypePicker()
+        AccessTypePicker(accessTypes: [], onSelection: { _ in })
     }
 }
 
-func destinationView(for accessType: ProviderTree.AccessTypeNode) -> some View {
-    return Group {
+func destinationView(for accessType: ProviderTree.AccessTypeNode, onSelection: @escaping (Provider) -> Void) -> some View {
+    Group {
         switch accessType {
         case .provider(let provider):
-            Text(provider.displayName)
+            Button(action: { onSelection(provider) }) {
+                Text(provider.displayName)
+            }
         case .credentialsKinds(let credentialsKinds):
             CredentialsKindPicker(credentialsKinds: credentialsKinds)
         }

@@ -3,17 +3,16 @@ import TinkLink
 
 struct ProviderPicker: View {
     var providerTree: ProviderTree
-    var onCompletion: (Provider) -> Void
+    var onSelection: (Provider) -> Void
 
-    init(providers: [Provider], onCompletion: @escaping (Provider) -> Void) {
+    init(providers: [Provider], onSelection: @escaping (Provider) -> Void) {
         self.providerTree = ProviderTree(providers: providers)
-        self.onCompletion = onCompletion
+        self.onSelection = onSelection
     }
 
     var body: some View {
         NavigationView {
-            FinancialInsititutionGroupPicker(financialInstitutionGroups: providerTree.financialInstitutionGroups, onCompletion: onCompletion)
-                .navigationBarTitle("Choose Bank", displayMode: .inline)
+            FinancialInsititutionGroupPicker(financialInstitutionGroups: providerTree.financialInstitutionGroups, onSelection: onSelection)
         }
     }
 }
