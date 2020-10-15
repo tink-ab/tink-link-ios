@@ -22,8 +22,6 @@ There are two targets TinkLink and TinkLinkUI in the package Tink Link.
 
 See the difference about the [permanent user and temporary user](https://docs.tink.com/resources/tutorials/permanent-users)
 
-### Installing Tink Link
-
 #### Using Swift Package Manager
 
 Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-ios` when asked for a package repository.
