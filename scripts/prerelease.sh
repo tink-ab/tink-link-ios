@@ -11,10 +11,10 @@ else
   exit
 fi
 
-sed -i "" 's/  spec.version      = "[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}"/  spec.version      = "'$newVersion'"/' TinkLink.podspec
-sed -i "" 's/  spec.version      = "[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}"/  spec.version      = "'$newVersion'"/' TinkLinkUI.podspec
-sed -i "" 's/  spec.dependency "TinkLink", "[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}"/  spec.dependency "TinkLink", "'$newVersion'"/' TinkLinkUI.podspec
-sed -i "" 's/      MARKETING_VERSION: [0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}/      MARKETING_VERSION: '$newVersion'/' project.yml
+sed -i "" 's/  spec.version      = "[0-9]\.[0-9][0-9]\.[0-9]"/  spec.version      = "'$newVersion'"/' TinkLink.podspec
+sed -i "" 's/  spec.version      = "[0-9]\.[0-9][0-9]\.[0-9]"/  spec.version      = "'$newVersion'"/' TinkLinkUI.podspec
+sed -i "" 's/  spec.dependency "TinkLink", "[0-9]\.[0-9][0-9]\.[0-9]"/  spec.dependency "TinkLink", "'$newVersion'"/' TinkLinkUI.podspec
+sed -i "" 's/      MARKETING_VERSION: [0-9]\.[0-9][0-9]\.[0-9]/      MARKETING_VERSION: '$newVersion'/' project.yml
 
 git commit -am"Update version"
 
