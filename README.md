@@ -23,7 +23,7 @@ There are two targets TinkLink and TinkLinkUI in the package Tink Link.
 
 See the difference about the [permanent user and temporary user](https://docs.tink.com/resources/tutorials/permanent-users)
 
-### Installing TinkLinkUI
+### Installing Tink Link
 
 #### Using CocoaPods
 Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) for usage and installation instructions.
@@ -61,7 +61,7 @@ $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Kingfisher.framework
 
 When finished, you should be able to  and `import TinkLinkUI`  and `import TinkLinkUI` within your project.
 
-### Installing TinkLink
+### Installing Tink Link Headless SDK
 
 #### Using Swift Package Manager
 
