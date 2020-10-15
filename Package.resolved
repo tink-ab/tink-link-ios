@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/onevcat/Kingfisher",
         "state": {
           "branch": null,
-          "revision": "175eeb4618b0a6ef4d69a7409b6a74ddd235a093",
-          "version": "5.15.0"
+          "revision": "1aa9889e5f7d9d92acda014eea9cdc7338d3d7d6",
+          "version": "5.15.6"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/tink-ab/tink-core-ios",
         "state": {
           "branch": null,
-          "revision": "ed2a4c4abb16d1a0577e86978d37a1f9d4d39cbd",
-          "version": "0.1.7"
+          "revision": "56d1c022224c124d62afeda3f0a96835aa86c462",
+          "version": "0.2.0"
         }
       }
     ]
