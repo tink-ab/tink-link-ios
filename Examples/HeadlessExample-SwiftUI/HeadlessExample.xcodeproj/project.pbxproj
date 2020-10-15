@@ -32,7 +32,7 @@
 		8FF1F388239E409300968AB9 /* ProviderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F387239E409300968AB9 /* ProviderController.swift */; };
 		8FF1F38D239E648400968AB9 /* ProviderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F38C239E648400968AB9 /* ProviderListViewController.swift */; };
 		8FF1F38F239E650600968AB9 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F38E239E650600968AB9 /* TextFieldCell.swift */; };
-		8FF1F392239E65D300968AB9 /* AddCredentialsFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F391239E65D300968AB9 /* AddCredentialsFlowView.swift */; };
+		8FF1F392239E65D300968AB9 /* ProviderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F391239E65D300968AB9 /* ProviderPicker.swift */; };
 		8FF1F396239E776F00968AB9 /* AccessTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F393239E776E00968AB9 /* AccessTypePickerViewController.swift */; };
 		8FF1F397239E776F00968AB9 /* CredentialsKindPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F394239E776E00968AB9 /* CredentialsKindPickerViewController.swift */; };
 		8FF1F398239E776F00968AB9 /* FinancialInstitutionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F395239E776F00968AB9 /* FinancialInstitutionPickerViewController.swift */; };
@@ -65,7 +65,7 @@
 		8FF1F387239E409300968AB9 /* ProviderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderController.swift; sourceTree = "<group>"; };
 		8FF1F38C239E648400968AB9 /* ProviderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderListViewController.swift; sourceTree = "<group>"; };
 		8FF1F38E239E650600968AB9 /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
-		8FF1F391239E65D300968AB9 /* AddCredentialsFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsFlowView.swift; sourceTree = "<group>"; };
+		8FF1F391239E65D300968AB9 /* ProviderPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderPicker.swift; sourceTree = "<group>"; };
 		8FF1F393239E776E00968AB9 /* AccessTypePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTypePickerViewController.swift; sourceTree = "<group>"; };
 		8FF1F394239E776E00968AB9 /* CredentialsKindPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsKindPickerViewController.swift; sourceTree = "<group>"; };
 		8FF1F395239E776F00968AB9 /* FinancialInstitutionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionPickerViewController.swift; sourceTree = "<group>"; };
@@ -182,7 +182,7 @@
 		8FC4980723AB9F6700A17945 /* AddCredentialsFlow */ = {
 			isa = PBXGroup;
 			children = (
-				8FF1F391239E65D300968AB9 /* AddCredentialsFlowView.swift */,
+				8FF1F391239E65D300968AB9 /* ProviderPicker.swift */,
 				8F348AE7245AE380009B9973 /* UpdateCredentialsFlowView.swift */,
 				8F45CAD123A2435A00CA0B9B /* SupplementalInformationForm.swift */,
 				8FF1F38B239E645B00968AB9 /* AddCredentials */,
@@ -294,7 +294,7 @@
 				8F3459D02396B8C8007DCD75 /* CredentialsController.swift in Sources */,
 				8F3459BA2396ADEB007DCD75 /* HeadlessExampleApp.swift in Sources */,
 				8F8BD78E23A27EBF00CC890C /* AddCredentialsRow.swift in Sources */,
-				8FF1F392239E65D300968AB9 /* AddCredentialsFlowView.swift in Sources */,
+				8FF1F392239E65D300968AB9 /* ProviderPicker.swift in Sources */,
 				8FD0625224E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift in Sources */,
 				8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */,
 				8FA5F37B23A3ACC200083430 /* CredentialsListRow.swift in Sources */,

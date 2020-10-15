@@ -16,9 +16,10 @@ struct AddCredentialsRow: View {
                     Text("Add New Credentials")
                 }
                 .sheet(isPresented: $shouldShowProviders, content: {
-                    AddCredentialsFlowView(providers: self.providerController.providers, credentialsController: self.credentialsController) { _ in
+                    ProviderPicker(providers: self.providerController.providers) { _ in
                         self.credentialsController.performFetch()
                     }
+                    .environmentObject(credentialsController)
                 })
             }
         }
