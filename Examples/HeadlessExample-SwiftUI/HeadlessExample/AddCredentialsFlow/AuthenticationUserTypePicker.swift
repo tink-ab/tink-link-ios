@@ -54,6 +54,7 @@ func destinationView(for authenticationUserType: ProviderTree.AuthenticationUser
     switch authenticationUserType {
     case .provider(let provider):
         AddCredentialsView(provider: provider)
+            .navigationTitle(provider.displayName)
     case .credentialsKinds(let credentialsKinds):
         CredentialsKindPicker(credentialsKinds: credentialsKinds)
     case .accessTypes(let accessTypes):

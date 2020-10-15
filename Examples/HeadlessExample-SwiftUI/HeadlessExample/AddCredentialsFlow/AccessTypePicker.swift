@@ -32,6 +32,7 @@ func destinationView(for accessType: ProviderTree.AccessTypeNode) -> some View {
     switch accessType {
     case .provider(let provider):
         AddCredentialsView(provider: provider)
+            .navigationTitle(provider.displayName)
     case .credentialsKinds(let credentialsKinds):
         CredentialsKindPicker(credentialsKinds: credentialsKinds)
     }

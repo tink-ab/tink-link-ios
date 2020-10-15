@@ -25,6 +25,7 @@ func destinationView(for financialInstitutionGroup: ProviderTree.FinancialInstit
     switch financialInstitutionGroup {
     case .provider(let provider):
         AddCredentialsView(provider: provider)
+            .navigationTitle(provider.displayName)
     case .credentialsKinds(let credentialsKinds):
         CredentialsKindPicker(credentialsKinds: credentialsKinds)
     case .accessTypes(let accessTypes):

@@ -6,7 +6,7 @@ struct CredentialsKindPicker: View {
 
     var body: some View {
         List(credentialsKinds, id: \.id) { credentialsKind in
-            NavigationLink(destination: AddCredentialsView(provider: credentialsKind.provider)) {
+            NavigationLink(destination: AddCredentialsView(provider: credentialsKind.provider).navigationTitle(credentialsKind.provider.displayName)) {
                 switch credentialsKind.credentialsKind {
                 case .password:
                     Text("Password")
