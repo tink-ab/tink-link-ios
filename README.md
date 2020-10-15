@@ -123,10 +123,6 @@ Follow the instructions in one of these links to learn how to set this up:
 - [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app)
 - [Allowing Apps and Websites to Link to Your Content](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content)
 
-## Tutorials
-- [Tink Link Tutorial](https://docs.tink.com/resources/tutorials/tink-link-sdk-ios-tutorial) This tutorial outlines how to use the different classes and types provided by TinkLink.
-- [Tink Link UI Tutorial](https://docs.tink.com/resources/tutorials/tink-link-ui-sdk-ios-tutorial) This tutorial outlines how integrate Tink Link UI in your app.
-
 ## Examples
 These examples shows how to build a complete aggregation flow using TinkLink or TinkLinkUI.
 - [Tink Link](Examples/TinkLinkExample)
