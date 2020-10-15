@@ -81,6 +81,43 @@ let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <
 Tink.configure(with: configuration)
 ```
 
+## How to display Tink Link
+
+1. Import the SDK
+    ```swift
+    import TinkLinkUI
+    ```
+
+2. Define the list of [scopes](https://docs.tink.com/api/#introduction-authentication-authorization-scopes) based on the type of data you want to fetch. For example, to retrieve accounts and transactions, define these scopes:
+    ```swift
+    let scopes: [Scope] = [
+        .accounts(.read), 
+        .transactions(.read)
+    ]
+    ```
+
+3. Create a `TinkLinkViewController` with the market and list of scopes to use. By default, only real providers are shown. If you want to test with test providers without entering real credentials, you can specify a `ProviderPredicate` like this: `providerPredicate: .kinds(.onlyTest)`. Read more about the available test providers [here](https://docs.tink.com/resources/aggregation/available-test-providers).
+    ```swift
+    let tinkLinkViewController = TinkLinkViewController(market: "SE", scopes: scopes) { result in 
+        // Handle result
+    }
+    ```
+    
+4. Tink Link is designed to be presented modally. Present the view controller by calling `present(_:animated:)` on the presenting view controller. 
+    ```swift
+    present(tinkLinkViewController, animated: true)
+    ```
+
+5. After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. If the flow is launched with a temporary user, a successful authentication will return a result that contains an authorization code that you can [exchange for an access token](https://docs.tink.com/resources/getting-started/retrieve-access-token). If something went wrong the result will contain an error.
+    ```swift
+    do {
+        let authorizationCode = try result.get()
+        // Exchange the authorization code for a access token.
+    } catch {
+        // Handle any errors
+    }
+    ```
+
 ## Redirect handling
 
 You will need to add a custom URL scheme or support universal links to handle redirects from a third party authentication flow back into your app.
