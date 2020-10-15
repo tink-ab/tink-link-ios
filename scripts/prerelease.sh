@@ -26,9 +26,6 @@ git commit -am"Format project"
 make carthage-project
 git commit -am"Update Xcode project"
 
-xcodebuild -project TinkCore.xcodeproj -target "TinkCore_iOS" build | xcpretty
-swift test
-
 gh pr create --repo tink-ab/tink-link-ios-private -t "rc:$newVersion" -b "Release candidate for Tink Link pre release." -r tink-ab/ios-maintainer
 
 echo Release candidate PR has been created! 🎉
