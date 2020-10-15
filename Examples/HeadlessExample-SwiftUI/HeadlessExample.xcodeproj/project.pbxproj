@@ -12,7 +12,7 @@
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
 		20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0ABC24E5713C006977F4 /* TinkLink */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
-		8F3459BA2396ADEB007DCD75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* AppDelegate.swift */; };
+		8F3459BA2396ADEB007DCD75 /* HeadlessExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */; };
 		8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459BD2396ADEB007DCD75 /* ContentView.swift */; };
 		8F3459C02396ADED007DCD75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459BF2396ADED007DCD75 /* Assets.xcassets */; };
 		8F3459C32396ADED007DCD75 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459C22396ADED007DCD75 /* Preview Assets.xcassets */; };
@@ -46,7 +46,7 @@
 		20FE0ABA24E570D1006977F4 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
 		8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
 		8F3459B62396ADEB007DCD75 /* HeadlessExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeadlessExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F3459B92396ADEB007DCD75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlessExampleApp.swift; sourceTree = "<group>"; };
 		8F3459BD2396ADEB007DCD75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8F3459BF2396ADED007DCD75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F3459C22396ADED007DCD75 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 		8F3459B82396ADEB007DCD75 /* HeadlessExample */ = {
 			isa = PBXGroup;
 			children = (
-				8F3459B92396ADEB007DCD75 /* AppDelegate.swift */,
+				8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */,
 				8F3459BD2396ADEB007DCD75 /* ContentView.swift */,
 				2035815424659C390075F1EA /* Error+LocalizedError.swift */,
 				8F1BF8F323C489FF007464F8 /* CustomView */,
@@ -304,7 +304,7 @@
 				2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */,
 				20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */,
 				8F3459D02396B8C8007DCD75 /* CredentialsController.swift in Sources */,
-				8F3459BA2396ADEB007DCD75 /* AppDelegate.swift in Sources */,
+				8F3459BA2396ADEB007DCD75 /* HeadlessExampleApp.swift in Sources */,
 				8F8BD78E23A27EBF00CC890C /* AddCredentialsRow.swift in Sources */,
 				8FF1F392239E65D300968AB9 /* AddCredentialsFlowView.swift in Sources */,
 				8FD0625224E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift in Sources */,
