@@ -25,6 +25,13 @@ See the difference about the [permanent user and temporary user](https://docs.ti
 
 ### Installing Tink Link
 
+#### Using Swift Package Manager
+
+Follow these instructions to [link a target to a package product](https://help.apple.com/xcode/mac/current/#/devb83d64851) and enter this URL `https://github.com/tink-ab/tink-link-ios` when asked for a package repository.
+
+When finished, you should be able to `import TinkLink` and  `import TinkLinkUI` within your project.
+
+
 #### Using CocoaPods
 Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) for usage and installation instructions.
 
