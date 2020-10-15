@@ -15,4 +15,4 @@ git push git@github.com:tink-ab/tink-link-ios-private $release
 pod trunk push TinkLink.podspec --skip-tests --skip-import-validation
 pod trunk push TinkLinkUI.podspec --skip-tests --skip-import-validation
 
-echo Tink Core public sync created and pushed to cocoapods! 🎉
+echo Tink Link public sync created and pushed to cocoapods! 🎉
