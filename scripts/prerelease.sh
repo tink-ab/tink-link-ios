@@ -19,20 +19,10 @@ git commit -am"Update version"
 make format
 git commit -am"Format project"
 
-rm -rf ./build
-rm -rf ./TinkCore.xcframework
-
 make carthage-project
 
 xcodebuild -project TinkCore.xcodeproj -target "TinkCore_iOS" build | xcpretty
 swift test
-
-make framework
-
-mv ./build/TinkCore.xcframework ./
-
-git add .
-git commit -m"Update framework"
 
 gh pr create --repo tink-ab/tink-core-ios-private -t "rc:$newVersion" -b "Release candidate for Tink Core pre release." -r tink-ab/ios-maintainer
 
