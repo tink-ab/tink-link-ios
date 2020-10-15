@@ -116,7 +116,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
          appUri: URL,
          credentialsService: CredentialsService,
          shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
-         completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
+         completionHandler: @escaping (Result<Void, Swift.Error>) -> Void)
+    {
         self.credentials = credentials
         self.credentialsService = credentialsService
         self.appUri = appUri

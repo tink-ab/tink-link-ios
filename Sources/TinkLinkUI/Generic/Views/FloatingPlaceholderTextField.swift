@@ -1,7 +1,7 @@
 import UIKit
 
 class FloatingPlaceholderTextField: UITextField {
-    private struct Constants {
+    private enum Constants {
         static let placeholderTextSize: CGFloat = 13.0
         static let editableTextHeightPadding: CGFloat = 8.0
         static let uneditableTextHeightPadding: CGFloat = 16.0
@@ -150,8 +150,8 @@ class FloatingPlaceholderTextField: UITextField {
     }
 }
 
-private extension FloatingPlaceholderTextField {
-    func setup() {
+extension FloatingPlaceholderTextField {
+    fileprivate func setup() {
         clipsToBounds = false
         backgroundColor = .clear
 
@@ -180,13 +180,13 @@ private extension FloatingPlaceholderTextField {
     }
 
     @objc
-    func didChangeText(_ sender: Any) {
+    fileprivate func didChangeText(_ sender: Any) {
         updatePlaceholderLayer()
     }
 
-    func updatePlaceholderLayer() {
+    fileprivate func updatePlaceholderLayer() {
         guard let font = font,
-            !placeholderLayer.frame.isEmpty else { return }
+              !placeholderLayer.frame.isEmpty else { return }
 
         let value = text ?? ""
         let placeholderUpTop = !value.isEmpty
@@ -199,7 +199,7 @@ private extension FloatingPlaceholderTextField {
         placeholderLayer.position.y = placeholderUpTop ? -targetSize : placeholderFrame.origin.y
     }
 
-    func updateInputType() {
+    fileprivate func updateInputType() {
         switch inputType {
         case .text:
             keyboardType = .default

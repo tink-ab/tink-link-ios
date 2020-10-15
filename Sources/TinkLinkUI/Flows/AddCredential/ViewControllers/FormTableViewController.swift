@@ -16,6 +16,7 @@ final class FormTableViewController: UITableViewController {
         super.init(style: .grouped)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -114,8 +115,8 @@ extension FormTableViewController: FormFieldTableViewCellDelegate {
         let nextIndexPath = IndexPath(row: indexPath.item + 1, section: indexPath.section)
 
         guard form.fields.count > nextIndexPath.item,
-            form.fields[indexPath.item + 1].attributes.isEditable,
-            let nextCell = tableView.cellForRow(at: nextIndexPath)
+              form.fields[indexPath.item + 1].attributes.isEditable,
+              let nextCell = tableView.cellForRow(at: nextIndexPath)
         else {
             cell.resignFirstResponder()
             return true

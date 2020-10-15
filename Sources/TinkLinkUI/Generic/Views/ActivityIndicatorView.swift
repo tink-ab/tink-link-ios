@@ -160,8 +160,8 @@ extension ActivityIndicatorView {
     }
 }
 
-private extension ActivityIndicatorView {
-    func beginAnimation() {
+extension ActivityIndicatorView {
+    fileprivate func beginAnimation() {
         circleLayer.isHidden = false
 
         let duration = 0.5 as CFTimeInterval
@@ -194,7 +194,7 @@ private extension ActivityIndicatorView {
         }
     }
 
-    func startRepeatingAnimation() {
+    fileprivate func startRepeatingAnimation() {
         circleLayer.isHidden = false
 
         let duration = 1.25 as CFTimeInterval
@@ -240,7 +240,7 @@ private extension ActivityIndicatorView {
         }
     }
 
-    func endAnimation() {
+    fileprivate func endAnimation() {
         circleLayer.isHidden = true
     }
 }

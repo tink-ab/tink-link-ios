@@ -47,7 +47,6 @@ class MutableCredentialsService: CredentialsService {
     }
 
     func create(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
-
         let credentials = Credentials.makeTestCredentials(
             providerID: providerID,
             kind: createCredentialsKind,
