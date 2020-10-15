@@ -58,6 +58,7 @@ extension AddBeneficiaryTask {
     case temporaryFailure(Swift.String)
     case permanentFailure(Swift.String)
     case credentialsAlreadyExists(Swift.String)
+    case cancelled
   }
   final public var credentials: TinkCore.Credentials? {
     get
@@ -149,7 +150,7 @@ final public class ConsentContext {
   final public func fetchCredentialsList(completion: @escaping (Swift.Result<[TinkCore.Credentials], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @discardableResult
   final public func fetchCredentials(with id: TinkCore.Credentials.ID, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
-  final public func refresh(_ credentials: TinkCore.Credentials, refreshableItems: TinkCore.RefreshableItems = .all, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.RefreshCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.RefreshCredentialsTask
+  final public func refresh(_ credentials: TinkCore.Credentials, authenticate: Swift.Bool = false, refreshableItems: TinkCore.RefreshableItems = .all, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.RefreshCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.RefreshCredentialsTask
   @available(*, deprecated, message: "Use update(_:form:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:progressHandler:completion) method instead.")
   final public func update(_ credentials: TinkCore.Credentials, form: TinkLink.Form? = nil, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @discardableResult
@@ -451,6 +452,7 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
     case temporaryFailure(Swift.String)
     case permanentFailure(Swift.String)
     case disabled(Swift.String)
+    case cancelled
   }
   final public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool
   final public var credentials: TinkCore.Credentials {
@@ -461,6 +463,14 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
   public typealias ID = Swift.ObjectIdentifier
 }
 @_hasMissingDesignatedInitializers final public class SupplementInformationTask : Swift.Identifiable {
+  public enum Error : Swift.Error {
+    case cancelled
+    public static func == (a: TinkLink.SupplementInformationTask.Error, b: TinkLink.SupplementInformationTask.Error) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
   final public let credentials: TinkCore.Credentials
   final public func submit(_ form: TinkLink.Form)
   final public func cancel()
@@ -473,6 +483,7 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
     case downloadRequired(title: Swift.String?, message: Swift.String?, appStoreURL: Foundation.URL?)
     case doesNotSupportAuthenticatingOnAnotherDevice
     case decodingQRCodeImageFailed
+    case cancelled
     public var appStoreURL: Foundation.URL? {
       get
     }
@@ -573,3 +584,5 @@ extension TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate : Swi
 extension TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate : Swift.Hashable {}
 extension TinkLink.Form.Field.Attributes.InputType : Swift.Equatable {}
 extension TinkLink.Form.Field.Attributes.InputType : Swift.Hashable {}
+extension TinkLink.SupplementInformationTask.Error : Swift.Equatable {}
+extension TinkLink.SupplementInformationTask.Error : Swift.Hashable {}
