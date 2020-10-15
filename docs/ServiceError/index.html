@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#serviceerror.cancelled">cancelled</a></li><li class="case"><a href="#serviceerror.unknown">unknown</a></li><li class="case"><a href="#serviceerror.invalidargument">invalid​Argument</a></li><li class="case"><a href="#serviceerror.deadlineexceeded">deadline​Exceeded</a></li><li class="case"><a href="#serviceerror.notfound">not​Found</a></li><li class="case"><a href="#serviceerror.alreadyexists">already​Exists</a></li><li class="case"><a href="#serviceerror.permissiondenied">permission​Denied</a></li><li class="case"><a href="#serviceerror.unauthenticated">unauthenticated</a></li><li class="case"><a href="#serviceerror.resourceexhausted">resource​Exhausted</a></li><li class="case"><a href="#serviceerror.failedprecondition">failed​Precondition</a></li><li class="case"><a href="#serviceerror.aborted">aborted</a></li><li class="case"><a href="#serviceerror.outofrange">out​OfRange</a></li><li class="case"><a href="#serviceerror.unimplemented">unimplemented</a></li><li class="case"><a href="#serviceerror.internalerror">internal​Error</a></li><li class="case"><a href="#serviceerror.unavailable">unavailable</a></li><li class="case"><a href="#serviceerror.dataloss">data​Loss</a></li><li class="case"><a href="#serviceerror.missinginternetconnection">missing​Internet​Connection</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#serviceerror.cancelled">cancelled</a></li><li class="case"><a href="#serviceerror.invalidargument">invalid​Argument</a></li><li class="case"><a href="#serviceerror.notfound">not​Found</a></li><li class="case"><a href="#serviceerror.alreadyexists">already​Exists</a></li><li class="case"><a href="#serviceerror.permissiondenied">permission​Denied</a></li><li class="case"><a href="#serviceerror.unauthenticated">unauthenticated</a></li><li class="case"><a href="#serviceerror.failedprecondition">failed​Precondition</a></li><li class="case"><a href="#serviceerror.unavailableforlegalreasons">unavailable​For​Legal​Reasons</a></li><li class="case"><a href="#serviceerror.internalerror">internal​Error</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -67,11 +67,8 @@
 <!-- Error -->
 <g id="node2" class="node unknown">
 <title>Error</title>
-<g id="a_node2"><a xlink:href="https://tink-ab.github.io/tink-link-ios/Error" xlink:title="Error">
 <path fill="none" stroke="black" d="M528,-36C528,-36 336,-36 336,-36 330,-36 324,-30 324,-24 324,-24 324,-12 324,-12 324,-6 330,0 336,0 336,0 528,0 528,0 534,0 540,-6 540,-12 540,-12 540,-24 540,-24 540,-30 534,-36 528,-36"/>
 <text text-anchor="middle" x="432" y="-14.3" font-family="Menlo" font-size="14.00">Error</text>
-</a>
-</g>
 </g>
 <!-- ServiceError&#45;&gt;Error -->
 <g id="edge1" class="edge conformsTo">
@@ -99,17 +96,7 @@
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">cancelled</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>Request is cancelled</p>
-
-</div>
-</div>
-<div role="article" class="case" id="serviceerror.unknown">
-    <h3>
-        <code>unknown</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unknown</span>(: <span class="type">String</span>)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>Unknown error</p>
+    <p>Cancelled</p>
 
 </div>
 </div>
@@ -119,17 +106,7 @@
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">invalidArgument</span>(: <span class="type">String</span>)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>Invalid argurment</p>
-
-</div>
-</div>
-<div role="article" class="case" id="serviceerror.deadlineexceeded">
-    <h3>
-        <code>deadline​Exceeded</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">deadlineExceeded</span>(: <span class="type">String</span>)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>Deadline exceeded</p>
+    <p>Invalid argument</p>
 
 </div>
 </div>
@@ -169,17 +146,7 @@
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unauthenticated</span>(: <span class="type">String</span>)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>The user has not authenticated</p>
-
-</div>
-</div>
-<div role="article" class="case" id="serviceerror.resourceexhausted">
-    <h3>
-        <code>resource​Exhausted</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">resourceExhausted</span>(: <span class="type">String</span>)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>Resource exhausted</p>
+    <p>The user is not authenticated</p>
 
 </div>
 </div>
@@ -193,33 +160,13 @@
 
 </div>
 </div>
-<div role="article" class="case" id="serviceerror.aborted">
+<div role="article" class="case" id="serviceerror.unavailableforlegalreasons">
     <h3>
-        <code>aborted</code>
+        <code>unavailable​For​Legal​Reasons</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">aborted</span>(: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unavailableForLegalReasons</span>(: <span class="type">String</span>)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>The request is aborted</p>
-
-</div>
-</div>
-<div role="article" class="case" id="serviceerror.outofrange">
-    <h3>
-        <code>out​OfRange</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">outOfRange</span>(: <span class="type">String</span>)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>Out of range</p>
-
-</div>
-</div>
-<div role="article" class="case" id="serviceerror.unimplemented">
-    <h3>
-        <code>unimplemented</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unimplemented</span>(: <span class="type">String</span>)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>Not implemented</p>
+    <p>The request cannot be fulfilled because of legal/contractual reasons.</p>
 
 </div>
 </div>
@@ -233,36 +180,6 @@
 
 </div>
 </div>
-<div role="article" class="case" id="serviceerror.unavailable">
-    <h3>
-        <code>unavailable</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unavailable</span>(: <span class="type">String</span>)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>The server is not available</p>
-
-</div>
-</div>
-<div role="article" class="case" id="serviceerror.dataloss">
-    <h3>
-        <code>data​Loss</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">dataLoss</span>(: <span class="type">String</span>)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>Data loss</p>
-
-</div>
-</div>
-<div role="article" class="case" id="serviceerror.missinginternetconnection">
-    <h3>
-        <code>missing​Internet​Connection</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">missingInternetConnection</span></code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>The internet connection is missing</p>
-
-</div>
-</div>
     </section>
 
 
@@ -272,7 +189,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2020-09-08T08:53:58+0200">8 September 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+    Generated on <time datetime="2020-10-15T16:09:42+0200">15 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>
