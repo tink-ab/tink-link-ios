@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */; };
 		2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035815424659C390075F1EA /* Error+LocalizedError.swift */; };
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
 		20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0ABC24E5713C006977F4 /* TinkLink */; };
@@ -40,7 +39,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		2035815424659C390075F1EA /* Error+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+LocalizedError.swift"; sourceTree = "<group>"; };
 		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
 		20FE0ABA24E570D1006977F4 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
@@ -94,14 +92,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8F1BF8F323C489FF007464F8 /* CustomView */ = {
-			isa = PBXGroup;
-			children = (
-				202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */,
-			);
-			path = CustomView;
-			sourceTree = "<group>";
-		};
 		8F3459AD2396ADEB007DCD75 = {
 			isa = PBXGroup;
 			children = (
@@ -125,7 +115,6 @@
 				8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */,
 				8F3459BD2396ADEB007DCD75 /* ContentView.swift */,
 				2035815424659C390075F1EA /* Error+LocalizedError.swift */,
-				8F1BF8F323C489FF007464F8 /* CustomView */,
 				8FC4980323AB9F1500A17945 /* CredentialsList */,
 				8FC4980723AB9F6700A17945 /* AddCredentialsFlow */,
 				8FF1F390239E65BF00968AB9 /* Controllers */,
@@ -313,7 +302,6 @@
 				8FF1F388239E409300968AB9 /* ProviderController.swift in Sources */,
 				8FF1F396239E776F00968AB9 /* AccessTypePickerViewController.swift in Sources */,
 				8F579BA5239E8CA400013FE1 /* SupplementalInformationViewController.swift in Sources */,
-				202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */,
 				8F579BA3239E8CA400013FE1 /* AddCredentialsStatusViewController.swift in Sources */,
 				8F45CAD223A2435A00CA0B9B /* SupplementalInformationForm.swift in Sources */,
 				8FF1F397239E776F00968AB9 /* CredentialsKindPickerViewController.swift in Sources */,
