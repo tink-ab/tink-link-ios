@@ -3,7 +3,7 @@
 
 # Tink Link iOS
 
-![Tink Link](./overview.png)
+![Tink Link](https://images.ctfassets.net/tmqu5vj33f7w/4YdZUwzfmUjvNKO0tHvKVj/ec14ed052771e3ef10156c29ccf004f0/overview.png)
 
 ## Prerequisites
 
