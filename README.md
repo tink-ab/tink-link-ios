@@ -129,6 +129,5 @@ These examples shows how to build a complete aggregation flow using TinkLink or 
 - [Headless](Examples/HeadlessExample) 
 - [Headless (SwiftUI)](Examples/HeadlessExample-SwiftUI)
 
-## Developer Documentation
-- [Tink Link Reference](https://tink-ab.github.io/tink-link-ios/tinklinkui)
-- [Tink Link Headless SDK Reference](https://tink-ab.github.io/tink-link-ios)
+## Documentation
+- [Tink Link for iOS](https://docs.tink.com/resources/tink-link-ios/tink-link-ios-overview)
