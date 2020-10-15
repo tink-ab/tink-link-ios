@@ -20,7 +20,8 @@ git commit -am"Update version"
 
 make docs
 make ui-docs
-git commit -am"Update docs"
+git add .
+git commit -m"Update docs"
 
 make format
 git commit -am"Format project"
