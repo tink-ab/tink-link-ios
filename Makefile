@@ -64,10 +64,11 @@ build-carthage-frameworks:
 ui-test:
 	carthage bootstrap --platform iOS --no-use-binaries
 	xcodegen generate
+	defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
 	xcodebuild test \
 		-project TinkLink.xcodeproj \
 		-scheme TinkLinkUIUITestsHost_iOS \
-		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
+		-destination 'platform=iOS Simulator,name=iPhone 8 Plus'
 
 build-uikit-example:
 	xcodebuild clean
@@ -118,6 +119,40 @@ translations:
 
 carthage-project:
 	xcodegen generate
+
+module-interfaces:
+	rm -rf ./build
+	echo 'Creating Xcode project...'
+	xcodegen generate
+
+	rm -rf ./Module\ Interfaces/
+	mkdir Module\ Interfaces
+
+	# Archive with xcodebuild
+	echo 'Build iOS Framework...'
+	xcodebuild clean archive \
+		-project TinkLink.xcodeproj \
+		-scheme TinkLink_iOS \
+		-destination generic/platform=iOS \
+		-archivePath ./build/ios.xcarchive \
+		-sdk iphoneos \
+		SKIP_INSTALL=NO \
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+
+	cp ./build/ios.xcarchive/Products/Library/Frameworks/TinkLink.framework/Modules/TinkLink.swiftmodule/arm64.swiftinterface ./Module\ Interfaces/TinkLink.swiftinterface
+
+	# Archive with xcodebuild
+	echo 'Build iOS Framework...'
+	xcodebuild clean archive \
+		-project TinkLink.xcodeproj \
+		-scheme TinkLinkUI_iOS \
+		-destination generic/platform=iOS \
+		-archivePath ./build/ios.xcarchive \
+		-sdk iphoneos \
+		SKIP_INSTALL=NO \
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+
+	cp ./build/ios.xcarchive/Products/Library/Frameworks/TinkLinkUI.framework/Modules/TinkLinkUI.swiftmodule/arm64.swiftinterface ./Module\ Interfaces/TinkLinkUI.swiftinterface
 
 clean: 
 	rm -rf ./docs
