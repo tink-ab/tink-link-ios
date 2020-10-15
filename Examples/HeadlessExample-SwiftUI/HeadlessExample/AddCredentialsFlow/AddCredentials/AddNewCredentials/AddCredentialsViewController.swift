@@ -18,7 +18,6 @@ final class AddCredentialsViewController: UITableViewController {
 
     private var task: AddCredentialsTask?
     private var statusViewController: AddCredentialsStatusViewController?
-    private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
@@ -48,13 +47,12 @@ extension AddCredentialsViewController {
         super.viewDidLoad()
 
         tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
+        tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: ButtonTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
 
         navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItem = addBarButtonItem
-        navigationItem.rightBarButtonItem?.isEnabled = form.fields.isEmpty
 
         setupHelpFootnote()
         layoutHelpFootnote()
@@ -119,7 +117,7 @@ extension AddCredentialsViewController {
 
 extension AddCredentialsViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return form.fields.count
+        return form.fields.count + 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -127,16 +125,23 @@ extension AddCredentialsViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath)
-        let field = form.fields[indexPath.section]
-        if let textFieldCell = cell as? TextFieldCell {
-            textFieldCell.delegate = self
-            textFieldCell.textField.placeholder = field.attributes.placeholder
-            textFieldCell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
-            textFieldCell.textField.isEnabled = field.attributes.isEditable
-            textFieldCell.textField.text = field.text
+        if indexPath.section < form.fields.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath)
+            let field = form.fields[indexPath.section]
+            if let textFieldCell = cell as? TextFieldCell {
+                textFieldCell.delegate = self
+                textFieldCell.textField.placeholder = field.attributes.placeholder
+                textFieldCell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
+                textFieldCell.textField.isEnabled = field.attributes.isEditable
+                textFieldCell.textField.text = field.text
+            }
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
+            cell.actionLabel.text = "Add"
+            return cell
+
         }
-        return cell
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -156,15 +161,27 @@ extension AddCredentialsViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+
+extension AddCredentialsViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section < form.fields.count {
+            // NOOP
+        } else {
+            addCredential()
+        }
+    }
+}
+
 // MARK: - Actions
 
 extension AddCredentialsViewController {
-    @objc private func addCredential(_ sender: UIBarButtonItem) {
+    @objc private func addCredential() {
         view.endEditing(false)
 
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.startAnimating()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        // TODO: Show indicator
         do {
             try form.validateFields()
             task = credentialsContext.add(
@@ -202,8 +219,6 @@ extension AddCredentialsViewController {
     }
 
     private func onCompletion(result: Result<Credentials, Error>) {
-        navigationItem.rightBarButtonItem = addBarButtonItem
-
         do {
             let credential = try result.get()
             showCredentialUpdated(for: credential)
@@ -232,7 +247,6 @@ extension AddCredentialsViewController {
 
     private func showUpdating(status: String) {
         if statusViewController == nil {
-            navigationItem.setRightBarButton(addBarButtonItem, animated: true)
             let statusViewController = AddCredentialsStatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
