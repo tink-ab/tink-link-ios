@@ -3,11 +3,10 @@ import TinkLink
 
 struct FinancialInsititutionPicker: View {
     var financialInstitutions: [ProviderTree.FinancialInstitutionNode]
-    var onSelection: (Provider) -> Void
 
     var body: some View {
         List(financialInstitutions, id: \.financialInstitution) { financialInstitution in
-            NavigationLink(destination: destinationView(for: financialInstitution, onSelection: onSelection)) {
+            NavigationLink(destination: destinationView(for: financialInstitution)) {
                 Text(financialInstitution.financialInstitution.name)
             }
         }
@@ -17,22 +16,20 @@ struct FinancialInsititutionPicker: View {
 
 struct FinancialInsititutionPicker_Previews: PreviewProvider {
     static var previews: some View {
-        FinancialInsititutionPicker(financialInstitutions: [], onSelection: { _ in })
+        FinancialInsititutionPicker(financialInstitutions: [])
     }
 }
 
 @ViewBuilder
-func destinationView(for financialInstitution: ProviderTree.FinancialInstitutionNode, onSelection: @escaping (Provider) -> Void) -> some View {
+func destinationView(for financialInstitution: ProviderTree.FinancialInstitutionNode) -> some View {
     switch financialInstitution {
     case .provider(let provider):
-        Button(action: { onSelection(provider) }) {
-            Text(provider.displayName)
-        }
+        AddCredentialsView(provider: provider)
     case .credentialsKinds(let credentialsKinds):
         CredentialsKindPicker(credentialsKinds: credentialsKinds)
     case .accessTypes(let accessTypes):
-        AccessTypePicker(accessTypes: accessTypes, onSelection: onSelection)
+        AccessTypePicker(accessTypes: accessTypes)
     case .authenticationUserTypes(let authenticationUserTypes):
-        AuthenticationUserTypePicker(authenticationUserTypes: authenticationUserTypes, onSelection: onSelection)
+        AuthenticationUserTypePicker(authenticationUserTypes: authenticationUserTypes)
     }
 }

@@ -3,11 +3,10 @@ import TinkLink
 
 struct FinancialInsititutionGroupPicker: View {
     var financialInstitutionGroups: [ProviderTree.FinancialInstitutionGroupNode]
-    var onSelection: (Provider) -> Void
 
     var body: some View {
         List(financialInstitutionGroups) { financialInstitutionGroup in
-            NavigationLink(destination: destinationView(for: financialInstitutionGroup, onSelection: onSelection)) {
+            NavigationLink(destination: destinationView(for: financialInstitutionGroup)) {
                 Text(financialInstitutionGroup.displayName)
             }
         }
@@ -17,24 +16,22 @@ struct FinancialInsititutionGroupPicker: View {
 
 struct FinancialInsititutionGroupPicker_Previews: PreviewProvider {
     static var previews: some View {
-        FinancialInsititutionGroupPicker(financialInstitutionGroups: []) { _ in }
+        FinancialInsititutionGroupPicker(financialInstitutionGroups: [])
     }
 }
 
 @ViewBuilder
-func destinationView(for financialInstitutionGroup: ProviderTree.FinancialInstitutionGroupNode, onSelection: @escaping (Provider) -> Void) -> some View {
+func destinationView(for financialInstitutionGroup: ProviderTree.FinancialInstitutionGroupNode) -> some View {
     switch financialInstitutionGroup {
     case .provider(let provider):
-        Button(action: { onSelection(provider) }) {
-            Text(provider.displayName)
-        }
+        AddCredentialsView(provider: provider)
     case .credentialsKinds(let credentialsKinds):
         CredentialsKindPicker(credentialsKinds: credentialsKinds)
     case .accessTypes(let accessTypes):
-        AccessTypePicker(accessTypes: accessTypes, onSelection: onSelection)
+        AccessTypePicker(accessTypes: accessTypes)
     case .authenticationUserTypes(let authenticationUserTypes):
-        AuthenticationUserTypePicker(authenticationUserTypes: authenticationUserTypes, onSelection: onSelection)
+        AuthenticationUserTypePicker(authenticationUserTypes: authenticationUserTypes)
     case .financialInstitutions(let financialInstitutions):
-        FinancialInsititutionPicker(financialInstitutions: financialInstitutions, onSelection: onSelection)
+        FinancialInsititutionPicker(financialInstitutions: financialInstitutions)
     }
 }

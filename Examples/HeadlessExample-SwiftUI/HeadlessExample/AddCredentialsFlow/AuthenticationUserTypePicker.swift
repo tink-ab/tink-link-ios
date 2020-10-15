@@ -3,11 +3,10 @@ import TinkLink
 
 struct AuthenticationUserTypePicker: View {
     var authenticationUserTypes: [ProviderTree.AuthenticationUserTypeNode]
-    var onSelection: (Provider) -> Void
 
     var body: some View {
         List(authenticationUserTypes, id: \.id) { authenticationUserType in
-            NavigationLink(destination: destinationView(for: authenticationUserType, onSelection: onSelection)) {
+            NavigationLink(destination: destinationView(for: authenticationUserType)) {
                 AuthenticationUserTypeRow(authenticationUserType: authenticationUserType.authenticationUserType)
             }
         }
@@ -46,20 +45,18 @@ extension ProviderTree.AuthenticationUserTypeNode: Identifiable {
 
 struct AuthenticationUserTypePicker_Previews: PreviewProvider {
     static var previews: some View {
-        AuthenticationUserTypePicker(authenticationUserTypes: [], onSelection: { _ in })
+        AuthenticationUserTypePicker(authenticationUserTypes: [])
     }
 }
 
 @ViewBuilder
-func destinationView(for authenticationUserType: ProviderTree.AuthenticationUserTypeNode, onSelection: @escaping (Provider) -> Void) -> some View {
+func destinationView(for authenticationUserType: ProviderTree.AuthenticationUserTypeNode) -> some View {
     switch authenticationUserType {
     case .provider(let provider):
-        Button(action: { onSelection(provider) }) {
-            Text(provider.displayName)
-        }
+        AddCredentialsView(provider: provider)
     case .credentialsKinds(let credentialsKinds):
         CredentialsKindPicker(credentialsKinds: credentialsKinds)
     case .accessTypes(let accessTypes):
-        AccessTypePicker(accessTypes: accessTypes, onSelection: onSelection)
+        AccessTypePicker(accessTypes: accessTypes)
     }
 }
