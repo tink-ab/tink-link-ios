@@ -68,7 +68,8 @@ ui-test:
 	xcodebuild test \
 		-project TinkLink.xcodeproj \
 		-scheme TinkLinkUIUITestsHost_iOS \
-		-destination 'platform=iOS Simulator,name=iPhone 8 Plus'
+		-destination 'platform=iOS Simulator,name=iPhone 8 Plus' \
+		-derivedDataPath .tmp/ui-test/
 
 build-uikit-example:
 	xcodebuild clean
