@@ -6,7 +6,7 @@ read release
 git checkout master
 git pull 
 git checkout -b public-sync-$release
-git pull git@github.com:tink-ab/tink-core-ios master
+git pull git@github.com:tink-ab/tink-link-ios master
 
 gh pr create --repo tink-ab/tink-link-ios-private -t "Public Sync" -b "Tink Link post release public sync." -r tink-ab/ios-maintainer
 
