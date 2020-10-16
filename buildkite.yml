@@ -26,6 +26,8 @@ steps:
         "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
     agents:
       queue: 'macos'
+    soft_fail:
+        - exit_status: 2
 
   - wait
 
