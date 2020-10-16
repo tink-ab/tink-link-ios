@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#nested type aliases">Nested Type Aliases</a><ul><li class="typealias"><a href="#account.id">ID</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#account.accountnumber">account​Number</a></li><li class="variable"><a href="#account.credentialsid">credentials​ID</a></li><li class="variable"><a href="#account.id">id</a></li><li class="variable"><a href="#account.name">name</a></li><li class="variable"><a href="#account.kind">kind</a></li><li class="variable"><a href="#account.transfersourceidentifiers">transfer​Source​Identifiers</a></li><li class="variable"><a href="#account.holdername">holder​Name</a></li><li class="variable"><a href="#account.isclosed">is​Closed</a></li><li class="variable"><a href="#account.currencydenominatedbalance">currency​Denominated​Balance</a></li><li class="variable"><a href="#account.refreshed">refreshed</a></li><li class="variable"><a href="#account.financialinstitutionid">financial​Institution​ID</a></li><li class="variable"><a href="#account.transferaccountid">transfer​Account​ID</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#nested type aliases">Nested Type Aliases</a><ul><li class="typealias"><a href="#account.id">ID</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#account.init(id:credentialsid:name:accountnumber:kind:transfersourceidentifiers:holdername:isclosed:currencydenominatedbalance:refreshed:financialinstitutionid:)">init(id:​credentials​ID:​name:​account​Number:​kind:​transfer​Source​Identifiers:​holder​Name:​is​Closed:​currency​Denominated​Balance:​refreshed:​financial​Institution​ID:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#account.accountnumber">account​Number</a></li><li class="variable"><a href="#account.credentialsid">credentials​ID</a></li><li class="variable"><a href="#account.id">id</a></li><li class="variable"><a href="#account.name">name</a></li><li class="variable"><a href="#account.kind">kind</a></li><li class="variable"><a href="#account.transfersourceidentifiers">transfer​Source​Identifiers</a></li><li class="variable"><a href="#account.holdername">holder​Name</a></li><li class="variable"><a href="#account.isclosed">is​Closed</a></li><li class="variable"><a href="#account.currencydenominatedbalance">currency​Denominated​Balance</a></li><li class="variable"><a href="#account.refreshed">refreshed</a></li><li class="variable"><a href="#account.financialinstitutionid">financial​Institution​ID</a></li><li class="variable"><a href="#account.transferaccountid">transfer​Account​ID</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -115,6 +115,99 @@
 </div>
 </div>
     </section>
+    <section id="initializers">
+        <h2>Initializers</h2>
+
+        <div role="article" class="initializer" id="account.init(id:credentialsid:name:accountnumber:kind:transfersourceidentifiers:holdername:isclosed:currencydenominatedbalance:refreshed:financialinstitutionid:)">
+    <h3>
+        <code>init(id:​credentials​ID:​name:​account​Number:​kind:​transfer​Source​Identifiers:​holder​Name:​is​Closed:​currency​Denominated​Balance:​refreshed:​financial​Institution​ID:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>.<span class="type">ID</span>, <span class="variable">credentialsID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">name</span>: <span class="type">String</span>, <span class="variable">accountNumber</span>: <span class="type">String</span>, <span class="variable">kind</span>: <a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>.<span class="type">Kind</span>, <span class="variable">transferSourceIdentifiers</span>: [<span class="type">URL</span>]?, <span class="variable">holderName</span>: <span class="type">String</span>?, <span class="variable">isClosed</span>: <span class="type">Bool</span>?, <span class="variable">currencyDenominatedBalance</span>: <a href="https://tink-ab.github.io/tink-link-ios/CurrencyDenominatedAmount"><span class="type">CurrencyDenominatedAmount</span></a>?, <span class="variable">refreshed</span>: <span class="type">Date</span>?, <span class="variable">financialInstitutionID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">FinancialInstitution</span>.<span class="type">ID</span>?)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Creates an Account model.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>id</th>
+    <td><code class="type">Account.​ID</code></td>
+    <td><p>The internal identifier of account.</p>
+</td>
+</tr>
+<tr>
+    <th>credentials​ID</th>
+    <td><code class="type">Credentials.​ID</code></td>
+    <td><p>The internal identifier of the credentials that the account belongs to.</p>
+</td>
+</tr>
+<tr>
+    <th>name</th>
+    <td><code class="type">String</code></td>
+    <td><p>The display name of the account. This property can be updated in a update account request.</p>
+</td>
+</tr>
+<tr>
+    <th>account​Number</th>
+    <td><code class="type">String</code></td>
+    <td><p>The account number of the account.</p>
+</td>
+</tr>
+<tr>
+    <th>kind</th>
+    <td><code class="type">Account.​Kind</code></td>
+    <td><p>The type of the account.</p>
+</td>
+</tr>
+<tr>
+    <th>transfer​Source​Identifiers</th>
+    <td><code class="type">[URL]?</code></td>
+    <td><p>All possible ways to uniquely identify this <code>Account</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>holder​Name</th>
+    <td><code class="type">String?</code></td>
+    <td><p>The name of the account holder.</p>
+</td>
+</tr>
+<tr>
+    <th>is​Closed</th>
+    <td><code class="type">Bool?</code></td>
+    <td><p>A closed account indicates that it was no longer available from the connected financial institution.</p>
+</td>
+</tr>
+<tr>
+    <th>currency​Denominated​Balance</th>
+    <td><code class="type">Currency​Denominated​Amount?</code></td>
+    <td><p>The current balance of the account.</p>
+</td>
+</tr>
+<tr>
+    <th>refreshed</th>
+    <td><code class="type">Date?</code></td>
+    <td><p>Timestamp of when the account was last refreshed.</p>
+</td>
+</tr>
+<tr>
+    <th>financial​Institution​ID</th>
+    <td><code class="type">Provider.​Financial​Institution.​ID?</code></td>
+    <td><p>A unique identifier to group accounts belonging the same financial institution.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+    </section>
     <section id="properties">
         <h2>Properties</h2>
 
@@ -184,7 +277,7 @@
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">holderName</span>: <span class="type">String</span>?</code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>The name of the account holder</p>
+    <p>The name of the account holder.</p>
 
 </div>
 </div>
@@ -249,7 +342,7 @@ The balance is represented as a scale and unscaled value together with the ISO 4
 
     <footer>
         <p>
-    Generated on <time datetime="2020-09-08T08:53:56+0200">8 September 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+    Generated on <time datetime="2020-10-15T16:09:42+0200">15 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

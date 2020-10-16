@@ -12,6 +12,8 @@ extension AddCredentialsTask.Error: LocalizedError {
             return Strings.Credentials.Error.authenticationFailed
         case .credentialsAlreadyExists:
             return Strings.Generic.error
+        case .cancelled:
+            return Strings.Generic.cancelled
         }
     }
 
@@ -22,6 +24,8 @@ extension AddCredentialsTask.Error: LocalizedError {
             return payload
         case .credentialsAlreadyExists:
             return Strings.Credentials.Error.credentialsAlreadyExists
+        case .cancelled:
+            return nil
         }
     }
 }
@@ -37,6 +41,8 @@ extension RefreshCredentialsTask.Error: LocalizedError {
             return Strings.Credentials.Error.authenticationFailed
         case .disabled:
             return Strings.Generic.error
+        case .cancelled:
+            return Strings.Generic.cancelled
         }
     }
 
@@ -45,6 +51,8 @@ extension RefreshCredentialsTask.Error: LocalizedError {
         case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload), .disabled(let payload):
             // TODO: Localize this somehow?
             return payload
+        case .cancelled:
+            return nil
         }
     }
 }
@@ -60,6 +68,8 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
             return nil
         case .decodingQRCodeImageFailed:
             return nil
+        case .cancelled:
+            return nil
         }
     }
 
@@ -72,6 +82,8 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
+            return nil
+        case .cancelled:
             return nil
         }
     }

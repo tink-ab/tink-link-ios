@@ -42,6 +42,8 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         case permanentFailure(String)
         /// The credentials are disabled. The payload from the backend can be found in the associated value.
         case disabled(String)
+        /// The task was cancelled.
+        case cancelled
     }
 
     // MARK: - Retrieving Failure Requirements
@@ -92,6 +94,12 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     /// Cancel the task.
     public func cancel() {
         credentialsStatusPollingTask?.stopPolling()
+        if let canceller = callCanceller {
+            canceller.cancel()
+            callCanceller = nil
+        } else {
+            complete(with: .failure(Error.cancelled))
+        }
     }
 
     private func complete(with result: Result<Credentials, Swift.Error>) {
@@ -151,7 +159,11 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 throw Error.disabled(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
+            @unknown default:
+                assertionFailure("Unknown credentials status!")
             }
+        } catch ServiceError.cancelled {
+            complete(with: .failure(Error.cancelled))
         } catch {
             complete(with: .failure(error))
         }

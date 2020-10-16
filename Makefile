@@ -21,6 +21,9 @@ endif
 ifeq ($(strip $(shell command -v xcodegen 2> /dev/null)),)
 	brew install xcodegen
 endif
+ifeq ($(strip $(shell command -v carthage 2> /dev/null)),)
+	brew install carthage
+endif
 ifeq ($(strip $(shell command -v bundle 2> /dev/null)),)
 	gem install bundler
 endif
@@ -45,32 +48,69 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-	bundle exec pod install --repo-update --project-directory="./Examples/TinkLinkExample/"
-	xcodebuild test \
-		-workspace Examples/TinkLinkExample/TinkLinkExample.xcworkspace \
+# 	sh scripts/updateCoreForTest.sh
+	xcodebuild clean test \
+		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
-	swift test
+build-carthage-frameworks:
+	# Xcode 12 workaround: https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
+	export XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig
+	carthage bootstrap --platform iOS --no-use-binaries
+	xcodegen generate
+	carthage build --platform iOS --no-skip-current
+
+ui-test:
+	carthage bootstrap --platform iOS --no-use-binaries
+	xcodegen generate
+	defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
+	xcodebuild test \
+		-project TinkLink.xcodeproj \
+		-scheme TinkLinkUIUITestsHost_iOS \
+		-destination 'platform=iOS Simulator,name=iPhone 8 Plus'
 
 build-uikit-example:
-	xcodebuild clean build \
+	xcodebuild clean
+
+	xcodebuild -resolvePackageDependencies \
+		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
+		-clonedSourcePackagesDirPath .tmp/spm/
+
+	xcodebuild build \
 		-project Examples/HeadlessExample/HeadlessExample.xcodeproj \
 		-scheme HeadlessExample \
-		-destination 'generic/platform=iOS Simulator'
+		-destination 'generic/platform=iOS Simulator' \
+		-derivedDataPath .tmp/DerivedData/ \
+		-clonedSourcePackagesDirPath .tmp/spm/
 
 build-swiftui-example:
-	xcodebuild clean build \
+	xcodebuild clean
+
+	xcodebuild -resolvePackageDependencies \
+		-project Examples/HeadlessExample-SwiftUI/HeadlessExample.xcodeproj \
+		-clonedSourcePackagesDirPath .tmp/spm/
+
+	xcodebuild build \
 		-project Examples/HeadlessExample-SwiftUI/HeadlessExample.xcodeproj \
 		-scheme HeadlessExample \
-		-destination 'generic/platform=iOS Simulator'
+		-destination 'generic/platform=iOS Simulator' \
+		-derivedDataPath .tmp/DerivedData/ \
+		-clonedSourcePackagesDirPath .tmp/spm/
 
 build-tinklinkui-example:
-	bundle exec pod install --project-directory="./Examples/TinkLinkExample/"
-	xcodebuild clean build \
-		-workspace Examples/TinkLinkExample/TinkLinkExample.xcworkspace \
+	xcodebuild clean
+
+	xcodebuild -resolvePackageDependencies \
+		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
+		-clonedSourcePackagesDirPath .tmp/spm/
+
+	xcodebuild build \
+		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
-		-destination 'generic/platform=iOS Simulator'
+		-destination 'platform=iOS Simulator,name=iPhone 11 Pro' \
+		-derivedDataPath .tmp/DerivedData/ \
+		-clonedSourcePackagesDirPath .tmp/spm/
 
 translations:
 	rm -rf Sources/TinkLinkUI/Translations.bundle/Base.lproj/
@@ -80,8 +120,43 @@ translations:
 carthage-project:
 	xcodegen generate
 
+module-interfaces:
+	rm -rf ./build
+	echo 'Creating Xcode project...'
+	xcodegen generate
+
+	rm -rf ./Module\ Interfaces/
+	mkdir Module\ Interfaces
+
+	# Archive with xcodebuild
+	echo 'Build iOS Framework...'
+	xcodebuild clean archive \
+		-project TinkLink.xcodeproj \
+		-scheme TinkLink_iOS \
+		-destination generic/platform=iOS \
+		-archivePath ./build/ios.xcarchive \
+		-sdk iphoneos \
+		SKIP_INSTALL=NO \
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+
+	cp ./build/ios.xcarchive/Products/Library/Frameworks/TinkLink.framework/Modules/TinkLink.swiftmodule/arm64.swiftinterface ./Module\ Interfaces/TinkLink.swiftinterface
+
+	# Archive with xcodebuild
+	echo 'Build iOS Framework...'
+	xcodebuild clean archive \
+		-project TinkLink.xcodeproj \
+		-scheme TinkLinkUI_iOS \
+		-destination generic/platform=iOS \
+		-archivePath ./build/ios.xcarchive \
+		-sdk iphoneos \
+		SKIP_INSTALL=NO \
+		BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+
+	cp ./build/ios.xcarchive/Products/Library/Frameworks/TinkLinkUI.framework/Modules/TinkLinkUI.swiftmodule/arm64.swiftinterface ./Module\ Interfaces/TinkLinkUI.swiftinterface
+
 clean: 
 	rm -rf ./docs
+	rm -rf ./.tmp
 
 release: format lint
 

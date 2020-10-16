@@ -118,6 +118,9 @@ enum Strings {
         /// Title for action to retry a failed request.
         static let retry = NSLocalizedString("Generic.Retry", tableName: tableName, bundle: bundle, value: "Try again", comment: "Title for action to retry a failed request.")
 
+        /// Title for cancelled request.
+        static let cancelled = NSLocalizedString("Generic.Cancelled", tableName: tableName, bundle: bundle, value: "Cancelled", comment: "Title for cancelled request.")
+
         enum ServiceAlert {
             /// Title for error alert if error doesn't contain a description.
             static let fallbackTitle = NSLocalizedString("Generic.ServiceAlert.FallbackTitle", tableName: tableName, bundle: bundle, value: "The service is unavailable at the moment.", comment: "Title for error alert if error doesn't contain a description.")
@@ -233,7 +236,10 @@ enum Strings {
             /// Text for field validation error shown when field exceeds character limit.
             static let maxLengthLimit = NSLocalizedString("Field.Validation.MaxLengthLimit", tableName: tableName, bundle: bundle, value: "This field cannot be longer than %d characters", comment: "Text for field validation error shown when text entered exceeds character limit.")
 
-            ///Text for field validation error shown when no text is entered for a required field.
+            /// Text for field validation error shown when text entered is shorter than required.
+            static let minLengthLimit = NSLocalizedString("Field.Validation.MinLengthLimit", tableName: tableName, bundle: bundle, value: "This field must be at least %d characters.", comment: "Text for field validation error shown when text entered is shorter than required.")
+
+            /// Text for field validation error shown when no text is entered for a required field.
             static let requiredFieldEmptyValue = NSLocalizedString("Field.Validation.RequiredFieldEmptyValue", tableName: tableName, bundle: bundle, value: "This field cannot be empty", comment: "Text for field validation error shown when no text is entered for a required field.")
         }
     }

@@ -58,6 +58,7 @@ final class CredentialsController {
 
     func refresh(
         _ credentials: Credentials,
+        authenticate: Bool,
         refreshableItems: RefreshableItems = .all,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
@@ -66,6 +67,7 @@ final class CredentialsController {
         tink._beginUITask()
         return credentialsContext.refresh(
             credentials,
+            authenticate: authenticate,
             refreshableItems: refreshableItems,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progressHandler,

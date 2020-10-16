@@ -26,6 +26,7 @@ final class BeneficiaryPickerViewController: UITableViewController {
         title = "Select Beneficiary"
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -83,7 +84,7 @@ extension BeneficiaryPickerViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
             guard let kind = alert.textFields?[0].text,
-                let accountNumber = alert.textFields?[1].text
+                  let accountNumber = alert.textFields?[1].text
             else { return }
             let name = alert.textFields?[2].text ?? ""
             let beneficiaryAccount = BeneficiaryAccount(accountNumberKind: AccountNumberKind(kind), accountNumber: accountNumber, name: name.isEmpty ? nil : name)
@@ -116,8 +117,8 @@ extension BeneficiaryPickerViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
             guard let name = alert.textFields?[0].text,
-                let accountNumberKind = alert.textFields?[1].text,
-                let accountNumber = alert.textFields?[2].text
+                  let accountNumberKind = alert.textFields?[1].text,
+                  let accountNumber = alert.textFields?[2].text
             else { return }
             let credentialsID = alert.textFields?[3].text ?? ""
             self.addBeneficiary(account: BeneficiaryAccount(accountNumberKind: AccountNumberKind(accountNumberKind), accountNumber: accountNumber), name: name, credentialsID: credentialsID.isEmpty ? nil : credentialsID)

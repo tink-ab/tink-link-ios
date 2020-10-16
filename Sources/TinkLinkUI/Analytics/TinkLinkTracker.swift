@@ -1,12 +1,12 @@
 import Foundation
 
 class TinkLinkTracker {
-
     private struct AppInfo {
         let bundleID: String?
         let name: String?
         let version: String?
     }
+
     var userID: String?
 
     private let credentialsID: String?
@@ -17,7 +17,8 @@ class TinkLinkTracker {
 
     private let version: String = {
         if let infoDictionary = Bundle(for: TinkLinkTracker.self).infoDictionary,
-            let shortVersion = infoDictionary["CFBundleShortVersionString"] as? String {
+           let shortVersion = infoDictionary["CFBundleShortVersionString"] as? String
+        {
             return shortVersion
         } else {
             return "-"
@@ -55,7 +56,7 @@ class TinkLinkTracker {
                 self.isTest = false
             }
 
-        case .refresh(credentialsID: let id):
+        case .refresh(credentialsID: let id, _):
             self.flow = .credentialsRefresh
             self.credentialsID = id.value
             self.isTest = false

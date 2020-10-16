@@ -20,7 +20,7 @@ final class FloatingButton: UIControl {
         }
     }
 
-    var textColor: UIColor = Color.background {
+    var textColor: UIColor = Color.buttonLabel {
         didSet {
             titleLabel.textColor = textColor
             imageView.tintColor = textColor
@@ -93,7 +93,7 @@ final class FloatingButton: UIControl {
     }
 
     private func setup() {
-        backgroundColor = Color.accent
+        backgroundColor = Color.button
 
         isAccessibilityElement = true
         accessibilityTraits = .button

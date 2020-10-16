@@ -84,12 +84,21 @@ public class TinkLinkViewController: UINavigationController {
     /// Strategy for different operations.
     public enum Operation {
         /// Create credentials.
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to create.
         case create(providerPredicate: ProviderPredicate = .kinds(.default))
         /// Authenticate credentials.
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to authenticate.
         case authenticate(credentialsID: Credentials.ID)
         /// Refresh credentials.
-        case refresh(credentialsID: Credentials.ID)
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.
+        ///   - forceAuthenticate: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
+        case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
         /// Update credentials.
+        /// - Parameters:
+        ///   - credentialsID: The ID of Credentials to update.
         case update(credentialsID: Credentials.ID)
     }
 
@@ -190,11 +199,12 @@ public class TinkLinkViewController: UINavigationController {
         self.init(tink: tink, market: market, scopes: scopes, providerPredicate: .kinds(providerKinds), completion: mappedCompletion)
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarAppearance()
 
@@ -207,7 +217,7 @@ public class TinkLinkViewController: UINavigationController {
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
 
-    public override func show(_ vc: UIViewController, sender: Any?) {
+    override public func show(_ vc: UIViewController, sender: Any?) {
         hideLoadingOverlay(animated: false)
         super.show(vc, sender: sender)
     }
@@ -247,6 +257,10 @@ public class TinkLinkViewController: UINavigationController {
 
                     completion()
                 } catch {
+                    if let tinkLinkError = TinkLinkError(error: error) {
+                        self.result = .failure(tinkLinkError)
+                    }
+
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
                     self.showAlert(for: error, onRetry: {
@@ -267,6 +281,10 @@ public class TinkLinkViewController: UINavigationController {
 
                     completion()
                 } catch {
+                    if let tinkLinkError = TinkLinkError(error: error) {
+                        self.result = .failure(tinkLinkError)
+                    }
+
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
                     self.showAlert(for: error, onRetry: {
@@ -287,6 +305,9 @@ public class TinkLinkViewController: UINavigationController {
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
             } catch {
+                if let tinkLinkError = TinkLinkError(error: error) {
+                    self.result = .failure(tinkLinkError)
+                }
                 DispatchQueue.main.async {
                     let viewController = UIViewController()
                     self.setViewControllers([viewController], animated: false)
@@ -321,8 +342,8 @@ public class TinkLinkViewController: UINavigationController {
             fetchProviders(providerPredicate: providerPredicate)
         case .authenticate(let id):
             startCredentialCoordinator(with: .authenticate(credentialsID: id))
-        case .refresh(let id):
-            startCredentialCoordinator(with: .refresh(credentialsID: id))
+        case .refresh(let id, let forceAuthenticate):
+            startCredentialCoordinator(with: .refresh(credentialsID: id, forceAuthenticate: forceAuthenticate))
         case .update(let id):
             startCredentialCoordinator(with: .update(credentialsID: id))
         }
@@ -347,7 +368,6 @@ public class TinkLinkViewController: UINavigationController {
                     }
                     self.loadingViewController?.setError(error, onClose: { [weak self] in
                         self?.loadingViewController?.hideLoadingIndicator()
-                        self?.result = .failure(.userCancelled)
                         self?.closeTinkLink()
                     }, onRetry: { [weak self] in
                         self?.loadingViewController?.showLoadingIndicator()
@@ -461,6 +481,7 @@ extension TinkLinkViewController {
     }
 
     private func retryOperation() {
+        result = nil
         showLoadingOverlay(withText: nil, onCancel: nil)
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
@@ -474,7 +495,7 @@ extension TinkLinkViewController {
             do {
                 let provider = try result.get()
                 self?.showAddCredentials(for: provider)
-            } catch CocoaError.userCancelled {
+            } catch TinkLinkError.userCancelled {
                 self?.cancel()
             } catch {
                 self?.showAlert(for: error)

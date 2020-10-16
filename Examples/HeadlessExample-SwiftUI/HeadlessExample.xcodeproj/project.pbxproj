@@ -7,14 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */; };
 		2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035815424659C390075F1EA /* Error+LocalizedError.swift */; };
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
-		20FE0AB624E5706A006977F4 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0AB524E5706A006977F4 /* Down */; };
-		20FE0AB924E570C6006977F4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0AB824E570C6006977F4 /* Kingfisher */; };
 		20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0ABC24E5713C006977F4 /* TinkLink */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
-		8F3459BA2396ADEB007DCD75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* AppDelegate.swift */; };
+		8F3459BA2396ADEB007DCD75 /* HeadlessExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */; };
 		8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459BD2396ADEB007DCD75 /* ContentView.swift */; };
 		8F3459C02396ADED007DCD75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459BF2396ADED007DCD75 /* Assets.xcassets */; };
 		8F3459C32396ADED007DCD75 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459C22396ADED007DCD75 /* Preview Assets.xcassets */; };
@@ -28,6 +25,8 @@
 		8F579BA5239E8CA400013FE1 /* SupplementalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F579BA0239E8CA400013FE1 /* SupplementalInformationViewController.swift */; };
 		8F8BD78C23A27DFD00CC890C /* CredentialsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78B23A27DFD00CC890C /* CredentialsList.swift */; };
 		8F8BD78E23A27EBF00CC890C /* AddCredentialsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78D23A27EBF00CC890C /* AddCredentialsRow.swift */; };
+		8F9F2F7F251C9EB300037DB5 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 8F9F2F7E251C9EB300037DB5 /* Down */; };
+		8F9F2F81251C9EB600037DB5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8F9F2F80251C9EB600037DB5 /* Kingfisher */; };
 		8FA5F37B23A3ACC200083430 /* CredentialsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5F37A23A3ACC200083430 /* CredentialsListRow.swift */; };
 		8FD0625224E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD0625124E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift */; };
 		8FF1F388239E409300968AB9 /* ProviderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F387239E409300968AB9 /* ProviderController.swift */; };
@@ -40,13 +39,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		2035815424659C390075F1EA /* Error+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+LocalizedError.swift"; sourceTree = "<group>"; };
 		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
 		20FE0ABA24E570D1006977F4 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
 		8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
 		8F3459B62396ADEB007DCD75 /* HeadlessExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeadlessExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F3459B92396ADEB007DCD75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlessExampleApp.swift; sourceTree = "<group>"; };
 		8F3459BD2396ADEB007DCD75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8F3459BF2396ADED007DCD75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F3459C22396ADED007DCD75 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -77,9 +75,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F9F2F81251C9EB600037DB5 /* Kingfisher in Frameworks */,
+				8F9F2F7F251C9EB300037DB5 /* Down in Frameworks */,
 				20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */,
-				20FE0AB924E570C6006977F4 /* Kingfisher in Frameworks */,
-				20FE0AB624E5706A006977F4 /* Down in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,14 +90,6 @@
 				20FE0ABA24E570D1006977F4 /* tink-link-ios */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		8F1BF8F323C489FF007464F8 /* CustomView */ = {
-			isa = PBXGroup;
-			children = (
-				202E06F423D051A300A3B6C3 /* ActivityIndicator.swift */,
-			);
-			path = CustomView;
 			sourceTree = "<group>";
 		};
 		8F3459AD2396ADEB007DCD75 = {
@@ -122,10 +112,9 @@
 		8F3459B82396ADEB007DCD75 /* HeadlessExample */ = {
 			isa = PBXGroup;
 			children = (
-				8F3459B92396ADEB007DCD75 /* AppDelegate.swift */,
+				8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */,
 				8F3459BD2396ADEB007DCD75 /* ContentView.swift */,
 				2035815424659C390075F1EA /* Error+LocalizedError.swift */,
-				8F1BF8F323C489FF007464F8 /* CustomView */,
 				8FC4980323AB9F1500A17945 /* CredentialsList */,
 				8FC4980723AB9F6700A17945 /* AddCredentialsFlow */,
 				8FF1F390239E65BF00968AB9 /* Controllers */,
@@ -235,9 +224,9 @@
 			);
 			name = HeadlessExample;
 			packageProductDependencies = (
-				20FE0AB524E5706A006977F4 /* Down */,
-				20FE0AB824E570C6006977F4 /* Kingfisher */,
 				20FE0ABC24E5713C006977F4 /* TinkLink */,
+				8F9F2F7E251C9EB300037DB5 /* Down */,
+				8F9F2F80251C9EB600037DB5 /* Kingfisher */,
 			);
 			productName = PermanentUserProviderSelection;
 			productReference = 8F3459B62396ADEB007DCD75 /* HeadlessExample.app */;
@@ -250,7 +239,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1120;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = Tink;
 				TargetAttributes = {
 					8F3459B52396ADEB007DCD75 = {
@@ -304,7 +293,7 @@
 				2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */,
 				20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */,
 				8F3459D02396B8C8007DCD75 /* CredentialsController.swift in Sources */,
-				8F3459BA2396ADEB007DCD75 /* AppDelegate.swift in Sources */,
+				8F3459BA2396ADEB007DCD75 /* HeadlessExampleApp.swift in Sources */,
 				8F8BD78E23A27EBF00CC890C /* AddCredentialsRow.swift in Sources */,
 				8FF1F392239E65D300968AB9 /* AddCredentialsFlowView.swift in Sources */,
 				8FD0625224E67DDA0096F285 /* AuthenticationUserTypePickerViewController.swift in Sources */,
@@ -313,7 +302,6 @@
 				8FF1F388239E409300968AB9 /* ProviderController.swift in Sources */,
 				8FF1F396239E776F00968AB9 /* AccessTypePickerViewController.swift in Sources */,
 				8F579BA5239E8CA400013FE1 /* SupplementalInformationViewController.swift in Sources */,
-				202E06F523D051A300A3B6C3 /* ActivityIndicator.swift in Sources */,
 				8F579BA3239E8CA400013FE1 /* AddCredentialsStatusViewController.swift in Sources */,
 				8F45CAD223A2435A00CA0B9B /* SupplementalInformationForm.swift in Sources */,
 				8FF1F397239E776F00968AB9 /* CredentialsKindPickerViewController.swift in Sources */,
@@ -365,6 +353,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -389,7 +378,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -425,6 +414,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -443,7 +433,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -534,19 +524,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		20FE0AB524E5706A006977F4 /* Down */ = {
+		20FE0ABC24E5713C006977F4 /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
+		};
+		8F9F2F7E251C9EB300037DB5 /* Down */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 20FE0AB424E5706A006977F4 /* XCRemoteSwiftPackageReference "Down" */;
 			productName = Down;
 		};
-		20FE0AB824E570C6006977F4 /* Kingfisher */ = {
+		8F9F2F80251C9EB600037DB5 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 20FE0AB724E570C6006977F4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		20FE0ABC24E5713C006977F4 /* TinkLink */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TinkLink;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

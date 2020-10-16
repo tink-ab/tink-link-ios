@@ -27,6 +27,7 @@ final class CredentialsFormViewController: UIViewController {
 
     private let formTableViewController: FormTableViewController
 
+    private lazy var helpLabel = ProviderHelpTextView()
     private lazy var headerView = AddCredentialsHeaderView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
     private lazy var gradientView = GradientView()
@@ -63,6 +64,7 @@ final class CredentialsFormViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -132,14 +134,10 @@ extension CredentialsFormViewController {
 
         navigationItem.title = Strings.Credentials.title
         navigationItem.largeTitleDisplayMode = .never
-        button.isEnabled = formTableViewController.form.fields.filter { $0.attributes.isEditable }.isEmpty
 
+        setupHelpFootnote()
+        layoutHelpFootnote()
         setupButton()
-
-        formTableViewController.formDidChange = { [weak self] in
-            guard let self = self else { return }
-            self.button.isEnabled = self.formTableViewController.form.areFieldsValid
-        }
 
         formTableViewController.onSubmit = { [weak self] in
             self?.addCredential()
@@ -177,7 +175,37 @@ extension CredentialsFormViewController {
         frame.size.height = headerHeight
         formTableViewController.tableView.tableHeaderView = headerView
         formTableViewController.tableView.tableHeaderView?.frame = frame
-        formTableViewController.additionalSafeAreaInsets.bottom = button.rounded ? 0 : view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
+
+        formTableViewController.additionalSafeAreaInsets.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
+    }
+
+    override func viewLayoutMarginsDidChange() {
+        super.viewLayoutMarginsDidChange()
+
+        layoutHelpFootnote()
+    }
+}
+
+// MARK: - Help Footnote
+
+extension CredentialsFormViewController {
+    private func setupHelpFootnote() {
+        guard let helpText = provider.helpText, !helpText.isEmpty else { return }
+        helpLabel.configure(markdownString: helpText)
+        formTableViewController.tableView.tableFooterView = helpLabel
+    }
+
+    private func layoutHelpFootnote() {
+        guard let footerView = formTableViewController.tableView.tableFooterView else {
+            return
+        }
+
+        let footerSize = footerView.systemLayoutSizeFitting(CGSize(width: view.bounds.width, height: 0), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
+
+        footerView.frame = CGRect(origin: .zero, size: CGSize(
+            width: view.bounds.width,
+            height: footerSize.height
+        ))
     }
 }
 
@@ -226,9 +254,8 @@ extension CredentialsFormViewController {
     }
 
     private func addCredential() {
-        view.endEditing(false)
-
         if formTableViewController.validateFields() {
+            view.endEditing(false)
             delegate?.submit(form: formTableViewController.form)
         }
     }

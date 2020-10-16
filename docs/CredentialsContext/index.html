@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#credentialscontext.init(tink:)">init(tink:​)</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#credentialscontext.add(for:form:refreshableitems:completionpredicate:progresshandler:completion:)">add(for:​form:​refreshable​Items:​completion​Predicate:​progress​Handler:​completion:​)</a></li><li class="function"><a href="#credentialscontext.fetchcredentials(completion:)">fetch​Credentials(completion:​)</a></li><li class="function"><a href="#credentialscontext.fetchcredentialslist(completion:)">fetch​Credentials​List(completion:​)</a></li><li class="function"><a href="#credentialscontext.fetchcredentials(with:completion:)">fetch​Credentials(with:​completion:​)</a></li><li class="function"><a href="#credentialscontext.refresh(_:refreshableitems:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">refresh(_:​refreshable​Items:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</a></li><li class="function"><a href="#credentialscontext.update(_:form:completion:)">update(_:​form:​completion:​)</a></li><li class="function"><a href="#credentialscontext.update(_:form:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">update(_:​form:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</a></li><li class="function"><a href="#credentialscontext.delete(_:completion:)">delete(_:​completion:​)</a></li><li class="function"><a href="#credentialscontext.authenticate(_:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">authenticate(_:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</a></li></ul></li></ol>
+            <ol><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#credentialscontext.init(tink:)">init(tink:​)</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#credentialscontext.add(for:form:refreshableitems:completionpredicate:progresshandler:completion:)">add(for:​form:​refreshable​Items:​completion​Predicate:​progress​Handler:​completion:​)</a></li><li class="function"><a href="#credentialscontext.fetchcredentials(completion:)">fetch​Credentials(completion:​)</a></li><li class="function"><a href="#credentialscontext.fetchcredentialslist(completion:)">fetch​Credentials​List(completion:​)</a></li><li class="function"><a href="#credentialscontext.fetchcredentials(with:completion:)">fetch​Credentials(with:​completion:​)</a></li><li class="function"><a href="#credentialscontext.refresh(_:authenticate:refreshableitems:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">refresh(_:​authenticate:​refreshable​Items:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</a></li><li class="function"><a href="#credentialscontext.update(_:form:completion:)">update(_:​form:​completion:​)</a></li><li class="function"><a href="#credentialscontext.update(_:form:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">update(_:​form:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</a></li><li class="function"><a href="#credentialscontext.delete(_:completion:)">delete(_:​completion:​)</a></li><li class="function"><a href="#credentialscontext.authenticate(_:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">authenticate(_:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -319,11 +319,11 @@
   </tbody>
 </table>
 </div>
-<div role="article" class="function" id="credentialscontext.refresh(_:refreshableitems:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">
+<div role="article" class="function" id="credentialscontext.refresh(_:authenticate:refreshableitems:shouldfailonthirdpartyappauthenticationdownloadrequired:progresshandler:completion:)">
     <h3>
-        <code>refresh(_:​refreshable​Items:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</code>
+        <code>refresh(_:​authenticate:​refreshable​Items:​should​Fail​OnThird​Party​App​Authentication​Download​Required:​progress​Handler:​completion:​)</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">refresh</span>(<span class="keyword">_</span> <span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="variable">refreshableItems</span>: <a href="https://tink-ab.github.io/tink-link-ios/RefreshableItems"><span class="type">RefreshableItems</span></a> = .<span class="variable">all</span>, <span class="variable">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span>: <span class="type">Bool</span> = <span class="keyword">true</span>, <span class="variable">progressHandler</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask"><span class="type">RefreshCredentialsTask</span></a>.<span class="type">Status</span>) -&gt; <span class="type">Void</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask"><span class="type">RefreshCredentialsTask</span></a></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">refresh</span>(<span class="keyword">_</span> <span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="variable">authenticate</span>: <span class="type">Bool</span> = <span class="keyword">false</span>, <span class="variable">refreshableItems</span>: <a href="https://tink-ab.github.io/tink-link-ios/RefreshableItems"><span class="type">RefreshableItems</span></a> = .<span class="variable">all</span>, <span class="variable">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span>: <span class="type">Bool</span> = <span class="keyword">true</span>, <span class="variable">progressHandler</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask"><span class="type">RefreshCredentialsTask</span></a>.<span class="type">Status</span>) -&gt; <span class="type">Void</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask"><span class="type">RefreshCredentialsTask</span></a></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Refresh the user's credentials.</p>
 
@@ -350,6 +350,12 @@
   </thead>
   <tbody>
     <tr>
+    <th>authenticate</th>
+    <td><code class="type">Bool</code></td>
+    <td><p>Force an authentication before the refresh, designed for open banking credentials. Defaults to false.</p>
+</td>
+</tr>
+<tr>
     <th>refreshable​Items</th>
     <td><code class="type">Refreshable​Items</code></td>
     <td><p>The data types to aggregate from the provider. Defaults to all types.</p>
@@ -610,7 +616,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2020-09-08T08:53:58+0200">8 September 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+    Generated on <time datetime="2020-10-15T16:09:40+0200">15 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

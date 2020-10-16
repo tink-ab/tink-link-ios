@@ -105,6 +105,7 @@ final class AddCredentialsHeaderView: UIView {
         setup()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -155,7 +156,7 @@ final class AddCredentialsHeaderView: UIView {
             tinkIconView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
 
             bankLabel.centerYAnchor.constraint(equalTo: bankIconView.centerYAnchor),
-            bankLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            bankLabel.trailingAnchor.constraint(equalTo: tinkIconView.leadingAnchor),
 
             userInfoContainerView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             userInfoContainerView.topAnchor.constraint(equalTo: bankIconView.bottomAnchor),

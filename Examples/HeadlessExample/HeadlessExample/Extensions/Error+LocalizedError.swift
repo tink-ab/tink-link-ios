@@ -12,6 +12,8 @@ extension AddCredentialsTask.Error: LocalizedError {
             return "Permanent Failure"
         case .temporaryFailure:
             return "Temporary Failure"
+        case .cancelled:
+            return "Cancelled"
         }
     }
 
@@ -22,6 +24,8 @@ extension AddCredentialsTask.Error: LocalizedError {
              .permanentFailure(let payload),
              .temporaryFailure(let payload):
             return payload
+        case .cancelled:
+            return nil
         }
     }
 }
@@ -37,6 +41,8 @@ extension RefreshCredentialsTask.Error: LocalizedError {
             return "Temporary Failure"
         case .disabled:
             return "Disabled"
+        case .cancelled:
+            return "Cancelled"
         }
     }
 
@@ -47,6 +53,8 @@ extension RefreshCredentialsTask.Error: LocalizedError {
              .temporaryFailure(let payload),
              .disabled(let payload):
             return payload
+        case .cancelled:
+            return nil
         }
     }
 }
@@ -118,6 +126,8 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
             return "This bank does not support authenticating on another device."
         case .decodingQRCodeImageFailed:
             return "Failed to decode the QR code image."
+        case .cancelled:
+            return "Cancelled"
         }
     }
 
@@ -131,6 +141,8 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
             return nil
         case .decodingQRCodeImageFailed:
             return nil
+        case .cancelled:
+            return nil
         }
     }
 }
@@ -140,12 +152,8 @@ extension ServiceError: LocalizedError {
         switch self {
         case .cancelled:
             return "Request is cancelled"
-        case .unknown:
-            return "Unknown error"
         case .invalidArgument:
             return "Invalid argurment"
-        case .deadlineExceeded:
-            return "Deadline exceeded"
         case .notFound:
             return "Not found"
         case .alreadyExists:
@@ -154,24 +162,12 @@ extension ServiceError: LocalizedError {
             return "The user has no permission"
         case .unauthenticated:
             return "The user has not authenticated"
-        case .resourceExhausted:
-            return "Resource exhausted"
         case .failedPrecondition:
             return "Precondition failed"
-        case .aborted:
-            return "The request is aborted"
-        case .outOfRange:
-            return "Out of range"
-        case .unimplemented:
-            return "Not implemented"
+        case .unavailableForLegalReasons:
+            return "The request cannot be fulfilled because of legal/contractual reasons."
         case .internalError:
             return "Internal error"
-        case .unavailable:
-            return "The server is not available"
-        case .dataLoss:
-            return "Data loss"
-        case .missingInternetConnection:
-            return "The internet connection is missing"
         }
     }
 
@@ -179,24 +175,15 @@ extension ServiceError: LocalizedError {
         switch self {
         case .cancelled:
             return nil
-        case .unknown(let payload),
-             .invalidArgument(let payload),
-             .deadlineExceeded(let payload),
+        case .invalidArgument(let payload),
              .notFound(let payload),
              .alreadyExists(let payload),
              .permissionDenied(let payload),
              .unauthenticated(let payload),
-             .resourceExhausted(let payload),
              .failedPrecondition(let payload),
-             .aborted(let payload),
-             .outOfRange(let payload),
-             .unimplemented(let payload),
-             .internalError(let payload),
-             .unavailable(let payload),
-             .dataLoss(let payload):
+             .unavailableForLegalReasons(let payload),
+             .internalError(let payload):
             return payload
-        case .missingInternetConnection:
-            return nil
         }
     }
 }

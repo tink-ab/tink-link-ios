@@ -3,7 +3,6 @@ import TinkLink
 
 final class FormTableViewController: UITableViewController {
     var onSubmit: (() -> Void)?
-    var formDidChange: (() -> Void)?
     var errorText: String?
     var prefillStrategy: TinkLinkViewController.PrefillStrategy = .none
 
@@ -17,6 +16,7 @@ final class FormTableViewController: UITableViewController {
         super.init(style: .grouped)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -61,6 +61,10 @@ final class FormTableViewController: UITableViewController {
 // MARK: - UITableViewDataSource
 
 extension FormTableViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return form.fields.count
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let field = form.fields[indexPath.item]
 
@@ -111,8 +115,8 @@ extension FormTableViewController: FormFieldTableViewCellDelegate {
         let nextIndexPath = IndexPath(row: indexPath.item + 1, section: indexPath.section)
 
         guard form.fields.count > nextIndexPath.item,
-            form.fields[indexPath.item + 1].attributes.isEditable,
-            let nextCell = tableView.cellForRow(at: nextIndexPath)
+              form.fields[indexPath.item + 1].attributes.isEditable,
+              let nextCell = tableView.cellForRow(at: nextIndexPath)
         else {
             cell.resignFirstResponder()
             return true
@@ -132,7 +136,6 @@ extension FormTableViewController: FormFieldTableViewCellDelegate {
         cell.setError(with: nil)
         tableView.endUpdates()
         currentScrollPos = nil
-        formDidChange?()
     }
 
     func formFieldCellDidEndEditing(_ cell: FormFieldTableViewCell) {
@@ -153,7 +156,6 @@ extension FormTableViewController: FormFieldTableViewCellDelegate {
         currentScrollPos = tableView.contentOffset.y
         tableView.reloadRows(at: [indexPath], with: .automatic)
         currentScrollPos = nil
-        formDidChange?()
     }
 
     // To fix the issue for scroll view jumping while animating the cell, inspired by
@@ -163,9 +165,5 @@ extension FormTableViewController: FormFieldTableViewCellDelegate {
         if let currentScrollPos = currentScrollPos {
             tableView.setContentOffset(CGPoint(x: 0, y: currentScrollPos), animated: false)
         }
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return form.fields.count
     }
 }

@@ -12,7 +12,7 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLink"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
       MACOSX_DEPLOYMENT_TARGET: 10.13
-      MARKETING_VERSION: 0.15.2
+      MARKETING_VERSION: 0.16.0
       CURRENT_PROJECT_VERSION: 3
     scheme:
       testTargets:
@@ -31,7 +31,8 @@ targets:
     sources:
       - Tests/TinkLinkTests
     dependencies:
-      - target: TinkLink_iOS
+      - target: TinkLink_${platform}
+      - carthage: TinkCore
   TinkLinkUI:
     type: framework
     platform: [iOS]
@@ -43,7 +44,7 @@ targets:
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUI"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
-      MARKETING_VERSION: 0.15.2
+      MARKETING_VERSION: 0.16.0
       CURRENT_PROJECT_VERSION: 3
     scheme:
       testTargets:
@@ -52,6 +53,7 @@ targets:
       - Sources/TinkLinkUI
     dependencies:
       - target: TinkLink_${platform}
+      - carthage: TinkCore
       - carthage: Kingfisher
       - carthage: Down
   TinkLinkUITests:
@@ -64,5 +66,41 @@ targets:
       - Tests/TinkLinkUITests
     dependencies:
       - target: TinkLinkUI_${platform}
+      - carthage: TinkCore
+      - carthage: Kingfisher
+      - carthage: Down
+  TinkLinkUIUITests:
+    type: bundle.ui-testing
+    platform: [iOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUIUITests"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      TEST_TARGET_NAME: "TinkLinkUIUITestsHost_iOS"
+    sources:
+      - Tests/TinkLinkUIUITests
+    dependencies:
+      - target: TinkLinkUIUITestsHost_${platform}
+      - target: TinkLink_${platform}
+      - target: TinkLinkUI_${platform}
+      - carthage: TinkCore
+      - carthage: Kingfisher
+      - carthage: Down
+  TinkLinkUIUITestsHost:
+    type: application
+    platform: [iOS]
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUIUITestsHost"
+      IPHONEOS_DEPLOYMENT_TARGET: 11.0
+    sources:
+      - Sources/TinkLinkUIUITestsHost
+    scheme:
+      testTargets:
+        - name: TinkLinkUIUITests_${platform}
+      environmentVariables:
+        TINK_LINK_UI_TESTS_HOST_CLIENT_ID: $TINK_LINK_UI_TESTER_CLIENT_ID
+    dependencies:
+      - target: TinkLink_${platform}
+      - target: TinkLinkUI_${platform}
+      - carthage: TinkCore
       - carthage: Kingfisher
       - carthage: Down

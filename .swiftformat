@@ -3,3 +3,4 @@
 --self init-only
 --patternlet inline
 --ranges no-space
+--extensionacl on-declarations

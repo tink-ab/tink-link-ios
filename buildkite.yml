@@ -1,4 +1,11 @@
 steps:
+  - name: ':pipeline: clean'
+    command: 'make clean'
+    agents:
+      queue: 'macos'
+
+  - wait
+
   - name: ':pipeline: Bootstrap'
     command: 'make bootstrap'
     agents:
@@ -10,6 +17,17 @@ steps:
     command: 'make test'
     agents:
       queue: 'macos'
+
+  - wait
+
+  - name: ':pipeline: UI Test'
+    command: 'make ui-test'
+    env:
+        "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
+    agents:
+      queue: 'macos'
+    soft_fail:
+        - exit_status: 2
 
   - wait
 
@@ -34,20 +52,19 @@ steps:
 
   - wait
 
-  - trigger: "distribute-tink-sdk-demo-ios"
-    label: ":pipeline: Distribution"
-    async: true
-    if: build.tag == null && build.pull_request.base_branch == "master"
-    build:
-      message: "Triggered from TinkLink ${BUILDKITE_MESSAGE}"
-      branch: "master"
+  - name: ':pipeline: Build Carthage Frameworks'
+    command: 'carthage build --platform iOS --no-skip-current'
+    env:
+        "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
+    agents:
+      queue: 'macos'
 
   - wait
 
   - trigger: "distribute-tink-sdk-demo-ios"
     label: ":pipeline: Distribution"
     async: true
-    if: build.tag != null
+    if: build.env("BUILDKITE_MESSAGE") =~ /\[Demo app\]/
     build:
-      message: "Triggered [Demo app] from TinkLink release ${BUILDKITE_MESSAGE}"
+      message: "Triggered [Demo app] from TinkLink merge to master ${BUILDKITE_MESSAGE}"
       branch: "master"

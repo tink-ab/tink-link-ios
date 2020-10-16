@@ -58,6 +58,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         case doesNotSupportAuthenticatingOnAnotherDevice
         /// Decoding the QR code image failed.
         case decodingQRCodeImageFailed
+        case cancelled
 
         /// If the error is `downloadRequired` this property can have an App Store URL to the third party app required for authentication.
         public var appStoreURL: URL? {
@@ -69,6 +70,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             case .doesNotSupportAuthenticatingOnAnotherDevice:
                 return nil
             case .decodingQRCodeImageFailed:
+                return nil
+            case .cancelled:
                 return nil
             }
         }
@@ -113,7 +116,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
          appUri: URL,
          credentialsService: CredentialsService,
          shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
-         completionHandler: @escaping (Result<Void, Swift.Error>) -> Void) {
+         completionHandler: @escaping (Result<Void, Swift.Error>) -> Void)
+    {
         self.credentials = credentials
         self.credentialsService = credentialsService
         self.appUri = appUri
@@ -245,6 +249,8 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     throw Error.decodingQRCodeImageFailed
                 }
                 completion(.success(qrImage))
+            } catch ServiceError.cancelled {
+                completion(.failure(Error.cancelled))
             } catch {
                 completion(.failure(error))
             }
@@ -258,9 +264,12 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     ///
     /// Call this method if you have a UI that lets the user choose to open the third party app and the user cancels.
     public func cancel() {
-        callRetryCancellable?.cancel()
-        callRetryCancellable = nil
-        completionHandler(.failure(CocoaError(.userCancelled)))
+        if let cancellable = callRetryCancellable {
+            cancellable.cancel()
+            callRetryCancellable = nil
+        } else {
+            completionHandler(.failure(Error.cancelled))
+        }
     }
 
     private func sanitizeDeeplink(_ url: URL, redirectUri: URL) -> URL {

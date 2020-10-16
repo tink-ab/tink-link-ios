@@ -23,6 +23,7 @@ final class SupplementalInformationViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -44,7 +45,6 @@ extension SupplementalInformationViewController {
         formTableViewController.didMove(toParent: self)
 
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.isEnabled = formTableViewController.form.fields.filter { $0.attributes.isEditable }.isEmpty
         button.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
         button.text = Strings.SupplementalInformation.submit
 
@@ -66,11 +66,6 @@ extension SupplementalInformationViewController {
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
 
-        formTableViewController.formDidChange = { [weak self] in
-            guard let self = self else { return }
-            self.button.isEnabled = self.formTableViewController.form.areFieldsValid
-        }
-
         formTableViewController.onSubmit = { [weak self] in
             self?.submit()
         }
@@ -90,9 +85,7 @@ extension SupplementalInformationViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        formTableViewController.tableView.contentInset.top = 16.0
-        formTableViewController.tableView.contentInset.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
-        formTableViewController.tableView.scrollIndicatorInsets.bottom = button.rounded ? 0 : formTableViewController.tableView.contentInset.bottom
+        formTableViewController.additionalSafeAreaInsets.bottom = button.rounded ? 0 : view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
     }
 }
 

@@ -40,7 +40,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     @objc func cancel() {
-        completion?(.failure(CocoaError(.userCancelled)))
+        completion?(.failure(TinkLinkError.userCancelled))
     }
 
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?) {
