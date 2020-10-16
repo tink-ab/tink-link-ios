@@ -76,6 +76,7 @@ public final class CredentialsContext {
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - completionPredicate: Predicate for when credentials task should complete.
+    ///   - authenticationHandler: Indicates the authentication task for adding credentials.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
@@ -99,7 +100,7 @@ public final class CredentialsContext {
             completion: completion
         )
 
-        if let newlyAddedCredentials = newlyAddedCredentials[provider.name] {
+        if let newlyAddedCredentials = newlyAddedCredentials[providerName] {
             task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
                 do {
                     let credentials = try result.get()
@@ -110,10 +111,10 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = service.create(providerName: provider.name, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
+            task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
-                    self?.newlyAddedCredentials[provider.name] = credential
+                    self?.newlyAddedCredentials[providerName] = credential
                     task?.startObserving(credential)
                 } catch {
                     let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
@@ -149,6 +150,7 @@ public final class CredentialsContext {
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - completionPredicate: Predicate for when credentials task should complete.
+    ///   - authenticationHandler: Indicates the authentication task for adding credentials.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
@@ -159,12 +161,13 @@ public final class CredentialsContext {
         form: Form,
         refreshableItems: RefreshableItems = .all,
         completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
+        authenticationHandler: @escaping AuthenticationTaskHandler,
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
 
-        return add(forProviderWithName: provider.name, form: form, refreshableItems: refreshableItems, completionPredicate: completionPredicate, progressHandler: progressHandler, completion: completion)
+        return add(forProviderWithName: provider.name, form: form, refreshableItems: refreshableItems, completionPredicate: completionPredicate, authenticationHandler: authenticationHandler, progressHandler: progressHandler, completion: completion)
     }
 
     /// Fetch a list of the current user's credentials.

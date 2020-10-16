@@ -123,11 +123,8 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                     }
                 }
                 authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
-            case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
-                guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
-                    assertionFailure("Missing third pary app authentication deeplink URL!")
-                    return
-                }
+            case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication), .awaitingMobileBankIDAuthentication(let thirdPartyAppAuthentication):
+
                 credentialsStatusPollingTask?.stopPolling()
                 let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
@@ -140,19 +137,19 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 }
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
-                progressHandler(.updating(status: credentials.statusPayload))
+                progressHandler(.updating(status: credentials.statusPayload ?? ""))
             case .updated:
                 complete(with: .success(credentials))
             case .sessionExpired:
                 break
             case .authenticationError:
-                throw Error.authenticationFailed(credentials.statusPayload)
+                throw Error.authenticationFailed(credentials.statusPayload ?? "")
             case .permanentError:
-                throw Error.permanentFailure(credentials.statusPayload)
+                throw Error.permanentFailure(credentials.statusPayload ?? "")
             case .temporaryError:
-                throw Error.temporaryFailure(credentials.statusPayload)
+                throw Error.temporaryFailure(credentials.statusPayload ?? "")
             case .disabled:
-                throw Error.disabled(credentials.statusPayload)
+                throw Error.disabled(credentials.statusPayload ?? "")
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }

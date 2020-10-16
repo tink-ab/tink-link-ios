@@ -19,7 +19,7 @@ final class ProviderController: ObservableObject {
         }
     }
 
-    func provider(providerID: Provider.ID) -> Provider? {
-        return providers.first { $0.id == providerID }
+    func provider(_ name: Provider.Name) -> Provider? {
+        return providers.first { $0.name == name }
     }
 }

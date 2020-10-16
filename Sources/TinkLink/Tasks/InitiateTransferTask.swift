@@ -180,12 +180,9 @@ public final class InitiateTransferTask: Cancellable {
                     }
                 }
                 authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
-            case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
+            case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication), .awaitingMobileBankIDAuthentication(let thirdPartyAppAuthentication):
                 credentialsStatusPollingTask?.stopPolling()
-                guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
-                    throw Error.authenticationFailed("Missing third party app authentication information.")
-                }
-
+                
                 let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false) { [weak self] result in
                     guard let self = self else { return }
                     do {
@@ -200,29 +197,29 @@ public final class InitiateTransferTask: Cancellable {
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
                 // Need to keep polling here, updated is the state when the authentication is done.
-                progressHandler(.updating(status: credentials.statusPayload))
+                progressHandler(.updating(status: credentials.statusPayload ?? ""))
             case .updated:
                 // Stops polling when the credentials status is updating
                 credentialsStatusPollingTask?.stopPolling()
                 transferStatusPollingTask?.startPolling()
             case .permanentError:
-                throw Error.failed(credentials.statusPayload)
+                throw Error.failed(credentials.statusPayload ?? "")
             case .temporaryError:
-                throw Error.failed(credentials.statusPayload)
+                throw Error.failed(credentials.statusPayload ?? "")
             case .authenticationError:
                 var payload: String
                 // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
                 // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
                 if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                    payload = credentials.statusPayload.isEmpty ? "Please try again later" : credentials.statusPayload
+                    payload = (credentials.statusPayload ?? "").isEmpty ? "Please try again later" : ""
                 } else {
-                    payload = credentials.statusPayload
+                    payload = credentials.statusPayload ?? ""
                 }
                 throw Error.authenticationFailed(payload)
             case .disabled:
-                throw Error.disabledCredentials(credentials.statusPayload)
+                throw Error.disabledCredentials(credentials.statusPayload ?? "")
             case .sessionExpired:
-                throw Error.credentialsSessionExpired(credentials.statusPayload)
+                throw Error.credentialsSessionExpired(credentials.statusPayload ?? "")
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             }

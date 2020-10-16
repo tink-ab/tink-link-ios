@@ -2,7 +2,7 @@ import Foundation
 @testable import TinkLink
 
 class MockedSuccessProviderService: ProviderService {
-    func providers(id: Provider.ID?, capabilities: Provider.Capabilities?, includeTestProviders: Bool, excludeNonTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
+    func providers(name: Provider.Name?, capabilities: Provider.Capabilities?, includeTestProviders: Bool, excludeNonTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
         let providers = [
             Provider.nordeaBankID,
             Provider.nordeaPassword,
@@ -17,7 +17,7 @@ class MockedSuccessProviderService: ProviderService {
 }
 
 class MockedUnauthenticatedErrorProviderService: ProviderService {
-    func providers(id: Provider.ID?, capabilities: Provider.Capabilities?, includeTestProviders: Bool, excludeNonTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
+    func providers(name: Provider.Name?, capabilities: Provider.Capabilities?, includeTestProviders: Bool, excludeNonTestProviders: Bool, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }

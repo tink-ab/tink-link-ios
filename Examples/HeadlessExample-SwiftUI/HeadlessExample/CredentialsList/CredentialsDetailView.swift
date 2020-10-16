@@ -30,7 +30,7 @@ struct CredentialsDetailView: View {
 
     var body: some View {
         Form {
-            Section(footer: Text(updatedCredentials.statusPayload)) {
+            Section(footer: Text(updatedCredentials.statusPayload ?? "")) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(String(describing: updatedCredentials.status).localizedCapitalized)
                     updatedCredentials.statusUpdated.map {
