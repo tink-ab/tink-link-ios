@@ -53,17 +53,17 @@ class ChevronLayer: CAShapeLayer {
 }
 
 extension ChevronLayer {
-    fileprivate func setup() {
+    private func setup() {
         fillColor = UIColor.blue.cgColor
         frame = CGRect(x: 0, y: 0, width: 12, height: 12)
         updatePath()
     }
 
-    fileprivate func updatePath() {
+    private func updatePath() {
         path = chevronPath(for: direction, size: size)
     }
 
-    fileprivate func chevronPath(for direction: ChevronDirection, size: ChevronSize) -> CGPath {
+    private func chevronPath(for direction: ChevronDirection, size: ChevronSize) -> CGPath {
         let chevronPath = UIBezierPath()
 
         switch size {
