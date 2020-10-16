@@ -68,6 +68,7 @@ final class CredentialsDetailViewController: UITableViewController {
         dateFormatter.doesRelativeDateFormatting = true
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
