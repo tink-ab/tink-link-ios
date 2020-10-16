@@ -62,7 +62,6 @@ build-carthage-frameworks:
 	carthage build --platform iOS --no-skip-current
 
 ui-test:
-	rm -rf ${TMPDIR}/TemporaryItems/*carthage*
 	carthage bootstrap --platform iOS --no-use-binaries
 	xcodegen generate
 	defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
