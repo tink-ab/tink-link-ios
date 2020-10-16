@@ -151,7 +151,7 @@ class FloatingPlaceholderTextField: UITextField {
 }
 
 extension FloatingPlaceholderTextField {
-    fileprivate func setup() {
+    private func setup() {
         clipsToBounds = false
         backgroundColor = .clear
 
@@ -180,11 +180,11 @@ extension FloatingPlaceholderTextField {
     }
 
     @objc
-    fileprivate func didChangeText(_ sender: Any) {
+    private func didChangeText(_ sender: Any) {
         updatePlaceholderLayer()
     }
 
-    fileprivate func updatePlaceholderLayer() {
+    private func updatePlaceholderLayer() {
         guard let font = font,
               !placeholderLayer.frame.isEmpty else { return }
 
@@ -199,7 +199,7 @@ extension FloatingPlaceholderTextField {
         placeholderLayer.position.y = placeholderUpTop ? -targetSize : placeholderFrame.origin.y
     }
 
-    fileprivate func updateInputType() {
+    private func updateInputType() {
         switch inputType {
         case .text:
             keyboardType = .default
