@@ -159,6 +159,7 @@ clean:
 	rm -rf ./docs
 	rm -rf ./.tmp
 
-release: format lint
+release:
+	./scripts/release.sh
 
 .PHONY: all docs
