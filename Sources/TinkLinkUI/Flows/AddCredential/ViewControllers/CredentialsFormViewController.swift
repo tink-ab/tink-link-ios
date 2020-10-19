@@ -35,6 +35,8 @@ final class CredentialsFormViewController: UIViewController {
         return tinkIconView
     }()
 
+    private let navigationTitleLabel = UILabel()
+    private let navigationTitleImageView = UIImageView()
     private lazy var helpLabel = ProviderHelpTextView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
     private lazy var gradientView = GradientView()
@@ -98,6 +100,7 @@ extension CredentialsFormViewController {
         formTableViewController.didMove(toParent: self)
 
         addCredentialFooterView.delegate = self
+        addCredentialFooterView.configure(clientName)
         addCredentialFooterView.isHidden = isAggregator
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         addCredentialFooterView.backgroundColor = Color.background
@@ -307,6 +310,10 @@ extension CredentialsFormViewController {
 extension CredentialsFormViewController: AddCredentialsFooterViewDelegate {
     func addCredentialsFooterViewDidTapLink(_ addCredentialsFooterView: AddCredentialsFooterView, url: URL) {
         showPrivacyPolicy(url)
+    }
+
+    func addCredentialsFooterViewDidTapConsentReadMoreLink(_ addCredentialsFooterView: AddCredentialsFooterView) {
+        showMoreInfo()
     }
 }
 

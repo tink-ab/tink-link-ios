@@ -23,6 +23,7 @@ final class FormTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         tableView.backgroundColor = .clear
         tableView.registerReusableCell(ofType: FormFieldTableViewCell.self)
         tableView.allowsSelection = false
