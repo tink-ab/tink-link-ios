@@ -199,7 +199,7 @@ extension CredentialsFormViewController {
             button.image = UIImage(icon: .bankID)
             button.text = Strings.Credentials.openBankID
         default:
-            button.text = Strings.Generic.continue
+            button.text = Strings.Generic.login
         }
     }
 

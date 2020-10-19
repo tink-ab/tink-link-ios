@@ -103,6 +103,9 @@ enum Strings {
         /// Title for action to dismiss error alert.
         static let dismiss = NSLocalizedString("Generic.Dismiss", tableName: tableName, bundle: bundle, value: "Dismiss", comment: "Title for action to dismiss error alert.")
 
+        /// Title for generic text to login.
+        static let login = NSLocalizedString("Generic.Login", tableName: tableName, bundle: bundle, value: "Log in", comment: "Title for generic text to login.")
+
         /// Title for action to confirm an event.
         static let done = NSLocalizedString("Generic.Done", tableName: tableName, bundle: bundle, value: "Done", comment: "Title for action to confirm an event.")
 
