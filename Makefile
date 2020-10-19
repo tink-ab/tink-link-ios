@@ -159,7 +159,13 @@ clean:
 	rm -rf ./docs
 	rm -rf ./.tmp
 
+prerelease:
+	./scripts/prerelease.sh
+
 release:
 	./scripts/release.sh
+
+postrelease:
+	./scripts/postrelease.sh
 
 .PHONY: all docs
