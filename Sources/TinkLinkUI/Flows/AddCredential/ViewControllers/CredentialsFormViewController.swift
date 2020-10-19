@@ -1,6 +1,7 @@
 import Down
 import TinkLink
 import UIKit
+import Kingfisher
 
 protocol CredentialsFormViewControllerDelegate: AnyObject {
     func showScopeDescriptions()
@@ -19,6 +20,7 @@ final class CredentialsFormViewController: UIViewController {
     }
 
     private let credentialsController: CredentialsController
+    private let form: Form
     private let clientName: String
     private let isAggregator: Bool
     private let isVerified: Bool
@@ -43,6 +45,7 @@ final class CredentialsFormViewController: UIViewController {
     init(provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
         let form = Form(provider: provider)
+        self.form = form
         self.formTableViewController = FormTableViewController(form: form)
         self.credentialsController = credentialsController
         self.clientName = clientName
@@ -55,6 +58,7 @@ final class CredentialsFormViewController: UIViewController {
     init(credentials: Credentials, provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
         let form = Form(updatingCredentials: credentials, provider: provider)
+        self.form = form
         self.formTableViewController = FormTableViewController(form: form)
         self.credentialsController = credentialsController
         self.clientName = clientName
@@ -102,7 +106,20 @@ extension CredentialsFormViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
 
         headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 180)
+        navigationTitleLabel.font = Font.headline
+        navigationTitleLabel.text = provider.displayName
+        navigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
+        navigationTitleImageView.contentMode = .scaleAspectFit
+        navigationTitleImageView.kf.setImage(with: provider.image)
+        navigationTitleImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        let navigationTitleContainerView = UIView()
+        navigationTitleContainerView.translatesAutoresizingMaskIntoConstraints = false
+        if !form.fields.isEmpty {
+            navigationTitleContainerView.addSubview(navigationTitleImageView)
+        }
+        navigationTitleContainerView.addSubview(navigationTitleLabel)
         view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
         view.addSubview(button)
@@ -130,9 +147,18 @@ extension CredentialsFormViewController {
             button.heightAnchor.constraint(equalToConstant: 48),
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonBottomConstraint,
+
+            navigationTitleImageView.widthAnchor.constraint(equalToConstant: 20),
+            navigationTitleImageView.heightAnchor.constraint(equalToConstant: 20),
+            navigationTitleImageView.leadingAnchor.constraint(equalTo: navigationTitleContainerView.leadingAnchor),
+            navigationTitleImageView.centerYAnchor.constraint(equalTo: navigationTitleContainerView.centerYAnchor),
+
+            navigationTitleLabel.leadingAnchor.constraint(equalTo: navigationTitleImageView.trailingAnchor, constant: 12),
+            navigationTitleLabel.centerYAnchor.constraint(equalTo: navigationTitleContainerView.centerYAnchor),
+            navigationTitleLabel.trailingAnchor.constraint(equalTo: navigationTitleContainerView.trailingAnchor),
         ])
 
-        navigationItem.title = Strings.Credentials.title
+        navigationItem.titleView = navigationTitleContainerView
         navigationItem.largeTitleDisplayMode = .never
 
         setupHelpFootnote()
