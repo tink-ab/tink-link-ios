@@ -35,6 +35,8 @@ docs:
 		--output docs \
 		--format html \
 		--base-url "https://tink-ab.github.io/tink-link-ios/"
+
+ui-docs:
 	swift doc generate Sources/TinkLinkUI/ \
 		--module-name TinkLinkUI \
 		--output docs/tinklinkui \
@@ -158,6 +160,9 @@ module-interfaces:
 clean: 
 	rm -rf ./docs
 	rm -rf ./.tmp
+
+prerelease:
+	scripts/prerelease.sh
 
 release: format lint
 
