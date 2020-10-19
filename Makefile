@@ -164,6 +164,10 @@ clean:
 prerelease:
 	scripts/prerelease.sh
 
-release: format lint
+release:
+	./scripts/release.sh
+
+postrelease:
+	./scripts/postrelease.sh
 
 .PHONY: all docs
