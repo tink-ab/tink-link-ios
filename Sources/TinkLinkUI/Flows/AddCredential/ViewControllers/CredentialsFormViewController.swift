@@ -168,7 +168,7 @@ extension CredentialsFormViewController {
             navigationTitleLabel.centerYAnchor.constraint(equalTo: navigationTitleContainerView.centerYAnchor),
             navigationTitleLabel.trailingAnchor.constraint(equalTo: navigationTitleContainerView.trailingAnchor),
         ])
-        navigationItem.titleView = form.fields.isEmpty ? navigationTitleLabel : navigationTitleContainerView
+        navigationItem.titleView = navigationTitleContainerView
         navigationItem.largeTitleDisplayMode = .never
 
         setupHelpFootnote()
