@@ -1,5 +1,5 @@
 import Foundation
-import TinkCore
+@testable import TinkCore
 
 extension Account {
     static let checkingTestAccount = Account(

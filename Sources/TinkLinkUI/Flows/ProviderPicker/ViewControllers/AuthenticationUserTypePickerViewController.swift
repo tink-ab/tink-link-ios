@@ -12,6 +12,7 @@ final class AuthenticationUserTypePickerViewController: UITableViewController {
         super.init(style: .plain)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -56,7 +57,9 @@ extension AuthenticationUserTypePickerViewController {
             cell.setIcon(.corporate)
             cell.setTitle(text: Strings.SelectAuthenticationUserType.corporate)
         case .unknown:
-            fatalError("Unknow authentication user type")
+            assertionFailure("Unknow authentication user type")
+        @unknown default:
+            assertionFailure("Unknow authentication user type")
         }
         return cell
     }

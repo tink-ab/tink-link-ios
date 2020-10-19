@@ -42,6 +42,7 @@ class ScopeDescriptionCell: UITableViewCell, ReusableCell {
         descriptionLabel.font = descriptionFont
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

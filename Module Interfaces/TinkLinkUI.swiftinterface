@@ -1,0 +1,178 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TinkLinkUI
+import CoreGraphics
+import Down
+import Foundation
+import Kingfisher
+import Swift
+import TinkLink
+import UIKit
+import WebKit
+public enum Appearance {
+  public static var provider: TinkLinkUI.AppearanceProviding {
+    get
+    set
+  }
+}
+public protocol AppearanceProviding {
+  var colors: TinkLinkUI.ColorProviding { get }
+  var fonts: TinkLinkUI.FontProviding { get }
+}
+public struct AppearanceProvider : TinkLinkUI.AppearanceProviding {
+  public let colors: TinkLinkUI.ColorProviding
+  public let fonts: TinkLinkUI.FontProviding
+  public init(colors: TinkLinkUI.ColorProvider? = nil, fonts: TinkLinkUI.FontProvider? = nil)
+}
+public enum Color {
+}
+public class ColorProvider : TinkLinkUI.ColorProviding {
+  public var accentBackground: UIKit.UIColor
+  public var button: UIKit.UIColor
+  public var buttonLabel: UIKit.UIColor
+  public var background: UIKit.UIColor
+  public var secondaryBackground: UIKit.UIColor
+  @available(*, deprecated, message: "Use background to update elements background")
+  public var groupedBackground: UIKit.UIColor
+  @available(*, deprecated, message: "Use secondaryBackground to update secondary elements background")
+  public var secondaryGroupedBackground: UIKit.UIColor
+  public var label: UIKit.UIColor
+  public var secondaryLabel: UIKit.UIColor
+  public var separator: UIKit.UIColor
+  public var accent: UIKit.UIColor
+  public var warning: UIKit.UIColor
+  public var critical: UIKit.UIColor
+  public init()
+  @available(*, deprecated, message: "Use init(accent:background:secondaryBackground:label:secondaryLabel:separator:warning:critical:) instead.")
+  public init(background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, groupedBackground: UIKit.UIColor, secondaryGroupedBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, accent: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor)
+  public init(accent: UIKit.UIColor, accentBackground: UIKit.UIColor?, background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor, button: UIKit.UIColor? = nil, buttonText: UIKit.UIColor? = nil)
+  @objc deinit
+}
+public protocol ColorProviding {
+  var accent: UIKit.UIColor { get }
+  var accentBackground: UIKit.UIColor { get }
+  var background: UIKit.UIColor { get }
+  var label: UIKit.UIColor { get }
+  var secondaryLabel: UIKit.UIColor { get }
+  var separator: UIKit.UIColor { get }
+  var secondaryBackground: UIKit.UIColor { get }
+  var button: UIKit.UIColor { get }
+  var buttonLabel: UIKit.UIColor { get }
+  @available(*, deprecated, message: "Use background to update elements background")
+  var groupedBackground: UIKit.UIColor { get }
+  @available(*, deprecated, message: "Use secondaryBackground to update secondary elements background")
+  var secondaryGroupedBackground: UIKit.UIColor { get }
+  var warning: UIKit.UIColor { get }
+  var critical: UIKit.UIColor { get }
+}
+public enum Font {
+  case custom(Swift.String)
+  case systemDefault
+}
+extension Font {
+  public enum Weight {
+    case regular
+    case bold
+    public static func == (a: TinkLinkUI.Font.Weight, b: TinkLinkUI.Font.Weight) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+}
+public class FontProvider : TinkLinkUI.FontProviding {
+  public var regularFont: TinkLinkUI.Font
+  public var boldFont: TinkLinkUI.Font
+  public init()
+  public init(regularFont: TinkLinkUI.Font, boldFont: TinkLinkUI.Font)
+  public func font(for weight: TinkLinkUI.Font.Weight) -> TinkLinkUI.Font
+  @objc deinit
+}
+public protocol FontProviding {
+  func font(for weight: TinkLinkUI.Font.Weight) -> TinkLinkUI.Font
+}
+extension ServiceError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public var failureReason: Swift.String? {
+    get
+  }
+}
+extension AddCredentialsTask.Error : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public var failureReason: Swift.String? {
+    get
+  }
+}
+extension RefreshCredentialsTask.Error : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public var failureReason: Swift.String? {
+    get
+  }
+}
+extension ThirdPartyAppAuthenticationTask.Error : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public var failureReason: Swift.String? {
+    get
+  }
+}
+public enum TinkLinkError : Swift.Error {
+  case userCancelled
+  case unableToFetchProviders
+  case missingInternetConnection
+  case credentialsNotFound
+  case providerNotFound
+  case unableToOpenThirdPartyApp(TinkLink.ThirdPartyAppAuthenticationTask.Error)
+  case unauthenticated
+  case internalError
+}
+@objc @_hasMissingDesignatedInitializers public class TinkLinkViewController : UIKit.UINavigationController {
+  public enum PrefillStrategy {
+    case none
+    case username(value: Swift.String, isEditable: Swift.Bool)
+  }
+  public enum ProviderPredicate {
+    case kinds(Swift.Set<TinkCore.Provider.Kind>)
+    case name(TinkCore.Provider.ID)
+  }
+  public enum Operation {
+    case create(providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default))
+    case authenticate(credentialsID: TinkCore.Credentials.ID)
+    case refresh(credentialsID: TinkCore.Credentials.ID, forceAuthenticate: Swift.Bool = false)
+    case update(credentialsID: TinkCore.Credentials.ID)
+  }
+  public var prefill: TinkLinkUI.TinkLinkViewController.PrefillStrategy
+  final public let scopes: [TinkCore.Scope]?
+  public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default), completion: @escaping (Swift.Result<(code: TinkCore.AuthorizationCode, credentials: TinkCore.Credentials), TinkLinkUI.TinkLinkError>) -> Swift.Void)
+  public init(tink: TinkCore.Tink = .shared, userSession: TinkCore.UserSession, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkError>) -> Swift.Void)
+  public init(tink: TinkCore.Tink = .shared, authorizationCode: TinkCore.AuthorizationCode, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkError>) -> Swift.Void)
+  @available(*, unavailable, renamed: "init(tink:market:scopes:providerPredicate:completion:)")
+  convenience public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerKinds: Swift.Set<TinkCore.Provider.Kind>, completion: @escaping (Swift.Result<TinkCore.AuthorizationCode, TinkLinkUI.TinkLinkError>) -> Swift.Void)
+  @objc override dynamic public func viewDidLoad()
+  @objc override dynamic public func show(_ vc: UIKit.UIViewController, sender: Any?)
+  @objc deinit
+  @available(iOS 5.0, *)
+  @objc override dynamic public init(navigationBarClass: Swift.AnyClass?, toolbarClass: Swift.AnyClass?)
+  @objc override dynamic public init(rootViewController: UIKit.UIViewController)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+}
+@available(iOS 13.0, *)
+extension TinkLinkViewController : UIKit.UIAdaptivePresentationControllerDelegate {
+  @objc dynamic public func presentationControllerDidAttemptToDismiss(_ presentationController: UIKit.UIPresentationController)
+  @objc dynamic public func presentationControllerDidDismiss(_ presentationController: UIKit.UIPresentationController)
+  @objc dynamic public func presentationControllerShouldDismiss(_ presentationController: UIKit.UIPresentationController) -> Swift.Bool
+}
+extension Form.Field.ValidationError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+extension TinkLinkUI.Font.Weight : Swift.Equatable {}
+extension TinkLinkUI.Font.Weight : Swift.Hashable {}

@@ -124,14 +124,13 @@ final class AddCredentialsSession {
 
     func refreshCredentials(credentials: Credentials, forceAuthenticate: Bool, completion: @escaping (Result<Credentials, Error>) -> Void) {
         var authenticate: Bool {
-            if let sessionExpiryDate = credentials.sessionExpiryDate,
-               sessionExpiryDate <= Date() {
+            if let sessionExpiryDate = credentials.sessionExpiryDate, sessionExpiryDate <= Date() {
                 return true
             }
             return forceAuthenticate
         }
 
-        task = credentialsController.refresh(credentials, authenticate: authenticate,  shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
+        task = credentialsController.refresh(credentials, authenticate: authenticate, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }

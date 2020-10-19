@@ -250,6 +250,8 @@ extension AddBeneficiaryTask {
             throw Error.credentialsSessionExpired(credentials.statusPayload ?? "")
         case .unknown:
             assertionFailure("Unknown credentials status!")
+        @unknown default:
+            assertionFailure("Unknown credentials status!")
         }
     }
 }

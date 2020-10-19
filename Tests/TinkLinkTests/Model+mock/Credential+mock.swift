@@ -1,5 +1,19 @@
 import Foundation
-import TinkCore
+@testable import TinkCore
+
+extension Credentials {
+    static let testPasswordCredentials = Credentials(
+        id: Credentials.ID("test"),
+        providerName: Provider.Name("test"),
+        kind: .password,
+        status: .created,
+        statusPayload: "",
+        statusUpdated: nil,
+        updated: Date(),
+        fields: [:],
+        sessionExpiryDate: Date()
+    )
+}
 
 extension Credentials {
     // Extension to update the status for test
@@ -35,13 +49,14 @@ extension Credentials {
     }
 
     static func makeTestCredentials(
+        id: Credentials.ID = Credentials.ID(UUID().uuidString),
         providerName: Provider.Name,
         kind: Kind,
         status: Status,
         fields: [String: String] = [:]
     ) -> Credentials {
         return Credentials(
-            id: Credentials.ID(UUID().uuidString),
+            id: id,
             providerName: providerName,
             kind: kind,
             status: status,

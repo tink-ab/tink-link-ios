@@ -152,6 +152,8 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 throw Error.disabled(credentials.statusPayload ?? "")
             case .unknown:
                 assertionFailure("Unknown credentials status!")
+            @unknown default:
+                assertionFailure("Unknown credentials status!")
             }
         } catch ServiceError.cancelled {
             complete(with: .failure(Error.cancelled))

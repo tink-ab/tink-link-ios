@@ -191,11 +191,12 @@ public class TinkLinkViewController: UINavigationController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarAppearance()
 
@@ -208,7 +209,7 @@ public class TinkLinkViewController: UINavigationController {
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
 
-    public override func show(_ vc: UIViewController, sender: Any?) {
+    override public func show(_ vc: UIViewController, sender: Any?) {
         hideLoadingOverlay(animated: false)
         super.show(vc, sender: sender)
     }
@@ -472,7 +473,7 @@ extension TinkLinkViewController {
     }
 
     private func retryOperation() {
-        self.result = nil
+        result = nil
         showLoadingOverlay(withText: nil, onCancel: nil)
         start(userSession: userSession, authorizationCode: authorizationCode)
     }

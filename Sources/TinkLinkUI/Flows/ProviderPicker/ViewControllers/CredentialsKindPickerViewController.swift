@@ -12,6 +12,7 @@ final class CredentialsKindPickerViewController: UITableViewController {
         super.init(style: .plain)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

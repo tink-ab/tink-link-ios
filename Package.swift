@@ -31,17 +31,19 @@ let package = Package(
         ),
         .testTarget(
             name: "TinkLinkTests",
-            dependencies: ["TinkLink"]
+            dependencies: ["TinkLink"],
+            exclude: ["Info.plist"]
         ),
         .target(
             name: "TinkLinkUI",
             dependencies: ["TinkCore", "TinkLink", "Down", "Kingfisher"],
-            exclude: ["Generic/Extensions/Bundle+Module.swift"],
+            exclude: ["Generic/Extensions/Bundle+Module.swift", "Info.plist"],
             resources: [.process("Assets.xcassets"), .process("Translations.bundle")]
         ),
         .testTarget(
             name: "TinkLinkUITests",
-            dependencies: ["TinkLinkUI"]
+            dependencies: ["TinkLinkUI"],
+            exclude: ["Info.plist"]
         ),
     ]
 )
