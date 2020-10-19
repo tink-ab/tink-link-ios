@@ -35,6 +35,7 @@ final class CredentialsFormViewController: UIViewController {
         return tinkIconView
     }()
 
+    private let navigationTitleContainerView = UIView()
     private let navigationTitleLabel = UILabel()
     private let navigationTitleImageView = UIImageView()
     private lazy var helpLabel = ProviderHelpTextView()
@@ -120,13 +121,10 @@ extension CredentialsFormViewController {
         navigationTitleImageView.kf.setImage(with: provider.image)
         navigationTitleImageView.translatesAutoresizingMaskIntoConstraints = false
 
-        let navigationTitleContainerView = UIView()
         navigationTitleContainerView.translatesAutoresizingMaskIntoConstraints = false
-        if !form.fields.isEmpty {
-            navigationTitleContainerView.addSubview(navigationTitleImageView)
-        }
-        navigationTitleContainerView.addSubview(navigationTitleLabel)
 
+        navigationTitleContainerView.addSubview(navigationTitleImageView)
+        navigationTitleContainerView.addSubview(navigationTitleLabel)
         view.addSubview(tinkIconView)
         view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
@@ -170,8 +168,7 @@ extension CredentialsFormViewController {
             navigationTitleLabel.centerYAnchor.constraint(equalTo: navigationTitleContainerView.centerYAnchor),
             navigationTitleLabel.trailingAnchor.constraint(equalTo: navigationTitleContainerView.trailingAnchor),
         ])
-
-        navigationItem.titleView = navigationTitleContainerView
+        navigationItem.titleView = form.fields.isEmpty ? navigationTitleLabel : navigationTitleContainerView
         navigationItem.largeTitleDisplayMode = .never
 
         setupHelpFootnote()
