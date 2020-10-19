@@ -28,9 +28,14 @@ final class CredentialsFormViewController: UIViewController {
     private let keyboardObserver = KeyboardObserver()
 
     private let formTableViewController: FormTableViewController
+    private lazy var tinkIconView: UIImageView = {
+        let tinkIconView = UIImageView()
+        tinkIconView.image = UIImage(icon: .tink)
+        tinkIconView.contentMode = .scaleAspectFit
+        return tinkIconView
+    }()
 
     private lazy var helpLabel = ProviderHelpTextView()
-    private lazy var headerView = AddCredentialsHeaderView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
     private lazy var gradientView = GradientView()
     private lazy var button: FloatingButton = {
@@ -85,8 +90,7 @@ extension CredentialsFormViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         view.backgroundColor = Color.background
 
-        headerView.configure(with: provider, clientName: clientName, isAggregator: isAggregator)
-        headerView.delegate = self
+        tinkIconView.translatesAutoresizingMaskIntoConstraints = false
 
         formTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(formTableViewController.view)
@@ -105,7 +109,6 @@ extension CredentialsFormViewController {
         button.addTarget(self, action: #selector(startAddCredentialsFlow), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
-        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 180)
         navigationTitleLabel.font = Font.headline
         navigationTitleLabel.text = provider.displayName
         navigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -120,6 +123,8 @@ extension CredentialsFormViewController {
             navigationTitleContainerView.addSubview(navigationTitleImageView)
         }
         navigationTitleContainerView.addSubview(navigationTitleLabel)
+
+        view.addSubview(tinkIconView)
         view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
         view.addSubview(button)
@@ -129,6 +134,11 @@ extension CredentialsFormViewController {
         buttonBottomConstraint.constant = 24
 
         NSLayoutConstraint.activate([
+            tinkIconView.widthAnchor.constraint(equalToConstant: 40),
+            tinkIconView.heightAnchor.constraint(equalToConstant: 20),
+            tinkIconView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
+            tinkIconView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
+
             formTableViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             formTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
             formTableViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -195,12 +205,6 @@ extension CredentialsFormViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        let headerHeight = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
-        var frame = headerView.frame
-        frame.size.height = headerHeight
-        formTableViewController.tableView.tableHeaderView = headerView
-        formTableViewController.tableView.tableHeaderView?.frame = frame
 
         formTableViewController.additionalSafeAreaInsets.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
     }
@@ -298,15 +302,6 @@ extension CredentialsFormViewController {
         delegate?.showWebContent(with: url)
     }
 }
-
-// MARK: - AddCredentialsHeaderViewDelegate
-
-extension CredentialsFormViewController: AddCredentialsHeaderViewDelegate {
-    func addCredentialsHeaderViewDidTapReadMore(_ addCredentialsHeaderView: AddCredentialsHeaderView) {
-        showMoreInfo()
-    }
-}
-
 // MARK: - AddCredentialFooterViewDelegate
 
 extension CredentialsFormViewController: AddCredentialsFooterViewDelegate {
