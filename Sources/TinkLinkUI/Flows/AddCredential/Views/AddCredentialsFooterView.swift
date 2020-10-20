@@ -16,7 +16,7 @@ final class AddCredentialsFooterView: UIView {
         descriptionTextView.isEditable = false
         descriptionTextView.clipsToBounds = false
         descriptionTextView.backgroundColor = Color.background
-        descriptionTextView.setLineHeight(lineHeight: 20)
+        descriptionTextView.setLineHeight(lineHeight: 18)
         descriptionTextView.linkTextAttributes = [
             .foregroundColor: Color.secondaryLabel,
             .font: Font.footnote,
@@ -85,7 +85,7 @@ final class AddCredentialsFooterView: UIView {
 
         descriptionTextView.attributedText = attributeText
         descriptionTextView.adjustsFontForContentSizeCategory = true
-        descriptionTextView.setLineHeight(lineHeight: 20)
+        descriptionTextView.setLineHeight(lineHeight: 18)
     }
 }
 
