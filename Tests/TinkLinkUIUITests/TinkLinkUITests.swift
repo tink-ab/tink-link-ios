@@ -94,6 +94,7 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(doneButton.waitForExistence(timeout: 10))
         doneButton.tap()
 
+        XCTAssertTrue(getStartedButton.waitForExistence(timeout: 1))
         XCTAssertTrue(getStartedButton.isHittable)
     }
 
@@ -150,6 +151,7 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(doneButton.waitForExistence(timeout: 10))
         doneButton.tap()
 
+        XCTAssertTrue(getStartedButton.waitForExistence(timeout: 1))
         XCTAssertTrue(getStartedButton.isHittable)
     }
 
@@ -181,6 +183,7 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(tablesQuery.textFields["Social security number"].exists)
         app.navigationBars["Authentication"].buttons["Cancel"].tap()
 
+        XCTAssertTrue(getStartedButton.waitForExistence(timeout: 1))
         XCTAssertTrue(getStartedButton.isHittable)
     }
 }
