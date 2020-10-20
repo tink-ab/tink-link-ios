@@ -10,6 +10,7 @@
 		2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035815424659C390075F1EA /* Error+LocalizedError.swift */; };
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
 		20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0ABC24E5713C006977F4 /* TinkLink */; };
+		6B89772F253ECB6700474F52 /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B89772E253ECB6700474F52 /* TinkLinkUI */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
 		8F3459BA2396ADEB007DCD75 /* HeadlessExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */; };
 		8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459BD2396ADEB007DCD75 /* ContentView.swift */; };
@@ -73,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B89772F253ECB6700474F52 /* TinkLinkUI in Frameworks */,
 				20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,6 +223,7 @@
 			name = HeadlessExample;
 			packageProductDependencies = (
 				20FE0ABC24E5713C006977F4 /* TinkLink */,
+				6B89772E253ECB6700474F52 /* TinkLinkUI */,
 			);
 			productName = PermanentUserProviderSelection;
 			productReference = 8F3459B62396ADEB007DCD75 /* HeadlessExample.app */;
@@ -500,6 +503,10 @@
 		20FE0ABC24E5713C006977F4 /* TinkLink */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TinkLink;
+		};
+		6B89772E253ECB6700474F52 /* TinkLinkUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLinkUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
