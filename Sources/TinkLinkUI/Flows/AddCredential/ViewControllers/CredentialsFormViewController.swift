@@ -28,6 +28,7 @@ final class CredentialsFormViewController: UIViewController {
     private let keyboardObserver = KeyboardObserver()
 
     private let formTableViewController: FormTableViewController
+    private lazy var emptyView = EmptyFormView(provider: provider, errorText: errorText)
     private lazy var tinkIconView: UIImageView = {
         let tinkIconView = UIImageView()
         tinkIconView.image = UIImage(icon: .tink)
@@ -35,6 +36,9 @@ final class CredentialsFormViewController: UIViewController {
         return tinkIconView
     }()
 
+    private var errorText: String? {
+        isVerified ? nil : Strings.Credentials.unverifiedClient
+    }
     private let navigationTitleContainerView = UIView()
     private let navigationTitleLabel = UILabel()
     private let navigationTitleImageView = UIImageView()
@@ -95,10 +99,24 @@ extension CredentialsFormViewController {
 
         tinkIconView.translatesAutoresizingMaskIntoConstraints = false
 
-        formTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(formTableViewController.view)
-        addChild(formTableViewController)
-        formTableViewController.didMove(toParent: self)
+        let fieldsView: UIView
+        if form.fields.isEmpty {
+            emptyView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(emptyView)
+            
+            fieldsView = emptyView
+        } else {
+            formTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(formTableViewController.view)
+            addChild(formTableViewController)
+            formTableViewController.didMove(toParent: self)
+            formTableViewController.onSubmit = { [weak self] in
+                self?.addCredential()
+            }
+            formTableViewController.errorText = errorText
+
+            fieldsView = formTableViewController.view
+        }
 
         addCredentialFooterView.delegate = self
         addCredentialFooterView.configure(clientName)
@@ -140,10 +158,10 @@ extension CredentialsFormViewController {
             tinkIconView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
             tinkIconView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
 
-            formTableViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            formTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            formTableViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            formTableViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            fieldsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            fieldsView.topAnchor.constraint(equalTo: view.topAnchor),
+            fieldsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            fieldsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             addCredentialFooterView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
@@ -174,12 +192,6 @@ extension CredentialsFormViewController {
         setupHelpFootnote()
         layoutHelpFootnote()
         setupButton()
-
-        formTableViewController.onSubmit = { [weak self] in
-            self?.addCredential()
-        }
-
-        formTableViewController.errorText = isVerified ? nil : Strings.Credentials.unverifiedClient
     }
 
     override func viewDidAppear(_ animated: Bool) {

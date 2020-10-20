@@ -42,6 +42,8 @@ enum Strings {
 
         static let title = NSLocalizedString("Credentials.Title", tableName: tableName, bundle: bundle, value: "Authentication", comment: "Title for add credentials/authenticate screen.")
 
+        static let description = NSLocalizedString("Credentials.Description", tableName: tableName, bundle: bundle, value: "Log in to %@ to continue", comment: "Description text for add credentials screen.")
+
         /// Text for the warning shown when the developer is unverified.
         static let unverifiedClient = NSLocalizedString("Credentials.UnverifiedClient", tableName: tableName, bundle: bundle, value: "Unverified - This solution is only made for development purposes. Do not enter your bank credentials unless you trust the developer.", comment: "Text for the warning shown when the developer is unverified.")
 
