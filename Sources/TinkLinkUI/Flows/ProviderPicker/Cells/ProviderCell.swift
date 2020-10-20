@@ -48,7 +48,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = Font.footnote
-        descriptionLabel.textColor = Color.label
+        descriptionLabel.textColor = Color.secondaryLabel
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
