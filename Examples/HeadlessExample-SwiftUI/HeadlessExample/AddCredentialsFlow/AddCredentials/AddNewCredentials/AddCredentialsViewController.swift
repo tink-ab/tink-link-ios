@@ -169,7 +169,7 @@ extension AddCredentialsViewController {
 extension AddCredentialsViewController {
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         if indexPath.section < form.fields.count {
-            return true
+            return false
         } else {
             return form.areFieldsValid
         }
