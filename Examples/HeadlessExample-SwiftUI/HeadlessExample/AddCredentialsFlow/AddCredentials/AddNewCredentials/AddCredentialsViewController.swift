@@ -148,7 +148,6 @@ extension AddCredentialsViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
             cell.actionLabel.text = "Add"
             return cell
-
         }
     }
 
