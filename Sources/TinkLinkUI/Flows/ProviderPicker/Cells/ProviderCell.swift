@@ -4,6 +4,8 @@ import Kingfisher
 class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
+    private let descriptionLabel = UILabel()
+    private let stackView = UIStackView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,17 +27,28 @@ class ProviderCell: UITableViewCell, ReusableCell {
         backgroundColor = Color.background
 
         contentView.addSubview(iconView)
-        contentView.addSubview(titleLabel)
+        contentView.addSubview(stackView)
 
         contentView.layoutMargins = .init(top: 32, left: 24, bottom: 32, right: 24)
 
         iconView.contentMode = .scaleAspectFit
         iconView.translatesAutoresizingMaskIntoConstraints = false
 
+        stackView.axis = .vertical
+        stackView.spacing = 4
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(descriptionLabel)
+
         titleLabel.numberOfLines = 0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = Font.body
         titleLabel.textColor = Color.label
+
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.font = Font.footnote
+        descriptionLabel.textColor = Color.label
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
@@ -47,9 +60,9 @@ class ProviderCell: UITableViewCell, ReusableCell {
             iconView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             iconView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -iconTitleSpacing),
 
-            titleLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            titleLabel.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            stackView.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
     }
 
@@ -57,6 +70,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         super.prepareForReuse()
 
         titleLabel.text = ""
+        descriptionLabel.text = ""
     }
 
     override func layoutMarginsDidChange() {
@@ -87,5 +101,9 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
     func setTitle(text: String) {
         titleLabel.text = text
+    }
+
+    func setDescription(text: String) {
+        descriptionLabel.text = text
     }
 }
