@@ -269,10 +269,13 @@ final class AddCredentialsSession {
     }
 
     private func cancel() {
-        task?.cancel()
-        hideUpdatingView(animated: true) {
-            self.cancelCallback?()
-            self.cancelCallback = nil
+        if let task = task {
+            task.cancel()
+        } else {
+            hideUpdatingView(animated: true) {
+                self.cancelCallback?()
+                self.cancelCallback = nil
+            }
         }
     }
 }
