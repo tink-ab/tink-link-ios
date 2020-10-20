@@ -226,15 +226,15 @@ final class AddCredentialsSession {
     }
 
     private func handleCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
-        authorizeIfNeeded(onError: { [weak self] error in
-            DispatchQueue.main.async {
-                self?.hideUpdatingView(animated: true) {
-                    onCompletion(.failure(error))
-                }
-            }
-        })
         do {
             let credentials = try result.get()
+            authorizeIfNeeded(onError: { [weak self] error in
+                DispatchQueue.main.async {
+                    self?.hideUpdatingView(animated: true) {
+                        onCompletion(.failure(error))
+                    }
+                }
+            })
             authorizationGroup.notify(queue: .main) { [weak self] in
                 self?.hideUpdatingView(animated: true) {
                     self?.cancelCallback = nil
