@@ -185,6 +185,8 @@ extension AddCredentialsViewController {
 
 extension AddCredentialsViewController {
     @objc private func addCredential() {
+        guard task == nil else { return }
+
         view.endEditing(false)
 
         activityIndicator.startAnimating()
@@ -202,6 +204,7 @@ extension AddCredentialsViewController {
                 },
                 completion: { [weak self] result in
                     DispatchQueue.main.async {
+                        self?.task = nil
                         self?.activityIndicator.stopAnimating()
                         self?.onCompletion(result: result)
                     }
