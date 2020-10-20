@@ -103,7 +103,7 @@ extension CredentialsFormViewController {
         if form.fields.isEmpty {
             emptyView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(emptyView)
-            
+
             fieldsView = emptyView
         } else {
             formTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -182,7 +182,7 @@ extension CredentialsFormViewController {
             navigationTitleImageView.leadingAnchor.constraint(equalTo: navigationTitleContainerView.leadingAnchor),
             navigationTitleImageView.centerYAnchor.constraint(equalTo: navigationTitleContainerView.centerYAnchor),
 
-            navigationTitleLabel.leadingAnchor.constraint(equalTo: navigationTitleImageView.trailingAnchor, constant: 12),
+            navigationTitleLabel.leadingAnchor.constraint(equalTo: navigationTitleImageView.trailingAnchor, constant: 8),
             navigationTitleLabel.centerYAnchor.constraint(equalTo: navigationTitleContainerView.centerYAnchor),
             navigationTitleLabel.trailingAnchor.constraint(equalTo: navigationTitleContainerView.trailingAnchor),
         ])
