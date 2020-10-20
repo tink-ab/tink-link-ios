@@ -321,6 +321,7 @@ extension AddCredentialsSession {
             completion?()
             return
         }
+        statusViewController = nil
         presenter?.dismiss(animated: animated, completion: completion)
     }
 
