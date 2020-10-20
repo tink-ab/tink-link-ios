@@ -21,6 +21,7 @@ final class AddCredentialsViewController: UITableViewController {
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
+    private let activityIndicator = UIActivityIndicatorView(style: .medium)
 
     init(provider: Provider, credentialsContext: CredentialsContext) {
         self.provider = provider
@@ -49,6 +50,13 @@ extension AddCredentialsViewController {
         tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
         tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: ButtonTableViewCell.reuseIdentifier)
         tableView.allowsSelection = false
+
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
 
         navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
@@ -179,9 +187,8 @@ extension AddCredentialsViewController {
     @objc private func addCredential() {
         view.endEditing(false)
 
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.startAnimating()
-        // TODO: Show indicator
+
         do {
             try form.validateFields()
             task = credentialsContext.add(
@@ -195,6 +202,7 @@ extension AddCredentialsViewController {
                 },
                 completion: { [weak self] result in
                     DispatchQueue.main.async {
+                        self?.activityIndicator.stopAnimating()
                         self?.onCompletion(result: result)
                     }
                 }
