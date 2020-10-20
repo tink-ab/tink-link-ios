@@ -10,6 +10,7 @@
 		2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035815424659C390075F1EA /* Error+LocalizedError.swift */; };
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
 		20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0ABC24E5713C006977F4 /* TinkLink */; };
+		6B275034253EBE1B004B8FB5 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B275033253EBE1B004B8FB5 /* ButtonTableViewCell.swift */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
 		8F3459BA2396ADEB007DCD75 /* HeadlessExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */; };
 		8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459BD2396ADEB007DCD75 /* ContentView.swift */; };
@@ -42,6 +43,7 @@
 		2035815424659C390075F1EA /* Error+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+LocalizedError.swift"; sourceTree = "<group>"; };
 		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
 		20FE0ABA24E570D1006977F4 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
+		6B275033253EBE1B004B8FB5 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
 		8F3459B62396ADEB007DCD75 /* HeadlessExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeadlessExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlessExampleApp.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 		8F579B8F239E77E900013FE1 /* AddNewCredentials */ = {
 			isa = PBXGroup;
 			children = (
+				6B275033253EBE1B004B8FB5 /* ButtonTableViewCell.swift */,
 				8F579B9E239E8CA300013FE1 /* AddCredentialsStatusViewController.swift */,
 				8F579B9C239E8CA300013FE1 /* AddCredentialsViewController.swift */,
 				8F348AE9245AE49C009B9973 /* UpdateCredentialsViewController.swift */,
@@ -290,6 +293,7 @@
 				8F348AE8245AE380009B9973 /* UpdateCredentialsFlowView.swift in Sources */,
 				8F8BD78C23A27DFD00CC890C /* CredentialsList.swift in Sources */,
 				8FF1F38D239E648400968AB9 /* ProviderListViewController.swift in Sources */,
+				6B275034253EBE1B004B8FB5 /* ButtonTableViewCell.swift in Sources */,
 				2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */,
 				20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */,
 				8F3459D02396B8C8007DCD75 /* CredentialsController.swift in Sources */,
