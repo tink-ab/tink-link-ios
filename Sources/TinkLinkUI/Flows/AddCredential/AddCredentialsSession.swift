@@ -18,7 +18,6 @@ final class AddCredentialsSession {
     private var statusPresentationManager = AddCredentialsStatusPresentationManager()
 
     private var authorizationCode: AuthorizationCode?
-    private var cancelCallback: (() -> Void)?
     private var didCallAuthorize = false
     private var shouldAuthorize: Bool {
         if case .anonymous = addCredentialsMode {
@@ -81,9 +80,6 @@ final class AddCredentialsSession {
         isPresenterShowingStatusScreen = false
         providerID = provider.id
         addCredentialsMode = mode
-        cancelCallback = {
-            onCompletion(.failure(TinkLinkError.userCancelled))
-        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.CredentialsStatus.authorizing)
@@ -105,9 +101,6 @@ final class AddCredentialsSession {
 
         isPresenterShowingStatusScreen = false
         providerID = credentials.providerID
-        cancelCallback = {
-            completion(.failure(TinkLinkError.userCancelled))
-        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.CredentialsStatus.authorizing)
@@ -136,9 +129,6 @@ final class AddCredentialsSession {
 
         isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
-        cancelCallback = {
-            completion(.failure(TinkLinkError.userCancelled))
-        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.CredentialsStatus.authorizing)
@@ -160,9 +150,6 @@ final class AddCredentialsSession {
 
         isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
-        cancelCallback = {
-            completion(.failure(TinkLinkError.userCancelled))
-        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.CredentialsStatus.authorizing)
@@ -237,7 +224,6 @@ final class AddCredentialsSession {
             })
             authorizationGroup.notify(queue: .main) { [weak self] in
                 self?.hideUpdatingView(animated: true) {
-                    self?.cancelCallback = nil
                     onCompletion(.success((credentials, self?.authorizationCode)))
                 }
             }
@@ -269,14 +255,8 @@ final class AddCredentialsSession {
     }
 
     private func cancel() {
-        if let task = task {
-            task.cancel()
-        } else {
-            hideUpdatingView(animated: true) {
-                self.cancelCallback?()
-                self.cancelCallback = nil
-            }
-        }
+        hideUpdatingView(animated: true)
+        task?.cancel()
     }
 }
 
