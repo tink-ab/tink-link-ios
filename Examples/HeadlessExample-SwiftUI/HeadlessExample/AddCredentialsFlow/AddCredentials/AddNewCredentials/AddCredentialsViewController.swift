@@ -153,6 +153,8 @@ extension AddCredentialsViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard section < form.fields.count else { return nil }
+
         let field = form.fields[section]
         let suffix = field.validationRules.isOptional ? " - optional" : ""
 
@@ -160,6 +162,8 @@ extension AddCredentialsViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        guard section < form.fields.count else { return nil }
+
         let field = form.fields[section]
         if let error = formError, let fieldError = error[fieldName: field.name] {
             return fieldError.reason
