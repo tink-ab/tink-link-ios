@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo Enter release number: 
+echo "Enter release number:"
 read release
 
 if [[ $version =~ ^([0-9]{1,2}\.){2}[0-9]{1,10}$ ]]; then
@@ -21,4 +21,4 @@ git push git@github.com:tink-ab/tink-link-ios-private $release
 pod trunk push TinkLink.podspec --skip-tests --skip-import-validation --allow-warnings
 pod trunk push TinkLinkUI.podspec --skip-tests --skip-import-validation --allow-warnings
 
-echo Tink Link public sync created and pushed to cocoapods! 🎉
+echo "Tink Link public sync created and pushed to cocoapods! 🎉"
