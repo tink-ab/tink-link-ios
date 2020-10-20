@@ -51,7 +51,9 @@ extension AccessTypePickerViewController {
         }
 
         let capabilities = node.providers.reduce(Provider.Capabilities()) { $0.union($1.capabilities) }
-        cell.setTitle(text: capabilityFormatter.string(for: capabilities))
+
+        cell.setDescription(text: capabilityFormatter.string(for: capabilities))
+        cell.setTitle(text: node.accessType.description)
 
         return cell
     }
