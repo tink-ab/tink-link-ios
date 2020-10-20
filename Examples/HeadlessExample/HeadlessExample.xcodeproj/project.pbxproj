@@ -15,6 +15,7 @@
 		20FD9612243F169B00603B5A /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FD9611243F169B00603B5A /* QRViewController.swift */; };
 		20FE0AB324E56EA3006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0AB224E56EA3006977F4 /* TinkLink */; };
 		6B5198D6246987F80099C045 /* Value2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5198D5246987F80099C045 /* Value2TableViewCell.swift */; };
+		6B61DD5C253ECBCE00289F6E /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B61DD5B253ECBCE00289F6E /* TinkLinkUI */; };
 		6BB8C3A924698FB300C2C999 /* SourceAccountPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8C3A824698FB300C2C999 /* SourceAccountPickerViewController.swift */; };
 		6BB8C3AB246A961200C2C999 /* BeneficiaryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8C3AA246A961200C2C999 /* BeneficiaryPickerViewController.swift */; };
 		8F348AE6245994F1009B9973 /* UpdateCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE5245994F1009B9973 /* UpdateCredentialsViewController.swift */; };
@@ -71,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B61DD5C253ECBCE00289F6E /* TinkLinkUI in Frameworks */,
 				20FE0AB324E56EA3006977F4 /* TinkLink in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,6 +204,7 @@
 			name = HeadlessExample;
 			packageProductDependencies = (
 				20FE0AB224E56EA3006977F4 /* TinkLink */,
+				6B61DD5B253ECBCE00289F6E /* TinkLinkUI */,
 			);
 			productName = "UIKit-PermanentUserProviderSelection";
 			productReference = 8FFAE4D523D1E7D100784CBC /* HeadlessExample.app */;
@@ -476,6 +479,10 @@
 		20FE0AB224E56EA3006977F4 /* TinkLink */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TinkLink;
+		};
+		6B61DD5B253ECBCE00289F6E /* TinkLinkUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLinkUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
