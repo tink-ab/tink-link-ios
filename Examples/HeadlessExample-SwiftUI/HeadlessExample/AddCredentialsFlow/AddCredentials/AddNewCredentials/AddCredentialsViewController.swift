@@ -147,6 +147,7 @@ extension AddCredentialsViewController {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
             cell.actionLabel.text = "Add"
+            cell.tintColor = form.areFieldsValid ? nil : .gray
             return cell
         }
     }
@@ -175,6 +176,14 @@ extension AddCredentialsViewController {
 // MARK: - UITableViewDelegate
 
 extension AddCredentialsViewController {
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section < form.fields.count {
+            return true
+        } else {
+            return form.areFieldsValid
+        }
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section < form.fields.count {
             // NOOP
@@ -331,7 +340,7 @@ extension AddCredentialsViewController: TextFieldCellDelegate {
     func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
-        navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
+        tableView.reloadRows(at: [IndexPath(row: 0, section: form.fields.count)], with: .none)
     }
 
     func textFieldCellDidEndEditing(_ cell: TextFieldCell) {
