@@ -219,4 +219,36 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(tablesQuery.staticTexts["This field must be at least 12 characters."].exists)
     }
 
+    func testCancel() {
+        app.launch()
+
+        let getStartedButton = app.buttons["Get Started"]
+        XCTAssertTrue(getStartedButton.exists)
+        getStartedButton.tap()
+
+        let tablesQuery = app.tables
+
+        let passwordProviderCell = tablesQuery.cells.staticTexts["Test Password"]
+
+        XCTAssertTrue(passwordProviderCell.waitForExistence(timeout: 5))
+        passwordProviderCell.tap()
+
+        let usernameField = tablesQuery.textFields["Username"]
+        XCTAssert(usernameField.waitForExistence(timeout: 5))
+        usernameField.tap()
+        usernameField.typeText("tink")
+
+        let passwordField = tablesQuery.secureTextFields["Password"]
+        XCTAssert(passwordField.waitForExistence(timeout: 5))
+        passwordField.tap()
+        passwordField.typeText("tink-1234")
+
+        app.buttons["Continue"].firstMatch.tap()
+
+        let statusText = app.staticTexts["Connecting to Test Password, please wait…"]
+        XCTAssertTrue(statusText.waitForExistence(timeout: 10))
+        app.buttons["Cancel"].firstMatch.tap()
+
+        XCTAssertFalse(statusText.exists)
+    }
 }
