@@ -20,7 +20,9 @@ final class CredentialsFormViewController: UIViewController {
     }
 
     private let credentialsController: CredentialsController
-    private let form: Form
+    private var form: Form {
+        formTableViewController.form
+    }
     private let clientName: String
     private let isAggregator: Bool
     private let isVerified: Bool
@@ -55,7 +57,6 @@ final class CredentialsFormViewController: UIViewController {
     init(provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
         let form = Form(provider: provider)
-        self.form = form
         self.formTableViewController = FormTableViewController(form: form)
         self.credentialsController = credentialsController
         self.clientName = clientName
@@ -68,7 +69,6 @@ final class CredentialsFormViewController: UIViewController {
     init(credentials: Credentials, provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
         self.provider = provider
         let form = Form(updatingCredentials: credentials, provider: provider)
-        self.form = form
         self.formTableViewController = FormTableViewController(form: form)
         self.credentialsController = credentialsController
         self.clientName = clientName
