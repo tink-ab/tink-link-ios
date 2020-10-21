@@ -279,7 +279,10 @@ class TinkLinkUITests: XCTestCase {
 
         let tablesQuery = app.tables
 
-        tablesQuery.staticTexts["Test BankID"].tap()
+        let bankIDCell = tablesQuery.cells.staticTexts["Test BankID"]
+        XCTAssert(bankIDCell.waitForExistence(timeout: 5))
+        bankIDCell.tap()
+
         tablesQuery.staticTexts["Test BankID with QR code (successful)"].tap()
 
         let socialSecurityNumberTextField = tablesQuery.textFields["Social security number"]
