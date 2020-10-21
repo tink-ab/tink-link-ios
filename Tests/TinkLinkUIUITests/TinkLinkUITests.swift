@@ -269,4 +269,27 @@ class TinkLinkUITests: XCTestCase {
         let numberField = tablesQuery.textFields["Social security number"]
         XCTAssertTrue(numberField.waitForExistence(timeout: 5))
     }
+
+    func testQRCodePresenting() {
+        app.launch()
+
+        let getStartedButton = app.buttons["Get Started"]
+        XCTAssertTrue(getStartedButton.exists)
+        getStartedButton.tap()
+
+        let tablesQuery = app.tables
+
+        tablesQuery.staticTexts["Test BankID"].tap()
+        tablesQuery.staticTexts["Test BankID with QR code (successful)"].tap()
+
+        let socialSecurityNumberTextField = tablesQuery.textFields["Social security number"]
+        XCTAssert(socialSecurityNumberTextField.waitForExistence(timeout: 5))
+        socialSecurityNumberTextField.tap()
+        socialSecurityNumberTextField.typeText("180012121212")
+
+        app.buttons["Open BankID"].tap()
+
+        let qrCodeLabel = app.staticTexts["Open the BankID app and scan this QR code to authenticate."]
+        XCTAssertTrue(qrCodeLabel.waitForExistence(timeout: 10))
+    }
 }
