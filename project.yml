@@ -102,7 +102,10 @@ targets:
       environmentVariables:
         TINK_LINK_UI_TESTS_HOST_CLIENT_ID: $TINK_LINK_UI_TESTER_CLIENT_ID
     dependencies:
+      - package: TinkLink
       - package: TinkLinkUI
 packages:
+  TinkLink:
+    path: ./
   TinkLinkUI:
     path: ./
