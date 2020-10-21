@@ -39,9 +39,7 @@ final class CredentialsFormViewController: UIViewController {
     private var errorText: String? {
         isVerified ? nil : Strings.Credentials.unverifiedClient
     }
-    private let navigationTitleContainerView = UIView()
-    private let navigationTitleLabel = UILabel()
-    private let navigationTitleImageView = UIImageView()
+    private lazy var navigationTitleView = NavigationTitleView(imageURL: provider.image, text: provider.displayName)
     private lazy var helpLabel = ProviderHelpTextView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
     private lazy var gradientView = GradientView()
@@ -131,18 +129,8 @@ extension CredentialsFormViewController {
         button.addTarget(self, action: #selector(startAddCredentialsFlow), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
-        navigationTitleLabel.font = Font.headline
-        navigationTitleLabel.text = provider.displayName
-        navigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        navigationTitleView.translatesAutoresizingMaskIntoConstraints = false
 
-        navigationTitleImageView.contentMode = .scaleAspectFit
-        navigationTitleImageView.kf.setImage(with: provider.image)
-        navigationTitleImageView.translatesAutoresizingMaskIntoConstraints = false
-
-        navigationTitleContainerView.translatesAutoresizingMaskIntoConstraints = false
-
-        navigationTitleContainerView.addSubview(navigationTitleImageView)
-        navigationTitleContainerView.addSubview(navigationTitleLabel)
         view.addSubview(tinkIconView)
         view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
@@ -176,17 +164,8 @@ extension CredentialsFormViewController {
             button.heightAnchor.constraint(equalToConstant: 48),
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonBottomConstraint,
-
-            navigationTitleImageView.widthAnchor.constraint(equalToConstant: 20),
-            navigationTitleImageView.heightAnchor.constraint(equalToConstant: 20),
-            navigationTitleImageView.leadingAnchor.constraint(equalTo: navigationTitleContainerView.leadingAnchor),
-            navigationTitleImageView.centerYAnchor.constraint(equalTo: navigationTitleContainerView.centerYAnchor),
-
-            navigationTitleLabel.leadingAnchor.constraint(equalTo: navigationTitleImageView.trailingAnchor, constant: 8),
-            navigationTitleLabel.centerYAnchor.constraint(equalTo: navigationTitleContainerView.centerYAnchor),
-            navigationTitleLabel.trailingAnchor.constraint(equalTo: navigationTitleContainerView.trailingAnchor),
         ])
-        navigationItem.titleView = navigationTitleContainerView
+        navigationItem.titleView = navigationTitleView
         navigationItem.largeTitleDisplayMode = .never
 
         setupHelpFootnote()
