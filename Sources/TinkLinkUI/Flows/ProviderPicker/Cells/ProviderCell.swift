@@ -41,12 +41,10 @@ class ProviderCell: UITableViewCell, ReusableCell {
         stackView.addArrangedSubview(descriptionLabel)
 
         titleLabel.numberOfLines = 0
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = Font.body
         titleLabel.textColor = Color.label
 
         descriptionLabel.numberOfLines = 0
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = Font.footnote
         descriptionLabel.textColor = Color.secondaryLabel
 
