@@ -251,4 +251,22 @@ class TinkLinkUITests: XCTestCase {
 
         XCTAssertFalse(statusText.exists)
     }
+
+    func testProviderTreeGrouping() {
+        app.launch()
+
+        let getStartedButton = app.buttons["Get Started"]
+        XCTAssertTrue(getStartedButton.exists)
+        getStartedButton.tap()
+
+        let tablesQuery = app.tables
+
+        tablesQuery.staticTexts["Nordea"].tap()
+        tablesQuery.staticTexts["Personal"].tap()
+        tablesQuery.staticTexts["Mortgage Aggregation, Checking Accounts, Savings Accounts, Credit Cards, Investments, Loans & Identity Data"].tap()
+        tablesQuery.staticTexts["Mobile BankID"].tap()
+
+        let numberField = tablesQuery.textFields["Social security number"]
+        XCTAssertTrue(numberField.waitForExistence(timeout: 5))
+    }
 }
