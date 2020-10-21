@@ -261,7 +261,9 @@ class TinkLinkUITests: XCTestCase {
 
         let tablesQuery = app.tables
 
-        tablesQuery.staticTexts["Nordea"].tap()
+        let providerCell = tablesQuery.cells.staticTexts["Nordea"]
+        XCTAssert(providerCell.waitForExistence(timeout: 5))
+        providerCell.tap()
         tablesQuery.staticTexts["Personal"].tap()
         tablesQuery.staticTexts["Mortgage Aggregation, Checking Accounts, Savings Accounts, Credit Cards, Investments, Loans & Identity Data"].tap()
         tablesQuery.staticTexts["Mobile BankID"].tap()
