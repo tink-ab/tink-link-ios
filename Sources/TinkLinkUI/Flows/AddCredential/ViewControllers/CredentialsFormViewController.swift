@@ -28,7 +28,7 @@ final class CredentialsFormViewController: UIViewController {
     private let keyboardObserver = KeyboardObserver()
 
     private let formTableViewController: FormTableViewController
-    private lazy var emptyView = EmptyFormView(provider: provider, errorText: errorText)
+    private lazy var emptyView = EmptyFormView(imageURL: provider.image, text: provider.displayName, errorText: errorText)
     private lazy var tinkIconView: UIImageView = {
         let tinkIconView = UIImageView()
         tinkIconView.image = UIImage(icon: .tink)

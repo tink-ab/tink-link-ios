@@ -1,21 +1,33 @@
 import UIKit
-import TinkLink
+import Kingfisher
 
 final class EmptyFormView: UIView {
     private var formErrorView: FormTableViewErrorView?
-    private let provider: Provider
 
     private let iconView = UIImageView()
     private let textLabel = UILabel()
-    
-    init(provider: Provider, errorText: String? = nil) {
-        self.provider = provider
+
+    init(imageURL: URL?, text: String, errorText: String? = nil) {
         if let errorText = errorText {
             formErrorView = FormTableViewErrorView(errorText: errorText)
         }
-
         super.init(frame: .zero)
 
+        iconView.kf.setImage(with: imageURL)
+        let format = Strings.Credentials.description
+        textLabel.text = String(format: format, text)
+        setup()
+    }
+    
+    init(image: UIImage?, text: String, errorText: String? = nil) {
+        if let errorText = errorText {
+            formErrorView = FormTableViewErrorView(errorText: errorText)
+        }
+        super.init(frame: .zero)
+
+        iconView.image = image
+        let format = Strings.Credentials.description
+        textLabel.text = String(format: format, text)
         setup()
     }
 
@@ -26,14 +38,11 @@ final class EmptyFormView: UIView {
 
     private func setup() {
         iconView.contentMode = .scaleAspectFit
-        iconView.kf.setImage(with: provider.image)
         iconView.translatesAutoresizingMaskIntoConstraints = false
 
         textLabel.font = Font.headline
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 0
-        let format = Strings.Credentials.description
-        textLabel.text = String(format: format, provider.displayName)
         textLabel.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(iconView)
