@@ -1,5 +1,5 @@
 #!/bin/sh
-echo Enter new pod spec version:
+echo "Enter new pod spec version:"
 read newVersion
 
 if [[ $newVersion =~ ^([0-9]{1,2}\.){2}[0-9]{1,10}$ ]]; then
@@ -34,4 +34,4 @@ git commit -am"Update module interfaces"
 
 gh pr create --repo tink-ab/tink-link-ios-private -t "rc:$newVersion" -b "Release candidate for Tink Link pre release." -r tink-ab/ios-maintainer
 
-echo Release candidate PR has been created! 🎉
+echo "Release candidate PR has been created! 🎉"
