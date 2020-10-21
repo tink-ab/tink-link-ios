@@ -29,7 +29,7 @@ final class AccessTypePickerHeaderView: UIView {
         backgroundColor = Color.background
         layoutMargins = .init(top: 28, left: 24, bottom: 24, right: 24)
 
-        textLabel.text = "Due to EU regulations different account types need to be connected separately."
+        textLabel.text = Strings.SelectAccessType.information
         textLabel.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(textLabel)

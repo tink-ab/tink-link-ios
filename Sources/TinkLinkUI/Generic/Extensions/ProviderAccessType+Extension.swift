@@ -6,7 +6,7 @@ extension Provider.AccessType {
         case .openBanking:
             return "Open Banking"
         case .other, .unknown:
-            return "Other"
+            return Strings.SelectAccessType.otherType
         }
     }
 }
