@@ -142,7 +142,7 @@
 		8C5FFE204A2AE90B4063B8D8 /* MutableTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75E9442B66E9D4C7E393301 /* MutableTransferService.swift */; };
 		8D7673C4F91133DEB6939ACF /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3906B996DD066DAD3468C7 /* Down.framework */; };
 		8E6B6628F4CD55DC33EF41F4 /* SignableOperation+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCEEEFEFD68A617634C099 /* SignableOperation+mock.swift */; };
-		923C7676A32B05CBABDC7455 /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7FF53FE64D7125A994287458 /* TinkLinkUI */; };
+		923C7676A32B05CBABDC7455 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = DE5D19C24F1E172C08B4DF24 /* TinkLink */; };
 		923E976B31710C3C1DE8C123 /* TransferContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6E7CE9983FF9AE060B3AB3 /* TransferContext.swift */; };
 		92594A391E486F3C1704680F /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C10F680B83B493F68A952A0 /* ApplicationObserver.swift */; };
 		93217DF9BF12B98A04E73C81 /* PollingTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51FD51DBFC242BDFD5056AE /* PollingTask.swift */; };
@@ -209,6 +209,7 @@
 		CC8734E7FAFBCA629806EB9B /* MultiCancellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B424C1BB25100774A01CFD /* MultiCancellerTests.swift */; };
 		CCF88D85E59905F88E3EE025 /* Account+URI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54416F4CB909B50E31DB2540 /* Account+URI.swift */; };
 		CD011C2159DB0E9F123A1157 /* RetryCancellable+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29E0698F44D66A6ACD1003A /* RetryCancellable+mock.swift */; };
+		CDCDF01836326F3FE0C72FDC /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7FF53FE64D7125A994287458 /* TinkLinkUI */; };
 		CDE9D6E1249E95D68A988924 /* TransferAccountIdentifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C892427D852CFACE1F6E91 /* TransferAccountIdentifiableTests.swift */; };
 		D126334EF70BEB60028649EE /* Provider+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780BC6837FBECC3EC2A4897 /* Provider+mock.swift */; };
 		D4FCD40CB91FCA7E12A83E4E /* MultiCanceller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29780D2DC26B23304F0843A9 /* MultiCanceller.swift */; };
@@ -466,6 +467,7 @@
 		94D0531830C7E81A7790520A /* CredentialsService+paymentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CredentialsService+paymentMock.swift"; sourceTree = "<group>"; };
 		981C4C4891F51CEFAC747830 /* FormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTests.swift; sourceTree = "<group>"; };
 		987825A510E085C113C6ABAA /* FormTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTableViewController.swift; sourceTree = "<group>"; };
+		98A667F41F00AB223F2B526C /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = .; sourceTree = SOURCE_ROOT; };
 		9A704B0C5651109D33795F84 /* AddCredentialsStatusPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsStatusPresentationController.swift; sourceTree = "<group>"; };
 		9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Kingfisher.framework; sourceTree = "<group>"; };
 		9AD3F9B9F02655297CED5D25 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
@@ -554,7 +556,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				923C7676A32B05CBABDC7455 /* TinkLinkUI in Frameworks */,
+				923C7676A32B05CBABDC7455 /* TinkLink in Frameworks */,
+				CDCDF01836326F3FE0C72FDC /* TinkLinkUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,6 +867,7 @@
 			isa = PBXGroup;
 			children = (
 				031637F2E9E075909753E264 /* tink-link-ios */,
+				98A667F41F00AB223F2B526C /* tink-link-ios */,
 			);
 			name = Packages;
 			sourceTree = SOURCE_ROOT;
@@ -1245,6 +1249,7 @@
 			);
 			name = TinkLinkUIUITestsHost_iOS;
 			packageProductDependencies = (
+				DE5D19C24F1E172C08B4DF24 /* TinkLink */,
 				7FF53FE64D7125A994287458 /* TinkLinkUI */,
 			);
 			productName = TinkLinkUIUITestsHost_iOS;
@@ -2240,6 +2245,10 @@
 		7FF53FE64D7125A994287458 /* TinkLinkUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TinkLinkUI;
+		};
+		DE5D19C24F1E172C08B4DF24 /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
