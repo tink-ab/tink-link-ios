@@ -18,7 +18,6 @@ final class AddCredentialsViewController: UITableViewController {
 
     private var task: AddCredentialsTask?
     private var statusViewController: AddCredentialsStatusViewController?
-    private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private var didFirstFieldBecomeFirstResponder = false
 
     private lazy var helpLabel = UITextView()
@@ -48,13 +47,11 @@ extension AddCredentialsViewController {
         super.viewDidLoad()
 
         tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
-        tableView.allowsSelection = false
+        tableView.register(ButtonTableViewCell.self, forCellReuseIdentifier: ButtonTableViewCell.reuseIdentifier)
 
         navigationItem.prompt = "Enter Credentials"
         navigationItem.title = provider.displayName
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItem = addBarButtonItem
-        navigationItem.rightBarButtonItem?.isEnabled = form.fields.isEmpty
 
         setupHelpFootnote()
         layoutHelpFootnote()
@@ -119,7 +116,7 @@ extension AddCredentialsViewController {
 
 extension AddCredentialsViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return form.fields.count
+        return form.fields.count + 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -127,19 +124,28 @@ extension AddCredentialsViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath)
-        let field = form.fields[indexPath.section]
-        if let textFieldCell = cell as? TextFieldCell {
-            textFieldCell.delegate = self
-            textFieldCell.textField.placeholder = field.attributes.placeholder
-            textFieldCell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
-            textFieldCell.textField.isEnabled = field.attributes.isEditable
-            textFieldCell.textField.text = field.text
+        if indexPath.section < form.fields.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath)
+            let field = form.fields[indexPath.section]
+            if let textFieldCell = cell as? TextFieldCell {
+                textFieldCell.delegate = self
+                textFieldCell.textField.placeholder = field.attributes.placeholder
+                textFieldCell.textField.isSecureTextEntry = field.attributes.isSecureTextEntry
+                textFieldCell.textField.isEnabled = field.attributes.isEditable
+                textFieldCell.textField.text = field.text
+            }
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.reuseIdentifier, for: indexPath) as! ButtonTableViewCell
+            cell.actionLabel.text = "Add"
+            cell.tintColor = form.areFieldsValid ? nil : .gray
+            return cell
         }
-        return cell
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard section < form.fields.count else { return nil }
+
         let field = form.fields[section]
         let suffix = field.validationRules.isOptional ? " - optional" : ""
 
@@ -147,6 +153,8 @@ extension AddCredentialsViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        guard section < form.fields.count else { return nil }
+
         let field = form.fields[section]
         if let error = formError, let fieldError = error[fieldName: field.name] {
             return fieldError.reason
@@ -156,15 +164,34 @@ extension AddCredentialsViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+
+extension AddCredentialsViewController {
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section < form.fields.count {
+            return false
+        } else {
+            return form.areFieldsValid
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section < form.fields.count {
+            // NOOP
+        } else {
+            addCredential()
+        }
+    }
+}
+
 // MARK: - Actions
 
 extension AddCredentialsViewController {
-    @objc private func addCredential(_ sender: UIBarButtonItem) {
+    @objc private func addCredential() {
+        guard task == nil else { return }
+
         view.endEditing(false)
 
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
-        activityIndicator.startAnimating()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         do {
             try form.validateFields()
             task = credentialsContext.add(
@@ -183,6 +210,7 @@ extension AddCredentialsViewController {
                 },
                 completion: { [weak self] result in
                     DispatchQueue.main.async {
+                        self?.task = nil
                         self?.onCompletion(result: result)
                     }
                 }
@@ -213,8 +241,6 @@ extension AddCredentialsViewController {
     }
 
     private func onCompletion(result: Result<Credentials, Error>) {
-        navigationItem.rightBarButtonItem = addBarButtonItem
-
         do {
             let credential = try result.get()
             showCredentialUpdated(for: credential)
@@ -243,7 +269,6 @@ extension AddCredentialsViewController {
 
     private func showUpdating(status: String) {
         if statusViewController == nil {
-            navigationItem.setRightBarButton(addBarButtonItem, animated: true)
             let statusViewController = AddCredentialsStatusViewController()
             statusViewController.modalTransitionStyle = .crossDissolve
             statusViewController.modalPresentationStyle = .overFullScreen
@@ -314,7 +339,7 @@ extension AddCredentialsViewController: TextFieldCellDelegate {
     func textFieldCell(_ cell: TextFieldCell, willChangeToText text: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         form.fields[indexPath.section].text = text
-        navigationItem.rightBarButtonItem?.isEnabled = form.areFieldsValid
+        tableView.reloadRows(at: [IndexPath(row: 0, section: form.fields.count)], with: .none)
     }
 
     func textFieldCellDidEndEditing(_ cell: TextFieldCell) {
