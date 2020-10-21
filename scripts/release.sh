@@ -1,5 +1,5 @@
 #!/bin/sh
-echo Enter release version:
+echo "Enter release version:"
 read version
 
 if [[ $version =~ ^([0-9]{1,2}\.){2}[0-9]{1,10}$ ]]; then
@@ -13,4 +13,4 @@ fi
 git checkout -b rc-$version
 gh pr create --repo tink-ab/tink-link-ios -t "Tink Link $version" -b "Release candidate for Tink Link public release." -r tink-ab/ios-maintainer
 
-echo PR created, wait for approval and draft a new release changelog! 🎉
+echo "PR created, wait for approval and draft a new release changelog! 🎉"
