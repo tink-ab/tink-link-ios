@@ -39,7 +39,7 @@ final class CredentialsFormViewController: UIViewController {
     private var errorText: String? {
         isVerified ? nil : Strings.Credentials.unverifiedClient
     }
-    private lazy var navigationTitleView = NavigationTitleView(imageURL: provider.image, text: provider.displayName)
+    private lazy var navigationTitleView = NavigationTitleImageView(imageURL: provider.image, text: provider.displayName)
     private lazy var helpLabel = ProviderHelpTextView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
     private lazy var gradientView = GradientView()
