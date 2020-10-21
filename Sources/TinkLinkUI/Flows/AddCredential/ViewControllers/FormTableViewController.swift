@@ -23,6 +23,8 @@ final class FormTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.contentInset = .init(top: 24, left: 0, bottom: 0, right: 0)
         tableView.backgroundColor = .clear
         tableView.registerReusableCell(ofType: FormFieldTableViewCell.self)
         tableView.allowsSelection = false

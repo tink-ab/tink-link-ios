@@ -29,21 +29,20 @@ enum Strings {
     }
 
     enum Credentials {
-        /// Text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.
-        static let consentText = NSLocalizedString("Credentials.ConsentText", tableName: tableName, bundle: bundle, value: "%@ will obtain some of your financial information. Read More", comment: "Text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.")
-
         static let openBankID = NSLocalizedString("Credentials.OpenBankID", tableName: tableName, bundle: bundle, value: "Open BankID", comment: "Text for BankID button shown in the add credentials/authenticate screen.")
 
         static let privacyPolicy = NSLocalizedString("Credentials.PrivacyPolicy", tableName: tableName, bundle: bundle, value: "Privacy Policy", comment: "Privacy policy clickable text used in Credentials.TermsText.")
 
-        static let readMore = NSLocalizedString("Credentials.ReadMore", tableName: tableName, bundle: bundle, value: "Read More", comment: "Read more text (clickable) to lead to consent information.")
+        static let viewDetails = NSLocalizedString("Credentials.ViewDetails", tableName: tableName, bundle: bundle, value: "View details", comment: "Read more text (clickable) to lead to consent information.")
 
         static let termsAndConditions = NSLocalizedString("Credentials.TermsAndConditions", tableName: tableName, bundle: bundle, value: "Terms and Conditions", comment: "Terms and conditions clickable text used in Credentials.TermsText.")
 
-        /// Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.
-        static let termsText = NSLocalizedString("Credentials.TermsText", tableName: tableName, bundle: bundle, value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions and Privacy Policy.")
+        /// Text explaining that when using the service, the user agrees to Tink's Terms and Conditions, Privacy Policy. And the text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.
+        static let termsAndConsentText = NSLocalizedString("Credentials.TermsAndConsentText", tableName: tableName, bundle: bundle, value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy. %@ will obtain parts of your financial information. View details", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions, Privacy Policy. And the text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.")
 
         static let title = NSLocalizedString("Credentials.Title", tableName: tableName, bundle: bundle, value: "Authentication", comment: "Title for add credentials/authenticate screen.")
+
+        static let description = NSLocalizedString("Credentials.Description", tableName: tableName, bundle: bundle, value: "Log in to %@ to continue", comment: "Description text for add credentials screen.")
 
         /// Text for the warning shown when the developer is unverified.
         static let unverifiedClient = NSLocalizedString("Credentials.UnverifiedClient", tableName: tableName, bundle: bundle, value: "Unverified - This solution is only made for development purposes. Do not enter your bank credentials unless you trust the developer.", comment: "Text for the warning shown when the developer is unverified.")
@@ -105,6 +104,9 @@ enum Strings {
 
         /// Title for action to dismiss error alert.
         static let dismiss = NSLocalizedString("Generic.Dismiss", tableName: tableName, bundle: bundle, value: "Dismiss", comment: "Title for action to dismiss error alert.")
+
+        /// Title for generic text to login.
+        static let login = NSLocalizedString("Generic.Login", tableName: tableName, bundle: bundle, value: "Log in", comment: "Title for generic text to login.")
 
         /// Title for action to confirm an event.
         static let done = NSLocalizedString("Generic.Done", tableName: tableName, bundle: bundle, value: "Done", comment: "Title for action to confirm an event.")
