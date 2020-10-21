@@ -297,4 +297,23 @@ class TinkLinkUITests: XCTestCase {
         let qrCodeLabel = app.staticTexts["Open the BankID app and scan this QR code to authenticate."]
         XCTAssertTrue(qrCodeLabel.waitForExistence(timeout: 10))
     }
+
+    func testShowingPrivacyPolicy() {
+        app.launch()
+
+        app.buttons["Get Started"].tap()
+
+        let passwordProviderCell = app.tables.cells.staticTexts["Test Password"]
+        XCTAssertTrue(passwordProviderCell.waitForExistence(timeout: 5))
+        passwordProviderCell.tap()
+
+        let privacyPolicyLink = app.textViews.textViews.matching(identifier: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy").links["Privacy Policy"]
+        XCTAssertTrue(privacyPolicyLink.waitForExistence(timeout: 5))
+        XCTAssertTrue(privacyPolicyLink.isHittable)
+        privacyPolicyLink.tap()
+
+        XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 15))
+
+        XCTAssertFalse(privacyPolicyLink.isHittable)
+    }
 }
