@@ -193,4 +193,30 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(getStartedButton.waitForExistence(timeout: 1))
         XCTAssertTrue(getStartedButton.isHittable)
     }
+
+    func testWrongInput() {
+        app.launch()
+
+        let getStartedButton = app.buttons["Get Started"]
+        XCTAssertTrue(getStartedButton.exists)
+        getStartedButton.tap()
+
+        let tablesQuery = app.tables
+        let bankIDCell = tablesQuery.cells.staticTexts["Test BankID"]
+        XCTAssertTrue(bankIDCell.waitForExistence(timeout: 3))
+        bankIDCell.tap()
+        tablesQuery.cells.staticTexts["Test BankID (successful)"].tap()
+
+        tablesQuery.textFields["Social security number"].tap()
+        
+        app.keys["1"].tap()
+        app.keys["2"].tap()
+        app.keys["3"].tap()
+        app.keys["4"].tap()
+
+        app.buttons["Open BankID"].tap()
+
+        XCTAssertTrue(tablesQuery.staticTexts["This field must be at least 12 characters."].exists)
+    }
+
 }
