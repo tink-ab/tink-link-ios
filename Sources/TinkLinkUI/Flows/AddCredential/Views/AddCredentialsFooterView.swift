@@ -29,7 +29,7 @@ final class AddCredentialsFooterView: UIView {
 
     private var privacyPolicyRange: NSRange?
     private var termsAndConditionsRange: NSRange?
-    private var readMoreRange: NSRange?
+    private var viewDetailsRange: NSRange?
 
     convenience init() {
         self.init(frame: .zero)
@@ -78,10 +78,10 @@ final class AddCredentialsFooterView: UIView {
         self.termsAndConditionsRange = termsAndConditionsRange
         attributeText.addAttributes([.link: termsAndConditionsUrl], range: termsAndConditionsRange)
 
-        let readMoreText = Strings.Credentials.readMore
-        let readMoreRange = attributeText.mutableString.range(of: readMoreText)
-        self.readMoreRange = readMoreRange
-        attributeText.addAttributes([.link: ""], range: readMoreRange)
+        let viewDetailsText = Strings.Credentials.viewDetails
+        let viewDetailsRange = attributeText.mutableString.range(of: viewDetailsText)
+        self.viewDetailsRange = viewDetailsRange
+        attributeText.addAttributes([.link: ""], range: viewDetailsRange)
 
         descriptionTextView.attributedText = attributeText
         descriptionTextView.adjustsFontForContentSizeCategory = true
@@ -96,7 +96,7 @@ extension AddCredentialsFooterView: UITextViewDelegate {
             if characterRange == termsAndConditionsRange || characterRange == privacyPolicyRange {
                 delegate?.addCredentialsFooterViewDidTapLink(self, url: URL)
                 return false
-            } else if characterRange == readMoreRange {
+            } else if characterRange == viewDetailsRange {
                 delegate?.addCredentialsFooterViewDidTapConsentReadMoreLink(self)
                 return false
             } else {

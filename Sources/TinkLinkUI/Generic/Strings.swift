@@ -33,7 +33,7 @@ enum Strings {
 
         static let privacyPolicy = NSLocalizedString("Credentials.PrivacyPolicy", tableName: tableName, bundle: bundle, value: "Privacy Policy", comment: "Privacy policy clickable text used in Credentials.TermsText.")
 
-        static let readMore = NSLocalizedString("Credentials.ReadMore", tableName: tableName, bundle: bundle, value: "View details", comment: "Read more text (clickable) to lead to consent information.")
+        static let viewDetails = NSLocalizedString("Credentials.ViewDetails", tableName: tableName, bundle: bundle, value: "View details", comment: "Read more text (clickable) to lead to consent information.")
 
         static let termsAndConditions = NSLocalizedString("Credentials.TermsAndConditions", tableName: tableName, bundle: bundle, value: "Terms and Conditions", comment: "Terms and conditions clickable text used in Credentials.TermsText.")
 
