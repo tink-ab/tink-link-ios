@@ -3,6 +3,7 @@ import UIKit
 
 /// Example of how to use the provider grouped by access type
 final class AccessTypePickerViewController: UITableViewController {
+    private let headerView = AccessTypePickerHeaderView()
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let accessTypeNodes: [ProviderTree.AccessTypeNode]
@@ -27,11 +28,25 @@ extension AccessTypePickerViewController {
 
         navigationItem.largeTitleDisplayMode = .never
 
+        let headerHeight = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: headerHeight)
+
+        tableView.tableHeaderView = headerView
+
         tableView.registerReusableCell(ofType: ProviderCell.self)
         tableView.tableFooterView = UIView(frame: .zero)
 
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        let headerHeight = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
+        var frame = headerView.frame
+        frame.size.height = headerHeight
+        tableView.tableHeaderView?.frame = frame
     }
 }
 
