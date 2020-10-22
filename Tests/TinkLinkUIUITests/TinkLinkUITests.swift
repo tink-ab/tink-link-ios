@@ -243,7 +243,7 @@ class TinkLinkUITests: XCTestCase {
         passwordField.tap()
         passwordField.typeText("tink-1234")
 
-        app.buttons["Continue"].firstMatch.tap()
+        app.buttons["Log in"].firstMatch.tap()
 
         let statusText = app.staticTexts["Connecting to Test Password, please wait…"]
         XCTAssertTrue(statusText.waitForExistence(timeout: 10))
