@@ -143,8 +143,21 @@ public class TinkLinkViewController: UINavigationController {
     ///   - providerKinds: The kind of providers that will be listed.
     ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void) {
-        self.tink = tink
+    @available(*, deprecated, message: "Use init(configuration:market:scopes:providerPredicate:completion:) instead.")
+    public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void) {
+        self.init(configuration: tink.configuration, market: market, scopes: scopes, providerPredicate: providerPredicate, completion: completion)
+    }
+
+    /// Initializes a new TinkLinkViewController.
+    /// - Parameters:
+    ///   - configuration: A Tink configuration.
+    ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from.
+    ///   - scope: A set of scopes that will be aggregated.
+    ///   - providerKinds: The kind of providers that will be listed.
+    ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
+    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
+    public init(configuration: Tink.Configuration, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void) {
+        self.tink = Tink(configuration: configuration)
         self.market = market
         self.scopes = scopes
         self.operation = .create(providerPredicate: providerPredicate)
