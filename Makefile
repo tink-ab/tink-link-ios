@@ -64,7 +64,6 @@ build-carthage-frameworks:
 	carthage build TinkLink_iOS TinkLinkUI_iOS --platform iOS --no-skip-current --derived-data .tmp/carthage/
 
 ui-test:
-	carthage bootstrap --platform iOS --no-use-binaries --derived-data .tmp/carthage/
 	xcodegen generate
 	defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
 	xcodebuild test \

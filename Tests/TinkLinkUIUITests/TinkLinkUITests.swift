@@ -45,6 +45,7 @@ class TinkLinkUITests: XCTestCase {
         let numberField = tablesQuery.textFields["Social security number"]
         XCTAssert(numberField.waitForExistence(timeout: 5))
         numberField.tap()
+        XCTAssert(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         numberField.typeText("180012121212")
 
         app.buttons["Open BankID"].tap()
@@ -79,10 +80,12 @@ class TinkLinkUITests: XCTestCase {
         let usernameField = tablesQuery.textFields["Username"]
         XCTAssert(usernameField.waitForExistence(timeout: 5))
         usernameField.tap()
+        XCTAssert(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         usernameField.typeText("tink")
 
         let passwordField = tablesQuery.secureTextFields["Password"]
         passwordField.tap()
+        XCTAssert(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         passwordField.typeText("tink-1234")
 
         app.buttons["Continue"].firstMatch.tap()
@@ -114,6 +117,7 @@ class TinkLinkUITests: XCTestCase {
         let usernameField = tablesQuery.textFields["Username"]
         XCTAssert(usernameField.waitForExistence(timeout: 5))
         usernameField.tap()
+        XCTAssert(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         usernameField.typeText("tink-test")
 
         app.buttons["Continue"].firstMatch.tap()
@@ -124,6 +128,7 @@ class TinkLinkUITests: XCTestCase {
         let inputCodeField = app.tables.textFields["Input Code"]
         XCTAssert(inputCodeField.waitForExistence(timeout: 5))
         inputCodeField.tap()
+        XCTAssert(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         inputCodeField.typeText("1234")
 
         XCTAssertTrue(supplementalInformationNavigationBar.waitForExistence(timeout: 5))
@@ -138,6 +143,7 @@ class TinkLinkUITests: XCTestCase {
 
         XCTAssert(inputCodeField.waitForExistence(timeout: 5))
         inputCodeField.tap()
+        XCTAssert(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         inputCodeField.typeText("4321")
 
         submitButton.tap()
@@ -172,6 +178,7 @@ class TinkLinkUITests: XCTestCase {
         let qrCodeProviderCell = app.tables["Search results"].staticTexts["Test BankID with QR code (successful)"]
         XCTAssertFalse(qrCodeProviderCell.exists)
 
+        XCTAssert(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         searchField.typeText("Test")
 
         XCTAssertTrue(qrCodeProviderCell.exists)

@@ -55,7 +55,7 @@ final class AddCredentialsStatusViewController: UIViewController {
 
         cancelButton.setTitle(Strings.Generic.cancel, for: .normal)
         cancelButton.titleLabel?.font = Font.callout
-        cancelButton.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(cancel(_:)), for: .touchUpInside)
         cancelButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         cancelButton.tintColor = Color.button
 
@@ -70,7 +70,7 @@ final class AddCredentialsStatusViewController: UIViewController {
         ])
     }
 
-    @objc private func close(_ sender: Any) {
+    @objc private func cancel(_ sender: Any) {
         delegate?.addCredentialsStatusViewControllerDidCancel(self)
     }
 }
