@@ -14,6 +14,7 @@ class ButtonTableViewCell: UITableViewCell {
         contentView.addSubview(actionLabel)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

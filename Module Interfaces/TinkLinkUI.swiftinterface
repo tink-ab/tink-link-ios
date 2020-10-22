@@ -27,9 +27,14 @@ public struct AppearanceProvider : TinkLinkUI.AppearanceProviding {
 public enum Color {
 }
 public class ColorProvider : TinkLinkUI.ColorProviding {
+  public var accentBackground: UIKit.UIColor
+  public var button: UIKit.UIColor
+  public var buttonLabel: UIKit.UIColor
   public var background: UIKit.UIColor
   public var secondaryBackground: UIKit.UIColor
+  @available(*, deprecated, message: "Use background to update elements background")
   public var groupedBackground: UIKit.UIColor
+  @available(*, deprecated, message: "Use secondaryBackground to update secondary elements background")
   public var secondaryGroupedBackground: UIKit.UIColor
   public var label: UIKit.UIColor
   public var secondaryLabel: UIKit.UIColor
@@ -38,18 +43,25 @@ public class ColorProvider : TinkLinkUI.ColorProviding {
   public var warning: UIKit.UIColor
   public var critical: UIKit.UIColor
   public init()
+  @available(*, deprecated, message: "Use init(accent:background:secondaryBackground:label:secondaryLabel:separator:warning:critical:) instead.")
   public init(background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, groupedBackground: UIKit.UIColor, secondaryGroupedBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, accent: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor)
+  public init(accent: UIKit.UIColor, accentBackground: UIKit.UIColor?, background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor, button: UIKit.UIColor? = nil, buttonText: UIKit.UIColor? = nil)
   @objc deinit
 }
 public protocol ColorProviding {
+  var accent: UIKit.UIColor { get }
+  var accentBackground: UIKit.UIColor { get }
   var background: UIKit.UIColor { get }
-  var secondaryBackground: UIKit.UIColor { get }
-  var groupedBackground: UIKit.UIColor { get }
-  var secondaryGroupedBackground: UIKit.UIColor { get }
   var label: UIKit.UIColor { get }
   var secondaryLabel: UIKit.UIColor { get }
   var separator: UIKit.UIColor { get }
-  var accent: UIKit.UIColor { get }
+  var secondaryBackground: UIKit.UIColor { get }
+  var button: UIKit.UIColor { get }
+  var buttonLabel: UIKit.UIColor { get }
+  @available(*, deprecated, message: "Use background to update elements background")
+  var groupedBackground: UIKit.UIColor { get }
+  @available(*, deprecated, message: "Use secondaryBackground to update secondary elements background")
+  var secondaryGroupedBackground: UIKit.UIColor { get }
   var warning: UIKit.UIColor { get }
   var critical: UIKit.UIColor { get }
 }
@@ -118,6 +130,7 @@ public enum TinkLinkError : Swift.Error {
   case credentialsNotFound
   case providerNotFound
   case unableToOpenThirdPartyApp(TinkLink.ThirdPartyAppAuthenticationTask.Error)
+  case unauthenticated
   case internalError
 }
 @objc @_hasMissingDesignatedInitializers public class TinkLinkViewController : UIKit.UINavigationController {
@@ -132,7 +145,7 @@ public enum TinkLinkError : Swift.Error {
   public enum Operation {
     case create(providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default))
     case authenticate(credentialsID: TinkCore.Credentials.ID)
-    case refresh(credentialsID: TinkCore.Credentials.ID)
+    case refresh(credentialsID: TinkCore.Credentials.ID, forceAuthenticate: Swift.Bool = false)
     case update(credentialsID: TinkCore.Credentials.ID)
   }
   public var prefill: TinkLinkUI.TinkLinkViewController.PrefillStrategy

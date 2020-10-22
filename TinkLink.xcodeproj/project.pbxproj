@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		035391B9E0E0E5C7CB96A59C /* FormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C4C4891F51CEFAC747830 /* FormTests.swift */; };
 		039F0E24B3FA4400E94EAC1A /* ProviderCapabilityFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1581430B58823F58A7A53919 /* ProviderCapabilityFormatter.swift */; };
-		05378516DC0601E0ABC582B8 /* TinkLinkUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B198F7C21791DF1A6D737CFE /* TinkLinkUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		06B337B3EBE240093E3136A8 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; };
+		04ED1D4A593B228F2E56F310 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8CA025E75322B1A4D3EF59 /* TinkLink */; };
 		0831BA5ECC3E43F5F35BDDF4 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543E58EF45210737B2765AB1 /* TinkCore.framework */; };
 		08CCB20D99C7A16B264E3EB8 /* CredentialsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56AA37584764C1D7BE1E132 /* CredentialsContext.swift */; };
 		0AD80F46344ABC35DBEABB5C /* ProviderTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D825DBE7224FB81468CDDFAA /* ProviderTree.swift */; };
@@ -33,8 +32,6 @@
 		1F2A8F2AB2799AD5E849BA17 /* ThirdPartyAppAuthenticationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A6E8EFA1FC1DD39A15470 /* ThirdPartyAppAuthenticationTask.swift */; };
 		213D0E65061FB964C33B7993 /* TransferContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FA56E7B2CEA04A43FDC63 /* TransferContextTest.swift */; };
 		254F2705C0F80C843E52A791 /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6036427A69D61749D8C7A729 /* AuthorizationController.swift */; };
-		26D6E3E737D4EEEAA2EEA687 /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3906B996DD066DAD3468C7 /* Down.framework */; };
-		273B1C47F9E74344166070B6 /* Down.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3906B996DD066DAD3468C7 /* Down.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		27984844B56927DB4A81939F /* SupplementalInfoFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0BF918520BA0B136035F8B /* SupplementalInfoFieldTests.swift */; };
 		28B0CE6449E0A94C04D37489 /* BorderCornerRadiusImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948CF3495EB5FFB2D741A0C /* BorderCornerRadiusImageView.swift */; };
 		29570930692B5704E442866C /* FinancialInstitutionSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3618A35D3444EE8D4E34ACC2 /* FinancialInstitutionSearchViewController.swift */; };
@@ -42,12 +39,9 @@
 		2F0F9A3433185F63DD707F2A /* MutableBeneficiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4338220C7C6EA3D93EB739 /* MutableBeneficiaryService.swift */; };
 		2FBCDF544BFB18841043456E /* CredentialsContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1501CDEEBAAFF635DBF2089 /* CredentialsContextTest.swift */; };
 		2FD5AF189CBC58F70D83D80C /* ProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054F9A7103F895BACC6D4CB4 /* ProviderCell.swift */; };
-		302093F036FD7B9ED626E984 /* TinkLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; };
 		31905C079BD8A5AF9B96A881 /* ProviderTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59362C877F1182E863649B58 /* ProviderTreeTests.swift */; };
 		325EA42C25F14A7340E85B9F /* Bundle+Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA48FE393289322823645E /* Bundle+Module.swift */; };
-		33D4851F5A3E8F043E6DA120 /* TinkLinkUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B198F7C21791DF1A6D737CFE /* TinkLinkUI.framework */; };
 		3453974BCDAB362D741E813F /* TransferAccountIdentifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C892427D852CFACE1F6E91 /* TransferAccountIdentifiableTests.swift */; };
-		34B894DFB5CB1B5D78A285E8 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; };
 		35A6C9EAB5ACAF4A3DCF7FCF /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA11E22021C054B6A460745 /* Form.swift */; };
 		384F643F64CBCFDD4621670A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9F06E6ADF1856BB277DEA4 /* UIColor+Extensions.swift */; };
 		38BC76B65D0645A7EEB358A6 /* ServiceError+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589F4F78882D352FB35C32F8 /* ServiceError+mock.swift */; };
@@ -65,16 +59,15 @@
 		40C4A1BB63A077DB10AFEE5F /* TinkLink+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79688D753B135D21621FDD5C /* TinkLink+extension.swift */; };
 		40D117A14E3ED3781F9BEA6F /* CredentialsContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1501CDEEBAAFF635DBF2089 /* CredentialsContextTest.swift */; };
 		4162B5A6167647053700F565 /* TinkLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; };
+		424155A5D9503D03E634C21D /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 26BD55DEFA9DAEAF23ABB283 /* TinkLinkUI */; };
 		437494D22A5F4F12D8B3947F /* ThirdPartyAppAuthenticationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A6E8EFA1FC1DD39A15470 /* ThirdPartyAppAuthenticationTask.swift */; };
 		43B51A8117E55C2518D0D171 /* SecCertificate+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6124C5F0D50E821710FE5725 /* SecCertificate+Swift.swift */; };
 		43E964B59FC78CA66E3644BA /* ProviderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7D63EB1C5FDD6E6C5A1C22 /* ProviderContext.swift */; };
 		43EFD24A09350BD0AF768040 /* URLComponents+FragmentParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69B1B73059130DA3261EB4C /* URLComponents+FragmentParameters.swift */; };
-		4442DD66992B9EC174FF8B22 /* TinkLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; };
 		4452D898CA335AEA09C565B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4275CE80BE4133678659AE /* AppDelegate.swift */; };
 		447904520EE633869A5BB3B1 /* FontProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3152CC8B21973565DF082 /* FontProvider.swift */; };
 		44F087FF5149ED911A6ADCFC /* TinkLinkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBE20B969F478CB9A3ADA68 /* TinkLinkError.swift */; };
 		45D631C6C7EE6577F101D9BA /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */; };
-		460A110E62861163FC2A0AE5 /* TinkCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 543E58EF45210737B2765AB1 /* TinkCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		465D1C94DC9E6488F1F60457 /* LinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328A437D96F2718ECDD73B7 /* LinkTests.swift */; };
 		49273CB6A5A24128CFDDAE6F /* RefreshCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */; };
 		4CFB0414DA01A06688AD0B0F /* TinkLink+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79688D753B135D21621FDD5C /* TinkLink+extension.swift */; };
@@ -102,17 +95,13 @@
 		5C2231E6EA53AFC256E09E88 /* Translations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3AA13F28159A3F4D6E9DB76C /* Translations.bundle */; };
 		5C73AA53EA6CB1461D34DF0B /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3906B996DD066DAD3468C7 /* Down.framework */; };
 		5D3ED213922DFDE6478FD9B9 /* MutableCredentialsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D33FBB65A4B7A184AC8B7 /* MutableCredentialsService.swift */; };
-		5DA40509E868B59E708C8A02 /* TinkLinkUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B198F7C21791DF1A6D737CFE /* TinkLinkUI.framework */; };
 		5DD4BC57F54445E467C9CCEF /* SupplementInformationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073D75BA34D8F8EC618C81C3 /* SupplementInformationTask.swift */; };
 		5E4C335E45CA4118E8BD6C3A /* TransferService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BDDC8A8556C18724B94F85 /* TransferService+mock.swift */; };
-		5E96EC977E3A0DA3F22E65BA /* TinkLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5F754A43EEDD0AE7938C8042 /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */; };
 		5FC6EB26461CAA4396CECE2C /* CredentialsService+paymentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0531830C7E81A7790520A /* CredentialsService+paymentMock.swift */; };
 		61873DBB04739999B25A02DD /* Provider+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780BC6837FBECC3EC2A4897 /* Provider+mock.swift */; };
 		620B0BE3DEEC88DC3AF46518 /* DispatchWorkItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10391B13F1BE7407F59BA29B /* DispatchWorkItem+Extension.swift */; };
-		624617142FA04CCACA71D90B /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543E58EF45210737B2765AB1 /* TinkCore.framework */; };
 		6286D347DABD1D9EAC2228E8 /* AddBeneficiaryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BD9A1FC424CF1954D4F2C4 /* AddBeneficiaryTask.swift */; };
-		62873D2C61170E94C730FDC0 /* TinkLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		64160645B524FC491638383B /* TransferContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FA56E7B2CEA04A43FDC63 /* TransferContextTest.swift */; };
 		655925D8E386202B1A951117 /* ThirdPartyAppAuthentication+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1578C2D8AEB7C7C4CD76CA1E /* ThirdPartyAppAuthentication+mock.swift */; };
 		65835D37BDAF235235F3C53B /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22163A81F6F3AECCA020DCD /* GradientView.swift */; };
@@ -135,19 +124,19 @@
 		7F6DDB6CADBFF25459C69F2B /* TinkLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8399BE1FDFA2C503CC04C71 /* TinkLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		801735702F9545A4A2D74CE2 /* ScopeDescriptionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63C7E13073E993B0B251C /* ScopeDescriptionListViewController.swift */; };
 		82467352B8DD185235FE10CA /* FormTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987825A510E085C113C6ABAA /* FormTableViewController.swift */; };
-		83B0789BD0479D4E88FF8D53 /* TinkLinkUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B198F7C21791DF1A6D737CFE /* TinkLinkUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		841C36BE8EEC01C9D4F8A66B /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80938EC83D308F92735171B4 /* Icon.swift */; };
 		842FE542DF3C5602FD0B01CC /* ProviderService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE87D565B53F32B26FAF711E /* ProviderService+mock.swift */; };
 		84854067B363060943CD95C8 /* AddBeneficiaryTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B8E31EACFCC2E60983C80 /* AddBeneficiaryTaskTests.swift */; };
 		86CECA32DD9C76A06C2274AC /* ScreenEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEDB1856BA26DDCC9375D1E /* ScreenEvent.swift */; };
 		8712D54793CD8F0AC1628D6B /* FontProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CFEA1FD0CAE46A2F187F4 /* FontProviding.swift */; };
 		87C69E4B511051699326FC1C /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B57CB15A10546A4774F022 /* Result+Extensions.swift */; };
+		884E6A55A629CDB9C1FB2EAF /* RefreshableItemsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B764B3C262CFE0555EF6DD /* RefreshableItemsTest.swift */; };
 		8903B0C1B1077BD0C2048D29 /* ServiceError+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815202B64C2DA9A62599CE49 /* ServiceError+Localized.swift */; };
 		8A433BD081F1D6967400EEE2 /* MutableBeneficiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4338220C7C6EA3D93EB739 /* MutableBeneficiaryService.swift */; };
 		8AD50237B5EDF3E15E096F74 /* AnyCanceller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4620001B14937015A21BA9 /* AnyCanceller.swift */; };
 		8C5FFE204A2AE90B4063B8D8 /* MutableTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75E9442B66E9D4C7E393301 /* MutableTransferService.swift */; };
-		8D7673C4F91133DEB6939ACF /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3906B996DD066DAD3468C7 /* Down.framework */; };
 		8E6B6628F4CD55DC33EF41F4 /* SignableOperation+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCEEEFEFD68A617634C099 /* SignableOperation+mock.swift */; };
+		923C7676A32B05CBABDC7455 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = DE5D19C24F1E172C08B4DF24 /* TinkLink */; };
 		923E976B31710C3C1DE8C123 /* TransferContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6E7CE9983FF9AE060B3AB3 /* TransferContext.swift */; };
 		92594A391E486F3C1704680F /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C10F680B83B493F68A952A0 /* ApplicationObserver.swift */; };
 		93217DF9BF12B98A04E73C81 /* PollingTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51FD51DBFC242BDFD5056AE /* PollingTask.swift */; };
@@ -160,7 +149,6 @@
 		9AF0D88F70691527573E01D3 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DAC0E9D71F321583D872D2 /* Font.swift */; };
 		9B824D6CA01C91B22A1DFF1E /* DefaultableCodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65ACD80BFCB3C993AB78F6 /* DefaultableCodable+Extension.swift */; };
 		9CBD16386D2DEB1E836D5A53 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91719FA2AD2BD7D36D7E1D46 /* TinkCore.framework */; };
-		9D88AFC22530A15100A3BFEA /* ProviderHelpTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D88AFC12530A15100A3BFEA /* ProviderHelpTextView.swift */; };
 		9FDA42E8BC48ED211C750780 /* CredentialService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216C63047C8269B8B76D5B9D /* CredentialService+mock.swift */; };
 		A0227C6A71B56FC98A14ED28 /* AddBeneficiaryTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B8E31EACFCC2E60983C80 /* AddBeneficiaryTaskTests.swift */; };
 		A0E50B29CAEDDA535B8C0738 /* Account+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0580618DCA7903185DC88B2C /* Account+mock.swift */; };
@@ -179,6 +167,7 @@
 		A8B1EEB2A7F4F1AE440ADE9A /* Credential+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E52D353D223959B253AA3C /* Credential+mock.swift */; };
 		A8DC746C8C5101C9466EF35B /* AuthenticationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7958B318F3E3979B51A88445 /* AuthenticationTask.swift */; };
 		AA6C354E342CA31CC89ACE6A /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0C8BE53D02FE94A0CF558 /* UINavigationController+Extensions.swift */; };
+		AAF97081DBB9B14A595A38BB /* ProviderHelpTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B495ACFAE88AC4D43AEC5BD /* ProviderHelpTextView.swift */; };
 		AB6F5FED3D52127D0BDB1F16 /* AnyCanceller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4620001B14937015A21BA9 /* AnyCanceller.swift */; };
 		AC74F4FE3BB8D0EEBC6E27A8 /* CredentialsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56AA37584764C1D7BE1E132 /* CredentialsContext.swift */; };
 		AD49441B456FF4FE57426F26 /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C99E4F1C68B011B3EC303 /* CheckmarkView.swift */; };
@@ -214,6 +203,7 @@
 		CC8734E7FAFBCA629806EB9B /* MultiCancellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B424C1BB25100774A01CFD /* MultiCancellerTests.swift */; };
 		CCF88D85E59905F88E3EE025 /* Account+URI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54416F4CB909B50E31DB2540 /* Account+URI.swift */; };
 		CD011C2159DB0E9F123A1157 /* RetryCancellable+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29E0698F44D66A6ACD1003A /* RetryCancellable+mock.swift */; };
+		CDCDF01836326F3FE0C72FDC /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7FF53FE64D7125A994287458 /* TinkLinkUI */; };
 		CDE9D6E1249E95D68A988924 /* TransferAccountIdentifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C892427D852CFACE1F6E91 /* TransferAccountIdentifiableTests.swift */; };
 		D126334EF70BEB60028649EE /* Provider+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780BC6837FBECC3EC2A4897 /* Provider+mock.swift */; };
 		D4FCD40CB91FCA7E12A83E4E /* MultiCanceller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29780D2DC26B23304F0843A9 /* MultiCanceller.swift */; };
@@ -242,9 +232,7 @@
 		EC56913A111DA1277ED6AB74 /* RetryCancellable+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29E0698F44D66A6ACD1003A /* RetryCancellable+mock.swift */; };
 		EDF8110FE40AD740BD5432E5 /* SignableOperation+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCEEEFEFD68A617634C099 /* SignableOperation+mock.swift */; };
 		EF18F6B05322DADBB3661D58 /* CredentialsService+paymentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0531830C7E81A7790520A /* CredentialsService+paymentMock.swift */; };
-		F054F83112FB85C1969CF7A4 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543E58EF45210737B2765AB1 /* TinkCore.framework */; };
 		F0BCBFADA3E08CF5A1BF9F34 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40022F21432E75E761F5E6 /* LoadingViewController.swift */; };
-		F0C62DEC380E8F8A7109649B /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F388B60979FBE568FAE5B39A /* AddCredentialsStatusPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E377D1F011D6B8224E338A /* AddCredentialsStatusPresentationManager.swift */; };
 		F5512E9C8B0BBC1AFA919F21 /* RefreshCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */; };
 		F64F129B2827DA6D05E4B486 /* OAuthService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11643F0D9A1740B7CB5065F6 /* OAuthService+mock.swift */; };
@@ -277,40 +265,12 @@
 			remoteGlobalIDString = B5CB16B08C86C5DAAACD43E0;
 			remoteInfo = TinkLinkUIUITestsHost_iOS;
 		};
-		4B8304FD965106523A56026D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D6486A5AC59C1F3DC01BCB4F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 069114309B16BF85A2D4F4AE;
-			remoteInfo = TinkLink_iOS;
-		};
-		65A8E503703EDD78524848E5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D6486A5AC59C1F3DC01BCB4F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3261BDBD425DCE3680F8951A;
-			remoteInfo = TinkLinkUI_iOS;
-		};
-		812F5DD9F316F3AF9E38ED7F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D6486A5AC59C1F3DC01BCB4F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 069114309B16BF85A2D4F4AE;
-			remoteInfo = TinkLink_iOS;
-		};
 		AA5AB8D5A77D23C59EDBF972 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D6486A5AC59C1F3DC01BCB4F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 069114309B16BF85A2D4F4AE;
 			remoteInfo = TinkLink_iOS;
-		};
-		D3383B5133401ADF4255EDD2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D6486A5AC59C1F3DC01BCB4F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3261BDBD425DCE3680F8951A;
-			remoteInfo = TinkLinkUI_iOS;
 		};
 		EF174387CFE25EF7B9E1FBE8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -360,37 +320,11 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E7CCAFD4578238945AE0A6C7 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				62873D2C61170E94C730FDC0 /* TinkLink.framework in Embed Frameworks */,
-				83B0789BD0479D4E88FF8D53 /* TinkLinkUI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F8E2458A90DA4BD803D7DB91 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				5E96EC977E3A0DA3F22E65BA /* TinkLink.framework in Embed Frameworks */,
-				05378516DC0601E0ABC582B8 /* TinkLinkUI.framework in Embed Frameworks */,
-				273B1C47F9E74344166070B6 /* Down.framework in Embed Frameworks */,
-				F0C62DEC380E8F8A7109649B /* Kingfisher.framework in Embed Frameworks */,
-				460A110E62861163FC2A0AE5 /* TinkCore.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		02B57CB15A10546A4774F022 /* Result+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extensions.swift"; sourceTree = "<group>"; };
+		031637F2E9E075909753E264 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = .; sourceTree = SOURCE_ROOT; };
 		054F9A7103F895BACC6D4CB4 /* ProviderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderCell.swift; sourceTree = "<group>"; };
 		0580618DCA7903185DC88B2C /* Account+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+mock.swift"; sourceTree = "<group>"; };
 		06E377D1F011D6B8224E338A /* AddCredentialsStatusPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsStatusPresentationManager.swift; sourceTree = "<group>"; };
@@ -426,6 +360,7 @@
 		2BEDB1856BA26DDCC9375D1E /* ScreenEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenEvent.swift; sourceTree = "<group>"; };
 		2C5D50CBA6CD166ABA2C004B /* AddCredentialsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsTask.swift; sourceTree = "<group>"; };
 		3088EB17C87CDA1FCA245254 /* ProviderCapabilityFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderCapabilityFormatterTests.swift; sourceTree = "<group>"; };
+		30B764B3C262CFE0555EF6DD /* RefreshableItemsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableItemsTest.swift; sourceTree = "<group>"; };
 		31A3F282295CB3F9446C9580 /* CredentialsSuccessfullyAddedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsSuccessfullyAddedViewController.swift; sourceTree = "<group>"; };
 		3532584CB0DB179EA152708D /* TinkLinkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkUITests.swift; sourceTree = "<group>"; };
 		3618A35D3444EE8D4E34ACC2 /* FinancialInstitutionSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionSearchViewController.swift; sourceTree = "<group>"; };
@@ -495,11 +430,12 @@
 		94D0531830C7E81A7790520A /* CredentialsService+paymentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CredentialsService+paymentMock.swift"; sourceTree = "<group>"; };
 		981C4C4891F51CEFAC747830 /* FormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTests.swift; sourceTree = "<group>"; };
 		987825A510E085C113C6ABAA /* FormTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTableViewController.swift; sourceTree = "<group>"; };
+		98A667F41F00AB223F2B526C /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = .; sourceTree = SOURCE_ROOT; };
 		9A704B0C5651109D33795F84 /* AddCredentialsStatusPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsStatusPresentationController.swift; sourceTree = "<group>"; };
 		9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Kingfisher.framework; sourceTree = "<group>"; };
 		9AD3F9B9F02655297CED5D25 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
+		9B495ACFAE88AC4D43AEC5BD /* ProviderHelpTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderHelpTextView.swift; sourceTree = "<group>"; };
 		9C3CFEA1FD0CAE46A2F187F4 /* FontProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontProviding.swift; sourceTree = "<group>"; };
-		9D88AFC12530A15100A3BFEA /* ProviderHelpTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderHelpTextView.swift; sourceTree = "<group>"; };
 		A29E0698F44D66A6ACD1003A /* RetryCancellable+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RetryCancellable+mock.swift"; sourceTree = "<group>"; };
 		A2D7046A9914B7EDF745FD39 /* CGImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extensions.swift"; sourceTree = "<group>"; };
 		A6C6C2DAB70310237BD31425 /* TinkLink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TinkLink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -571,11 +507,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4442DD66992B9EC174FF8B22 /* TinkLink.framework in Frameworks */,
-				33D4851F5A3E8F043E6DA120 /* TinkLinkUI.framework in Frameworks */,
-				F054F83112FB85C1969CF7A4 /* TinkCore.framework in Frameworks */,
-				34B894DFB5CB1B5D78A285E8 /* Kingfisher.framework in Frameworks */,
-				8D7673C4F91133DEB6939ACF /* Down.framework in Frameworks */,
+				04ED1D4A593B228F2E56F310 /* TinkLink in Frameworks */,
+				424155A5D9503D03E634C21D /* TinkLinkUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,11 +516,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				302093F036FD7B9ED626E984 /* TinkLink.framework in Frameworks */,
-				5DA40509E868B59E708C8A02 /* TinkLinkUI.framework in Frameworks */,
-				624617142FA04CCACA71D90B /* TinkCore.framework in Frameworks */,
-				06B337B3EBE240093E3136A8 /* Kingfisher.framework in Frameworks */,
-				26D6E3E737D4EEEAA2EEA687 /* Down.framework in Frameworks */,
+				923C7676A32B05CBABDC7455 /* TinkLink in Frameworks */,
+				CDCDF01836326F3FE0C72FDC /* TinkLinkUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,6 +678,7 @@
 		2FDC12ECBBC575E89FFB9BF7 = {
 			isa = PBXGroup;
 			children = (
+				7EE5A23A369FD65D1821A266 /* Packages */,
 				8EE3C42B623B23C935D081F1 /* TinkLink */,
 				8C0043A3F8D7168CF6CE2810 /* TinkLinkTests */,
 				05F5D27A276C2A7A509ECD98 /* TinkLinkUI */,
@@ -839,6 +770,7 @@
 			children = (
 				D00A7D44C564DB1033A5EC58 /* Info.plist */,
 				3088EB17C87CDA1FCA245254 /* ProviderCapabilityFormatterTests.swift */,
+				30B764B3C262CFE0555EF6DD /* RefreshableItemsTest.swift */,
 			);
 			name = TinkLinkUITests;
 			path = Tests/TinkLinkUITests;
@@ -890,6 +822,15 @@
 			);
 			path = Presentation;
 			sourceTree = "<group>";
+		};
+		7EE5A23A369FD65D1821A266 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				031637F2E9E075909753E264 /* tink-link-ios */,
+				98A667F41F00AB223F2B526C /* tink-link-ios */,
+			);
+			name = Packages;
+			sourceTree = SOURCE_ROOT;
 		};
 		801EE8EA5F2F436D8CEC58C0 /* Mac */ = {
 			isa = PBXGroup;
@@ -1044,10 +985,10 @@
 		C3C02E1B1A42135E949D97E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9D88AFC12530A15100A3BFEA /* ProviderHelpTextView.swift */,
 				5777325BD0B5792A8588001C /* AddCredentialsFooterView.swift */,
 				E18F0CE5628F9A7DABE9AAB7 /* AddCredentialsHeaderView.swift */,
 				AD7C6392F7851C387256EDB0 /* FormTableViewErrorView.swift */,
+				9B495ACFAE88AC4D43AEC5BD /* ProviderHelpTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1222,16 +1163,17 @@
 			buildPhases = (
 				76FCB42DA2762B789A5C27D2 /* Sources */,
 				315A4D971FA5449850A8A672 /* Frameworks */,
-				F8E2458A90DA4BD803D7DB91 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				F16438AA3D8F31913BCD95BB /* PBXTargetDependency */,
-				4D22734A30621A6F6A0E2E4D /* PBXTargetDependency */,
-				B055C14EAD04701E590231C8 /* PBXTargetDependency */,
 			);
 			name = TinkLinkUIUITests_iOS;
+			packageProductDependencies = (
+				5D8CA025E75322B1A4D3EF59 /* TinkLink */,
+				26BD55DEFA9DAEAF23ABB283 /* TinkLinkUI */,
+			);
 			productName = TinkLinkUIUITests_iOS;
 			productReference = B2772EA39B3334090F7D5587 /* TinkLinkUIUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -1259,17 +1201,18 @@
 			buildConfigurationList = F69437F4951F9A722864B82A /* Build configuration list for PBXNativeTarget "TinkLinkUIUITestsHost_iOS" */;
 			buildPhases = (
 				AE2F43605E143C31774CB5CE /* Sources */,
-				6D3CEFD6724D2704C0C38541 /* Carthage */,
+				B302BF949FD7EB07AC0495BF /* Remove the Carthage TemporaryItems */,
 				347F58046A6BA4391DA8D734 /* Frameworks */,
-				E7CCAFD4578238945AE0A6C7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				78977B9D96EC93F2F44D8CB8 /* PBXTargetDependency */,
-				F3D4E3C64DC5D1C1DD90644A /* PBXTargetDependency */,
 			);
 			name = TinkLinkUIUITestsHost_iOS;
+			packageProductDependencies = (
+				DE5D19C24F1E172C08B4DF24 /* TinkLink */,
+				7FF53FE64D7125A994287458 /* TinkLinkUI */,
+			);
 			productName = TinkLinkUIUITestsHost_iOS;
 			productReference = D0B8FFB023A0E36DA37971B6 /* TinkLinkUIUITestsHost.app */;
 			productType = "com.apple.product-type.application";
@@ -1339,25 +1282,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6D3CEFD6724D2704C0C38541 /* Carthage */ = {
+		B302BF949FD7EB07AC0495BF /* Remove the Carthage TemporaryItems */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Down.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/TinkCore.framework",
+			inputFileListPaths = (
 			);
-			name = Carthage;
+			inputPaths = (
+			);
+			name = "Remove the Carthage TemporaryItems";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Down.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Kingfisher.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkCore.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "carthage copy-frameworks\n";
+			shellScript = "rm -rf /var/folders/4z/cky4d_816pz82f0xpnljc3zw0000gn/T//TemporaryItems/*carthage*";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1452,12 +1393,12 @@
 				039F0E24B3FA4400E94EAC1A /* ProviderCapabilityFormatter.swift in Sources */,
 				2FD5AF189CBC58F70D83D80C /* ProviderCell.swift in Sources */,
 				B964EEBDE31F1B08346C0CB1 /* ProviderController.swift in Sources */,
+				AAF97081DBB9B14A595A38BB /* ProviderHelpTextView.swift in Sources */,
 				0D3349933E373FA9F3279061 /* ProviderListViewController.swift in Sources */,
 				2C8F34DDF462E0AC7CF9E9B8 /* ProviderPickerCoordinator.swift in Sources */,
 				DEE8F3BB8ACD4C08CEC91759 /* QRImageViewController.swift in Sources */,
 				C21B058ED447901C7FA75723 /* RefreshableItems+Extensions.swift in Sources */,
 				A84DA127CD4DF0526943246C /* ReusableCell.swift in Sources */,
-				9D88AFC22530A15100A3BFEA /* ProviderHelpTextView.swift in Sources */,
 				D603F676B28BE283586CC75A /* ScopeDescriptionCell.swift in Sources */,
 				801735702F9545A4A2D74CE2 /* ScopeDescriptionListViewController.swift in Sources */,
 				86CECA32DD9C76A06C2274AC /* ScreenEvent.swift in Sources */,
@@ -1585,6 +1526,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B95E7FB776D43FCBC148569C /* ProviderCapabilityFormatterTests.swift in Sources */,
+				884E6A55A629CDB9C1FB2EAF /* RefreshableItemsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1636,25 +1578,10 @@
 			target = 069114309B16BF85A2D4F4AE /* TinkLink_iOS */;
 			targetProxy = 24206F85E936C1D3CDA04DC0 /* PBXContainerItemProxy */;
 		};
-		4D22734A30621A6F6A0E2E4D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 069114309B16BF85A2D4F4AE /* TinkLink_iOS */;
-			targetProxy = 4B8304FD965106523A56026D /* PBXContainerItemProxy */;
-		};
 		64A977D05CCE5A14E5D38D82 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 069114309B16BF85A2D4F4AE /* TinkLink_iOS */;
 			targetProxy = AA5AB8D5A77D23C59EDBF972 /* PBXContainerItemProxy */;
-		};
-		78977B9D96EC93F2F44D8CB8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 069114309B16BF85A2D4F4AE /* TinkLink_iOS */;
-			targetProxy = 812F5DD9F316F3AF9E38ED7F /* PBXContainerItemProxy */;
-		};
-		B055C14EAD04701E590231C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3261BDBD425DCE3680F8951A /* TinkLinkUI_iOS */;
-			targetProxy = D3383B5133401ADF4255EDD2 /* PBXContainerItemProxy */;
 		};
 		E47B642D4A1496A4976043E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1665,11 +1592,6 @@
 			isa = PBXTargetDependency;
 			target = B5CB16B08C86C5DAAACD43E0 /* TinkLinkUIUITestsHost_iOS */;
 			targetProxy = 26A7713AB4A35FF99718E47A /* PBXContainerItemProxy */;
-		};
-		F3D4E3C64DC5D1C1DD90644A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3261BDBD425DCE3680F8951A /* TinkLinkUI_iOS */;
-			targetProxy = 65A8E503703EDD78524848E5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1702,10 +1624,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = Sources/TinkLinkUIUITestsHost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1741,7 +1659,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.15.2;
+				MARKETING_VERSION = 0.16.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1793,7 +1711,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.15.2;
+				MARKETING_VERSION = 0.16.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;
@@ -1807,10 +1725,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = Tests/TinkLinkUIUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1847,7 +1761,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.15.2;
+				MARKETING_VERSION = 0.16.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1862,10 +1776,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = Sources/TinkLinkUIUITestsHost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1901,7 +1811,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.15.2;
+				MARKETING_VERSION = 0.16.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1998,7 +1908,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.15.2;
+				MARKETING_VERSION = 0.16.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -2028,7 +1938,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.15.2;
+				MARKETING_VERSION = 0.16.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;
@@ -2065,10 +1975,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = Tests/TinkLinkUIUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2277,6 +2183,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		26BD55DEFA9DAEAF23ABB283 /* TinkLinkUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLinkUI;
+		};
+		5D8CA025E75322B1A4D3EF59 /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
+		};
+		7FF53FE64D7125A994287458 /* TinkLinkUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLinkUI;
+		};
+		DE5D19C24F1E172C08B4DF24 /* TinkLink */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TinkLink;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D6486A5AC59C1F3DC01BCB4F /* Project object */;
 }

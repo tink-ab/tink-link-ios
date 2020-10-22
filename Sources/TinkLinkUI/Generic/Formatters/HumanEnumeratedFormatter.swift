@@ -17,7 +17,7 @@ class HumanEnumeratedFormatter: Formatter {
 
     public var style: Style = .long
 
-    public override func string(for obj: Any?) -> String? {
+    override public func string(for obj: Any?) -> String? {
         guard let items = obj as? [String] else { return nil }
         return string(for: items)
     }

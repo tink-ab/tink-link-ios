@@ -16,12 +16,15 @@ final class FormTableViewController: UITableViewController {
         super.init(style: .grouped)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.contentInset = .init(top: 24, left: 0, bottom: 0, right: 0)
         tableView.backgroundColor = .clear
         tableView.registerReusableCell(ofType: FormFieldTableViewCell.self)
         tableView.allowsSelection = false
@@ -114,8 +117,8 @@ extension FormTableViewController: FormFieldTableViewCellDelegate {
         let nextIndexPath = IndexPath(row: indexPath.item + 1, section: indexPath.section)
 
         guard form.fields.count > nextIndexPath.item,
-            form.fields[indexPath.item + 1].attributes.isEditable,
-            let nextCell = tableView.cellForRow(at: nextIndexPath)
+              form.fields[indexPath.item + 1].attributes.isEditable,
+              let nextCell = tableView.cellForRow(at: nextIndexPath)
         else {
             cell.resignFirstResponder()
             return true

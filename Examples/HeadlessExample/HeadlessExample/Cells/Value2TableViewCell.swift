@@ -5,6 +5,7 @@ class Value2TableViewCell: UITableViewCell {
         super.init(style: .value2, reuseIdentifier: reuseIdentifier)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
