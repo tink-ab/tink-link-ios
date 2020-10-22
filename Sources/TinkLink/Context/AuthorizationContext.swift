@@ -27,9 +27,9 @@ public final class AuthorizationContext {
 
     // MARK: - Creating a Context
 
-    /// Creates a context to authorize for an authorization code for a user with requested scopes.
+    /// Creates a `AuthorizationContext` bound to the provided Tink instance. 
     ///
-    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
+    /// - Parameter tink: The Tink instance to use. Will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
         self.clientID = tink.configuration.clientID
         self.redirectURI = tink.configuration.redirectURI
@@ -60,11 +60,12 @@ public final class AuthorizationContext {
 
     // MARK: - Getting Information About the Client
 
-    /// Get a description of the client.
+    /// Get a description of the client. This contains information about the name of the client, whether it is an aggregator and what scopes the client has.
     ///
     /// - Parameter completion: The block to execute when the client description is received or if an error occurred.
+    /// - Parameter result: Represents either the client description or an error if the fetch failed.
     @discardableResult
-    public func fetchClientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func fetchClientDescription(completion: @escaping (_ result: Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
         let scopes: [Scope] = []
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: redirectURI) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }

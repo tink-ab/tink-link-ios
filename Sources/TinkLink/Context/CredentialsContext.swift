@@ -1,6 +1,6 @@
 import Foundation
 
-/// An object that you use to access the user's credentials and supports the flow for adding credentials.
+/// An object that you use to list, add or modify a user's `Credentials`. 
 public final class CredentialsContext {
     private let redirectURI: URL
     private let service: CredentialsService
