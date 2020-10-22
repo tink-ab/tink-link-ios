@@ -307,7 +307,10 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(passwordProviderCell.waitForExistence(timeout: 5))
         passwordProviderCell.tap()
 
-        let privacyPolicyLink = app.textViews.textViews.matching(identifier: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy. Tink Link UI Tester will obtain parts of your financial information. View details").links["Privacy Policy"]
+        let textView = app.textViews.element(matching: .textView, identifier: "termsAndConsentText")
+        XCTAssertTrue(textView.waitForExistence(timeout: 2))
+
+        let privacyPolicyLink = textView.links["Privacy Policy"]
         XCTAssertTrue(privacyPolicyLink.waitForExistence(timeout: 5))
         XCTAssertTrue(privacyPolicyLink.isHittable)
         privacyPolicyLink.tap()
