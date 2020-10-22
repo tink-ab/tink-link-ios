@@ -49,6 +49,8 @@ final class AddCredentialsFooterView: UIView {
     private func setup() {
         addSubview(descriptionTextView)
 
+        descriptionTextView.accessibilityIdentifier = "termsAndConsentText"
+
         layoutMargins = .init(top: 12, left: 0, bottom: 12, right: 0)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
