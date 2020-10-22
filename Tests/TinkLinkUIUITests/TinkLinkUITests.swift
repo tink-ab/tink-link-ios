@@ -88,7 +88,7 @@ class TinkLinkUITests: XCTestCase {
         XCTAssert(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         passwordField.typeText("tink-1234")
 
-        app.buttons["Continue"].firstMatch.tap()
+        app.buttons["Log in"].firstMatch.tap()
 
         let statusText = app.staticTexts["Connecting to Test Password, please wait…"]
         XCTAssertTrue(statusText.waitForExistence(timeout: 10))
@@ -120,7 +120,7 @@ class TinkLinkUITests: XCTestCase {
         XCTAssert(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         usernameField.typeText("tink-test")
 
-        app.buttons["Continue"].firstMatch.tap()
+        app.buttons["Log in"].firstMatch.tap()
 
         let supplementalInformationNavigationBar = app.navigationBars["Supplemental information"]
         XCTAssertTrue(supplementalInformationNavigationBar.waitForExistence(timeout: 5))
