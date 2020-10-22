@@ -319,4 +319,28 @@ class TinkLinkUITests: XCTestCase {
 
         XCTAssertFalse(privacyPolicyLink.isHittable)
     }
+
+    func testShowingConsentDetails() {
+        app.launch()
+
+        app.buttons["Get Started"].tap()
+
+        let passwordProviderCell = app.tables.cells.staticTexts["Test Password"]
+        XCTAssertTrue(passwordProviderCell.waitForExistence(timeout: 5))
+        passwordProviderCell.tap()
+
+        let textView = app.textViews.element(matching: .textView, identifier: "termsAndConsentText")
+        XCTAssert(textView.waitForExistence(timeout: 2))
+        
+        let viewDetailsLink = textView.links["View details"]
+        XCTAssertTrue(viewDetailsLink.waitForExistence(timeout: 5))
+        XCTAssertTrue(viewDetailsLink.isHittable)
+        viewDetailsLink.tap()
+
+        XCTAssertTrue(app.tables.staticTexts["We'll collect the following data from you"].waitForExistence(timeout: 2))
+        XCTAssertFalse(viewDetailsLink.isHittable)
+        app.navigationBars["TinkLinkUI.ScopeDescriptionListView"].buttons["Done"].tap()
+
+        XCTAssertTrue(viewDetailsLink.isHittable)
+    }
 }
