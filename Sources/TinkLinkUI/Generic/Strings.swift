@@ -33,7 +33,7 @@ enum Strings {
 
         static let privacyPolicy = NSLocalizedString("Credentials.PrivacyPolicy", tableName: tableName, bundle: bundle, value: "Privacy Policy", comment: "Privacy policy clickable text used in Credentials.TermsText.")
 
-        static let viewDetails = NSLocalizedString("Credentials.ViewDetails", tableName: tableName, bundle: bundle, value: "View details", comment: "Read more text (clickable) to lead to consent information.")
+        static let viewDetails = NSLocalizedString("Credentials.ViewDetails", tableName: tableName, bundle: bundle, value: "View details", comment: "View details text (clickable) to lead to consent information.")
 
         static let termsAndConditions = NSLocalizedString("Credentials.TermsAndConditions", tableName: tableName, bundle: bundle, value: "Terms and Conditions", comment: "Terms and conditions clickable text used in Credentials.TermsText.")
 
@@ -184,10 +184,14 @@ enum Strings {
     }
 
     enum SelectAccessType {
-        static let information = NSLocalizedString("SelectAccessType.Information", tableName: tableName, bundle: bundle, value: "Information about account types", comment: "Text for information button shown in the choose access type screen.")
+        /// Information text shown in the choose access type screen.
+        static let information = NSLocalizedString("SelectAccessType.Information", tableName: tableName, bundle: bundle, value: "Due to EU regulations different account types need to be connected separately.", comment: "Information text shown in the choose access type screen.")
 
         /// Title for screen where user selects which access type to use when adding credentials.
         static let title = NSLocalizedString("SelectAccessType.Title", tableName: tableName, bundle: bundle, value: "Select account types", comment: "Title of the choose access type screen.")
+
+        /// Title for the other account type (not an open banking account type) on the choose access type screen.
+        static let otherType = NSLocalizedString("SelectAccessType.OtherType", tableName: tableName, bundle: bundle, value: "Other", comment: "Title for the other account type (not an open banking account type) on the choose access type screen.")
     }
 
     enum SelectAuthenticationUserType {
