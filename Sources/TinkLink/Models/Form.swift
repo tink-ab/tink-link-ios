@@ -322,6 +322,7 @@ extension Form {
     /// This creates a form to use for supplementing information for a credentials.
     ///
     /// - Parameter credential: The credentials to create a form for.
+    @available(*, deprecated, message: "Use init(supplementInformationTask:) instead.")
     public init(credentials: Credentials) {
         if case let .awaitingSupplementalInformation(fields) = credentials.status {
             self.init(fieldSpecifications: fields)
