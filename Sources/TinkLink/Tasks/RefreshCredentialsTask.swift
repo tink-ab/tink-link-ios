@@ -86,6 +86,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             self?.handleUpdate(for: result)
         }
 
+        handleUpdate(for: .success(credentials))
         credentialsStatusPollingTask?.startPolling()
     }
 
