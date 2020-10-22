@@ -1210,7 +1210,6 @@
 			buildConfigurationList = F69437F4951F9A722864B82A /* Build configuration list for PBXNativeTarget "TinkLinkUIUITestsHost_iOS" */;
 			buildPhases = (
 				AE2F43605E143C31774CB5CE /* Sources */,
-				B302BF949FD7EB07AC0495BF /* Remove the Carthage TemporaryItems */,
 				347F58046A6BA4391DA8D734 /* Frameworks */,
 			);
 			buildRules = (
@@ -1289,27 +1288,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		B302BF949FD7EB07AC0495BF /* Remove the Carthage TemporaryItems */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Remove the Carthage TemporaryItems";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "rm -rf /var/folders/4z/cky4d_816pz82f0xpnljc3zw0000gn/T//TemporaryItems/*carthage*";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3B9FDEFEF1984DC0D368F0D7 /* Sources */ = {

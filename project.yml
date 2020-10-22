@@ -90,9 +90,6 @@ targets:
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
     sources:
       - Sources/TinkLinkUIUITestsHost
-    postCompileScripts:
-      - script: rm -rf ${TMPDIR}/TemporaryItems/*carthage*
-        name: Remove the Carthage TemporaryItems
     scheme:
       testTargets:
         - name: TinkLinkUIUITests_${platform}
