@@ -182,8 +182,8 @@ enum Strings {
     }
 
     enum SelectAccessType {
-        /// Text for information button shown in the choose access type screen.
-        static let information = NSLocalizedString("SelectAccessType.Information", tableName: tableName, bundle: bundle, value: "Due to EU regulations different account types need to be connected separately.", comment: "Text for information button shown in the choose access type screen.")
+        /// Information text shown in the choose access type screen.
+        static let information = NSLocalizedString("SelectAccessType.Information", tableName: tableName, bundle: bundle, value: "Due to EU regulations different account types need to be connected separately.", comment: "Information text shown in the choose access type screen.")
 
         /// Title for screen where user selects which access type to use when adding credentials.
         static let title = NSLocalizedString("SelectAccessType.Title", tableName: tableName, bundle: bundle, value: "Select account types", comment: "Title of the choose access type screen.")
