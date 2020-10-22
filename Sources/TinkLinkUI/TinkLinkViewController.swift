@@ -173,9 +173,20 @@ public class TinkLinkViewController: UINavigationController {
     ///   - userSession: The user session associated with the TinkLinkViewController.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, userSession: UserSession, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    @available(*, deprecated, message: "Use init(tink:operation:completion:) with a Tink instance that has a user session set.")
+    public convenience init(tink: Tink = .shared, userSession: UserSession, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+        tink.userSession = userSession
+        self.init(tink: tink, operation: operation, completion: completion)
+    }
+
+    /// Initializes a new TinkLinkViewController with the current user session associated with this Tink object.
+    /// - Parameters:
+    ///   - tink: A configured `Tink` object.
+    ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
+    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
+    public init(tink: Tink = .shared, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.tink = tink
-        self.userSession = userSession
+        self.userSession = tink.userSession
         self.operation = operation
         self.scopes = nil
         self.market = nil
