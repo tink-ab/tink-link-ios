@@ -19,7 +19,7 @@ extension Tink {
     @available(iOS 9.0, *)
     @available(*, deprecated, message: "Use Tink.open(_:completion:) instead.")
     public func open(_ url: URL, completion: ((Result<Void, Error>) -> Void)? = nil) -> Bool {
-        Tink.open(url, completion: completion)
+        Tink.open(url, configuration: configuration, completion: completion)
     }
 
     ///
@@ -28,14 +28,14 @@ extension Tink {
     /// ```swift
     /// func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
     ///     if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
-    ///         return TinkLink.shared.open(url)
+    ///         return TinkLink.open(url, configuration: <#T##Tink.Configuration#>)
     ///     } else {
     ///         return false
     ///     }
     /// }
     /// ```
     @available(iOS 9.0, *)
-    public static func open(_ url: URL, completion: ((Result<Void, Error>) -> Void)? = nil) -> Bool {
+    public static func open(_ url: URL, configuration: Tink.Configuration, completion: ((Result<Void, Error>) -> Void)? = nil) -> Bool {
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
               urlComponents.string?.starts(with: configuration.redirectURI.absoluteString) ?? false
         else { return false }
@@ -45,7 +45,13 @@ extension Tink {
 
         parameters.merge(urlComponents.fragmentParameters, uniquingKeysWith: { current, _ in current })
 
-        NotificationCenter.default.post(name: .credentialThirdPartyCallback, object: nil, userInfo: parameters)
+        let tink = Tink(configuration: configuration)
+
+        guard let state = parameters.removeValue(forKey: "state") else { return false }
+
+        _ = tink.services.credentialsService.thirdPartyCallback(state: state, parameters: parameters) { _ in
+
+        }
 
         return true
     }
