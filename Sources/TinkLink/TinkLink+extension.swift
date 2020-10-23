@@ -49,8 +49,8 @@ extension Tink {
 
         guard let state = parameters.removeValue(forKey: "state") else { return false }
 
-        _ = tink.services.credentialsService.thirdPartyCallback(state: state, parameters: parameters) { _ in
-
+        _ = tink.services.credentialsService.thirdPartyCallback(state: state, parameters: parameters) { result in
+            completion?(result)
         }
 
         return true
