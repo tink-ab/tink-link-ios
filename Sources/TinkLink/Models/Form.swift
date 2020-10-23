@@ -1,6 +1,6 @@
 import Foundation
 
-/// A `Form` is used to determine what a user needs to input in order to proceed. For example it could be a username and a password field.
+/// A `Form` is used to determine what a user needs to input in order to proceed when creating or updating a credentials. For example it could be a username and a password field.
 ///
 /// Here's how to create a form for a provider with a username and password field and how to update the fields.
 ///
