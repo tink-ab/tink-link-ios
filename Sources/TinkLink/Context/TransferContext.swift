@@ -199,9 +199,9 @@ public final class TransferContext {
     /// - Note: You need to retain the returned task until the add beneficiary request has completed.
     ///
     /// - Parameters:
-    ///   - account: The account for this beneficiary.
+    ///   - beneficiaryAccount: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
-    ///   - to: The account that the beneficiary should be added to.
+    ///   - ownerAccount: The account that the beneficiary should be added to.
     ///   - credentials: Optional, the `Credentials` used to add the beneficiary. Note that you can use different credentials than the account belongs to. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations. If `nil` the beneficiary will be added to the credentials of the account.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - task: Represents an authentication task that needs to be completed by the user.
@@ -274,8 +274,8 @@ public final class TransferContext {
     /// - Parameters:
     ///   - account: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
-    ///   - toAccountWithID: The source account ID for adding a beneficiary.
-    ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations.
+    ///   - ownerAccountID: The source account ID for adding a beneficiary.
+    ///   - credentialsID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
@@ -320,7 +320,7 @@ public final class TransferContext {
     ///
     /// This functionality exists to support the case when a user has two credentials for one financial institution due to PSD2 regulations.
     /// - Parameters:
-    ///   - to: The account that the beneficiary should be added to.
+    ///   - account: The account that the beneficiary should be added to.
     ///   - completion: A closure that's called with the result containing either the credentials or an error. Contains an empty array if no credentials are suitable for adding a beneficiary with.
     /// - Returns: A cancellation handle.
     @discardableResult
