@@ -10,7 +10,7 @@ extension Tink {
     /// ```swift
     /// func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
     ///     if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
-    ///         return TinkLink.shared.open(url)
+    ///         return Tink.shared.open(url)
     ///     } else {
     ///         return false
     ///     }
@@ -28,7 +28,7 @@ extension Tink {
     /// ```swift
     /// func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
     ///     if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
-    ///         return TinkLink.open(url, configuration: <#T##Tink.Configuration#>)
+    ///         return Tink.open(url, configuration: <#T##Tink.Configuration#>)
     ///     } else {
     ///         return false
     ///     }
