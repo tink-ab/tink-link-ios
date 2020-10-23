@@ -30,9 +30,9 @@ public final class ProviderContext {
 
     // MARK: - Creating a Context
 
-    /// Creates a context to access providers that matches the provided attributes.
+    /// Creates a `ProviderContext` bound to the provided `Tink` instance.
     ///
-    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
+    /// - Parameter tink: `Tink` instance, will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let service = tink.services.providerService
         self.init(tink: tink, providerService: service)
@@ -45,7 +45,7 @@ public final class ProviderContext {
 
     // MARK: - Fetching Providers
 
-    /// Fetches providers matching the provided attributes.
+    /// Fetches providers matching the provided filter.
     ///
     /// Required scopes:
     /// - credentials:read
@@ -67,12 +67,12 @@ public final class ProviderContext {
 
     // MARK: - Fetching one specific provider
 
-    /// Fetches a specific provider matching the provided id.
+    /// Fetches a specific provider matching the provided name.
     ///
     /// Required scopes:
     /// - credentials:read
     ///
-    /// - Parameter id: ID of provider to fetch.
+    /// - Parameter name: Name of provider to fetch.
     /// - Parameter completion: A result representing either a single provider or an error.
     @discardableResult
     public func fetchProvider(with name: Provider.Name, completion: @escaping (Result<Provider, Error>) -> Void) -> RetryCancellable? {
