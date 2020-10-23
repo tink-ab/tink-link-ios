@@ -9,8 +9,7 @@ extension CredentialsContext {
     }
     
     // Deprecation: 1.0
-    @available(*, deprecated, message: "use add(forProviderWithName:fields:refreshableItems:completionPredicate:authenticationHandler:progressHandler:completion:)
-    instead")
+    @available(*, deprecated, message: "use add(forProviderWithName:fields:refreshableItems:completionPredicate:authenticationHandler:progressHandler:completion:) instead")
     public func add(
         forProviderWithName providerName: Provider.Name,
         form: Form,
