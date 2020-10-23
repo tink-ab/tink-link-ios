@@ -20,7 +20,7 @@ extension Account {
         credentials: Credentials
     ) -> Account {
         return Account(
-            id: Account.ID(UUID().uuidString),
+            id: ID(UUID().uuidString),
             credentialsID: credentials.id,
             name: "Checking Account tink 1",
             accountNumber: "FR1420041010050015664355590",
