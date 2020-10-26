@@ -207,7 +207,7 @@ public class TinkLinkViewController: UINavigationController {
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
     @available(*, deprecated, message: "Authenticate a tink instance using `authenticateUser(authorizationCode:completion:)` and use init(tink:operation:completion:) instead.")
     public convenience init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
-        self.init(configuration: tink.configuration, authorizationCode: authorizationCode, operation: operation, completion: completion)
+        self.init(tink: tink, operation: operation, completion: completion)
     }
 
     @available(*, unavailable)
