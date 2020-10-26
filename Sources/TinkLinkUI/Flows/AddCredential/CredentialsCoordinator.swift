@@ -142,16 +142,17 @@ final class CredentialsCoordinator {
                 let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .create) { [weak self] in
                     self?.completion(.success((credentils, authorizationCode)))
                 }
+                self.tinkLinkTracker.track(screen: .success)
                 self.presenter?.show(viewController)
             default:
                 self.fetchProvider(with: credentils.providerID) { provider in
                     let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .other) { [weak self] in
                         self?.completion(.success((credentils, authorizationCode)))
                     }
+                    self.tinkLinkTracker.track(screen: .success)
                     self.presenter?.show(viewController)
                 }
             }
-            self.tinkLinkTracker.track(screen: .success)
         }
     }
 }
