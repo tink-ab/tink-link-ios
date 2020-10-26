@@ -96,6 +96,7 @@ extension CredentialsFormViewController {
         view.backgroundColor = Color.background
 
         tinkIconView.translatesAutoresizingMaskIntoConstraints = false
+        tinkIconView.isHidden = isAggregator
 
         let fieldsView: UIView
         if form.fields.isEmpty {
