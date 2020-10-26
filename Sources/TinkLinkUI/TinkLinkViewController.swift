@@ -26,12 +26,14 @@ import TinkLink
 /// Here's one way you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
 /// You need to define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes. Then create a `TinkLinkViewController` with a market and the scopes to use. And present the view controller.
 /// ```swift
+/// let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
+///
 /// let scopes: [Scope] = [
 ///     .accounts(.read),
 ///     .transactions(.read)
 /// ]
 ///
-/// let tinkLinkViewController = TinkLinkViewController(market: <#String#>, scopes: scopes) { result in
+/// let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: <#String#>, scopes: scopes) { result in
 ///    // Handle result
 /// }
 /// present(tinkLinkViewController, animated: true)
@@ -40,15 +42,16 @@ import TinkLink
 /// You can also start the aggregation flow if you have an authorization code or an access token:
 /// ```swift
 /// // With authorization code:
+/// let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
 /// let authorizationCode = "YOUR_AUTHORIZATION_CODE"
-/// let tinkLinkViewController = TinkLinkViewController(authorizationCode: AuthorizationCode(authorizationCode)) { result in
+/// let tinkLinkViewController = TinkLinkViewController(configuration: configuration, authorizationCode: AuthorizationCode(authorizationCode)) { result in
 ///     // Handle result
 /// }
 /// present(tinkLinkViewController, animated: true)
 ///
 /// // With access token:
-/// let accessToken = "YOUR_ACCESS_TOKEN"
-/// let tinkLinkViewController = TinkLinkViewController(userSession: .accessToken(accessToken)) { result in
+/// Tink.shared.userSession = .accessToken("YOUR_ACCESS_TOKEN")
+/// let tinkLinkViewController = TinkLinkViewController { result in
 ///     // Handle result
 /// }
 ///
