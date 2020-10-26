@@ -39,17 +39,8 @@ import TinkLink
 /// present(tinkLinkViewController, animated: true)
 /// ```
 ///
-/// You can also start the aggregation flow if you have an authorization code or an access token:
+/// You can also start the aggregation flow if you have an access token:
 /// ```swift
-/// // With authorization code:
-/// let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
-/// let authorizationCode = "YOUR_AUTHORIZATION_CODE"
-/// let tinkLinkViewController = TinkLinkViewController(configuration: configuration, authorizationCode: AuthorizationCode(authorizationCode)) { result in
-///     // Handle result
-/// }
-/// present(tinkLinkViewController, animated: true)
-///
-/// // With access token:
 /// Tink.shared.userSession = .accessToken("YOUR_ACCESS_TOKEN")
 /// let tinkLinkViewController = TinkLinkViewController { result in
 ///     // Handle result
