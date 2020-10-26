@@ -88,10 +88,21 @@ class ViewController: UIViewController {
     }
 
     private func showTinkLinkWithAuthorizationCode(_ authorizationCode: String) {
-        let tinkLinkViewController = TinkLinkViewController(configuration: configuration, authorizationCode: AuthorizationCode(authorizationCode)) { result in
-            print(result)
+        Tink.configure(with: configuration)
+        Tink.shared.authenticateUser(authorizationCode: AuthorizationCode(authorizationCode)) { (result) in
+            DispatchQueue.main.async {
+                do {
+                    let accessToken = try result.get()
+                    Tink.shared.userSession = .accessToken(accessToken.rawValue)
+                    let tinkLinkViewController = TinkLinkViewController { result in
+                        print(result)
+                    }
+                    self.present(tinkLinkViewController, animated: true)
+                } catch {
+                    // Handle error
+                }
+            }
         }
-        present(tinkLinkViewController, animated: true)
     }
 
     private func showTinkLinkWithUserSession(_ accessToken: String) {
