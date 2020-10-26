@@ -18,7 +18,8 @@ extension Color {
     static var warning: UIColor { Appearance.colorProvider.warning }
     static var critical: UIColor { Appearance.colorProvider.critical }
 
-    static var navigationButton: UIColor? { Appearance.colorProvider.navigationButton }
+    static var navigationBarBackground: UIColor? { Appearance.colorProvider.navigationBarBackground }
+    static var navigationBarButton: UIColor? { Appearance.colorProvider.navigationBarButton }
 }
 
 // Derived colors
