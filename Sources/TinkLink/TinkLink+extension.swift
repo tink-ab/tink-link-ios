@@ -17,7 +17,7 @@ extension Tink {
     /// }
     /// ```
     @available(iOS 9.0, *)
-    @available(*, deprecated, message: "Use Tink.open(_:completion:) instead.")
+    @available(*, deprecated, message: "Use Tink.open(_:configuration:completion:) instead.")
     public func open(_ url: URL, completion: ((Result<Void, Error>) -> Void)? = nil) -> Bool {
         Tink.open(url, configuration: configuration, completion: completion)
     }
