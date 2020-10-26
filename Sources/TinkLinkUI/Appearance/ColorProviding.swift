@@ -34,6 +34,9 @@ public protocol ColorProviding {
     var warning: UIColor { get }
     /// Color representing critical cases.
     var critical: UIColor { get }
+
+    /// Color for navigation buttons.
+    var navigationButton: UIColor? { get }
 }
 
 extension ColorProviding {
