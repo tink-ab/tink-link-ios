@@ -205,28 +205,9 @@ public class TinkLinkViewController: UINavigationController {
     ///   - authorizationCode: Authenticate with a `AuthorizationCode` that delegated from Tink to exchanged for a user object.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    @available(*, deprecated, message: "Use init(authorizationCode:operation:completion:) instead.")
+    @available(*, deprecated, message: "Authenticate a tink instance using `authenticateUser(authorizationCode:completion:)` and use init(tink:operation:completion:) instead.")
     public convenience init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
         self.init(configuration: tink.configuration, authorizationCode: authorizationCode, operation: operation, completion: completion)
-    }
-
-    /// Initializes a new TinkLinkViewController with the `AuthorizationCode`.
-    /// - Parameters:
-    ///   - configuration: A Tink configuration.
-    ///   - authorizationCode: Authenticate with a `AuthorizationCode` that delegated from Tink to exchanged for a user object.
-    ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
-    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(configuration: Tink.Configuration, authorizationCode: AuthorizationCode, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
-        self.tink = Tink(configuration: configuration)
-        self.authorizationCode = authorizationCode
-        self.operation = operation
-        self.userSession = nil
-        self.scopes = nil
-        self.market = nil
-        self.permanentCompletion = completion
-        self.temporaryCompletion = nil
-
-        super.init(nibName: nil, bundle: nil)
     }
 
     @available(*, unavailable)
