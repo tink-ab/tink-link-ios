@@ -1,5 +1,7 @@
 import Foundation
 
+var registeredConfigurations: [Tink.Configuration] = []
+
 /// An object that you use to access the user's credentials and supports the flow for adding credentials.
 public final class CredentialsContext {
     private let redirectURI: URL
@@ -23,6 +25,8 @@ public final class CredentialsContext {
         self.redirectURI = tink.configuration.redirectURI
         self.service = credentialsService
         addStoreObservers()
+
+        registeredConfigurations.append(tink.configuration)
     }
 
     private func addStoreObservers() {
