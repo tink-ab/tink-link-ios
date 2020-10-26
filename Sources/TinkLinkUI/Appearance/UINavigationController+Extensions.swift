@@ -2,7 +2,7 @@ import UIKit
 
 extension UINavigationController {
     func setupNavigationBarAppearance() {
-        navigationBar.tintColor = Color.accent
+        navigationBar.tintColor = Color.navigationButton ?? Color.accent
 
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
