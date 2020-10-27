@@ -32,11 +32,11 @@ public class ColorProvider: ColorProviding {
     /// Color representing a critical error or warning.
     public var critical = UIColor(red: 235.0 / 255.0, green: 84.0 / 255.0, blue: 75.0 / 255.0, alpha: 1.0)
 
-    // Color for navigation bar backgrounds.
+    /// Color for navigation bar backgrounds.
     public var navigationBarBackground: UIColor?
-    // Color for navigation buttons.
+    /// Color for navigation buttons.
     public var navigationBarButton: UIColor?
-    // Color for navigation labels.
+    /// Color for navigation labels.
     public var navigationBarLabel: UIColor?
 
     /// Initializes a color provider.
