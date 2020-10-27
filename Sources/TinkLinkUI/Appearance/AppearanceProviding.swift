@@ -3,7 +3,7 @@ import UIKit
 /// A type that can provide colors and fonts for Tink views.
 public protocol AppearanceProviding {
     /// Color provider
-    var colors: ColorProviding { get }
+    var colors: ColorProviding { get set }
     /// Font provider
     var fonts: FontProviding { get }
 }
@@ -11,7 +11,7 @@ public protocol AppearanceProviding {
 /// An appearance provider that can provide colors and fonts for Tink views.
 public struct AppearanceProvider: AppearanceProviding {
     /// Color provider
-    public let colors: ColorProviding
+    public var colors: ColorProviding
     /// Font provider
     public let fonts: FontProviding
 
