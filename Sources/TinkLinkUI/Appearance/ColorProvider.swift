@@ -87,7 +87,7 @@ public class ColorProvider: ColorProviding {
         warning: UIColor,
         critical: UIColor,
         button: UIColor? = nil,
-        buttonText: UIColor? = nil
+        buttonLabel: UIColor? = nil
     ) {
         self.accent = accent
         self.accentBackground = accentBackground ?? accent.mixedWith(color: Color.background, factor: 0.95)
@@ -100,7 +100,7 @@ public class ColorProvider: ColorProviding {
         self.warning = warning
         self.critical = critical
         self.button = button ?? accent
-        self.buttonLabel = buttonText ?? background
+        self.buttonLabel = buttonLabel ?? background
         self.groupedBackground = background
         self.secondaryGroupedBackground = secondaryBackground
     }
