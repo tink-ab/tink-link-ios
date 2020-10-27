@@ -28,7 +28,7 @@ extension AccessTypePickerViewController {
 
         navigationItem.largeTitleDisplayMode = .never
 
-        let headerHeight = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
+        let headerHeight = headerView.systemLayoutSizeFitting(CGSize(width: 320.0, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
         headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: headerHeight)
 
         tableView.tableHeaderView = headerView
