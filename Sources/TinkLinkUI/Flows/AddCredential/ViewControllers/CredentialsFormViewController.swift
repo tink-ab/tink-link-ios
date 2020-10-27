@@ -23,6 +23,7 @@ final class CredentialsFormViewController: UIViewController {
     private var form: Form {
         formTableViewController.form
     }
+
     private let clientName: String
     private let isAggregator: Bool
     private let isVerified: Bool
@@ -41,6 +42,7 @@ final class CredentialsFormViewController: UIViewController {
     private var errorText: String? {
         isVerified ? nil : Strings.Credentials.unverifiedClient
     }
+
     private lazy var navigationTitleView = NavigationTitleImageView(imageURL: provider.image, text: provider.displayName)
     private lazy var helpLabel = ProviderHelpTextView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
@@ -294,6 +296,7 @@ extension CredentialsFormViewController {
         delegate?.showWebContent(with: url)
     }
 }
+
 // MARK: - AddCredentialFooterViewDelegate
 
 extension CredentialsFormViewController: AddCredentialsFooterViewDelegate {
