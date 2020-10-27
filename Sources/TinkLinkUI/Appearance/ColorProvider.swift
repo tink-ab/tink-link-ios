@@ -76,6 +76,36 @@ public class ColorProvider: ColorProviding {
         self.buttonLabel = background
     }
 
+    @available(*, deprecated, renamed: "init(accent:accentBackground:background:secondaryBackground:label:secondaryLabel:separator:warning:critical:button:buttonLabel:)")
+    public init(
+        accent: UIColor,
+        accentBackground: UIColor?,
+        background: UIColor,
+        secondaryBackground: UIColor,
+        label: UIColor,
+        secondaryLabel: UIColor,
+        separator: UIColor,
+        warning: UIColor,
+        critical: UIColor,
+        button: UIColor? = nil,
+        buttonText: UIColor? = nil
+    ) {
+        self.accent = accent
+        self.accentBackground = accentBackground ?? accent.mixedWith(color: Color.background, factor: 0.95)
+        self.background = background
+        self.secondaryBackground = secondaryBackground
+        self.label = label
+        self.secondaryLabel = secondaryLabel
+        self.separator = separator
+        self.accent = accent
+        self.warning = warning
+        self.critical = critical
+        self.button = button ?? accent
+        self.buttonLabel = buttonText ?? background
+        self.groupedBackground = background
+        self.secondaryGroupedBackground = secondaryBackground
+    }
+
     public init(
         accent: UIColor,
         accentBackground: UIColor?,
