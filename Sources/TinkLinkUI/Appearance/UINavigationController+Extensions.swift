@@ -23,7 +23,7 @@ extension UINavigationController {
 
             appearance.titleTextAttributes = [
                 .font: Font.headline,
-                .foregroundColor: Color.label
+                .foregroundColor: Color.navigationBarLabel ?? Color.label
             ]
 
             navigationBar.standardAppearance = appearance
@@ -47,7 +47,7 @@ extension UINavigationController {
 
             navigationBarAppearance.titleTextAttributes = [
                 .font: Font.headline,
-                .foregroundColor: Color.label
+                .foregroundColor: Color.navigationBarLabel ?? Color.label
             ]
 
             navigationBar.isTranslucent = false
