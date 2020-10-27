@@ -49,6 +49,8 @@ final class AddCredentialsFooterView: UIView {
     private func setup() {
         addSubview(descriptionTextView)
 
+        descriptionTextView.accessibilityIdentifier = "termsAndConsentText"
+
         layoutMargins = .init(top: 12, left: 0, bottom: 12, right: 0)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -71,7 +73,7 @@ final class AddCredentialsFooterView: UIView {
         let privacyPolicyText = Strings.Credentials.privacyPolicy
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
         self.privacyPolicyRange = privacyPolicyRange
-        attributeText.addAttributes([.link: privacyPolicyUrl,], range: privacyPolicyRange)
+        attributeText.addAttributes([.link: privacyPolicyUrl], range: privacyPolicyRange)
         let termsAndConditionsText = Strings.Credentials.termsAndConditions
         let termsAndConditionsUrl = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
