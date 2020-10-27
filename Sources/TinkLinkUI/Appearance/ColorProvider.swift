@@ -36,6 +36,8 @@ public class ColorProvider: ColorProviding {
     public var navigationBarBackground: UIColor?
     // Color for navigation buttons.
     public var navigationBarButton: UIColor?
+    // Color for navigation labels.
+    public var navigationBarLabel: UIColor?
 
     /// Initializes a color provider.
     public init() {}

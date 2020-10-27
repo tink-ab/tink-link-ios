@@ -20,6 +20,7 @@ extension Color {
 
     static var navigationBarBackground: UIColor? { Appearance.colorProvider.navigationBarBackground }
     static var navigationBarButton: UIColor? { Appearance.colorProvider.navigationBarButton }
+    static var navigationBarLabel: UIColor? { Appearance.colorProvider.navigationBarLabel }
 }
 
 // Derived colors

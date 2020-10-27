@@ -40,6 +40,9 @@ public protocol ColorProviding {
 
     /// Color for navigation bar buttons.
     var navigationBarButton: UIColor? { get }
+
+    /// Color for navigation bar labels.
+    var navigationBarLabel: UIColor? { get }
 }
 
 extension ColorProviding {
