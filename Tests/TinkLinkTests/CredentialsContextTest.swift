@@ -1,5 +1,6 @@
 import XCTest
 @testable import TinkLink
+@testable import TinkCore
 
 class CredentialsContextTests: XCTestCase {
     var mockedSuccessCredentialsService: CredentialsService!
@@ -126,5 +127,66 @@ class CredentialsContextTests: XCTestCase {
                 XCTFail("waitForExpectations timeout with error: \(error)")
             }
         }
+    }
+
+    func testRefreshCredentialsAlreadyRefreshed() {
+        let credentials = Credentials.makeTestCredentials(providerID: "test", kind: .password, status: .updated)
+        let service = MutableCredentialsService(credentialsList: [credentials])
+
+        service.credentialsStatusAfterRefresh = .updated
+
+        let context = CredentialsContext(tink: .shared, credentialsService: service)
+
+        let completionCalled = expectation(description: "Refresh credentials completion should be called with success")
+        let task = context.refresh(credentials) { status in
+
+        } completion: { result in
+            do {
+                let _ = try result.get()
+                completionCalled.fulfill()
+            } catch {
+                XCTFail("Completion should be called with success. Got \(error)")
+            }
+        }
+
+        waitForExpectations(timeout: 10)
+    }
+
+    func testRefreshCredentialsStuckInAwaiting() {
+
+        let initialStatus = Credentials.Status.awaitingSupplementalInformation
+
+        let credentials = Credentials.makeTestCredentials(providerID: "test", kind: .keyfob, status: initialStatus, supplementalInformationFields: [Provider.FieldSpecification(fieldDescription: "Code", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "code", initialValue: "", pattern: "", patternError: "", helpText: "")])
+
+        let service = MutableCredentialsService(credentialsList: [credentials])
+
+        service.credentialsStatusAfterRefresh = initialStatus
+        service.credentialsStatusAfterSupplementalInformation = .updated
+
+        let context = CredentialsContext(tink: .shared, credentialsService: service)
+
+        let completionCalled = expectation(description: "Refresh credentials completion should be called with success")
+        let awaitingSupplementalInfoCalled = expectation(description: "Awaiting supplemental task status callback called")
+
+        let task = context.refresh(credentials) { status in
+            switch status {
+            case .awaitingSupplementalInformation(let task):
+                awaitingSupplementalInfoCalled.fulfill()
+                var form = Form(credentials: task.credentials)
+                form.fields[0].text = "test"
+                task.submit(form)
+            default:
+                XCTFail()
+            }
+        } completion: { result in
+            do {
+                let _ = try result.get()
+                completionCalled.fulfill()
+            } catch {
+                XCTFail("Completion should be called with success. Got \(error)")
+            }
+        }
+
+        waitForExpectations(timeout: 10)
     }
 }

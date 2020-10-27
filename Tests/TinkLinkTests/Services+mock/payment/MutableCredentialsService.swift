@@ -16,7 +16,7 @@ class MutableCredentialsService: CredentialsService {
         self.credentialsByID = Dictionary(grouping: credentialsList, by: \.id).compactMapValues(\.first)
     }
 
-    func modifyCredentials(id: Credentials.ID, status: Credentials.Status, supplementalInformationFields: [Provider.FieldSpecification] = [], thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil) {
+    func modifyCredentials(id: Credentials.ID, status: Credentials.Status, supplementalInformationFields: [Provider.FieldSpecification]? = nil, thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil) {
         let credentials = credentialsByID[id]!
 
         let modifiedCredentials = Credentials.makeTestCredentials(
@@ -25,7 +25,7 @@ class MutableCredentialsService: CredentialsService {
             kind: credentials.kind,
             status: status,
             fields: credentials.fields,
-            supplementalInformationFields: supplementalInformationFields,
+            supplementalInformationFields: supplementalInformationFields ?? credentials.supplementalInformationFields,
             thirdPartyAppAuthentication: thirdPartyAppAuthentication
         )
 
@@ -87,6 +87,7 @@ class MutableCredentialsService: CredentialsService {
 
     func refresh(id: Credentials.ID, authenticate: Bool, refreshableItems: RefreshableItems, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         modifyCredentials(id: id, status: credentialsStatusAfterRefresh)
+        completion(.success(()))
         return nil
     }
 
