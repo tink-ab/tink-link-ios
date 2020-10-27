@@ -77,7 +77,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     func startObserving() {
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
             id: credentials.id,
-            initialValue: credentials,
+            initialValue: nil, // We always want to catch the first status change
             request: credentialsService.credentials,
             predicate: { (old, new) -> Bool in
                 old.statusUpdated != new.statusUpdated || old.status != new.status
@@ -86,7 +86,6 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             self?.handleUpdate(for: result)
         }
 
-        handleUpdate(for: .success(credentials))
         credentialsStatusPollingTask?.startPolling()
     }
 
