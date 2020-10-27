@@ -335,7 +335,7 @@ class TinkLinkUITests: XCTestCase {
 
         let textView = app.textViews.element(matching: .textView, identifier: "termsAndConsentText")
         XCTAssert(textView.waitForExistence(timeout: 2))
-        
+
         let viewDetailsLink = textView.links["View details"]
         XCTAssertTrue(viewDetailsLink.waitForExistence(timeout: 5))
         XCTAssertTrue(viewDetailsLink.isHittable)

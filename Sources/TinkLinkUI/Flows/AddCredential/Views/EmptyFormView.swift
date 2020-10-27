@@ -9,7 +9,7 @@ final class EmptyFormView: UIView {
 
     init(imageURL: URL?, text: String, errorText: String? = nil) {
         if let errorText = errorText {
-            formErrorView = FormTableViewErrorView(errorText: errorText)
+            self.formErrorView = FormTableViewErrorView(errorText: errorText)
         }
         super.init(frame: .zero)
 
@@ -18,10 +18,10 @@ final class EmptyFormView: UIView {
         textLabel.text = String(format: format, text)
         setup()
     }
-    
+
     init(image: UIImage?, text: String, errorText: String? = nil) {
         if let errorText = errorText {
-            formErrorView = FormTableViewErrorView(errorText: errorText)
+            self.formErrorView = FormTableViewErrorView(errorText: errorText)
         }
         super.init(frame: .zero)
 
