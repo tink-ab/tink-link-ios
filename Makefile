@@ -35,6 +35,8 @@ docs:
 		--output docs \
 		--format html \
 		--base-url "https://tink-ab.github.io/tink-link-ios/"
+
+ui-docs:
 	swift doc generate Sources/TinkLinkUI/ \
 		--module-name TinkLinkUI \
 		--output docs/tinklinkui \
@@ -48,7 +50,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-# 	sh scripts/updateCoreForTest.sh
+	scripts/updateCoreForTest.sh
 	xcodebuild clean test \
 		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
@@ -57,18 +59,18 @@ test:
 build-carthage-frameworks:
 	# Xcode 12 workaround: https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
 	export XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig
-	carthage bootstrap --platform iOS --no-use-binaries
+	carthage bootstrap --platform iOS --no-use-binaries --derived-data .tmp/carthage/
 	xcodegen generate
-	carthage build --platform iOS --no-skip-current
+	carthage build TinkLink_iOS TinkLinkUI_iOS --platform iOS --no-skip-current --derived-data .tmp/carthage/
 
 ui-test:
-	carthage bootstrap --platform iOS --no-use-binaries
 	xcodegen generate
 	defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
 	xcodebuild test \
 		-project TinkLink.xcodeproj \
 		-scheme TinkLinkUIUITestsHost_iOS \
-		-destination 'platform=iOS Simulator,name=iPhone 8 Plus'
+		-destination 'platform=iOS Simulator,name=iPhone 8 Plus' \
+		-derivedDataPath .tmp/ui-test/
 
 build-uikit-example:
 	xcodebuild clean
@@ -158,6 +160,13 @@ clean:
 	rm -rf ./docs
 	rm -rf ./.tmp
 
-release: format lint
+prerelease:
+	scripts/prerelease.sh
+
+release:
+	./scripts/release.sh
+
+postrelease:
+	./scripts/postrelease.sh
 
 .PHONY: all docs

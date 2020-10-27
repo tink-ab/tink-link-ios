@@ -1,6 +1,7 @@
 import Down
 import TinkLink
 import UIKit
+import Kingfisher
 
 protocol CredentialsFormViewControllerDelegate: AnyObject {
     func showScopeDescriptions()
@@ -19,6 +20,10 @@ final class CredentialsFormViewController: UIViewController {
     }
 
     private let credentialsController: CredentialsController
+    private var form: Form {
+        formTableViewController.form
+    }
+
     private let clientName: String
     private let isAggregator: Bool
     private let isVerified: Bool
@@ -26,9 +31,20 @@ final class CredentialsFormViewController: UIViewController {
     private let keyboardObserver = KeyboardObserver()
 
     private let formTableViewController: FormTableViewController
+    private lazy var emptyView = EmptyFormView(imageURL: provider.image, text: provider.displayName, errorText: errorText)
+    private lazy var tinkIconView: UIImageView = {
+        let tinkIconView = UIImageView()
+        tinkIconView.image = UIImage(icon: .tink)
+        tinkIconView.contentMode = .scaleAspectFit
+        return tinkIconView
+    }()
 
+    private var errorText: String? {
+        isVerified ? nil : Strings.Credentials.unverifiedClient
+    }
+
+    private lazy var navigationTitleView = NavigationTitleImageView(imageURL: provider.image, text: provider.displayName)
     private lazy var helpLabel = ProviderHelpTextView()
-    private lazy var headerView = AddCredentialsHeaderView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
     private lazy var gradientView = GradientView()
     private lazy var button: FloatingButton = {
@@ -81,15 +97,30 @@ extension CredentialsFormViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         view.backgroundColor = Color.background
 
-        headerView.configure(with: provider, clientName: clientName, isAggregator: isAggregator)
-        headerView.delegate = self
+        tinkIconView.translatesAutoresizingMaskIntoConstraints = false
+        tinkIconView.isHidden = isAggregator
 
-        formTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(formTableViewController.view)
-        addChild(formTableViewController)
-        formTableViewController.didMove(toParent: self)
+        let fieldsView: UIView
+        if form.fields.isEmpty {
+            emptyView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(emptyView)
+
+            fieldsView = emptyView
+        } else {
+            formTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(formTableViewController.view)
+            addChild(formTableViewController)
+            formTableViewController.didMove(toParent: self)
+            formTableViewController.onSubmit = { [weak self] in
+                self?.addCredential()
+            }
+            formTableViewController.errorText = errorText
+
+            fieldsView = formTableViewController.view
+        }
 
         addCredentialFooterView.delegate = self
+        addCredentialFooterView.configure(clientName)
         addCredentialFooterView.isHidden = isAggregator
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         addCredentialFooterView.backgroundColor = Color.background
@@ -101,8 +132,9 @@ extension CredentialsFormViewController {
         button.addTarget(self, action: #selector(startAddCredentialsFlow), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
-        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 180)
+        navigationTitleView.translatesAutoresizingMaskIntoConstraints = false
 
+        view.addSubview(tinkIconView)
         view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
         view.addSubview(button)
@@ -112,10 +144,15 @@ extension CredentialsFormViewController {
         buttonBottomConstraint.constant = 24
 
         NSLayoutConstraint.activate([
-            formTableViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            formTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            formTableViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            formTableViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tinkIconView.widthAnchor.constraint(equalToConstant: 40),
+            tinkIconView.heightAnchor.constraint(equalToConstant: 20),
+            tinkIconView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
+            tinkIconView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
+
+            fieldsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            fieldsView.topAnchor.constraint(equalTo: view.topAnchor),
+            fieldsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            fieldsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             addCredentialFooterView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
@@ -131,19 +168,12 @@ extension CredentialsFormViewController {
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonBottomConstraint,
         ])
-
-        navigationItem.title = Strings.Credentials.title
+        navigationItem.titleView = navigationTitleView
         navigationItem.largeTitleDisplayMode = .never
 
         setupHelpFootnote()
         layoutHelpFootnote()
         setupButton()
-
-        formTableViewController.onSubmit = { [weak self] in
-            self?.addCredential()
-        }
-
-        formTableViewController.errorText = isVerified ? nil : Strings.Credentials.unverifiedClient
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -163,18 +193,12 @@ extension CredentialsFormViewController {
             button.image = UIImage(icon: .bankID)
             button.text = Strings.Credentials.openBankID
         default:
-            button.text = Strings.Generic.continue
+            button.text = Strings.Generic.login
         }
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        let headerHeight = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
-        var frame = headerView.frame
-        frame.size.height = headerHeight
-        formTableViewController.tableView.tableHeaderView = headerView
-        formTableViewController.tableView.tableHeaderView?.frame = frame
 
         formTableViewController.additionalSafeAreaInsets.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
     }
@@ -273,19 +297,15 @@ extension CredentialsFormViewController {
     }
 }
 
-// MARK: - AddCredentialsHeaderViewDelegate
-
-extension CredentialsFormViewController: AddCredentialsHeaderViewDelegate {
-    func addCredentialsHeaderViewDidTapReadMore(_ addCredentialsHeaderView: AddCredentialsHeaderView) {
-        showMoreInfo()
-    }
-}
-
 // MARK: - AddCredentialFooterViewDelegate
 
 extension CredentialsFormViewController: AddCredentialsFooterViewDelegate {
     func addCredentialsFooterViewDidTapLink(_ addCredentialsFooterView: AddCredentialsFooterView, url: URL) {
         showPrivacyPolicy(url)
+    }
+
+    func addCredentialsFooterViewDidTapConsentReadMoreLink(_ addCredentialsFooterView: AddCredentialsFooterView) {
+        showMoreInfo()
     }
 }
 

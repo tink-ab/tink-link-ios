@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#colorprovider.init()">init()</a></li><li class="initializer"><a href="#colorprovider.init(background:secondarybackground:groupedbackground:secondarygroupedbackground:label:secondarylabel:separator:accent:warning:critical:)">init(background:​secondary​Background:​grouped​Background:​secondary​Grouped​Background:​label:​secondary​Label:​separator:​accent:​warning:​critical:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#colorprovider.background">background</a></li><li class="variable"><a href="#colorprovider.secondarybackground">secondary​Background</a></li><li class="variable"><a href="#colorprovider.groupedbackground">grouped​Background</a></li><li class="variable"><a href="#colorprovider.secondarygroupedbackground">secondary​Grouped​Background</a></li><li class="variable"><a href="#colorprovider.label">label</a></li><li class="variable"><a href="#colorprovider.secondarylabel">secondary​Label</a></li><li class="variable"><a href="#colorprovider.separator">separator</a></li><li class="variable"><a href="#colorprovider.accent">accent</a></li><li class="variable"><a href="#colorprovider.warning">warning</a></li><li class="variable"><a href="#colorprovider.critical">critical</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#colorprovider.init()">init()</a></li><li class="initializer"><a href="#colorprovider.init(background:secondarybackground:groupedbackground:secondarygroupedbackground:label:secondarylabel:separator:accent:warning:critical:)">init(background:​secondary​Background:​grouped​Background:​secondary​Grouped​Background:​label:​secondary​Label:​separator:​accent:​warning:​critical:​)</a></li><li class="initializer"><a href="#colorprovider.init(accent:accentbackground:background:secondarybackground:label:secondarylabel:separator:warning:critical:button:buttontext:)">init(accent:​accent​Background:​background:​secondary​Background:​label:​secondary​Label:​separator:​warning:​critical:​button:​button​Text:​)</a></li><li class="initializer"><a href="#colorprovider.init(accent:accentbackground:background:secondarybackground:label:secondarylabel:separator:warning:critical:button:buttonlabel:)">init(accent:​accent​Background:​background:​secondary​Background:​label:​secondary​Label:​separator:​warning:​critical:​button:​button​Label:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#colorprovider.accentbackground">accent​Background</a></li><li class="variable"><a href="#colorprovider.button">button</a></li><li class="variable"><a href="#colorprovider.buttonlabel">button​Label</a></li><li class="variable"><a href="#colorprovider.background">background</a></li><li class="variable"><a href="#colorprovider.secondarybackground">secondary​Background</a></li><li class="variable"><a href="#colorprovider.groupedbackground">grouped​Background</a></li><li class="variable"><a href="#colorprovider.secondarygroupedbackground">secondary​Grouped​Background</a></li><li class="variable"><a href="#colorprovider.label">label</a></li><li class="variable"><a href="#colorprovider.secondarylabel">secondary​Label</a></li><li class="variable"><a href="#colorprovider.separator">separator</a></li><li class="variable"><a href="#colorprovider.accent">accent</a></li><li class="variable"><a href="#colorprovider.warning">warning</a></li><li class="variable"><a href="#colorprovider.critical">critical</a></li><li class="variable"><a href="#colorprovider.navigationbarbackground">navigation​Bar​Background</a></li><li class="variable"><a href="#colorprovider.navigationbarbutton">navigation​Bar​Button</a></li><li class="variable"><a href="#colorprovider.navigationbarlabel">navigation​Bar​Label</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -109,7 +109,7 @@
     <h3>
         <code>init(background:​secondary​Background:​grouped​Background:​secondary​Grouped​Background:​label:​secondary​Label:​separator:​accent:​warning:​critical:​)</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">background</span>: <span class="type">UIColor</span>, <span class="variable">secondaryBackground</span>: <span class="type">UIColor</span>, <span class="variable">groupedBackground</span>: <span class="type">UIColor</span>, <span class="variable">secondaryGroupedBackground</span>: <span class="type">UIColor</span>, <span class="variable">label</span>: <span class="type">UIColor</span>, <span class="variable">secondaryLabel</span>: <span class="type">UIColor</span>, <span class="variable">separator</span>: <span class="type">UIColor</span>, <span class="variable">accent</span>: <span class="type">UIColor</span>, <span class="variable">warning</span>: <span class="type">UIColor</span>, <span class="variable">critical</span>: <span class="type">UIColor</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">message</span>: <span class="string literal">"Use init(accent:background:secondaryBackground:label:secondaryLabel:separator:warning:critical:) instead."</span>) <span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">background</span>: <span class="type">UIColor</span>, <span class="variable">secondaryBackground</span>: <span class="type">UIColor</span>, <span class="variable">groupedBackground</span>: <span class="type">UIColor</span>, <span class="variable">secondaryGroupedBackground</span>: <span class="type">UIColor</span>, <span class="variable">label</span>: <span class="type">UIColor</span>, <span class="variable">secondaryLabel</span>: <span class="type">UIColor</span>, <span class="variable">separator</span>: <span class="type">UIColor</span>, <span class="variable">accent</span>: <span class="type">UIColor</span>, <span class="variable">warning</span>: <span class="type">UIColor</span>, <span class="variable">critical</span>: <span class="type">UIColor</span>)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Initializes a color provider with the specified styling.</p>
 
@@ -188,15 +188,57 @@
   </tbody>
 </table>
 </div>
+<div role="article" class="initializer" id="colorprovider.init(accent:accentbackground:background:secondarybackground:label:secondarylabel:separator:warning:critical:button:buttontext:)">
+    <h3>
+        <code>init(accent:​accent​Background:​background:​secondary​Background:​label:​secondary​Label:​separator:​warning:​critical:​button:​button​Text:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">renamed</span>: <span class="string literal">"init(accent:accentBackground:background:secondaryBackground:label:secondaryLabel:separator:warning:critical:button:buttonLabel:)"</span>) <span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">accent</span>: <span class="type">UIColor</span>, <span class="variable">accentBackground</span>: <span class="type">UIColor</span>?, <span class="variable">background</span>: <span class="type">UIColor</span>, <span class="variable">secondaryBackground</span>: <span class="type">UIColor</span>, <span class="variable">label</span>: <span class="type">UIColor</span>, <span class="variable">secondaryLabel</span>: <span class="type">UIColor</span>, <span class="variable">separator</span>: <span class="type">UIColor</span>, <span class="variable">warning</span>: <span class="type">UIColor</span>, <span class="variable">critical</span>: <span class="type">UIColor</span>, <span class="variable">button</span>: <span class="type">UIColor</span>? = <span class="keyword">nil</span>, <span class="variable">buttonText</span>: <span class="type">UIColor</span>? = <span class="keyword">nil</span>)</code></pre></body></html>
+</div>
+<div role="article" class="initializer" id="colorprovider.init(accent:accentbackground:background:secondarybackground:label:secondarylabel:separator:warning:critical:button:buttonlabel:)">
+    <h3>
+        <code>init(accent:​accent​Background:​background:​secondary​Background:​label:​secondary​Label:​separator:​warning:​critical:​button:​button​Label:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">accent</span>: <span class="type">UIColor</span>, <span class="variable">accentBackground</span>: <span class="type">UIColor</span>?, <span class="variable">background</span>: <span class="type">UIColor</span>, <span class="variable">secondaryBackground</span>: <span class="type">UIColor</span>, <span class="variable">label</span>: <span class="type">UIColor</span>, <span class="variable">secondaryLabel</span>: <span class="type">UIColor</span>, <span class="variable">separator</span>: <span class="type">UIColor</span>, <span class="variable">warning</span>: <span class="type">UIColor</span>, <span class="variable">critical</span>: <span class="type">UIColor</span>, <span class="variable">button</span>: <span class="type">UIColor</span>? = <span class="keyword">nil</span>, <span class="variable">buttonLabel</span>: <span class="type">UIColor</span>? = <span class="keyword">nil</span>)</code></pre></body></html>
+</div>
     </section>
     <section id="properties">
         <h2>Properties</h2>
 
-        <div role="article" class="variable" id="colorprovider.background">
+        <div role="article" class="variable" id="colorprovider.accentbackground">
+    <h3>
+        <code>accent​Background</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">accentBackground</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Colors for indicators and other similar elements background.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="colorprovider.button">
+    <h3>
+        <code>button</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">button</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Color for primary buttons background and secondary buttons label.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="colorprovider.buttonlabel">
+    <h3>
+        <code>button​Label</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">buttonLabel</span>: <span class="type">UIColor</span> = .<span class="variable">white</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Color for the primary buttons label.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="colorprovider.background">
     <h3>
         <code>background</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">background</span>: <span class="type">UIColor</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">background</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Color for the main background of the interface.</p>
 
@@ -206,7 +248,7 @@
     <h3>
         <code>secondary​Background</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">secondaryBackground</span>: <span class="type">UIColor</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">secondaryBackground</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Color for content layered on top of the main background.</p>
 
@@ -216,7 +258,7 @@
     <h3>
         <code>grouped​Background</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">groupedBackground</span>: <span class="type">UIColor</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">groupedBackground</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Color for the main background of grouped interface components.</p>
 
@@ -226,7 +268,7 @@
     <h3>
         <code>secondary​Grouped​Background</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">secondaryGroupedBackground</span>: <span class="type">UIColor</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">secondaryGroupedBackground</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Color for content layered on top of the main background of grouped interface components.</p>
 
@@ -236,7 +278,7 @@
     <h3>
         <code>label</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">label</span>: <span class="type">UIColor</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">label</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Primary text color.</p>
 
@@ -246,7 +288,7 @@
     <h3>
         <code>secondary​Label</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">secondaryLabel</span>: <span class="type">UIColor</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">secondaryLabel</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Secondary text color.</p>
 
@@ -256,7 +298,7 @@
     <h3>
         <code>separator</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">separator</span>: <span class="type">UIColor</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">separator</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Color for separators.</p>
 
@@ -266,7 +308,7 @@
     <h3>
         <code>accent</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">accent</span>: <span class="type">UIColor</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">accent</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Colors for buttons, indicators and other similar elements.</p>
 
@@ -276,7 +318,7 @@
     <h3>
         <code>warning</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">warning</span>: <span class="type">UIColor</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">warning</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Color representing a warning.</p>
 
@@ -286,9 +328,39 @@
     <h3>
         <code>critical</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">critical</span>: <span class="type">UIColor</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">critical</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Color representing a critical error or warning.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="colorprovider.navigationbarbackground">
+    <h3>
+        <code>navigation​Bar​Background</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">navigationBarBackground</span>: <span class="type">UIColor</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Color for navigation bar backgrounds.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="colorprovider.navigationbarbutton">
+    <h3>
+        <code>navigation​Bar​Button</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">navigationBarButton</span>: <span class="type">UIColor</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Color for navigation bar buttons.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="colorprovider.navigationbarlabel">
+    <h3>
+        <code>navigation​Bar​Label</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">navigationBarLabel</span>: <span class="type">UIColor</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Color for navigation bar labels.</p>
 
 </div>
 </div>
@@ -301,7 +373,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2020-09-08T08:54:00+0200">8 September 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+    Generated on <time datetime="2020-10-27T15:17:36+0100">27 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

@@ -4,7 +4,7 @@ Pod::Spec.new do |spec|
   spec.description  = <<-DESC
                     With TinkLink you can connect to banks across Europe and easily access a wide range of financial data.
                     DESC
-  spec.version      = "0.16.0"
+  spec.version      = "0.16.1"
   spec.license      = { :type => "MIT", :file => "LICENSE" }
   spec.authors      = { "Tink AB" => "mobile@tink.se" }
   spec.homepage     = "https://tink.com"
@@ -20,7 +20,7 @@ Pod::Spec.new do |spec|
       test_spec.source_files = "Tests/TinkLinkTests/**/*.swift"
   end
 
-  spec.dependency "TinkCore", "~> 0.2.0"
+  spec.dependency "TinkCore", "~> 0.3.0"
 
   spec.static_framework = true
 end

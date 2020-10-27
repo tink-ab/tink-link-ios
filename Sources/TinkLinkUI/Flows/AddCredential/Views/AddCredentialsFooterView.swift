@@ -3,6 +3,7 @@ import TinkLink
 
 protocol AddCredentialsFooterViewDelegate: AnyObject {
     func addCredentialsFooterViewDidTapLink(_ addCredentialsFooterView: AddCredentialsFooterView, url: URL)
+    func addCredentialsFooterViewDidTapConsentReadMoreLink(_ addCredentialsFooterView: AddCredentialsFooterView)
 }
 
 final class AddCredentialsFooterView: UIView {
@@ -15,7 +16,7 @@ final class AddCredentialsFooterView: UIView {
         descriptionTextView.isEditable = false
         descriptionTextView.clipsToBounds = false
         descriptionTextView.backgroundColor = Color.background
-        descriptionTextView.setLineHeight(lineHeight: 20)
+        descriptionTextView.setLineHeight(lineHeight: 18)
         descriptionTextView.linkTextAttributes = [
             .foregroundColor: Color.secondaryLabel,
             .font: Font.footnote,
@@ -23,30 +24,12 @@ final class AddCredentialsFooterView: UIView {
         ]
         descriptionTextView.textContainer.lineFragmentPadding = 0
         descriptionTextView.textContainerInset = .zero
-        let text = Strings.Credentials.termsText
-        let attributeText = NSMutableAttributedString(
-            string: text,
-            attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.footnote]
-        )
-        let languageCode = Locale.current.languageCode ?? ""
-        let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
-        let privacyPolicyText = Strings.Credentials.privacyPolicy
-        let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
-        self.privacyPolicyRange = privacyPolicyRange
-        attributeText.addAttributes([.link: privacyPolicyUrl,], range: privacyPolicyRange)
-        let termsAndConditionsText = Strings.Credentials.termsAndConditions
-        let termsAndConditionsUrl = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
-        let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
-        self.termsAndConditionsRange = termsAndConditionsRange
-        attributeText.addAttributes([.link: termsAndConditionsUrl], range: termsAndConditionsRange)
-        descriptionTextView.attributedText = attributeText
-        descriptionTextView.adjustsFontForContentSizeCategory = true
-        descriptionTextView.setLineHeight(lineHeight: 20)
         return descriptionTextView
     }()
 
     private var privacyPolicyRange: NSRange?
     private var termsAndConditionsRange: NSRange?
+    private var viewDetailsRange: NSRange?
 
     convenience init() {
         self.init(frame: .zero)
@@ -66,6 +49,8 @@ final class AddCredentialsFooterView: UIView {
     private func setup() {
         addSubview(descriptionTextView)
 
+        descriptionTextView.accessibilityIdentifier = "termsAndConsentText"
+
         layoutMargins = .init(top: 12, left: 0, bottom: 12, right: 0)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -75,6 +60,35 @@ final class AddCredentialsFooterView: UIView {
             descriptionTextView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
     }
+
+    func configure(_ clientName: String) {
+        let termsAndConsentFormat = Strings.Credentials.termsAndConsentText
+        let text = String(format: termsAndConsentFormat, clientName)
+        let attributeText = NSMutableAttributedString(
+            string: text,
+            attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.footnote]
+        )
+        let languageCode = Locale.current.languageCode ?? ""
+        let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
+        let privacyPolicyText = Strings.Credentials.privacyPolicy
+        let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
+        self.privacyPolicyRange = privacyPolicyRange
+        attributeText.addAttributes([.link: privacyPolicyUrl], range: privacyPolicyRange)
+        let termsAndConditionsText = Strings.Credentials.termsAndConditions
+        let termsAndConditionsUrl = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
+        let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
+        self.termsAndConditionsRange = termsAndConditionsRange
+        attributeText.addAttributes([.link: termsAndConditionsUrl], range: termsAndConditionsRange)
+
+        let viewDetailsText = Strings.Credentials.viewDetails
+        let viewDetailsRange = attributeText.mutableString.range(of: viewDetailsText)
+        self.viewDetailsRange = viewDetailsRange
+        attributeText.addAttributes([.link: ""], range: viewDetailsRange)
+
+        descriptionTextView.attributedText = attributeText
+        descriptionTextView.adjustsFontForContentSizeCategory = true
+        descriptionTextView.setLineHeight(lineHeight: 18)
+    }
 }
 
 extension AddCredentialsFooterView: UITextViewDelegate {
@@ -83,6 +97,9 @@ extension AddCredentialsFooterView: UITextViewDelegate {
         case .invokeDefaultAction:
             if characterRange == termsAndConditionsRange || characterRange == privacyPolicyRange {
                 delegate?.addCredentialsFooterViewDidTapLink(self, url: URL)
+                return false
+            } else if characterRange == viewDetailsRange {
+                delegate?.addCredentialsFooterViewDidTapConsentReadMoreLink(self)
                 return false
             } else {
                 return true

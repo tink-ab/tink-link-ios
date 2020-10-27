@@ -111,9 +111,9 @@ final class CredentialsCoordinator {
     private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
         do {
             presenter?.hideLoadingIndicator()
-            let values = try result.get()
+            let (credentials, authorizationCode) = try result.get()
             delegate?.didFinishCredentialsForm()
-            showAddCredentialSuccess(with: .success(values), for: action)
+            showAddCredentialSuccess(with: credentials, authorizationCode: authorizationCode, for: action)
         } catch ThirdPartyAppAuthenticationTask.Error.cancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
@@ -135,21 +135,24 @@ final class CredentialsCoordinator {
         }
     }
 
-    func showAddCredentialSuccess(with result: Result<(Credentials, AuthorizationCode?), TinkLinkError>, for: Action) {
+    func showAddCredentialSuccess(with credentials: Credentials, authorizationCode: AuthorizationCode?, for: Action) {
         DispatchQueue.main.async {
-            var viewController: CredentialsSuccessfullyAddedViewController
             switch self.action {
-            case .create:
-                viewController = CredentialsSuccessfullyAddedViewController(companyName: self.clientDescription.name, operation: .create) { [weak self] in
-                    self?.completion(result)
+            case .create(provider: let provider, _):
+                let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .create) { [weak self] in
+                    self?.completion(.success((credentials, authorizationCode)))
                 }
+                self.tinkLinkTracker.track(screen: .success)
+                self.presenter?.show(viewController)
             default:
-                viewController = CredentialsSuccessfullyAddedViewController(companyName: self.clientDescription.name, operation: .other) { [weak self] in
-                    self?.completion(result)
+                self.fetchProvider(with: credentials.providerID) { provider in
+                    let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .other) { [weak self] in
+                        self?.completion(.success((credentials, authorizationCode)))
+                    }
+                    self.tinkLinkTracker.track(screen: .success)
+                    self.presenter?.show(viewController)
                 }
             }
-            self.tinkLinkTracker.track(screen: .success)
-            self.presenter?.show(viewController)
         }
     }
 }

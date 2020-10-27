@@ -18,7 +18,6 @@ final class AddCredentialsSession {
     private var statusPresentationManager = AddCredentialsStatusPresentationManager()
 
     private var authorizationCode: AuthorizationCode?
-    private var cancelCallback: (() -> Void)?
     private var didCallAuthorize = false
     private var shouldAuthorize: Bool {
         if case .anonymous = addCredentialsMode {
@@ -81,9 +80,6 @@ final class AddCredentialsSession {
         isPresenterShowingStatusScreen = false
         providerID = provider.id
         addCredentialsMode = mode
-        cancelCallback = {
-            onCompletion(.failure(TinkLinkError.userCancelled))
-        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.CredentialsStatus.authorizing)
@@ -105,9 +101,6 @@ final class AddCredentialsSession {
 
         isPresenterShowingStatusScreen = false
         providerID = credentials.providerID
-        cancelCallback = {
-            completion(.failure(TinkLinkError.userCancelled))
-        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.CredentialsStatus.authorizing)
@@ -136,9 +129,6 @@ final class AddCredentialsSession {
 
         isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
-        cancelCallback = {
-            completion(.failure(TinkLinkError.userCancelled))
-        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.CredentialsStatus.authorizing)
@@ -160,9 +150,6 @@ final class AddCredentialsSession {
 
         isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
-        cancelCallback = {
-            completion(.failure(TinkLinkError.userCancelled))
-        }
 
         DispatchQueue.main.async {
             self.showUpdating(status: Strings.CredentialsStatus.authorizing)
@@ -226,18 +213,17 @@ final class AddCredentialsSession {
     }
 
     private func handleCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
-        authorizeIfNeeded(onError: { [weak self] error in
-            DispatchQueue.main.async {
-                self?.hideUpdatingView(animated: true) {
-                    onCompletion(.failure(error))
-                }
-            }
-        })
         do {
             let credentials = try result.get()
+            authorizeIfNeeded(onError: { [weak self] error in
+                DispatchQueue.main.async {
+                    self?.hideUpdatingView(animated: true) {
+                        onCompletion(.failure(error))
+                    }
+                }
+            })
             authorizationGroup.notify(queue: .main) { [weak self] in
                 self?.hideUpdatingView(animated: true) {
-                    self?.cancelCallback = nil
                     onCompletion(.success((credentials, self?.authorizationCode)))
                 }
             }
@@ -269,11 +255,8 @@ final class AddCredentialsSession {
     }
 
     private func cancel() {
+        hideUpdatingView(animated: true)
         task?.cancel()
-        hideUpdatingView(animated: true) {
-            self.cancelCallback?()
-            self.cancelCallback = nil
-        }
     }
 }
 
@@ -321,6 +304,7 @@ extension AddCredentialsSession {
             completion?()
             return
         }
+        statusViewController = nil
         presenter?.dismiss(animated: animated, completion: completion)
     }
 
