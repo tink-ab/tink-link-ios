@@ -34,7 +34,7 @@ public class ColorProvider: ColorProviding {
 
     /// Color for navigation bar backgrounds.
     public var navigationBarBackground: UIColor?
-    /// Color for navigation buttons.
+    /// Color for navigation bar buttons.
     public var navigationBarButton: UIColor?
     /// Color for navigation labels.
     public var navigationBarLabel: UIColor?
