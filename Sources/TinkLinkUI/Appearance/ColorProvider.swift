@@ -33,11 +33,11 @@ public class ColorProvider: ColorProviding {
     public var critical = UIColor(red: 235.0 / 255.0, green: 84.0 / 255.0, blue: 75.0 / 255.0, alpha: 1.0)
 
     /// Color for navigation bar backgrounds.
-    public var navigationBarBackground = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0) // background
+    public var navigationBarBackground: UIColor?
     /// Color for navigation bar buttons.
-    public var navigationBarButton =  UIColor(red: 0.259, green: 0.467, blue: 0.514, alpha: 1.0) // accent
+    public var navigationBarButton: UIColor?
     /// Color for navigation bar labels.
-    public var navigationBarLabel = UIColor(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.0) // label
+    public var navigationBarLabel: UIColor?
 
     /// Initializes a color provider.
     public init() {}
@@ -81,9 +81,6 @@ public class ColorProvider: ColorProviding {
         self.accentBackground = accent.mixedWith(color: Color.background, factor: 0.95)
         self.button = accent
         self.buttonLabel = background
-        self.navigationBarBackground = background
-        self.navigationBarButton = accent
-        self.navigationBarLabel = label
     }
 
     public init(
@@ -113,8 +110,5 @@ public class ColorProvider: ColorProviding {
         self.buttonLabel = buttonText ?? background
         self.groupedBackground = background
         self.secondaryGroupedBackground = secondaryBackground
-        self.navigationBarBackground = background
-        self.navigationBarButton = accent
-        self.navigationBarLabel = label
     }
 }
