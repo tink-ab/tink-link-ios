@@ -64,6 +64,25 @@
     <p>Create credentials.</p>
 
 </div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>credentials​ID</th>
+    <td></td>
+    <td><p>The ID of Credentials to create.</p>
+</td>
+</tr>
+  </tbody>
+</table>
 </div>
 <div role="article" class="case" id="tinklinkviewcontroller.operation.authenticate">
     <h3>
@@ -74,16 +93,60 @@
     <p>Authenticate credentials.</p>
 
 </div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>credentials​ID</th>
+    <td></td>
+    <td><p>The ID of Credentials to authenticate.</p>
+</td>
+</tr>
+  </tbody>
+</table>
 </div>
 <div role="article" class="case" id="tinklinkviewcontroller.operation.refresh">
     <h3>
         <code>refresh</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">refresh</span>(<span class="variable">credentialsID</span>: <span class="type">Credentials</span>.<span class="type">ID</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">refresh</span>(<span class="variable">credentialsID</span>: <span class="type">Credentials</span>.<span class="type">ID</span>, <span class="variable">forceAuthenticate</span>: <span class="type">Bool</span> = <span class="keyword">false</span>)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Refresh credentials.</p>
 
 </div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>credentials​ID</th>
+    <td></td>
+    <td><p>The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.</p>
+</td>
+</tr>
+<tr>
+    <th>force​Authenticate</th>
+    <td></td>
+    <td><p>The flag to force an authentication before refresh. Used for open banking credentials. Default to false.</p>
+</td>
+</tr>
+  </tbody>
+</table>
 </div>
 <div role="article" class="case" id="tinklinkviewcontroller.operation.update">
     <h3>
@@ -94,6 +157,25 @@
     <p>Update credentials.</p>
 
 </div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>credentials​ID</th>
+    <td></td>
+    <td><p>The ID of Credentials to update.</p>
+</td>
+</tr>
+  </tbody>
+</table>
 </div>
     </section>
 
@@ -104,7 +186,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2020-09-08T08:53:59+0200">8 September 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.3</span>.
+    Generated on <time datetime="2020-10-27T15:17:36+0100">27 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>
