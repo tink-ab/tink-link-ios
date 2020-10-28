@@ -52,6 +52,8 @@ public final class AddBeneficiaryTask: Cancellable {
         }
     }
 
+    var retryInterval: TimeInterval = 1.0
+
     // MARK: Dependencies
 
     private let beneficiaryService: BeneficiaryService
@@ -179,7 +181,7 @@ extension AddBeneficiaryTask {
                 self?.handleUpdate(for: result)
             }
         )
-
+        credentialsStatusPollingTask?.retryInterval = retryInterval
         credentialsStatusPollingTask?.startPolling()
     }
 
