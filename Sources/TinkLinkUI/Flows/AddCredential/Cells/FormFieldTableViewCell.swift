@@ -76,6 +76,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
             textField.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             textField.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             textField.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            textField.heightAnchor.constraint(equalToConstant: 34),
             textField.bottomAnchor.constraint(equalTo: footerLabel.topAnchor, constant: -8),
             footerLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             footerLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
