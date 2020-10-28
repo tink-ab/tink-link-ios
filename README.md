@@ -72,13 +72,12 @@ When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` 
 
 ## How to display Tink Link
 
-1. Import the SDK and configure Tink with your client ID and redirect URI.
+1. Import the SDK and set up a configuration with your client ID and redirect URI.
     ```swift
     import TinkLink
     import TinkLinkUI
     
     let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
-    Tink.configure(with: configuration)
     ```
 
 2. Define the list of [scopes](https://docs.tink.com/api/#introduction-authentication-authorization-scopes) based on the type of data you want to fetch. For example, to retrieve accounts and transactions, define these scopes:
@@ -89,9 +88,9 @@ When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` 
     ]
     ```
 
-3. Create a `TinkLinkViewController` with the market and list of scopes to use.
+3. Create a `TinkLinkViewController` with your configuration, market, and list of scopes to use.
     ```swift
-    let tinkLinkViewController = TinkLinkViewController(market: "SE", scopes: scopes) { result in 
+    let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes) { result in 
         // Handle result
     }
     ```
