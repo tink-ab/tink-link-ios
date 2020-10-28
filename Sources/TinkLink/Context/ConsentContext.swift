@@ -33,7 +33,7 @@ public final class ConsentContext {
 
     /// Creates a `ConsentContext` that will be bound to the provided `Tink` instance.
     ///
-    /// - Parameter tink: The `Tink` instance that will be used. Will use the shared instance if nothing is provided.
+    /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
         self.clientID = tink.configuration.clientID
         self.redirectURI = tink.configuration.redirectURI

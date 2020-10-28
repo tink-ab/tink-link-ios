@@ -32,7 +32,7 @@ public final class ProviderContext {
 
     /// Creates a `ProviderContext` bound to the provided `Tink` instance.
     ///
-    /// - Parameter tink: `Tink` instance, will use the shared instance if nothing is provided.
+    /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let service = tink.services.providerService
         self.init(tink: tink, providerService: service)

@@ -13,7 +13,7 @@ public final class CredentialsContext {
 
     /// Creates a new CredentialsContext for the given Tink instance.
     ///
-    /// - Parameter tink: Tink instance. Defaults to `shared` if not provided.
+    /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let service = tink.services.credentialsService
         self.init(tink: tink, credentialsService: service)

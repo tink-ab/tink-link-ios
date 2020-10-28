@@ -12,7 +12,7 @@ public final class TransferContext {
 
     /// Creates a context to use for initiating transfers.
     ///
-    /// - Parameter tink: Tink instance. Will use the shared instance if nothing is provided.
+    /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let transferService = tink.services.transferService
         let beneficiaryService = tink.services.beneficiaryService

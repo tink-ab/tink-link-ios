@@ -29,7 +29,7 @@ public final class AuthorizationContext {
 
     /// Creates an `AuthorizationContext` bound to the provided Tink instance. 
     ///
-    /// - Parameter tink: The Tink instance to use. Will use the shared instance if nothing is provided.
+    /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
         self.clientID = tink.configuration.clientID
         self.redirectURI = tink.configuration.redirectURI
