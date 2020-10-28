@@ -27,7 +27,7 @@ public final class AuthorizationContext {
 
     // MARK: - Creating a Context
 
-    /// Creates a `AuthorizationContext` bound to the provided Tink instance. 
+    /// Creates an `AuthorizationContext` bound to the provided Tink instance. 
     ///
     /// - Parameter tink: The Tink instance to use. Will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {

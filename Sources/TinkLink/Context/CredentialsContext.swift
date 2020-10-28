@@ -51,7 +51,7 @@ public final class CredentialsContext {
 
     // MARK: - Adding Credentials
 
-    /// Adds a credentials to the user.
+    /// Adds credentials to the user.
     ///
     /// Required scopes:
     /// - credentials:write
@@ -129,7 +129,7 @@ public final class CredentialsContext {
     /// Required scopes:
     /// - credentials:write
     ///
-    /// You need to handle potential authentication requests with `authenticationHandler` to successfully add a credentials for some providers.
+    /// You need to handle potential authentication requests with `authenticationHandler` to successfully add credentials for some providers.
     ///
     ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, authenticationHandler: { authentication in
     ///         switch status {
@@ -332,7 +332,7 @@ public final class CredentialsContext {
     /// Required scopes:
     /// - credentials:refresh
     ///
-    /// This will return an error if the credentials is not of type `OPEN_BANKING`.
+    /// This will return an error if the credentials is not connected to a provider with the access type `.openBanking`.
     ///
     /// - Parameters:
     ///   - credentials: Credentials that needs to be authenticated.
