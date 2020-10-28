@@ -18,7 +18,7 @@ final class SupplementalInformationViewController: UIViewController {
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
     init(supplementInformationTask: SupplementInformationTask) {
-        let form = Form(credentials: supplementInformationTask.credentials)
+        let form = Form(supplementInformationTask: supplementInformationTask)
         self.formTableViewController = FormTableViewController(form: form)
         super.init(nibName: nil, bundle: nil)
     }
