@@ -2,9 +2,9 @@ import Foundation
 
 /// An object that you use to get data allowing you to make sure you have full consent from the end user.
 ///
-/// The `ConsentContext` is used to fetch links to both Tink's terms and conditions and privacy policy as well
-/// as a list of descriptions of the scopes which you use to explain what data will be fetched to the end user.
-/// This must be presented to the user if data is aggregated under Tink's license.
+/// The `ConsentContext` is used to fetch descriptions of a set of scopes explaining what kind of data will be fetched for the user.
+/// You can also use the `ConsentContext` to fetch links to both Tink's terms and conditions and privacy policy.
+/// Both must be presented to the user if data is aggregated under Tink's license.
 public final class ConsentContext {
     private let clientID: String
     private let redirectURI: URL
