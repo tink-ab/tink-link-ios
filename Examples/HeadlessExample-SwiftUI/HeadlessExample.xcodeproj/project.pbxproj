@@ -10,6 +10,11 @@
 		2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035815424659C390075F1EA /* Error+LocalizedError.swift */; };
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
 		20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0ABC24E5713C006977F4 /* TinkLink */; };
+		6B0C22B725382510005B532F /* AuthenticationUserTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22B625382510005B532F /* AuthenticationUserTypePicker.swift */; };
+		6B0C22BA25382570005B532F /* AccessTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22B925382570005B532F /* AccessTypePicker.swift */; };
+		6B0C22BD25382582005B532F /* CredentialsKindPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22BC25382582005B532F /* CredentialsKindPicker.swift */; };
+		6B0C22C02538259F005B532F /* FinancialInsititutionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22BF2538259F005B532F /* FinancialInsititutionPicker.swift */; };
+		6B0C22C3253825B1005B532F /* FinancialInsititutionGroupPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22C2253825B1005B532F /* FinancialInsititutionGroupPicker.swift */; };
 		6B89772F253ECB6700474F52 /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B89772E253ECB6700474F52 /* TinkLinkUI */; };
 		6B275034253EBE1B004B8FB5 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B275033253EBE1B004B8FB5 /* ButtonTableViewCell.swift */; };
 		8F1BF8F923C4DCCD007464F8 /* FixedImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */; };
@@ -42,6 +47,11 @@
 		2035815424659C390075F1EA /* Error+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+LocalizedError.swift"; sourceTree = "<group>"; };
 		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
 		20FE0ABA24E570D1006977F4 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
+		6B0C22B625382510005B532F /* AuthenticationUserTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUserTypePicker.swift; sourceTree = "<group>"; };
+		6B0C22B925382570005B532F /* AccessTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTypePicker.swift; sourceTree = "<group>"; };
+		6B0C22BC25382582005B532F /* CredentialsKindPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsKindPicker.swift; sourceTree = "<group>"; };
+		6B0C22BF2538259F005B532F /* FinancialInsititutionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialInsititutionPicker.swift; sourceTree = "<group>"; };
+		6B0C22C2253825B1005B532F /* FinancialInsititutionGroupPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialInsititutionGroupPicker.swift; sourceTree = "<group>"; };
 		6B275033253EBE1B004B8FB5 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		8F1BF8F823C4DCCC007464F8 /* FixedImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedImageSizeTableViewCell.swift; sourceTree = "<group>"; };
 		8F3459B62396ADEB007DCD75 /* HeadlessExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeadlessExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +193,11 @@
 			isa = PBXGroup;
 			children = (
 				8FF1F391239E65D300968AB9 /* ProviderPicker.swift */,
+				6B0C22C2253825B1005B532F /* FinancialInsititutionGroupPicker.swift */,
+				6B0C22BF2538259F005B532F /* FinancialInsititutionPicker.swift */,
+				6B0C22B625382510005B532F /* AuthenticationUserTypePicker.swift */,
+				6B0C22B925382570005B532F /* AccessTypePicker.swift */,
+				6B0C22BC25382582005B532F /* CredentialsKindPicker.swift */,
 				8F348AE7245AE380009B9973 /* UpdateCredentialsFlowView.swift */,
 				8F45CAD123A2435A00CA0B9B /* SupplementalInformationForm.swift */,
 				8FF1F38B239E645B00968AB9 /* AddCredentials */,
@@ -302,13 +317,18 @@
 				8FF1F396239E776F00968AB9 /* AccessTypePickerViewController.swift in Sources */,
 				8F579BA5239E8CA400013FE1 /* SupplementalInformationViewController.swift in Sources */,
 				8F579BA3239E8CA400013FE1 /* AddCredentialsStatusViewController.swift in Sources */,
+				6B0C22C3253825B1005B532F /* FinancialInsititutionGroupPicker.swift in Sources */,
+				6B0C22BD25382582005B532F /* CredentialsKindPicker.swift in Sources */,
 				8F45CAD223A2435A00CA0B9B /* SupplementalInformationForm.swift in Sources */,
+				6B0C22C02538259F005B532F /* FinancialInsititutionPicker.swift in Sources */,
 				8FF1F397239E776F00968AB9 /* CredentialsKindPickerViewController.swift in Sources */,
 				8FF1F398239E776F00968AB9 /* FinancialInstitutionPickerViewController.swift in Sources */,
 				8F579BA1239E8CA400013FE1 /* AddCredentialsViewController.swift in Sources */,
+				6B0C22B725382510005B532F /* AuthenticationUserTypePicker.swift in Sources */,
 				8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */,
 				8F348AEA245AE49C009B9973 /* UpdateCredentialsViewController.swift in Sources */,
 				8FF1F38F239E650600968AB9 /* TextFieldCell.swift in Sources */,
+				6B0C22BA25382570005B532F /* AccessTypePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
