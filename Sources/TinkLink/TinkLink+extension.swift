@@ -10,7 +10,7 @@ extension Tink {
     /// ```swift
     /// func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
     ///     if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
-    ///         return Tink.shared.open(url)
+    ///         return Tink.open(url)
     ///     } else {
     ///         return false
     ///     }
