@@ -61,7 +61,7 @@ build-carthage-frameworks:
 	export XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig
 	carthage bootstrap --platform iOS --no-use-binaries --derived-data .tmp/carthage/
 	xcodegen generate
-	carthage build TinkLink_iOS TinkLinkUI_iOS --platform iOS --no-skip-current --derived-data .tmp/carthage/
+	carthage build TinkLink_iOS TinkLinkUI_iOS --platform iOS --no-skip-current --no-use-binaries --derived-data .tmp/carthage/
 
 ui-test:
 	xcodegen generate
