@@ -58,6 +58,8 @@ public final class InitiateTransferTask: Cancellable {
         public let message: String?
     }
 
+    var retryInterval: TimeInterval = 1.0
+
     private(set) var signableOperation: SignableOperation?
 
     var canceller: Cancellable?
@@ -104,6 +106,7 @@ public final class InitiateTransferTask: Cancellable {
             self?.handleUpdate(for: result)
         }
 
+        transferStatusPollingTask?.retryInterval = retryInterval
         transferStatusPollingTask?.startPolling()
     }
 
@@ -142,6 +145,7 @@ public final class InitiateTransferTask: Cancellable {
                         self?.handleUpdate(for: result)
                     }
                 }
+                credentialsStatusPollingTask?.retryInterval = retryInterval
                 credentialsStatusPollingTask?.startPolling()
             case .executing:
                 progressHandler(.executing(status: signableOperation.statusMessage ?? ""))

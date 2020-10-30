@@ -78,6 +78,8 @@ class TransferContextTests: XCTestCase {
 
     func testInitiateTransfer() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
+        transferContext.retryInterval = .leastNonzeroMagnitude
+
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "initiate transfer status should be changed to awaitingSupplementalInformation")
@@ -125,6 +127,8 @@ class TransferContextTests: XCTestCase {
 
     func testInitiateTransferThatGetCancelled() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedCancelledTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
+        transferContext.retryInterval = .leastNonzeroMagnitude
+
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "initiate transfer status should be changed to awaitingSupplementalInformation")
@@ -179,6 +183,8 @@ class TransferContextTests: XCTestCase {
 
     func testInitiateTransferWithUnauthenticatedError() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedCancelledTransferService, beneficiaryService: mockedUnauthenticatedErrorBeneficiaryService, credentialsService: mockedAuthenticationErrorCredentialsService, providerService: mockedSuccessProviderService)
+        transferContext.retryInterval = .leastNonzeroMagnitude
+
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
         let initiateTransferUnauthenticatedError = expectation(description: "initiate transfer completion with cancelled error should be called")
@@ -224,6 +230,8 @@ class TransferContextTests: XCTestCase {
 
     func testInitiateTransferFromAccountURI() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
+        transferContext.retryInterval = .leastNonzeroMagnitude
+
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "initiate transfer status should be changed to awaitingSupplementalInformation")
@@ -273,6 +281,8 @@ class TransferContextTests: XCTestCase {
 
     func testInitiateTransferToBeneficiaryAccount() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
+        transferContext.retryInterval = .leastNonzeroMagnitude
+        
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "initiate transfer status should be changed to awaitingSupplementalInformation")

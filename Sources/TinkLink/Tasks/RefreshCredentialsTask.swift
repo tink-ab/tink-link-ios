@@ -46,6 +46,8 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         case cancelled
     }
 
+    var retryInterval: TimeInterval = 1.0
+
     // MARK: - Retrieving Failure Requirements
 
     /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
@@ -85,7 +87,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         ) { [weak self] result in
             self?.handleUpdate(for: result)
         }
-
+        credentialsStatusPollingTask?.retryInterval = retryInterval
         credentialsStatusPollingTask?.startPolling()
     }
 
