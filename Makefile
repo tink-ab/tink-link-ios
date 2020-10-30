@@ -130,6 +130,10 @@ module-interfaces:
 	rm -rf ./Module\ Interfaces/
 	mkdir Module\ Interfaces
 
+	# Xcode 12 workaround: https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
+	export XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig
+	carthage bootstrap --platform iOS --no-use-binaries --derived-data .tmp/carthage/
+
 	# Archive with xcodebuild
 	echo 'Build iOS Framework...'
 	xcodebuild clean archive \
