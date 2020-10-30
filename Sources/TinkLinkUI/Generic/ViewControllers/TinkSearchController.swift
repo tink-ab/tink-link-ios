@@ -49,7 +49,7 @@ private final class TinkSearchBar: UISearchBar {
             imageView.tintColor = Color.secondaryLabel
             imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         }
-        textField?.backgroundColor = Color.accentBackground
+        textField?.backgroundColor = Color.navigationBarBackground.mixedWith(color: Color.accent, factor: 0.1)
         textField?.textColor = Color.navigationBarLabel
         textField?.font = Font.body
     }
