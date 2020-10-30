@@ -217,6 +217,10 @@ public class TinkLinkViewController: UINavigationController {
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
 
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
+        return Color.navigationBarBackground.isLight ? .default : .lightContent
+    }
+
     override public func show(_ vc: UIViewController, sender: Any?) {
         hideLoadingOverlay(animated: false)
         super.show(vc, sender: sender)
