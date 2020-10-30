@@ -50,12 +50,12 @@ private final class TinkSearchBar: UISearchBar {
             imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         }
         textField?.backgroundColor = Color.accentBackground
-        textField?.textColor = Color.label
+        textField?.textColor = Color.navigationBarLabel
         textField?.font = Font.body
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        textField?.textColor = Color.label
+        textField?.textColor = Color.navigationBarLabel
     }
 }
