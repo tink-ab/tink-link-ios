@@ -27,6 +27,8 @@ extension UINavigationController {
             ]
 
             navigationBar.standardAppearance = appearance
+
+            navigationBar.overrideUserInterfaceStyle = Color.navigationBarBackground.resolvedColor(with: traitCollection).isLight ? .light : .dark
         } else {
             // Bar Button Item
             let barButtonItemAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [Self.self])
@@ -52,6 +54,8 @@ extension UINavigationController {
 
             navigationBar.isTranslucent = false
             navigationBar.barTintColor = Color.navigationBarBackground
+
+            navigationBar.barStyle = Color.navigationBarBackground.isLight ? .default : .black
         }
     }
 }
