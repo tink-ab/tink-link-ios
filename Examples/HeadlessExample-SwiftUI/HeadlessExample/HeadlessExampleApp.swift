@@ -19,6 +19,9 @@ struct HeadlessExampleApp: App {
             ContentView()
                 .environmentObject(credentialsController)
                 .environmentObject(providerController)
+                .onOpenURL(perform: { url in
+                    Tink.open(url)
+                })
         }
     }
 }
