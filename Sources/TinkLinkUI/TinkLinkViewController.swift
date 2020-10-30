@@ -217,7 +217,7 @@ public class TinkLinkViewController: UINavigationController {
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
 
-    public override var preferredStatusBarStyle: UIStatusBarStyle {
+    override public var preferredStatusBarStyle: UIStatusBarStyle {
         var resolvedNavigationBarBackground: UIColor {
             if #available(iOS 13.0, *) {
                 return Color.navigationBarBackground.resolvedColor(with: traitCollection)

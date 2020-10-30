@@ -282,7 +282,7 @@ class TransferContextTests: XCTestCase {
     func testInitiateTransferToBeneficiaryAccount() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
         transferContext.retryInterval = .leastNonzeroMagnitude
-        
+
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAwaitingSupplementalInformation = expectation(description: "initiate transfer status should be changed to awaitingSupplementalInformation")

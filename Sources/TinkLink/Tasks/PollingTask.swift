@@ -1,7 +1,6 @@
 import Foundation
 
 final class PollingTask<ID, Model> {
-
     var retryInterval: TimeInterval = 1
 
     private let request: (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?
