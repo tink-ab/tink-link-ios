@@ -15,6 +15,7 @@ class CredentialsContextTests: XCTestCase {
 
     func testAddingPasswordCredentials() {
         let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialsService)
+        credentialsContextUnderTest.retryInterval = .leastNonzeroMagnitude
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
@@ -48,6 +49,7 @@ class CredentialsContextTests: XCTestCase {
 
     func testAddingSupplementalInfoCredentials() {
         let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialsService)
+        credentialsContextUnderTest.retryInterval = .leastNonzeroMagnitude
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
@@ -88,6 +90,7 @@ class CredentialsContextTests: XCTestCase {
     func testAddingThirdPartyAppAuthenticationCredentials() {
         let credentialsService = MockedSuccessThirdPartyAuthenticationCredentialsService()
         let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: credentialsService)
+        credentialsContextUnderTest.retryInterval = .leastNonzeroMagnitude
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
@@ -136,13 +139,14 @@ class CredentialsContextTests: XCTestCase {
         service.credentialsStatusAfterRefresh = .updated
 
         let context = CredentialsContext(tink: .shared, credentialsService: service)
+        context.retryInterval = .leastNonzeroMagnitude
 
         let completionCalled = expectation(description: "Refresh credentials completion should be called with success")
         let task = context.refresh(credentials) { status in
 
         } completion: { result in
             do {
-                let _ = try result.get()
+                _ = try result.get()
                 completionCalled.fulfill()
             } catch {
                 XCTFail("Completion should be called with success. Got \(error)")
@@ -153,7 +157,6 @@ class CredentialsContextTests: XCTestCase {
     }
 
     func testRefreshCredentialsStuckInAwaiting() {
-
         let initialStatus = Credentials.Status.awaitingSupplementalInformation
 
         let credentials = Credentials.makeTestCredentials(providerID: "test", kind: .keyfob, status: initialStatus, supplementalInformationFields: [Provider.FieldSpecification(fieldDescription: "Code", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "code", initialValue: "", pattern: "", patternError: "", helpText: "")])
@@ -164,6 +167,7 @@ class CredentialsContextTests: XCTestCase {
         service.credentialsStatusAfterSupplementalInformation = .updated
 
         let context = CredentialsContext(tink: .shared, credentialsService: service)
+        context.retryInterval = .leastNonzeroMagnitude
 
         let completionCalled = expectation(description: "Refresh credentials completion should be called with success")
         let awaitingSupplementalInfoCalled = expectation(description: "Awaiting supplemental task status callback called")
@@ -180,7 +184,7 @@ class CredentialsContextTests: XCTestCase {
             }
         } completion: { result in
             do {
-                let _ = try result.get()
+                _ = try result.get()
                 completionCalled.fulfill()
             } catch {
                 XCTFail("Completion should be called with success. Got \(error)")

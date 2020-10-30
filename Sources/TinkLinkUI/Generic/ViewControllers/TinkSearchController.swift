@@ -37,25 +37,25 @@ private final class TinkSearchBar: UISearchBar {
     private func setup() {
         if #available(iOS 13.0, *) {
             let attributes = [
-                NSAttributedString.Key.foregroundColor: Color.accent,
+                NSAttributedString.Key.foregroundColor: Color.navigationBarButton,
                 NSAttributedString.Key.font: Font.body
             ]
             UIBarButtonItem.appearance(whenContainedInInstancesOf: [TinkSearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
         } else {
-            tintColor = Color.accent
+            tintColor = Color.navigationBarButton
         }
 
         if let imageView = textField?.leftView as? UIImageView {
             imageView.tintColor = Color.secondaryLabel
             imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         }
-        textField?.backgroundColor = Color.accentBackground
-        textField?.textColor = Color.label
+        textField?.backgroundColor = Color.accent.mixedWith(color: Color.navigationBarBackground, factor: 0.95)
+        textField?.textColor = Color.navigationBarLabel
         textField?.font = Font.body
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        textField?.textColor = Color.label
+        textField?.textColor = Color.navigationBarLabel
     }
 }

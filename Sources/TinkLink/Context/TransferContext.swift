@@ -2,6 +2,8 @@ import Foundation
 
 /// An object that you use to initiate transfers and access the user's accounts and beneficiaries.
 public final class TransferContext {
+    var retryInterval: TimeInterval = 1.0
+
     private let redirectURI: URL
     private let transferService: TransferService
     private let beneficiaryService: BeneficiaryService
@@ -95,6 +97,8 @@ public final class TransferContext {
             completionHandler: completion
         )
 
+        task.retryInterval = retryInterval
+
         task.canceller = transferService.transfer(
             amount: amount.value,
             currency: amount.currencyCode,
@@ -179,6 +183,8 @@ public final class TransferContext {
             authenticationHandler: authentication,
             completionHandler: completion
         )
+
+        task.retryInterval = retryInterval
 
         task.canceller = transferService.transfer(
             amount: amount.value,
@@ -321,6 +327,8 @@ public final class TransferContext {
             completionHandler: completion
         )
 
+        task.retryInterval = retryInterval
+
         task.start()
 
         return task
@@ -393,6 +401,8 @@ public final class TransferContext {
             authenticationHandler: authentication,
             completionHandler: completion
         )
+
+        task.retryInterval = retryInterval
 
         task.start()
 
