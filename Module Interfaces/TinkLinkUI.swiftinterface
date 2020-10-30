@@ -16,12 +16,12 @@ public enum Appearance {
   }
 }
 public protocol AppearanceProviding {
-  var colors: TinkLinkUI.ColorProviding { get }
-  var fonts: TinkLinkUI.FontProviding { get }
+  var colors: TinkLinkUI.ColorProviding { get set }
+  var fonts: TinkLinkUI.FontProviding { get set }
 }
 public struct AppearanceProvider : TinkLinkUI.AppearanceProviding {
-  public let colors: TinkLinkUI.ColorProviding
-  public let fonts: TinkLinkUI.FontProviding
+  public var colors: TinkLinkUI.ColorProviding
+  public var fonts: TinkLinkUI.FontProviding
   public init(colors: TinkLinkUI.ColorProvider? = nil, fonts: TinkLinkUI.FontProvider? = nil)
 }
 public enum Color {
@@ -54,24 +54,24 @@ public class ColorProvider : TinkLinkUI.ColorProviding {
   @objc deinit
 }
 public protocol ColorProviding {
-  var accent: UIKit.UIColor { get }
-  var accentBackground: UIKit.UIColor { get }
-  var background: UIKit.UIColor { get }
-  var label: UIKit.UIColor { get }
-  var secondaryLabel: UIKit.UIColor { get }
-  var separator: UIKit.UIColor { get }
-  var secondaryBackground: UIKit.UIColor { get }
-  var button: UIKit.UIColor { get }
-  var buttonLabel: UIKit.UIColor { get }
+  var accent: UIKit.UIColor { get set }
+  var accentBackground: UIKit.UIColor { get set }
+  var background: UIKit.UIColor { get set }
+  var label: UIKit.UIColor { get set }
+  var secondaryLabel: UIKit.UIColor { get set }
+  var separator: UIKit.UIColor { get set }
+  var secondaryBackground: UIKit.UIColor { get set }
+  var button: UIKit.UIColor { get set }
+  var buttonLabel: UIKit.UIColor { get set }
   @available(*, deprecated, message: "Use background to update elements background")
-  var groupedBackground: UIKit.UIColor { get }
+  var groupedBackground: UIKit.UIColor { get set }
   @available(*, deprecated, message: "Use secondaryBackground to update secondary elements background")
-  var secondaryGroupedBackground: UIKit.UIColor { get }
-  var warning: UIKit.UIColor { get }
-  var critical: UIKit.UIColor { get }
-  var navigationBarBackground: UIKit.UIColor? { get }
-  var navigationBarButton: UIKit.UIColor? { get }
-  var navigationBarLabel: UIKit.UIColor? { get }
+  var secondaryGroupedBackground: UIKit.UIColor { get set }
+  var warning: UIKit.UIColor { get set }
+  var critical: UIKit.UIColor { get set }
+  var navigationBarBackground: UIKit.UIColor? { get set }
+  var navigationBarButton: UIKit.UIColor? { get set }
+  var navigationBarLabel: UIKit.UIColor? { get set }
 }
 public enum Font {
   case custom(Swift.String)
@@ -164,6 +164,9 @@ public enum TinkLinkError : Swift.Error {
   @available(*, unavailable, renamed: "init(tink:market:scopes:providerPredicate:completion:)")
   convenience public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerKinds: Swift.Set<TinkCore.Provider.Kind>, completion: @escaping (Swift.Result<TinkCore.AuthorizationCode, TinkLinkUI.TinkLinkError>) -> Swift.Void)
   @objc override dynamic public func viewDidLoad()
+  @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @objc get
+  }
   @objc override dynamic public func show(_ vc: UIKit.UIViewController, sender: Any?)
   @objc deinit
   @available(iOS 5.0, *)
