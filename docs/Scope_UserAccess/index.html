@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#scope.useraccess.webhooks">web​Hooks</a></li><li class="case"><a href="#scope.useraccess.create">create</a></li><li class="case"><a href="#scope.useraccess.delete">delete</a></li><li class="case"><a href="#scope.useraccess.write">write</a></li><li class="case"><a href="#scope.useraccess.read">read</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#scope.useraccess.webhooks">web​Hooks</a></li><li class="case"><a href="#scope.useraccess.read">read</a></li><li class="case"><a href="#scope.useraccess.write">write</a></li><li class="case"><a href="#scope.useraccess.delete">delete</a></li><li class="case"><a href="#scope.useraccess.create">create</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -100,17 +100,11 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">webHooks</span></code></pre></body></html>
 </div>
-<div role="article" class="case" id="scope.useraccess.create">
+<div role="article" class="case" id="scope.useraccess.read">
     <h3>
-        <code>create</code>
+        <code>read</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">create</span></code></pre></body></html>
-</div>
-<div role="article" class="case" id="scope.useraccess.delete">
-    <h3>
-        <code>delete</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">delete</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">read</span></code></pre></body></html>
 </div>
 <div role="article" class="case" id="scope.useraccess.write">
     <h3>
@@ -118,11 +112,17 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">write</span></code></pre></body></html>
 </div>
-<div role="article" class="case" id="scope.useraccess.read">
+<div role="article" class="case" id="scope.useraccess.delete">
     <h3>
-        <code>read</code>
+        <code>delete</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">read</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">delete</span></code></pre></body></html>
+</div>
+<div role="article" class="case" id="scope.useraccess.create">
+    <h3>
+        <code>create</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">create</span></code></pre></body></html>
 </div>
     </section>
 
@@ -133,7 +133,7 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 
     <footer>
         <p>
-    Generated on <time datetime="2020-10-27T15:17:33+0100">27 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2020-10-30T14:46:21+0100">30 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>
