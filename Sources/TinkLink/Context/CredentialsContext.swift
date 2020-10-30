@@ -2,7 +2,6 @@ import Foundation
 
 /// An object that you use to access the user's credentials and supports the flow for adding credentials.
 public final class CredentialsContext {
-
     var retryInterval: TimeInterval = 1.0
 
     private let redirectURI: URL
@@ -326,7 +325,7 @@ public final class CredentialsContext {
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
 
         task.retryInterval = retryInterval
-        
+
         task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
             switch result {
             case .success:

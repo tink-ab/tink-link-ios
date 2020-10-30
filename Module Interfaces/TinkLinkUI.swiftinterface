@@ -164,6 +164,9 @@ public enum TinkLinkError : Swift.Error {
   @available(*, unavailable, renamed: "init(tink:market:scopes:providerPredicate:completion:)")
   convenience public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerKinds: Swift.Set<TinkCore.Provider.Kind>, completion: @escaping (Swift.Result<TinkCore.AuthorizationCode, TinkLinkUI.TinkLinkError>) -> Swift.Void)
   @objc override dynamic public func viewDidLoad()
+  @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @objc get
+  }
   @objc override dynamic public func show(_ vc: UIKit.UIViewController, sender: Any?)
   @objc deinit
   @available(iOS 5.0, *)
