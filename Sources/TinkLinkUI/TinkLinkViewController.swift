@@ -71,8 +71,8 @@ public class TinkLinkViewController: UINavigationController {
     public enum ProviderPredicate {
         /// Will fetch a list of providers depending on kind.
         case kinds(Set<Provider.Kind>)
-        /// Will fetch a single provider by id.
-        case name(Provider.ID)
+        /// Will fetch a single provider by name.
+        case name(Provider.Name)
     }
 
     /// Strategy for different operations.
