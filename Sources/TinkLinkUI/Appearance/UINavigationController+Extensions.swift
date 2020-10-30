@@ -52,6 +52,8 @@ extension UINavigationController {
 
             navigationBar.isTranslucent = false
             navigationBar.barTintColor = Color.navigationBarBackground
+
+            navigationBar.barStyle = Color.navigationBarBackground.isLight ? .default : .black
         }
     }
 }
