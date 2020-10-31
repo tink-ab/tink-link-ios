@@ -10,4 +10,4 @@ public enum AuthenticationTask {
     case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
 }
 
-public typealias AuthenticationTaskHandler = (AuthenticationTask) -> Void
+public typealias AuthenticationTaskHandler = (_ task: AuthenticationTask) -> Void

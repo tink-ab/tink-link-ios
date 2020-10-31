@@ -1,6 +1,6 @@
 import Foundation
 
-/// An object that you use to access the user's credentials and supports the flow for adding credentials.
+/// An object that you use to list, add or modify a user's `Credentials`. 
 public final class CredentialsContext {
     private let redirectURI: URL
     private let service: CredentialsService
@@ -13,7 +13,7 @@ public final class CredentialsContext {
 
     /// Creates a new CredentialsContext for the given Tink instance.
     ///
-    /// - Parameter tink: Tink instance, defaults to `shared` if not provided.
+    /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let service = tink.services.credentialsService
         self.init(tink: tink, credentialsService: service)
@@ -51,32 +51,31 @@ public final class CredentialsContext {
 
     // MARK: - Adding Credentials
 
-    /// Adds a credentials for the user.
+    /// Adds credentials to the user.
     ///
     /// Required scopes:
     /// - credentials:write
     ///
-    /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
+    /// You need to handle potential authentication requests with `authenticationHandler` to successfully add a credentials for some providers.
     ///
-    ///     let addCredentialsTask = credentialsContext.add(forProviderWithName: providerName, form: form, progressHandler: { status in
-    ///         switch status {
+    ///     let addCredentialsTask = credentialsContext.add(forProviderWithName: providerName, fields: fields, authenticationHandler: { authentication in
+    ///         switch authentication {
     ///         case .awaitingSupplementalInformation(let supplementInformationTask):
     ///             <#Present form for supplemental information task#>
     ///         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication):
     ///             <#Open third party app deep link URL#>
-    ///         default:
-    ///             break
     ///         }
     ///     }, completion: { result in
     ///         <#Handle result#>
-    ///     }
+    ///     })
     ///
     /// - Parameters:
-    ///   - providerName: The provider (financial institution) that the credentials is connected to.
-    ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
+    ///   - providerName: The provider (financial institution) that you want to create a credentials for.
+    ///   - fields: A dictionary of filled in fields found on the Provider to which the credentials will be created for. Can contain data such as username and password.
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - completionPredicate: Predicate for when credentials task should complete.
-    ///   - authenticationHandler: Indicates the authentication task for adding credentials.
+    ///   - authenticationHandler: The block that will execute when the credentials needs some sort of authentication from the end user. 
+    ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
@@ -84,10 +83,10 @@ public final class CredentialsContext {
     /// - Returns: The add credentials task.
     public func add(
         forProviderWithName providerName: Provider.Name,
-        form: Form,
+        fields: [String: String],
         refreshableItems: RefreshableItems = .all,
         completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
-        authenticationHandler: @escaping AuthenticationTaskHandler,
+        authenticationHandler: @escaping (_ task: AuthenticationTask) -> Void,
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
@@ -101,7 +100,7 @@ public final class CredentialsContext {
         )
 
         if let newlyAddedCredentials = newlyAddedCredentials[providerName] {
-            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: redirectURI, callbackURI: nil, fields: fields) { result in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
@@ -111,7 +110,7 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
+            task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: fields, appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[providerName] = credential
@@ -130,9 +129,9 @@ public final class CredentialsContext {
     /// Required scopes:
     /// - credentials:write
     ///
-    /// You need to handle status changes in `progressHandler` to successfuly add a credentials for some providers.
+    /// You need to handle potential authentication requests with `authenticationHandler` to successfully add credentials for some providers.
     ///
-    ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, progressHandler: { status in
+    ///     let addCredentialsTask = credentialsContext.add(for: provider, form: form, authenticationHandler: { authentication in
     ///         switch status {
     ///         case .awaitingSupplementalInformation(let supplementInformationTask):
     ///             <#Present form for supplemental information task#>
@@ -150,7 +149,8 @@ public final class CredentialsContext {
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - completionPredicate: Predicate for when credentials task should complete.
-    ///   - authenticationHandler: Indicates the authentication task for adding credentials.
+    ///   - authenticationHandler: The block that will execute when the credentials needs some sort of authentication from the end user.
+    ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
@@ -161,13 +161,13 @@ public final class CredentialsContext {
         form: Form,
         refreshableItems: RefreshableItems = .all,
         completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
-        authenticationHandler: @escaping AuthenticationTaskHandler,
+        authenticationHandler: @escaping (_ task: AuthenticationTask) -> Void,
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
 
-        return add(forProviderWithName: provider.name, form: form, refreshableItems: refreshableItems, completionPredicate: completionPredicate, authenticationHandler: authenticationHandler, progressHandler: progressHandler, completion: completion)
+        return add(forProviderWithName: provider.name, fields: form.makeFields(), refreshableItems: refreshableItems, completionPredicate: completionPredicate, authenticationHandler: authenticationHandler, progressHandler: progressHandler, completion: completion)
     }
 
     /// Fetch a list of the current user's credentials.
@@ -199,7 +199,7 @@ public final class CredentialsContext {
     /// - Parameter completion: The block to execute when the call is completed.
     /// - Parameter result: A result that either contains the credentials or an error if the fetch failed.
     @discardableResult
-    public func fetchCredentials(with id: Credentials.ID, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    public func fetchCredentials(withID id: Credentials.ID, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         return service.credentials(id: id) { result in
             do {
                 let credentials = try result.get()
@@ -218,9 +218,12 @@ public final class CredentialsContext {
     /// - credentials:refresh
     ///
     /// - Parameters:
+    ///   - credentials: The credentials object to refresh.
     ///   - authenticate: Force an authentication before the refresh, designed for open banking credentials. Defaults to false.
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
+    ///   - authenticationHandler: The block that will execute when the credentials needs some sort of authentication from the end user.
+    ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being refreshed.
     ///   - completion: The block to execute when the credentials has been refreshed successfuly or if it failed.
@@ -256,10 +259,14 @@ public final class CredentialsContext {
     /// Required scopes:
     /// - credentials:write
     ///
+    /// Use this when you need to update any of the fields on the credentials. Updating a credentials will also trigger a refresh.
+    ///
     /// - Parameters:
     ///   - credentials: Credentials that needs to be updated.
     ///   - form: This is a form with fields from the Provider to which the credentials belongs to.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
+    ///   - authenticationHandler: The block that will execute when the credentials needs some sort of authentication from the end user.
+    ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being updated.
     ///   - completion: The block to execute when the credentials has been updated successfuly or if it failed.
@@ -325,16 +332,21 @@ public final class CredentialsContext {
     /// Required scopes:
     /// - credentials:refresh
     ///
+    /// This will return an error if the credentials is not connected to a provider with the access type `.openBanking`.
+    ///
     /// - Parameters:
     ///   - credentials: Credentials that needs to be authenticated.
     ///   - shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Determines how the task handles the case when a user doesn't have the required authentication app installed.
+    ///   - authenticationHandler: The block that will execute when the credentials needs some sort of authentication from the end user.
+    ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being authenticated.
     ///   - completion: The block to execute when the credentials has been authenticated successfuly or if it failed.
     ///   - result: A result representing that the authentication succeeded or an error if failed.
     /// - Returns: The authenticate credentials task.
     public func authenticate(
-        _ credentials: Credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
+        _ credentials: Credentials,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authenticationHandler: @escaping AuthenticationTaskHandler,
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
