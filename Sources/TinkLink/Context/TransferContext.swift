@@ -62,8 +62,6 @@ public final class TransferContext {
     /// )
     /// ```
     ///
-    /// - Note: You need to retain the returned task until the transfer has completed.
-    ///
     /// - Parameters:
     ///   - from: The source account of this transfer.
     ///   - to: The beneficiary of this transfer.
@@ -76,6 +74,7 @@ public final class TransferContext {
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
+    @discardableResult
     public func initiateTransfer(
         from account: TransferAccountIdentifiable,
         to beneficiary: TransferAccountIdentifiable,
@@ -205,8 +204,6 @@ public final class TransferContext {
     /// )
     /// ```
     ///
-    /// - Note: You need to retain the returned task until the add beneficiary request has completed.
-    ///
     /// - Parameters:
     ///   - beneficiaryAccount: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
@@ -219,6 +216,7 @@ public final class TransferContext {
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
+    @discardableResult
     public func addBeneficiary(
         account beneficiaryAccount: BeneficiaryAccount,
         name: String,
@@ -285,8 +283,6 @@ public final class TransferContext {
     /// )
     /// ```
     ///
-    /// - Note: You need to retain the returned task until the add beneficiary request has completed.
-    ///
     /// - Parameters:
     ///   - account: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
@@ -299,6 +295,7 @@ public final class TransferContext {
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
+    @discardableResult
     public func addBeneficiary(
         account beneficiaryAccount: BeneficiaryAccount,
         name: String,
@@ -328,7 +325,7 @@ public final class TransferContext {
         )
 
         cancellables[id] = task
-        
+
         task.start()
 
         return task
