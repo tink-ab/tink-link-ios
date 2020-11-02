@@ -244,7 +244,7 @@ extension AddBeneficiaryTask {
                 payload = credentials.statusPayload ?? ""
             }
             throw Error.authenticationFailed(payload)
-        case .disabled:
+        case .deleted:
             throw Error.disabledCredentials(credentials.statusPayload ?? "")
         case .sessionExpired:
             throw Error.credentialsSessionExpired(credentials.statusPayload ?? "")

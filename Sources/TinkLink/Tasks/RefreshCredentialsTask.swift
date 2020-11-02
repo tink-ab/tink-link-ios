@@ -148,7 +148,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 throw Error.permanentFailure(credentials.statusPayload ?? "")
             case .temporaryError:
                 throw Error.temporaryFailure(credentials.statusPayload ?? "")
-            case .disabled:
+            case .deleted:
                 throw Error.disabled(credentials.statusPayload ?? "")
             case .unknown:
                 assertionFailure("Unknown credentials status!")
