@@ -1,4 +1,5 @@
 import Foundation
+import TinkCore
 
 /// Use the `ProviderTree` to group providers by financial institution, access type and credentials kind.
 ///
@@ -16,6 +17,8 @@ import Foundation
 ///     switch financialInstitutionGroupNode {
 ///     case .financialInstitutions(let financialInstitutionGroups):
 ///         showFinancialInstitution(for: financialInstitutionGroups)
+///     case .authenticationUserTypes(let authenticationUserTypes):
+///         showAuthenticationUserTypePicker(for: authenticationUserTypes)
 ///     case .accessTypes(let accessTypeGroups):
 ///         showAccessTypePicker(for: accessTypeGroups)
 ///     case .credentialsKinds(let groups):
@@ -26,14 +29,20 @@ import Foundation
 /// }
 /// ```
 public struct ProviderTree {
+
+    /// The finanicial institution groups.
+    ///
+    /// These are the "top" level of the `ProviderTree` and is suitable for displaying in a list where the user needs to select a provider.
     public let financialInstitutionGroups: [FinancialInstitutionGroupNode]
 
+    /// Creates a `ProviderTree` that groups the provided providers by their properties.
     public init(providers: [Provider]) {
         self.financialInstitutionGroups = Dictionary(grouping: providers, by: { $0.groupDisplayName.isEmpty ? $0.financialInstitution.id.value : $0.groupDisplayName })
             .sorted(by: { $0.key < $1.key })
             .map { FinancialInstitutionGroupNode(providers: $0.value) }
     }
 
+    /// Creates a list of all finanicial institutions that is currently in the tree structiure.
     public func makeFinancialInstitutions() -> [FinancialInstitutionNode] {
         let institutions: [FinancialInstitutionNode] = financialInstitutionGroups.flatMap { node -> [FinancialInstitutionNode] in
             switch node {
@@ -63,20 +72,7 @@ public struct ProviderTree {
         }
 
         /// A unique identifier of a `CredentialsKindNode`.
-        public struct ID: Hashable, ExpressibleByStringLiteral {
-            public init(stringLiteral value: String) {
-                self.value = value
-            }
-
-            /// Creates an instance initialized to the given string value.
-            /// - Parameter value: The value of the new instance.
-            public init(_ value: String) {
-                self.value = value
-            }
-
-            /// The string value of the ID.
-            public let value: String
-        }
+        public typealias ID = Identifier<CredentialsKindNode>
 
         public var id: ID { ID(provider.id.value) }
 
@@ -113,21 +109,7 @@ public struct ProviderTree {
             }
         }
 
-        /// A unique identifier of a `AccessTypeNode`.
-        public struct ID: Hashable, ExpressibleByStringLiteral {
-            public init(stringLiteral value: String) {
-                self.value = value
-            }
-
-            /// Creates an instance initialized to the given string value.
-            /// - Parameter value: The value of the new instance.
-            public init(_ value: String) {
-                self.value = value
-            }
-
-            /// The string value of the ID.
-            public let value: String
-        }
+        public typealias ID = Identifier<AccessTypeNode>
 
         case provider(Provider)
         case credentialsKinds([CredentialsKindNode])
@@ -287,20 +269,7 @@ public struct ProviderTree {
         }
 
         /// A unique identifier of a `FinancialInstitutionNode`.
-        public struct ID: Hashable, ExpressibleByStringLiteral {
-            public init(stringLiteral value: String) {
-                self.value = value
-            }
-
-            /// Creates an instance initialized to the given string value.
-            /// - Parameter value: The value of the new instance.
-            public init(_ value: String) {
-                self.value = value
-            }
-
-            /// The string value of the ID.
-            public let value: String
-        }
+        public typealias ID = Identifier<FinancialInstitutionNode>
 
         case provider(Provider)
         case credentialsKinds([CredentialsKindNode])
@@ -385,20 +354,7 @@ public struct ProviderTree {
     /// A parent node of the tree structure, with a list of either `FinancialInstitutionNode`, `AccessTypeNode`, `CredentialsKindNode` children or a single `Provider`.
     public enum FinancialInstitutionGroupNode: Identifiable {
         /// A unique identifier of a `FinancialInstitutionGroupNode`.
-        public struct ID: Hashable, ExpressibleByStringLiteral {
-            public init(stringLiteral value: String) {
-                self.value = value
-            }
-
-            /// Creates an instance initialized to the given string value.
-            /// - Parameter value: The value of the new instance.
-            public init(_ value: String) {
-                self.value = value
-            }
-
-            /// The string value of the ID.
-            public let value: String
-        }
+        public typealias ID = Identifier<FinancialInstitutionGroupNode>
 
         case provider(Provider)
         case credentialsKinds([CredentialsKindNode])

@@ -1,6 +1,10 @@
 import Foundation
 
-/// An object that you use to get user consent.
+/// An object that you use to get data allowing you to make sure you have full consent from the end user.
+///
+/// The `ConsentContext` is used to fetch descriptions of a set of scopes explaining what kind of data will be fetched for the user.
+/// You can also use the `ConsentContext` to fetch links to both Tink's terms and conditions and privacy policy.
+/// Both must be presented to the user if data is aggregated under Tink's license.
 public final class ConsentContext {
     private let clientID: String
     private let redirectURI: URL
@@ -27,9 +31,9 @@ public final class ConsentContext {
 
     // MARK: - Creating a Context
 
-    /// Creates a context to authorize for an authorization code for a user with requested scopes.
+    /// Creates a `ConsentContext` that will be bound to the provided `Tink` instance.
     ///
-    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
+    /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
         self.clientID = tink.configuration.clientID
         self.redirectURI = tink.configuration.redirectURI
@@ -58,12 +62,12 @@ public final class ConsentContext {
     ///     }
     ///
     ///     class ScopeDescriptionsViewController: UITableViewController {
-    ///         private let authorizationContext: AuthorizationContext
+    ///         private let consentContext: ConsentContext
     ///
     ///         private var scopeDescriptions: [ScopeDescription] = []
     ///
-    ///         init(user: User) {
-    ///             self.authorizationContext = AuthorizationContext(user: user)
+    ///         init() {
+    ///             self.consentContext = ConsentContext()
     ///             super.init(nibName: nil, bundle: nil)
     ///         }
     ///
@@ -81,7 +85,7 @@ public final class ConsentContext {
     ///                 .transactions(.read)
     ///             ]
     ///
-    ///             authorizationContext.fetchScopeDescriptions(scopes: scopes) { [weak self] result in
+    ///             consentContext.fetchScopeDescriptions(scopes: scopes) { [weak self] result in
     ///                 DispatchQueue.main.async {
     ///                     do {
     ///                         self?.scopeDescriptions = try result.get()
