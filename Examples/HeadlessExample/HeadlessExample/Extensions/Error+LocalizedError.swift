@@ -39,8 +39,8 @@ extension RefreshCredentialsTask.Error: LocalizedError {
             return "Permanent Failure"
         case .temporaryFailure:
             return "Temporary Failure"
-        case .disabled:
-            return "Disabled"
+        case .deleted:
+            return "Deleted"
         case .cancelled:
             return "Cancelled"
         }
@@ -51,7 +51,7 @@ extension RefreshCredentialsTask.Error: LocalizedError {
         case .authenticationFailed(let payload),
              .permanentFailure(let payload),
              .temporaryFailure(let payload),
-             .disabled(let payload):
+             .deleted(let payload):
             return payload
         case .cancelled:
             return nil
@@ -64,8 +64,8 @@ extension InitiateTransferTask.Error: LocalizedError {
         switch self {
         case .authenticationFailed:
             return "Authentication Failed"
-        case .disabledCredentials:
-            return "Disabled Credentials"
+        case .credentialsDeleted:
+            return "Credentials Deleted"
         case .credentialsSessionExpired:
             return "Credentials Session Expired"
         case .cancelled:
@@ -78,7 +78,7 @@ extension InitiateTransferTask.Error: LocalizedError {
     public var failureReason: String? {
         switch self {
         case .authenticationFailed(let payload),
-             .disabledCredentials(let payload),
+             .credentialsDeleted(let payload),
              .credentialsSessionExpired(let payload),
              .cancelled(let payload),
              .failed(let payload):
@@ -92,8 +92,8 @@ extension AddBeneficiaryTask.Error: LocalizedError {
         switch self {
         case .authenticationFailed:
             return "Authentication Failed"
-        case .disabledCredentials:
-            return "Disabled Credentials"
+        case .credentialsDeleted:
+            return "Credentials Deleted"
         case .credentialsSessionExpired:
             return "Credentials Session Expired"
         case .notFound:
@@ -106,7 +106,7 @@ extension AddBeneficiaryTask.Error: LocalizedError {
     public var failureReason: String? {
         switch self {
         case .authenticationFailed(let payload),
-             .disabledCredentials(let payload),
+             .credentialsDeleted(let payload),
              .credentialsSessionExpired(let payload),
              .notFound(let payload),
              .invalidBeneficiary(let payload):
