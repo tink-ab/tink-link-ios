@@ -136,7 +136,7 @@ public struct Form {
         ///
         /// You can use the attributes to set up a text field properly. They contain properties
         /// like input type, placeholder and description.
-        public let attributes: Attributes
+        public internal(set) var attributes: Attributes
 
         /// Validation rules for a field.
         ///
@@ -200,7 +200,7 @@ public struct Form {
             public let inputType: InputType
 
             /// A Boolean value indicating whether the field can be edited.
-            public let isEditable: Bool
+            public internal(set) var isEditable: Bool
         }
 
         /// Describes a field validation error.
