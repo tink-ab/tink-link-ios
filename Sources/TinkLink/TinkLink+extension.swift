@@ -4,7 +4,6 @@ import Foundation
 extension Tink {
     // MARK: - Handling Redirects
 
-    ///
     /// For some providers the redirect needs to be a https link. Use the continue user activity method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
     ///
     /// ```swift
@@ -22,7 +21,6 @@ extension Tink {
         Tink.open(url, completion: completion)
     }
 
-    ///
     /// For some providers the redirect needs to be a https link. Use the continue user activity method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
     ///
     /// ```swift
