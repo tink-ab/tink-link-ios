@@ -252,6 +252,7 @@ extension CredentialsFormViewController {
 
     private func updateButtonBottomConstraint(_ notification: KeyboardNotification) {
         if let window = view.window {
+            // Need to calculate a different keyboard height if client is aggregator becase the footer view is hidden then.
             let keyboardFrameHeight = (isAggregator ? view.safeAreaLayoutGuide.layoutFrame.maxY : addCredentialFooterView.frame.minY) - window.convert(notification.frame, to: view).minY
             buttonBottomConstraint?.constant = max(24, keyboardFrameHeight)
             buttonWidthConstraint.constant = view.frame.size.width
