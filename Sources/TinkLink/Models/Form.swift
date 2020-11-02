@@ -138,26 +138,6 @@ public struct Form {
         /// like input type, placeholder and description.
         public let attributes: Attributes
 
-        internal init(field fieldSpecification: Provider.Field) {
-            self.text = fieldSpecification.initialValue ?? ""
-            self.name = fieldSpecification.name ?? ""
-            self.validationRules = ValidationRules(
-                isOptional: fieldSpecification.isOptional,
-                maxLength: fieldSpecification.maxLength,
-                minLength: fieldSpecification.minLength,
-                regex: fieldSpecification.pattern,
-                regexError: fieldSpecification.patternError
-            )
-            self.attributes = Attributes(
-                description: fieldSpecification.description ?? "",
-                placeholder: fieldSpecification.hint,
-                helpText: fieldSpecification.helpText,
-                isSecureTextEntry: fieldSpecification.isMasked,
-                inputType: fieldSpecification.isNumeric ? .numeric : .default,
-                isEditable: !fieldSpecification.isImmutable || (fieldSpecification.initialValue ?? "").isEmpty
-            )
-        }
-
         /// Validation rules for a field.
         ///
         /// Represents the rules for validating a form field.
@@ -409,5 +389,27 @@ extension Form.Fields {
         } catch {
             return false
         }
+    }
+}
+
+extension Form.Field {
+    internal init(field fieldSpecification: Provider.Field) {
+        self.text = fieldSpecification.initialValue ?? ""
+        self.name = fieldSpecification.name ?? ""
+        self.validationRules = ValidationRules(
+            isOptional: fieldSpecification.isOptional,
+            maxLength: fieldSpecification.maxLength,
+            minLength: fieldSpecification.minLength,
+            regex: fieldSpecification.pattern,
+            regexError: fieldSpecification.patternError
+        )
+        self.attributes = Attributes(
+            description: fieldSpecification.description ?? "",
+            placeholder: fieldSpecification.hint,
+            helpText: fieldSpecification.helpText,
+            isSecureTextEntry: fieldSpecification.isMasked,
+            inputType: fieldSpecification.isNumeric ? .numeric : .default,
+            isEditable: !fieldSpecification.isImmutable || (fieldSpecification.initialValue ?? "").isEmpty
+        )
     }
 }
