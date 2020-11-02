@@ -317,17 +317,12 @@ extension Form {
     ///   - updatingCredentials: The credentials to update.
     ///   - provider: The provider for the credentials to update.
     public init(updatingCredentials: Credentials, provider: Provider) {
-        let providerFieldSpecifications = provider.fields
-        let credentialsFields = updatingCredentials.fields
-        let fieldSpecifications = providerFieldSpecifications.map { fieldSpecification -> Provider.Field in
-            if let fieldName = fieldSpecification.name, let text = credentialsFields[fieldName] {
-                var multableFieldSpecification = fieldSpecification
-                // FIXME: multableFieldSpecification.setImmutable(initialValue: text)
-                return multableFieldSpecification
-            }
-            return fieldSpecification
+        var providerForm = Form(fields: provider.fields)
+        for (name, value) in updatingCredentials.fields {
+            providerForm.fields[name: name]?.text = value
+            providerForm.fields[name: name]?.attributes.isEditable = true
         }
-        self.init(fields: fieldSpecifications)
+        self = providerForm
     }
 
     /// Creates a form for the given task.
