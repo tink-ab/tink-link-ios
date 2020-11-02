@@ -39,7 +39,7 @@ extension RefreshCredentialsTask.Error: LocalizedError {
             return Strings.Credentials.Error.temporaryFailure
         case .authenticationFailed:
             return Strings.Credentials.Error.authenticationFailed
-        case .disabled:
+        case .deleted:
             return Strings.Generic.error
         case .cancelled:
             return Strings.Generic.cancelled
@@ -48,7 +48,7 @@ extension RefreshCredentialsTask.Error: LocalizedError {
 
     public var failureReason: String? {
         switch self {
-        case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload), .disabled(let payload):
+        case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload), .deleted(let payload):
             // TODO: Localize this somehow?
             return payload
         case .cancelled:
