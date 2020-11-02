@@ -21,7 +21,21 @@ extension Tink {
         Tink.open(url, completion: completion)
     }
 
-    /// For some providers the redirect needs to be a https link. Use the continue user activity method in your `UIApplicationDelegate` to let TinkLink send the information to Tink if needed.
+    /// Handles redirects from a third party authentication flow.
+    ///
+    /// Some providers will require additional information from the authentication to be sent back to Tink after the user authenticates within the third party app for the credential to be added successfully. This information will be included as part of the redirect URI when redirecting back to your app.
+    ///
+    /// If you use a return URL with a custom URL scheme, implement the open method in your `UIApplicationDelegate` to let Tink Link handle the information and send it back to Tink if needed.
+    ///
+    /// ```swift
+    /// func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    ///     return Tink.open(url)
+    /// }
+    /// ```
+    ///
+    /// For some providers the redirect needs to be a `https` link. To handle those redirects your app needs to support universal links.
+    ///
+    /// If you use a universal link as the return URL, implement the continue user activity method in your `UIApplicationDelegate` instead.
     ///
     /// ```swift
     /// func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
@@ -32,6 +46,11 @@ extension Tink {
     ///     }
     /// }
     /// ```
+    ///
+    /// - Parameters:
+    ///   - url: The URL to handle.
+    ///   - completion: The block to execute when the information from the URL has been sent to Tink successfully or if it failed.
+    /// - Returns: A Boolean indicating whether the URL was handled by Tink Link.
     @available(iOS 9.0, *)
     public static func open(_ url: URL, completion: ((Result<Void, Error>) -> Void)? = nil) -> Bool {
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
