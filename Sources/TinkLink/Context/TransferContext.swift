@@ -8,6 +8,8 @@ public final class TransferContext {
     private let credentialsService: CredentialsService
     private let providerService: ProviderService
 
+    private var cancellables: [String: Cancellable] = [:]
+
     // MARK: - Creating a Context
 
     /// Creates a context to use for initiating transfers.
@@ -83,14 +85,21 @@ public final class TransferContext {
         progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
+        let id = UUID().uuidString
+
         let task = InitiateTransferTask(
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: redirectURI,
             progressHandler: progress,
             authenticationHandler: authentication,
-            completionHandler: completion
+            completionHandler: { [weak self] result in
+                completion(result)
+                self?.cancellables[id] = nil
+            }
         )
+
+        cancellables[id] = task
 
         task.canceller = transferService.transfer(
             amount: amount.value,
@@ -219,6 +228,8 @@ public final class TransferContext {
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
+        let id = UUID().uuidString
+
         let task = AddBeneficiaryTask(
             beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
@@ -230,8 +241,13 @@ public final class TransferContext {
             accountNumber: beneficiaryAccount.accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
-            completionHandler: completion
+            completionHandler: { [weak self] result in
+                completion(result)
+                self?.cancellables[id] = nil
+            }
         )
+
+        cancellables[id] = task
 
         task.start()
 
@@ -292,6 +308,8 @@ public final class TransferContext {
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
+        let id = UUID().uuidString
+
         let task = AddBeneficiaryTask(
             beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
@@ -303,9 +321,14 @@ public final class TransferContext {
             accountNumber: beneficiaryAccount.accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
-            completionHandler: completion
+            completionHandler: { [weak self] result in
+                completion(result)
+                self?.cancellables[id] = nil
+            }
         )
 
+        cancellables[id] = task
+        
         task.start()
 
         return task
