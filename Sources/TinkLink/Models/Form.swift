@@ -95,8 +95,8 @@ public struct Form {
     /// The fields associated with this form.
     public var fields: Fields
 
-    internal init(fieldSpecifications: [Provider.FieldSpecification]) {
-        self.fields = Fields(fields: fieldSpecifications.map { Field(fieldSpecification: $0) })
+    internal init(fields: [Provider.Field]) {
+        self.fields = Fields(fields: fields.map { Field(field: $0) })
     }
 
     /// Returns a Boolean value indicating whether every field in the form are valid.
@@ -138,9 +138,9 @@ public struct Form {
         /// like input type, placeholder and description.
         public let attributes: Attributes
 
-        internal init(fieldSpecification: Provider.FieldSpecification) {
-            self.text = fieldSpecification.initialValue
-            self.name = fieldSpecification.name
+        internal init(field fieldSpecification: Provider.Field) {
+            self.text = fieldSpecification.initialValue ?? ""
+            self.name = fieldSpecification.name ?? ""
             self.validationRules = ValidationRules(
                 isOptional: fieldSpecification.isOptional,
                 maxLength: fieldSpecification.maxLength,
@@ -149,12 +149,12 @@ public struct Form {
                 regexError: fieldSpecification.patternError
             )
             self.attributes = Attributes(
-                description: fieldSpecification.fieldDescription,
+                description: fieldSpecification.description ?? "",
                 placeholder: fieldSpecification.hint,
                 helpText: fieldSpecification.helpText,
                 isSecureTextEntry: fieldSpecification.isMasked,
                 inputType: fieldSpecification.isNumeric ? .numeric : .default,
-                isEditable: !fieldSpecification.isImmutable || fieldSpecification.initialValue.isEmpty
+                isEditable: !fieldSpecification.isImmutable || (fieldSpecification.initialValue ?? "").isEmpty
             )
         }
 
@@ -173,8 +173,8 @@ public struct Form {
             /// Minimum length of value.
             public let minLength: Int?
 
-            internal let regex: String
-            internal let regexError: String
+            internal let regex: String?
+            internal let regexError: String?
 
             internal func validate(_ value: String, fieldName name: String) throws {
                 if value.isEmpty, !isOptional {
@@ -183,10 +183,10 @@ public struct Form {
                     throw ValidationError.maxLengthLimit(fieldName: name, maxLength: maxLength)
                 } else if let minLength = minLength, minLength > 0 && minLength > value.count {
                     throw ValidationError.minLengthLimit(fieldName: name, minLength: minLength)
-                } else if !regex.isEmpty, let regex = try? NSRegularExpression(pattern: regex, options: []) {
+                } else if let unwrappedRegex = regex, !unwrappedRegex.isEmpty, let regex = try? NSRegularExpression(pattern: unwrappedRegex, options: []) {
                     let range = regex.rangeOfFirstMatch(in: value, options: [], range: NSRange(location: 0, length: value.count))
                     if range.location == NSNotFound {
-                        throw ValidationError.invalid(fieldName: name, reason: regexError)
+                        throw ValidationError.invalid(fieldName: name, reason: regexError ?? "")
                     }
                 }
             }
@@ -208,10 +208,10 @@ public struct Form {
             public let description: String
 
             /// A string to display when there is no other text in the text field.
-            public let placeholder: String
+            public let placeholder: String?
 
             /// A string to display next to the field with information about what the user should enter in the text field.
-            public let helpText: String
+            public let helpText: String?
 
             /// Identifies whether the text object should hide the text being entered.
             public let isSecureTextEntry: Bool
@@ -314,7 +314,7 @@ extension Form {
     ///
     /// - Parameter provider: The provider to create a form for.
     public init(provider: Provider) {
-        self.init(fieldSpecifications: provider.fields)
+        self.init(fields: provider.fields)
     }
 
     /// Creates a form for the given credentials.
@@ -325,9 +325,9 @@ extension Form {
     @available(*, deprecated, message: "Use init(supplementInformationTask:) instead.")
     public init(credentials: Credentials) {
         if case let .awaitingSupplementalInformation(fields) = credentials.status {
-            self.init(fieldSpecifications: fields)
+            self.init(fields: fields)
         } else {
-            self.init(fieldSpecifications: [])
+            self.init(fields: [])
         }
     }
 
@@ -339,15 +339,15 @@ extension Form {
     public init(updatingCredentials: Credentials, provider: Provider) {
         let providerFieldSpecifications = provider.fields
         let credentialsFields = updatingCredentials.fields
-        let fieldSpecifications = providerFieldSpecifications.map { fieldSpecification -> Provider.FieldSpecification in
-            if let text = credentialsFields[fieldSpecification.name] {
+        let fieldSpecifications = providerFieldSpecifications.map { fieldSpecification -> Provider.Field in
+            if let fieldName = fieldSpecification.name, let text = credentialsFields[fieldName] {
                 var multableFieldSpecification = fieldSpecification
-                multableFieldSpecification.setImmutable(initialValue: text)
+                // FIXME: multableFieldSpecification.setImmutable(initialValue: text)
                 return multableFieldSpecification
             }
             return fieldSpecification
         }
-        self.init(fieldSpecifications: fieldSpecifications)
+        self.init(fields: fieldSpecifications)
     }
 
     /// Creates a form for the given task.
