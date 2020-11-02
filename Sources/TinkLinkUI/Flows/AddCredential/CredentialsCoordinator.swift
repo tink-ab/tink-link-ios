@@ -169,8 +169,8 @@ extension CredentialsCoordinator {
         }
     }
 
-    private func fetchProvider(with id: Provider.ID, then: @escaping (Provider) -> Void) {
-        providerController.fetchProvider(with: id) { result in
+    private func fetchProvider(with name: Provider.Name, then: @escaping (Provider) -> Void) {
+        providerController.fetchProvider(with: name) { result in
             do {
                 let provider = try result.get()
                 then(provider)

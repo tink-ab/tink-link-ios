@@ -73,11 +73,11 @@ final class ProviderController {
         })
     }
 
-    func fetchProvider(with id: Provider.ID, completion: @escaping ((Result<Provider, Swift.Error>) -> Void)) {
+    func fetchProvider(with name: Provider.Name, completion: @escaping ((Result<Provider, Swift.Error>) -> Void)) {
         tink._beginUITask()
         defer { tink._endUITask() }
 
-        providerContext.fetchProvider(with: id, completion: { [weak self] result in
+        providerContext.fetchProvider(with: name, completion: { [weak self] result in
 
             self?.isFetching = false
             do {
