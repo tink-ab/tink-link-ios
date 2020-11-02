@@ -39,8 +39,8 @@ extension RefreshCredentialsTask.Error: LocalizedError {
             return "Permanent Failure"
         case .temporaryFailure:
             return "Temporary Failure"
-        case .disabled:
-            return "Disabled"
+        case .deleted:
+            return "Deleted"
         case .cancelled:
             return "Cancelled"
         }
