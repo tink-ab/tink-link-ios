@@ -3,7 +3,7 @@ import Foundation
 /// An object that you use to get user consent.
 public final class ConsentContext {
     private let clientID: String
-    private let redirectURI: URL
+    private let appURI: URL
     private let service: AuthenticationService
 
     /// Error that the `ConsentContext` can throw.
@@ -31,8 +31,9 @@ public final class ConsentContext {
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
+        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `redirectURI` configured.")
+        self.appURI = tink.configuration.appURI!
         self.clientID = tink.configuration.clientID
-        self.redirectURI = tink.configuration.redirectURI
         self.service = tink.services.authenticationService
     }
 
@@ -113,7 +114,7 @@ public final class ConsentContext {
     /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
     @discardableResult
     public func fetchScopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
-        return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: redirectURI) { result in
+        return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.map(\.scopes).mapError { Error($0) ?? $0 }
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not fetch scope descriptions: " + message)

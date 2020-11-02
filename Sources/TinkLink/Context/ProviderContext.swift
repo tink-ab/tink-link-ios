@@ -25,7 +25,7 @@ public final class ProviderContext {
         public static let `default` = Attributes(capabilities: .all, kinds: .default, accessTypes: .all)
     }
 
-    private let redirectURI: URL
+    private let appURI: URL
     private let service: ProviderService
 
     // MARK: - Creating a Context
@@ -39,7 +39,8 @@ public final class ProviderContext {
     }
 
     init(tink: Tink, providerService: ProviderService) {
-        self.redirectURI = tink.configuration.redirectURI
+        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `redirectURI` configured.")
+        self.appURI = tink.configuration.appURI!
         self.service = providerService
     }
 
