@@ -53,7 +53,7 @@ final class CredentialsFormViewController: UIViewController {
         return button
     }()
 
-    private lazy var buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor)
+    private var buttonBottomConstraint: NSLayoutConstraint?
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
     init(provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
@@ -141,7 +141,13 @@ extension CredentialsFormViewController {
 
         view.layoutMargins = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
 
-        buttonBottomConstraint.constant = 24
+        let buttonBottomConstraint: NSLayoutConstraint
+        if isAggregator {
+            buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 24)
+        } else {
+            buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 24)
+        }
+        self.buttonBottomConstraint = buttonBottomConstraint
 
         NSLayoutConstraint.activate([
             tinkIconView.widthAnchor.constraint(equalToConstant: 40),
@@ -246,8 +252,9 @@ extension CredentialsFormViewController {
 
     private func updateButtonBottomConstraint(_ notification: KeyboardNotification) {
         if let window = view.window {
-            let keyboardFrameHeight = addCredentialFooterView.frame.minY - window.convert(notification.frame, to: view).minY
-            buttonBottomConstraint.constant = max(24, keyboardFrameHeight)
+            // Need to calculate a different keyboard height if client is aggregator becase the footer view is hidden then.
+            let keyboardFrameHeight = (isAggregator ? view.safeAreaLayoutGuide.layoutFrame.maxY : addCredentialFooterView.frame.minY) - window.convert(notification.frame, to: view).minY
+            buttonBottomConstraint?.constant = max(24, keyboardFrameHeight)
             buttonWidthConstraint.constant = view.frame.size.width
             button.rounded = false
             UIView.animate(withDuration: notification.duration) {
@@ -257,7 +264,7 @@ extension CredentialsFormViewController {
     }
 
     private func resetButtonBottomConstraint(_ notification: KeyboardNotification) {
-        buttonBottomConstraint.constant = 24
+        buttonBottomConstraint?.constant = 24
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
         UIView.animate(withDuration: notification.duration) {
