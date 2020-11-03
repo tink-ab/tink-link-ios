@@ -38,6 +38,8 @@ public final class AddBeneficiaryTask: Cancellable {
         /// The payload from the backend can be found in the associated value.
         case credentialsSessionExpired(String?)
         /// The beneficiary could not be found.
+        ///
+        /// The payload from the backend can be found in the associated value.
         case notFound(String)
 
         init?(_ error: Swift.Error) {
