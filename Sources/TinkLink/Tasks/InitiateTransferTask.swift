@@ -210,7 +210,7 @@ public final class InitiateTransferTask: Cancellable {
                 // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
                 // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
                 if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                    payload = (credentials.statusPayload ?? "").isEmpty ? "Please try again later" : ""
+                    payload = (credentials.statusPayload ?? "").isEmpty ? "Please try again later" : (credentials.statusPayload ?? "")
                 } else {
                     payload = credentials.statusPayload ?? ""
                 }
