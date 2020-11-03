@@ -33,7 +33,7 @@ struct AuthenticationUserTypeRow: View {
     }
 }
 
-// TODO: Move this to Core
+// TODO: Move this to TinkLink
 extension ProviderTree.AuthenticationUserTypeNode: Identifiable {
     public var id: String {
         switch authenticationUserType {
