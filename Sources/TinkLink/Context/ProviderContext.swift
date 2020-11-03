@@ -39,7 +39,7 @@ public final class ProviderContext {
     }
 
     init(tink: Tink, providerService: ProviderService) {
-        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `redirectURI` configured.")
+        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `appURI` configured.")
         self.appURI = tink.configuration.appURI!
         self.service = providerService
     }

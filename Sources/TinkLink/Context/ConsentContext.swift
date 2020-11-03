@@ -31,7 +31,7 @@ public final class ConsentContext {
     ///
     /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
-        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `redirectURI` configured.")
+        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `appURI` configured.")
         self.appURI = tink.configuration.appURI!
         self.clientID = tink.configuration.clientID
         self.service = tink.services.authenticationService

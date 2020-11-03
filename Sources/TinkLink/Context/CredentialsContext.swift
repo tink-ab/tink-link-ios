@@ -22,7 +22,7 @@ public final class CredentialsContext {
     }
 
     init(tink: Tink, credentialsService: CredentialsService) {
-        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `redirectURI` configured.")
+        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `appURI` configured.")
         self.appURI = tink.configuration.appURI!
         self.service = credentialsService
         addStoreObservers()
