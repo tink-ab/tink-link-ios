@@ -9,7 +9,7 @@ public final class CredentialsContext {
 
     private var newlyAddedCredentials: [Provider.Name: Credentials] = [:]
 
-    private var cancellables: [String: Cancellable] = [:]
+    private var cancellables: [UUID: Cancellable] = [:]
 
     // MARK: - Creating a Credentials Context
 
@@ -93,7 +93,7 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> Cancellable {
-        let id = UUID().uuidString
+        let id = UUID()
         let task = AddCredentialsTask(
             credentialsService: service,
             completionPredicate: completionPredicate,
@@ -250,7 +250,7 @@ public final class CredentialsContext {
     ) -> Cancellable {
         // TODO: Filter out refreshableItems not supported by provider capabilities.
 
-        let id = UUID().uuidString
+        let id = UUID()
 
         let task = RefreshCredentialsTask(
             credentials: credentials,
@@ -307,7 +307,7 @@ public final class CredentialsContext {
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> Cancellable {
 
-        let id = UUID().uuidString
+        let id = UUID()
 
         let task = UpdateCredentialsTask(
             credentials: credentials,
@@ -386,7 +386,7 @@ public final class CredentialsContext {
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> Cancellable {
 
-        let id = UUID().uuidString
+        let id = UUID()
 
         let task = RefreshCredentialsTask(
             credentials: credentials,
