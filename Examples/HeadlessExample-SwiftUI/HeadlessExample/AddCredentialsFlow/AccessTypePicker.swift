@@ -7,19 +7,27 @@ struct AccessTypePicker: View {
     var body: some View {
         List(accessTypes, id: \.id) { accessType in
             NavigationLink(destination: accessType.makeDestinationView()) {
-                switch accessType.accessType {
-                case .openBanking:
-                    Text("Open Banking")
-                case .other:
-                    Text("Other")
-                case .unknown:
-                    Text("Unknown")
-                @unknown default:
-                    Text("Unknown")
-                }
+                AccessTypeRow(accessType: accessType.accessType)
             }
         }
         .navigationTitle("Choose Access Type")
+    }
+}
+
+struct AccessTypeRow: View {
+    var accessType: Provider.AccessType
+
+    var body: some View {
+        switch accessType {
+        case .openBanking:
+            Text("Open Banking")
+        case .other:
+            Text("Other")
+        case .unknown:
+            Text("Unknown")
+        @unknown default:
+            Text("Unknown")
+        }
     }
 }
 
