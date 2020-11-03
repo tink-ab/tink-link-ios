@@ -1,4 +1,5 @@
 import Foundation
+import TinkCore
 
 /// Use the `ProviderTree` to group providers by financial institution, access type and credentials kind.
 ///
