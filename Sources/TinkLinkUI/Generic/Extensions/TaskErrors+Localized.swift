@@ -50,7 +50,7 @@ extension RefreshCredentialsTask.Error: LocalizedError {
         switch self {
         case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload), .deleted(let payload):
             // TODO: Localize this somehow?
-            return payload
+            return payload ?? Strings.Generic.error
         case .cancelled:
             return nil
         }
