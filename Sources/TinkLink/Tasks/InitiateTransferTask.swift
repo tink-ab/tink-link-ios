@@ -202,23 +202,23 @@ public final class InitiateTransferTask: Cancellable {
                 credentialsStatusPollingTask?.stopPolling()
                 transferStatusPollingTask?.startPolling()
             case .permanentError:
-                throw Error.failed(credentials.statusPayload ?? "")
+                throw Error.failed(credentials.statusPayload)
             case .temporaryError:
-                throw Error.failed(credentials.statusPayload ?? "")
+                throw Error.failed(credentials.statusPayload)
             case .authenticationError:
-                var payload: String
+                var payload: String?
                 // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
                 // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
                 if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                    payload = (credentials.statusPayload ?? "").isEmpty ? "Please try again later" : (credentials.statusPayload ?? "")
+                    payload = (credentials.statusPayload ?? "").isEmpty ? "Please try again later" : credentials.statusPayload
                 } else {
-                    payload = credentials.statusPayload ?? ""
+                    payload = credentials.statusPayload
                 }
                 throw Error.authenticationFailed(payload)
             case .deleted:
-                throw Error.credentialsDeleted(credentials.statusPayload ?? "")
+                throw Error.credentialsDeleted(credentials.statusPayload)
             case .sessionExpired:
-                throw Error.credentialsSessionExpired(credentials.statusPayload ?? "")
+                throw Error.credentialsSessionExpired(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             @unknown default:

@@ -28,13 +28,13 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     /// Error that the `RefreshCredentialsTask` can throw.
     public enum Error: Swift.Error {
         /// The authentication failed. The payload from the backend can be found in the associated value.
-        case authenticationFailed(String)
+        case authenticationFailed(String?)
         /// A temporary failure occurred. The payload from the backend can be found in the associated value.
-        case temporaryFailure(String)
+        case temporaryFailure(String?)
         /// A permanent failure occurred. The payload from the backend can be found in the associated value.
-        case permanentFailure(String)
+        case permanentFailure(String?)
         /// The credentials are deleted. The payload from the backend can be found in the associated value.
-        case deleted(String)
+        case deleted(String?)
         /// The task was cancelled.
         case cancelled
     }
@@ -143,13 +143,13 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             case .sessionExpired:
                 break
             case .authenticationError:
-                throw Error.authenticationFailed(credentials.statusPayload ?? "")
+                throw Error.authenticationFailed(credentials.statusPayload)
             case .permanentError:
-                throw Error.permanentFailure(credentials.statusPayload ?? "")
+                throw Error.permanentFailure(credentials.statusPayload)
             case .temporaryError:
-                throw Error.temporaryFailure(credentials.statusPayload ?? "")
+                throw Error.temporaryFailure(credentials.statusPayload)
             case .deleted:
-                throw Error.deleted(credentials.statusPayload ?? "")
+                throw Error.deleted(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             @unknown default:
