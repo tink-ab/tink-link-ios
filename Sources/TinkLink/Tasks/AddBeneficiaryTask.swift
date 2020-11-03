@@ -15,9 +15,7 @@ public final class AddBeneficiaryTask: Cancellable {
         /// The user needs to be authenticated.
         case authenticating
         /// The credentials are updating.
-        ///
-        /// The payload from the backend can be found in the associated value.
-        case updating(status: String)
+        case updating
     }
 
     /// Error that the `AddBeneficiaryTask` can throw.
@@ -227,7 +225,7 @@ extension AddBeneficiaryTask {
             authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
         case .updating:
             // Need to keep polling here, updated is the state when the authentication is done.
-            progressHandler(.updating(status: credentials.statusPayload ?? ""))
+            progressHandler(.updating)
         case .updated:
             complete(with: .success(credentials))
         case .permanentError:
