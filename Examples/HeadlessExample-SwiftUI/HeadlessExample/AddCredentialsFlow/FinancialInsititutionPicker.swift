@@ -1,5 +1,6 @@
 import SwiftUI
 import TinkLink
+import SDWebImageSwiftUI
 
 struct FinancialInsititutionPicker: View {
     var financialInstitutions: [ProviderTree.FinancialInstitutionNode]
@@ -7,7 +8,13 @@ struct FinancialInsititutionPicker: View {
     var body: some View {
         List(financialInstitutions, id: \.financialInstitution) { financialInstitution in
             NavigationLink(destination: financialInstitution.makeDestinationView()) {
-                Text(financialInstitution.financialInstitution.name)
+                HStack {
+                    WebImage(url: financialInstitution.imageURL)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 32, height: 32)
+                    Text(financialInstitution.financialInstitution.name)
+                }
             }
         }
         .navigationTitle("Choose Financial Institution")

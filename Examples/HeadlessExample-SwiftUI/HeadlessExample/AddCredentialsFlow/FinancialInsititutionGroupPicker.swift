@@ -1,5 +1,6 @@
 import SwiftUI
 import TinkLink
+import SDWebImageSwiftUI
 
 struct FinancialInsititutionGroupPicker: View {
     var financialInstitutionGroups: [ProviderTree.FinancialInstitutionGroupNode]
@@ -7,7 +8,13 @@ struct FinancialInsititutionGroupPicker: View {
     var body: some View {
         List(financialInstitutionGroups) { financialInstitutionGroup in
             NavigationLink(destination: financialInstitutionGroup.destinationView()) {
-                Text(financialInstitutionGroup.displayName)
+                HStack {
+                    WebImage(url: financialInstitutionGroup.imageURL)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 32, height: 32)
+                    Text(financialInstitutionGroup.displayName)
+                }
             }
         }
         .navigationBarTitle("Choose Bank", displayMode: .inline)
