@@ -204,7 +204,7 @@ public struct ProviderTree {
             }
         }
 
-        typealias ID = Identifier<AuthenticationUserTypeNode>
+        public typealias ID = Identifier<AuthenticationUserTypeNode>
 
         init(providers: [Provider]) {
             precondition(!providers.isEmpty)
