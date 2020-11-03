@@ -44,6 +44,8 @@ public final class AddBeneficiaryTask: Cancellable {
             switch error {
             case ServiceError.invalidArgument(let message):
                 self = .invalidBeneficiary(message)
+            case ServiceError.notFound(let message):
+                self = .notFound(message)
             default:
                 return nil
             }
