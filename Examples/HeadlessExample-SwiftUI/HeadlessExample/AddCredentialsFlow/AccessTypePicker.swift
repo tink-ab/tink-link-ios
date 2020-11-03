@@ -6,7 +6,7 @@ struct AccessTypePicker: View {
 
     var body: some View {
         List(accessTypes, id: \.id) { accessType in
-            NavigationLink(destination: destinationView(for: accessType)) {
+            NavigationLink(destination: accessType.destinationView()) {
                 switch accessType.accessType {
                 case .openBanking:
                     Text("Open Banking")
@@ -27,13 +27,15 @@ struct AccessTypePicker_Previews: PreviewProvider {
     }
 }
 
-@ViewBuilder
-func destinationView(for accessType: ProviderTree.AccessTypeNode) -> some View {
-    switch accessType {
-    case .provider(let provider):
-        AddCredentialsView(provider: provider)
-            .navigationTitle(provider.displayName)
-    case .credentialsKinds(let credentialsKinds):
-        CredentialsKindPicker(credentialsKinds: credentialsKinds)
+extension ProviderTree.AccessTypeNode {
+    @ViewBuilder
+    func destinationView() -> some View {
+        switch self {
+        case .provider(let provider):
+            AddCredentialsView(provider: provider)
+                .navigationTitle(provider.displayName)
+        case .credentialsKinds(let credentialsKinds):
+            CredentialsKindPicker(credentialsKinds: credentialsKinds)
+        }
     }
 }

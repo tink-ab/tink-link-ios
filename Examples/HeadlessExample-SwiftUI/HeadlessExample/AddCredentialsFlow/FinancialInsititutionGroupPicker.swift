@@ -6,7 +6,7 @@ struct FinancialInsititutionGroupPicker: View {
 
     var body: some View {
         List(financialInstitutionGroups) { financialInstitutionGroup in
-            NavigationLink(destination: destinationView(for: financialInstitutionGroup)) {
+            NavigationLink(destination: financialInstitutionGroup.destinationView()) {
                 Text(financialInstitutionGroup.displayName)
             }
         }
@@ -20,19 +20,21 @@ struct FinancialInsititutionGroupPicker_Previews: PreviewProvider {
     }
 }
 
-@ViewBuilder
-func destinationView(for financialInstitutionGroup: ProviderTree.FinancialInstitutionGroupNode) -> some View {
-    switch financialInstitutionGroup {
-    case .provider(let provider):
-        AddCredentialsView(provider: provider)
-            .navigationTitle(provider.displayName)
-    case .credentialsKinds(let credentialsKinds):
-        CredentialsKindPicker(credentialsKinds: credentialsKinds)
-    case .accessTypes(let accessTypes):
-        AccessTypePicker(accessTypes: accessTypes)
-    case .authenticationUserTypes(let authenticationUserTypes):
-        AuthenticationUserTypePicker(authenticationUserTypes: authenticationUserTypes)
-    case .financialInstitutions(let financialInstitutions):
-        FinancialInsititutionPicker(financialInstitutions: financialInstitutions)
+extension ProviderTree.FinancialInstitutionGroupNode {
+    @ViewBuilder
+    func destinationView() -> some View {
+        switch self {
+        case .provider(let provider):
+            AddCredentialsView(provider: provider)
+                .navigationTitle(provider.displayName)
+        case .credentialsKinds(let credentialsKinds):
+            CredentialsKindPicker(credentialsKinds: credentialsKinds)
+        case .accessTypes(let accessTypes):
+            AccessTypePicker(accessTypes: accessTypes)
+        case .authenticationUserTypes(let authenticationUserTypes):
+            AuthenticationUserTypePicker(authenticationUserTypes: authenticationUserTypes)
+        case .financialInstitutions(let financialInstitutions):
+            FinancialInsititutionPicker(financialInstitutions: financialInstitutions)
+        }
     }
 }

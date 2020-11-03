@@ -6,7 +6,7 @@ struct AuthenticationUserTypePicker: View {
 
     var body: some View {
         List(authenticationUserTypes, id: \.id) { authenticationUserType in
-            NavigationLink(destination: destinationView(for: authenticationUserType)) {
+            NavigationLink(destination: authenticationUserType.destinationView()) {
                 AuthenticationUserTypeRow(authenticationUserType: authenticationUserType.authenticationUserType)
             }
         }
@@ -49,15 +49,17 @@ struct AuthenticationUserTypePicker_Previews: PreviewProvider {
     }
 }
 
-@ViewBuilder
-func destinationView(for authenticationUserType: ProviderTree.AuthenticationUserTypeNode) -> some View {
-    switch authenticationUserType {
-    case .provider(let provider):
-        AddCredentialsView(provider: provider)
-            .navigationTitle(provider.displayName)
-    case .credentialsKinds(let credentialsKinds):
-        CredentialsKindPicker(credentialsKinds: credentialsKinds)
-    case .accessTypes(let accessTypes):
-        AccessTypePicker(accessTypes: accessTypes)
+extension ProviderTree.AuthenticationUserTypeNode {
+    @ViewBuilder
+    func destinationView() -> some View {
+        switch self {
+        case .provider(let provider):
+            AddCredentialsView(provider: provider)
+                .navigationTitle(provider.displayName)
+        case .credentialsKinds(let credentialsKinds):
+            CredentialsKindPicker(credentialsKinds: credentialsKinds)
+        case .accessTypes(let accessTypes):
+            AccessTypePicker(accessTypes: accessTypes)
+        }
     }
 }
