@@ -46,12 +46,6 @@ extension ProviderTree.AuthenticationUserTypeNode: Identifiable {
     }
 }
 
-struct AuthenticationUserTypePicker_Previews: PreviewProvider {
-    static var previews: some View {
-        AuthenticationUserTypePicker(authenticationUserTypes: [])
-    }
-}
-
 extension ProviderTree.AuthenticationUserTypeNode {
     @ViewBuilder
     func destinationView() -> some View {

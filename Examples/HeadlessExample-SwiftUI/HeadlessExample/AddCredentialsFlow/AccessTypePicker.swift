@@ -23,12 +23,6 @@ struct AccessTypePicker: View {
     }
 }
 
-struct AccessTypePicker_Previews: PreviewProvider {
-    static var previews: some View {
-        AccessTypePicker(accessTypes: [])
-    }
-}
-
 extension ProviderTree.AccessTypeNode {
     @ViewBuilder
     func destinationView() -> some View {

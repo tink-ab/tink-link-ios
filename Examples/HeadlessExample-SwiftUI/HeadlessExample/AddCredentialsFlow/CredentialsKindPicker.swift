@@ -28,9 +28,3 @@ struct CredentialsKindPicker: View {
         .navigationTitle("Choose Credentials Type")
     }
 }
-
-struct CredentialsKindPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        CredentialsKindPicker(credentialsKinds: [])
-    }
-}

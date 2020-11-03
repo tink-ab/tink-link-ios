@@ -14,12 +14,6 @@ struct FinancialInsititutionPicker: View {
     }
 }
 
-struct FinancialInsititutionPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        FinancialInsititutionPicker(financialInstitutions: [])
-    }
-}
-
 extension ProviderTree.FinancialInstitutionNode {
     @ViewBuilder
     func destinationView() -> some View {
