@@ -268,30 +268,6 @@ extension AddBeneficiaryTask {
     }
 }
 
-// MARK: - Awaiting Authentication Helpers
-
-extension AddBeneficiaryTask {
-    private func makeSupplementInformationTask(for credentials: Credentials, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> SupplementInformationTask {
-        return SupplementInformationTask(
-            credentialsService: credentialsService,
-            credentials: credentials,
-            completionHandler: completion
-        )
-    }
-
-    private func makeThirdPartyAppAuthenticationTask(for credentials: Credentials, thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication, completion: @escaping (Result<Void, Swift.Error>) -> Void) throws -> ThirdPartyAppAuthenticationTask {
-
-        return ThirdPartyAppAuthenticationTask(
-            credentials: credentials,
-            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
-            appUri: appUri,
-            credentialsService: credentialsService,
-            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
-            completionHandler: completion
-        )
-    }
-}
-
 // MARK: - Task Completion
 
 extension AddBeneficiaryTask {
