@@ -20,6 +20,8 @@ struct CredentialsKindPicker: View {
                     Text("Fraud")
                 case .unknown:
                     Text("Unknown")
+                @unknown default:
+                    Text("Unknown")
                 }
             }
         }

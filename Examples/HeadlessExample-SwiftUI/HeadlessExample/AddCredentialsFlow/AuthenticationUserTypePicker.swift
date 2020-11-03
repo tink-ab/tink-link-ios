@@ -27,6 +27,8 @@ struct AuthenticationUserTypeRow: View {
             Text("Corporate")
         case .unknown:
             Text("Unknown")
+        @unknown default:
+            Text("Unknown")
         }
     }
 }
@@ -39,6 +41,7 @@ extension ProviderTree.AuthenticationUserTypeNode: Identifiable {
         case .business: return "business"
         case .corporate: return "corporate"
         case .unknown: return "unknown"
+        @unknown default: return "unknown"
         }
     }
 }

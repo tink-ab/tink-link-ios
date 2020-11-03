@@ -14,6 +14,8 @@ struct AccessTypePicker: View {
                     Text("Other")
                 case .unknown:
                     Text("Unknown")
+                @unknown default:
+                    Text("Unknown")
                 }
             }
         }
