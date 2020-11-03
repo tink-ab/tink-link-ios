@@ -206,15 +206,7 @@ public final class InitiateTransferTask: Cancellable {
             case .temporaryError:
                 throw Error.failed(credentials.statusPayload)
             case .authenticationError:
-                var payload: String?
-                // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
-                // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
-                if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                    payload = credentials.statusPayload ?? "Please try again later"
-                } else {
-                    payload = credentials.statusPayload
-                }
-                throw Error.authenticationFailed(payload)
+                throw Error.authenticationFailed(credentials.statusPayload)
             case .deleted:
                 throw Error.credentialsDeleted(credentials.statusPayload)
             case .sessionExpired:
