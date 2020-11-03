@@ -22,7 +22,7 @@ final class CredentialsController {
         progressHandler: @escaping (AddCredentialsTask.Status) -> Void,
         authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
-    ) -> AddCredentialsTask? {
+    ) -> Cancellable? {
         tink._beginUITask()
         return credentialsContext.add(
             for: provider,
@@ -45,7 +45,7 @@ final class CredentialsController {
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
         authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> UpdateCredentialsTask? {
+    ) -> Cancellable? {
         tink._beginUITask()
         return credentialsContext.update(
             credentials,
@@ -68,7 +68,7 @@ final class CredentialsController {
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
         authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> RefreshCredentialsTask {
+    ) -> Cancellable {
         tink._beginUITask()
         return credentialsContext.refresh(
             credentials,
@@ -90,7 +90,7 @@ final class CredentialsController {
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
         authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> AuthenticateCredentialsTask {
+    ) -> Cancellable {
         tink._beginUITask()
         return credentialsContext.authenticate(
             credentials,

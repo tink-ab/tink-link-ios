@@ -91,7 +91,7 @@ public final class CredentialsContext {
         authenticationHandler: @escaping (_ task: AuthenticationTask) -> Void,
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
-    ) -> AddCredentialsTask {
+    ) -> Cancellable {
         let id = UUID().uuidString
         let task = AddCredentialsTask(
             credentialsService: service,
@@ -172,7 +172,7 @@ public final class CredentialsContext {
         authenticationHandler: @escaping (_ task: AuthenticationTask) -> Void,
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
-    ) -> AddCredentialsTask {
+    ) -> Cancellable {
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
 
         return add(forProviderWithName: provider.name, fields: form.makeFields(), refreshableItems: refreshableItems, completionPredicate: completionPredicate, authenticationHandler: authenticationHandler, progressHandler: progressHandler, completion: completion)
@@ -246,7 +246,7 @@ public final class CredentialsContext {
         authenticationHandler: @escaping AuthenticationTaskHandler,
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> RefreshCredentialsTask {
+    ) -> Cancellable {
         // TODO: Filter out refreshableItems not supported by provider capabilities.
 
         let id = UUID().uuidString
@@ -304,7 +304,7 @@ public final class CredentialsContext {
         authenticationHandler: @escaping AuthenticationTaskHandler,
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> UpdateCredentialsTask {
+    ) -> Cancellable {
 
         let id = UUID().uuidString
 
@@ -383,7 +383,7 @@ public final class CredentialsContext {
         authenticationHandler: @escaping AuthenticationTaskHandler,
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> AuthenticateCredentialsTask {
+    ) -> Cancellable {
 
         let id = UUID().uuidString
 
