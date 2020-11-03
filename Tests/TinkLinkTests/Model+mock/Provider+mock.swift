@@ -143,7 +143,7 @@ extension Provider {
         credentialsKind: .password,
         helpText: "Use the same username and password as you would in the bank\'s mobile app.",
         isPopular: true,
-        fields: [FieldSpecification(fieldDescription: "Username", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "username", initialValue: "", pattern: "", patternError: "", helpText: "")],
+        fields: [Field(description: "Username", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "username", initialValue: "", pattern: "", patternError: "", helpText: "")],
         groupDisplayName: "Test Multi-Supplemental",
         image: nil,
         displayDescription: "Password",

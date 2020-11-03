@@ -4,8 +4,8 @@ import XCTest
 
 class FormTests: XCTestCase {
     func testFieldValidation() throws {
-        let fieldSpecification = Provider.FieldSpecification(
-            fieldDescription: "Social security number",
+        let fieldSpecification = Provider.Field(
+            description: "Social security number",
             hint: "YYYYMMDDNNNN",
             maxLength: 12,
             minLength: 12,
@@ -20,7 +20,7 @@ class FormTests: XCTestCase {
             helpText: ""
         )
 
-        var field = Form.Field(fieldSpecification: fieldSpecification)
+        var field = Form.Field(field: fieldSpecification)
 
         do {
             try field.validate()
@@ -58,8 +58,8 @@ class FormTests: XCTestCase {
     }
 
     func testUsernameAndPasswordFieldValidation() throws {
-        let usernameFieldSpecification = Provider.FieldSpecification(
-            fieldDescription: "Username",
+        let usernameFieldSpecification = Provider.Field(
+            description: "Username",
             hint: "",
             maxLength: nil,
             minLength: nil,
@@ -73,8 +73,8 @@ class FormTests: XCTestCase {
             patternError: "",
             helpText: ""
         )
-        let passwordFieldSpecification = Provider.FieldSpecification(
-            fieldDescription: "Password",
+        let passwordFieldSpecification = Provider.Field(
+            description: "Password",
             hint: "",
             maxLength: nil,
             minLength: nil,
@@ -89,7 +89,7 @@ class FormTests: XCTestCase {
             helpText: ""
         )
 
-        var form = Form(fieldSpecifications: [usernameFieldSpecification, passwordFieldSpecification])
+        var form = Form(fields: [usernameFieldSpecification, passwordFieldSpecification])
 
         do {
             try form.validateFields()
@@ -130,8 +130,8 @@ class FormTests: XCTestCase {
     }
 
     func testServiceCodeFieldValidation() throws {
-        let fieldSpecification = Provider.FieldSpecification(
-            fieldDescription: "Service code",
+        let fieldSpecification = Provider.Field(
+            description: "Service code",
             hint: "NNNN",
             maxLength: 4,
             minLength: 4,
@@ -146,7 +146,7 @@ class FormTests: XCTestCase {
             helpText: ""
         )
 
-        var field = Form.Field(fieldSpecification: fieldSpecification)
+        var field = Form.Field(field: fieldSpecification)
 
         do {
             try field.validate()
