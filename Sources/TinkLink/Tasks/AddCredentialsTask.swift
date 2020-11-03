@@ -15,7 +15,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         case authenticating
 
         /// User has been successfully authenticated, now fetching data.
-        case updating(status: String)
+        case updating
     }
 
     /// Error that the `AddCredentialsTask` can throw.
@@ -177,7 +177,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                 if completionPredicate.successPredicate == .updating {
                     complete(with: .success(credentials))
                 } else {
-                    progressHandler(.updating(status: credentials.statusPayload ?? ""))
+                    progressHandler(.updating)
                 }
             case .updated:
                 if completionPredicate.successPredicate == .updated {

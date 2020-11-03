@@ -22,7 +22,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         case authenticating
 
         /// User has been successfully authenticated, now downloading data.
-        case updating(status: String)
+        case updating
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
@@ -137,7 +137,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 }
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
-                progressHandler(.updating(status: credentials.statusPayload ?? ""))
+                progressHandler(.updating)
             case .updated:
                 complete(with: .success(credentials))
             case .sessionExpired:
