@@ -17,6 +17,7 @@
 		6B0C22C3253825B1005B532F /* FinancialInsititutionGroupPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22C2253825B1005B532F /* FinancialInsititutionGroupPicker.swift */; };
 		6B0C22C725382914005B532F /* AddCredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22C625382914005B532F /* AddCredentialsView.swift */; };
 		6B275034253EBE1B004B8FB5 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B275033253EBE1B004B8FB5 /* ButtonTableViewCell.swift */; };
+		6B72CCFD25514E3E00DF9AA7 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B72CCFC25514E3E00DF9AA7 /* SDWebImageSwiftUI */; };
 		6B89772F253ECB6700474F52 /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B89772E253ECB6700474F52 /* TinkLinkUI */; };
 		8F3459BA2396ADEB007DCD75 /* HeadlessExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */; };
 		8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459BD2396ADEB007DCD75 /* ContentView.swift */; };
@@ -76,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B72CCFD25514E3E00DF9AA7 /* SDWebImageSwiftUI in Frameworks */,
 				6B89772F253ECB6700474F52 /* TinkLinkUI in Frameworks */,
 				20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */,
 			);
@@ -219,6 +221,7 @@
 			packageProductDependencies = (
 				20FE0ABC24E5713C006977F4 /* TinkLink */,
 				6B89772E253ECB6700474F52 /* TinkLinkUI */,
+				6B72CCFC25514E3E00DF9AA7 /* SDWebImageSwiftUI */,
 			);
 			productName = PermanentUserProviderSelection;
 			productReference = 8F3459B62396ADEB007DCD75 /* HeadlessExample.app */;
@@ -249,6 +252,7 @@
 			);
 			mainGroup = 8F3459AD2396ADEB007DCD75;
 			packageReferences = (
+				6B72CCFB25514E3E00DF9AA7 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 8F3459B72396ADEB007DCD75 /* Products */;
 			projectDirPath = "";
@@ -495,10 +499,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		6B72CCFB25514E3E00DF9AA7 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		20FE0ABC24E5713C006977F4 /* TinkLink */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TinkLink;
+		};
+		6B72CCFC25514E3E00DF9AA7 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B72CCFB25514E3E00DF9AA7 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		6B89772E253ECB6700474F52 /* TinkLinkUI */ = {
 			isa = XCSwiftPackageProductDependency;
