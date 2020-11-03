@@ -83,6 +83,7 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
+    @discardableResult
     public func add(
         forProviderWithName providerName: Provider.Name,
         fields: [String: String],
