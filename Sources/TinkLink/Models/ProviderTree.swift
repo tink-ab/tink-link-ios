@@ -203,6 +203,22 @@ public struct ProviderTree {
             }
         }
 
+        /// A unique identifier of a `AuthenticationUserTypeNode`.
+        public struct ID: Hashable, ExpressibleByStringLiteral {
+            public init(stringLiteral value: String) {
+                self.value = value
+            }
+
+            /// Creates an instance initialized to the given string value.
+            /// - Parameter value: The value of the new instance.
+            public init(_ value: String) {
+                self.value = value
+            }
+
+            /// The string value of the ID.
+            public let value: String
+        }
+
         init(providers: [Provider]) {
             precondition(!providers.isEmpty)
             if providers.count == 1, let provider = providers.first {
@@ -248,6 +264,8 @@ public struct ProviderTree {
                 return provider
             }
         }
+
+        public var id: ID { ID(significantProvider.id.value) }
 
         fileprivate var significantProvider: Provider {
             switch self {
