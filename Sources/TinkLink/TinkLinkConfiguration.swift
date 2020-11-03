@@ -15,6 +15,7 @@ public struct TinkLinkConfiguration: Configuration {
     public var certificateURL: URL?
 
     public init(clientID: String, appURI: URL, environment: Tink.Environment = .production, certificateURL:URL? = nil) {
+        precondition(appURI.host?.isEmpty ?? false, "Cannot find host in the appURI")
         self.clientID = clientID
         self.appURI = appURI
         self.environment = environment
