@@ -6,7 +6,7 @@ struct FinancialInsititutionPicker: View {
 
     var body: some View {
         List(financialInstitutions, id: \.financialInstitution) { financialInstitution in
-            NavigationLink(destination: financialInstitution.destinationView()) {
+            NavigationLink(destination: financialInstitution.makeDestinationView()) {
                 Text(financialInstitution.financialInstitution.name)
             }
         }
@@ -16,7 +16,7 @@ struct FinancialInsititutionPicker: View {
 
 extension ProviderTree.FinancialInstitutionNode {
     @ViewBuilder
-    func destinationView() -> some View {
+    func makeDestinationView() -> some View {
         switch self {
         case .provider(let provider):
             AddCredentialsView(provider: provider)

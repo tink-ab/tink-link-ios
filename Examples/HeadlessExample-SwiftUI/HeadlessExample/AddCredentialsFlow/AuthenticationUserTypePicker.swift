@@ -6,7 +6,7 @@ struct AuthenticationUserTypePicker: View {
 
     var body: some View {
         List(authenticationUserTypes, id: \.id) { authenticationUserType in
-            NavigationLink(destination: authenticationUserType.destinationView()) {
+            NavigationLink(destination: authenticationUserType.makeDestinationView()) {
                 AuthenticationUserTypeRow(authenticationUserType: authenticationUserType.authenticationUserType)
             }
         }
@@ -48,7 +48,7 @@ extension ProviderTree.AuthenticationUserTypeNode: Identifiable {
 
 extension ProviderTree.AuthenticationUserTypeNode {
     @ViewBuilder
-    func destinationView() -> some View {
+    func makeDestinationView() -> some View {
         switch self {
         case .provider(let provider):
             AddCredentialsView(provider: provider)
