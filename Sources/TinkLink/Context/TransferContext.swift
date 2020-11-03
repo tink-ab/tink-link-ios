@@ -217,6 +217,7 @@ public final class TransferContext {
         name: String,
         to ownerAccount: Account,
         credentials: Credentials? = nil,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
@@ -230,6 +231,7 @@ public final class TransferContext {
             name: name,
             accountNumberType: beneficiaryAccount.accountNumberKind.value,
             accountNumber: beneficiaryAccount.accountNumber,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
