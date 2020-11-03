@@ -32,10 +32,10 @@ public final class InitiateTransferTask: Cancellable {
         ///
         /// The payload from the backend can be found in the associated value.
         case authenticationFailed(String?)
-        /// The credentials are disabled.
+        /// The credentials are deleted.
         ///
         /// The payload from the backend can be found in the associated value.
-        case disabledCredentials(String?)
+        case credentialsDeleted(String?)
         /// The credentials session was expired.
         ///
         /// The payload from the backend can be found in the associated value.
@@ -217,8 +217,8 @@ public final class InitiateTransferTask: Cancellable {
                     payload = credentials.statusPayload ?? ""
                 }
                 throw Error.authenticationFailed(payload)
-            case .disabled:
-                throw Error.disabledCredentials(credentials.statusPayload ?? "")
+            case .deleted:
+                throw Error.credentialsDeleted(credentials.statusPayload ?? "")
             case .sessionExpired:
                 throw Error.credentialsSessionExpired(credentials.statusPayload ?? "")
             case .unknown:
