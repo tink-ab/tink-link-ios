@@ -57,6 +57,8 @@ public final class InitiateTransferTask: Cancellable {
         /// Receipt message
         public let message: String?
     }
+    /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
+    public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
     private(set) var signableOperation: SignableOperation?
 
@@ -74,9 +76,10 @@ public final class InitiateTransferTask: Cancellable {
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private var isCancelled = false
 
-    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, authenticationHandler: @escaping AuthenticationTaskHandler, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
+    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, progressHandler: @escaping (Status) -> Void, authenticationHandler: @escaping AuthenticationTaskHandler, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
         self.transferService = transferService
         self.credentialsService = credentialsService
+        self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired
         self.appUri = appUri
         self.progressHandler = progressHandler
         self.authenticationHandler = authenticationHandler
@@ -183,8 +186,8 @@ public final class InitiateTransferTask: Cancellable {
                 authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication), .awaitingMobileBankIDAuthentication(let thirdPartyAppAuthentication):
                 credentialsStatusPollingTask?.stopPolling()
-                
-                let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false) { [weak self] result in
+
+                let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()

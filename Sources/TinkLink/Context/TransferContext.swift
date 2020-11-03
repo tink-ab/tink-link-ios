@@ -79,6 +79,7 @@ public final class TransferContext {
         to beneficiary: TransferAccountIdentifiable,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
@@ -87,6 +88,7 @@ public final class TransferContext {
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: redirectURI,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
