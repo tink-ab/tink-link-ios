@@ -320,7 +320,7 @@ extension Form {
         var providerForm = Form(fields: provider.fields)
         for (name, value) in updatingCredentials.fields {
             providerForm.fields[name: name]?.text = value
-            providerForm.fields[name: name]?.attributes.isEditable = true
+            providerForm.fields[name: name]?.attributes.isEditable = false
         }
         self = providerForm
     }
