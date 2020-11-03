@@ -12,5 +12,6 @@ struct ProviderPicker: View {
         NavigationView {
             FinancialInsititutionGroupPicker(financialInstitutionGroups: providerTree.financialInstitutionGroups)
         }
+        .listStyle(PlainListStyle())
     }
 }
