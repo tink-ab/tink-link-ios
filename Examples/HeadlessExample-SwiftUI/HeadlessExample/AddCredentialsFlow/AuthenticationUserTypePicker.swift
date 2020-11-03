@@ -33,19 +33,6 @@ struct AuthenticationUserTypeRow: View {
     }
 }
 
-// TODO: Move this to TinkLink
-extension ProviderTree.AuthenticationUserTypeNode: Identifiable {
-    public var id: String {
-        switch authenticationUserType {
-        case .personal: return "personal"
-        case .business: return "business"
-        case .corporate: return "corporate"
-        case .unknown: return "unknown"
-        @unknown default: return "unknown"
-        }
-    }
-}
-
 extension ProviderTree.AuthenticationUserTypeNode {
     @ViewBuilder
     func makeDestinationView() -> some View {
