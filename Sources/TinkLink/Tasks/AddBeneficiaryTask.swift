@@ -24,7 +24,7 @@ public final class AddBeneficiaryTask: Cancellable {
         /// If you get this error, make sure that the parameters for `addBeneficiary` are correct.
         ///
         /// The payload from the backend can be found in the associated value.
-        case invalidBeneficiary(String)
+        case invalidBeneficiary(String?)
         /// The authentication failed.
         ///
         /// The payload from the backend can be found in the associated value.
@@ -40,7 +40,7 @@ public final class AddBeneficiaryTask: Cancellable {
         /// The beneficiary could not be found.
         ///
         /// The payload from the backend can be found in the associated value.
-        case notFound(String)
+        case notFound(String?)
 
         init?(_ error: Swift.Error) {
             switch error {
