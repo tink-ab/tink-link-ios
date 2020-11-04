@@ -14,9 +14,7 @@ public final class InitiateTransferTask: Cancellable {
         /// The user needs to be authenticated.
         case authenticating
         /// The credentials are updating.
-        ///
-        /// The payload from the backend can be found in the associated value.
-        case updating(status: String)
+        case updating
         /// User has been successfully authenticated, the transfer initiation is now being executed.
         case executing(status: String)
     }
@@ -201,29 +199,21 @@ public final class InitiateTransferTask: Cancellable {
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
                 // Need to keep polling here, updated is the state when the authentication is done.
-                progressHandler(.updating(status: credentials.statusPayload ?? ""))
+                progressHandler(.updating)
             case .updated:
                 // Stops polling when the credentials status is updating
                 credentialsStatusPollingTask?.stopPolling()
                 transferStatusPollingTask?.startPolling()
             case .permanentError:
-                throw Error.failed(credentials.statusPayload ?? "")
+                throw Error.failed(credentials.statusPayload)
             case .temporaryError:
-                throw Error.failed(credentials.statusPayload ?? "")
+                throw Error.failed(credentials.statusPayload)
             case .authenticationError:
-                var payload: String
-                // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
-                // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
-                if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                    payload = (credentials.statusPayload ?? "").isEmpty ? "Please try again later" : ""
-                } else {
-                    payload = credentials.statusPayload ?? ""
-                }
-                throw Error.authenticationFailed(payload)
+                throw Error.authenticationFailed(credentials.statusPayload)
             case .deleted:
-                throw Error.credentialsDeleted(credentials.statusPayload ?? "")
+                throw Error.credentialsDeleted(credentials.statusPayload)
             case .sessionExpired:
-                throw Error.credentialsSessionExpired(credentials.statusPayload ?? "")
+                throw Error.credentialsSessionExpired(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             @unknown default:

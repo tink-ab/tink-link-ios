@@ -15,19 +15,19 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         case authenticating
 
         /// User has been successfully authenticated, now fetching data.
-        case updating(status: String)
+        case updating
     }
 
     /// Error that the `AddCredentialsTask` can throw.
     public enum Error: Swift.Error {
         /// The authentication failed. The payload from the backend can be found in the associated value.
-        case authenticationFailed(String)
+        case authenticationFailed(String?)
         /// A temporary failure occurred. The payload from the backend can be found in the associated value.
-        case temporaryFailure(String)
+        case temporaryFailure(String?)
         /// A permanent failure occurred. The payload from the backend can be found in the associated value.
-        case permanentFailure(String)
-        /// The credentials already exists.
-        case credentialsAlreadyExists(String)
+        case permanentFailure(String?)
+        /// The credentials already exists. The payload from the backend can be found in the associated value.
+        case credentialsAlreadyExists(String?)
         /// The task was cancelled.
         case cancelled
 
@@ -177,26 +177,18 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                 if completionPredicate.successPredicate == .updating {
                     complete(with: .success(credentials))
                 } else {
-                    progressHandler(.updating(status: credentials.statusPayload ?? ""))
+                    progressHandler(.updating)
                 }
             case .updated:
                 if completionPredicate.successPredicate == .updated {
                     complete(with: .success(credentials))
                 }
             case .permanentError:
-                complete(with: .failure(AddCredentialsTask.Error.permanentFailure(credentials.statusPayload ?? "")))
+                complete(with: .failure(AddCredentialsTask.Error.permanentFailure(credentials.statusPayload)))
             case .temporaryError:
-                complete(with: .failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload ?? "")))
+                complete(with: .failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload)))
             case .authenticationError:
-                var payload: String
-                // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
-                // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
-                if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                    payload = (credentials.statusPayload ?? "").isEmpty ? "Please try again later" : ""
-                } else {
-                    payload = credentials.statusPayload ?? ""
-                }
-                complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(payload)))
+                complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(credentials.statusPayload)))
             case .deleted:
                 fatalError("credentials shouldn't be disabled during creation.")
             case .sessionExpired:

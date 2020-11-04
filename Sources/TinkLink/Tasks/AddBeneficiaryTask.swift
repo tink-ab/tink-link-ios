@@ -15,9 +15,7 @@ public final class AddBeneficiaryTask: Cancellable {
         /// The user needs to be authenticated.
         case authenticating
         /// The credentials are updating.
-        ///
-        /// The payload from the backend can be found in the associated value.
-        case updating(status: String)
+        case updating
     }
 
     /// Error that the `AddBeneficiaryTask` can throw.
@@ -26,26 +24,30 @@ public final class AddBeneficiaryTask: Cancellable {
         /// If you get this error, make sure that the parameters for `addBeneficiary` are correct.
         ///
         /// The payload from the backend can be found in the associated value.
-        case invalidBeneficiary(String)
+        case invalidBeneficiary(String?)
         /// The authentication failed.
         ///
         /// The payload from the backend can be found in the associated value.
-        case authenticationFailed(String)
+        case authenticationFailed(String?)
         /// The credentials are deleted.
         ///
         /// The payload from the backend can be found in the associated value.
-        case credentialsDeleted(String)
+        case credentialsDeleted(String?)
         /// The credentials session was expired.
         ///
         /// The payload from the backend can be found in the associated value.
-        case credentialsSessionExpired(String)
+        case credentialsSessionExpired(String?)
         /// The beneficiary could not be found.
-        case notFound(String)
+        ///
+        /// The payload from the backend can be found in the associated value.
+        case notFound(String?)
 
         init?(_ error: Swift.Error) {
             switch error {
             case ServiceError.invalidArgument(let message):
                 self = .invalidBeneficiary(message)
+            case ServiceError.notFound(let message):
+                self = .notFound(message)
             default:
                 return nil
             }
@@ -239,27 +241,19 @@ extension AddBeneficiaryTask {
             authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
         case .updating:
             // Need to keep polling here, updated is the state when the authentication is done.
-            progressHandler(.updating(status: credentials.statusPayload ?? ""))
+            progressHandler(.updating)
         case .updated:
             complete(with: .success(credentials))
         case .permanentError:
-            throw Error.authenticationFailed(credentials.statusPayload ?? "")
+            throw Error.authenticationFailed(credentials.statusPayload)
         case .temporaryError:
-            throw Error.authenticationFailed(credentials.statusPayload ?? "")
+            throw Error.authenticationFailed(credentials.statusPayload)
         case .authenticationError:
-            var payload: String
-            // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
-            // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
-            if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                payload = (credentials.statusPayload ?? "").isEmpty ? "Please try again later" : ""
-            } else {
-                payload = credentials.statusPayload ?? ""
-            }
-            throw Error.authenticationFailed(payload)
+            throw Error.authenticationFailed(credentials.statusPayload)
         case .deleted:
-            throw Error.credentialsDeleted(credentials.statusPayload ?? "")
+            throw Error.credentialsDeleted(credentials.statusPayload)
         case .sessionExpired:
-            throw Error.credentialsSessionExpired(credentials.statusPayload ?? "")
+            throw Error.credentialsSessionExpired(credentials.statusPayload)
         case .unknown:
             assertionFailure("Unknown credentials status!")
         @unknown default:

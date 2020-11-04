@@ -269,13 +269,13 @@ extension CredentialsDetailViewController {
                 showStatus("Authenticating…", animated: true)
             }
             credentials = refreshedCredentials
-        case .updating(let status):
+        case .updating:
             if isPresentingQR {
                 dismiss(animated: true) {
-                    self.showStatus(status, animated: true)
+                    self.showStatus("Updating…", animated: true)
                 }
             } else {
-                showStatus(status, animated: true)
+                showStatus("Updating…", animated: true)
             }
             credentials = refreshedCredentials
         }
