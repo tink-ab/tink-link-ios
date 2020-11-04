@@ -320,6 +320,7 @@ public final class TransferContext {
             name: name,
             accountNumberType: beneficiaryAccount.accountNumberKind.value,
             accountNumber: beneficiaryAccount.accountNumber,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: { [weak self] result in
