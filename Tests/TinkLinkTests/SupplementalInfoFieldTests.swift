@@ -1,11 +1,11 @@
-import TinkCore
+@testable import TinkCore
 @testable import TinkLink
 import XCTest
 
 class SupplementalInfoFieldTests: XCTestCase {
     func testSupplementalInfoFieldValidation() {
-        let firstFieldSpecification = Provider.FieldSpecification(
-            fieldDescription: "Security Code",
+        let firstFieldSpecification = Provider.Field(
+            description: "Security Code",
             hint: "",
             maxLength: nil,
             minLength: nil,
@@ -19,8 +19,8 @@ class SupplementalInfoFieldTests: XCTestCase {
             patternError: "",
             helpText: "Login using your Card Reader. Enter the security code and press Ok. Provide the given return code in the input field to continue \n"
         )
-        let secondFieldSpecification = Provider.FieldSpecification(
-            fieldDescription: "Input Code",
+        let secondFieldSpecification = Provider.Field(
+            description: "Input Code",
             hint: "",
             maxLength: nil,
             minLength: nil,

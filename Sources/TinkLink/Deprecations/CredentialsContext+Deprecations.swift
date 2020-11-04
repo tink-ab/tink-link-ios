@@ -19,6 +19,6 @@ extension CredentialsContext {
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> AddCredentialsTask {
-        return add(forProviderWithName: providerName, fields: form.makeFields(), refreshableItems: refreshableItems, completionPredicate: completionPredicate, authenticationHandler: authenticationHandler, progressHandler: progressHandler, completion: completion)
+        return add(forProviderWithName: providerName, fields: form.makeFields(), refreshableItems: refreshableItems, completionPredicate: completionPredicate, authenticationHandler: authenticationHandler, progressHandler: progressHandler, completion: completion) as! AddCredentialsTask
     }
 }

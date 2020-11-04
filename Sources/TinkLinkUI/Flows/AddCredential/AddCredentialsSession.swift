@@ -31,7 +31,7 @@ final class AddCredentialsSession {
     private var isPresenterShowingStatusScreen = true
     private var authorizationGroup = DispatchGroup()
 
-    private var providerName: Provider.ID?
+    private var providerName: Provider.Name?
 
     init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, tinkLinkTracker: TinkLinkTracker, presenter: CredentialsCoordinatorPresenting?) {
         self.presenter = presenter
@@ -83,7 +83,7 @@ final class AddCredentialsSession {
             }
         )
         isPresenterShowingStatusScreen = false
-        providerName = provider.id
+        providerName = provider.name
         addCredentialsMode = mode
         cancelCallback = {
             onCompletion(.failure(TinkLinkError.userCancelled))

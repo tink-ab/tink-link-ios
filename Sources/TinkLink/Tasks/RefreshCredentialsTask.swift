@@ -33,8 +33,8 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         case temporaryFailure(String)
         /// A permanent failure occurred. The payload from the backend can be found in the associated value.
         case permanentFailure(String)
-        /// The credentials are disabled. The payload from the backend can be found in the associated value.
-        case disabled(String)
+        /// The credentials are deleted. The payload from the backend can be found in the associated value.
+        case deleted(String)
         /// The task was cancelled.
         case cancelled
     }
@@ -148,8 +148,8 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 throw Error.permanentFailure(credentials.statusPayload ?? "")
             case .temporaryError:
                 throw Error.temporaryFailure(credentials.statusPayload ?? "")
-            case .disabled:
-                throw Error.disabled(credentials.statusPayload ?? "")
+            case .deleted:
+                throw Error.deleted(credentials.statusPayload ?? "")
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             @unknown default:

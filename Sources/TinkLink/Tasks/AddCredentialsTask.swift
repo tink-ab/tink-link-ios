@@ -197,7 +197,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                     payload = credentials.statusPayload ?? ""
                 }
                 complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(payload)))
-            case .disabled:
+            case .deleted:
                 fatalError("credentials shouldn't be disabled during creation.")
             case .sessionExpired:
                 fatalError("Credential's session shouldn't expire during creation.")

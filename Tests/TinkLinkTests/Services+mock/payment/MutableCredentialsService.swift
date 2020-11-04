@@ -145,7 +145,7 @@ class MutableCredentialsService: CredentialsService {
                 id: credentials.id,
                 providerName: credentials.providerName,
                 kind: credentials.kind,
-                status: .disabled,
+                status: .unknown,
                 fields: credentials.fields
             )
             credentialsByID[id] = updatedCredentials

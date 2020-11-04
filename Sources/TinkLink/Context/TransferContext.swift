@@ -8,6 +8,8 @@ public final class TransferContext {
     private let credentialsService: CredentialsService
     private let providerService: ProviderService
 
+    private var cancellables: [String: Cancellable] = [:]
+
     // MARK: - Creating a Context
 
     /// Creates a context to use for initiating transfers.
@@ -60,8 +62,6 @@ public final class TransferContext {
     /// )
     /// ```
     ///
-    /// - Note: You need to retain the returned task until the transfer has completed.
-    ///
     /// - Parameters:
     ///   - from: The source account of this transfer.
     ///   - to: The beneficiary of this transfer.
@@ -74,23 +74,33 @@ public final class TransferContext {
     ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
+    @discardableResult
     public func initiateTransfer(
         from account: TransferAccountIdentifiable,
         to beneficiary: TransferAccountIdentifiable,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
+        let id = UUID().uuidString
+
         let task = InitiateTransferTask(
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: redirectURI,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progress,
             authenticationHandler: authentication,
-            completionHandler: completion
+            completionHandler: { [weak self] result in
+                completion(result)
+                self?.cancellables[id] = nil
+            }
         )
+
+        cancellables[id] = task
 
         task.canceller = transferService.transfer(
             amount: amount.value,
@@ -196,8 +206,6 @@ public final class TransferContext {
     /// )
     /// ```
     ///
-    /// - Note: You need to retain the returned task until the add beneficiary request has completed.
-    ///
     /// - Parameters:
     ///   - beneficiaryAccount: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
@@ -210,15 +218,19 @@ public final class TransferContext {
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
+    @discardableResult
     public func addBeneficiary(
         account beneficiaryAccount: BeneficiaryAccount,
         name: String,
         to ownerAccount: Account,
         credentials: Credentials? = nil,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
+        let id = UUID().uuidString
+
         let task = AddBeneficiaryTask(
             beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
@@ -228,10 +240,16 @@ public final class TransferContext {
             name: name,
             accountNumberType: beneficiaryAccount.accountNumberKind.value,
             accountNumber: beneficiaryAccount.accountNumber,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progress,
             authenticationHandler: authentication,
-            completionHandler: completion
+            completionHandler: { [weak self] result in
+                completion(result)
+                self?.cancellables[id] = nil
+            }
         )
+
+        cancellables[id] = task
 
         task.start()
 
@@ -269,8 +287,6 @@ public final class TransferContext {
     /// )
     /// ```
     ///
-    /// - Note: You need to retain the returned task until the add beneficiary request has completed.
-    ///
     /// - Parameters:
     ///   - account: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
@@ -283,6 +299,7 @@ public final class TransferContext {
     ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
+    @discardableResult
     public func addBeneficiary(
         account beneficiaryAccount: BeneficiaryAccount,
         name: String,
@@ -292,6 +309,8 @@ public final class TransferContext {
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
+        let id = UUID().uuidString
+
         let task = AddBeneficiaryTask(
             beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
@@ -303,8 +322,13 @@ public final class TransferContext {
             accountNumber: beneficiaryAccount.accountNumber,
             progressHandler: progress,
             authenticationHandler: authentication,
-            completionHandler: completion
+            completionHandler: { [weak self] result in
+                completion(result)
+                self?.cancellables[id] = nil
+            }
         )
+
+        cancellables[id] = task
 
         task.start()
 

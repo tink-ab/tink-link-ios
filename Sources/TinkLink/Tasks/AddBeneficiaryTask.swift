@@ -31,10 +31,10 @@ public final class AddBeneficiaryTask: Cancellable {
         ///
         /// The payload from the backend can be found in the associated value.
         case authenticationFailed(String)
-        /// The credentials are disabled.
+        /// The credentials are deleted.
         ///
         /// The payload from the backend can be found in the associated value.
-        case disabledCredentials(String)
+        case credentialsDeleted(String)
         /// The credentials session was expired.
         ///
         /// The payload from the backend can be found in the associated value.
@@ -51,6 +51,9 @@ public final class AddBeneficiaryTask: Cancellable {
             }
         }
     }
+
+    /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
+    public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
     // MARK: Dependencies
 
@@ -95,6 +98,7 @@ public final class AddBeneficiaryTask: Cancellable {
         name: String,
         accountNumberType: String,
         accountNumber: String,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
         progressHandler: @escaping (Status) -> Void,
         authenticationHandler: @escaping (AuthenticationTask) -> Void,
         completionHandler: @escaping (Result<Void, Swift.Error>) -> Void
@@ -107,6 +111,7 @@ public final class AddBeneficiaryTask: Cancellable {
         self.name = name
         self.accountNumberType = accountNumberType
         self.accountNumber = accountNumber
+        self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired
         self.progressHandler = progressHandler
         self.authenticationHandler = authenticationHandler
         self.completionHandler = completionHandler
@@ -201,7 +206,9 @@ extension AddBeneficiaryTask {
             progressHandler(.authenticating)
         case .awaitingSupplementalInformation:
             credentialsStatusPollingTask?.stopPolling()
-            let task = makeSupplementInformationTask(for: credentials) { [weak self] result in
+            let task = SupplementInformationTask(
+                credentialsService: credentialsService,
+                credentials: credentials) { [weak self] result in
                 do {
                     try result.get()
                     self?.credentialsStatusPollingTask?.startPolling()
@@ -214,7 +221,12 @@ extension AddBeneficiaryTask {
             authenticationHandler(.awaitingSupplementalInformation(task))
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication), .awaitingMobileBankIDAuthentication(let thirdPartyAppAuthentication):
             credentialsStatusPollingTask?.stopPolling()
-            let task = try makeThirdPartyAppAuthenticationTask(for: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication) { [weak self] result in
+            let task = ThirdPartyAppAuthenticationTask(
+                credentials: credentials,
+                thirdPartyAppAuthentication: thirdPartyAppAuthentication,
+                appUri: appUri,
+                credentialsService: credentialsService,
+                shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                 do {
                     try result.get()
                     self?.credentialsStatusPollingTask?.startPolling()
@@ -244,8 +256,8 @@ extension AddBeneficiaryTask {
                 payload = credentials.statusPayload ?? ""
             }
             throw Error.authenticationFailed(payload)
-        case .disabled:
-            throw Error.disabledCredentials(credentials.statusPayload ?? "")
+        case .deleted:
+            throw Error.credentialsDeleted(credentials.statusPayload ?? "")
         case .sessionExpired:
             throw Error.credentialsSessionExpired(credentials.statusPayload ?? "")
         case .unknown:
@@ -253,30 +265,6 @@ extension AddBeneficiaryTask {
         @unknown default:
             assertionFailure("Unknown credentials status!")
         }
-    }
-}
-
-// MARK: - Awaiting Authentication Helpers
-
-extension AddBeneficiaryTask {
-    private func makeSupplementInformationTask(for credentials: Credentials, completion: @escaping (Result<Void, Swift.Error>) -> Void) -> SupplementInformationTask {
-        return SupplementInformationTask(
-            credentialsService: credentialsService,
-            credentials: credentials,
-            completionHandler: completion
-        )
-    }
-
-    private func makeThirdPartyAppAuthenticationTask(for credentials: Credentials, thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication, completion: @escaping (Result<Void, Swift.Error>) -> Void) throws -> ThirdPartyAppAuthenticationTask {
-
-        return ThirdPartyAppAuthenticationTask(
-            credentials: credentials,
-            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
-            appUri: appUri,
-            credentialsService: credentialsService,
-            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
-            completionHandler: completion
-        )
     }
 }
 

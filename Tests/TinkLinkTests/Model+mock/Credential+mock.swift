@@ -31,7 +31,7 @@ extension Credentials {
                 case .thirdPartyAuthentication:
                     return .awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthentication(downloadTitle: "Test download title", downloadMessage: "Test download message", upgradeTitle: "Test upgrade title", upgradeMessage: "Test upgrade message", appStoreURL: nil, scheme: "app", deepLinkURL: URL(string: "testApp://callback")))
                 case .password where self.providerName == "se-test-multi-supplemental":
-                    return .awaitingSupplementalInformation([Provider.FieldSpecification(fieldDescription: "Code", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "code", initialValue: "", pattern: "", patternError: "", helpText: "")])
+                    return .awaitingSupplementalInformation([Provider.Field(description: "Code", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "code", initialValue: "", pattern: "", patternError: "", helpText: "")])
                 default:
                     return .updating
                 }

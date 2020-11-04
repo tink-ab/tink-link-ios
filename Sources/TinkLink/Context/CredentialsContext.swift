@@ -11,6 +11,8 @@ public final class CredentialsContext {
 
     private var newlyAddedCredentials: [Provider.Name: Credentials] = [:]
 
+    private var cancellables: [UUID: Cancellable] = [:]
+
     // MARK: - Creating a Credentials Context
 
     /// Creates a new CredentialsContext for the given Tink instance.
@@ -85,6 +87,7 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
+    @discardableResult
     public func add(
         forProviderWithName providerName: Provider.Name,
         fields: [String: String],
@@ -93,15 +96,20 @@ public final class CredentialsContext {
         authenticationHandler: @escaping (_ task: AuthenticationTask) -> Void,
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
-    ) -> AddCredentialsTask {
+    ) -> Cancellable {
+        let id = UUID()
         let task = AddCredentialsTask(
             credentialsService: service,
             completionPredicate: completionPredicate,
             appUri: redirectURI,
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler, 
-            completion: completion
-        )
+            completion: { [weak self] result in
+                completion(result)
+                self?.cancellables[id] = nil
+            })
+
+        cancellables[id] = task
 
         if let newlyAddedCredentials = newlyAddedCredentials[providerName] {
             task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: redirectURI, callbackURI: nil, fields: fields) { result in
@@ -160,6 +168,7 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
+    @discardableResult
     public func add(
         for provider: Provider,
         form: Form,
@@ -168,7 +177,7 @@ public final class CredentialsContext {
         authenticationHandler: @escaping (_ task: AuthenticationTask) -> Void,
         progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
-    ) -> AddCredentialsTask {
+    ) -> Cancellable {
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
 
         return add(forProviderWithName: provider.name, fields: form.makeFields(), refreshableItems: refreshableItems, completionPredicate: completionPredicate, authenticationHandler: authenticationHandler, progressHandler: progressHandler, completion: completion)
@@ -233,6 +242,7 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been refreshed successfuly or if it failed.
     ///   - result: A result that either contains the refreshed credentials or an error if the refresh failed.
     /// - Returns: The refresh credentials task.
+    @discardableResult
     public func refresh(
         _ credentials: Credentials,
         authenticate: Bool = false,
@@ -241,11 +251,26 @@ public final class CredentialsContext {
         authenticationHandler: @escaping AuthenticationTaskHandler,
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> RefreshCredentialsTask {
+    ) -> Cancellable {
         // TODO: Filter out refreshableItems not supported by provider capabilities.
 
-        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
+        let id = UUID()
 
+        let task = RefreshCredentialsTask(
+            credentials: credentials,
+            credentialsService: service,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
+            appUri: redirectURI,
+            progressHandler: progressHandler,
+            authenticationHandler: authenticationHandler,
+            completion: { [weak self] result in
+                completion(result)
+                self?.cancellables[id] = nil
+            }
+        )
+
+        cancellables[id] = task
+        
         task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
             case .success:
@@ -284,7 +309,10 @@ public final class CredentialsContext {
         authenticationHandler: @escaping AuthenticationTaskHandler,
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> UpdateCredentialsTask {
+    ) -> Cancellable {
+
+        let id = UUID()
+
         let task = UpdateCredentialsTask(
             credentials: credentials,
             credentialsService: service,
@@ -292,8 +320,13 @@ public final class CredentialsContext {
             appUri: redirectURI,
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
-            completion: completion
+            completion: { [weak self] result in
+                completion(result)
+                self?.cancellables[id] = nil
+            }
         )
+
+        cancellables[id] = task
 
         task.callCanceller = service.update(
             id: credentials.id,
@@ -348,14 +381,31 @@ public final class CredentialsContext {
     ///   - completion: The block to execute when the credentials has been authenticated successfuly or if it failed.
     ///   - result: A result representing that the authentication succeeded or an error if failed.
     /// - Returns: The authenticate credentials task.
+    @discardableResult
     public func authenticate(
         _ credentials: Credentials,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authenticationHandler: @escaping AuthenticationTaskHandler,
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> AuthenticateCredentialsTask {
-        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, authenticationHandler: authenticationHandler, completion: completion)
+    ) -> Cancellable {
+
+        let id = UUID()
+
+        let task = RefreshCredentialsTask(
+            credentials: credentials,
+            credentialsService: service,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
+            appUri: redirectURI,
+            progressHandler: progressHandler,
+            authenticationHandler: authenticationHandler,
+            completion: { [weak self] result in
+                completion(result)
+                self?.cancellables[id] = nil
+            }
+        )
+
+        cancellables[id] = task
 
         task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
             switch result {
