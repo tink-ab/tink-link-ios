@@ -2,8 +2,6 @@ import Foundation
 
 /// An object that you use to list, add or modify a user's `Credentials`.
 public final class CredentialsContext {
-    static var registeredConfigurations: [Tink.Configuration] = []
-
     private let redirectURI: URL
     private let service: CredentialsService
     private var credentialThirdPartyCallbackObserver: Any?
@@ -28,7 +26,7 @@ public final class CredentialsContext {
         self.service = credentialsService
         addStoreObservers()
 
-        Self.registeredConfigurations.append(tink.configuration)
+        Tink.registeredConfigurations.append(tink.configuration)
     }
 
     private func addStoreObservers() {
