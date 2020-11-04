@@ -17,8 +17,7 @@ class TinkLinkTracker {
 
     private let version: String = {
         if let infoDictionary = Bundle(for: TinkLinkTracker.self).infoDictionary,
-           let shortVersion = infoDictionary["CFBundleShortVersionString"] as? String
-        {
+           let shortVersion = infoDictionary["CFBundleShortVersionString"] as? String {
             return shortVersion
         } else {
             return "-"
