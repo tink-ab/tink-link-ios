@@ -8,7 +8,10 @@ struct HeadlessExampleApp: App {
     @StateObject private var providerController = ProviderController()
 
     init() {
-        let configuration = try! Tink.Configuration(clientID: "YOUR_CLIENT_ID", redirectURI: URL(string: "link-demo://tink")!)
+        let configuration = TinkLinkConfiguration(
+            clientID: "YOUR_CLIENT_ID",
+            appURI: URL(string: "link-demo://tink")!
+        )
         Tink.configure(with: configuration)
 
         Tink.shared.userSession = .accessToken("YOUR_ACCESS_TOKEN")

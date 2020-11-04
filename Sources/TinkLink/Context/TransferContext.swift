@@ -4,7 +4,7 @@ import Foundation
 public final class TransferContext {
     var retryInterval: TimeInterval = 1.0
 
-    private let redirectURI: URL
+    private let appURI: URL
     private let transferService: TransferService
     private let beneficiaryService: BeneficiaryService
     private let credentialsService: CredentialsService
@@ -24,7 +24,8 @@ public final class TransferContext {
     }
 
     init(tink: Tink, transferService: TransferService, beneficiaryService: BeneficiaryService, credentialsService: CredentialsService, providerService: ProviderService) {
-        self.redirectURI = tink.configuration.redirectURI
+        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `appURI` configured.")
+        self.appURI = tink.configuration.appURI!
         self.transferService = transferService
         self.beneficiaryService = beneficiaryService
         self.credentialsService = credentialsService
@@ -91,7 +92,7 @@ public final class TransferContext {
         let task = InitiateTransferTask(
             transferService: transferService,
             credentialsService: credentialsService,
-            appUri: redirectURI,
+            appUri: appURI,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
@@ -109,7 +110,7 @@ public final class TransferContext {
             sourceMessage: message.source,
             destinationMessage: message.destination,
             dueDate: nil,
-            redirectURI: redirectURI
+            redirectURI: appURI
         ) { [weak task] result in
             do {
                 let signableOperation = try result.get()
@@ -178,7 +179,7 @@ public final class TransferContext {
         let task = InitiateTransferTask(
             transferService: transferService,
             credentialsService: credentialsService,
-            appUri: redirectURI,
+            appUri: appURI,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: completion
@@ -196,7 +197,7 @@ public final class TransferContext {
             sourceMessage: message.source,
             destinationMessage: message.destination,
             dueDate: nil,
-            redirectURI: redirectURI
+            redirectURI: appURI
         ) { [weak task] result in
             do {
                 let signableOperation = try result.get()
@@ -316,7 +317,7 @@ public final class TransferContext {
         let task = AddBeneficiaryTask(
             beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
-            appUri: redirectURI,
+            appUri: appURI,
             ownerAccountID: ownerAccount.id,
             ownerAccountCredentialsID: credentials?.id ?? ownerAccount.credentialsID,
             name: name,
@@ -391,7 +392,7 @@ public final class TransferContext {
         let task = AddBeneficiaryTask(
             beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
-            appUri: redirectURI,
+            appUri: appURI,
             ownerAccountID: ownerAccountID,
             ownerAccountCredentialsID: credentialsID,
             name: name,
