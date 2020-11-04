@@ -4,7 +4,7 @@ import XCTest
 class CredentialsContextTests: XCTestCase {
     var mockedSuccessCredentialsService: CredentialsService!
     var mockedUnauthenticatedErrorCredentialsService: CredentialsService!
-    var task: AddCredentialsTask?
+    var task: Cancellable?
 
     override func setUp() {
         try! Tink.configure(with: .init(clientID: "testID", redirectURI: URL(string: "app://callback")!))
@@ -139,4 +139,39 @@ class CredentialsContextTests: XCTestCase {
             }
         }
     }
+
+    func testAddingCredentialsWithoutRetainingTask() {
+        let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialsService)
+
+        let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
+        let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
+        let statusChangedToUpdating = expectation(description: "add credentials status should be changed to updating")
+
+        let completionPredicate = AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false)
+        
+        credentialsContextUnderTest.add(for: Provider.nordeaPassword, form: Form(provider: Provider.nordeaPassword), completionPredicate: completionPredicate, authenticationHandler: { task in
+            return
+        }, progressHandler: { status in
+            switch status {
+            case .created:
+                statusChangedToCreated.fulfill()
+            case .authenticating:
+                break
+            case .updating:
+                statusChangedToUpdating.fulfill()
+            }
+        }) { result in
+            do {
+                _ = try result.get()
+                addCredentialsCompletionCalled.fulfill()
+            } catch {
+                XCTFail("Failed to create credentials with: \(error)")
+            }
+        }
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }    }
 }
