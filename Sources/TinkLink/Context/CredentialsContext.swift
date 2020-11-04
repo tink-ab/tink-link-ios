@@ -52,7 +52,7 @@ public final class CredentialsContext {
 
     deinit {
         removeObservers()
-        Tink.removeRegisteredConfiguration(for: configurationRegistrationUUID)
+        Tink.deregisterConfiguration(for: configurationRegistrationUUID)
     }
 
     // MARK: - Adding Credentials

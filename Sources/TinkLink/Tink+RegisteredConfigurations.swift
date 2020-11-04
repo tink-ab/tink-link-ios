@@ -9,7 +9,7 @@ extension Tink {
         return uuid
     }
 
-    static func removeRegisteredConfiguration(for uuid: UUID) {
+    static func deregisterConfiguration(for uuid: UUID) {
         configurations[uuid] = nil
     }
 
