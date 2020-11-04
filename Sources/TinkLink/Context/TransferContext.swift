@@ -80,6 +80,7 @@ public final class TransferContext {
         to beneficiary: TransferAccountIdentifiable,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
@@ -90,6 +91,7 @@ public final class TransferContext {
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: redirectURI,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: { [weak self] result in
@@ -222,6 +224,7 @@ public final class TransferContext {
         name: String,
         to ownerAccount: Account,
         credentials: Credentials? = nil,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
@@ -237,6 +240,7 @@ public final class TransferContext {
             name: name,
             accountNumberType: beneficiaryAccount.accountNumberKind.value,
             accountNumber: beneficiaryAccount.accountNumber,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: { [weak self] result in
