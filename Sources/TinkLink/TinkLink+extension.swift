@@ -56,7 +56,7 @@ extension Tink {
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
         else { return false }
 
-        let configurations = Tink.registeredConfigurations.filter({ url.absoluteString.starts(with: $0.redirectURI.absoluteString) })
+        let configurations = Tink.registeredConfigurations(for: url)
 
         if configurations.isEmpty { return false }
 

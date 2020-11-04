@@ -11,6 +11,8 @@ public final class CredentialsContext {
 
     private var cancellables: [UUID: Cancellable] = [:]
 
+    private var configurationRegistrationUUID: UUID
+
     // MARK: - Creating a Credentials Context
 
     /// Creates a new CredentialsContext for the given Tink instance.
@@ -24,9 +26,8 @@ public final class CredentialsContext {
     init(tink: Tink, credentialsService: CredentialsService) {
         self.redirectURI = tink.configuration.redirectURI
         self.service = credentialsService
+        self.configurationRegistrationUUID = Tink.registerConfiguration(tink.configuration)
         addStoreObservers()
-
-        Tink.registeredConfigurations.append(tink.configuration)
     }
 
     private func addStoreObservers() {
@@ -51,6 +52,7 @@ public final class CredentialsContext {
 
     deinit {
         removeObservers()
+        Tink.removeRegisteredConfiguration(for: configurationRegistrationUUID)
     }
 
     // MARK: - Adding Credentials
