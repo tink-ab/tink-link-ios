@@ -11,7 +11,7 @@ public final class CredentialsContext {
 
     private var cancellables: [UUID: Cancellable] = [:]
 
-    private var configurationRegistrationUUID: UUID
+    private let configurationRegistrationUUID: UUID
 
     // MARK: - Creating a Credentials Context
 
