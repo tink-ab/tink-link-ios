@@ -21,7 +21,7 @@ extension AddCredentialsTask.Error: LocalizedError {
         switch self {
         case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload):
             // TODO: Localize this somehow?
-            return payload
+            return payload ?? Strings.Generic.error
         case .credentialsAlreadyExists:
             return Strings.Credentials.Error.credentialsAlreadyExists
         case .cancelled:
