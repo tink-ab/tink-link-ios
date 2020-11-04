@@ -51,7 +51,7 @@ extension RefreshCredentialsTask.Error: LocalizedError {
         case .authenticationFailed(let payload),
              .permanentFailure(let payload),
              .temporaryFailure(let payload),
-             .disabled(let payload):
+             .deleted(let payload):
             return payload
         case .cancelled:
             return nil
