@@ -20,7 +20,6 @@ extension AddCredentialsTask.Error: LocalizedError {
     public var failureReason: String? {
         switch self {
         case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload):
-            // TODO: Localize this somehow?
             return payload ?? Strings.Generic.error
         case .credentialsAlreadyExists:
             return Strings.Credentials.Error.credentialsAlreadyExists
@@ -49,7 +48,6 @@ extension RefreshCredentialsTask.Error: LocalizedError {
     public var failureReason: String? {
         switch self {
         case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload), .deleted(let payload):
-            // TODO: Localize this somehow?
             return payload ?? Strings.Generic.error
         case .cancelled:
             return nil
