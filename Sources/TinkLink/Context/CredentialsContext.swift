@@ -1,6 +1,6 @@
 import Foundation
 
-/// An object that you use to list, add or modify a user's `Credentials`. 
+/// An object that you use to list, add or modify a user's `Credentials`.
 public final class CredentialsContext {
     private let redirectURI: URL
     private let service: CredentialsService
@@ -10,6 +10,8 @@ public final class CredentialsContext {
     private var newlyAddedCredentials: [Provider.Name: Credentials] = [:]
 
     private var cancellables: [UUID: Cancellable] = [:]
+
+    private let configurationRegistrationUUID: UUID
 
     // MARK: - Creating a Credentials Context
 
@@ -24,31 +26,11 @@ public final class CredentialsContext {
     init(tink: Tink, credentialsService: CredentialsService) {
         self.redirectURI = tink.configuration.redirectURI
         self.service = credentialsService
-        addStoreObservers()
-    }
-
-    private func addStoreObservers() {
-        credentialThirdPartyCallbackObserver = NotificationCenter.default.addObserver(forName: .credentialThirdPartyCallback, object: nil, queue: .main) { [weak self] notification in
-            guard let self = self else { return }
-            if let userInfo = notification.userInfo as? [String: String] {
-                var parameters = userInfo
-                let stateParameterName = "state"
-                guard let state = parameters.removeValue(forKey: stateParameterName) else { return }
-                self.thirdPartyCallbackCanceller = self.service.thirdPartyCallback(
-                    state: state,
-                    parameters: parameters,
-                    completion: { _ in }
-                )
-            }
-        }
-    }
-
-    private func removeObservers() {
-        credentialThirdPartyCallbackObserver = nil
+        self.configurationRegistrationUUID = Tink.registerConfiguration(tink.configuration)
     }
 
     deinit {
-        removeObservers()
+        Tink.deregisterConfiguration(for: configurationRegistrationUUID)
     }
 
     // MARK: - Adding Credentials
@@ -414,8 +396,4 @@ public final class CredentialsContext {
 
         return task
     }
-}
-
-extension Notification.Name {
-    static let credentialThirdPartyCallback = Notification.Name("TinkLinkCredentialThirdPartyCallbackNotificationName")
 }
