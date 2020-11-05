@@ -6,15 +6,15 @@ public final class ProviderContext {
     public struct Filter: Hashable {
         /// The capabilities that the providers have.
         public let capabilities: Provider.Capabilities
-        /// The different kinds of providers that should be retreived.
+        /// The different kinds of providers that should be retrieved.
         public let kinds: Set<Provider.Kind>
-        /// The access types that should be retreived.
+        /// The access types that should be retrieved.
         public let accessTypes: Set<Provider.AccessType>
 
-        /// Creates a set of filters that is used to determine which providers should be retreived by a `ProviderContext`.
+        /// Creates a set of filters that is used to determine which providers should be retrieved by a `ProviderContext`.
         /// - Parameter capabilities: The capabilities that the providers have.
-        /// - Parameter kinds: The different kind of providers that should be retreived.
-        /// - Parameter accessTypes: The access types that should be retreived.
+        /// - Parameter kinds: The different kind of providers that should be retrieved.
+        /// - Parameter accessTypes: The access types that should be retrieved.
         public init(capabilities: Provider.Capabilities, kinds: Set<Provider.Kind>, accessTypes: Set<Provider.AccessType>) {
             self.capabilities = capabilities
             self.kinds = kinds
