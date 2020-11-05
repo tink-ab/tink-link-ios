@@ -18,8 +18,8 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
 
     /// Indicates the state of a credentials being refreshed.
     public enum Status {
-        /// When starting the authentication process
-        case authenticating
+        /// The user needs to be authenticated. The payload from the backend can be found in the associated value.
+        case authenticating(String?)
 
         /// User has been successfully authenticated, now downloading data.
         case updating
@@ -110,7 +110,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             case .created:
                 break
             case .authenticating:
-                progressHandler(.authenticating)
+                progressHandler(.authenticating(credentials.statusPayload))
             case .awaitingSupplementalInformation:
                 credentialsStatusPollingTask?.stopPolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
