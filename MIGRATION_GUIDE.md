@@ -1,7 +1,6 @@
 # Migration Guide
 
 ## Tink Link 1.0 
-### TinkLinkUI
 - The `redirectURI` property on `Tink.Configuration` has been renamed to `appURI`.
 - `TinkLinkViewController` has new initializers.
     - If aggregating with a temporary user, pass a `Tink.Configuration` instead of a configured `Tink` instance:
@@ -40,8 +39,6 @@
         }
         ```
 - The method for handling redirects is now a static method. Use `Tink.open(_:completion:)` instead of, for example `Tink.shared.open(_:completion:)`.
-
-### TinkLink
 - The Provider identifier property has been renamed from `id` to `name` and `providerID` to `providerName` when referenced on other models.   
 - Handling authentication callbacks on the different methods in `CredentialsContext` have been moved from the `progressHandler` new closure parameter `authenticationHandler`. This is works the same as authentication is handled in the `TransferContext` and allows you to use the same authentication handling for all credentials operations. 
     ```swift
