@@ -1,7 +1,7 @@
 import UIKit
 
 /// A namespace for custom colors.
-public enum Color {}
+enum Color {}
 
 // Shorthands for readability
 extension Color {
