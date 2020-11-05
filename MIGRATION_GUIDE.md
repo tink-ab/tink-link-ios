@@ -10,7 +10,7 @@
             appURI: URL(string: "tinklink://example")!,
             environment: .production
         )
-        TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes, providerPredicate: .kinds(.all)) { result in
+        TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes) { result in
             print(result)
         }
         ```
