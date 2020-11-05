@@ -17,7 +17,7 @@
     - If aggregating with an access token for an existing user, configure the `userSession` on the `Tink` instance instead of passing it as a parameter when instantiating the `TinkLinkViewController`:
         ```swift
         Tink.shared.userSession = .accessToken("USER_ACCESS_TOKEN")
-        let tinkLinkViewController = TinkLinkViewController(operation: .create(providerPredicate: .kinds(.all))) { result in
+        let tinkLinkViewController = TinkLinkViewController { result in
             print(result)
         }
         ```
