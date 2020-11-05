@@ -47,7 +47,7 @@ public final class ConsentContext {
     /// If aggregating under Tink's license the user must be informed and fully understand what kind of data will be aggregated before aggregating any data.
     ///
     /// ## Showing Scope Descriptions
-    /// Here's how you can list the scope descriptions for requesing access to accounts and transactions.
+    /// Here's how you can list the scope descriptions for requesting access to accounts and transactions.
     ///
     ///     class ScopeDescriptionCell: UITableViewCell {
     ///         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

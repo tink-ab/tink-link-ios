@@ -73,7 +73,7 @@ public struct Form {
         /// This name based subscript returns the first field with the same name, or `nil` if the field is not found.
         ///
         /// - Parameter name: The name of the field to find in the list.
-        /// - Returns: The field associciated with `name` if it exists; otherwise, `nil`.
+        /// - Returns: The field associated with `name` if it exists; otherwise, `nil`.
         public subscript(name fieldName: String) -> Form.Field? {
             get {
                 return fields.first(where: { $0.name == fieldName })
@@ -280,7 +280,7 @@ public struct Form {
         /// This name based subscript returns the first error with the same name, or `nil` if an error is not found.
         ///
         /// - Parameter fieldName: The name of the field to find an error for.
-        /// - Returns: The validation error associciated with `fieldName` if it exists; otherwise, `nil`.
+        /// - Returns: The validation error associated with `fieldName` if it exists; otherwise, `nil`.
         public subscript(fieldName fieldName: String) -> Form.Field.ValidationError? {
             errors.first(where: { $0.fieldName == fieldName })
         }

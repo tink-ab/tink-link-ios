@@ -62,7 +62,7 @@ public final class CredentialsContext {
     ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
-    ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
+    ///   - completion: The block to execute when the credentials has been added successfully or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
     @discardableResult
@@ -143,7 +143,7 @@ public final class CredentialsContext {
     ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
-    ///   - completion: The block to execute when the credentials has been added successfuly or if it failed.
+    ///   - completion: The block to execute when the credentials has been added successfully or if it failed.
     ///   - result: Represents either a successfully added credentials or an error if adding the credentials failed.
     /// - Returns: The add credentials task.
     @discardableResult
@@ -217,7 +217,7 @@ public final class CredentialsContext {
     ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being refreshed.
-    ///   - completion: The block to execute when the credentials has been refreshed successfuly or if it failed.
+    ///   - completion: The block to execute when the credentials has been refreshed successfully or if it failed.
     ///   - result: A result that either contains the refreshed credentials or an error if the refresh failed.
     /// - Returns: The refresh credentials task.
     @discardableResult
@@ -276,7 +276,7 @@ public final class CredentialsContext {
     ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being updated.
-    ///   - completion: The block to execute when the credentials has been updated successfuly or if it failed.
+    ///   - completion: The block to execute when the credentials has been updated successfully or if it failed.
     ///   - result: A result with either an updated credentials if the update succeeded or an error if failed.
     /// - Returns: The update credentials task.
     @discardableResult
@@ -332,7 +332,7 @@ public final class CredentialsContext {
     ///
     /// - Parameters:
     ///   - credentials: The credentials to delete.
-    ///   - completion: The block to execute when the credentials has been deleted successfuly or if it failed.
+    ///   - completion: The block to execute when the credentials has been deleted successfully or if it failed.
     ///   - result: A result representing that the delete succeeded or an error if failed.
     /// - Returns: A cancellation handler.
     @discardableResult
@@ -356,7 +356,7 @@ public final class CredentialsContext {
     ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being authenticated.
-    ///   - completion: The block to execute when the credentials has been authenticated successfuly or if it failed.
+    ///   - completion: The block to execute when the credentials has been authenticated successfully or if it failed.
     ///   - result: A result representing that the authentication succeeded or an error if failed.
     /// - Returns: The authenticate credentials task.
     @discardableResult
