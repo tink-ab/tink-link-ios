@@ -43,7 +43,12 @@
 - Handling authentication callbacks on the different methods in `CredentialsContext` have been moved from the `progressHandler` to the new closure parameter `authenticationHandler`. This works the same as authentication is handled in the `TransferContext` and allows you to use the same authentication handling for all credentials operations. 
     ```swift
     Tink.shared.credentialsContext.refresh(credentials, authenticationHandler: { authenticationTask in
-        // Handle authentication task cases
+        switch authenticationTask {
+        case .awaitingSupplementalInformation(let supplementInformationTask):
+            // Present supplemental information form
+        case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
+            // Open third party app
+        }
     }, completion: { result in
         // Handle result
     })
