@@ -31,7 +31,7 @@
                     let tinkLinkViewController = TinkLinkViewController { result in
                         print(result)
                     }
-                    self.present(tinkLinkViewController, animated: true)
+                    // Present view controller
                 } catch {
                     // Handle error
                 }
