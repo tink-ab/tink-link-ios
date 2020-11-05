@@ -26,7 +26,7 @@ let package = Package(
     targets: [
         .target(
             name: "TinkLink",
-            dependencies: ["TinkCore"],
+            dependencies: [.product(name: "TinkCoreXCFramework", package: "TinkCore")],
             exclude: ["Info.plist"]
         ),
         .testTarget(
@@ -36,7 +36,7 @@ let package = Package(
         ),
         .target(
             name: "TinkLinkUI",
-            dependencies: ["TinkCore", "TinkLink", "Down", "Kingfisher"],
+            dependencies: [.product(name: "TinkCoreXCFramework", package: "TinkCore"), "TinkLink", "Down", "Kingfisher"],
             exclude: ["Generic/Extensions/Bundle+Module.swift", "Info.plist"],
             resources: [.process("Assets.xcassets"), .process("Translations.bundle")]
         ),

@@ -41,6 +41,8 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         }
     }
 
+    var retryInterval: TimeInterval = 1.0
+
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private let authenticationHandler: AuthenticationTaskHandler
@@ -114,7 +116,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         ) { [weak self] result in
             self?.handleUpdate(for: result)
         }
-
+        credentialsStatusPollingTask?.retryInterval = retryInterval
         credentialsStatusPollingTask?.startPolling()
     }
 

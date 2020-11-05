@@ -53,13 +53,13 @@ steps:
   - wait
 
   - name: ':pipeline: Build Carthage Frameworks'
-    command: 'carthage build --platform iOS --no-skip-current'
+    command: 'make build-carthage-frameworks'
     env:
         "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
     agents:
       queue: 'macos'
     soft_fail:
-      - exit_status: 2
+      - exit_status: 1
 
   - wait
 

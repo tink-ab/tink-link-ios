@@ -25,7 +25,6 @@ public final class ProviderContext {
         public static let `default` = Filter(capabilities: .all, kinds: .default, accessTypes: .all)
     }
 
-    private let redirectURI: URL
     private let service: ProviderService
 
     // MARK: - Creating a Context
@@ -35,11 +34,10 @@ public final class ProviderContext {
     /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let service = tink.services.providerService
-        self.init(tink: tink, providerService: service)
+        self.init(providerService: service)
     }
 
-    init(tink: Tink, providerService: ProviderService) {
-        self.redirectURI = tink.configuration.redirectURI
+    init(providerService: ProviderService) {
         self.service = providerService
     }
 

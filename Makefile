@@ -50,7 +50,7 @@ format:
 	swiftformat . 2> /dev/null
 
 test:
-# 	sh scripts/updateCoreForTest.sh
+	scripts/updateCoreForTest.sh
 	xcodebuild clean test \
 		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
@@ -61,10 +61,9 @@ build-carthage-frameworks:
 	export XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig
 	carthage bootstrap --platform iOS --no-use-binaries --derived-data .tmp/carthage/
 	xcodegen generate
-	carthage build TinkLink_iOS TinkLinkUI_iOS --platform iOS --no-skip-current --derived-data .tmp/carthage/
+	carthage build TinkLink_iOS TinkLinkUI_iOS --platform iOS --no-skip-current --no-use-binaries --derived-data .tmp/carthage/
 
 ui-test:
-	carthage bootstrap --platform iOS --no-use-binaries --derived-data .tmp/carthage/
 	xcodegen generate
 	defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
 	xcodebuild test \
@@ -133,6 +132,10 @@ module-interfaces:
 
 	rm -rf ./Module\ Interfaces/
 	mkdir Module\ Interfaces
+
+	# Xcode 12 workaround: https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
+	export XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig
+	carthage bootstrap --platform iOS --no-use-binaries --derived-data .tmp/carthage/
 
 	# Archive with xcodebuild
 	echo 'Build iOS Framework...'

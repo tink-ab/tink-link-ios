@@ -39,6 +39,8 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         case cancelled
     }
 
+    var retryInterval: TimeInterval = 1.0
+
     // MARK: - Retrieving Failure Requirements
 
     /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
@@ -73,7 +75,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     func startObserving() {
         credentialsStatusPollingTask = CredentialsStatusPollingTask(
             id: credentials.id,
-            initialValue: credentials,
+            initialValue: nil, // We always want to catch the first status change
             request: credentialsService.credentials,
             predicate: { (old, new) -> Bool in
                 old.statusUpdated != new.statusUpdated || old.status != new.status
@@ -81,7 +83,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         ) { [weak self] result in
             self?.handleUpdate(for: result)
         }
-
+        credentialsStatusPollingTask?.retryInterval = retryInterval
         credentialsStatusPollingTask?.startPolling()
     }
 
