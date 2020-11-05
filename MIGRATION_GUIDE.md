@@ -42,4 +42,4 @@
 - The method for handling redirects is now a static method. Use `Tink.open(_:completion:)` instead of, for example `Tink.shared.open(_:completion:)`.
 
 ### TinkLink
-- 
+- The Provider identifier property has been renamed from `id` to `name` and `providerID` to `providerName` when referenced on other models.   
