@@ -43,3 +43,11 @@
 
 ### TinkLink
 - The Provider identifier property has been renamed from `id` to `name` and `providerID` to `providerName` when referenced on other models.   
+- Handling authentication callbacks on the different methods in `CredentialsContext` have been moved from the `progressHandler` new closure parameter `authenticationHandler`. This is works the same as authentication is handled in the `TransferContext` and allows you to use the same authentication handling for all credentials operations. 
+    ```swift
+    Tink.shared.credentialsContext.refresh(credentials, authenticationHandler: { authenticationTask in
+        // Handle authentication task cases
+    }, completion: { result in
+        // Handle result
+    })
+    ```
