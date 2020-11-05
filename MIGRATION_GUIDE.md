@@ -7,7 +7,7 @@
         ```swift
         let configuration = Tink.Configuration(
             clientID: "YOUR_CLIENT_ID",
-            appURI: URL(string: "tinklink://example")!,
+            appURI: URL(string: "myapp://callback")!,
             environment: .production
         )
         TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes) { result in
