@@ -4,7 +4,7 @@ import Kingfisher
 final class NavigationTitleImageView: UIView {
     private let navigationTitleLabel = UILabel()
     private let navigationTitleImageView = UIImageView()
-    
+
     init(imageURL: URL?, text: String) {
         super.init(frame: .zero)
 
@@ -27,6 +27,7 @@ final class NavigationTitleImageView: UIView {
     }
 
     private func setup() {
+        navigationTitleLabel.textColor = Color.navigationBarLabel
         navigationTitleLabel.font = Font.headline
         navigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 

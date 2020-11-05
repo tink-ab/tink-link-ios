@@ -25,6 +25,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
     weak var delegate: FormFieldTableViewCellDelegate?
 
     private var viewModel: ViewModel?
+    private lazy var textFieldHeightConstraint = textField.heightAnchor.constraint(equalToConstant: 34)
 
     let footerLabel: UILabel = {
         let label = UILabel()
@@ -76,6 +77,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
             textField.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             textField.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             textField.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            textFieldHeightConstraint,
             textField.bottomAnchor.constraint(equalTo: footerLabel.topAnchor, constant: -8),
             footerLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             footerLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
@@ -86,6 +88,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
     func configure(with viewModel: ViewModel) {
         self.viewModel = viewModel
         textField.configure(with: viewModel)
+        textFieldHeightConstraint.isActive = viewModel.isEditable
         footerLabel.text = viewModel.helpText
         footerLabel.textColor = Color.secondaryLabel
         footerLabel.setLineHeight(lineHeight: 20)

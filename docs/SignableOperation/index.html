@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li></ul></li><li><a href="#nested type aliases">Nested Type Aliases</a><ul><li class="typealias"><a href="#signableoperation.id">ID</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#signableoperation.init(created:credentialsid:id:status:statusmessage:kind:transferid:updated:userid:)">init(created:​credentials​ID:​id:​status:​status​Message:​kind:​transfer​ID:​updated:​user​ID:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#signableoperation.created">created</a></li><li class="variable"><a href="#signableoperation.credentialsid">credentials​ID</a></li><li class="variable"><a href="#signableoperation.id">id</a></li><li class="variable"><a href="#signableoperation.status">status</a></li><li class="variable"><a href="#signableoperation.statusmessage">status​Message</a></li><li class="variable"><a href="#signableoperation.kind">kind</a></li><li class="variable"><a href="#signableoperation.transferid">transfer​ID</a></li><li class="variable"><a href="#signableoperation.updated">updated</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li></ul></li><li><a href="#nested type aliases">Nested Type Aliases</a><ul><li class="typealias"><a href="#signableoperation.id">ID</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#signableoperation.created">created</a></li><li class="variable"><a href="#signableoperation.credentialsid">credentials​ID</a></li><li class="variable"><a href="#signableoperation.id">id</a></li><li class="variable"><a href="#signableoperation.status">status</a></li><li class="variable"><a href="#signableoperation.statusmessage">status​Message</a></li><li class="variable"><a href="#signableoperation.kind">kind</a></li><li class="variable"><a href="#signableoperation.transferid">transfer​ID</a></li><li class="variable"><a href="#signableoperation.updated">updated</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -65,87 +65,6 @@
     <p>A unique identifier of a <code>SignableOperation</code>.</p>
 
 </div>
-</div>
-    </section>
-    <section id="initializers">
-        <h2>Initializers</h2>
-
-        <div role="article" class="initializer" id="signableoperation.init(created:credentialsid:id:status:statusmessage:kind:transferid:updated:userid:)">
-    <h3>
-        <code>init(created:​credentials​ID:​id:​status:​status​Message:​kind:​transfer​ID:​updated:​user​ID:​)</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">created</span>: <span class="type">Date</span>?, <span class="variable">credentialsID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>?, <span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/SignableOperation"><span class="type">SignableOperation</span></a>.<span class="type">ID</span>?, <span class="variable">status</span>: <a href="https://tink-ab.github.io/tink-link-ios/SignableOperation"><span class="type">SignableOperation</span></a>.<span class="type">Status</span>, <span class="variable">statusMessage</span>: <span class="type">String</span>?, <span class="variable">kind</span>: <a href="https://tink-ab.github.io/tink-link-ios/SignableOperation"><span class="type">SignableOperation</span></a>.<span class="type">Kind</span>, <span class="variable">transferID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Transfer"><span class="type">Transfer</span></a>.<span class="type">ID</span>?, <span class="variable">updated</span>: <span class="type">Date</span>?, <span class="variable">userID</span>: <span class="type">User</span>.<span class="type">ID</span>?)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>Creates a signable operation model.</p>
-
-</div>
-<h4>Parameters</h4>
-
-<table class="parameters">
-  <thead hidden>
-  <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-  </tr>
-  </thead>
-  <tbody>
-    <tr>
-    <th>created</th>
-    <td><code class="type">Date?</code></td>
-    <td><p>The timestamp of the creation of the operation.</p>
-</td>
-</tr>
-<tr>
-    <th>credentials​ID</th>
-    <td><code class="type">Credentials.​ID?</code></td>
-    <td><p>The ID of the Credentials used to make the operation.</p>
-</td>
-</tr>
-<tr>
-    <th>id</th>
-    <td><code class="type">Signable​Operation.​ID?</code></td>
-    <td><p>The unique identifier of this operation.</p>
-</td>
-</tr>
-<tr>
-    <th>status</th>
-    <td><code class="type">Signable​Operation.​Status</code></td>
-    <td><p>The transfer status.</p>
-</td>
-</tr>
-<tr>
-    <th>status​Message</th>
-    <td><code class="type">String?</code></td>
-    <td><p>A message with additional information regarding the current status of the transfer.</p>
-</td>
-</tr>
-<tr>
-    <th>kind</th>
-    <td><code class="type">Signable​Operation.​Kind</code></td>
-    <td><p>The type of operation.</p>
-</td>
-</tr>
-<tr>
-    <th>transfer​ID</th>
-    <td><code class="type">Transfer.​ID?</code></td>
-    <td><p>The ID of the actual transfer.</p>
-</td>
-</tr>
-<tr>
-    <th>updated</th>
-    <td><code class="type">Date?</code></td>
-    <td><p>The timestamp of the last update of the operation.</p>
-</td>
-</tr>
-<tr>
-    <th>user​ID</th>
-    <td><code class="type">User.​ID?</code></td>
-    <td><p>The ID of the user making the operation.</p>
-</td>
-</tr>
-  </tbody>
-</table>
 </div>
     </section>
     <section id="properties">
@@ -240,7 +159,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2020-10-15T16:09:42+0200">15 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2020-10-30T15:25:15+0100">30 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

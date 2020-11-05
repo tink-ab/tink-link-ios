@@ -2,6 +2,8 @@ import Foundation
 
 /// An object that you use to list, add or modify a user's `Credentials`.
 public final class CredentialsContext {
+    var retryInterval: TimeInterval = 1.0
+
     private let redirectURI: URL
     private let service: CredentialsService
     private var credentialThirdPartyCallbackObserver: Any?
@@ -58,7 +60,7 @@ public final class CredentialsContext {
     ///   - fields: A dictionary of filled in fields found on the Provider to which the credentials will be created for. Can contain data such as username and password.
     ///   - refreshableItems: The data types to aggregate from the provider. Defaults to all types.
     ///   - completionPredicate: Predicate for when credentials task should complete.
-    ///   - authenticationHandler: The block that will execute when the credentials needs some sort of authentication from the end user. 
+    ///   - authenticationHandler: The block that will execute when the credentials needs some sort of authentication from the end user.
     ///   - task: The authentication task that needs to be handled.
     ///   - progressHandler: The block to execute with progress information about the credential's status.
     ///   - status: Indicates the state of a credentials being added.
@@ -81,12 +83,14 @@ public final class CredentialsContext {
             completionPredicate: completionPredicate,
             appUri: redirectURI,
             progressHandler: progressHandler,
-            authenticationHandler: authenticationHandler, 
+            authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
                 completion(result)
                 self?.cancellables[id] = nil
-            })
+            }
+        )
 
+        task.retryInterval = retryInterval
         cancellables[id] = task
 
         if let newlyAddedCredentials = newlyAddedCredentials[providerName] {
@@ -247,8 +251,8 @@ public final class CredentialsContext {
             }
         )
 
-        cancellables[id] = task
-        
+        cancellables[id] = task task.retryInterval = retryInterval
+
         task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
             case .success:
@@ -288,7 +292,6 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> Cancellable {
-
         let id = UUID()
 
         let task = UpdateCredentialsTask(
@@ -304,6 +307,7 @@ public final class CredentialsContext {
             }
         )
 
+        task.retryInterval = retryInterval
         cancellables[id] = task
 
         task.callCanceller = service.update(
@@ -367,7 +371,6 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> Cancellable {
-
         let id = UUID()
 
         let task = RefreshCredentialsTask(
@@ -383,6 +386,7 @@ public final class CredentialsContext {
             }
         )
 
+        task.retryInterval = retryInterval
         cancellables[id] = task
 
         task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
