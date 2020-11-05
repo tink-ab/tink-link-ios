@@ -36,7 +36,7 @@ public final class TransferContext {
     /// Required scopes:
     ///   - transfer:execute
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
+    /// You need to handle authentication changes in `authentication` to successfully initiate a transfer.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
@@ -71,7 +71,7 @@ public final class TransferContext {
     ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of initiating a transfer.
     ///   - status: Indicates the status of the transfer initiation.
-    ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
+    ///   - completion: The block to execute when the transfer has been initiated successfully or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
     @discardableResult
@@ -181,7 +181,7 @@ public final class TransferContext {
     /// Required scopes:
     /// - beneficiaries:write
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate an add beneficiary request.
+    /// You need to handle authentication changes in `authentication` to successfully initiate an add beneficiary request.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
@@ -215,7 +215,7 @@ public final class TransferContext {
     ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
     ///   - status: Indicates the status of the beneficiary being added.
-    ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
+    ///   - completion: The block to execute when the adding beneficiary has been initiated successfully or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     @discardableResult
@@ -261,7 +261,7 @@ public final class TransferContext {
     /// Required scopes:
     /// - beneficiaries:write
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate an add beneficiary request.
+    /// You need to handle authentication changes in `authentication` to successfully initiate an add beneficiary request.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
@@ -296,7 +296,7 @@ public final class TransferContext {
     ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
     ///   - status: Indicates the status of the beneficiary being added.
-    ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
+    ///   - completion: The block to execute when the adding beneficiary has been initiated successfully or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
     @discardableResult
