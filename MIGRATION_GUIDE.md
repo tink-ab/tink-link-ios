@@ -52,3 +52,7 @@
     })
     ```
 - The associated string value in the `updating` status emitted by the different `progressHandlers` have been removed.  
+- Renamed errors related to deleted credentials:
+    - The `RefreshCredentialsTask.Error.disabled` has been renamed to `RefreshCredentialsTask.Error.deleted`.
+    - The `InitiateTransferTask.Error.disabledCredentials` has been renamed to `InitiateTransferTask.Error.credentialsDeleted`.
+    - The `AddBeneficiaryTask.Error.disabledCredentials` has been renamed to `AddBeneficiaryTask.Error.credentialsDeleted`.
