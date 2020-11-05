@@ -49,6 +49,13 @@
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             // Open third party app
         }
+    }, progressHandler: { status in
+        switch status {
+        case .authenticating:
+            // Show that authentication process has started
+        case .updating:
+            // Show that credentials are updating
+        }
     }, completion: { result in
         // Handle result
     })
