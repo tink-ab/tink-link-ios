@@ -1,6 +1,7 @@
 # Migration Guide
 
 ## Tink Link 1.0 
+### TinkLinkUI
 - The `redirectURI` property on `Tink.Configuration` has been renamed to `appURI`.
 - `TinkLinkViewController` has new initializers.
     - If aggregating with a temporary user, pass a `Tink.Configuration` instead of a configured `Tink` instance:
@@ -39,3 +40,6 @@
         }
         ```
 - The method for handling redirects is now a static method. Use `Tink.open(_:completion:)` instead of, for example `Tink.shared.open(_:completion:)`.
+
+### TinkLink
+- 
