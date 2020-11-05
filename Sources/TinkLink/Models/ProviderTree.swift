@@ -297,10 +297,10 @@ public struct ProviderTree {
                         self = .accessTypes(providersGroupedByAccessType)
                     }
                 } else {
-                    let providersGroupedByAuthenticaitonUserType = providersGroupedByAuthenticationUserTypes.values
+                    let providersGroupedByAuthenticationUserType = providersGroupedByAuthenticationUserTypes.values
                         .map(AuthenticationUserTypeNode.init)
                         .sorted()
-                    self = .authenticationUserTypes(providersGroupedByAuthenticaitonUserType)
+                    self = .authenticationUserTypes(providersGroupedByAuthenticationUserType)
                 }
             }
         }
