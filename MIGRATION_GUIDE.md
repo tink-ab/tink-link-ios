@@ -51,3 +51,4 @@
         // Handle result
     })
     ```
+- The associated string value in the `updating` status emitted by the different `progressHandlers` have been removed.  
