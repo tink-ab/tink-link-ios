@@ -4,7 +4,7 @@ import Foundation
 public final class CredentialsContext {
     var retryInterval: TimeInterval = 1.0
 
-    private let redirectURI: URL
+    private let appURI: URL
     private let service: CredentialsService
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
@@ -26,7 +26,8 @@ public final class CredentialsContext {
     }
 
     init(tink: Tink, credentialsService: CredentialsService) {
-        self.redirectURI = tink.configuration.redirectURI
+        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `redirectURI` configured.")
+        self.appURI = tink.configuration.appURI!
         self.service = credentialsService
         self.configurationRegistrationUUID = Tink.registerConfiguration(tink.configuration)
     }
@@ -81,7 +82,7 @@ public final class CredentialsContext {
         let task = AddCredentialsTask(
             credentialsService: service,
             completionPredicate: completionPredicate,
-            appUri: redirectURI,
+            appUri: appURI,
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
@@ -94,7 +95,7 @@ public final class CredentialsContext {
         cancellables[id] = task
 
         if let newlyAddedCredentials = newlyAddedCredentials[providerName] {
-            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: redirectURI, callbackURI: nil, fields: fields) { result in
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: appURI, callbackURI: nil, fields: fields) { result in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
@@ -104,7 +105,7 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: fields, appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
+            task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: fields, appURI: appURI, callbackURI: nil) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[providerName] = credential
@@ -242,7 +243,7 @@ public final class CredentialsContext {
             credentials: credentials,
             credentialsService: service,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
-            appUri: redirectURI,
+            appUri: appURI,
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
@@ -251,7 +252,8 @@ public final class CredentialsContext {
             }
         )
 
-        cancellables[id] = task task.retryInterval = retryInterval
+        cancellables[id] = task
+        task.retryInterval = retryInterval
 
         task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
@@ -298,7 +300,7 @@ public final class CredentialsContext {
             credentials: credentials,
             credentialsService: service,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
-            appUri: redirectURI,
+            appUri: appURI,
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
@@ -313,7 +315,7 @@ public final class CredentialsContext {
         task.callCanceller = service.update(
             id: credentials.id,
             providerName: credentials.providerName,
-            appURI: redirectURI,
+            appURI: appURI,
             callbackURI: nil,
             fields: form?.makeFields() ?? [:],
             completion: { result in
@@ -377,7 +379,7 @@ public final class CredentialsContext {
             credentials: credentials,
             credentialsService: service,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
-            appUri: redirectURI,
+            appUri: appURI,
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in

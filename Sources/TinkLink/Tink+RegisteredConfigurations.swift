@@ -1,9 +1,9 @@
 import Foundation
 
-private var configurations: [UUID: Tink.Configuration] = [:]
+private var configurations: [UUID: TinkCore.Configuration] = [:]
 
 extension Tink {
-    static func registerConfiguration(_ configuration: Tink.Configuration) -> UUID {
+    static func registerConfiguration(_ configuration: TinkCore.Configuration) -> UUID {
         let uuid = UUID()
         configurations[uuid] = configuration
         return uuid
@@ -13,7 +13,10 @@ extension Tink {
         configurations[uuid] = nil
     }
 
-    static func registeredConfigurations(for url: URL) -> [Tink.Configuration] {
-        configurations.values.filter { url.absoluteString.starts(with: $0.redirectURI.absoluteString) }
+    static func registeredConfigurations(for url: URL) -> [TinkCore.Configuration] {
+        configurations.values.filter { tink in
+            guard let appURI = tink.appURI else { return false }
+            return url.absoluteString.starts(with: appURI.absoluteString)
+        }
     }
 }

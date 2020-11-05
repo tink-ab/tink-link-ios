@@ -3,7 +3,7 @@ import Foundation
 /// An object that you use to authorize for a user with requested scopes.
 public final class AuthorizationContext {
     private let clientID: String
-    private let redirectURI: URL
+    private let appURI: URL
     private let service: AuthenticationService
 
     /// Error that the `AuthorizationContext` can throw.
@@ -27,12 +27,13 @@ public final class AuthorizationContext {
 
     // MARK: - Creating a Context
 
-    /// Creates an `AuthorizationContext` bound to the provided Tink instance. 
+    /// Creates an `AuthorizationContext` bound to the provided Tink instance.
     ///
     /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
+        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `redirectURI` configured.")
+        self.appURI = tink.configuration.appURI!
         self.clientID = tink.configuration.clientID
-        self.redirectURI = tink.configuration.redirectURI
         self.service = tink.services.authenticationService
     }
 
@@ -49,7 +50,7 @@ public final class AuthorizationContext {
     /// - Parameter result: Represents either an authorization code if authorization was successful or an error if authorization failed.
     @discardableResult
     public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
-        return service.authorize(clientID: clientID, redirectURI: redirectURI, scopes: scopes) { result in
+        return service.authorize(clientID: clientID, redirectURI: appURI, scopes: scopes) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not authorize: " + message)
@@ -67,7 +68,7 @@ public final class AuthorizationContext {
     @discardableResult
     public func fetchClientDescription(completion: @escaping (_ result: Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
         let scopes: [Scope] = []
-        return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: redirectURI) { result in
+        return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not get client description: " + message)
