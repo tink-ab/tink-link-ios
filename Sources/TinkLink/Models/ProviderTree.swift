@@ -30,7 +30,7 @@ import TinkCore
 /// ```
 public struct ProviderTree {
 
-    /// The finanicial institution groups.
+    /// The financial institution groups.
     ///
     /// These are the "top" level of the `ProviderTree` and is suitable for displaying in a list where the user needs to select a provider.
     public let financialInstitutionGroups: [FinancialInstitutionGroupNode]
@@ -42,7 +42,7 @@ public struct ProviderTree {
             .map { FinancialInstitutionGroupNode(providers: $0.value) }
     }
 
-    /// Creates a list of all finanicial institutions that is currently in the tree structiure.
+    /// Creates a list of all financial institutions that is currently in the tree structure.
     public func makeFinancialInstitutions() -> [FinancialInstitutionNode] {
         let institutions: [FinancialInstitutionNode] = financialInstitutionGroups.flatMap { node -> [FinancialInstitutionNode] in
             switch node {
