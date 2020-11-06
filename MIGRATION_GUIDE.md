@@ -1,6 +1,8 @@
 # Migration Guide
 
 ## Tink Link 1.0 
+1.0 is the first stable release of Tink Link. This comes with a few changes to make sure it will work great with our other SDK and support new features in the future. 
+
 - The `redirectURI` property on `Tink.Configuration` has been renamed to `appURI`.
 - `TinkLinkViewController` has new initializers.
     - If aggregating with a temporary user, pass a `Tink.Configuration` instead of a configured `Tink` instance:
