@@ -150,7 +150,7 @@ public class TinkLinkViewController: UIViewController {
     ///   - providerKinds: The kind of providers that will be listed.
     ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(configuration: Tink.Configuration, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void) {
+    public init(configuration: Configuration, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void) {
         self.tink = Tink(configuration: configuration)
         self.market = market
         self.scopes = scopes

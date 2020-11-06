@@ -145,7 +145,7 @@ final class CredentialsCoordinator {
                 self.tinkLinkTracker.track(screen: .success)
                 self.presenter?.show(viewController)
             default:
-                self.fetchProvider(with: credentials.providerID) { provider in
+                self.fetchProvider(with: credentials.providerName) { provider in
                     let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .other) { [weak self] in
                         self?.completion(.success((credentials, authorizationCode)))
                     }
