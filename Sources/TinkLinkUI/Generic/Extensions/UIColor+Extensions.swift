@@ -83,4 +83,11 @@ extension UIColor {
     func adjust(_ adjustment: CGFloat) -> UIColor {
         return adjust(red: adjustment, green: adjustment, blue: adjustment, alpha: 0)
     }
+
+    var isLight: Bool {
+        var white: CGFloat = 0.0
+        var alpha: CGFloat = 0.0
+        getWhite(&white, alpha: &alpha)
+        return white > 0.5
+    }
 }

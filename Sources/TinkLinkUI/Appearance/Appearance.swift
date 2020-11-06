@@ -2,7 +2,7 @@ import UIKit
 /// A custom appearance provider.
 ///
 /// If you set a custom appearance provider, all TinkLinkUI views will use
-/// this provider to retreive colors and fonts.
+/// this provider to retrieve colors and fonts.
 ///
 /// You can change the appearance of Tink Link UI to match the rest of your app.
 ///
@@ -24,7 +24,7 @@ public enum Appearance {
     /// A custom color provider.
     ///
     /// If you set a custom color provider, all Tink PFM SDK views will use
-    /// this provider to retreive colors.
+    /// this provider to retrieve colors.
     static var colorProvider: ColorProviding! {
         get {
             customColorProvider ?? defaultProvider.colors
@@ -43,7 +43,7 @@ public enum Appearance {
     /// A custom font provider.
     ///
     /// If you set a custom font provider, all Tink PFM SDK views will use
-    /// this provider to retreive fonts.
+    /// this provider to retrieve fonts.
     static var fontProvider: FontProviding! {
         get {
             customFontProvider ?? defaultProvider.fonts

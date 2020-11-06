@@ -7,7 +7,7 @@ import Foundation
 /// Both must be presented to the user if data is aggregated under Tink's license.
 public final class ConsentContext {
     private let clientID: String
-    private let redirectURI: URL
+    private let appURI: URL
     private let service: AuthenticationService
 
     /// Error that the `ConsentContext` can throw.
@@ -35,8 +35,9 @@ public final class ConsentContext {
     ///
     /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
+        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `redirectURI` configured.")
+        self.appURI = tink.configuration.appURI!
         self.clientID = tink.configuration.clientID
-        self.redirectURI = tink.configuration.redirectURI
         self.service = tink.services.authenticationService
     }
 
@@ -47,7 +48,7 @@ public final class ConsentContext {
     /// If aggregating under Tink's license the user must be informed and fully understand what kind of data will be aggregated before aggregating any data.
     ///
     /// ## Showing Scope Descriptions
-    /// Here's how you can list the scope descriptions for requesing access to accounts and transactions.
+    /// Here's how you can list the scope descriptions for requesting access to accounts and transactions.
     ///
     ///     class ScopeDescriptionCell: UITableViewCell {
     ///         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -117,7 +118,7 @@ public final class ConsentContext {
     /// - Returns: A Cancellable instance. Call cancel() on this instance if you no longer need the result of the request.
     @discardableResult
     public func fetchScopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
-        return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: redirectURI) { result in
+        return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.map(\.scopes).mapError { Error($0) ?? $0 }
             if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
                 assertionFailure("Could not fetch scope descriptions: " + message)

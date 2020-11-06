@@ -2,7 +2,7 @@ import UIKit
 
 extension UINavigationController {
     func setupNavigationBarAppearance() {
-        navigationBar.tintColor = Color.accent
+        navigationBar.tintColor = Color.navigationBarButton
 
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
@@ -15,7 +15,7 @@ extension UINavigationController {
             ]
 
             appearance.shadowColor = Color.separator
-            appearance.backgroundColor = Color.background
+            appearance.backgroundColor = Color.navigationBarBackground
 
             let chevronLayer = ChevronLayer()
             let backIndicatorImage = UIImage.image(from: chevronLayer)
@@ -23,7 +23,7 @@ extension UINavigationController {
 
             appearance.titleTextAttributes = [
                 .font: Font.headline,
-                .foregroundColor: Color.label
+                .foregroundColor: Color.navigationBarLabel
             ]
 
             navigationBar.standardAppearance = appearance
@@ -47,11 +47,13 @@ extension UINavigationController {
 
             navigationBarAppearance.titleTextAttributes = [
                 .font: Font.headline,
-                .foregroundColor: Color.label
+                .foregroundColor: Color.navigationBarLabel
             ]
 
             navigationBar.isTranslucent = false
-            navigationBar.barTintColor = Color.background
+            navigationBar.barTintColor = Color.navigationBarBackground
+
+            navigationBar.barStyle = Color.navigationBarBackground.isLight ? .default : .black
         }
     }
 }

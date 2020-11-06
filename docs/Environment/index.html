@@ -26,64 +26,24 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#environment.production">production</a></li><li class="case"><a href="#environment.custom">custom</a></li></ul></li></ol>
+            <ol/>
         </div>
     </nav>
 
     <main>
         <article>
             <h1>
-    <small>Enumeration</small>
-    <code class="name">Environment</code>
+    <small>Typealias</small>
+    <span class="name">Environment</span>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Environment</span></code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>Represents which endpoints Tink will use.</p>
-
-</div>
-
-    <section id="enumeration cases">
-        <h2>Enumeration Cases</h2>
-
-        <div role="article" class="case" id="environment.production">
-    <h3>
-        <code>production</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">production</span></code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>The production environment.</p>
-
-</div>
-</div>
-<div role="article" class="case" id="environment.custom">
-    <h3>
-        <code>custom</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">custom</span>(<span class="variable">restURL</span>: <span class="type">URL</span>)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>A custom environment.</p>
-
-</div>
-<div class="discussion">
-    <ul>
-<li>
-<p>restURL: The URL for the REST endpoints</p>
-</li>
-</ul>
-
-</div>
-</div>
-    </section>
-
-
-
+<html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">renamed</span>: <span class="string literal">"Tink.Environment"</span>) <span class="keyword">public</span> <span class="keyword">typealias</span> <span class="variable">Environment</span> = <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a>.<span class="type">Environment</span></code></pre></body></html>
         </article>
     </main>
 
     <footer>
         <p>
-    Generated on <time datetime="2020-10-15T16:09:42+0200">15 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2020-10-30T15:25:14+0100">30 October 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

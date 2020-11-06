@@ -42,10 +42,15 @@ public class ColorProvider : TinkLinkUI.ColorProviding {
   public var accent: UIKit.UIColor
   public var warning: UIKit.UIColor
   public var critical: UIKit.UIColor
+  public var navigationBarBackground: UIKit.UIColor?
+  public var navigationBarButton: UIKit.UIColor?
+  public var navigationBarLabel: UIKit.UIColor?
   public init()
   @available(*, deprecated, message: "Use init(accent:background:secondaryBackground:label:secondaryLabel:separator:warning:critical:) instead.")
   public init(background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, groupedBackground: UIKit.UIColor, secondaryGroupedBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, accent: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor)
+  @available(*, deprecated, renamed: "init(accent:accentBackground:background:secondaryBackground:label:secondaryLabel:separator:warning:critical:button:buttonLabel:)")
   public init(accent: UIKit.UIColor, accentBackground: UIKit.UIColor?, background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor, button: UIKit.UIColor? = nil, buttonText: UIKit.UIColor? = nil)
+  public init(accent: UIKit.UIColor, accentBackground: UIKit.UIColor?, background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor, button: UIKit.UIColor? = nil, buttonLabel: UIKit.UIColor? = nil)
   @objc deinit
 }
 public protocol ColorProviding {
@@ -64,6 +69,9 @@ public protocol ColorProviding {
   var secondaryGroupedBackground: UIKit.UIColor { get }
   var warning: UIKit.UIColor { get }
   var critical: UIKit.UIColor { get }
+  var navigationBarBackground: UIKit.UIColor? { get }
+  var navigationBarButton: UIKit.UIColor? { get }
+  var navigationBarLabel: UIKit.UIColor? { get }
 }
 public enum Font {
   case custom(Swift.String)
@@ -156,6 +164,9 @@ public enum TinkLinkError : Swift.Error {
   @available(*, unavailable, renamed: "init(tink:market:scopes:providerPredicate:completion:)")
   convenience public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerKinds: Swift.Set<TinkCore.Provider.Kind>, completion: @escaping (Swift.Result<TinkCore.AuthorizationCode, TinkLinkUI.TinkLinkError>) -> Swift.Void)
   @objc override dynamic public func viewDidLoad()
+  @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @objc get
+  }
   @objc override dynamic public func show(_ vc: UIKit.UIViewController, sender: Any?)
   @objc deinit
   @available(iOS 5.0, *)
