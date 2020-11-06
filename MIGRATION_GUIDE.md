@@ -9,6 +9,7 @@
             clientID: "YOUR_CLIENT_ID",
             appURI: URL(string: "myapp://callback")!
         )
+        let scopes: [Scope] = [.transactions(.read), .accounts(.read)]
         TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes) { result in
             // Handle result
         }
