@@ -10,14 +10,14 @@
             appURI: URL(string: "myapp://callback")!
         )
         TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes) { result in
-            print(result)
+            // Handle result
         }
         ```
     - If aggregating with an access token for an existing user, configure the `userSession` on the `Tink` instance instead of passing it as a parameter when instantiating the `TinkLinkViewController`:
         ```swift
         Tink.shared.userSession = .accessToken("USER_ACCESS_TOKEN")
         let tinkLinkViewController = TinkLinkViewController { result in
-            print(result)
+            // Handle result
         }
         ```
     - If aggregating using an `AuthorizationCode`, authenticate the user before instantiating the `TinkLinkViewController` using the same initializer as above.
