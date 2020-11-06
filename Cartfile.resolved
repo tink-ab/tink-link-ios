@@ -1,3 +1,3 @@
 github "iwasrobbed/Down" "v0.9.4"
-github "tink-ab/tink-core-ios" "0.3.0"
 github "onevcat/Kingfisher" "5.15.7"
+github "tink-ab/tink-core-ios-private" "7f8389c0b36cad26c5eccc9fc5a7d624e7253ce0"
