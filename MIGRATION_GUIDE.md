@@ -68,4 +68,4 @@
     - The `InitiateTransferTask.Error.disabledCredentials` has been renamed to `InitiateTransferTask.Error.credentialsDeleted`.
     - The `AddBeneficiaryTask.Error.disabledCredentials` has been renamed to `AddBeneficiaryTask.Error.credentialsDeleted`.
 
-For more details on what changed in 1.0, read the [changelog](https://github.com/tink-ab/tink-link-ios/releases/tag/1.0.0)
+For more details on what changed in 1.0, read the [changelog](https://github.com/tink-ab/tink-link-ios/releases/tag/1.0.0).
