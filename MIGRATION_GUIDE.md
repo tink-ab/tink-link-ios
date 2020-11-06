@@ -29,7 +29,7 @@
                 DispatchQueue.main.async {
                     Tink.shared.userSession = .accessToken(accessToken.rawValue)
                     let tinkLinkViewController = TinkLinkViewController { result in
-                        print(result)
+                        // Handle result
                     }
                     // Present view controller
                 }
