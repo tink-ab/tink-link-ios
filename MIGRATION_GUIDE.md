@@ -23,7 +23,7 @@
         ```
     - If aggregating using an `AuthorizationCode`, authenticate the user before instantiating the `TinkLinkViewController` using the same initializer as above.
         ```swift
-        Tink.shared.authenticateUser(authorizationCode: AuthorizationCode(authorizationCode)) { (result) in
+        Tink.shared.authenticateUser(authorizationCode: AuthorizationCode(authorizationCode)) { result in
             do {
                 let accessToken = try result.get()
                 DispatchQueue.main.async {
