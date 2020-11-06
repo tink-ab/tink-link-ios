@@ -4,13 +4,13 @@
 1.0 is the first stable release of Tink Link. This comes with a few changes to make sure it will work great with our other SDK and support new features in the future. 
 
 - The `redirectURI` property on `Tink.Configuration` has been renamed to `appURI`.
+    ```swift
+    let configuration = Tink.Configuration(clientID: "YOUR_CLIENT_ID", appURI: URL(string: "myapp://callback")!)
+    Tink.configure(with: configuration)
+    ```
 - `TinkLinkViewController` has new initializers.
     - If aggregating with a temporary user, pass a `Tink.Configuration` instead of a configured `Tink` instance:
         ```swift
-        let configuration = Tink.Configuration(
-            clientID: "YOUR_CLIENT_ID",
-            appURI: URL(string: "myapp://callback")!
-        )
         let scopes: [Scope] = [.transactions(.read), .accounts(.read)]
         let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes) { result in
             // Handle result
