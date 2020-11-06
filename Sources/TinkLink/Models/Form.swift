@@ -304,7 +304,7 @@ extension Form {
     /// - Parameter credential: The credentials to create a form for.
     @available(*, deprecated, message: "Use init(supplementInformationTask:) instead.")
     public init(credentials: Credentials) {
-        if case let .awaitingSupplementalInformation(fields) = credentials.status {
+        if case .awaitingSupplementalInformation(let fields) = credentials.status {
             self.init(fields: fields)
         } else {
             self.init(fields: [])
@@ -331,7 +331,11 @@ extension Form {
     ///
     /// - Parameter supplementInformationTask: The supplemental information task to create a form for.
     public init(supplementInformationTask: SupplementInformationTask) {
-        self.init(credentials: supplementInformationTask.credentials)
+        if case .awaitingSupplementalInformation(let fields) = supplementInformationTask.credentials.status {
+            self.init(fields: fields)
+        } else {
+            self.init(fields: [])
+        }
     }
 }
 

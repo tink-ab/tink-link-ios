@@ -12,7 +12,7 @@ final class CredentialsController {
     func credentials(id: Credentials.ID, completion: @escaping (Result<Credentials, Error>) -> Void) {
         tink._beginUITask()
         defer { tink._endUITask() }
-        credentialsContext.fetchCredentials(with: id, completion: completion)
+        credentialsContext.fetchCredentials(withID: id, completion: completion)
     }
 
     func addCredentials(
