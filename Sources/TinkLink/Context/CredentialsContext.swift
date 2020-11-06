@@ -158,7 +158,7 @@ public final class CredentialsContext {
         refreshableItems: RefreshableItems = .all,
         completionPredicate: AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true),
         authenticationHandler: @escaping (_ task: AuthenticationTask) -> Void,
-        progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void,
+        progressHandler: @escaping (_ status: AddCredentialsTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
     ) -> Cancellable {
         let refreshableItems = refreshableItems.supporting(providerCapabilities: provider.capabilities)
