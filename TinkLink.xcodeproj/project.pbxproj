@@ -24,6 +24,7 @@
 		1579D6D553CC71CD0CE53687 /* TinkNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BBEB7D7B5577D6805F9FF /* TinkNavigationController.swift */; };
 		1647DECF7AD1AB35C4C4D810 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; };
 		168D375B1C204B04F66E4471 /* AddCredentialsStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98C777DDEAE4EACE880C413 /* AddCredentialsStatusViewController.swift */; };
+		180AEF7BD317858DB686EF85 /* ProviderContext+Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60016D18E0F2477E28390D88 /* ProviderContext+Deprecations.swift */; };
 		193935507B93B053F6B8AE99 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91719FA2AD2BD7D36D7E1D46 /* TinkCore.framework */; };
 		1DE567E8E9B649BFE155AFBC /* TinkLinkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3532584CB0DB179EA152708D /* TinkLinkUITests.swift */; };
 		1E227F510CC0B5E09AE51CDF /* CredentialsKindPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EFF1CEAFF89E124C00BEBA /* CredentialsKindPickerViewController.swift */; };
@@ -110,6 +111,7 @@
 		65CD854D310128E5E540942E /* InteractionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2E0DE29DE4BBE606CE003 /* InteractionEvent.swift */; };
 		6829A11CEEEC398E7A3425B5 /* ConsentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FECFCD8AB8B77F497B3735 /* ConsentContext.swift */; };
 		69D8E6CFBA5838AE0972C407 /* ProviderService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE87D565B53F32B26FAF711E /* ProviderService+mock.swift */; };
+		6AA5625A1FCEA20461C0F6BF /* ProviderContext+Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60016D18E0F2477E28390D88 /* ProviderContext+Deprecations.swift */; };
 		71F330533B07851FA1BFB98E /* TinkCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91719FA2AD2BD7D36D7E1D46 /* TinkCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		72414246A2E3BB76CAB5A161 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7301A7AF1553F901C72BE367 /* ProviderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7D63EB1C5FDD6E6C5A1C22 /* ProviderContext.swift */; };
@@ -400,6 +402,7 @@
 		5B59989E0FD59138A1D58890 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		5D7D63EB1C5FDD6E6C5A1C22 /* ProviderContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderContext.swift; sourceTree = "<group>"; };
 		5D8F0E74F55533422AF9DCFB /* UIApplication+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+mock.swift"; sourceTree = "<group>"; };
+		60016D18E0F2477E28390D88 /* ProviderContext+Deprecations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderContext+Deprecations.swift"; sourceTree = "<group>"; };
 		6036427A69D61749D8C7A729 /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
 		6124C5F0D50E821710FE5725 /* SecCertificate+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecCertificate+Swift.swift"; sourceTree = "<group>"; };
 		61424D2D2E89A7F484162945 /* LegalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViewController.swift; sourceTree = "<group>"; };
@@ -1083,6 +1086,7 @@
 			isa = PBXGroup;
 			children = (
 				6980BB60248296189705F9CC /* CredentialsContext+Deprecations.swift */,
+				60016D18E0F2477E28390D88 /* ProviderContext+Deprecations.swift */,
 			);
 			path = Deprecations;
 			sourceTree = "<group>";
@@ -1455,6 +1459,7 @@
 				DA308D212179F827E9781239 /* MultiCanceller.swift in Sources */,
 				101C976C8AA0E5EE3D12F360 /* PollingTask.swift in Sources */,
 				45D631C6C7EE6577F101D9BA /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */,
+				6AA5625A1FCEA20461C0F6BF /* ProviderContext+Deprecations.swift in Sources */,
 				43E964B59FC78CA66E3644BA /* ProviderContext.swift in Sources */,
 				C8C36A57E2E637FD499B38BA /* ProviderTree.swift in Sources */,
 				49273CB6A5A24128CFDDAE6F /* RefreshCredentialsTask.swift in Sources */,
@@ -1497,6 +1502,7 @@
 				D4FCD40CB91FCA7E12A83E4E /* MultiCanceller.swift in Sources */,
 				93217DF9BF12B98A04E73C81 /* PollingTask.swift in Sources */,
 				5F754A43EEDD0AE7938C8042 /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */,
+				180AEF7BD317858DB686EF85 /* ProviderContext+Deprecations.swift in Sources */,
 				7301A7AF1553F901C72BE367 /* ProviderContext.swift in Sources */,
 				0AD80F46344ABC35DBEABB5C /* ProviderTree.swift in Sources */,
 				F5512E9C8B0BBC1AFA919F21 /* RefreshCredentialsTask.swift in Sources */,
