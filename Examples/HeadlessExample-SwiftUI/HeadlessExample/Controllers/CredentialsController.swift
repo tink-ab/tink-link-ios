@@ -36,7 +36,7 @@ final class CredentialsController: ObservableObject {
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
             }
-        )
+        ) as? RefreshCredentialsTask
     }
 
     func performAuthentication(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -52,7 +52,7 @@ final class CredentialsController: ObservableObject {
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
             }
-        )
+        ) as? RefreshCredentialsTask
     }
 
     func cancelRefresh() {
