@@ -33,7 +33,7 @@ extension FinancialInstitutionGroupPickerViewController {
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
 
-        providerContext.fetchProviders(filter: .default) { [weak self] result in
+        providerContext.fetchProviders { [weak self] result in
             do {
                 let providers = try result.get()
                 let tree = ProviderTree(providers: providers)
