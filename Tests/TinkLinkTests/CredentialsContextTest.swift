@@ -144,7 +144,7 @@ class CredentialsContextTests: XCTestCase {
     }
 
     func testRefreshCredentialsAlreadyRefreshed() {
-        let credentials = Credentials.makeTestCredentials(providerID: "test", kind: .password, status: .updated)
+        let credentials = Credentials.makeTestCredentials(providerName: "test", kind: .password, status: .updated)
         let service = MutableCredentialsService(credentialsList: [credentials])
 
         service.credentialsStatusAfterRefresh = .updated
