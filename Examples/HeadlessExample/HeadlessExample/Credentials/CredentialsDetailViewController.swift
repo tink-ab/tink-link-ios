@@ -209,7 +209,7 @@ extension CredentialsDetailViewController {
                     self?.handleCompletion(result)
                 }
             }
-        )
+        ) as? RefreshCredentialsTask
     }
 
     private func update() {
@@ -249,7 +249,7 @@ extension CredentialsDetailViewController {
                     self?.handleCompletion(result)
                 }
             }
-        )
+        ) as? RefreshCredentialsTask
     }
 
     private var isPresentingQR: Bool {
