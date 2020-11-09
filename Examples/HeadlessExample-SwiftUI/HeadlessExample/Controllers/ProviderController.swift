@@ -7,7 +7,7 @@ final class ProviderController: ObservableObject {
     private var providerContext = Tink.shared.providerContext
 
     func performFetch() {
-        providerContext.fetchProviders(filter: .default) { [weak self] result in
+        providerContext.fetchProviders { [weak self] result in
             do {
                 let providers = try result.get()
                 DispatchQueue.main.async {
