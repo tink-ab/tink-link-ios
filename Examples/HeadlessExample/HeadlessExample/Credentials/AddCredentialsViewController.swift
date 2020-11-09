@@ -16,7 +16,7 @@ final class AddCredentialsViewController: UITableViewController {
 
     private var credentials: Credentials?
 
-    private var addCredentialsTask: AddCredentialsTask?
+    private var addCredentialsTask: Cancellable?
     private var statusViewController: StatusViewController?
     private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private var didFirstFieldBecomeFirstResponder = false
