@@ -11,8 +11,8 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         /// Initial status
         case created(Credentials.ID)
 
-        /// The user needs to be authenticated.
-        case authenticating
+        /// The user needs to be authenticated. The payload from the backend can be found in the associated value.
+        case authenticating(String?)
 
         /// User has been successfully authenticated, now fetching data.
         case updating
@@ -147,7 +147,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
             case .created:
                 progressHandler(.created(credentials.id))
             case .authenticating:
-                progressHandler(.authenticating)
+                progressHandler(.authenticating(credentials.statusPayload))
             case .awaitingSupplementalInformation:
                 credentialsStatusPollingTask?.stopPolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in

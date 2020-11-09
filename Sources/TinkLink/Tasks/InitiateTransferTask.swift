@@ -12,7 +12,9 @@ public final class InitiateTransferTask: Cancellable {
         /// The transfer request has been created.
         case created(Transfer.ID)
         /// The user needs to be authenticated.
-        case authenticating
+        ///
+        /// The payload from the backend can be found in the associated value.
+        case authenticating(String?)
         /// The credentials are updating.
         case updating
         /// User has been successfully authenticated, the transfer initiation is now being executed.
@@ -174,7 +176,7 @@ public final class InitiateTransferTask: Cancellable {
             switch credentials.status {
             case .created: break
             case .authenticating:
-                progressHandler(.authenticating)
+                progressHandler(.authenticating(credentials.statusPayload))
             case .awaitingSupplementalInformation:
                 credentialsStatusPollingTask?.stopPolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in

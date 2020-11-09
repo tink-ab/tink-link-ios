@@ -174,8 +174,10 @@ final class AddCredentialsSession {
 
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
         switch status {
-        case .created, .authenticating:
+        case .created:
             break
+        case .authenticating(let payload):
+            showUpdating(status: payload ?? Strings.CredentialsStatus.authorizing)
         case .updating:
             let status: String
             if let providerName = providerName, let bankName = providerController.provider(providerName: providerName)?.displayName {
@@ -191,8 +193,8 @@ final class AddCredentialsSession {
 
     private func handleUpdateTaskStatus(_ status: UpdateCredentialsTask.Status) {
         switch status {
-        case .authenticating:
-            break
+        case .authenticating(let payload):
+            showUpdating(status: payload ?? Strings.CredentialsStatus.authorizing)
         case .updating:
             let status: String
             if let providerName = providerName, let bankName = providerController.provider(providerName: providerName)?.displayName {

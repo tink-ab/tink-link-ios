@@ -13,7 +13,9 @@ public final class AddBeneficiaryTask: Cancellable {
         /// The adding beneficiary request has been sent.
         case requestSent
         /// The user needs to be authenticated.
-        case authenticating
+        ///
+        /// The payload from the backend can be found in the associated value.
+        case authenticating(String?)
         /// The credentials are updating.
         case updating
     }
@@ -207,7 +209,7 @@ extension AddBeneficiaryTask {
         case .created:
             break
         case .authenticating:
-            progressHandler(.authenticating)
+            progressHandler(.authenticating(credentials.statusPayload))
         case .awaitingSupplementalInformation:
             credentialsStatusPollingTask?.stopPolling()
             let task = SupplementInformationTask(
