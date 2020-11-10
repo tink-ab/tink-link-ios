@@ -522,7 +522,7 @@ extension TinkLinkViewController {
             do {
                 let provider = try result.get()
                 self?.showAddCredentials(for: provider)
-            } catch TinkLinkError.userCancelled {
+            } catch let error as TinkLinkError where error == .userCancelled {
                 self?.cancel()
             } catch {
                 self?.showAlert(for: error)

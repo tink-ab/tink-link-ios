@@ -125,7 +125,7 @@ final class CredentialsCoordinator {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }
-        } catch TinkLinkError.userCancelled {
+        } catch let error as TinkLinkError where error == .userCancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }
@@ -256,7 +256,7 @@ extension CredentialsCoordinator {
         } else {
             let okAction = UIAlertAction(title: Strings.Generic.dismiss, style: .default) { _ in
                 if self.callCompletionOnError {
-                    self.completion(.failure(.unableToOpenThirdPartyApp(thirdPartyAppAuthenticationError)))
+                    self.completion(.failure(.unableToOpenThirdPartyApp))
                 }
             }
             alertController.addAction(okAction)
