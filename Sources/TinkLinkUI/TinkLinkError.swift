@@ -1,24 +1,42 @@
 import Foundation
 import TinkLink
 
-/// An error returned by TinkLinkUI when something went wrong during the aggregation.
-public enum TinkLinkError: Error {
+public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
+    private enum TinkLinkErrorCode: Int {
+        case userCancelled = 1
+        case unableToFetchProviders
+        case missingInternetConnection
+        case credentialsNotFound
+        case providerNotFound
+        case unableToOpenThirdPartyApp
+        case unauthenticated
+        case internalError
+    }
+
+    private var code: TinkLinkErrorCode
+
+    private init(code: TinkLinkErrorCode) {
+        self.code = code
+    }
+
+    public var description: String {
+        return "TinkLinkError.\(String(describing: self.code))"
+    }
+
     /// User cancelled the flow.
-    case userCancelled
+    public static let userCancelled: TinkLinkError = .init(code: .userCancelled)
     /// Unable to fetch providers.
-    case unableToFetchProviders
-    /// Lost internet connection.
-    case missingInternetConnection
+    public static let unableToFetchProviders: TinkLinkError = .init(code: .unableToFetchProviders)
+    /// Unable to fetch providers.
+    public static let missingInternetConnection: TinkLinkError = .init(code: .missingInternetConnection)
     /// The credentials could not be found.
-    case credentialsNotFound
+    public static let credentialsNotFound: TinkLinkError = .init(code: .credentialsNotFound)
     /// The provider could not be found.
-    case providerNotFound
+    public static let providerNotFound: TinkLinkError = .init(code: .providerNotFound)
     /// Tink Link was not able to open the third party app.
-    case unableToOpenThirdPartyApp(ThirdPartyAppAuthenticationTask.Error)
-
-    case unauthenticated
-
-    case internalError
+    public static let unableToOpenThirdPartyApp: TinkLinkError = .init(code: .unableToOpenThirdPartyApp)
+    public static let unauthenticated: TinkLinkError = .init(code: .unauthenticated)
+    public static let internalError: TinkLinkError = .init(code: .internalError)
 
     init?(error: Error) {
         if let error = error as? ProviderController.Error {
