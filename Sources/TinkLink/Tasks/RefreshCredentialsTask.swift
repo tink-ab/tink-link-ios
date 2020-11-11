@@ -26,17 +26,51 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
-    public enum Error: Swift.Error {
+    public struct Error: Swift.Error {
+        public struct Code: Equatable, RawRepresentable {
+            public let rawValue: Int
+
+            public init?(rawValue: Int) {
+                guard (Self.authenticationFailed.rawValue...Self.cancelled.rawValue).contains(rawValue) else { return nil }
+                self.rawValue = rawValue
+            }
+
+            private init(value: Int) {
+                self.rawValue = value
+            }
+
+            public static let authenticationFailed = Self(value: 1)
+            public static let temporaryFailure = Self(value: 2)
+            public static let permanentFailure = Self(value: 3)
+            public static let deleted = Self(value: 4)
+            public static let cancelled = Self(value: 5)
+        }
+        public var code: Code
+        public var message: String?
+
         /// The authentication failed. The payload from the backend can be found in the associated value.
-        case authenticationFailed(String?)
+        public static let authenticationFailed = Self(code: .authenticationFailed)
         /// A temporary failure occurred. The payload from the backend can be found in the associated value.
-        case temporaryFailure(String?)
+        public static let temporaryFailure = Self(code: .temporaryFailure)
         /// A permanent failure occurred. The payload from the backend can be found in the associated value.
-        case permanentFailure(String?)
+        public static let permanentFailure = Self(code: .permanentFailure)
         /// The credentials are deleted. The payload from the backend can be found in the associated value.
-        case deleted(String?)
+        public static let deleted = Self(code: .deleted)
         /// The task was cancelled.
-        case cancelled
+        public static let cancelled = Self(code: .cancelled)
+
+        static func authenticationFailed(_ message: String?) -> Self {
+            .init(code: Self.authenticationFailed.code, message: message)
+        }
+        static func temporaryFailure(_ message: String?) -> Self {
+            .init(code: Self.temporaryFailure.code, message: message)
+        }
+        static func permanentFailure(_ message: String?) -> Self {
+            .init(code: Self.permanentFailure.code, message: message)
+        }
+        static func deleted(_ message: String?) -> Self {
+            .init(code: Self.deleted.code, message: message)
+        }
     }
 
     var retryInterval: TimeInterval = 1.0
