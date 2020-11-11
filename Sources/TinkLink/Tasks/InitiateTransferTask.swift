@@ -27,27 +27,60 @@ public final class InitiateTransferTask: Cancellable {
     public typealias AuthenticationTask = TinkLink.AuthenticationTask
 
     /// Error that the `InitiateTransferTask` can throw.
-    public enum Error: Swift.Error {
+    public struct Error: Swift.Error {
+        public struct Code: Hashable, RawRepresentable {
+            public let rawValue: Int
+
+            public init(rawValue: Int) {
+                self.rawValue = rawValue
+            }
+
+            public static let authenticationFailed = Self(rawValue: 1)
+            public static let credentialsDeleted = Self(rawValue: 2)
+            public static let credentialsSessionExpired = Self(rawValue: 3)
+            public static let cancelled = Self(rawValue: 4)
+            public static let failed = Self(rawValue: 5)
+        }
+
+        public var code: Code
+        public var message: String?
+
         /// The authentication failed.
         ///
         /// The payload from the backend can be found in the associated value.
-        case authenticationFailed(String?)
+        public static let authenticationFailed: Code = .authenticationFailed
         /// The credentials are deleted.
         ///
         /// The payload from the backend can be found in the associated value.
-        case credentialsDeleted(String?)
+        public static let credentialsDeleted: Code = .credentialsDeleted
         /// The credentials session was expired.
         ///
         /// The payload from the backend can be found in the associated value.
-        case credentialsSessionExpired(String?)
+        public static let credentialsSessionExpired: Code = .credentialsSessionExpired
         /// The transfer was cancelled.
         ///
         /// The payload from the backend can be found in the associated value.
-        case cancelled(String?)
+        public static let cancelled: Code = .cancelled
         /// The transfer failed.
         ///
         /// The payload from the backend can be found in the associated value.
-        case failed(String?)
+        public static let failed: Code = .failed
+
+        static func authenticationFailed(_ message: String?) -> Self {
+            .init(code: .authenticationFailed, message: message)
+        }
+        static func credentialsDeleted(_ message: String?) -> Self {
+            .init(code: .credentialsDeleted, message: message)
+        }
+        static func credentialsSessionExpired(_ message: String?) -> Self {
+            .init(code: .credentialsSessionExpired, message: message)
+        }
+        static func cancelled(_ message: String?) -> Self {
+            .init(code: .cancelled, message: message)
+        }
+        static func failed(_ message: String?) -> Self {
+            .init(code: .failed, message: message)
+        }
     }
 
     /// Indicates the result of transfer initiation.
