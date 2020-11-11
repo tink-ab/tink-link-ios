@@ -21,28 +21,66 @@ public final class AddBeneficiaryTask: Cancellable {
     }
 
     /// Error that the `AddBeneficiaryTask` can throw.
-    public enum Error: Swift.Error {
+    public struct Error: Swift.Error {
+        public struct Code: Hashable, RawRepresentable {
+            public let rawValue: Int
+
+            public init(rawValue: Int) {
+                self.rawValue = rawValue
+            }
+
+            public static let invalidBeneficiary = Self(rawValue: 1)
+            public static let authenticationFailed = Self(rawValue: 2)
+            public static let credentialsDeleted = Self(rawValue: 3)
+            public static let credentialsSessionExpired = Self(rawValue: 4)
+            public static let notFound = Self(rawValue: 5)
+        }
+
+        public var code: Code
+        public var message: String?
+
+        init(code: Code, message: String? = nil) {
+            self.code = code
+            self.message = message
+        }
+
         /// The beneficiary was invalid.
         /// If you get this error, make sure that the parameters for `addBeneficiary` are correct.
         ///
         /// The payload from the backend can be found in the associated value.
-        case invalidBeneficiary(String?)
+        public static let invalidBeneficiary: Code = .invalidBeneficiary
         /// The authentication failed.
         ///
         /// The payload from the backend can be found in the associated value.
-        case authenticationFailed(String?)
+        public static let authenticationFailed: Code = .authenticationFailed
         /// The credentials are deleted.
         ///
         /// The payload from the backend can be found in the associated value.
-        case credentialsDeleted(String?)
+        public static let credentialsDeleted: Code = .credentialsDeleted
         /// The credentials session was expired.
         ///
         /// The payload from the backend can be found in the associated value.
-        case credentialsSessionExpired(String?)
+        public static let credentialsSessionExpired: Code = .credentialsSessionExpired
         /// The beneficiary could not be found.
         ///
         /// The payload from the backend can be found in the associated value.
-        case notFound(String?)
+        public static let notFound: Code = .notFound
+
+        static func invalidBeneficiary(_ message: String?) -> Self {
+            .init(code: .invalidBeneficiary, message: message)
+        }
+        static func authenticationFailed(_ message: String?) -> Self {
+            .init(code: .authenticationFailed, message: message)
+        }
+        static func credentialsDeleted(_ message: String?) -> Self {
+            .init(code: .credentialsDeleted, message: message)
+        }
+        static func credentialsSessionExpired(_ message: String?) -> Self {
+            .init(code: .credentialsSessionExpired, message: message)
+        }
+        static func notFound(_ message: String?) -> Self {
+            .init(code: .notFound, message: message)
+        }
 
         init?(_ error: Swift.Error) {
             switch error {
