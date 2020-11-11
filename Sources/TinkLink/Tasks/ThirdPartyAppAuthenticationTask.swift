@@ -49,7 +49,7 @@ import Foundation
 /// This error can tell you if the user needs to download the app.
 public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Error associated with the `ThirdPartyAppAuthenticationTask`.
-    public struct Error: Swift.Error, Equatable {
+    public struct Error: Swift.Error, Equatable, CustomStringConvertible {
         private enum Code: Int {
             /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
             case deeplinkURLNotFound = 1
@@ -63,6 +63,10 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         }
 
         private var code: Code
+
+        public var description: String {
+            return "ThirdPartyAppAuthenticationTask.Error.\(String(describing: self.code))"
+        }
 
         /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
         public static let deeplinkURLNotFound = Self(code: .deeplinkURLNotFound)

@@ -31,12 +31,16 @@ public final class SupplementInformationTask: Identifiable {
     private var callRetryCancellable: RetryCancellable?
 
     /// Error that the `SupplementInformationTask` can throw.
-    public struct Error: Swift.Error, Equatable {
+    public struct Error: Swift.Error, Equatable, CustomStringConvertible {
         private enum Code: Int {
             case cancelled
         }
 
         private var code: Code
+
+        public var description: String {
+            return "SupplementInformationTask.Error.\(String(describing: self.code))"
+        }
 
         /// The task was cancelled.
         public static let cancelled = Self(code: .cancelled)
