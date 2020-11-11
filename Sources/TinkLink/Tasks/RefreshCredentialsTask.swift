@@ -27,7 +27,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
 
     /// Error that the `RefreshCredentialsTask` can throw.
     public struct Error: Swift.Error {
-        public struct Code: Equatable, RawRepresentable {
+        public struct Code: Hashable, RawRepresentable {
             public let rawValue: Int
 
             public init(rawValue: Int) {
