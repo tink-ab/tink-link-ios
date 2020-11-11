@@ -7,7 +7,7 @@ public final class AuthorizationContext {
     private let service: AuthenticationService
 
     /// Error that the `AuthorizationContext` can throw.
-    public struct Error: Swift.Error, Equatable, CustomStringConvertible {
+    public struct Error: Swift.Error, CustomStringConvertible {
         private enum Code: Int {
             case invalidScopeOrRedirectURI = 1
         }
