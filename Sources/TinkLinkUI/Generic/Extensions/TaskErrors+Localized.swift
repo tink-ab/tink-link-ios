@@ -60,13 +60,15 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         switch self {
         case .deeplinkURLNotFound:
             return nil
-        case .downloadRequired(let title, _, _):
-            return title
+        case .downloadRequired:
+            return downloadTitle
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
             return nil
         case .cancelled:
+            return nil
+        default:
             return nil
         }
     }
@@ -75,13 +77,15 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         switch self {
         case .deeplinkURLNotFound:
             return nil
-        case .downloadRequired(_, let message, _):
-            return message
+        case .downloadRequired:
+            return downloadMessage
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
             return nil
         case .cancelled:
+            return nil
+        default:
             return nil
         }
     }

@@ -49,31 +49,44 @@ import Foundation
 /// This error can tell you if the user needs to download the app.
 public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Error associated with the `ThirdPartyAppAuthenticationTask`.
-    public enum Error: Swift.Error, Equatable {
-        /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
-        case deeplinkURLNotFound
-        /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
-        case downloadRequired(title: String?, message: String?, appStoreURL: URL?)
-        /// The credentials can not be authenticated on another device.
-        case doesNotSupportAuthenticatingOnAnotherDevice
-        /// Decoding the QR code image failed.
-        case decodingQRCodeImageFailed
-        case cancelled
+    public struct Error: Swift.Error, Equatable {
+        private enum Code: Int {
+            /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
+            case deeplinkURLNotFound = 1
+            /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
+            case downloadRequired
+            /// The credentials can not be authenticated on another device.
+            case doesNotSupportAuthenticatingOnAnotherDevice
+            /// Decoding the QR code image failed.
+            case decodingQRCodeImageFailed
+            case cancelled
+        }
 
+        private var code: Code
+
+        /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
+        public static let deeplinkURLNotFound = Self(code: .deeplinkURLNotFound)
+        /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
+        public static let downloadRequired = Self(code: .downloadRequired)
+        /// The credentials can not be authenticated on another device.
+        public static let doesNotSupportAuthenticatingOnAnotherDevice = Self(code: .doesNotSupportAuthenticatingOnAnotherDevice)
+        /// Decoding the QR code image failed.
+        public static let decodingQRCodeImageFailed = Self(code: .decodingQRCodeImageFailed)
+        public static let cancelled = Self(code: .cancelled)
+
+        /// If the error is `downloadRequired` this property can have a title explaining that a third party app required for authentication.
+        public var downloadTitle: String?
+        /// If the error is `downloadRequired` this property can have a message explaining that a third party app required for authentication.
+        public var downloadMessage: String?
         /// If the error is `downloadRequired` this property can have an App Store URL to the third party app required for authentication.
-        public var appStoreURL: URL? {
-            switch self {
-            case .deeplinkURLNotFound:
-                return nil
-            case .downloadRequired(_, _, let url):
-                return url
-            case .doesNotSupportAuthenticatingOnAnotherDevice:
-                return nil
-            case .decodingQRCodeImageFailed:
-                return nil
-            case .cancelled:
-                return nil
-            }
+        public var appStoreURL: URL?
+
+        static func downloadRequired(title: String?, message: String?, appStoreURL: URL?) -> Self {
+            .init(code: .downloadRequired, downloadTitle: title, downloadMessage: message, appStoreURL: appStoreURL)
+        }
+
+        public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+            return lhs.code == (rhs as? Self)?.code
         }
     }
 
