@@ -63,7 +63,7 @@ extension RefreshCredentialsTask.Error: LocalizedError {
 
 extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
     public var errorDescription: String? {
-        switch self {
+        switch code {
         case .deeplinkURLNotFound:
             return nil
         case .downloadRequired:
@@ -80,7 +80,7 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
     }
 
     public var failureReason: String? {
-        switch self {
+        switch code {
         case .deeplinkURLNotFound:
             return nil
         case .downloadRequired:

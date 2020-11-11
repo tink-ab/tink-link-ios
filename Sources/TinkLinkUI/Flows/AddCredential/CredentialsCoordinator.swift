@@ -114,7 +114,7 @@ final class CredentialsCoordinator {
             let (credentials, authorizationCode) = try result.get()
             delegate?.didFinishCredentialsForm()
             showAddCredentialSuccess(with: credentials, authorizationCode: authorizationCode, for: action)
-        } catch let error as ThirdPartyAppAuthenticationTask.Error where error == .cancelled {
+        } catch let error as ThirdPartyAppAuthenticationTask.Error where error.code == .cancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }

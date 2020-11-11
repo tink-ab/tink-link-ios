@@ -49,34 +49,51 @@ import Foundation
 /// This error can tell you if the user needs to download the app.
 public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Error associated with the `ThirdPartyAppAuthenticationTask`.
-    public struct Error: Swift.Error, Equatable, CustomStringConvertible {
-        private enum Code: Int {
+    public struct Error: Swift.Error, CustomStringConvertible {
+        public struct Code: Hashable, RawRepresentable {
+            enum Value: Int {
+                case unknown
+                case deeplinkURLNotFound
+                case downloadRequired
+                case doesNotSupportAuthenticatingOnAnotherDevice
+                case decodingQRCodeImageFailed
+                case cancelled
+            }
+
+            var value: Value { Value(rawValue: rawValue) ?? .unknown }
+
+            public let rawValue: Int
+
+            public init(rawValue: Int) {
+                self.rawValue = rawValue
+            }
+
             /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
-            case deeplinkURLNotFound = 1
+            public static let deeplinkURLNotFound = Self(rawValue: Value.deeplinkURLNotFound.rawValue)
             /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
-            case downloadRequired
+            public static let downloadRequired = Self(rawValue: Value.downloadRequired.rawValue)
             /// The credentials can not be authenticated on another device.
-            case doesNotSupportAuthenticatingOnAnotherDevice
+            public static let doesNotSupportAuthenticatingOnAnotherDevice = Self(rawValue: Value.doesNotSupportAuthenticatingOnAnotherDevice.rawValue)
             /// Decoding the QR code image failed.
-            case decodingQRCodeImageFailed
-            case cancelled
+            public static let decodingQRCodeImageFailed = Self(rawValue: Value.decodingQRCodeImageFailed.rawValue)
+            public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
         }
 
-        private var code: Code
+        public var code: Code
 
         public var description: String {
-            return "ThirdPartyAppAuthenticationTask.Error.\(String(describing: self.code))"
+            return "ThirdPartyAppAuthenticationTask.Error.\(String(describing: code.value))"
         }
 
         /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
-        public static let deeplinkURLNotFound = Self(code: .deeplinkURLNotFound)
+        public static let deeplinkURLNotFound: Code = .deeplinkURLNotFound
         /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
-        public static let downloadRequired = Self(code: .downloadRequired)
+        public static let downloadRequired: Code = .downloadRequired
         /// The credentials can not be authenticated on another device.
-        public static let doesNotSupportAuthenticatingOnAnotherDevice = Self(code: .doesNotSupportAuthenticatingOnAnotherDevice)
+        public static let doesNotSupportAuthenticatingOnAnotherDevice: Code = .doesNotSupportAuthenticatingOnAnotherDevice
         /// Decoding the QR code image failed.
-        public static let decodingQRCodeImageFailed = Self(code: .decodingQRCodeImageFailed)
-        public static let cancelled = Self(code: .cancelled)
+        public static let decodingQRCodeImageFailed: Code = .decodingQRCodeImageFailed
+        public static let cancelled: Code = .cancelled
 
         /// If the error is `downloadRequired` this property can have a title explaining that a third party app required for authentication.
         public var downloadTitle: String?
@@ -144,7 +161,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     #if os(iOS)
         func openThirdPartyApp<URLResourceOpener: URLResourceOpening>(with urlResourceOpener: URLResourceOpener, completion: @escaping (Result<Void, Swift.Error>) -> Void) {
             guard let url = thirdPartyAppAuthentication.deepLinkURL else {
-                completion(.failure(Error.deeplinkURLNotFound))
+                completion(.failure(Error(code: .deeplinkURLNotFound)))
                 return
             }
 
@@ -251,11 +268,11 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             do {
                 let qrData = try result.get()
                 guard let qrImage = Image(data: qrData) else {
-                    throw Error.decodingQRCodeImageFailed
+                    throw Error(code: .decodingQRCodeImageFailed)
                 }
                 completion(.success(qrImage))
             } catch ServiceError.cancelled {
-                completion(.failure(Error.cancelled))
+                completion(.failure(Error(code: .cancelled)))
             } catch {
                 completion(.failure(error))
             }
@@ -273,7 +290,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             cancellable.cancel()
             callRetryCancellable = nil
         } else {
-            completionHandler(.failure(Error.cancelled))
+            completionHandler(.failure(Error(code: .cancelled)))
         }
     }
 
