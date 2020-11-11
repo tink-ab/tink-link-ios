@@ -39,38 +39,34 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 self.rawValue = value
             }
 
+            /// The authentication failed. The payload from the backend can be found in the associated value.
             public static let authenticationFailed = Self(value: 1)
+            /// A temporary failure occurred. The payload from the backend can be found in the associated value.
             public static let temporaryFailure = Self(value: 2)
+            /// A permanent failure occurred. The payload from the backend can be found in the associated value.
             public static let permanentFailure = Self(value: 3)
+            /// The credentials are deleted. The payload from the backend can be found in the associated value.
             public static let deleted = Self(value: 4)
+            /// The task was cancelled.
             public static let cancelled = Self(value: 5)
         }
         public var code: Code
         public var message: String?
 
-        /// The authentication failed. The payload from the backend can be found in the associated value.
-        public static let authenticationFailed = Self(code: .authenticationFailed)
-        /// A temporary failure occurred. The payload from the backend can be found in the associated value.
-        public static let temporaryFailure = Self(code: .temporaryFailure)
-        /// A permanent failure occurred. The payload from the backend can be found in the associated value.
-        public static let permanentFailure = Self(code: .permanentFailure)
-        /// The credentials are deleted. The payload from the backend can be found in the associated value.
-        public static let deleted = Self(code: .deleted)
-        /// The task was cancelled.
-        public static let cancelled = Self(code: .cancelled)
-
         static func authenticationFailed(_ message: String?) -> Self {
-            .init(code: Self.authenticationFailed.code, message: message)
+            .init(code: .authenticationFailed, message: message)
         }
         static func temporaryFailure(_ message: String?) -> Self {
-            .init(code: Self.temporaryFailure.code, message: message)
+            .init(code: .temporaryFailure, message: message)
         }
         static func permanentFailure(_ message: String?) -> Self {
-            .init(code: Self.permanentFailure.code, message: message)
+            .init(code: .permanentFailure, message: message)
         }
         static func deleted(_ message: String?) -> Self {
-            .init(code: Self.deleted.code, message: message)
+            .init(code: .deleted, message: message)
         }
+
+        static let cancelled = Self(code: .cancelled)
     }
 
     var retryInterval: TimeInterval = 1.0
