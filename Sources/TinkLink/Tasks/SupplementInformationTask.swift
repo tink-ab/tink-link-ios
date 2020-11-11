@@ -33,7 +33,7 @@ public final class SupplementInformationTask: Identifiable {
     /// Error that the `SupplementInformationTask` can throw.
     public struct Error: Swift.Error, Equatable, CustomStringConvertible {
         private enum Code: Int {
-            case cancelled
+            case cancelled = 1
         }
 
         private var code: Code
