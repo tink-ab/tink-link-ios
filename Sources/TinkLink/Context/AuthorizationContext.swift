@@ -29,7 +29,7 @@ public final class AuthorizationContext {
         /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
         ///
         /// - Note: The payload from the backend can be found in the associated value.
-        public static let invalidScopeOrRedirectURI: Error = .init(code: .invalidScopeOrRedirectURI, message: "")
+        public static let invalidScopeOrRedirectURI: Self = .init(code: .invalidScopeOrRedirectURI, message: "")
 
         init?(_ error: Swift.Error) {
             switch error {
@@ -41,7 +41,7 @@ public final class AuthorizationContext {
         }
 
         static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-            return lhs.code == (rhs as? AuthorizationContext.Error)?.code
+            return lhs.code == (rhs as? Self)?.code
         }
     }
 
