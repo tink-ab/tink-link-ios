@@ -27,23 +27,38 @@ public final class InitiateTransferTask: Cancellable {
     public typealias AuthenticationTask = TinkLink.AuthenticationTask
 
     /// Error that the `InitiateTransferTask` can throw.
-    public struct Error: Swift.Error {
+    public struct Error: Swift.Error, CustomStringConvertible {
         public struct Code: Hashable, RawRepresentable {
+            enum Value: Int {
+                case unknown
+                case authenticationFailed
+                case credentialsDeleted
+                case credentialsSessionExpired
+                case cancelled
+                case failed
+            }
+
+            var value: Value { Value(rawValue: rawValue) ?? .unknown }
+
             public let rawValue: Int
 
             public init(rawValue: Int) {
                 self.rawValue = rawValue
             }
 
-            public static let authenticationFailed = Self(rawValue: 1)
-            public static let credentialsDeleted = Self(rawValue: 2)
-            public static let credentialsSessionExpired = Self(rawValue: 3)
-            public static let cancelled = Self(rawValue: 4)
-            public static let failed = Self(rawValue: 5)
+            public static let authenticationFailed = Self(rawValue: Value.authenticationFailed.rawValue)
+            public static let credentialsDeleted = Self(rawValue: Value.credentialsDeleted.rawValue)
+            public static let credentialsSessionExpired = Self(rawValue: Value.credentialsSessionExpired.rawValue)
+            public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
+            public static let failed = Self(rawValue: Value.failed.rawValue)
         }
 
         public var code: Code
         public var message: String?
+
+        public var description: String {
+            return "InitiateTransferTask.Error.\(String(describing: code.value)))"
+        }
 
         /// The authentication failed.
         ///

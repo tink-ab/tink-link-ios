@@ -26,8 +26,19 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
-    public struct Error: Swift.Error {
+    public struct Error: Swift.Error, CustomStringConvertible {
         public struct Code: Hashable, RawRepresentable {
+            enum Value: Int {
+                case unknown
+                case authenticationFailed
+                case temporaryFailure
+                case permanentFailure
+                case deleted
+                case cancelled
+            }
+
+            var value: Value { Value(rawValue: rawValue) ?? .unknown }
+
             public let rawValue: Int
 
             public init(rawValue: Int) {
@@ -35,18 +46,22 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             }
 
             /// The authentication failed. The payload from the backend can be found in the associated value.
-            public static let authenticationFailed = Self(rawValue: 1)
+            public static let authenticationFailed = Self(rawValue: Value.authenticationFailed.rawValue)
             /// A temporary failure occurred. The payload from the backend can be found in the associated value.
-            public static let temporaryFailure = Self(rawValue: 2)
+            public static let temporaryFailure = Self(rawValue: Value.temporaryFailure.rawValue)
             /// A permanent failure occurred. The payload from the backend can be found in the associated value.
-            public static let permanentFailure = Self(rawValue: 3)
+            public static let permanentFailure = Self(rawValue: Value.permanentFailure.rawValue)
             /// The credentials are deleted. The payload from the backend can be found in the associated value.
-            public static let deleted = Self(rawValue: 4)
+            public static let deleted = Self(rawValue: Value.deleted.rawValue)
             /// The task was cancelled.
-            public static let cancelled = Self(rawValue: 5)
+            public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
         }
         public var code: Code
         public var message: String?
+
+        public var description: String {
+            return "RefreshCredentialsTask.Error.\(String(describing: code.value)))"
+        }
 
         /// The authentication failed. The payload from the backend can be found in the associated value.
         public static let authenticationFailed: Code = .authenticationFailed

@@ -21,19 +21,30 @@ public final class AddBeneficiaryTask: Cancellable {
     }
 
     /// Error that the `AddBeneficiaryTask` can throw.
-    public struct Error: Swift.Error {
+    public struct Error: Swift.Error, CustomStringConvertible {
         public struct Code: Hashable, RawRepresentable {
+            enum Value: Int {
+                case unknown
+                case invalidBeneficiary
+                case authenticationFailed
+                case credentialsDeleted
+                case credentialsSessionExpired
+                case notFound
+            }
+
+            var value: Value { Value(rawValue: rawValue) ?? .unknown }
+
             public let rawValue: Int
 
             public init(rawValue: Int) {
                 self.rawValue = rawValue
             }
 
-            public static let invalidBeneficiary = Self(rawValue: 1)
-            public static let authenticationFailed = Self(rawValue: 2)
-            public static let credentialsDeleted = Self(rawValue: 3)
-            public static let credentialsSessionExpired = Self(rawValue: 4)
-            public static let notFound = Self(rawValue: 5)
+            public static let invalidBeneficiary = Self(rawValue: Value.invalidBeneficiary.rawValue)
+            public static let authenticationFailed = Self(rawValue: Value.authenticationFailed.rawValue)
+            public static let credentialsDeleted = Self(rawValue: Value.credentialsDeleted.rawValue)
+            public static let credentialsSessionExpired = Self(rawValue: Value.credentialsSessionExpired.rawValue)
+            public static let notFound = Self(rawValue: Value.notFound.rawValue)
         }
 
         public var code: Code
@@ -42,6 +53,10 @@ public final class AddBeneficiaryTask: Cancellable {
         init(code: Code, message: String? = nil) {
             self.code = code
             self.message = message
+        }
+
+        public var description: String {
+            return "AddBeneficiaryTask.Error.\(String(describing: code.value)))"
         }
 
         /// The beneficiary was invalid.
