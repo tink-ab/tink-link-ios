@@ -34,20 +34,16 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 self.rawValue = rawValue
             }
 
-            private init(value: Int) {
-                self.rawValue = value
-            }
-
             /// The authentication failed. The payload from the backend can be found in the associated value.
-            public static let authenticationFailed = Self(value: 1)
+            public static let authenticationFailed = Self(rawValue: 1)
             /// A temporary failure occurred. The payload from the backend can be found in the associated value.
-            public static let temporaryFailure = Self(value: 2)
+            public static let temporaryFailure = Self(rawValue: 2)
             /// A permanent failure occurred. The payload from the backend can be found in the associated value.
-            public static let permanentFailure = Self(value: 3)
+            public static let permanentFailure = Self(rawValue: 3)
             /// The credentials are deleted. The payload from the backend can be found in the associated value.
-            public static let deleted = Self(value: 4)
+            public static let deleted = Self(rawValue: 4)
             /// The task was cancelled.
-            public static let cancelled = Self(value: 5)
+            public static let cancelled = Self(rawValue: 5)
         }
         public var code: Code
         public var message: String?
