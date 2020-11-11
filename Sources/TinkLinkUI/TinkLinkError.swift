@@ -14,7 +14,6 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
     }
 
     private var code: Code
-    public var thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error?
 
     private init(code: Code) {
         self.code = code

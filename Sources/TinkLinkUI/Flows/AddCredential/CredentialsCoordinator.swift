@@ -256,9 +256,7 @@ extension CredentialsCoordinator {
         } else {
             let okAction = UIAlertAction(title: Strings.Generic.dismiss, style: .default) { _ in
                 if self.callCompletionOnError {
-                    var tinkLinkError = TinkLinkError.unableToOpenThirdPartyApp
-                    tinkLinkError.thirdPartyAppAuthenticationError = thirdPartyAppAuthenticationError
-                    self.completion(.failure(tinkLinkError))
+                    self.completion(.failure(TinkLinkError.unableToOpenThirdPartyApp))
                 }
             }
             alertController.addAction(okAction)
