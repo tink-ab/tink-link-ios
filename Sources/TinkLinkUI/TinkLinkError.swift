@@ -2,7 +2,7 @@ import Foundation
 import TinkLink
 
 public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
-    private enum TinkLinkErrorCode: Int {
+    private enum Code: Int {
         case userCancelled = 1
         case unableToFetchProviders
         case missingInternetConnection
@@ -13,10 +13,10 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
         case internalError
     }
 
-    private var code: TinkLinkErrorCode
+    private var code: Code
     public var thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error?
 
-    private init(code: TinkLinkErrorCode) {
+    private init(code: Code) {
         self.code = code
     }
 
