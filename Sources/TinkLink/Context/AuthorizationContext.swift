@@ -9,11 +9,6 @@ public final class AuthorizationContext {
     /// Error that the `AuthorizationContext` can throw.
     public struct Error: Swift.Error, Equatable, CustomStringConvertible {
         private enum Code: Int {
-            /// The scope or redirect URI was invalid.
-            ///
-            /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
-            ///
-            /// - Note: The payload from the backend can be found in the associated value.
             case invalidScopeOrRedirectURI = 1
         }
 
@@ -29,6 +24,11 @@ public final class AuthorizationContext {
             return "AuthorizationContext.Error.\(String(describing: self.code))"
         }
 
+        /// The scope or redirect URI was invalid.
+        ///
+        /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
+        ///
+        /// - Note: The payload from the backend can be found in the associated value.
         public static let invalidScopeOrRedirectURI: Error = .init(code: .invalidScopeOrRedirectURI, message: "")
 
         init?(_ error: Swift.Error) {
