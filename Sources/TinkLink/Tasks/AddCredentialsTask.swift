@@ -19,17 +19,57 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
     }
 
     /// Error that the `AddCredentialsTask` can throw.
-    public enum Error: Swift.Error {
+    public struct Error: Swift.Error {
+        public struct Code: Hashable, RawRepresentable {
+            public let rawValue: Int
+
+            public init(rawValue: Int) {
+                self.rawValue = rawValue
+            }
+
+            /// The authentication failed. The payload from the backend can be found in the associated value.
+            public static let authenticationFailed = Self(rawValue: 1)
+            /// A temporary failure occurred. The payload from the backend can be found in the associated value.
+            public static let temporaryFailure = Self(rawValue: 2)
+            /// A permanent failure occurred. The payload from the backend can be found in the associated value.
+            public static let permanentFailure = Self(rawValue: 3)
+            /// The credentials already exists. The payload from the backend can be found in the associated value.
+            public static let credentialsAlreadyExists = Self(rawValue: 4)
+            /// The task was cancelled.
+            public static let cancelled = Self(rawValue: 5)
+        }
+
+        public var code: Code
+        public var message: String?
+
+        init(code: Code, message: String? = nil) {
+            self.code = code
+            self.message = message
+        }
+
         /// The authentication failed. The payload from the backend can be found in the associated value.
-        case authenticationFailed(String?)
+        public static let authenticationFailed: Code = .authenticationFailed
         /// A temporary failure occurred. The payload from the backend can be found in the associated value.
-        case temporaryFailure(String?)
+        public static let temporaryFailure: Code = .temporaryFailure
         /// A permanent failure occurred. The payload from the backend can be found in the associated value.
-        case permanentFailure(String?)
+        public static let permanentFailure: Code = .permanentFailure
         /// The credentials already exists. The payload from the backend can be found in the associated value.
-        case credentialsAlreadyExists(String?)
+        public static let credentialsAlreadyExists: Code = .credentialsAlreadyExists
         /// The task was cancelled.
-        case cancelled
+        public static let cancelled: Code = .cancelled
+
+        static func authenticationFailed(_ message: String?) -> Self {
+            .init(code: .authenticationFailed, message: message)
+        }
+        static func temporaryFailure(_ message: String?) -> Self {
+            .init(code: .temporaryFailure, message: message)
+        }
+        static func permanentFailure(_ message: String?) -> Self {
+            .init(code: .permanentFailure, message: message)
+        }
+        static func credentialsAlreadyExists(_ message: String?) -> Self {
+            .init(code: .credentialsAlreadyExists, message: message)
+        }
 
         init?(addCredentialsError error: Swift.Error) {
             switch error {
@@ -130,7 +170,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
             canceller.cancel()
             callCanceller = nil
         } else {
-            complete(with: .failure(Error.cancelled))
+            complete(with: .failure(Error(code: .cancelled)))
         }
     }
 
@@ -201,7 +241,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                 assertionFailure("Unknown credentials status!")
             }
         } catch ServiceError.cancelled {
-            complete(with: .failure(Error.cancelled))
+            complete(with: .failure(Error(code: .cancelled)))
         } catch {
             complete(with: .failure(error))
         }
