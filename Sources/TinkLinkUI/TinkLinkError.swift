@@ -20,7 +20,7 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
     }
 
     public var description: String {
-        return "TinkLinkError.\(String(describing: self.code))"
+        return "TinkLinkError.\(code)"
     }
 
     /// User cancelled the flow.

@@ -59,7 +59,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         }
 
         public var description: String {
-            return "AddCredentialsTask.Error.\(String(describing: code.value))"
+            return "AddCredentialsTask.Error.\(code.value)"
         }
 
         /// The authentication failed. The payload from the backend can be found in the associated value.

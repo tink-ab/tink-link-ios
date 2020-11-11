@@ -82,7 +82,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         public var code: Code
 
         public var description: String {
-            return "ThirdPartyAppAuthenticationTask.Error.\(String(describing: code.value))"
+            return "ThirdPartyAppAuthenticationTask.Error.\(code.value)"
         }
 
         /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.

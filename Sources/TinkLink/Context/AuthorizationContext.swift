@@ -21,7 +21,7 @@ public final class AuthorizationContext {
         }
 
         public var description: String {
-            return "AuthorizationContext.Error.\(String(describing: self.code))"
+            return "AuthorizationContext.Error.\(code)"
         }
 
         /// The scope or redirect URI was invalid.
