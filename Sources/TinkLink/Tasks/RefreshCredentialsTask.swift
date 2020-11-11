@@ -30,8 +30,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         public struct Code: Equatable, RawRepresentable {
             public let rawValue: Int
 
-            public init?(rawValue: Int) {
-                guard (Self.authenticationFailed.rawValue...Self.cancelled.rawValue).contains(rawValue) else { return nil }
+            public init(rawValue: Int) {
                 self.rawValue = rawValue
             }
 
