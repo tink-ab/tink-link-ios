@@ -11,21 +11,37 @@ public final class ConsentContext {
     private let service: AuthenticationService
 
     /// Error that the `ConsentContext` can throw.
-    public enum Error: Swift.Error {
+    public struct Error: Swift.Error {
+        private enum Code: Int {
+            case invalidScopeOrRedirectURI = 1
+        }
+
+        private let code: Code
+        public let message: String
+
+        private init(code: Code, message: String) {
+            self.code = code
+            self.message = message
+        }
+
         /// The scope or redirect URI was invalid.
         ///
         /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
         ///
         /// - Note: The payload from the backend can be found in the associated value.
-        case invalidScopeOrRedirectURI(String)
+        public static let invalidScopeOrRedirectURI: Self = .init(code: .invalidScopeOrRedirectURI, message: "")
 
         init?(_ error: Swift.Error) {
             switch error {
             case ServiceError.invalidArgument(let message):
-                self = .invalidScopeOrRedirectURI(message)
+                self = .init(code: .invalidScopeOrRedirectURI, message: message)
             default:
                 return nil
             }
+        }
+
+        static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+            return lhs.code == (rhs as? Self)?.code
         }
     }
 
@@ -120,8 +136,8 @@ public final class ConsentContext {
     public func fetchScopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.map(\.scopes).mapError { Error($0) ?? $0 }
-            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
-                assertionFailure("Could not fetch scope descriptions: " + message)
+            if case .failure(let error) = mappedResult, let consentContextError = error as? Error, case Error.invalidScopeOrRedirectURI = consentContextError {
+                assertionFailure("Could not fetch scope descriptions: " + consentContextError.message)
             }
             completion(mappedResult)
         }
