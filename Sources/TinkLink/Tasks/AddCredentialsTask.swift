@@ -23,7 +23,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         public struct Code: Hashable, RawRepresentable {
             enum Value: Int {
                 case unknown
-                case authenticationFailed = 1
+                case authenticationFailed
                 case temporaryFailure
                 case permanentFailure
                 case credentialsAlreadyExists
