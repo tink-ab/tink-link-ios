@@ -84,10 +84,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         static func downloadRequired(title: String?, message: String?, appStoreURL: URL?) -> Self {
             .init(code: .downloadRequired, downloadTitle: title, downloadMessage: message, appStoreURL: appStoreURL)
         }
-
-        public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-            return lhs.code == (rhs as? Self)?.code
-        }
     }
 
     /// Indicates a user action required for the third party app authentication task to succeed.
