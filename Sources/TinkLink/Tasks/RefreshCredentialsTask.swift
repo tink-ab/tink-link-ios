@@ -48,6 +48,17 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         public var code: Code
         public var message: String?
 
+        /// The authentication failed. The payload from the backend can be found in the associated value.
+        public static let authenticationFailed: Code = .authenticationFailed
+        /// A temporary failure occurred. The payload from the backend can be found in the associated value.
+        public static let temporaryFailure: Code = .temporaryFailure
+        /// A permanent failure occurred. The payload from the backend can be found in the associated value.
+        public static let permanentFailure: Code = .permanentFailure
+        /// The credentials are deleted. The payload from the backend can be found in the associated value.
+        public static let deleted: Code = .deleted
+        /// The task was cancelled.
+        public static let cancelled: Code = .cancelled
+
         static func authenticationFailed(_ message: String?) -> Self {
             .init(code: .authenticationFailed, message: message)
         }
@@ -60,8 +71,6 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         static func deleted(_ message: String?) -> Self {
             .init(code: .deleted, message: message)
         }
-
-        static let cancelled = Self(code: .cancelled)
     }
 
     var retryInterval: TimeInterval = 1.0
