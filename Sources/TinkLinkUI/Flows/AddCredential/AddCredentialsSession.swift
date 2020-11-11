@@ -267,7 +267,7 @@ final class AddCredentialsSession {
                 self?.authorizationCode = authorizationCode
             } catch {
                 self?.didCallAuthorize = false
-                onError(AddCredentialsTask.Error.temporaryFailure("A temporary error has occurred"))
+                onError(error)
             }
             self?.authorizationGroup.leave()
         }
