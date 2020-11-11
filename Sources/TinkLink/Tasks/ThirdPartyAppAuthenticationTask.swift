@@ -49,7 +49,7 @@ import Foundation
 /// This error can tell you if the user needs to download the app.
 public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Error associated with the `ThirdPartyAppAuthenticationTask`.
-    public enum Error: Swift.Error {
+    public enum Error: Swift.Error, Equatable {
         /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
         case deeplinkURLNotFound
         /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
