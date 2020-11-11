@@ -72,7 +72,7 @@ public final class AuthorizationContext {
     public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.authorize(clientID: clientID, redirectURI: appURI, scopes: scopes) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
-            if case .failure(let error) = mappedResult, let authorizationError = error as? Error, case .invalidScopeOrRedirectURI = authorizationError {
+            if case .failure(let error) = mappedResult, let authorizationError = error as? Error, case Error.invalidScopeOrRedirectURI = authorizationError {
                 assertionFailure("Could not authorize: " + authorizationError.message)
             }
             completion(mappedResult)
@@ -90,7 +90,7 @@ public final class AuthorizationContext {
         let scopes: [Scope] = []
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
-            if case .failure(let error) = mappedResult, let authorizationError = error as? Error, case .invalidScopeOrRedirectURI = authorizationError {
+            if case .failure(let error) = mappedResult, let authorizationError = error as? Error, case Error.invalidScopeOrRedirectURI = authorizationError {
                 assertionFailure("Could not get client description: " + authorizationError.message)
             }
             completion(mappedResult)
