@@ -65,7 +65,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
             private let value: Value
 
             public var description: String {
-                return "AddCredentialsTask.CompletionPredicate.\(value)"
+                return "AddCredentialsTask.CompletionPredicate.SuccessPredicate.\(value)"
             }
 
             /// A predicate that indicates the credentials' status is `updating`.
