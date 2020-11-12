@@ -72,8 +72,8 @@ extension FormTableViewController {
 
         let cell = tableView.dequeueReusableCell(ofType: FormFieldTableViewCell.self, for: indexPath)
         var viewModel = FormFieldTableViewCell.ViewModel(field: field)
-        switch prefillStrategy {
-        case .username(value: let name, isEditable: let isEditable):
+        switch (prefillStrategy.kind, prefillStrategy.username, prefillStrategy.isUsernameEditable) {
+        case (.username, let name?, let isEditable?):
             if indexPath.row == 0 {
                 var testField = field
                 testField.text = name
@@ -81,7 +81,9 @@ extension FormTableViewController {
                 viewModel.text = name
                 viewModel.isEditable = isEditable ? field.attributes.isEditable : false
             }
-        case .none:
+        case (.none, _, _):
+            break
+        default:
             break
         }
         cell.configure(with: viewModel)
