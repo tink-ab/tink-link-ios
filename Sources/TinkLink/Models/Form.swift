@@ -248,8 +248,8 @@ public struct Form {
 
             public var fieldName: String
 
-            /// An error message describing what is the reason for the validation failure.
-            public var reason: String
+            /// An error message describing what is the reason for the invalid validation failure.
+            public var reason: String?
 
             public var minLength: Int?
             public var maxLength: Int?
@@ -259,15 +259,15 @@ public struct Form {
             }
 
             static func maxLengthLimit(fieldName: String, maxLength: Int) -> Self {
-                .init(code: .maxLengthLimit, fieldName: fieldName, reason: "Field can't be longer than \(maxLength)", maxLength: maxLength)
+                .init(code: .maxLengthLimit, fieldName: fieldName, maxLength: maxLength)
             }
 
             static func minLengthLimit(fieldName: String, minLength: Int) -> Self {
-                .init(code: .minLengthLimit, fieldName: fieldName, reason: "Field can't be shorter than \(minLength)", minLength: minLength)
+                .init(code: .minLengthLimit, fieldName: fieldName, minLength: minLength)
             }
 
             static func requiredFieldEmptyValue(fieldName: String) -> Self {
-                .init(code: .requiredFieldEmptyValue, fieldName: fieldName, reason: "Required field")
+                .init(code: .requiredFieldEmptyValue, fieldName: fieldName)
             }
         }
 
