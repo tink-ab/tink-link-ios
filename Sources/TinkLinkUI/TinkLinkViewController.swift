@@ -61,20 +61,18 @@ import TinkLink
 public class TinkLinkViewController: UIViewController {
     /// Strategy for different types of prefilling
     public struct PrefillStrategy {
-        enum Kind: Int {
+        enum Value {
             case none
-            case username
+            case username(value: String, isEditable: Bool)
         }
 
-        let kind: Kind
-        var username: String?
-        var isUsernameEditable: Bool?
+        let value: Value
 
         /// No prefilling will occur.
-        public static let none = Self(kind: .none)
+        public static let none = Self(value: .none)
         /// Will attempt to fill the first field of the provider with the associated value if it is valid.
         public static func username(value: String, isEditable: Bool) -> Self {
-            .init(kind: .username, username: value, isUsernameEditable: isEditable)
+            .init(value: .username(value: value, isEditable: isEditable))
         }
     }
 
