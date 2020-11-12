@@ -89,6 +89,7 @@ public class TinkLinkViewController: UIViewController {
         public static func kinds(_ kinds: Set<Provider.Kind>) -> Self {
             .init(value: .kinds(kinds))
         }
+
         /// Will fetch a single provider by name.
         public static func name(_ name: Provider.Name) -> Self {
             .init(value: .name(name))
@@ -112,12 +113,14 @@ public class TinkLinkViewController: UIViewController {
         public static func create(providerPredicate: ProviderPredicate = .kinds(.default)) -> Self {
             .init(value: .create(providerPredicate: providerPredicate))
         }
+
         /// Authenticate credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to authenticate.
         public static func authenticate(credentialsID: Credentials.ID) -> Self {
             .init(value: .authenticate(credentialsID: credentialsID))
         }
+
         /// Refresh credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.
@@ -125,6 +128,7 @@ public class TinkLinkViewController: UIViewController {
         public static func refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false) -> Self {
             .init(value: .refresh(credentialsID: credentialsID, forceAuthenticate: forceAuthenticate))
         }
+
         /// Update credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to update.
