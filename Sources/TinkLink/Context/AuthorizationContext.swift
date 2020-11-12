@@ -11,7 +11,7 @@ public final class AuthorizationContext {
         public struct Code: Hashable, RawRepresentable {
             enum Value: Int {
                 case unknown
-                case invalidScopeOrRedirectURI
+                case invalidScopeOrAppURI
             }
 
             var value: Value { Value(rawValue: rawValue) ?? .unknown }
@@ -24,8 +24,8 @@ public final class AuthorizationContext {
 
             /// The scope or redirect URI was invalid.
             ///
-            /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
-            public static let invalidScopeOrRedirectURI = Self(rawValue: Value.invalidScopeOrRedirectURI.rawValue)
+            /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid app URI in Tink Console.
+            public static let invalidScopeOrAppURI = Self(rawValue: Value.invalidScopeOrAppURI.rawValue)
         }
 
         public let code: Code
@@ -42,15 +42,15 @@ public final class AuthorizationContext {
 
         /// The scope or redirect URI was invalid.
         ///
-        /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
+        /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid app URI in Tink Console.
         ///
         /// - Note: The payload from the backend can be found in the associated value.
-        public static let invalidScopeOrRedirectURI: Code = .invalidScopeOrRedirectURI
+        public static let invalidScopeOrAppURI: Code = .invalidScopeOrAppURI
 
         init?(_ error: Swift.Error) {
             switch error {
             case ServiceError.invalidArgument(let message):
-                self = .init(code: .invalidScopeOrRedirectURI, message: message)
+                self = .init(code: .invalidScopeOrAppURI, message: message)
             default:
                 return nil
             }
@@ -84,7 +84,7 @@ public final class AuthorizationContext {
     public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.authorize(clientID: clientID, redirectURI: appURI, scopes: scopes) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
-            if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrRedirectURI {
+            if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrAppURI {
                 assertionFailure("Could not authorize: " + error.message)
             }
             completion(mappedResult)
@@ -102,7 +102,7 @@ public final class AuthorizationContext {
         let scopes: [Scope] = []
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
-            if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrRedirectURI {
+            if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrAppURI {
                 assertionFailure("Could not get client description: " + error.message)
             }
             completion(mappedResult)
