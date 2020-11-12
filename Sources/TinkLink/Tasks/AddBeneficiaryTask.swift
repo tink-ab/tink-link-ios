@@ -65,7 +65,7 @@ public final class AddBeneficiaryTask: Cancellable {
         }
 
         public var description: String {
-            return "AddBeneficiaryTask.Error.\(String(describing: code.value)))"
+            return "AddBeneficiaryTask.Error.\(code.value))"
         }
 
         /// The beneficiary was invalid.

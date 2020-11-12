@@ -31,6 +31,10 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
         public static let unableToOpenThirdPartyApp = Self(rawValue: Value.unableToOpenThirdPartyApp.rawValue)
         public static let unauthenticated = Self(rawValue: Value.unauthenticated.rawValue)
         public static let internalError = Self(rawValue: Value.internalError.rawValue)
+
+        public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+            lhs == (rhs as? TinkLinkError)?.code
+        }
     }
 
     public var code: Code
@@ -40,7 +44,7 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
     }
 
     public var description: String {
-        return "TinkLinkError.\(code)"
+        return "TinkLinkError.\(code.value)"
     }
 
     /// User cancelled the flow.

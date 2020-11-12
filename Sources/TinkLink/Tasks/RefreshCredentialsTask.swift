@@ -65,7 +65,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         public let message: String?
 
         public var description: String {
-            return "RefreshCredentialsTask.Error.\(String(describing: code.value)))"
+            return "RefreshCredentialsTask.Error.\(code.value))"
         }
 
         /// The authentication failed.

@@ -29,7 +29,6 @@ import TinkCore
 /// }
 /// ```
 public struct ProviderTree {
-
     /// The financial institution groups.
     ///
     /// These are the "top" level of the `ProviderTree` and is suitable for displaying in a list where the user needs to select a provider.

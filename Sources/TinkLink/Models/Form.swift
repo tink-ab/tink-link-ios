@@ -226,12 +226,16 @@ public struct Form {
                 public static let maxLengthLimit = Self(rawValue: Value.maxLengthLimit.rawValue)
                 public static let minLengthLimit = Self(rawValue: Value.minLengthLimit.rawValue)
                 public static let requiredFieldEmptyValue = Self(rawValue: Value.requiredFieldEmptyValue.rawValue)
+
+                public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+                    lhs == (rhs as? Form.Field.ValidationError)?.code
+                }
             }
 
             public let code: Code
 
             public var description: String {
-                return "Form.Field.ValidationError.Error.\(String(describing: code.value)))"
+                return "Form.Field.ValidationError.Error.\(code.value))"
             }
 
             /// Field's `text` was invalid. See `reason` for explanation why.

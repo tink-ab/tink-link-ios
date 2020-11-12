@@ -56,7 +56,7 @@ public final class SupplementInformationTask: Identifiable {
         public var code: Code
 
         public var description: String {
-            return "SupplementInformationTask.Error.\(code)"
+            return "SupplementInformationTask.Error.\(code.value)"
         }
 
         /// The task was cancelled.

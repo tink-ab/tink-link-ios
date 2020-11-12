@@ -61,7 +61,7 @@ public final class InitiateTransferTask: Cancellable {
         public let message: String?
 
         public var description: String {
-            return "InitiateTransferTask.Error.\(String(describing: code.value)))"
+            return "InitiateTransferTask.Error.\(code.value))"
         }
 
         /// The authentication failed.
