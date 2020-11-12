@@ -29,9 +29,6 @@ final class CredentialsController: ObservableObject {
             authenticationHandler: { [weak self] authentication in
                 self?.handleAuthentication(authentication)
             },
-            progressHandler: { [weak self] in
-                self?.refreshProgressHandler(status: $0)
-            },
             completion: { [weak self] result in
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
@@ -45,9 +42,6 @@ final class CredentialsController: ObservableObject {
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             authenticationHandler: { [weak self] authentication in
                 self?.handleAuthentication(authentication)
-            },
-            progressHandler: { [weak self] in
-                self?.refreshProgressHandler(status: $0)
             }, completion: { [weak self] result in
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
@@ -73,20 +67,6 @@ final class CredentialsController: ObservableObject {
                     // Handle any errors
                 }
             })
-        }
-    }
-
-    private func refreshProgressHandler(status: RefreshCredentialsTask.Status) {
-        guard let refreshedCredentials = task?.credentials else { return }
-        switch status {
-        case .authenticating:
-            break
-        case .updating:
-            if let index = credentials.firstIndex(where: { $0.id == refreshedCredentials.id }) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = refreshedCredentials
-                }
-            }
         }
     }
 
