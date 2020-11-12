@@ -177,11 +177,22 @@ public struct Form {
             /// Input type for a field.
             ///
             /// Represents the different input types a field can have.
-            public enum InputType {
+            public struct InputType: Equatable, CustomStringConvertible {
+                private enum Value: Int {
+                    case `default`
+                    case numeric
+                }
+
+                private var value: Value
+
+                public var description: String {
+                    return "Form.Field.Attributes.InputType.\(value)"
+                }
+
                 /// An input type suitable for normal text input.
-                case `default`
+                public static let `default` = Self(value: .default)
                 /// An input type suitable for e.g. PIN entry.
-                case numeric
+                public static let numeric = Self(value: .numeric)
             }
 
             /// A string to display next to the field to explain what the field is for.
