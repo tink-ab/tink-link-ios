@@ -8,11 +8,27 @@ public final class AuthorizationContext {
 
     /// Error that the `AuthorizationContext` can throw.
     public struct Error: Swift.Error, CustomStringConvertible {
-        private enum Code: Int {
-            case invalidScopeOrRedirectURI = 1
+        public struct Code: Hashable, RawRepresentable {
+            enum Value: Int {
+                case unknown
+                case invalidScopeOrRedirectURI
+            }
+
+            var value: Value { Value(rawValue: rawValue) ?? .unknown }
+
+            public let rawValue: Int
+
+            public init(rawValue: Int) {
+                self.rawValue = rawValue
+            }
+
+            /// The scope or redirect URI was invalid.
+            ///
+            /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
+            public static let invalidScopeOrRedirectURI = Self(rawValue: Value.invalidScopeOrRedirectURI.rawValue)
         }
 
-        private let code: Code
+        public let code: Code
         public let message: String
 
         private init(code: Code, message: String) {
@@ -29,7 +45,7 @@ public final class AuthorizationContext {
         /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
         ///
         /// - Note: The payload from the backend can be found in the associated value.
-        public static let invalidScopeOrRedirectURI: Self = .init(code: .invalidScopeOrRedirectURI, message: "")
+        public static let invalidScopeOrRedirectURI: Code = .invalidScopeOrRedirectURI
 
         init?(_ error: Swift.Error) {
             switch error {
@@ -38,10 +54,6 @@ public final class AuthorizationContext {
             default:
                 return nil
             }
-        }
-
-        static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-            return lhs.code == (rhs as? Self)?.code
         }
     }
 
@@ -72,8 +84,8 @@ public final class AuthorizationContext {
     public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.authorize(clientID: clientID, redirectURI: appURI, scopes: scopes) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
-            if case .failure(let authorizationError as Error) = mappedResult, case Error.invalidScopeOrRedirectURI = authorizationError {
-                assertionFailure("Could not authorize: " + authorizationError.message)
+            if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrRedirectURI {
+                assertionFailure("Could not authorize: " + error.message)
             }
             completion(mappedResult)
         }
@@ -90,8 +102,8 @@ public final class AuthorizationContext {
         let scopes: [Scope] = []
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
-            if case .failure(let authorizationError as Error) = mappedResult, case Error.invalidScopeOrRedirectURI = authorizationError {
-                assertionFailure("Could not get client description: " + authorizationError.message)
+            if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrRedirectURI {
+                assertionFailure("Could not get client description: " + error.message)
             }
             completion(mappedResult)
         }

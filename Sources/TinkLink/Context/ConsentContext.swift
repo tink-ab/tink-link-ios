@@ -11,12 +11,28 @@ public final class ConsentContext {
     private let service: AuthenticationService
 
     /// Error that the `ConsentContext` can throw.
-    public struct Error: Swift.Error {
-        private enum Code: Int {
-            case invalidScopeOrRedirectURI = 1
+    public struct Error: Swift.Error, CustomStringConvertible {
+        public struct Code: Hashable, RawRepresentable {
+            enum Value: Int {
+                case unknown
+                case invalidScopeOrRedirectURI
+            }
+
+            var value: Value { Value(rawValue: rawValue) ?? .unknown }
+
+            public let rawValue: Int
+
+            public init(rawValue: Int) {
+                self.rawValue = rawValue
+            }
+
+            /// The scope or redirect URI was invalid.
+            ///
+            /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
+            public static let invalidScopeOrRedirectURI = Self(rawValue: Value.invalidScopeOrRedirectURI.rawValue)
         }
 
-        private let code: Code
+        public let code: Code
         public let message: String
 
         private init(code: Code, message: String) {
@@ -24,12 +40,16 @@ public final class ConsentContext {
             self.message = message
         }
 
+        public var description: String {
+            return "ConsentContext.Error.\(code.value)"
+        }
+
         /// The scope or redirect URI was invalid.
         ///
         /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
         ///
         /// - Note: The payload from the backend can be found in the associated value.
-        public static let invalidScopeOrRedirectURI: Self = .init(code: .invalidScopeOrRedirectURI, message: "")
+        public static let invalidScopeOrRedirectURI: Code = .invalidScopeOrRedirectURI
 
         init?(_ error: Swift.Error) {
             switch error {
@@ -38,10 +58,6 @@ public final class ConsentContext {
             default:
                 return nil
             }
-        }
-
-        static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-            return lhs.code == (rhs as? Self)?.code
         }
     }
 
@@ -136,8 +152,8 @@ public final class ConsentContext {
     public func fetchScopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.map(\.scopes).mapError { Error($0) ?? $0 }
-            if case .failure(let consentContextError as Error) = mappedResult, case Error.invalidScopeOrRedirectURI = consentContextError {
-                assertionFailure("Could not fetch scope descriptions: " + consentContextError.message)
+            if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrRedirectURI {
+                assertionFailure("Could not fetch scope descriptions: " + error.message)
             }
             completion(mappedResult)
         }
