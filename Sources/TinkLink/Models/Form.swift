@@ -204,7 +204,7 @@ public struct Form {
         }
 
         /// Describes a field validation error.
-        public struct ValidationError: Error {
+        public struct ValidationError: Error, CustomStringConvertible {
             public struct Code: Hashable, RawRepresentable {
                 enum Value: Int {
                     case unknown
@@ -229,6 +229,10 @@ public struct Form {
             }
 
             public let code: Code
+
+            public var description: String {
+                return "Form.Field.ValidationError.Error.\(String(describing: code.value)))"
+            }
 
             /// Field's `text` was invalid. See `reason` for explanation why.
             public static let invalid: Code = .invalid
