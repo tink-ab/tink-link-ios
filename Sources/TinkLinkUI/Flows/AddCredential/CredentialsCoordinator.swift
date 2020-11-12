@@ -121,7 +121,7 @@ final class CredentialsCoordinator {
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
             tinkLinkTracker.track(screen: .error)
-        } catch let error as SupplementInformationTask.Error where error == .cancelled {
+        } catch let error as SupplementInformationTask.Error where error.code == .cancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }

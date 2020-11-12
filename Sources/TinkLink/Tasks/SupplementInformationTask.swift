@@ -31,19 +31,32 @@ public final class SupplementInformationTask: Identifiable {
     private var callRetryCancellable: RetryCancellable?
 
     /// Error that the `SupplementInformationTask` can throw.
-    public struct Error: Swift.Error, Equatable, CustomStringConvertible {
-        private enum Code: Int {
-            case cancelled = 1
+    public struct Error: Swift.Error, CustomStringConvertible {
+        public struct Code: Hashable, RawRepresentable {
+            enum Value: Int {
+                case unknown
+                case cancelled
+            }
+
+            var value: Value { Value(rawValue: rawValue) ?? .unknown }
+
+            public let rawValue: Int
+
+            public init(rawValue: Int) {
+                self.rawValue = rawValue
+            }
+
+            public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
         }
 
-        private var code: Code
+        public var code: Code
 
         public var description: String {
             return "SupplementInformationTask.Error.\(code)"
         }
 
         /// The task was cancelled.
-        public static let cancelled = Self(code: .cancelled)
+        public static let cancelled: Code = .cancelled
     }
 
     // MARK: Getting the Credentials
@@ -80,7 +93,7 @@ public final class SupplementInformationTask: Identifiable {
         callRetryCancellable = credentialsService.cancelSupplementalInformation(id: credentials.id, completion: { [weak self] result in
             switch result {
             case .success:
-                self?.completionHandler(.failure(Error.cancelled))
+                self?.completionHandler(.failure(Error(code: .cancelled)))
             case .failure(let error):
                 self?.completionHandler(.failure(error))
             }
