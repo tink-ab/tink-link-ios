@@ -136,7 +136,7 @@ public final class ConsentContext {
     public func fetchScopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.map(\.scopes).mapError { Error($0) ?? $0 }
-            if case .failure(let error) = mappedResult, let consentContextError = error as? Error, case Error.invalidScopeOrRedirectURI = consentContextError {
+            if case .failure(let consentContextError as Error) = mappedResult, case Error.invalidScopeOrRedirectURI = consentContextError {
                 assertionFailure("Could not fetch scope descriptions: " + consentContextError.message)
             }
             completion(mappedResult)
