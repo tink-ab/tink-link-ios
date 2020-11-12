@@ -50,6 +50,10 @@ public final class AddBeneficiaryTask: Cancellable {
             public static let credentialsSessionExpired = Self(rawValue: Value.credentialsSessionExpired.rawValue)
             /// The beneficiary could not be found.
             public static let notFound = Self(rawValue: Value.notFound.rawValue)
+
+            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+                lhs == (rhs as? AddBeneficiaryTask.Error)?.code
+            }
         }
 
         public let code: Code

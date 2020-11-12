@@ -47,6 +47,10 @@ public final class SupplementInformationTask: Identifiable {
             }
 
             public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
+
+            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+                lhs == (rhs as? SupplementInformationTask.Error)?.code
+            }
         }
 
         public var code: Code

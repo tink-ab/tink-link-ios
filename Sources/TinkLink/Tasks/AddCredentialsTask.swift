@@ -48,6 +48,10 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
             public static let credentialsAlreadyExists = Self(rawValue: Value.credentialsAlreadyExists.rawValue)
             /// The task was cancelled.
             public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
+
+            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+                lhs == (rhs as? AddCredentialsTask.Error)?.code
+            }
         }
 
         public let code: Code

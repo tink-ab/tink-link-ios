@@ -55,6 +55,10 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             public static let deleted = Self(rawValue: Value.deleted.rawValue)
             /// The task was cancelled.
             public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
+
+            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+                lhs == (rhs as? RefreshCredentialsTask.Error)?.code
+            }
         }
 
         public let code: Code

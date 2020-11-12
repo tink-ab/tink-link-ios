@@ -77,6 +77,10 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             /// Decoding the QR code image failed.
             public static let decodingQRCodeImageFailed = Self(rawValue: Value.decodingQRCodeImageFailed.rawValue)
             public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
+
+            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+                lhs == (rhs as? ThirdPartyAppAuthenticationTask.Error)?.code
+            }
         }
 
         public let code: Code

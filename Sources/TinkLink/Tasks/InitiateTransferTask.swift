@@ -51,6 +51,10 @@ public final class InitiateTransferTask: Cancellable {
             public static let credentialsSessionExpired = Self(rawValue: Value.credentialsSessionExpired.rawValue)
             public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
             public static let failed = Self(rawValue: Value.failed.rawValue)
+
+            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+                lhs == (rhs as? InitiateTransferTask.Error)?.code
+            }
         }
 
         public let code: Code
