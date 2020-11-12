@@ -48,7 +48,7 @@ public final class ConsentContext {
         ///
         /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid app URI in Tink Console.
         ///
-        /// - Note: The payload from the backend can be found in the associated value.
+        /// - Note: The payload from the backend can be found in the message property.
         public static let invalidScopeOrAppURI: Code = .invalidScopeOrAppURI
 
         init?(_ error: Swift.Error) {
