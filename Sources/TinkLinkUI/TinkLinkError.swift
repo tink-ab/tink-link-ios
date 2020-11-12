@@ -2,20 +2,40 @@ import Foundation
 import TinkLink
 
 public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
-    private enum Code: Int {
-        case userCancelled = 1
-        case unableToFetchProviders
-        case missingInternetConnection
-        case credentialsNotFound
-        case providerNotFound
-        case unableToOpenThirdPartyApp
-        case unauthenticated
-        case internalError
+    public struct Code: Hashable, RawRepresentable {
+        enum Value: Int {
+            case unknown
+            case userCancelled
+            case unableToFetchProviders
+            case missingInternetConnection
+            case credentialsNotFound
+            case providerNotFound
+            case unableToOpenThirdPartyApp
+            case unauthenticated
+            case internalError
+        }
+
+        var value: Value { Value(rawValue: rawValue) ?? .unknown }
+
+        public let rawValue: Int
+
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+
+        public static let userCancelled = Self(rawValue: Value.userCancelled.rawValue)
+        public static let unableToFetchProviders = Self(rawValue: Value.unableToFetchProviders.rawValue)
+        public static let missingInternetConnection = Self(rawValue: Value.missingInternetConnection.rawValue)
+        public static let credentialsNotFound = Self(rawValue: Value.credentialsNotFound.rawValue)
+        public static let providerNotFound = Self(rawValue: Value.providerNotFound.rawValue)
+        public static let unableToOpenThirdPartyApp = Self(rawValue: Value.unableToOpenThirdPartyApp.rawValue)
+        public static let unauthenticated = Self(rawValue: Value.unauthenticated.rawValue)
+        public static let internalError = Self(rawValue: Value.internalError.rawValue)
     }
 
-    private var code: Code
+    public var code: Code
 
-    private init(code: Code) {
+    init(code: Code) {
         self.code = code
     }
 
@@ -24,32 +44,32 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
     }
 
     /// User cancelled the flow.
-    public static let userCancelled: TinkLinkError = .init(code: .userCancelled)
+    public static let userCancelled: Code = .userCancelled
     /// Unable to fetch providers.
-    public static let unableToFetchProviders: TinkLinkError = .init(code: .unableToFetchProviders)
+    public static let unableToFetchProviders: Code = .unableToFetchProviders
     /// Unable to fetch providers.
-    public static let missingInternetConnection: TinkLinkError = .init(code: .missingInternetConnection)
+    public static let missingInternetConnection: Code = .missingInternetConnection
     /// The credentials could not be found.
-    public static let credentialsNotFound: TinkLinkError = .init(code: .credentialsNotFound)
+    public static let credentialsNotFound: Code = .credentialsNotFound
     /// The provider could not be found.
-    public static let providerNotFound: TinkLinkError = .init(code: .providerNotFound)
+    public static let providerNotFound: Code = .providerNotFound
     /// Tink Link was not able to open the third party app.
-    public static let unableToOpenThirdPartyApp: TinkLinkError = .init(code: .unableToOpenThirdPartyApp)
-    public static let unauthenticated: TinkLinkError = .init(code: .unauthenticated)
-    public static let internalError: TinkLinkError = .init(code: .internalError)
+    public static let unableToOpenThirdPartyApp: Code = .unableToOpenThirdPartyApp
+    public static let unauthenticated: Code = .unauthenticated
+    public static let internalError: Code = .internalError
 
     init?(error: Error) {
         if let error = error as? ProviderController.Error {
             switch error {
             case .emptyProviderList:
-                self = .unableToFetchProviders
+                self = .init(code: .unableToFetchProviders)
             case .providerNotFound:
-                self = .providerNotFound
+                self = .init(code: .providerNotFound)
             }
         } else if case ServiceError.unauthenticated = error {
-            self = .unauthenticated
+            self = .init(code: .unauthenticated)
         } else if let error = error as? URLError, error.code == .notConnectedToInternet {
-            self = .missingInternetConnection
+            self = .init(code: .missingInternetConnection)
         } else {
             return nil
         }

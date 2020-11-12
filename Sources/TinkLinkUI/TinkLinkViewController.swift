@@ -463,8 +463,8 @@ public class TinkLinkViewController: UIViewController {
             permanentCompletion?(.failure(error))
 
         case .none:
-            temporaryCompletion?(.failure(.userCancelled))
-            permanentCompletion?(.failure(.userCancelled))
+            temporaryCompletion?(.failure(.init(code: .userCancelled)))
+            permanentCompletion?(.failure(.init(code: .userCancelled)))
         }
     }
 }
@@ -522,7 +522,7 @@ extension TinkLinkViewController {
             do {
                 let provider = try result.get()
                 self?.showAddCredentials(for: provider)
-            } catch let error as TinkLinkError where error == .userCancelled {
+            } catch let error as TinkLinkError where error.code == .userCancelled {
                 self?.cancel()
             } catch {
                 self?.showAlert(for: error)
