@@ -255,7 +255,7 @@ public struct Form {
             public var maxLength: Int?
 
             static func invalid(fieldName: String, reason: String) -> Self {
-                .init(code: .invalid, fieldName: fieldName, reason: "")
+                .init(code: .invalid, fieldName: fieldName, reason: reason)
             }
 
             static func maxLengthLimit(fieldName: String, maxLength: Int) -> Self {
