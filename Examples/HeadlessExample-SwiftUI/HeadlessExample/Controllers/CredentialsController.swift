@@ -69,9 +69,7 @@ final class CredentialsController: ObservableObject {
                 do {
                     try result.get()
                     DispatchQueue.main.async {
-                        self?.credentials.removeAll { removedCredentials -> Bool in
-                            credentials.id == removedCredentials.id
-                        }
+                        self?.credentials.removeAll { $0.id == credentials.id}
                     }
                 } catch {
                     // Handle any errors
