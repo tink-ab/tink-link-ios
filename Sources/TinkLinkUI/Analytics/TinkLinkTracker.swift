@@ -40,7 +40,7 @@ class TinkLinkTracker {
     init(clientID: String, operation: TinkLinkViewController.Operation) {
         self.clientID = clientID
 
-        switch operation {
+        switch operation.value {
         case .authenticate(credentialsID: let id):
             self.flow = .credentialsAuthenticate
             self.credentialsID = id.value
