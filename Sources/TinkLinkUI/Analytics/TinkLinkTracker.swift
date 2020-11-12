@@ -49,7 +49,7 @@ class TinkLinkTracker {
         case .create(providerPredicate: let predicate):
             self.flow = .credentialsAdd
             self.credentialsID = nil
-            if case .kinds(let kinds) = predicate {
+            if case .kinds(let kinds) = predicate.value {
                 isTest = kinds.contains(.test)
             } else {
                 self.isTest = false

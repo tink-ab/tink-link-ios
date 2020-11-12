@@ -79,11 +79,22 @@ public class TinkLinkViewController: UIViewController {
     }
 
     /// Strategy for what to fetch
-    public enum ProviderPredicate {
+    public struct ProviderPredicate {
+        enum Value {
+            case kinds(Set<Provider.Kind>)
+            case name(Provider.Name)
+        }
+
+        let value: Value
+
         /// Will fetch a list of providers depending on kind.
-        case kinds(Set<Provider.Kind>)
+        public static func kinds(_ kinds: Set<Provider.Kind>) -> Self {
+            .init(value: .kinds(kinds))
+        }
         /// Will fetch a single provider by name.
-        case name(Provider.Name)
+        public static func name(_ name: Provider.Name) -> Self {
+            .init(value: .name(name))
+        }
     }
 
     /// Strategy for different operations.
@@ -392,7 +403,7 @@ public class TinkLinkViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let providers):
-                    switch providerPredicate {
+                    switch providerPredicate.value {
                     case .kinds:
                         self.showProviderPicker()
                     case .name:
