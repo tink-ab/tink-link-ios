@@ -84,12 +84,15 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         static func authenticationFailed(_ message: String?) -> Self {
             .init(code: .authenticationFailed, message: message)
         }
+
         static func temporaryFailure(_ message: String?) -> Self {
             .init(code: .temporaryFailure, message: message)
         }
+
         static func permanentFailure(_ message: String?) -> Self {
             .init(code: .permanentFailure, message: message)
         }
+
         static func credentialsAlreadyExists(_ message: String?) -> Self {
             .init(code: .credentialsAlreadyExists, message: message)
         }

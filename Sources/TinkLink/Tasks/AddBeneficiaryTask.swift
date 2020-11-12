@@ -89,15 +89,19 @@ public final class AddBeneficiaryTask: Cancellable {
         static func invalidBeneficiary(_ message: String?) -> Self {
             .init(code: .invalidBeneficiary, message: message)
         }
+
         static func authenticationFailed(_ message: String?) -> Self {
             .init(code: .authenticationFailed, message: message)
         }
+
         static func credentialsDeleted(_ message: String?) -> Self {
             .init(code: .credentialsDeleted, message: message)
         }
+
         static func credentialsSessionExpired(_ message: String?) -> Self {
             .init(code: .credentialsSessionExpired, message: message)
         }
+
         static func notFound(_ message: String?) -> Self {
             .init(code: .notFound, message: message)
         }

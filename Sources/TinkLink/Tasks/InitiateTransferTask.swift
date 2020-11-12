@@ -84,15 +84,19 @@ public final class InitiateTransferTask: Cancellable {
         static func authenticationFailed(_ message: String?) -> Self {
             .init(code: .authenticationFailed, message: message)
         }
+
         static func credentialsDeleted(_ message: String?) -> Self {
             .init(code: .credentialsDeleted, message: message)
         }
+
         static func credentialsSessionExpired(_ message: String?) -> Self {
             .init(code: .credentialsSessionExpired, message: message)
         }
+
         static func cancelled(_ message: String?) -> Self {
             .init(code: .cancelled, message: message)
         }
+
         static func failed(_ message: String?) -> Self {
             .init(code: .failed, message: message)
         }

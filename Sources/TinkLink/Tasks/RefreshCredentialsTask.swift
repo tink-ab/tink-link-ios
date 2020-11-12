@@ -56,6 +56,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             /// The task was cancelled.
             public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
         }
+
         public var code: Code
         public var message: String?
 
@@ -85,12 +86,15 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         static func authenticationFailed(_ message: String?) -> Self {
             .init(code: .authenticationFailed, message: message)
         }
+
         static func temporaryFailure(_ message: String?) -> Self {
             .init(code: .temporaryFailure, message: message)
         }
+
         static func permanentFailure(_ message: String?) -> Self {
             .init(code: .permanentFailure, message: message)
         }
+
         static func deleted(_ message: String?) -> Self {
             .init(code: .deleted, message: message)
         }

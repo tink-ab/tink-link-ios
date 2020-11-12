@@ -253,12 +253,15 @@ public struct Form {
             static func invalid(fieldName: String, reason: String) -> Self {
                 .init(code: .invalid, fieldName: fieldName, reason: "")
             }
+
             static func maxLengthLimit(fieldName: String, maxLength: Int) -> Self {
                 .init(code: .maxLengthLimit, fieldName: fieldName, reason: "Field can't be longer than \(maxLength)", maxLength: maxLength)
             }
+
             static func minLengthLimit(fieldName: String, minLength: Int) -> Self {
                 .init(code: .minLengthLimit, fieldName: fieldName, reason: "Field can't be shorter than \(minLength)", minLength: minLength)
             }
+
             static func requiredFieldEmptyValue(fieldName: String) -> Self {
                 .init(code: .requiredFieldEmptyValue, fieldName: fieldName, reason: "Required field")
             }
