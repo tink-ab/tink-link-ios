@@ -56,13 +56,17 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
     /// Use with `CredentialsContext.addCredentials(for:form:completionPredicate:progressHandler:completion:)` to set when add credentials task should call completion handler if successful.
     public struct CompletionPredicate {
         /// Determines when the add credentials task is considered done.
-        public struct SuccessPredicate {
-            enum Value: Int {
+        public struct SuccessPredicate: Equatable, CustomStringConvertible {
+            private enum Value: Int {
                 case updating
                 case updated
             }
 
-            let value: Value
+            private let value: Value
+
+            public var description: String {
+                return "AddCredentialsTask.CompletionPredicate.\(value)"
+            }
 
             /// A predicate that indicates the credentials' status is `updating`.
             public static let updating = Self(value: .updating)
@@ -183,13 +187,13 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                 thirdPartyAuthenticationTask = task
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
-                if completionPredicate.successPredicate.value == .updating {
+                if completionPredicate.successPredicate == .updating {
                     complete(with: .success(credentials))
                 } else {
                     progressHandler(.updating)
                 }
             case .updated:
-                if completionPredicate.successPredicate.value == .updated {
+                if completionPredicate.successPredicate == .updated {
                     complete(with: .success(credentials))
                 }
             case .permanentError:
