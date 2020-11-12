@@ -79,7 +79,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
         }
 
-        public var code: Code
+        public let code: Code
 
         public var description: String {
             return "ThirdPartyAppAuthenticationTask.Error.\(code.value)"

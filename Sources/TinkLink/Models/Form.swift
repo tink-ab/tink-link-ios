@@ -228,7 +228,7 @@ public struct Form {
                 public static let requiredFieldEmptyValue = Self(rawValue: Value.requiredFieldEmptyValue.rawValue)
             }
 
-            public var code: Code
+            public let code: Code
 
             /// Field's `text` was invalid. See `reason` for explanation why.
             public static let invalid: Code = .invalid

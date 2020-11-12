@@ -53,8 +53,8 @@ public final class InitiateTransferTask: Cancellable {
             public static let failed = Self(rawValue: Value.failed.rawValue)
         }
 
-        public var code: Code
-        public var message: String?
+        public let code: Code
+        public let message: String?
 
         public var description: String {
             return "InitiateTransferTask.Error.\(String(describing: code.value)))"

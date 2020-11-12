@@ -52,8 +52,8 @@ public final class AddBeneficiaryTask: Cancellable {
             public static let notFound = Self(rawValue: Value.notFound.rawValue)
         }
 
-        public var code: Code
-        public var message: String?
+        public let code: Code
+        public let message: String?
 
         init(code: Code, message: String? = nil) {
             self.code = code

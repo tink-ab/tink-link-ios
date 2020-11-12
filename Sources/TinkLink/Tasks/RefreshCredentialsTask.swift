@@ -57,8 +57,8 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
         }
 
-        public var code: Code
-        public var message: String?
+        public let code: Code
+        public let message: String?
 
         public var description: String {
             return "RefreshCredentialsTask.Error.\(String(describing: code.value)))"
