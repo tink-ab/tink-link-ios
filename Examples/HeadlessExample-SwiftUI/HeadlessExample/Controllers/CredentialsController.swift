@@ -32,6 +32,11 @@ final class CredentialsController: ObservableObject {
             completion: { [weak self] result in
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
+                DispatchQueue.main.async {
+                    if case .success(let credentials) = result, let index = self?.credentials.firstIndex(where: { $0.id == credentials.id }) {
+                        self?.credentials[index] = credentials
+                    }
+                }
             }
         )
     }
@@ -45,6 +50,11 @@ final class CredentialsController: ObservableObject {
             }, completion: { [weak self] result in
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
+                DispatchQueue.main.async {
+                    if case .success(let credentials) = result, let index = self?.credentials.firstIndex(where: { $0.id == credentials.id }) {
+                        self?.credentials[index] = credentials
+                    }
+                }
             }
         )
     }
