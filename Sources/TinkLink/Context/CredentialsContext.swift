@@ -2,7 +2,7 @@ import Foundation
 
 /// An object that you use to access the user's credentials and supports the flow for adding credentials.
 public final class CredentialsContext {
-    var retryInterval: TimeInterval = 1.0
+    var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
     private let redirectURI: URL
     private let service: CredentialsService
@@ -101,7 +101,7 @@ public final class CredentialsContext {
             completion: completion
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
             task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
@@ -211,7 +211,7 @@ public final class CredentialsContext {
 
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
@@ -266,7 +266,7 @@ public final class CredentialsContext {
             completion: completion
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.callCanceller = service.update(
             id: credentials.id,
@@ -324,7 +324,7 @@ public final class CredentialsContext {
     ) -> AuthenticateCredentialsTask {
         let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
             switch result {

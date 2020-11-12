@@ -46,7 +46,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         case cancelled
     }
 
-    var retryInterval: TimeInterval = 1.0
+    var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
     // MARK: - Retrieving Failure Requirements
 
@@ -87,7 +87,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         ) { [weak self] result in
             self?.handleUpdate(for: result)
         }
-        credentialsStatusPollingTask?.retryInterval = retryInterval
+        credentialsStatusPollingTask?.pollingStrategy = pollingStrategy
         credentialsStatusPollingTask?.startPolling()
     }
 
