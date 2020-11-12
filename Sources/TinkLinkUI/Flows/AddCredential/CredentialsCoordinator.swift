@@ -125,7 +125,7 @@ final class CredentialsCoordinator {
             if callCompletionOnError {
                 completion(.failure(.init(code: .userCancelled)))
             }
-        } catch let error as TinkLinkError where error.code == .userCancelled {
+        } catch TinkLinkError.userCancelled {
             if callCompletionOnError {
                 completion(.failure(.init(code: .userCancelled)))
             }
