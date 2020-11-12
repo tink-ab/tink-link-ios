@@ -7,7 +7,7 @@ final class CredentialsController: ObservableObject {
     @Published var supplementInformationTask: SupplementInformationTask?
 
     private(set) var credentialsContext = Tink.shared.credentialsContext
-    private var task: RefreshCredentialsTask?
+    private var task: Cancellable?
 
     func performFetch() {
         credentialsContext.fetchCredentialsList(completion: { [weak self] result in
@@ -33,7 +33,7 @@ final class CredentialsController: ObservableObject {
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
             }
-        ) as? RefreshCredentialsTask
+        )
     }
 
     func performAuthentication(credentials: Credentials, completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -46,7 +46,7 @@ final class CredentialsController: ObservableObject {
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
             }
-        ) as? RefreshCredentialsTask
+        )
     }
 
     func cancelRefresh() {
