@@ -157,7 +157,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             canceller.cancel()
             callCanceller = nil
         } else {
-            complete(with: .failure(Error(code: .cancelled)))
+            complete(with: .failure(Error(code: .cancelled, message: nil)))
         }
     }
 
@@ -219,7 +219,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 assertionFailure("Unknown credentials status!")
             }
         } catch ServiceError.cancelled {
-            complete(with: .failure(Error(code: .cancelled)))
+            complete(with: .failure(Error(code: .cancelled, message: nil)))
         } catch {
             complete(with: .failure(error))
         }
