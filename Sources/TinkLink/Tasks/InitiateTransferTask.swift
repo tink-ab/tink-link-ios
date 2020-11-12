@@ -13,7 +13,7 @@ public final class InitiateTransferTask: Cancellable {
         case created(Transfer.ID)
         /// The user needs to be authenticated.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         case authenticating(String?)
         /// The credentials are updating.
         case updating
@@ -62,23 +62,23 @@ public final class InitiateTransferTask: Cancellable {
 
         /// The authentication failed.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         public static let authenticationFailed: Code = .authenticationFailed
         /// The credentials are deleted.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         public static let credentialsDeleted: Code = .credentialsDeleted
         /// The credentials session was expired.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         public static let credentialsSessionExpired: Code = .credentialsSessionExpired
         /// The transfer was cancelled.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         public static let cancelled: Code = .cancelled
         /// The transfer failed.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         public static let failed: Code = .failed
 
         static func authenticationFailed(_ message: String?) -> Self {

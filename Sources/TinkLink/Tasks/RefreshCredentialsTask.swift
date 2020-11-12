@@ -18,7 +18,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
 
     /// Indicates the state of a credentials being refreshed.
     public enum Status {
-        /// The user needs to be authenticated. The payload from the backend can be found in the associated value.
+        /// The user needs to be authenticated. The payload from the backend can be found in the message property.
         case authenticating(String?)
 
         /// User has been successfully authenticated, now downloading data.
@@ -45,13 +45,13 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 self.rawValue = rawValue
             }
 
-            /// The authentication failed. The payload from the backend can be found in the associated value.
+            /// The authentication failed.
             public static let authenticationFailed = Self(rawValue: Value.authenticationFailed.rawValue)
-            /// A temporary failure occurred. The payload from the backend can be found in the associated value.
+            /// A temporary failure occurred.
             public static let temporaryFailure = Self(rawValue: Value.temporaryFailure.rawValue)
-            /// A permanent failure occurred. The payload from the backend can be found in the associated value.
+            /// A permanent failure occurred.
             public static let permanentFailure = Self(rawValue: Value.permanentFailure.rawValue)
-            /// The credentials are deleted. The payload from the backend can be found in the associated value.
+            /// The credentials are deleted.
             public static let deleted = Self(rawValue: Value.deleted.rawValue)
             /// The task was cancelled.
             public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
@@ -63,13 +63,21 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             return "RefreshCredentialsTask.Error.\(String(describing: code.value)))"
         }
 
-        /// The authentication failed. The payload from the backend can be found in the associated value.
+        /// The authentication failed.
+        ///
+        /// The payload from the backend can be found in the message property.
         public static let authenticationFailed: Code = .authenticationFailed
-        /// A temporary failure occurred. The payload from the backend can be found in the associated value.
+        /// A temporary failure occurred.
+        ///
+        /// The payload from the backend can be found in the message property.
         public static let temporaryFailure: Code = .temporaryFailure
-        /// A permanent failure occurred. The payload from the backend can be found in the associated value.
+        /// A permanent failure occurred.
+        ///
+        /// The payload from the backend can be found in the message property.
         public static let permanentFailure: Code = .permanentFailure
-        /// The credentials are deleted. The payload from the backend can be found in the associated value.
+        /// The credentials are deleted.
+        ///
+        /// The payload from the backend can be found in the message property.
         public static let deleted: Code = .deleted
         /// The task was cancelled.
         public static let cancelled: Code = .cancelled

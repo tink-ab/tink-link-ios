@@ -14,7 +14,7 @@ public final class AddBeneficiaryTask: Cancellable {
         case requestSent
         /// The user needs to be authenticated.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         case authenticating(String?)
         /// The credentials are updating.
         case updating
@@ -40,10 +40,15 @@ public final class AddBeneficiaryTask: Cancellable {
                 self.rawValue = rawValue
             }
 
+            /// The beneficiary was invalid.
             public static let invalidBeneficiary = Self(rawValue: Value.invalidBeneficiary.rawValue)
+            /// The authentication failed.
             public static let authenticationFailed = Self(rawValue: Value.authenticationFailed.rawValue)
+            /// The credentials are deleted.
             public static let credentialsDeleted = Self(rawValue: Value.credentialsDeleted.rawValue)
+            /// The credentials session was expired.
             public static let credentialsSessionExpired = Self(rawValue: Value.credentialsSessionExpired.rawValue)
+            /// The beneficiary could not be found.
             public static let notFound = Self(rawValue: Value.notFound.rawValue)
         }
 
@@ -62,23 +67,23 @@ public final class AddBeneficiaryTask: Cancellable {
         /// The beneficiary was invalid.
         /// If you get this error, make sure that the parameters for `addBeneficiary` are correct.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         public static let invalidBeneficiary: Code = .invalidBeneficiary
         /// The authentication failed.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         public static let authenticationFailed: Code = .authenticationFailed
         /// The credentials are deleted.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         public static let credentialsDeleted: Code = .credentialsDeleted
         /// The credentials session was expired.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         public static let credentialsSessionExpired: Code = .credentialsSessionExpired
         /// The beneficiary could not be found.
         ///
-        /// The payload from the backend can be found in the associated value.
+        /// The payload from the backend can be found in the message property.
         public static let notFound: Code = .notFound
 
         static func invalidBeneficiary(_ message: String?) -> Self {
