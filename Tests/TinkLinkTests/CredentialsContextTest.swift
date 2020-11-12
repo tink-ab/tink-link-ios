@@ -8,7 +8,7 @@ class CredentialsContextTests: XCTestCase {
     var task: Cancellable?
 
     override func setUp() {
-        try! Tink.configure(with: .init(clientID: "testID", redirectURI: URL(string: "app://callback")!))
+        Tink.configure(with: Tink.Configuration(clientID: "testID", appURI: URL(string: "app://callback")!))
         mockedSuccessCredentialsService = MockedSuccessCredentialsService()
         mockedUnauthenticatedErrorCredentialsService = MockedUnauthenticatedErrorCredentialsService()
     }
@@ -144,7 +144,7 @@ class CredentialsContextTests: XCTestCase {
     }
 
     func testRefreshCredentialsAlreadyRefreshed() {
-        let credentials = Credentials.makeTestCredentials(providerID: "test", kind: .password, status: .updated)
+        let credentials = Credentials.makeTestCredentials(providerName: "test", kind: .password, status: .updated)
         let service = MutableCredentialsService(credentialsList: [credentials])
 
         service.credentialsStatusAfterRefresh = .updated
@@ -168,9 +168,9 @@ class CredentialsContextTests: XCTestCase {
     }
 
     func testRefreshCredentialsStuckInAwaiting() {
-        let initialStatus = Credentials.Status.awaitingSupplementalInformation
+        let initialStatus = Credentials.Status.awaitingSupplementalInformation([Provider.Field(description: "Code", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "code", initialValue: "", pattern: "", patternError: "", helpText: "")])
 
-        let credentials = Credentials.makeTestCredentials(providerID: "test", kind: .keyfob, status: initialStatus, supplementalInformationFields: [Provider.FieldSpecification(fieldDescription: "Code", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "code", initialValue: "", pattern: "", patternError: "", helpText: "")])
+        let credentials = Credentials.makeTestCredentials(providerName: "test", kind: .keyfob, status: initialStatus)
 
         let service = MutableCredentialsService(credentialsList: [credentials])
 
