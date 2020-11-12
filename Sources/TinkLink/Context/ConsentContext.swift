@@ -33,7 +33,7 @@ public final class ConsentContext {
         }
 
         public let code: Code
-        public let message: String
+        public let message: String?
 
         private init(code: Code, message: String) {
             self.code = code
@@ -153,7 +153,7 @@ public final class ConsentContext {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.map(\.scopes).mapError { Error($0) ?? $0 }
             if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrAppURI {
-                assertionFailure("Could not fetch scope descriptions: " + error.message)
+                assertionFailure("Could not fetch scope descriptions: " + (error.message ?? ""))
             }
             completion(mappedResult)
         }

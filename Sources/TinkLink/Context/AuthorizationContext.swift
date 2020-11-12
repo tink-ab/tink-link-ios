@@ -29,7 +29,7 @@ public final class AuthorizationContext {
         }
 
         public let code: Code
-        public let message: String
+        public let message: String?
 
         private init(code: Code, message: String) {
             self.code = code
@@ -85,7 +85,7 @@ public final class AuthorizationContext {
         return service.authorize(clientID: clientID, redirectURI: appURI, scopes: scopes) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
             if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrAppURI {
-                assertionFailure("Could not authorize: " + error.message)
+                assertionFailure("Could not authorize: " + (error.message ?? ""))
             }
             completion(mappedResult)
         }
@@ -103,7 +103,7 @@ public final class AuthorizationContext {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.mapError { Error($0) ?? $0 }
             if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrAppURI {
-                assertionFailure("Could not get client description: " + error.message)
+                assertionFailure("Could not get client description: " + (error.message ?? ""))
             }
             completion(mappedResult)
         }
