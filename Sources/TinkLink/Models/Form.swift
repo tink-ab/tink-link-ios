@@ -178,7 +178,7 @@ public struct Form {
             ///
             /// Represents the different input types a field can have.
             public struct InputType: Equatable, CustomStringConvertible {
-                private enum Value: Int {
+                private enum Value {
                     case `default`
                     case numeric
                 }

@@ -57,7 +57,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
     public struct CompletionPredicate {
         /// Determines when the add credentials task is considered done.
         public struct SuccessPredicate: Equatable, CustomStringConvertible {
-            private enum Value: Int {
+            private enum Value {
                 case updating
                 case updated
             }
