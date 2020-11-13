@@ -40,7 +40,7 @@ class TinkLinkTracker {
     init(clientID: String, operation: TinkLinkViewController.Operation) {
         self.clientID = clientID
 
-        switch operation {
+        switch operation.value {
         case .authenticate(credentialsID: let id):
             self.flow = .credentialsAuthenticate
             self.credentialsID = id.value
@@ -49,7 +49,7 @@ class TinkLinkTracker {
         case .create(providerPredicate: let predicate):
             self.flow = .credentialsAdd
             self.credentialsID = nil
-            if case .kinds(let kinds) = predicate {
+            if case .kinds(let kinds) = predicate.value {
                 isTest = kinds.contains(.test)
             } else {
                 self.isTest = false

@@ -31,7 +31,7 @@ final class ProviderController {
         isFetching = true
         NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)
 
-        switch providerPredicate {
+        switch providerPredicate.value {
         case .name(let id):
             fetchProvider(with: id) { result in
                 do {

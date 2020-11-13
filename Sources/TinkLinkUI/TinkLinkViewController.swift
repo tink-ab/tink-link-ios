@@ -60,40 +60,81 @@ import TinkLink
 /// ```
 public class TinkLinkViewController: UIViewController {
     /// Strategy for different types of prefilling
-    public enum PrefillStrategy {
+    public struct PrefillStrategy {
+        enum Value {
+            case none
+            case username(value: String, isEditable: Bool)
+        }
+
+        let value: Value
+
         /// No prefilling will occur.
-        case none
+        public static let none = Self(value: .none)
         /// Will attempt to fill the first field of the provider with the associated value if it is valid.
-        case username(value: String, isEditable: Bool)
+        public static func username(value: String, isEditable: Bool) -> Self {
+            .init(value: .username(value: value, isEditable: isEditable))
+        }
     }
 
     /// Strategy for what to fetch
-    public enum ProviderPredicate {
+    public struct ProviderPredicate {
+        enum Value {
+            case kinds(Set<Provider.Kind>)
+            case name(Provider.Name)
+        }
+
+        let value: Value
+
         /// Will fetch a list of providers depending on kind.
-        case kinds(Set<Provider.Kind>)
+        public static func kinds(_ kinds: Set<Provider.Kind>) -> Self {
+            .init(value: .kinds(kinds))
+        }
+
         /// Will fetch a single provider by name.
-        case name(Provider.Name)
+        public static func name(_ name: Provider.Name) -> Self {
+            .init(value: .name(name))
+        }
     }
 
     /// Strategy for different operations.
-    public enum Operation {
+    public struct Operation {
+        enum Value {
+            case create(providerPredicate: ProviderPredicate = .kinds(.default))
+            case authenticate(credentialsID: Credentials.ID)
+            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
+            case update(credentialsID: Credentials.ID)
+        }
+
+        let value: Value
+
         /// Create credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to create.
-        case create(providerPredicate: ProviderPredicate = .kinds(.default))
+        public static func create(providerPredicate: ProviderPredicate = .kinds(.default)) -> Self {
+            .init(value: .create(providerPredicate: providerPredicate))
+        }
+
         /// Authenticate credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to authenticate.
-        case authenticate(credentialsID: Credentials.ID)
+        public static func authenticate(credentialsID: Credentials.ID) -> Self {
+            .init(value: .authenticate(credentialsID: credentialsID))
+        }
+
         /// Refresh credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.
         ///   - forceAuthenticate: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
-        case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
+        public static func refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false) -> Self {
+            .init(value: .refresh(credentialsID: credentialsID, forceAuthenticate: forceAuthenticate))
+        }
+
         /// Update credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to update.
-        case update(credentialsID: Credentials.ID)
+        public static func update(credentialsID: Credentials.ID) -> Self {
+            .init(value: .update(credentialsID: credentialsID))
+        }
     }
 
     enum ResultType {
@@ -364,7 +405,7 @@ public class TinkLinkViewController: UIViewController {
     }
 
     func operate() {
-        switch operation {
+        switch operation.value {
         case .create(providerPredicate: let providerPredicate):
             fetchProviders(providerPredicate: providerPredicate)
         case .authenticate(let id):
@@ -381,7 +422,7 @@ public class TinkLinkViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let providers):
-                    switch providerPredicate {
+                    switch providerPredicate.value {
                     case .kinds:
                         self.showProviderPicker()
                     case .name:
