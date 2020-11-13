@@ -36,10 +36,6 @@ public final class AddBeneficiaryTask: Cancellable {
 
             let rawValue: Int
 
-            init(rawValue: Int) {
-                self.rawValue = rawValue
-            }
-
             /// The beneficiary was invalid.
             public static let invalidBeneficiary = Self(rawValue: Value.invalidBeneficiary.rawValue)
             /// The authentication failed.

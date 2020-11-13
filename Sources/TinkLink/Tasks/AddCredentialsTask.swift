@@ -34,10 +34,6 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
 
             let rawValue: Int
 
-            init(rawValue: Int) {
-                self.rawValue = rawValue
-            }
-
             /// The authentication failed.
             public static let authenticationFailed = Self(rawValue: Value.authenticationFailed.rawValue)
             /// A temporary failure occurred.

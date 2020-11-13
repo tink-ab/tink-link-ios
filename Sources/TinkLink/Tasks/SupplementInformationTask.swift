@@ -42,10 +42,6 @@ public final class SupplementInformationTask: Identifiable {
 
             let rawValue: Int
 
-            init(rawValue: Int) {
-                self.rawValue = rawValue
-            }
-
             public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
 
             public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {

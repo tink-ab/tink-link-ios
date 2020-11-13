@@ -64,10 +64,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
 
             let rawValue: Int
 
-            init(rawValue: Int) {
-                self.rawValue = rawValue
-            }
-
             /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
             public static let deeplinkURLNotFound = Self(rawValue: Value.deeplinkURLNotFound.rawValue)
             /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.

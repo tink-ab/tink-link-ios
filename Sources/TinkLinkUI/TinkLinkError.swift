@@ -19,10 +19,6 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
 
         let rawValue: Int
 
-        init(rawValue: Int) {
-            self.rawValue = rawValue
-        }
-
         public static let userCancelled = Self(rawValue: Value.userCancelled.rawValue)
         public static let unableToFetchProviders = Self(rawValue: Value.unableToFetchProviders.rawValue)
         public static let missingInternetConnection = Self(rawValue: Value.missingInternetConnection.rawValue)

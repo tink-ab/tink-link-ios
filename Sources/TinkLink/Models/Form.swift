@@ -218,10 +218,6 @@ public struct Form {
 
                 let rawValue: Int
 
-                init(rawValue: Int) {
-                    self.rawValue = rawValue
-                }
-
                 public static let invalid = Self(rawValue: Value.invalid.rawValue)
                 public static let maxLengthLimit = Self(rawValue: Value.maxLengthLimit.rawValue)
                 public static let minLengthLimit = Self(rawValue: Value.minLengthLimit.rawValue)

@@ -42,10 +42,6 @@ public final class InitiateTransferTask: Cancellable {
 
             let rawValue: Int
 
-            init(rawValue: Int) {
-                self.rawValue = rawValue
-            }
-
             public static let authenticationFailed = Self(rawValue: Value.authenticationFailed.rawValue)
             public static let credentialsDeleted = Self(rawValue: Value.credentialsDeleted.rawValue)
             public static let credentialsSessionExpired = Self(rawValue: Value.credentialsSessionExpired.rawValue)

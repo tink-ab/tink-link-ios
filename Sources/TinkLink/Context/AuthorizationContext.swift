@@ -18,10 +18,6 @@ public final class AuthorizationContext {
 
             let rawValue: Int
 
-            init(rawValue: Int) {
-                self.rawValue = rawValue
-            }
-
             /// The scope or redirect URI was invalid.
             ///
             /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid app URI in Tink Console.
