@@ -17,9 +17,9 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
 
         var value: Value { Value(rawValue: rawValue) ?? .unknown }
 
-        public let rawValue: Int
+        let rawValue: Int
 
-        public init(rawValue: Int) {
+        init(rawValue: Int) {
             self.rawValue = rawValue
         }
 
