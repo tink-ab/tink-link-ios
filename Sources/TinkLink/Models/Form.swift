@@ -205,7 +205,7 @@ public struct Form {
 
         /// Describes a field validation error.
         public struct ValidationError: Error, CustomStringConvertible {
-            public struct Code: Hashable, RawRepresentable {
+            public struct Code: Hashable {
                 enum Value: Int {
                     case unknown
                     case invalid

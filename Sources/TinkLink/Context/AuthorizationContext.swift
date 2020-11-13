@@ -8,7 +8,7 @@ public final class AuthorizationContext {
 
     /// Error that the `AuthorizationContext` can throw.
     public struct Error: Swift.Error, CustomStringConvertible {
-        public struct Code: Hashable, RawRepresentable {
+        public struct Code: Hashable {
             enum Value: Int {
                 case unknown
                 case invalidScopeOrAppURI
@@ -16,9 +16,9 @@ public final class AuthorizationContext {
 
             var value: Value { Value(rawValue: rawValue) ?? .unknown }
 
-            public let rawValue: Int
+            let rawValue: Int
 
-            public init(rawValue: Int) {
+            init(rawValue: Int) {
                 self.rawValue = rawValue
             }
 

@@ -28,7 +28,7 @@ public final class InitiateTransferTask: Cancellable {
 
     /// Error that the `InitiateTransferTask` can throw.
     public struct Error: Swift.Error, CustomStringConvertible {
-        public struct Code: Hashable, RawRepresentable {
+        public struct Code: Hashable {
             enum Value: Int {
                 case unknown
                 case authenticationFailed
@@ -40,9 +40,9 @@ public final class InitiateTransferTask: Cancellable {
 
             var value: Value { Value(rawValue: rawValue) ?? .unknown }
 
-            public let rawValue: Int
+            let rawValue: Int
 
-            public init(rawValue: Int) {
+            init(rawValue: Int) {
                 self.rawValue = rawValue
             }
 

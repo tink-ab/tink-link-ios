@@ -2,7 +2,7 @@ import Foundation
 import TinkLink
 
 public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
-    public struct Code: Hashable, RawRepresentable {
+    public struct Code: Hashable {
         enum Value: Int {
             case unknown
             case userCancelled
