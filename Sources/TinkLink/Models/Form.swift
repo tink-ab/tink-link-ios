@@ -206,22 +206,19 @@ public struct Form {
         /// Describes a field validation error.
         public struct ValidationError: Error, CustomStringConvertible {
             public struct Code: Hashable {
-                enum Value: Int {
-                    case unknown
+                enum Value {
                     case invalid
                     case maxLengthLimit
                     case minLengthLimit
                     case requiredFieldEmptyValue
                 }
 
-                var value: Value { Value(rawValue: rawValue) ?? .unknown }
+                var value: Value
 
-                let rawValue: Int
-
-                public static let invalid = Self(rawValue: Value.invalid.rawValue)
-                public static let maxLengthLimit = Self(rawValue: Value.maxLengthLimit.rawValue)
-                public static let minLengthLimit = Self(rawValue: Value.minLengthLimit.rawValue)
-                public static let requiredFieldEmptyValue = Self(rawValue: Value.requiredFieldEmptyValue.rawValue)
+                public static let invalid = Self(value: .invalid)
+                public static let maxLengthLimit = Self(value: .maxLengthLimit)
+                public static let minLengthLimit = Self(value: .minLengthLimit)
+                public static let requiredFieldEmptyValue = Self(value: .requiredFieldEmptyValue)
 
                 public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
                     lhs == (rhs as? Form.Field.ValidationError)?.code

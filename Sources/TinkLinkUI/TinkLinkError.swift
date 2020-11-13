@@ -3,8 +3,7 @@ import TinkLink
 
 public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
     public struct Code: Hashable {
-        enum Value: Int {
-            case unknown
+        enum Value {
             case userCancelled
             case unableToFetchProviders
             case missingInternetConnection
@@ -15,18 +14,16 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
             case internalError
         }
 
-        var value: Value { Value(rawValue: rawValue) ?? .unknown }
+        var value: Value
 
-        let rawValue: Int
-
-        public static let userCancelled = Self(rawValue: Value.userCancelled.rawValue)
-        public static let unableToFetchProviders = Self(rawValue: Value.unableToFetchProviders.rawValue)
-        public static let missingInternetConnection = Self(rawValue: Value.missingInternetConnection.rawValue)
-        public static let credentialsNotFound = Self(rawValue: Value.credentialsNotFound.rawValue)
-        public static let providerNotFound = Self(rawValue: Value.providerNotFound.rawValue)
-        public static let unableToOpenThirdPartyApp = Self(rawValue: Value.unableToOpenThirdPartyApp.rawValue)
-        public static let unauthenticated = Self(rawValue: Value.unauthenticated.rawValue)
-        public static let internalError = Self(rawValue: Value.internalError.rawValue)
+        public static let userCancelled = Self(value: .userCancelled)
+        public static let unableToFetchProviders = Self(value: .unableToFetchProviders)
+        public static let missingInternetConnection = Self(value: .missingInternetConnection)
+        public static let credentialsNotFound = Self(value: .credentialsNotFound)
+        public static let providerNotFound = Self(value: .providerNotFound)
+        public static let unableToOpenThirdPartyApp = Self(value: .unableToOpenThirdPartyApp)
+        public static let unauthenticated = Self(value: .unauthenticated)
+        public static let internalError = Self(value: .internalError)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
             lhs == (rhs as? TinkLinkError)?.code

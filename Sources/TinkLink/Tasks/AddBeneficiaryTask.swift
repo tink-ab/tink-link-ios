@@ -24,7 +24,6 @@ public final class AddBeneficiaryTask: Cancellable {
     public struct Error: Swift.Error, CustomStringConvertible {
         public struct Code: Hashable {
             enum Value: Int {
-                case unknown
                 case invalidBeneficiary
                 case authenticationFailed
                 case credentialsDeleted
@@ -32,20 +31,18 @@ public final class AddBeneficiaryTask: Cancellable {
                 case notFound
             }
 
-            var value: Value { Value(rawValue: rawValue) ?? .unknown }
-
-            let rawValue: Int
+            var value: Value
 
             /// The beneficiary was invalid.
-            public static let invalidBeneficiary = Self(rawValue: Value.invalidBeneficiary.rawValue)
+            public static let invalidBeneficiary = Self(value: .invalidBeneficiary)
             /// The authentication failed.
-            public static let authenticationFailed = Self(rawValue: Value.authenticationFailed.rawValue)
+            public static let authenticationFailed = Self(value: .authenticationFailed)
             /// The credentials are deleted.
-            public static let credentialsDeleted = Self(rawValue: Value.credentialsDeleted.rawValue)
+            public static let credentialsDeleted = Self(value: .credentialsDeleted)
             /// The credentials session was expired.
-            public static let credentialsSessionExpired = Self(rawValue: Value.credentialsSessionExpired.rawValue)
+            public static let credentialsSessionExpired = Self(value: .credentialsSessionExpired)
             /// The beneficiary could not be found.
-            public static let notFound = Self(rawValue: Value.notFound.rawValue)
+            public static let notFound = Self(value: .notFound)
 
             public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
                 lhs == (rhs as? AddBeneficiaryTask.Error)?.code

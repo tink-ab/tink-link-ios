@@ -28,8 +28,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     /// Error that the `RefreshCredentialsTask` can throw.
     public struct Error: Swift.Error, CustomStringConvertible {
         public struct Code: Hashable {
-            enum Value: Int {
-                case unknown
+            enum Value {
                 case authenticationFailed
                 case temporaryFailure
                 case permanentFailure
@@ -37,20 +36,18 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 case cancelled
             }
 
-            var value: Value { Value(rawValue: rawValue) ?? .unknown }
-
-            let rawValue: Int
+            var value: Value
 
             /// The authentication failed.
-            public static let authenticationFailed = Self(rawValue: Value.authenticationFailed.rawValue)
+            public static let authenticationFailed = Self(value: .authenticationFailed)
             /// A temporary failure occurred.
-            public static let temporaryFailure = Self(rawValue: Value.temporaryFailure.rawValue)
+            public static let temporaryFailure = Self(value: .temporaryFailure)
             /// A permanent failure occurred.
-            public static let permanentFailure = Self(rawValue: Value.permanentFailure.rawValue)
+            public static let permanentFailure = Self(value: .permanentFailure)
             /// The credentials are deleted.
-            public static let deleted = Self(rawValue: Value.deleted.rawValue)
+            public static let deleted = Self(value: .deleted)
             /// The task was cancelled.
-            public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
+            public static let cancelled = Self(value: .cancelled)
 
             public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
                 lhs == (rhs as? RefreshCredentialsTask.Error)?.code

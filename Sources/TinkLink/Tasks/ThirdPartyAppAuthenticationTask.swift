@@ -51,8 +51,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
     /// Error associated with the `ThirdPartyAppAuthenticationTask`.
     public struct Error: Swift.Error, CustomStringConvertible {
         public struct Code: Hashable {
-            enum Value: Int {
-                case unknown
+            enum Value {
                 case deeplinkURLNotFound
                 case downloadRequired
                 case doesNotSupportAuthenticatingOnAnotherDevice
@@ -60,19 +59,17 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 case cancelled
             }
 
-            var value: Value { Value(rawValue: rawValue) ?? .unknown }
-
-            let rawValue: Int
+            var value: Value
 
             /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
-            public static let deeplinkURLNotFound = Self(rawValue: Value.deeplinkURLNotFound.rawValue)
+            public static let deeplinkURLNotFound = Self(value: .deeplinkURLNotFound)
             /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
-            public static let downloadRequired = Self(rawValue: Value.downloadRequired.rawValue)
+            public static let downloadRequired = Self(value: .downloadRequired)
             /// The credentials can not be authenticated on another device.
-            public static let doesNotSupportAuthenticatingOnAnotherDevice = Self(rawValue: Value.doesNotSupportAuthenticatingOnAnotherDevice.rawValue)
+            public static let doesNotSupportAuthenticatingOnAnotherDevice = Self(value: .doesNotSupportAuthenticatingOnAnotherDevice)
             /// Decoding the QR code image failed.
-            public static let decodingQRCodeImageFailed = Self(rawValue: Value.decodingQRCodeImageFailed.rawValue)
-            public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
+            public static let decodingQRCodeImageFailed = Self(value: .decodingQRCodeImageFailed)
+            public static let cancelled = Self(value: .cancelled)
 
             public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
                 lhs == (rhs as? ThirdPartyAppAuthenticationTask.Error)?.code

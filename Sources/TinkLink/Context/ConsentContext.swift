@@ -13,19 +13,16 @@ public final class ConsentContext {
     /// Error that the `ConsentContext` can throw.
     public struct Error: Swift.Error, CustomStringConvertible {
         public struct Code: Hashable {
-            enum Value: Int {
-                case unknown
+            enum Value {
                 case invalidScopeOrAppURI
             }
 
-            var value: Value { Value(rawValue: rawValue) ?? .unknown }
-
-            let rawValue: Int
+            var value: Value
 
             /// The scope or redirect URI was invalid.
             ///
             /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid app URI in Tink Console.
-            public static let invalidScopeOrAppURI = Self(rawValue: Value.invalidScopeOrAppURI.rawValue)
+            public static let invalidScopeOrAppURI = Self(value: .invalidScopeOrAppURI)
         }
 
         public let code: Code

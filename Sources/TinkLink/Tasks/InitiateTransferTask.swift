@@ -29,8 +29,7 @@ public final class InitiateTransferTask: Cancellable {
     /// Error that the `InitiateTransferTask` can throw.
     public struct Error: Swift.Error, CustomStringConvertible {
         public struct Code: Hashable {
-            enum Value: Int {
-                case unknown
+            enum Value {
                 case authenticationFailed
                 case credentialsDeleted
                 case credentialsSessionExpired
@@ -38,15 +37,13 @@ public final class InitiateTransferTask: Cancellable {
                 case failed
             }
 
-            var value: Value { Value(rawValue: rawValue) ?? .unknown }
+            var value: Value
 
-            let rawValue: Int
-
-            public static let authenticationFailed = Self(rawValue: Value.authenticationFailed.rawValue)
-            public static let credentialsDeleted = Self(rawValue: Value.credentialsDeleted.rawValue)
-            public static let credentialsSessionExpired = Self(rawValue: Value.credentialsSessionExpired.rawValue)
-            public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
-            public static let failed = Self(rawValue: Value.failed.rawValue)
+            public static let authenticationFailed = Self(value: .authenticationFailed)
+            public static let credentialsDeleted = Self(value: .credentialsDeleted)
+            public static let credentialsSessionExpired = Self(value: .credentialsSessionExpired)
+            public static let cancelled = Self(value: .cancelled)
+            public static let failed = Self(value: .failed)
 
             public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
                 lhs == (rhs as? InitiateTransferTask.Error)?.code
