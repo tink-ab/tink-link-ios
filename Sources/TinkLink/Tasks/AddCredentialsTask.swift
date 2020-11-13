@@ -56,11 +56,22 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
     /// Use with `CredentialsContext.addCredentials(for:form:completionPredicate:progressHandler:completion:)` to set when add credentials task should call completion handler if successful.
     public struct CompletionPredicate {
         /// Determines when the add credentials task is considered done.
-        public enum SuccessPredicate {
+        public struct SuccessPredicate: Equatable, CustomStringConvertible {
+            private enum Value {
+                case updating
+                case updated
+            }
+
+            private let value: Value
+
+            public var description: String {
+                return "AddCredentialsTask.CompletionPredicate.SuccessPredicate.\(value)"
+            }
+
             /// A predicate that indicates the credentials' status is `updating`.
-            case updating
+            public static let updating = Self(value: .updating)
             /// A predicate that indicates the credentials' status is `updated`.
-            case updated
+            public static let updated = Self(value: .updated)
         }
 
         /// Determines when the add credentials task is considered done.

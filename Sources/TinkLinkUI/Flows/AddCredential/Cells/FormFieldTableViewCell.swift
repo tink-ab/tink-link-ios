@@ -160,6 +160,8 @@ extension FormFieldTableViewCell.ViewModel {
             inputType = .text
         case .numeric:
             inputType = .number
+        default:
+            inputType = .text
         }
 
         self.init(text: field.text, isEditable: field.attributes.isEditable, placeholderText: field.attributes.description, isSecureTextEntry: field.attributes.isSecureTextEntry, inputType: inputType, maxLength: field.validationRules.maxLength, helpText: field.attributes.helpText)
