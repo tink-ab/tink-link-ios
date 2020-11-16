@@ -19,12 +19,20 @@ enum PollingStrategy {
             return interval
         }
     }
+
+    var maxPollingTime: TimeInterval {
+        switch self {
+        case .constant(_), .linear(_, maxInterval: _):
+            return 1800
+        }
+    }
 }
 
 final class PollingTask<ID, Model> {
     var pollingStrategy: PollingStrategy = .linear(1.0, maxInterval: 10)
 
     private var interval: TimeInterval
+    private var maxCount: TimeInterval
 
     private let request: (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?
     private let id: ID
@@ -45,6 +53,7 @@ final class PollingTask<ID, Model> {
         self.request = request
         self.updateHandler = updateHandler
         self.interval = pollingStrategy.initialInterval
+        self.maxCount = pollingStrategy.maxPollingTime
 
         applicationObserver.didBecomeActive = { [weak self] in
             guard let self = self, self.isActive == false else { return }
@@ -73,7 +82,7 @@ final class PollingTask<ID, Model> {
     }
 
     private func pollStatus() {
-        if isPaused || !isActive {
+        if isPaused || !isActive || maxCount < 1 {
             return
         }
 
@@ -105,6 +114,7 @@ final class PollingTask<ID, Model> {
         if isPaused { return }
 
         interval = pollingStrategy.nextInterval(after: interval)
+        maxCount -= interval
         DispatchQueue.main.asyncAfter(deadline: .now() + interval) { [weak self] in
             self?.pollStatus()
         }
