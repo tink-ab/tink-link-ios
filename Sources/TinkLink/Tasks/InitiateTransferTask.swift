@@ -27,47 +27,7 @@ public final class InitiateTransferTask: Cancellable {
     public typealias AuthenticationTask = TinkLink.AuthenticationTask
 
     /// Error that the `InitiateTransferTask` can throw.
-    public struct Error: Swift.Error, CustomStringConvertible {
-        public struct Code: Hashable {
-            enum Value {
-                case cancelled
-                case failed
-            }
-
-            var value: Value
-
-            public static let cancelled = Self(value: .cancelled)
-            public static let failed = Self(value: .failed)
-
-            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-                lhs == (rhs as? InitiateTransferTask.Error)?.code
-            }
-        }
-
-        public let code: Code
-        public let message: String?
-
-        public var description: String {
-            return "InitiateTransferTask.Error.\(code.value))"
-        }
-
-        /// The transfer was cancelled.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let cancelled: Code = .cancelled
-        /// The transfer failed.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let failed: Code = .failed
-
-        static func cancelled(_ message: String?) -> Self {
-            .init(code: .cancelled, message: message)
-        }
-
-        static func failed(_ message: String?) -> Self {
-            .init(code: .failed, message: message)
-        }
-    }
+    public typealias Error = TaskError
 
     /// Indicates the result of transfer initiation.
     public struct Receipt {
@@ -110,7 +70,7 @@ public final class InitiateTransferTask: Cancellable {
 
     func startObserving(_ signableOperation: SignableOperation) {
         guard let transferID = signableOperation.transferID else {
-            complete(with: .failure(Error.failed("Failed to get transfer ID.")))
+            complete(with: .failure(Error.transferFailed("Failed to get transfer ID.")))
             return
         }
 
@@ -140,14 +100,14 @@ public final class InitiateTransferTask: Cancellable {
             switch signableOperation.status {
             case .created:
                 guard let transferID = signableOperation.transferID else {
-                    throw Error.failed("Failed to get transfer ID.")
+                    throw Error.transferFailed("Failed to get transfer ID.")
                 }
                 progressHandler(.created(transferID))
             case .awaitingCredentials, .awaitingThirdPartyAppAuthentication:
                 transferStatusPollingTask?.stopPolling()
                 if credentialsStatusPollingTask == nil {
                     guard let credentialsID = signableOperation.credentialsID else {
-                        throw Error.failed("Failed to get credentials ID.")
+                        throw Error.transferFailed("Failed to get credentials ID.")
                     }
                     credentialsStatusPollingTask = CredentialsStatusPollingTask(
                         id: credentialsID,
@@ -177,7 +137,7 @@ public final class InitiateTransferTask: Cancellable {
             case .cancelled:
                 throw Error.cancelled(signableOperation.statusMessage)
             case .failed:
-                throw Error.failed(signableOperation.statusMessage)
+                throw Error.transferFailed(signableOperation.statusMessage)
             case .unknown:
                 assertionFailure("Unknown credentials status.")
             @unknown default:
@@ -256,7 +216,7 @@ public final class InitiateTransferTask: Cancellable {
         do {
             let signableOperation = try result.get()
             guard let transferID = signableOperation.transferID else {
-                completionHandler(.failure(Error.failed("Failed to get transfer ID.")))
+                completionHandler(.failure(Error.transferFailed("Failed to get transfer ID.")))
                 return
             }
 
