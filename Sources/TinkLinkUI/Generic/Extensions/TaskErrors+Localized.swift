@@ -35,34 +35,6 @@ extension AddCredentialsTask.Error: LocalizedError {
     }
 }
 
-extension RefreshCredentialsTask.Error: LocalizedError {
-    public var errorDescription: String? {
-        switch code {
-        case .permanentFailure:
-            return Strings.Credentials.Error.permanentFailure
-        case .temporaryFailure:
-            return Strings.Credentials.Error.temporaryFailure
-        case .authenticationFailed:
-            return Strings.Credentials.Error.authenticationFailed
-        case .deleted:
-            return Strings.Generic.error
-        case .cancelled:
-            return Strings.Generic.cancelled
-        default:
-            return nil
-        }
-    }
-
-    public var failureReason: String? {
-        switch code {
-        case .cancelled:
-            return nil
-        default:
-            return message ?? Strings.Generic.error
-        }
-    }
-}
-
 extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
     public var errorDescription: String? {
         switch code {
