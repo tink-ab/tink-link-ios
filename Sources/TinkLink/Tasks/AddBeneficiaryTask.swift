@@ -25,9 +25,6 @@ public final class AddBeneficiaryTask: Cancellable {
         public struct Code: Hashable {
             enum Value: Int {
                 case invalidBeneficiary
-                case authenticationFailed
-                case credentialsDeleted
-                case credentialsSessionExpired
                 case notFound
             }
 
@@ -35,12 +32,6 @@ public final class AddBeneficiaryTask: Cancellable {
 
             /// The beneficiary was invalid.
             public static let invalidBeneficiary = Self(value: .invalidBeneficiary)
-            /// The authentication failed.
-            public static let authenticationFailed = Self(value: .authenticationFailed)
-            /// The credentials are deleted.
-            public static let credentialsDeleted = Self(value: .credentialsDeleted)
-            /// The credentials session was expired.
-            public static let credentialsSessionExpired = Self(value: .credentialsSessionExpired)
             /// The beneficiary could not be found.
             public static let notFound = Self(value: .notFound)
 
@@ -66,18 +57,6 @@ public final class AddBeneficiaryTask: Cancellable {
         ///
         /// The payload from the backend can be found in the message property.
         public static let invalidBeneficiary: Code = .invalidBeneficiary
-        /// The authentication failed.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let authenticationFailed: Code = .authenticationFailed
-        /// The credentials are deleted.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let credentialsDeleted: Code = .credentialsDeleted
-        /// The credentials session was expired.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let credentialsSessionExpired: Code = .credentialsSessionExpired
         /// The beneficiary could not be found.
         ///
         /// The payload from the backend can be found in the message property.
@@ -85,18 +64,6 @@ public final class AddBeneficiaryTask: Cancellable {
 
         static func invalidBeneficiary(_ message: String?) -> Self {
             .init(code: .invalidBeneficiary, message: message)
-        }
-
-        static func authenticationFailed(_ message: String?) -> Self {
-            .init(code: .authenticationFailed, message: message)
-        }
-
-        static func credentialsDeleted(_ message: String?) -> Self {
-            .init(code: .credentialsDeleted, message: message)
-        }
-
-        static func credentialsSessionExpired(_ message: String?) -> Self {
-            .init(code: .credentialsSessionExpired, message: message)
         }
 
         static func notFound(_ message: String?) -> Self {
@@ -310,15 +277,15 @@ extension AddBeneficiaryTask {
         case .updated:
             complete(with: .success(credentials))
         case .permanentError:
-            throw Error.authenticationFailed(credentials.statusPayload)
+            throw CredentialsTaskError.permanentCredentialsFailure(credentials.statusPayload)
         case .temporaryError:
-            throw Error.authenticationFailed(credentials.statusPayload)
+            throw CredentialsTaskError.temporaryCredentialsFailure(credentials.statusPayload)
         case .authenticationError:
-            throw Error.authenticationFailed(credentials.statusPayload)
+            throw CredentialsTaskError.credentialsAuthenticationFailed(credentials.statusPayload)
         case .deleted:
-            throw Error.credentialsDeleted(credentials.statusPayload)
+            throw CredentialsTaskError.credentialsDeleted(credentials.statusPayload)
         case .sessionExpired:
-            throw Error.credentialsSessionExpired(credentials.statusPayload)
+            throw CredentialsTaskError.credentialsSessionExpired(credentials.statusPayload)
         case .unknown:
             assertionFailure("Unknown credentials status!")
         @unknown default:

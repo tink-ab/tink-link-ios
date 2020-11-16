@@ -30,18 +30,12 @@ public final class InitiateTransferTask: Cancellable {
     public struct Error: Swift.Error, CustomStringConvertible {
         public struct Code: Hashable {
             enum Value {
-                case authenticationFailed
-                case credentialsDeleted
-                case credentialsSessionExpired
                 case cancelled
                 case failed
             }
 
             var value: Value
 
-            public static let authenticationFailed = Self(value: .authenticationFailed)
-            public static let credentialsDeleted = Self(value: .credentialsDeleted)
-            public static let credentialsSessionExpired = Self(value: .credentialsSessionExpired)
             public static let cancelled = Self(value: .cancelled)
             public static let failed = Self(value: .failed)
 
@@ -57,18 +51,6 @@ public final class InitiateTransferTask: Cancellable {
             return "InitiateTransferTask.Error.\(code.value))"
         }
 
-        /// The authentication failed.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let authenticationFailed: Code = .authenticationFailed
-        /// The credentials are deleted.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let credentialsDeleted: Code = .credentialsDeleted
-        /// The credentials session was expired.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let credentialsSessionExpired: Code = .credentialsSessionExpired
         /// The transfer was cancelled.
         ///
         /// The payload from the backend can be found in the message property.
@@ -77,18 +59,6 @@ public final class InitiateTransferTask: Cancellable {
         ///
         /// The payload from the backend can be found in the message property.
         public static let failed: Code = .failed
-
-        static func authenticationFailed(_ message: String?) -> Self {
-            .init(code: .authenticationFailed, message: message)
-        }
-
-        static func credentialsDeleted(_ message: String?) -> Self {
-            .init(code: .credentialsDeleted, message: message)
-        }
-
-        static func credentialsSessionExpired(_ message: String?) -> Self {
-            .init(code: .credentialsSessionExpired, message: message)
-        }
 
         static func cancelled(_ message: String?) -> Self {
             .init(code: .cancelled, message: message)
@@ -261,15 +231,15 @@ public final class InitiateTransferTask: Cancellable {
                 credentialsStatusPollingTask?.stopPolling()
                 transferStatusPollingTask?.startPolling()
             case .permanentError:
-                throw Error.failed(credentials.statusPayload)
+                throw CredentialsTaskError.permanentCredentialsFailure(credentials.statusPayload)
             case .temporaryError:
-                throw Error.failed(credentials.statusPayload)
+                throw CredentialsTaskError.temporaryCredentialsFailure(credentials.statusPayload)
             case .authenticationError:
-                throw Error.authenticationFailed(credentials.statusPayload)
+                throw CredentialsTaskError.credentialsAuthenticationFailed(credentials.statusPayload)
             case .deleted:
-                throw Error.credentialsDeleted(credentials.statusPayload)
+                throw CredentialsTaskError.credentialsDeleted(credentials.statusPayload)
             case .sessionExpired:
-                throw Error.credentialsSessionExpired(credentials.statusPayload)
+                throw CredentialsTaskError.credentialsSessionExpired(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             @unknown default:
