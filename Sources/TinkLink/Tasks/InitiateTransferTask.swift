@@ -191,15 +191,15 @@ public final class InitiateTransferTask: Cancellable {
                 credentialsStatusPollingTask?.stopPolling()
                 transferStatusPollingTask?.startPolling()
             case .permanentError:
-                throw TaskError.permanentCredentialsFailure(credentials.statusPayload)
+                throw Error.permanentCredentialsFailure(credentials.statusPayload)
             case .temporaryError:
-                throw TaskError.temporaryCredentialsFailure(credentials.statusPayload)
+                throw Error.temporaryCredentialsFailure(credentials.statusPayload)
             case .authenticationError:
-                throw TaskError.credentialsAuthenticationFailed(credentials.statusPayload)
+                throw Error.credentialsAuthenticationFailed(credentials.statusPayload)
             case .deleted:
-                throw TaskError.credentialsDeleted(credentials.statusPayload)
+                throw Error.credentialsDeleted(credentials.statusPayload)
             case .sessionExpired:
-                throw TaskError.credentialsSessionExpired(credentials.statusPayload)
+                throw Error.credentialsSessionExpired(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             @unknown default:
