@@ -98,6 +98,10 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
         .init(code: .credentialsSessionExpired, message: message)
     }
 
+    static func cancelled(_ message: String?) -> Self {
+        .init(code: .cancelled, message: message)
+    }
+
     init?(addCredentialsError error: Swift.Error) {
         switch error {
         case ServiceError.alreadyExists(let payload):
