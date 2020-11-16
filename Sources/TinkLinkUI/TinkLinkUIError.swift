@@ -1,7 +1,7 @@
 import Foundation
 import TinkLink
 
-public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
+public struct TinkLinkUIError: Error, Equatable, CustomStringConvertible {
     public struct Code: Hashable {
         enum Value {
             case userCancelled
@@ -26,7 +26,7 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
         public static let internalError = Self(value: .internalError)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-            lhs == (rhs as? TinkLinkError)?.code
+            lhs == (rhs as? TinkLinkUIError)?.code
         }
     }
 
@@ -37,7 +37,7 @@ public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
     }
 
     public var description: String {
-        return "TinkLinkError.\(code.value)"
+        return "TinkLinkUIError.\(code.value)"
     }
 
     /// User cancelled the flow.

@@ -164,9 +164,9 @@ public class TinkLinkViewController: UIViewController {
     private var credentialsCoordinator: CredentialsCoordinator?
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
-    private var result: Result<ResultType, TinkLinkError>?
-    private let temporaryCompletion: ((Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void)?
-    private let permanentCompletion: ((Result<Credentials, TinkLinkError>) -> Void)?
+    private var result: Result<ResultType, TinkLinkUIError>?
+    private let temporaryCompletion: ((Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkUIError>) -> Void)?
+    private let permanentCompletion: ((Result<Credentials, TinkLinkUIError>) -> Void)?
 
     private lazy var tinkLinkTracker = TinkLinkTracker(clientID: tink.configuration.clientID, operation: operation)
 
@@ -179,7 +179,7 @@ public class TinkLinkViewController: UIViewController {
     ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
     @available(*, deprecated, message: "Use init(configuration:market:scopes:providerPredicate:completion:) instead.")
-    public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void) {
+    public convenience init(tink: Tink = .shared, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkUIError>) -> Void) {
         self.init(configuration: tink.configuration, market: market, scopes: scopes, providerPredicate: providerPredicate, completion: completion)
     }
 
@@ -191,7 +191,7 @@ public class TinkLinkViewController: UIViewController {
     ///   - providerKinds: The kind of providers that will be listed.
     ///   - providerPredicate: The predicate of a provider. Either `kinds`or `name` depending on if the goal is to fetch all or just one specific provider.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(configuration: Configuration, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void) {
+    public init(configuration: Configuration, market: Market, scopes: [Scope], providerPredicate: ProviderPredicate = .kinds(.default), completion: @escaping (Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkUIError>) -> Void) {
         self.tink = Tink(configuration: configuration)
         self.market = market
         self.scopes = scopes
@@ -209,7 +209,7 @@ public class TinkLinkViewController: UIViewController {
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
     @available(*, deprecated, message: "Use init(tink:operation:completion:) with a Tink instance that has a user session set.")
-    public convenience init(tink: Tink = .shared, userSession: UserSession, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    public convenience init(tink: Tink = .shared, userSession: UserSession, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkUIError>) -> Void) {
         tink.userSession = userSession
         self.init(tink: tink, operation: operation, completion: completion)
     }
@@ -219,7 +219,7 @@ public class TinkLinkViewController: UIViewController {
     ///   - tink: A configured `Tink` object.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    public init(tink: Tink = .shared, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkUIError>) -> Void) {
         self.tink = tink
         self.userSession = tink.userSession
         self.operation = operation
@@ -238,7 +238,7 @@ public class TinkLinkViewController: UIViewController {
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
     @available(*, deprecated, message: "Authenticate a tink instance using `authenticateUser(authorizationCode:completion:)` and use init(tink:operation:completion:) instead.")
-    public convenience init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkError>) -> Void) {
+    public convenience init(tink: Tink = .shared, authorizationCode: AuthorizationCode, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkUIError>) -> Void) {
         self.init(tink: tink, operation: operation, completion: completion)
     }
 
@@ -325,7 +325,7 @@ public class TinkLinkViewController: UIViewController {
                     self.tink.userSession = .accessToken(accessToken.rawValue)
                     completion()
                 } catch {
-                    if let tinkLinkError = TinkLinkError(error: error) {
+                    if let tinkLinkError = TinkLinkUIError(error: error) {
                         self.result = .failure(tinkLinkError)
                     }
 
@@ -349,7 +349,7 @@ public class TinkLinkViewController: UIViewController {
 
                     completion()
                 } catch {
-                    if let tinkLinkError = TinkLinkError(error: error) {
+                    if let tinkLinkError = TinkLinkUIError(error: error) {
                         self.result = .failure(tinkLinkError)
                     }
 
@@ -373,7 +373,7 @@ public class TinkLinkViewController: UIViewController {
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
             } catch {
-                if let tinkLinkError = TinkLinkError(error: error) {
+                if let tinkLinkError = TinkLinkUIError(error: error) {
                     self.result = .failure(tinkLinkError)
                 }
                 DispatchQueue.main.async {
@@ -431,7 +431,7 @@ public class TinkLinkViewController: UIViewController {
                         }
                     }
                 case .failure(let error):
-                    if let tinkLinkError = TinkLinkError(error: error) {
+                    if let tinkLinkError = TinkLinkUIError(error: error) {
                         self.result = .failure(tinkLinkError)
                     }
                     self.loadingViewController?.setError(error, onClose: { [weak self] in
@@ -565,7 +565,7 @@ extension TinkLinkViewController {
             do {
                 let provider = try result.get()
                 self?.showAddCredentials(for: provider)
-            } catch TinkLinkError.userCancelled {
+            } catch TinkLinkUIError.userCancelled {
                 self?.cancel()
             } catch {
                 self?.showAlert(for: error)
