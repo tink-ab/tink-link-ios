@@ -34,7 +34,7 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
         public static let transferFailed = Self(value: .transferFailed)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-            lhs == (rhs as? AddCredentialsTask.Error)?.code
+            lhs == (rhs as? TaskError)?.code
         }
     }
 
