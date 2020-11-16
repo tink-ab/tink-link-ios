@@ -41,7 +41,7 @@ public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
     }
 
     public var description: String {
-        return "AddCredentialsTask.Error.\(code.value)"
+        return "CredentialsTaskError.\(code.value)"
     }
 
     /// The authentication failed.
