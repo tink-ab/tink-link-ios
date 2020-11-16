@@ -134,11 +134,11 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             case .sessionExpired:
                 throw Error.credentialsSessionExpired(credentials.statusPayload)
             case .authenticationError:
-                throw Error.authenticationFailed(credentials.statusPayload)
+                throw Error.credentialsAuthenticationFailed(credentials.statusPayload)
             case .permanentError:
-                throw Error.permanentFailure(credentials.statusPayload)
+                throw Error.permanentCredentialsFailure(credentials.statusPayload)
             case .temporaryError:
-                throw Error.temporaryFailure(credentials.statusPayload)
+                throw Error.temporaryCredentialsFailure(credentials.statusPayload)
             case .deleted:
                 throw Error.credentialsDeleted(credentials.statusPayload)
             case .unknown:

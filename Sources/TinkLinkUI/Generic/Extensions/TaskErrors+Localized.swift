@@ -4,11 +4,11 @@ import TinkLink
 extension AddCredentialsTask.Error: LocalizedError {
     public var errorDescription: String? {
         switch code {
-        case .permanentFailure:
+        case .permanentCredentialsFailure:
             return Strings.Credentials.Error.permanentFailure
-        case .temporaryFailure:
+        case .temporaryCredentialsFailure:
             return Strings.Credentials.Error.temporaryFailure
-        case .authenticationFailed:
+        case .credentialsAuthenticationFailed:
             return Strings.Credentials.Error.authenticationFailed
         case .credentialsAlreadyExists:
             return Strings.Generic.error
@@ -23,7 +23,7 @@ extension AddCredentialsTask.Error: LocalizedError {
 
     public var failureReason: String? {
         switch code {
-        case .permanentFailure, .temporaryFailure, .authenticationFailed:
+        case .permanentCredentialsFailure, .temporaryCredentialsFailure, .credentialsAuthenticationFailed:
             return message ?? Strings.Generic.error
         case .credentialsAlreadyExists:
             return Strings.Credentials.Error.credentialsAlreadyExists

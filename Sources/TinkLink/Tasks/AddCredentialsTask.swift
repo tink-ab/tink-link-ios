@@ -177,11 +177,11 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                     complete(with: .success(credentials))
                 }
             case .permanentError:
-                complete(with: .failure(AddCredentialsTask.Error.permanentFailure(credentials.statusPayload)))
+                complete(with: .failure(AddCredentialsTask.Error.permanentCredentialsFailure(credentials.statusPayload)))
             case .temporaryError:
-                complete(with: .failure(AddCredentialsTask.Error.temporaryFailure(credentials.statusPayload)))
+                complete(with: .failure(AddCredentialsTask.Error.temporaryCredentialsFailure(credentials.statusPayload)))
             case .authenticationError:
-                complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(credentials.statusPayload)))
+                complete(with: .failure(AddCredentialsTask.Error.credentialsAuthenticationFailed(credentials.statusPayload)))
             case .deleted:
                 assertionFailure("credentials shouldn't be disabled during creation.")
                 complete(with: .failure(AddCredentialsTask.Error.credentialsDeleted(credentials.statusPayload)))

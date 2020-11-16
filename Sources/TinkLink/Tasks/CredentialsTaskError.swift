@@ -4,9 +4,9 @@ import Foundation
 public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
     public struct Code: Hashable {
         enum Value {
-            case authenticationFailed
-            case temporaryFailure
-            case permanentFailure
+            case credentialsAuthenticationFailed
+            case temporaryCredentialsFailure
+            case permanentCredentialsFailure
             case credentialsAlreadyExists
             case credentialsDeleted
             case credentialsSessionExpired
@@ -16,11 +16,11 @@ public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
         var value: Value
 
         /// The authentication failed.
-        public static let authenticationFailed = Self(value: .authenticationFailed)
+        public static let credentialsAuthenticationFailed = Self(value: .credentialsAuthenticationFailed)
         /// A temporary failure occurred.
-        public static let temporaryFailure = Self(value: .temporaryFailure)
+        public static let temporaryCredentialsFailure = Self(value: .temporaryCredentialsFailure)
         /// A permanent failure occurred.
-        public static let permanentFailure = Self(value: .permanentFailure)
+        public static let permanentCredentialsFailure = Self(value: .permanentCredentialsFailure)
         /// The credentials already exists.
         public static let credentialsAlreadyExists = Self(value: .credentialsAlreadyExists)
         /// The credentials are deleted.
@@ -50,15 +50,15 @@ public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
     /// The authentication failed.
     ///
     /// The payload from the backend can be found in the message property.
-    public static let authenticationFailed: Code = .authenticationFailed
+    public static let credentialsAuthenticationFailed: Code = .credentialsAuthenticationFailed
     /// A temporary failure occurred.
     ///
     /// The payload from the backend can be found in the message property.
-    public static let temporaryFailure: Code = .temporaryFailure
+    public static let temporaryCredentialsFailure: Code = .temporaryCredentialsFailure
     /// A permanent failure occurred.
     ///
     /// The payload from the backend can be found in the message property.
-    public static let permanentFailure: Code = .permanentFailure
+    public static let permanentCredentialsFailure: Code = .permanentCredentialsFailure
     /// The credentials already exists.
     ///
     /// The payload from the backend can be found in the message property.
@@ -74,16 +74,16 @@ public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
     /// The task was cancelled.
     public static let cancelled: Code = .cancelled
 
-    static func authenticationFailed(_ message: String?) -> Self {
-        .init(code: .authenticationFailed, message: message)
+    static func credentialsAuthenticationFailed(_ message: String?) -> Self {
+        .init(code: .credentialsAuthenticationFailed, message: message)
     }
 
-    static func temporaryFailure(_ message: String?) -> Self {
-        .init(code: .temporaryFailure, message: message)
+    static func temporaryCredentialsFailure(_ message: String?) -> Self {
+        .init(code: .temporaryCredentialsFailure, message: message)
     }
 
-    static func permanentFailure(_ message: String?) -> Self {
-        .init(code: .permanentFailure, message: message)
+    static func permanentCredentialsFailure(_ message: String?) -> Self {
+        .init(code: .permanentCredentialsFailure, message: message)
     }
 
     static func credentialsAlreadyExists(_ message: String?) -> Self {
