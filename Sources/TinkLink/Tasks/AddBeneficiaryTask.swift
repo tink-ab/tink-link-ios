@@ -21,7 +21,7 @@ public final class AddBeneficiaryTask: Cancellable {
     }
 
     /// Error that the `AddBeneficiaryTask` can throw.
-    public typealias Error = TaskError
+    public typealias Error = TinkLinkError
 
     /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool

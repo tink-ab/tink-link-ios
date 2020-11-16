@@ -27,7 +27,7 @@ public final class InitiateTransferTask: Cancellable {
     public typealias AuthenticationTask = TinkLink.AuthenticationTask
 
     /// Error that the `InitiateTransferTask` can throw.
-    public typealias Error = TaskError
+    public typealias Error = TinkLinkError
 
     /// Indicates the result of transfer initiation.
     public struct Receipt {

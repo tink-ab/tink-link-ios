@@ -1,7 +1,7 @@
 import Foundation
 
-/// Error that the `AddCredentialsTask` can throw.
-public struct TaskError: Swift.Error, CustomStringConvertible {
+/// Error that TinkLink can throw.
+public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     public struct Code: Hashable {
         enum Value {
             case credentialsAuthenticationFailed
@@ -40,7 +40,7 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
         public static let beneficiaryNotFound = Self(value: .beneficiaryNotFound)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-            lhs == (rhs as? TaskError)?.code
+            lhs == (rhs as? TinkLinkError)?.code
         }
     }
 
