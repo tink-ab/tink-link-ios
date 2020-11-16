@@ -183,9 +183,11 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
             case .authenticationError:
                 complete(with: .failure(AddCredentialsTask.Error.authenticationFailed(credentials.statusPayload)))
             case .deleted:
-                fatalError("credentials shouldn't be disabled during creation.")
+                assertionFailure("credentials shouldn't be disabled during creation.")
+                complete(with: .failure(AddCredentialsTask.Error.credentialsDeleted(credentials.statusPayload)))
             case .sessionExpired:
-                fatalError("Credential's session shouldn't expire during creation.")
+                assertionFailure("Credential's session shouldn't expire during creation.")
+                complete(with: .failure(AddCredentialsTask.Error.credentialsSessionExpired(credentials.statusPayload)))
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             @unknown default:
