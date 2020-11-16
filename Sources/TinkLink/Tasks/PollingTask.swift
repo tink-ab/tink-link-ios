@@ -102,6 +102,7 @@ final class PollingTask<ID, Model> {
 
                 // Something has changed: Reset polling interval.
                 self.interval = self.pollingStrategy.initialInterval
+                self.maxCount = self.pollingStrategy.maxPollingTime
                 self.responseValue = newValue
                 self.updateHandler(.success(newValue))
             } catch {
