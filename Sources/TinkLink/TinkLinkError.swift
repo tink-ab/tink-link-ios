@@ -53,7 +53,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     }
 
     public var description: String {
-        return "TaskError.\(code.value)"
+        return "TinkLinkError.\(code.value)"
     }
 
     /// The authentication failed.
