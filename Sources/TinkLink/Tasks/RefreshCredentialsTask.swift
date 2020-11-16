@@ -26,7 +26,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
-    public typealias Error = CredentialsTaskError
+    public typealias Error = TaskError
 
     var retryInterval: TimeInterval = 1.0
 

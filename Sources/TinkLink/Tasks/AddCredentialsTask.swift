@@ -19,7 +19,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
     }
 
     /// Error that the `AddCredentialsTask` can throw.
-    public typealias Error = CredentialsTaskError
+    public typealias Error = TaskError
 
     var retryInterval: TimeInterval = 1.0
 

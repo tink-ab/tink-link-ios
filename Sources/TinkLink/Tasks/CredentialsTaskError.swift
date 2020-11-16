@@ -1,7 +1,7 @@
 import Foundation
 
 /// Error that the `AddCredentialsTask` can throw.
-public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
+public struct TaskError: Swift.Error, CustomStringConvertible {
     public struct Code: Hashable {
         enum Value {
             case credentialsAuthenticationFailed
@@ -44,7 +44,7 @@ public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
     }
 
     public var description: String {
-        return "CredentialsTaskError.\(code.value)"
+        return "TaskError.\(code.value)"
     }
 
     /// The authentication failed.
