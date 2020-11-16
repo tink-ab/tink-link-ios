@@ -11,6 +11,7 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
             case credentialsDeleted
             case credentialsSessionExpired
             case cancelled
+            case transferFailed
         }
 
         var value: Value
@@ -29,6 +30,8 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
         public static let credentialsSessionExpired = Self(value: .credentialsSessionExpired)
         /// The task was cancelled.
         public static let cancelled = Self(value: .cancelled)
+        /// The transfer failed.
+        public static let transferFailed = Self(value: .transferFailed)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
             lhs == (rhs as? AddCredentialsTask.Error)?.code
@@ -73,6 +76,10 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
     public static let credentialsSessionExpired: Code = .credentialsSessionExpired
     /// The task was cancelled.
     public static let cancelled: Code = .cancelled
+    /// The transfer failed.
+    ///
+    /// The payload from the backend can be found in the message property.
+    public static let transferFailed: Code = .credentialsSessionExpired
 
     static func credentialsAuthenticationFailed(_ message: String?) -> Self {
         .init(code: .credentialsAuthenticationFailed, message: message)
@@ -100,6 +107,10 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
 
     static func cancelled(_ message: String?) -> Self {
         .init(code: .cancelled, message: message)
+    }
+
+    static func transferFailed(_ message: String?) -> Self {
+        .init(code: .transferFailed, message: message)
     }
 
     init?(addCredentialsError error: Swift.Error) {
