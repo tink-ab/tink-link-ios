@@ -12,7 +12,7 @@ extension AddCredentialsTask.Error: LocalizedError {
             return Strings.Credentials.Error.authenticationFailed
         case .credentialsAlreadyExists:
             return Strings.Generic.error
-        case .deleted:
+        case .credentialsDeleted:
             return Strings.Generic.error
         case .cancelled:
             return Strings.Generic.cancelled

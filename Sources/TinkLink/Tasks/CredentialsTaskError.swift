@@ -8,7 +8,7 @@ public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
             case temporaryFailure
             case permanentFailure
             case credentialsAlreadyExists
-            case deleted
+            case credentialsDeleted
             case cancelled
         }
 
@@ -23,7 +23,7 @@ public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
         /// The credentials already exists.
         public static let credentialsAlreadyExists = Self(value: .credentialsAlreadyExists)
         /// The credentials are deleted.
-        public static let deleted = Self(value: .deleted)
+        public static let credentialsDeleted = Self(value: .credentialsDeleted)
         /// The task was cancelled.
         public static let cancelled = Self(value: .cancelled)
 
@@ -63,7 +63,7 @@ public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
     /// The credentials are deleted.
     ///
     /// The payload from the backend can be found in the message property.
-    public static let deleted: Code = .deleted
+    public static let credentialsDeleted: Code = .credentialsDeleted
     /// The task was cancelled.
     public static let cancelled: Code = .cancelled
 
@@ -83,8 +83,8 @@ public struct CredentialsTaskError: Swift.Error, CustomStringConvertible {
         .init(code: .credentialsAlreadyExists, message: message)
     }
 
-    static func deleted(_ message: String?) -> Self {
-        .init(code: .deleted, message: message)
+    static func credentialsDeleted(_ message: String?) -> Self {
+        .init(code: .credentialsDeleted, message: message)
     }
 
     init?(addCredentialsError error: Swift.Error) {
