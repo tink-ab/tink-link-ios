@@ -12,6 +12,8 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
             case credentialsSessionExpired
             case cancelled
             case transferFailed
+            case invalidBeneficiary
+            case beneficiaryNotFound
         }
 
         var value: Value
@@ -32,6 +34,10 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
         public static let cancelled = Self(value: .cancelled)
         /// The transfer failed.
         public static let transferFailed = Self(value: .transferFailed)
+        /// The beneficiary was invalid.
+        public static let invalidBeneficiary = Self(value: .invalidBeneficiary)
+        /// The beneficiary could not be found.
+        public static let beneficiaryNotFound = Self(value: .beneficiaryNotFound)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
             lhs == (rhs as? TaskError)?.code
@@ -80,6 +86,15 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
     ///
     /// The payload from the backend can be found in the message property.
     public static let transferFailed: Code = .credentialsSessionExpired
+    /// The beneficiary was invalid.
+    /// If you get this error, make sure that the parameters for `addBeneficiary` are correct.
+    ///
+    /// The payload from the backend can be found in the message property.
+    public static let invalidBeneficiary: Code = .invalidBeneficiary
+    /// The beneficiary could not be found.
+    ///
+    /// The payload from the backend can be found in the message property.
+    public static let beneficiaryNotFound: Code = .beneficiaryNotFound
 
     static func credentialsAuthenticationFailed(_ message: String?) -> Self {
         .init(code: .credentialsAuthenticationFailed, message: message)
@@ -113,10 +128,29 @@ public struct TaskError: Swift.Error, CustomStringConvertible {
         .init(code: .transferFailed, message: message)
     }
 
+    static func invalidBeneficiary(_ message: String?) -> Self {
+        .init(code: .invalidBeneficiary, message: message)
+    }
+
+    static func beneficiaryNotFound(_ message: String?) -> Self {
+        .init(code: .beneficiaryNotFound, message: message)
+    }
+
     init?(addCredentialsError error: Swift.Error) {
         switch error {
         case ServiceError.alreadyExists(let payload):
             self = .credentialsAlreadyExists(payload)
+        default:
+            return nil
+        }
+    }
+
+    init?(addBeneficiaryError error: Swift.Error) {
+        switch error {
+        case ServiceError.invalidArgument(let message):
+            self = .invalidBeneficiary(message)
+        case ServiceError.notFound(let message):
+            self = .beneficiaryNotFound(message)
         default:
             return nil
         }
