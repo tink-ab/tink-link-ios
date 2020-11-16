@@ -33,16 +33,13 @@ public final class SupplementInformationTask: Identifiable {
     /// Error that the `SupplementInformationTask` can throw.
     public struct Error: Swift.Error, CustomStringConvertible {
         public struct Code: Hashable {
-            enum Value: Int {
-                case unknown
+            enum Value {
                 case cancelled
             }
 
-            var value: Value { Value(rawValue: rawValue) ?? .unknown }
+            var value: Value
 
-            let rawValue: Int
-
-            public static let cancelled = Self(rawValue: Value.cancelled.rawValue)
+            public static let cancelled = Self(value: .cancelled)
 
             public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
                 lhs == (rhs as? SupplementInformationTask.Error)?.code
