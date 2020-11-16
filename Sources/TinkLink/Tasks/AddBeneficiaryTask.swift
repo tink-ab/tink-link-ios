@@ -21,66 +21,7 @@ public final class AddBeneficiaryTask: Cancellable {
     }
 
     /// Error that the `AddBeneficiaryTask` can throw.
-    public struct Error: Swift.Error, CustomStringConvertible {
-        public struct Code: Hashable {
-            enum Value: Int {
-                case invalidBeneficiary
-                case notFound
-            }
-
-            var value: Value
-
-            /// The beneficiary was invalid.
-            public static let invalidBeneficiary = Self(value: .invalidBeneficiary)
-            /// The beneficiary could not be found.
-            public static let notFound = Self(value: .notFound)
-
-            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-                lhs == (rhs as? AddBeneficiaryTask.Error)?.code
-            }
-        }
-
-        public let code: Code
-        public let message: String?
-
-        init(code: Code, message: String? = nil) {
-            self.code = code
-            self.message = message
-        }
-
-        public var description: String {
-            return "AddBeneficiaryTask.Error.\(code.value))"
-        }
-
-        /// The beneficiary was invalid.
-        /// If you get this error, make sure that the parameters for `addBeneficiary` are correct.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let invalidBeneficiary: Code = .invalidBeneficiary
-        /// The beneficiary could not be found.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let notFound: Code = .notFound
-
-        static func invalidBeneficiary(_ message: String?) -> Self {
-            .init(code: .invalidBeneficiary, message: message)
-        }
-
-        static func notFound(_ message: String?) -> Self {
-            .init(code: .notFound, message: message)
-        }
-
-        init?(_ error: Swift.Error) {
-            switch error {
-            case ServiceError.invalidArgument(let message):
-                self = .invalidBeneficiary(message)
-            case ServiceError.notFound(let message):
-                self = .notFound(message)
-            default:
-                return nil
-            }
-        }
-    }
+    public typealias Error = TaskError
 
     /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
@@ -159,7 +100,7 @@ extension AddBeneficiaryTask {
                 self?.fetchedCredentials = try result.get()
                 self?.createBeneficiary()
             } catch {
-                self?.complete(with: .failure(Error(error) ?? error))
+                self?.complete(with: .failure(TaskError(addBeneficiaryError: error) ?? error))
             }
         }
     }
@@ -178,7 +119,7 @@ extension AddBeneficiaryTask {
                 self?.progressHandler(.requestSent)
                 self?.startObservingCredentials(id: credentialsID)
             } catch {
-                self?.complete(with: .failure(Error(error) ?? error))
+                self?.complete(with: .failure(TaskError(addBeneficiaryError: error) ?? error))
             }
         }
     }
