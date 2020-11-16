@@ -12,6 +12,8 @@ extension AddCredentialsTask.Error: LocalizedError {
             return Strings.Credentials.Error.authenticationFailed
         case .credentialsAlreadyExists:
             return Strings.Generic.error
+        case .deleted:
+            return Strings.Generic.error
         case .cancelled:
             return Strings.Generic.cancelled
         default:
