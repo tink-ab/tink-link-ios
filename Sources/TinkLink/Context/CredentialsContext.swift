@@ -86,7 +86,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                let mappedError = result.mapError { TinkLinkError(serviceError: $0) ?? $0 }
+                let mappedError = result.mapError(\.tinkLinkError)
                 completion(mappedError)
                 self?.cancellables[id] = nil
             }
@@ -101,8 +101,7 @@ public final class CredentialsContext {
                     let credentials = try result.get()
                     task.startObserving(credentials)
                 } catch {
-                    let mappedError = AddCredentialsTask.Error(serviceError: error) ?? error
-                    completion(.failure(mappedError))
+                    completion(.failure(error.tinkLinkError))
                 }
             }
         } else {
@@ -112,8 +111,7 @@ public final class CredentialsContext {
                     self?.newlyAddedCredentials[providerName] = credential
                     task?.startObserving(credential)
                 } catch {
-                    let mappedError = AddCredentialsTask.Error(serviceError: error) ?? error
-                    completion(.failure(mappedError))
+                    completion(.failure(error.tinkLinkError))
                 }
             }
         }
@@ -182,7 +180,7 @@ public final class CredentialsContext {
                 let storedCredentials = credentials.sorted(by: { $0.id.value < $1.id.value })
                 completion(.success(storedCredentials))
             } catch {
-                completion(.failure(TinkLinkError(serviceError: error) ?? error))
+                completion(.failure(error.tinkLinkError))
             }
         }
     }
@@ -202,7 +200,7 @@ public final class CredentialsContext {
                 let credentials = try result.get()
                 completion(.success(credentials))
             } catch {
-                completion(.failure(TinkLinkError(serviceError: error) ?? error))
+                completion(.failure(error.tinkLinkError))
             }
         }
     }
@@ -248,7 +246,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                let mappedError = result.mapError { TinkLinkError(serviceError: $0) ?? $0 }
+                let mappedError = result.mapError(\.tinkLinkError)
                 completion(mappedError)
                 self?.cancellables[id] = nil
             }
@@ -262,7 +260,7 @@ public final class CredentialsContext {
             case .success:
                 task.startObserving()
             case .failure(let error):
-                completion(.failure(TinkLinkError(serviceError: error) ?? error))
+                completion(.failure(error.tinkLinkError))
             }
         })
 
@@ -306,7 +304,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                let mappedError = result.mapError { TinkLinkError(serviceError: $0) ?? $0 }
+                let mappedError = result.mapError(\.tinkLinkError)
                 completion(mappedError)
                 self?.cancellables[id] = nil
             }
@@ -326,7 +324,7 @@ public final class CredentialsContext {
                 case .success:
                     task.startObserving()
                 case .failure(let error):
-                    completion(.failure(TinkLinkError(serviceError: error) ?? error))
+                    completion(.failure(error.tinkLinkError))
                 }
             }
         )
@@ -347,7 +345,7 @@ public final class CredentialsContext {
     @discardableResult
     public func delete(_ credentials: Credentials, completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.delete(id: credentials.id) { result in
-            let mappedResult = result.mapError { TinkLinkError(serviceError: $0) ?? $0 }
+            let mappedResult = result.mapError(\.tinkLinkError)
             completion(mappedResult)
         }
     }
@@ -389,7 +387,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                let mappedError = result.mapError { TinkLinkError(serviceError: $0) ?? $0 }
+                let mappedError = result.mapError(\.tinkLinkError)
                 completion(mappedError)
                 self?.cancellables[id] = nil
             }
@@ -403,7 +401,7 @@ public final class CredentialsContext {
             case .success:
                 task.startObserving()
             case .failure(let error):
-                completion(.failure(TinkLinkError(serviceError: error) ?? error))
+                completion(.failure(error.tinkLinkError))
             }
         })
 

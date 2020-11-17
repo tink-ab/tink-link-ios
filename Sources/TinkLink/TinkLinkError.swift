@@ -181,33 +181,39 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         case ServiceError.invalidArgument(let message):
             self = .invalidBeneficiary(message)
         default:
-            self.init(serviceError: error)
+            if let tinkLinkError = error.tinkLinkError as? TinkLinkError {
+                self = tinkLinkError
+            } else {
+                return nil
+            }
         }
     }
+}
 
-    init?(serviceError error: Swift.Error) {
-        guard let serviceError = error as? ServiceError else { return nil }
+extension Swift.Error {
+    var tinkLinkError: Swift.Error {
+        guard let serviceError = self as? ServiceError else { return self }
         switch serviceError {
         case .cancelled:
-            self = .cancelled(nil)
+            return TinkLinkError.cancelled(nil)
         case .invalidArgument(let message):
-            self = .invalidArgument(message)
+            return TinkLinkError.invalidArgument(message)
         case .notFound(let message):
-            self = .notFound(message)
+            return TinkLinkError.notFound(message)
         case .alreadyExists(let message):
-            self = .alreadyExists(message)
+            return TinkLinkError.alreadyExists(message)
         case .permissionDenied(let message):
-            self = .permissionDenied(message)
+            return TinkLinkError.permissionDenied(message)
         case .unauthenticated(let message):
-            self = .unauthenticated(message)
+            return TinkLinkError.unauthenticated(message)
         case .failedPrecondition(let message):
-            self = .failedPrecondition(message)
+            return TinkLinkError.failedPrecondition(message)
         case .unavailableForLegalReasons(let message):
-            self = .unavailableForLegalReasons(message)
+            return TinkLinkError.unavailableForLegalReasons(message)
         case .internalError(let message):
-            self = .internalError(message)
+            return TinkLinkError.internalError(message)
         @unknown default:
-            return nil
+            return self
         }
     }
 }

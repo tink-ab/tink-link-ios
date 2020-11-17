@@ -98,7 +98,7 @@ public final class TransferContext {
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: { [weak self] result in
-                let mappedError = result.mapError { TinkLinkError(serviceError: $0) ?? $0 }
+                let mappedError = result.mapError(\.tinkLinkError)
                 completion(mappedError)
                 self?.cancellables[id] = nil
             }
@@ -123,7 +123,7 @@ public final class TransferContext {
                 let signableOperation = try result.get()
                 task?.startObserving(signableOperation)
             } catch {
-                completion(.failure(TinkLinkError(serviceError: error) ?? error))
+                completion(.failure(error.tinkLinkError))
             }
         }
         return task
@@ -156,7 +156,7 @@ public final class TransferContext {
                 let filteredBeneficiaries = beneficiaries.filter { $0.ownerAccountID == account.id }
                 completion(.success(filteredBeneficiaries))
             } catch {
-                completion(.failure(TinkLinkError(serviceError: error) ?? error))
+                completion(.failure(error.tinkLinkError))
             }
         }
     }
@@ -373,7 +373,7 @@ public final class TransferContext {
             do {
                 credentialsList = try result.get()
             } catch {
-                errors.append(TinkLinkError(serviceError: error) ?? error)
+                errors.append(error.tinkLinkError)
             }
             group.leave()
         }?.store(in: canceller)
@@ -383,7 +383,7 @@ public final class TransferContext {
             do {
                 providers = try result.get()
             } catch {
-                errors.append(TinkLinkError(serviceError: error) ?? error)
+                errors.append(error.tinkLinkError)
             }
             group.leave()
         }?.store(in: canceller)
