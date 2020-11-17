@@ -62,7 +62,7 @@ final class AddCredentialsSession {
                     self?.handleAddCredentialStatus(status) {
                         [weak self] error in
                         DispatchQueue.main.async {
-                            self?.hideUpdatingView(animated: true) {
+                            self?.hideProgressView(animated: true) {
                                 onCompletion(.failure(error))
                             }
                             self?.task?.cancel()
@@ -215,18 +215,18 @@ final class AddCredentialsSession {
             let credentials = try result.get()
             authorizeIfNeeded(onError: { [weak self] error in
                 DispatchQueue.main.async {
-                    self?.hideUpdatingView(animated: true) {
+                    self?.hideProgressView(animated: true) {
                         onCompletion(.failure(error))
                     }
                 }
             })
             authorizationGroup.notify(queue: .main) { [weak self] in
-                self?.hideUpdatingView(animated: true) {
+                self?.hideProgressView(animated: true) {
                     onCompletion(.success((credentials, self?.authorizationCode)))
                 }
             }
         } catch {
-            hideUpdatingView(animated: true) {
+            hideProgressView(animated: true) {
                 onCompletion(.failure(error))
             }
         }
@@ -253,7 +253,7 @@ final class AddCredentialsSession {
     }
 
     private func cancel() {
-        hideUpdatingView(animated: true)
+        hideProgressView(animated: true)
         task?.cancel()
     }
 }
@@ -261,7 +261,7 @@ final class AddCredentialsSession {
 extension AddCredentialsSession {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
         supplementInfoTask = supplementInformationTask
-        hideUpdatingView(animated: true) {
+        hideProgressView(animated: true) {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
@@ -299,7 +299,7 @@ extension AddCredentialsSession {
 
     private func showUpdating(status: String) {
         hideQRCodeViewIfNeeded(animated: true) {
-            self.hideUpdatingView(animated: true) {
+            self.hideProgressView(animated: true) {
                 let loadingViewController = LoadingViewController()
                 loadingViewController.update(status, onCancel: { [weak self] in
                     self?.cancel()
@@ -309,7 +309,7 @@ extension AddCredentialsSession {
         }
     }
 
-    private func hideUpdatingView(animated: Bool = false, completion: (() -> Void)? = nil) {
+    private func hideProgressView(animated: Bool = false, completion: (() -> Void)? = nil) {
         hideQRCodeViewIfNeeded(animated: animated)
         guard statusViewController != nil, statusViewController?.presentingViewController != nil else {
             completion?()
@@ -320,7 +320,7 @@ extension AddCredentialsSession {
     }
 
     private func showQRCodeView(qrImage: UIImage) {
-        hideUpdatingView {
+        hideProgressView {
             let qrImageViewController = QRImageViewController(qrImage: qrImage)
             self.qrImageViewController = qrImageViewController
             qrImageViewController.delegate = self
