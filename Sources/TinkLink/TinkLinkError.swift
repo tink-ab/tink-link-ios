@@ -1,4 +1,5 @@
 import Foundation
+import TinkCore
 
 /// Error that TinkLink can throw.
 public struct TinkLinkError: Swift.Error, CustomStringConvertible {
@@ -155,5 +156,30 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             return nil
         }
     }
-}
 
+    init?(serviceError error: Swift.Error) {
+        guard let serviceError = error as? ServiceError else { return nil }
+        switch serviceError {
+        case .cancelled:
+            self = .cancelled(nil)
+        case .invalidArgument(let message):
+            return nil
+        case .notFound(let message):
+            self = .notFound(message)
+        case .alreadyExists(let message):
+            return nil
+        case .permissionDenied(let message):
+            return nil
+        case .unauthenticated(let message):
+            return nil
+        case .failedPrecondition(let message):
+            return nil
+        case .unavailableForLegalReasons(let message):
+            return nil
+        case .internalError(let message):
+            return nil
+        @unknown default:
+            return nil
+        }
+    }
+}
