@@ -47,8 +47,8 @@ class SupplementalInfoFieldTests: XCTestCase {
         } catch let error as Form.ValidationError {
             XCTAssertEqual(error.errors.count, 1)
             let fieldError = error.errors.first
-            if case .requiredFieldEmptyValue(let fieldName) = fieldError {
-                XCTAssertEqual(fieldName, edtiableForm.name)
+            if case .requiredFieldEmptyValue? = fieldError {
+                XCTAssertEqual(fieldError?.fieldName, edtiableForm.name)
             } else {
                 XCTFail("The Field error should be requiredFieldEmptyValue")
             }
