@@ -148,18 +148,23 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     static func invalidArgument(_ message: String?) -> Self {
         .init(code: .invalidArgument, message: message)
     }
+
     static func permissionDenied(_ message: String?) -> Self {
         .init(code: .permissionDenied, message: message)
     }
+
     static func unauthenticated(_ message: String?) -> Self {
         .init(code: .unauthenticated, message: message)
     }
+
     static func failedPrecondition(_ message: String?) -> Self {
         .init(code: .failedPrecondition, message: message)
     }
+
     static func unavailableForLegalReasons(_ message: String?) -> Self {
         .init(code: .unavailableForLegalReasons, message: message)
     }
+
     static func internalError(_ message: String?) -> Self {
         .init(code: .internalError, message: message)
     }
