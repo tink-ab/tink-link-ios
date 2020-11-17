@@ -27,6 +27,7 @@ final class AddCredentialsSession {
         }
     }
 
+    private var isPresenterShowingStatusScreen = true
     private var authorizationGroup = DispatchGroup()
 
     private var providerID: Provider.ID?
@@ -76,6 +77,7 @@ final class AddCredentialsSession {
                 }
             }
         )
+        isPresenterShowingStatusScreen = false
         providerID = provider.id
         addCredentialsMode = mode
 
@@ -97,6 +99,7 @@ final class AddCredentialsSession {
             }
         })
 
+        isPresenterShowingStatusScreen = false
         providerID = credentials.providerID
 
         DispatchQueue.main.async {
@@ -268,6 +271,13 @@ extension AddCredentialsSession {
     }
 
     private func showProgress(status: String) {
+        guard !self.isPresenterShowingStatusScreen else {
+            self.presenter?.showLoadingIndicator(text: status) { [weak self] in
+                self?.cancel()
+            }
+            return
+        }
+
         if let statusViewController = self.statusViewController {
             if statusViewController.presentingViewController == nil {
                 self.presenter?.present(statusViewController, animated: true, completion: nil)
