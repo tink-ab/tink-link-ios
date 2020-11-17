@@ -27,7 +27,6 @@ final class AddCredentialsSession {
         }
     }
 
-    private var isPresenterShowingStatusScreen = true
     private var authorizationGroup = DispatchGroup()
 
     private var providerID: Provider.ID?
@@ -270,27 +269,9 @@ extension AddCredentialsSession {
 
     private func showUpdating(status: String) {
         hideQRCodeViewIfNeeded {
-            guard !self.isPresenterShowingStatusScreen else {
-                self.presenter?.showLoadingIndicator(text: status) { [weak self] in
-                    self?.cancel()
-                }
-                return
+            self.presenter?.showLoadingIndicator(text: status) { [weak self] in
+                self?.cancel()
             }
-
-            if let statusViewController = self.statusViewController {
-                if statusViewController.presentingViewController == nil {
-                    self.presenter?.present(statusViewController, animated: true, completion: nil)
-                }
-            } else {
-                let statusViewController = AddCredentialsStatusViewController()
-                statusViewController.delegate = self
-                statusViewController.modalTransitionStyle = .crossDissolve
-                statusViewController.modalPresentationStyle = .custom
-                statusViewController.transitioningDelegate = self.statusPresentationManager
-                self.presenter?.present(statusViewController, animated: true, completion: nil)
-                self.statusViewController = statusViewController
-            }
-            self.statusViewController?.status = status
         }
     }
 
