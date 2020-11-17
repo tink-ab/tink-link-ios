@@ -44,31 +44,23 @@ final class LoadingViewController: UIViewController {
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
 
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(contentView)
-        contentView.addSubview(label)
-        contentView.addSubview(activityIndicatorView)
+        view.addSubview(label)
+        view.addSubview(activityIndicatorView)
 
         view.addSubview(cancelButton)
         view.addSubview(activityIndicatorView)
         view.addSubview(errorView)
 
         NSLayoutConstraint.activate([
-            activityIndicatorView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            activityIndicatorView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -36),
+            activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicatorView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -24),
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            contentView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            label.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
 
-            cancelButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            cancelButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+            cancelButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -12),
 
             errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             errorView.topAnchor.constraint(equalTo: view.topAnchor),
