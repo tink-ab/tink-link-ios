@@ -6,10 +6,19 @@ final class CheckmarkView: UIView {
         case large
 
         fileprivate var size: CGSize {
-            return CGSize(width: 20 * scale, height: 20 * scale)
+            return CGSize(width: 22 * scale, height: 22 * scale)
         }
 
         fileprivate var scale: CGFloat {
+            switch self {
+            case .default:
+                return 1.0
+            case .large:
+                return 40.0 / 22.0
+            }
+        }
+
+        fileprivate var lineWidth: CGFloat {
             switch self {
             case .default:
                 return 1.0
@@ -21,7 +30,7 @@ final class CheckmarkView: UIView {
 
     var style: Style = .default {
         didSet {
-            checkmarkLayer.lineWidth = 1 * style.scale
+            checkmarkLayer.lineWidth = style.lineWidth
             setNeedsLayout()
             invalidateIntrinsicContentSize()
         }
@@ -53,7 +62,7 @@ final class CheckmarkView: UIView {
     convenience init(style: Style = .default) {
         self.init(frame: CGRect(origin: .zero, size: style.size))
         self.style = style
-        checkmarkLayer.lineWidth = 1 * style.scale
+        checkmarkLayer.lineWidth = style.lineWidth
     }
 
     override init(frame: CGRect) {
@@ -77,7 +86,7 @@ final class CheckmarkView: UIView {
         ]
 
         checkmarkLayer.fillColor = UIColor.clear.cgColor
-        checkmarkLayer.lineWidth = 1 * style.scale
+        checkmarkLayer.lineWidth = style.lineWidth
         checkmarkLayer.strokeColor = strokeTintColor.cgColor
         checkboxLayer.addSublayer(checkmarkLayer)
 
