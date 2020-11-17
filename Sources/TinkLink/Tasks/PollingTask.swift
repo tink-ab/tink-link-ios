@@ -25,7 +25,8 @@ final class PollingTask<ID, Model> {
     var pollingStrategy: PollingStrategy = .linear(1.0, maxInterval: 10)
 
     private var interval: TimeInterval
-    private var maxCount: TimeInterval
+    private var maxPollingTime: TimeInterval
+    private var elapsedTime: TimeInterval = 0
 
     private let request: (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?
     private let id: ID
@@ -39,9 +40,9 @@ final class PollingTask<ID, Model> {
     private var isPaused = true
     private var isActive = true
 
-    var maxPollingTime: TimeInterval = 1800 {
+    var setMaxPollingTime: TimeInterval = 1800 {
         didSet {
-            maxCount = maxPollingTime
+            maxPollingTime = setMaxPollingTime
         }
     }
 
@@ -52,7 +53,7 @@ final class PollingTask<ID, Model> {
         self.request = request
         self.updateHandler = updateHandler
         self.interval = pollingStrategy.initialInterval
-        self.maxCount = maxPollingTime
+        self.maxPollingTime = setMaxPollingTime
 
         applicationObserver.didBecomeActive = { [weak self] in
             guard let self = self, self.isActive == false else { return }
@@ -81,7 +82,7 @@ final class PollingTask<ID, Model> {
     }
 
     private func pollStatus() {
-        if isPaused || !isActive || maxCount < 1 {
+        if isPaused || !isActive || elapsedTime > maxPollingTime {
             return
         }
 
@@ -101,7 +102,7 @@ final class PollingTask<ID, Model> {
 
                 // Something has changed: Reset polling interval.
                 self.interval = self.pollingStrategy.initialInterval
-                self.maxCount = self.maxPollingTime
+                self.elapsedTime = 0
                 self.responseValue = newValue
                 self.updateHandler(.success(newValue))
             } catch {
@@ -114,7 +115,7 @@ final class PollingTask<ID, Model> {
         if isPaused { return }
 
         interval = pollingStrategy.nextInterval(after: interval)
-        maxCount -= interval
+        elapsedTime += interval
         DispatchQueue.main.asyncAfter(deadline: .now() + interval) { [weak self] in
             self?.pollStatus()
         }
