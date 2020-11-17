@@ -3,7 +3,7 @@
 echo "Enter release number:"
 read release
 
-if [[ $version =~ ^([0-9]{1,2}\.){2}[0-9]{1,10}$ ]]; then
+if [[ $release =~ ^([0-9]{1,2}\.){2}[0-9]{1,10}$ ]]; then
 git checkout master
 git pull
 git checkout -b public-sync-$release
