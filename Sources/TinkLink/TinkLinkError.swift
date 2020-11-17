@@ -142,7 +142,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         case ServiceError.alreadyExists(let payload):
             self = .alreadyExists(payload)
         default:
-            return nil
+            self.init(serviceError: error)
         }
     }
 
@@ -150,10 +150,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         switch error {
         case ServiceError.invalidArgument(let message):
             self = .invalidBeneficiary(message)
-        case ServiceError.notFound(let message):
-            self = .notFound(message)
         default:
-            return nil
+            self.init(serviceError: error)
         }
     }
 
