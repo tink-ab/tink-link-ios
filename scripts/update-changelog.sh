@@ -21,7 +21,7 @@ curl -X "POST" "https://api.contentful.com/spaces/${SPACE_ID}/environments/${ENV
 --data-binary "{
   \"fields\": {
     \"heading\": {
-      \"en-US\": \"${heading}\"
+      \"en-US\": \"Released ${heading}\"
     },
     \"body\": {
       \"en-US\": \"${body}\nFor more information, see the [release notes](${url}).\"
