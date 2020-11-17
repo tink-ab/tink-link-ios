@@ -137,15 +137,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         .init(code: .notFound, message: message)
     }
 
-    init?(addCredentialsError error: Swift.Error) {
-        switch error {
-        case ServiceError.alreadyExists(let payload):
-            self = .alreadyExists(payload)
-        default:
-            self.init(serviceError: error)
-        }
-    }
-
     init?(addBeneficiaryError error: Swift.Error) {
         switch error {
         case ServiceError.invalidArgument(let message):

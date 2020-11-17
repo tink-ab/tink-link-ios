@@ -101,7 +101,7 @@ public final class CredentialsContext {
                     let credentials = try result.get()
                     task.startObserving(credentials)
                 } catch {
-                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
+                    let mappedError = AddCredentialsTask.Error(serviceError: error) ?? error
                     completion(.failure(mappedError))
                 }
             }
@@ -112,7 +112,7 @@ public final class CredentialsContext {
                     self?.newlyAddedCredentials[providerName] = credential
                     task?.startObserving(credential)
                 } catch {
-                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
+                    let mappedError = AddCredentialsTask.Error(serviceError: error) ?? error
                     completion(.failure(mappedError))
                 }
             }
