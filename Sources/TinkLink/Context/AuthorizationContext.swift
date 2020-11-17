@@ -35,8 +35,7 @@ public final class AuthorizationContext {
             if case .failure(ServiceError.invalidArgument(let message)) = result {
                 assertionFailure("Could not authorize: " + message)
             }
-            let mappedResult = result.mapError(\.tinkLinkError)
-            completion(mappedResult)
+            completion(result.mapError(\.tinkLinkError))
         }
     }
 
@@ -53,8 +52,7 @@ public final class AuthorizationContext {
             if case .failure(ServiceError.invalidArgument(let message)) = result {
                 assertionFailure("Could not get client description: " + message)
             }
-            let mappedResult = result.mapError(\.tinkLinkError)
-            completion(mappedResult)
+            completion(result.mapError(\.tinkLinkError))
         }
     }
 }

@@ -342,8 +342,7 @@ public final class CredentialsContext {
     @discardableResult
     public func delete(_ credentials: Credentials, completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.delete(id: credentials.id) { result in
-            let mappedResult = result.mapError(\.tinkLinkError)
-            completion(mappedResult)
+            completion(result.mapError(\.tinkLinkError))
         }
     }
 
