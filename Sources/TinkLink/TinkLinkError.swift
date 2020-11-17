@@ -16,7 +16,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case notFound
             case invalidArgument
             case permissionDenied
-            case unauthenticated
+            case notAuthenticated
             case failedPrecondition
             case unavailableForLegalReasons
             case internalError
@@ -45,7 +45,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
 
         public static let invalidArgument = Self(value: .invalidArgument)
         public static let permissionDenied = Self(value: .permissionDenied)
-        public static let unauthenticated = Self(value: .unauthenticated)
+        public static let notAuthenticated = Self(value: .notAuthenticated)
         public static let failedPrecondition = Self(value: .failedPrecondition)
         public static let unavailableForLegalReasons = Self(value: .unavailableForLegalReasons)
         public static let internalError = Self(value: .internalError)
@@ -104,7 +104,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
 
     public static let invalidArgument: Code = .invalidArgument
     public static let permissionDenied: Code = .permissionDenied
-    public static let unauthenticated: Code = .unauthenticated
+    public static let notAuthenticated: Code = .notAuthenticated
     public static let failedPrecondition: Code = .failedPrecondition
     public static let unavailableForLegalReasons: Code = .unavailableForLegalReasons
     public static let internalError: Code = .internalError
@@ -153,8 +153,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         .init(code: .permissionDenied, message: message)
     }
 
-    static func unauthenticated(_ message: String?) -> Self {
-        .init(code: .unauthenticated, message: message)
+    static func notAuthenticated(_ message: String?) -> Self {
+        .init(code: .notAuthenticated, message: message)
     }
 
     static func failedPrecondition(_ message: String?) -> Self {
@@ -185,7 +185,7 @@ extension Swift.Error {
         case .permissionDenied(let message):
             return TinkLinkError.permissionDenied(message)
         case .unauthenticated(let message):
-            return TinkLinkError.unauthenticated(message)
+            return TinkLinkError.notAuthenticated(message)
         case .failedPrecondition(let message):
             return TinkLinkError.failedPrecondition(message)
         case .unavailableForLegalReasons(let message):

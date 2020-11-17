@@ -10,7 +10,7 @@ public struct TinkLinkUIError: Error, Equatable, CustomStringConvertible {
             case credentialsNotFound
             case providerNotFound
             case unableToOpenThirdPartyApp
-            case unauthenticated
+            case notAuthenticated
             case internalError
         }
 
@@ -22,7 +22,7 @@ public struct TinkLinkUIError: Error, Equatable, CustomStringConvertible {
         public static let credentialsNotFound = Self(value: .credentialsNotFound)
         public static let providerNotFound = Self(value: .providerNotFound)
         public static let unableToOpenThirdPartyApp = Self(value: .unableToOpenThirdPartyApp)
-        public static let unauthenticated = Self(value: .unauthenticated)
+        public static let notAuthenticated = Self(value: .notAuthenticated)
         public static let internalError = Self(value: .internalError)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
@@ -52,7 +52,7 @@ public struct TinkLinkUIError: Error, Equatable, CustomStringConvertible {
     public static let providerNotFound: Code = .providerNotFound
     /// Tink Link was not able to open the third party app.
     public static let unableToOpenThirdPartyApp: Code = .unableToOpenThirdPartyApp
-    public static let unauthenticated: Code = .unauthenticated
+    public static let notAuthenticated: Code = .notAuthenticated
     public static let internalError: Code = .internalError
 
     init?(error: Error) {
@@ -64,7 +64,7 @@ public struct TinkLinkUIError: Error, Equatable, CustomStringConvertible {
                 self = .init(code: .providerNotFound)
             }
         } else if case ServiceError.unauthenticated = error {
-            self = .init(code: .unauthenticated)
+            self = .init(code: .notAuthenticated)
         } else if let error = error as? URLError, error.code == .notConnectedToInternet {
             self = .init(code: .missingInternetConnection)
         } else {
