@@ -18,7 +18,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
 
     /// Indicates the state of a credentials being refreshed.
     public enum Status {
-        /// The user needs to be authenticated. The payload from the backend can be found in the associated value.
+        /// The user needs to be authenticated. The payload from the backend can be found in the message property.
         case authenticating(String?)
 
         /// User has been successfully authenticated, now downloading data.
@@ -26,17 +26,75 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
-    public enum Error: Swift.Error {
-        /// The authentication failed. The payload from the backend can be found in the associated value.
-        case authenticationFailed(String?)
-        /// A temporary failure occurred. The payload from the backend can be found in the associated value.
-        case temporaryFailure(String?)
-        /// A permanent failure occurred. The payload from the backend can be found in the associated value.
-        case permanentFailure(String?)
-        /// The credentials are deleted. The payload from the backend can be found in the associated value.
-        case deleted(String?)
+    public struct Error: Swift.Error, CustomStringConvertible {
+        public struct Code: Hashable {
+            enum Value {
+                case authenticationFailed
+                case temporaryFailure
+                case permanentFailure
+                case deleted
+                case cancelled
+            }
+
+            var value: Value
+
+            /// The authentication failed.
+            public static let authenticationFailed = Self(value: .authenticationFailed)
+            /// A temporary failure occurred.
+            public static let temporaryFailure = Self(value: .temporaryFailure)
+            /// A permanent failure occurred.
+            public static let permanentFailure = Self(value: .permanentFailure)
+            /// The credentials are deleted.
+            public static let deleted = Self(value: .deleted)
+            /// The task was cancelled.
+            public static let cancelled = Self(value: .cancelled)
+
+            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+                lhs == (rhs as? RefreshCredentialsTask.Error)?.code
+            }
+        }
+
+        public let code: Code
+        public let message: String?
+
+        public var description: String {
+            return "RefreshCredentialsTask.Error.\(code.value))"
+        }
+
+        /// The authentication failed.
+        ///
+        /// The payload from the backend can be found in the message property.
+        public static let authenticationFailed: Code = .authenticationFailed
+        /// A temporary failure occurred.
+        ///
+        /// The payload from the backend can be found in the message property.
+        public static let temporaryFailure: Code = .temporaryFailure
+        /// A permanent failure occurred.
+        ///
+        /// The payload from the backend can be found in the message property.
+        public static let permanentFailure: Code = .permanentFailure
+        /// The credentials are deleted.
+        ///
+        /// The payload from the backend can be found in the message property.
+        public static let deleted: Code = .deleted
         /// The task was cancelled.
-        case cancelled
+        public static let cancelled: Code = .cancelled
+
+        static func authenticationFailed(_ message: String?) -> Self {
+            .init(code: .authenticationFailed, message: message)
+        }
+
+        static func temporaryFailure(_ message: String?) -> Self {
+            .init(code: .temporaryFailure, message: message)
+        }
+
+        static func permanentFailure(_ message: String?) -> Self {
+            .init(code: .permanentFailure, message: message)
+        }
+
+        static func deleted(_ message: String?) -> Self {
+            .init(code: .deleted, message: message)
+        }
     }
 
     var retryInterval: TimeInterval = 1.0
@@ -96,7 +154,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             canceller.cancel()
             callCanceller = nil
         } else {
-            complete(with: .failure(Error.cancelled))
+            complete(with: .failure(Error(code: .cancelled, message: nil)))
         }
     }
 
@@ -158,7 +216,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                 assertionFailure("Unknown credentials status!")
             }
         } catch ServiceError.cancelled {
-            complete(with: .failure(Error.cancelled))
+            complete(with: .failure(Error(code: .cancelled, message: nil)))
         } catch {
             complete(with: .failure(error))
         }

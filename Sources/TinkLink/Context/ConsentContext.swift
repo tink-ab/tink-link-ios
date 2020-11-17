@@ -11,18 +11,43 @@ public final class ConsentContext {
     private let service: AuthenticationService
 
     /// Error that the `ConsentContext` can throw.
-    public enum Error: Swift.Error {
+    public struct Error: Swift.Error, CustomStringConvertible {
+        public struct Code: Hashable {
+            enum Value {
+                case invalidScopeOrAppURI
+            }
+
+            var value: Value
+
+            /// The scope or redirect URI was invalid.
+            ///
+            /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid app URI in Tink Console.
+            public static let invalidScopeOrAppURI = Self(value: .invalidScopeOrAppURI)
+        }
+
+        public let code: Code
+        public let message: String?
+
+        private init(code: Code, message: String) {
+            self.code = code
+            self.message = message
+        }
+
+        public var description: String {
+            return "ConsentContext.Error.\(code.value)"
+        }
+
         /// The scope or redirect URI was invalid.
         ///
-        /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
+        /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid app URI in Tink Console.
         ///
-        /// - Note: The payload from the backend can be found in the associated value.
-        case invalidScopeOrRedirectURI(String)
+        /// - Note: The payload from the backend can be found in the message property.
+        public static let invalidScopeOrAppURI: Code = .invalidScopeOrAppURI
 
         init?(_ error: Swift.Error) {
             switch error {
             case ServiceError.invalidArgument(let message):
-                self = .invalidScopeOrRedirectURI(message)
+                self = .init(code: .invalidScopeOrAppURI, message: message)
             default:
                 return nil
             }
@@ -120,8 +145,8 @@ public final class ConsentContext {
     public func fetchScopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.map(\.scopes).mapError { Error($0) ?? $0 }
-            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
-                assertionFailure("Could not fetch scope descriptions: " + message)
+            if case .failure(let error as Error) = mappedResult, error.code == .invalidScopeOrAppURI {
+                assertionFailure("Could not fetch scope descriptions: " + (error.message ?? ""))
             }
             completion(mappedResult)
         }

@@ -506,8 +506,8 @@ public class TinkLinkViewController: UIViewController {
             permanentCompletion?(.failure(error))
 
         case .none:
-            temporaryCompletion?(.failure(.userCancelled))
-            permanentCompletion?(.failure(.userCancelled))
+            temporaryCompletion?(.failure(.init(code: .userCancelled)))
+            permanentCompletion?(.failure(.init(code: .userCancelled)))
         }
     }
 }

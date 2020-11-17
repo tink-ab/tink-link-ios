@@ -3,7 +3,7 @@ import TinkLink
 
 extension AddCredentialsTask.Error: LocalizedError {
     public var errorDescription: String? {
-        switch self {
+        switch code {
         case .permanentFailure:
             return Strings.Credentials.Error.permanentFailure
         case .temporaryFailure:
@@ -14,16 +14,20 @@ extension AddCredentialsTask.Error: LocalizedError {
             return Strings.Generic.error
         case .cancelled:
             return Strings.Generic.cancelled
+        default:
+            return nil
         }
     }
 
     public var failureReason: String? {
-        switch self {
-        case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload):
-            return payload ?? Strings.Generic.error
+        switch code {
+        case .permanentFailure, .temporaryFailure, .authenticationFailed:
+            return message ?? Strings.Generic.error
         case .credentialsAlreadyExists:
             return Strings.Credentials.Error.credentialsAlreadyExists
         case .cancelled:
+            return nil
+        default:
             return nil
         }
     }
@@ -31,7 +35,7 @@ extension AddCredentialsTask.Error: LocalizedError {
 
 extension RefreshCredentialsTask.Error: LocalizedError {
     public var errorDescription: String? {
-        switch self {
+        switch code {
         case .permanentFailure:
             return Strings.Credentials.Error.permanentFailure
         case .temporaryFailure:
@@ -42,46 +46,52 @@ extension RefreshCredentialsTask.Error: LocalizedError {
             return Strings.Generic.error
         case .cancelled:
             return Strings.Generic.cancelled
+        default:
+            return nil
         }
     }
 
     public var failureReason: String? {
-        switch self {
-        case .permanentFailure(let payload), .temporaryFailure(let payload), .authenticationFailed(let payload), .deleted(let payload):
-            return payload ?? Strings.Generic.error
+        switch code {
         case .cancelled:
             return nil
+        default:
+            return message ?? Strings.Generic.error
         }
     }
 }
 
 extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
     public var errorDescription: String? {
-        switch self {
+        switch code {
         case .deeplinkURLNotFound:
             return nil
-        case .downloadRequired(let title, _, _):
-            return title
+        case .downloadRequired:
+            return downloadTitle
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
             return nil
         case .cancelled:
+            return nil
+        default:
             return nil
         }
     }
 
     public var failureReason: String? {
-        switch self {
+        switch code {
         case .deeplinkURLNotFound:
             return nil
-        case .downloadRequired(_, let message, _):
-            return message
+        case .downloadRequired:
+            return downloadMessage
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
             return nil
         case .cancelled:
+            return nil
+        default:
             return nil
         }
     }

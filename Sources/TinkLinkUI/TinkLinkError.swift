@@ -1,37 +1,72 @@
 import Foundation
 import TinkLink
 
-/// An error returned by TinkLinkUI when something went wrong during the aggregation.
-public enum TinkLinkError: Error {
+public struct TinkLinkError: Error, Equatable, CustomStringConvertible {
+    public struct Code: Hashable {
+        enum Value {
+            case userCancelled
+            case unableToFetchProviders
+            case missingInternetConnection
+            case credentialsNotFound
+            case providerNotFound
+            case unableToOpenThirdPartyApp
+            case unauthenticated
+            case internalError
+        }
+
+        var value: Value
+
+        public static let userCancelled = Self(value: .userCancelled)
+        public static let unableToFetchProviders = Self(value: .unableToFetchProviders)
+        public static let missingInternetConnection = Self(value: .missingInternetConnection)
+        public static let credentialsNotFound = Self(value: .credentialsNotFound)
+        public static let providerNotFound = Self(value: .providerNotFound)
+        public static let unableToOpenThirdPartyApp = Self(value: .unableToOpenThirdPartyApp)
+        public static let unauthenticated = Self(value: .unauthenticated)
+        public static let internalError = Self(value: .internalError)
+
+        public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+            lhs == (rhs as? TinkLinkError)?.code
+        }
+    }
+
+    public var code: Code
+
+    init(code: Code) {
+        self.code = code
+    }
+
+    public var description: String {
+        return "TinkLinkError.\(code.value)"
+    }
+
     /// User cancelled the flow.
-    case userCancelled
+    public static let userCancelled: Code = .userCancelled
     /// Unable to fetch providers.
-    case unableToFetchProviders
-    /// Lost internet connection.
-    case missingInternetConnection
+    public static let unableToFetchProviders: Code = .unableToFetchProviders
+    /// Unable to fetch providers.
+    public static let missingInternetConnection: Code = .missingInternetConnection
     /// The credentials could not be found.
-    case credentialsNotFound
+    public static let credentialsNotFound: Code = .credentialsNotFound
     /// The provider could not be found.
-    case providerNotFound
+    public static let providerNotFound: Code = .providerNotFound
     /// Tink Link was not able to open the third party app.
-    case unableToOpenThirdPartyApp(ThirdPartyAppAuthenticationTask.Error)
-
-    case unauthenticated
-
-    case internalError
+    public static let unableToOpenThirdPartyApp: Code = .unableToOpenThirdPartyApp
+    public static let unauthenticated: Code = .unauthenticated
+    public static let internalError: Code = .internalError
 
     init?(error: Error) {
         if let error = error as? ProviderController.Error {
             switch error {
             case .emptyProviderList:
-                self = .unableToFetchProviders
+                self = .init(code: .unableToFetchProviders)
             case .providerNotFound:
-                self = .providerNotFound
+                self = .init(code: .providerNotFound)
             }
         } else if case ServiceError.unauthenticated = error {
-            self = .unauthenticated
+            self = .init(code: .unauthenticated)
         } else if let error = error as? URLError, error.code == .notConnectedToInternet {
-            self = .missingInternetConnection
+            self = .init(code: .missingInternetConnection)
         } else {
             return nil
         }

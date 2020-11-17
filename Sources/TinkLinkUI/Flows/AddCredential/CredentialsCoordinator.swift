@@ -116,18 +116,18 @@ final class CredentialsCoordinator {
             showAddCredentialSuccess(with: credentials, authorizationCode: authorizationCode, for: action)
         } catch ThirdPartyAppAuthenticationTask.Error.cancelled {
             if callCompletionOnError {
-                completion(.failure(.userCancelled))
+                completion(.failure(.init(code: .userCancelled)))
             }
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
             tinkLinkTracker.track(screen: .error)
         } catch SupplementInformationTask.Error.cancelled {
             if callCompletionOnError {
-                completion(.failure(.userCancelled))
+                completion(.failure(.init(code: .userCancelled)))
             }
         } catch TinkLinkError.userCancelled {
             if callCompletionOnError {
-                completion(.failure(.userCancelled))
+                completion(.failure(.init(code: .userCancelled)))
             }
         } catch {
             showAlert(for: error)
@@ -167,7 +167,7 @@ extension CredentialsCoordinator {
                 then(credentials)
             } catch {
                 // TODO: This error should be improved
-                self.completion(.failure(.credentialsNotFound))
+                self.completion(.failure(.init(code: .credentialsNotFound)))
             }
         }
     }
@@ -179,7 +179,7 @@ extension CredentialsCoordinator {
                 then(provider)
             } catch {
                 // TODO: This error should be improved
-                self.completion(.failure(.providerNotFound))
+                self.completion(.failure(.init(code: .providerNotFound)))
             }
         }
     }
@@ -236,7 +236,7 @@ extension CredentialsCoordinator {
     }
 
     @objc private func cancel() {
-        completion(.failure(TinkLinkError.userCancelled))
+        completion(.failure(TinkLinkError(code: .userCancelled)))
     }
 }
 
@@ -256,7 +256,7 @@ extension CredentialsCoordinator {
         } else {
             let okAction = UIAlertAction(title: Strings.Generic.dismiss, style: .default) { _ in
                 if self.callCompletionOnError {
-                    self.completion(.failure(.unableToOpenThirdPartyApp(thirdPartyAppAuthenticationError)))
+                    self.completion(.failure(TinkLinkError(code: .unableToOpenThirdPartyApp)))
                 }
             }
             alertController.addAction(okAction)
@@ -280,7 +280,7 @@ extension CredentialsCoordinator {
 
         let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default) { _ in
             if self.callCompletionOnError {
-                self.completion(.failure(.internalError))
+                self.completion(.failure(TinkLinkError(code: .internalError)))
             }
         }
         alertController.addAction(okAction)

@@ -215,44 +215,67 @@ public struct Form {
         }
 
         /// Describes a field validation error.
-        public enum ValidationError: Error {
-            /// Field's `text` was invalid. See `reason` for explanation why.
-            case invalid(fieldName: String, reason: String)
+        public struct ValidationError: Error, CustomStringConvertible {
+            public struct Code: Hashable {
+                enum Value {
+                    case invalid
+                    case maxLengthLimit
+                    case minLengthLimit
+                    case requiredFieldEmptyValue
+                }
 
-            /// Field's `text` was too long.
-            case maxLengthLimit(fieldName: String, maxLength: Int)
+                var value: Value
 
-            /// Field's `text` was too short.
-            case minLengthLimit(fieldName: String, minLength: Int)
+                public static let invalid = Self(value: .invalid)
+                public static let maxLengthLimit = Self(value: .maxLengthLimit)
+                public static let minLengthLimit = Self(value: .minLengthLimit)
+                public static let requiredFieldEmptyValue = Self(value: .requiredFieldEmptyValue)
 
-            /// Missing `text` for required field.
-            case requiredFieldEmptyValue(fieldName: String)
-
-            var fieldName: String {
-                switch self {
-                case .invalid(let fieldName, _):
-                    return fieldName
-                case .maxLengthLimit(let fieldName, _):
-                    return fieldName
-                case .minLengthLimit(let fieldName, _):
-                    return fieldName
-                case .requiredFieldEmptyValue(let fieldName):
-                    return fieldName
+                public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+                    lhs == (rhs as? Form.Field.ValidationError)?.code
                 }
             }
 
-            /// An error message describing what is the reason for the validation failure.
-            public var reason: String? {
-                switch self {
-                case .invalid(_, let reason):
-                    return reason
-                case .maxLengthLimit(_, let maxLength):
-                    return "Field can't be longer than \(maxLength)"
-                case .minLengthLimit(_, let minLength):
-                    return "Field can't be shorter than \(minLength)"
-                case .requiredFieldEmptyValue:
-                    return "Required field"
-                }
+            public let code: Code
+
+            public var description: String {
+                return "Form.Field.ValidationError.Error.\(code.value))"
+            }
+
+            /// Field's `text` was invalid. See `reason` for explanation why.
+            public static let invalid: Code = .invalid
+
+            /// Field's `text` was too long.
+            public static let maxLengthLimit: Code = .maxLengthLimit
+
+            /// Field's `text` was too short.
+            public static let minLengthLimit: Code = .minLengthLimit
+
+            /// Missing `text` for required field.
+            public static let requiredFieldEmptyValue: Code = .requiredFieldEmptyValue
+
+            public var fieldName: String
+
+            /// An error message describing what is the reason for the invalid validation failure.
+            public var reason: String?
+
+            public var minLength: Int?
+            public var maxLength: Int?
+
+            static func invalid(fieldName: String, reason: String) -> Self {
+                .init(code: .invalid, fieldName: fieldName, reason: reason)
+            }
+
+            static func maxLengthLimit(fieldName: String, maxLength: Int) -> Self {
+                .init(code: .maxLengthLimit, fieldName: fieldName, maxLength: maxLength)
+            }
+
+            static func minLengthLimit(fieldName: String, minLength: Int) -> Self {
+                .init(code: .minLengthLimit, fieldName: fieldName, minLength: minLength)
+            }
+
+            static func requiredFieldEmptyValue(fieldName: String) -> Self {
+                .init(code: .requiredFieldEmptyValue, fieldName: fieldName)
             }
         }
 
