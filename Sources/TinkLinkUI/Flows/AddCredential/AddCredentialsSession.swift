@@ -77,7 +77,7 @@ final class AddCredentialsSession {
                 }
             }
         )
-        isPresenterShowingStatusScreen = false
+        isPresenterShowingStatusScreen = true
         providerID = provider.id
         addCredentialsMode = mode
 
@@ -99,7 +99,7 @@ final class AddCredentialsSession {
             }
         })
 
-        isPresenterShowingStatusScreen = false
+        isPresenterShowingStatusScreen = true
         providerID = credentials.providerID
 
         DispatchQueue.main.async {
