@@ -56,11 +56,11 @@ final class LoadingViewController: UIViewController {
             activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicatorView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -24),
 
-            label.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            label.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 24),
+            label.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -24),
 
             cancelButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
-            cancelButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -12),
+            cancelButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -32),
 
             errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             errorView.topAnchor.constraint(equalTo: view.topAnchor),
