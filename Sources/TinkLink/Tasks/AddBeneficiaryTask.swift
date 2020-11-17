@@ -100,7 +100,7 @@ extension AddBeneficiaryTask {
                 self?.fetchedCredentials = try result.get()
                 self?.createBeneficiary()
             } catch {
-                self?.complete(with: .failure(Error(addBeneficiaryError: error) ?? error))
+                self?.complete(with: .failure(error))
             }
         }
     }
@@ -119,7 +119,7 @@ extension AddBeneficiaryTask {
                 self?.progressHandler(.requestSent)
                 self?.startObservingCredentials(id: credentialsID)
             } catch {
-                self?.complete(with: .failure(Error(addBeneficiaryError: error) ?? error))
+                self?.complete(with: .failure(error))
             }
         }
     }
