@@ -271,30 +271,30 @@ extension AddCredentialsSession {
     }
 
     private func showProgress(status: String) {
-        hideQRCodeViewIfNeeded()
-
-        guard !self.isPresenterShowingStatusScreen else {
-            self.presenter?.showLoadingIndicator(text: status) { [weak self] in
-                self?.cancel()
+        hideQRCodeViewIfNeeded(animated: true) {
+            guard !self.isPresenterShowingStatusScreen else {
+                self.presenter?.showLoadingIndicator(text: status) { [weak self] in
+                    self?.cancel()
+                }
+                return
             }
-            return
-        }
 
-        if let statusViewController = self.statusViewController {
-            if statusViewController.presentingViewController == nil {
+            if let statusViewController = self.statusViewController {
+                if statusViewController.presentingViewController == nil {
+                    self.presenter?.present(statusViewController, animated: true, completion: nil)
+                }
+            } else {
+                let statusViewController = AddCredentialsStatusViewController()
+                statusViewController.delegate = self
+                statusViewController.modalTransitionStyle = .crossDissolve
+                statusViewController.modalPresentationStyle = .custom
+                statusViewController.transitioningDelegate = self.statusPresentationManager
                 self.presenter?.present(statusViewController, animated: true, completion: nil)
+                self.statusViewController = statusViewController
             }
-        } else {
-            let statusViewController = AddCredentialsStatusViewController()
-            statusViewController.delegate = self
-            statusViewController.modalTransitionStyle = .crossDissolve
-            statusViewController.modalPresentationStyle = .custom
-            statusViewController.transitioningDelegate = self.statusPresentationManager
-            self.presenter?.present(statusViewController, animated: true, completion: nil)
-            self.statusViewController = statusViewController
-        }
 
-        self.statusViewController?.status = status
+            self.statusViewController?.status = status
+        }
     }
 
     private func showUpdating(status: String) {
