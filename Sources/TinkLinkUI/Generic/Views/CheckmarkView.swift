@@ -6,7 +6,7 @@ final class CheckmarkView: UIView {
         case large
 
         fileprivate var size: CGSize {
-            return CGSize(width: 22 * scale, height: 22 * scale)
+            return CGSize(width: 20 * scale, height: 20 * scale)
         }
 
         fileprivate var scale: CGFloat {
