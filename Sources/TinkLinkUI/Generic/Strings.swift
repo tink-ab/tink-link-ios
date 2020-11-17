@@ -31,11 +31,11 @@ enum Strings {
     enum Credentials {
         static let openBankID = NSLocalizedString("Credentials.OpenBankID", tableName: tableName, bundle: bundle, value: "Open BankID", comment: "Text for BankID button shown in the add credentials/authenticate screen.")
 
-        static let privacyPolicy = NSLocalizedString("Credentials.PrivacyPolicy", tableName: tableName, bundle: bundle, value: "Privacy Policy", comment: "Privacy policy clickable text used in Credentials.TermsText.")
+        static let privacyPolicy = NSLocalizedString("Credentials.PrivacyPolicy", tableName: tableName, bundle: bundle, value: "Privacy Policy", comment: "Privacy policy clickable text used in Credentials.TermsAndConsentText. The text copy should be exactly same as it is in the Credentials.TermsAndConsentText")
 
-        static let viewDetails = NSLocalizedString("Credentials.ViewDetails", tableName: tableName, bundle: bundle, value: "View details", comment: "View details text (clickable) to lead to consent information.")
+        static let viewDetails = NSLocalizedString("Credentials.ViewDetails", tableName: tableName, bundle: bundle, value: "View details", comment: "View details text (clickable) to lead to consent information that used in Credentials.TermsAndConsentText. The text copy should be exactly same as it is in the Credentials.TermsAndConsentText")
 
-        static let termsAndConditions = NSLocalizedString("Credentials.TermsAndConditions", tableName: tableName, bundle: bundle, value: "Terms and Conditions", comment: "Terms and conditions clickable text used in Credentials.TermsText.")
+        static let termsAndConditions = NSLocalizedString("Credentials.TermsAndConditions", tableName: tableName, bundle: bundle, value: "Terms and Conditions", comment: "Terms and conditions clickable text used in Credentials.TermsAndConsentText. The text copy should be exactly same as it is in the Credentials.TermsAndConsentText")
 
         /// Text explaining that when using the service, the user agrees to Tink's Terms and Conditions, Privacy Policy. And the text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.
         static let termsAndConsentText = NSLocalizedString("Credentials.TermsAndConsentText", tableName: tableName, bundle: bundle, value: "By using the service, you agree to Tink’s Terms and Conditions and Privacy Policy. %@ will obtain parts of your financial information. View details", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions, Privacy Policy. And the text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.")
