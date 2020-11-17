@@ -17,7 +17,7 @@ extension TinkLinkError: LocalizedError {
         case .cancelled:
             return Strings.Generic.cancelled
         default:
-            return nil
+            return Strings.Generic.ServiceAlert.fallbackTitle
         }
     }
 
@@ -29,6 +29,14 @@ extension TinkLinkError: LocalizedError {
             return Strings.Credentials.Error.credentialsAlreadyExists
         case .cancelled:
             return nil
+        case .invalidArgument,
+             .notFound,
+             .permissionDenied,
+             .notAuthenticated,
+             .failedPrecondition,
+             .unavailableForLegalReasons,
+             .internalError:
+            return message
         default:
             return nil
         }
