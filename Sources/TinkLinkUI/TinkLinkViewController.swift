@@ -246,6 +246,8 @@ public class TinkLinkViewController: UIViewController {
 
         presentationController?.delegate = self
 
+        delegate = self
+
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
 
@@ -694,5 +696,17 @@ extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 extension TinkLinkViewController: CredentialsCoordinatorDelegate {
     func didFinishCredentialsForm() {
         userHasConnected = true
+    }
+}
+
+// MARK: - UINavigationControllerDelegate
+
+extension TinkLinkViewController: UINavigationControllerDelegate {
+    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if operation == .push, fromVC is CredentialsFormViewController, toVC is CredentialsSuccessfullyAddedViewController {
+            return CredentialsSuccessfullyAddedTransition()
+        } else {
+            return nil
+        }
     }
 }
