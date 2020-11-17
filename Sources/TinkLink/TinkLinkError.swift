@@ -7,13 +7,13 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case credentialsAuthenticationFailed
             case temporaryCredentialsFailure
             case permanentCredentialsFailure
-            case credentialsAlreadyExists
+            case alreadyExists
             case credentialsDeleted
             case credentialsSessionExpired
             case cancelled
             case transferFailed
             case invalidBeneficiary
-            case beneficiaryNotFound
+            case notFound
         }
 
         var value: Value
@@ -24,8 +24,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         public static let temporaryCredentialsFailure = Self(value: .temporaryCredentialsFailure)
         /// A permanent failure occurred.
         public static let permanentCredentialsFailure = Self(value: .permanentCredentialsFailure)
-        /// The credentials already exists.
-        public static let credentialsAlreadyExists = Self(value: .credentialsAlreadyExists)
+        /// The resource already exists.
+        public static let alreadyExists = Self(value: .alreadyExists)
         /// The credentials are deleted.
         public static let credentialsDeleted = Self(value: .credentialsDeleted)
         /// The credentials session was expired.
@@ -36,8 +36,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         public static let transferFailed = Self(value: .transferFailed)
         /// The beneficiary was invalid.
         public static let invalidBeneficiary = Self(value: .invalidBeneficiary)
-        /// The beneficiary could not be found.
-        public static let beneficiaryNotFound = Self(value: .beneficiaryNotFound)
+        /// The resource could not be found.
+        public static let notFound = Self(value: .notFound)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
             lhs == (rhs as? TinkLinkError)?.code
@@ -68,10 +68,10 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     ///
     /// The payload from the backend can be found in the message property.
     public static let permanentCredentialsFailure: Code = .permanentCredentialsFailure
-    /// The credentials already exists.
+    /// The resource already exists.
     ///
     /// The payload from the backend can be found in the message property.
-    public static let credentialsAlreadyExists: Code = .credentialsAlreadyExists
+    public static let alreadyExists: Code = .alreadyExists
     /// The credentials are deleted.
     ///
     /// The payload from the backend can be found in the message property.
@@ -91,10 +91,10 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     ///
     /// The payload from the backend can be found in the message property.
     public static let invalidBeneficiary: Code = .invalidBeneficiary
-    /// The beneficiary could not be found.
+    /// The resource could not be found.
     ///
     /// The payload from the backend can be found in the message property.
-    public static let beneficiaryNotFound: Code = .beneficiaryNotFound
+    public static let notFound: Code = .notFound
 
     static func credentialsAuthenticationFailed(_ message: String?) -> Self {
         .init(code: .credentialsAuthenticationFailed, message: message)
@@ -108,8 +108,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         .init(code: .permanentCredentialsFailure, message: message)
     }
 
-    static func credentialsAlreadyExists(_ message: String?) -> Self {
-        .init(code: .credentialsAlreadyExists, message: message)
+    static func alreadyExists(_ message: String?) -> Self {
+        .init(code: .alreadyExists, message: message)
     }
 
     static func credentialsDeleted(_ message: String?) -> Self {
@@ -132,14 +132,14 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         .init(code: .invalidBeneficiary, message: message)
     }
 
-    static func beneficiaryNotFound(_ message: String?) -> Self {
-        .init(code: .beneficiaryNotFound, message: message)
+    static func notFound(_ message: String?) -> Self {
+        .init(code: .notFound, message: message)
     }
 
     init?(addCredentialsError error: Swift.Error) {
         switch error {
         case ServiceError.alreadyExists(let payload):
-            self = .credentialsAlreadyExists(payload)
+            self = .alreadyExists(payload)
         default:
             return nil
         }
@@ -150,7 +150,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         case ServiceError.invalidArgument(let message):
             self = .invalidBeneficiary(message)
         case ServiceError.notFound(let message):
-            self = .beneficiaryNotFound(message)
+            self = .notFound(message)
         default:
             return nil
         }

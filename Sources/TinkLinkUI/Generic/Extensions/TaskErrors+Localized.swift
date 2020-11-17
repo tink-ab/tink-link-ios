@@ -10,7 +10,7 @@ extension AddCredentialsTask.Error: LocalizedError {
             return Strings.Credentials.Error.temporaryFailure
         case .credentialsAuthenticationFailed:
             return Strings.Credentials.Error.authenticationFailed
-        case .credentialsAlreadyExists:
+        case .alreadyExists:
             return Strings.Generic.error
         case .credentialsDeleted:
             return Strings.Generic.error
@@ -25,7 +25,7 @@ extension AddCredentialsTask.Error: LocalizedError {
         switch code {
         case .permanentCredentialsFailure, .temporaryCredentialsFailure, .credentialsAuthenticationFailed:
             return message ?? Strings.Generic.error
-        case .credentialsAlreadyExists:
+        case .alreadyExists:
             return Strings.Credentials.Error.credentialsAlreadyExists
         case .cancelled:
             return nil
