@@ -290,7 +290,7 @@ extension AddCredentialsSession {
             self.hideUpdatingView(animated: true) {
                 let loadingViewController = LoadingViewController()
                 loadingViewController.update(status, onCancel: { [weak self] in
-                    self.cancel()
+                    self?.cancel()
                 })
                 self.presenter?.show(loadingViewController)
             }
