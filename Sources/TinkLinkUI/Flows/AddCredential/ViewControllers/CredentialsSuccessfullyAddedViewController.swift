@@ -54,7 +54,6 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         let subtitleText = operation.localizedSubtitle
 
         view.backgroundColor = Color.background
-        navigationController?.setNavigationBarHidden(true, animated: false)
 
         view.addSubview(containerView)
         containerView.addSubview(iconView)

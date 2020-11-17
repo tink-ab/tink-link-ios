@@ -9,6 +9,8 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
         let fromVC = transitionContext.viewController(forKey: .from)!
         let toVC = transitionContext.viewController(forKey: .to)!
 
+        fromVC.navigationController?.setNavigationBarHidden(true, animated: transitionContext.isAnimated)
+
         transitionContext.containerView.addSubview(toVC.view)
 
         let duration = transitionDuration(using: transitionContext)
