@@ -13,6 +13,11 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
 
         let duration = transitionDuration(using: transitionContext)
 
+        guard transitionContext.isAnimated else {
+            transitionContext.completeTransition(true)
+            return
+        }
+
         toVC.view.alpha = 0
         let animator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1.0) {
             fromVC.view.alpha = 0
