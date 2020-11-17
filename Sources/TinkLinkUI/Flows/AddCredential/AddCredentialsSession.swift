@@ -271,6 +271,8 @@ extension AddCredentialsSession {
     }
 
     private func showProgress(status: String) {
+        hideQRCodeViewIfNeeded()
+
         guard !self.isPresenterShowingStatusScreen else {
             self.presenter?.showLoadingIndicator(text: status) { [weak self] in
                 self?.cancel()
