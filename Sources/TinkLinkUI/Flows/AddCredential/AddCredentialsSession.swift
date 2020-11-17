@@ -309,7 +309,7 @@ extension AddCredentialsSession {
         }
     }
 
-    private func hideProgressView(animated: Bool = false, completion: (() -> Void)? = nil) {
+    private func hideProgressView(animated: Bool, completion: (() -> Void)? = nil) {
         hideQRCodeViewIfNeeded(animated: animated)
         guard statusViewController != nil, statusViewController?.presentingViewController != nil else {
             completion?()
@@ -320,7 +320,7 @@ extension AddCredentialsSession {
     }
 
     private func showQRCodeView(qrImage: UIImage) {
-        hideProgressView {
+        hideProgressView(animated: true) {
             let qrImageViewController = QRImageViewController(qrImage: qrImage)
             self.qrImageViewController = qrImageViewController
             qrImageViewController.delegate = self
