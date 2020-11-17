@@ -17,7 +17,7 @@ final class UpdateCredentialsViewController: UITableViewController {
         }
     }
 
-    private var updateCredentialsTask: UpdateCredentialsTask?
+    private var updateCredentialsTask: Cancellable?
     private var statusViewController: AddCredentialsStatusViewController?
     private lazy var updateBarButtonItem = UIBarButtonItem(title: "Update", style: .done, target: self, action: #selector(updateCredential))
     private var didFirstFieldBecomeFirstResponder = false

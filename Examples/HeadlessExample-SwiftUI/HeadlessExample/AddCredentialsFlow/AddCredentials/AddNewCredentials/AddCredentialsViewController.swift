@@ -16,7 +16,7 @@ final class AddCredentialsViewController: UITableViewController {
         }
     }
 
-    private var task: AddCredentialsTask?
+    private var task: Cancellable?
     private var statusViewController: AddCredentialsStatusViewController?
     private var didFirstFieldBecomeFirstResponder = false
 

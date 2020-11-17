@@ -37,7 +37,7 @@ final class CredentialsDetailViewController: UITableViewController {
 
     private var statusViewController: StatusViewController?
 
-    private var refreshCredentialsTask: RefreshCredentialsTask? {
+    private var refreshCredentialsTask: Cancellable? {
         didSet {
             if isViewLoaded {
                 tableView.reloadData()
@@ -258,7 +258,6 @@ extension CredentialsDetailViewController {
     }
 
     private func handleProgress(_ status: RefreshCredentialsTask.Status) {
-        guard let refreshedCredentials = refreshCredentialsTask?.credentials else { return }
         switch status {
         case .authenticating:
             if isPresentingQR {
@@ -268,7 +267,6 @@ extension CredentialsDetailViewController {
             } else {
                 showStatus("Authenticating…", animated: true)
             }
-            credentials = refreshedCredentials
         case .updating:
             if isPresentingQR {
                 dismiss(animated: true) {
@@ -277,19 +275,16 @@ extension CredentialsDetailViewController {
             } else {
                 showStatus("Updating…", animated: true)
             }
-            credentials = refreshedCredentials
         }
     }
 
     private func handleAuthentication(_ authentication: AuthenticationTask) {
-        guard let refreshedCredentials = refreshCredentialsTask?.credentials else { return }
         switch authentication {
         case .awaitingSupplementalInformation(let task):
             hideStatus(animated: true) {
                 self.showSupplementalInformation(for: task)
             }
         case .awaitingThirdPartyAppAuthentication(let task):
-            credentials = refreshedCredentials
             task.handle { [weak self] taskStatus in
                 DispatchQueue.main.async {
                     self?.handleThirdPartyAppAuthentication(taskStatus)
