@@ -703,7 +703,9 @@ extension TinkLinkViewController: CredentialsCoordinatorDelegate {
 
 extension TinkLinkViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .push, fromVC is CredentialsFormViewController, toVC is CredentialsSuccessfullyAddedViewController {
+        if operation == .push, fromVC is CredentialsFormViewController, toVC is LoadingViewController {
+            return CredentialsSuccessfullyAddedTransition()
+        } else if operation == .push, fromVC is LoadingViewController, toVC is CredentialsSuccessfullyAddedViewController {
             return CredentialsSuccessfullyAddedTransition()
         } else {
             return nil

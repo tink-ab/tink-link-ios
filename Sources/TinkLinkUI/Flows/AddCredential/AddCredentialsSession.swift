@@ -288,9 +288,11 @@ extension AddCredentialsSession {
     private func showUpdating(status: String) {
         hideQRCodeViewIfNeeded {
             self.hideUpdatingView(animated: true) {
-                self.presenter?.showLoadingIndicator(text: status) { [weak self] in
-                    self?.cancel()
-                }
+                let loadingViewController = LoadingViewController()
+                loadingViewController.update(status, onCancel: { [weak self] in
+                    self.cancel()
+                })
+                self.presenter?.show(loadingViewController)
             }
         }
     }
