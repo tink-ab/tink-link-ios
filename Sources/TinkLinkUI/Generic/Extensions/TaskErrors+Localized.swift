@@ -1,7 +1,7 @@
 import Foundation
 import TinkLink
 
-extension AddCredentialsTask.Error: LocalizedError {
+extension TinkLinkError: LocalizedError {
     public var errorDescription: String? {
         switch code {
         case .permanentCredentialsFailure:
