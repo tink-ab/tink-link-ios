@@ -13,7 +13,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case credentialsSessionExpired
             case cancelled
             case transferFailed
-            case invalidBeneficiary
             case notFound
             case invalidArgument
             case permissionDenied
@@ -41,8 +40,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         public static let cancelled = Self(value: .cancelled)
         /// The transfer failed.
         public static let transferFailed = Self(value: .transferFailed)
-        /// The beneficiary was invalid.
-        public static let invalidBeneficiary = Self(value: .invalidBeneficiary)
         /// The resource could not be found.
         public static let notFound = Self(value: .notFound)
 
@@ -100,11 +97,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     ///
     /// The payload from the backend can be found in the message property.
     public static let transferFailed: Code = .credentialsSessionExpired
-    /// The beneficiary was invalid.
-    /// If you get this error, make sure that the parameters for `addBeneficiary` are correct.
-    ///
-    /// The payload from the backend can be found in the message property.
-    public static let invalidBeneficiary: Code = .invalidBeneficiary
     /// The resource could not be found.
     ///
     /// The payload from the backend can be found in the message property.
@@ -149,10 +141,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         .init(code: .transferFailed, message: message)
     }
 
-    static func invalidBeneficiary(_ message: String?) -> Self {
-        .init(code: .invalidBeneficiary, message: message)
-    }
-
     static func notFound(_ message: String?) -> Self {
         .init(code: .notFound, message: message)
     }
@@ -174,19 +162,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     }
     static func internalError(_ message: String?) -> Self {
         .init(code: .internalError, message: message)
-    }
-
-    init?(addBeneficiaryError error: Swift.Error) {
-        switch error {
-        case ServiceError.invalidArgument(let message):
-            self = .invalidBeneficiary(message)
-        default:
-            if let tinkLinkError = error.tinkLinkError as? TinkLinkError {
-                self = tinkLinkError
-            } else {
-                return nil
-            }
-        }
     }
 }
 
