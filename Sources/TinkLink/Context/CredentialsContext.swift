@@ -181,7 +181,7 @@ public final class CredentialsContext {
                 let storedCredentials = credentials.sorted(by: { $0.id.value < $1.id.value })
                 completion(.success(storedCredentials))
             } catch {
-                completion(.failure(error))
+                completion(.failure(TinkLinkError(serviceError: error) ?? error))
             }
         }
     }
@@ -201,7 +201,7 @@ public final class CredentialsContext {
                 let credentials = try result.get()
                 completion(.success(credentials))
             } catch {
-                completion(.failure(error))
+                completion(.failure(TinkLinkError(serviceError: error) ?? error))
             }
         }
     }
@@ -260,7 +260,7 @@ public final class CredentialsContext {
             case .success:
                 task.startObserving()
             case .failure(let error):
-                completion(.failure(error))
+                completion(.failure(TinkLinkError(serviceError: error) ?? error))
             }
         })
 
@@ -323,7 +323,7 @@ public final class CredentialsContext {
                 case .success:
                     task.startObserving()
                 case .failure(let error):
-                    completion(.failure(error))
+                    completion(.failure(TinkLinkError(serviceError: error) ?? error))
                 }
             }
         )
@@ -343,7 +343,10 @@ public final class CredentialsContext {
     /// - Returns: A cancellation handler.
     @discardableResult
     public func delete(_ credentials: Credentials, completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
-        return service.delete(id: credentials.id, completion: completion)
+        return service.delete(id: credentials.id) { result in
+            let mappedResult = result.mapError { TinkLinkError(serviceError: $0) ?? $0 }
+            completion(mappedResult)
+        }
     }
 
     // MARK: - Authenticate Credentials
@@ -396,7 +399,7 @@ public final class CredentialsContext {
             case .success:
                 task.startObserving()
             case .failure(let error):
-                completion(.failure(error))
+                completion(.failure(TinkLinkError(serviceError: error) ?? error))
             }
         })
 
