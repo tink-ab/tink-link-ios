@@ -24,8 +24,8 @@ class FormTests: XCTestCase {
 
         do {
             try field.validate()
-        } catch Form.Field.ValidationError.requiredFieldEmptyValue(let fieldName) {
-            XCTAssertEqual(fieldName, "username")
+        } catch let error as Form.Field.ValidationError where error.code == .requiredFieldEmptyValue {
+            XCTAssertEqual(error.fieldName, "username")
         } catch {
             XCTFail()
         }
@@ -34,9 +34,9 @@ class FormTests: XCTestCase {
 
         do {
             try field.validate()
-        } catch Form.Field.ValidationError.minLengthLimit(let fieldName, let minLength) {
-            XCTAssertEqual(fieldName, "username")
-            XCTAssertEqual(minLength, 12)
+        } catch let error as Form.Field.ValidationError where error.code == .minLengthLimit {
+            XCTAssertEqual(error.fieldName, "username")
+            XCTAssertEqual(error.minLength, 12)
         } catch {
             XCTFail()
         }
@@ -45,9 +45,9 @@ class FormTests: XCTestCase {
 
         do {
             try field.validate()
-        } catch Form.Field.ValidationError.invalid(let fieldName, let reason) {
-            XCTAssertEqual(fieldName, "username")
-            XCTAssertEqual(reason, "Please enter a valid social security number.")
+        } catch let error as Form.Field.ValidationError where error.code == .invalid {
+            XCTAssertEqual(error.fieldName, "username")
+            XCTAssertEqual(error.reason, "Please enter a valid social security number.")
         } catch {
             XCTFail()
         }
@@ -95,13 +95,13 @@ class FormTests: XCTestCase {
             try form.validateFields()
         } catch let formValidationError as Form.ValidationError {
             XCTAssertEqual(formValidationError.errors.count, 2)
-            if case .requiredFieldEmptyValue(let fieldName) = formValidationError[fieldName: "username"] {
-                XCTAssertEqual(fieldName, "username")
+            if let fieldError = formValidationError[fieldName: "username"], case .requiredFieldEmptyValue = fieldError {
+                XCTAssertEqual(fieldError.fieldName, "username")
             } else {
                 XCTFail()
             }
-            if case .requiredFieldEmptyValue(let fieldName) = formValidationError[fieldName: "password"] {
-                XCTAssertEqual(fieldName, "password")
+            if let fieldError = formValidationError[fieldName: "password"], case .requiredFieldEmptyValue = fieldError {
+                XCTAssertEqual(fieldError.fieldName, "password")
             } else {
                 XCTFail()
             }
@@ -115,8 +115,8 @@ class FormTests: XCTestCase {
             try form.validateFields()
         } catch let error as Form.ValidationError {
             XCTAssertEqual(error.errors.count, 1)
-            if case .requiredFieldEmptyValue(let fieldName) = error[fieldName: "password"] {
-                XCTAssertEqual(fieldName, "password")
+            if let fieldError = error[fieldName: "password"], case .requiredFieldEmptyValue = fieldError {
+                XCTAssertEqual(fieldError.fieldName, "password")
             } else {
                 XCTFail()
             }
@@ -150,8 +150,8 @@ class FormTests: XCTestCase {
 
         do {
             try field.validate()
-        } catch Form.Field.ValidationError.requiredFieldEmptyValue(let fieldName) {
-            XCTAssertEqual(fieldName, "password")
+        } catch let error as Form.Field.ValidationError where error.code == .requiredFieldEmptyValue {
+            XCTAssertEqual(error.fieldName, "password")
         } catch {
             XCTFail()
         }
@@ -160,9 +160,9 @@ class FormTests: XCTestCase {
 
         do {
             try field.validate()
-        } catch Form.Field.ValidationError.maxLengthLimit(let fieldName, let maxLength) {
-            XCTAssertEqual(fieldName, "password")
-            XCTAssertEqual(maxLength, 4)
+        } catch let error as Form.Field.ValidationError where error.code == .maxLengthLimit {
+            XCTAssertEqual(error.fieldName, "password")
+            XCTAssertEqual(error.maxLength, 4)
         } catch {
             XCTFail()
         }
@@ -171,9 +171,9 @@ class FormTests: XCTestCase {
 
         do {
             try field.validate()
-        } catch Form.Field.ValidationError.invalid(let fieldName, let reason) {
-            XCTAssertEqual(fieldName, "password")
-            XCTAssertEqual(reason, "Please enter four digits.")
+        } catch let error as Form.Field.ValidationError where error.code == .invalid {
+            XCTAssertEqual(error.fieldName, "password")
+            XCTAssertEqual(error.reason, "Please enter four digits.")
         } catch {
             XCTFail()
         }
