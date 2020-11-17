@@ -98,7 +98,8 @@ public final class TransferContext {
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: { [weak self] result in
-                completion(result)
+                let mappedError = result.mapError { TinkLinkError(serviceError: $0) ?? $0 }
+                completion(mappedError)
                 self?.cancellables[id] = nil
             }
         )
@@ -248,7 +249,8 @@ public final class TransferContext {
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: { [weak self] result in
-                completion(result)
+                let mappedError = result.mapError { TinkLinkError(serviceError: $0) ?? $0 }
+                completion(mappedError)
                 self?.cancellables[id] = nil
             }
         )
@@ -330,7 +332,8 @@ public final class TransferContext {
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: { [weak self] result in
-                completion(result)
+                let mappedError = result.mapError { TinkLinkError(serviceError: $0) ?? $0 }
+                completion(mappedError)
                 self?.cancellables[id] = nil
             }
         )
