@@ -86,8 +86,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                let mappedError = result.mapError(\.tinkLinkError)
-                completion(mappedError)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
@@ -246,8 +245,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                let mappedError = result.mapError(\.tinkLinkError)
-                completion(mappedError)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
@@ -304,8 +302,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                let mappedError = result.mapError(\.tinkLinkError)
-                completion(mappedError)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
@@ -387,8 +384,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                let mappedError = result.mapError(\.tinkLinkError)
-                completion(mappedError)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
