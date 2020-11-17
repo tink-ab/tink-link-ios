@@ -384,7 +384,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 do {
                     _ = try result.get()
                     XCTFail("Expected failure.")
-                } catch ServiceError.unauthenticated {
+                } catch TinkLinkError.unauthenticated {
                     XCTAssertTrue(true)
                 } catch {
                     XCTFail("Failed to add beneficiary with: \(error)")
