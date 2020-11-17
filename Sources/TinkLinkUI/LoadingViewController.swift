@@ -24,7 +24,7 @@ final class LoadingViewController: UIViewController {
 
         view.backgroundColor = Color.background
         activityIndicatorView.tintColor = Color.accent
-
+        activityIndicatorView.style = .large
         activityIndicatorView.startAnimating()
         errorView.delegate = self
         errorView.isHidden = true
