@@ -15,6 +15,12 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case transferFailed
             case invalidBeneficiary
             case notFound
+            case invalidArgument
+            case permissionDenied
+            case unauthenticated
+            case failedPrecondition
+            case unavailableForLegalReasons
+            case internalError
         }
 
         var value: Value
@@ -39,6 +45,13 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         public static let invalidBeneficiary = Self(value: .invalidBeneficiary)
         /// The resource could not be found.
         public static let notFound = Self(value: .notFound)
+
+        public static let invalidArgument = Self(value: .invalidArgument)
+        public static let permissionDenied = Self(value: .permissionDenied)
+        public static let unauthenticated = Self(value: .unauthenticated)
+        public static let failedPrecondition = Self(value: .failedPrecondition)
+        public static let unavailableForLegalReasons = Self(value: .unavailableForLegalReasons)
+        public static let internalError = Self(value: .internalError)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
             lhs == (rhs as? TinkLinkError)?.code
@@ -97,6 +110,13 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     /// The payload from the backend can be found in the message property.
     public static let notFound: Code = .notFound
 
+    public static let invalidArgument: Code = .invalidArgument
+    public static let permissionDenied: Code = .permissionDenied
+    public static let unauthenticated: Code = .unauthenticated
+    public static let failedPrecondition: Code = .failedPrecondition
+    public static let unavailableForLegalReasons: Code = .unavailableForLegalReasons
+    public static let internalError: Code = .internalError
+
     static func credentialsAuthenticationFailed(_ message: String?) -> Self {
         .init(code: .credentialsAuthenticationFailed, message: message)
     }
@@ -137,6 +157,25 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         .init(code: .notFound, message: message)
     }
 
+    static func invalidArgument(_ message: String?) -> Self {
+        .init(code: .invalidArgument, message: message)
+    }
+    static func permissionDenied(_ message: String?) -> Self {
+        .init(code: .permissionDenied, message: message)
+    }
+    static func unauthenticated(_ message: String?) -> Self {
+        .init(code: .unauthenticated, message: message)
+    }
+    static func failedPrecondition(_ message: String?) -> Self {
+        .init(code: .failedPrecondition, message: message)
+    }
+    static func unavailableForLegalReasons(_ message: String?) -> Self {
+        .init(code: .unavailableForLegalReasons, message: message)
+    }
+    static func internalError(_ message: String?) -> Self {
+        .init(code: .internalError, message: message)
+    }
+
     init?(addBeneficiaryError error: Swift.Error) {
         switch error {
         case ServiceError.invalidArgument(let message):
@@ -152,21 +191,21 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         case .cancelled:
             self = .cancelled(nil)
         case .invalidArgument(let message):
-            return nil
+            self = .invalidArgument(message)
         case .notFound(let message):
             self = .notFound(message)
         case .alreadyExists(let message):
-            return nil
+            self = .alreadyExists(message)
         case .permissionDenied(let message):
-            return nil
+            self = .permissionDenied(message)
         case .unauthenticated(let message):
-            return nil
+            self = .unauthenticated(message)
         case .failedPrecondition(let message):
-            return nil
+            self = .failedPrecondition(message)
         case .unavailableForLegalReasons(let message):
-            return nil
+            self = .unavailableForLegalReasons(message)
         case .internalError(let message):
-            return nil
+            self = .internalError(message)
         @unknown default:
             return nil
         }
