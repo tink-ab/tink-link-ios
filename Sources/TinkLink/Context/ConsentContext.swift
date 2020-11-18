@@ -100,11 +100,11 @@ public final class ConsentContext {
     @discardableResult
     public func fetchScopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
-            let mappedResult = result.map(\.scopes).mapError(\.tinkLinkError)
+            let mappedResult = result.map(\.scopes)
             if case .failure(ServiceError.invalidArgument(let message)) = mappedResult {
                 assertionFailure("Could not fetch scope descriptions: " + message)
             }
-            completion(mappedResult)
+            completion(mappedResult.mapError(\.tinkLinkError))
         }
     }
 
