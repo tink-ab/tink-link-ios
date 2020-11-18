@@ -28,20 +28,28 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
 
         /// The authentication failed.
         public static let credentialsAuthenticationFailed = Self(value: .credentialsAuthenticationFailed)
+
         /// A temporary failure occurred.
         public static let temporaryCredentialsFailure = Self(value: .temporaryCredentialsFailure)
+
         /// A permanent failure occurred.
         public static let permanentCredentialsFailure = Self(value: .permanentCredentialsFailure)
+
         /// The credentials already exists.
         public static let credentialsAlreadyExists = Self(value: .credentialsAlreadyExists)
+
         /// The credentials are deleted.
         public static let credentialsDeleted = Self(value: .credentialsDeleted)
+
         /// The credentials session was expired.
         public static let credentialsSessionExpired = Self(value: .credentialsSessionExpired)
+
         /// The task was cancelled.
         public static let cancelled = Self(value: .cancelled)
+
         /// The transfer failed.
         public static let transferFailed = Self(value: .transferFailed)
+
         /// The resource could not be found.
         public static let notFound = Self(value: .notFound)
 
@@ -75,32 +83,40 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     ///
     /// The payload from the backend can be found in the message property.
     public static let credentialsAuthenticationFailed: Code = .credentialsAuthenticationFailed
+
     /// A temporary failure occurred.
     ///
     /// The payload from the backend can be found in the message property.
     public static let temporaryCredentialsFailure: Code = .temporaryCredentialsFailure
+
     /// A permanent failure occurred.
     ///
     /// The payload from the backend can be found in the message property.
     public static let permanentCredentialsFailure: Code = .permanentCredentialsFailure
+
     /// The credentials already exists.
     ///
     /// The payload from the backend can be found in the message property.
     public static let credentialsAlreadyExists: Code = .credentialsAlreadyExists
+
     /// The credentials are deleted.
     ///
     /// The payload from the backend can be found in the message property.
     public static let credentialsDeleted: Code = .credentialsDeleted
+
     /// The credentials session was expired.
     ///
     /// The payload from the backend can be found in the message property.
     public static let credentialsSessionExpired: Code = .credentialsSessionExpired
+
     /// The task was cancelled.
     public static let cancelled: Code = .cancelled
+
     /// The transfer failed.
     ///
     /// The payload from the backend can be found in the message property.
     public static let transferFailed: Code = .credentialsSessionExpired
+
     /// The resource could not be found.
     ///
     /// The payload from the backend can be found in the message property.
