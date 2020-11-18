@@ -44,7 +44,7 @@ public struct TinkLinkUIError: Error, Equatable, CustomStringConvertible {
     public static let userCancelled: Code = .userCancelled
     /// Unable to fetch providers.
     public static let unableToFetchProviders: Code = .unableToFetchProviders
-    /// Unable to fetch providers.
+    /// Missing internet connection.
     public static let missingInternetConnection: Code = .missingInternetConnection
     /// The credentials could not be found.
     public static let credentialsNotFound: Code = .credentialsNotFound
