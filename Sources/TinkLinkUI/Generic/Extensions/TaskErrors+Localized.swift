@@ -25,12 +25,13 @@ extension TinkLinkError: LocalizedError {
         switch code {
         case .permanentCredentialsFailure, .temporaryCredentialsFailure, .credentialsAuthenticationFailed:
             return message ?? Strings.Generic.error
-        case .alreadyExists:
+        case .credentialsAlreadyExists:
             return Strings.Credentials.Error.credentialsAlreadyExists
         case .cancelled:
             return nil
         case .invalidArgument,
              .notFound,
+             .alreadyExists,
              .permissionDenied,
              .notAuthenticated,
              .failedPrecondition,
