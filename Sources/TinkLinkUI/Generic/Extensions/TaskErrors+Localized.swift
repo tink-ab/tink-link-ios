@@ -27,7 +27,7 @@ extension TinkLinkError: LocalizedError {
             return Strings.Credentials.Error.credentialsAlreadyExists
         case .cancelled:
             return nil
-        case .invalidArgument,
+        case .invalidArguments,
              .notFound,
              .permissionDenied,
              .notAuthenticated,

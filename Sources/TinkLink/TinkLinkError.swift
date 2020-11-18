@@ -14,7 +14,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case cancelled
             case transferFailed
             case notFound
-            case invalidArgument
+            case invalidArguments
             case permissionDenied
             case notAuthenticated
             case failedPrecondition
@@ -53,7 +53,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         /// The resource could not be found.
         public static let notFound = Self(value: .notFound)
 
-        public static let invalidArgument = Self(value: .invalidArgument)
+        public static let invalidArguments = Self(value: .invalidArguments)
         public static let permissionDenied = Self(value: .permissionDenied)
         public static let notAuthenticated = Self(value: .notAuthenticated)
         public static let failedPrecondition = Self(value: .failedPrecondition)
@@ -124,7 +124,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     /// The payload from the backend can be found in the message property.
     public static let notFound: Code = .notFound
 
-    public static let invalidArgument: Code = .invalidArgument
+    public static let invalidArguments: Code = .invalidArguments
     public static let permissionDenied: Code = .permissionDenied
     public static let notAuthenticated: Code = .notAuthenticated
     public static let failedPrecondition: Code = .failedPrecondition
@@ -169,8 +169,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         .init(code: .notFound, message: message)
     }
 
-    static func invalidArgument(_ message: String?) -> Self {
-        .init(code: .invalidArgument, message: message)
+    static func invalidArguments(_ message: String?) -> Self {
+        .init(code: .invalidArguments, message: message)
     }
 
     static func permissionDenied(_ message: String?) -> Self {
@@ -206,7 +206,7 @@ extension Swift.Error {
             case .cancelled:
                 return TinkLinkError.cancelled(nil)
             case .invalidArgument(let message):
-                return TinkLinkError.invalidArgument(message)
+                return TinkLinkError.invalidArguments(message)
             case .notFound(let message):
                 return TinkLinkError.notFound(message)
             case .alreadyExists:
