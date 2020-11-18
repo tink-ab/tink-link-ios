@@ -68,6 +68,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     }
 
     public let code: Code
+
+    // A payload from the backend.
     public let message: String?
 
     init(code: Code, message: String? = nil) {
