@@ -20,6 +20,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case failedPrecondition
             case unavailableForLegalReasons
             case internalError
+            case notConnectedToInternet
+            case networkFailure
         }
 
         var value: Value
@@ -49,6 +51,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         public static let failedPrecondition = Self(value: .failedPrecondition)
         public static let unavailableForLegalReasons = Self(value: .unavailableForLegalReasons)
         public static let internalError = Self(value: .internalError)
+        public static let notConnectedToInternet = Self(value: .notConnectedToInternet)
+        public static let networkFailure = Self(value: .networkFailure)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
             lhs == (rhs as? TinkLinkError)?.code
@@ -108,6 +112,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     public static let failedPrecondition: Code = .failedPrecondition
     public static let unavailableForLegalReasons: Code = .unavailableForLegalReasons
     public static let internalError: Code = .internalError
+    public static let notConnectedToInternet: Code = .notConnectedToInternet
+    public static let networkFailure: Code = .networkFailure
 
     static func credentialsAuthenticationFailed(_ message: String?) -> Self {
         .init(code: .credentialsAuthenticationFailed, message: message)
@@ -172,6 +178,14 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
 
 extension Swift.Error {
     var tinkLinkError: Swift.Error {
+        if let urlError = self as? URLError {
+            switch urlError.code {
+            case .notConnectedToInternet:
+                return TinkLinkError(code: .notConnectedToInternet, message: urlError.localizedDescription)
+            default:
+                return TinkLinkError(code: .networkFailure, message: urlError.localizedDescription)
+            }
+        }
         guard let serviceError = self as? ServiceError else { return self }
         switch serviceError {
         case .cancelled:
