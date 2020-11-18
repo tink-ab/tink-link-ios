@@ -384,7 +384,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 do {
                     _ = try result.get()
                     XCTFail("Expected failure.")
-                } catch TinkLinkError.unauthenticated {
+                } catch TinkLinkError.notAuthenticated {
                     XCTAssertTrue(true)
                 } catch {
                     XCTFail("Failed to add beneficiary with: \(error)")
@@ -434,7 +434,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 do {
                     _ = try result.get()
                     XCTFail("Expected failure.")
-                } catch AddBeneficiaryTask.Error.invalidArgument {
+                } catch AddBeneficiaryTask.Error.invalidArguments {
                     XCTAssertTrue(true)
                 } catch {
                     XCTFail("Failed to add beneficiary with: \(error)")
