@@ -15,7 +15,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case transferFailed
             case notFound
             case invalidArguments
-            case permissionDenied
+            case missingRequiredScope
             case notAuthenticated
             case failedPrecondition
             case unavailableForLegalReasons
@@ -54,7 +54,9 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         public static let notFound = Self(value: .notFound)
 
         public static let invalidArguments = Self(value: .invalidArguments)
-        public static let permissionDenied = Self(value: .permissionDenied)
+
+        /// The access token is missing a required scope.
+        public static let missingRequiredScope = Self(value: .missingRequiredScope)
         public static let notAuthenticated = Self(value: .notAuthenticated)
         public static let failedPrecondition = Self(value: .failedPrecondition)
         public static let unavailableForLegalReasons = Self(value: .unavailableForLegalReasons)
@@ -125,7 +127,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     public static let notFound: Code = .notFound
 
     public static let invalidArguments: Code = .invalidArguments
-    public static let permissionDenied: Code = .permissionDenied
+    public static let missingRequiredScope: Code = .missingRequiredScope
     public static let notAuthenticated: Code = .notAuthenticated
     public static let failedPrecondition: Code = .failedPrecondition
     public static let unavailableForLegalReasons: Code = .unavailableForLegalReasons
@@ -173,8 +175,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         .init(code: .invalidArguments, message: message)
     }
 
-    static func permissionDenied(_ message: String?) -> Self {
-        .init(code: .permissionDenied, message: message)
+    static func missingRequiredScope(_ message: String?) -> Self {
+        .init(code: .missingRequiredScope, message: message)
     }
 
     static func notAuthenticated(_ message: String?) -> Self {
@@ -212,7 +214,7 @@ extension Swift.Error {
             case .alreadyExists:
                 return self
             case .permissionDenied(let message):
-                return TinkLinkError.permissionDenied(message)
+                return TinkLinkError.missingRequiredScope(message)
             case .unauthenticated(let message):
                 return TinkLinkError.notAuthenticated(message)
             case .failedPrecondition(let message):

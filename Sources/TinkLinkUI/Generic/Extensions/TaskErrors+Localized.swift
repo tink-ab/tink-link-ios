@@ -29,7 +29,7 @@ extension TinkLinkError: LocalizedError {
             return nil
         case .invalidArguments,
              .notFound,
-             .permissionDenied,
+             .missingRequiredScope,
              .notAuthenticated,
              .failedPrecondition,
              .unavailableForLegalReasons,
