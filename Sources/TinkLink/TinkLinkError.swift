@@ -14,7 +14,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case cancelled
             case transferFailed
             case notFound
-            case alreadyExists
             case invalidArgument
             case permissionDenied
             case notAuthenticated
@@ -43,8 +42,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         public static let transferFailed = Self(value: .transferFailed)
         /// The resource could not be found.
         public static let notFound = Self(value: .notFound)
-        /// The resource already exists.
-        public static let alreadyExists = Self(value: .alreadyExists)
 
         public static let invalidArgument = Self(value: .invalidArgument)
         public static let permissionDenied = Self(value: .permissionDenied)
@@ -104,10 +101,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     ///
     /// The payload from the backend can be found in the message property.
     public static let notFound: Code = .notFound
-    /// The resource already exists.
-    ///
-    /// The payload from the backend can be found in the message property.
-    public static let alreadyExists: Code = .alreadyExists
 
     public static let invalidArgument: Code = .invalidArgument
     public static let permissionDenied: Code = .permissionDenied
@@ -152,10 +145,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         .init(code: .notFound, message: message)
     }
 
-    static func alreadyExists(_ message: String?) -> Self {
-        .init(code: .alreadyExists, message: message)
-    }
-
     static func invalidArgument(_ message: String?) -> Self {
         .init(code: .invalidArgument, message: message)
     }
@@ -192,7 +181,7 @@ extension Swift.Error {
         case .notFound(let message):
             return TinkLinkError.notFound(message)
         case .alreadyExists(let message):
-            return TinkLinkError.alreadyExists(message)
+            return self
         case .permissionDenied(let message):
             return TinkLinkError.permissionDenied(message)
         case .unauthenticated(let message):
