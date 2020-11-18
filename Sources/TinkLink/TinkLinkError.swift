@@ -17,7 +17,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case invalidArguments
             case missingRequiredScope
             case notAuthenticated
-            case failedPrecondition
             case unavailableForLegalReasons
             case internalError
             case notConnectedToInternet
@@ -58,7 +57,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         /// The access token is missing a required scope.
         public static let missingRequiredScope = Self(value: .missingRequiredScope)
         public static let notAuthenticated = Self(value: .notAuthenticated)
-        public static let failedPrecondition = Self(value: .failedPrecondition)
         public static let unavailableForLegalReasons = Self(value: .unavailableForLegalReasons)
         public static let internalError = Self(value: .internalError)
         public static let notConnectedToInternet = Self(value: .notConnectedToInternet)
@@ -129,7 +127,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     public static let invalidArguments: Code = .invalidArguments
     public static let missingRequiredScope: Code = .missingRequiredScope
     public static let notAuthenticated: Code = .notAuthenticated
-    public static let failedPrecondition: Code = .failedPrecondition
     public static let unavailableForLegalReasons: Code = .unavailableForLegalReasons
     public static let internalError: Code = .internalError
     public static let notConnectedToInternet: Code = .notConnectedToInternet
@@ -183,10 +180,6 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         .init(code: .notAuthenticated, message: message)
     }
 
-    static func failedPrecondition(_ message: String?) -> Self {
-        .init(code: .failedPrecondition, message: message)
-    }
-
     static func unavailableForLegalReasons(_ message: String?) -> Self {
         .init(code: .unavailableForLegalReasons, message: message)
     }
@@ -217,8 +210,8 @@ extension Swift.Error {
                 return TinkLinkError.missingRequiredScope(message)
             case .unauthenticated(let message):
                 return TinkLinkError.notAuthenticated(message)
-            case .failedPrecondition(let message):
-                return TinkLinkError.failedPrecondition(message)
+            case .failedPrecondition:
+                return self
             case .unavailableForLegalReasons(let message):
                 return TinkLinkError.unavailableForLegalReasons(message)
             case .internalError(let message):

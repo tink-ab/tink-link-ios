@@ -31,7 +31,6 @@ extension TinkLinkError: LocalizedError {
              .notFound,
              .missingRequiredScope,
              .notAuthenticated,
-             .failedPrecondition,
              .unavailableForLegalReasons,
              .internalError:
             return message
