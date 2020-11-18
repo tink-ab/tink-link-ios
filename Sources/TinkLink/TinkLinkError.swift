@@ -52,14 +52,24 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         /// The resource could not be found.
         public static let notFound = Self(value: .notFound)
 
+        /// A required parameter was not set or an input parameter was invalid.
         public static let invalidArguments = Self(value: .invalidArguments)
 
         /// The access token is missing a required scope.
         public static let missingRequiredScope = Self(value: .missingRequiredScope)
+
+        /// The user is not authenticated.
         public static let notAuthenticated = Self(value: .notAuthenticated)
+
+        /// The request cannot be fulfilled because of legal/contractual reasons.
         public static let unavailableForLegalReasons = Self(value: .unavailableForLegalReasons)
+
         public static let internalError = Self(value: .internalError)
+
+        /// Missing internet connection.
         public static let notConnectedToInternet = Self(value: .notConnectedToInternet)
+
+        /// Network error.
         public static let networkFailure = Self(value: .networkFailure)
 
         public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
@@ -124,12 +134,32 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     /// The payload from the backend can be found in the message property.
     public static let notFound: Code = .notFound
 
+    /// A required parameter was not set or an input parameter was invalid.
+    ///
+    /// The payload from the backend can be found in the message property.
     public static let invalidArguments: Code = .invalidArguments
+
+    /// The access token is missing a required scope.
+    ///
+    /// The payload from the backend can be found in the message property.
     public static let missingRequiredScope: Code = .missingRequiredScope
+
+    /// The user is not authenticated.
+    ///
+    /// The payload from the backend can be found in the message property.
     public static let notAuthenticated: Code = .notAuthenticated
+
+    /// The request cannot be fulfilled because of legal/contractual reasons.
+    ///
+    /// The payload from the backend can be found in the message property.
     public static let unavailableForLegalReasons: Code = .unavailableForLegalReasons
+
     public static let internalError: Code = .internalError
+
+    /// Missing internet connection.
     public static let notConnectedToInternet: Code = .notConnectedToInternet
+
+    /// Network error.
     public static let networkFailure: Code = .networkFailure
 
     static func credentialsAuthenticationFailed(_ message: String?) -> Self {
