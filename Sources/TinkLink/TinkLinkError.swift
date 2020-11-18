@@ -180,7 +180,7 @@ extension Swift.Error {
             return TinkLinkError.invalidArgument(message)
         case .notFound(let message):
             return TinkLinkError.notFound(message)
-        case .alreadyExists(let message):
+        case .alreadyExists:
             return self
         case .permissionDenied(let message):
             return TinkLinkError.permissionDenied(message)
