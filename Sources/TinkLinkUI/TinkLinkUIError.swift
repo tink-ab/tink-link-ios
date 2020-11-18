@@ -63,9 +63,9 @@ public struct TinkLinkUIError: Error, Equatable, CustomStringConvertible {
             case .providerNotFound:
                 self = .init(code: .providerNotFound)
             }
-        } else if case ServiceError.unauthenticated = error {
+        } else if case TinkLinkError.notAuthenticated = error {
             self = .init(code: .notAuthenticated)
-        } else if let error = error as? URLError, error.code == .notConnectedToInternet {
+        } else if case TinkLinkError.notConnectedToInternet = error {
             self = .init(code: .missingInternetConnection)
         } else {
             return nil
