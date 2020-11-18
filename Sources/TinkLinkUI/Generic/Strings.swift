@@ -72,7 +72,7 @@ enum Strings {
             static let temporaryFailure = NSLocalizedString("Credentials.Error.TemporaryFailure", tableName: tableName, bundle: bundle, value: "Temporary error", comment: "Title for error shown when a temporary failure occured while adding credentials.")
 
             /// Title for error shown when a temporary failure occured while adding credentials.
-            static let downloadRequired = NSLocalizedString("Credentials.Error.DownloadRequired", tableName: tableName, bundle: bundle, value: "App download required", comment: "Default title for error shown when authentication app is required to be downloaded while adding credentials.")
+            static let downloadRequired = NSLocalizedString("Credentials.Error.DownloadRequired", tableName: tableName, bundle: bundle, value: "Authentication app download required", comment: "Default title for error shown when download authentication app is required while adding credentials.")
         }
     }
 
