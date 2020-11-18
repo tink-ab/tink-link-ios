@@ -8,7 +8,7 @@ CONTENT_TYPE="changelog"
 echo "Enter Contentful AccessToken:"
 read access_token
 
-gh release view >> release.txt
+gh release view --repo tink-ab/tink-link-ios >> release.txt
 heading=$(awk -F'title:' '{print $2}'  release.txt | xargs echo -n)
 url=$(awk -F'url:' '{print $2}'  release.txt | xargs echo -n) 
 body=$(sed '1,/^--$/d' release.txt)  
