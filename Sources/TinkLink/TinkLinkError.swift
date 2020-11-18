@@ -178,35 +178,35 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
 
 extension Swift.Error {
     var tinkLinkError: Swift.Error {
-        if let urlError = self as? URLError {
-            switch urlError.code {
-            case .notConnectedToInternet:
-                return TinkLinkError(code: .notConnectedToInternet, message: urlError.localizedDescription)
-            default:
-                return TinkLinkError(code: .networkFailure, message: urlError.localizedDescription)
+        switch self {
+        case let error as URLError where error.code == .notConnectedToInternet:
+            return TinkLinkError(code: .notConnectedToInternet, message: error.localizedDescription)
+        case let error as URLError:
+            return TinkLinkError(code: .networkFailure, message: error.localizedDescription)
+        case let error as ServiceError:
+            switch error {
+            case .cancelled:
+                return TinkLinkError.cancelled(nil)
+            case .invalidArgument(let message):
+                return TinkLinkError.invalidArgument(message)
+            case .notFound(let message):
+                return TinkLinkError.notFound(message)
+            case .alreadyExists:
+                return self
+            case .permissionDenied(let message):
+                return TinkLinkError.permissionDenied(message)
+            case .unauthenticated(let message):
+                return TinkLinkError.notAuthenticated(message)
+            case .failedPrecondition(let message):
+                return TinkLinkError.failedPrecondition(message)
+            case .unavailableForLegalReasons(let message):
+                return TinkLinkError.unavailableForLegalReasons(message)
+            case .internalError(let message):
+                return TinkLinkError.internalError(message)
+            @unknown default:
+                return self
             }
-        }
-        guard let serviceError = self as? ServiceError else { return self }
-        switch serviceError {
-        case .cancelled:
-            return TinkLinkError.cancelled(nil)
-        case .invalidArgument(let message):
-            return TinkLinkError.invalidArgument(message)
-        case .notFound(let message):
-            return TinkLinkError.notFound(message)
-        case .alreadyExists:
-            return self
-        case .permissionDenied(let message):
-            return TinkLinkError.permissionDenied(message)
-        case .unauthenticated(let message):
-            return TinkLinkError.notAuthenticated(message)
-        case .failedPrecondition(let message):
-            return TinkLinkError.failedPrecondition(message)
-        case .unavailableForLegalReasons(let message):
-            return TinkLinkError.unavailableForLegalReasons(message)
-        case .internalError(let message):
-            return TinkLinkError.internalError(message)
-        @unknown default:
+        default:
             return self
         }
     }
