@@ -63,7 +63,7 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .deeplinkURLNotFound:
             return nil
         case .downloadRequired(let title, _, _):
-            return title
+            return title ?? Strings.Credentials.Error.downloadRequired
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
