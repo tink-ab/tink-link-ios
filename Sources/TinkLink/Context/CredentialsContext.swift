@@ -99,8 +99,6 @@ public final class CredentialsContext {
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
-                } catch ServiceError.alreadyExists(let message) {
-                    completion(.failure(TinkLinkError.credentialsAlreadyExists(message)))
                 } catch {
                     completion(.failure(error.tinkLinkError))
                 }
