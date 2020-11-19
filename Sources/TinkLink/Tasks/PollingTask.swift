@@ -23,9 +23,9 @@ enum PollingStrategy {
 
 final class PollingTask<ID, Model> {
     var pollingStrategy: PollingStrategy = .linear(1.0, maxInterval: 10)
+    var maxPollingTime: TimeInterval = 1800
 
     private var interval: TimeInterval
-    private var maxPollingTime: TimeInterval
     private var elapsedTime: TimeInterval = 0
 
     private let request: (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?
@@ -40,12 +40,6 @@ final class PollingTask<ID, Model> {
     private var isPaused = true
     private var isActive = true
 
-    var setMaxPollingTime: TimeInterval = 1800 {
-        didSet {
-            maxPollingTime = setMaxPollingTime
-        }
-    }
-
     init(id: ID, initialValue: Model?, request: @escaping (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?, predicate: @escaping (_ old: Model, _ new: Model) -> Bool, updateHandler: @escaping (Result<Model, Error>) -> Void) {
         self.id = id
         self.responseValue = initialValue
@@ -53,7 +47,6 @@ final class PollingTask<ID, Model> {
         self.request = request
         self.updateHandler = updateHandler
         self.interval = pollingStrategy.initialInterval
-        self.maxPollingTime = setMaxPollingTime
 
         applicationObserver.didBecomeActive = { [weak self] in
             guard let self = self, self.isActive == false else { return }
