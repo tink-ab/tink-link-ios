@@ -2,7 +2,7 @@ import Foundation
 
 /// An object that you use to initiate transfers and access the user's accounts and beneficiaries.
 public final class TransferContext {
-    var retryInterval: TimeInterval = 1.0
+    var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
     private let redirectURI: URL
     private let transferService: TransferService
@@ -97,7 +97,7 @@ public final class TransferContext {
             completionHandler: completion
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.canceller = transferService.transfer(
             amount: amount.value,
@@ -184,7 +184,7 @@ public final class TransferContext {
             completionHandler: completion
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.canceller = transferService.transfer(
             amount: amount.value,
@@ -327,7 +327,7 @@ public final class TransferContext {
             completionHandler: completion
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.start()
 
@@ -402,7 +402,7 @@ public final class TransferContext {
             completionHandler: completion
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.start()
 
