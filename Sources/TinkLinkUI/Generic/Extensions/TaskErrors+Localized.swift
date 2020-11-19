@@ -67,7 +67,7 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .deeplinkURLNotFound:
             return nil
         case .downloadRequired:
-            return downloadTitle
+            return downloadTitle ?? Strings.Credentials.Error.downloadRequired
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:

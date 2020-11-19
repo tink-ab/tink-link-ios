@@ -110,7 +110,7 @@ public final class InitiateTransferTask: Cancellable {
     /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
-    var retryInterval: TimeInterval = 1.0
+    var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
     private(set) var signableOperation: SignableOperation?
 
@@ -159,7 +159,7 @@ public final class InitiateTransferTask: Cancellable {
             self?.handleUpdate(for: result)
         }
 
-        transferStatusPollingTask?.retryInterval = retryInterval
+        transferStatusPollingTask?.pollingStrategy = pollingStrategy
         transferStatusPollingTask?.startPolling()
     }
 
@@ -198,7 +198,7 @@ public final class InitiateTransferTask: Cancellable {
                         self?.handleUpdate(for: result)
                     }
                 }
-                credentialsStatusPollingTask?.retryInterval = retryInterval
+                credentialsStatusPollingTask?.pollingStrategy = pollingStrategy
                 credentialsStatusPollingTask?.startPolling()
             case .executing:
                 progressHandler(.executing(status: signableOperation.statusMessage ?? ""))
