@@ -184,6 +184,8 @@ public struct ProviderTree {
             }
         }
 
+        public typealias ID = Identifier<AuthenticationUserTypeNode>
+
         init(providers: [Provider]) {
             precondition(!providers.isEmpty)
             if providers.count == 1, let provider = providers.first {
@@ -229,6 +231,8 @@ public struct ProviderTree {
                 return provider
             }
         }
+
+        public var id: ID { ID(significantProvider.id.value) }
 
         fileprivate var significantProvider: Provider {
             switch self {

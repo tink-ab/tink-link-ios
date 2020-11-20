@@ -118,7 +118,7 @@ public final class AddBeneficiaryTask: Cancellable {
     /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
-    var retryInterval: TimeInterval = 1.0
+    var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
     // MARK: Dependencies
 
@@ -249,7 +249,7 @@ extension AddBeneficiaryTask {
                 self?.handleUpdate(for: result)
             }
         )
-        credentialsStatusPollingTask?.retryInterval = retryInterval
+        credentialsStatusPollingTask?.pollingStrategy = pollingStrategy
         credentialsStatusPollingTask?.startPolling()
     }
 

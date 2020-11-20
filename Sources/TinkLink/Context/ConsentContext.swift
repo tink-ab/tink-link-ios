@@ -28,7 +28,7 @@ public final class ConsentContext {
         public let code: Code
         public let message: String?
 
-        private init(code: Code, message: String) {
+        private init(code: Code, message: String?) {
             self.code = code
             self.message = message
         }

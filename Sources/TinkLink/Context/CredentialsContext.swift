@@ -2,7 +2,7 @@ import Foundation
 
 /// An object that you use to list, add or modify a user's `Credentials`.
 public final class CredentialsContext {
-    var retryInterval: TimeInterval = 1.0
+    var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
     private let appURI: URL
     private let service: CredentialsService
@@ -91,7 +91,7 @@ public final class CredentialsContext {
             }
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
         cancellables[id] = task
 
         if let newlyAddedCredentials = newlyAddedCredentials[providerName] {
@@ -253,7 +253,7 @@ public final class CredentialsContext {
         )
 
         cancellables[id] = task
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
@@ -309,7 +309,7 @@ public final class CredentialsContext {
             }
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
         cancellables[id] = task
 
         task.callCanceller = service.update(
@@ -388,7 +388,7 @@ public final class CredentialsContext {
             }
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
         cancellables[id] = task
 
         task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
