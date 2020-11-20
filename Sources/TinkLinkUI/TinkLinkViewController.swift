@@ -345,8 +345,8 @@ public class TinkLinkViewController: UIViewController {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 do {
-                    _ = try result.get()
-
+                    let accessToken = try result.get()
+                    self.tink.userSession = .accessToken(accessToken.rawValue)
                     completion()
                 } catch {
                     if let tinkLinkError = TinkLinkUIError(error: error) {

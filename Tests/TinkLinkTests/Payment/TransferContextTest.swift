@@ -78,7 +78,7 @@ class TransferContextTests: XCTestCase {
 
     func testInitiateTransfer() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
@@ -127,7 +127,7 @@ class TransferContextTests: XCTestCase {
 
     func testInitiateTransferThatGetCancelled() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedCancelledTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
@@ -178,7 +178,7 @@ class TransferContextTests: XCTestCase {
 
     func testInitiateTransferWithUnauthenticatedError() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedCancelledTransferService, beneficiaryService: mockedUnauthenticatedErrorBeneficiaryService, credentialsService: mockedAuthenticationErrorCredentialsService, providerService: mockedSuccessProviderService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
@@ -220,7 +220,7 @@ class TransferContextTests: XCTestCase {
 
     func testInitiateTransferFromAccountURI() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")
@@ -271,7 +271,7 @@ class TransferContextTests: XCTestCase {
 
     func testInitiateTransferToBeneficiaryAccount() {
         let transferContext = TransferContext(tink: .shared, transferService: mockedSuccessTransferService, beneficiaryService: mockedSuccessBeneficiaryService, credentialsService: mockedSuccessCredentialsService, providerService: mockedSuccessProviderService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let statusChangedToCreated = expectation(description: "initiate transfer status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "initiate transfer status should be changed to created")

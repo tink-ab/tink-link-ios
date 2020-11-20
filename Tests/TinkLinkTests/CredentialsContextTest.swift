@@ -15,7 +15,7 @@ class CredentialsContextTests: XCTestCase {
 
     func testAddingPasswordCredentials() {
         let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialsService)
-        credentialsContextUnderTest.retryInterval = .leastNonzeroMagnitude
+        credentialsContextUnderTest.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
@@ -50,7 +50,7 @@ class CredentialsContextTests: XCTestCase {
 
     func testAddingSupplementalInfoCredentials() {
         let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: mockedSuccessCredentialsService)
-        credentialsContextUnderTest.retryInterval = .leastNonzeroMagnitude
+        credentialsContextUnderTest.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
@@ -96,7 +96,7 @@ class CredentialsContextTests: XCTestCase {
     func testAddingThirdPartyAppAuthenticationCredentials() {
         let credentialsService = MockedSuccessThirdPartyAuthenticationCredentialsService()
         let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: credentialsService)
-        credentialsContextUnderTest.retryInterval = .leastNonzeroMagnitude
+        credentialsContextUnderTest.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let addCredentialsCompletionCalled = expectation(description: "add credentials completion should be called")
         let statusChangedToCreated = expectation(description: "add credentials status should be changed to created")
@@ -150,7 +150,7 @@ class CredentialsContextTests: XCTestCase {
         service.credentialsStatusAfterRefresh = .updated
 
         let context = CredentialsContext(tink: .shared, credentialsService: service)
-        context.retryInterval = .leastNonzeroMagnitude
+        context.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let completionCalled = expectation(description: "Refresh credentials completion should be called with success")
         let task = context.refresh(credentials) { status in
@@ -178,7 +178,7 @@ class CredentialsContextTests: XCTestCase {
         service.credentialsStatusAfterSupplementalInformation = .updated
 
         let context = CredentialsContext(tink: .shared, credentialsService: service)
-        context.retryInterval = .leastNonzeroMagnitude
+        context.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let completionCalled = expectation(description: "Refresh credentials completion should be called with success")
         let awaitingSupplementalInfoCalled = expectation(description: "Awaiting supplemental task status callback called")
