@@ -89,7 +89,7 @@ final class FloatingButton: UIControl {
         let titleLabelSize = titleLabel.intrinsicContentSize
         let imageWidth = imageWidthConstraint?.constant ?? 0
         return CGSize(width: max(minimumWidth, titleLabelSize.width + Constants.insets.left + Constants.insets.right + imageWidth),
-                      height: 48)
+                      height: 52)
     }
 
     private func setup() {
