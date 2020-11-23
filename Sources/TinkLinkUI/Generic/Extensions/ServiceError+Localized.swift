@@ -21,6 +21,7 @@ extension ServiceError: LocalizedError {
              .permissionDenied(let message),
              .unauthenticated(let message),
              .failedPrecondition(let message),
+             .tooManyRequests(let message),
              .unavailableForLegalReasons(let message),
              .internalError(let message):
             return message
