@@ -16,8 +16,6 @@ struct CredentialsKindPicker: View {
                     Text("Third Party Authentication")
                 case .keyfob:
                     Text("Key Fob")
-                case .fraud:
-                    Text("Fraud")
                 case .unknown:
                     Text("Unknown")
                 @unknown default:
