@@ -102,7 +102,7 @@ public final class ConsentContext {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             let mappedResult = result.map(\.scopes)
             if case .failure(ServiceError.invalidArgument(let message)) = mappedResult {
-                assertionFailure("Could not fetch scope descriptions: " + message)
+                assertionFailure("Could not fetch scope descriptions: " + (message ?? ""))
             }
             completion(mappedResult.mapError(\.tinkLinkError))
         }

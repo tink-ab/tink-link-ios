@@ -33,7 +33,7 @@ public final class AuthorizationContext {
     public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.authorize(clientID: clientID, redirectURI: appURI, scopes: scopes) { result in
             if case .failure(ServiceError.invalidArgument(let message)) = result {
-                assertionFailure("Could not authorize: " + message)
+                assertionFailure("Could not authorize: " + (message ?? ""))
             }
             completion(result.mapError(\.tinkLinkError))
         }
@@ -50,7 +50,7 @@ public final class AuthorizationContext {
         let scopes: [Scope] = []
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             if case .failure(ServiceError.invalidArgument(let message)) = result {
-                assertionFailure("Could not get client description: " + message)
+                assertionFailure("Could not get client description: " + (message ?? ""))
             }
             completion(result.mapError(\.tinkLinkError))
         }
