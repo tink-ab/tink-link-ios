@@ -77,6 +77,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         }
     }
 
+    /// The error code.
     public let code: Code
 
     // A payload from the backend.
@@ -154,6 +155,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     /// The payload from the backend can be found in the message property.
     public static let unavailableForLegalReasons: Code = .unavailableForLegalReasons
 
+    /// An internal TinkLink error.
     public static let internalError: Code = .internalError
 
     /// Missing internet connection.
