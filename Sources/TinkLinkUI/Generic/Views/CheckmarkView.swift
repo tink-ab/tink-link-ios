@@ -72,7 +72,6 @@ final class CheckmarkView: UIView {
                     CAMediaTimingFunction(name: .easeOut)
                 ]
                 checkmarkLayer.add(keyframeAnimation, forKey: "CheckAnimation")
-
                 checkmarkLayer.strokeEnd = 1
             } else {
                 let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
