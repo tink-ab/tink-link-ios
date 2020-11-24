@@ -59,7 +59,6 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         view.addSubview(detailLabel)
         view.addSubview(doneButton)
 
-        iconView.isChecked = true
         iconView.tintColor = Color.accent
 
         titleLabel.text = titleText
@@ -98,6 +97,12 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
             doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             doneButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -32)
         ])
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        iconView.setChecked(true, animated: true)
     }
 
     @objc func doneActionPressed() {
