@@ -142,6 +142,7 @@ final class CheckmarkView: UIView {
 
         circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.strokeColor = tintColor.cgColor
+        circleLayer.strokeEnd = isChecked ? 1 : 0
         circleLayer.lineWidth = style.lineWidth
         circleLayer.setAffineTransform(CGAffineTransform(rotationAngle: -(.pi / 2)))
         layer.addSublayer(circleLayer)
