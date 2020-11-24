@@ -22,7 +22,6 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
 
         toVC.view.alpha = 0
         let animator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1.0) {
-            fromVC.view.alpha = 0
             toVC.view.alpha = 1
         }
 
