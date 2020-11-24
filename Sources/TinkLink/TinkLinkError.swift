@@ -17,6 +17,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case invalidArguments
             case missingRequiredScope
             case notAuthenticated
+            case tooManyRequests
             case unavailableForLegalReasons
             case internalError
             case notConnectedToInternet
@@ -61,9 +62,13 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         /// The user is not authenticated.
         public static let notAuthenticated = Self(value: .notAuthenticated)
 
+        /// Request rate limit is exceeded.
+        public static let tooManyRequests = Self(value: .tooManyRequests)
+
         /// The request cannot be fulfilled because of legal/contractual reasons.
         public static let unavailableForLegalReasons = Self(value: .unavailableForLegalReasons)
 
+        /// An internal TinkLink error.
         public static let internalError = Self(value: .internalError)
 
         /// Missing internet connection.
@@ -150,6 +155,11 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     /// The payload from the backend can be found in the message property.
     public static let notAuthenticated: Code = .notAuthenticated
 
+    /// Request rate limit is exceeded.
+    ///
+    /// The payload from the backend can be found in the message property.
+    public static let tooManyRequests: Code = .tooManyRequests
+
     /// The request cannot be fulfilled because of legal/contractual reasons.
     ///
     /// The payload from the backend can be found in the message property.
@@ -210,6 +220,10 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
 
     static func notAuthenticated(_ message: String?) -> Self {
         .init(code: .notAuthenticated, message: message)
+    }
+
+    static func tooManyRequests(_ message: String?) -> Self {
+        .init(code: .tooManyRequests, message: message)
     }
 
     static func unavailableForLegalReasons(_ message: String?) -> Self {
