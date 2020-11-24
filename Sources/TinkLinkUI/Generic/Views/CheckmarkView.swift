@@ -40,7 +40,6 @@ final class CheckmarkView: UIView {
     public var isChecked: Bool = false {
         didSet {
             circleLayer.opacity = isChecked ? 0 : 1
-            checkboxLayer.opacity = isChecked ? 1 : 0
         }
     }
 
@@ -57,7 +56,6 @@ final class CheckmarkView: UIView {
     }
 
     private let circleLayer = CAShapeLayer()
-    private let checkboxLayer = CAShapeLayer()
     private let checkmarkLayer = CAShapeLayer()
 
     convenience init(style: Style = .default) {
@@ -83,14 +81,11 @@ final class CheckmarkView: UIView {
         circleLayer.actions = [
             "opacity": NSNull()
         ]
-        checkboxLayer.actions = [
-            "opacity": NSNull()
-        ]
 
         checkmarkLayer.fillColor = UIColor.clear.cgColor
         checkmarkLayer.lineWidth = style.lineWidth
         checkmarkLayer.strokeColor = strokeTintColor.cgColor
-        checkboxLayer.addSublayer(checkmarkLayer)
+        layer.addSublayer(checkmarkLayer)
 
         setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
@@ -103,10 +98,6 @@ final class CheckmarkView: UIView {
         circleLayer.strokeColor = Color.accent.cgColor
         circleLayer.lineWidth = style.lineWidth
         layer.addSublayer(circleLayer)
-
-        checkboxLayer.fillColor = tintColor.cgColor
-        checkboxLayer.opacity = 0.0
-        layer.addSublayer(checkboxLayer)
     }
 
     override func layoutSubviews() {
@@ -121,7 +112,6 @@ final class CheckmarkView: UIView {
         let circleRect = CGRect(origin: .zero, size: style.size)
         checkmarkLayer.frame = circleRect
         circleLayer.path = CGPath(ellipseIn: circleRect, transform: nil)
-        checkboxLayer.path = CGPath(ellipseIn: circleRect, transform: nil)
 
         let circleFrame = CGRect(
             origin: CGPoint(
@@ -132,7 +122,6 @@ final class CheckmarkView: UIView {
         )
 
         circleLayer.frame = circleFrame
-        checkboxLayer.frame = circleFrame
     }
 
     override var intrinsicContentSize: CGSize { style.size }
@@ -140,6 +129,5 @@ final class CheckmarkView: UIView {
     override func tintColorDidChange() {
         super.tintColorDidChange()
 
-        checkboxLayer.fillColor = tintColor.cgColor
     }
 }
