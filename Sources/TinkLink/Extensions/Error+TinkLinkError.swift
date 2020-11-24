@@ -24,6 +24,8 @@ extension Swift.Error {
                 return TinkLinkError.notAuthenticated(message)
             case .failedPrecondition:
                 return self
+            case .tooManyRequests(let message):
+                return TinkLinkError.tooManyRequests(message)
             case .unavailableForLegalReasons(let message):
                 return TinkLinkError.unavailableForLegalReasons(message)
             case .internalError(let message):
