@@ -64,6 +64,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         /// The request cannot be fulfilled because of legal/contractual reasons.
         public static let unavailableForLegalReasons = Self(value: .unavailableForLegalReasons)
 
+        /// An internal TinkLink error.
         public static let internalError = Self(value: .internalError)
 
         /// Missing internet connection.
