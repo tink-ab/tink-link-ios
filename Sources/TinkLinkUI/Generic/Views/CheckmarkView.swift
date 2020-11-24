@@ -30,6 +30,7 @@ final class CheckmarkView: UIView {
 
     var style: Style = .default {
         didSet {
+            circleLayer.lineWidth = style.lineWidth
             checkmarkLayer.lineWidth = style.lineWidth
             setNeedsLayout()
             invalidateIntrinsicContentSize()
@@ -63,6 +64,7 @@ final class CheckmarkView: UIView {
         self.init(frame: CGRect(origin: .zero, size: style.size))
         self.style = style
         checkmarkLayer.lineWidth = style.lineWidth
+        circleLayer.lineWidth = style.lineWidth
     }
 
     override init(frame: CGRect) {
@@ -99,6 +101,7 @@ final class CheckmarkView: UIView {
 
         circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.strokeColor = Color.accent.cgColor
+        circleLayer.lineWidth = style.lineWidth
         layer.addSublayer(circleLayer)
 
         checkboxLayer.fillColor = tintColor.cgColor
