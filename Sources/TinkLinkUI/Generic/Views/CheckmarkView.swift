@@ -43,12 +43,6 @@ final class CheckmarkView: UIView {
         }
     }
 
-    public var isBorderHidden: Bool = true {
-        didSet {
-            circleLayer.isHidden = isBorderHidden
-        }
-    }
-
     @objc public dynamic var strokeTintColor: UIColor = .white {
         didSet {
             checkmarkLayer.strokeColor = strokeTintColor.cgColor
