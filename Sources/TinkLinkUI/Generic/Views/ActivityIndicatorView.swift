@@ -32,6 +32,7 @@ final class ActivityIndicatorView: UIView {
 
     var style: Style = .default {
         didSet {
+            circleLayer.lineWidth = style == .default ? 2 : 3
             setNeedsLayout()
             invalidateIntrinsicContentSize()
         }
@@ -95,7 +96,7 @@ final class ActivityIndicatorView: UIView {
     private func setup() {
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: size / 2, y: size / 2), radius: size / 2, startAngle: 0, endAngle: .pi * 2, clockwise: true)
 
-        circleLayer.lineWidth = 2
+        circleLayer.lineWidth = style == .default ? 2 : 3
         circleLayer.fillColor = nil
         circleLayer.strokeColor = tintColor.cgColor
         circleLayer.lineCap = CAShapeLayerLineCap.butt
@@ -120,7 +121,6 @@ final class ActivityIndicatorView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: size / 2, y: size / 2), radius: size / 2, startAngle: 0, endAngle: .pi * 2, clockwise: true)
-        circleLayer.lineWidth = style == .default ? 2 : 3
         circleLayer.path = circlePath.cgPath
         circleLayer.frame = CGRect(x: (bounds.width - size) / 2, y: (bounds.height - size) / 2, width: size, height: size)
     }
