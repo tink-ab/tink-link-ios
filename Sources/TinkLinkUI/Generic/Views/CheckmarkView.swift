@@ -43,12 +43,6 @@ final class CheckmarkView: UIView {
         }
     }
 
-    @objc public dynamic var strokeTintColor: UIColor = .white {
-        didSet {
-            checkmarkLayer.strokeColor = strokeTintColor.cgColor
-        }
-    }
-
     private let circleLayer = CAShapeLayer()
     private let checkmarkLayer = CAShapeLayer()
 
@@ -78,7 +72,7 @@ final class CheckmarkView: UIView {
 
         checkmarkLayer.fillColor = UIColor.clear.cgColor
         checkmarkLayer.lineWidth = style.lineWidth
-        checkmarkLayer.strokeColor = strokeTintColor.cgColor
+        checkmarkLayer.strokeColor = tintColor.cgColor
         layer.addSublayer(checkmarkLayer)
 
         setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
@@ -89,7 +83,7 @@ final class CheckmarkView: UIView {
         isUserInteractionEnabled = false
 
         circleLayer.fillColor = UIColor.clear.cgColor
-        circleLayer.strokeColor = Color.accent.cgColor
+        circleLayer.strokeColor = tintColor.cgColor
         circleLayer.lineWidth = style.lineWidth
         layer.addSublayer(circleLayer)
     }
@@ -123,5 +117,7 @@ final class CheckmarkView: UIView {
     override func tintColorDidChange() {
         super.tintColorDidChange()
 
+        circleLayer.strokeColor = tintColor.cgColor
+        checkmarkLayer.strokeColor = tintColor.cgColor
     }
 }
