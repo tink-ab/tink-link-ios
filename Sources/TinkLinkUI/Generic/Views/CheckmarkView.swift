@@ -14,7 +14,7 @@ final class CheckmarkView: UIView {
             case .default:
                 return 1.0
             case .large:
-                return 40.0 / 22.0
+                return 32.0 / 22.0
             }
         }
 
@@ -23,7 +23,7 @@ final class CheckmarkView: UIView {
             case .default:
                 return 1.0
             case .large:
-                return 2.0
+                return 3.0
             }
         }
     }
