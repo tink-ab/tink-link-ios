@@ -58,7 +58,7 @@ final class CheckmarkView: UIView {
                 circleAnimation.fromValue = 0
                 circleAnimation.toValue = 1
                 circleAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-                circleLayer.add(circleAnimation, forKey: "CheckAnimation")
+                circleLayer.add(circleAnimation, forKey: "CheckCircleAnimation")
                 circleLayer.strokeEnd = 1
 
                 let keyframeAnimation = CAKeyframeAnimation(keyPath: "strokeEnd")
@@ -79,7 +79,7 @@ final class CheckmarkView: UIView {
                 circleAnimation.fromValue = 1
                 circleAnimation.toValue = 0
                 circleAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-                circleLayer.add(circleAnimation, forKey: "UncheckAnimation")
+                circleLayer.add(circleAnimation, forKey: "UncheckCircleAnimation")
                 circleLayer.strokeEnd = 0
 
                 let animation = CABasicAnimation(keyPath: "strokeEnd")
