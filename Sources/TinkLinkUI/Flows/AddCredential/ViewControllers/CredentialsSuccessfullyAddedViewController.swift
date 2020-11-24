@@ -61,7 +61,6 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
 
         iconView.isChecked = true
         iconView.tintColor = Color.accent
-        iconView.strokeTintColor = Color.background
 
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
