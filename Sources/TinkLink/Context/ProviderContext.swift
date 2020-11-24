@@ -58,7 +58,7 @@ public final class ProviderContext {
                 let filteredProviders = fetchedProviders.filter { filter.accessTypes.contains($0.accessType) && filter.kinds.contains($0.kind) }
                 completion(.success(filteredProviders))
             } catch {
-                completion(.failure(error))
+                completion(.failure(error.tinkLinkError))
             }
         }
     }
@@ -83,7 +83,7 @@ public final class ProviderContext {
                     throw ServiceError.notFound("")
                 }
             } catch {
-                completion(.failure(error))
+                completion(.failure(error.tinkLinkError))
             }
         }
     }

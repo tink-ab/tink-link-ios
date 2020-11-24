@@ -26,76 +26,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
-    public struct Error: Swift.Error, CustomStringConvertible {
-        public struct Code: Hashable {
-            enum Value {
-                case authenticationFailed
-                case temporaryFailure
-                case permanentFailure
-                case deleted
-                case cancelled
-            }
-
-            var value: Value
-
-            /// The authentication failed.
-            public static let authenticationFailed = Self(value: .authenticationFailed)
-            /// A temporary failure occurred.
-            public static let temporaryFailure = Self(value: .temporaryFailure)
-            /// A permanent failure occurred.
-            public static let permanentFailure = Self(value: .permanentFailure)
-            /// The credentials are deleted.
-            public static let deleted = Self(value: .deleted)
-            /// The task was cancelled.
-            public static let cancelled = Self(value: .cancelled)
-
-            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-                lhs == (rhs as? RefreshCredentialsTask.Error)?.code
-            }
-        }
-
-        public let code: Code
-        public let message: String?
-
-        public var description: String {
-            return "RefreshCredentialsTask.Error.\(code.value))"
-        }
-
-        /// The authentication failed.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let authenticationFailed: Code = .authenticationFailed
-        /// A temporary failure occurred.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let temporaryFailure: Code = .temporaryFailure
-        /// A permanent failure occurred.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let permanentFailure: Code = .permanentFailure
-        /// The credentials are deleted.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let deleted: Code = .deleted
-        /// The task was cancelled.
-        public static let cancelled: Code = .cancelled
-
-        static func authenticationFailed(_ message: String?) -> Self {
-            .init(code: .authenticationFailed, message: message)
-        }
-
-        static func temporaryFailure(_ message: String?) -> Self {
-            .init(code: .temporaryFailure, message: message)
-        }
-
-        static func permanentFailure(_ message: String?) -> Self {
-            .init(code: .permanentFailure, message: message)
-        }
-
-        static func deleted(_ message: String?) -> Self {
-            .init(code: .deleted, message: message)
-        }
-    }
+    public typealias Error = TinkLinkError
 
     var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
@@ -201,15 +132,15 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             case .updated:
                 complete(with: .success(credentials))
             case .sessionExpired:
-                break
+                throw Error.credentialsSessionExpired(credentials.statusPayload)
             case .authenticationError:
-                throw Error.authenticationFailed(credentials.statusPayload)
+                throw Error.credentialsAuthenticationFailed(credentials.statusPayload)
             case .permanentError:
-                throw Error.permanentFailure(credentials.statusPayload)
+                throw Error.permanentCredentialsFailure(credentials.statusPayload)
             case .temporaryError:
-                throw Error.temporaryFailure(credentials.statusPayload)
+                throw Error.temporaryCredentialsFailure(credentials.statusPayload)
             case .deleted:
-                throw Error.deleted(credentials.statusPayload)
+                throw Error.credentialsDeleted(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             @unknown default:

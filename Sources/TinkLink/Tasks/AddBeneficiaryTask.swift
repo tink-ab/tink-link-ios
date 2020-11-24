@@ -21,99 +21,7 @@ public final class AddBeneficiaryTask: Cancellable {
     }
 
     /// Error that the `AddBeneficiaryTask` can throw.
-    public struct Error: Swift.Error, CustomStringConvertible {
-        public struct Code: Hashable {
-            enum Value: Int {
-                case invalidBeneficiary
-                case authenticationFailed
-                case credentialsDeleted
-                case credentialsSessionExpired
-                case notFound
-            }
-
-            var value: Value
-
-            /// The beneficiary was invalid.
-            public static let invalidBeneficiary = Self(value: .invalidBeneficiary)
-            /// The authentication failed.
-            public static let authenticationFailed = Self(value: .authenticationFailed)
-            /// The credentials are deleted.
-            public static let credentialsDeleted = Self(value: .credentialsDeleted)
-            /// The credentials session was expired.
-            public static let credentialsSessionExpired = Self(value: .credentialsSessionExpired)
-            /// The beneficiary could not be found.
-            public static let notFound = Self(value: .notFound)
-
-            public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
-                lhs == (rhs as? AddBeneficiaryTask.Error)?.code
-            }
-        }
-
-        public let code: Code
-        public let message: String?
-
-        init(code: Code, message: String? = nil) {
-            self.code = code
-            self.message = message
-        }
-
-        public var description: String {
-            return "AddBeneficiaryTask.Error.\(code.value))"
-        }
-
-        /// The beneficiary was invalid.
-        /// If you get this error, make sure that the parameters for `addBeneficiary` are correct.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let invalidBeneficiary: Code = .invalidBeneficiary
-        /// The authentication failed.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let authenticationFailed: Code = .authenticationFailed
-        /// The credentials are deleted.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let credentialsDeleted: Code = .credentialsDeleted
-        /// The credentials session was expired.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let credentialsSessionExpired: Code = .credentialsSessionExpired
-        /// The beneficiary could not be found.
-        ///
-        /// The payload from the backend can be found in the message property.
-        public static let notFound: Code = .notFound
-
-        static func invalidBeneficiary(_ message: String?) -> Self {
-            .init(code: .invalidBeneficiary, message: message)
-        }
-
-        static func authenticationFailed(_ message: String?) -> Self {
-            .init(code: .authenticationFailed, message: message)
-        }
-
-        static func credentialsDeleted(_ message: String?) -> Self {
-            .init(code: .credentialsDeleted, message: message)
-        }
-
-        static func credentialsSessionExpired(_ message: String?) -> Self {
-            .init(code: .credentialsSessionExpired, message: message)
-        }
-
-        static func notFound(_ message: String?) -> Self {
-            .init(code: .notFound, message: message)
-        }
-
-        init?(_ error: Swift.Error) {
-            switch error {
-            case ServiceError.invalidArgument(let message):
-                self = .invalidBeneficiary(message)
-            case ServiceError.notFound(let message):
-                self = .notFound(message)
-            default:
-                return nil
-            }
-        }
-    }
+    public typealias Error = TinkLinkError
 
     /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
@@ -192,7 +100,7 @@ extension AddBeneficiaryTask {
                 self?.fetchedCredentials = try result.get()
                 self?.createBeneficiary()
             } catch {
-                self?.complete(with: .failure(Error(error) ?? error))
+                self?.complete(with: .failure(error))
             }
         }
     }
@@ -211,7 +119,7 @@ extension AddBeneficiaryTask {
                 self?.progressHandler(.requestSent)
                 self?.startObservingCredentials(id: credentialsID)
             } catch {
-                self?.complete(with: .failure(Error(error) ?? error))
+                self?.complete(with: .failure(error))
             }
         }
     }
@@ -310,11 +218,11 @@ extension AddBeneficiaryTask {
         case .updated:
             complete(with: .success(credentials))
         case .permanentError:
-            throw Error.authenticationFailed(credentials.statusPayload)
+            throw Error.permanentCredentialsFailure(credentials.statusPayload)
         case .temporaryError:
-            throw Error.authenticationFailed(credentials.statusPayload)
+            throw Error.temporaryCredentialsFailure(credentials.statusPayload)
         case .authenticationError:
-            throw Error.authenticationFailed(credentials.statusPayload)
+            throw Error.credentialsAuthenticationFailed(credentials.statusPayload)
         case .deleted:
             throw Error.credentialsDeleted(credentials.statusPayload)
         case .sessionExpired:

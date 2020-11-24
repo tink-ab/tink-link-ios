@@ -98,7 +98,7 @@ public final class TransferContext {
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: { [weak self] result in
-                completion(result)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
@@ -122,7 +122,7 @@ public final class TransferContext {
                 let signableOperation = try result.get()
                 task?.startObserving(signableOperation)
             } catch {
-                completion(.failure(error))
+                completion(.failure(error.tinkLinkError))
             }
         }
         return task
@@ -155,7 +155,7 @@ public final class TransferContext {
                 let filteredBeneficiaries = beneficiaries.filter { $0.ownerAccountID == account.id }
                 completion(.success(filteredBeneficiaries))
             } catch {
-                completion(.failure(error))
+                completion(.failure(error.tinkLinkError))
             }
         }
     }
@@ -248,7 +248,7 @@ public final class TransferContext {
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: { [weak self] result in
-                completion(result)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
@@ -330,7 +330,7 @@ public final class TransferContext {
             progressHandler: progress,
             authenticationHandler: authentication,
             completionHandler: { [weak self] result in
-                completion(result)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
@@ -370,7 +370,7 @@ public final class TransferContext {
             do {
                 credentialsList = try result.get()
             } catch {
-                errors.append(error)
+                errors.append(error.tinkLinkError)
             }
             group.leave()
         }?.store(in: canceller)
@@ -380,7 +380,7 @@ public final class TransferContext {
             do {
                 providers = try result.get()
             } catch {
-                errors.append(error)
+                errors.append(error.tinkLinkError)
             }
             group.leave()
         }?.store(in: canceller)

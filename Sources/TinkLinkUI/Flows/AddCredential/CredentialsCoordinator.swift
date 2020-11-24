@@ -35,7 +35,7 @@ final class CredentialsCoordinator {
     private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, tinkLinkTracker: tinkLinkTracker, presenter: self.presenter)
 
     private let action: Action
-    private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void
+    private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkUIError>) -> Void
     private weak var presenter: CredentialsCoordinatorPresenting?
     private weak var delegate: CredentialsCoordinatorDelegate?
     private let clientDescription: ClientDescription
@@ -52,7 +52,7 @@ final class CredentialsCoordinator {
         }
     }
 
-    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, tinkLinkTracker: TinkLinkTracker, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
+    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, tinkLinkTracker: TinkLinkTracker, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkUIError>) -> Void) {
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
         self.providerController = providerController
@@ -125,7 +125,7 @@ final class CredentialsCoordinator {
             if callCompletionOnError {
                 completion(.failure(.init(code: .userCancelled)))
             }
-        } catch TinkLinkError.userCancelled {
+        } catch TinkLinkUIError.userCancelled {
             if callCompletionOnError {
                 completion(.failure(.init(code: .userCancelled)))
             }
@@ -236,7 +236,7 @@ extension CredentialsCoordinator {
     }
 
     @objc private func cancel() {
-        completion(.failure(TinkLinkError(code: .userCancelled)))
+        completion(.failure(TinkLinkUIError(code: .userCancelled)))
     }
 }
 
@@ -256,7 +256,7 @@ extension CredentialsCoordinator {
         } else {
             let okAction = UIAlertAction(title: Strings.Generic.dismiss, style: .default) { _ in
                 if self.callCompletionOnError {
-                    self.completion(.failure(TinkLinkError(code: .unableToOpenThirdPartyApp)))
+                    self.completion(.failure(TinkLinkUIError(code: .unableToOpenThirdPartyApp)))
                 }
             }
             alertController.addAction(okAction)
@@ -280,7 +280,7 @@ extension CredentialsCoordinator {
 
         let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default) { _ in
             if self.callCompletionOnError {
-                self.completion(.failure(TinkLinkError(code: .internalError)))
+                self.completion(.failure(TinkLinkUIError(code: .internalError)))
             }
         }
         alertController.addAction(okAction)

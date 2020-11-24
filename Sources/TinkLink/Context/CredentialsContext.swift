@@ -86,7 +86,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                completion(result)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
@@ -100,8 +100,7 @@ public final class CredentialsContext {
                     let credentials = try result.get()
                     task.startObserving(credentials)
                 } catch {
-                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
-                    completion(.failure(mappedError))
+                    completion(.failure(error.tinkLinkError))
                 }
             }
         } else {
@@ -110,9 +109,10 @@ public final class CredentialsContext {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[providerName] = credential
                     task?.startObserving(credential)
+                } catch ServiceError.alreadyExists(let message) {
+                    completion(.failure(TinkLinkError.credentialsAlreadyExists(message)))
                 } catch {
-                    let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
-                    completion(.failure(mappedError))
+                    completion(.failure(error.tinkLinkError))
                 }
             }
         }
@@ -181,7 +181,7 @@ public final class CredentialsContext {
                 let storedCredentials = credentials.sorted(by: { $0.id.value < $1.id.value })
                 completion(.success(storedCredentials))
             } catch {
-                completion(.failure(error))
+                completion(.failure(error.tinkLinkError))
             }
         }
     }
@@ -201,7 +201,7 @@ public final class CredentialsContext {
                 let credentials = try result.get()
                 completion(.success(credentials))
             } catch {
-                completion(.failure(error))
+                completion(.failure(error.tinkLinkError))
             }
         }
     }
@@ -247,7 +247,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                completion(result)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
@@ -260,7 +260,7 @@ public final class CredentialsContext {
             case .success:
                 task.startObserving()
             case .failure(let error):
-                completion(.failure(error))
+                completion(.failure(error.tinkLinkError))
             }
         })
 
@@ -304,7 +304,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                completion(result)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
@@ -323,7 +323,7 @@ public final class CredentialsContext {
                 case .success:
                     task.startObserving()
                 case .failure(let error):
-                    completion(.failure(error))
+                    completion(.failure(error.tinkLinkError))
                 }
             }
         )
@@ -343,7 +343,9 @@ public final class CredentialsContext {
     /// - Returns: A cancellation handler.
     @discardableResult
     public func delete(_ credentials: Credentials, completion: @escaping (_ result: Result<Void, Swift.Error>) -> Void) -> RetryCancellable? {
-        return service.delete(id: credentials.id, completion: completion)
+        return service.delete(id: credentials.id) { result in
+            completion(result.mapError(\.tinkLinkError))
+        }
     }
 
     // MARK: - Authenticate Credentials
@@ -383,7 +385,7 @@ public final class CredentialsContext {
             progressHandler: progressHandler,
             authenticationHandler: authenticationHandler,
             completion: { [weak self] result in
-                completion(result)
+                completion(result.mapError(\.tinkLinkError))
                 self?.cancellables[id] = nil
             }
         )
@@ -396,7 +398,7 @@ public final class CredentialsContext {
             case .success:
                 task.startObserving()
             case .failure(let error):
-                completion(.failure(error))
+                completion(.failure(error.tinkLinkError))
             }
         })
 

@@ -133,8 +133,8 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 do {
                     _ = try result.get()
                     XCTFail("Expected task to fail.")
-                } catch AddBeneficiaryTask.Error.authenticationFailed(let message) {
-                    XCTAssertEqual(message, "")
+                } catch let error as TinkLinkError where error.code == .credentialsAuthenticationFailed {
+                    XCTAssertEqual(error.message, "")
                 } catch {
                     XCTFail("Failed to add beneficiary with: \(error)")
                 }
@@ -384,7 +384,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 do {
                     _ = try result.get()
                     XCTFail("Expected failure.")
-                } catch ServiceError.unauthenticated {
+                } catch TinkLinkError.notAuthenticated {
                     XCTAssertTrue(true)
                 } catch {
                     XCTFail("Failed to add beneficiary with: \(error)")
@@ -434,7 +434,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 do {
                     _ = try result.get()
                     XCTFail("Expected failure.")
-                } catch AddBeneficiaryTask.Error.invalidBeneficiary {
+                } catch AddBeneficiaryTask.Error.invalidArguments {
                     XCTAssertTrue(true)
                 } catch {
                     XCTFail("Failed to add beneficiary with: \(error)")
