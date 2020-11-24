@@ -12,6 +12,8 @@ extension TinkLinkError: LocalizedError {
             return Strings.Credentials.Error.authenticationFailed
         case .credentialsDeleted:
             return Strings.Generic.error
+        case .credentialsAlreadyExists:
+            return Strings.Credentials.Error.credentialsAlreadyExists
         case .cancelled:
             return Strings.Generic.cancelled
         default:
@@ -24,7 +26,7 @@ extension TinkLinkError: LocalizedError {
         case .permanentCredentialsFailure, .temporaryCredentialsFailure, .credentialsAuthenticationFailed:
             return message ?? Strings.Generic.error
         case .credentialsAlreadyExists:
-            return Strings.Credentials.Error.credentialsAlreadyExists
+            return nil
         case .cancelled:
             return nil
         case .invalidArguments,
