@@ -225,6 +225,14 @@ public class TinkLinkViewController: UINavigationController {
         }
     }
 
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 13.0, *), traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+
     override public func show(_ vc: UIViewController, sender: Any?) {
         hideLoadingOverlay(animated: false)
         super.show(vc, sender: sender)
