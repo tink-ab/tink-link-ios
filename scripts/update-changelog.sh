@@ -24,7 +24,7 @@ curl -X "POST" "https://api.contentful.com/spaces/$SPACE_ID/environments/$ENVIRO
       \"en-US\": \"Released $heading\"
     },
     \"body\": {
-      \"en-US\": \"$body\nTo download source code, see the [release on GitHub]($url).\"
+      \"en-US\": \"$body\n\nTo download source code, see the [release on GitHub]($url).\"
     },
     \"product\": {
       \"en-US\": [\"Platform\"]
