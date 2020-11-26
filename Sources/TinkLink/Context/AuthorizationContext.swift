@@ -51,6 +51,8 @@ public final class AuthorizationContext {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             if case .failure(ServiceError.invalidArgument(let message)) = result {
                 assertionFailure("Could not get client description: " + (message ?? ""))
+            } else if case .failure(ServiceError.permissionDenied(let message)) = result {
+                assertionFailure("Could not get client description: " + (message ?? ""))
             }
             completion(result.mapError(\.tinkLinkError))
         }
