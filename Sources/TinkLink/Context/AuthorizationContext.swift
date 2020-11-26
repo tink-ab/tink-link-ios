@@ -41,7 +41,9 @@ public final class AuthorizationContext {
 
     // MARK: - Getting Information About the Client
 
-    /// Get a description of the client. This contains information about the name of the client, if it is an aggregator and what scopes the client has.
+    /// Get a description of the client.
+    ///
+    /// This contains information about the name of the client, if it is an aggregator and what scopes the client has.
     ///
     /// Required scopes:
     /// - authorization:read
