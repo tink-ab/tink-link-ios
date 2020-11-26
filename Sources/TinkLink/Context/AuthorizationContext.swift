@@ -51,8 +51,8 @@ public final class AuthorizationContext {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             if case .failure(ServiceError.invalidArgument(let message)) = result {
                 assertionFailure("Could not get client description: " + (message ?? ""))
-            } else if case .failure(ServiceError.permissionDenied(let message)) = result {
-                assertionFailure("Could not get client description: " + (message ?? ""))
+            } else if case .failure(ServiceError.permissionDenied) = result {
+                assertionFailure("Could not get client description. The access token is missing the required scope: `authorization:read`.")
             }
             completion(result.mapError(\.tinkLinkError))
         }
