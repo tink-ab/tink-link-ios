@@ -14,14 +14,11 @@ final class SupplementalInformationViewController: UIViewController {
     private let formTableViewController: FormTableViewController
     private let keyboardObserver = KeyboardObserver()
 
-    private let isAggregator: Bool
-    private lazy var headerView = CredentialsHeaderView()
     private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
-    init(supplementInformationTask: SupplementInformationTask, isAggregator: Bool) {
+    init(supplementInformationTask: SupplementInformationTask) {
         let form = Form(credentials: supplementInformationTask.credentials)
-        self.isAggregator = isAggregator
         self.formTableViewController = FormTableViewController(form: form)
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,8 +38,6 @@ extension SupplementalInformationViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGestureRecognizer.delegate = self
         view.addGestureRecognizer(tapGestureRecognizer)
-
-        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 56)
 
         formTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(formTableViewController.view)
@@ -89,14 +84,6 @@ extension SupplementalInformationViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        if !isAggregator {
-            let headerHeight = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
-            var frame = headerView.frame
-            frame.size.height = headerHeight
-            formTableViewController.tableView.tableHeaderView = headerView
-            formTableViewController.tableView.tableHeaderView?.frame = frame
-        }
 
         formTableViewController.additionalSafeAreaInsets.bottom = button.rounded ? 0 : view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
     }

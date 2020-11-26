@@ -9,7 +9,6 @@ final class AddCredentialsSession {
     private let authorizationController: AuthorizationController
     private var addCredentialsMode: CredentialsCoordinator.AddCredentialsMode = .user
     private let tinkLinkTracker: TinkLinkTracker
-    private let isAggregator: Bool
 
     private var task: Cancellable?
     private var supplementInfoTask: SupplementInformationTask?
@@ -33,12 +32,11 @@ final class AddCredentialsSession {
 
     private var providerID: Provider.ID?
 
-    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, tinkLinkTracker: TinkLinkTracker, isAggregator: Bool, presenter: CredentialsCoordinatorPresenting?) {
+    init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, tinkLinkTracker: TinkLinkTracker, presenter: CredentialsCoordinatorPresenting?) {
         self.presenter = presenter
         self.providerController = providerController
         self.credentialsController = credentialsController
         self.authorizationController = authorizationController
-        self.isAggregator = isAggregator
         self.tinkLinkTracker = tinkLinkTracker
     }
 
@@ -266,7 +264,7 @@ extension AddCredentialsSession {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
         supplementInfoTask = supplementInformationTask
         hideUpdatingView(animated: true) {
-            let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask, isAggregator: self.isAggregator)
+            let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
             self.presenter?.present(navigationController, animated: true, completion: nil)
