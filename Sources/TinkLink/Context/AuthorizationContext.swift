@@ -41,7 +41,12 @@ public final class AuthorizationContext {
 
     // MARK: - Getting Information About the Client
 
-    /// Get a description of the client. This contains information about the name of the client, if it is an aggregator and what scopes the client has.
+    /// Get a description of the client.
+    ///
+    /// This contains information about the name of the client, if it is an aggregator and what scopes the client has.
+    ///
+    /// Required scopes:
+    /// - authorization:read
     ///
     /// - Parameter completion: The block to execute when the client description is received or if an error occurred.
     /// - Parameter result: Represents either the client description or an error if the fetch failed.
@@ -51,6 +56,8 @@ public final class AuthorizationContext {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
             if case .failure(ServiceError.invalidArgument(let message)) = result {
                 assertionFailure("Could not get client description: " + (message ?? ""))
+            } else if case .failure(ServiceError.permissionDenied) = result {
+                assertionFailure("Could not get client description. The access token is missing the required scope: `authorization:read`.")
             }
             completion(result.mapError(\.tinkLinkError))
         }

@@ -17,7 +17,7 @@ extension TinkLinkError: LocalizedError {
         case .cancelled:
             return Strings.Generic.cancelled
         default:
-            return Strings.Generic.ServiceAlert.fallbackTitle
+            return Strings.Generic.error
         }
     }
 
