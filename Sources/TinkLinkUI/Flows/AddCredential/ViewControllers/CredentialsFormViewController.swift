@@ -31,13 +31,8 @@ final class CredentialsFormViewController: UIViewController {
     private let keyboardObserver = KeyboardObserver()
 
     private let formTableViewController: FormTableViewController
+    private lazy var headerView = CredentialsHeaderView()
     private lazy var emptyView = EmptyFormView(imageURL: provider.image, text: provider.displayName, errorText: errorText)
-    private lazy var tinkIconView: UIImageView = {
-        let tinkIconView = UIImageView()
-        tinkIconView.image = UIImage(icon: .tink)
-        tinkIconView.contentMode = .scaleAspectFit
-        return tinkIconView
-    }()
 
     private var errorText: String? {
         isVerified ? nil : Strings.Credentials.unverifiedClient
@@ -97,8 +92,7 @@ extension CredentialsFormViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         view.backgroundColor = Color.background
 
-        tinkIconView.translatesAutoresizingMaskIntoConstraints = false
-        tinkIconView.isHidden = isAggregator
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 56)
 
         let fieldsView: UIView
         if form.fields.isEmpty {
@@ -134,7 +128,6 @@ extension CredentialsFormViewController {
 
         navigationTitleView.translatesAutoresizingMaskIntoConstraints = false
 
-        view.addSubview(tinkIconView)
         view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
         view.addSubview(button)
@@ -150,11 +143,6 @@ extension CredentialsFormViewController {
         self.buttonBottomConstraint = buttonBottomConstraint
 
         NSLayoutConstraint.activate([
-            tinkIconView.widthAnchor.constraint(equalToConstant: 40),
-            tinkIconView.heightAnchor.constraint(equalToConstant: 20),
-            tinkIconView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
-            tinkIconView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
-
             fieldsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             fieldsView.topAnchor.constraint(equalTo: view.topAnchor),
             fieldsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -205,6 +193,14 @@ extension CredentialsFormViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+
+        if !isAggregator {
+            let headerHeight = headerView.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .init(249)).height
+            var frame = headerView.frame
+            frame.size.height = headerHeight
+            formTableViewController.tableView.tableHeaderView = headerView
+            formTableViewController.tableView.tableHeaderView?.frame = frame
+        }
 
         formTableViewController.additionalSafeAreaInsets.bottom = view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
     }
