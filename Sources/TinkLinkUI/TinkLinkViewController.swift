@@ -64,7 +64,7 @@ import TinkLink
 ///     // Handle any errors
 /// }
 /// ```
-public class TinkLinkViewController: UINavigationController {
+public class TinkLinkViewController: UIViewController {
     /// Strategy for different types of prefilling
     public enum PrefillStrategy {
         /// No prefilling will occur.
@@ -125,7 +125,7 @@ public class TinkLinkViewController: UINavigationController {
     private lazy var providerPickerCoordinator = ProviderPickerCoordinator(parentViewController: self, providerController: providerController, tinkLinkTracker: tinkLinkTracker)
 
     private var loadingViewController: LoadingViewController?
-
+    private let containedNavigationController = UINavigationController()
     private var credentialsCoordinator: CredentialsCoordinator?
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
@@ -206,7 +206,21 @@ public class TinkLinkViewController: UINavigationController {
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBarAppearance()
+
+        containedNavigationController.setupNavigationBarAppearance()
+        containedNavigationController.view.translatesAutoresizingMaskIntoConstraints = false
+        containedNavigationController.willMove(toParent: self)
+        containedNavigationController.beginAppearanceTransition(true, animated: false)
+        addChild(containedNavigationController)
+        view.addSubview(containedNavigationController.view)
+        containedNavigationController.didMove(toParent: self)
+
+        NSLayoutConstraint.activate([
+            containedNavigationController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            containedNavigationController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containedNavigationController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            containedNavigationController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
 
         view.backgroundColor = Color.background
 
@@ -239,7 +253,7 @@ public class TinkLinkViewController: UINavigationController {
 
     override public func show(_ vc: UIViewController, sender: Any?) {
         hideLoadingOverlay(animated: false)
-        super.show(vc, sender: sender)
+        containedNavigationController.show(vc, sender: sender)
     }
 
     private func start(userSession: UserSession?, authorizationCode: AuthorizationCode?) {
@@ -282,7 +296,7 @@ public class TinkLinkViewController: UINavigationController {
                     }
 
                     let viewController = UIViewController()
-                    self.setViewControllers([viewController], animated: false)
+                    self.containedNavigationController.setViewControllers([viewController], animated: false)
                     self.showAlert(for: error, onRetry: {
                         self.retryOperation()
                     })
@@ -306,7 +320,7 @@ public class TinkLinkViewController: UINavigationController {
                     }
 
                     let viewController = UIViewController()
-                    self.setViewControllers([viewController], animated: false)
+                    self.containedNavigationController.setViewControllers([viewController], animated: false)
                     self.showAlert(for: error, onRetry: {
                         self.retryOperation()
                     })
@@ -330,7 +344,7 @@ public class TinkLinkViewController: UINavigationController {
                 }
                 DispatchQueue.main.async {
                     let viewController = UIViewController()
-                    self.setViewControllers([viewController], animated: false)
+                    self.containedNavigationController.setViewControllers([viewController], animated: false)
                     self.showAlert(for: error, onRetry: {
                         self.retryOperation()
                     })
