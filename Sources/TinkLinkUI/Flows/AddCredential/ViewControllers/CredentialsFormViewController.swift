@@ -92,8 +92,6 @@ extension CredentialsFormViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         view.backgroundColor = Color.background
 
-        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 56)
-
         let fieldsView: UIView
         if form.fields.isEmpty {
             emptyView.translatesAutoresizingMaskIntoConstraints = false
