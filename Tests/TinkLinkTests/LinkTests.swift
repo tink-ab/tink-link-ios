@@ -4,9 +4,9 @@ import XCTest
 class LinkTests: XCTestCase {
     let context = ConsentContext(
         tink: Tink(
-            configuration: try! .init(
-                clientID: "abcdefgh",
-                redirectURI: URL(string: "tink://test")!
+            configuration: TinkLinkConfiguration(
+                clientID: "YOUR_CLIENT_ID",
+                appURI: URL(string: "link-demo://tink")!
             )
         )
     )

@@ -1,7 +1,7 @@
 import UIKit
 
 /// A type that can provide custom fonts for Tink views.
-public class FontProvider: FontProviding {
+public struct FontProvider: FontProviding {
     /// Regular font.
     public var regularFont: Font = .systemDefault
     /// Bold font.
