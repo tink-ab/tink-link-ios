@@ -210,6 +210,7 @@
 		CDCDF01836326F3FE0C72FDC /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7FF53FE64D7125A994287458 /* TinkLinkUI */; };
 		CDE9D6E1249E95D68A988924 /* TransferAccountIdentifiableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C892427D852CFACE1F6E91 /* TransferAccountIdentifiableTests.swift */; };
 		D126334EF70BEB60028649EE /* Provider+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780BC6837FBECC3EC2A4897 /* Provider+mock.swift */; };
+		D403131FB41C13B4BA1C5E97 /* CredentialsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF64AA2DE07B79BC9121E5D /* CredentialsHeaderView.swift */; };
 		D4FCD40CB91FCA7E12A83E4E /* MultiCanceller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29780D2DC26B23304F0843A9 /* MultiCanceller.swift */; };
 		D603F676B28BE283586CC75A /* ScopeDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA9AC309AC2E67FE51D87C5 /* ScopeDescriptionCell.swift */; };
 		D62388821D5F0D03B1CDE808 /* DispatchWorkItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10391B13F1BE7407F59BA29B /* DispatchWorkItem+Extension.swift */; };
@@ -226,6 +227,7 @@
 		DFEE0392069D775A34EE68DC /* SupplementalInfoFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0BF918520BA0B136035F8B /* SupplementalInfoFieldTests.swift */; };
 		E3177CA178CA167E4781FDB0 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B59989E0FD59138A1D58890 /* KeyboardObserver.swift */; };
 		E3EC7564ADDB4F7C82016926 /* AnalyticsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F71340C32F0D94251C3A4A7 /* AnalyticsFlow.swift */; };
+		E442074F1F51E274B84AF5EF /* TinkLinkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C77441DC2AA0C1E0EE189C /* TinkLinkConfiguration.swift */; };
 		E57105373821A6DE4CAA9AB8 /* URLResourceOpening+UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F86F7DC52E6883821FA63A /* URLResourceOpening+UIApplication+Extension.swift */; };
 		E7A55B0B229F1E5BC24C28A7 /* HumanEnumeratedFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749A7934F51078B466E02294 /* HumanEnumeratedFormatter.swift */; };
 		E8B148F312A492C7197544D1 /* ValidationError+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C91C407612EEC3FF19C4653 /* ValidationError+Localized.swift */; };
@@ -241,6 +243,7 @@
 		F64F129B2827DA6D05E4B486 /* OAuthService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11643F0D9A1740B7CB5065F6 /* OAuthService+mock.swift */; };
 		F72D8C690A16D1CC965D6158 /* AuthenticationUserTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8106785D38F618325E76C /* AuthenticationUserTypePickerViewController.swift */; };
 		F7B72C6E2155D36027610A6F /* ChevronLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72837050F425EDA227E22F95 /* ChevronLayer.swift */; };
+		FC38AF9A17FA0EAECBED87E5 /* TinkLinkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C77441DC2AA0C1E0EE189C /* TinkLinkConfiguration.swift */; };
 		FD3BAF33CA5DE2BE074B31A4 /* FormTableViewErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C6392F7851C387256EDB0 /* FormTableViewErrorView.swift */; };
 		FDEF71D4A3C42DBEEF2EDF1A /* TinkLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FE1F5F426DA42BB77D0C4B2C /* ProviderCapability+LocalizedDescriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214E654C69928066F1E565DA /* ProviderCapability+LocalizedDescriptions.swift */; };
@@ -405,6 +408,7 @@
 		62CCD4858523E6A6112ECDF9 /* Credentials+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Credentials+Extension.swift"; sourceTree = "<group>"; };
 		646C5D00E0E34C1553F35A0C /* ProviderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderListViewController.swift; sourceTree = "<group>"; };
 		654B8E31EACFCC2E60983C80 /* AddBeneficiaryTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBeneficiaryTaskTests.swift; sourceTree = "<group>"; };
+		69C77441DC2AA0C1E0EE189C /* TinkLinkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkConfiguration.swift; sourceTree = "<group>"; };
 		6A4338220C7C6EA3D93EB739 /* MutableBeneficiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableBeneficiaryService.swift; sourceTree = "<group>"; };
 		6DBE20B969F478CB9A3ADA68 /* TinkLinkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkError.swift; sourceTree = "<group>"; };
 		7063E356EC1C358718743627 /* TinkLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkViewController.swift; sourceTree = "<group>"; };
@@ -442,6 +446,7 @@
 		9AD3F9B9F02655297CED5D25 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		9B495ACFAE88AC4D43AEC5BD /* ProviderHelpTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderHelpTextView.swift; sourceTree = "<group>"; };
 		9C3CFEA1FD0CAE46A2F187F4 /* FontProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontProviding.swift; sourceTree = "<group>"; };
+		9FF64AA2DE07B79BC9121E5D /* CredentialsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsHeaderView.swift; sourceTree = "<group>"; };
 		A29E0698F44D66A6ACD1003A /* RetryCancellable+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RetryCancellable+mock.swift"; sourceTree = "<group>"; };
 		A2D7046A9914B7EDF745FD39 /* CGImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extensions.swift"; sourceTree = "<group>"; };
 		A6C6C2DAB70310237BD31425 /* TinkLink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TinkLink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -919,6 +924,7 @@
 				4C10F680B83B493F68A952A0 /* ApplicationObserver.swift */,
 				8C39CCF3D56F11277924C52B /* Info.plist */,
 				79688D753B135D21621FDD5C /* TinkLink+extension.swift */,
+				69C77441DC2AA0C1E0EE189C /* TinkLinkConfiguration.swift */,
 				73756657C8858B4F6E933374 /* TinkLinkSessionManager.swift */,
 				F2D74DE8E1302B5D56F35162 /* Context */,
 				D03337F6CD0C1D4B169DBF77 /* Extensions */,
@@ -981,6 +987,7 @@
 			children = (
 				B98C777DDEAE4EACE880C413 /* AddCredentialsStatusViewController.swift */,
 				944ECA186BCF44D1015EDF3D /* CredentialsFormViewController.swift */,
+				9FF64AA2DE07B79BC9121E5D /* CredentialsHeaderView.swift */,
 				31A3F282295CB3F9446C9580 /* CredentialsSuccessfullyAddedViewController.swift */,
 				987825A510E085C113C6ABAA /* FormTableViewController.swift */,
 				61424D2D2E89A7F484162945 /* LegalViewController.swift */,
@@ -1356,6 +1363,7 @@
 				11BACC542A237A2DC662A0C2 /* CredentialsController.swift in Sources */,
 				A5AA0A69FE166407DB17A12B /* CredentialsCoordinator.swift in Sources */,
 				1E3BC1706254BFDC4E9794B7 /* CredentialsFormViewController.swift in Sources */,
+				D403131FB41C13B4BA1C5E97 /* CredentialsHeaderView.swift in Sources */,
 				3D7371DBDF36910AE6642EE2 /* CredentialsKindCell.swift in Sources */,
 				1E227F510CC0B5E09AE51CDF /* CredentialsKindPickerViewController.swift in Sources */,
 				58C502FDD91AE802E1E73D5E /* CredentialsSuccessfullyAddedViewController.swift in Sources */,
@@ -1453,6 +1461,7 @@
 				DF265043CE46F42E7B1ABB2C /* SupplementInformationTask.swift in Sources */,
 				437494D22A5F4F12D8B3947F /* ThirdPartyAppAuthenticationTask.swift in Sources */,
 				40C4A1BB63A077DB10AFEE5F /* TinkLink+extension.swift in Sources */,
+				E442074F1F51E274B84AF5EF /* TinkLinkConfiguration.swift in Sources */,
 				A78CDF113E0ACAEFF4C01A71 /* TinkLinkSessionManager.swift in Sources */,
 				540AC6FDBB6BEB039E00204A /* TransferAccountIdentifiable.swift in Sources */,
 				1476C732CA74F56B2E68A440 /* TransferContext.swift in Sources */,
@@ -1494,6 +1503,7 @@
 				5DD4BC57F54445E467C9CCEF /* SupplementInformationTask.swift in Sources */,
 				1F2A8F2AB2799AD5E849BA17 /* ThirdPartyAppAuthenticationTask.swift in Sources */,
 				4CFB0414DA01A06688AD0B0F /* TinkLink+extension.swift in Sources */,
+				FC38AF9A17FA0EAECBED87E5 /* TinkLinkConfiguration.swift in Sources */,
 				5146672371921C9A298ED894 /* TinkLinkSessionManager.swift in Sources */,
 				B438A4743E0D27CE69D31CA0 /* TransferAccountIdentifiable.swift in Sources */,
 				923E976B31710C3C1DE8C123 /* TransferContext.swift in Sources */,
@@ -1650,7 +1660,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.16.4;
+				MARKETING_VERSION = 0.17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1702,7 +1712,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.16.4;
+				MARKETING_VERSION = 0.17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;
@@ -1752,7 +1762,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.16.4;
+				MARKETING_VERSION = 0.17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1802,7 +1812,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.16.4;
+				MARKETING_VERSION = 0.17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1899,7 +1909,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.16.4;
+				MARKETING_VERSION = 0.17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1929,7 +1939,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.16.4;
+				MARKETING_VERSION = 0.17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;
