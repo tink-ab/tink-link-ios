@@ -1,7 +1,32 @@
 import Foundation
 
+enum PollingStrategy {
+    case constant(TimeInterval)
+    case linear(TimeInterval, maxInterval: TimeInterval)
+
+    func nextInterval(after previousInterval: TimeInterval) -> TimeInterval {
+        switch self {
+        case .constant(let interval):
+            return interval
+        case .linear(let interval, maxInterval: let maxInterval):
+            return min(previousInterval + interval, maxInterval)
+        }
+    }
+
+    var initialInterval: TimeInterval {
+        switch self {
+        case .constant(let interval), .linear(let interval, maxInterval: _):
+            return interval
+        }
+    }
+}
+
 final class PollingTask<ID, Model> {
-    var retryInterval: TimeInterval = 1
+    var pollingStrategy: PollingStrategy = .linear(1.0, maxInterval: 10)
+    var maxPollingTime: TimeInterval = 1800
+
+    private var interval: TimeInterval
+    private var elapsedTime: TimeInterval = 0
 
     private let request: (ID, @escaping ((Result<Model, Error>) -> Void)) -> RetryCancellable?
     private let id: ID
@@ -21,6 +46,7 @@ final class PollingTask<ID, Model> {
         self.predicate = predicate
         self.request = request
         self.updateHandler = updateHandler
+        self.interval = pollingStrategy.initialInterval
 
         applicationObserver.didBecomeActive = { [weak self] in
             guard let self = self, self.isActive == false else { return }
@@ -43,13 +69,13 @@ final class PollingTask<ID, Model> {
         }
 
         isPaused = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
             self.pollStatus()
         }
     }
 
     private func pollStatus() {
-        if isPaused || !isActive {
+        if isPaused || !isActive || elapsedTime > maxPollingTime {
             return
         }
 
@@ -67,6 +93,9 @@ final class PollingTask<ID, Model> {
                     return
                 }
 
+                // Something has changed: Reset polling interval.
+                self.interval = self.pollingStrategy.initialInterval
+                self.elapsedTime = 0
                 self.responseValue = newValue
                 self.updateHandler(.success(newValue))
             } catch {
@@ -77,7 +106,10 @@ final class PollingTask<ID, Model> {
 
     private func retry() {
         if isPaused { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + retryInterval) { [weak self] in
+
+        interval = pollingStrategy.nextInterval(after: interval)
+        elapsedTime += interval
+        DispatchQueue.main.asyncAfter(deadline: .now() + interval) { [weak self] in
             self?.pollStatus()
         }
     }

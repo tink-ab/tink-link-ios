@@ -6,7 +6,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let configuration = try! Tink.Configuration(clientID: "YOUR_CLIENT_ID", redirectURI: URL(string: "link-demo://tink")!, environment: .production)
+        let configuration = TinkLinkConfiguration(
+            clientID: "YOUR_CLIENT_ID",
+            appURI: URL(string: "link-demo://tink")!
+        )
         Tink.configure(with: configuration)
 
         Tink.shared.userSession = .accessToken("YOUR_ACCESS_TOKEN")

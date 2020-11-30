@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-compiler-version: Apple Swift version 5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)
 // swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TinkLink
 import Foundation
 import Security
@@ -353,10 +353,14 @@ public struct ProviderTree {
   public enum AuthenticationUserTypeNode : Swift.Comparable {
     public static func < (lhs: TinkLink.ProviderTree.AuthenticationUserTypeNode, rhs: TinkLink.ProviderTree.AuthenticationUserTypeNode) -> Swift.Bool
     public static func == (lhs: TinkLink.ProviderTree.AuthenticationUserTypeNode, rhs: TinkLink.ProviderTree.AuthenticationUserTypeNode) -> Swift.Bool
+    public typealias ID = TinkCore.Identifier<TinkLink.ProviderTree.AuthenticationUserTypeNode>
     case provider(TinkCore.Provider)
     case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
     case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
     public var providers: [TinkCore.Provider] {
+      get
+    }
+    public var id: TinkLink.ProviderTree.AuthenticationUserTypeNode.ID {
       get
     }
     public var authenticationUserType: TinkCore.Provider.AuthenticationUserType {
@@ -509,6 +513,13 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
 extension Tink {
   @available(iOS 9.0, *)
   public func open(_ url: Foundation.URL, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)? = nil) -> Swift.Bool
+}
+public struct TinkLinkConfiguration : TinkCore.Configuration {
+  public var clientID: Swift.String
+  public var appURI: Foundation.URL?
+  public var environment: TinkCore.Tink.Environment
+  public var certificateURL: Foundation.URL?
+  public init(clientID: Swift.String, appURI: Foundation.URL, environment: TinkCore.Tink.Environment = .production, certificateURL: Foundation.URL? = nil)
 }
 final public class TinkLinkSessionManager : TinkCore.SessionManager {
   public init(tink: TinkCore.Tink = .shared)

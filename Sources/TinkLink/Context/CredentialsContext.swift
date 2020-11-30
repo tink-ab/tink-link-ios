@@ -2,9 +2,9 @@ import Foundation
 
 /// An object that you use to access the user's credentials and supports the flow for adding credentials.
 public final class CredentialsContext {
-    var retryInterval: TimeInterval = 1.0
+    var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
-    private let redirectURI: URL
+    private let appURI: URL
     private let service: CredentialsService
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
@@ -22,7 +22,8 @@ public final class CredentialsContext {
     }
 
     init(tink: Tink, credentialsService: CredentialsService) {
-        self.redirectURI = tink.configuration.redirectURI
+        precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `appURI` configured.")
+        self.appURI = tink.configuration.appURI!
         self.service = credentialsService
         addStoreObservers()
     }
@@ -96,15 +97,15 @@ public final class CredentialsContext {
         let task = AddCredentialsTask(
             credentialsService: service,
             completionPredicate: completionPredicate,
-            appUri: redirectURI,
+            appUri: appURI,
             progressHandler: progressHandler,
             completion: completion
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: redirectURI, callbackURI: nil, fields: form.makeFields()) { result in
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: appURI, callbackURI: nil, fields: form.makeFields()) { result in
                 do {
                     let credentials = try result.get()
                     task.startObserving(credentials)
@@ -114,7 +115,7 @@ public final class CredentialsContext {
                 }
             }
         } else {
-            task.callCanceller = service.create(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: redirectURI, callbackURI: nil) { [weak task, weak self] result in
+            task.callCanceller = service.create(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: appURI, callbackURI: nil) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[provider.id] = credential
@@ -209,9 +210,9 @@ public final class CredentialsContext {
     ) -> RefreshCredentialsTask {
         // TODO: Filter out refreshableItems not supported by provider capabilities.
 
-        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appURI, progressHandler: progressHandler, completion: completion)
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { result in
             switch result {
@@ -261,17 +262,17 @@ public final class CredentialsContext {
             credentials: credentials,
             credentialsService: service,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
-            appUri: redirectURI,
+            appUri: appURI,
             progressHandler: progressHandler,
             completion: completion
         )
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.callCanceller = service.update(
             id: credentials.id,
             providerID: credentials.providerID,
-            appURI: redirectURI,
+            appURI: appURI,
             callbackURI: nil,
             fields: form?.makeFields() ?? [:],
             completion: { result in
@@ -322,9 +323,9 @@ public final class CredentialsContext {
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
     ) -> AuthenticateCredentialsTask {
-        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: redirectURI, progressHandler: progressHandler, completion: completion)
+        let task = RefreshCredentialsTask(credentials: credentials, credentialsService: service, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired, appUri: appURI, progressHandler: progressHandler, completion: completion)
 
-        task.retryInterval = retryInterval
+        task.pollingStrategy = pollingStrategy
 
         task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
             switch result {

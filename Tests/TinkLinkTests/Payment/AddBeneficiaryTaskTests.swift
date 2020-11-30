@@ -6,7 +6,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
     var task: AddBeneficiaryTask?
 
     override func setUp() {
-        try! Tink.configure(with: .init(clientID: "testID", redirectURI: URL(string: "app://callback")!))
+        Tink.configure(with: TinkLinkConfiguration(clientID: "testID", appURI: URL(string: "app://callback")!))
     }
 
     func testAddingBeneficiaryWithSupplementalInformationAuthentication() {
@@ -25,7 +25,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let account = Account.makeTestAccount(credentials: credentials)
 
         let transferContext = TransferContext(tink: .shared, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
@@ -94,7 +94,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let account = Account.makeTestAccount(credentials: credentials)
 
         let transferContext = TransferContext(tink: .shared, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
@@ -165,7 +165,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let account = Account.makeTestAccount(credentials: credentials)
 
         let transferContext = TransferContext(tink: .shared, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
@@ -234,7 +234,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         XCTAssertNotEqual(account.credentialsID, credentialsWithCapability.id)
 
         let transferContext = TransferContext(tink: .shared, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
@@ -293,7 +293,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let account = Account.makeTestAccount(credentials: credentials)
 
         let transferContext = TransferContext(tink: .shared, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let statusChangedToRequestSent = expectation(description: "add beneficiary status should be changed to created")
         let statusChangedToAuthenticating = expectation(description: "add beneficiary status should be changed to created")
@@ -364,7 +364,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let providerService = MockedUnauthenticatedErrorProviderService()
 
         let transferContext = TransferContext(tink: .shared, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
@@ -414,7 +414,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let providerService = MockedUnauthenticatedErrorProviderService()
 
         let transferContext = TransferContext(tink: .shared, transferService: transferService, beneficiaryService: beneficiaryService, credentialsService: credentialsService, providerService: providerService)
-        transferContext.retryInterval = .leastNonzeroMagnitude
+        transferContext.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let addBeneficiaryCompletionCalled = expectation(description: "add beneficiary completion should be called")
 
