@@ -105,14 +105,15 @@ public final class CredentialsContext {
         task.pollingStrategy = pollingStrategy
 
         if let newlyAddedCredentials = newlyAddedCredentials[provider.id] {
-            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: appURI, callbackURI: nil, fields: form.makeFields()) { result in
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerID: newlyAddedCredentials.providerID, appURI: appURI, callbackURI: nil, fields: form.makeFields()) { [weak task] result in
                 do {
                     let credentials = try result.get()
-                    task.startObserving(credentials)
+                    task?.startObserving(credentials)
                 } catch {
                     let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
                     completion(.failure(mappedError))
                 }
+                task?.callCanceller = nil
             }
         } else {
             task.callCanceller = service.create(providerID: provider.id, refreshableItems: refreshableItems, fields: form.makeFields(), appURI: appURI, callbackURI: nil) { [weak task, weak self] result in
@@ -124,6 +125,7 @@ public final class CredentialsContext {
                     let mappedError = AddCredentialsTask.Error(addCredentialsError: error) ?? error
                     completion(.failure(mappedError))
                 }
+                task?.callCanceller = nil
             }
         }
         return task
@@ -214,13 +216,14 @@ public final class CredentialsContext {
 
         task.pollingStrategy = pollingStrategy
 
-        task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { result in
+        task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { [weak task] result in
             switch result {
             case .success:
-                task.startObserving()
+                task?.startObserving()
             case .failure(let error):
                 completion(.failure(error))
             }
+            task?.callCanceller = nil
         })
 
         return task
@@ -275,13 +278,14 @@ public final class CredentialsContext {
             appURI: appURI,
             callbackURI: nil,
             fields: form?.makeFields() ?? [:],
-            completion: { result in
+            completion: { [weak task] result in
                 switch result {
                 case .success:
-                    task.startObserving()
+                    task?.startObserving()
                 case .failure(let error):
                     completion(.failure(error))
                 }
+                task?.callCanceller = nil
             }
         )
 
@@ -327,13 +331,14 @@ public final class CredentialsContext {
 
         task.pollingStrategy = pollingStrategy
 
-        task.callCanceller = service.authenticate(id: credentials.id, completion: { result in
+        task.callCanceller = service.authenticate(id: credentials.id, completion: { [weak task] result in
             switch result {
             case .success:
-                task.startObserving()
+                task?.startObserving()
             case .failure(let error):
                 completion(.failure(error))
             }
+            task?.callCanceller = nil
         })
 
         return task
