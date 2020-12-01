@@ -274,6 +274,11 @@ public class TinkLinkViewController: UIViewController {
 
     override public func show(_ vc: UIViewController, sender: Any?) {
         hideLoadingOverlay(animated: false)
+        if let currentLoadingViewController = containedNavigationController.topViewController as? LoadingViewController,
+           let newLoadingViewController = vc as? LoadingViewController {
+            currentLoadingViewController.update(newLoadingViewController.text, onCancel: newLoadingViewController.onCancel)
+            return
+        }
         containedNavigationController.show(vc, sender: sender)
     }
 
