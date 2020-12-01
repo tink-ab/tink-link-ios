@@ -125,7 +125,7 @@ final class CredentialsCoordinator {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }
-        } catch TinkLinkError.userCancelled {
+        } catch TinkLinkError.userCancelled, AddCredentialsTask.Error.cancelled, UpdateCredentialsTask.Error.cancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }
