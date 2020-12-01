@@ -2,7 +2,14 @@ import XCTest
 @testable import TinkLink
 
 class LinkTests: XCTestCase {
-    let context = Tink(configuration: Tink.Configuration(clientID: "testID", appURI: URL(string: "app://callback")!)).consentContext
+    let context = ConsentContext(
+        tink: Tink(
+            configuration: TinkLinkConfiguration(
+                clientID: "YOUR_CLIENT_ID",
+                appURI: URL(string: "link-demo://tink")!
+            )
+        )
+    )
 
     func testTermsAndConditionLink() {
         XCTAssertEqual(context.termsAndConditions(), URL(string: "https://link.tink.com/terms-and-conditions/en"))

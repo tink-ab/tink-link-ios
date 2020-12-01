@@ -20,7 +20,7 @@ class TransferContextTests: XCTestCase {
     var task: InitiateTransferTask?
 
     override func setUp() {
-        Tink.configure(with: Tink.Configuration(clientID: "testID", appURI: URL(string: "app://callback")!))
+        Tink.configure(with: TinkLinkConfiguration(clientID: "testID", appURI: URL(string: "app://callback")!))
 
         mockedSuccessTransferService = MockedSuccessTransferService()
         mockedCancelledTransferService = MockedCancelledTransferService()

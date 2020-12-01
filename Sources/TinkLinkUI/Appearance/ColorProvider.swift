@@ -1,7 +1,7 @@
 import UIKit
 
 /// A type that can provide custom colors for Tink views.
-public class ColorProvider: ColorProviding {
+public struct ColorProvider: ColorProviding {
     /// Colors for indicators and other similar elements background.
     public var accentBackground = UIColor(red: 236.0 / 255.0, green: 241.0 / 255.0, blue: 243.0 / 255.0, alpha: 1.0)
     /// Color for primary buttons background and secondary buttons label.
