@@ -246,7 +246,7 @@ public class TinkLinkViewController: UIViewController {
 
         presentationController?.delegate = self
 
-        delegate = self
+        containedNavigationController.delegate = self
 
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
