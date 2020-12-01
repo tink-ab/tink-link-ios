@@ -72,39 +72,35 @@ final class LoadingViewController: UIViewController {
     }
 
     func showLoadingIndicator() {
-        DispatchQueue.main.async {
-            self.activityIndicatorView.startAnimating()
-            self.errorView.isHidden = true
-        }
+        dispatchPrecondition(condition: .onQueue(.main))
+        activityIndicatorView.startAnimating()
+        errorView.isHidden = true
     }
 
     func hideLoadingIndicator() {
-        DispatchQueue.main.async {
-            self.activityIndicatorView.stopAnimating()
-        }
+        dispatchPrecondition(condition: .onQueue(.main))
+        activityIndicatorView.stopAnimating()
     }
 
     func update(_ text: String?, onCancel: (() -> Void)?) {
-        DispatchQueue.main.async {
-            if let onCancel = onCancel {
-                self.onCancel = onCancel
-                self.cancelButton.isHidden = false
-            } else {
-                self.cancelButton.isHidden = true
-            }
-
-            self.label.text = text
+        dispatchPrecondition(condition: .onQueue(.main))
+        if let onCancel = onCancel {
+            self.onCancel = onCancel
+            cancelButton.isHidden = false
+        } else {
+            cancelButton.isHidden = true
         }
+
+        label.text = text
     }
 
     func setError(_ error: Error?, onClose: @escaping () -> Void, onRetry: (() -> Void)?) {
-        DispatchQueue.main.async {
-            self.hideLoadingIndicator()
-            self.onRetry = onRetry
-            self.onClose = onClose
-            self.errorView.isHidden = false
-            self.errorView.configure(with: error, showRetry: onRetry != nil)
-        }
+        dispatchPrecondition(condition: .onQueue(.main))
+        hideLoadingIndicator()
+        self.onRetry = onRetry
+        self.onClose = onClose
+        errorView.isHidden = false
+        errorView.configure(with: error, showRetry: onRetry != nil)
     }
 
     @objc private func cancel() {
