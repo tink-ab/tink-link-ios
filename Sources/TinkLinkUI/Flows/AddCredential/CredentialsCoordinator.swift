@@ -32,6 +32,8 @@ final class CredentialsCoordinator {
     private let credentialsController: CredentialsController
     private let providerController: ProviderController
 
+    private weak var credentialsViewController: CredentialsFormViewController?
+
     private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, tinkLinkTracker: tinkLinkTracker, presenter: self.presenter)
 
     private let action: Action
@@ -71,6 +73,7 @@ final class CredentialsCoordinator {
             credentialsViewController.delegate = self
             credentialsViewController.prefillStrategy = prefillStrategy
             credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+            self.credentialsViewController = credentialsViewController
             presenter?.show(credentialsViewController)
             tinkLinkTracker.track(screen: .submitCredentials)
 
@@ -100,6 +103,7 @@ final class CredentialsCoordinator {
                     credentialsViewController.delegate = self
                     credentialsViewController.prefillStrategy = self.prefillStrategy
                     credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancel))
+                    self.credentialsViewController = credentialsViewController
                     self.presenter?.show(credentialsViewController)
                     self.tinkLinkTracker.track(screen: .submitCredentials)
                 }
@@ -128,6 +132,8 @@ final class CredentialsCoordinator {
         } catch TinkLinkError.userCancelled, AddCredentialsTask.Error.cancelled, UpdateCredentialsTask.Error.cancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
+            } else if let credentialsViewController = credentialsViewController {
+                presenter?.show(credentialsViewController)
             }
         } catch {
             showAlert(for: error)

@@ -280,6 +280,10 @@ public class TinkLinkViewController: UIViewController {
             currentLoadingViewController.update(newLoadingViewController.text, onCancel: newLoadingViewController.onCancel)
             return
         }
+        if containedNavigationController.viewControllers.contains(where: { $0 === vc }) {
+            containedNavigationController.popToViewController(vc, animated: true)
+            return
+        }
         containedNavigationController.show(vc, sender: sender)
     }
 
