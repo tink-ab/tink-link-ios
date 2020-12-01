@@ -54,6 +54,8 @@
     <span class="keyword">switch</span> <span class="variable">financialInstitutionGroupNode</span> {
     <span class="keyword">case</span> .<span class="variable">financialInstitutions</span>(<span class="keyword">let</span> <span class="variable">financialInstitutionGroups</span>):
         <span class="type">showFinancialInstitution</span>(<span class="variable">for</span>: <span class="type">financialInstitutionGroups</span>)
+    <span class="keyword">case</span> .<span class="variable">authenticationUserTypes</span>(<span class="keyword">let</span> <span class="variable">authenticationUserTypes</span>):
+        <span class="type">showAuthenticationUserTypePicker</span>(<span class="variable">for</span>: <span class="type">authenticationUserTypes</span>)
     <span class="keyword">case</span> .<span class="variable">accessTypes</span>(<span class="keyword">let</span> <span class="variable">accessTypeGroups</span>):
         <span class="type">showAccessTypePicker</span>(<span class="variable">for</span>: <span class="type">accessTypeGroups</span>)
     <span class="keyword">case</span> .<span class="variable">credentialsKinds</span>(<span class="keyword">let</span> <span class="variable">groups</span>):
@@ -93,6 +95,10 @@
         <code>init(providers:​)</code>
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">providers</span>: [<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>])</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Creates a <code>ProviderTree</code> that groups the provided providers by their properties.</p>
+
+</div>
 </div>
     </section>
     <section id="properties">
@@ -103,6 +109,14 @@
         <code>financial​Institution​Groups</code>
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">financialInstitutionGroups</span>: [<span class="type">FinancialInstitutionGroupNode</span>]</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The financial institution groups.</p>
+
+</div>
+<div class="discussion">
+    <p>These are the &quot;top&quot; level of the <code>ProviderTree</code> and is suitable for displaying in a list where the user needs to select a provider.</p>
+
+</div>
 </div>
     </section>
     <section id="methods">
@@ -113,6 +127,10 @@
         <code>make​Financial​Institutions()</code>
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">makeFinancialInstitutions</span>() -&gt; [<span class="type">FinancialInstitutionNode</span>]</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Creates a list of all financial institutions that is currently in the tree structure.</p>
+
+</div>
 </div>
     </section>
 
@@ -123,7 +141,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2020-11-27T14:31:12+0100">27 November 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2020-12-01T16:28:35+0100">1 December 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>
