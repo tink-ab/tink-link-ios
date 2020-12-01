@@ -77,7 +77,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         /// Network error.
         public static let networkFailure = Self(value: .networkFailure)
 
-        public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+        public static func ~= (lhs: Self, rhs: Swift.Error) -> Bool {
             lhs == (rhs as? TinkLinkError)?.code
         }
     }
