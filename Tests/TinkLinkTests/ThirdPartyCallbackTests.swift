@@ -14,7 +14,7 @@ class ThirdPartyCallbackTests: XCTestCase {
     }
 
     func testInvalidCallbackURL() {
-        if let scheme = Tink.shared.configuration.appURI!.scheme, let url = URL(string: "\(scheme)://randomHost/randomPath") {
+        if let scheme = Tink.shared.configuration.appURI?.scheme, let url = URL(string: "\(scheme)://randomHost/randomPath") {
             XCTAssert(!Tink.shared.open(url))
         }
     }

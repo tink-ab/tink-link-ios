@@ -63,7 +63,10 @@ final class AddCredentialsFooterView: UIView {
 
     func configure(_ clientName: String) {
         let termsAndConsentFormat = Strings.Credentials.termsAndConsentText
-        let text = String(format: termsAndConsentFormat, clientName)
+        let termsAndConditions = Strings.Credentials.termsAndConditions
+        let privacyPolicy = Strings.Credentials.privacyPolicy
+        let viewDetails = Strings.Credentials.viewDetails
+        let text = String(format: termsAndConsentFormat, termsAndConditions, privacyPolicy, clientName, viewDetails)
         let attributeText = NSMutableAttributedString(
             string: text,
             attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.footnote]

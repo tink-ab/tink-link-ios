@@ -8,7 +8,12 @@ class CredentialsContextTests: XCTestCase {
     var task: Cancellable?
 
     override func setUp() {
-        Tink.configure(with: Tink.Configuration(clientID: "testID", appURI: URL(string: "app://callback")!))
+        Tink.configure(
+            with: TinkLinkConfiguration(
+                clientID: "testID",
+                appURI: URL(string: "app://callback")!
+            )
+        )
         mockedSuccessCredentialsService = MockedSuccessCredentialsService()
         mockedUnauthenticatedErrorCredentialsService = MockedUnauthenticatedErrorCredentialsService()
     }

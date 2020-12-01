@@ -6,7 +6,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
     var task: AddBeneficiaryTask?
 
     override func setUp() {
-        Tink.configure(with: Tink.Configuration(clientID: "testID", appURI: URL(string: "app://callback")!))
+        Tink.configure(with: TinkLinkConfiguration(clientID: "testID", appURI: URL(string: "app://callback")!))
     }
 
     func testAddingBeneficiaryWithSupplementalInformationAuthentication() {
