@@ -20,12 +20,24 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
             return
         }
 
+        let toViewBackgroundColor = toVC.view.backgroundColor
+        toVC.view.backgroundColor = .clear
         toVC.view.alpha = 0
         let animator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1.0) {
+            for subview in fromVC.view.subviews {
+                if subview is ActivityIndicatorView { continue }
+                subview.alpha = 0
+            }
+
             toVC.view.alpha = 1
         }
 
         animator.addCompletion { (position) in
+            for subview in fromVC.view.subviews {
+                if subview is ActivityIndicatorView { continue }
+                subview.alpha = 1
+            }
+            toVC.view.backgroundColor = toViewBackgroundColor
             transitionContext.completeTransition(position == .end)
         }
 
