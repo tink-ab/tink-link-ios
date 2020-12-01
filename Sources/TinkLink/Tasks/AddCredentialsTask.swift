@@ -134,7 +134,6 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         credentialsStatusPollingTask?.stopPolling()
         if let canceller = callCanceller {
             canceller.cancel()
-            callCanceller = nil
         } else {
             complete(with: .failure(Error.cancelled))
         }
