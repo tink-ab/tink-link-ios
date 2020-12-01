@@ -8,11 +8,12 @@ final class TinkLinkNavigationManager: NSObject {
 
 extension TinkLinkNavigationManager: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .push, fromVC is CredentialsFormViewController, toVC is LoadingViewController {
+        switch (operation, fromVC, toVC) {
+        case (.push, is CredentialsFormViewController, is LoadingViewController):
             return CredentialsFormToLoadingTransition()
-        } else if operation == .push, fromVC is LoadingViewController, toVC is CredentialsSuccessfullyAddedViewController {
+        case (.push, is LoadingViewController, is CredentialsSuccessfullyAddedViewController):
             return CredentialsSuccessfullyAddedTransition()
-        } else {
+        default:
             return nil
         }
     }
