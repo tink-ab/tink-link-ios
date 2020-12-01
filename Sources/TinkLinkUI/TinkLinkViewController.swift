@@ -126,6 +126,7 @@ public class TinkLinkViewController: UIViewController {
 
     private var loadingViewController: LoadingViewController?
     private let containedNavigationController = UINavigationController()
+    private let navigationManager = TinkLinkNavigationManager()
     private var credentialsCoordinator: CredentialsCoordinator?
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
@@ -246,7 +247,7 @@ public class TinkLinkViewController: UIViewController {
 
         presentationController?.delegate = self
 
-        containedNavigationController.delegate = self
+        containedNavigationController.delegate = navigationManager
 
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
@@ -701,19 +702,5 @@ extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 extension TinkLinkViewController: CredentialsCoordinatorDelegate {
     func didFinishCredentialsForm() {
         userHasConnected = true
-    }
-}
-
-// MARK: - UINavigationControllerDelegate
-// TODO: Move this conformance to internal object
-extension TinkLinkViewController: UINavigationControllerDelegate {
-    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .push, fromVC is CredentialsFormViewController, toVC is LoadingViewController {
-            return CredentialsFormToLoadingTransition()
-        } else if operation == .push, fromVC is LoadingViewController, toVC is CredentialsSuccessfullyAddedViewController {
-            return CredentialsSuccessfullyAddedTransition()
-        } else {
-            return nil
-        }
     }
 }
