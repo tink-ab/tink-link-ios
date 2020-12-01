@@ -53,9 +53,6 @@ class TinkLinkUITests: XCTestCase {
         let waitingStatusText = app.staticTexts["Waiting for authentication on another device"]
         XCTAssertTrue(waitingStatusText.waitForExistence(timeout: 20))
 
-        let statusText = app.staticTexts["Connecting to Test BankID (successful), please wait…"]
-        XCTAssertTrue(statusText.waitForExistence(timeout: 20))
-
         let doneButton = app.buttons["Done"]
         XCTAssertTrue(doneButton.waitForExistence(timeout: 20))
         doneButton.tap()
