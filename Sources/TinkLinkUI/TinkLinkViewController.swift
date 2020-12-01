@@ -705,7 +705,7 @@ extension TinkLinkViewController: CredentialsCoordinatorDelegate {
 }
 
 // MARK: - UINavigationControllerDelegate
-
+// TODO: Move this conformance to internal object
 extension TinkLinkViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if operation == .push, fromVC is CredentialsFormViewController, toVC is LoadingViewController {
