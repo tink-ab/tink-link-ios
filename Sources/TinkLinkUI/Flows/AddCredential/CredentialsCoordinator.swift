@@ -231,9 +231,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
 
 extension CredentialsCoordinator: ScopeDescriptionListViewControllerDelegate {
     func scopeDescriptionListViewController(viewController: ScopeDescriptionListViewController, error: Error) {
-        presenter?.dismiss(animated: true) {
-            self.showAlert(for: error)
-        }
+        presenter?.dismiss(animated: true, completion: nil)
     }
 }
 

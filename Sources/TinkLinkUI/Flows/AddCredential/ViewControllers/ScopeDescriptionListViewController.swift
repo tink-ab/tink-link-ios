@@ -69,10 +69,31 @@ extension ScopeDescriptionListViewController {
                     let scopeDescriptions = try result.get()
                     self.sections.append(.scopeDescriptions(scopeDescriptions))
                 } catch {
-                    self.delegate?.scopeDescriptionListViewController(viewController: self, error: error)
+                    self.showAlert(for: error)
                 }
             }
         }
+    }
+
+    private func showAlert(for error: Error) {
+        let title: String
+        let message: String?
+        if let error = error as? LocalizedError {
+            title = error.errorDescription ?? Strings.Generic.error
+            message = error.failureReason
+        } else {
+            title = Strings.Generic.error
+            message = error.localizedDescription
+        }
+
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default) { _ in
+            self.delegate?.scopeDescriptionListViewController(viewController: self, error: error)
+        }
+        alertController.addAction(okAction)
+
+        present(alertController, animated: true, completion: nil)
     }
 }
 
