@@ -90,4 +90,19 @@ extension UIColor {
         getWhite(&white, alpha: &alpha)
         return white > 0.5
     }
+
+    class func dynamicColor(light: UIColor, dark: UIColor) -> UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { traitCollection in
+                switch traitCollection.userInterfaceStyle {
+                case .dark:
+                    return dark
+                default:
+                    return light
+                }
+            }
+        } else {
+            return light
+        }
+    }
 }
