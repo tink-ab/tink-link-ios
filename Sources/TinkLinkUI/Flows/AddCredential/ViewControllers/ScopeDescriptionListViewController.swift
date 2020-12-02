@@ -1,7 +1,12 @@
 import UIKit
 import TinkLink
 
+protocol ScopeDescriptionListViewControllerDelegate: AnyObject {
+    func scopeDescriptionListViewController(viewController: ScopeDescriptionListViewController, error: Error)
+}
+
 final class ScopeDescriptionListViewController: UITableViewController {
+    weak var delegate: ScopeDescriptionListViewControllerDelegate?
     private let authorizationController: AuthorizationController
 
     private let scopes: [Scope]
