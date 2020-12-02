@@ -208,6 +208,12 @@ extension CredentialsFormViewController {
 
         layoutHelpFootnote()
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard #available(iOS 13.0, *), traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+        gradientView.colors = [Color.background.withAlphaComponent(0.0), Color.background]
+    }
 }
 
 // MARK: - Help Footnote
