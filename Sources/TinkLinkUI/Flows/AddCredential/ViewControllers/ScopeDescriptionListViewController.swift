@@ -61,14 +61,15 @@ extension ScopeDescriptionListViewController {
         activityIndicatorView.startAnimating()
 
         authorizationController.scopeDescriptions(scopes: scopes) { [weak self] result in
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                self?.activityIndicatorView.stopAnimating()
+                self.activityIndicatorView.stopAnimating()
 
                 do {
                     let scopeDescriptions = try result.get()
-                    self?.sections.append(.scopeDescriptions(scopeDescriptions))
+                    self.sections.append(.scopeDescriptions(scopeDescriptions))
                 } catch {
-                    // TODO: Error handling.
+                    self.delegate?.scopeDescriptionListViewController(viewController: self, error: error)
                 }
             }
         }
