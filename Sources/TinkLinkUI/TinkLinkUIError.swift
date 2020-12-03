@@ -25,7 +25,7 @@ public struct TinkLinkUIError: Error, Equatable, CustomStringConvertible {
         public static let notAuthenticated = Self(value: .notAuthenticated)
         public static let internalError = Self(value: .internalError)
 
-        public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+        public static func ~= (lhs: Self, rhs: Swift.Error) -> Bool {
             lhs == (rhs as? TinkLinkUIError)?.code
         }
     }

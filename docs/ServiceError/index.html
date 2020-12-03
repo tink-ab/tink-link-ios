@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#serviceerror.cancelled">cancelled</a></li><li class="case"><a href="#serviceerror.invalidargument">invalid​Argument</a></li><li class="case"><a href="#serviceerror.notfound">not​Found</a></li><li class="case"><a href="#serviceerror.alreadyexists">already​Exists</a></li><li class="case"><a href="#serviceerror.permissiondenied">permission​Denied</a></li><li class="case"><a href="#serviceerror.unauthenticated">unauthenticated</a></li><li class="case"><a href="#serviceerror.failedprecondition">failed​Precondition</a></li><li class="case"><a href="#serviceerror.unavailableforlegalreasons">unavailable​For​Legal​Reasons</a></li><li class="case"><a href="#serviceerror.internalerror">internal​Error</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#serviceerror.cancelled">cancelled</a></li><li class="case"><a href="#serviceerror.invalidargument">invalid​Argument</a></li><li class="case"><a href="#serviceerror.notfound">not​Found</a></li><li class="case"><a href="#serviceerror.alreadyexists">already​Exists</a></li><li class="case"><a href="#serviceerror.permissiondenied">permission​Denied</a></li><li class="case"><a href="#serviceerror.unauthenticated">unauthenticated</a></li><li class="case"><a href="#serviceerror.failedprecondition">failed​Precondition</a></li><li class="case"><a href="#serviceerror.toomanyrequests">too​Many​Requests</a></li><li class="case"><a href="#serviceerror.unavailableforlegalreasons">unavailable​For​Legal​Reasons</a></li><li class="case"><a href="#serviceerror.internalerror">internal​Error</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -104,7 +104,7 @@
     <h3>
         <code>invalid​Argument</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">invalidArgument</span>(: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">invalidArgument</span>(: <span class="type">String</span>?)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Invalid argument</p>
 
@@ -114,7 +114,7 @@
     <h3>
         <code>not​Found</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">notFound</span>(: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">notFound</span>(: <span class="type">String</span>?)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Not found</p>
 
@@ -124,7 +124,7 @@
     <h3>
         <code>already​Exists</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">alreadyExists</span>(: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">alreadyExists</span>(: <span class="type">String</span>?)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>The resource already exists</p>
 
@@ -134,7 +134,7 @@
     <h3>
         <code>permission​Denied</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">permissionDenied</span>(: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">permissionDenied</span>(: <span class="type">String</span>?)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>The user has no permission</p>
 
@@ -144,7 +144,7 @@
     <h3>
         <code>unauthenticated</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unauthenticated</span>(: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unauthenticated</span>(: <span class="type">String</span>?)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>The user is not authenticated</p>
 
@@ -154,9 +154,19 @@
     <h3>
         <code>failed​Precondition</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">failedPrecondition</span>(: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">failedPrecondition</span>(: <span class="type">String</span>?)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Precondition failed</p>
+
+</div>
+</div>
+<div role="article" class="case" id="serviceerror.toomanyrequests">
+    <h3>
+        <code>too​Many​Requests</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">tooManyRequests</span>(: <span class="type">String</span>?)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Request rate limit is exceeded</p>
 
 </div>
 </div>
@@ -164,7 +174,7 @@
     <h3>
         <code>unavailable​For​Legal​Reasons</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unavailableForLegalReasons</span>(: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unavailableForLegalReasons</span>(: <span class="type">String</span>?)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>The request cannot be fulfilled because of legal/contractual reasons.</p>
 
@@ -174,7 +184,7 @@
     <h3>
         <code>internal​Error</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">internalError</span>(: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">internalError</span>(: <span class="type">String</span>?)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Internal error</p>
 
@@ -189,7 +199,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2020-11-27T14:31:13+0100">27 November 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2020-12-01T16:28:34+0100">1 December 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

@@ -18,10 +18,6 @@ extension Account {
   }
 }
 extension Account.URI {
-  @available(*, deprecated, renamed: "AccountNumberKind")
-  public typealias Kind = TinkCore.AccountNumberKind
-}
-extension Account.URI {
   public init?(kind: TinkCore.AccountNumberKind, accountNumber: Swift.String)
 }
 extension Account.URI {
@@ -30,16 +26,11 @@ extension Account.URI {
 @_hasMissingDesignatedInitializers final public class AddBeneficiaryTask : TinkCore.Cancellable {
   public enum Status {
     case requestSent
-    case authenticating
-    case updating(status: Swift.String)
+    case authenticating(Swift.String?)
+    case updating
   }
-  public enum Error : Swift.Error {
-    case invalidBeneficiary(Swift.String)
-    case authenticationFailed(Swift.String)
-    case disabledCredentials(Swift.String)
-    case credentialsSessionExpired(Swift.String)
-    case notFound(Swift.String)
-  }
+  public typealias Error = TinkLink.TinkLinkError
+  final public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool
   @objc deinit
 }
 extension AddBeneficiaryTask {
@@ -47,31 +38,22 @@ extension AddBeneficiaryTask {
 }
 @_hasMissingDesignatedInitializers final public class AddCredentialsTask : Swift.Identifiable, TinkCore.Cancellable {
   public enum Status {
-    case created
-    case authenticating
-    case updating(status: Swift.String)
-    case awaitingSupplementalInformation(TinkLink.SupplementInformationTask)
-    case awaitingThirdPartyAppAuthentication(TinkLink.ThirdPartyAppAuthenticationTask)
+    case created(TinkCore.Credentials.ID)
+    case authenticating(Swift.String?)
+    case updating
   }
-  public enum Error : Swift.Error {
-    case authenticationFailed(Swift.String)
-    case temporaryFailure(Swift.String)
-    case permanentFailure(Swift.String)
-    case credentialsAlreadyExists(Swift.String)
-    case cancelled
-  }
+  public typealias Error = TinkLink.TinkLinkError
   final public var credentials: TinkCore.Credentials? {
     get
   }
   public struct CompletionPredicate {
-    public enum SuccessPredicate {
-      case updating
-      case updated
-      public static func == (a: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate, b: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate) -> Swift.Bool
-      public var hashValue: Swift.Int {
+    public struct SuccessPredicate : Swift.Equatable, Swift.CustomStringConvertible {
+      public var description: Swift.String {
         get
       }
-      public func hash(into hasher: inout Swift.Hasher)
+      public static let updating: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate
+      public static let updated: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate
+      public static func == (a: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate, b: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate) -> Swift.Bool
     }
     public let successPredicate: TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate
     public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool
@@ -86,41 +68,14 @@ public enum AuthenticationTask {
   case awaitingSupplementalInformation(TinkLink.SupplementInformationTask)
   case awaitingThirdPartyAppAuthentication(TinkLink.ThirdPartyAppAuthenticationTask)
 }
+public typealias AuthenticationTaskHandler = (TinkLink.AuthenticationTask) -> Swift.Void
 final public class AuthorizationContext {
-  public enum Error : Swift.Error {
-    case invalidScopeOrRedirectURI(Swift.String)
-  }
   public init(tink: TinkCore.Tink = .shared)
   @discardableResult
   final public func _authorize(scopes: [TinkCore.Scope], completion: @escaping (Swift.Result<TinkCore.AuthorizationCode, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @discardableResult
   final public func fetchClientDescription(completion: @escaping (Swift.Result<TinkCore.ClientDescription, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @objc deinit
-}
-extension Beneficiary {
-  @available(*, deprecated, message: "Use BeneficiaryAccount instead.")
-  public struct URI : Swift.Equatable, Swift.ExpressibleByStringLiteral {
-    public let value: Swift.String
-    public init(_ value: Swift.String)
-    public init(stringLiteral value: Swift.String)
-    public static func == (a: TinkCore.Beneficiary.URI, b: TinkCore.Beneficiary.URI) -> Swift.Bool
-    public typealias StringLiteralType = Swift.String
-    public typealias ExtendedGraphemeClusterLiteralType = Swift.String
-    public typealias UnicodeScalarLiteralType = Swift.String
-  }
-}
-@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
-extension Beneficiary.URI {
-  @available(*, deprecated, renamed: "AccountNumberKind")
-  public typealias Kind = TinkCore.AccountNumberKind
-}
-@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
-extension Beneficiary.URI {
-  public init?(kind: TinkCore.AccountNumberKind, accountNumber: Swift.String)
-}
-@available(*, deprecated, message: "Use BeneficiaryAccount instead.")
-extension Beneficiary.URI {
-  public init?(beneficiary: TinkCore.Beneficiary)
 }
 public struct BeneficiaryAccount {
   public let accountNumberKind: TinkCore.AccountNumberKind
@@ -129,9 +84,6 @@ public struct BeneficiaryAccount {
   public init(accountNumberKind: TinkCore.AccountNumberKind, accountNumber: Swift.String, name: Swift.String? = nil)
 }
 final public class ConsentContext {
-  public enum Error : Swift.Error {
-    case invalidScopeOrRedirectURI(Swift.String)
-  }
   public init(tink: TinkCore.Tink = .shared)
   @discardableResult
   final public func fetchScopeDescriptions(scopes: [TinkCore.Scope], completion: @escaping (Swift.Result<[TinkCore.ScopeDescription], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
@@ -139,25 +91,39 @@ final public class ConsentContext {
   final public func privacyPolicy(for locale: Foundation.Locale = .current) -> Foundation.URL
   @objc deinit
 }
+extension CredentialsContext {
+  @available(*, deprecated, renamed: "fetchCredentials(withID:completion:)")
+  final public func fetchCredentials(with id: TinkCore.Credentials.ID, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @available(*, deprecated, message: "use add(forProviderWithName:fields:refreshableItems:completionPredicate:authenticationHandler:progressHandler:completion:) instead")
+  final public func add(forProviderWithName providerName: TinkCore.Provider.Name, form: TinkLink.Form, refreshableItems: TinkCore.RefreshableItems = .all, completionPredicate: TinkLink.AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true), authenticationHandler: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progressHandler: @escaping (TinkLink.AddCredentialsTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.AddCredentialsTask
+  @available(*, unavailable, renamed: "add(for:form:refreshableItems:completionPredicate:authenticationHandler:completion:)")
+  final public func add(for provider: TinkCore.Provider, form: TinkLink.Form, refreshableItems: TinkCore.RefreshableItems = .all, completionPredicate: TinkLink.AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true), progressHandler: @escaping (TinkLink.AddCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.AddCredentialsTask
+  @available(*, unavailable, renamed: "refresh(_:authenticate:refreshableItems:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:authenticationHandler:completion:)")
+  final public func refresh(_ credentials: TinkCore.Credentials, authenticate: Swift.Bool = false, refreshableItems: TinkCore.RefreshableItems = .all, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.RefreshCredentialsTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.RefreshCredentialsTask
+  @available(*, unavailable, renamed: "update(_:form:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:authenticationHandler:completion:)")
+  final public func update(_ credentials: TinkCore.Credentials, form: TinkLink.Form? = nil, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.UpdateCredentialsTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.UpdateCredentialsTask
+  @available(*, unavailable, renamed: "authenticate(_:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:authenticationHandler:completion:)")
+  final public func authenticate(_ credentials: TinkCore.Credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.AuthenticateCredentialsTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.AuthenticateCredentialsTask
+}
 @_hasMissingDesignatedInitializers final public class CredentialsContext {
   convenience public init(tink: TinkCore.Tink = .shared)
   @objc deinit
-  final public func add(for provider: TinkCore.Provider, form: TinkLink.Form, refreshableItems: TinkCore.RefreshableItems = .all, completionPredicate: TinkLink.AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true), progressHandler: @escaping (TinkLink.AddCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.AddCredentialsTask
-  @available(*, deprecated, renamed: "fetchCredentialsList")
   @discardableResult
-  final public func fetchCredentials(completion: @escaping (Swift.Result<[TinkCore.Credentials], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  final public func add(forProviderWithName providerName: TinkCore.Provider.Name, fields: [Swift.String : Swift.String], refreshableItems: TinkCore.RefreshableItems = .all, completionPredicate: TinkLink.AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true), authenticationHandler: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progressHandler: @escaping (TinkLink.AddCredentialsTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.Cancellable
+  @discardableResult
+  final public func add(for provider: TinkCore.Provider, form: TinkLink.Form, refreshableItems: TinkCore.RefreshableItems = .all, completionPredicate: TinkLink.AddCredentialsTask.CompletionPredicate = .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: true), authenticationHandler: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progressHandler: @escaping (TinkLink.AddCredentialsTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.Cancellable
   @discardableResult
   final public func fetchCredentialsList(completion: @escaping (Swift.Result<[TinkCore.Credentials], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @discardableResult
-  final public func fetchCredentials(with id: TinkCore.Credentials.ID, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
-  final public func refresh(_ credentials: TinkCore.Credentials, authenticate: Swift.Bool = false, refreshableItems: TinkCore.RefreshableItems = .all, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.RefreshCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.RefreshCredentialsTask
-  @available(*, deprecated, message: "Use update(_:form:shouldFailOnThirdPartyAppAuthenticationDownloadRequired:progressHandler:completion) method instead.")
-  final public func update(_ credentials: TinkCore.Credentials, form: TinkLink.Form? = nil, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  final public func fetchCredentials(withID id: TinkCore.Credentials.ID, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @discardableResult
-  final public func update(_ credentials: TinkCore.Credentials, form: TinkLink.Form? = nil, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.UpdateCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.UpdateCredentialsTask
+  final public func refresh(_ credentials: TinkCore.Credentials, authenticate: Swift.Bool = false, refreshableItems: TinkCore.RefreshableItems = .all, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, authenticationHandler: @escaping TinkLink.AuthenticationTaskHandler, progressHandler: @escaping (TinkLink.RefreshCredentialsTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.Cancellable
+  @discardableResult
+  final public func update(_ credentials: TinkCore.Credentials, form: TinkLink.Form? = nil, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, authenticationHandler: @escaping TinkLink.AuthenticationTaskHandler, progressHandler: @escaping (TinkLink.UpdateCredentialsTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.Cancellable
   @discardableResult
   final public func delete(_ credentials: TinkCore.Credentials, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
-  final public func authenticate(_ credentials: TinkCore.Credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, progressHandler: @escaping (TinkLink.AuthenticateCredentialsTask.Status) -> Swift.Void, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkLink.AuthenticateCredentialsTask
+  @discardableResult
+  final public func authenticate(_ credentials: TinkCore.Credentials, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, authenticationHandler: @escaping TinkLink.AuthenticationTaskHandler, progressHandler: @escaping (TinkLink.AuthenticateCredentialsTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkCore.Credentials, Swift.Error>) -> Swift.Void) -> TinkCore.Cancellable
 }
 extension DispatchWorkItem : TinkCore.Cancellable {
 }
@@ -193,37 +159,57 @@ public struct Form {
     public var text: Swift.String
     public let name: Swift.String
     public let validationRules: TinkLink.Form.Field.ValidationRules
-    public let attributes: TinkLink.Form.Field.Attributes
+    public var attributes: TinkLink.Form.Field.Attributes {
+      get
+    }
     public struct ValidationRules {
       public let isOptional: Swift.Bool
       public let maxLength: Swift.Int?
       public let minLength: Swift.Int?
     }
     public struct Attributes {
-      public enum InputType {
-        case `default`
-        case numeric
+      public struct InputType : Swift.Equatable, Swift.CustomStringConvertible {
+        public var description: Swift.String {
+          get
+        }
+        public static let `default`: TinkLink.Form.Field.Attributes.InputType
+        public static let numeric: TinkLink.Form.Field.Attributes.InputType
         public static func == (a: TinkLink.Form.Field.Attributes.InputType, b: TinkLink.Form.Field.Attributes.InputType) -> Swift.Bool
+      }
+      public let description: Swift.String
+      public let placeholder: Swift.String?
+      public let helpText: Swift.String?
+      public let isSecureTextEntry: Swift.Bool
+      public let inputType: TinkLink.Form.Field.Attributes.InputType
+      public var isEditable: Swift.Bool {
+        get
+      }
+    }
+    public struct ValidationError : Swift.Error, Swift.CustomStringConvertible {
+      public struct Code : Swift.Hashable {
+        public static let invalid: TinkLink.Form.Field.ValidationError.Code
+        public static let maxLengthLimit: TinkLink.Form.Field.ValidationError.Code
+        public static let minLengthLimit: TinkLink.Form.Field.ValidationError.Code
+        public static let requiredFieldEmptyValue: TinkLink.Form.Field.ValidationError.Code
+        public static func ~= (lhs: TinkLink.Form.Field.ValidationError.Code, rhs: Swift.Error) -> Swift.Bool
         public var hashValue: Swift.Int {
           get
         }
         public func hash(into hasher: inout Swift.Hasher)
+        public static func == (a: TinkLink.Form.Field.ValidationError.Code, b: TinkLink.Form.Field.ValidationError.Code) -> Swift.Bool
       }
-      public let description: Swift.String
-      public let placeholder: Swift.String
-      public let helpText: Swift.String
-      public let isSecureTextEntry: Swift.Bool
-      public let inputType: TinkLink.Form.Field.Attributes.InputType
-      public let isEditable: Swift.Bool
-    }
-    public enum ValidationError : Swift.Error {
-      case invalid(fieldName: Swift.String, reason: Swift.String)
-      case maxLengthLimit(fieldName: Swift.String, maxLength: Swift.Int)
-      case minLengthLimit(fieldName: Swift.String, minLength: Swift.Int)
-      case requiredFieldEmptyValue(fieldName: Swift.String)
-      public var reason: Swift.String? {
+      public let code: TinkLink.Form.Field.ValidationError.Code
+      public var description: Swift.String {
         get
       }
+      public static let invalid: TinkLink.Form.Field.ValidationError.Code
+      public static let maxLengthLimit: TinkLink.Form.Field.ValidationError.Code
+      public static let minLengthLimit: TinkLink.Form.Field.ValidationError.Code
+      public static let requiredFieldEmptyValue: TinkLink.Form.Field.ValidationError.Code
+      public var fieldName: Swift.String
+      public var reason: Swift.String?
+      public var minLength: Swift.Int?
+      public var maxLength: Swift.Int?
     }
     public var isValid: Swift.Bool {
       get
@@ -239,6 +225,7 @@ public struct Form {
 }
 extension Form {
   public init(provider: TinkCore.Provider)
+  @available(*, deprecated, message: "Use init(supplementInformationTask:) instead.")
   public init(credentials: TinkCore.Credentials)
   public init(updatingCredentials: TinkCore.Credentials, provider: TinkCore.Provider)
   public init(supplementInformationTask: TinkLink.SupplementInformationTask)
@@ -246,43 +233,44 @@ extension Form {
 @_hasMissingDesignatedInitializers final public class InitiateTransferTask : TinkCore.Cancellable {
   public enum Status {
     case created(TinkCore.Transfer.ID)
-    case authenticating
-    case updating(status: Swift.String)
+    case authenticating(Swift.String?)
+    case updating
     case executing(status: Swift.String)
   }
   public typealias AuthenticationTask = TinkLink.AuthenticationTask
-  public enum Error : Swift.Error {
-    case authenticationFailed(Swift.String?)
-    case disabledCredentials(Swift.String?)
-    case credentialsSessionExpired(Swift.String?)
-    case cancelled(Swift.String?)
-    case failed(Swift.String?)
-  }
+  public typealias Error = TinkLink.TinkLinkError
   public struct Receipt {
     public let id: TinkCore.Transfer.ID
     public let message: Swift.String?
   }
+  final public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool
   final public func cancel()
   @objc deinit
 }
+extension ProviderContext {
+  @available(*, deprecated, renamed: "Filter")
+  public typealias Attributes = TinkLink.ProviderContext.Filter
+  @available(*, deprecated, renamed: "fetchProviders(filter:completion:)")
+  final public func fetchProviders(attributes: TinkLink.ProviderContext.Filter, completion: @escaping (Swift.Result<[TinkCore.Provider], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+}
 @_hasMissingDesignatedInitializers final public class ProviderContext {
-  public struct Attributes : Swift.Hashable {
+  public struct Filter : Swift.Hashable {
     public let capabilities: TinkCore.Provider.Capabilities
     public let kinds: Swift.Set<TinkCore.Provider.Kind>
     public let accessTypes: Swift.Set<TinkCore.Provider.AccessType>
     public init(capabilities: TinkCore.Provider.Capabilities, kinds: Swift.Set<TinkCore.Provider.Kind>, accessTypes: Swift.Set<TinkCore.Provider.AccessType>)
-    public static let `default`: TinkLink.ProviderContext.Attributes
+    public static let `default`: TinkLink.ProviderContext.Filter
     public var hashValue: Swift.Int {
       get
     }
     public func hash(into hasher: inout Swift.Hasher)
-    public static func == (a: TinkLink.ProviderContext.Attributes, b: TinkLink.ProviderContext.Attributes) -> Swift.Bool
+    public static func == (a: TinkLink.ProviderContext.Filter, b: TinkLink.ProviderContext.Filter) -> Swift.Bool
   }
   convenience public init(tink: TinkCore.Tink = .shared)
   @discardableResult
-  final public func fetchProviders(attributes: TinkLink.ProviderContext.Attributes = .default, completion: @escaping (Swift.Result<[TinkCore.Provider], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  final public func fetchProviders(filter: TinkLink.ProviderContext.Filter = .default, completion: @escaping (Swift.Result<[TinkCore.Provider], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @discardableResult
-  final public func fetchProvider(with id: TinkCore.Provider.ID, completion: @escaping (Swift.Result<TinkCore.Provider, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  final public func fetchProvider(with name: TinkCore.Provider.Name, completion: @escaping (Swift.Result<TinkCore.Provider, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @objc deinit
 }
 public struct ProviderTree {
@@ -292,19 +280,7 @@ public struct ProviderTree {
   public struct CredentialsKindNode : Swift.Comparable {
     public static func < (lhs: TinkLink.ProviderTree.CredentialsKindNode, rhs: TinkLink.ProviderTree.CredentialsKindNode) -> Swift.Bool
     public static func == (lhs: TinkLink.ProviderTree.CredentialsKindNode, rhs: TinkLink.ProviderTree.CredentialsKindNode) -> Swift.Bool
-    public struct ID : Swift.Hashable, Swift.ExpressibleByStringLiteral {
-      public init(stringLiteral value: Swift.String)
-      public init(_ value: Swift.String)
-      public let value: Swift.String
-      public var hashValue: Swift.Int {
-        get
-      }
-      public func hash(into hasher: inout Swift.Hasher)
-      public typealias StringLiteralType = Swift.String
-      public static func == (a: TinkLink.ProviderTree.CredentialsKindNode.ID, b: TinkLink.ProviderTree.CredentialsKindNode.ID) -> Swift.Bool
-      public typealias ExtendedGraphemeClusterLiteralType = Swift.String
-      public typealias UnicodeScalarLiteralType = Swift.String
-    }
+    public typealias ID = TinkCore.Identifier<TinkLink.ProviderTree.CredentialsKindNode>
     public var id: TinkLink.ProviderTree.CredentialsKindNode.ID {
       get
     }
@@ -322,19 +298,7 @@ public struct ProviderTree {
   public enum AccessTypeNode : Swift.Comparable {
     public static func < (lhs: TinkLink.ProviderTree.AccessTypeNode, rhs: TinkLink.ProviderTree.AccessTypeNode) -> Swift.Bool
     public static func == (lhs: TinkLink.ProviderTree.AccessTypeNode, rhs: TinkLink.ProviderTree.AccessTypeNode) -> Swift.Bool
-    public struct ID : Swift.Hashable, Swift.ExpressibleByStringLiteral {
-      public init(stringLiteral value: Swift.String)
-      public init(_ value: Swift.String)
-      public let value: Swift.String
-      public var hashValue: Swift.Int {
-        get
-      }
-      public func hash(into hasher: inout Swift.Hasher)
-      public typealias StringLiteralType = Swift.String
-      public static func == (a: TinkLink.ProviderTree.AccessTypeNode.ID, b: TinkLink.ProviderTree.AccessTypeNode.ID) -> Swift.Bool
-      public typealias ExtendedGraphemeClusterLiteralType = Swift.String
-      public typealias UnicodeScalarLiteralType = Swift.String
-    }
+    public typealias ID = TinkCore.Identifier<TinkLink.ProviderTree.AccessTypeNode>
     case provider(TinkCore.Provider)
     case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
     public var id: TinkLink.ProviderTree.AccessTypeNode.ID {
@@ -376,19 +340,7 @@ public struct ProviderTree {
   public enum FinancialInstitutionNode : Swift.Comparable {
     public static func < (lhs: TinkLink.ProviderTree.FinancialInstitutionNode, rhs: TinkLink.ProviderTree.FinancialInstitutionNode) -> Swift.Bool
     public static func == (lhs: TinkLink.ProviderTree.FinancialInstitutionNode, rhs: TinkLink.ProviderTree.FinancialInstitutionNode) -> Swift.Bool
-    public struct ID : Swift.Hashable, Swift.ExpressibleByStringLiteral {
-      public init(stringLiteral value: Swift.String)
-      public init(_ value: Swift.String)
-      public let value: Swift.String
-      public var hashValue: Swift.Int {
-        get
-      }
-      public func hash(into hasher: inout Swift.Hasher)
-      public typealias StringLiteralType = Swift.String
-      public static func == (a: TinkLink.ProviderTree.FinancialInstitutionNode.ID, b: TinkLink.ProviderTree.FinancialInstitutionNode.ID) -> Swift.Bool
-      public typealias ExtendedGraphemeClusterLiteralType = Swift.String
-      public typealias UnicodeScalarLiteralType = Swift.String
-    }
+    public typealias ID = TinkCore.Identifier<TinkLink.ProviderTree.FinancialInstitutionNode>
     case provider(TinkCore.Provider)
     case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
     case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
@@ -407,19 +359,7 @@ public struct ProviderTree {
     }
   }
   public enum FinancialInstitutionGroupNode : Swift.Identifiable {
-    public struct ID : Swift.Hashable, Swift.ExpressibleByStringLiteral {
-      public init(stringLiteral value: Swift.String)
-      public init(_ value: Swift.String)
-      public let value: Swift.String
-      public var hashValue: Swift.Int {
-        get
-      }
-      public func hash(into hasher: inout Swift.Hasher)
-      public typealias StringLiteralType = Swift.String
-      public static func == (a: TinkLink.ProviderTree.FinancialInstitutionGroupNode.ID, b: TinkLink.ProviderTree.FinancialInstitutionGroupNode.ID) -> Swift.Bool
-      public typealias ExtendedGraphemeClusterLiteralType = Swift.String
-      public typealias UnicodeScalarLiteralType = Swift.String
-    }
+    public typealias ID = TinkCore.Identifier<TinkLink.ProviderTree.FinancialInstitutionGroupNode>
     case provider(TinkCore.Provider)
     case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
     case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
@@ -446,18 +386,10 @@ public typealias AuthenticateCredentialsTask = TinkLink.RefreshCredentialsTask
 public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
 @_hasMissingDesignatedInitializers final public class RefreshCredentialsTask : Swift.Identifiable, TinkCore.Cancellable {
   public enum Status {
-    case authenticating
-    case updating(status: Swift.String)
-    case awaitingSupplementalInformation(TinkLink.SupplementInformationTask)
-    case awaitingThirdPartyAppAuthentication(TinkLink.ThirdPartyAppAuthenticationTask)
+    case authenticating(Swift.String?)
+    case updating
   }
-  public enum Error : Swift.Error {
-    case authenticationFailed(Swift.String)
-    case temporaryFailure(Swift.String)
-    case permanentFailure(Swift.String)
-    case disabled(Swift.String)
-    case cancelled
-  }
+  public typealias Error = TinkLink.TinkLinkError
   final public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool
   final public var credentials: TinkCore.Credentials {
     get
@@ -467,13 +399,21 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
   public typealias ID = Swift.ObjectIdentifier
 }
 @_hasMissingDesignatedInitializers final public class SupplementInformationTask : Swift.Identifiable {
-  public enum Error : Swift.Error {
-    case cancelled
-    public static func == (a: TinkLink.SupplementInformationTask.Error, b: TinkLink.SupplementInformationTask.Error) -> Swift.Bool
-    public var hashValue: Swift.Int {
+  public struct Error : Swift.Error, Swift.CustomStringConvertible {
+    public struct Code : Swift.Hashable {
+      public static let cancelled: TinkLink.SupplementInformationTask.Error.Code
+      public static func ~= (lhs: TinkLink.SupplementInformationTask.Error.Code, rhs: Swift.Error) -> Swift.Bool
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+      public static func == (a: TinkLink.SupplementInformationTask.Error.Code, b: TinkLink.SupplementInformationTask.Error.Code) -> Swift.Bool
+    }
+    public var code: TinkLink.SupplementInformationTask.Error.Code
+    public var description: Swift.String {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
+    public static let cancelled: TinkLink.SupplementInformationTask.Error.Code
   }
   final public let credentials: TinkCore.Credentials
   final public func submit(_ form: TinkLink.Form)
@@ -482,15 +422,32 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
   public typealias ID = Swift.ObjectIdentifier
 }
 @_hasMissingDesignatedInitializers public class ThirdPartyAppAuthenticationTask : Swift.Identifiable {
-  public enum Error : Swift.Error {
-    case deeplinkURLNotFound
-    case downloadRequired(title: Swift.String?, message: Swift.String?, appStoreURL: Foundation.URL?)
-    case doesNotSupportAuthenticatingOnAnotherDevice
-    case decodingQRCodeImageFailed
-    case cancelled
-    public var appStoreURL: Foundation.URL? {
+  public struct Error : Swift.Error, Swift.CustomStringConvertible {
+    public struct Code : Swift.Hashable {
+      public static let deeplinkURLNotFound: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+      public static let downloadRequired: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+      public static let doesNotSupportAuthenticatingOnAnotherDevice: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+      public static let decodingQRCodeImageFailed: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+      public static let cancelled: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+      public static func ~= (lhs: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code, rhs: Swift.Error) -> Swift.Bool
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+      public static func == (a: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code, b: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code) -> Swift.Bool
+    }
+    public let code: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+    public var description: Swift.String {
       get
     }
+    public static let deeplinkURLNotFound: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+    public static let downloadRequired: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+    public static let doesNotSupportAuthenticatingOnAnotherDevice: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+    public static let decodingQRCodeImageFailed: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+    public static let cancelled: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
+    public var downloadTitle: Swift.String?
+    public var downloadMessage: Swift.String?
+    public var appStoreURL: Foundation.URL?
   }
   public enum Status {
     case qrImage(UIKit.UIImage)
@@ -502,8 +459,6 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
   public var shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool {
     get
   }
-  @available(*, deprecated, renamed: "handle")
-  public func openThirdPartyApp(with application: UIKit.UIApplication = .shared)
   public func handle()
   public func handle(statusHandler: @escaping (TinkLink.ThirdPartyAppAuthenticationTask.Status) -> Swift.Void)
   public func cancel()
@@ -512,7 +467,10 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
 }
 extension Tink {
   @available(iOS 9.0, *)
+  @available(*, deprecated, message: "Use Tink.open(_:completion:) instead.")
   public func open(_ url: Foundation.URL, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)? = nil) -> Swift.Bool
+  @available(iOS 9.0, *)
+  public static func open(_ url: Foundation.URL, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)? = nil) -> Swift.Bool
 }
 public struct TinkLinkConfiguration : TinkCore.Configuration {
   public var clientID: Swift.String
@@ -520,6 +478,55 @@ public struct TinkLinkConfiguration : TinkCore.Configuration {
   public var environment: TinkCore.Tink.Environment
   public var certificateURL: Foundation.URL?
   public init(clientID: Swift.String, appURI: Foundation.URL, environment: TinkCore.Tink.Environment = .production, certificateURL: Foundation.URL? = nil)
+}
+public struct TinkLinkError : Swift.Error, Swift.CustomStringConvertible {
+  public struct Code : Swift.Hashable {
+    public static let credentialsAuthenticationFailed: TinkLink.TinkLinkError.Code
+    public static let temporaryCredentialsFailure: TinkLink.TinkLinkError.Code
+    public static let permanentCredentialsFailure: TinkLink.TinkLinkError.Code
+    public static let credentialsAlreadyExists: TinkLink.TinkLinkError.Code
+    public static let credentialsDeleted: TinkLink.TinkLinkError.Code
+    public static let credentialsSessionExpired: TinkLink.TinkLinkError.Code
+    public static let cancelled: TinkLink.TinkLinkError.Code
+    public static let transferFailed: TinkLink.TinkLinkError.Code
+    public static let notFound: TinkLink.TinkLinkError.Code
+    public static let invalidArguments: TinkLink.TinkLinkError.Code
+    public static let missingRequiredScope: TinkLink.TinkLinkError.Code
+    public static let notAuthenticated: TinkLink.TinkLinkError.Code
+    public static let tooManyRequests: TinkLink.TinkLinkError.Code
+    public static let unavailableForLegalReasons: TinkLink.TinkLinkError.Code
+    public static let internalError: TinkLink.TinkLinkError.Code
+    public static let notConnectedToInternet: TinkLink.TinkLinkError.Code
+    public static let networkFailure: TinkLink.TinkLinkError.Code
+    public static func ~= (lhs: TinkLink.TinkLinkError.Code, rhs: Swift.Error) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: TinkLink.TinkLinkError.Code, b: TinkLink.TinkLinkError.Code) -> Swift.Bool
+  }
+  public let code: TinkLink.TinkLinkError.Code
+  public let message: Swift.String?
+  public var description: Swift.String {
+    get
+  }
+  public static let credentialsAuthenticationFailed: TinkLink.TinkLinkError.Code
+  public static let temporaryCredentialsFailure: TinkLink.TinkLinkError.Code
+  public static let permanentCredentialsFailure: TinkLink.TinkLinkError.Code
+  public static let credentialsAlreadyExists: TinkLink.TinkLinkError.Code
+  public static let credentialsDeleted: TinkLink.TinkLinkError.Code
+  public static let credentialsSessionExpired: TinkLink.TinkLinkError.Code
+  public static let cancelled: TinkLink.TinkLinkError.Code
+  public static let transferFailed: TinkLink.TinkLinkError.Code
+  public static let notFound: TinkLink.TinkLinkError.Code
+  public static let invalidArguments: TinkLink.TinkLinkError.Code
+  public static let missingRequiredScope: TinkLink.TinkLinkError.Code
+  public static let notAuthenticated: TinkLink.TinkLinkError.Code
+  public static let tooManyRequests: TinkLink.TinkLinkError.Code
+  public static let unavailableForLegalReasons: TinkLink.TinkLinkError.Code
+  public static let internalError: TinkLink.TinkLinkError.Code
+  public static let notConnectedToInternet: TinkLink.TinkLinkError.Code
+  public static let networkFailure: TinkLink.TinkLinkError.Code
 }
 final public class TinkLinkSessionManager : TinkCore.SessionManager {
   public init(tink: TinkCore.Tink = .shared)
@@ -571,17 +578,18 @@ extension BeneficiaryAccount : TinkLink.TransferAccountIdentifiable {
 }
 @_hasMissingDesignatedInitializers final public class TransferContext {
   convenience public init(tink: TinkCore.Tink = .shared)
-  @available(*, deprecated, message: "Use the initiateTransfer(from:to:amount:message:authentication:progress:completion) method with a `BeneficiaryAccount` instead.")
-  final public func initiateTransfer(fromAccountWithURI: TinkCore.Account.URI, toBeneficiaryWithURI: TinkCore.Beneficiary.URI, amount: TinkCore.CurrencyDenominatedAmount, message: TinkLink.InitiateTransferTask.Message, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.InitiateTransferTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkLink.InitiateTransferTask.Receipt, Swift.Error>) -> Swift.Void) -> TinkLink.InitiateTransferTask
-  final public func initiateTransfer(from account: TinkLink.TransferAccountIdentifiable, to beneficiary: TinkLink.TransferAccountIdentifiable, amount: TinkCore.CurrencyDenominatedAmount, message: TinkLink.InitiateTransferTask.Message, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.InitiateTransferTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkLink.InitiateTransferTask.Receipt, Swift.Error>) -> Swift.Void) -> TinkLink.InitiateTransferTask
+  @discardableResult
+  final public func initiateTransfer(from account: TinkLink.TransferAccountIdentifiable, to beneficiary: TinkLink.TransferAccountIdentifiable, amount: TinkCore.CurrencyDenominatedAmount, message: TinkLink.InitiateTransferTask.Message, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.InitiateTransferTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<TinkLink.InitiateTransferTask.Receipt, Swift.Error>) -> Swift.Void) -> TinkLink.InitiateTransferTask
   @discardableResult
   final public func fetchAccounts(completion: @escaping (Swift.Result<[TinkCore.Account], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @discardableResult
   final public func fetchBeneficiaries(for account: TinkCore.Account, completion: @escaping (Swift.Result<[TinkCore.Beneficiary], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @discardableResult
   final public func fetchBeneficiaries(completion: @escaping (Swift.Result<[TinkCore.Beneficiary], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
-  final public func addBeneficiary(account beneficiaryAccount: TinkLink.BeneficiaryAccount, name: Swift.String, to ownerAccount: TinkCore.Account, credentials: TinkCore.Credentials? = nil, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.AddBeneficiaryTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void) -> TinkLink.AddBeneficiaryTask
-  final public func addBeneficiary(account beneficiaryAccount: TinkLink.BeneficiaryAccount, name: Swift.String, toAccountWithID ownerAccountID: TinkCore.Account.ID, onCredentialsWithID credentialsID: TinkCore.Credentials.ID, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.AddBeneficiaryTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void) -> TinkLink.AddBeneficiaryTask
+  @discardableResult
+  final public func addBeneficiary(account beneficiaryAccount: TinkLink.BeneficiaryAccount, name: Swift.String, to ownerAccount: TinkCore.Account, credentials: TinkCore.Credentials? = nil, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.AddBeneficiaryTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void) -> TinkLink.AddBeneficiaryTask
+  @discardableResult
+  final public func addBeneficiary(account beneficiaryAccount: TinkLink.BeneficiaryAccount, name: Swift.String, toAccountWithID ownerAccountID: TinkCore.Account.ID, onCredentialsWithID credentialsID: TinkCore.Credentials.ID, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Swift.Bool = true, authentication: @escaping (TinkLink.AuthenticationTask) -> Swift.Void, progress: @escaping (TinkLink.AddBeneficiaryTask.Status) -> Swift.Void = { _ in }, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void) -> TinkLink.AddBeneficiaryTask
   @objc deinit
 }
 extension InitiateTransferTask {
@@ -591,9 +599,3 @@ extension InitiateTransferTask {
     public init(source: Swift.String? = nil, destination: Swift.String)
   }
 }
-extension TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate : Swift.Equatable {}
-extension TinkLink.AddCredentialsTask.CompletionPredicate.SuccessPredicate : Swift.Hashable {}
-extension TinkLink.Form.Field.Attributes.InputType : Swift.Equatable {}
-extension TinkLink.Form.Field.Attributes.InputType : Swift.Hashable {}
-extension TinkLink.SupplementInformationTask.Error : Swift.Equatable {}
-extension TinkLink.SupplementInformationTask.Error : Swift.Hashable {}

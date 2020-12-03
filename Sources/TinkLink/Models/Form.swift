@@ -231,7 +231,7 @@ public struct Form {
                 public static let minLengthLimit = Self(value: .minLengthLimit)
                 public static let requiredFieldEmptyValue = Self(value: .requiredFieldEmptyValue)
 
-                public static func ~=(lhs: Self, rhs: Swift.Error) -> Bool {
+                public static func ~= (lhs: Self, rhs: Swift.Error) -> Bool {
                     lhs == (rhs as? Form.Field.ValidationError)?.code
                 }
             }

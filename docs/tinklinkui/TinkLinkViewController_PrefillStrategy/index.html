@@ -26,18 +26,18 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#tinklinkviewcontroller.prefillstrategy.none">none</a></li><li class="case"><a href="#tinklinkviewcontroller.prefillstrategy.username">username</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#tinklinkviewcontroller.prefillstrategy.none">none</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#tinklinkviewcontroller.prefillstrategy.username(value:iseditable:)">username(value:​is​Editable:​)</a></li></ul></li></ol>
         </div>
     </nav>
 
     <main>
         <article>
             <h1>
-    <small>Enumeration</small>
+    <small>Structure</small>
     <code class="name">Tink​Link​View​Controller.​Prefill​Strategy</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">PrefillStrategy</span></code></pre></body></html>
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">PrefillStrategy</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Strategy for different types of prefilling</p>
 
@@ -52,24 +52,28 @@
 </dd>
 </dl>
 </section>
-    <section id="enumeration cases">
-        <h2>Enumeration Cases</h2>
+    <section id="properties">
+        <h2>Properties</h2>
 
-        <div role="article" class="case" id="tinklinkviewcontroller.prefillstrategy.none">
+        <div role="article" class="variable" id="tinklinkviewcontroller.prefillstrategy.none">
     <h3>
         <code>none</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">none</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">none</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>No prefilling will occur.</p>
 
 </div>
 </div>
-<div role="article" class="case" id="tinklinkviewcontroller.prefillstrategy.username">
+    </section>
+    <section id="methods">
+        <h2>Methods</h2>
+
+        <div role="article" class="function" id="tinklinkviewcontroller.prefillstrategy.username(value:iseditable:)">
     <h3>
-        <code>username</code>
+        <code>username(value:​is​Editable:​)</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">username</span>(<span class="variable">value</span>: <span class="type">String</span>, <span class="variable">isEditable</span>: <span class="type">Bool</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">username</span>(<span class="variable">value</span>: <span class="type">String</span>, <span class="variable">isEditable</span>: <span class="type">Bool</span>) -&gt; <span class="keyword">Self</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Will attempt to fill the first field of the provider with the associated value if it is valid.</p>
 
@@ -84,7 +88,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2020-11-27T14:31:16+0100">27 November 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2020-12-01T16:28:42+0100">1 December 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

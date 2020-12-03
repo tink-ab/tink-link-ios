@@ -89,7 +89,7 @@ class ViewController: UIViewController {
 
     private func showTinkLinkWithAuthorizationCode(_ authorizationCode: String) {
         Tink.configure(with: configuration)
-        Tink.shared.authenticateUser(authorizationCode: AuthorizationCode(authorizationCode)) { (result) in
+        Tink.shared.authenticateUser(authorizationCode: AuthorizationCode(authorizationCode)) { result in
             DispatchQueue.main.async {
                 do {
                     let accessToken = try result.get()

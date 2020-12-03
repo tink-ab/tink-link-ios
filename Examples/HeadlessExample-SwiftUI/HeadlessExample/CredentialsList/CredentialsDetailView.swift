@@ -46,13 +46,13 @@ struct CredentialsDetailView: View {
             return "Authentication error"
         case .permanentError:
             return "Permanent error"
-        case .awaitingMobileBankIDAuthentication(_):
+        case .awaitingMobileBankIDAuthentication:
             return "Awaiting Mobile BankID authentication"
-        case .awaitingSupplementalInformation(_):
+        case .awaitingSupplementalInformation:
             return "Awaiting supplemental information"
         case .deleted:
             return "Deleted"
-        case .awaitingThirdPartyAppAuthentication(_):
+        case .awaitingThirdPartyAppAuthentication:
             return "Awaiting third-party app authentication"
         case .sessionExpired:
             return "Session expired"

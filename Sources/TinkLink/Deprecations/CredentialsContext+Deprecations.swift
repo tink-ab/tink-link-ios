@@ -1,13 +1,12 @@
 import Foundation
 
 extension CredentialsContext {
-
     // Deprecation: 1.0
     @available(*, deprecated, renamed: "fetchCredentials(withID:completion:)")
     public func fetchCredentials(with id: Credentials.ID, completion: @escaping (_ result: Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         return fetchCredentials(withID: id, completion: completion)
     }
-    
+
     // Deprecation: 1.0
     @available(*, deprecated, message: "use add(forProviderWithName:fields:refreshableItems:completionPredicate:authenticationHandler:progressHandler:completion:) instead")
     public func add(

@@ -69,7 +69,7 @@ final class CredentialsController: ObservableObject {
                 do {
                     try result.get()
                     DispatchQueue.main.async {
-                        self?.credentials.removeAll { $0.id == credentials.id}
+                        self?.credentials.removeAll { $0.id == credentials.id }
                     }
                 } catch {
                     // Handle any errors
