@@ -1100,6 +1100,13 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		"TEMP_2408147D-B544-42EA-BA48-23B9BBBB1AA5" /* Translations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Translations;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1660,7 +1667,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.17.0;
+				MARKETING_VERSION = 0.17.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1712,7 +1719,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.17.0;
+				MARKETING_VERSION = 0.17.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;
@@ -1762,7 +1769,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.17.0;
+				MARKETING_VERSION = 0.17.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1812,7 +1819,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.17.0;
+				MARKETING_VERSION = 0.17.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1909,7 +1916,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.17.0;
+				MARKETING_VERSION = 0.17.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1939,7 +1946,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.17.0;
+				MARKETING_VERSION = 0.17.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;
