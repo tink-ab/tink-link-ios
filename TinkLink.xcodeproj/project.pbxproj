@@ -1100,7 +1100,7 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		"TEMP_6B1D8C64-503B-4C69-96E7-E8DBB4CE42F3" /* Translations */ = {
+		"TEMP_4545C796-D42F-4D10-AB48-609E01F150BB" /* Translations */ = {
 			isa = PBXGroup;
 			children = (
 			);
