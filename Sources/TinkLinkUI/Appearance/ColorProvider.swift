@@ -3,34 +3,72 @@ import UIKit
 /// A type that can provide custom colors for Tink views.
 public struct ColorProvider: ColorProviding {
     /// Colors for indicators and other similar elements background.
-    public var accentBackground = UIColor(red: 236.0 / 255.0, green: 241.0 / 255.0, blue: 243.0 / 255.0, alpha: 1.0)
+    public var accentBackground = UIColor.dynamicColor(
+        light: UIColor(red: 236.0 / 255.0, green: 241.0 / 255.0, blue: 243.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 3.0 / 255.0, green: 32.0 / 255.0, blue: 39.0 / 255.0, alpha: 1)
+    )
     /// Color for primary buttons background and secondary buttons label.
-    public var button = UIColor(red: 0.259, green: 0.467, blue: 0.514, alpha: 1.0)
+    public var button = UIColor.dynamicColor(
+        light: UIColor(red: 66.0 / 255.0, green: 119.0 / 255.0, blue: 131.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 14.0 / 255.0, green: 158.0 / 255.0, blue: 194.0 / 255.0, alpha: 1)
+    )
     /// Color for the primary buttons label.
-    public var buttonLabel: UIColor = .white
+    public var buttonLabel = UIColor.dynamicColor(
+        light: UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
+    )
     /// Color for the main background of the interface.
-    public var background = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
+    public var background = UIColor.dynamicColor(
+        light: UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 1)
+    )
     /// Color for content layered on top of the main background.
-    public var secondaryBackground = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
+    public var secondaryBackground = UIColor.dynamicColor(
+        light: UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 24.0 / 255.0, green: 24.0 / 255.0, blue: 24.0 / 255.0, alpha: 1)
+    )
     /// Color for the main background of grouped interface components.
     @available(*, deprecated, message: "Use background to update elements background")
-    public var groupedBackground = UIColor(red: 253.0 / 255.0, green: 253.0 / 255.0, blue: 253.0 / 255.0, alpha: 1.0)
+    public var groupedBackground = UIColor.dynamicColor(
+        light: UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 1)
+    )
     /// Color for content layered on top of the main background of grouped interface components.
     @available(*, deprecated, message: "Use secondaryBackground to update secondary elements background")
-    public var secondaryGroupedBackground = UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0)
+    public var secondaryGroupedBackground = UIColor.dynamicColor(
+        light: UIColor(red: 251.0 / 255.0, green: 251.0 / 255.0, blue: 252.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 24.0 / 255.0, green: 24.0 / 255.0, blue: 24.0 / 255.0, alpha: 1)
+    )
     /// Primary text color.
-    public var label = UIColor(red: 0.149, green: 0.149, blue: 0.149, alpha: 1.0)
+    public var label = UIColor.dynamicColor(
+        light: UIColor(red: 38.0 / 255.0, green: 38.0 / 255.0, blue: 38.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
+    )
     /// Secondary text color.
-    public var secondaryLabel = UIColor(red: 0.502, green: 0.502, blue: 0.502, alpha: 1.0)
+    public var secondaryLabel = UIColor.dynamicColor(
+        light: UIColor(red: 128.0 / 255.0, green: 128.0 / 255.0, blue: 128.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 167.0 / 255, green: 167.0 / 255, blue: 167.0 / 255, alpha: 1)
+    )
     /// Color for separators.
-    public var separator = UIColor(white: 0.87, alpha: 1.0)
+    public var separator = UIColor.dynamicColor(
+        light: UIColor(red: 238.0 / 255.0, green: 238.0 / 255.0, blue: 238.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 57.0 / 255, green: 57.0 / 255, blue: 57.0 / 255, alpha: 1)
+    )
     /// Colors for buttons, indicators and other similar elements.
-    public var accent = UIColor(red: 0.259, green: 0.467, blue: 0.514, alpha: 1.0)
-
+    public var accent = UIColor.dynamicColor(
+        light: UIColor(red: 66.0 / 255.0, green: 119.0 / 255.0, blue: 131.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 14.0 / 255.0, green: 158.0 / 255.0, blue: 194.0 / 255.0, alpha: 1)
+    )
     /// Color representing a warning.
-    public var warning = UIColor(red: 0.996, green: 0.682, blue: 0.133, alpha: 1.0)
+    public var warning = UIColor.dynamicColor(
+        light: UIColor(red: 254.0 / 255.0, green: 174.0 / 255.0, blue: 34.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 254.0 / 255.0, green: 174.0 / 255.0, blue: 34.0 / 255.0, alpha: 1)
+    )
     /// Color representing a critical error or warning.
-    public var critical = UIColor(red: 235.0 / 255.0, green: 84.0 / 255.0, blue: 75.0 / 255.0, alpha: 1.0)
+    public var critical = UIColor.dynamicColor(
+        light: UIColor(red: 234.0 / 255.0, green: 84.0 / 255.0, blue: 74.0 / 255.0, alpha: 1),
+        dark: UIColor(red: 234.0 / 255.0, green: 84.0 / 255.0, blue: 74.0 / 255.0, alpha: 1)
+    )
 
     /// Color for navigation bar backgrounds.
     public var navigationBarBackground: UIColor?

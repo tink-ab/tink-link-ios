@@ -62,15 +62,30 @@ extension UIColor {
     }
 
     func mixedWith(color: UIColor, factor: CGFloat) -> UIColor {
-        if let c1 = rgbaComponents(), let c2 = color.rgbaComponents() {
-            return UIColor(
-                red: c1.red * (1.0 - factor) + c2.red * factor,
-                green: c1.green * (1.0 - factor) + c2.green * factor,
-                blue: c1.blue * (1.0 - factor) + c2.blue * factor,
-                alpha: c1.alpha * (1.0 - factor) + c2.alpha * factor
-            )
+        if #available(iOS 13.0, *) {
+            return UIColor { traitCollection in
+                if let c1 = self.resolvedColor(with: traitCollection).rgbaComponents(), let c2 = color.resolvedColor(with: traitCollection).rgbaComponents() {
+                    return UIColor(
+                        red: c1.red * (1.0 - factor) + c2.red * factor,
+                        green: c1.green * (1.0 - factor) + c2.green * factor,
+                        blue: c1.blue * (1.0 - factor) + c2.blue * factor,
+                        alpha: c1.alpha * (1.0 - factor) + c2.alpha * factor
+                    )
+                } else {
+                    return self
+                }
+            }
         } else {
-            return self
+            if let c1 = rgbaComponents(), let c2 = color.rgbaComponents() {
+                return UIColor(
+                    red: c1.red * (1.0 - factor) + c2.red * factor,
+                    green: c1.green * (1.0 - factor) + c2.green * factor,
+                    blue: c1.blue * (1.0 - factor) + c2.blue * factor,
+                    alpha: c1.alpha * (1.0 - factor) + c2.alpha * factor
+                )
+            } else {
+                return self
+            }
         }
     }
 
@@ -89,5 +104,20 @@ extension UIColor {
         var alpha: CGFloat = 0.0
         getWhite(&white, alpha: &alpha)
         return white > 0.5
+    }
+
+    class func dynamicColor(light: UIColor, dark: UIColor) -> UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { traitCollection in
+                switch traitCollection.userInterfaceStyle {
+                case .dark:
+                    return dark
+                default:
+                    return light
+                }
+            }
+        } else {
+            return light
+        }
     }
 }
