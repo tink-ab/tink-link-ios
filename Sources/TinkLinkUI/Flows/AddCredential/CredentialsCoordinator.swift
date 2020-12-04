@@ -194,6 +194,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
             scopeList = []
         }
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scopes: scopeList)
+        viewController.delegate = self
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.Generic.done, style: .plain, target: self, action: #selector(closeMoreInfo))
         let navigationController = TinkNavigationController(rootViewController: viewController)
         presenter?.present(navigationController, animated: true, completion: nil)
@@ -225,6 +226,12 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
         case .authenticate, .refresh:
             break
         }
+    }
+}
+
+extension CredentialsCoordinator: ScopeDescriptionListViewControllerDelegate {
+    func scopeDescriptionListViewController(viewController: ScopeDescriptionListViewController, error: Error) {
+        presenter?.dismiss(animated: true, completion: nil)
     }
 }
 

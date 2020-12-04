@@ -275,10 +275,11 @@ public class TinkLinkViewController: UIViewController {
     }
 
     override public var preferredStatusBarStyle: UIStatusBarStyle {
+        let baseColor = containedNavigationController.isNavigationBarHidden ? Color.background : Color.navigationBarBackground
         if #available(iOS 13.0, *) {
-            return Color.navigationBarBackground.resolvedColor(with: traitCollection).isLight ? .darkContent : .lightContent
+            return baseColor.resolvedColor(with: traitCollection).isLight ? .darkContent : .lightContent
         } else {
-            return Color.navigationBarBackground.isLight ? .default : .lightContent
+            return baseColor.isLight ? .default : .lightContent
         }
     }
 

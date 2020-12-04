@@ -6,8 +6,18 @@ final class GradientView: UIView {
     override class var layerClass: AnyClass { CAGradientLayer.self }
 
     var colors: [UIColor] {
-        get { (gradientLayer.colors as? [CGColor] ?? []).map(UIColor.init(cgColor:)) }
-        set { gradientLayer.colors = newValue.map { $0.cgColor } }
+        didSet { gradientLayer.colors = colors.map { $0.cgColor } }
+    }
+
+    init(colors: [UIColor]) {
+        self.colors = colors
+        super.init(frame: .zero)
+        gradientLayer.colors = colors.map { $0.cgColor }
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     var startPoint: CGPoint {

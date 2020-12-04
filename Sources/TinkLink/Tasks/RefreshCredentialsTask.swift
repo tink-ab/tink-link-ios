@@ -83,7 +83,6 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         credentialsStatusPollingTask?.stopPolling()
         if let canceller = callCanceller {
             canceller.cancel()
-            callCanceller = nil
         } else {
             complete(with: .failure(Error(code: .cancelled, message: nil)))
         }
