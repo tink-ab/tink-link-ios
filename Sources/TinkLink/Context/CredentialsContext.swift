@@ -95,13 +95,14 @@ public final class CredentialsContext {
         cancellables[id] = task
 
         if let newlyAddedCredentials = newlyAddedCredentials[providerName] {
-            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: appURI, callbackURI: nil, fields: fields) { result in
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: appURI, callbackURI: nil, fields: fields) { [weak task] result in
                 do {
                     let credentials = try result.get()
-                    task.startObserving(credentials)
+                    task?.startObserving(credentials)
                 } catch {
                     completion(.failure(error.tinkLinkError))
                 }
+                task?.callCanceller = nil
             }
         } else {
             task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: fields, appURI: appURI, callbackURI: nil) { [weak task, weak self] result in
@@ -114,6 +115,7 @@ public final class CredentialsContext {
                 } catch {
                     completion(.failure(error.tinkLinkError))
                 }
+                task?.callCanceller = nil
             }
         }
         return task
