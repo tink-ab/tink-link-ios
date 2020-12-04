@@ -1121,6 +1121,13 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		"TEMP_2408147D-B544-42EA-BA48-23B9BBBB1AA5" /* Translations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Translations;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */

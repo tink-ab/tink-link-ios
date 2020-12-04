@@ -41,7 +41,7 @@ final class CredentialsFormViewController: UIViewController {
     private lazy var navigationTitleView = NavigationTitleImageView(imageURL: provider.image, text: provider.displayName)
     private lazy var helpLabel = ProviderHelpTextView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
-    private lazy var gradientView = GradientView()
+    private lazy var gradientView = GradientView(colors: [Color.background.withAlphaComponent(0.0), Color.background])
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
         button.text = Strings.Generic.continue
@@ -117,7 +117,6 @@ extension CredentialsFormViewController {
         addCredentialFooterView.translatesAutoresizingMaskIntoConstraints = false
         addCredentialFooterView.backgroundColor = Color.background
 
-        gradientView.colors = [Color.background.withAlphaComponent(0.0), Color.background]
         gradientView.translatesAutoresizingMaskIntoConstraints = false
         gradientView.isUserInteractionEnabled = false
 

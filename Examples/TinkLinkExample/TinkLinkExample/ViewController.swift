@@ -29,13 +29,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let color = Appearance.provider.colors
 
-        view.backgroundColor = .white
+        view.backgroundColor = color.background
 
         let label = UILabel()
         label.text = "Aggregation\n SDK sample app"
         label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
-        label.textColor = .black
+        label.textColor = color.label
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,9 +45,9 @@ class ViewController: UIViewController {
         button.addTarget(self, action: #selector(showTinkLink), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         button.setTitle("Start aggregation flow", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(color.buttonLabel, for: .normal)
         button.contentEdgeInsets = .init(top: 0, left: 24, bottom: 0, right: 24)
-        button.backgroundColor = UIColor(red: 66.0 / 255.0, green: 119.0 / 255.0, blue: 131.0 / 255.0, alpha: 1.0)
+        button.backgroundColor = color.accent
         button.layer.cornerRadius = 24
 
         view.addSubview(label)
