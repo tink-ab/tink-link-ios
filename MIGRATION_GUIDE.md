@@ -3,11 +3,6 @@
 ## Tink Link 1.0 
 1.0 is the first stable release of Tink Link. This comes with a few changes to make sure it will work great with the [PFM SDK](https://docs.tink.com/resources/pfm-sdk-ios/overview) and support new features in the future. 
 
-- Configure the `Tink` instance with the `TinkLinkConfiguration`. The parameter previously called `redirectURI`  has been renamed to `appURI`.
-    ```swift
-    let configuration = TinkLinkConfiguration(clientID: "YOUR_CLIENT_ID", appURI: URL(string: "myapp://callback")!)
-    Tink.configure(with: configuration)
-    ```
 - `TinkLinkViewController` has new initializers.
     - If aggregating with a temporary user, pass a `Tink.Configuration` instead of a configured `Tink` instance:
         ```swift
@@ -65,9 +60,12 @@
     })
     ```
 - The associated string in the `updating` status emitted by the different `progressHandlers` have been removed.  
-- Errors related to deleted credentials have been renamed:
-    - The `RefreshCredentialsTask.Error.disabled` has been renamed to `RefreshCredentialsTask.Error.deleted`.
-    - The `InitiateTransferTask.Error.disabledCredentials` has been renamed to `InitiateTransferTask.Error.credentialsDeleted`.
-    - The `AddBeneficiaryTask.Error.disabledCredentials` has been renamed to `AddBeneficiaryTask.Error.credentialsDeleted`.
+- Error types have been combined into one error type per module
+    - The error type that `TinkLinkViewController` completes with if the result is a failure has been renamed to `TinkLinkUIError`.
+    - Known errors emitted by the headless SDK are now of the type `TinkLinkError`. 
+    - For example, the errors related to deleted credentials have been renamed to use the same error:
+        - The `RefreshCredentialsTask.Error.disabled` has been renamed to `TinkLinkError.credentialsDeleted`.
+        - The `InitiateTransferTask.Error.disabledCredentials` has been renamed to `TinkLinkError.credentialsDeleted`.
+        - The `AddBeneficiaryTask.Error.disabledCredentials` has been renamed to `TinkLinkError.credentialsDeleted`.
 
-For more details on what changed in 1.0, read the [changelog](https://github.com/tink-ab/tink-link-ios/releases/tag/1.0.0).
+For more details on what changed in 1.0, read the [changelog](https://github.com/tink-ab/tink-link-ios/releases/tag/1.0.0-rc.1).
