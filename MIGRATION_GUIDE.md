@@ -3,11 +3,6 @@
 ## Tink Link 1.0 
 1.0 is the first stable release of Tink Link. This comes with a few changes to make sure it will work great with the [PFM SDK](https://docs.tink.com/resources/pfm-sdk-ios/overview) and support new features in the future. 
 
-- Configure the `Tink` instance with the `TinkLinkConfiguration`. The parameter previously called `redirectURI`  has been renamed to `appURI`.
-    ```swift
-    let configuration = TinkLinkConfiguration(clientID: "YOUR_CLIENT_ID", appURI: URL(string: "myapp://callback")!)
-    Tink.configure(with: configuration)
-    ```
 - `TinkLinkViewController` has new initializers.
     - If aggregating with a temporary user, pass a `Tink.Configuration` instead of a configured `Tink` instance:
         ```swift
