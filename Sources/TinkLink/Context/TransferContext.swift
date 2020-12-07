@@ -10,11 +10,13 @@ public final class TransferContext {
     private let credentialsService: CredentialsService
     private let providerService: ProviderService
 
+    private var cancellables: [String: Cancellable] = [:]
+
     // MARK: - Creating a Context
 
     /// Creates a context to use for initiating transfers.
     ///
-    /// - Parameter tink: Tink instance. Will use the shared instance if nothing is provided.
+    /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public convenience init(tink: Tink = .shared) {
         let transferService = tink.services.transferService
         let beneficiaryService = tink.services.beneficiaryService
@@ -32,102 +34,12 @@ public final class TransferContext {
         self.providerService = providerService
     }
 
-    // MARK: - Initiate Transfer
-
     /// Initiate a transfer for the user.
     ///
     /// Required scopes:
     ///   - transfer:execute
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
-    /// If needed, you can get the progress status change in `progress`, and present them accordingly.
-    ///
-    /// ```swift
-    /// initiateTransferTask = transferContext.initiateTransfer(
-    ///     fromAccountWithURI: sourceAccountURI,
-    ///     toBeneficiaryWithURI: transferBeneficiaryURI,
-    ///     amount: CurrencyDenominatedAmount(value: amount, currencyCode: balance.currencyCode),
-    ///     message: .init(destination: message),
-    ///     authentication: { task in
-    ///         switch task {
-    ///         case .awaitingSupplementalInformation(let task):
-    ///             <#Present form for supplemental information task#>
-    ///         case .awaitingThirdPartyAppAuthentication(let task):
-    ///             <#Handle the third party app deep link URL#>
-    ///          }
-    ///     },
-    ///     progress: { status in
-    ///         <#Present the progress status change if needed#>
-    ///     },
-    ///     completion: { result in
-    ///         <#Handle result#>
-    ///     }
-    /// )
-    /// ```
-    ///
-    /// - Note: You need to retain the returned task until the transfer has completed.
-    ///
-    /// - Parameters:
-    ///   - fromAccountWithURI: The URI for the source account of the transfer.
-    ///   - toBeneficiaryWithURI: The URI of the beneficiary the transfer is sent to.
-    ///   - amount: The amount that should be transferred. Its `CurrencyCode` should be the same as the source account's currency.
-    ///   - message: The message used for the transfer.
-    ///   - authentication: Indicates the authentication task for initiating a transfer.
-    ///   - task: Represents an authentication task that needs to be completed by the user.
-    ///   - progress: Optional, indicates the state changes of initiating a transfer.
-    ///   - status: Indicates the status of the transfer initiation.
-    ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
-    ///   - result: A result representing either a transfer initiation receipt or an error.
-    /// - Returns: The initiate transfer task.
-    @available(*, deprecated, message: "Use the initiateTransfer(from:to:amount:message:authentication:progress:completion) method with a `BeneficiaryAccount` instead.")
-    public func initiateTransfer(
-        fromAccountWithURI: Account.URI,
-        toBeneficiaryWithURI: Beneficiary.URI,
-        amount: CurrencyDenominatedAmount,
-        message: InitiateTransferTask.Message,
-        authentication: @escaping (_ task: AuthenticationTask) -> Void,
-        progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
-        completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
-    ) -> InitiateTransferTask {
-        let task = InitiateTransferTask(
-            transferService: transferService,
-            credentialsService: credentialsService,
-            appUri: appURI,
-            progressHandler: progress,
-            authenticationHandler: authentication,
-            completionHandler: completion
-        )
-
-        task.pollingStrategy = pollingStrategy
-
-        task.canceller = transferService.transfer(
-            amount: amount.value,
-            currency: amount.currencyCode,
-            credentialsID: nil,
-            transferID: nil,
-            sourceURI: fromAccountWithURI.value,
-            destinationURI: toBeneficiaryWithURI.value,
-            sourceMessage: message.source,
-            destinationMessage: message.destination,
-            dueDate: nil,
-            redirectURI: appURI
-        ) { [weak task] result in
-            do {
-                let signableOperation = try result.get()
-                task?.startObserving(signableOperation)
-            } catch {
-                completion(.failure(error))
-            }
-        }
-        return task
-    }
-
-    /// Initiate a transfer for the user.
-    ///
-    /// Required scopes:
-    ///   - transfer:execute
-    ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate a transfer.
+    /// You need to handle authentication changes in `authentication` to successfully initiate a transfer.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
@@ -153,8 +65,6 @@ public final class TransferContext {
     /// )
     /// ```
     ///
-    /// - Note: You need to retain the returned task until the transfer has completed.
-    ///
     /// - Parameters:
     ///   - from: The source account of this transfer.
     ///   - to: The beneficiary of this transfer.
@@ -164,28 +74,37 @@ public final class TransferContext {
     ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of initiating a transfer.
     ///   - status: Indicates the status of the transfer initiation.
-    ///   - completion: The block to execute when the transfer has been initiated successfuly or if it failed.
+    ///   - completion: The block to execute when the transfer has been initiated successfully or if it failed.
     ///   - result: A result representing either a transfer initiation receipt or an error.
     /// - Returns: The initiate transfer task.
+    @discardableResult
     public func initiateTransfer(
         from account: TransferAccountIdentifiable,
         to beneficiary: TransferAccountIdentifiable,
         amount: CurrencyDenominatedAmount,
         message: InitiateTransferTask.Message,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: InitiateTransferTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<InitiateTransferTask.Receipt, Error>) -> Void
     ) -> InitiateTransferTask {
+        let id = UUID().uuidString
+
         let task = InitiateTransferTask(
             transferService: transferService,
             credentialsService: credentialsService,
             appUri: appURI,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progress,
             authenticationHandler: authentication,
-            completionHandler: completion
+            completionHandler: { [weak self] result in
+                completion(result.mapError(\.tinkLinkError))
+                self?.cancellables[id] = nil
+            }
         )
 
         task.pollingStrategy = pollingStrategy
+        cancellables[id] = task
 
         task.canceller = transferService.transfer(
             amount: amount.value,
@@ -203,7 +122,7 @@ public final class TransferContext {
                 let signableOperation = try result.get()
                 task?.startObserving(signableOperation)
             } catch {
-                completion(.failure(error))
+                completion(.failure(error.tinkLinkError))
             }
         }
         return task
@@ -236,7 +155,7 @@ public final class TransferContext {
                 let filteredBeneficiaries = beneficiaries.filter { $0.ownerAccountID == account.id }
                 completion(.success(filteredBeneficiaries))
             } catch {
-                completion(.failure(error))
+                completion(.failure(error.tinkLinkError))
             }
         }
     }
@@ -266,7 +185,7 @@ public final class TransferContext {
     /// Required scopes:
     /// - beneficiaries:write
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate an add beneficiary request.
+    /// You need to handle authentication changes in `authentication` to successfully initiate an add beneficiary request.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
@@ -291,29 +210,31 @@ public final class TransferContext {
     /// )
     /// ```
     ///
-    /// - Note: You need to retain the returned task until the add beneficiary request has completed.
-    ///
     /// - Parameters:
-    ///   - account: The account for this beneficiary.
+    ///   - beneficiaryAccount: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
-    ///   - to: The account that the beneficiary should be added to.
+    ///   - ownerAccount: The account that the beneficiary should be added to.
     ///   - credentials: Optional, the `Credentials` used to add the beneficiary. Note that you can use different credentials than the account belongs to. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations. If `nil` the beneficiary will be added to the credentials of the account.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
     ///   - status: Indicates the status of the beneficiary being added.
-    ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
+    ///   - completion: The block to execute when the adding beneficiary has been initiated successfully or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
+    @discardableResult
     public func addBeneficiary(
         account beneficiaryAccount: BeneficiaryAccount,
         name: String,
         to ownerAccount: Account,
         credentials: Credentials? = nil,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
+        let id = UUID().uuidString
+
         let task = AddBeneficiaryTask(
             beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
@@ -323,12 +244,17 @@ public final class TransferContext {
             name: name,
             accountNumberType: beneficiaryAccount.accountNumberKind.value,
             accountNumber: beneficiaryAccount.accountNumber,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progress,
             authenticationHandler: authentication,
-            completionHandler: completion
+            completionHandler: { [weak self] result in
+                completion(result.mapError(\.tinkLinkError))
+                self?.cancellables[id] = nil
+            }
         )
 
         task.pollingStrategy = pollingStrategy
+        cancellables[id] = task
 
         task.start()
 
@@ -340,7 +266,7 @@ public final class TransferContext {
     /// Required scopes:
     /// - beneficiaries:write
     ///
-    /// You need to handle authentication changes in `authentication` to successfuly initiate an add beneficiary request.
+    /// You need to handle authentication changes in `authentication` to successfully initiate an add beneficiary request.
     /// If needed, you can get the progress status change in `progress`, and present them accordingly.
     ///
     /// ```swift
@@ -366,29 +292,31 @@ public final class TransferContext {
     /// )
     /// ```
     ///
-    /// - Note: You need to retain the returned task until the add beneficiary request has completed.
-    ///
     /// - Parameters:
     ///   - account: The account for this beneficiary.
     ///   - name: The name for this beneficiary.
-    ///   - toAccountWithID: The source account ID for adding a beneficiary.
-    ///   - onCredentialsWithID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations.
+    ///   - ownerAccountID: The source account ID for adding a beneficiary.
+    ///   - credentialsID: The ID of the `Credentials` used to add the beneficiary. Note that you can send in a different ID here than the credentials ID to which the account belongs. This functionality exists to support the case where you may have two credentials for one financial institution, due to PSD2 regulations.
     ///   - authentication: Indicates the authentication task for adding a beneficiary.
     ///   - task: Represents an authentication task that needs to be completed by the user.
     ///   - progress: Optional, indicates the state changes of adding a beneficiary.
     ///   - status: Indicates the status of the beneficiary being added.
-    ///   - completion: The block to execute when the adding beneficiary has been initiated successfuly or if it failed.
+    ///   - completion: The block to execute when the adding beneficiary has been initiated successfully or if it failed.
     ///   - result: A result representing either an adding beneficiary initiation success or an error.
     /// - Returns: The initiate transfer task.
+    @discardableResult
     public func addBeneficiary(
         account beneficiaryAccount: BeneficiaryAccount,
         name: String,
         toAccountWithID ownerAccountID: Account.ID,
         onCredentialsWithID credentialsID: Credentials.ID,
+        shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool = true,
         authentication: @escaping (_ task: AuthenticationTask) -> Void,
         progress: @escaping (_ status: AddBeneficiaryTask.Status) -> Void = { _ in },
         completion: @escaping (_ result: Result<Void, Error>) -> Void
     ) -> AddBeneficiaryTask {
+        let id = UUID().uuidString
+
         let task = AddBeneficiaryTask(
             beneficiaryService: beneficiaryService,
             credentialsService: credentialsService,
@@ -398,12 +326,17 @@ public final class TransferContext {
             name: name,
             accountNumberType: beneficiaryAccount.accountNumberKind.value,
             accountNumber: beneficiaryAccount.accountNumber,
+            shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
             progressHandler: progress,
             authenticationHandler: authentication,
-            completionHandler: completion
+            completionHandler: { [weak self] result in
+                completion(result.mapError(\.tinkLinkError))
+                self?.cancellables[id] = nil
+            }
         )
 
         task.pollingStrategy = pollingStrategy
+        cancellables[id] = task
 
         task.start()
 
@@ -419,7 +352,7 @@ public final class TransferContext {
     ///
     /// This functionality exists to support the case when a user has two credentials for one financial institution due to PSD2 regulations.
     /// - Parameters:
-    ///   - to: The account that the beneficiary should be added to.
+    ///   - account: The account that the beneficiary should be added to.
     ///   - completion: A closure that's called with the result containing either the credentials or an error. Contains an empty array if no credentials are suitable for adding a beneficiary with.
     /// - Returns: A cancellation handle.
     @discardableResult
@@ -437,17 +370,17 @@ public final class TransferContext {
             do {
                 credentialsList = try result.get()
             } catch {
-                errors.append(error)
+                errors.append(error.tinkLinkError)
             }
             group.leave()
         }?.store(in: canceller)
 
         group.enter()
-        providerService.providers(id: nil, capabilities: .createBeneficiaries, includeTestProviders: true, excludeNonTestProviders: false) { result in
+        providerService.providers(name: nil, capabilities: .createBeneficiaries, includeTestProviders: true, excludeNonTestProviders: false) { result in
             do {
                 providers = try result.get()
             } catch {
-                errors.append(error)
+                errors.append(error.tinkLinkError)
             }
             group.leave()
         }?.store(in: canceller)
@@ -457,8 +390,8 @@ public final class TransferContext {
                 completion(.failure(error))
             } else {
                 let filteredProviders = providers.filter { $0.financialInstitution.id == account.financialInstitutionID && $0.capabilities.contains(.createBeneficiaries) }
-                let credentialsByProviderID = Dictionary(grouping: credentialsList, by: \.providerID)
-                let capableCredentialsList = filteredProviders.flatMap { credentialsByProviderID[$0.id] ?? [] }
+                let credentialsByProviderName = Dictionary(grouping: credentialsList, by: \.providerName)
+                let capableCredentialsList = filteredProviders.flatMap { credentialsByProviderName[$0.name] ?? [] }
                 completion(.success(capableCredentialsList))
             }
         }

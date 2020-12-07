@@ -162,15 +162,10 @@ class TransferContextTests: XCTestCase {
             do {
                 _ = try result.get()
                 XCTFail("Initiate transfer should be cancelled")
+            } catch TinkLinkError.cancelled {
+                initiateTransferCancelledCalled.fulfill()
             } catch {
-                if let initiateTransferTaskError = error as? InitiateTransferTask.Error {
-                    switch initiateTransferTaskError {
-                    case .cancelled:
-                        initiateTransferCancelledCalled.fulfill()
-                    default:
-                        XCTFail("Failed to initiate transfer with: \(error)")
-                    }
-                }
+                XCTFail("Failed to initiate transfer with: \(error)")
             }
         }
 
@@ -209,15 +204,10 @@ class TransferContextTests: XCTestCase {
             do {
                 _ = try result.get()
                 XCTFail("Initiate transfer should be failed")
+            } catch TinkLinkError.credentialsAuthenticationFailed {
+                initiateTransferUnauthenticatedError.fulfill()
             } catch {
-                if let initiateTransferTaskError = error as? InitiateTransferTask.Error {
-                    switch initiateTransferTaskError {
-                    case .authenticationFailed:
-                        initiateTransferUnauthenticatedError.fulfill()
-                    default:
-                        XCTFail("Failed to initiate transfer with: \(error)")
-                    }
-                }
+                XCTFail("Failed to initiate transfer with: \(error)")
             }
         }
 

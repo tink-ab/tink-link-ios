@@ -31,9 +31,29 @@ public final class SupplementInformationTask: Identifiable {
     private var callRetryCancellable: RetryCancellable?
 
     /// Error that the `SupplementInformationTask` can throw.
-    public enum Error: Swift.Error {
+    public struct Error: Swift.Error, CustomStringConvertible {
+        public struct Code: Hashable {
+            enum Value {
+                case cancelled
+            }
+
+            var value: Value
+
+            public static let cancelled = Self(value: .cancelled)
+
+            public static func ~= (lhs: Self, rhs: Swift.Error) -> Bool {
+                lhs == (rhs as? SupplementInformationTask.Error)?.code
+            }
+        }
+
+        public var code: Code
+
+        public var description: String {
+            return "SupplementInformationTask.Error.\(code.value)"
+        }
+
         /// The task was cancelled.
-        case cancelled
+        public static let cancelled: Code = .cancelled
     }
 
     // MARK: Getting the Credentials
@@ -70,7 +90,7 @@ public final class SupplementInformationTask: Identifiable {
         callRetryCancellable = credentialsService.cancelSupplementalInformation(id: credentials.id, completion: { [weak self] result in
             switch result {
             case .success:
-                self?.completionHandler(.failure(Error.cancelled))
+                self?.completionHandler(.failure(Error(code: .cancelled)))
             case .failure(let error):
                 self?.completionHandler(.failure(error))
             }

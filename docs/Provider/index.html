@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#nested type aliases">Nested Type Aliases</a><ul><li class="typealias"><a href="#provider.id">ID</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#provider.id">id</a></li><li class="variable"><a href="#provider.displayname">display​Name</a></li><li class="variable"><a href="#provider.authenticationusertype">authentication​User​Type</a></li><li class="variable"><a href="#provider.kind">kind</a></li><li class="variable"><a href="#provider.status">status</a></li><li class="variable"><a href="#provider.credentialskind">credentials​Kind</a></li><li class="variable"><a href="#provider.helptext">help​Text</a></li><li class="variable"><a href="#provider.ispopular">is​Popular</a></li><li class="variable"><a href="#provider.fields">fields</a></li><li class="variable"><a href="#provider.groupdisplayname">group​Display​Name</a></li><li class="variable"><a href="#provider.image">image</a></li><li class="variable"><a href="#provider.displaydescription">display​Description</a></li><li class="variable"><a href="#provider.capabilities">capabilities</a></li><li class="variable"><a href="#provider.accesstype">access​Type</a></li><li class="variable"><a href="#provider.marketcode">market​Code</a></li><li class="variable"><a href="#provider.financialinstitution">financial​Institution</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#nested type aliases">Nested Type Aliases</a><ul><li class="typealias"><a href="#provider.fieldspecification">Field​Specification</a></li><li class="typealias"><a href="#provider.name">Name</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#provider.id">id</a></li><li class="variable"><a href="#provider.name">name</a></li><li class="variable"><a href="#provider.displayname">display​Name</a></li><li class="variable"><a href="#provider.authenticationusertype">authentication​User​Type</a></li><li class="variable"><a href="#provider.kind">kind</a></li><li class="variable"><a href="#provider.status">status</a></li><li class="variable"><a href="#provider.credentialskind">credentials​Kind</a></li><li class="variable"><a href="#provider.helptext">help​Text</a></li><li class="variable"><a href="#provider.ispopular">is​Popular</a></li><li class="variable"><a href="#provider.fields">fields</a></li><li class="variable"><a href="#provider.groupdisplayname">group​Display​Name</a></li><li class="variable"><a href="#provider.image">image</a></li><li class="variable"><a href="#provider.displaydescription">display​Description</a></li><li class="variable"><a href="#provider.capabilities">capabilities</a></li><li class="variable"><a href="#provider.accesstype">access​Type</a></li><li class="variable"><a href="#provider.marketcode">market​Code</a></li><li class="variable"><a href="#provider.financialinstitution">financial​Institution</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -39,7 +39,7 @@
 
 <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">Provider</span>: <span class="type">Identifiable</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses the financial institution, metadata about the financialinstitution, and what financial information that can be accessed.</p>
+    <p>The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses the financial institution, metadata about the financial institution, and what financial information that can be accessed.</p>
 
 </div>
 <section id="relationships">
@@ -88,15 +88,17 @@
 <dd><p>The FinancialInstitution model represents a financial institution.</p>
 </dd>
 <dt class="enumeration"><code><a href="https://tink-ab.github.io/tink-link-ios/Provider_AuthenticationUserType">Provider.AuthenticationUserType</a></code></dt>
-<dd></dd>
+<dd><p>Indicates if a user authenticates towards the provider as a person or business.</p>
+</dd>
 <dt class="enumeration"><code><a href="https://tink-ab.github.io/tink-link-ios/Provider_Kind">Provider.Kind</a></code></dt>
 <dd><p>Indicates what kind of financial institution the provider represents.</p>
 </dd>
 <dt class="enumeration"><code><a href="https://tink-ab.github.io/tink-link-ios/Provider_Status">Provider.Status</a></code></dt>
 <dd><p>Indicates the current status of a provider.</p>
 </dd>
-<dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/Provider_FieldSpecification">Provider.FieldSpecification</a></code></dt>
-<dd></dd>
+<dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/Provider_Field">Provider.Field</a></code></dt>
+<dd><p>A <code>Field</code> is a representation of a specific user input field that the user will need to fill out.</p>
+</dd>
 <dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/Provider_Capabilities">Provider.Capabilities</a></code></dt>
 <dd><p>Indicates what a provider is capable of.</p>
 </dd>
@@ -112,11 +114,17 @@
     <section id="nested type aliases">
         <h2>Nested Type Aliases</h2>
 
-        <div role="article" class="typealias" id="provider.id">
+        <div role="article" class="typealias" id="provider.fieldspecification">
     <h3>
-        <code>ID</code>
+        <code>Field​Specification</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">typealias</span> <span class="variable">ID</span> = <a href="https://tink-ab.github.io/tink-link-ios/Identifier"><span class="type">Identifier</span></a>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>&gt;</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">renamed</span>: <span class="string literal">"Field"</span>) <span class="keyword">public</span> <span class="keyword">typealias</span> <span class="variable">FieldSpecification</span> = <span class="type">Field</span></code></pre></body></html>
+</div>
+<div role="article" class="typealias" id="provider.name">
+    <h3>
+        <code>Name</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">typealias</span> <span class="variable">Name</span> = <a href="https://tink-ab.github.io/tink-link-ios/Identifier"><span class="type">Identifier</span></a>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>&gt;</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>A unique identifier of a <code>Provider</code>.</p>
 
@@ -130,7 +138,23 @@
     <h3>
         <code>id</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">id</span>: <span class="type">ID</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">id</span>: <span class="type">Name</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The unique identifier of the provider.</p>
+
+</div>
+<div class="discussion">
+    <aside class="note">
+    <p>This is used when creating new credentials.</p>
+
+</aside>
+</div>
+</div>
+<div role="article" class="variable" id="provider.name">
+    <h3>
+        <code>name</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">name</span>: <span class="type">Name</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>The unique identifier of the provider.</p>
 
@@ -222,7 +246,7 @@
     <h3>
         <code>fields</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">fields</span>: [<span class="type">FieldSpecification</span>]</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">fields</span>: [<span class="type">Field</span>]</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>List of fields which need to be provided when creating a credential connected to the provider.</p>
 
@@ -234,7 +258,8 @@
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">groupDisplayName</span>: <span class="type">String</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>A display name for providers which are branches of a bigger group.</p>
+    <p>The name of the group that several providers of the same bank can be placed in. Usually when a
+bank has branches and subsidiaries they are grouped under a single name.</p>
 
 </div>
 </div>
@@ -300,7 +325,7 @@
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">financialInstitution</span>: <span class="type">FinancialInstitution</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>The financial institution.</p>
+    <p>The financial institution this provider belongs to.</p>
 
 </div>
 </div>
@@ -313,7 +338,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2020-12-03T14:12:17+0100">3 December 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2020-12-04T11:26:39+0100">4 December 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

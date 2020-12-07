@@ -16,7 +16,7 @@ final class AddCredentialsViewController: UITableViewController {
 
     private var credentials: Credentials?
 
-    private var addCredentialsTask: AddCredentialsTask?
+    private var addCredentialsTask: Cancellable?
     private var statusViewController: StatusViewController?
     private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private var didFirstFieldBecomeFirstResponder = false
@@ -171,6 +171,11 @@ extension AddCredentialsViewController {
                     successPredicate: .updated,
                     shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false
                 ),
+                authenticationHandler: { [weak self] authentication in
+                    DispatchQueue.main.async {
+                        self?.handleAuthentication(authentication)
+                    }
+                },
                 progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
                         self?.handleProgress(status)
@@ -212,6 +217,11 @@ extension AddCredentialsViewController {
             } else {
                 showUpdating(status: "Connecting…")
             }
+        }
+    }
+
+    private func handleAuthentication(_ authentication: AuthenticationTask) {
+        switch authentication {
         case .awaitingSupplementalInformation(let task):
             hideUpdatingView(animated: false) {
                 self.showSupplementalInformation(for: task)

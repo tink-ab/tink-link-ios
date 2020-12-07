@@ -22,7 +22,7 @@ final class KeyboardObserver {
     var willShow: ((KeyboardNotification) -> Void)?
     var willHide: ((KeyboardNotification) -> Void)?
 
-    public init() {
+    init() {
         NotificationCenter.default.addObserver(self, selector: #selector(willShowKeyboard(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willShowKeyboard(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willHideKeyboard(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)

@@ -15,7 +15,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let providerService = MockedSuccessProviderService()
 
         let credentials = Credentials.makeTestCredentials(
-            providerID: "test-provider",
+            providerName: "test-provider",
             kind: .password,
             status: .updated
         )
@@ -57,7 +57,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                     credentialsService.modifyCredentials(id: credentials.id, status: .updating)
                 case .updating:
                     statusChangedToAuthenticating.fulfill()
-                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
+                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation([]))
                 }
             },
             completion: { result in
@@ -83,7 +83,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let providerService = MockedSuccessProviderService()
 
         let credentials = Credentials.makeTestCredentials(
-            providerID: "test-provider",
+            providerName: "test-provider",
             kind: .password,
             status: .updated
         )
@@ -126,15 +126,15 @@ class AddBeneficiaryTaskTests: XCTestCase {
                     credentialsService.modifyCredentials(id: credentials.id, status: .updating)
                 case .updating:
                     statusChangedToAuthenticating.fulfill()
-                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
+                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation([]))
                 }
             },
             completion: { result in
                 do {
                     _ = try result.get()
                     XCTFail("Expected task to fail.")
-                } catch AddBeneficiaryTask.Error.authenticationFailed(let message) {
-                    XCTAssertEqual(message, "")
+                } catch let error as TinkLinkError where error.code == .credentialsAuthenticationFailed {
+                    XCTAssertEqual(error.message, "")
                 } catch {
                     XCTFail("Failed to add beneficiary with: \(error)")
                 }
@@ -155,7 +155,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let providerService = MockedSuccessProviderService()
 
         let credentials = Credentials.makeTestCredentials(
-            providerID: "test-provider",
+            providerName: "test-provider",
             kind: .password,
             status: .updated
         )
@@ -215,13 +215,13 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let providerService = MockedSuccessProviderService()
 
         let credentialsWithoutCapability = Credentials.makeTestCredentials(
-            providerID: "test-provider-a",
+            providerName: "test-provider-a",
             kind: .password,
             status: .updated
         )
 
         let credentialsWithCapability = Credentials.makeTestCredentials(
-            providerID: "test-provider-b",
+            providerName: "test-provider-b",
             kind: .password,
             status: .updated
         )
@@ -283,7 +283,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
         let providerService = MockedSuccessProviderService()
 
         let credentials = Credentials.makeTestCredentials(
-            providerID: "test-provider",
+            providerName: "test-provider",
             kind: .password,
             status: .updated
         )
@@ -311,7 +311,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 switch task {
                 case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
                     thirdPartyAppAuthenticationTask.handle(with: MockedSuccessOpeningApplication()) { result in
-                        credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation, supplementalInformationFields: [])
+                        credentialsService.modifyCredentials(id: credentials.id, status: .awaitingSupplementalInformation([]))
                         statusChangedToAwaitingThirdPartyAppAuthentication.fulfill()
                     }
                 case .awaitingSupplementalInformation(let supplementInformationTask):
@@ -328,7 +328,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 case .authenticating:
                     statusChangedToAuthenticating.fulfill()
                     let thirdPartyAppAuthentication = Credentials.ThirdPartyAppAuthentication.makeThirdPartyAppAuthentication(deepLinkURL: URL(string: "app://test"))
-                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingThirdPartyAppAuthentication, thirdPartyAppAuthentication: thirdPartyAppAuthentication)
+                    credentialsService.modifyCredentials(id: credentials.id, status: .awaitingThirdPartyAppAuthentication(thirdPartyAppAuthentication))
                 case .updating:
                     break
                 }
@@ -352,7 +352,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
     func testAddingBeneficiaryUnauthenticated() {
         let credentials = Credentials.makeTestCredentials(
-            providerID: "test-provider",
+            providerName: "test-provider",
             kind: .password,
             status: .updated
         )
@@ -384,7 +384,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 do {
                     _ = try result.get()
                     XCTFail("Expected failure.")
-                } catch ServiceError.unauthenticated {
+                } catch TinkLinkError.notAuthenticated {
                     XCTAssertTrue(true)
                 } catch {
                     XCTFail("Failed to add beneficiary with: \(error)")
@@ -402,7 +402,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
 
     func testAddingBeneficiaryInvalidBeneficiaryError() {
         let credentials = Credentials.makeTestCredentials(
-            providerID: "test-provider",
+            providerName: "test-provider",
             kind: .password,
             status: .updated
         )
@@ -434,7 +434,7 @@ class AddBeneficiaryTaskTests: XCTestCase {
                 do {
                     _ = try result.get()
                     XCTFail("Expected failure.")
-                } catch AddBeneficiaryTask.Error.invalidBeneficiary {
+                } catch AddBeneficiaryTask.Error.invalidArguments {
                     XCTAssertTrue(true)
                 } catch {
                     XCTFail("Failed to add beneficiary with: \(error)")

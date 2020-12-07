@@ -24,6 +24,7 @@
 		1579D6D553CC71CD0CE53687 /* TinkNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BBEB7D7B5577D6805F9FF /* TinkNavigationController.swift */; };
 		1647DECF7AD1AB35C4C4D810 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; };
 		168D375B1C204B04F66E4471 /* AddCredentialsStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98C777DDEAE4EACE880C413 /* AddCredentialsStatusViewController.swift */; };
+		180AEF7BD317858DB686EF85 /* ProviderContext+Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60016D18E0F2477E28390D88 /* ProviderContext+Deprecations.swift */; };
 		193935507B93B053F6B8AE99 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91719FA2AD2BD7D36D7E1D46 /* TinkCore.framework */; };
 		1DE567E8E9B649BFE155AFBC /* TinkLinkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3532584CB0DB179EA152708D /* TinkLinkUITests.swift */; };
 		1E227F510CC0B5E09AE51CDF /* CredentialsKindPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EFF1CEAFF89E124C00BEBA /* CredentialsKindPickerViewController.swift */; };
@@ -46,6 +47,7 @@
 		35A6C9EAB5ACAF4A3DCF7FCF /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA11E22021C054B6A460745 /* Form.swift */; };
 		384F643F64CBCFDD4621670A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9F06E6ADF1856BB277DEA4 /* UIColor+Extensions.swift */; };
 		38BC76B65D0645A7EEB358A6 /* ServiceError+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589F4F78882D352FB35C32F8 /* ServiceError+mock.swift */; };
+		38F271B3206F0088D86812AE /* TinkLinkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88D7457AE1F571FF91DA658 /* TinkLinkError.swift */; };
 		3AFD8B85462CF9A28F6C7A96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4484B20A2B14B505959F4959 /* ViewController.swift */; };
 		3BB0E3D070BB3A1847F7F3E5 /* MultiCancellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B424C1BB25100774A01CFD /* MultiCancellerTests.swift */; };
 		3C58642F55F30F34C74F8509 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5CB95E66105BFE0E2C9DE /* UITextView+Extensions.swift */; };
@@ -67,7 +69,6 @@
 		43EFD24A09350BD0AF768040 /* URLComponents+FragmentParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69B1B73059130DA3261EB4C /* URLComponents+FragmentParameters.swift */; };
 		4452D898CA335AEA09C565B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4275CE80BE4133678659AE /* AppDelegate.swift */; };
 		447904520EE633869A5BB3B1 /* FontProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3152CC8B21973565DF082 /* FontProvider.swift */; };
-		44F087FF5149ED911A6ADCFC /* TinkLinkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBE20B969F478CB9A3ADA68 /* TinkLinkError.swift */; };
 		45D631C6C7EE6577F101D9BA /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */; };
 		465D1C94DC9E6488F1F60457 /* LinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328A437D96F2718ECDD73B7 /* LinkTests.swift */; };
 		49273CB6A5A24128CFDDAE6F /* RefreshCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */; };
@@ -75,7 +76,6 @@
 		4D3F9A9EEC04DB6C4941DF22 /* FormFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B335114198B7CC247DB3603C /* FormFieldTableViewCell.swift */; };
 		4D753D295DFD9CDA5B037048 /* AddCredentialsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777325BD0B5792A8588001C /* AddCredentialsFooterView.swift */; };
 		4DE53DEF840C40D14088A8EF /* BeneficiaryService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1D1D111D7765CAF139E92F /* BeneficiaryService+mock.swift */; };
-		4EFC9DA6CA689FFDB5C0B3E2 /* Beneficiary+URI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE35289B9BE207D97F23B86 /* Beneficiary+URI.swift */; };
 		4F1F727443675BF5040B450B /* DefaultableCodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65ACD80BFCB3C993AB78F6 /* DefaultableCodable+Extension.swift */; };
 		506B7EEE7C2FA50A8892955E /* Bundle+TinkLinkUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64D781133391AA97C329E95 /* Bundle+TinkLinkUI.swift */; };
 		51231866DCBA2D4A02DFC996 /* AuthenticationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7958B318F3E3979B51A88445 /* AuthenticationTask.swift */; };
@@ -90,7 +90,9 @@
 		57EA80136BB1569B0F9742C0 /* TransferService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BDDC8A8556C18724B94F85 /* TransferService+mock.swift */; };
 		58C502FDD91AE802E1E73D5E /* CredentialsSuccessfullyAddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3F282295CB3F9446C9580 /* CredentialsSuccessfullyAddedViewController.swift */; };
 		58E7DA221089266F13034456 /* URLResourceOpening+UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F86F7DC52E6883821FA63A /* URLResourceOpening+UIApplication+Extension.swift */; };
+		59BBF9336C5B61BDF327A0ED /* Tink+RegisteredConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BA5BDB59ACB2B8068A9F42 /* Tink+RegisteredConfigurations.swift */; };
 		5A91C57BCF874CC84CD07935 /* AuthorizationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83418CEDB020E19423564E /* AuthorizationContext.swift */; };
+		5ABAFDFFFAF5E678BDB54262 /* CredentialsContext+Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6980BB60248296189705F9CC /* CredentialsContext+Deprecations.swift */; };
 		5B753C6E4038AB4F597040C2 /* AuthorizationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83418CEDB020E19423564E /* AuthorizationContext.swift */; };
 		5C05F4884683F80D901C30E5 /* UIFont+Bold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A8120C0E3863E00CD7B4E3 /* UIFont+Bold.swift */; };
 		5C2231E6EA53AFC256E09E88 /* Translations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3AA13F28159A3F4D6E9DB76C /* Translations.bundle */; };
@@ -109,6 +111,7 @@
 		65CD854D310128E5E540942E /* InteractionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2E0DE29DE4BBE606CE003 /* InteractionEvent.swift */; };
 		6829A11CEEEC398E7A3425B5 /* ConsentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FECFCD8AB8B77F497B3735 /* ConsentContext.swift */; };
 		69D8E6CFBA5838AE0972C407 /* ProviderService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE87D565B53F32B26FAF711E /* ProviderService+mock.swift */; };
+		6AA5625A1FCEA20461C0F6BF /* ProviderContext+Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60016D18E0F2477E28390D88 /* ProviderContext+Deprecations.swift */; };
 		71F330533B07851FA1BFB98E /* TinkCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91719FA2AD2BD7D36D7E1D46 /* TinkCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		72414246A2E3BB76CAB5A161 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7301A7AF1553F901C72BE367 /* ProviderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7D63EB1C5FDD6E6C5A1C22 /* ProviderContext.swift */; };
@@ -121,7 +124,6 @@
 		7CC5635E3486F18EB232B05C /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6B42E6653A257E4959061A /* UIImage+Extensions.swift */; };
 		7CF0B8528E66BCD9B9B3B605 /* AccessTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465BE20FB5B8ADCEFDA32EA2 /* AccessTypePickerViewController.swift */; };
 		7E3FB2E738D0B3FBCBDB76A8 /* FloatingPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA1971343E6F408F10CAB9 /* FloatingPlaceholderTextField.swift */; };
-		7E8453A5C458A227930EF4B2 /* Beneficiary+URI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE35289B9BE207D97F23B86 /* Beneficiary+URI.swift */; };
 		7F6DDB6CADBFF25459C69F2B /* TinkLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8399BE1FDFA2C503CC04C71 /* TinkLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		801735702F9545A4A2D74CE2 /* ScopeDescriptionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA63C7E13073E993B0B251C /* ScopeDescriptionListViewController.swift */; };
 		82467352B8DD185235FE10CA /* FormTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987825A510E085C113C6ABAA /* FormTableViewController.swift */; };
@@ -129,10 +131,9 @@
 		842FE542DF3C5602FD0B01CC /* ProviderService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE87D565B53F32B26FAF711E /* ProviderService+mock.swift */; };
 		84854067B363060943CD95C8 /* AddBeneficiaryTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B8E31EACFCC2E60983C80 /* AddBeneficiaryTaskTests.swift */; };
 		86CECA32DD9C76A06C2274AC /* ScreenEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEDB1856BA26DDCC9375D1E /* ScreenEvent.swift */; };
+		86D6ED7FF01BD7338ED2C7BB /* Error+TinkLinkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAB660198B485EB343EAD61 /* Error+TinkLinkError.swift */; };
 		8712D54793CD8F0AC1628D6B /* FontProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CFEA1FD0CAE46A2F187F4 /* FontProviding.swift */; };
 		87C69E4B511051699326FC1C /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B57CB15A10546A4774F022 /* Result+Extensions.swift */; };
-		884E6A55A629CDB9C1FB2EAF /* RefreshableItemsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B764B3C262CFE0555EF6DD /* RefreshableItemsTest.swift */; };
-		8903B0C1B1077BD0C2048D29 /* ServiceError+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815202B64C2DA9A62599CE49 /* ServiceError+Localized.swift */; };
 		8A433BD081F1D6967400EEE2 /* MutableBeneficiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4338220C7C6EA3D93EB739 /* MutableBeneficiaryService.swift */; };
 		8A8E392E4D1650CC31652ACE /* AccessTypePickerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39193A285F4FEAF990B65A73 /* AccessTypePickerHeaderView.swift */; };
 		8AD50237B5EDF3E15E096F74 /* AnyCanceller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4620001B14937015A21BA9 /* AnyCanceller.swift */; };
@@ -158,6 +159,7 @@
 		A24CD4E2E5F6EC7843C3BB9B /* ProviderTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59362C877F1182E863649B58 /* ProviderTreeTests.swift */; };
 		A296E59F9859C1A9374C9DF8 /* Beneficiary+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22062019F3DC4AB0193164EF /* Beneficiary+mock.swift */; };
 		A2CD24451D1500680B3C2B84 /* ColorProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38052B5C233E11D047557DCF /* ColorProviding.swift */; };
+		A2DE2112D3393F52C593947E /* Error+TinkLinkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAB660198B485EB343EAD61 /* Error+TinkLinkError.swift */; };
 		A2ECBEF703767AA4283643FC /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA11E22021C054B6A460745 /* Form.swift */; };
 		A506916ED0511F7EDC279586 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38934531B880EE4AFE67F3F1 /* Strings.swift */; };
 		A555714C9FE6C520431F978A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D86D6981FBD842BB916D5FC8 /* Assets.xcassets */; };
@@ -165,6 +167,7 @@
 		A5AA0A69FE166407DB17A12B /* CredentialsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCE291775E3371ED19EC4D /* CredentialsCoordinator.swift */; };
 		A66E0ACA3375A5EB8762310E /* MutableTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75E9442B66E9D4C7E393301 /* MutableTransferService.swift */; };
 		A78CDF113E0ACAEFF4C01A71 /* TinkLinkSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73756657C8858B4F6E933374 /* TinkLinkSessionManager.swift */; };
+		A7B2640C41654F2193563DD5 /* Tink+RegisteredConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BA5BDB59ACB2B8068A9F42 /* Tink+RegisteredConfigurations.swift */; };
 		A8331E751D9B83352059F885 /* Account+URI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54416F4CB909B50E31DB2540 /* Account+URI.swift */; };
 		A84DA127CD4DF0526943246C /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7AAF27A3706DB47E0E9CC1 /* ReusableCell.swift */; };
 		A8B1EEB2A7F4F1AE440ADE9A /* Credential+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E52D353D223959B253AA3C /* Credential+mock.swift */; };
@@ -174,6 +177,7 @@
 		AB6F5FED3D52127D0BDB1F16 /* AnyCanceller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4620001B14937015A21BA9 /* AnyCanceller.swift */; };
 		AC74F4FE3BB8D0EEBC6E27A8 /* CredentialsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56AA37584764C1D7BE1E132 /* CredentialsContext.swift */; };
 		AD49441B456FF4FE57426F26 /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C99E4F1C68B011B3EC303 /* CheckmarkView.swift */; };
+		ADB0B2B4AA4D43975392E5F1 /* TinkLinkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88D7457AE1F571FF91DA658 /* TinkLinkError.swift */; };
 		AF637411A12669DB0C939119 /* AnalyticsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144498CD010B89A093E7D954 /* AnalyticsAPI.swift */; };
 		AFB9D83ACEB0F1C1EB113522 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC36675393995F589CD0C32 /* ActivityIndicatorView.swift */; };
 		B0095D7218AEC1D1C880EDB6 /* AddCredentialsSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E03EE70807522B4271D42B /* AddCredentialsSession.swift */; };
@@ -202,6 +206,7 @@
 		C8D8F2BEB6508435C2144237 /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F3906B996DD066DAD3468C7 /* Down.framework */; };
 		CA4E50799C6B229856F8CE5B /* ServiceError+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589F4F78882D352FB35C32F8 /* ServiceError+mock.swift */; };
 		CA554F3AC4919CAD6B41BE7E /* TinkLinkTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA411E842D89EDB34699943 /* TinkLinkTracker.swift */; };
+		CB3A0EA33C7AEA5412C4E763 /* TinkLinkUIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E540CB6E1396D34FD3AF693A /* TinkLinkUIError.swift */; };
 		CBA2A5708432979ECE6374EB /* TinkLinkUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B198F7C21791DF1A6D737CFE /* TinkLinkUI.framework */; };
 		CBFA41DE02082480E4D4FCE7 /* UIApplication+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F0E74F55533422AF9DCFB /* UIApplication+mock.swift */; };
 		CC8734E7FAFBCA629806EB9B /* MultiCancellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B424C1BB25100774A01CFD /* MultiCancellerTests.swift */; };
@@ -233,6 +238,7 @@
 		E8B148F312A492C7197544D1 /* ValidationError+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C91C407612EEC3FF19C4653 /* ValidationError+Localized.swift */; };
 		E91673CE34E6974B7CA21592 /* URLComponents+FragmentParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69B1B73059130DA3261EB4C /* URLComponents+FragmentParameters.swift */; };
 		E9BA86DE112D24067DF1BD99 /* AddCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5D50CBA6CD166ABA2C004B /* AddCredentialsTask.swift */; };
+		EB237C0EC11F62C2A25E21E6 /* CredentialsContext+Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6980BB60248296189705F9CC /* CredentialsContext+Deprecations.swift */; };
 		EBFEEE0C201DB6B1CC756C37 /* BeneficiaryAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F62010FC25F1D4268A2355 /* BeneficiaryAccount.swift */; };
 		EC56913A111DA1277ED6AB74 /* RetryCancellable+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29E0698F44D66A6ACD1003A /* RetryCancellable+mock.swift */; };
 		EDF8110FE40AD740BD5432E5 /* SignableOperation+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCEEEFEFD68A617634C099 /* SignableOperation+mock.swift */; };
@@ -243,6 +249,7 @@
 		F64F129B2827DA6D05E4B486 /* OAuthService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11643F0D9A1740B7CB5065F6 /* OAuthService+mock.swift */; };
 		F72D8C690A16D1CC965D6158 /* AuthenticationUserTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8106785D38F618325E76C /* AuthenticationUserTypePickerViewController.swift */; };
 		F7B72C6E2155D36027610A6F /* ChevronLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72837050F425EDA227E22F95 /* ChevronLayer.swift */; };
+		FB3BBC846E44D9BF5A103353 /* RefreshableItemsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F68EE28916ED9E73A615855 /* RefreshableItemsTests.swift */; };
 		FC38AF9A17FA0EAECBED87E5 /* TinkLinkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C77441DC2AA0C1E0EE189C /* TinkLinkConfiguration.swift */; };
 		FD3BAF33CA5DE2BE074B31A4 /* FormTableViewErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C6392F7851C387256EDB0 /* FormTableViewErrorView.swift */; };
 		FDEF71D4A3C42DBEEF2EDF1A /* TinkLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -342,6 +349,7 @@
 		0F5DDF7BDBD9C6483996E6AA /* ProviderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderController.swift; sourceTree = "<group>"; };
 		0F6B42E6653A257E4959061A /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		0FA11E22021C054B6A460745 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
+		0FAB660198B485EB343EAD61 /* Error+TinkLinkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+TinkLinkError.swift"; sourceTree = "<group>"; };
 		10391B13F1BE7407F59BA29B /* DispatchWorkItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchWorkItem+Extension.swift"; sourceTree = "<group>"; };
 		111571C5252A3EE23BBFC6F2 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		11643F0D9A1740B7CB5065F6 /* OAuthService+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuthService+mock.swift"; sourceTree = "<group>"; };
@@ -367,7 +375,6 @@
 		2BEDB1856BA26DDCC9375D1E /* ScreenEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenEvent.swift; sourceTree = "<group>"; };
 		2C5D50CBA6CD166ABA2C004B /* AddCredentialsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsTask.swift; sourceTree = "<group>"; };
 		3088EB17C87CDA1FCA245254 /* ProviderCapabilityFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderCapabilityFormatterTests.swift; sourceTree = "<group>"; };
-		30B764B3C262CFE0555EF6DD /* RefreshableItemsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableItemsTest.swift; sourceTree = "<group>"; };
 		31A3F282295CB3F9446C9580 /* CredentialsSuccessfullyAddedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsSuccessfullyAddedViewController.swift; sourceTree = "<group>"; };
 		3532584CB0DB179EA152708D /* TinkLinkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkUITests.swift; sourceTree = "<group>"; };
 		3618A35D3444EE8D4E34ACC2 /* FinancialInstitutionSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionSearchViewController.swift; sourceTree = "<group>"; };
@@ -376,7 +383,6 @@
 		389A4D5B9E9631E1E257C85D /* SupplementalInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementalInformationViewController.swift; sourceTree = "<group>"; };
 		39193A285F4FEAF990B65A73 /* AccessTypePickerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTypePickerHeaderView.swift; sourceTree = "<group>"; };
 		3AA13F28159A3F4D6E9DB76C /* Translations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Translations.bundle; sourceTree = "<group>"; };
-		3AE35289B9BE207D97F23B86 /* Beneficiary+URI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Beneficiary+URI.swift"; sourceTree = "<group>"; };
 		3AEA48FE393289322823645E /* Bundle+Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Module.swift"; sourceTree = "<group>"; };
 		3E65ACD80BFCB3C993AB78F6 /* DefaultableCodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DefaultableCodable+Extension.swift"; sourceTree = "<group>"; };
 		3F3906B996DD066DAD3468C7 /* Down.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Down.framework; sourceTree = "<group>"; };
@@ -402,15 +408,16 @@
 		5B59989E0FD59138A1D58890 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		5D7D63EB1C5FDD6E6C5A1C22 /* ProviderContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderContext.swift; sourceTree = "<group>"; };
 		5D8F0E74F55533422AF9DCFB /* UIApplication+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+mock.swift"; sourceTree = "<group>"; };
+		60016D18E0F2477E28390D88 /* ProviderContext+Deprecations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderContext+Deprecations.swift"; sourceTree = "<group>"; };
 		6036427A69D61749D8C7A729 /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
 		6124C5F0D50E821710FE5725 /* SecCertificate+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecCertificate+Swift.swift"; sourceTree = "<group>"; };
 		61424D2D2E89A7F484162945 /* LegalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViewController.swift; sourceTree = "<group>"; };
 		62CCD4858523E6A6112ECDF9 /* Credentials+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Credentials+Extension.swift"; sourceTree = "<group>"; };
 		646C5D00E0E34C1553F35A0C /* ProviderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderListViewController.swift; sourceTree = "<group>"; };
 		654B8E31EACFCC2E60983C80 /* AddBeneficiaryTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBeneficiaryTaskTests.swift; sourceTree = "<group>"; };
+		6980BB60248296189705F9CC /* CredentialsContext+Deprecations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CredentialsContext+Deprecations.swift"; sourceTree = "<group>"; };
 		69C77441DC2AA0C1E0EE189C /* TinkLinkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkConfiguration.swift; sourceTree = "<group>"; };
 		6A4338220C7C6EA3D93EB739 /* MutableBeneficiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableBeneficiaryService.swift; sourceTree = "<group>"; };
-		6DBE20B969F478CB9A3ADA68 /* TinkLinkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkError.swift; sourceTree = "<group>"; };
 		7063E356EC1C358718743627 /* TinkLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkViewController.swift; sourceTree = "<group>"; };
 		72837050F425EDA227E22F95 /* ChevronLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronLayer.swift; sourceTree = "<group>"; };
 		72E02D083478E149B8CF1FEC /* NavigationTitleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleImageView.swift; sourceTree = "<group>"; };
@@ -422,10 +429,10 @@
 		79688D753B135D21621FDD5C /* TinkLink+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TinkLink+extension.swift"; sourceTree = "<group>"; };
 		7C91C407612EEC3FF19C4653 /* ValidationError+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValidationError+Localized.swift"; sourceTree = "<group>"; };
 		7E4620001B14937015A21BA9 /* AnyCanceller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCanceller.swift; sourceTree = "<group>"; };
+		7F68EE28916ED9E73A615855 /* RefreshableItemsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableItemsTests.swift; sourceTree = "<group>"; };
 		80938EC83D308F92735171B4 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+TinkEnvironmentVariables.swift"; sourceTree = "<group>"; };
 		80E9DA1DB42A03D5A2965E39 /* RefreshableItems+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RefreshableItems+Extensions.swift"; sourceTree = "<group>"; };
-		815202B64C2DA9A62599CE49 /* ServiceError+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceError+Localized.swift"; sourceTree = "<group>"; };
 		82DCEEEFEFD68A617634C099 /* SignableOperation+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignableOperation+mock.swift"; sourceTree = "<group>"; };
 		84F62010FC25F1D4268A2355 /* BeneficiaryAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeneficiaryAccount.swift; sourceTree = "<group>"; };
 		852F88BEFD7E20448FB17E67 /* FinancialInstitutionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionPickerViewController.swift; sourceTree = "<group>"; };
@@ -463,6 +470,7 @@
 		B335114198B7CC247DB3603C /* FormFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldTableViewCell.swift; sourceTree = "<group>"; };
 		B5B1CEF155A8ADCE1E7DC075 /* ProviderAccessType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderAccessType+Extension.swift"; sourceTree = "<group>"; };
 		B61C99E4F1C68B011B3EC303 /* CheckmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
+		B88D7457AE1F571FF91DA658 /* TinkLinkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkError.swift; sourceTree = "<group>"; };
 		B98C777DDEAE4EACE880C413 /* AddCredentialsStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsStatusViewController.swift; sourceTree = "<group>"; };
 		BA4275CE80BE4133678659AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCredentialsTask.swift; sourceTree = "<group>"; };
@@ -479,6 +487,7 @@
 		CB7AAF27A3706DB47E0E9CC1 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 		D00A7D44C564DB1033A5EC58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0B8FFB023A0E36DA37971B6 /* TinkLinkUIUITestsHost.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TinkLinkUIUITestsHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1BA5BDB59ACB2B8068A9F42 /* Tink+RegisteredConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tink+RegisteredConfigurations.swift"; sourceTree = "<group>"; };
 		D1EA9290A1694B7D7CD4A600 /* AppearanceProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceProviding.swift; sourceTree = "<group>"; };
 		D51FD51DBFC242BDFD5056AE /* PollingTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingTask.swift; sourceTree = "<group>"; };
 		D7BDDC8A8556C18724B94F85 /* TransferService+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransferService+mock.swift"; sourceTree = "<group>"; };
@@ -493,6 +502,7 @@
 		E1501CDEEBAAFF635DBF2089 /* CredentialsContextTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsContextTest.swift; sourceTree = "<group>"; };
 		E42B50EA966B4352058089CE /* TransferAccountIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferAccountIdentifiable.swift; sourceTree = "<group>"; };
 		E4ED0953EB880828EFF45617 /* TaskErrors+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskErrors+Localized.swift"; sourceTree = "<group>"; };
+		E540CB6E1396D34FD3AF693A /* TinkLinkUIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkUIError.swift; sourceTree = "<group>"; };
 		E8399BE1FDFA2C503CC04C71 /* TinkLink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TinkLink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAA63C7E13073E993B0B251C /* ScopeDescriptionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeDescriptionListViewController.swift; sourceTree = "<group>"; };
 		EFA9AC309AC2E67FE51D87C5 /* ScopeDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeDescriptionCell.swift; sourceTree = "<group>"; };
@@ -606,7 +616,7 @@
 				D86D6981FBD842BB916D5FC8 /* Assets.xcassets */,
 				A6F5BBF5CB6A314FF721629E /* Info.plist */,
 				CB40022F21432E75E761F5E6 /* LoadingViewController.swift */,
-				6DBE20B969F478CB9A3ADA68 /* TinkLinkError.swift */,
+				E540CB6E1396D34FD3AF693A /* TinkLinkUIError.swift */,
 				7063E356EC1C358718743627 /* TinkLinkViewController.swift */,
 				3AA13F28159A3F4D6E9DB76C /* Translations.bundle */,
 				325D3F9C1BD5221D9709501E /* Analytics */,
@@ -735,7 +745,6 @@
 				214E654C69928066F1E565DA /* ProviderCapability+LocalizedDescriptions.swift */,
 				80E9DA1DB42A03D5A2965E39 /* RefreshableItems+Extensions.swift */,
 				CB7AAF27A3706DB47E0E9CC1 /* ReusableCell.swift */,
-				815202B64C2DA9A62599CE49 /* ServiceError+Localized.swift */,
 				E4ED0953EB880828EFF45617 /* TaskErrors+Localized.swift */,
 				DF9F06E6ADF1856BB277DEA4 /* UIColor+Extensions.swift */,
 				85A8120C0E3863E00CD7B4E3 /* UIFont+Bold.swift */,
@@ -783,7 +792,7 @@
 			children = (
 				D00A7D44C564DB1033A5EC58 /* Info.plist */,
 				3088EB17C87CDA1FCA245254 /* ProviderCapabilityFormatterTests.swift */,
-				30B764B3C262CFE0555EF6DD /* RefreshableItemsTest.swift */,
+				7F68EE28916ED9E73A615855 /* RefreshableItemsTests.swift */,
 			);
 			name = TinkLinkUITests;
 			path = Tests/TinkLinkUITests;
@@ -923,10 +932,13 @@
 			children = (
 				4C10F680B83B493F68A952A0 /* ApplicationObserver.swift */,
 				8C39CCF3D56F11277924C52B /* Info.plist */,
+				D1BA5BDB59ACB2B8068A9F42 /* Tink+RegisteredConfigurations.swift */,
 				79688D753B135D21621FDD5C /* TinkLink+extension.swift */,
 				69C77441DC2AA0C1E0EE189C /* TinkLinkConfiguration.swift */,
+				B88D7457AE1F571FF91DA658 /* TinkLinkError.swift */,
 				73756657C8858B4F6E933374 /* TinkLinkSessionManager.swift */,
 				F2D74DE8E1302B5D56F35162 /* Context */,
+				F9D38284FB97DC99316C27B3 /* Deprecations */,
 				D03337F6CD0C1D4B169DBF77 /* Extensions */,
 				1EDD6BA9F6168C8E3C3EB0A8 /* Generic */,
 				05486F183013C0D1215DD670 /* Models */,
@@ -1015,6 +1027,7 @@
 				62CCD4858523E6A6112ECDF9 /* Credentials+Extension.swift */,
 				3E65ACD80BFCB3C993AB78F6 /* DefaultableCodable+Extension.swift */,
 				10391B13F1BE7407F59BA29B /* DispatchWorkItem+Extension.swift */,
+				0FAB660198B485EB343EAD61 /* Error+TinkLinkError.swift */,
 				809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */,
 				02B57CB15A10546A4774F022 /* Result+Extensions.swift */,
 				6124C5F0D50E821710FE5725 /* SecCertificate+Swift.swift */,
@@ -1040,7 +1053,6 @@
 			isa = PBXGroup;
 			children = (
 				54416F4CB909B50E31DB2540 /* Account+URI.swift */,
-				3AE35289B9BE207D97F23B86 /* Beneficiary+URI.swift */,
 				84F62010FC25F1D4268A2355 /* BeneficiaryAccount.swift */,
 				E42B50EA966B4352058089CE /* TransferAccountIdentifiable.swift */,
 				234402A5F43E8CFB47C8A580 /* TransferMessage.swift */,
@@ -1080,6 +1092,15 @@
 				4120371F058F6D3FCBD4BDAF /* payment */,
 			);
 			path = "Services+mock";
+			sourceTree = "<group>";
+		};
+		F9D38284FB97DC99316C27B3 /* Deprecations */ = {
+			isa = PBXGroup;
+			children = (
+				6980BB60248296189705F9CC /* CredentialsContext+Deprecations.swift */,
+				60016D18E0F2477E28390D88 /* ProviderContext+Deprecations.swift */,
+			);
+			path = Deprecations;
 			sourceTree = "<group>";
 		};
 		FC76EE71B89179292566465F /* Cells */ = {
@@ -1408,12 +1429,11 @@
 				D603F676B28BE283586CC75A /* ScopeDescriptionCell.swift in Sources */,
 				801735702F9545A4A2D74CE2 /* ScopeDescriptionListViewController.swift in Sources */,
 				86CECA32DD9C76A06C2274AC /* ScreenEvent.swift in Sources */,
-				8903B0C1B1077BD0C2048D29 /* ServiceError+Localized.swift in Sources */,
 				A506916ED0511F7EDC279586 /* Strings.swift in Sources */,
 				B383600BB11435F40631D0B6 /* SupplementalInformationViewController.swift in Sources */,
 				1EA2AC43CAD8403B6761AB50 /* TaskErrors+Localized.swift in Sources */,
-				44F087FF5149ED911A6ADCFC /* TinkLinkError.swift in Sources */,
 				CA554F3AC4919CAD6B41BE7E /* TinkLinkTracker.swift in Sources */,
+				CB3A0EA33C7AEA5412C4E763 /* TinkLinkUIError.swift in Sources */,
 				C1D72924DF0912E18ACCDB52 /* TinkLinkViewController.swift in Sources */,
 				1579D6D553CC71CD0CE53687 /* TinkNavigationController.swift in Sources */,
 				73C3D047084F1E4104AC60AA /* TinkSearchController.swift in Sources */,
@@ -1447,18 +1467,20 @@
 				92594A391E486F3C1704680F /* ApplicationObserver.swift in Sources */,
 				51231866DCBA2D4A02DFC996 /* AuthenticationTask.swift in Sources */,
 				5B753C6E4038AB4F597040C2 /* AuthorizationContext.swift in Sources */,
-				7E8453A5C458A227930EF4B2 /* Beneficiary+URI.swift in Sources */,
 				7667B7B33B1125E4D845CF76 /* BeneficiaryAccount.swift in Sources */,
 				6829A11CEEEC398E7A3425B5 /* ConsentContext.swift in Sources */,
 				3D8350541DCD932D03F4BB38 /* Credentials+Extension.swift in Sources */,
+				5ABAFDFFFAF5E678BDB54262 /* CredentialsContext+Deprecations.swift in Sources */,
 				AC74F4FE3BB8D0EEBC6E27A8 /* CredentialsContext.swift in Sources */,
 				4F1F727443675BF5040B450B /* DefaultableCodable+Extension.swift in Sources */,
 				D62388821D5F0D03B1CDE808 /* DispatchWorkItem+Extension.swift in Sources */,
+				A2DE2112D3393F52C593947E /* Error+TinkLinkError.swift in Sources */,
 				35A6C9EAB5ACAF4A3DCF7FCF /* Form.swift in Sources */,
 				524D882954F95382B034C113 /* InitiateTransferTask.swift in Sources */,
 				DA308D212179F827E9781239 /* MultiCanceller.swift in Sources */,
 				101C976C8AA0E5EE3D12F360 /* PollingTask.swift in Sources */,
 				45D631C6C7EE6577F101D9BA /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */,
+				6AA5625A1FCEA20461C0F6BF /* ProviderContext+Deprecations.swift in Sources */,
 				43E964B59FC78CA66E3644BA /* ProviderContext.swift in Sources */,
 				C8C36A57E2E637FD499B38BA /* ProviderTree.swift in Sources */,
 				49273CB6A5A24128CFDDAE6F /* RefreshCredentialsTask.swift in Sources */,
@@ -1467,8 +1489,10 @@
 				BE0FA6E8E7DC04BBD17601F0 /* SecTrust+Swift.swift in Sources */,
 				DF265043CE46F42E7B1ABB2C /* SupplementInformationTask.swift in Sources */,
 				437494D22A5F4F12D8B3947F /* ThirdPartyAppAuthenticationTask.swift in Sources */,
+				A7B2640C41654F2193563DD5 /* Tink+RegisteredConfigurations.swift in Sources */,
 				40C4A1BB63A077DB10AFEE5F /* TinkLink+extension.swift in Sources */,
 				E442074F1F51E274B84AF5EF /* TinkLinkConfiguration.swift in Sources */,
+				ADB0B2B4AA4D43975392E5F1 /* TinkLinkError.swift in Sources */,
 				A78CDF113E0ACAEFF4C01A71 /* TinkLinkSessionManager.swift in Sources */,
 				540AC6FDBB6BEB039E00204A /* TransferAccountIdentifiable.swift in Sources */,
 				1476C732CA74F56B2E68A440 /* TransferContext.swift in Sources */,
@@ -1489,18 +1513,20 @@
 				75B1147961711FC1E7D766F4 /* ApplicationObserver.swift in Sources */,
 				A8DC746C8C5101C9466EF35B /* AuthenticationTask.swift in Sources */,
 				5A91C57BCF874CC84CD07935 /* AuthorizationContext.swift in Sources */,
-				4EFC9DA6CA689FFDB5C0B3E2 /* Beneficiary+URI.swift in Sources */,
 				EBFEEE0C201DB6B1CC756C37 /* BeneficiaryAccount.swift in Sources */,
 				A557C575D93259F710C4E8FC /* ConsentContext.swift in Sources */,
 				9409FDCCC91E2CCE6F083DBF /* Credentials+Extension.swift in Sources */,
+				EB237C0EC11F62C2A25E21E6 /* CredentialsContext+Deprecations.swift in Sources */,
 				08CCB20D99C7A16B264E3EB8 /* CredentialsContext.swift in Sources */,
 				9B824D6CA01C91B22A1DFF1E /* DefaultableCodable+Extension.swift in Sources */,
 				620B0BE3DEEC88DC3AF46518 /* DispatchWorkItem+Extension.swift in Sources */,
+				86D6ED7FF01BD7338ED2C7BB /* Error+TinkLinkError.swift in Sources */,
 				A2ECBEF703767AA4283643FC /* Form.swift in Sources */,
 				B081DBE8C00A3507FD113E4B /* InitiateTransferTask.swift in Sources */,
 				D4FCD40CB91FCA7E12A83E4E /* MultiCanceller.swift in Sources */,
 				93217DF9BF12B98A04E73C81 /* PollingTask.swift in Sources */,
 				5F754A43EEDD0AE7938C8042 /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */,
+				180AEF7BD317858DB686EF85 /* ProviderContext+Deprecations.swift in Sources */,
 				7301A7AF1553F901C72BE367 /* ProviderContext.swift in Sources */,
 				0AD80F46344ABC35DBEABB5C /* ProviderTree.swift in Sources */,
 				F5512E9C8B0BBC1AFA919F21 /* RefreshCredentialsTask.swift in Sources */,
@@ -1509,8 +1535,10 @@
 				C2EE281933DA6D17FCF42A03 /* SecTrust+Swift.swift in Sources */,
 				5DD4BC57F54445E467C9CCEF /* SupplementInformationTask.swift in Sources */,
 				1F2A8F2AB2799AD5E849BA17 /* ThirdPartyAppAuthenticationTask.swift in Sources */,
+				59BBF9336C5B61BDF327A0ED /* Tink+RegisteredConfigurations.swift in Sources */,
 				4CFB0414DA01A06688AD0B0F /* TinkLink+extension.swift in Sources */,
 				FC38AF9A17FA0EAECBED87E5 /* TinkLinkConfiguration.swift in Sources */,
+				38F271B3206F0088D86812AE /* TinkLinkError.swift in Sources */,
 				5146672371921C9A298ED894 /* TinkLinkSessionManager.swift in Sources */,
 				B438A4743E0D27CE69D31CA0 /* TransferAccountIdentifiable.swift in Sources */,
 				923E976B31710C3C1DE8C123 /* TransferContext.swift in Sources */,
@@ -1534,7 +1562,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B95E7FB776D43FCBC148569C /* ProviderCapabilityFormatterTests.swift in Sources */,
-				884E6A55A629CDB9C1FB2EAF /* RefreshableItemsTest.swift in Sources */,
+				FB3BBC846E44D9BF5A103353 /* RefreshableItemsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1667,7 +1695,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.17.1;
+				MARKETING_VERSION = "1.0.0-rc.1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1719,7 +1747,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.17.1;
+				MARKETING_VERSION = "1.0.0-rc.1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;
@@ -1769,7 +1797,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.17.1;
+				MARKETING_VERSION = "1.0.0-rc.1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1819,7 +1847,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.17.1;
+				MARKETING_VERSION = "1.0.0-rc.1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1916,7 +1944,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.17.1;
+				MARKETING_VERSION = "1.0.0-rc.1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1946,7 +1974,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.17.1;
+				MARKETING_VERSION = "1.0.0-rc.1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;

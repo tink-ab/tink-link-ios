@@ -28,11 +28,42 @@ struct CredentialsDetailView: View {
         return formatter
     }()
 
+    private var statusMessage: String {
+        switch credentials.status {
+        case .unknown:
+            return "Unknown"
+        case .created:
+            return "Created"
+        case .authenticating:
+            return "Authenticating"
+        case .updating:
+            return "Updating"
+        case .updated:
+            return "Updated"
+        case .temporaryError:
+            return "Temporary error"
+        case .authenticationError:
+            return "Authentication error"
+        case .permanentError:
+            return "Permanent error"
+        case .awaitingMobileBankIDAuthentication:
+            return "Awaiting Mobile BankID authentication"
+        case .awaitingSupplementalInformation:
+            return "Awaiting supplemental information"
+        case .deleted:
+            return "Deleted"
+        case .awaitingThirdPartyAppAuthentication:
+            return "Awaiting third-party app authentication"
+        case .sessionExpired:
+            return "Session expired"
+        }
+    }
+
     var body: some View {
         Form {
-            Section(footer: Text(updatedCredentials.statusPayload)) {
+            Section(footer: Text(updatedCredentials.statusPayload ?? "")) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(String(describing: updatedCredentials.status).localizedCapitalized)
+                    Text(statusMessage)
                     updatedCredentials.statusUpdated.map {
                         Text("\($0, formatter: dateFormatter)")
                             .font(.footnote)

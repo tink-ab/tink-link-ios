@@ -8,7 +8,7 @@ final class CredentialsPickerViewController: UITableViewController {
     private let credentialsContext = Tink.shared.credentialsContext
     private let providerContext = Tink.shared.providerContext
 
-    private var providersByID: [Provider.ID: Provider] = [:] {
+    private var providersByName: [Provider.ID: Provider] = [:] {
         didSet {
             tableView.reloadData()
         }
@@ -60,12 +60,12 @@ extension CredentialsPickerViewController {
 
 extension CredentialsPickerViewController {
     private func updateList(completion: (() -> Void)? = nil) {
-        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
-        providerContext.fetchProviders(attributes: attributes) { [weak self] result in
+        let filter = ProviderContext.Filter(capabilities: .all, kinds: .all, accessTypes: .all)
+        providerContext.fetchProviders(filter: filter) { [weak self] result in
             DispatchQueue.main.async {
                 do {
                     let providers = try result.get()
-                    self?.providersByID = Dictionary(grouping: providers, by: { $0.id }).compactMapValues { $0.first }
+                    self?.providersByName = Dictionary(grouping: providers, by: { $0.id }).compactMapValues { $0.first }
                 } catch {
                     self?.showAlert(for: error)
                 }
@@ -105,7 +105,7 @@ extension CredentialsPickerViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let credentials = credentialsList[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FixedImageSizeTableViewCell
-        let provider = providersByID[credentials.providerID]
+        let provider = providersByName[credentials.providerName]
         cell.title = provider?.displayName
         cell.subtitle = credentials.updated.map(dateFormatter.string(from:))
         cell.imageURL = provider?.image
@@ -119,7 +119,7 @@ extension CredentialsPickerViewController {
 extension CredentialsPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let credentials = credentialsList[indexPath.row]
-        guard let provider = providersByID[credentials.providerID] else {
+        guard let provider = providersByName[credentials.providerName] else {
             fatalError("Cannot find corresponding provider")
         }
 

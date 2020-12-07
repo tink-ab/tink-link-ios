@@ -17,7 +17,7 @@ final class UpdateCredentialsViewController: UITableViewController {
         }
     }
 
-    private var updateCredentialsTask: UpdateCredentialsTask?
+    private var updateCredentialsTask: Cancellable?
     private var statusViewController: AddCredentialsStatusViewController?
     private lazy var updateBarButtonItem = UIBarButtonItem(title: "Update", style: .done, target: self, action: #selector(updateCredential))
     private var didFirstFieldBecomeFirstResponder = false
@@ -170,6 +170,11 @@ extension UpdateCredentialsViewController {
             updateCredentialsTask = credentialsContext.update(
                 credentials,
                 form: form, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
+                authenticationHandler: { [weak self] authentication in
+                    DispatchQueue.main.async {
+                        self?.handleAuthentication(authentication)
+                    }
+                },
                 progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
                         self?.handleProgress(status)
@@ -192,6 +197,11 @@ extension UpdateCredentialsViewController {
             showUpdating(status: "Authenticating…")
         case .updating:
             showUpdating(status: "Connecting…")
+        }
+    }
+
+    private func handleAuthentication(_ authentication: AuthenticationTask) {
+        switch authentication {
         case .awaitingSupplementalInformation(let task):
             showSupplementalInformation(for: task)
         case .awaitingThirdPartyAppAuthentication(let task):

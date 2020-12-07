@@ -35,7 +35,7 @@ final class CredentialsCoordinator {
     private lazy var addCredentialsSession = AddCredentialsSession(providerController: self.providerController, credentialsController: self.credentialsController, authorizationController: self.authorizationController, tinkLinkTracker: tinkLinkTracker, presenter: self.presenter)
 
     private let action: Action
-    private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void
+    private let completion: (Result<(Credentials, AuthorizationCode?), TinkLinkUIError>) -> Void
     private weak var presenter: CredentialsCoordinatorPresenting?
     private weak var delegate: CredentialsCoordinatorDelegate?
     private let clientDescription: ClientDescription
@@ -52,7 +52,7 @@ final class CredentialsCoordinator {
         }
     }
 
-    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, tinkLinkTracker: TinkLinkTracker, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkError>) -> Void) {
+    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, tinkLinkTracker: TinkLinkTracker, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkUIError>) -> Void) {
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
         self.providerController = providerController
@@ -95,7 +95,7 @@ final class CredentialsCoordinator {
         case .update(credentialsID: let id):
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
-                self.fetchProvider(with: credentials.providerID) { provider in
+                self.fetchProvider(with: credentials.providerName) { provider in
                     let credentialsViewController = CredentialsFormViewController(credentials: credentials, provider: provider, credentialsController: self.credentialsController, clientName: self.clientDescription.name, isAggregator: self.clientDescription.isAggregator, isVerified: self.clientDescription.isVerified)
                     credentialsViewController.delegate = self
                     credentialsViewController.prefillStrategy = self.prefillStrategy
@@ -116,18 +116,18 @@ final class CredentialsCoordinator {
             showAddCredentialSuccess(with: credentials, authorizationCode: authorizationCode, for: action)
         } catch ThirdPartyAppAuthenticationTask.Error.cancelled {
             if callCompletionOnError {
-                completion(.failure(.userCancelled))
+                completion(.failure(.init(code: .userCancelled)))
             }
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
             tinkLinkTracker.track(screen: .error)
         } catch SupplementInformationTask.Error.cancelled {
             if callCompletionOnError {
-                completion(.failure(.userCancelled))
+                completion(.failure(.init(code: .userCancelled)))
             }
-        } catch TinkLinkError.userCancelled {
+        } catch TinkLinkUIError.userCancelled {
             if callCompletionOnError {
-                completion(.failure(.userCancelled))
+                completion(.failure(.init(code: .userCancelled)))
             }
         } catch {
             showAlert(for: error)
@@ -145,7 +145,7 @@ final class CredentialsCoordinator {
                 self.tinkLinkTracker.track(screen: .success)
                 self.presenter?.show(viewController)
             default:
-                self.fetchProvider(with: credentials.providerID) { provider in
+                self.fetchProvider(with: credentials.providerName) { provider in
                     let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .other) { [weak self] in
                         self?.completion(.success((credentials, authorizationCode)))
                     }
@@ -167,19 +167,19 @@ extension CredentialsCoordinator {
                 then(credentials)
             } catch {
                 // TODO: This error should be improved
-                self.completion(.failure(.credentialsNotFound))
+                self.completion(.failure(.init(code: .credentialsNotFound)))
             }
         }
     }
 
-    private func fetchProvider(with id: Provider.ID, then: @escaping (Provider) -> Void) {
-        providerController.fetchProvider(with: id) { result in
+    private func fetchProvider(with name: Provider.Name, then: @escaping (Provider) -> Void) {
+        providerController.fetchProvider(with: name) { result in
             do {
                 let provider = try result.get()
                 then(provider)
             } catch {
                 // TODO: This error should be improved
-                self.completion(.failure(.providerNotFound))
+                self.completion(.failure(.init(code: .providerNotFound)))
             }
         }
     }
@@ -243,7 +243,7 @@ extension CredentialsCoordinator {
     }
 
     @objc private func cancel() {
-        completion(.failure(TinkLinkError.userCancelled))
+        completion(.failure(TinkLinkUIError(code: .userCancelled)))
     }
 }
 
@@ -263,7 +263,7 @@ extension CredentialsCoordinator {
         } else {
             let okAction = UIAlertAction(title: Strings.Generic.dismiss, style: .default) { _ in
                 if self.callCompletionOnError {
-                    self.completion(.failure(.unableToOpenThirdPartyApp(thirdPartyAppAuthenticationError)))
+                    self.completion(.failure(TinkLinkUIError(code: .unableToOpenThirdPartyApp)))
                 }
             }
             alertController.addAction(okAction)
@@ -287,7 +287,7 @@ extension CredentialsCoordinator {
 
         let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default) { _ in
             if self.callCompletionOnError {
-                self.completion(.failure(.internalError))
+                self.completion(.failure(TinkLinkUIError(code: .internalError)))
             }
         }
         alertController.addAction(okAction)

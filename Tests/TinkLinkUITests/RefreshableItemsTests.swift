@@ -2,7 +2,7 @@ import XCTest
 import TinkCore
 @testable import TinkLinkUI
 
-class RefreshableItemsTest: XCTestCase {
+class RefreshableItemsTests: XCTestCase {
     let testProvider = Provider(
         capabilities: [.all]
     )

@@ -2,11 +2,15 @@
 import XCTest
 
 class ThirdPartyCallbackTests: XCTestCase {
+    override class func setUp() {
+        Tink.configure(with: Tink.Configuration(clientID: "testID", appURI: URL(string: "app://callback")!))
+        // Has to access credentials context before open method can be used successfully.
+        _ = Tink.shared.credentialsContext
+    }
+
     func testValidCallbackURL() {
-        var appURI = Tink.shared.configuration.appURI
-        appURI?.appendPathComponent("someValue")
-        XCTAssertNotNil(appURI)
-        XCTAssert(Tink.shared.open(appURI!))
+        let redirectURI = URL(string: "app://callback/someValue?state=1234")!
+        XCTAssert(Tink.shared.open(redirectURI))
     }
 
     func testInvalidCallbackURL() {

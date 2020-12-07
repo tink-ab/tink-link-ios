@@ -17,9 +17,9 @@ struct CredentialsList: View {
         List {
             Section {
                 ForEach(credentialsController.credentials) { credentials in
-                    NavigationLink(destination: CredentialsDetailView(credentials: credentials, provider: self.providerController.provider(providerID: credentials.providerID))) {
+                    NavigationLink(destination: CredentialsDetailView(credentials: credentials, provider: self.providerController.provider(credentials.providerName))) {
                         CredentialsListRow(
-                            providerName: self.providerController.provider(providerID: credentials.providerID)?.displayName ?? "",
+                            providerName: self.providerController.provider(credentials.providerName)?.displayName ?? "",
                             updatedDate: self.dateFormatter.string(from: credentials.updated ?? Date())
                         )
                     }

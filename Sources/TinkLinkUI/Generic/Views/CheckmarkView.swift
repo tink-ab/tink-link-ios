@@ -27,20 +27,20 @@ final class CheckmarkView: UIView {
         }
     }
 
-    public var isChecked: Bool = false {
+    var isChecked: Bool = false {
         didSet {
             circleLayer.opacity = isChecked ? 0 : 1
             checkboxLayer.opacity = isChecked ? 1 : 0
         }
     }
 
-    public var isBorderHidden: Bool = true {
+    var isBorderHidden: Bool = true {
         didSet {
             circleLayer.isHidden = isBorderHidden
         }
     }
 
-    @objc public dynamic var strokeTintColor: UIColor = .white {
+    @objc dynamic var strokeTintColor: UIColor = .white {
         didSet {
             checkmarkLayer.strokeColor = strokeTintColor.cgColor
         }

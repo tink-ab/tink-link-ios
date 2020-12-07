@@ -16,7 +16,7 @@ final class AddCredentialsViewController: UITableViewController {
         }
     }
 
-    private var task: AddCredentialsTask?
+    private var task: Cancellable?
     private var statusViewController: AddCredentialsStatusViewController?
     private var didFirstFieldBecomeFirstResponder = false
 
@@ -198,6 +198,11 @@ extension AddCredentialsViewController {
                 for: provider,
                 form: form,
                 completionPredicate: .init(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false),
+                authenticationHandler: { [weak self] authentication in
+                    DispatchQueue.main.async {
+                        self?.onAuthentication(for: authentication)
+                    }
+                },
                 progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
                         self?.onUpdate(for: status)
@@ -219,13 +224,19 @@ extension AddCredentialsViewController {
         switch status {
         case .authenticating, .created:
             break
+
+        case .updating:
+            let status = "Connecting to \(provider.displayName), please wait..."
+            showUpdating(status: status)
+        }
+    }
+
+    private func onAuthentication(for authentication: AuthenticationTask) {
+        switch authentication {
         case .awaitingSupplementalInformation(let supplementInformationTask):
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
-        case .updating:
-            let status = "Connecting to \(provider.displayName), please wait..."
-            showUpdating(status: status)
         }
     }
 

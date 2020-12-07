@@ -1,6 +1,6 @@
 import Foundation
 
-/// A `Form` is used to determine what a user needs to input in order to proceed. For example it could be a username and a password field.
+/// A `Form` is used to determine what a user needs to input in order to proceed when creating or updating a credentials. For example it could be a username and a password field.
 ///
 /// Here's how to create a form for a provider with a username and password field and how to update the fields.
 ///
@@ -73,7 +73,7 @@ public struct Form {
         /// This name based subscript returns the first field with the same name, or `nil` if the field is not found.
         ///
         /// - Parameter name: The name of the field to find in the list.
-        /// - Returns: The field associciated with `name` if it exists; otherwise, `nil`.
+        /// - Returns: The field associated with `name` if it exists; otherwise, `nil`.
         public subscript(name fieldName: String) -> Form.Field? {
             get {
                 return fields.first(where: { $0.name == fieldName })
@@ -95,8 +95,8 @@ public struct Form {
     /// The fields associated with this form.
     public var fields: Fields
 
-    internal init(fieldSpecifications: [Provider.FieldSpecification]) {
-        self.fields = Fields(fields: fieldSpecifications.map { Field(fieldSpecification: $0) })
+    internal init(fields: [Provider.Field]) {
+        self.fields = Fields(fields: fields.map { Field(field: $0) })
     }
 
     /// Returns a Boolean value indicating whether every field in the form are valid.
@@ -136,27 +136,7 @@ public struct Form {
         ///
         /// You can use the attributes to set up a text field properly. They contain properties
         /// like input type, placeholder and description.
-        public let attributes: Attributes
-
-        internal init(fieldSpecification: Provider.FieldSpecification) {
-            self.text = fieldSpecification.initialValue
-            self.name = fieldSpecification.name
-            self.validationRules = ValidationRules(
-                isOptional: fieldSpecification.isOptional,
-                maxLength: fieldSpecification.maxLength,
-                minLength: fieldSpecification.minLength,
-                regex: fieldSpecification.pattern,
-                regexError: fieldSpecification.patternError
-            )
-            self.attributes = Attributes(
-                description: fieldSpecification.fieldDescription,
-                placeholder: fieldSpecification.hint,
-                helpText: fieldSpecification.helpText,
-                isSecureTextEntry: fieldSpecification.isMasked,
-                inputType: fieldSpecification.isNumeric ? .numeric : .default,
-                isEditable: !fieldSpecification.isImmutable || fieldSpecification.initialValue.isEmpty
-            )
-        }
+        public internal(set) var attributes: Attributes
 
         /// Validation rules for a field.
         ///
@@ -173,8 +153,8 @@ public struct Form {
             /// Minimum length of value.
             public let minLength: Int?
 
-            internal let regex: String
-            internal let regexError: String
+            internal let regex: String?
+            internal let regexError: String?
 
             internal func validate(_ value: String, fieldName name: String) throws {
                 if value.isEmpty, !isOptional {
@@ -183,10 +163,10 @@ public struct Form {
                     throw ValidationError.maxLengthLimit(fieldName: name, maxLength: maxLength)
                 } else if let minLength = minLength, minLength > 0 && minLength > value.count {
                     throw ValidationError.minLengthLimit(fieldName: name, minLength: minLength)
-                } else if !regex.isEmpty, let regex = try? NSRegularExpression(pattern: regex, options: []) {
+                } else if let unwrappedRegex = regex, !unwrappedRegex.isEmpty, let regex = try? NSRegularExpression(pattern: unwrappedRegex, options: []) {
                     let range = regex.rangeOfFirstMatch(in: value, options: [], range: NSRange(location: 0, length: value.count))
                     if range.location == NSNotFound {
-                        throw ValidationError.invalid(fieldName: name, reason: regexError)
+                        throw ValidationError.invalid(fieldName: name, reason: regexError ?? "")
                     }
                 }
             }
@@ -197,21 +177,32 @@ public struct Form {
             /// Input type for a field.
             ///
             /// Represents the different input types a field can have.
-            public enum InputType {
+            public struct InputType: Equatable, CustomStringConvertible {
+                private enum Value {
+                    case `default`
+                    case numeric
+                }
+
+                private var value: Value
+
+                public var description: String {
+                    return "Form.Field.Attributes.InputType.\(value)"
+                }
+
                 /// An input type suitable for normal text input.
-                case `default`
+                public static let `default` = Self(value: .default)
                 /// An input type suitable for e.g. PIN entry.
-                case numeric
+                public static let numeric = Self(value: .numeric)
             }
 
             /// A string to display next to the field to explain what the field is for.
             public let description: String
 
             /// A string to display when there is no other text in the text field.
-            public let placeholder: String
+            public let placeholder: String?
 
             /// A string to display next to the field with information about what the user should enter in the text field.
-            public let helpText: String
+            public let helpText: String?
 
             /// Identifies whether the text object should hide the text being entered.
             public let isSecureTextEntry: Bool
@@ -220,48 +211,71 @@ public struct Form {
             public let inputType: InputType
 
             /// A Boolean value indicating whether the field can be edited.
-            public let isEditable: Bool
+            public internal(set) var isEditable: Bool
         }
 
         /// Describes a field validation error.
-        public enum ValidationError: Error {
-            /// Field's `text` was invalid. See `reason` for explanation why.
-            case invalid(fieldName: String, reason: String)
+        public struct ValidationError: Error, CustomStringConvertible {
+            public struct Code: Hashable {
+                enum Value {
+                    case invalid
+                    case maxLengthLimit
+                    case minLengthLimit
+                    case requiredFieldEmptyValue
+                }
 
-            /// Field's `text` was too long.
-            case maxLengthLimit(fieldName: String, maxLength: Int)
+                var value: Value
 
-            /// Field's `text` was too short.
-            case minLengthLimit(fieldName: String, minLength: Int)
+                public static let invalid = Self(value: .invalid)
+                public static let maxLengthLimit = Self(value: .maxLengthLimit)
+                public static let minLengthLimit = Self(value: .minLengthLimit)
+                public static let requiredFieldEmptyValue = Self(value: .requiredFieldEmptyValue)
 
-            /// Missing `text` for required field.
-            case requiredFieldEmptyValue(fieldName: String)
-
-            var fieldName: String {
-                switch self {
-                case .invalid(let fieldName, _):
-                    return fieldName
-                case .maxLengthLimit(let fieldName, _):
-                    return fieldName
-                case .minLengthLimit(let fieldName, _):
-                    return fieldName
-                case .requiredFieldEmptyValue(let fieldName):
-                    return fieldName
+                public static func ~= (lhs: Self, rhs: Swift.Error) -> Bool {
+                    lhs == (rhs as? Form.Field.ValidationError)?.code
                 }
             }
 
-            /// An error message describing what is the reason for the validation failure.
-            public var reason: String? {
-                switch self {
-                case .invalid(_, let reason):
-                    return reason
-                case .maxLengthLimit(_, let maxLength):
-                    return "Field can't be longer than \(maxLength)"
-                case .minLengthLimit(_, let minLength):
-                    return "Field can't be shorter than \(minLength)"
-                case .requiredFieldEmptyValue:
-                    return "Required field"
-                }
+            public let code: Code
+
+            public var description: String {
+                return "Form.Field.ValidationError.Error.\(code.value))"
+            }
+
+            /// Field's `text` was invalid. See `reason` for explanation why.
+            public static let invalid: Code = .invalid
+
+            /// Field's `text` was too long.
+            public static let maxLengthLimit: Code = .maxLengthLimit
+
+            /// Field's `text` was too short.
+            public static let minLengthLimit: Code = .minLengthLimit
+
+            /// Missing `text` for required field.
+            public static let requiredFieldEmptyValue: Code = .requiredFieldEmptyValue
+
+            public var fieldName: String
+
+            /// An error message describing what is the reason for the invalid validation failure.
+            public var reason: String?
+
+            public var minLength: Int?
+            public var maxLength: Int?
+
+            static func invalid(fieldName: String, reason: String) -> Self {
+                .init(code: .invalid, fieldName: fieldName, reason: reason)
+            }
+
+            static func maxLengthLimit(fieldName: String, maxLength: Int) -> Self {
+                .init(code: .maxLengthLimit, fieldName: fieldName, maxLength: maxLength)
+            }
+
+            static func minLengthLimit(fieldName: String, minLength: Int) -> Self {
+                .init(code: .minLengthLimit, fieldName: fieldName, minLength: minLength)
+            }
+
+            static func requiredFieldEmptyValue(fieldName: String) -> Self {
+                .init(code: .requiredFieldEmptyValue, fieldName: fieldName)
             }
         }
 
@@ -300,7 +314,7 @@ public struct Form {
         /// This name based subscript returns the first error with the same name, or `nil` if an error is not found.
         ///
         /// - Parameter fieldName: The name of the field to find an error for.
-        /// - Returns: The validation error associciated with `fieldName` if it exists; otherwise, `nil`.
+        /// - Returns: The validation error associated with `fieldName` if it exists; otherwise, `nil`.
         public subscript(fieldName fieldName: String) -> Form.Field.ValidationError? {
             errors.first(where: { $0.fieldName == fieldName })
         }
@@ -314,7 +328,7 @@ extension Form {
     ///
     /// - Parameter provider: The provider to create a form for.
     public init(provider: Provider) {
-        self.init(fieldSpecifications: provider.fields)
+        self.init(fields: provider.fields)
     }
 
     /// Creates a form for the given credentials.
@@ -322,8 +336,13 @@ extension Form {
     /// This creates a form to use for supplementing information for a credentials.
     ///
     /// - Parameter credential: The credentials to create a form for.
+    @available(*, deprecated, message: "Use init(supplementInformationTask:) instead.")
     public init(credentials: Credentials) {
-        self.init(fieldSpecifications: credentials.supplementalInformationFields)
+        if case .awaitingSupplementalInformation(let fields) = credentials.status {
+            self.init(fields: fields)
+        } else {
+            self.init(fields: [])
+        }
     }
 
     /// Creates a form for updating the given credentials.
@@ -332,17 +351,12 @@ extension Form {
     ///   - updatingCredentials: The credentials to update.
     ///   - provider: The provider for the credentials to update.
     public init(updatingCredentials: Credentials, provider: Provider) {
-        let providerFieldSpecifications = provider.fields
-        let credentialsFields = updatingCredentials.fields
-        let fieldSpecifications = providerFieldSpecifications.map { fieldSpecification -> Provider.FieldSpecification in
-            if let text = credentialsFields[fieldSpecification.name] {
-                var multableFieldSpecification = fieldSpecification
-                multableFieldSpecification.setImmutable(initialValue: text)
-                return multableFieldSpecification
-            }
-            return fieldSpecification
+        var providerForm = Form(fields: provider.fields)
+        for (name, value) in updatingCredentials.fields {
+            providerForm.fields[name: name]?.text = value
+            providerForm.fields[name: name]?.attributes.isEditable = false
         }
-        self.init(fieldSpecifications: fieldSpecifications)
+        self = providerForm
     }
 
     /// Creates a form for the given task.
@@ -351,7 +365,11 @@ extension Form {
     ///
     /// - Parameter supplementInformationTask: The supplemental information task to create a form for.
     public init(supplementInformationTask: SupplementInformationTask) {
-        self.init(credentials: supplementInformationTask.credentials)
+        if case .awaitingSupplementalInformation(let fields) = supplementInformationTask.credentials.status {
+            self.init(fields: fields)
+        } else {
+            self.init(fields: [])
+        }
     }
 }
 
@@ -404,5 +422,27 @@ extension Form.Fields {
         } catch {
             return false
         }
+    }
+}
+
+extension Form.Field {
+    internal init(field fieldSpecification: Provider.Field) {
+        self.text = fieldSpecification.initialValue ?? ""
+        self.name = fieldSpecification.name ?? ""
+        self.validationRules = ValidationRules(
+            isOptional: fieldSpecification.isOptional,
+            maxLength: fieldSpecification.maxLength,
+            minLength: fieldSpecification.minLength,
+            regex: fieldSpecification.pattern,
+            regexError: fieldSpecification.patternError
+        )
+        self.attributes = Attributes(
+            description: fieldSpecification.description ?? "",
+            placeholder: fieldSpecification.hint,
+            helpText: fieldSpecification.helpText,
+            isSecureTextEntry: fieldSpecification.isMasked,
+            inputType: fieldSpecification.isNumeric ? .numeric : .default,
+            isEditable: !fieldSpecification.isImmutable || (fieldSpecification.initialValue ?? "").isEmpty
+        )
     }
 }
