@@ -60,9 +60,12 @@
     })
     ```
 - The associated string in the `updating` status emitted by the different `progressHandlers` have been removed.  
-- Errors related to deleted credentials have been renamed:
-    - The `RefreshCredentialsTask.Error.disabled` has been renamed to `RefreshCredentialsTask.Error.deleted`.
-    - The `InitiateTransferTask.Error.disabledCredentials` has been renamed to `InitiateTransferTask.Error.credentialsDeleted`.
-    - The `AddBeneficiaryTask.Error.disabledCredentials` has been renamed to `AddBeneficiaryTask.Error.credentialsDeleted`.
+- Error types have been combined into one error type per module
+    - The error type that `TinkLinkViewController` completes with if the result is a failure has been renamed to `TinkLinkUIError`.
+    - Known errors emitted by the headless SDK are now of the type `TinkLinkError`. 
+    - For example, the errors related to deleted credentials have been renamed to use the same error:
+        - The `RefreshCredentialsTask.Error.disabled` has been renamed to `TinkLinkError.credentialsDeleted`.
+        - The `InitiateTransferTask.Error.disabledCredentials` has been renamed to `TinkLinkError.credentialsDeleted`.
+        - The `AddBeneficiaryTask.Error.disabledCredentials` has been renamed to `TinkLinkError.credentialsDeleted`.
 
 For more details on what changed in 1.0, read the [changelog](https://github.com/tink-ab/tink-link-ios/releases/tag/1.0.0-rc.1).
