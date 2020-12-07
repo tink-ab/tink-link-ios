@@ -45,8 +45,8 @@ final class CheckmarkView: UIView {
         }
         set {
             _isChecked = newValue
-            circleLayer.strokeEnd = newValue ? 0 : 1
-            checkmarkLayer.strokeEnd = newValue ? 0 : 1
+            circleLayer.strokeEnd = newValue ? 1 : 0
+            checkmarkLayer.strokeEnd = newValue ? 1 : 0
         }
     }
 
