@@ -155,6 +155,15 @@ public class TinkLinkViewController: UIViewController {
     }
 
     /// Initializes a new TinkLinkViewController with the current user session associated with this Tink object.
+    ///
+    /// Required scopes:
+    /// - authorization:read
+    /// - credentials:read
+    /// - credentials:write
+    /// - credentials:refresh
+    /// - providers:read
+    /// - user:read
+    ///
     /// - Parameters:
     ///   - tink: A configured `Tink` object.
     ///   - userSession: The user session associated with the TinkLinkViewController.
@@ -173,6 +182,15 @@ public class TinkLinkViewController: UIViewController {
     }
 
     /// Initializes a new TinkLinkViewController with the `AuthorizationCode`.
+    ///
+    /// Required scopes:
+    /// - authorization:read
+    /// - credentials:read
+    /// - credentials:write
+    /// - credentials:refresh
+    /// - providers:read
+    /// - user:read
+    ///
     /// - Parameters:
     ///   - tink: A configured `Tink` object.
     ///   - authorizationCode: Authenticate with a `AuthorizationCode` that delegated from Tink to exchanged for a user object.
