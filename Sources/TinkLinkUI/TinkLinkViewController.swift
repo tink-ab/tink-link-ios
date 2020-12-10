@@ -241,7 +241,7 @@ public class TinkLinkViewController: UIViewController {
     }
 
     override public var childForStatusBarStyle: UIViewController? {
-        return nil
+        return loadingViewController
     }
 
     override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
