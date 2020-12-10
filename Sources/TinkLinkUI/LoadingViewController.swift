@@ -1,6 +1,15 @@
 import UIKit
 
 final class LoadingViewController: UIViewController {
+    override public var preferredStatusBarStyle: UIStatusBarStyle {
+        let baseColor = (navigationController?.isNavigationBarHidden ?? true) ? Color.background : Color.navigationBarBackground
+        if #available(iOS 13.0, *) {
+            return baseColor.resolvedColor(with: traitCollection).isLight ? .darkContent : .lightContent
+        } else {
+            return baseColor.isLight ? .default : .lightContent
+        }
+    }
+
     private var onCancel: (() -> Void)?
     private var onRetry: (() -> Void)?
     private var onClose: (() -> Void)?
