@@ -35,6 +35,7 @@ final class LoadingViewController: UIViewController {
         cancelButton.setTitle(Strings.Generic.cancel, for: .normal)
 
         label.font = Font.headline
+        label.textColor = Color.label
         label.numberOfLines = 0
         label.textAlignment = .center
 
