@@ -145,6 +145,8 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                     do {
                         try result.get()
                         self.credentialsStatusPollingTask?.startPolling()
+                    } catch SupplementInformationTask.Error.cancelled {
+                        self.complete(with: .failure(Error(code: .cancelled)))
                     } catch {
                         self.complete(with: .failure(error))
                     }
