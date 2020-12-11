@@ -56,7 +56,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 case downloadRequired
                 case doesNotSupportAuthenticatingOnAnotherDevice
                 case decodingQRCodeImageFailed
-                case cancelled
             }
 
             var value: Value
@@ -69,7 +68,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             public static let doesNotSupportAuthenticatingOnAnotherDevice = Self(value: .doesNotSupportAuthenticatingOnAnotherDevice)
             /// Decoding the QR code image failed.
             public static let decodingQRCodeImageFailed = Self(value: .decodingQRCodeImageFailed)
-            public static let cancelled = Self(value: .cancelled)
 
             public static func ~= (lhs: Self, rhs: Swift.Error) -> Bool {
                 lhs == (rhs as? ThirdPartyAppAuthenticationTask.Error)?.code
@@ -90,7 +88,6 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         public static let doesNotSupportAuthenticatingOnAnotherDevice: Code = .doesNotSupportAuthenticatingOnAnotherDevice
         /// Decoding the QR code image failed.
         public static let decodingQRCodeImageFailed: Code = .decodingQRCodeImageFailed
-        public static let cancelled: Code = .cancelled
 
         /// If the error is `downloadRequired` this property can have a title explaining that a third party app required for authentication.
         public var downloadTitle: String?
@@ -269,7 +266,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                 }
                 completion(.success(qrImage))
             } catch ServiceError.cancelled {
-                completion(.failure(Error(code: .cancelled)))
+                completion(.failure(TinkLinkError(code: .cancelled)))
             } catch {
                 completion(.failure(error))
             }
@@ -287,7 +284,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
             cancellable.cancel()
             callRetryCancellable = nil
         } else {
-            completionHandler(.failure(Error(code: .cancelled)))
+            completionHandler(.failure(TinkLinkError(code: .cancelled)))
         }
     }
 
