@@ -22,6 +22,7 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
             case internalError
             case notConnectedToInternet
             case networkFailure
+            case thirdPartyAppAuthenticationFailed
         }
 
         var value: Value
@@ -76,6 +77,9 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
 
         /// Network error.
         public static let networkFailure = Self(value: .networkFailure)
+
+        /// Authentication with third party app failed.
+        public static let thirdPartyAppAuthenticationFailed = Self(value: .thirdPartyAppAuthenticationFailed)
 
         public static func ~= (lhs: Self, rhs: Swift.Error) -> Bool {
             lhs == (rhs as? TinkLinkError)?.code
@@ -173,6 +177,9 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
 
     /// Network error.
     public static let networkFailure: Code = .networkFailure
+
+    /// Authentication with third party app failed.
+    public static let thirdPartyAppAuthenticationFailed: Code = .thirdPartyAppAuthenticationFailed
 
     static func credentialsAuthenticationFailed(_ message: String?) -> Self {
         .init(code: .credentialsAuthenticationFailed, message: message)
