@@ -42,7 +42,7 @@ extension TinkLinkError: LocalizedError {
     }
 }
 
-extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
+extension TinkLinkError.ThirdPartyAppAuthenticationFailureReason: LocalizedError {
     public var errorDescription: String? {
         switch code {
         case .deeplinkURLNotFound:
