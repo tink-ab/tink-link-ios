@@ -20,6 +20,8 @@ extension TinkLinkError: LocalizedError {
             return "Not Found"
         case .cancelled:
             return "Cancelled"
+        case .thirdPartyAppAuthenticationFailed:
+            return thirdPartyAppAuthenticationFailureReason?.errorDescription
         default:
             return "Error"
         }
@@ -34,13 +36,15 @@ extension TinkLinkError: LocalizedError {
              .credentialsSessionExpired,
              .credentialsDeleted:
             return message
+        case .thirdPartyAppAuthenticationFailed:
+            return thirdPartyAppAuthenticationFailureReason?.failureReason
         default:
             return nil
         }
     }
 }
 
-extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
+extension TinkLinkError.ThirdPartyAppAuthenticationFailureReason: LocalizedError {
     public var errorDescription: String? {
         switch code {
         case .deeplinkURLNotFound:
@@ -51,8 +55,6 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
             return "This bank does not support authenticating on another device."
         case .decodingQRCodeImageFailed:
             return "Failed to decode the QR code image."
-        case .cancelled:
-            return "Cancelled"
         default:
             return nil
         }
@@ -67,8 +69,6 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
-            return nil
-        case .cancelled:
             return nil
         default:
             return nil
