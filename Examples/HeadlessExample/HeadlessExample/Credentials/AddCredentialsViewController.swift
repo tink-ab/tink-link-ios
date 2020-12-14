@@ -255,6 +255,14 @@ extension AddCredentialsViewController {
             hideUpdatingView(animated: false) {
                 self.dismiss(animated: true)
             }
+        } catch let error as TinkLinkError where error.code == .thirdPartyAppAuthenticationFailed {
+            hideUpdatingView(animated: false) {
+                if let reason = error.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired {
+                    self.showDownloadPrompt(for: reason)
+                } else {
+                    self.showAlert(for: error)
+                }
+            }
         } catch {
             hideUpdatingView(animated: false) {
                 self.showAlert(for: error)

@@ -248,6 +248,15 @@ extension UpdateCredentialsViewController {
         do {
             let credentials = try result.get()
             completion(.success(credentials))
+        } catch let error as TinkLinkError where error.code == .thirdPartyAppAuthenticationFailed {
+            navigationItem.rightBarButtonItem = updateBarButtonItem
+            hideUpdatingView(animated: false) {
+                if let reason = error.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired {
+                    self.showDownloadPrompt(for: reason)
+                } else {
+                    self.showAlert(for: error)
+                }
+            }
         } catch {
             navigationItem.rightBarButtonItem = updateBarButtonItem
             hideUpdatingView(animated: false) {
