@@ -86,15 +86,66 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
         }
     }
 
+    public struct ThirdPartyAppAuthenticationFailureReason: CustomStringConvertible {
+        public struct Code: Hashable {
+            enum Value {
+                case deeplinkURLNotFound
+                case downloadRequired
+                case doesNotSupportAuthenticatingOnAnotherDevice
+                case decodingQRCodeImageFailed
+            }
+
+            var value: Value
+
+            /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
+            public static let deeplinkURLNotFound = Self(value: .deeplinkURLNotFound)
+            /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
+            public static let downloadRequired = Self(value: .downloadRequired)
+            /// The credentials can not be authenticated on another device.
+            public static let doesNotSupportAuthenticatingOnAnotherDevice = Self(value: .doesNotSupportAuthenticatingOnAnotherDevice)
+            /// Decoding the QR code image failed.
+            public static let decodingQRCodeImageFailed = Self(value: .decodingQRCodeImageFailed)
+        }
+
+        public let code: Code
+
+        public var description: String {
+            return "TinkLinkError.ThirdPartyAppAuthenticationFailureReason.\(code.value)"
+        }
+
+        /// The `ThirdPartyAppAuthenticationTask` have no deep link URL.
+        public static let deeplinkURLNotFound: Code = .deeplinkURLNotFound
+        /// The `UIApplication` could not open the application. It is most likely missing and needs to be downloaded.
+        public static let downloadRequired: Code = .downloadRequired
+        /// The credentials can not be authenticated on another device.
+        public static let doesNotSupportAuthenticatingOnAnotherDevice: Code = .doesNotSupportAuthenticatingOnAnotherDevice
+        /// Decoding the QR code image failed.
+        public static let decodingQRCodeImageFailed: Code = .decodingQRCodeImageFailed
+
+        /// If the error is `downloadRequired` this property can have a title explaining that a third party app required for authentication.
+        public var downloadTitle: String?
+        /// If the error is `downloadRequired` this property can have a message explaining that a third party app required for authentication.
+        public var downloadMessage: String?
+        /// If the error is `downloadRequired` this property can have an App Store URL to the third party app required for authentication.
+        public var appStoreURL: URL?
+
+        static func downloadRequired(title: String?, message: String?, appStoreURL: URL?) -> Self {
+            .init(code: .downloadRequired, downloadTitle: title, downloadMessage: message, appStoreURL: appStoreURL)
+        }
+    }
+
     /// The error code.
     public let code: Code
 
     // A payload from the backend.
     public let message: String?
 
-    init(code: Code, message: String? = nil) {
+    public var thirdPartyAppAuthenticationFailureReason: ThirdPartyAppAuthenticationFailureReason?
+
+    init(code: Code, message: String? = nil, thirdPartyAppAuthenticationFailureReason: ThirdPartyAppAuthenticationFailureReason? = nil) {
         self.code = code
         self.message = message
+        self.thirdPartyAppAuthenticationFailureReason = thirdPartyAppAuthenticationFailureReason
     }
 
     public var description: String {
