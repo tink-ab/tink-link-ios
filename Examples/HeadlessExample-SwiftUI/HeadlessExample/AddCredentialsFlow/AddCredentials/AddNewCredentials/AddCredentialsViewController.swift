@@ -244,9 +244,13 @@ extension AddCredentialsViewController {
         do {
             let credential = try result.get()
             showCredentialUpdated(for: credential)
-        } catch let error as ThirdPartyAppAuthenticationTask.Error {
-            hideUpdatingView(animated: true) {
-                self.showDownloadPrompt(for: error)
+        } catch let error as TinkLinkError where error.code == .thirdPartyAppAuthenticationFailed {
+            hideUpdatingView(animated: false) {
+                if let reason = error.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired {
+                    self.showDownloadPrompt(for: reason)
+                } else {
+                    self.showAlert(for: error)
+                }
             }
         } catch {
             hideUpdatingView(animated: true) {

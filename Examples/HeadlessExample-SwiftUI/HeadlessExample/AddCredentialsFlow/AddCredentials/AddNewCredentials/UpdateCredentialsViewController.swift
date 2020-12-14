@@ -214,6 +214,12 @@ extension UpdateCredentialsViewController {
         do {
             let credentials = try result.get()
             showCredentialUpdated(for: credentials)
+        } catch let error as TinkLinkError where error.code == .thirdPartyAppAuthenticationFailed {
+            if let reason = error.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired {
+                showDownloadPrompt(for: reason)
+            } else {
+                showAlert(for: error)
+            }
         } catch {
             showAlert(for: error)
         }
