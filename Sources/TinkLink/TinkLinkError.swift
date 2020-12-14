@@ -291,4 +291,8 @@ public struct TinkLinkError: Swift.Error, CustomStringConvertible {
     static func internalError(_ message: String?) -> Self {
         .init(code: .internalError, message: message)
     }
+
+    static func thirdPartyAppAuthenticationFailed(reason: ThirdPartyAppAuthenticationFailureReason?) -> Self {
+        .init(code: .thirdPartyAppAuthenticationFailed, thirdPartyAppAuthenticationFailureReason: reason)
+    }
 }
