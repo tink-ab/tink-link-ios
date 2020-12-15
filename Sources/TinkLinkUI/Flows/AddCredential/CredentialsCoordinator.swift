@@ -3,7 +3,6 @@ import TinkLink
 
 protocol CredentialsCoordinatorPresenting: AnyObject {
     func showLoadingIndicator(text: String?, onCancel: (() -> Void)?)
-    func hideLoadingIndicator()
     func show(_ viewController: UIViewController)
     func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
     func dismiss(animated: Bool, completion: (() -> Void)?)
@@ -114,7 +113,6 @@ final class CredentialsCoordinator {
 
     private func handleCompletion(for result: Result<(Credentials, AuthorizationCode?), Error>) {
         do {
-            presenter?.hideLoadingIndicator()
             let (credentials, authorizationCode) = try result.get()
             delegate?.didFinishCredentialsForm()
             showAddCredentialSuccess(with: credentials, authorizationCode: authorizationCode, for: action)
