@@ -71,17 +71,6 @@ final class LoadingViewController: UIViewController {
         ])
     }
 
-    func showLoadingIndicator() {
-        dispatchPrecondition(condition: .onQueue(.main))
-        activityIndicatorView.startAnimating()
-        errorView.isHidden = true
-    }
-
-    func hideLoadingIndicator() {
-        dispatchPrecondition(condition: .onQueue(.main))
-        activityIndicatorView.stopAnimating()
-    }
-
     func update(_ text: String?, onCancel: (() -> Void)?) {
         dispatchPrecondition(condition: .onQueue(.main))
         if let onCancel = onCancel {

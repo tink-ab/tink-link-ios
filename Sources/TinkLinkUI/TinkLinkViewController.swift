@@ -437,10 +437,8 @@ public class TinkLinkViewController: UIViewController {
                         self.result = .failure(tinkLinkError)
                     }
                     self.loadingViewController?.setError(error, onClose: { [weak self] in
-                        self?.loadingViewController?.hideLoadingIndicator()
                         self?.closeTinkLink()
                     }, onRetry: { [weak self] in
-                        self?.loadingViewController?.showLoadingIndicator()
                         self?.operate()
                     })
                     self.tinkLinkTracker.track(screen: .error)
@@ -599,7 +597,6 @@ extension TinkLinkViewController {
         loadingViewController.didMove(toParent: self)
 
         loadingViewController.update(text, onCancel: onCancel)
-        loadingViewController.showLoadingIndicator()
 
         self.loadingViewController = loadingViewController
 
