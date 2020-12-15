@@ -248,6 +248,15 @@ extension UpdateCredentialsViewController {
         do {
             let credentials = try result.get()
             completion(.success(credentials))
+        } catch let error as TinkLinkError where error.code == .thirdPartyAppAuthenticationFailed {
+            navigationItem.rightBarButtonItem = updateBarButtonItem
+            hideUpdatingView(animated: false) {
+                if let reason = error.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired {
+                    self.showDownloadPrompt(for: reason)
+                } else {
+                    self.showAlert(for: error)
+                }
+            }
         } catch {
             navigationItem.rightBarButtonItem = updateBarButtonItem
             hideUpdatingView(animated: false) {
@@ -299,10 +308,10 @@ extension UpdateCredentialsViewController {
         statusViewController = nil
     }
 
-    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
-        let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
+    private func showDownloadPrompt(for thirdPartyAppAuthenticationFailureReason: TinkLinkError.ThirdPartyAppAuthenticationFailureReason) {
+        let alertController = UIAlertController(title: thirdPartyAppAuthenticationFailureReason.errorDescription, message: thirdPartyAppAuthenticationFailureReason.failureReason, preferredStyle: .alert)
 
-        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
+        if let appStoreURL = thirdPartyAppAuthenticationFailureReason.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
                 UIApplication.shared.open(appStoreURL)

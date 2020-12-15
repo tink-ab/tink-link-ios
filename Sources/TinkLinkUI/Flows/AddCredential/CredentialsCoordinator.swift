@@ -114,12 +114,12 @@ final class CredentialsCoordinator {
             let (credentials, authorizationCode) = try result.get()
             delegate?.didFinishCredentialsForm()
             showAddCredentialSuccess(with: credentials, authorizationCode: authorizationCode, for: action)
-        } catch ThirdPartyAppAuthenticationTask.Error.cancelled {
-            if callCompletionOnError {
-                completion(.failure(.init(code: .userCancelled)))
+        } catch let error as TinkLinkError where error.code == .thirdPartyAppAuthenticationFailed {
+            if let reason = error.thirdPartyAppAuthenticationFailureReason {
+                showDownloadPrompt(for: reason)
+            } else {
+                showAlert(for: error)
             }
-        } catch let error as ThirdPartyAppAuthenticationTask.Error {
-            showDownloadPrompt(for: error)
             tinkLinkTracker.track(screen: .error)
         } catch TinkLinkError.cancelled {
             if callCompletionOnError {
@@ -250,7 +250,7 @@ extension CredentialsCoordinator {
 // MARK: - Alerts
 
 extension CredentialsCoordinator {
-    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
+    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: TinkLinkError.ThirdPartyAppAuthenticationFailureReason) {
         let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
 
         if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL), !callCompletionOnError {

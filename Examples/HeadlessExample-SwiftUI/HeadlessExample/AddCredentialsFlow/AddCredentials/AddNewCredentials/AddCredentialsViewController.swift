@@ -244,9 +244,13 @@ extension AddCredentialsViewController {
         do {
             let credential = try result.get()
             showCredentialUpdated(for: credential)
-        } catch let error as ThirdPartyAppAuthenticationTask.Error {
-            hideUpdatingView(animated: true) {
-                self.showDownloadPrompt(for: error)
+        } catch let error as TinkLinkError where error.code == .thirdPartyAppAuthenticationFailed {
+            hideUpdatingView(animated: false) {
+                if let reason = error.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired {
+                    self.showDownloadPrompt(for: reason)
+                } else {
+                    self.showAlert(for: error)
+                }
             }
         } catch {
             hideUpdatingView(animated: true) {
@@ -300,10 +304,10 @@ extension AddCredentialsViewController {
         }
     }
 
-    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
-        let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
+    private func showDownloadPrompt(for thirdPartyAppAuthenticationFailureReason: TinkLinkError.ThirdPartyAppAuthenticationFailureReason) {
+        let alertController = UIAlertController(title: thirdPartyAppAuthenticationFailureReason.errorDescription, message: thirdPartyAppAuthenticationFailureReason.failureReason, preferredStyle: .alert)
 
-        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
+        if let appStoreURL = thirdPartyAppAuthenticationFailureReason.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
                 UIApplication.shared.open(appStoreURL)
