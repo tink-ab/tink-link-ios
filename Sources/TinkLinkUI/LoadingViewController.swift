@@ -10,7 +10,7 @@ final class LoadingViewController: UIViewController {
         }
     }
 
-    private var onCancel: (() -> Void)?
+    private(set) var onCancel: (() -> Void)?
     private var onRetry: (() -> Void)?
     private var onClose: (() -> Void)?
 
@@ -18,6 +18,8 @@ final class LoadingViewController: UIViewController {
     private let label = UILabel()
     private let cancelButton = UIButton(type: .system)
     private let errorView = LoadingErrorView()
+
+    var text: String { label.text ?? "" }
 
     override func viewDidLoad() {
         super.viewDidLoad()
