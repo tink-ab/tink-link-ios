@@ -436,11 +436,12 @@ public class TinkLinkViewController: UIViewController {
                     if let tinkLinkError = TinkLinkError(error: error) {
                         self.result = .failure(tinkLinkError)
                     }
-                    self.loadingViewController?.setError(error, onClose: { [weak self] in
+                    let loadingErrorViewController = LoadingErrorViewController(error: error, onClose: { [weak self] in
                         self?.closeTinkLink()
                     }, onRetry: { [weak self] in
                         self?.operate()
                     })
+                    self.containedNavigationController.setViewControllers([loadingErrorViewController], animated: false)
                     self.tinkLinkTracker.track(screen: .error)
                 }
             }
