@@ -5,7 +5,7 @@ read newVersion
 if [[ $newVersion =~ ^([0-9]{1,2}\.){2}[0-9]{1,10}$ ]]; then
 git checkout master
 git pull
-git checkout -b rc-$newVersion
+git checkout -b prerelease-$newVersion
 else
   echo "$newVersion is not in the right format."
   exit
