@@ -17,10 +17,6 @@ extension UINavigationController {
             appearance.shadowColor = Color.separator
             appearance.backgroundColor = Color.navigationBarBackground
 
-            let chevronLayer = ChevronLayer()
-            let backIndicatorImage = UIImage.image(from: chevronLayer)
-            appearance.setBackIndicatorImage(backIndicatorImage, transitionMaskImage: backIndicatorImage)
-
             appearance.titleTextAttributes = [
                 .font: Font.headline,
                 .foregroundColor: Color.navigationBarLabel
@@ -39,11 +35,6 @@ extension UINavigationController {
 
             // Navigation Bar
             let navigationBarAppearance = UINavigationBar.appearance(whenContainedInInstancesOf: [Self.self])
-
-            let chevronLayer = ChevronLayer()
-            let backIndicatorImage = UIImage.image(from: chevronLayer)
-            navigationBarAppearance.backIndicatorImage = backIndicatorImage
-            navigationBarAppearance.backIndicatorTransitionMaskImage = backIndicatorImage
 
             navigationBarAppearance.titleTextAttributes = [
                 .font: Font.headline,
