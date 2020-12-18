@@ -133,7 +133,7 @@ class FloatingPlaceholderTextField: UITextField {
 
         underlineLayer.strokeColor = tintColor.cgColor
         placeholderLayer.foregroundColor = Color.secondaryLabel.cgColor
-        underlineLayer.backgroundColor = Color.label.withAlphaComponent(0.2).cgColor
+        underlineLayer.backgroundColor = Color.secondaryLabel.withAlphaComponent(0.5).cgColor
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -145,7 +145,7 @@ class FloatingPlaceholderTextField: UITextField {
             }
             underlineLayer.strokeColor = tintColor.cgColor
             placeholderLayer.foregroundColor = Color.secondaryLabel.cgColor
-            underlineLayer.backgroundColor = Color.label.withAlphaComponent(0.2).cgColor
+            underlineLayer.backgroundColor = Color.secondaryLabel.withAlphaComponent(0.5).cgColor
         }
     }
 }
@@ -166,7 +166,7 @@ extension FloatingPlaceholderTextField {
         placeholderLayer.anchorPoint = .zero
         layer.addSublayer(placeholderLayer)
 
-        underlineLayer.backgroundColor = Color.label.withAlphaComponent(0.2).cgColor
+        underlineLayer.backgroundColor = Color.secondaryLabel.withAlphaComponent(0.5).cgColor
         underlineLayer.lineWidth = lineWidth
         underlineLayer.fillColor = UIColor.clear.cgColor
         underlineLayer.strokeColor = tintColor.cgColor
