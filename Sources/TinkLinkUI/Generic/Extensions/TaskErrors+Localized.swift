@@ -42,7 +42,7 @@ extension TinkLinkError: LocalizedError {
     }
 }
 
-extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
+extension TinkLinkError.ThirdPartyAppAuthenticationFailureReason: LocalizedError {
     public var errorDescription: String? {
         switch code {
         case .deeplinkURLNotFound:
@@ -52,8 +52,6 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
-            return nil
-        case .cancelled:
             return nil
         default:
             return nil
@@ -69,8 +67,6 @@ extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
-            return nil
-        case .cancelled:
             return nil
         default:
             return nil

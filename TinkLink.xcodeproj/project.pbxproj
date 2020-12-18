@@ -248,7 +248,6 @@
 		F5512E9C8B0BBC1AFA919F21 /* RefreshCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */; };
 		F64F129B2827DA6D05E4B486 /* OAuthService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11643F0D9A1740B7CB5065F6 /* OAuthService+mock.swift */; };
 		F72D8C690A16D1CC965D6158 /* AuthenticationUserTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8106785D38F618325E76C /* AuthenticationUserTypePickerViewController.swift */; };
-		F7B72C6E2155D36027610A6F /* ChevronLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72837050F425EDA227E22F95 /* ChevronLayer.swift */; };
 		FB3BBC846E44D9BF5A103353 /* RefreshableItemsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F68EE28916ED9E73A615855 /* RefreshableItemsTests.swift */; };
 		FC38AF9A17FA0EAECBED87E5 /* TinkLinkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C77441DC2AA0C1E0EE189C /* TinkLinkConfiguration.swift */; };
 		FD3BAF33CA5DE2BE074B31A4 /* FormTableViewErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C6392F7851C387256EDB0 /* FormTableViewErrorView.swift */; };
@@ -419,7 +418,6 @@
 		69C77441DC2AA0C1E0EE189C /* TinkLinkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkConfiguration.swift; sourceTree = "<group>"; };
 		6A4338220C7C6EA3D93EB739 /* MutableBeneficiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableBeneficiaryService.swift; sourceTree = "<group>"; };
 		7063E356EC1C358718743627 /* TinkLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkViewController.swift; sourceTree = "<group>"; };
-		72837050F425EDA227E22F95 /* ChevronLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronLayer.swift; sourceTree = "<group>"; };
 		72E02D083478E149B8CF1FEC /* NavigationTitleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleImageView.swift; sourceTree = "<group>"; };
 		73756657C8858B4F6E933374 /* TinkLinkSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkSessionManager.swift; sourceTree = "<group>"; };
 		749A7934F51078B466E02294 /* HumanEnumeratedFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanEnumeratedFormatter.swift; sourceTree = "<group>"; };
@@ -683,7 +681,6 @@
 			children = (
 				C0ED584E832F47FBD0E3CD82 /* Appearance.swift */,
 				D1EA9290A1694B7D7CD4A600 /* AppearanceProviding.swift */,
-				72837050F425EDA227E22F95 /* ChevronLayer.swift */,
 				1F84E80FE94D48851D316C22 /* Color.swift */,
 				17619D3957504299C72B425D /* ColorProvider.swift */,
 				38052B5C233E11D047557DCF /* ColorProviding.swift */,
@@ -1121,13 +1118,6 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		"TEMP_2408147D-B544-42EA-BA48-23B9BBBB1AA5" /* Translations */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Translations;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1384,7 +1374,6 @@
 				506B7EEE7C2FA50A8892955E /* Bundle+TinkLinkUI.swift in Sources */,
 				95689B690A884F9846D06922 /* CGImage+Extensions.swift in Sources */,
 				AD49441B456FF4FE57426F26 /* CheckmarkView.swift in Sources */,
-				F7B72C6E2155D36027610A6F /* ChevronLayer.swift in Sources */,
 				BE79DA7814DA02976226DF30 /* Color.swift in Sources */,
 				0E9D50BEA86EDCABB4142492 /* ColorProvider.swift in Sources */,
 				A2CD24451D1500680B3C2B84 /* ColorProviding.swift in Sources */,
@@ -1695,7 +1684,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = "1.0.0-rc.1";
+				MARKETING_VERSION = "1.0.0-rc.2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1747,7 +1736,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.0.0-rc.1";
+				MARKETING_VERSION = "1.0.0-rc.2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;
@@ -1797,7 +1786,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = "1.0.0-rc.1";
+				MARKETING_VERSION = "1.0.0-rc.2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1847,7 +1836,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = "1.0.0-rc.1";
+				MARKETING_VERSION = "1.0.0-rc.2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1944,7 +1933,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = "1.0.0-rc.1";
+				MARKETING_VERSION = "1.0.0-rc.2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1974,7 +1963,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.0.0-rc.1";
+				MARKETING_VERSION = "1.0.0-rc.2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;

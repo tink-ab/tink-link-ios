@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
 // swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TinkLink
 import Foundation
 import Security
@@ -399,22 +399,6 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
   public typealias ID = Swift.ObjectIdentifier
 }
 @_hasMissingDesignatedInitializers final public class SupplementInformationTask : Swift.Identifiable {
-  public struct Error : Swift.Error, Swift.CustomStringConvertible {
-    public struct Code : Swift.Hashable {
-      public static let cancelled: TinkLink.SupplementInformationTask.Error.Code
-      public static func ~= (lhs: TinkLink.SupplementInformationTask.Error.Code, rhs: Swift.Error) -> Swift.Bool
-      public var hashValue: Swift.Int {
-        get
-      }
-      public func hash(into hasher: inout Swift.Hasher)
-      public static func == (a: TinkLink.SupplementInformationTask.Error.Code, b: TinkLink.SupplementInformationTask.Error.Code) -> Swift.Bool
-    }
-    public var code: TinkLink.SupplementInformationTask.Error.Code
-    public var description: Swift.String {
-      get
-    }
-    public static let cancelled: TinkLink.SupplementInformationTask.Error.Code
-  }
   final public let credentials: TinkCore.Credentials
   final public func submit(_ form: TinkLink.Form)
   final public func cancel()
@@ -422,33 +406,7 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
   public typealias ID = Swift.ObjectIdentifier
 }
 @_hasMissingDesignatedInitializers public class ThirdPartyAppAuthenticationTask : Swift.Identifiable {
-  public struct Error : Swift.Error, Swift.CustomStringConvertible {
-    public struct Code : Swift.Hashable {
-      public static let deeplinkURLNotFound: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-      public static let downloadRequired: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-      public static let doesNotSupportAuthenticatingOnAnotherDevice: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-      public static let decodingQRCodeImageFailed: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-      public static let cancelled: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-      public static func ~= (lhs: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code, rhs: Swift.Error) -> Swift.Bool
-      public var hashValue: Swift.Int {
-        get
-      }
-      public func hash(into hasher: inout Swift.Hasher)
-      public static func == (a: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code, b: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code) -> Swift.Bool
-    }
-    public let code: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-    public var description: Swift.String {
-      get
-    }
-    public static let deeplinkURLNotFound: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-    public static let downloadRequired: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-    public static let doesNotSupportAuthenticatingOnAnotherDevice: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-    public static let decodingQRCodeImageFailed: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-    public static let cancelled: TinkLink.ThirdPartyAppAuthenticationTask.Error.Code
-    public var downloadTitle: Swift.String?
-    public var downloadMessage: Swift.String?
-    public var appStoreURL: Foundation.URL?
-  }
+  public typealias Error = TinkLink.TinkLinkError
   public enum Status {
     case qrImage(UIKit.UIImage)
     case awaitAuthenticationOnAnotherDevice
@@ -498,6 +456,7 @@ public struct TinkLinkError : Swift.Error, Swift.CustomStringConvertible {
     public static let internalError: TinkLink.TinkLinkError.Code
     public static let notConnectedToInternet: TinkLink.TinkLinkError.Code
     public static let networkFailure: TinkLink.TinkLinkError.Code
+    public static let thirdPartyAppAuthenticationFailed: TinkLink.TinkLinkError.Code
     public static func ~= (lhs: TinkLink.TinkLinkError.Code, rhs: Swift.Error) -> Swift.Bool
     public var hashValue: Swift.Int {
       get
@@ -505,8 +464,33 @@ public struct TinkLinkError : Swift.Error, Swift.CustomStringConvertible {
     public func hash(into hasher: inout Swift.Hasher)
     public static func == (a: TinkLink.TinkLinkError.Code, b: TinkLink.TinkLinkError.Code) -> Swift.Bool
   }
+  public struct ThirdPartyAppAuthenticationFailureReason : Swift.CustomStringConvertible {
+    public struct Code : Swift.Hashable {
+      public static let deeplinkURLNotFound: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
+      public static let downloadRequired: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
+      public static let doesNotSupportAuthenticatingOnAnotherDevice: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
+      public static let decodingQRCodeImageFailed: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+      public static func == (a: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code, b: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code) -> Swift.Bool
+    }
+    public let code: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
+    public var description: Swift.String {
+      get
+    }
+    public static let deeplinkURLNotFound: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
+    public static let downloadRequired: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
+    public static let doesNotSupportAuthenticatingOnAnotherDevice: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
+    public static let decodingQRCodeImageFailed: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
+    public var downloadTitle: Swift.String?
+    public var downloadMessage: Swift.String?
+    public var appStoreURL: Foundation.URL?
+  }
   public let code: TinkLink.TinkLinkError.Code
   public let message: Swift.String?
+  public var thirdPartyAppAuthenticationFailureReason: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason?
   public var description: Swift.String {
     get
   }
@@ -527,6 +511,7 @@ public struct TinkLinkError : Swift.Error, Swift.CustomStringConvertible {
   public static let internalError: TinkLink.TinkLinkError.Code
   public static let notConnectedToInternet: TinkLink.TinkLinkError.Code
   public static let networkFailure: TinkLink.TinkLinkError.Code
+  public static let thirdPartyAppAuthenticationFailed: TinkLink.TinkLinkError.Code
 }
 final public class TinkLinkSessionManager : TinkCore.SessionManager {
   public init(tink: TinkCore.Tink = .shared)

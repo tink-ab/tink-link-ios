@@ -5,7 +5,7 @@ read newVersion
 if [[ $newVersion =~ ^([0-9]{1,2}\.){2}[0-9]{1,10}$ ]]; then
 git checkout master
 git pull
-git checkout -b rc-$newVersion
+git checkout -b prerelease-$newVersion
 else
   echo "$newVersion is not in the right format."
   exit
@@ -32,6 +32,6 @@ git commit -am"Update Xcode project"
 make module-interfaces
 git commit -am"Update module interfaces"
 
-gh pr create --repo tink-ab/tink-link-ios-private -t "rc:$newVersion" -b "Release candidate for Tink Link pre release." -r tink-ab/ios-maintainer
+gh pr create --repo tink-ab/tink-link-ios-private -t "$newVersion Prerelease" -b "Tink Link prerelease updates." -r tink-ab/ios-maintainer
 
-echo "Release candidate PR has been created! 🎉"
+echo "Prerelease PR has been created! 🎉"
