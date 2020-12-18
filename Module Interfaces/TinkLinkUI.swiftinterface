@@ -103,7 +103,7 @@ extension TinkLinkError : Foundation.LocalizedError {
     get
   }
 }
-extension ThirdPartyAppAuthenticationTask.Error : Foundation.LocalizedError {
+extension TinkLinkError.ThirdPartyAppAuthenticationFailureReason : Foundation.LocalizedError {
   public var errorDescription: Swift.String? {
     get
   }
