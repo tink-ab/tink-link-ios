@@ -68,7 +68,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
 
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
-        titleLabel.font = Font.headline
+        titleLabel.font = Font.subtitle1
         titleLabel.textColor = Color.label
 
         let paragraphStyle = NSMutableParagraphStyle()
@@ -76,7 +76,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         detailLabel.attributedText = NSAttributedString(string: String(format: subtitleText, companyName), attributes: [.paragraphStyle: paragraphStyle])
         detailLabel.textAlignment = .center
         detailLabel.numberOfLines = 0
-        detailLabel.font = Font.footnote
+        detailLabel.font = Font.caption
         detailLabel.textColor = Color.label
 
         doneButton.text = Strings.Generic.done

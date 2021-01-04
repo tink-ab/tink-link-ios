@@ -28,7 +28,7 @@ final class NavigationTitleImageView: UIView {
 
     private func setup() {
         navigationTitleLabel.textColor = Color.navigationBarLabel
-        navigationTitleLabel.font = Font.headline
+        navigationTitleLabel.font = Font.subtitle1
         navigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         navigationTitleImageView.contentMode = .scaleAspectFit

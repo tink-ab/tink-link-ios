@@ -42,7 +42,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
 
         titleLabel.numberOfLines = 0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = Font.body
+        titleLabel.font = Font.body1
         titleLabel.textColor = Color.label
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
