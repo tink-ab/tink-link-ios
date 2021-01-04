@@ -44,20 +44,20 @@ final class LoadingErrorView: UIView {
         iconBackgroundView.layer.cornerRadius = 20
         iconBackgroundView.layer.backgroundColor = Color.warningBackground.cgColor
 
-        textLabel.font = Font.headline
+        textLabel.font = Font.subtitle1
         textLabel.textColor = Color.label
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 0
         textLabel.setLineHeight(lineHeight: 20)
 
-        descriptionLabel.font = Font.footnote
+        descriptionLabel.font = Font.caption
         descriptionLabel.textColor = Color.secondaryLabel
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 0
         descriptionLabel.setLineHeight(lineHeight: 20)
 
         cancelButton.setTitleColor(Color.button, for: .normal)
-        cancelButton.titleLabel?.font = Font.headline
+        cancelButton.titleLabel?.font = Font.subtitle1
         cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         cancelButton.setTitle(Strings.Generic.cancel, for: .normal)
 

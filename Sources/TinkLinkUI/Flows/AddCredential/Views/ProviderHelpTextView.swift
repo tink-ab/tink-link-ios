@@ -18,7 +18,7 @@ final class ProviderHelpTextView: UIView {
         directionalLayoutMargins = .init(top: 0, leading: 24, bottom: 12, trailing: 24)
 
         helpTextView.linkTextAttributes = [
-            NSAttributedString.Key.font: Font.footnote,
+            NSAttributedString.Key.font: Font.caption,
             NSAttributedString.Key.foregroundColor: Color.secondaryLabel
         ]
 
@@ -49,7 +49,7 @@ final class ProviderHelpTextView: UIView {
 
         let mutableAttributedString = NSMutableAttributedString(attributedString: attributedString)
 
-        mutableAttributedString.addAttributes([.font: Font.footnote, .foregroundColor: Color.secondaryLabel], range: NSRange(location: 0, length: attributedString.length))
+        mutableAttributedString.addAttributes([.font: Font.caption, .foregroundColor: Color.secondaryLabel], range: NSRange(location: 0, length: attributedString.length))
 
         // There can be an extra newline in the end of the
         // string (Down doing this?) so we need to remove it.

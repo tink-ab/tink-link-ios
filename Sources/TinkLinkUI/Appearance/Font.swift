@@ -29,6 +29,12 @@ extension Font {
 
 extension Font {
     enum Size: UInt {
+        /// 35
+        case tera = 35
+
+        /// 26
+        case giga = 26
+
         /// 21
         case mega = 21
 
@@ -46,6 +52,10 @@ extension Font {
 
         fileprivate var textStyle: UIFont.TextStyle {
             switch self {
+            case .tera:
+                return UIFont.TextStyle.title1
+            case .giga:
+                return UIFont.TextStyle.title2
             case .mega:
                 return UIFont.TextStyle.title3
             case .hecto:
@@ -65,6 +75,10 @@ extension Font {
 
         var lineHeight: CGFloat {
             switch self {
+            case .tera:
+                return 40
+            case .giga:
+                return 30
             case .mega:
                 return 28
             case .hecto:
@@ -119,14 +133,22 @@ extension Font {
 // MARK: - Semantic Text Styles
 
 extension Font {
+    /// Bold 35 (Tera)
+    static var header4: UIFont { bold(.tera) }
+    /// Bold 26 (Giga)
+    static var header5: UIFont { bold(.giga) }
     /// Bold 21 (Mega)
-    static var title: UIFont { bold(.mega) }
+    static var header6: UIFont { bold(.mega) }
     /// Bold 15 (Deci)
-    static var headline: UIFont { bold(.deci) }
+    static var subtitle1: UIFont { bold(.deci) }
+    /// Bold 13 (micro)
+    static var subtitle2: UIFont { bold(.micro) }
     /// Regular 15 (Deci)
-    static var body: UIFont { regular(.deci) }
+    static var body1: UIFont { regular(.deci) }
+    /// Regular 13 (micro)
+    static var body2: UIFont { regular(.micro) }
     /// Bold 15 (Deci)
-    static var callout: UIFont { bold(.deci) }
-    /// Regular 13 (Micro)
-    static var footnote: UIFont { regular(.micro) }
+    static var button: UIFont { bold(.deci) }
+    /// Regular 11 (nano)
+    static var caption: UIFont { regular(.nano) }
 }
