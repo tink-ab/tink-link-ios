@@ -18,7 +18,7 @@ struct AddCredentialsView: View {
     var body: some View {
         SwiftUI.Form {
             ForEach(Array(zip(form.fields.indices, form.fields)), id: \.1.name) { (fieldIndex, field) in
-                Section(header: Text(field.attributes.description)) {
+                Section(header: Text(field.attributes.description), footer: Text(field.attributes.helpText ?? "")) {
                     if field.attributes.isSecureTextEntry {
                         SecureField(field.attributes.placeholder ?? "", text: $form.fields[fieldIndex].text)
                     } else {
