@@ -26,12 +26,14 @@ struct AddCredentialsView: View {
                     }
                 }
             }
-            Section {
+        }
+        .navigationTitle(provider.displayName)
+        .toolbar(content: {
+            ToolbarItem {
                 Button("Add") {
 
                 }
             }
-        }
-        .navigationTitle(provider.displayName)
+        })
     }
 }
