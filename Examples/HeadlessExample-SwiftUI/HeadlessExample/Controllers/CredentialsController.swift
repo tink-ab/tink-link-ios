@@ -80,9 +80,13 @@ final class CredentialsController: ObservableObject {
 
     func addCredentials(for provider: Provider, form: TinkLink.Form, completion: @escaping (Result<Credentials, Error>) -> Void) {
         credentialsContext.add(for: provider, form: form) { [weak self] task in
-            self?.handleAuthentication(task)
+            DispatchQueue.main.async {
+                self?.handleAuthentication(task)
+            }
         } completion: { result in
-            completion(result)
+            DispatchQueue.main.async {
+                completion(result)
+            }
         }
     }
 
