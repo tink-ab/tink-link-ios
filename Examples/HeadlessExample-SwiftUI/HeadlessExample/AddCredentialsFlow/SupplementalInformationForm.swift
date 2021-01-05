@@ -16,6 +16,10 @@ struct SupplementalInformationForm: View {
     }
 
     var body: some View {
-        EmptyView()
+        SwiftUI.Form {
+            ForEach(Array(zip(form.fields.indices, form.fields)), id: \.1.name) { (fieldIndex, field) in
+                FormField(field: $form.fields[fieldIndex])
+            }
+        }
     }
 }
