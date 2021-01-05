@@ -19,6 +19,7 @@ struct SupplementalInformationForm: View {
                 FormField(field: $form.fields[fieldIndex])
             }
         }
+        .navigationBarTitle("Supplemental Information", displayMode: .inline)
         .toolbar(content: {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") {

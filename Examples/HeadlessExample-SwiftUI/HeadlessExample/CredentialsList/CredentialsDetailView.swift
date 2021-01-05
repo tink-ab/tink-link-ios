@@ -94,7 +94,9 @@ struct CredentialsDetailView: View {
         }
         .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
         .sheet(item: $credentialsController.supplementInformationTask) { task in
-            SupplementalInformationForm(supplementInformationTask: task)
+            NavigationView {
+                SupplementalInformationForm(supplementInformationTask: task)
+            }
         }
         .sheet(isPresented: $isUpdating) {
             NavigationView {

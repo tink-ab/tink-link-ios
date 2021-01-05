@@ -48,7 +48,9 @@ struct AddCredentialsView: View {
             }
         })
         .sheet(item: $credentialsController.supplementInformationTask) { task in
-            SupplementalInformationForm(supplementInformationTask: task)
+            NavigationView {
+                SupplementalInformationForm(supplementInformationTask: task)
+            }
         }
         .alert(item: $failure) { failure in
             if let tinLinkError = failure.error as? TinkLinkError, let reason = tinLinkError.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired, let appStoreURL = reason.appStoreURL {
