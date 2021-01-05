@@ -30,7 +30,7 @@ struct UpdateCredentialsFlowView: View {
                 EmptyView()
             }
         }
-        .navigationTitle(provider.displayName)
+        .navigationBarTitle(provider.displayName, displayMode: .inline)
         .toolbar(content: {
             ToolbarItem {
                 if isLoading {
