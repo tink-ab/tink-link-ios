@@ -99,10 +99,11 @@ struct CredentialsDetailView: View {
             }
         }
         .sheet(isPresented: $isUpdating) {
-            UpdateCredentialsFlowView(provider: self.provider!, credentials: self.credentials, credentialsController: self.credentialsController) { result in
+            UpdateCredentialsFlowView(provider: self.provider!, credentials: self.credentials) { result in
                 self.isUpdating = false
                 self.credentialsController.performFetch()
             }
+            .environmentObject(credentialsController)
         }
     }
 
