@@ -27,7 +27,9 @@ final class CredentialsController: ObservableObject {
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             authenticationHandler: { [weak self] authentication in
-                self?.handleAuthentication(authentication)
+                DispatchQueue.main.async {
+                    self?.handleAuthentication(authentication)
+                }
             },
             progressHandler: { status in
                 DispatchQueue.main.async {
@@ -52,7 +54,9 @@ final class CredentialsController: ObservableObject {
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             authenticationHandler: { [weak self] authentication in
-                self?.handleAuthentication(authentication)
+                DispatchQueue.main.async {
+                    self?.handleAuthentication(authentication)
+                }
             }, completion: { [weak self] result in
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
