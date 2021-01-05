@@ -15,21 +15,10 @@ struct AddCredentialsView: View {
         self._form = State(initialValue: TinkLink.Form(provider: provider))
     }
 
-    private func formField(for field: TinkLink.Form.Field, at fieldIndex: Int) -> some View {
-        Section(header: Text(field.attributes.description), footer: field.attributes.helpText.map(Text.init)) {
-            if field.attributes.isSecureTextEntry {
-                SecureField(field.attributes.placeholder ?? "", text: $form.fields[fieldIndex].text)
-            } else {
-                TextField(field.attributes.placeholder ?? "", text: $form.fields[fieldIndex].text)
-                    .autocapitalization(.none)
-            }
-        }
-    }
-
     var body: some View {
         SwiftUI.Form {
             ForEach(Array(zip(form.fields.indices, form.fields)), id: \.1.name) { (fieldIndex, field) in
-                formField(for: field, at: fieldIndex)
+                FormField(field: $form.fields[fieldIndex])
             }
             Section(footer: provider.helpText.map(Text.init)) {
                 if isLoading {
