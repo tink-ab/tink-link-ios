@@ -36,7 +36,7 @@ struct AddCredentialsView: View {
                         credentialsController.addCredentials(for: provider, form: form) { result in
                             isLoading = false
                             do {
-                                let credentials = try result.get()
+                                _ = try result.get()
                                 presentationMode.wrappedValue.dismiss()
                             } catch {
                                 self.failure = Failure(error: error)
