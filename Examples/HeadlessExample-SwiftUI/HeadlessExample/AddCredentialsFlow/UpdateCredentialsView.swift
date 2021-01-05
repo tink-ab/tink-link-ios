@@ -1,7 +1,7 @@
 import SwiftUI
 import TinkLink
 
-struct UpdateCredentialsFlowView: View {
+struct UpdateCredentialsView: View {
     typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler
 

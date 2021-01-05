@@ -100,7 +100,7 @@ struct CredentialsDetailView: View {
         }
         .sheet(isPresented: $isUpdating) {
             NavigationView {
-                UpdateCredentialsFlowView(provider: self.provider!, credentials: self.credentials) { result in
+                UpdateCredentialsView(provider: self.provider!, credentials: self.credentials) { result in
                     self.isUpdating = false
                     self.credentialsController.performFetch()
                 }
