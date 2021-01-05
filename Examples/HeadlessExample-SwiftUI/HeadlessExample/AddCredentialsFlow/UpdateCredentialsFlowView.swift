@@ -41,7 +41,7 @@ struct UpdateCredentialsFlowView: View {
                 if isLoading {
                     ProgressView()
                 } else {
-                    Button("Add") {
+                    Button("Update") {
                         isLoading = true
                         credentialsController.addCredentials(for: provider, form: form) { result in
                             isLoading = false
