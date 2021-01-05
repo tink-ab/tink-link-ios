@@ -40,5 +40,9 @@ struct SupplementalInformationForm: View {
                 }
             }
         })
+        .onDisappear(perform: {
+            isCancelling = false
+            isLoading = false
+        })
     }
 }
