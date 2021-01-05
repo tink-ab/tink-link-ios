@@ -62,6 +62,12 @@ struct AddCredentialsView: View {
                     }),
                     secondaryButton: .cancel()
                 )
+            } else if let localizedError = error as? LocalizedError {
+                return Alert(
+                    title: Text(localizedError.errorDescription ?? localizedError.localizedDescription),
+                    message: localizedError.failureReason.map(Text.init),
+                    dismissButton: .default(Text("OK"))
+                )
             } else {
                 return Alert(title: Text(error.error.localizedDescription), dismissButton: .default(Text("OK")))
             }
