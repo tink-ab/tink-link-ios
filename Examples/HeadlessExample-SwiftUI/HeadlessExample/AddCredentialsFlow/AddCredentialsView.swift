@@ -16,7 +16,7 @@ struct AddCredentialsView: View {
     }
 
     private func formField(for field: TinkLink.Form.Field, at fieldIndex: Int) -> some View {
-        Section(header: Text(field.attributes.description), footer: Text(field.attributes.helpText ?? "")) {
+        Section(header: Text(field.attributes.description), footer: field.attributes.helpText.map(Text.init)) {
             if field.attributes.isSecureTextEntry {
                 SecureField(field.attributes.placeholder ?? "", text: $form.fields[fieldIndex].text)
             } else {
@@ -31,7 +31,7 @@ struct AddCredentialsView: View {
             ForEach(Array(zip(form.fields.indices, form.fields)), id: \.1.name) { (fieldIndex, field) in
                 formField(for: field, at: fieldIndex)
             }
-            Section(footer: Text(provider.helpText ?? "")) {
+            Section(footer: provider.helpText.map(Text.init)) {
                 if isLoading {
                     ProgressView()
                 }
