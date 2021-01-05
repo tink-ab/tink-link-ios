@@ -8,12 +8,8 @@ struct SupplementalInformationForm: View {
     @State private var isCancelling = false
     @State private var isLoading = false
 
-    typealias CompletionHandler = (Result<Void, Error>) -> Void
-    var onCompletion: CompletionHandler
-
-    init(supplementInformationTask: SupplementInformationTask, onCompletion: @escaping CompletionHandler) {
+    init(supplementInformationTask: SupplementInformationTask) {
         self.supplementInformationTask = supplementInformationTask
-        self.onCompletion = onCompletion
         self._form = State(initialValue: TinkLink.Form(supplementInformationTask: supplementInformationTask))
     }
 

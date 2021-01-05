@@ -53,9 +53,7 @@ struct UpdateCredentialsFlowView: View {
             }
         })
         .sheet(item: $credentialsController.supplementInformationTask) { task in
-            SupplementalInformationForm(supplementInformationTask: task) { result in
-                credentialsController.supplementInformationTask = nil
-            }
+            SupplementalInformationForm(supplementInformationTask: task)
         }
         .alert(item: $failure) { failure in
             if let tinLinkError = failure.error as? TinkLinkError, let reason = tinLinkError.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired, let appStoreURL = reason.appStoreURL {
