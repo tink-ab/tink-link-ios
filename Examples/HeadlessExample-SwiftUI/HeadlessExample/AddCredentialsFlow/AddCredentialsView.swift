@@ -35,5 +35,10 @@ struct AddCredentialsView: View {
                 }
             }
         })
+        .sheet(item: $credentialsController.supplementInformationTask) { task in
+            SupplementalInformationForm(supplementInformationTask: task) { result in
+                credentialsController.supplementInformationTask = nil
+            }
+        }
     }
 }
