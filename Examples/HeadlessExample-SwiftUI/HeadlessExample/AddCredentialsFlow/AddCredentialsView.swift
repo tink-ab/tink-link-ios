@@ -5,7 +5,7 @@ struct AddCredentialsView: View {
     var provider: Provider
 
     @State private var form: TinkLink.Form
-    @State private var error: IdentifiableError?
+    @State private var failure: Failure?
     @State private var isLoading = false
 
     @EnvironmentObject var credentialsController: CredentialsController
@@ -39,7 +39,7 @@ struct AddCredentialsView: View {
                                 let credentials = try result.get()
                                 presentationMode.wrappedValue.dismiss()
                             } catch {
-                                self.error = IdentifiableError(error: error)
+                                self.failure = Failure(error: error)
                             }
                         }
                     }
@@ -52,7 +52,7 @@ struct AddCredentialsView: View {
                 credentialsController.supplementInformationTask = nil
             }
         }
-        .alert(item: $error) { error in
+        .alert(item: $failure) { error in
             if let tinLinkError = error.error as? TinkLinkError, let reason = tinLinkError.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired, let appStoreURL = reason.appStoreURL {
                 return Alert(
                     title: Text(reason.errorDescription ?? tinLinkError.localizedDescription),

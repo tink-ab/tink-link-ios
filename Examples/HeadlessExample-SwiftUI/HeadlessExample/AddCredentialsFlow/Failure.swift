@@ -1,6 +1,6 @@
 import Foundation
 
-struct IdentifiableError: Identifiable {
+struct Failure: Identifiable {
     let id = UUID()
     let error: Error
 }
