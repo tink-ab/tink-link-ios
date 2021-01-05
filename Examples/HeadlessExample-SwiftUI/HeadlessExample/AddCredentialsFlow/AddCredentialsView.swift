@@ -14,6 +14,22 @@ struct AddCredentialsView: View {
     }
 
     var body: some View {
-        EmptyView()
+        SwiftUI.Form {
+            Section {
+                ForEach(form.fields, id: \.name) { field in
+                    if field.attributes.isSecureTextEntry {
+                        SecureField(field.attributes.description, text: .constant(field.text))
+                    } else {
+                        TextField(field.attributes.description, text: .constant(field.text))
+                    }
+                }
+            }
+            Section {
+                Button("Add") {
+
+                }
+            }
+        }
+        .navigationTitle(provider.displayName)
     }
 }
