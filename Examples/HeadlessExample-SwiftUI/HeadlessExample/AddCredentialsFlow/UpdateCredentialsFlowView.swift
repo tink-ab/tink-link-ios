@@ -32,6 +32,11 @@ struct UpdateCredentialsFlowView: View {
         }
         .navigationBarTitle(provider.displayName, displayMode: .inline)
         .toolbar(content: {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    onCompletion(.failure(CocoaError(.userCancelled)))
+                }
+            }
             ToolbarItem {
                 if isLoading {
                     ProgressView()
