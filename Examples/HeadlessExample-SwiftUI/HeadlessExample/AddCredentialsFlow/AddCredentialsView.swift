@@ -16,11 +16,13 @@ struct AddCredentialsView: View {
     var body: some View {
         SwiftUI.Form {
             Section {
-                ForEach(form.fields, id: \.name) { field in
+                ForEach(Array(zip(form.fields.indices, form.fields)), id: \.1.name) { (fieldIndex, field) in
                     if field.attributes.isSecureTextEntry {
-                        SecureField(field.attributes.description, text: .constant(field.text))
+                        SecureField(field.attributes.description, text: $form.fields[fieldIndex].text)
                     } else {
-                        TextField(field.attributes.description, text: .constant(field.text))
+                        TextField(field.attributes.description, text: $form.fields[fieldIndex].text)
+                            .textContentType(.username)
+                            .autocapitalization(.none)
                     }
                 }
             }
