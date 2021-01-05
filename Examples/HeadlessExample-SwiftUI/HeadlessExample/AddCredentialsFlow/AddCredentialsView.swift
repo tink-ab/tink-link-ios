@@ -52,8 +52,8 @@ struct AddCredentialsView: View {
                 credentialsController.supplementInformationTask = nil
             }
         }
-        .alert(item: $failure) { error in
-            if let tinLinkError = error.error as? TinkLinkError, let reason = tinLinkError.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired, let appStoreURL = reason.appStoreURL {
+        .alert(item: $failure) { failure in
+            if let tinLinkError = failure.error as? TinkLinkError, let reason = tinLinkError.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired, let appStoreURL = reason.appStoreURL {
                 return Alert(
                     title: Text(reason.errorDescription ?? tinLinkError.localizedDescription),
                     message: reason.failureReason.map(Text.init),
@@ -62,14 +62,14 @@ struct AddCredentialsView: View {
                     }),
                     secondaryButton: .cancel()
                 )
-            } else if let localizedError = error as? LocalizedError {
+            } else if let localizedError = failure as? LocalizedError {
                 return Alert(
                     title: Text(localizedError.errorDescription ?? localizedError.localizedDescription),
                     message: localizedError.failureReason.map(Text.init),
                     dismissButton: .default(Text("OK"))
                 )
             } else {
-                return Alert(title: Text(error.error.localizedDescription), dismissButton: .default(Text("OK")))
+                return Alert(title: Text(failure.error.localizedDescription), dismissButton: .default(Text("OK")))
             }
         }
     }
