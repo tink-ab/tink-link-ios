@@ -3,6 +3,7 @@ import TinkLink
 
 struct AddCredentialsView: View {
     var provider: Provider
+
     @State private var form: TinkLink.Form
     @State private var error: IdentifiableError?
     @State private var isLoading = false
