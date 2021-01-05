@@ -1,8 +1,7 @@
 import SwiftUI
 import TinkLink
 
-struct UpdateCredentialsFlowView: View, UIViewControllerRepresentable {
-    typealias UIViewControllerType = UINavigationController
+struct UpdateCredentialsFlowView: View {
     typealias CompletionHandler = (Result<Credentials, Error>) -> Void
     var onCompletion: CompletionHandler
 
@@ -17,27 +16,7 @@ struct UpdateCredentialsFlowView: View, UIViewControllerRepresentable {
         self.credentialsController = credentialsController
     }
 
-    class Coordinator {
-        let completionHandler: CompletionHandler
-
-        init(completionHandler: @escaping CompletionHandler) {
-            self.completionHandler = completionHandler
-        }
-    }
-
-    func makeCoordinator() -> UpdateCredentialsFlowView.Coordinator {
-        return Coordinator(completionHandler: onCompletion)
-    }
-
-    func makeUIViewController(context: Context) -> UpdateCredentialsFlowView.UIViewControllerType {
-        let credentialsContext = credentialsController.credentialsContext
-        let viewController = UpdateCredentialsViewController(provider: provider, credentials: credentials, credentialsContext: credentialsContext)
-        viewController.onCompletion = context.coordinator.completionHandler
-        let navigationController = UINavigationController(rootViewController: viewController)
-        return navigationController
-    }
-
-    func updateUIViewController(_ uiViewController: UpdateCredentialsFlowView.UIViewControllerType, context: Context) {
-        // NOOP
+    var body: some View {
+        EmptyView()
     }
 }
