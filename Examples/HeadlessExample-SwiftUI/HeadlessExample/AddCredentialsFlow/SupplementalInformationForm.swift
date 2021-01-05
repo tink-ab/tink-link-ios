@@ -5,6 +5,8 @@ struct SupplementalInformationForm: View {
     private var supplementInformationTask: SupplementInformationTask
 
     @State private var form: TinkLink.Form
+    @State private var isCancelling = false
+    @State private var isLoading = false
 
     typealias CompletionHandler = (Result<Void, Error>) -> Void
     var onCompletion: CompletionHandler
@@ -21,5 +23,25 @@ struct SupplementalInformationForm: View {
                 FormField(field: $form.fields[fieldIndex])
             }
         }
+        .toolbar(content: {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    isCancelling = true
+                    supplementInformationTask.cancel()
+                }
+                .disabled(isCancelling)
+            }
+            ToolbarItem {
+                if isLoading {
+                    ProgressView()
+                } else {
+                    Button("Submit") {
+                        isLoading = true
+                        supplementInformationTask.submit(form)
+                    }
+                    .disabled(!form.areFieldsValid)
+                }
+            }
+        })
     }
 }
