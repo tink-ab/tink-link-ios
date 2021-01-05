@@ -43,7 +43,7 @@ struct UpdateCredentialsFlowView: View {
                 } else {
                     Button("Update") {
                         isLoading = true
-                        credentialsController.addCredentials(for: provider, form: form) { result in
+                        credentialsController.updateCredentials(credentials, form: form) { result in
                             isLoading = false
                             onCompletion(result)
                         }

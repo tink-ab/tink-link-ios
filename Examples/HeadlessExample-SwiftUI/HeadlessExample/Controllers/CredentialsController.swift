@@ -90,6 +90,18 @@ final class CredentialsController: ObservableObject {
         }
     }
 
+    func updateCredentials(_ credentials: Credentials, form: TinkLink.Form, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        credentialsContext.update(credentials, form: form) { [weak self] task in
+            DispatchQueue.main.async {
+                self?.handleAuthentication(task)
+            }
+        } completion: { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+    }
+
     private func handleAuthentication(_ authentication: AuthenticationTask) {
         switch authentication {
         case .awaitingSupplementalInformation(let supplementInformationTask):
