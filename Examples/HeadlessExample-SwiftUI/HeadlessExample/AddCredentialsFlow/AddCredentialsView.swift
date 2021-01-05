@@ -27,7 +27,9 @@ struct AddCredentialsView: View {
                     }
                 }
                 Section(footer: Text(provider.helpText ?? "")) {
-                    
+                    if isLoading {
+                        ProgressView()
+                    }
                 }
             }
         }
@@ -49,7 +51,6 @@ struct AddCredentialsView: View {
                 .disabled(!form.areFieldsValid || isLoading)
             }
         })
-        .overlay(ProgressView().opacity(isLoading ? 1.0 : 0.0))
         .sheet(item: $credentialsController.supplementInformationTask) { task in
             SupplementalInformationForm(supplementInformationTask: task) { result in
                 credentialsController.supplementInformationTask = nil
