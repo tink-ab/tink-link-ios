@@ -76,11 +76,11 @@ struct CredentialsDetailView: View {
             }
             .disabled(isRefreshing)
             Button(action: update) {
-                Text(verbatim: "Update")
+                Text("Update")
             }
             if canAuthenticate {
                 Button(action: authenticate) {
-                    Text(verbatim: "Authenticate")
+                    Text("Authenticate")
                 }
                 .disabled(isAuthenticating)
             }
