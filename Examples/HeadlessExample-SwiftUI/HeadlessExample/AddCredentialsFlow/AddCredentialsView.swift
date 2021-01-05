@@ -41,6 +41,7 @@ struct AddCredentialsView: View {
                         }
                     }
                 }
+                .disabled(!form.areFieldsValid)
             }
         })
         .sheet(item: $credentialsController.supplementInformationTask) { task in
