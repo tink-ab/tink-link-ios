@@ -53,7 +53,18 @@ struct AddCredentialsView: View {
             }
         }
         .alert(item: $error) { error in
-            Alert(title: Text(error.error.localizedDescription), dismissButton: .default(Text("OK")))
+            if let tinLinkError = error.error as? TinkLinkError, let reason = tinLinkError.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired, let appStoreURL = reason.appStoreURL {
+                return Alert(
+                    title: Text(reason.errorDescription ?? tinLinkError.localizedDescription),
+                    message: reason.failureReason.map(Text.init),
+                    primaryButton: .default(Text("Download"), action: {
+                        UIApplication.shared.open(appStoreURL)
+                    }),
+                    secondaryButton: .cancel()
+                )
+            } else {
+                return Alert(title: Text(error.error.localizedDescription), dismissButton: .default(Text("OK")))
+            }
         }
     }
 }
