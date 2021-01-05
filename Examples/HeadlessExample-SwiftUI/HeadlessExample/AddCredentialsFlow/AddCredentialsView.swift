@@ -30,10 +30,10 @@ struct AddCredentialsView: View {
         SwiftUI.Form {
             ForEach(Array(zip(form.fields.indices, form.fields)), id: \.1.name) { (fieldIndex, field) in
                 formField(for: field, at: fieldIndex)
-                Section(footer: Text(provider.helpText ?? "")) {
-                    if isLoading {
-                        ProgressView()
-                    }
+            }
+            Section(footer: Text(provider.helpText ?? "")) {
+                if isLoading {
+                    ProgressView()
                 }
             }
         }
