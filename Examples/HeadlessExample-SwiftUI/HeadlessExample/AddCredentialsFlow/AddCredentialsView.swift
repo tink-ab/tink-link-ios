@@ -21,27 +21,29 @@ struct AddCredentialsView: View {
                 FormField(field: $form.fields[fieldIndex])
             }
             Section(footer: provider.helpText.map(Text.init)) {
-                if isLoading {
-                    ProgressView()
-                }
+                EmptyView()
             }
         }
         .navigationTitle(provider.displayName)
         .toolbar(content: {
             ToolbarItem {
-                Button("Add") {
-                    isLoading = true
-                    credentialsController.addCredentials(for: provider, form: form) { result in
-                        isLoading = false
-                        do {
-                            let credentials = try result.get()
-                            presentationMode.wrappedValue.dismiss()
-                        } catch {
-                            self.error = IdentifiableError(error: error)
+                if isLoading {
+                    ProgressView()
+                } else {
+                    Button("Add") {
+                        isLoading = true
+                        credentialsController.addCredentials(for: provider, form: form) { result in
+                            isLoading = false
+                            do {
+                                let credentials = try result.get()
+                                presentationMode.wrappedValue.dismiss()
+                            } catch {
+                                self.error = IdentifiableError(error: error)
+                            }
                         }
                     }
+                    .disabled(!form.areFieldsValid)
                 }
-                .disabled(!form.areFieldsValid || isLoading)
             }
         })
         .sheet(item: $credentialsController.supplementInformationTask) { task in
