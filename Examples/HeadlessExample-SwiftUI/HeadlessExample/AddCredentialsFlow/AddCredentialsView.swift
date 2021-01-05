@@ -23,7 +23,6 @@ struct AddCredentialsView: View {
                         SecureField(field.attributes.description, text: $form.fields[fieldIndex].text)
                     } else {
                         TextField(field.attributes.description, text: $form.fields[fieldIndex].text)
-                            .textContentType(.username)
                             .autocapitalization(.none)
                     }
                 }
