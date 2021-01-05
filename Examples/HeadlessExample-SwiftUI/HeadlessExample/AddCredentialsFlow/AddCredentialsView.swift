@@ -5,6 +5,7 @@ struct AddCredentialsView: View {
     var provider: Provider
     @State private var form: TinkLink.Form
     @State private var error: IdentifiableError?
+    @State private var isLoading = false
 
     @EnvironmentObject var credentialsController: CredentialsController
     @SwiftUI.Environment(\.presentationMode) var presentationMode
@@ -32,7 +33,9 @@ struct AddCredentialsView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button("Add") {
+                    isLoading = true
                     credentialsController.addCredentials(for: provider, form: form) { result in
+                        isLoading = false
                         do {
                             let credentials = try result.get()
                             presentationMode.wrappedValue.dismiss()
@@ -41,9 +44,10 @@ struct AddCredentialsView: View {
                         }
                     }
                 }
-                .disabled(!form.areFieldsValid)
+                .disabled(!form.areFieldsValid || isLoading)
             }
         })
+        .overlay(ProgressView().opacity(isLoading ? 1.0 : 0.0))
         .sheet(item: $credentialsController.supplementInformationTask) { task in
             SupplementalInformationForm(supplementInformationTask: task) { result in
                 credentialsController.supplementInformationTask = nil
