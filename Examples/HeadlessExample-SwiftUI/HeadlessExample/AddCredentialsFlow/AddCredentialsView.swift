@@ -26,6 +26,9 @@ struct AddCredentialsView: View {
                             .autocapitalization(.none)
                     }
                 }
+                Section(footer: Text(provider.helpText ?? "")) {
+                    
+                }
             }
         }
         .navigationTitle(provider.displayName)
