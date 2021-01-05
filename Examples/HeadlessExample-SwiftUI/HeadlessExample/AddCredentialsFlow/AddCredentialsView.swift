@@ -4,6 +4,7 @@ import TinkLink
 struct AddCredentialsView: View {
     var provider: Provider
     @State private var form: TinkLink.Form
+    @State private var error: IdentifiableError?
 
     @EnvironmentObject var credentialsController: CredentialsController
     @SwiftUI.Environment(\.presentationMode) var presentationMode
@@ -31,7 +32,14 @@ struct AddCredentialsView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button("Add") {
-
+                    credentialsController.addCredentials(for: provider, form: form) { result in
+                        do {
+                            let credentials = try result.get()
+                            presentationMode.wrappedValue.dismiss()
+                        } catch {
+                            self.error = IdentifiableError(error: error)
+                        }
+                    }
                 }
             }
         })
@@ -39,6 +47,9 @@ struct AddCredentialsView: View {
             SupplementalInformationForm(supplementInformationTask: task) { result in
                 credentialsController.supplementInformationTask = nil
             }
+        }
+        .alert(item: $error) { error in
+            Alert(title: Text(error.error.localizedDescription), dismissButton: .default(Text("OK")))
         }
     }
 }
