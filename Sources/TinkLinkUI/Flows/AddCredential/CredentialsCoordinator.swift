@@ -243,7 +243,11 @@ extension CredentialsCoordinator {
     }
 
     @objc private func cancel() {
-        completion(.failure(TinkLinkError.userCancelled))
+        if let credentialsID = addCredentialsSession.lastAddedCredentialID {
+            completion(.failure(TinkLinkError.failedToAddCredentials(credentialsID: credentialsID)))
+        } else {
+            completion(.failure(TinkLinkError.userCancelled))
+        }
     }
 }
 
