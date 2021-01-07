@@ -158,8 +158,6 @@ final class AddCredentialsSession {
     }
 
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
-        let addCredentialsTask = task as? AddCredentialsTask
-        lastAddedCredentialID = addCredentialsTask?.credentials?.id
         switch status {
         case .created, .authenticating:
             break
@@ -231,6 +229,8 @@ final class AddCredentialsSession {
                 }
             }
         } catch {
+            let addCredentialsTask = task as? AddCredentialsTask
+            lastAddedCredentialID = addCredentialsTask?.credentials?.id
             hideUpdatingView(animated: true) {
                 onCompletion(.failure(error))
             }
