@@ -6,8 +6,6 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let betaLabel = UILabel()
-    private let stackView = UIStackView()
-    private let titleStackView = UIStackView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,22 +27,14 @@ class ProviderCell: UITableViewCell, ReusableCell {
         backgroundColor = Color.background
 
         contentView.addSubview(iconView)
-        contentView.addSubview(stackView)
 
         contentView.layoutMargins = .init(top: 32, left: 24, bottom: 32, right: 24)
 
         iconView.contentMode = .scaleAspectFit
-        iconView.translatesAutoresizingMaskIntoConstraints = false
 
-        stackView.axis = .vertical
-        stackView.spacing = 4
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        titleStackView.axis = .horizontal
-        titleStackView.spacing = 8
-        titleStackView.addArrangedSubview(titleLabel)
-        titleStackView.addArrangedSubview(betaLabel)
-        stackView.addArrangedSubview(titleStackView)
-        stackView.addArrangedSubview(descriptionLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(betaLabel)
+        contentView.addSubview(descriptionLabel)
 
         titleLabel.numberOfLines = 0
         titleLabel.font = Font.body1
@@ -61,16 +51,28 @@ class ProviderCell: UITableViewCell, ReusableCell {
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        betaLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: iconSize),
             iconView.heightAnchor.constraint(equalToConstant: iconSize),
             iconView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             iconView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            iconView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -iconTitleSpacing),
 
-            stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            stackView.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+            titleLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: iconTitleSpacing),
+
+            betaLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+            betaLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            betaLabel.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor),
+
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            descriptionLabel.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor),
+            descriptionLabel.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
     }
 
