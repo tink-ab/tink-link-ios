@@ -12,7 +12,7 @@ final class AddCredentialsSession {
 
     private var task: Cancellable?
     private var supplementInfoTask: SupplementInformationTask?
-    private(set) var lastAddedCredentialID: Credentials.ID?
+    private(set) var setOfNewlyAddedFailedCredentialsID = Set<Credentials.ID>()
 
     private var statusViewController: AddCredentialsStatusViewController?
     private weak var qrImageViewController: QRImageViewController?
@@ -230,7 +230,9 @@ final class AddCredentialsSession {
             }
         } catch {
             let addCredentialsTask = task as? AddCredentialsTask
-            lastAddedCredentialID = addCredentialsTask?.credentials?.id
+            if let credentialsID = addCredentialsTask?.credentials?.id {
+                setOfNewlyAddedFailedCredentialsID.insert(credentialsID)
+            }
             hideUpdatingView(animated: true) {
                 onCompletion(.failure(error))
             }
