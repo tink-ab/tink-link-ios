@@ -45,7 +45,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         titleLabel.textColor = Color.label
 
         descriptionLabel.numberOfLines = 0
-        descriptionLabel.font = Font.caption
+        descriptionLabel.font = Font.body2
         descriptionLabel.textColor = Color.secondaryLabel
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
