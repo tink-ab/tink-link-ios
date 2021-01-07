@@ -5,6 +5,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
+    private let betaLabel = UILabel()
     private let stackView = UIStackView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -39,6 +40,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(descriptionLabel)
+        stackView.addArrangedSubview(betaLabel)
 
         titleLabel.numberOfLines = 0
         titleLabel.font = Font.body1
@@ -47,6 +49,10 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.font = Font.caption
         descriptionLabel.textColor = Color.secondaryLabel
+
+        betaLabel.font = Font.caption
+        betaLabel.textColor = Color.secondaryLabel
+        betaLabel.text = "BETA"
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
@@ -103,5 +109,9 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
     func setDescription(text: String) {
         descriptionLabel.text = text
+    }
+
+    func setBetaLabelHidden(_ hidden: Bool) {
+        betaLabel.isHidden = hidden
     }
 }

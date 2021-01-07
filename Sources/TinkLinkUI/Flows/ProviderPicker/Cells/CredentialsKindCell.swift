@@ -4,6 +4,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     private let iconBackgroundView = UIView()
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
+    private let betaLabel = UILabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -45,6 +46,10 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         titleLabel.font = Font.body1
         titleLabel.textColor = Color.label
 
+        betaLabel.font = Font.caption
+        betaLabel.textColor = Color.secondaryLabel
+        betaLabel.text = "BETA"
+
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
@@ -61,8 +66,11 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
             iconView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             titleLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            titleLabel.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+            titleLabel.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+
+            betaLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+            betaLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 4),
+            betaLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
         ])
     }
 
@@ -100,5 +108,9 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
 
     func setTitle(text: String) {
         titleLabel.text = text
+    }
+
+    func setBetaLabelHidden(_ hidden: Bool) {
+        betaLabel.isHidden = hidden
     }
 }
