@@ -16,7 +16,7 @@ public enum TinkLinkError: Error {
     /// Tink Link was not able to open the third party app.
     case unableToOpenThirdPartyApp(ThirdPartyAppAuthenticationTask.Error)
     /// Tink Link created a credential but it wasn't used.
-    case failedToAddCredentials(credentialsID: Set<Credentials.ID>)
+    case failedToAddCredentials(Set<Credentials.ID>)
 
     case unauthenticated
 
