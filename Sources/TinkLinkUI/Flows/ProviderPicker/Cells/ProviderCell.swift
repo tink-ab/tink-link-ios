@@ -7,6 +7,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let descriptionLabel = UILabel()
     private let betaLabel = UILabel()
     private let stackView = UIStackView()
+    private let titleStackView = UIStackView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,9 +39,12 @@ class ProviderCell: UITableViewCell, ReusableCell {
         stackView.axis = .vertical
         stackView.spacing = 4
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(titleLabel)
+        titleStackView.axis = .horizontal
+        titleStackView.spacing = 8
+        titleStackView.addArrangedSubview(titleLabel)
+        titleStackView.addArrangedSubview(betaLabel)
+        stackView.addArrangedSubview(titleStackView)
         stackView.addArrangedSubview(descriptionLabel)
-        stackView.addArrangedSubview(betaLabel)
 
         titleLabel.numberOfLines = 0
         titleLabel.font = Font.body1
