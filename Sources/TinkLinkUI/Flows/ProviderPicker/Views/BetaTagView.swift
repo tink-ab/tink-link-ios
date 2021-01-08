@@ -12,7 +12,7 @@ class BetaTagView: UIView {
 
         layoutMargins = UIEdgeInsets(top: 0, left: 4, bottom: 2, right: 4)
 
-        label.text = "BETA"
+        label.attributedText = NSAttributedString(string: "BETA", attributes: [.kern : 1])
         label.textColor = Color.label
         label.font = Font.body1.smallCaps
 
