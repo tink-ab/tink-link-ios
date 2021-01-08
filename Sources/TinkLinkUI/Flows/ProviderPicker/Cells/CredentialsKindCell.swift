@@ -46,6 +46,8 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         titleLabel.font = Font.body1
         titleLabel.textColor = Color.label
 
+        betaLabel.isHidden = true
+
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
@@ -74,6 +76,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         super.prepareForReuse()
 
         titleLabel.text = ""
+        betaLabel.isHidden = true
     }
 
     override func layoutMarginsDidChange() {
