@@ -85,7 +85,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
         titleLabel.text = ""
         descriptionLabel.text = ""
-        betaLabel.isHidden = true
+        setBetaLabelHidden(true)
     }
 
     override func layoutMarginsDidChange() {

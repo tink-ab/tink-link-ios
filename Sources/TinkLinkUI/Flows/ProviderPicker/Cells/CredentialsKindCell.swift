@@ -84,7 +84,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         super.prepareForReuse()
 
         titleLabel.text = ""
-        betaLabel.isHidden = true
+        setBetaLabelHidden(true)
     }
 
     override func layoutMarginsDidChange() {
