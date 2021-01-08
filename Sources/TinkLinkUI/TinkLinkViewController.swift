@@ -111,6 +111,8 @@ public class TinkLinkViewController: UIViewController {
     private var userSession: UserSession?
     private var authorizationCode: AuthorizationCode?
     private var userHasConnected: Bool = false
+
+    /// Credentials that were created but not added to the TinkLink user, provided with an error.
     public var errorsByCredentialsID: [Credentials.ID: Error] {
         return credentialsController.newlyAddedFailedCredentialsID
     }
