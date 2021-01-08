@@ -111,6 +111,9 @@ public class TinkLinkViewController: UIViewController {
     private var userSession: UserSession?
     private var authorizationCode: AuthorizationCode?
     private var userHasConnected: Bool = false
+    public var listOfFailedCredentials: [Credentials.ID: Error] {
+        return credentialsController.newlyAddedFailedCredentialsID
+    }
 
     /// The prefilling strategy to use.
     public var prefill: PrefillStrategy = .none
