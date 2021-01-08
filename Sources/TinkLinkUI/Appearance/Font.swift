@@ -16,6 +16,17 @@ extension Font {
         /// The bold font weight.
         case bold
 
+        init(weight: UIFont.Weight) {
+            switch weight {
+            case .regular:
+                self = .regular
+            case .semibold, .bold:
+                self = .bold
+            default:
+                self = .regular
+            }
+        }
+
         var fontWeight: UIFont.Weight {
             switch self {
             case .regular:
@@ -116,22 +127,22 @@ extension Font {
         }
     }
 
-    static func lineSpacing(weight: Weight, size: Size) -> CGFloat {
+    static func lineSpacing(weight: UIFont.Weight, size: Size) -> CGFloat {
         let maxLineHeight = size.lineHeight * 1.5
         let scaledLineHeight = UIFontMetrics(forTextStyle: size.textStyle).scaledValue(for: size.lineHeight)
         return min(maxLineHeight, scaledLineHeight) - scaledFont(weight: weight, size: size).lineHeight
     }
 
-    private static func font(weight: Weight, size: Size) -> UIFont {
-        switch Appearance.fontProvider.font(for: weight) {
+    private static func font(weight: UIFont.Weight, size: Size) -> UIFont {
+        switch Appearance.fontProvider.font(for: .init(weight: weight)) {
         case .custom(let fontName):
             return UIFont(name: fontName, size: size.pointSize)!
         case .systemDefault:
-            return UIFont.systemFont(ofSize: size.pointSize, weight: weight.fontWeight)
+            return UIFont.systemFont(ofSize: size.pointSize, weight: weight)
         }
     }
 
-    private static func scaledFont(weight: Weight, size: Size) -> UIFont {
+    private static func scaledFont(weight: UIFont.Weight, size: Size) -> UIFont {
         let lotaGrotesque = font(weight: weight, size: size)
         return UIFontMetrics(forTextStyle: size.textStyle).scaledFont(for: lotaGrotesque, maximumPointSize: size.pointSize * 1.5)
     }
