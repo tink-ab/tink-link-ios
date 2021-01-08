@@ -111,7 +111,7 @@ public class TinkLinkViewController: UIViewController {
     private var userSession: UserSession?
     private var authorizationCode: AuthorizationCode?
     private var userHasConnected: Bool = false
-    public var listOfFailedCredentials: [Credentials.ID: Error] {
+    public var errorsByCredentialsID: [Credentials.ID: Error] {
         return credentialsController.newlyAddedFailedCredentialsID
     }
 
