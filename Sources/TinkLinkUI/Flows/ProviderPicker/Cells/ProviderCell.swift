@@ -44,6 +44,8 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.font = Font.caption
         descriptionLabel.textColor = Color.secondaryLabel
 
+        betaLabel.isHidden = true
+
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
