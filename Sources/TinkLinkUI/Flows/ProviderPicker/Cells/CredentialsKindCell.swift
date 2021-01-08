@@ -32,6 +32,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         contentView.addSubview(iconBackgroundView)
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
+        contentView.addSubview(betaLabel)
 
         contentView.layoutMargins = .init(top: 32, left: 24, bottom: 32, right: 24)
 
@@ -49,6 +50,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         titleLabel.font = Font.body1
         titleLabel.textColor = Color.label
 
+        betaLabel.translatesAutoresizingMaskIntoConstraints = false
         betaLabel.isHidden = true
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
