@@ -50,6 +50,9 @@ extension Font {
         /// 11
         case nano = 11
 
+        /// 10
+        case beta = 10
+
         fileprivate var textStyle: UIFont.TextStyle {
             switch self {
             case .tera:
@@ -65,6 +68,8 @@ extension Font {
             case .micro:
                 return UIFont.TextStyle.footnote
             case .nano:
+                return UIFont.TextStyle.caption2
+            case .beta:
                 return UIFont.TextStyle.caption2
             }
         }
@@ -88,6 +93,8 @@ extension Font {
             case .micro:
                 return 20
             case .nano:
+                return 16
+            case .beta:
                 return 16
             }
         }
@@ -151,4 +158,8 @@ extension Font {
     static var button: UIFont { bold(.deci) }
     /// Regular 11 (nano)
     static var caption: UIFont { regular(.nano) }
+    /// Bold 10
+    ///
+    /// - Note: Only for use with provider beta tag.
+    static var beta: UIFont { bold(.beta) }
 }
