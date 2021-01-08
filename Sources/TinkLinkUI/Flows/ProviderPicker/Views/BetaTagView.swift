@@ -10,11 +10,11 @@ class BetaTagView: UIView {
         layer.borderColor = Color.accent.cgColor
         layer.cornerRadius = 3
 
-        layoutMargins = UIEdgeInsets(top: 0, left: 4, bottom: 2, right: 4)
+        layoutMargins = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
 
         label.attributedText = NSAttributedString(string: "BETA", attributes: [.kern : 1])
         label.textColor = Color.label
-        label.font = Font.body1.smallCaps
+        label.font = Font.beta
 
         label.translatesAutoresizingMaskIntoConstraints = false
 
