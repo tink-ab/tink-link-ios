@@ -119,6 +119,14 @@ extension Font {
         }
     }
 
+    private static func semibold(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
+        if adjustsFontForContentSizeCategory {
+            return scaledFont(weight: .semibold, size: size)
+        } else {
+            return font(weight: .semibold, size: size)
+        }
+    }
+
     private static func bold(_ size: Size, adjustsFontForContentSizeCategory: Bool = true) -> UIFont {
         if adjustsFontForContentSizeCategory {
             return scaledFont(weight: .bold, size: size)
@@ -172,5 +180,5 @@ extension Font {
     /// Bold 10
     ///
     /// - Note: Only for use with provider beta tag.
-    static var beta: UIFont { bold(.beta) }
+    static var beta: UIFont { semibold(.beta) }
 }
