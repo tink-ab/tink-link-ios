@@ -5,7 +5,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let betaLabel = UILabel()
+    private let betaLabel = BetaTagView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -44,10 +44,6 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.font = Font.caption
         descriptionLabel.textColor = Color.secondaryLabel
 
-        betaLabel.font = Font.caption
-        betaLabel.textColor = Color.secondaryLabel
-        betaLabel.text = "BETA"
-
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
@@ -67,7 +63,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
             betaLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
             betaLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
-            betaLabel.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor),
+            contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: betaLabel.trailingAnchor),
 
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
