@@ -21,6 +21,9 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     private let iconSize: CGFloat = 24
     private let iconTitleSpacing: CGFloat = 16
 
+    private var trailingTitleConstraint: NSLayoutConstraint!
+    private var trailingBetaConstraint: NSLayoutConstraint!
+
     private func setup() {
         selectionStyle = .none
         accessoryType = .disclosureIndicator
@@ -51,6 +54,9 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
+        trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
+        trailingBetaConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: betaLabel.trailingAnchor)
+
         NSLayoutConstraint.activate([
             iconBackgroundView.widthAnchor.constraint(equalToConstant: iconBackgroundSize),
             iconBackgroundView.heightAnchor.constraint(equalToConstant: iconBackgroundSize),
@@ -65,10 +71,10 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
 
             titleLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             titleLabel.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+            trailingTitleConstraint,
 
             betaLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
-            betaLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
-            contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: betaLabel.trailingAnchor)
+            betaLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8)
         ])
     }
 
@@ -111,5 +117,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
 
     func setBetaLabelHidden(_ hidden: Bool) {
         betaLabel.isHidden = hidden
+        trailingTitleConstraint.isActive = hidden
+        trailingBetaConstraint.isActive = !hidden
     }
 }
