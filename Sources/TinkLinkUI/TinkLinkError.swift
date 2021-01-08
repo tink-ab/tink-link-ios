@@ -15,7 +15,9 @@ public enum TinkLinkError: Error {
     case providerNotFound
     /// Tink Link was not able to open the third party app.
     case unableToOpenThirdPartyApp(ThirdPartyAppAuthenticationTask.Error)
-    /// The credentials has been created but failed to add to the TinkLink user.
+    /// The user cancelled after failing to add one or more credentials.
+    ///
+    /// The associated value is a dictionary that maps credentials IDs to errors.
     case failedToAddCredentials([Credentials.ID: Error])
 
     case unauthenticated
