@@ -4,6 +4,10 @@ import Kingfisher
 final class NavigationTitleImageView: UIView {
     private let navigationTitleLabel = UILabel()
     private let navigationTitleImageView = UIImageView()
+    private let betaLabel = BetaTagView()
+
+    private var trailingTitleConstraint: NSLayoutConstraint!
+    private var trailingBetaConstraint: NSLayoutConstraint!
 
     init(imageURL: URL?, text: String) {
         super.init(frame: .zero)
@@ -34,8 +38,15 @@ final class NavigationTitleImageView: UIView {
         navigationTitleImageView.contentMode = .scaleAspectFit
         navigationTitleImageView.translatesAutoresizingMaskIntoConstraints = false
 
+        betaLabel.translatesAutoresizingMaskIntoConstraints = false
+        betaLabel.isHidden = true
+
         addSubview(navigationTitleImageView)
         addSubview(navigationTitleLabel)
+        addSubview(betaLabel)
+
+        trailingTitleConstraint = navigationTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+        trailingBetaConstraint = betaLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
 
         NSLayoutConstraint.activate([
             navigationTitleImageView.widthAnchor.constraint(equalToConstant: 20),
@@ -45,7 +56,16 @@ final class NavigationTitleImageView: UIView {
 
             navigationTitleLabel.leadingAnchor.constraint(equalTo: navigationTitleImageView.trailingAnchor, constant: 8),
             navigationTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            navigationTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+            trailingTitleConstraint,
+
+            betaLabel.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8),
+            betaLabel.firstBaselineAnchor.constraint(equalTo: navigationTitleLabel.firstBaselineAnchor)
         ])
+    }
+
+    func setBetaLabelHidden(_ hidden: Bool) {
+        betaLabel.isHidden = hidden
+        trailingTitleConstraint.isActive = hidden
+        trailingBetaConstraint.isActive = !hidden
     }
 }

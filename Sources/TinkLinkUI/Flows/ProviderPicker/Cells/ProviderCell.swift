@@ -5,7 +5,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let stackView = UIStackView()
+    private let betaLabel = BetaTagView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,24 +21,23 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let iconSize: CGFloat = 40
     private let iconTitleSpacing: CGFloat = 16
 
+    private var trailingTitleConstraint: NSLayoutConstraint!
+    private var trailingBetaConstraint: NSLayoutConstraint!
+
     private func setup() {
         selectionStyle = .none
         accessoryType = .disclosureIndicator
         backgroundColor = Color.background
 
         contentView.addSubview(iconView)
-        contentView.addSubview(stackView)
 
         contentView.layoutMargins = .init(top: 32, left: 24, bottom: 32, right: 24)
 
         iconView.contentMode = .scaleAspectFit
-        iconView.translatesAutoresizingMaskIntoConstraints = false
 
-        stackView.axis = .vertical
-        stackView.spacing = 4
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(descriptionLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(betaLabel)
+        contentView.addSubview(descriptionLabel)
 
         titleLabel.numberOfLines = 0
         titleLabel.font = Font.body1
@@ -48,19 +47,36 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.font = Font.body2
         descriptionLabel.textColor = Color.secondaryLabel
 
+        betaLabel.isHidden = true
+
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
+
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        betaLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
+        trailingBetaConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: betaLabel.trailingAnchor)
 
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: iconSize),
             iconView.heightAnchor.constraint(equalToConstant: iconSize),
             iconView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             iconView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            iconView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -iconTitleSpacing),
 
-            stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            stackView.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+            titleLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: iconTitleSpacing),
+            trailingTitleConstraint,
+
+            betaLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+            betaLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            descriptionLabel.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
     }
 
@@ -69,6 +85,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
         titleLabel.text = ""
         descriptionLabel.text = ""
+        setBetaLabelHidden(true)
     }
 
     override func layoutMarginsDidChange() {
@@ -103,5 +120,11 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
     func setDescription(text: String) {
         descriptionLabel.text = text
+    }
+
+    func setBetaLabelHidden(_ hidden: Bool) {
+        betaLabel.isHidden = hidden
+        trailingTitleConstraint.isActive = hidden
+        trailingBetaConstraint.isActive = !hidden
     }
 }
