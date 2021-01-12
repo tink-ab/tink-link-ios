@@ -55,7 +55,7 @@ final class QRImageViewController: UIViewController {
         subtitleLabel.text = Strings.SupplementalInformation.qrCodeTitle
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        descriptionLabel.font = Font.caption
+        descriptionLabel.font = Font.body2
         descriptionLabel.textColor = Color.label
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center
