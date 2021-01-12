@@ -12,7 +12,7 @@ class BetaTagView: UIView {
 
         layoutMargins = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
 
-        label.attributedText = NSAttributedString(string: "BETA", attributes: [.kern : 0.75])
+        label.attributedText = NSAttributedString(string: "BETA", attributes: [.kern: 0.75])
         label.textColor = Color.label
         label.font = Font.beta
 
@@ -28,6 +28,7 @@ class BetaTagView: UIView {
         ])
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
