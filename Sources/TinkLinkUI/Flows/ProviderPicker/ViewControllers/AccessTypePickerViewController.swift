@@ -70,6 +70,9 @@ extension AccessTypePickerViewController {
         cell.setDescription(text: capabilityFormatter.string(for: capabilities))
         cell.setTitle(text: node.accessType.description)
 
+        let isBeta = node.providers.contains(where: { $0.releaseStatus == .beta })
+        cell.setBetaLabelHidden(!isBeta)
+
         return cell
     }
 

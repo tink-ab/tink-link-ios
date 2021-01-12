@@ -8,21 +8,17 @@ extension UINavigationController {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.buttonAppearance.normal.titleTextAttributes = [
-                .font: Font.body
+                .font: Font.body1
             ]
             appearance.buttonAppearance.highlighted.titleTextAttributes = [
-                .font: Font.body
+                .font: Font.body1
             ]
 
             appearance.shadowColor = Color.separator
             appearance.backgroundColor = Color.navigationBarBackground
 
-            let chevronLayer = ChevronLayer()
-            let backIndicatorImage = UIImage.image(from: chevronLayer)
-            appearance.setBackIndicatorImage(backIndicatorImage, transitionMaskImage: backIndicatorImage)
-
             appearance.titleTextAttributes = [
-                .font: Font.headline,
+                .font: Font.subtitle1,
                 .foregroundColor: Color.navigationBarLabel
             ]
 
@@ -31,22 +27,17 @@ extension UINavigationController {
             // Bar Button Item
             let barButtonItemAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [Self.self])
             barButtonItemAppearance.setTitleTextAttributes([
-                .font: Font.body
+                .font: Font.body1
             ], for: .normal)
             barButtonItemAppearance.setTitleTextAttributes([
-                .font: Font.body
+                .font: Font.body1
             ], for: .highlighted)
 
             // Navigation Bar
             let navigationBarAppearance = UINavigationBar.appearance(whenContainedInInstancesOf: [Self.self])
 
-            let chevronLayer = ChevronLayer()
-            let backIndicatorImage = UIImage.image(from: chevronLayer)
-            navigationBarAppearance.backIndicatorImage = backIndicatorImage
-            navigationBarAppearance.backIndicatorTransitionMaskImage = backIndicatorImage
-
             navigationBarAppearance.titleTextAttributes = [
-                .font: Font.headline,
+                .font: Font.subtitle1,
                 .foregroundColor: Color.navigationBarLabel
             ]
 

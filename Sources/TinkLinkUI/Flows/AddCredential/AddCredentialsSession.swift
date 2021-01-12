@@ -213,6 +213,7 @@ final class AddCredentialsSession {
     private func handleCompletion(_ result: Result<Credentials, Error>, onCompletion: @escaping ((Result<(Credentials, AuthorizationCode?), Error>) -> Void)) {
         do {
             let credentials = try result.get()
+            credentialsController.newlyAddedFailedCredentialsID[credentials.id] = nil
             authorizeIfNeeded(onError: { [weak self] error in
                 DispatchQueue.main.async {
                     self?.hideProgress(animated: true) {
@@ -226,6 +227,10 @@ final class AddCredentialsSession {
                 }
             }
         } catch {
+            let addCredentialsTask = task as? AddCredentialsTask
+            if let credentialsID = addCredentialsTask?.credentials?.id {
+                credentialsController.newlyAddedFailedCredentialsID[credentialsID] = error
+            }
             hideProgress(animated: true) {
                 onCompletion(.failure(error))
             }

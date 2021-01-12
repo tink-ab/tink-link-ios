@@ -9,6 +9,7 @@ extension Provider {
             displayName: "Test",
             authenticationUserType: .personal,
             kind: .bank,
+            releaseStatus: nil,
             status: .enabled,
             credentialsKind: .password,
             helpText: "",

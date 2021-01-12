@@ -32,11 +32,11 @@ final class LoadingViewController: UIViewController {
         errorView.isHidden = true
 
         cancelButton.setTitleColor(Color.button, for: .normal)
-        cancelButton.titleLabel?.font = Font.headline
+        cancelButton.titleLabel?.font = Font.subtitle1
         cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         cancelButton.setTitle(Strings.Generic.cancel, for: .normal)
 
-        label.font = Font.headline
+        label.font = Font.subtitle1
         label.textColor = Color.label
         label.numberOfLines = 0
         label.textAlignment = .center
