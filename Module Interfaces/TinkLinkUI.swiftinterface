@@ -136,6 +136,7 @@ public enum TinkLinkError : Swift.Error {
   case credentialsNotFound
   case providerNotFound
   case unableToOpenThirdPartyApp(TinkLink.ThirdPartyAppAuthenticationTask.Error)
+  case failedToAddCredentials([TinkCore.Credentials.ID : Swift.Error])
   case unauthenticated
   case internalError
 }
@@ -153,6 +154,9 @@ public enum TinkLinkError : Swift.Error {
     case authenticate(credentialsID: TinkCore.Credentials.ID)
     case refresh(credentialsID: TinkCore.Credentials.ID, forceAuthenticate: Swift.Bool = false)
     case update(credentialsID: TinkCore.Credentials.ID)
+  }
+  public var errorsByCredentialsID: [TinkCore.Credentials.ID : Swift.Error] {
+    get
   }
   public var prefill: TinkLinkUI.TinkLinkViewController.PrefillStrategy
   final public let scopes: [TinkCore.Scope]?
