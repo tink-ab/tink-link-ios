@@ -147,6 +147,11 @@ public class TinkLinkViewController: UIViewController {
     private var authorizationCode: AuthorizationCode?
     private var userHasConnected: Bool = false
 
+    /// Errors for credentials that failed to be added with this view controller.
+    public var errorsByCredentialsID: [Credentials.ID: Error] {
+        return credentialsController.newlyAddedFailedCredentialsID
+    }
+
     /// The prefilling strategy to use.
     public var prefill: PrefillStrategy = .none
     /// Scopes that grant access to Tink.

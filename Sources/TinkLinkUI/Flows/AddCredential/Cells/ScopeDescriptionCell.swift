@@ -32,7 +32,7 @@ class ScopeDescriptionCell: UITableViewCell, ReusableCell {
         ])
     }
 
-    func configure(title: String, titleFont: UIFont = Font.headline, description: String, descriptionFont: UIFont = Font.body) {
+    func configure(title: String, titleFont: UIFont = Font.subtitle1, description: String, descriptionFont: UIFont = Font.body1) {
         titleLabel.text = title
         titleLabel.font = titleFont
         let paragraphStyle = NSMutableParagraphStyle()
