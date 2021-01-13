@@ -28,7 +28,7 @@ final class FormTableViewErrorView: UIView {
         errorLabel.textColor = Color.critical
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
         errorLabel.numberOfLines = 0
-        errorLabel.font = Font.footnote
+        errorLabel.font = Font.body2
         errorLabel.setLineHeight(lineHeight: 20)
 
         addSubview(contentView)

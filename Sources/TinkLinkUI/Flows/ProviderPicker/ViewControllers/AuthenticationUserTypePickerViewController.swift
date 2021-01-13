@@ -61,6 +61,10 @@ extension AuthenticationUserTypePickerViewController {
         @unknown default:
             assertionFailure("Unknown authentication user type")
         }
+
+        let isBeta = node.providers.contains(where: { $0.releaseStatus == .beta })
+        cell.setBetaLabelHidden(!isBeta)
+
         return cell
     }
 

@@ -19,7 +19,7 @@ private final class TinkSearchBar: UISearchBar {
         didSet {
             // Hack: You need the async call here to have the color apply properly.
             DispatchQueue.main.async {
-                self.textField?.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.body])
+                self.textField?.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.body1])
             }
         }
     }
@@ -38,7 +38,7 @@ private final class TinkSearchBar: UISearchBar {
         if #available(iOS 13.0, *) {
             let attributes = [
                 NSAttributedString.Key.foregroundColor: Color.navigationBarButton,
-                NSAttributedString.Key.font: Font.body
+                NSAttributedString.Key.font: Font.body1
             ]
             UIBarButtonItem.appearance(whenContainedInInstancesOf: [TinkSearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
         } else {
@@ -51,7 +51,7 @@ private final class TinkSearchBar: UISearchBar {
         }
         textField?.backgroundColor = Color.accent.mixedWith(color: Color.navigationBarBackground, factor: 0.95)
         textField?.textColor = Color.navigationBarLabel
-        textField?.font = Font.body
+        textField?.font = Font.body1
     }
 
     override func layoutSubviews() {
