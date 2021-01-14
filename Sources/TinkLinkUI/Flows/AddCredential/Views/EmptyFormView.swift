@@ -52,6 +52,13 @@ final class EmptyFormView: UIView {
         paragraphStyle.headIndent = 24
 
         let attributedString = NSMutableAttributedString(string: "1. You will be securely transferred to Danske Bank.\r\n2. You will be required to authenticate.\r\n3. Once authenticated, you will be redirected back.", attributes: [.paragraphStyle: paragraphStyle])
+        if let regex = try? NSRegularExpression(pattern: "[0-9].", options: []) {
+            let range = NSRange(location: 0, length: attributedString.length)
+            let matches = regex.matches(in: attributedString.string, options: [], range: range)
+            matches.forEach {
+                attributedString.addAttributes([.font: Font.subtitle1, .kern: 2.1], range: $0.range)
+            }
+        }
 
         instructionLabel.attributedText = attributedString
         instructionLabel.translatesAutoresizingMaskIntoConstraints = false
