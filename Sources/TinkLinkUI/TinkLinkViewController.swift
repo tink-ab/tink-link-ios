@@ -400,6 +400,8 @@ public class TinkLinkViewController: UIViewController {
                 let user = try result.get()
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
+            } catch ServiceError.permissionDenied(let message) {
+                assertionFailure(message ?? "Failed to get current user. The access token is missing the required scope: `user:read`.")
             } catch ServiceError.unauthenticated(let message) {
                 assertionFailure(message ?? "The current user is not authenticated")
                 DispatchQueue.main.async {
