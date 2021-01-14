@@ -51,7 +51,7 @@ final class EmptyFormView: UIView {
 
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.paragraphSpacing = 16
-        paragraphStyle.headIndent = 24
+        paragraphStyle.headIndent = 22
 
         let instructionText = String(format: Strings.Credentials.instructions, providerName)
 
