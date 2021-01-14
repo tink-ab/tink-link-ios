@@ -400,6 +400,8 @@ public class TinkLinkViewController: UIViewController {
                 let user = try result.get()
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
+            } catch ServiceError.unauthenticated(let message) {
+                assertionFailure(message ?? "The current user is not authenticated")
             } catch {
                 if let tinkLinkError = TinkLinkUIError(error: error) {
                     self.result = .failure(tinkLinkError)
