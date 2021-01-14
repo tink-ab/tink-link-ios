@@ -402,6 +402,13 @@ public class TinkLinkViewController: UIViewController {
                 completion()
             } catch ServiceError.unauthenticated(let message) {
                 assertionFailure(message ?? "The current user is not authenticated")
+                DispatchQueue.main.async {
+                    let viewController = UIViewController()
+                    self.containedNavigationController.setViewControllers([viewController], animated: false)
+                    self.showAlert(for: ServiceError.unauthenticated(message), onRetry: {
+                        self.retryOperation()
+                    })
+                }
             } catch {
                 if let tinkLinkError = TinkLinkUIError(error: error) {
                     self.result = .failure(tinkLinkError)
