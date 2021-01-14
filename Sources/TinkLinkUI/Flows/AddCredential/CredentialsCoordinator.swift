@@ -244,7 +244,7 @@ extension CredentialsCoordinator {
 
     @objc private func cancel() {
         if !credentialsController.newlyAddedFailedCredentialsID.isEmpty {
-            completion(.failure(TinkLinkError.failedToAddCredentials(credentialsController.newlyAddedFailedCredentialsID)))
+            completion(.failure(TinkLinkUIError(code: .failedToAddCredentials, errorsByCredentialsID: credentialsController.newlyAddedFailedCredentialsID)))
         } else {
             completion(.failure(TinkLinkUIError(code: .userCancelled)))
         }
