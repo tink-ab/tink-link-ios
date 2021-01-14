@@ -18,7 +18,8 @@ final class EmptyFormView: UIView {
         iconView.kf.setImage(with: imageURL)
         let format = Strings.Credentials.description
         textLabel.text = String(format: format, text)
-        setup()
+
+        setup(providerName: text)
     }
 
     init(image: UIImage?, text: String, errorText: String? = nil) {
@@ -30,7 +31,8 @@ final class EmptyFormView: UIView {
         iconView.image = image
         let format = Strings.Credentials.description
         textLabel.text = String(format: format, text)
-        setup()
+
+        setup(providerName: text)
     }
 
     @available(*, unavailable)
@@ -38,7 +40,7 @@ final class EmptyFormView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setup() {
+    private func setup(providerName: String) {
         instructionView.backgroundColor = Color.accentBackground
         instructionView.layer.cornerRadius = 12
         instructionView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +53,9 @@ final class EmptyFormView: UIView {
         paragraphStyle.paragraphSpacing = 16
         paragraphStyle.headIndent = 24
 
-        let attributedString = NSMutableAttributedString(string: "1. You will be securely transferred to Danske Bank.\r\n2. You will be required to authenticate.\r\n3. Once authenticated, you will be redirected back.", attributes: [.paragraphStyle: paragraphStyle])
+        let instructionText = String(format: Strings.Credentials.instructions, providerName)
+
+        let attributedString = NSMutableAttributedString(string: instructionText, attributes: [.paragraphStyle: paragraphStyle])
         if let regex = try? NSRegularExpression(pattern: "[0-9].", options: []) {
             let range = NSRange(location: 0, length: attributedString.length)
             let matches = regex.matches(in: attributedString.string, options: [], range: range)
