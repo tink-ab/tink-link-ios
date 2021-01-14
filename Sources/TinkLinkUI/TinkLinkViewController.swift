@@ -400,21 +400,19 @@ public class TinkLinkViewController: UIViewController {
                 let user = try result.get()
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
-            } catch ServiceError.permissionDenied(let message) {
-                assertionFailure(message ?? "Failed to get current user. The access token is missing the required scope: `user:read`.")
-                DispatchQueue.main.async {
-                    let viewController = UIViewController()
-                    self.containedNavigationController.setViewControllers([viewController], animated: false)
-                    self.showAlert(for: ServiceError.unauthenticated(message), onRetry: {
-                        self.retryOperation()
-                    })
+            } catch let serviceError as ServiceError {
+                switch serviceError {
+                case .permissionDenied(let message):
+                    assertionFailure(message ?? "Failed to get current user. The access token is missing the required scope: `user:read`.")
+                case .unauthenticated(let message):
+                    assertionFailure(message ?? "The current user is not authenticated")
+                default:
+                    break
                 }
-            } catch ServiceError.unauthenticated(let message) {
-                assertionFailure(message ?? "The current user is not authenticated")
                 DispatchQueue.main.async {
                     let viewController = UIViewController()
                     self.containedNavigationController.setViewControllers([viewController], animated: false)
-                    self.showAlert(for: ServiceError.unauthenticated(message), onRetry: {
+                    self.showAlert(for: serviceError, onRetry: {
                         self.retryOperation()
                     })
                 }
