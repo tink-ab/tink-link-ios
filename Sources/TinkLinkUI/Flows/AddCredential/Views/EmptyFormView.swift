@@ -86,9 +86,13 @@ final class EmptyFormView: UIView {
             NSLayoutConstraint.activate([
                 formErrorView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 formErrorView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 16),
-                formErrorView.trailingAnchor.constraint(equalTo: trailingAnchor)
+                formErrorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                formErrorView.bottomAnchor.constraint(lessThanOrEqualTo: iconView.topAnchor, constant: -4)
             ])
         }
+
+        let centerYConstraint = instructionView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 12)
+        centerYConstraint.priority = .defaultLow
 
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: 60),
@@ -102,7 +106,7 @@ final class EmptyFormView: UIView {
             instructionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 34),
             instructionView.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 34),
             instructionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -34),
-            instructionView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 60),
+            centerYConstraint,
 
             instructionLabel.leadingAnchor.constraint(equalTo: instructionView.leadingAnchor, constant: 24),
             instructionLabel.topAnchor.constraint(equalTo: instructionView.topAnchor, constant: 24),
