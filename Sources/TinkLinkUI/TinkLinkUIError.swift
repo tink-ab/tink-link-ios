@@ -1,7 +1,7 @@
 import Foundation
 import TinkLink
 
-public struct TinkLinkUIError: Error, Equatable, CustomStringConvertible {
+public struct TinkLinkUIError: Error, CustomStringConvertible {
     public struct Code: Hashable {
         enum Value {
             case userCancelled
