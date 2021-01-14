@@ -10,6 +10,7 @@ public struct TinkLinkUIError: Error, CustomStringConvertible {
             case credentialsNotFound
             case providerNotFound
             case unableToOpenThirdPartyApp
+            case failedToAddCredentials
             case notAuthenticated
             case internalError
         }
@@ -22,6 +23,7 @@ public struct TinkLinkUIError: Error, CustomStringConvertible {
         public static let credentialsNotFound = Self(value: .credentialsNotFound)
         public static let providerNotFound = Self(value: .providerNotFound)
         public static let unableToOpenThirdPartyApp = Self(value: .unableToOpenThirdPartyApp)
+        public static let failedToAddCredentials = Self(value: .failedToAddCredentials)
         public static let notAuthenticated = Self(value: .notAuthenticated)
         public static let internalError = Self(value: .internalError)
 
@@ -31,9 +33,11 @@ public struct TinkLinkUIError: Error, CustomStringConvertible {
     }
 
     public var code: Code
+    public private(set) var errorsByCredentialsID: [Credentials.ID: Error]?
 
-    init(code: Code) {
+    init(code: Code, errorsByCredentialsID: [Credentials.ID: Error]? = nil) {
         self.code = code
+        self.errorsByCredentialsID = errorsByCredentialsID
     }
 
     public var description: String {
@@ -52,6 +56,7 @@ public struct TinkLinkUIError: Error, CustomStringConvertible {
     public static let providerNotFound: Code = .providerNotFound
     /// Tink Link was not able to open the third party app.
     public static let unableToOpenThirdPartyApp: Code = .unableToOpenThirdPartyApp
+    public static let failedToAddCredentials: Code = .failedToAddCredentials
     public static let notAuthenticated: Code = .notAuthenticated
     public static let internalError: Code = .internalError
 
