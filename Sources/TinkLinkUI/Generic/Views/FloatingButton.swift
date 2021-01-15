@@ -47,7 +47,7 @@ final class FloatingButton: UIControl {
         didSet {
             if let image = image {
                 imageWidthConstraint?.constant = image.size.width + 4
-                imageTrailingConstraint?.constant = 4
+                imageTrailingConstraint?.constant = 8
             } else {
                 imageWidthConstraint?.constant = 0
                 imageTrailingConstraint?.constant = 0
