@@ -4,6 +4,7 @@ import Foundation
 final class CredentialsController {
     let tink: Tink
     private(set) lazy var credentialsContext = CredentialsContext(tink: tink)
+    var newlyAddedFailedCredentialsID: [Credentials.ID: Error] = [:]
 
     init(tink: Tink) {
         self.tink = tink

@@ -40,7 +40,7 @@ final class EmptyFormView: UIView {
         iconView.contentMode = .scaleAspectFit
         iconView.translatesAutoresizingMaskIntoConstraints = false
 
-        textLabel.font = Font.headline
+        textLabel.font = Font.subtitle1
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 0
         textLabel.translatesAutoresizingMaskIntoConstraints = false

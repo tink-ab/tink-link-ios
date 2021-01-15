@@ -30,7 +30,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
     let footerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Font.footnote
+        label.font = Font.body2
         label.textColor = Color.secondaryLabel
         label.numberOfLines = 0
         label.setLineHeight(lineHeight: 20)
