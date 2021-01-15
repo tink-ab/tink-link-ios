@@ -4,6 +4,9 @@ import Kingfisher
 final class EmptyFormView: UIView {
     private var formErrorView: FormTableViewErrorView?
 
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+
     private let iconView = UIImageView()
     private let textLabel = UILabel()
     private let instructionView = UIView()
@@ -41,6 +44,9 @@ final class EmptyFormView: UIView {
     }
 
     private func setup(providerName: String) {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+
         instructionView.backgroundColor = Color.accentBackground
         instructionView.layer.cornerRadius = 12
         instructionView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,18 +81,20 @@ final class EmptyFormView: UIView {
         textLabel.numberOfLines = 0
         textLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        addSubview(iconView)
-        addSubview(textLabel)
-        addSubview(instructionView)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(iconView)
+        contentView.addSubview(textLabel)
+        contentView.addSubview(instructionView)
         instructionView.addSubview(instructionLabel)
 
         if let formErrorView = formErrorView {
             formErrorView.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(formErrorView)
+            contentView.addSubview(formErrorView)
             NSLayoutConstraint.activate([
-                formErrorView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                formErrorView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 16),
-                formErrorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                formErrorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                formErrorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+                formErrorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
                 formErrorView.bottomAnchor.constraint(lessThanOrEqualTo: iconView.topAnchor, constant: -4)
             ])
         }
