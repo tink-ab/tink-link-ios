@@ -12,6 +12,8 @@ final class EmptyFormView: UIView {
     private let instructionView = UIView()
     private let instructionLabel = UILabel()
 
+    private var contentViewHeightConstraint: NSLayoutConstraint?
+
     init(imageURL: URL?, text: String, errorText: String? = nil) {
         if let errorText = errorText {
             self.formErrorView = FormTableViewErrorView(errorText: errorText)
@@ -99,27 +101,40 @@ final class EmptyFormView: UIView {
             ])
         }
 
-        let centerYConstraint = instructionView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 12)
-        centerYConstraint.priority = .defaultLow
+        let contentViewCenterYConstraint = instructionView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 12)
+        contentViewCenterYConstraint.priority = .defaultLow
+        let contentViewHeightConstraint = contentView.bottomAnchor.constraint(greaterThanOrEqualTo: instructionView.bottomAnchor, constant: 120)
+        self.contentViewHeightConstraint = contentViewHeightConstraint
 
         NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
             iconView.widthAnchor.constraint(equalToConstant: 60),
             iconView.heightAnchor.constraint(equalToConstant: 60),
-            iconView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            iconView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
-            textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 34),
+            textLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 34),
             textLabel.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 24),
-            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -34),
-
-            instructionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 34),
-            instructionView.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 34),
-            instructionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -34),
-            centerYConstraint,
+            textLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -34),
 
             instructionLabel.leadingAnchor.constraint(equalTo: instructionView.leadingAnchor, constant: 24),
             instructionLabel.topAnchor.constraint(equalTo: instructionView.topAnchor, constant: 24),
             instructionLabel.trailingAnchor.constraint(equalTo: instructionView.trailingAnchor, constant: -24),
-            instructionLabel.bottomAnchor.constraint(equalTo: instructionView.bottomAnchor, constant: -24)
+            instructionLabel.bottomAnchor.constraint(equalTo: instructionView.bottomAnchor, constant: -24),
+
+            instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 34),
+            instructionView.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 34),
+            instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -34),
+            contentViewCenterYConstraint,
+            contentViewHeightConstraint
         ])
     }
 }
