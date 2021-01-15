@@ -137,4 +137,10 @@ final class EmptyFormView: UIView {
             contentViewHeightConstraint
         ])
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        contentViewHeightConstraint?.constant = 0.27 * frame.height
+    }
 }
