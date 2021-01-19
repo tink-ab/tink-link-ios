@@ -69,7 +69,6 @@
 		447904520EE633869A5BB3B1 /* FontProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3152CC8B21973565DF082 /* FontProvider.swift */; };
 		44F087FF5149ED911A6ADCFC /* TinkLinkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBE20B969F478CB9A3ADA68 /* TinkLinkError.swift */; };
 		45173FEB6003CB30EE944FA9 /* BetaTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FB015E30A583B54CFF3B25 /* BetaTagView.swift */; };
-		45D631C6C7EE6577F101D9BA /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */; };
 		465D1C94DC9E6488F1F60457 /* LinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328A437D96F2718ECDD73B7 /* LinkTests.swift */; };
 		49273CB6A5A24128CFDDAE6F /* RefreshCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */; };
 		4CFB0414DA01A06688AD0B0F /* TinkLink+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79688D753B135D21621FDD5C /* TinkLink+extension.swift */; };
@@ -98,7 +97,6 @@
 		5D3ED213922DFDE6478FD9B9 /* MutableCredentialsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D33FBB65A4B7A184AC8B7 /* MutableCredentialsService.swift */; };
 		5DD4BC57F54445E467C9CCEF /* SupplementInformationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073D75BA34D8F8EC618C81C3 /* SupplementInformationTask.swift */; };
 		5E4C335E45CA4118E8BD6C3A /* TransferService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BDDC8A8556C18724B94F85 /* TransferService+mock.swift */; };
-		5F754A43EEDD0AE7938C8042 /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */; };
 		5FC6EB26461CAA4396CECE2C /* CredentialsService+paymentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0531830C7E81A7790520A /* CredentialsService+paymentMock.swift */; };
 		61873DBB04739999B25A02DD /* Provider+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780BC6837FBECC3EC2A4897 /* Provider+mock.swift */; };
 		620B0BE3DEEC88DC3AF46518 /* DispatchWorkItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10391B13F1BE7407F59BA29B /* DispatchWorkItem+Extension.swift */; };
@@ -421,7 +419,6 @@
 		7C91C407612EEC3FF19C4653 /* ValidationError+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValidationError+Localized.swift"; sourceTree = "<group>"; };
 		7E4620001B14937015A21BA9 /* AnyCanceller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCanceller.swift; sourceTree = "<group>"; };
 		80938EC83D308F92735171B4 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
-		809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+TinkEnvironmentVariables.swift"; sourceTree = "<group>"; };
 		80E9DA1DB42A03D5A2965E39 /* RefreshableItems+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RefreshableItems+Extensions.swift"; sourceTree = "<group>"; };
 		815202B64C2DA9A62599CE49 /* ServiceError+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceError+Localized.swift"; sourceTree = "<group>"; };
 		82DCEEEFEFD68A617634C099 /* SignableOperation+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignableOperation+mock.swift"; sourceTree = "<group>"; };
@@ -1012,7 +1009,6 @@
 				62CCD4858523E6A6112ECDF9 /* Credentials+Extension.swift */,
 				3E65ACD80BFCB3C993AB78F6 /* DefaultableCodable+Extension.swift */,
 				10391B13F1BE7407F59BA29B /* DispatchWorkItem+Extension.swift */,
-				809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */,
 				02B57CB15A10546A4774F022 /* Result+Extensions.swift */,
 				6124C5F0D50E821710FE5725 /* SecCertificate+Swift.swift */,
 				29E942B70645D5FA56C4856B /* SecTrust+Swift.swift */,
@@ -1447,7 +1443,6 @@
 				524D882954F95382B034C113 /* InitiateTransferTask.swift in Sources */,
 				DA308D212179F827E9781239 /* MultiCanceller.swift in Sources */,
 				101C976C8AA0E5EE3D12F360 /* PollingTask.swift in Sources */,
-				45D631C6C7EE6577F101D9BA /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */,
 				43E964B59FC78CA66E3644BA /* ProviderContext.swift in Sources */,
 				C8C36A57E2E637FD499B38BA /* ProviderTree.swift in Sources */,
 				49273CB6A5A24128CFDDAE6F /* RefreshCredentialsTask.swift in Sources */,
@@ -1489,7 +1484,6 @@
 				B081DBE8C00A3507FD113E4B /* InitiateTransferTask.swift in Sources */,
 				D4FCD40CB91FCA7E12A83E4E /* MultiCanceller.swift in Sources */,
 				93217DF9BF12B98A04E73C81 /* PollingTask.swift in Sources */,
-				5F754A43EEDD0AE7938C8042 /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */,
 				7301A7AF1553F901C72BE367 /* ProviderContext.swift in Sources */,
 				0AD80F46344ABC35DBEABB5C /* ProviderTree.swift in Sources */,
 				F5512E9C8B0BBC1AFA919F21 /* RefreshCredentialsTask.swift in Sources */,
