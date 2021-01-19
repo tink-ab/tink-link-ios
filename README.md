@@ -79,6 +79,8 @@ When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` 
 5. Drag all files except Info.plist from `Sources/TinkLink` folder into the new target.
 6. Add a new iOS Framework target with the name `TinkLinkUI` to your app.
 7. Drag all files except Info.plist from `Sources/TinkLinkUI` folder into the new target.
+8. [Install Kingfisher](https://github.com/onevcat/Kingfisher/wiki/Installation-Guide#manually)
+9. [Install Down](https://github.com/johnxnguyen/Down#or-manually-install)
 
 ## How to display Tink Link
 
