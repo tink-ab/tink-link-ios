@@ -75,6 +75,10 @@ When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` 
 1. Download and unzip the `TinkCore.xcframework.zip` from the [latest Tink Core release](https://github.com/tink-ab/tink-core-ios/releases/latest).
 2. Drag the `TinkCore.xcframework` into the  _Frameworks, Libraries, and Embedded Content_ section on your application targets’ _General_ tab. 
 3. Download and unzip the `Source code.zip` from the [latest Tink Link release](https://github.com/tink-ab/tink-link-ios/releases/latest).
+4. Add a new iOS Framework target with the name `TinkLink` to your app.
+5. Drag all files except Info.plist from `Sources/TinkLink` folder into the new target.
+6. Add a new iOS Framework target with the name `TinkLinkUI` to your app.
+7. Drag all files except Info.plist from `Sources/TinkLinkUI` folder into the new target.
 
 ## How to display Tink Link
 
