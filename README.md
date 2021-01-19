@@ -70,6 +70,8 @@ When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` 
 
 > If you only need the headless SDK you don't need to include `TinkLinkUI.framework`, `Down.framework` and `Kingfisher.framework`.
 
+#### Manual installation
+
 ## How to display Tink Link
 
 1. Import the SDK and configure Tink with your client ID and redirect URI.
