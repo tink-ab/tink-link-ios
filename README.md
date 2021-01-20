@@ -81,6 +81,7 @@ When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` 
 7. Drag all files except Info.plist from `Sources/TinkLinkUI` folder into the new target.
 8. [Install Kingfisher](https://github.com/onevcat/Kingfisher/wiki/Installation-Guide#manually)
 9. [Install Down](https://github.com/johnxnguyen/Down#or-manually-install)
+10. Add Kingfisher and Down to the TinkLinkUI target.
 
 When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` within your project.
 
