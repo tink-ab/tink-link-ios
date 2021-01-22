@@ -35,6 +35,8 @@ extension SupplementalInformationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = Color.background
+
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGestureRecognizer.delegate = self
         view.addGestureRecognizer(tapGestureRecognizer)

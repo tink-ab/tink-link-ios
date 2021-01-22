@@ -131,6 +131,7 @@ public class TinkLinkViewController: UIViewController {
 
     private var loadingViewController: LoadingViewController?
     private let containedNavigationController = UINavigationController()
+    private let navigationManager = TinkLinkNavigationManager()
     private var credentialsCoordinator: CredentialsCoordinator?
     private var clientDescription: ClientDescription?
     private let clientDescriptorLoadingGroup = DispatchGroup()
@@ -251,6 +252,8 @@ public class TinkLinkViewController: UIViewController {
 
         presentationController?.delegate = self
 
+        containedNavigationController.delegate = navigationManager
+
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
 
@@ -277,6 +280,15 @@ public class TinkLinkViewController: UIViewController {
 
     override public func show(_ vc: UIViewController, sender: Any?) {
         hideLoadingOverlay(animated: false)
+        if let currentLoadingViewController = containedNavigationController.topViewController as? LoadingViewController,
+           let newLoadingViewController = vc as? LoadingViewController {
+            currentLoadingViewController.update(newLoadingViewController.text, onCancel: newLoadingViewController.onCancel)
+            return
+        }
+        if containedNavigationController.viewControllers.contains(where: { $0 === vc }) {
+            containedNavigationController.popToViewController(vc, animated: true)
+            return
+        }
         containedNavigationController.show(vc, sender: sender)
     }
 

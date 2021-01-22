@@ -10,7 +10,7 @@ final class LoadingViewController: UIViewController {
         }
     }
 
-    private var onCancel: (() -> Void)?
+    private(set) var onCancel: (() -> Void)?
     private var onRetry: (() -> Void)?
     private var onClose: (() -> Void)?
 
@@ -19,12 +19,14 @@ final class LoadingViewController: UIViewController {
     private let cancelButton = UIButton(type: .system)
     private let errorView = LoadingErrorView()
 
+    var text: String { label.text ?? "" }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = Color.background
         activityIndicatorView.tintColor = Color.accent
-
+        activityIndicatorView.style = .large
         activityIndicatorView.startAnimating()
         errorView.delegate = self
         errorView.isHidden = true
@@ -44,31 +46,23 @@ final class LoadingViewController: UIViewController {
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
 
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(contentView)
-        contentView.addSubview(label)
-        contentView.addSubview(activityIndicatorView)
+        view.addSubview(label)
+        view.addSubview(activityIndicatorView)
 
         view.addSubview(cancelButton)
         view.addSubview(activityIndicatorView)
         view.addSubview(errorView)
 
         NSLayoutConstraint.activate([
-            activityIndicatorView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            activityIndicatorView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -36),
+            activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicatorView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -24),
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            contentView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            label.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 24),
+            label.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -24),
 
-            cancelButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            cancelButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+            cancelButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -32),
 
             errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             errorView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -78,39 +72,35 @@ final class LoadingViewController: UIViewController {
     }
 
     func showLoadingIndicator() {
-        DispatchQueue.main.async {
-            self.activityIndicatorView.startAnimating()
-            self.errorView.isHidden = true
-        }
+        dispatchPrecondition(condition: .onQueue(.main))
+        activityIndicatorView.startAnimating()
+        errorView.isHidden = true
     }
 
     func hideLoadingIndicator() {
-        DispatchQueue.main.async {
-            self.activityIndicatorView.stopAnimating()
-        }
+        dispatchPrecondition(condition: .onQueue(.main))
+        activityIndicatorView.stopAnimating()
     }
 
     func update(_ text: String?, onCancel: (() -> Void)?) {
-        DispatchQueue.main.async {
-            if let onCancel = onCancel {
-                self.onCancel = onCancel
-                self.cancelButton.isHidden = false
-            } else {
-                self.cancelButton.isHidden = true
-            }
-
-            self.label.text = text
+        dispatchPrecondition(condition: .onQueue(.main))
+        if let onCancel = onCancel {
+            self.onCancel = onCancel
+            cancelButton.isHidden = false
+        } else {
+            cancelButton.isHidden = true
         }
+
+        label.text = text
     }
 
     func setError(_ error: Error?, onClose: @escaping () -> Void, onRetry: (() -> Void)?) {
-        DispatchQueue.main.async {
-            self.hideLoadingIndicator()
-            self.onRetry = onRetry
-            self.onClose = onClose
-            self.errorView.isHidden = false
-            self.errorView.configure(with: error, showRetry: onRetry != nil)
-        }
+        dispatchPrecondition(condition: .onQueue(.main))
+        hideLoadingIndicator()
+        self.onRetry = onRetry
+        self.onClose = onClose
+        errorView.isHidden = false
+        errorView.configure(with: error, showRetry: onRetry != nil)
     }
 
     @objc private func cancel() {
