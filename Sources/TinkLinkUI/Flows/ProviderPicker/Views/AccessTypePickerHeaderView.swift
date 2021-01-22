@@ -3,7 +3,7 @@ import UIKit
 final class AccessTypePickerHeaderView: UIView {
     private lazy var textLabel: UILabel = {
         let textLabel = UILabel()
-        textLabel.font = Font.body
+        textLabel.font = Font.body1
         textLabel.adjustsFontForContentSizeCategory = true
         textLabel.textColor = Color.secondaryLabel
         textLabel.numberOfLines = 0

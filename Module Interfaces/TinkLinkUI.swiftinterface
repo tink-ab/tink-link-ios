@@ -111,7 +111,7 @@ extension TinkLinkError.ThirdPartyAppAuthenticationFailureReason : Foundation.Lo
     get
   }
 }
-public struct TinkLinkUIError : Swift.Error, Swift.Equatable, Swift.CustomStringConvertible {
+public struct TinkLinkUIError : Swift.Error, Swift.CustomStringConvertible {
   public struct Code : Swift.Hashable {
     public static let userCancelled: TinkLinkUI.TinkLinkUIError.Code
     public static let unableToFetchProviders: TinkLinkUI.TinkLinkUIError.Code
@@ -119,6 +119,7 @@ public struct TinkLinkUIError : Swift.Error, Swift.Equatable, Swift.CustomString
     public static let credentialsNotFound: TinkLinkUI.TinkLinkUIError.Code
     public static let providerNotFound: TinkLinkUI.TinkLinkUIError.Code
     public static let unableToOpenThirdPartyApp: TinkLinkUI.TinkLinkUIError.Code
+    public static let failedToAddCredentials: TinkLinkUI.TinkLinkUIError.Code
     public static let notAuthenticated: TinkLinkUI.TinkLinkUIError.Code
     public static let internalError: TinkLinkUI.TinkLinkUIError.Code
     public static func ~= (lhs: TinkLinkUI.TinkLinkUIError.Code, rhs: Swift.Error) -> Swift.Bool
@@ -129,6 +130,9 @@ public struct TinkLinkUIError : Swift.Error, Swift.Equatable, Swift.CustomString
     public static func == (a: TinkLinkUI.TinkLinkUIError.Code, b: TinkLinkUI.TinkLinkUIError.Code) -> Swift.Bool
   }
   public var code: TinkLinkUI.TinkLinkUIError.Code
+  public var errorsByCredentialsID: [TinkCore.Credentials.ID : Swift.Error]? {
+    get
+  }
   public var description: Swift.String {
     get
   }
@@ -138,9 +142,9 @@ public struct TinkLinkUIError : Swift.Error, Swift.Equatable, Swift.CustomString
   public static let credentialsNotFound: TinkLinkUI.TinkLinkUIError.Code
   public static let providerNotFound: TinkLinkUI.TinkLinkUIError.Code
   public static let unableToOpenThirdPartyApp: TinkLinkUI.TinkLinkUIError.Code
+  public static let failedToAddCredentials: TinkLinkUI.TinkLinkUIError.Code
   public static let notAuthenticated: TinkLinkUI.TinkLinkUIError.Code
   public static let internalError: TinkLinkUI.TinkLinkUIError.Code
-  public static func == (a: TinkLinkUI.TinkLinkUIError, b: TinkLinkUI.TinkLinkUIError) -> Swift.Bool
 }
 @objc @_hasMissingDesignatedInitializers public class TinkLinkViewController : UIKit.UIViewController {
   public struct PrefillStrategy {
@@ -156,6 +160,9 @@ public struct TinkLinkUIError : Swift.Error, Swift.Equatable, Swift.CustomString
     public static func authenticate(credentialsID: TinkCore.Credentials.ID) -> TinkLinkUI.TinkLinkViewController.Operation
     public static func refresh(credentialsID: TinkCore.Credentials.ID, forceAuthenticate: Swift.Bool = false) -> TinkLinkUI.TinkLinkViewController.Operation
     public static func update(credentialsID: TinkCore.Credentials.ID) -> TinkLinkUI.TinkLinkViewController.Operation
+  }
+  public var errorsByCredentialsID: [TinkCore.Credentials.ID : Swift.Error] {
+    get
   }
   public var prefill: TinkLinkUI.TinkLinkViewController.PrefillStrategy
   final public let scopes: [TinkCore.Scope]?

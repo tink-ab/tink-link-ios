@@ -147,6 +147,11 @@ public class TinkLinkViewController: UIViewController {
     private var authorizationCode: AuthorizationCode?
     private var userHasConnected: Bool = false
 
+    /// Errors for credentials that failed to be added with this view controller.
+    public var errorsByCredentialsID: [Credentials.ID: Error] {
+        return credentialsController.newlyAddedFailedCredentialsID
+    }
+
     /// The prefilling strategy to use.
     public var prefill: PrefillStrategy = .none
     /// Scopes that grant access to Tink.
@@ -400,6 +405,22 @@ public class TinkLinkViewController: UIViewController {
                 let user = try result.get()
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
+            } catch let serviceError as ServiceError {
+                switch serviceError {
+                case .permissionDenied(let message):
+                    assertionFailure(message ?? "Failed to get current user. The access token is missing the required scope: `user:read`.")
+                case .unauthenticated(let message):
+                    assertionFailure(message ?? "The current user is not authenticated")
+                default:
+                    break
+                }
+                DispatchQueue.main.async {
+                    let viewController = UIViewController()
+                    self.containedNavigationController.setViewControllers([viewController], animated: false)
+                    self.showAlert(for: serviceError, onRetry: {
+                        self.retryOperation()
+                    })
+                }
             } catch {
                 if let tinkLinkError = TinkLinkUIError(error: error) {
                     self.result = .failure(tinkLinkError)
