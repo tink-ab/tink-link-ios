@@ -120,17 +120,20 @@ final class CredentialsCoordinator {
             delegate?.didFinishCredentialsForm()
             showAddCredentialSuccess(with: credentials, authorizationCode: authorizationCode, for: action)
         } catch ThirdPartyAppAuthenticationTask.Error.cancelled {
+            tinkLinkTracker.credentialsID = nil
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }
         } catch let error as ThirdPartyAppAuthenticationTask.Error {
             showDownloadPrompt(for: error)
+            tinkLinkTracker.credentialsID = nil
             tinkLinkTracker.track(screen: .error)
         } catch SupplementInformationTask.Error.cancelled {
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             }
         } catch TinkLinkError.userCancelled, AddCredentialsTask.Error.cancelled, UpdateCredentialsTask.Error.cancelled {
+            tinkLinkTracker.credentialsID = nil
             if callCompletionOnError {
                 completion(.failure(.userCancelled))
             } else if let credentialsViewController = credentialsViewController {
@@ -138,6 +141,7 @@ final class CredentialsCoordinator {
             }
         } catch {
             showAlert(for: error)
+            tinkLinkTracker.credentialsID = nil
             tinkLinkTracker.track(screen: .error)
         }
     }
