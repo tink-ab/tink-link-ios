@@ -9,8 +9,9 @@ class TinkLinkTracker {
 
     var userID: String?
     var market: String?
+    var providerName: String?
+    var credentialsID: String?
 
-    private let credentialsID: String?
     private let clientID: String
     private let flow: AnalyticsFlow
     private let sessionID = UUID().uuidString
@@ -77,9 +78,12 @@ class TinkLinkTracker {
             appName: appInfo.name,
             appIdentifier: appInfo.bundleID,
             appVersion: appInfo.version,
+            market: market,
             clientId: clientID,
             sessionId: sessionID,
             userId: userID,
+            providerName: providerName,
+            credentialsId: credentialsID,
             label: nil,
             view: screen.rawValue,
             timestamp: Date(),
@@ -99,6 +103,7 @@ class TinkLinkTracker {
             appName: appInfo.name,
             appIdentifier: appInfo.bundleID,
             appVersion: appInfo.version,
+            market: market,
             clientId: clientID,
             sessionId: sessionID,
             isTest: isTest,
@@ -107,6 +112,8 @@ class TinkLinkTracker {
             platform: platform,
             device: device,
             userId: userID,
+            providerName: providerName,
+            credentialsId: credentialsID,
             flow: flow.rawValue,
             view: screen.rawValue,
             timestamp: Date()

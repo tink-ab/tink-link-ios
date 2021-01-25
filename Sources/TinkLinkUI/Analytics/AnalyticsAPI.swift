@@ -29,6 +29,7 @@ enum TinkAnalyticsRequest {
         let appName: String?
         let appIdentifier: String?
         let appVersion: String?
+        let market: String?
         let clientId: String
         let sessionId: String
         let isTest: Bool
@@ -37,6 +38,8 @@ enum TinkAnalyticsRequest {
         let platform: String
         let device: String
         let userId: String
+        let providerName: String?
+        let credentialsId: String?
         let flow: String
         let view: String
         let timestamp: Date
@@ -46,9 +49,12 @@ enum TinkAnalyticsRequest {
         let appName: String?
         let appIdentifier: String?
         let appVersion: String?
+        let market: String?
         let clientId: String
         let sessionId: String
         let userId: String
+        let providerName: String?
+        let credentialsId: String?
         let label: String?
         let view: String
         let timestamp: Date
