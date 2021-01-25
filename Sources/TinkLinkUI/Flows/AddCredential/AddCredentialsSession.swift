@@ -159,6 +159,7 @@ final class AddCredentialsSession {
         case .created, .authenticating:
             break
         case .awaitingSupplementalInformation(let supplementInformationTask):
+            tinkLinkTracker.credentialsID = supplementInformationTask.credentials.id.value
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)

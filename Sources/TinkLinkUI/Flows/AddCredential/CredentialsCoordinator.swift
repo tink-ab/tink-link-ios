@@ -116,6 +116,7 @@ final class CredentialsCoordinator {
         do {
             presenter?.hideLoadingIndicator()
             let (credentials, authorizationCode) = try result.get()
+            tinkLinkTracker.credentialsID = credentials.id.value
             delegate?.didFinishCredentialsForm()
             showAddCredentialSuccess(with: credentials, authorizationCode: authorizationCode, for: action)
         } catch ThirdPartyAppAuthenticationTask.Error.cancelled {
