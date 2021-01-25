@@ -107,7 +107,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
         return false
     }
 
-    private let credentials: Credentials
+    public let credentials: Credentials
     private let credentialsService: CredentialsService
     private var callRetryCancellable: RetryCancellable?
 

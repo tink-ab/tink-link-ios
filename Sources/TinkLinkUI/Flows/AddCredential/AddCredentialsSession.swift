@@ -162,6 +162,7 @@ final class AddCredentialsSession {
             tinkLinkTracker.credentialsID = supplementInformationTask.credentials.id.value
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
+            tinkLinkTracker.credentialsID = thirdPartyAppAuthenticationTask.credentials.id.value
             handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
         case .updating:
             let status: String
