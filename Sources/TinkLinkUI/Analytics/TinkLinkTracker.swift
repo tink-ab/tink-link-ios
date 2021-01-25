@@ -8,6 +8,7 @@ class TinkLinkTracker {
     }
 
     var userID: String?
+    var market: String?
 
     private let credentialsID: String?
     private let clientID: String
@@ -37,8 +38,9 @@ class TinkLinkTracker {
 
     private let api = AnalyticsAPI()
 
-    init(clientID: String, operation: TinkLinkViewController.Operation) {
+    init(clientID: String, operation: TinkLinkViewController.Operation, market: String?) {
         self.clientID = clientID
+        self.market = market
 
         switch operation {
         case .authenticate(credentialsID: let id):
