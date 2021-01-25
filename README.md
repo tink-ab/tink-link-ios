@@ -1,5 +1,8 @@
 ![Platform](https://img.shields.io/badge/platform-iOS-orange.svg)
 ![Languages](https://img.shields.io/badge/languages-swift-orange.svg)
+![CocoaPods](https://img.shields.io/cocoapods/v/TinkLink.svg)
+![Swift Package Manager](https://img.shields.io/badge/SPM-supported-DE5C43.svg)
+![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)
 
 # Tink Link iOS
 
