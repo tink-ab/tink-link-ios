@@ -21,9 +21,6 @@ endif
 ifeq ($(strip $(shell command -v xcodegen 2> /dev/null)),)
 	brew install xcodegen
 endif
-ifeq ($(strip $(shell command -v carthage 2> /dev/null)),)
-	brew install carthage
-endif
 ifeq ($(strip $(shell command -v bundle 2> /dev/null)),)
 	gem install bundler
 endif
