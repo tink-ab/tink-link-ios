@@ -128,19 +128,19 @@ class TinkLinkTracker {
         }
         let request = TinkAnalyticsRequest.applicationEvent(
             .init(
-                appName: appInfo.name,,
+                appName: appInfo.name,
                 appIdentifier: appInfo.bundleID,
                 appVersion: appInfo.version,
                 market: market,
-                clientId: clientId,
-                sessionId: sessionId,
+                clientId: clientID,
+                sessionId: sessionID,
                 isTest: isTest,
                 product: product,
                 version: version,
                 platform: platform,
                 device: device,
                 userId: userID,
-                providerName: providerName,
+                providerName: providerID,
                 credentialsId: credentialsID,
                 flow: flow.rawValue,
                 type: applicationEvent.rawValue
