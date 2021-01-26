@@ -220,9 +220,15 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
     }
 
     func submit(form: Form) {
-        tinkLinkTracker.track(interaction: .submitCredentials, screen: .submitCredentials)
         switch action {
         case .create(provider: let provider, mode: let mode):
+            switch provider.accessType {
+            case .openBanking:
+                tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
+            case .other:
+                tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
+            default: break
+            }
             addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
                 self?.handleCompletion(for: result)
             }
@@ -240,6 +246,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
         case .authenticate, .refresh:
             break
         }
+        tinkLinkTracker.track(interaction: .submitCredentials, screen: .submitCredentials)
     }
 }
 
