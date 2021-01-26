@@ -9,7 +9,7 @@ class TinkLinkTracker {
 
     var userID: String?
     var market: String?
-    var providerName: String?
+    var providerID: String?
     var credentialsID: String?
 
     private let clientID: String
@@ -82,7 +82,7 @@ class TinkLinkTracker {
             clientId: clientID,
             sessionId: sessionID,
             userId: userID,
-            providerName: providerName,
+            providerName: providerID,
             credentialsId: credentialsID,
             label: nil,
             view: screen.rawValue,
@@ -112,7 +112,7 @@ class TinkLinkTracker {
             platform: platform,
             device: device,
             userId: userID,
-            providerName: providerName,
+            providerName: providerID,
             credentialsId: credentialsID,
             flow: flow.rawValue,
             view: screen.rawValue,

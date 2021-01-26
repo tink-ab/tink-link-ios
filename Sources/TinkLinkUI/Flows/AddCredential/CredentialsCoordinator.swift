@@ -75,6 +75,7 @@ final class CredentialsCoordinator {
             credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
             self.credentialsViewController = credentialsViewController
             presenter?.show(credentialsViewController)
+            tinkLinkTracker.providerID = provider.id.value
             tinkLinkTracker.track(screen: .submitCredentials)
 
         case .authenticate(credentialsID: let id):
@@ -105,6 +106,8 @@ final class CredentialsCoordinator {
                     credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancel))
                     self.credentialsViewController = credentialsViewController
                     self.presenter?.show(credentialsViewController)
+                    self.tinkLinkTracker.providerID = credentials.providerID.value
+                    self.tinkLinkTracker.credentialsID = credentials.id.value
                     self.tinkLinkTracker.track(screen: .submitCredentials)
                 }
             }
