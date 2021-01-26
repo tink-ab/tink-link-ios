@@ -32,6 +32,26 @@ final class AddCredentialsSession {
 
     private var providerID: Provider.ID?
 
+    private var addCredentialsTaskStatus: AddCredentialsTask.Status? {
+        didSet {
+            if case .updating = oldValue {
+                return
+            } else if case .updating = addCredentialsTaskStatus {
+                tinkLinkTracker.track(applicationEvent: .authenticationSuccessful)
+            }
+        }
+    }
+
+    private var updateCredentialsTaskStatus: UpdateCredentialsTask.Status? {
+        didSet {
+            if case .updating = oldValue {
+                return
+            } else if case .updating = addCredentialsTaskStatus {
+                tinkLinkTracker.track(applicationEvent: .authenticationSuccessful)
+            }
+        }
+    }
+
     init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, tinkLinkTracker: TinkLinkTracker, presenter: CredentialsCoordinatorPresenting?) {
         self.presenter = presenter
         self.providerController = providerController
@@ -155,6 +175,7 @@ final class AddCredentialsSession {
     }
 
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
+        addCredentialsTaskStatus = status
         switch status {
         case .created, .authenticating:
             break
@@ -178,6 +199,7 @@ final class AddCredentialsSession {
     }
 
     private func handleUpdateTaskStatus(_ status: UpdateCredentialsTask.Status) {
+        updateCredentialsTaskStatus = status
         switch status {
         case .authenticating:
             break
