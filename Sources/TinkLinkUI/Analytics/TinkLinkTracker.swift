@@ -121,4 +121,31 @@ class TinkLinkTracker {
         )
         api.sendRequest(request)
     }
+
+    func track(applicationEvent: ApplicationEvent) {
+        guard let userID = userID else {
+            return
+        }
+        let request = TinkAnalyticsRequest.applicationEvent(
+            .init(
+                appName: appInfo.name,,
+                appIdentifier: appInfo.bundleID,
+                appVersion: appInfo.version,
+                market: market,
+                clientId: clientId,
+                sessionId: sessionId,
+                isTest: isTest,
+                product: product,
+                version: version,
+                platform: platform,
+                device: device,
+                userId: userID,
+                providerName: providerName,
+                credentialsId: credentialsID,
+                flow: flow.rawValue,
+                type: applicationEvent.rawValue
+            )
+        )
+        api.sendRequest(request)
+    }
 }
