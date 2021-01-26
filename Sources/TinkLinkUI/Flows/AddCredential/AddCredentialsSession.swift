@@ -181,15 +181,14 @@ final class AddCredentialsSession {
     }
 
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
+        tinkLinkTracker.credentialsID = (task as? AddCredentialsTask)?.credentials?.id.value
         addCredentialsTaskStatus = status
         switch status {
         case .created, .authenticating:
             break
         case .awaitingSupplementalInformation(let supplementInformationTask):
-            tinkLinkTracker.credentialsID = supplementInformationTask.credentials.id.value
             showSupplementalInformation(for: supplementInformationTask)
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
-            tinkLinkTracker.credentialsID = thirdPartyAppAuthenticationTask.credentials.id.value
             handleThirdPartyAppAuthentication(task: thirdPartyAppAuthenticationTask)
         case .updating:
             let status: String
@@ -205,6 +204,7 @@ final class AddCredentialsSession {
     }
 
     private func handleUpdateTaskStatus(_ status: UpdateCredentialsTask.Status) {
+        tinkLinkTracker.credentialsID = (task as? UpdateCredentialsTask)?.credentials.id.value
         updateCredentialsTaskStatus = status
         switch status {
         case .authenticating:
