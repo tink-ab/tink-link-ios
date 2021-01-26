@@ -34,20 +34,26 @@ final class AddCredentialsSession {
 
     private var addCredentialsTaskStatus: AddCredentialsTask.Status? {
         didSet {
-            if case .updating = oldValue {
-                return
-            } else if case .updating = addCredentialsTaskStatus {
+            switch (oldValue, addCredentialsTaskStatus) {
+            case (.updating, _):
+                break
+            case (_, .updating):
+                // Only tracking application event when the credentials status changed to updating for the first time
                 tinkLinkTracker.track(applicationEvent: .authenticationSuccessful)
+            default: break
             }
         }
     }
 
     private var updateCredentialsTaskStatus: UpdateCredentialsTask.Status? {
         didSet {
-            if case .updating = oldValue {
-                return
-            } else if case .updating = addCredentialsTaskStatus {
+            switch (oldValue, addCredentialsTaskStatus) {
+            case (.updating, _):
+                break
+            case (_, .updating):
+                // Only tracking application event when the credentials status changed to updating for the first time
                 tinkLinkTracker.track(applicationEvent: .authenticationSuccessful)
+            default: break
             }
         }
     }

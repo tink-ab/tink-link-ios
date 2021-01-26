@@ -432,7 +432,7 @@ public class TinkLinkViewController: UIViewController {
                         self.showProviderPicker()
                     case .name:
                         if let provider = providers.first {
-                            // Set this to be able to track `initializedWithProvider`
+                            // Set the provider to track `initializedWithProvider` application event
                             self.tinkLinkTracker.providerID = provider.id.value
                             self.tinkLinkTracker.track(applicationEvent: .initializedWithProvider)
                             self.showAddCredentials(for: provider, animated: false)
