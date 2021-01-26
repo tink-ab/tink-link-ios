@@ -53,11 +53,6 @@ test:
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
 
-build-carthage-frameworks:
-	carthage bootstrap --platform iOS --no-use-binaries --derived-data .tmp/carthage/
-	xcodegen generate
-	carthage build TinkLink_iOS TinkLinkUI_iOS --platform iOS --no-skip-current --no-use-binaries --derived-data .tmp/carthage/
-
 ui-test:
 	xcodegen generate
 	defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
