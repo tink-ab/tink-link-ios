@@ -117,7 +117,7 @@ translations:
 	mkdir Sources/TinkLinkUI/Translations.bundle/Base.lproj/
 	find Sources/TinkLinkUI/ -name \*.swift | xargs genstrings -o Sources/TinkLinkUI/Translations.bundle/Base.lproj
 
-carthage-project:
+xcode-project:
 	xcodegen generate
 
 module-interfaces:
