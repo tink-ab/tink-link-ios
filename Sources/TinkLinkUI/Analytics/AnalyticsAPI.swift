@@ -25,6 +25,34 @@ class AnalyticsAPI {
 }
 
 enum TinkAnalyticsRequest {
+    struct ApplicationEvent: Encodable {
+        enum ApplicationEventType: String, Encodable {
+            case initializedWithoutProvider = "INITIALIZED_WITHOUT_PROVIDER"
+            case initializedWithProvider = "INITIALIZED_WITH_PROVIDER"
+            case credentialsSubmitted = "CREDENTIALS_SUBMITTED"
+            case providerAuthenticationInitialized = "PROVIDER_AUTHENTICATION_INITIALIZED"
+            case credentialsValidationFailed = "CREDENTIALS_VALIDATION_FAILED"
+            case authenticationSuccessful = "AUTHENTICATION_SUCCESSFUL"
+        }
+
+        let appName: String?
+        let appIdentifier: String?
+        let appVersion: String?
+        let market: String?
+        let clientId: String
+        let sessionId: String
+        let isTest: Bool
+        let product: String
+        let version: String
+        let platform: String
+        let device: String
+        let userId: String
+        let providerName: String?
+        let credentialsId: String?
+        let flow: String
+        let type: String
+    }
+
     struct ViewEvent: Encodable {
         let appName: String?
         let appIdentifier: String?
@@ -65,11 +93,12 @@ enum TinkAnalyticsRequest {
 
     case viewEvent(ViewEvent)
     case interactionEvent(InteractionEvent)
+    case applicationEvent(ApplicationEvent)
 }
 
 extension TinkAnalyticsRequest: Encodable {
     private enum CodingKeys: String, CodingKey {
-        case type, viewEvent, interactionEvent
+        case type, viewEvent, interactionEvent, applicationEvent
     }
 
     func encode(to encoder: Encoder) throws {
@@ -81,6 +110,9 @@ extension TinkAnalyticsRequest: Encodable {
         case .viewEvent(let event):
             try container.encode("VIEW_EVENT", forKey: .type)
             try container.encode(event, forKey: .viewEvent)
+        case .applicationEvent(let event):
+            try container.encode("APPLICATION_EVENT", forKey: .type)
+            try container.encode(event, forKey: .applicationEvent)
         }
     }
 }
