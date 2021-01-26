@@ -69,7 +69,7 @@ final class CredentialsCoordinator {
     func start() {
         switch action {
         case .create(provider: let provider, _):
-            let credentialsViewController = CredentialsFormViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified)
+            let credentialsViewController = CredentialsFormViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified, tinkLinkTracker: tinkLinkTracker)
             credentialsViewController.delegate = self
             credentialsViewController.prefillStrategy = prefillStrategy
             credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
@@ -100,7 +100,7 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.fetchProvider(with: credentials.providerID) { provider in
-                    let credentialsViewController = CredentialsFormViewController(credentials: credentials, provider: provider, credentialsController: self.credentialsController, clientName: self.clientDescription.name, isAggregator: self.clientDescription.isAggregator, isVerified: self.clientDescription.isVerified)
+                    let credentialsViewController = CredentialsFormViewController(credentials: credentials, provider: provider, credentialsController: self.credentialsController, clientName: self.clientDescription.name, isAggregator: self.clientDescription.isAggregator, isVerified: self.clientDescription.isVerified, tinkLinkTracker: self.tinkLinkTracker)
                     credentialsViewController.delegate = self
                     credentialsViewController.prefillStrategy = self.prefillStrategy
                     credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancel))
