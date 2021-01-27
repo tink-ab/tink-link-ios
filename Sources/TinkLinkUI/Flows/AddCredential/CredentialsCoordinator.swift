@@ -82,6 +82,7 @@ final class CredentialsCoordinator {
             tinkLinkTracker.credentialsID = id.value
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
+                self.tinkLinkTracker.providerID = credentials.providerID.value
                 self.addCredentialsSession.authenticateCredentials(credentials: credentials) { result in
                     self.handleCompletion(for: result.map { ($0, nil) })
                 }
@@ -92,6 +93,7 @@ final class CredentialsCoordinator {
             tinkLinkTracker.credentialsID = id.value
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
+                self.tinkLinkTracker.providerID = credentials.providerID.value
                 self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate) { result in
                     self.handleCompletion(for: result.map { ($0, nil) })
                 }
