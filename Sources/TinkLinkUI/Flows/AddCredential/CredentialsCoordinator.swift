@@ -212,7 +212,7 @@ extension CredentialsCoordinator {
         }
     }
 
-    // Fetch provider but not ignore the error
+    // Fetch provider but ignore the error
     private func fetchProviderIfPossible(with id: Provider.ID, then: @escaping (Provider) -> Void) {
         if let provider = providerController.provider(providerID: id) {
             then(provider)
