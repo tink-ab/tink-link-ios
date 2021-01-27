@@ -83,6 +83,7 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.tinkLinkTracker.providerID = credentials.providerID.value
+                self.tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
                 self.addCredentialsSession.authenticateCredentials(credentials: credentials) { result in
                     self.handleCompletion(for: result.map { ($0, nil) })
                 }
@@ -94,6 +95,15 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.tinkLinkTracker.providerID = credentials.providerID.value
+                self.fetchProvider(with: credentials.providerID) { provider in
+                    switch provider.accessType {
+                    case .openBanking:
+                        self.tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
+                    case .other:
+                        self.tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
+                    default: break
+                    }
+                }
                 self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate) { result in
                     self.handleCompletion(for: result.map { ($0, nil) })
                 }
@@ -242,6 +252,16 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
                 fatalError()
             }
             assert(id == fetchedCredentials.id)
+
+            fetchProvider(with: fetchedCredentials.providerID) { provider in
+                switch provider.accessType {
+                case .openBanking:
+                    tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
+                case .other:
+                    tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
+                default: break
+                }
+            }
 
             addCredentialsSession.updateCredentials(credentials: fetchedCredentials, form: form) { [weak self] result in
                 self?.handleCompletion(for: result.map { ($0, nil) })
