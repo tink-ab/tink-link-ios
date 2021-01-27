@@ -80,22 +80,25 @@ final class CredentialsCoordinator {
 
         case .authenticate(credentialsID: let id):
             tinkLinkTracker.credentialsID = id.value
-            fetchCredentials(with: id) { credentials in
+            fetchCredentials(with: id) { [weak self] credentials in
+                guard let self = self else { return }
                 self.fetchedCredentials = credentials
                 self.tinkLinkTracker.providerID = credentials.providerID.value
                 self.tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
-                self.addCredentialsSession.authenticateCredentials(credentials: credentials) { result in
-                    self.handleCompletion(for: result.map { ($0, nil) })
+                self.addCredentialsSession.authenticateCredentials(credentials: credentials) { [weak self] result in
+                    self?.handleCompletion(for: result.map { ($0, nil) })
                 }
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
 
         case .refresh(credentialsID: let id, let forceAuthenticate):
             tinkLinkTracker.credentialsID = id.value
-            fetchCredentials(with: id) { credentials in
+            fetchCredentials(with: id) { [weak self] credentials in
+                guard let self = self else { return }
                 self.fetchedCredentials = credentials
                 self.tinkLinkTracker.providerID = credentials.providerID.value
-                self.fetchProviderIgnoringErrors(with: credentials.providerID) { provider in
+                self.fetchProviderIgnoringErrors(with: credentials.providerID) { [weak self] provider in
+                    guard let self = self else { return }
                     switch provider.accessType {
                     case .openBanking:
                         self.tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
@@ -104,17 +107,19 @@ final class CredentialsCoordinator {
                     default: break
                     }
                 }
-                self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate) { result in
-                    self.handleCompletion(for: result.map { ($0, nil) })
+                self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate) { [weak self] result in
+                    self?.handleCompletion(for: result.map { ($0, nil) })
                 }
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
 
         case .update(credentialsID: let id):
             tinkLinkTracker.credentialsID = id.value
-            fetchCredentials(with: id) { credentials in
+            fetchCredentials(with: id) { [weak self] credentials in
+                guard let self = self else { return }
                 self.fetchedCredentials = credentials
-                self.fetchProvider(with: credentials.providerID) { provider in
+                self.fetchProvider(with: credentials.providerID) { [weak self] provider in
+                    guard let self = self else { return }
                     let credentialsViewController = CredentialsFormViewController(credentials: credentials, provider: provider, credentialsController: self.credentialsController, clientName: self.clientDescription.name, isAggregator: self.clientDescription.isAggregator, isVerified: self.clientDescription.isVerified, tinkLinkTracker: self.tinkLinkTracker)
                     credentialsViewController.delegate = self
                     credentialsViewController.prefillStrategy = self.prefillStrategy
@@ -173,12 +178,12 @@ final class CredentialsCoordinator {
                 self.tinkLinkTracker.track(screen: .success)
                 self.presenter?.show(viewController)
             default:
-                self.fetchProvider(with: credentials.providerID) { provider in
+                self.fetchProvider(with: credentials.providerID) { [weak self] provider in
                     let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .other) { [weak self] in
                         self?.completion(.success((credentials, authorizationCode)))
                     }
-                    self.tinkLinkTracker.track(screen: .success)
-                    self.presenter?.show(viewController)
+                    self?.tinkLinkTracker.track(screen: .success)
+                    self?.presenter?.show(viewController)
                 }
             }
         }
@@ -189,25 +194,25 @@ final class CredentialsCoordinator {
 
 extension CredentialsCoordinator {
     private func fetchCredentials(with id: Credentials.ID, then: @escaping (Credentials) -> Void) {
-        credentialsController.credentials(id: id) { result in
+        credentialsController.credentials(id: id) { [weak self] result in
             do {
                 let credentials = try result.get()
                 then(credentials)
             } catch {
                 // TODO: This error should be improved
-                self.completion(.failure(.credentialsNotFound))
+                self?.completion(.failure(.credentialsNotFound))
             }
         }
     }
 
     private func fetchProvider(with id: Provider.ID, then: @escaping (Provider) -> Void) {
-        providerController.fetchProvider(with: id) { result in
+        providerController.fetchProvider(with: id) { [weak self] result in
             do {
                 let provider = try result.get()
                 then(provider)
             } catch {
                 // TODO: This error should be improved
-                self.completion(.failure(.providerNotFound))
+                self?.completion(.failure(.providerNotFound))
             }
         }
     }
@@ -266,12 +271,12 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
             }
             assert(id == fetchedCredentials.id)
 
-            fetchProviderIgnoringErrors(with: fetchedCredentials.providerID) { provider in
+            fetchProviderIgnoringErrors(with: fetchedCredentials.providerID) { [weak self] provider in
                 switch provider.accessType {
                 case .openBanking:
-                    tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
+                    self?.tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
                 case .other:
-                    tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
+                    self?.tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
                 default: break
                 }
             }
