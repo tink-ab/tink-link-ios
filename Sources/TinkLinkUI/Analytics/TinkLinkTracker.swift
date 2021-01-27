@@ -8,8 +8,10 @@ class TinkLinkTracker {
     }
 
     var userID: String?
+    var market: String?
+    var providerID: String?
+    var credentialsID: String?
 
-    private let credentialsID: String?
     private let clientID: String
     private let flow: AnalyticsFlow
     private let sessionID = UUID().uuidString
@@ -37,8 +39,9 @@ class TinkLinkTracker {
 
     private let api = AnalyticsAPI()
 
-    init(clientID: String, operation: TinkLinkViewController.Operation) {
+    init(clientID: String, operation: TinkLinkViewController.Operation, market: String?) {
         self.clientID = clientID
+        self.market = market
 
         switch operation {
         case .authenticate(credentialsID: let id):
@@ -75,9 +78,12 @@ class TinkLinkTracker {
             appName: appInfo.name,
             appIdentifier: appInfo.bundleID,
             appVersion: appInfo.version,
+            market: market,
             clientId: clientID,
             sessionId: sessionID,
             userId: userID,
+            providerName: providerID,
+            credentialsId: credentialsID,
             label: nil,
             view: screen.rawValue,
             timestamp: Date(),
@@ -97,6 +103,7 @@ class TinkLinkTracker {
             appName: appInfo.name,
             appIdentifier: appInfo.bundleID,
             appVersion: appInfo.version,
+            market: market,
             clientId: clientID,
             sessionId: sessionID,
             isTest: isTest,
@@ -105,10 +112,39 @@ class TinkLinkTracker {
             platform: platform,
             device: device,
             userId: userID,
+            providerName: providerID,
+            credentialsId: credentialsID,
             flow: flow.rawValue,
             view: screen.rawValue,
             timestamp: Date()
         )
+        )
+        api.sendRequest(request)
+    }
+
+    func track(applicationEvent: ApplicationEvent) {
+        guard let userID = userID else {
+            return
+        }
+        let request = TinkAnalyticsRequest.applicationEvent(
+            .init(
+                appName: appInfo.name,
+                appIdentifier: appInfo.bundleID,
+                appVersion: appInfo.version,
+                market: market,
+                clientId: clientID,
+                sessionId: sessionID,
+                isTest: isTest,
+                product: product,
+                version: version,
+                platform: platform,
+                device: device,
+                userId: userID,
+                providerName: providerID,
+                credentialsId: credentialsID,
+                flow: flow.rawValue,
+                type: applicationEvent.rawValue
+            )
         )
         api.sendRequest(request)
     }

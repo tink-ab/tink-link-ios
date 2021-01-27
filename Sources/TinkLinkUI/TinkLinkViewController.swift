@@ -139,7 +139,7 @@ public class TinkLinkViewController: UIViewController {
     private let temporaryCompletion: ((Result<(code: AuthorizationCode, credentials: Credentials), TinkLinkError>) -> Void)?
     private let permanentCompletion: ((Result<Credentials, TinkLinkError>) -> Void)?
 
-    private lazy var tinkLinkTracker = TinkLinkTracker(clientID: tink.configuration.clientID, operation: operation)
+    private lazy var tinkLinkTracker = TinkLinkTracker(clientID: tink.configuration.clientID, operation: operation, market: market?.rawValue)
 
     /// Initializes a new TinkLinkViewController.
     /// - Parameters:
@@ -343,6 +343,7 @@ public class TinkLinkViewController: UIViewController {
 
     private func createTemporaryUser(completion: @escaping () -> Void) {
         guard let market = market else { return }
+        tinkLinkTracker.market = market.rawValue
         tink._createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -372,6 +373,7 @@ public class TinkLinkViewController: UIViewController {
             guard let self = self else { return }
             do {
                 let user = try result.get()
+                self.tinkLinkTracker.market = user.profile.market.rawValue
                 self.tinkLinkTracker.userID = user.id.value
                 completion()
             } catch {
@@ -426,9 +428,13 @@ public class TinkLinkViewController: UIViewController {
                 case .success(let providers):
                     switch providerPredicate {
                     case .kinds:
+                        self.tinkLinkTracker.track(applicationEvent: .initializedWithoutProvider)
                         self.showProviderPicker()
                     case .name:
                         if let provider = providers.first {
+                            // Set the provider to track `initializedWithProvider` application event
+                            self.tinkLinkTracker.providerID = provider.id.value
+                            self.tinkLinkTracker.track(applicationEvent: .initializedWithProvider)
                             self.showAddCredentials(for: provider, animated: false)
                         }
                     }

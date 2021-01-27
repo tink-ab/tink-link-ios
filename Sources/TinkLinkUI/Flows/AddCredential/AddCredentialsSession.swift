@@ -32,6 +32,32 @@ final class AddCredentialsSession {
 
     private var providerID: Provider.ID?
 
+    private var addCredentialsTaskStatus: AddCredentialsTask.Status? {
+        didSet {
+            switch (oldValue, addCredentialsTaskStatus) {
+            case (.updating, _):
+                break
+            case (_, .updating):
+                // Only tracking application event when the credentials status changed to updating for the first time
+                tinkLinkTracker.track(applicationEvent: .authenticationSuccessful)
+            default: break
+            }
+        }
+    }
+
+    private var updateCredentialsTaskStatus: UpdateCredentialsTask.Status? {
+        didSet {
+            switch (oldValue, addCredentialsTaskStatus) {
+            case (.updating, _):
+                break
+            case (_, .updating):
+                // Only tracking application event when the credentials status changed to updating for the first time
+                tinkLinkTracker.track(applicationEvent: .authenticationSuccessful)
+            default: break
+            }
+        }
+    }
+
     init(providerController: ProviderController, credentialsController: CredentialsController, authorizationController: AuthorizationController, tinkLinkTracker: TinkLinkTracker, presenter: CredentialsCoordinatorPresenting?) {
         self.presenter = presenter
         self.providerController = providerController
@@ -155,6 +181,8 @@ final class AddCredentialsSession {
     }
 
     private func handleAddCredentialStatus(_ status: AddCredentialsTask.Status, onError: @escaping (Error) -> Void) {
+        tinkLinkTracker.credentialsID = (task as? AddCredentialsTask)?.credentials?.id.value
+        addCredentialsTaskStatus = status
         switch status {
         case .created, .authenticating:
             break
@@ -176,6 +204,7 @@ final class AddCredentialsSession {
     }
 
     private func handleUpdateTaskStatus(_ status: UpdateCredentialsTask.Status) {
+        updateCredentialsTaskStatus = status
         switch status {
         case .authenticating:
             break

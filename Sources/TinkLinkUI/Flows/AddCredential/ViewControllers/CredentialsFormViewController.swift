@@ -38,6 +38,8 @@ final class CredentialsFormViewController: UIViewController {
         isVerified ? nil : Strings.Credentials.unverifiedClient
     }
 
+    private let tinkLinkTracker: TinkLinkTracker
+
     private lazy var navigationTitleView = NavigationTitleImageView(imageURL: provider.image, text: provider.displayName)
     private lazy var helpLabel = ProviderHelpTextView()
     private lazy var addCredentialFooterView = AddCredentialsFooterView()
@@ -51,7 +53,7 @@ final class CredentialsFormViewController: UIViewController {
     private var buttonBottomConstraint: NSLayoutConstraint?
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
-    init(provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
+    init(provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool, tinkLinkTracker: TinkLinkTracker) {
         self.provider = provider
         let form = Form(provider: provider)
         self.formTableViewController = FormTableViewController(form: form)
@@ -59,11 +61,12 @@ final class CredentialsFormViewController: UIViewController {
         self.clientName = clientName
         self.isAggregator = isAggregator
         self.isVerified = isVerified
+        self.tinkLinkTracker = tinkLinkTracker
 
         super.init(nibName: nil, bundle: nil)
     }
 
-    init(credentials: Credentials, provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool) {
+    init(credentials: Credentials, provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool, tinkLinkTracker: TinkLinkTracker) {
         self.provider = provider
         let form = Form(updatingCredentials: credentials, provider: provider)
         self.formTableViewController = FormTableViewController(form: form)
@@ -71,6 +74,7 @@ final class CredentialsFormViewController: UIViewController {
         self.clientName = clientName
         self.isAggregator = isAggregator
         self.isVerified = isVerified
+        self.tinkLinkTracker = tinkLinkTracker
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -283,6 +287,8 @@ extension CredentialsFormViewController {
         if formTableViewController.validateFields() {
             view.endEditing(false)
             delegate?.submit(form: formTableViewController.form)
+        } else {
+            tinkLinkTracker.track(applicationEvent: .credentialsValidationFailed)
         }
     }
 
