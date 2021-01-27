@@ -95,7 +95,7 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.tinkLinkTracker.providerID = credentials.providerID.value
-                self.fetchProvider(with: credentials.providerID) { provider in
+                self.fetchProviderIfPossible(with: credentials.providerID) { provider in
                     switch provider.accessType {
                     case .openBanking:
                         self.tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
@@ -211,6 +211,19 @@ extension CredentialsCoordinator {
             }
         }
     }
+
+    // Fetch provider but not ignore the error
+    private func fetchProviderIfPossible(with id: Provider.ID, then: @escaping (Provider) -> Void) {
+        if let provider = providerController.provider(providerID: id) {
+            then(provider)
+        } else {
+            providerController.fetchProvider(with: id) { result in
+                if let provider = try? result.get() {
+                    then(provider)
+                }
+            }
+        }
+    }
 }
 
 extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
@@ -253,7 +266,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
             }
             assert(id == fetchedCredentials.id)
 
-            fetchProvider(with: fetchedCredentials.providerID) { provider in
+            fetchProviderIfPossible(with: fetchedCredentials.providerID) { provider in
                 switch provider.accessType {
                 case .openBanking:
                     tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
