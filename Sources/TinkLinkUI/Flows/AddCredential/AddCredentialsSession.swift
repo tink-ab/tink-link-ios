@@ -204,7 +204,6 @@ final class AddCredentialsSession {
     }
 
     private func handleUpdateTaskStatus(_ status: UpdateCredentialsTask.Status) {
-        tinkLinkTracker.credentialsID = (task as? UpdateCredentialsTask)?.credentials.id.value
         updateCredentialsTaskStatus = status
         switch status {
         case .authenticating:

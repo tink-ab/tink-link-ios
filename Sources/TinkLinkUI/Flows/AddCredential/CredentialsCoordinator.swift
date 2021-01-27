@@ -79,6 +79,7 @@ final class CredentialsCoordinator {
             tinkLinkTracker.track(screen: .submitCredentials)
 
         case .authenticate(credentialsID: let id):
+            tinkLinkTracker.credentialsID = id.value
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.addCredentialsSession.authenticateCredentials(credentials: credentials) { result in
@@ -88,6 +89,7 @@ final class CredentialsCoordinator {
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
 
         case .refresh(credentialsID: let id, let forceAuthenticate):
+            tinkLinkTracker.credentialsID = id.value
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate) { result in
@@ -97,6 +99,7 @@ final class CredentialsCoordinator {
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
 
         case .update(credentialsID: let id):
+            tinkLinkTracker.credentialsID = id.value
             fetchCredentials(with: id) { credentials in
                 self.fetchedCredentials = credentials
                 self.fetchProvider(with: credentials.providerID) { provider in
@@ -107,7 +110,6 @@ final class CredentialsCoordinator {
                     self.credentialsViewController = credentialsViewController
                     self.presenter?.show(credentialsViewController)
                     self.tinkLinkTracker.providerID = credentials.providerID.value
-                    self.tinkLinkTracker.credentialsID = credentials.id.value
                     self.tinkLinkTracker.track(screen: .submitCredentials)
                 }
             }
