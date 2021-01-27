@@ -375,7 +375,6 @@ extension AddCredentialsSession {
 
 extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
     func addCredentialsStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
-        tinkLinkTracker.credentialsID = nil
         cancel()
     }
 }
@@ -385,7 +384,6 @@ extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
 extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         presenter?.dismiss(animated: true) {
-            self.tinkLinkTracker.credentialsID = nil
             self.supplementInfoTask?.cancel()
             self.showProgress(status: Strings.CredentialsStatus.cancelling)
         }
@@ -402,7 +400,6 @@ extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
 extension AddCredentialsSession: QRImageViewControllerDelegate {
     func qrImageViewControllerDidCancel(_ viewController: QRImageViewController) {
         presenter?.dismiss(animated: true) {
-            self.tinkLinkTracker.credentialsID = nil
             self.task?.cancel()
         }
     }
