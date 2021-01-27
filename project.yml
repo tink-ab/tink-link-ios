@@ -20,7 +20,7 @@ targets:
     sources:
       - Sources/TinkLink
     dependencies:
-      - carthage: TinkCore
+      - package: TinkCore
   TinkLinkTests:
     type: bundle.unit-test
     platform: [iOS, macOS]
@@ -32,7 +32,7 @@ targets:
       - Tests/TinkLinkTests
     dependencies:
       - target: TinkLink_${platform}
-      - carthage: TinkCore
+      - package: TinkCore
   TinkLinkUI:
     type: framework
     platform: [iOS]
@@ -53,9 +53,9 @@ targets:
       - Sources/TinkLinkUI
     dependencies:
       - target: TinkLink_${platform}
-      - carthage: TinkCore
-      - carthage: Kingfisher
-      - carthage: Down
+      - package: TinkCore
+      - package: Kingfisher
+      - package: Down
   TinkLinkUITests:
     type: bundle.unit-test
     platform: [iOS]
@@ -66,9 +66,9 @@ targets:
       - Tests/TinkLinkUITests
     dependencies:
       - target: TinkLinkUI_${platform}
-      - carthage: TinkCore
-      - carthage: Kingfisher
-      - carthage: Down
+      - package: TinkCore
+      - package: Kingfisher
+      - package: Down
   TinkLinkUIUITests:
     type: bundle.ui-testing
     platform: [iOS]
@@ -103,3 +103,12 @@ packages:
     path: ./
   TinkLinkUI:
     path: ./
+  TinkCore:
+    url: https://github.com/tink-ab/tink-core-ios
+    exactVersion: 1.0.0-rc.2
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher
+    minorVersion: 5.14.1
+  Down:
+    url: https://github.com/johnxnguyen/Down
+    exactVersion: 0.9.3

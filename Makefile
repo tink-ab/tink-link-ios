@@ -21,9 +21,6 @@ endif
 ifeq ($(strip $(shell command -v xcodegen 2> /dev/null)),)
 	brew install xcodegen
 endif
-ifeq ($(strip $(shell command -v carthage 2> /dev/null)),)
-	brew install carthage
-endif
 ifeq ($(strip $(shell command -v bundle 2> /dev/null)),)
 	gem install bundler
 endif
@@ -55,13 +52,6 @@ test:
 		-project Examples/TinkLinkExample/TinkLinkExample.xcodeproj \
 		-scheme TinkLinkExample \
 		-destination 'platform=iOS Simulator,name=iPhone 11 Pro'
-
-build-carthage-frameworks:
-	# Xcode 12 workaround: https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
-	export XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig
-	carthage bootstrap --platform iOS --no-use-binaries --derived-data .tmp/carthage/
-	xcodegen generate
-	carthage build TinkLink_iOS TinkLinkUI_iOS --platform iOS --no-skip-current --no-use-binaries --derived-data .tmp/carthage/
 
 ui-test:
 	xcodegen generate
@@ -122,7 +112,7 @@ translations:
 	mkdir Sources/TinkLinkUI/Translations.bundle/Base.lproj/
 	find Sources/TinkLinkUI/ -name \*.swift | xargs genstrings -o Sources/TinkLinkUI/Translations.bundle/Base.lproj
 
-carthage-project:
+xcode-project:
 	xcodegen generate
 
 module-interfaces:
@@ -132,9 +122,6 @@ module-interfaces:
 
 	rm -rf ./Module\ Interfaces/
 	mkdir Module\ Interfaces
-
-	# Xcode 12 workaround: https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
-	XCODE_XCCONFIG_FILE=$(PWD)/carthage.xcconfig carthage bootstrap --platform iOS --no-use-binaries --derived-data .tmp/carthage/
 
 	# Archive with xcodebuild
 	echo 'Build iOS Framework...'
