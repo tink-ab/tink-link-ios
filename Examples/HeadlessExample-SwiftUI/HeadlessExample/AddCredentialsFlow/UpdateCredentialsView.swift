@@ -1,19 +1,24 @@
 import SwiftUI
 import TinkLink
 
-struct AddCredentialsView: View {
-    var provider: Provider
+struct UpdateCredentialsView: View {
+    typealias CompletionHandler = (Result<Credentials, Error>) -> Void
+    var onCompletion: CompletionHandler
+
+    private let provider: Provider
+    private let credentials: Credentials
 
     @State private var form: TinkLink.Form
     @State private var failure: Failure?
     @State private var isLoading = false
 
     @EnvironmentObject var credentialsController: CredentialsController
-    @SwiftUI.Environment(\.presentationMode) var presentationMode
 
-    init(provider: Provider) {
+    init(provider: Provider, credentials: Credentials, onCompletion: @escaping CompletionHandler) {
+        self.onCompletion = onCompletion
         self.provider = provider
-        self._form = State(initialValue: TinkLink.Form(provider: provider))
+        self.credentials = credentials
+        self._form = State(initialValue: TinkLink.Form(updatingCredentials: credentials, provider: provider))
     }
 
     var body: some View {
@@ -25,22 +30,22 @@ struct AddCredentialsView: View {
                 EmptyView()
             }
         }
-        .navigationTitle(provider.displayName)
+        .navigationBarTitle(provider.displayName, displayMode: .inline)
         .toolbar(content: {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    onCompletion(.failure(CocoaError(.userCancelled)))
+                }
+            }
             ToolbarItem {
                 if isLoading {
                     ProgressView()
                 } else {
-                    Button("Add") {
+                    Button("Update") {
                         isLoading = true
-                        credentialsController.addCredentials(for: provider, form: form) { result in
+                        credentialsController.updateCredentials(credentials, form: form) { result in
                             isLoading = false
-                            do {
-                                _ = try result.get()
-                                presentationMode.wrappedValue.dismiss()
-                            } catch {
-                                self.failure = Failure(error: error)
-                            }
+                            onCompletion(result)
                         }
                     }
                     .disabled(!form.areFieldsValid)

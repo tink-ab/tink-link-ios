@@ -27,12 +27,20 @@ final class CredentialsController: ObservableObject {
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             authenticationHandler: { [weak self] authentication in
-                self?.handleAuthentication(authentication)
+                DispatchQueue.main.async {
+                    self?.handleAuthentication(authentication)
+                }
+            },
+            progressHandler: { status in
+                DispatchQueue.main.async {
+                    self.supplementInformationTask = nil
+                }
             },
             completion: { [weak self] result in
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
                 DispatchQueue.main.async {
+                    self?.supplementInformationTask = nil
                     if case .success(let credentials) = result, let index = self?.credentials.firstIndex(where: { $0.id == credentials.id }) {
                         self?.credentials[index] = credentials
                     }
@@ -46,7 +54,9 @@ final class CredentialsController: ObservableObject {
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
             authenticationHandler: { [weak self] authentication in
-                self?.handleAuthentication(authentication)
+                DispatchQueue.main.async {
+                    self?.handleAuthentication(authentication)
+                }
             }, completion: { [weak self] result in
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
@@ -75,6 +85,40 @@ final class CredentialsController: ObservableObject {
                     // Handle any errors
                 }
             })
+        }
+    }
+
+    func addCredentials(for provider: Provider, form: TinkLink.Form, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        credentialsContext.add(for: provider, form: form) { [weak self] task in
+            DispatchQueue.main.async {
+                self?.handleAuthentication(task)
+            }
+        } progressHandler: { [weak self] status in
+            DispatchQueue.main.async {
+                self?.supplementInformationTask = nil
+            }
+        } completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.supplementInformationTask = nil
+                completion(result)
+            }
+        }
+    }
+
+    func updateCredentials(_ credentials: Credentials, form: TinkLink.Form, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        credentialsContext.update(credentials, form: form) { [weak self] task in
+            DispatchQueue.main.async {
+                self?.handleAuthentication(task)
+            }
+        } progressHandler: { [weak self] status in
+            DispatchQueue.main.async {
+                self?.supplementInformationTask = nil
+            }
+        } completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.supplementInformationTask = nil
+                completion(result)
+            }
         }
     }
 

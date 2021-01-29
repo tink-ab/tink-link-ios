@@ -76,11 +76,11 @@ struct CredentialsDetailView: View {
             }
             .disabled(isRefreshing)
             Button(action: update) {
-                Text(verbatim: "Update")
+                Text("Update")
             }
             if canAuthenticate {
                 Button(action: authenticate) {
-                    Text(verbatim: "Authenticate")
+                    Text("Authenticate")
                 }
                 .disabled(isAuthenticating)
             }
@@ -93,15 +93,18 @@ struct CredentialsDetailView: View {
             }
         }
         .navigationBarTitle(Text(provider?.displayName ?? "Credentials"), displayMode: .inline)
-        .sheet(item: .init(get: { self.credentialsController.supplementInformationTask }, set: { self.credentialsController.supplementInformationTask = $0 })) { task in
-            SupplementalInformationForm(supplementInformationTask: task) { result in
-                self.credentialsController.supplementInformationTask = nil
+        .sheet(item: $credentialsController.supplementInformationTask) { task in
+            NavigationView {
+                SupplementalInformationForm(supplementInformationTask: task)
             }
         }
         .sheet(isPresented: $isUpdating) {
-            UpdateCredentialsFlowView(provider: self.provider!, credentials: self.credentials, credentialsController: self.credentialsController) { result in
-                self.isUpdating = false
-                self.credentialsController.performFetch()
+            NavigationView {
+                UpdateCredentialsView(provider: self.provider!, credentials: self.credentials) { result in
+                    self.isUpdating = false
+                    self.credentialsController.performFetch()
+                }
+                .environmentObject(credentialsController)
             }
         }
     }
