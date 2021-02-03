@@ -51,6 +51,7 @@ enum TinkAnalyticsRequest {
         let credentialsId: String?
         let flow: String
         let type: String
+        let timestamp: Date
     }
 
     struct ViewEvent: Encodable {

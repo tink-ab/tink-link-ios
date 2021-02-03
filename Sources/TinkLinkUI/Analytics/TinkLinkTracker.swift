@@ -143,7 +143,8 @@ class TinkLinkTracker {
                 providerName: providerID,
                 credentialsId: credentialsID,
                 flow: flow.rawValue,
-                type: applicationEvent.rawValue
+                type: applicationEvent.rawValue,
+                timestamp: Date()
             )
         )
         api.sendRequest(request)
