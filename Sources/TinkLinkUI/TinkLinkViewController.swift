@@ -671,7 +671,7 @@ extension TinkLinkViewController {
         if let scopes = scopes {
             startCredentialCoordinator(with: .create(provider: provider, mode: .anonymous(scopes: scopes)))
         } else {
-            startCredentialCoordinator(with: .create(provider: provider, mode: .user))
+            startCredentialCoordinator(with: .create(provider: provider, mode: .user(refreshableItems: refreshableItems)))
         }
     }
 

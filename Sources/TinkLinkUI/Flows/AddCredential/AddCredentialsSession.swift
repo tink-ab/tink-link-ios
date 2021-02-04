@@ -7,7 +7,7 @@ final class AddCredentialsSession {
     private let providerController: ProviderController
     private let credentialsController: CredentialsController
     private let authorizationController: AuthorizationController
-    private var addCredentialsMode: CredentialsCoordinator.AddCredentialsMode = .user
+    private var addCredentialsMode: CredentialsCoordinator.AddCredentialsMode?
     private let tinkLinkTracker: TinkLinkTracker
 
     private var task: Cancellable?
@@ -75,8 +75,8 @@ final class AddCredentialsSession {
         switch mode {
         case .anonymous(scopes: let scopes):
             refreshableItems = RefreshableItems.makeRefreshableItems(scopes: scopes, provider: provider)
-        case .user:
-            refreshableItems = .all
+        case .user(let items):
+            refreshableItems = items
         }
 
         task = credentialsController.addCredentials(

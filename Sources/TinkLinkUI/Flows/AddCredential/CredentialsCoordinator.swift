@@ -15,7 +15,7 @@ protocol CredentialsCoordinatorDelegate: AnyObject {
 final class CredentialsCoordinator {
     enum AddCredentialsMode {
         case anonymous(scopes: [Scope])
-        case user
+        case user(refreshableItems: RefreshableItems)
     }
 
     enum Action {
