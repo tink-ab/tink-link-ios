@@ -1,5 +1,5 @@
 enum ScreenEvent: String {
-    case error = "ERROR"
+    case error = "ERROR_SCREEN"
     case success = "SUCCESS_SCREEN"
     case supplementalInformation = "SUPPLEMENTAL_INFORMATION_SCREEN"
     case providerSelection = "PROVIDER_SELECTION_SCREEN"
