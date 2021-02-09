@@ -70,7 +70,7 @@ class TinkLinkTracker {
         }
     }
 
-    func trackClose(at viewController: UIViewController) {
+    func trackClose(from viewController: UIViewController) {
         switch viewController.self {
         case is ProviderListViewController:
             track(interaction: .close, screen: .providerSelection)

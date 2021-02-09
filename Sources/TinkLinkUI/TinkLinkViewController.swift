@@ -513,14 +513,14 @@ public class TinkLinkViewController: UIViewController {
             temporaryCompletion?(.failure(error))
             permanentCompletion?(.failure(error))
             if let presentedViewController = containedNavigationController.topViewController {
-                tinkLinkTracker.trackClose(at: presentedViewController)
+                tinkLinkTracker.trackClose(from: presentedViewController)
             }
 
         case .none:
             temporaryCompletion?(.failure(.userCancelled))
             permanentCompletion?(.failure(.userCancelled))
             if let presentedViewController = containedNavigationController.topViewController {
-                tinkLinkTracker.trackClose(at: presentedViewController)
+                tinkLinkTracker.trackClose(from: presentedViewController)
             }
         }
     }
