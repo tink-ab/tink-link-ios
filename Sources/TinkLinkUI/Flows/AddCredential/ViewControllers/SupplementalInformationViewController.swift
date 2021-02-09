@@ -20,6 +20,7 @@ final class SupplementalInformationViewController: UIViewController {
     init(supplementInformationTask: SupplementInformationTask) {
         let form = Form(credentials: supplementInformationTask.credentials)
         self.formTableViewController = FormTableViewController(form: form)
+
         super.init(nibName: nil, bundle: nil)
     }
 

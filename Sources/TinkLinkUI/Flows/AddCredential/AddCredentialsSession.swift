@@ -384,6 +384,7 @@ extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
 extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
     func supplementalInformationViewControllerDidCancel(_ viewController: SupplementalInformationViewController) {
         presenter?.dismiss(animated: true) {
+            self.tinkLinkTracker.track(interaction: .back, screen: .supplementalInformation)
             self.supplementInfoTask?.cancel()
             self.showProgress(status: Strings.CredentialsStatus.cancelling)
         }

@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 class TinkLinkTracker {
     private struct AppInfo {
@@ -70,6 +70,25 @@ class TinkLinkTracker {
         }
     }
 
+    func trackClose(from viewController: UIViewController) {
+        switch viewController.self {
+        case is ProviderListViewController:
+            track(interaction: .close, screen: .providerSelection)
+        case is FinancialInstitutionPickerViewController:
+            track(interaction: .close, screen: .financialInstitutionSelection)
+        case is CredentialsKindPickerViewController:
+            track(interaction: .close, screen: .credentialsTypeSelection)
+        case is AuthenticationUserTypePickerViewController:
+            track(interaction: .close, screen: .authenticationUserTypeSelection)
+        case is AccessTypePickerViewController:
+            track(interaction: .close, screen: .accessTypeSelection)
+        case is CredentialsFormViewController:
+            track(interaction: .close, screen: .submitCredentials)
+        default:
+            break
+        }
+    }
+
     func track(interaction: InteractionEvent, screen: ScreenEvent) {
         guard let userID = userID else {
             return
@@ -88,7 +107,7 @@ class TinkLinkTracker {
             view: screen.rawValue,
             timestamp: Date(),
             product: product,
-            action: interaction.rawValue,
+            action: "\(screen.rawValue)/\(interaction.rawValue)",
             device: device
         )
         )
