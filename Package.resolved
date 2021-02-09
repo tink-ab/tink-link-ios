@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/tink-ab/tink-core-ios",
         "state": {
           "branch": null,
-          "revision": "f67802672bfd924d9f70d52b7a44ab19a991eece",
-          "version": "0.6.0"
+          "revision": "f2aa244688c414c2f089b3a3d08d0cde3c33ce19",
+          "version": "0.7.0"
         }
       }
     ]
