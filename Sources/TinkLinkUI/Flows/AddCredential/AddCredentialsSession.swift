@@ -296,7 +296,7 @@ extension AddCredentialsSession {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
         supplementInfoTask = supplementInformationTask
         hideProgress(animated: true) {
-            let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
+            let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask, tinkLinkTracker: self.tinkLinkTracker)
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
             self.presenter?.present(navigationController, animated: true, completion: nil)

@@ -13,13 +13,16 @@ final class SupplementalInformationViewController: UIViewController {
     private let button = FloatingButton()
     private let formTableViewController: FormTableViewController
     private let keyboardObserver = KeyboardObserver()
+    private let tinkLinkTracker: TinkLinkTracker
 
     private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
-    init(supplementInformationTask: SupplementInformationTask) {
+    init(supplementInformationTask: SupplementInformationTask, tinkLinkTracker: TinkLinkTracker) {
         let form = Form(credentials: supplementInformationTask.credentials)
         self.formTableViewController = FormTableViewController(form: form)
+        self.tinkLinkTracker = tinkLinkTracker
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -88,6 +91,13 @@ extension SupplementalInformationViewController {
         super.viewDidLayoutSubviews()
 
         formTableViewController.additionalSafeAreaInsets.bottom = button.rounded ? 0 : view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            tinkLinkTracker.track(interaction: .back, screen: .supplementalInformation)
+        }
     }
 }
 
