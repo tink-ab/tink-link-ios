@@ -88,7 +88,7 @@ class TinkLinkTracker {
             view: screen.rawValue,
             timestamp: Date(),
             product: product,
-            action: interaction.rawValue,
+            action: "\(screen.rawValue)/\(interaction.rawValue)",
             device: device
         )
         )
