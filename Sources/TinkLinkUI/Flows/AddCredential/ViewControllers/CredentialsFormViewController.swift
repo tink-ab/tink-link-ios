@@ -213,6 +213,13 @@ extension CredentialsFormViewController {
 
         layoutHelpFootnote()
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            tinkLinkTracker.track(interaction: .back, screen: .submitCredentials)
+        }
+    }
 }
 
 // MARK: - Help Footnote
