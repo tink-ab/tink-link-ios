@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 class TinkLinkTracker {
     private struct AppInfo {
@@ -67,6 +67,25 @@ class TinkLinkTracker {
             self.flow = .credentialsUpdate
             self.credentialsID = id.value
             self.isTest = false
+        }
+    }
+
+    func trackClose(at viewController: UIViewController) {
+        switch viewController.self {
+        case is ProviderListViewController:
+            track(interaction: .close, screen: .providerSelection)
+        case is FinancialInstitutionPickerViewController:
+            track(interaction: .close, screen: .financialInstitutionSelection)
+        case is CredentialsKindPickerViewController:
+            track(interaction: .close, screen: .credentialsTypeSelection)
+        case is AuthenticationUserTypePickerViewController:
+            track(interaction: .close, screen: .authenticationUserTypeSelection)
+        case is AccessTypePickerViewController:
+            track(interaction: .close, screen: .accessTypeSelection)
+        case is CredentialsFormViewController:
+            track(interaction: .close, screen: .submitCredentials)
+        default:
+            break
         }
     }
 
