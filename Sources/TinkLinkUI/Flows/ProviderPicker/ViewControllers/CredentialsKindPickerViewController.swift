@@ -4,11 +4,13 @@ import UIKit
 /// Example of how to use the provider grouped by credential type
 final class CredentialsKindPickerViewController: UITableViewController {
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
+    private let tinkLinkTracker: TinkLinkTracker
 
     let credentialsKindNodes: [ProviderTree.CredentialsKindNode]
 
-    init(credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
+    init(credentialsKindNodes: [ProviderTree.CredentialsKindNode], tinkLinkTracker: TinkLinkTracker) {
         self.credentialsKindNodes = credentialsKindNodes
+        self.tinkLinkTracker = tinkLinkTracker
         super.init(style: .plain)
     }
 
@@ -31,6 +33,13 @@ extension CredentialsKindPickerViewController {
 
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            tinkLinkTracker.track(interaction: .back, screen: .credentialsTypeSelection)
+        }
     }
 }
 
