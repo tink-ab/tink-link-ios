@@ -100,9 +100,9 @@ final class CredentialsCoordinator {
                     guard let self = self else { return }
                     switch provider.accessType {
                     case .openBanking:
-                        self.tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
-                    case .other:
                         self.tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
+                    case .other:
+                        self.tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
                     default: break
                     }
                 }
@@ -254,9 +254,9 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
         case .create(provider: let provider, mode: let mode):
             switch provider.accessType {
             case .openBanking:
-                tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
-            case .other:
                 tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
+            case .other:
+                tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
             default: break
             }
             addCredentialsSession.addCredential(provider: provider, form: form, mode: mode) { [weak self] result in
@@ -272,9 +272,9 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
             fetchProviderIgnoringErrors(with: fetchedCredentials.providerID) { [weak self] provider in
                 switch provider.accessType {
                 case .openBanking:
-                    self?.tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
-                case .other:
                     self?.tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
+                case .other:
+                    self?.tinkLinkTracker.track(applicationEvent: .credentialsSubmitted)
                 default: break
                 }
             }
