@@ -596,8 +596,7 @@ extension TinkLinkViewController {
         }
     }
 
-    func showLoadingOverlay(withText text: String?, animated: Bool = true, onCancel: (() -> Void)?) {
-    }
+    func showLoadingOverlay(withText text: String?, animated: Bool = true, onCancel: (() -> Void)?) {}
 }
 
 // MARK: - Helpers

@@ -1,8 +1,6 @@
 import UIKit
 
-final class TinkLinkNavigationManager: NSObject {
-
-}
+final class TinkLinkNavigationManager: NSObject {}
 
 // MARK: - UINavigationControllerDelegate
 

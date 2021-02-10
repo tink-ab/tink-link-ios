@@ -25,7 +25,7 @@ final class CredentialsFormToLoadingTransition: NSObject, UIViewControllerAnimat
             toVC.view.alpha = 1
         }
 
-        animator.addCompletion { (position) in
+        animator.addCompletion { position in
             transitionContext.completeTransition(position == .end)
         }
 

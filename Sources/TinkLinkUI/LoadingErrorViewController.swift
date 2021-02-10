@@ -15,6 +15,7 @@ final class LoadingErrorViewController: UIViewController {
         errorView.configure(with: error, showRetry: onRetry != nil)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
