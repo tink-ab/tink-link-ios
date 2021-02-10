@@ -30,7 +30,6 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
 
     private var operation: Operation
     private let iconView = CheckmarkView(style: .large)
-    private let containerView = UIView()
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
     private let doneButton = FloatingButton()
@@ -54,17 +53,13 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         let subtitleText = operation.localizedSubtitle
 
         view.backgroundColor = Color.background
-        navigationController?.setNavigationBarHidden(true, animated: false)
 
-        view.addSubview(containerView)
-        containerView.addSubview(iconView)
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(detailLabel)
+        view.addSubview(iconView)
+        view.addSubview(titleLabel)
+        view.addSubview(detailLabel)
         view.addSubview(doneButton)
 
-        iconView.isChecked = true
         iconView.tintColor = Color.accent
-        iconView.strokeTintColor = Color.background
 
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
@@ -83,31 +78,36 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         doneButton.addTarget(self, action: #selector(doneActionPressed), for: .touchUpInside)
 
         iconView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
         doneButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -48),
-            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            iconView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            iconView.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor),
+            iconView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -36),
+            iconView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             titleLabel.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor, constant: 24),
-            titleLabel.trailingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.trailingAnchor, constant: -24),
+            titleLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 24),
+            titleLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -24),
 
             detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-            detailLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor, constant: 24),
-            detailLabel.trailingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.trailingAnchor, constant: -24),
-            detailLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            detailLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 24),
+            detailLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -24),
 
             doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             doneButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -32)
         ])
+
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        iconView.setChecked(false, animated: false)
+        CATransaction.commit()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        iconView.setChecked(true, animated: true)
     }
 
     @objc func doneActionPressed() {

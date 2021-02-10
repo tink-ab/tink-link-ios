@@ -97,7 +97,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
     func setError(with errorText: String?) {
         if let errorText = errorText {
             footerLabel.text = errorText
-            footerLabel.textColor = Color.warning
+            footerLabel.textColor = Color.critical
         } else {
             footerLabel.text = viewModel?.helpText
             footerLabel.textColor = Color.secondaryLabel

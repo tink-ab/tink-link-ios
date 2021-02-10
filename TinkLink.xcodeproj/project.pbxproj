@@ -10,6 +10,7 @@
 		035391B9E0E0E5C7CB96A59C /* FormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C4C4891F51CEFAC747830 /* FormTests.swift */; };
 		039F0E24B3FA4400E94EAC1A /* ProviderCapabilityFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1581430B58823F58A7A53919 /* ProviderCapabilityFormatter.swift */; };
 		04ED1D4A593B228F2E56F310 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 5D8CA025E75322B1A4D3EF59 /* TinkLink */; };
+		077D8ACFEEAE475A49E401C9 /* LoadingErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF699886BC1DA50A806FC03B /* LoadingErrorViewController.swift */; };
 		0831BA5ECC3E43F5F35BDDF4 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543E58EF45210737B2765AB1 /* TinkCore.framework */; };
 		08CCB20D99C7A16B264E3EB8 /* CredentialsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56AA37584764C1D7BE1E132 /* CredentialsContext.swift */; };
 		0AD80F46344ABC35DBEABB5C /* ProviderTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D825DBE7224FB81468CDDFAA /* ProviderTree.swift */; };
@@ -69,7 +70,6 @@
 		447904520EE633869A5BB3B1 /* FontProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D3152CC8B21973565DF082 /* FontProvider.swift */; };
 		44F087FF5149ED911A6ADCFC /* TinkLinkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBE20B969F478CB9A3ADA68 /* TinkLinkError.swift */; };
 		45173FEB6003CB30EE944FA9 /* BetaTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FB015E30A583B54CFF3B25 /* BetaTagView.swift */; };
-		45D631C6C7EE6577F101D9BA /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */; };
 		465D1C94DC9E6488F1F60457 /* LinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328A437D96F2718ECDD73B7 /* LinkTests.swift */; };
 		49273CB6A5A24128CFDDAE6F /* RefreshCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */; };
 		4CFB0414DA01A06688AD0B0F /* TinkLink+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79688D753B135D21621FDD5C /* TinkLink+extension.swift */; };
@@ -98,7 +98,6 @@
 		5D3ED213922DFDE6478FD9B9 /* MutableCredentialsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D33FBB65A4B7A184AC8B7 /* MutableCredentialsService.swift */; };
 		5DD4BC57F54445E467C9CCEF /* SupplementInformationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073D75BA34D8F8EC618C81C3 /* SupplementInformationTask.swift */; };
 		5E4C335E45CA4118E8BD6C3A /* TransferService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BDDC8A8556C18724B94F85 /* TransferService+mock.swift */; };
-		5F754A43EEDD0AE7938C8042 /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */; };
 		5FC6EB26461CAA4396CECE2C /* CredentialsService+paymentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0531830C7E81A7790520A /* CredentialsService+paymentMock.swift */; };
 		61873DBB04739999B25A02DD /* Provider+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780BC6837FBECC3EC2A4897 /* Provider+mock.swift */; };
 		620B0BE3DEEC88DC3AF46518 /* DispatchWorkItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10391B13F1BE7407F59BA29B /* DispatchWorkItem+Extension.swift */; };
@@ -107,6 +106,7 @@
 		655925D8E386202B1A951117 /* ThirdPartyAppAuthentication+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1578C2D8AEB7C7C4CD76CA1E /* ThirdPartyAppAuthentication+mock.swift */; };
 		65835D37BDAF235235F3C53B /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22163A81F6F3AECCA020DCD /* GradientView.swift */; };
 		65CD854D310128E5E540942E /* InteractionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2E0DE29DE4BBE606CE003 /* InteractionEvent.swift */; };
+		666792314E57AC763FF40681 /* CredentialsFormToLoadingTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D4919CE308259450E6B989 /* CredentialsFormToLoadingTransition.swift */; };
 		6829A11CEEEC398E7A3425B5 /* ConsentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FECFCD8AB8B77F497B3735 /* ConsentContext.swift */; };
 		69D8E6CFBA5838AE0972C407 /* ProviderService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE87D565B53F32B26FAF711E /* ProviderService+mock.swift */; };
 		71F330533B07851FA1BFB98E /* TinkCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91719FA2AD2BD7D36D7E1D46 /* TinkCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -149,6 +149,7 @@
 		95689B690A884F9846D06922 /* CGImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D7046A9914B7EDF745FD39 /* CGImage+Extensions.swift */; };
 		97521DF0C6DC87B41EDCD1E4 /* TinkLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C6C2DAB70310237BD31425 /* TinkLink.framework */; };
 		978A6B218E47FE5329067D43 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543E58EF45210737B2765AB1 /* TinkCore.framework */; };
+		983192F3D2B3A2AB1AEFE5D7 /* CredentialsSuccessfullyAddedTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F05C65218BFD8F12C6D44 /* CredentialsSuccessfullyAddedTransition.swift */; };
 		9AF0D88F70691527573E01D3 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DAC0E9D71F321583D872D2 /* Font.swift */; };
 		9B824D6CA01C91B22A1DFF1E /* DefaultableCodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65ACD80BFCB3C993AB78F6 /* DefaultableCodable+Extension.swift */; };
 		9CBD16386D2DEB1E836D5A53 /* TinkCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91719FA2AD2BD7D36D7E1D46 /* TinkCore.framework */; };
@@ -179,6 +180,7 @@
 		B0095D7218AEC1D1C880EDB6 /* AddCredentialsSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E03EE70807522B4271D42B /* AddCredentialsSession.swift */; };
 		B04ACAEA4981AD9664DE95C2 /* ThirdPartyAppAuthentication+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1578C2D8AEB7C7C4CD76CA1E /* ThirdPartyAppAuthentication+mock.swift */; };
 		B081DBE8C00A3507FD113E4B /* InitiateTransferTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B333DAD22F6AFBE9929E11A3 /* InitiateTransferTask.swift */; };
+		B2B2A37D7BF42EF775CE600E /* TinkLinkNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD6456DF0DB49933FBCDC97 /* TinkLinkNavigationManager.swift */; };
 		B2DECDCC61B18BB69CBD4E55 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABCDDE6CA1400C7F01D9807 /* Kingfisher.framework */; };
 		B383600BB11435F40631D0B6 /* SupplementalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389A4D5B9E9631E1E257C85D /* SupplementalInformationViewController.swift */; };
 		B3FCF013962EAFC335B0FBBA /* TinkLinkUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B198F7C21791DF1A6D737CFE /* TinkLinkUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -195,6 +197,7 @@
 		C21ADCEA01D10C97FA7A6784 /* SecCertificate+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6124C5F0D50E821710FE5725 /* SecCertificate+Swift.swift */; };
 		C21B058ED447901C7FA75723 /* RefreshableItems+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9DA1DB42A03D5A2965E39 /* RefreshableItems+Extensions.swift */; };
 		C2EE281933DA6D17FCF42A03 /* SecTrust+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E942B70645D5FA56C4856B /* SecTrust+Swift.swift */; };
+		C33DB8F88115ACD49253D639 /* ApplicationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D869EBFC0D77C0BF7F0E9B11 /* ApplicationEvent.swift */; };
 		C402EC2C626F50FBD409FDD8 /* EmptyFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0BBE92F9ECA9712A6AE4E1 /* EmptyFormView.swift */; };
 		C565D374A3BE6A7514250B09 /* TransferMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234402A5F43E8CFB47C8A580 /* TransferMessage.swift */; };
 		C5D16DE254E24D9C24B66AA7 /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B57CB15A10546A4774F022 /* Result+Extensions.swift */; };
@@ -387,6 +390,7 @@
 		48B424C1BB25100774A01CFD /* MultiCancellerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCancellerTests.swift; sourceTree = "<group>"; };
 		4A63BBA12DE6A220B9237A14 /* TinkLinkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkLinkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A6E7CE9983FF9AE060B3AB3 /* TransferContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferContext.swift; sourceTree = "<group>"; };
+		4AD6456DF0DB49933FBCDC97 /* TinkLinkNavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkNavigationManager.swift; sourceTree = "<group>"; };
 		4BBA1971343E6F408F10CAB9 /* FloatingPlaceholderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextField.swift; sourceTree = "<group>"; };
 		4C10F680B83B493F68A952A0 /* ApplicationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationObserver.swift; sourceTree = "<group>"; };
 		4FD1B6B5C1D746D1A840D5CD /* UnselectableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnselectableTextView.swift; sourceTree = "<group>"; };
@@ -411,6 +415,7 @@
 		6A4338220C7C6EA3D93EB739 /* MutableBeneficiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableBeneficiaryService.swift; sourceTree = "<group>"; };
 		6DBE20B969F478CB9A3ADA68 /* TinkLinkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkError.swift; sourceTree = "<group>"; };
 		7063E356EC1C358718743627 /* TinkLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkViewController.swift; sourceTree = "<group>"; };
+		70D4919CE308259450E6B989 /* CredentialsFormToLoadingTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsFormToLoadingTransition.swift; sourceTree = "<group>"; };
 		72E02D083478E149B8CF1FEC /* NavigationTitleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleImageView.swift; sourceTree = "<group>"; };
 		73756657C8858B4F6E933374 /* TinkLinkSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkSessionManager.swift; sourceTree = "<group>"; };
 		749A7934F51078B466E02294 /* HumanEnumeratedFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanEnumeratedFormatter.swift; sourceTree = "<group>"; };
@@ -421,7 +426,6 @@
 		7C91C407612EEC3FF19C4653 /* ValidationError+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValidationError+Localized.swift"; sourceTree = "<group>"; };
 		7E4620001B14937015A21BA9 /* AnyCanceller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCanceller.swift; sourceTree = "<group>"; };
 		80938EC83D308F92735171B4 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
-		809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+TinkEnvironmentVariables.swift"; sourceTree = "<group>"; };
 		80E9DA1DB42A03D5A2965E39 /* RefreshableItems+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RefreshableItems+Extensions.swift"; sourceTree = "<group>"; };
 		815202B64C2DA9A62599CE49 /* ServiceError+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceError+Localized.swift"; sourceTree = "<group>"; };
 		82DCEEEFEFD68A617634C099 /* SignableOperation+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignableOperation+mock.swift"; sourceTree = "<group>"; };
@@ -431,6 +435,7 @@
 		88C8106785D38F618325E76C /* AuthenticationUserTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUserTypePickerViewController.swift; sourceTree = "<group>"; };
 		8B8A6E8EFA1FC1DD39A15470 /* ThirdPartyAppAuthenticationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyAppAuthenticationTask.swift; sourceTree = "<group>"; };
 		8C39CCF3D56F11277924C52B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8C3F05C65218BFD8F12C6D44 /* CredentialsSuccessfullyAddedTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsSuccessfullyAddedTransition.swift; sourceTree = "<group>"; };
 		8F71340C32F0D94251C3A4A7 /* AnalyticsFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsFlow.swift; sourceTree = "<group>"; };
 		91719FA2AD2BD7D36D7E1D46 /* TinkCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TinkCore.framework; sourceTree = "<group>"; };
 		944ECA186BCF44D1015EDF3D /* CredentialsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsFormViewController.swift; sourceTree = "<group>"; };
@@ -475,6 +480,7 @@
 		C9E03EE70807522B4271D42B /* AddCredentialsSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsSession.swift; sourceTree = "<group>"; };
 		CB40022F21432E75E761F5E6 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		CB7AAF27A3706DB47E0E9CC1 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
+		CF699886BC1DA50A806FC03B /* LoadingErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingErrorViewController.swift; sourceTree = "<group>"; };
 		D00A7D44C564DB1033A5EC58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0B8FFB023A0E36DA37971B6 /* TinkLinkUIUITestsHost.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TinkLinkUIUITestsHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1EA9290A1694B7D7CD4A600 /* AppearanceProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceProviding.swift; sourceTree = "<group>"; };
@@ -482,6 +488,7 @@
 		D7BDDC8A8556C18724B94F85 /* TransferService+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransferService+mock.swift"; sourceTree = "<group>"; };
 		D7F86F7DC52E6883821FA63A /* URLResourceOpening+UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLResourceOpening+UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		D825DBE7224FB81468CDDFAA /* ProviderTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderTree.swift; sourceTree = "<group>"; };
+		D869EBFC0D77C0BF7F0E9B11 /* ApplicationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationEvent.swift; sourceTree = "<group>"; };
 		D86D6981FBD842BB916D5FC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBA411E842D89EDB34699943 /* TinkLinkTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinkLinkTracker.swift; sourceTree = "<group>"; };
 		DD1D1D111D7765CAF139E92F /* BeneficiaryService+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BeneficiaryService+mock.swift"; sourceTree = "<group>"; };
@@ -603,8 +610,10 @@
 			children = (
 				D86D6981FBD842BB916D5FC8 /* Assets.xcassets */,
 				A6F5BBF5CB6A314FF721629E /* Info.plist */,
+				CF699886BC1DA50A806FC03B /* LoadingErrorViewController.swift */,
 				CB40022F21432E75E761F5E6 /* LoadingViewController.swift */,
 				6DBE20B969F478CB9A3ADA68 /* TinkLinkError.swift */,
+				4AD6456DF0DB49933FBCDC97 /* TinkLinkNavigationManager.swift */,
 				7063E356EC1C358718743627 /* TinkLinkViewController.swift */,
 				3AA13F28159A3F4D6E9DB76C /* Translations.bundle */,
 				325D3F9C1BD5221D9709501E /* Analytics */,
@@ -830,6 +839,8 @@
 			children = (
 				9A704B0C5651109D33795F84 /* AddCredentialsStatusPresentationController.swift */,
 				06E377D1F011D6B8224E338A /* AddCredentialsStatusPresentationManager.swift */,
+				70D4919CE308259450E6B989 /* CredentialsFormToLoadingTransition.swift */,
+				8C3F05C65218BFD8F12C6D44 /* CredentialsSuccessfullyAddedTransition.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -937,6 +948,7 @@
 			isa = PBXGroup;
 			children = (
 				8F71340C32F0D94251C3A4A7 /* AnalyticsFlow.swift */,
+				D869EBFC0D77C0BF7F0E9B11 /* ApplicationEvent.swift */,
 				ACF2E0DE29DE4BBE606CE003 /* InteractionEvent.swift */,
 				2BEDB1856BA26DDCC9375D1E /* ScreenEvent.swift */,
 			);
@@ -1012,7 +1024,6 @@
 				62CCD4858523E6A6112ECDF9 /* Credentials+Extension.swift */,
 				3E65ACD80BFCB3C993AB78F6 /* DefaultableCodable+Extension.swift */,
 				10391B13F1BE7407F59BA29B /* DispatchWorkItem+Extension.swift */,
-				809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */,
 				02B57CB15A10546A4774F022 /* Result+Extensions.swift */,
 				6124C5F0D50E821710FE5725 /* SecCertificate+Swift.swift */,
 				29E942B70645D5FA56C4856B /* SecTrust+Swift.swift */,
@@ -1095,6 +1106,13 @@
 				ACD56FDEBF7C375BFD380EE5 /* TinkSearchController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		"TEMP_4762A2A0-C2E8-4255-A1D0-6A8B60FF3B39" /* Translations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Translations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1346,6 +1364,7 @@
 				E3EC7564ADDB4F7C82016926 /* AnalyticsFlow.swift in Sources */,
 				52F9FEFF0720CB87203FC866 /* Appearance.swift in Sources */,
 				94DAD821EBD4FEB4D30D50BA /* AppearanceProviding.swift in Sources */,
+				C33DB8F88115ACD49253D639 /* ApplicationEvent.swift in Sources */,
 				F72D8C690A16D1CC965D6158 /* AuthenticationUserTypePickerViewController.swift in Sources */,
 				254F2705C0F80C843E52A791 /* AuthorizationController.swift in Sources */,
 				45173FEB6003CB30EE944FA9 /* BetaTagView.swift in Sources */,
@@ -1359,10 +1378,12 @@
 				A2CD24451D1500680B3C2B84 /* ColorProviding.swift in Sources */,
 				11BACC542A237A2DC662A0C2 /* CredentialsController.swift in Sources */,
 				A5AA0A69FE166407DB17A12B /* CredentialsCoordinator.swift in Sources */,
+				666792314E57AC763FF40681 /* CredentialsFormToLoadingTransition.swift in Sources */,
 				1E3BC1706254BFDC4E9794B7 /* CredentialsFormViewController.swift in Sources */,
 				D403131FB41C13B4BA1C5E97 /* CredentialsHeaderView.swift in Sources */,
 				3D7371DBDF36910AE6642EE2 /* CredentialsKindCell.swift in Sources */,
 				1E227F510CC0B5E09AE51CDF /* CredentialsKindPickerViewController.swift in Sources */,
+				983192F3D2B3A2AB1AEFE5D7 /* CredentialsSuccessfullyAddedTransition.swift in Sources */,
 				58C502FDD91AE802E1E73D5E /* CredentialsSuccessfullyAddedViewController.swift in Sources */,
 				C402EC2C626F50FBD409FDD8 /* EmptyFormView.swift in Sources */,
 				DF1029DD772D0BC65A442085 /* FinancialInstitutionPickerViewController.swift in Sources */,
@@ -1382,6 +1403,7 @@
 				E3177CA178CA167E4781FDB0 /* KeyboardObserver.swift in Sources */,
 				D8E2F2F9FF7C52784B489246 /* LegalViewController.swift in Sources */,
 				7562BF67D709072D9C2610DA /* LoadingErrorView.swift in Sources */,
+				077D8ACFEEAE475A49E401C9 /* LoadingErrorViewController.swift in Sources */,
 				F0BCBFADA3E08CF5A1BF9F34 /* LoadingViewController.swift in Sources */,
 				281D1F31A3410FE79FC8DEC8 /* NavigationTitleImageView.swift in Sources */,
 				8E85F105BB06073B53C175BE /* ProviderAccessType+Extension.swift in Sources */,
@@ -1403,6 +1425,7 @@
 				B383600BB11435F40631D0B6 /* SupplementalInformationViewController.swift in Sources */,
 				1EA2AC43CAD8403B6761AB50 /* TaskErrors+Localized.swift in Sources */,
 				44F087FF5149ED911A6ADCFC /* TinkLinkError.swift in Sources */,
+				B2B2A37D7BF42EF775CE600E /* TinkLinkNavigationManager.swift in Sources */,
 				CA554F3AC4919CAD6B41BE7E /* TinkLinkTracker.swift in Sources */,
 				C1D72924DF0912E18ACCDB52 /* TinkLinkViewController.swift in Sources */,
 				1579D6D553CC71CD0CE53687 /* TinkNavigationController.swift in Sources */,
@@ -1447,7 +1470,6 @@
 				524D882954F95382B034C113 /* InitiateTransferTask.swift in Sources */,
 				DA308D212179F827E9781239 /* MultiCanceller.swift in Sources */,
 				101C976C8AA0E5EE3D12F360 /* PollingTask.swift in Sources */,
-				45D631C6C7EE6577F101D9BA /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */,
 				43E964B59FC78CA66E3644BA /* ProviderContext.swift in Sources */,
 				C8C36A57E2E637FD499B38BA /* ProviderTree.swift in Sources */,
 				49273CB6A5A24128CFDDAE6F /* RefreshCredentialsTask.swift in Sources */,
@@ -1489,7 +1511,6 @@
 				B081DBE8C00A3507FD113E4B /* InitiateTransferTask.swift in Sources */,
 				D4FCD40CB91FCA7E12A83E4E /* MultiCanceller.swift in Sources */,
 				93217DF9BF12B98A04E73C81 /* PollingTask.swift in Sources */,
-				5F754A43EEDD0AE7938C8042 /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */,
 				7301A7AF1553F901C72BE367 /* ProviderContext.swift in Sources */,
 				0AD80F46344ABC35DBEABB5C /* ProviderTree.swift in Sources */,
 				F5512E9C8B0BBC1AFA919F21 /* RefreshCredentialsTask.swift in Sources */,
@@ -1656,7 +1677,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.18.0;
+				MARKETING_VERSION = 0.18.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1708,7 +1729,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.18.0;
+				MARKETING_VERSION = 0.18.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;
@@ -1758,7 +1779,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.18.0;
+				MARKETING_VERSION = 0.18.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1808,7 +1829,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.18.0;
+				MARKETING_VERSION = 0.18.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = macosx;
@@ -1905,7 +1926,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.18.0;
+				MARKETING_VERSION = 0.18.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLink;
 				PRODUCT_NAME = TinkLink;
 				SDKROOT = iphoneos;
@@ -1935,7 +1956,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.18.0;
+				MARKETING_VERSION = 0.18.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tink.TinkLinkUI;
 				PRODUCT_NAME = TinkLinkUI;
 				SDKROOT = iphoneos;
