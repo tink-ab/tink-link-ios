@@ -32,7 +32,7 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
             toVC.view.alpha = 1
         }
 
-        animator.addCompletion { (position) in
+        animator.addCompletion { position in
             for subview in fromVC.view.subviews {
                 if subview is ActivityIndicatorView { continue }
                 subview.alpha = 1
