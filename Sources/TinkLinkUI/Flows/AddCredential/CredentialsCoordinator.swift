@@ -165,6 +165,8 @@ extension CredentialsCoordinator {
             do {
                 let credentials = try result.get()
                 then(credentials)
+            } catch let tinkLinkError as TinkLinkError where tinkLinkError.code == .notFound {
+                self.completion(.failure(.init(code: .credentialsNotFound)))
             } catch {
                 // TODO: This error should be improved
                 self.completion(.failure(.init(code: .credentialsNotFound)))
@@ -177,6 +179,8 @@ extension CredentialsCoordinator {
             do {
                 let provider = try result.get()
                 then(provider)
+            } catch let tinkLinkError as TinkLinkError where tinkLinkError.code == .notFound {
+                self.completion(.failure(.init(code: .providerNotFound)))
             } catch {
                 // TODO: This error should be improved
                 self.completion(.failure(.init(code: .providerNotFound)))
