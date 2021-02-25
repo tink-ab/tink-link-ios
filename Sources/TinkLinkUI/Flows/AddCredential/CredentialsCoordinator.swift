@@ -169,7 +169,7 @@ extension CredentialsCoordinator {
                 self.completion(.failure(.init(code: .credentialsNotFound)))
             } catch {
                 // TODO: This error should be improved
-                self.completion(.failure(.init(code: .credentialsNotFound)))
+                self.completion(.failure(.init(code: .internalError)))
             }
         }
     }
@@ -183,7 +183,7 @@ extension CredentialsCoordinator {
                 self.completion(.failure(.init(code: .providerNotFound)))
             } catch {
                 // TODO: This error should be improved
-                self.completion(.failure(.init(code: .providerNotFound)))
+                self.completion(.failure(.init(code: .internalError)))
             }
         }
     }
