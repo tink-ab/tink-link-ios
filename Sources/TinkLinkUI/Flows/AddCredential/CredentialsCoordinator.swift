@@ -168,8 +168,8 @@ extension CredentialsCoordinator {
             } catch let tinkLinkError as TinkLinkError where tinkLinkError.code == .notFound {
                 self.completion(.failure(.init(code: .credentialsNotFound)))
             } catch {
-                // TODO: This error should be improved
-                self.completion(.failure(.init(code: .internalError)))
+                let uiError = TinkLinkUIError(error: error) ?? TinkLinkUIError(code: .internalError)
+                self.completion(.failure(uiError))
             }
         }
     }
@@ -182,8 +182,8 @@ extension CredentialsCoordinator {
             } catch let tinkLinkError as TinkLinkError where tinkLinkError.code == .notFound {
                 self.completion(.failure(.init(code: .providerNotFound)))
             } catch {
-                // TODO: This error should be improved
-                self.completion(.failure(.init(code: .internalError)))
+                let uiError = TinkLinkUIError(error: error) ?? TinkLinkUIError(code: .internalError)
+                self.completion(.failure(uiError))
             }
         }
     }
