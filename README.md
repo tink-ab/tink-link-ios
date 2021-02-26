@@ -1,5 +1,8 @@
 ![Platform](https://img.shields.io/badge/platform-iOS-orange.svg)
 ![Languages](https://img.shields.io/badge/languages-swift-orange.svg)
+![CocoaPods](https://img.shields.io/cocoapods/v/TinkLink.svg)
+![Swift Package Manager](https://img.shields.io/badge/SPM-supported-DE5C43.svg)
+![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)
 
 # Tink Link iOS
 
@@ -44,6 +47,21 @@ Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) 
 3. Open your `.xcworkspace` file to see the project in Xcode.
 
 > If you only need the headless SDK you don't need to include `pod "TinkLinkUI"` in your Podfile. 
+
+#### Manual installation
+
+1. Download and unzip the `TinkCore.xcframework.zip` from the [latest Tink Core release](https://github.com/tink-ab/tink-core-ios/releases/latest).
+2. Drag the `TinkCore.xcframework` into the  _Frameworks, Libraries, and Embedded Content_ section on your application targets’ _General_ tab. 
+3. Download and unzip the `Source code.zip` from the [latest Tink Link release](https://github.com/tink-ab/tink-link-ios/releases/latest).
+4. Add a new iOS Framework target with the name `TinkLink` to your app.
+5. Drag all files except Info.plist from `Sources/TinkLink` folder into the new target.
+6. Add a new iOS Framework target with the name `TinkLinkUI` to your app.
+7. Drag all files except Info.plist from `Sources/TinkLinkUI` folder into the new target.
+8. [Install Kingfisher](https://github.com/onevcat/Kingfisher/wiki/Installation-Guide#manually)
+9. [Install Down](https://github.com/johnxnguyen/Down#or-manually-install)
+10. Add Kingfisher and Down to the TinkLinkUI target.
+
+When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` within your project.
 
 ## How to display Tink Link
 

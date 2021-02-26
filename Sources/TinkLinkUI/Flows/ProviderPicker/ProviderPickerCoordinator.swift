@@ -44,6 +44,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?) {
+        tinkLinkTracker.providerID = nil
         let providerListViewController = ProviderListViewController(financialInstitutionGroupNodes: financialInstitutionGroupNodes)
         providerListViewController.navigationItem.hidesBackButton = true
         setupNavigationItem(for: providerListViewController, title: title)
@@ -55,7 +56,8 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], name: String) {
-        let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes)
+        tinkLinkTracker.providerID = nil
+        let viewController = FinancialInstitutionPickerViewController(financialInstitutionNodes: financialInstitutionNodes, tinkLinkTracker: tinkLinkTracker)
         setupNavigationItem(for: viewController, title: name)
         viewController.providerPickerCoordinator = self
         tinkLinkTracker.track(screen: .providerSelection)
@@ -63,7 +65,8 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func showAuthenticationUserTypePicker(for authenticationUserNodes: [ProviderTree.AuthenticationUserTypeNode]) {
-        let viewController = AuthenticationUserTypePickerViewController(authenticationUserTypeNodes: authenticationUserNodes)
+        tinkLinkTracker.providerID = nil
+        let viewController = AuthenticationUserTypePickerViewController(authenticationUserTypeNodes: authenticationUserNodes, tinkLinkTracker: tinkLinkTracker)
         let title = Strings.SelectAuthenticationUserType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
@@ -72,7 +75,8 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String) {
-        let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes)
+        tinkLinkTracker.providerID = nil
+        let viewController = AccessTypePickerViewController(accessTypeNodes: accessTypeNodes, tinkLinkTracker: tinkLinkTracker)
         let title = Strings.SelectAccessType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
@@ -81,7 +85,8 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode]) {
-        let viewController = CredentialsKindPickerViewController(credentialsKindNodes: credentialsKindNodes)
+        tinkLinkTracker.providerID = nil
+        let viewController = CredentialsKindPickerViewController(credentialsKindNodes: credentialsKindNodes, tinkLinkTracker: tinkLinkTracker)
         let title = Strings.SelectCredentialsType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self

@@ -4,11 +4,13 @@ import UIKit
 /// Example of how to use the provider grouped by credential type
 final class AuthenticationUserTypePickerViewController: UITableViewController {
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
+    private let tinkLinkTracker: TinkLinkTracker
 
     let authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode]
 
-    init(authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode]) {
+    init(authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode], tinkLinkTracker: TinkLinkTracker) {
         self.authenticationUserTypeNodes = authenticationUserTypeNodes.filter { $0.authenticationUserType != .unknown }
+        self.tinkLinkTracker = tinkLinkTracker
         super.init(style: .plain)
     }
 
@@ -31,6 +33,13 @@ extension AuthenticationUserTypePickerViewController {
 
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            tinkLinkTracker.track(interaction: .back, screen: .authenticationUserTypeSelection)
+        }
     }
 }
 
