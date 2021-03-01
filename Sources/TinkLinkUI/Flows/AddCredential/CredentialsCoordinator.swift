@@ -165,9 +165,11 @@ extension CredentialsCoordinator {
             do {
                 let credentials = try result.get()
                 then(credentials)
-            } catch {
-                // TODO: This error should be improved
+            } catch let tinkLinkError as TinkLinkError where tinkLinkError.code == .notFound {
                 self.completion(.failure(.init(code: .credentialsNotFound)))
+            } catch {
+                let uiError = TinkLinkUIError(error: error) ?? TinkLinkUIError(code: .internalError)
+                self.completion(.failure(uiError))
             }
         }
     }
@@ -177,9 +179,11 @@ extension CredentialsCoordinator {
             do {
                 let provider = try result.get()
                 then(provider)
-            } catch {
-                // TODO: This error should be improved
+            } catch let tinkLinkError as TinkLinkError where tinkLinkError.code == .notFound {
                 self.completion(.failure(.init(code: .providerNotFound)))
+            } catch {
+                let uiError = TinkLinkUIError(error: error) ?? TinkLinkUIError(code: .internalError)
+                self.completion(.failure(uiError))
             }
         }
     }
