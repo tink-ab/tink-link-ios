@@ -4,10 +4,6 @@
 ![Swift Package Manager](https://img.shields.io/badge/SPM-supported-DE5C43.svg)
 ![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)
 
-# [Tink](https://tink.com)
-
-Tink was founded in 2012 with the aim of changing the banking industry for the better. We have built Europe’s most robust open banking platform – with the broadest, deepest connectivity and powerful services that create value out of the financial data.
-
 # Tink Link iOS
 
 ![Tink Link](https://images.ctfassets.net/tmqu5vj33f7w/4YdZUwzfmUjvNKO0tHvKVj/ec14ed052771e3ef10156c29ccf004f0/overview.png)
@@ -151,3 +147,6 @@ These examples shows how to build a complete aggregation flow using TinkLink or 
 ## Documentation
 For more detailed usage and full documentation, please refer to our Tink Link for iOS guide.
 - [Tink Link for iOS](https://docs.tink.com/resources/tink-link-ios/tink-link-ios-overview)
+
+## [Tink](https://tink.com)
+Tink was founded in 2012 with the aim of changing the banking industry for the better. We have built Europe’s most robust open banking platform – with the broadest, deepest connectivity and powerful services that create value out of the financial data.
