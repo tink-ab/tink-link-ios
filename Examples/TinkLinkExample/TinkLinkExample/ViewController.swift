@@ -76,13 +76,14 @@ class ViewController: UIViewController {
     }
 
     private func showTinkLinkWithTemporaryUser() {
+        let market = Market(code: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_MARKET"] ?? "SE")
         let scopes: [Scope] = [
             .statistics(.read),
             .transactions(.read),
             .categories(.read),
             .accounts(.read)
         ]
-        let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes, providerPredicate: .kinds(.all)) { result in
+        let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: market, scopes: scopes, providerPredicate: .kinds(.all)) { result in
             print(result)
         }
         present(tinkLinkViewController, animated: true)
