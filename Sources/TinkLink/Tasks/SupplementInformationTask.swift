@@ -66,14 +66,18 @@ public final class SupplementInformationTask: Identifiable {
     ///
     /// Call this method if the user dismiss the form to supplement information.
     public func cancel() {
-        callRetryCancellable = credentialsService.cancelSupplementalInformation(id: credentials.id, completion: { [weak self] result in
-            switch result {
-            case .success:
-                self?.completionHandler(.failure(Error.cancelled))
-            case .failure(let error):
-                self?.completionHandler(.failure(error))
-            }
-            self?.callRetryCancellable = nil
-        })
+        if let canceller = callRetryCancellable {
+            canceller.cancel()
+        } else {
+            callRetryCancellable = credentialsService.cancelSupplementalInformation(id: credentials.id, completion: { [weak self] result in
+                switch result {
+                case .success:
+                    self?.completionHandler(.failure(Error.cancelled))
+                case .failure(let error):
+                    self?.completionHandler(.failure(error))
+                }
+                self?.callRetryCancellable = nil
+            })
+        }
     }
 }
