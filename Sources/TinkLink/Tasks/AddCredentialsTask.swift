@@ -120,6 +120,8 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         credentialsStatusPollingTask?.stopPolling()
         if let canceller = callCanceller {
             canceller.cancel()
+        } else if let task = supplementInformationTask {
+            task.cancel()
         } else if let task = thirdPartyAuthenticationTask {
             task.cancel()
         } else {
