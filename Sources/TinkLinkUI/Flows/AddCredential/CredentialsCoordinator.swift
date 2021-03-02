@@ -82,7 +82,7 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { [weak self] credentials in
                 guard let self = self else { return }
                 self.fetchedCredentials = credentials
-                self.tinkLinkTracker.providerID = credentials.providerID.value
+                self.tinkLinkTracker.providerID = credentials.providerName.value
                 self.tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
                 self.addCredentialsSession.authenticateCredentials(credentials: credentials) { [weak self] result in
                     self?.handleCompletion(for: result.map { ($0, nil) })
@@ -95,8 +95,8 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { [weak self] credentials in
                 guard let self = self else { return }
                 self.fetchedCredentials = credentials
-                self.tinkLinkTracker.providerID = credentials.providerID.value
-                self.fetchProviderIgnoringErrors(with: credentials.providerID) { [weak self] provider in
+                self.tinkLinkTracker.providerID = credentials.providerName.value
+                self.fetchProviderIgnoringErrors(with: credentials.providerName) { [weak self] provider in
                     guard let self = self else { return }
                     switch provider.accessType {
                     case .openBanking:
@@ -125,7 +125,7 @@ final class CredentialsCoordinator {
                     credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancel))
                     self.credentialsViewController = credentialsViewController
                     self.presenter?.show(credentialsViewController)
-                    self.tinkLinkTracker.providerID = credentials.providerID.value
+                    self.tinkLinkTracker.providerID = credentials.providerName.value
                     self.tinkLinkTracker.track(screen: .submitCredentials)
                 }
             }
@@ -271,7 +271,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
             }
             assert(id == fetchedCredentials.id)
 
-            fetchProviderIgnoringErrors(with: fetchedCredentials.providerID) { [weak self] provider in
+            fetchProviderIgnoringErrors(with: fetchedCredentials.providerName) { [weak self] provider in
                 switch provider.accessType {
                 case .openBanking:
                     self?.tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
