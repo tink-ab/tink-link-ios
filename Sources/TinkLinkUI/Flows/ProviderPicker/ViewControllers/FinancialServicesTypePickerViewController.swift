@@ -46,20 +46,20 @@ extension FinancialServicesTypePickerViewController {
 
         let cell = tableView.dequeueReusableCell(ofType: CredentialsKindCell.self, for: indexPath)
 
-        switch node.financialServices {
-        case .business:
-            cell.setIcon(.business)
-            cell.setTitle(text: Strings.SelectAuthenticationUserType.business)
-        case .personal:
-            cell.setIcon(.profile)
-            cell.setTitle(text: Strings.SelectAuthenticationUserType.personal)
-        case .corporate:
-            cell.setIcon(.corporate)
-            cell.setTitle(text: Strings.SelectAuthenticationUserType.corporate)
-        case .unknown:
-            assertionFailure("Unknown authentication user type")
-        @unknown default:
-            assertionFailure("Unknown authentication user type")
+        if node.financialServices.count == 1, let financialService = node.financialServices.first {
+            switch financialService.segment {
+            case .business:
+                cell.setIcon(.business)
+                cell.setTitle(text: financialService.shortName ?? Strings.SelectAuthenticationUserType.business)
+            case .personal:
+                cell.setIcon(.profile)
+                cell.setTitle(text: financialService.shortName ?? Strings.SelectAuthenticationUserType.personal)
+            case .unknown:
+                assertionFailure("Unknown authentication user type")
+            @unknown default:
+                assertionFailure("Unknown authentication user type")
+            }
+        } else {
         }
 
         let isBeta = node.providers.contains(where: { $0.releaseStatus == .beta })
