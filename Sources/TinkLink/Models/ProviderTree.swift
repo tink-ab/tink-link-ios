@@ -45,7 +45,7 @@ public struct ProviderTree {
     public func makeFinancialInstitutions() -> [FinancialInstitutionNode] {
         let institutions: [FinancialInstitutionNode] = financialInstitutionGroups.flatMap { node -> [FinancialInstitutionNode] in
             switch node {
-            case .authenticationUserTypes(let nodes):
+            case .financialServicesTypes(let nodes):
                 return [FinancialInstitutionNode(providers: nodes.flatMap(\.providers))]
             case .accessTypes(let accessType):
                 return [FinancialInstitutionNode(providers: accessType.flatMap(\.providers))]
@@ -269,16 +269,16 @@ public struct ProviderTree {
         case provider(Provider)
         case credentialsKinds([CredentialsKindNode])
         case accessTypes([AccessTypeNode])
-        case authenticationUserTypes([AuthenticationUserTypeNode])
+        case financialServicesTypes([FinancialServicesNode])
 
         init(providers: [Provider]) {
             precondition(!providers.isEmpty)
             if providers.count == 1, let provider = providers.first {
                 self = .provider(provider)
             } else {
-                let providersGroupedByAuthenticationUserTypes = Dictionary(grouping: providers, by: \.authenticationUserType)
+                let providersGroupedByFinancialServicesTypes = Dictionary(grouping: providers, by: \.financialServices)
 
-                if providersGroupedByAuthenticationUserTypes.count == 1, let providers = providersGroupedByAuthenticationUserTypes.values.first {
+                if providersGroupedByFinancialServicesTypes.count == 1, let providers = providersGroupedByFinancialServicesTypes.values.first {
                     let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
                     if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
                         let providersGroupedByCredentialsKind = providers
@@ -292,10 +292,10 @@ public struct ProviderTree {
                         self = .accessTypes(providersGroupedByAccessType)
                     }
                 } else {
-                    let providersGroupedByAuthenticationUserType = providersGroupedByAuthenticationUserTypes.values
-                        .map(AuthenticationUserTypeNode.init)
+                    let providersGroupedByFinancialServicesType = providersGroupedByFinancialServicesTypes.values
+                        .map(FinancialServicesNode.init)
                         .sorted()
-                    self = .authenticationUserTypes(providersGroupedByAuthenticationUserType)
+                    self = .financialServicesTypes(providersGroupedByFinancialServicesType)
                 }
             }
         }
