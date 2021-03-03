@@ -11,7 +11,7 @@ extension ProcessInfo {
 
     var tinkEnvironment: Tink.Environment? {
         guard let restEndpoint = environment["TINK_CUSTOM_REST_ENDPOINT"].flatMap(URL.init(string:)) else { return nil }
-        return Tink.Environment.custom(restURL: restEndpoint)
+        return Tink.Environment.custom(restEndpoint)
     }
 
     var tinkRestCertificateURL: URL? {
