@@ -4,13 +4,15 @@ import UIKit
 /// Example of how to use the provider grouped by access type
 final class AccessTypePickerViewController: UITableViewController {
     private let headerView = AccessTypePickerHeaderView()
+    private let tinkLinkTracker: TinkLinkTracker
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let accessTypeNodes: [ProviderTree.AccessTypeNode]
     let capabilityFormatter = ProviderCapabilityFormatter()
 
-    init(accessTypeNodes: [ProviderTree.AccessTypeNode]) {
+    init(accessTypeNodes: [ProviderTree.AccessTypeNode], tinkLinkTracker: TinkLinkTracker) {
         self.accessTypeNodes = accessTypeNodes
+        self.tinkLinkTracker = tinkLinkTracker
         super.init(style: .plain)
     }
 
@@ -47,6 +49,13 @@ extension AccessTypePickerViewController {
         var frame = headerView.frame
         frame.size.height = headerHeight
         tableView.tableHeaderView?.frame = frame
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            tinkLinkTracker.track(interaction: .back, screen: .accessTypeSelection)
+        }
     }
 }
 
