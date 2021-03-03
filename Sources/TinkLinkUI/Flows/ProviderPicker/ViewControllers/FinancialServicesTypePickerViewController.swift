@@ -7,6 +7,8 @@ final class FinancialServicesTypePickerViewController: UITableViewController {
 
     let financialServicesTypeNodes: [ProviderTree.FinancialServicesNode]
 
+    let listFormatter = HumanEnumeratedFormatter()
+
     init(financialServicesTypeNodes: [ProviderTree.FinancialServicesNode]) {
         self.financialServicesTypeNodes = financialServicesTypeNodes
         super.init(style: .plain)
@@ -60,6 +62,10 @@ extension FinancialServicesTypePickerViewController {
                 assertionFailure("Unknown authentication user type")
             }
         } else {
+            let shortNames = node.financialServices.compactMap(\.shortName)
+            // TODO: What to do as the fallback?
+            let formattedNames = listFormatter.string(for: shortNames)
+            cell.setTitle(text: formattedNames)
         }
 
         let isBeta = node.providers.contains(where: { $0.releaseStatus == .beta })
