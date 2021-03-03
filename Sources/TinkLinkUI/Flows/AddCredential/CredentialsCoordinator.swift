@@ -151,11 +151,15 @@ final class CredentialsCoordinator {
             tinkLinkTracker.credentialsID = nil
             if callCompletionOnError {
                 completion(.failure(.init(code: .userCancelled)))
+            } else if let credentialsViewController = credentialsViewController {
+                presenter?.show(credentialsViewController)
             }
         } catch TinkLinkUIError.userCancelled {
             tinkLinkTracker.credentialsID = nil
             if callCompletionOnError {
                 completion(.failure(.init(code: .userCancelled)))
+            } else if let credentialsViewController = credentialsViewController {
+                presenter?.show(credentialsViewController)
             }
         } catch {
             showAlert(for: error)
