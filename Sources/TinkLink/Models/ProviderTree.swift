@@ -18,7 +18,7 @@ import TinkCore
 ///     case .financialInstitutions(let financialInstitutionGroups):
 ///         showFinancialInstitution(for: financialInstitutionGroups)
 ///     case .authenticationUserTypes(let authenticationUserTypes):
-///         showAuthenticationUserTypePicker(for: authenticationUserTypes)
+///         showFinancialServicesTypePicker(for: authenticationUserTypes)
 ///     case .accessTypes(let accessTypeGroups):
 ///         showAccessTypePicker(for: accessTypeGroups)
 ///     case .credentialsKinds(let groups):
@@ -159,32 +159,24 @@ public struct ProviderTree {
         public var imageURL: URL? { significantProvider.image }
     }
 
-    public enum AuthenticationUserTypeNode: Comparable {
-        public static func < (lhs: ProviderTree.AuthenticationUserTypeNode, rhs: ProviderTree.AuthenticationUserTypeNode) -> Bool {
-            switch (lhs.authenticationUserType, rhs.authenticationUserType) {
-            case (.personal, _):
-                return true
-            case (_, .business):
-                return true
-            default:
-                return false
+    public enum FinancialServicesNode: Comparable {
+        public static func < (lhs: ProviderTree.FinancialServicesNode, rhs: ProviderTree.FinancialServicesNode) -> Bool {
+            if lhs.financialServices.count == rhs.financialServices.count {
+                let lhsPersonalServices = lhs.financialServices.filter({ $0.segment == .personal })
+                let rhsPersonalServices = rhs.financialServices.filter({ $0.segment == .personal })
+                return lhsPersonalServices.count >= rhsPersonalServices.count
+            } else {
+                return lhs.financialServices.count > rhs.financialServices.count
             }
         }
 
-        public static func == (lhs: ProviderTree.AuthenticationUserTypeNode, rhs: ProviderTree.AuthenticationUserTypeNode) -> Bool {
-            switch (lhs, rhs) {
-            case (.accessTypes(let l), .accessTypes(let r)):
-                return l == r
-            case (.credentialsKinds(let l), .credentialsKinds(let r)):
-                return l == r
-            case (.provider(let l), .provider(let r)):
-                return l.id == r.id
-            default:
-                return false
-            }
+        public static func == (lhs: ProviderTree.FinancialServicesNode, rhs: ProviderTree.FinancialServicesNode) -> Bool {
+            return lhs.financialServices == rhs.financialServices
         }
 
-        public typealias ID = Identifier<AuthenticationUserTypeNode>
+        case provider(Provider)
+        case credentialsKinds([CredentialsKindNode])
+        case accessTypes([AccessTypeNode])
 
         init(providers: [Provider]) {
             precondition(!providers.isEmpty)
@@ -206,9 +198,7 @@ public struct ProviderTree {
             }
         }
 
-        case provider(Provider)
-        case credentialsKinds([CredentialsKindNode])
-        case accessTypes([AccessTypeNode])
+        public typealias ID = Identifier<FinancialServicesNode>
 
         public var providers: [Provider] {
             switch self {
@@ -245,7 +235,9 @@ public struct ProviderTree {
             }
         }
 
-        public var authenticationUserType: Provider.AuthenticationUserType { firstProvider.authenticationUserType }
+        public var financialServices: [Provider.FinancialService] {
+            firstProvider.financialServices
+        }
 
         public var imageURL: URL? { significantProvider.image }
 
