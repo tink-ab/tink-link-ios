@@ -8,7 +8,7 @@ sed -i '' "s|$old_path|$new_path|" Package.swift
 # Use source files for core package
 cd ../tink-core-ios
 
-sed -i '' '19,22d' Package.swift
-sed -i '' 's/targets: \[/targets: \[.target(name: \"TinkCore\", exclude: \[\"Info.plist\"\])/' Package.swift
+sed -i '' '20,21d' Package.swift
+sed -i '' 's/.binaryTarget(/.target(name: \"TinkCore\", exclude: \[\"Info.plist\"\]/' Package.swift
 
 cd ../tink-link-ios
