@@ -71,6 +71,7 @@
 		45D631C6C7EE6577F101D9BA /* ProcessInfo+TinkEnvironmentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F2B13BEE0A7C12D170E50 /* ProcessInfo+TinkEnvironmentVariables.swift */; };
 		465D1C94DC9E6488F1F60457 /* LinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328A437D96F2718ECDD73B7 /* LinkTests.swift */; };
 		4736EE486FA095954F4763A4 /* TinkCore in Frameworks */ = {isa = PBXBuildFile; productRef = A62DC7BE65F118EB62A97DAD /* TinkCore */; };
+		4741BEC1B4C2B0C75F481B5D /* FinancialServicesTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBFB63EDBDCE3A216F08B95 /* FinancialServicesTypePickerViewController.swift */; };
 		4834A635188440860605CD23 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F09B24E180B69BE4F6CB97F3 /* Kingfisher */; };
 		49273CB6A5A24128CFDDAE6F /* RefreshCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */; };
 		4CFB0414DA01A06688AD0B0F /* TinkLink+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79688D753B135D21621FDD5C /* TinkLink+extension.swift */; };
@@ -240,7 +241,6 @@
 		F388B60979FBE568FAE5B39A /* AddCredentialsStatusPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E377D1F011D6B8224E338A /* AddCredentialsStatusPresentationManager.swift */; };
 		F5512E9C8B0BBC1AFA919F21 /* RefreshCredentialsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B23CE18284B2E1E5B7B52 /* RefreshCredentialsTask.swift */; };
 		F64F129B2827DA6D05E4B486 /* OAuthService+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11643F0D9A1740B7CB5065F6 /* OAuthService+mock.swift */; };
-		F72D8C690A16D1CC965D6158 /* AuthenticationUserTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8106785D38F618325E76C /* AuthenticationUserTypePickerViewController.swift */; };
 		FA3713F01D3A0268D8A123D7 /* TinkCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C0EF0417B3B3111AC23C6E9 /* TinkCore */; };
 		FA429F5AC8F0D8AA357A5E72 /* TinkCore in Frameworks */ = {isa = PBXBuildFile; productRef = 33571BE38A45E8FC6D56A44A /* TinkCore */; };
 		FB3BBC846E44D9BF5A103353 /* RefreshableItemsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F68EE28916ED9E73A615855 /* RefreshableItemsTests.swift */; };
@@ -395,6 +395,7 @@
 		5B59989E0FD59138A1D58890 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		5D7D63EB1C5FDD6E6C5A1C22 /* ProviderContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderContext.swift; sourceTree = "<group>"; };
 		5D8F0E74F55533422AF9DCFB /* UIApplication+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+mock.swift"; sourceTree = "<group>"; };
+		5FBFB63EDBDCE3A216F08B95 /* FinancialServicesTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialServicesTypePickerViewController.swift; sourceTree = "<group>"; };
 		60016D18E0F2477E28390D88 /* ProviderContext+Deprecations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderContext+Deprecations.swift"; sourceTree = "<group>"; };
 		6036427A69D61749D8C7A729 /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
 		6124C5F0D50E821710FE5725 /* SecCertificate+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecCertificate+Swift.swift"; sourceTree = "<group>"; };
@@ -423,7 +424,6 @@
 		84F62010FC25F1D4268A2355 /* BeneficiaryAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeneficiaryAccount.swift; sourceTree = "<group>"; };
 		852F88BEFD7E20448FB17E67 /* FinancialInstitutionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialInstitutionPickerViewController.swift; sourceTree = "<group>"; };
 		86F97AC0389FC4D763F642CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		88C8106785D38F618325E76C /* AuthenticationUserTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUserTypePickerViewController.swift; sourceTree = "<group>"; };
 		8B8A6E8EFA1FC1DD39A15470 /* ThirdPartyAppAuthenticationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyAppAuthenticationTask.swift; sourceTree = "<group>"; };
 		8C39CCF3D56F11277924C52B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8F71340C32F0D94251C3A4A7 /* AnalyticsFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsFlow.swift; sourceTree = "<group>"; };
@@ -840,10 +840,10 @@
 			isa = PBXGroup;
 			children = (
 				465BE20FB5B8ADCEFDA32EA2 /* AccessTypePickerViewController.swift */,
-				88C8106785D38F618325E76C /* AuthenticationUserTypePickerViewController.swift */,
 				09EFF1CEAFF89E124C00BEBA /* CredentialsKindPickerViewController.swift */,
 				852F88BEFD7E20448FB17E67 /* FinancialInstitutionPickerViewController.swift */,
 				3618A35D3444EE8D4E34ACC2 /* FinancialInstitutionSearchViewController.swift */,
+				5FBFB63EDBDCE3A216F08B95 /* FinancialServicesTypePickerViewController.swift */,
 				646C5D00E0E34C1553F35A0C /* ProviderListViewController.swift */,
 			);
 			path = ViewControllers;
@@ -1065,6 +1065,13 @@
 				ACD56FDEBF7C375BFD380EE5 /* TinkSearchController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		"TEMP_CF940425-13F9-4646-99D4-D8F44A5EDA46" /* Translations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Translations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1343,7 +1350,6 @@
 				E3EC7564ADDB4F7C82016926 /* AnalyticsFlow.swift in Sources */,
 				52F9FEFF0720CB87203FC866 /* Appearance.swift in Sources */,
 				94DAD821EBD4FEB4D30D50BA /* AppearanceProviding.swift in Sources */,
-				F72D8C690A16D1CC965D6158 /* AuthenticationUserTypePickerViewController.swift in Sources */,
 				254F2705C0F80C843E52A791 /* AuthorizationController.swift in Sources */,
 				45173FEB6003CB30EE944FA9 /* BetaTagView.swift in Sources */,
 				28B0CE6449E0A94C04D37489 /* BorderCornerRadiusImageView.swift in Sources */,
@@ -1364,6 +1370,7 @@
 				C402EC2C626F50FBD409FDD8 /* EmptyFormView.swift in Sources */,
 				DF1029DD772D0BC65A442085 /* FinancialInstitutionPickerViewController.swift in Sources */,
 				29570930692B5704E442866C /* FinancialInstitutionSearchViewController.swift in Sources */,
+				4741BEC1B4C2B0C75F481B5D /* FinancialServicesTypePickerViewController.swift in Sources */,
 				DFB385FC6D1863762F1AD8A6 /* FloatingButton.swift in Sources */,
 				7E3FB2E738D0B3FBCBDB76A8 /* FloatingPlaceholderTextField.swift in Sources */,
 				9AF0D88F70691527573E01D3 /* Font.swift in Sources */,
