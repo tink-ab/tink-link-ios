@@ -52,17 +52,17 @@ extension FinancialServicesTypePickerViewController {
             switch financialService.segment {
             case .business:
                 cell.setIcon(.business)
-                cell.setTitle(text: financialService.shortName ?? Strings.SelectAuthenticationUserType.business)
+                cell.setTitle(text: financialService.shortName.isEmpty ? Strings.SelectAuthenticationUserType.business : financialService.shortName)
             case .personal:
                 cell.setIcon(.profile)
-                cell.setTitle(text: financialService.shortName ?? Strings.SelectAuthenticationUserType.personal)
+                cell.setTitle(text: financialService.shortName.isEmpty ? Strings.SelectAuthenticationUserType.personal : financialService.shortName)
             case .unknown:
                 assertionFailure("Unknown authentication user type")
             @unknown default:
                 assertionFailure("Unknown authentication user type")
             }
         } else {
-            let shortNames = node.financialServices.compactMap(\.shortName)
+            let shortNames = node.financialServices.map(\.shortName)
             // TODO: What to do as the fallback?
             let formattedNames = listFormatter.string(for: shortNames)
             cell.setTitle(text: formattedNames)
