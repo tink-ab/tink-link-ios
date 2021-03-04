@@ -20,6 +20,7 @@ final class SupplementalInformationViewController: UIViewController {
     init(supplementInformationTask: SupplementInformationTask) {
         let form = Form(supplementInformationTask: supplementInformationTask)
         self.formTableViewController = FormTableViewController(form: form)
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -34,6 +35,8 @@ final class SupplementalInformationViewController: UIViewController {
 extension SupplementalInformationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = Color.background
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGestureRecognizer.delegate = self

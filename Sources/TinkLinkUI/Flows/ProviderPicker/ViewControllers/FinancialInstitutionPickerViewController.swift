@@ -5,13 +5,15 @@ import UIKit
 final class FinancialInstitutionPickerViewController: UITableViewController {
     private let searchViewController = FinancialInstitutionSearchViewController()
     private lazy var searchController = TinkSearchController(searchResultsController: searchViewController)
+    private let tinkLinkTracker: TinkLinkTracker
 
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
 
     let financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode]
 
-    init(financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode]) {
+    init(financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], tinkLinkTracker: TinkLinkTracker) {
         self.financialInstitutionNodes = financialInstitutionNodes
+        self.tinkLinkTracker = tinkLinkTracker
         searchViewController.originalFinancialInstitutionNodes = financialInstitutionNodes
         super.init(style: .plain)
     }
@@ -45,6 +47,13 @@ extension FinancialInstitutionPickerViewController {
 
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            tinkLinkTracker.track(interaction: .back, screen: .financialInstitutionSelection)
+        }
     }
 }
 

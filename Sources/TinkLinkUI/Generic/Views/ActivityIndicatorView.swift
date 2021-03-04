@@ -2,7 +2,7 @@ import UIKit
 
 final class ActivityIndicatorView: UIView {
     private let circleLayer = CAShapeLayer()
-    private let size = 20 as CGFloat
+    private var size: CGFloat { style.size }
     private var shouldBeAnimating = false {
         didSet {
             guard shouldBeAnimating != oldValue else {
@@ -13,6 +13,28 @@ final class ActivityIndicatorView: UIView {
             } else {
                 state.stop()
             }
+        }
+    }
+
+    enum Style {
+        case `default`
+        case large
+
+        fileprivate var size: CGFloat {
+            switch self {
+            case .default:
+                return 20
+            case .large:
+                return 32
+            }
+        }
+    }
+
+    var style: Style = .default {
+        didSet {
+            circleLayer.lineWidth = style == .default ? 2 : 3
+            setNeedsLayout()
+            invalidateIntrinsicContentSize()
         }
     }
 
@@ -61,24 +83,21 @@ final class ActivityIndicatorView: UIView {
 
     // MARK: - Initializers
 
-    convenience init() {
-        self.init(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(style: Style = .default) {
+        self.style = style
+        super.init(frame: CGRect(x: 0, y: 0, width: style.size, height: style.size))
         setup()
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     private func setup() {
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: size / 2, y: size / 2), radius: size / 2, startAngle: 0, endAngle: .pi * 2, clockwise: true)
 
-        circleLayer.lineWidth = 2
+        circleLayer.lineWidth = style == .default ? 2 : 3
         circleLayer.fillColor = nil
         circleLayer.strokeColor = tintColor.cgColor
         circleLayer.lineCap = CAShapeLayerLineCap.butt
@@ -102,6 +121,8 @@ final class ActivityIndicatorView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: size / 2, y: size / 2), radius: size / 2, startAngle: 0, endAngle: .pi * 2, clockwise: true)
+        circleLayer.path = circlePath.cgPath
         circleLayer.frame = CGRect(x: (bounds.width - size) / 2, y: (bounds.height - size) / 2, width: size, height: size)
     }
 

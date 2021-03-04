@@ -14,46 +14,96 @@ final class CheckmarkView: UIView {
             case .default:
                 return 1.0
             case .large:
-                return 2.5
+                return 32.0 / 22.0
+            }
+        }
+
+        fileprivate var lineWidth: CGFloat {
+            switch self {
+            case .default:
+                return 1.0
+            case .large:
+                return 3.0
             }
         }
     }
 
     var style: Style = .default {
         didSet {
-            checkmarkLayer.lineWidth = 1 * style.scale
+            circleLayer.lineWidth = style.lineWidth
+            checkmarkLayer.lineWidth = style.lineWidth
             setNeedsLayout()
             invalidateIntrinsicContentSize()
         }
     }
 
-    var isChecked: Bool = false {
-        didSet {
-            circleLayer.opacity = isChecked ? 0 : 1
-            checkboxLayer.opacity = isChecked ? 1 : 0
+    private var _isChecked: Bool = false
+
+    var isChecked: Bool {
+        get {
+            return _isChecked
+        }
+        set {
+            _isChecked = newValue
+            circleLayer.strokeEnd = newValue ? 1 : 0
+            checkmarkLayer.strokeEnd = newValue ? 1 : 0
         }
     }
 
-    var isBorderHidden: Bool = true {
-        didSet {
-            circleLayer.isHidden = isBorderHidden
-        }
-    }
+    func setChecked(_ checked: Bool, animated: Bool) {
+        if animated {
+            if checked {
+                let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
+                circleAnimation.duration = 0.3
+                circleAnimation.fromValue = 0
+                circleAnimation.toValue = 1
+                circleAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                circleLayer.add(circleAnimation, forKey: "CheckCircleAnimation")
+                circleLayer.strokeEnd = 1
 
-    @objc dynamic var strokeTintColor: UIColor = .white {
-        didSet {
-            checkmarkLayer.strokeColor = strokeTintColor.cgColor
+                let keyframeAnimation = CAKeyframeAnimation(keyPath: "strokeEnd")
+                keyframeAnimation.duration = 1.0
+                keyframeAnimation.values = [0.0, 0.0, 0.33, 0.33, 1.0]
+                keyframeAnimation.keyTimes = [0.0, 0.4, 0.6, 0.7, 1.0]
+                keyframeAnimation.timingFunctions = [
+                    CAMediaTimingFunction(name: .linear),
+                    CAMediaTimingFunction(name: .easeOut),
+                    CAMediaTimingFunction(name: .linear),
+                    CAMediaTimingFunction(name: .easeOut)
+                ]
+                checkmarkLayer.add(keyframeAnimation, forKey: "CheckAnimation")
+                checkmarkLayer.strokeEnd = 1
+            } else {
+                let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
+                circleAnimation.duration = 0.4
+                circleAnimation.fromValue = 1
+                circleAnimation.toValue = 0
+                circleAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                circleLayer.add(circleAnimation, forKey: "UncheckCircleAnimation")
+                circleLayer.strokeEnd = 0
+
+                let animation = CABasicAnimation(keyPath: "strokeEnd")
+                animation.duration = 0.4
+                animation.fromValue = 1
+                animation.toValue = 0
+                animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                checkmarkLayer.add(animation, forKey: "UncheckAnimation")
+                checkmarkLayer.strokeEnd = 0
+            }
+            _isChecked = checked
+        } else {
+            isChecked = checked
         }
     }
 
     private let circleLayer = CAShapeLayer()
-    private let checkboxLayer = CAShapeLayer()
     private let checkmarkLayer = CAShapeLayer()
 
     convenience init(style: Style = .default) {
         self.init(frame: CGRect(origin: .zero, size: style.size))
         self.style = style
-        checkmarkLayer.lineWidth = 1 * style.scale
+        checkmarkLayer.lineWidth = style.lineWidth
+        circleLayer.lineWidth = style.lineWidth
     }
 
     override init(frame: CGRect) {
@@ -70,16 +120,17 @@ final class CheckmarkView: UIView {
 
     private func setup() {
         circleLayer.actions = [
-            "opacity": NSNull()
+            "strokeEnd": NSNull()
         ]
-        checkboxLayer.actions = [
-            "opacity": NSNull()
+        checkmarkLayer.actions = [
+            "strokeEnd": NSNull()
         ]
 
         checkmarkLayer.fillColor = UIColor.clear.cgColor
-        checkmarkLayer.lineWidth = 1 * style.scale
-        checkmarkLayer.strokeColor = strokeTintColor.cgColor
-        checkboxLayer.addSublayer(checkmarkLayer)
+        checkmarkLayer.lineWidth = style.lineWidth
+        checkmarkLayer.strokeColor = tintColor.cgColor
+        checkmarkLayer.strokeEnd = isChecked ? 1 : 0
+        layer.addSublayer(checkmarkLayer)
 
         setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
@@ -89,12 +140,11 @@ final class CheckmarkView: UIView {
         isUserInteractionEnabled = false
 
         circleLayer.fillColor = UIColor.clear.cgColor
-        circleLayer.strokeColor = Color.accent.cgColor
+        circleLayer.strokeColor = tintColor.cgColor
+        circleLayer.strokeEnd = isChecked ? 1 : 0
+        circleLayer.lineWidth = style.lineWidth
+        circleLayer.setAffineTransform(CGAffineTransform(rotationAngle: -(.pi / 2)))
         layer.addSublayer(circleLayer)
-
-        checkboxLayer.fillColor = tintColor.cgColor
-        checkboxLayer.opacity = 0.0
-        layer.addSublayer(checkboxLayer)
     }
 
     override func layoutSubviews() {
@@ -109,7 +159,6 @@ final class CheckmarkView: UIView {
         let circleRect = CGRect(origin: .zero, size: style.size)
         checkmarkLayer.frame = circleRect
         circleLayer.path = CGPath(ellipseIn: circleRect, transform: nil)
-        checkboxLayer.path = CGPath(ellipseIn: circleRect, transform: nil)
 
         let circleFrame = CGRect(
             origin: CGPoint(
@@ -120,7 +169,6 @@ final class CheckmarkView: UIView {
         )
 
         circleLayer.frame = circleFrame
-        checkboxLayer.frame = circleFrame
     }
 
     override var intrinsicContentSize: CGSize { style.size }
@@ -128,6 +176,7 @@ final class CheckmarkView: UIView {
     override func tintColorDidChange() {
         super.tintColorDidChange()
 
-        checkboxLayer.fillColor = tintColor.cgColor
+        circleLayer.strokeColor = tintColor.cgColor
+        checkmarkLayer.strokeColor = tintColor.cgColor
     }
 }

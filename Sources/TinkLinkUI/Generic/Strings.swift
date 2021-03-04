@@ -37,6 +37,8 @@ enum Strings {
 
         static let termsAndConditions = NSLocalizedString("Credentials.TermsAndConditions", tableName: tableName, bundle: bundle, value: "Terms and Conditions", comment: "Terms and conditions clickable text used in Credentials.TermsAndConsentText.")
 
+        static let instructions = NSLocalizedString("Credentials.Instructions", tableName: tableName, bundle: bundle, value: "1. You will be securely transferred to %@.\r\n2. You will be required to authenticate.\r\n3. Once authenticated, you will be redirected back.", comment: "Instruction texts for credentials that need to redirect")
+
         /// Text explaining that when using the service, the user agrees to Tink's Terms and Conditions, Privacy Policy. And the text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.
         static let termsAndConsentText = NSLocalizedString("Credentials.TermsAndConsentText", tableName: tableName, bundle: bundle, value: "By using the service, you agree to Tink’s %@ and %@. %@ will obtain parts of your financial information. %@", comment: "Text explaining that when using the service, the user agrees to Tink's Terms and Conditions, Privacy Policy. And the text explaining that the client will obtain financial information from the current user with a link for more information on which financial information specifically.")
 

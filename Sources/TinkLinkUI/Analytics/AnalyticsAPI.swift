@@ -25,10 +25,11 @@ class AnalyticsAPI {
 }
 
 enum TinkAnalyticsRequest {
-    struct ViewEvent: Encodable {
+    struct ApplicationEvent: Encodable {
         let appName: String?
         let appIdentifier: String?
         let appVersion: String?
+        let market: String?
         let clientId: String
         let sessionId: String
         let isTest: Bool
@@ -37,6 +38,28 @@ enum TinkAnalyticsRequest {
         let platform: String
         let device: String
         let userId: String
+        let providerName: String?
+        let credentialsId: String?
+        let flow: String
+        let type: String
+        let timestamp: Date
+    }
+
+    struct ViewEvent: Encodable {
+        let appName: String?
+        let appIdentifier: String?
+        let appVersion: String?
+        let market: String?
+        let clientId: String
+        let sessionId: String
+        let isTest: Bool
+        let product: String
+        let version: String
+        let platform: String
+        let device: String
+        let userId: String
+        let providerName: String?
+        let credentialsId: String?
         let flow: String
         let view: String
         let timestamp: Date
@@ -46,9 +69,12 @@ enum TinkAnalyticsRequest {
         let appName: String?
         let appIdentifier: String?
         let appVersion: String?
+        let market: String?
         let clientId: String
         let sessionId: String
         let userId: String
+        let providerName: String?
+        let credentialsId: String?
         let label: String?
         let view: String
         let timestamp: Date
@@ -59,11 +85,12 @@ enum TinkAnalyticsRequest {
 
     case viewEvent(ViewEvent)
     case interactionEvent(InteractionEvent)
+    case applicationEvent(ApplicationEvent)
 }
 
 extension TinkAnalyticsRequest: Encodable {
     private enum CodingKeys: String, CodingKey {
-        case type, viewEvent, interactionEvent
+        case type, viewEvent, interactionEvent, applicationEvent
     }
 
     func encode(to encoder: Encoder) throws {
@@ -75,6 +102,9 @@ extension TinkAnalyticsRequest: Encodable {
         case .viewEvent(let event):
             try container.encode("VIEW_EVENT", forKey: .type)
             try container.encode(event, forKey: .viewEvent)
+        case .applicationEvent(let event):
+            try container.encode("APPLICATION_EVENT", forKey: .type)
+            try container.encode(event, forKey: .applicationEvent)
         }
     }
 }

@@ -4,13 +4,15 @@ import UIKit
 /// Example of how to use the provider grouped by credential type
 final class FinancialServicesTypePickerViewController: UITableViewController {
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
+    private let tinkLinkTracker: TinkLinkTracker
 
     let financialServicesTypeNodes: [ProviderTree.FinancialServicesNode]
 
     let listFormatter = HumanEnumeratedFormatter()
 
-    init(financialServicesTypeNodes: [ProviderTree.FinancialServicesNode]) {
+    init(financialServicesTypeNodes: [ProviderTree.FinancialServicesNode], tinkLinkTracker: TinkLinkTracker) {
         self.financialServicesTypeNodes = financialServicesTypeNodes
+        self.tinkLinkTracker = tinkLinkTracker
         super.init(style: .plain)
     }
 
@@ -33,6 +35,13 @@ extension FinancialServicesTypePickerViewController {
 
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            tinkLinkTracker.track(interaction: .back, screen: .authenticationUserTypeSelection)
+        }
     }
 }
 
