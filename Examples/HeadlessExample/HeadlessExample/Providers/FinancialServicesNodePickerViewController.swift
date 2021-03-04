@@ -2,13 +2,13 @@ import TinkLink
 import UIKit
 
 /// A view controller that displays an interface for picking authentication user types.
-final class AuthenticationUserTypePickerViewController: UITableViewController {
-    var authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode] = []
+final class FinancialServicesNodePickerViewController: UITableViewController {
+    var financialServicesNodes: [ProviderTree.FinancialServicesNode] = []
 }
 
 // MARK: - View Lifecycle
 
-extension AuthenticationUserTypePickerViewController {
+extension FinancialServicesNodePickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,37 +21,35 @@ extension AuthenticationUserTypePickerViewController {
 
 // MARK: - UITableViewDataSource
 
-extension AuthenticationUserTypePickerViewController {
+extension FinancialServicesNodePickerViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return authenticationUserTypeNodes.count
+        return financialServicesNodes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let node = authenticationUserTypeNodes[indexPath.row]
+        let node = financialServicesNodes[indexPath.row]
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.accessoryType = .disclosureIndicator
 
-        switch node.authenticationUserType {
+        switch node.financialServices.first?.segment {
         case .business:
             cell.textLabel?.text = "Business"
         case .personal:
             cell.textLabel?.text = "Personal"
-        case .corporate:
-            cell.textLabel?.text = "Corporate"
-        case .unknown:
+        default:
             fatalError("Unknown authentication user type")
         }
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let authenticationUserTypeNode = authenticationUserTypeNodes[indexPath.row]
-        switch authenticationUserTypeNode {
+        let financialServicesNode = financialServicesNodes[indexPath.row]
+        switch financialServicesNode {
         case .accessTypes(let accessTypeGroups):
-            showAccessTypePicker(for: accessTypeGroups, title: authenticationUserTypeNode.financialInstitution.name)
+            showAccessTypePicker(for: accessTypeGroups, title: financialServicesNode.financialInstitution.name)
         case .credentialsKinds(let groups):
-            showCredentialsKindPicker(for: groups, title: authenticationUserTypeNode.financialInstitution.name)
+            showCredentialsKindPicker(for: groups, title: financialServicesNode.financialInstitution.name)
         case .provider(let provider):
             showAddCredentials(for: provider)
         }
@@ -60,7 +58,7 @@ extension AuthenticationUserTypePickerViewController {
 
 // MARK: - Navigation
 
-extension AuthenticationUserTypePickerViewController {
+extension FinancialServicesNodePickerViewController {
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
         let viewController = AccessTypePickerViewController()
         viewController.title = title
