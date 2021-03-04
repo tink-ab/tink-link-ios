@@ -364,8 +364,7 @@ public struct ProviderTree {
             } else {
                 let providersGroupedByFinancialInstitution = Dictionary(grouping: providers, by: \.financialInstitution)
                 if providersGroupedByFinancialInstitution.count == 1, let providers = providersGroupedByFinancialInstitution.values.first {
-                    let providersGroupedByFinancialServicesTypes = Dictionary(grouping: providers, by: \.authenticationUserType)
-
+                    let providersGroupedByFinancialServicesTypes = Dictionary(grouping: providers, by: \.financialServices)
                     if providersGroupedByFinancialServicesTypes.count == 1, let providers = providersGroupedByFinancialServicesTypes.values.first {
                         let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
                         if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
