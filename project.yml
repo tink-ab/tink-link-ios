@@ -105,7 +105,7 @@ packages:
     path: ./
   TinkCore:
     url: https://github.com/tink-ab/tink-core-ios
-    exactVersion: 1.0.0-rc.2
+    exactVersion: 1.0.0
   Kingfisher:
     url: https://github.com/onevcat/Kingfisher
     minorVersion: 5.14.1
