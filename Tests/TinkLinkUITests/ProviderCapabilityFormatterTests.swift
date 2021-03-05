@@ -7,7 +7,7 @@ extension Provider {
         self.init(
             name: "test-provider",
             displayName: "Test",
-            authenticationUserType: .personal,
+            financialServices: [.init(segment: .personal, shortName: "")],
             kind: .bank,
             releaseStatus: nil,
             status: .enabled,
