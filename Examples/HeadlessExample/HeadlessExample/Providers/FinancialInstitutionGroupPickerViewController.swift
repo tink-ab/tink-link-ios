@@ -73,8 +73,8 @@ extension FinancialInstitutionGroupPickerViewController {
         switch financialInstitutionGroupNode {
         case .financialInstitutions(let financialInstitutionGroups):
             showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
-        case .authenticationUserTypes(let authenticationUserTypeNodes):
-            showAuthenticationUserTypePicker(for: authenticationUserTypeNodes, title: financialInstitutionGroupNode.displayName)
+        case .financialServicesTypes(let financialServicesNode):
+            showFinancialServicesNodePicker(for: financialServicesNode, title: financialInstitutionGroupNode.displayName)
         case .accessTypes(let accessTypeGroups):
             showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
         case .credentialsKinds(let groups):
@@ -95,9 +95,9 @@ extension FinancialInstitutionGroupPickerViewController {
         show(viewController, sender: nil)
     }
 
-    func showAuthenticationUserTypePicker(for authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode], title: String?) {
-        let viewController = AuthenticationUserTypePickerViewController()
-        viewController.authenticationUserTypeNodes = authenticationUserTypeNodes
+    func showFinancialServicesNodePicker(for financialServicesNodes: [ProviderTree.FinancialServicesNode], title: String?) {
+        let viewController = FinancialServicesNodePickerViewController()
+        viewController.financialServicesNodes = financialServicesNodes
         viewController.title = title
         show(viewController, sender: nil)
     }

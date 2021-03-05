@@ -2,14 +2,16 @@ import TinkLink
 import UIKit
 
 /// Example of how to use the provider grouped by credential type
-final class AuthenticationUserTypePickerViewController: UITableViewController {
+final class FinancialServicesTypePickerViewController: UITableViewController {
     weak var providerPickerCoordinator: ProviderPickerCoordinating?
     private let tinkLinkTracker: TinkLinkTracker
 
-    let authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode]
+    let financialServicesTypeNodes: [ProviderTree.FinancialServicesNode]
 
-    init(authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode], tinkLinkTracker: TinkLinkTracker) {
-        self.authenticationUserTypeNodes = authenticationUserTypeNodes.filter { $0.authenticationUserType != .unknown }
+    let listFormatter = HumanEnumeratedFormatter()
+
+    init(financialServicesTypeNodes: [ProviderTree.FinancialServicesNode], tinkLinkTracker: TinkLinkTracker) {
+        self.financialServicesTypeNodes = financialServicesTypeNodes
         self.tinkLinkTracker = tinkLinkTracker
         super.init(style: .plain)
     }
@@ -22,7 +24,7 @@ final class AuthenticationUserTypePickerViewController: UITableViewController {
 
 // MARK: - View Lifecycle
 
-extension AuthenticationUserTypePickerViewController {
+extension FinancialServicesTypePickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,30 +47,34 @@ extension AuthenticationUserTypePickerViewController {
 
 // MARK: - UITableViewDataSource
 
-extension AuthenticationUserTypePickerViewController {
+extension FinancialServicesTypePickerViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return authenticationUserTypeNodes.count
+        return financialServicesTypeNodes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let node = authenticationUserTypeNodes[indexPath.row]
+        let node = financialServicesTypeNodes[indexPath.row]
 
         let cell = tableView.dequeueReusableCell(ofType: CredentialsKindCell.self, for: indexPath)
 
-        switch node.authenticationUserType {
-        case .business:
-            cell.setIcon(.business)
-            cell.setTitle(text: Strings.SelectAuthenticationUserType.business)
-        case .personal:
-            cell.setIcon(.profile)
-            cell.setTitle(text: Strings.SelectAuthenticationUserType.personal)
-        case .corporate:
-            cell.setIcon(.corporate)
-            cell.setTitle(text: Strings.SelectAuthenticationUserType.corporate)
-        case .unknown:
-            assertionFailure("Unknown authentication user type")
-        @unknown default:
-            assertionFailure("Unknown authentication user type")
+        if node.financialServices.count == 1, let financialService = node.financialServices.first {
+            switch financialService.segment {
+            case .business:
+                cell.setIcon(.business)
+                cell.setTitle(text: financialService.shortName.isEmpty ? Strings.SelectAuthenticationUserType.business : financialService.shortName)
+            case .personal:
+                cell.setIcon(.profile)
+                cell.setTitle(text: financialService.shortName.isEmpty ? Strings.SelectAuthenticationUserType.personal : financialService.shortName)
+            case .unknown:
+                assertionFailure("Unknown authentication user type")
+            @unknown default:
+                assertionFailure("Unknown authentication user type")
+            }
+        } else {
+            let shortNames = node.financialServices.map(\.shortName)
+            // TODO: What to do as the fallback?
+            let formattedNames = listFormatter.string(for: shortNames)
+            cell.setTitle(text: formattedNames)
         }
 
         let isBeta = node.providers.contains(where: { $0.releaseStatus == .beta })
@@ -78,7 +84,7 @@ extension AuthenticationUserTypePickerViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let authenticationUserTypeNode = authenticationUserTypeNodes[indexPath.row]
+        let authenticationUserTypeNode = financialServicesTypeNodes[indexPath.row]
         switch authenticationUserTypeNode {
         case .accessTypes(let accessTypeGroups):
             providerPickerCoordinator?.showAccessTypePicker(for: accessTypeGroups, name: authenticationUserTypeNode.financialInstitution.name)

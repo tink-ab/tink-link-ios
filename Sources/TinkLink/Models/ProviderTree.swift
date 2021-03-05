@@ -18,7 +18,7 @@ import TinkCore
 ///     case .financialInstitutions(let financialInstitutionGroups):
 ///         showFinancialInstitution(for: financialInstitutionGroups)
 ///     case .authenticationUserTypes(let authenticationUserTypes):
-///         showAuthenticationUserTypePicker(for: authenticationUserTypes)
+///         showFinancialServicesTypePicker(for: authenticationUserTypes)
 ///     case .accessTypes(let accessTypeGroups):
 ///         showAccessTypePicker(for: accessTypeGroups)
 ///     case .credentialsKinds(let groups):
@@ -45,7 +45,7 @@ public struct ProviderTree {
     public func makeFinancialInstitutions() -> [FinancialInstitutionNode] {
         let institutions: [FinancialInstitutionNode] = financialInstitutionGroups.flatMap { node -> [FinancialInstitutionNode] in
             switch node {
-            case .authenticationUserTypes(let nodes):
+            case .financialServicesTypes(let nodes):
                 return [FinancialInstitutionNode(providers: nodes.flatMap(\.providers))]
             case .accessTypes(let accessType):
                 return [FinancialInstitutionNode(providers: accessType.flatMap(\.providers))]
@@ -159,32 +159,24 @@ public struct ProviderTree {
         public var imageURL: URL? { significantProvider.image }
     }
 
-    public enum AuthenticationUserTypeNode: Comparable {
-        public static func < (lhs: ProviderTree.AuthenticationUserTypeNode, rhs: ProviderTree.AuthenticationUserTypeNode) -> Bool {
-            switch (lhs.authenticationUserType, rhs.authenticationUserType) {
-            case (.personal, _):
-                return true
-            case (_, .business):
-                return true
-            default:
-                return false
+    public enum FinancialServicesNode: Comparable {
+        public static func < (lhs: ProviderTree.FinancialServicesNode, rhs: ProviderTree.FinancialServicesNode) -> Bool {
+            if lhs.financialServices.count == rhs.financialServices.count {
+                let lhsPersonalServices = lhs.financialServices.filter({ $0.segment == .personal })
+                let rhsPersonalServices = rhs.financialServices.filter({ $0.segment == .personal })
+                return lhsPersonalServices.count >= rhsPersonalServices.count
+            } else {
+                return lhs.financialServices.count > rhs.financialServices.count
             }
         }
 
-        public static func == (lhs: ProviderTree.AuthenticationUserTypeNode, rhs: ProviderTree.AuthenticationUserTypeNode) -> Bool {
-            switch (lhs, rhs) {
-            case (.accessTypes(let l), .accessTypes(let r)):
-                return l == r
-            case (.credentialsKinds(let l), .credentialsKinds(let r)):
-                return l == r
-            case (.provider(let l), .provider(let r)):
-                return l.id == r.id
-            default:
-                return false
-            }
+        public static func == (lhs: ProviderTree.FinancialServicesNode, rhs: ProviderTree.FinancialServicesNode) -> Bool {
+            return lhs.financialServices == rhs.financialServices
         }
 
-        public typealias ID = Identifier<AuthenticationUserTypeNode>
+        case provider(Provider)
+        case credentialsKinds([CredentialsKindNode])
+        case accessTypes([AccessTypeNode])
 
         init(providers: [Provider]) {
             precondition(!providers.isEmpty)
@@ -206,9 +198,7 @@ public struct ProviderTree {
             }
         }
 
-        case provider(Provider)
-        case credentialsKinds([CredentialsKindNode])
-        case accessTypes([AccessTypeNode])
+        public typealias ID = Identifier<FinancialServicesNode>
 
         public var providers: [Provider] {
             switch self {
@@ -245,7 +235,9 @@ public struct ProviderTree {
             }
         }
 
-        public var authenticationUserType: Provider.AuthenticationUserType { firstProvider.authenticationUserType }
+        public var financialServices: [Provider.FinancialService] {
+            firstProvider.financialServices
+        }
 
         public var imageURL: URL? { significantProvider.image }
 
@@ -277,16 +269,16 @@ public struct ProviderTree {
         case provider(Provider)
         case credentialsKinds([CredentialsKindNode])
         case accessTypes([AccessTypeNode])
-        case authenticationUserTypes([AuthenticationUserTypeNode])
+        case financialServicesTypes([FinancialServicesNode])
 
         init(providers: [Provider]) {
             precondition(!providers.isEmpty)
             if providers.count == 1, let provider = providers.first {
                 self = .provider(provider)
             } else {
-                let providersGroupedByAuthenticationUserTypes = Dictionary(grouping: providers, by: \.authenticationUserType)
+                let providersGroupedByFinancialServicesTypes = Dictionary(grouping: providers, by: \.financialServices)
 
-                if providersGroupedByAuthenticationUserTypes.count == 1, let providers = providersGroupedByAuthenticationUserTypes.values.first {
+                if providersGroupedByFinancialServicesTypes.count == 1, let providers = providersGroupedByFinancialServicesTypes.values.first {
                     let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
                     if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
                         let providersGroupedByCredentialsKind = providers
@@ -300,10 +292,10 @@ public struct ProviderTree {
                         self = .accessTypes(providersGroupedByAccessType)
                     }
                 } else {
-                    let providersGroupedByAuthenticationUserType = providersGroupedByAuthenticationUserTypes.values
-                        .map(AuthenticationUserTypeNode.init)
+                    let providersGroupedByFinancialServicesType = providersGroupedByFinancialServicesTypes.values
+                        .map(FinancialServicesNode.init)
                         .sorted()
-                    self = .authenticationUserTypes(providersGroupedByAuthenticationUserType)
+                    self = .financialServicesTypes(providersGroupedByFinancialServicesType)
                 }
             }
         }
@@ -312,7 +304,7 @@ public struct ProviderTree {
 
         public var providers: [Provider] {
             switch self {
-            case .authenticationUserTypes(let nodes):
+            case .financialServicesTypes(let nodes):
                 return nodes.flatMap(\.providers)
             case .accessTypes(let nodes):
                 return nodes.flatMap(\.providers)
@@ -325,7 +317,7 @@ public struct ProviderTree {
 
         fileprivate var firstProvider: Provider {
             switch self {
-            case .authenticationUserTypes(let nodes):
+            case .financialServicesTypes(let nodes):
                 return nodes[0].firstProvider
             case .accessTypes(let accessTypeGroups):
                 return accessTypeGroups[0].firstProvider
@@ -338,7 +330,7 @@ public struct ProviderTree {
 
         fileprivate var significantProvider: Provider {
             switch self {
-            case .authenticationUserTypes(let types):
+            case .financialServicesTypes(let types):
                 return (types.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
             case .accessTypes(let accessTypeGroups):
                 return (accessTypeGroups.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
@@ -363,7 +355,7 @@ public struct ProviderTree {
         case credentialsKinds([CredentialsKindNode])
         case accessTypes([AccessTypeNode])
         case financialInstitutions([FinancialInstitutionNode])
-        case authenticationUserTypes([AuthenticationUserTypeNode])
+        case financialServicesTypes([FinancialServicesNode])
 
         init(providers: [Provider]) {
             precondition(!providers.isEmpty)
@@ -372,9 +364,8 @@ public struct ProviderTree {
             } else {
                 let providersGroupedByFinancialInstitution = Dictionary(grouping: providers, by: \.financialInstitution)
                 if providersGroupedByFinancialInstitution.count == 1, let providers = providersGroupedByFinancialInstitution.values.first {
-                    let providersGroupedByAuthenticationUserTypes = Dictionary(grouping: providers, by: \.authenticationUserType)
-
-                    if providersGroupedByAuthenticationUserTypes.count == 1, let providers = providersGroupedByAuthenticationUserTypes.values.first {
+                    let providersGroupedByFinancialServicesTypes = Dictionary(grouping: providers, by: \.financialServices)
+                    if providersGroupedByFinancialServicesTypes.count == 1, let providers = providersGroupedByFinancialServicesTypes.values.first {
                         let providersGroupedByAccessTypes = Dictionary(grouping: providers, by: \.accessType)
                         if providersGroupedByAccessTypes.count == 1, let providers = providersGroupedByAccessTypes.values.first {
                             let providersGroupedByCredentialsKind = providers
@@ -388,10 +379,10 @@ public struct ProviderTree {
                             self = .accessTypes(providersGroupedByAccessType)
                         }
                     } else {
-                        let providersGroupedByAuthenticaitonUserType = providersGroupedByAuthenticationUserTypes.values
-                            .map(AuthenticationUserTypeNode.init)
+                        let providersGroupedByFinancialServicesType = providersGroupedByFinancialServicesTypes.values
+                            .map(FinancialServicesNode.init)
                             .sorted()
-                        self = .authenticationUserTypes(providersGroupedByAuthenticaitonUserType)
+                        self = .financialServicesTypes(providersGroupedByFinancialServicesType)
                     }
                 } else {
                     let providersGroupedByFinancialInstitution = providersGroupedByFinancialInstitution.values
@@ -408,7 +399,7 @@ public struct ProviderTree {
             switch self {
             case .financialInstitutions(let nodes):
                 return nodes.flatMap(\.providers)
-            case .authenticationUserTypes(let nodes):
+            case .financialServicesTypes(let nodes):
                 return nodes.flatMap(\.providers)
             case .accessTypes(let nodes):
                 return nodes.flatMap(\.providers)
@@ -423,7 +414,7 @@ public struct ProviderTree {
             switch self {
             case .financialInstitutions(let nodes):
                 return nodes[0].firstProvider
-            case .authenticationUserTypes(let nodes):
+            case .financialServicesTypes(let nodes):
                 return nodes[0].firstProvider
             case .accessTypes(let nodes):
                 return nodes[0].firstProvider
@@ -438,7 +429,7 @@ public struct ProviderTree {
             switch self {
             case .financialInstitutions(let nodes):
                 return (nodes.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
-            case .authenticationUserTypes(let types):
+            case .financialServicesTypes(let types):
                 return (types.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
             case .accessTypes(let accessTypeGroups):
                 return (accessTypeGroups.first { $0.imageURL != nil })?.significantProvider ?? firstProvider
@@ -465,7 +456,7 @@ extension Array where Element == ProviderTree.FinancialInstitutionGroupNode {
     public func makeFinancialInstitutions() -> [ProviderTree.FinancialInstitutionNode] {
         let institutions: [ProviderTree.FinancialInstitutionNode] = flatMap { node -> [ProviderTree.FinancialInstitutionNode] in
             switch node {
-            case .authenticationUserTypes(let nodes):
+            case .financialServicesTypes(let nodes):
                 return [ProviderTree.FinancialInstitutionNode(providers: nodes.flatMap(\.providers))]
             case .accessTypes(let accessType):
                 return [ProviderTree.FinancialInstitutionNode(providers: accessType.flatMap(\.providers))]

@@ -8,6 +8,9 @@ public struct TinkLinkConfiguration: Configuration {
     /// The URI you've setup in Console.
     public var appURI: URL?
 
+    /// The URI for redirect call back.
+    public var callbackURI: URL?
+
     /// The environment to use.
     public var environment: TinkCore.Tink.Environment
 

@@ -17,7 +17,8 @@ class FormTests: XCTestCase {
             initialValue: "",
             pattern: "(19|20)[0-9]{10}",
             patternError: "Please enter a valid social security number.",
-            helpText: ""
+            helpText: "",
+            selectOptions: []
         )
 
         var field = Form.Field(field: fieldSpecification)
@@ -71,7 +72,8 @@ class FormTests: XCTestCase {
             initialValue: "",
             pattern: "",
             patternError: "",
-            helpText: ""
+            helpText: "",
+            selectOptions: []
         )
         let passwordFieldSpecification = Provider.Field(
             description: "Password",
@@ -86,7 +88,8 @@ class FormTests: XCTestCase {
             initialValue: "",
             pattern: "",
             patternError: "",
-            helpText: ""
+            helpText: "",
+            selectOptions: []
         )
 
         var form = Form(fields: [usernameFieldSpecification, passwordFieldSpecification])
@@ -143,7 +146,8 @@ class FormTests: XCTestCase {
             initialValue: "",
             pattern: "([0-9]{4})",
             patternError: "Please enter four digits.",
-            helpText: ""
+            helpText: "",
+            selectOptions: []
         )
 
         var field = Form.Field(field: fieldSpecification)

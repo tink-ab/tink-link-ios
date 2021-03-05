@@ -173,7 +173,7 @@ class CredentialsContextTests: XCTestCase {
     }
 
     func testRefreshCredentialsStuckInAwaiting() {
-        let initialStatus = Credentials.Status.awaitingSupplementalInformation([Provider.Field(description: "Code", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "code", initialValue: "", pattern: "", patternError: "", helpText: "")])
+        let initialStatus = Credentials.Status.awaitingSupplementalInformation([Provider.Field(description: "Code", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "code", initialValue: "", pattern: "", patternError: "", helpText: "", selectOptions: [])])
 
         let credentials = Credentials.makeTestCredentials(providerName: "test", kind: .keyfob, status: initialStatus)
 

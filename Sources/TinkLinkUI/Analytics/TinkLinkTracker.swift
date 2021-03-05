@@ -78,7 +78,7 @@ class TinkLinkTracker {
             track(interaction: .close, screen: .financialInstitutionSelection)
         case is CredentialsKindPickerViewController:
             track(interaction: .close, screen: .credentialsTypeSelection)
-        case is AuthenticationUserTypePickerViewController:
+        case is FinancialServicesTypePickerViewController:
             track(interaction: .close, screen: .authenticationUserTypeSelection)
         case is AccessTypePickerViewController:
             track(interaction: .close, screen: .accessTypeSelection)

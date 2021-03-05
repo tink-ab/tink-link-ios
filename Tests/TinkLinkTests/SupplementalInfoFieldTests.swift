@@ -17,7 +17,8 @@ class SupplementalInfoFieldTests: XCTestCase {
             initialValue: "7483",
             pattern: "",
             patternError: "",
-            helpText: "Login using your Card Reader. Enter the security code and press Ok. Provide the given return code in the input field to continue \n"
+            helpText: "Login using your Card Reader. Enter the security code and press Ok. Provide the given return code in the input field to continue \n",
+            selectOptions: []
         )
         let secondFieldSpecification = Provider.Field(
             description: "Input Code",
@@ -32,7 +33,8 @@ class SupplementalInfoFieldTests: XCTestCase {
             initialValue: "7483",
             pattern: "",
             patternError: "",
-            helpText: ""
+            helpText: "",
+            selectOptions: []
         )
         let supplementalInfoCredential = Credentials(id: .init(stringLiteral: "test-credential"), providerName: "test-multi-supplemental", kind: .password, status: .awaitingSupplementalInformation([firstFieldSpecification, secondFieldSpecification]), statusPayload: "", statusUpdated: nil, updated: nil, fields: ["username": "tink-test"], sessionExpiryDate: nil)
 
