@@ -11,6 +11,8 @@ extension TinkLinkNavigationManager: UINavigationControllerDelegate {
             return CredentialsFormToLoadingTransition()
         case (.push, _, is CredentialsSuccessfullyAddedViewController):
             return CredentialsSuccessfullyAddedTransition()
+        case (.pop, _, is CredentialsFormViewController):
+            return PopToCredentialsFormTransition()
         default:
             return nil
         }

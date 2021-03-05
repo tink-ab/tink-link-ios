@@ -24,6 +24,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
     var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
     private var credentialsStatusPollingTask: CredentialsStatusPollingTask?
+    private var supplementInformationTask: SupplementInformationTask?
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private let authenticationHandler: AuthenticationTaskHandler
     /// The credentials that are being added.
@@ -119,6 +120,10 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         credentialsStatusPollingTask?.stopPolling()
         if let canceller = callCanceller {
             canceller.cancel()
+        } else if let task = supplementInformationTask {
+            task.cancel()
+        } else if let task = thirdPartyAuthenticationTask {
+            task.cancel()
         } else {
             complete(with: .failure(Error(code: .cancelled)))
         }
@@ -150,7 +155,9 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                     } catch {
                         self.complete(with: .failure(error))
                     }
+                    self.supplementInformationTask = nil
                 }
+                self.supplementInformationTask = supplementInformationTask
                 authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication), .awaitingMobileBankIDAuthentication(let thirdPartyAppAuthentication):
                 credentialsStatusPollingTask?.stopPolling()
