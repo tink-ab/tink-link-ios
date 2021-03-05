@@ -59,7 +59,7 @@ extension FinancialInstitutionPickerViewController {
 
 extension FinancialInstitutionPickerViewController {
     func showFinancialServicesNodePicker(for financialServicesNodes: [ProviderTree.FinancialServicesNode], title: String?) {
-        let viewController = FinancialServicesNodePickerViewController()
+        let viewController = FinancialServicesPickerViewController()
         viewController.financialServicesNodes = financialServicesNodes
         viewController.title = title
         show(viewController, sender: nil)
