@@ -1,14 +1,14 @@
 import TinkLink
 import UIKit
 
-/// A view controller that displays an interface for picking authentication user types.
-final class FinancialServicesNodePickerViewController: UITableViewController {
+/// A view controller that displays an interface for picking financial services types.
+final class FinancialServicesPickerViewController: UITableViewController {
     var financialServicesNodes: [ProviderTree.FinancialServicesNode] = []
 }
 
 // MARK: - View Lifecycle
 
-extension FinancialServicesNodePickerViewController {
+extension FinancialServicesPickerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +21,7 @@ extension FinancialServicesNodePickerViewController {
 
 // MARK: - UITableViewDataSource
 
-extension FinancialServicesNodePickerViewController {
+extension FinancialServicesPickerViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return financialServicesNodes.count
     }
@@ -38,7 +38,7 @@ extension FinancialServicesNodePickerViewController {
         case .personal:
             cell.textLabel?.text = "Personal"
         default:
-            fatalError("Unknown authentication user type")
+            fatalError("Unknown financial services type")
         }
         return cell
     }
@@ -58,7 +58,7 @@ extension FinancialServicesNodePickerViewController {
 
 // MARK: - Navigation
 
-extension FinancialServicesNodePickerViewController {
+extension FinancialServicesPickerViewController {
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], title: String?) {
         let viewController = AccessTypePickerViewController()
         viewController.title = title
