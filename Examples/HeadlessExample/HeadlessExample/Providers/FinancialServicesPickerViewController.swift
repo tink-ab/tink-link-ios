@@ -38,7 +38,7 @@ extension FinancialServicesPickerViewController {
         case .personal:
             cell.textLabel?.text = "Personal"
         default:
-            fatalError("Unknown authentication user type")
+            fatalError("Unknown financial services type")
         }
         return cell
     }

@@ -66,9 +66,9 @@ extension FinancialServicesTypePickerViewController {
                 cell.setIcon(.profile)
                 cell.setTitle(text: financialService.shortName.isEmpty ? Strings.SelectAuthenticationUserType.personal : financialService.shortName)
             case .unknown:
-                assertionFailure("Unknown authentication user type")
+                assertionFailure("Unknown financial services type")
             @unknown default:
-                assertionFailure("Unknown authentication user type")
+                assertionFailure("Unknown financial services type")
             }
         } else {
             let shortNames = node.financialServices.map(\.shortName)
