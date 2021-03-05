@@ -1078,7 +1078,7 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		"TEMP_CF940425-13F9-4646-99D4-D8F44A5EDA46" /* Translations */ = {
+		"TEMP_BC80DA20-6A52-4AB8-9F29-15F0F65CFE7C" /* Translations */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1362,7 +1362,6 @@
 				52F9FEFF0720CB87203FC866 /* Appearance.swift in Sources */,
 				94DAD821EBD4FEB4D30D50BA /* AppearanceProviding.swift in Sources */,
 				C33DB8F88115ACD49253D639 /* ApplicationEvent.swift in Sources */,
-				F72D8C690A16D1CC965D6158 /* AuthenticationUserTypePickerViewController.swift in Sources */,
 				254F2705C0F80C843E52A791 /* AuthorizationController.swift in Sources */,
 				45173FEB6003CB30EE944FA9 /* BetaTagView.swift in Sources */,
 				28B0CE6449E0A94C04D37489 /* BorderCornerRadiusImageView.swift in Sources */,
@@ -2180,7 +2179,7 @@
 			repositoryURL = "https://github.com/tink-ab/tink-core-ios";
 			requirement = {
 				kind = exactVersion;
-				version = "1.0.0-rc.2";
+				version = 1.0.0;
 			};
 		};
 		986B999442CC38F8CDE70916 /* XCRemoteSwiftPackageReference "Down" */ = {
