@@ -5,6 +5,7 @@ public final class CredentialsContext {
     var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
     private let appURI: URL
+    private let callbackURI: URL?
     private let service: CredentialsService
     private var credentialThirdPartyCallbackObserver: Any?
     private var thirdPartyCallbackCanceller: RetryCancellable?
@@ -28,6 +29,7 @@ public final class CredentialsContext {
     init(tink: Tink, credentialsService: CredentialsService) {
         precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `appURI` configured.")
         self.appURI = tink.configuration.appURI!
+        self.callbackURI = tink.configuration.callbackURI
         self.service = credentialsService
         self.configurationRegistrationUUID = Tink.registerConfiguration(tink.configuration)
     }
@@ -95,7 +97,7 @@ public final class CredentialsContext {
         cancellables[id] = task
 
         if let newlyAddedCredentials = newlyAddedCredentials[providerName] {
-            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: appURI, callbackURI: nil, fields: fields) { [weak task] result in
+            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: appURI, callbackURI: callbackURI, fields: fields) { [weak task] result in
                 do {
                     let credentials = try result.get()
                     task?.startObserving(credentials)
@@ -105,7 +107,7 @@ public final class CredentialsContext {
                 task?.callCanceller = nil
             }
         } else {
-            task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: fields, appURI: appURI, callbackURI: nil) { [weak task, weak self] result in
+            task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: fields, appURI: appURI, callbackURI: callbackURI) { [weak task, weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[providerName] = credential
@@ -319,7 +321,7 @@ public final class CredentialsContext {
             id: credentials.id,
             providerName: credentials.providerName,
             appURI: appURI,
-            callbackURI: nil,
+            callbackURI: callbackURI,
             fields: form?.makeFields() ?? [:],
             completion: { [weak task] result in
                 switch result {

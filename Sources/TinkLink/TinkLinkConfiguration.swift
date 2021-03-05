@@ -17,10 +17,11 @@ public struct TinkLinkConfiguration: Configuration {
     /// Certificate to use with the API.
     public var certificateURL: URL?
 
-    public init(clientID: String, appURI: URL, environment: Tink.Environment = .production, certificateURL: URL? = nil) {
+    public init(clientID: String, appURI: URL, callbackURI: URL? = nil, environment: Tink.Environment = .production, certificateURL: URL? = nil) {
         precondition(!(appURI.host?.isEmpty ?? true), "Cannot find host in the appURI")
         self.clientID = clientID
         self.appURI = appURI
+        self.callbackURI = callbackURI
         self.environment = environment
         self.certificateURL = certificateURL
     }

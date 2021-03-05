@@ -21,9 +21,10 @@ class ViewController: UIViewController {
 
     private let authorizationKind = AuthorizationKind()
 
-    private let configuration = try! Tink.Configuration(
+    private let configuration = TinkLinkConfiguration(
         clientID: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_CLIENT_ID"] ?? "YOUR_CLIENT_ID",
-        redirectURI: URL(string: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_REDIRECT_URI"] ?? "tinklink://example")!,
+        appURI: URL(string: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_REDIRECT_URI"] ?? "tinklink://example")!,
+        callbackURI: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_CALLBACK_URI"].flatMap(URL.init(string:)),
         environment: .production
     )
 
