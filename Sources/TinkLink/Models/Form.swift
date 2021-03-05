@@ -442,7 +442,7 @@ extension Form.Field {
             helpText: fieldSpecification.helpText,
             isSecureTextEntry: fieldSpecification.isMasked,
             inputType: fieldSpecification.isNumeric ? .numeric : .default,
-            isEditable: !fieldSpecification.isImmutable || (fieldSpecification.initialValue).isEmpty
+            isEditable: !fieldSpecification.isImmutable || fieldSpecification.initialValue.isEmpty
         )
     }
 }
