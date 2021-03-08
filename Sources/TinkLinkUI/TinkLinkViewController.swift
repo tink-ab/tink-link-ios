@@ -76,12 +76,12 @@ public class TinkLinkViewController: UIViewController {
         /// No prefilling will occur.
         public static let none = Self(values: [])
         /// Will attempt to fill the first field of the provider with the associated value if it is valid.
-        public static func username(value: String, isEditable: Bool) -> Self {
-            .init(values: [.username(value: value, isEditable: isEditable)])
+        public static func username(prefilledField: Field) -> Self {
+            .init(values: [.username(prefilledField)])
         }
         /// Will attempt to fill the list of fields of the provider that match the field names with the associated value if they are valid.
-        public static func fields(values: [String: (value: String, isEditable: Bool)]) -> Self {
-            let fieldValues = values.map { Value.field(name: $0.key, value: $0.value.value, isEditable: $0.value.isEditable) }
+        public static func fields(_ values: [String: Field]) -> Self {
+            let fieldValues = values.map { Value.field(name: $0.key, value: $0.value) }
             return .init(values: fieldValues)
         }
     }

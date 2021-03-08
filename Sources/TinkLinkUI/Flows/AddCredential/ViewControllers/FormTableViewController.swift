@@ -73,21 +73,21 @@ extension FormTableViewController {
         var viewModel = FormFieldTableViewCell.ViewModel(field: field)
         for value in prefillStrategy.values {
             switch value {
-            case .username(let name, let isEditable):
+            case .username(let prefilledField):
                 if indexPath.row == 0 {
                     var testField = field
-                    testField.text = name
+                    testField.text = prefilledField.value
                     guard testField.isValid else { break }
-                    viewModel.text = name
-                    viewModel.isEditable = isEditable ? field.attributes.isEditable : false
+                    viewModel.text = prefilledField.value
+                    viewModel.isEditable = prefilledField.isEditable ? field.attributes.isEditable : false
                 }
-            case .field(let fieldName, let value, let isEditable):
+            case .field(let fieldName, let prefilledField):
                 if field.name == fieldName {
                     var testField = field
-                    testField.text = value
+                    testField.text = prefilledField.value
                     guard testField.isValid else { break }
-                    viewModel.text = value
-                    viewModel.isEditable = isEditable ? field.attributes.isEditable : false
+                    viewModel.text = prefilledField.value
+                    viewModel.isEditable = prefilledField.isEditable ? field.attributes.isEditable : false
                 }
             }
         }
