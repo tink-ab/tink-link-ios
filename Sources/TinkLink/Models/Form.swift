@@ -430,8 +430,8 @@ extension Form.Fields {
 
 extension Form.Field {
     internal init(field fieldSpecification: Provider.Field) {
-        self.text = fieldSpecification.initialValue ?? ""
-        self.name = fieldSpecification.name ?? ""
+        self.text = fieldSpecification.initialValue
+        self.name = fieldSpecification.name
         self.validationRules = ValidationRules(
             isOptional: fieldSpecification.isOptional,
             maxLength: fieldSpecification.maxLength,
@@ -446,6 +446,7 @@ extension Form.Field {
             isSecureTextEntry: fieldSpecification.isMasked,
             inputType: fieldSpecification.isNumeric ? .numeric : fieldSpecification.selectOptions.isEmpty ? .default : .picker,
             isEditable: !fieldSpecification.isImmutable || (fieldSpecification.initialValue ?? "").isEmpty
+
         )
     }
 }
