@@ -10,6 +10,7 @@ class FloatingPlaceholderTextField: UITextField {
     enum InputType {
         case text
         case number
+        case picker
     }
 
     var inputType: InputType = .text {
@@ -205,6 +206,8 @@ extension FloatingPlaceholderTextField {
             keyboardType = .default
         case .number:
             keyboardType = .numberPad
+        case .picker:
+            keyboardType = .default
         }
     }
 }
