@@ -65,13 +65,13 @@ public class TinkLinkViewController: UIViewController {
             case username(value: String, isEditable: Bool)
         }
 
-        let value: Value
+        let values: [Value]
 
         /// No prefilling will occur.
-        public static let none = Self(value: .none)
+        public static let none = Self(values: [])
         /// Will attempt to fill the first field of the provider with the associated value if it is valid.
         public static func username(value: String, isEditable: Bool) -> Self {
-            .init(value: .username(value: value, isEditable: isEditable))
+            .init(values: [.username(value: value, isEditable: isEditable)])
         }
     }
 
