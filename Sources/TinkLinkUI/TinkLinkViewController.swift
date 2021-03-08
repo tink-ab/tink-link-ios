@@ -61,9 +61,14 @@ import TinkLink
 public class TinkLinkViewController: UIViewController {
     /// Strategy for different types of prefilling
     public struct PrefillStrategy {
+        public struct Field {
+            public let value: String
+            public let isEditable: Bool
+        }
+
         enum Value {
-            case username(value: String, isEditable: Bool)
-            case field(name: String, value: String, isEditable: Bool)
+            case username(Field)
+            case field(name: String, value: Field)
         }
 
         let values: [Value]
