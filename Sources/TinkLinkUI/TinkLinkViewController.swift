@@ -75,8 +75,8 @@ public class TinkLinkViewController: UIViewController {
             .init(values: [.username(value: value, isEditable: isEditable)])
         }
         /// Will attempt to fill the list of fields of the provider that match the field names with the associated value if they are valid.
-        public static func fields(values: [(name: String, value: String, isEditable: Bool)]) -> Self {
-            let fieldValues = values.map { Value.field(name: $0.name, value: $0.value, isEditable: $0.isEditable) }
+        public static func fields(values: [String: (value: String, isEditable: Bool)]) -> Self {
+            let fieldValues = values.map { Value.field(name: $0.key, value: $0.value.value, isEditable: $0.value.isEditable) }
             return .init(values: fieldValues)
         }
     }
