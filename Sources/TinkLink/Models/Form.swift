@@ -181,6 +181,7 @@ public struct Form {
                 private enum Value {
                     case `default`
                     case numeric
+                    case picker
                 }
 
                 private var value: Value
@@ -193,6 +194,8 @@ public struct Form {
                 public static let `default` = Self(value: .default)
                 /// An input type suitable for e.g. PIN entry.
                 public static let numeric = Self(value: .numeric)
+                /// An input type suitable for selectable options.
+                public static let picker = Self(value: .picker)
             }
 
             /// A string to display next to the field to explain what the field is for.
@@ -441,7 +444,7 @@ extension Form.Field {
             placeholder: fieldSpecification.hint,
             helpText: fieldSpecification.helpText,
             isSecureTextEntry: fieldSpecification.isMasked,
-            inputType: fieldSpecification.isNumeric ? .numeric : .default,
+            inputType: fieldSpecification.isNumeric ? .numeric : fieldSpecification.selectOptions.isEmpty ? .default : .picker,
             isEditable: !fieldSpecification.isImmutable || (fieldSpecification.initialValue ?? "").isEmpty
         )
     }
