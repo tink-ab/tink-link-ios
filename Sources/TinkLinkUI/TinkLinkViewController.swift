@@ -76,6 +76,10 @@ public class TinkLinkViewController: UIViewController {
         public static func username(value: String, isEditable: Bool) -> Self {
             .init(values: [.username(value: value, isEditable: isEditable)])
         }
+        /// Will attempt to fill the list of fields of the provider that match the field names with the associated value if they are valid.
+        public static func fields(values: [Value]) -> Self {
+            .init(values: values)
+        }
     }
 
     /// Strategy for what to fetch
