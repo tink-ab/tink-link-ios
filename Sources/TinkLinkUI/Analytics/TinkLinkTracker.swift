@@ -84,6 +84,8 @@ class TinkLinkTracker {
             track(interaction: .close, screen: .accessTypeSelection)
         case is CredentialsFormViewController:
             track(interaction: .close, screen: .submitCredentials)
+        case is CredentialsSuccessfullyAddedViewController:
+            track(interaction: .close, screen: .success)
         default:
             break
         }

@@ -172,18 +172,19 @@ final class CredentialsCoordinator {
         DispatchQueue.main.async {
             switch self.action {
             case .create(provider: let provider, _):
-                let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .create) { [weak self] in
+                let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .create, tinkLinkTracker: self.tinkLinkTracker) { [weak self] in
                     self?.completion(.success((credentials, authorizationCode)))
                 }
                 self.tinkLinkTracker.track(screen: .success)
                 self.presenter?.show(viewController)
             default:
                 self.fetchProvider(with: credentials.providerName) { [weak self] provider in
-                    let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .other) { [weak self] in
+                    guard let self = self else { return }
+                    let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .other, tinkLinkTracker: self.tinkLinkTracker) { [weak self] in
                         self?.completion(.success((credentials, authorizationCode)))
                     }
-                    self?.tinkLinkTracker.track(screen: .success)
-                    self?.presenter?.show(viewController)
+                    self.tinkLinkTracker.track(screen: .success)
+                    self.presenter?.show(viewController)
                 }
             }
         }
