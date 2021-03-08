@@ -81,6 +81,14 @@ extension FormTableViewController {
                     viewModel.text = name
                     viewModel.isEditable = isEditable ? field.attributes.isEditable : false
                 }
+            case .field(let fieldName, let value, let isEditable):
+                if field.name == fieldName {
+                    var testField = field
+                    testField.text = value
+                    guard testField.isValid else { break }
+                    viewModel.text = value
+                    viewModel.isEditable = isEditable ? field.attributes.isEditable : false
+                }
             }
         }
         cell.configure(with: viewModel)
