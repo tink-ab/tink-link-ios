@@ -61,8 +61,10 @@ import TinkLink
 public class TinkLinkViewController: UIViewController {
     /// Strategy for different types of prefilling
     public struct PrefillStrategy {
-        enum Value {
+        public enum Value {
+            /// Will attempt to fill the first field of the provider as the username field with the associated value.
             case username(value: String, isEditable: Bool)
+            /// A field of the provider that match the name with the associated value.
             case field(name: String, value: String, isEditable: Bool)
         }
 
