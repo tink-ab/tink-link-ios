@@ -162,8 +162,8 @@ extension FormFieldTableViewCell.ViewModel {
             inputType = .text
         case .numeric:
             inputType = .number
-        case .picker:
-            // TODO: Change this when UI is in place.
+        // TODO: Pass options and change this when UI is in place.
+        case .picker([]):
             inputType = .picker
         default:
             inputType = .text

@@ -186,6 +186,8 @@ public struct Form {
 
                 private var value: Value
 
+                private var options: [SelectOption]?
+
                 public var description: String {
                     return "Form.Field.Attributes.InputType.\(value)"
                 }
@@ -195,7 +197,7 @@ public struct Form {
                 /// An input type suitable for e.g. PIN entry.
                 public static let numeric = Self(value: .numeric)
                 /// An input type suitable for selectable options.
-                public static let picker = Self(value: .picker)
+                public static func picker(_ options: [SelectOption]) -> Self { Self(value: .picker, options: options) }
             }
 
             /// A string to display next to the field to explain what the field is for.
@@ -444,9 +446,8 @@ extension Form.Field {
             placeholder: fieldSpecification.hint,
             helpText: fieldSpecification.helpText,
             isSecureTextEntry: fieldSpecification.isMasked,
-            inputType: fieldSpecification.isNumeric ? .numeric : fieldSpecification.selectOptions.isEmpty ? .default : .picker,
+            inputType: fieldSpecification.isNumeric ? .numeric : fieldSpecification.selectOptions.isEmpty ? .default : .picker(fieldSpecification.selectOptions),
             isEditable: !fieldSpecification.isImmutable || (fieldSpecification.initialValue ?? "").isEmpty
-
         )
     }
 }
