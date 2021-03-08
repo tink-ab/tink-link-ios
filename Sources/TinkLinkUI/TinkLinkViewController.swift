@@ -64,6 +64,11 @@ public class TinkLinkViewController: UIViewController {
         public struct Field {
             public let value: String
             public let isEditable: Bool
+
+            public init(value: String, isEditable: Bool) {
+                self.value = value
+                self.isEditable = isEditable
+            }
         }
 
         enum Value {
