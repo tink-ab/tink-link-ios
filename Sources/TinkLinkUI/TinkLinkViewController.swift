@@ -62,7 +62,6 @@ public class TinkLinkViewController: UIViewController {
     /// Strategy for different types of prefilling
     public struct PrefillStrategy {
         enum Value {
-            case none
             case username(value: String, isEditable: Bool)
         }
 

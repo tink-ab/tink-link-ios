@@ -80,8 +80,6 @@ extension FormTableViewController {
                 viewModel.text = name
                 viewModel.isEditable = isEditable ? field.attributes.isEditable : false
             }
-        case .none:
-            break
         }
         cell.configure(with: viewModel)
         cell.delegate = self
