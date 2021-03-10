@@ -70,7 +70,7 @@ When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` 
     import TinkLink
     import TinkLinkUI
     
-    let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
+    let configuration = TinkLinkConfiguration(clientID: <#String#>, appURI: <#URL#>)
     ```
 
 2. Define the list of [scopes](https://docs.tink.com/api/#introduction-authentication-authorization-scopes) based on the type of data you want to fetch. For example, to retrieve accounts and transactions, define these scopes:
@@ -120,7 +120,7 @@ These examples shows how to build a complete aggregation flow using TinkLink or 
 
 ## Documentation
 For more detailed usage and full documentation, please refer to our Tink Link for iOS guide.
-- [Tink Link for iOS](https://docs.tink.com/resources/tink-link-ios/tink-link-ios-overview)
+- [Tink Link for iOS](https://docs.tink.com/resources/tink-link-ios)
 
 ## [Tink](https://tink.com)
 Tink was founded in 2012 with the aim of changing the banking industry for the better. We have built Europe’s most robust open banking platform – with the broadest, deepest connectivity and powerful services that create value out of the financial data.
