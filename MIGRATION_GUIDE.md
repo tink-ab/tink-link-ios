@@ -4,7 +4,7 @@
 1.0 is the first stable release of Tink Link. This comes with a few changes to make sure it will work great with the [Money Manager SDK](https://docs.tink.com/resources/pfm-sdk-ios) and support new features in the future. 
 
 - `TinkLinkViewController` has new initializers.
-    - If aggregating with a temporary user, pass a `Tink.Configuration` instead of a configured `Tink` instance:
+    - If aggregating with a temporary user, pass a `TinkLinkConfiguration` instead of a configured `Tink` instance:
         ```swift
         let scopes: [Scope] = [.transactions(.read), .accounts(.read)]
         let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes) { result in
