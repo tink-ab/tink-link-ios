@@ -148,8 +148,15 @@ public struct TinkLinkUIError : Swift.Error, Swift.CustomStringConvertible {
 }
 @objc @_hasMissingDesignatedInitializers public class TinkLinkViewController : UIKit.UIViewController {
   public struct PrefillStrategy {
+    public struct Field {
+      public let value: Swift.String
+      public let isEditable: Swift.Bool
+      public init(value: Swift.String, isEditable: Swift.Bool)
+    }
     public static let none: TinkLinkUI.TinkLinkViewController.PrefillStrategy
+    public static func username(prefilledField: TinkLinkUI.TinkLinkViewController.PrefillStrategy.Field) -> TinkLinkUI.TinkLinkViewController.PrefillStrategy
     public static func username(value: Swift.String, isEditable: Swift.Bool) -> TinkLinkUI.TinkLinkViewController.PrefillStrategy
+    public static func fields(_ values: [Swift.String : TinkLinkUI.TinkLinkViewController.PrefillStrategy.Field]) -> TinkLinkUI.TinkLinkViewController.PrefillStrategy
   }
   public struct ProviderPredicate {
     public static func kinds(_ kinds: Swift.Set<TinkCore.Provider.Kind>) -> TinkLinkUI.TinkLinkViewController.ProviderPredicate

@@ -174,6 +174,7 @@ public struct Form {
         }
         public static let `default`: TinkLink.Form.Field.Attributes.InputType
         public static let numeric: TinkLink.Form.Field.Attributes.InputType
+        public static func picker(_ options: [TinkCore.SelectOption]) -> TinkLink.Form.Field.Attributes.InputType
         public static func == (a: TinkLink.Form.Field.Attributes.InputType, b: TinkLink.Form.Field.Attributes.InputType) -> Swift.Bool
       }
       public let description: Swift.String
@@ -314,20 +315,20 @@ public struct ProviderTree {
       get
     }
   }
-  public enum AuthenticationUserTypeNode : Swift.Comparable {
-    public static func < (lhs: TinkLink.ProviderTree.AuthenticationUserTypeNode, rhs: TinkLink.ProviderTree.AuthenticationUserTypeNode) -> Swift.Bool
-    public static func == (lhs: TinkLink.ProviderTree.AuthenticationUserTypeNode, rhs: TinkLink.ProviderTree.AuthenticationUserTypeNode) -> Swift.Bool
-    public typealias ID = TinkCore.Identifier<TinkLink.ProviderTree.AuthenticationUserTypeNode>
+  public enum FinancialServicesNode : Swift.Comparable {
+    public static func < (lhs: TinkLink.ProviderTree.FinancialServicesNode, rhs: TinkLink.ProviderTree.FinancialServicesNode) -> Swift.Bool
+    public static func == (lhs: TinkLink.ProviderTree.FinancialServicesNode, rhs: TinkLink.ProviderTree.FinancialServicesNode) -> Swift.Bool
     case provider(TinkCore.Provider)
     case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
     case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
+    public typealias ID = TinkCore.Identifier<TinkLink.ProviderTree.FinancialServicesNode>
     public var providers: [TinkCore.Provider] {
       get
     }
-    public var id: TinkLink.ProviderTree.AuthenticationUserTypeNode.ID {
+    public var id: TinkLink.ProviderTree.FinancialServicesNode.ID {
       get
     }
-    public var authenticationUserType: TinkCore.Provider.AuthenticationUserType {
+    public var financialServices: [TinkCore.Provider.FinancialService] {
       get
     }
     public var imageURL: Foundation.URL? {
@@ -344,7 +345,7 @@ public struct ProviderTree {
     case provider(TinkCore.Provider)
     case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
     case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
-    case authenticationUserTypes([TinkLink.ProviderTree.AuthenticationUserTypeNode])
+    case financialServicesTypes([TinkLink.ProviderTree.FinancialServicesNode])
     public var id: TinkLink.ProviderTree.FinancialInstitutionNode.ID {
       get
     }
@@ -364,7 +365,7 @@ public struct ProviderTree {
     case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
     case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
     case financialInstitutions([TinkLink.ProviderTree.FinancialInstitutionNode])
-    case authenticationUserTypes([TinkLink.ProviderTree.AuthenticationUserTypeNode])
+    case financialServicesTypes([TinkLink.ProviderTree.FinancialServicesNode])
     public var id: TinkLink.ProviderTree.FinancialInstitutionGroupNode.ID {
       get
     }
@@ -433,9 +434,10 @@ extension Tink {
 public struct TinkLinkConfiguration : TinkCore.Configuration {
   public var clientID: Swift.String
   public var appURI: Foundation.URL?
+  public var callbackURI: Foundation.URL?
   public var environment: TinkCore.Tink.Environment
   public var certificateURL: Foundation.URL?
-  public init(clientID: Swift.String, appURI: Foundation.URL, environment: TinkCore.Tink.Environment = .production, certificateURL: Foundation.URL? = nil)
+  public init(clientID: Swift.String, appURI: Foundation.URL, callbackURI: Foundation.URL? = nil, environment: TinkCore.Tink.Environment = .production, certificateURL: Foundation.URL? = nil)
 }
 public struct TinkLinkError : Swift.Error, Swift.CustomStringConvertible {
   public struct Code : Swift.Hashable {
