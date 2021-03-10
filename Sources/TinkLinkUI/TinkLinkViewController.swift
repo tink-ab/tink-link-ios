@@ -121,7 +121,7 @@ public class TinkLinkViewController: UIViewController {
         enum Value {
             case create(providerPredicate: ProviderPredicate = .kinds(.default), refreshableItems: RefreshableItems = .all)
             case authenticate(credentialsID: Credentials.ID)
-            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
+            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false, refreshableItems: RefreshableItems = .all)
             case update(credentialsID: Credentials.ID)
         }
 
@@ -145,8 +145,8 @@ public class TinkLinkViewController: UIViewController {
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.
         ///   - forceAuthenticate: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
-        public static func refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false) -> Self {
-            .init(value: .refresh(credentialsID: credentialsID, forceAuthenticate: forceAuthenticate))
+        public static func refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false, refreshableItems: RefreshableItems = .all) -> Self {
+            .init(value: .refresh(credentialsID: credentialsID, forceAuthenticate: forceAuthenticate, refreshableItems: refreshableItems))
         }
 
         /// Update credentials.
@@ -493,8 +493,8 @@ public class TinkLinkViewController: UIViewController {
             fetchProviders(providerPredicate: providerPredicate, refreshableItems: refreshableItems)
         case .authenticate(let id):
             startCredentialCoordinator(with: .authenticate(credentialsID: id))
-        case .refresh(let id, let forceAuthenticate):
-            startCredentialCoordinator(with: .refresh(credentialsID: id, forceAuthenticate: forceAuthenticate))
+        case .refresh(let id, let forceAuthenticate, let refreshableItems):
+            startCredentialCoordinator(with: .refresh(credentialsID: id, forceAuthenticate: forceAuthenticate, refreshableItems: refreshableItems))
         case .update(let id):
             startCredentialCoordinator(with: .update(credentialsID: id))
         }
