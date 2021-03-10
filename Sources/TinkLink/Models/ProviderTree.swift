@@ -17,8 +17,8 @@ import TinkCore
 ///     switch financialInstitutionGroupNode {
 ///     case .financialInstitutions(let financialInstitutionGroups):
 ///         showFinancialInstitution(for: financialInstitutionGroups)
-///     case .authenticationUserTypes(let authenticationUserTypes):
-///         showFinancialServicesTypePicker(for: authenticationUserTypes)
+///     case .financialServicesTypes(let financialServicesTypeGroups):
+///         showFinancialServicesTypePicker(for: financialServicesTypeGroups)
 ///     case .accessTypes(let accessTypeGroups):
 ///         showAccessTypePicker(for: accessTypeGroups)
 ///     case .credentialsKinds(let groups):
