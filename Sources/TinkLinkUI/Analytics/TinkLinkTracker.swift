@@ -43,7 +43,7 @@ class TinkLinkTracker {
         self.clientID = clientID
         self.market = market
 
-        switch operation {
+        switch operation.value {
         case .authenticate(credentialsID: let id):
             self.flow = .credentialsAuthenticate
             self.credentialsID = id.value
@@ -52,7 +52,7 @@ class TinkLinkTracker {
         case .create(providerPredicate: let predicate):
             self.flow = .credentialsAdd
             self.credentialsID = nil
-            if case .kinds(let kinds) = predicate {
+            if case .kinds(let kinds) = predicate.value {
                 isTest = kinds.contains(.test)
             } else {
                 self.isTest = false
@@ -78,12 +78,14 @@ class TinkLinkTracker {
             track(interaction: .close, screen: .financialInstitutionSelection)
         case is CredentialsKindPickerViewController:
             track(interaction: .close, screen: .credentialsTypeSelection)
-        case is AuthenticationUserTypePickerViewController:
+        case is FinancialServicesTypePickerViewController:
             track(interaction: .close, screen: .authenticationUserTypeSelection)
         case is AccessTypePickerViewController:
             track(interaction: .close, screen: .accessTypeSelection)
         case is CredentialsFormViewController:
             track(interaction: .close, screen: .submitCredentials)
+        case is CredentialsSuccessfullyAddedViewController:
+            track(interaction: .close, screen: .success)
         default:
             break
         }

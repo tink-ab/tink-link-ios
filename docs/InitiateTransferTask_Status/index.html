@@ -69,9 +69,13 @@
     <h3>
         <code>authenticating</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">authenticating</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">authenticating</span>(: <span class="type">String</span>?)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>The user needs to be authenticated.</p>
+
+</div>
+<div class="discussion">
+    <p>The payload from the backend can be found in the message property.</p>
 
 </div>
 </div>
@@ -79,13 +83,9 @@
     <h3>
         <code>updating</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">updating</span>(<span class="variable">status</span>: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">updating</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>The credentials are updating.</p>
-
-</div>
-<div class="discussion">
-    <p>The payload from the backend can be found in the associated value.</p>
 
 </div>
 </div>
@@ -108,7 +108,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-02-10T12:04:42+0100">10 February 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2021-02-26T14:22:15+0100">26 February 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

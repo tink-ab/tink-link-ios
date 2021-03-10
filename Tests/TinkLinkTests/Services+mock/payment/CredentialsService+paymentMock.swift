@@ -17,7 +17,7 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         case .authenticating:
             credentials = Credentials(credentials: credentials, status: .updating)
         case .updating:
-            credentials = Credentials(credentials: credentials, status: .awaitingSupplementalInformation)
+            credentials = Credentials(credentials: credentials, status: .awaitingSupplementalInformation([]))
         case .awaitingMobileBankIDAuthentication, .awaitingThirdPartyAppAuthentication, .awaitingSupplementalInformation:
             credentials = Credentials(credentials: credentials, status: .updated)
         default:
@@ -27,7 +27,7 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         return nil
     }
 
-    func create(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func create(providerName: Provider.Name, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -35,7 +35,7 @@ class MockedSuccessPaymentCredentialsService: CredentialsService {
         fatalError("\(#function) should not be called")
     }
 
-    func update(id: Credentials.ID, providerID: Provider.ID, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func update(id: Credentials.ID, providerName: Provider.Name, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -92,7 +92,7 @@ class MockedAuthenticationErrorCredentialsService: CredentialsService {
         return nil
     }
 
-    func create(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func create(providerName: Provider.Name, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 
@@ -100,7 +100,7 @@ class MockedAuthenticationErrorCredentialsService: CredentialsService {
         fatalError("\(#function) should not be called")
     }
 
-    func update(id: Credentials.ID, providerID: Provider.ID, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func update(id: Credentials.ID, providerName: Provider.Name, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         fatalError("\(#function) should not be called")
     }
 

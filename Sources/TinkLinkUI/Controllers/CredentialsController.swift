@@ -13,7 +13,7 @@ final class CredentialsController {
     func credentials(id: Credentials.ID, completion: @escaping (Result<Credentials, Error>) -> Void) {
         tink._beginUITask()
         defer { tink._endUITask() }
-        credentialsContext.fetchCredentials(with: id, completion: completion)
+        credentialsContext.fetchCredentials(withID: id, completion: completion)
     }
 
     func addCredentials(
@@ -21,14 +21,16 @@ final class CredentialsController {
         form: Form,
         refreshableItems: RefreshableItems = .all,
         progressHandler: @escaping (AddCredentialsTask.Status) -> Void,
+        authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
-    ) -> AddCredentialsTask? {
+    ) -> Cancellable? {
         tink._beginUITask()
         return credentialsContext.add(
             for: provider,
             form: form,
             refreshableItems: refreshableItems,
             completionPredicate: AddCredentialsTask.CompletionPredicate(successPredicate: .updated, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false),
+            authenticationHandler: authenticationHandler,
             progressHandler: progressHandler,
             completion: { [weak tink] result in
                 tink?._endUITask()
@@ -42,13 +44,15 @@ final class CredentialsController {
         form: Form? = nil,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
+        authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> UpdateCredentialsTask? {
+    ) -> Cancellable? {
         tink._beginUITask()
         return credentialsContext.update(
             credentials,
             form: form,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
+            authenticationHandler: authenticationHandler,
             progressHandler: progressHandler,
             completion: { [weak tink] result in
                 tink?._endUITask()
@@ -63,14 +67,16 @@ final class CredentialsController {
         refreshableItems: RefreshableItems = .all,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
+        authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> RefreshCredentialsTask {
+    ) -> Cancellable {
         tink._beginUITask()
         return credentialsContext.refresh(
             credentials,
             authenticate: authenticate,
             refreshableItems: refreshableItems,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
+            authenticationHandler: authenticationHandler,
             progressHandler: progressHandler,
             completion: { [weak tink] result in
                 tink?._endUITask()
@@ -83,12 +89,14 @@ final class CredentialsController {
         _ credentials: Credentials,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
         progressHandler: @escaping (_ status: AuthenticateCredentialsTask.Status) -> Void,
+        authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Swift.Error>) -> Void
-    ) -> AuthenticateCredentialsTask {
+    ) -> Cancellable {
         tink._beginUITask()
         return credentialsContext.authenticate(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired,
+            authenticationHandler: authenticationHandler,
             progressHandler: progressHandler,
             completion: { [weak tink] result in
                 tink?._endUITask()

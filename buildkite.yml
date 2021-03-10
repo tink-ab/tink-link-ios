@@ -22,8 +22,6 @@ steps:
 
   - name: ':pipeline: UI Test'
     command: 'make ui-test'
-    env:
-        "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
     agents:
       queue: 'macos'
     soft_fail:
@@ -49,17 +47,6 @@ steps:
     command: 'make build-tinklinkui-example'
     agents:
       queue: 'macos'
-
-  - wait
-
-  - name: ':pipeline: Build Carthage Frameworks'
-    command: 'make build-carthage-frameworks'
-    env:
-        "XCODE_XCCONFIG_FILE": "${BUILDKITE_BUILD_CHECKOUT_PATH}/carthage.xcconfig"
-    agents:
-      queue: 'macos'
-    soft_fail:
-      - exit_status: 1
 
   - wait
 

@@ -2,9 +2,9 @@
 
 extension Provider {
     static let nordeaBankID = Provider(
-        id: "nordea-bankid",
+        name: "nordea-bankid",
         displayName: "Nordea",
-        authenticationUserType: .personal,
+        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -22,9 +22,9 @@ extension Provider {
     )
 
     static let nordeaPassword = Provider(
-        id: "nordea-password",
+        name: "nordea-password",
         displayName: "Nordea",
-        authenticationUserType: .personal,
+        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -42,9 +42,9 @@ extension Provider {
     )
 
     static let nordeaOpenBanking = Provider(
-        id: "se-nordea-ob",
+        name: "se-nordea-ob",
         displayName: "Nordea Open Banking",
-        authenticationUserType: .personal,
+        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -62,9 +62,9 @@ extension Provider {
     )
 
     static let sparbankernaBankID = Provider(
-        id: "savingsbank-bankid",
+        name: "savingsbank-bankid",
         displayName: "Sparbankerna",
-        authenticationUserType: .personal,
+        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -82,9 +82,9 @@ extension Provider {
     )
 
     static let sparbankernaPassword = Provider(
-        id: "savingsbank-token",
+        name: "savingsbank-token",
         displayName: "Sparbankerna",
-        authenticationUserType: .personal,
+        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -102,9 +102,9 @@ extension Provider {
     )
 
     static let swedbankBankID = Provider(
-        id: "swedbank-bankid",
+        name: "swedbank-bankid",
         displayName: "Swedbank",
-        authenticationUserType: .personal,
+        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -122,9 +122,9 @@ extension Provider {
     )
 
     static let swedbankPassword = Provider(
-        id: "swedbank-token",
+        name: "swedbank-token",
         displayName: "Swedbank",
-        authenticationUserType: .personal,
+        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -142,16 +142,16 @@ extension Provider {
     )
 
     static let testSupplementalInformation = Provider(
-        id: "se-test-multi-supplemental",
+        name: "se-test-multi-supplemental",
         displayName: "Test Multi-Supplemental",
-        authenticationUserType: .personal,
+        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
         kind: .test,
         releaseStatus: nil,
         status: .enabled,
         credentialsKind: .password,
         helpText: "Use the same username and password as you would in the bank\'s mobile app.",
         isPopular: true,
-        fields: [FieldSpecification(fieldDescription: "Username", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "username", initialValue: "", pattern: "", patternError: "", helpText: "")],
+        fields: [Field(description: "Username", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "username", initialValue: "", pattern: "", patternError: "", helpText: "", selectOptions: [])],
         groupDisplayName: "Test Multi-Supplemental",
         image: nil,
         displayDescription: "Password",
@@ -162,9 +162,9 @@ extension Provider {
     )
 
     static let testThirdPartyAuthentication = Provider(
-        id: "se-test-multi-third-party",
+        name: "se-test-multi-third-party",
         displayName: "Test Third Party Authentication",
-        authenticationUserType: .personal,
+        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
         kind: .test,
         releaseStatus: nil,
         status: .enabled,

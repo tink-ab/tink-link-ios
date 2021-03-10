@@ -15,36 +15,18 @@ public typealias UpdateCredentialsTask = RefreshCredentialsTask
 /// Use `CredentialsContext` to create a task.
 public final class RefreshCredentialsTask: Identifiable, Cancellable {
     typealias CredentialsStatusPollingTask = PollingTask<Credentials.ID, Credentials>
+
     /// Indicates the state of a credentials being refreshed.
-    ///
-    /// - Note: For some states there are actions which need to be performed on the credentials.
     public enum Status {
-        /// When starting the authentication process
-        case authenticating
+        /// The user needs to be authenticated. The payload from the backend can be found in the message property.
+        case authenticating(String?)
 
         /// User has been successfully authenticated, now downloading data.
-        case updating(status: String)
-
-        /// Trigger for the client to prompt the user to fill out supplemental information.
-        case awaitingSupplementalInformation(SupplementInformationTask)
-
-        /// Trigger for the client to prompt the user to open the third party authentication flow
-        case awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthenticationTask)
+        case updating
     }
 
     /// Error that the `RefreshCredentialsTask` can throw.
-    public enum Error: Swift.Error {
-        /// The authentication failed. The payload from the backend can be found in the associated value.
-        case authenticationFailed(String)
-        /// A temporary failure occurred. The payload from the backend can be found in the associated value.
-        case temporaryFailure(String)
-        /// A permanent failure occurred. The payload from the backend can be found in the associated value.
-        case permanentFailure(String)
-        /// The credentials are disabled. The payload from the backend can be found in the associated value.
-        case disabled(String)
-        /// The task was cancelled.
-        case cancelled
-    }
+    public typealias Error = TinkLinkError
 
     var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
@@ -63,15 +45,18 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
     private let credentialsService: CredentialsService
     private let appUri: URL
     let progressHandler: (Status) -> Void
+    private let authenticationHandler: AuthenticationTaskHandler
+
     let completion: (Result<Credentials, Swift.Error>) -> Void
 
     var callCanceller: Cancellable?
 
-    init(credentials: Credentials, credentialsService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, appUri: URL, progressHandler: @escaping (Status) -> Void, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
+    init(credentials: Credentials, credentialsService: CredentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, appUri: URL, progressHandler: @escaping (Status) -> Void, authenticationHandler: @escaping AuthenticationTaskHandler, completion: @escaping (Result<Credentials, Swift.Error>) -> Void) {
         self.credentials = credentials
         self.credentialsService = credentialsService
         self.appUri = appUri
         self.progressHandler = progressHandler
+        self.authenticationHandler = authenticationHandler
         self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired
         self.completion = completion
     }
@@ -99,7 +84,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
         if let canceller = callCanceller {
             canceller.cancel()
         } else {
-            complete(with: .failure(Error.cancelled))
+            complete(with: .failure(Error(code: .cancelled, message: nil)))
         }
     }
 
@@ -115,7 +100,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             case .created:
                 break
             case .authenticating:
-                progressHandler(.authenticating)
+                progressHandler(.authenticating(credentials.statusPayload))
             case .awaitingSupplementalInformation:
                 credentialsStatusPollingTask?.stopPolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
@@ -123,16 +108,15 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                     do {
                         try result.get()
                         self.credentialsStatusPollingTask?.startPolling()
+                    } catch SupplementInformationTask.Error.cancelled {
+                        self.complete(with: .failure(Error(code: .cancelled)))
                     } catch {
                         self.complete(with: .failure(error))
                     }
                 }
-                progressHandler(.awaitingSupplementalInformation(supplementInformationTask))
-            case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
-                guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
-                    assertionFailure("Missing third pary app authentication deeplink URL!")
-                    return
-                }
+                authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
+            case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication), .awaitingMobileBankIDAuthentication(let thirdPartyAppAuthentication):
+
                 credentialsStatusPollingTask?.stopPolling()
                 let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
@@ -143,28 +127,28 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
                         self.complete(with: .failure(error))
                     }
                 }
-                progressHandler(.awaitingThirdPartyAppAuthentication(task))
+                authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
-                progressHandler(.updating(status: credentials.statusPayload))
+                progressHandler(.updating)
             case .updated:
                 complete(with: .success(credentials))
             case .sessionExpired:
-                break
+                throw Error.credentialsSessionExpired(credentials.statusPayload)
             case .authenticationError:
-                throw Error.authenticationFailed(credentials.statusPayload)
+                throw Error.credentialsAuthenticationFailed(credentials.statusPayload)
             case .permanentError:
-                throw Error.permanentFailure(credentials.statusPayload)
+                throw Error.permanentCredentialsFailure(credentials.statusPayload)
             case .temporaryError:
-                throw Error.temporaryFailure(credentials.statusPayload)
-            case .disabled:
-                throw Error.disabled(credentials.statusPayload)
+                throw Error.temporaryCredentialsFailure(credentials.statusPayload)
+            case .deleted:
+                throw Error.credentialsDeleted(credentials.statusPayload)
             case .unknown:
                 assertionFailure("Unknown credentials status!")
             @unknown default:
                 assertionFailure("Unknown credentials status!")
             }
         } catch ServiceError.cancelled {
-            complete(with: .failure(Error.cancelled))
+            complete(with: .failure(Error(code: .cancelled, message: nil)))
         } catch {
             complete(with: .failure(error))
         }

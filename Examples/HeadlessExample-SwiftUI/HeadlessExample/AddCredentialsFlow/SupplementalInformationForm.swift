@@ -1,40 +1,48 @@
 import SwiftUI
 import TinkLink
 
-struct SupplementalInformationForm: View, UIViewControllerRepresentable {
+struct SupplementalInformationForm: View {
     private var supplementInformationTask: SupplementInformationTask
 
-    init(supplementInformationTask: SupplementInformationTask, onCompletion: @escaping CompletionHandler) {
+    @State private var form: TinkLink.Form
+    @State private var isCancelling = false
+    @State private var isLoading = false
+
+    init(supplementInformationTask: SupplementInformationTask) {
         self.supplementInformationTask = supplementInformationTask
-        self.onCompletion = onCompletion
+        self._form = State(initialValue: TinkLink.Form(supplementInformationTask: supplementInformationTask))
     }
 
-    class Coordinator {
-        let completionHandler: CompletionHandler
-
-        init(completionHandler: @escaping CompletionHandler) {
-            self.completionHandler = completionHandler
+    var body: some View {
+        SwiftUI.Form {
+            ForEach(Array(zip(form.fields.indices, form.fields)), id: \.1.name) { (fieldIndex, field) in
+                FormField(field: $form.fields[fieldIndex])
+            }
         }
-    }
-
-    typealias CompletionHandler = (Result<Void, Error>) -> Void
-    var onCompletion: CompletionHandler
-
-    typealias UIViewControllerType = UINavigationController
-
-    func makeCoordinator() -> SupplementalInformationForm.Coordinator {
-        return Coordinator(completionHandler: onCompletion)
-    }
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<SupplementalInformationForm>) -> SupplementalInformationForm.UIViewControllerType {
-        let viewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
-        viewController.onCompletion = context.coordinator.completionHandler
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.navigationBar.prefersLargeTitles = true
-        return navigationController
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: UIViewControllerRepresentableContext<SupplementalInformationForm>) {
-        // NOOP
+        .navigationBarTitle("Supplemental Information", displayMode: .inline)
+        .toolbar(content: {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    isCancelling = true
+                    supplementInformationTask.cancel()
+                }
+                .disabled(isCancelling)
+            }
+            ToolbarItem {
+                if isLoading {
+                    ProgressView()
+                } else {
+                    Button("Submit") {
+                        isLoading = true
+                        supplementInformationTask.submit(form)
+                    }
+                    .disabled(!form.areFieldsValid)
+                }
+            }
+        })
+        .onDisappear(perform: {
+            isCancelling = false
+            isLoading = false
+        })
     }
 }

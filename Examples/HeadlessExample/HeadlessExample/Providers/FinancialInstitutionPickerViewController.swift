@@ -43,8 +43,8 @@ extension FinancialInstitutionPickerViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let financialInstitutionNode = financialInstitutionNodes[indexPath.row]
         switch financialInstitutionNode {
-        case .authenticationUserTypes(let authenticationUserTypeNodes):
-            showAuthenticationUserTypePicker(for: authenticationUserTypeNodes, title: financialInstitutionNode.financialInstitution.name)
+        case .financialServicesTypes(let financialServicesNode):
+            showFinancialServicesNodePicker(for: financialServicesNode, title: financialInstitutionNode.financialInstitution.name)
         case .accessTypes(let accessTypeGroups):
             showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionNode.financialInstitution.name)
         case .credentialsKinds(let groups):
@@ -58,9 +58,9 @@ extension FinancialInstitutionPickerViewController {
 // MARK: - Navigation
 
 extension FinancialInstitutionPickerViewController {
-    func showAuthenticationUserTypePicker(for authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode], title: String?) {
-        let viewController = AuthenticationUserTypePickerViewController()
-        viewController.authenticationUserTypeNodes = authenticationUserTypeNodes
+    func showFinancialServicesNodePicker(for financialServicesNodes: [ProviderTree.FinancialServicesNode], title: String?) {
+        let viewController = FinancialServicesPickerViewController()
+        viewController.financialServicesNodes = financialServicesNodes
         viewController.title = title
         show(viewController, sender: nil)
     }

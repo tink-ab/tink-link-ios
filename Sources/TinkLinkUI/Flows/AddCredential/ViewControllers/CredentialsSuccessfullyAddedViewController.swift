@@ -29,14 +29,16 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
     let doneActionHandler: () -> Void
 
     private var operation: Operation
+    private let tinkLinkTracker: TinkLinkTracker
     private let iconView = CheckmarkView(style: .large)
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
     private let doneButton = FloatingButton()
 
-    init(companyName: String, operation: Operation = .create, doneActionHandler: @escaping () -> Void) {
+    init(companyName: String, operation: Operation = .create, tinkLinkTracker: TinkLinkTracker, doneActionHandler: @escaping () -> Void) {
         self.companyName = companyName
         self.operation = operation
+        self.tinkLinkTracker = tinkLinkTracker
         self.doneActionHandler = doneActionHandler
         super.init(nibName: nil, bundle: nil)
     }
@@ -111,6 +113,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
     }
 
     @objc func doneActionPressed() {
+        tinkLinkTracker.trackClose(from: self)
         doneActionHandler()
     }
 

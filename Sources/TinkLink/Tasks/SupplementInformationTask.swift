@@ -31,8 +31,7 @@ public final class SupplementInformationTask: Identifiable {
     private var callRetryCancellable: RetryCancellable?
 
     /// Error that the `SupplementInformationTask` can throw.
-    public enum Error: Swift.Error {
-        /// The task was cancelled.
+    enum Error: Swift.Error {
         case cancelled
     }
 
@@ -55,6 +54,7 @@ public final class SupplementInformationTask: Identifiable {
     ///
     /// - Parameter form: This is a form with fields from the credentials that had status `awaitingSupplementalInformation`.
     public func submit(_ form: Form) {
+        callRetryCancellable?.cancel()
         callRetryCancellable = credentialsService.addSupplementalInformation(id: credentials.id, fields: form.makeFields(), completion: { [weak self] result in
             self?.completionHandler(result)
             self?.callRetryCancellable = nil
@@ -67,6 +67,7 @@ public final class SupplementInformationTask: Identifiable {
     ///
     /// Call this method if the user dismiss the form to supplement information.
     public func cancel() {
+        callRetryCancellable?.cancel()
         callRetryCancellable = credentialsService.cancelSupplementalInformation(id: credentials.id, completion: { [weak self] result in
             switch result {
             case .success:

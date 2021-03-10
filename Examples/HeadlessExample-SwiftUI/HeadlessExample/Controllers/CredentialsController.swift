@@ -7,7 +7,7 @@ final class CredentialsController: ObservableObject {
     @Published var supplementInformationTask: SupplementInformationTask?
 
     private(set) var credentialsContext = Tink.shared.credentialsContext
-    private var task: RefreshCredentialsTask?
+    private var task: Cancellable?
 
     func performFetch() {
         credentialsContext.fetchCredentialsList(completion: { [weak self] result in
@@ -26,12 +26,25 @@ final class CredentialsController: ObservableObject {
         task = credentialsContext.refresh(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
-            progressHandler: { [weak self] in
-                self?.refreshProgressHandler(status: $0)
+            authenticationHandler: { [weak self] authentication in
+                DispatchQueue.main.async {
+                    self?.handleAuthentication(authentication)
+                }
+            },
+            progressHandler: { status in
+                DispatchQueue.main.async {
+                    self.supplementInformationTask = nil
+                }
             },
             completion: { [weak self] result in
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
+                DispatchQueue.main.async {
+                    self?.supplementInformationTask = nil
+                    if case .success(let credentials) = result, let index = self?.credentials.firstIndex(where: { $0.id == credentials.id }) {
+                        self?.credentials[index] = credentials
+                    }
+                }
             }
         )
     }
@@ -40,11 +53,18 @@ final class CredentialsController: ObservableObject {
         task = credentialsContext.authenticate(
             credentials,
             shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false,
-            progressHandler: { [weak self] in
-                self?.refreshProgressHandler(status: $0)
+            authenticationHandler: { [weak self] authentication in
+                DispatchQueue.main.async {
+                    self?.handleAuthentication(authentication)
+                }
             }, completion: { [weak self] result in
                 self?.refreshCompletionHandler(result: result)
                 completion(result)
+                DispatchQueue.main.async {
+                    if case .success(let credentials) = result, let index = self?.credentials.firstIndex(where: { $0.id == credentials.id }) {
+                        self?.credentials[index] = credentials
+                    }
+                }
             }
         )
     }
@@ -59,9 +79,7 @@ final class CredentialsController: ObservableObject {
                 do {
                     try result.get()
                     DispatchQueue.main.async {
-                        self?.credentials.removeAll { removedCredentials -> Bool in
-                            credentials.id == removedCredentials.id
-                        }
+                        self?.credentials.removeAll { $0.id == credentials.id }
                     }
                 } catch {
                     // Handle any errors
@@ -70,21 +88,46 @@ final class CredentialsController: ObservableObject {
         }
     }
 
-    private func refreshProgressHandler(status: RefreshCredentialsTask.Status) {
-        guard let refreshedCredentials = task?.credentials else { return }
-        switch status {
-        case .authenticating:
-            break
+    func addCredentials(for provider: Provider, form: TinkLink.Form, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        credentialsContext.add(for: provider, form: form) { [weak self] task in
+            DispatchQueue.main.async {
+                self?.handleAuthentication(task)
+            }
+        } progressHandler: { [weak self] status in
+            DispatchQueue.main.async {
+                self?.supplementInformationTask = nil
+            }
+        } completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.supplementInformationTask = nil
+                completion(result)
+            }
+        }
+    }
+
+    func updateCredentials(_ credentials: Credentials, form: TinkLink.Form, completion: @escaping (Result<Credentials, Error>) -> Void) {
+        credentialsContext.update(credentials, form: form) { [weak self] task in
+            DispatchQueue.main.async {
+                self?.handleAuthentication(task)
+            }
+        } progressHandler: { [weak self] status in
+            DispatchQueue.main.async {
+                self?.supplementInformationTask = nil
+            }
+        } completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.supplementInformationTask = nil
+                completion(result)
+            }
+        }
+    }
+
+    private func handleAuthentication(_ authentication: AuthenticationTask) {
+        switch authentication {
         case .awaitingSupplementalInformation(let supplementInformationTask):
             self.supplementInformationTask = supplementInformationTask
         case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthenticationTask):
             thirdPartyAppAuthenticationTask.handle()
-        case .updating:
-            if let index = credentials.firstIndex(where: { $0.id == refreshedCredentials.id }) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.credentials[index] = refreshedCredentials
-                }
-            }
         }
     }
 

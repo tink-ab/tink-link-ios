@@ -10,7 +10,7 @@ protocol FormFieldTableViewCellDelegate: AnyObject {
 class FormFieldTableViewCell: UITableViewCell, ReusableCell {
     struct ViewModel {
         enum InputType {
-            case text, number
+            case text, number, picker
         }
 
         var text: String?
@@ -143,6 +143,8 @@ extension FloatingPlaceholderTextField {
             inputType = .text
         case .number:
             inputType = .number
+        case .picker:
+            inputType = .picker
         }
 
         isEnabled = viewModel.isEditable
@@ -160,6 +162,11 @@ extension FormFieldTableViewCell.ViewModel {
             inputType = .text
         case .numeric:
             inputType = .number
+        // TODO: Pass options and change this when UI is in place.
+        case .picker([]):
+            inputType = .picker
+        default:
+            inputType = .text
         }
 
         self.init(text: field.text, isEditable: field.attributes.isEditable, placeholderText: field.attributes.description, isSecureTextEntry: field.attributes.isSecureTextEntry, inputType: inputType, maxLength: field.validationRules.maxLength, helpText: field.attributes.helpText)

@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#refreshcredentialstask.status.authenticating">authenticating</a></li><li class="case"><a href="#refreshcredentialstask.status.updating">updating</a></li><li class="case"><a href="#refreshcredentialstask.status.awaitingsupplementalinformation">awaiting​Supplemental​Information</a></li><li class="case"><a href="#refreshcredentialstask.status.awaitingthirdpartyappauthentication">awaiting​Third​Party​App​Authentication</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#refreshcredentialstask.status.authenticating">authenticating</a></li><li class="case"><a href="#refreshcredentialstask.status.updating">updating</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -41,12 +41,6 @@
 <div class="summary" role="doc-abstract">
     <p>Indicates the state of a credentials being refreshed.</p>
 
-</div>
-<div class="discussion">
-    <aside class="note">
-    <p>For some states there are actions which need to be performed on the credentials.</p>
-
-</aside>
 </div>
 <section id="relationships">
     <h2 hidden>Relationships</h2>
@@ -65,9 +59,9 @@
     <h3>
         <code>authenticating</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">authenticating</span></code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">authenticating</span>(: <span class="type">String</span>?)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>When starting the authentication process</p>
+    <p>The user needs to be authenticated. The payload from the backend can be found in the message property.</p>
 
 </div>
 </div>
@@ -75,29 +69,9 @@
     <h3>
         <code>updating</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">updating</span>(<span class="variable">status</span>: <span class="type">String</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">updating</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>User has been successfully authenticated, now downloading data.</p>
-
-</div>
-</div>
-<div role="article" class="case" id="refreshcredentialstask.status.awaitingsupplementalinformation">
-    <h3>
-        <code>awaiting​Supplemental​Information</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">awaitingSupplementalInformation</span>(: <a href="https://tink-ab.github.io/tink-link-ios/SupplementInformationTask"><span class="type">SupplementInformationTask</span></a>)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>Trigger for the client to prompt the user to fill out supplemental information.</p>
-
-</div>
-</div>
-<div role="article" class="case" id="refreshcredentialstask.status.awaitingthirdpartyappauthentication">
-    <h3>
-        <code>awaiting​Third​Party​App​Authentication</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">awaitingThirdPartyAppAuthentication</span>(: <a href="https://tink-ab.github.io/tink-link-ios/ThirdPartyAppAuthenticationTask"><span class="type">ThirdPartyAppAuthenticationTask</span></a>)</code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>Trigger for the client to prompt the user to open the third party authentication flow</p>
 
 </div>
 </div>
@@ -110,7 +84,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-02-10T12:04:39+0100">10 February 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2021-02-26T14:22:15+0100">26 February 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

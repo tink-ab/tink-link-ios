@@ -39,7 +39,7 @@
 
 <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">Form</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>A <code>Form</code> is used to determine what a user needs to input in order to proceed. For example it could be a username and a password field.</p>
+    <p>A <code>Form</code> is used to determine what a user needs to input in order to proceed when creating or updating a credentials. For example it could be a username and a password field.</p>
 
 </div>
 <div class="discussion">
@@ -140,7 +140,7 @@
     <h3>
         <code>init(credentials:​)</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">message</span>: <span class="string literal">"Use init(supplementInformationTask:) instead."</span>) <span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Creates a form for the given credentials.</p>
 
@@ -297,7 +297,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-02-10T12:04:39+0100">10 February 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2021-02-26T14:22:15+0100">26 February 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

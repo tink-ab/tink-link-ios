@@ -182,8 +182,8 @@ extension BeneficiaryPickerViewController {
             showStatus("Request sent")
         case .authenticating:
             showStatus("Authenticating…")
-        case .updating(let status):
-            showStatus(status)
+        case .updating:
+            showStatus("Updating…")
         }
     }
 

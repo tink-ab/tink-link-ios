@@ -4,8 +4,8 @@ import XCTest
 
 class SupplementalInfoFieldTests: XCTestCase {
     func testSupplementalInfoFieldValidation() {
-        let firstFieldSpecification = Provider.FieldSpecification(
-            fieldDescription: "Security Code",
+        let firstFieldSpecification = Provider.Field(
+            description: "Security Code",
             hint: "",
             maxLength: nil,
             minLength: nil,
@@ -17,10 +17,11 @@ class SupplementalInfoFieldTests: XCTestCase {
             initialValue: "7483",
             pattern: "",
             patternError: "",
-            helpText: "Login using your Card Reader. Enter the security code and press Ok. Provide the given return code in the input field to continue \n"
+            helpText: "Login using your Card Reader. Enter the security code and press Ok. Provide the given return code in the input field to continue \n",
+            selectOptions: []
         )
-        let secondFieldSpecification = Provider.FieldSpecification(
-            fieldDescription: "Input Code",
+        let secondFieldSpecification = Provider.Field(
+            description: "Input Code",
             hint: "",
             maxLength: nil,
             minLength: nil,
@@ -32,11 +33,12 @@ class SupplementalInfoFieldTests: XCTestCase {
             initialValue: "7483",
             pattern: "",
             patternError: "",
-            helpText: ""
+            helpText: "",
+            selectOptions: []
         )
-        let supplementalInfoCredential = Credentials(id: .init(stringLiteral: "test-credential"), providerID: "test-multi-supplemental", kind: .password, status: .created, statusPayload: "", statusUpdated: nil, updated: nil, fields: ["username": "tink-test"], supplementalInformationFields: [firstFieldSpecification, secondFieldSpecification], thirdPartyAppAuthentication: nil, sessionExpiryDate: nil)
+        let supplementalInfoCredential = Credentials(id: .init(stringLiteral: "test-credential"), providerName: "test-multi-supplemental", kind: .password, status: .awaitingSupplementalInformation([firstFieldSpecification, secondFieldSpecification]), statusPayload: "", statusUpdated: nil, updated: nil, fields: ["username": "tink-test"], sessionExpiryDate: nil)
 
-        var form = Form(fieldSpecifications: supplementalInfoCredential.supplementalInformationFields)
+        var form = Form(credentials: supplementalInfoCredential)
 
         let editableForms = form.fields.filter { $0.attributes.isEditable }
         XCTAssertEqual(editableForms.count, 1)
@@ -47,8 +49,8 @@ class SupplementalInfoFieldTests: XCTestCase {
         } catch let error as Form.ValidationError {
             XCTAssertEqual(error.errors.count, 1)
             let fieldError = error.errors.first
-            if case .requiredFieldEmptyValue(let fieldName) = fieldError {
-                XCTAssertEqual(fieldName, edtiableForm.name)
+            if case .requiredFieldEmptyValue? = fieldError {
+                XCTAssertEqual(fieldError?.fieldName, edtiableForm.name)
             } else {
                 XCTFail("The Field error should be requiredFieldEmptyValue")
             }

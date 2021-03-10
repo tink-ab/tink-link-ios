@@ -1,7 +1,7 @@
 import Foundation
 
 class HumanEnumeratedFormatter: Formatter {
-    public enum Style {
+    enum Style {
         case short
         case long
 
@@ -15,14 +15,14 @@ class HumanEnumeratedFormatter: Formatter {
         }
     }
 
-    public var style: Style = .long
+    var style: Style = .long
 
-    override public func string(for obj: Any?) -> String? {
+    override func string(for obj: Any?) -> String? {
         guard let items = obj as? [String] else { return nil }
         return string(for: items)
     }
 
-    public func string(for items: [String]) -> String {
+    func string(for items: [String]) -> String {
         var output = [String]()
         items.enumerated().forEach { offset, elem in
             output.append(elem)
