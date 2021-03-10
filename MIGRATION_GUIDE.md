@@ -39,7 +39,7 @@
         ```
 - The method for handling redirects is now a static method. Use `Tink.open(_:completion:)` instead of, for example `Tink.shared.open(_:completion:)`.
 - The Provider model's identifier property has been renamed from `id` to `name`. Other APIs referring to a provider has also been renamed, for example `providerID` on the Credentials model has been renamed to `providerName`.
-- The `authenticationUserType` property on the Provider model has been replace with the `financialServices`. The `ProviderTree` has also been updated to include a `FinancialServicesNode` which replaces the `AuthenticationUserTypeNode`.
+- The `authenticationUserType` property on the Provider model has been replace with the `financialServices` property. The `ProviderTree` has also been updated to include a `FinancialServicesNode` which replaces the `AuthenticationUserTypeNode`.
 - Handling authentication callbacks on the different methods in `CredentialsContext` have been moved from the `progressHandler` to the new closure parameter `authenticationHandler`. This works the same as authentication is handled in the `TransferContext` and allows you to use the same authentication handling for all credentials operations. 
     ```swift
     Tink.shared.credentialsContext.refresh(credentials, authenticationHandler: { authenticationTask in
