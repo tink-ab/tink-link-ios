@@ -70,7 +70,7 @@ When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` 
     import TinkLink
     import TinkLinkUI
     
-    let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
+    let configuration = TinkLinkConfiguration(clientID: <#String#>, appURI: <#URL#>)
     ```
 
 2. Define the list of [scopes](https://docs.tink.com/api/#introduction-authentication-authorization-scopes) based on the type of data you want to fetch. For example, to retrieve accounts and transactions, define these scopes:
