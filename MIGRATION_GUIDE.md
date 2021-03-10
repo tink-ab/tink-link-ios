@@ -1,7 +1,7 @@
 # Migration Guide
 
 ## Tink Link 1.0 
-1.0 is the first stable release of Tink Link. This comes with a few changes to make sure it will work great with the [PFM SDK](https://docs.tink.com/resources/pfm-sdk-ios/overview) and support new features in the future. 
+1.0 is the first stable release of Tink Link. This comes with a few changes to make sure it will work great with the [Money Manager SDK](https://docs.tink.com/resources/pfm-sdk-ios) and support new features in the future. 
 
 - `TinkLinkViewController` has new initializers.
     - If aggregating with a temporary user, pass a `Tink.Configuration` instead of a configured `Tink` instance:
