@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Types Conforming to Configuration</a></li></ul></li><li><a href="#requirements">Requirements</a><ul><li class="variable"><a href="#configuration.clientid">client​ID</a></li><li class="variable"><a href="#configuration.appuri">app​URI</a></li><li class="variable"><a href="#configuration.environment">environment</a></li><li class="variable"><a href="#configuration.certificateurl">certificate​URL</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Types Conforming to Configuration</a></li></ul></li><li><a href="#requirements">Requirements</a><ul><li class="variable"><a href="#configuration.clientid">client​ID</a></li><li class="variable"><a href="#configuration.appuri">app​URI</a></li><li class="variable"><a href="#configuration.callbackuri">callback​URI</a></li><li class="variable"><a href="#configuration.environment">environment</a></li><li class="variable"><a href="#configuration.certificateurl">certificate​URL</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -113,6 +113,24 @@
 
 </div>
 </div>
+<div role="article" class="variable" id="configuration.callbackuri">
+    <h3>
+        <code>callback​URI</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">callbackURI</span>: <span class="type">URL</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>This URI will be used by the ASPSP to pass the authorization code.</p>
+
+</div>
+<div class="discussion">
+    <p>It corresponds to the redirect/callback URI in OAuth2/OpenId.</p>
+
+<aside class="note">
+    <p>This parameter is only applicable if you are a TPP.</p>
+
+</aside>
+</div>
+</div>
 <div role="article" class="variable" id="configuration.environment">
     <h3>
         <code>environment</code>
@@ -139,7 +157,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-02-26T14:22:19+0100">26 February 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2021-03-10T14:27:17+0100">10 March 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

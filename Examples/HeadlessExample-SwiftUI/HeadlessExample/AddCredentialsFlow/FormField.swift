@@ -13,6 +13,5 @@ struct FormField: View {
                     .autocapitalization(.none)
             }
         }
-
     }
 }

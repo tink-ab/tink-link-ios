@@ -4,7 +4,7 @@ extension Provider {
     static let nordeaBankID = Provider(
         name: "nordea-bankid",
         displayName: "Nordea",
-        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
+        financialServices: [Provider.FinancialService(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -24,7 +24,7 @@ extension Provider {
     static let nordeaPassword = Provider(
         name: "nordea-password",
         displayName: "Nordea",
-        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
+        financialServices: [Provider.FinancialService(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -44,7 +44,7 @@ extension Provider {
     static let nordeaOpenBanking = Provider(
         name: "se-nordea-ob",
         displayName: "Nordea Open Banking",
-        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
+        financialServices: [Provider.FinancialService(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -64,7 +64,7 @@ extension Provider {
     static let sparbankernaBankID = Provider(
         name: "savingsbank-bankid",
         displayName: "Sparbankerna",
-        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
+        financialServices: [Provider.FinancialService(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -84,7 +84,7 @@ extension Provider {
     static let sparbankernaPassword = Provider(
         name: "savingsbank-token",
         displayName: "Sparbankerna",
-        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
+        financialServices: [Provider.FinancialService(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -104,7 +104,7 @@ extension Provider {
     static let swedbankBankID = Provider(
         name: "swedbank-bankid",
         displayName: "Swedbank",
-        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
+        financialServices: [Provider.FinancialService(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -124,7 +124,7 @@ extension Provider {
     static let swedbankPassword = Provider(
         name: "swedbank-token",
         displayName: "Swedbank",
-        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
+        financialServices: [Provider.FinancialService(segment: .personal, shortName: "")],
         kind: .bank,
         releaseStatus: nil,
         status: .enabled,
@@ -144,7 +144,7 @@ extension Provider {
     static let testSupplementalInformation = Provider(
         name: "se-test-multi-supplemental",
         displayName: "Test Multi-Supplemental",
-        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
+        financialServices: [Provider.FinancialService(segment: .personal, shortName: "")],
         kind: .test,
         releaseStatus: nil,
         status: .enabled,
@@ -164,7 +164,7 @@ extension Provider {
     static let testThirdPartyAuthentication = Provider(
         name: "se-test-multi-third-party",
         displayName: "Test Third Party Authentication",
-        financialServices: [Provider.FinancialService.init(segment: .personal, shortName: "")],
+        financialServices: [Provider.FinancialService(segment: .personal, shortName: "")],
         kind: .test,
         releaseStatus: nil,
         status: .enabled,

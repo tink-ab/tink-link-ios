@@ -23,7 +23,7 @@ struct UpdateCredentialsView: View {
 
     var body: some View {
         SwiftUI.Form {
-            ForEach(Array(zip(form.fields.indices, form.fields)), id: \.1.name) { (fieldIndex, field) in
+            ForEach(Array(zip(form.fields.indices, form.fields)), id: \.1.name) { fieldIndex, field in
                 FormField(field: $form.fields[fieldIndex])
             }
             Section(footer: provider.helpText.map(Text.init)) {

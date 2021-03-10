@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#tinklinkconfiguration.init(clientid:appuri:environment:certificateurl:)">init(client​ID:​app​URI:​environment:​certificate​URL:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#tinklinkconfiguration.clientid">client​ID</a></li><li class="variable"><a href="#tinklinkconfiguration.appuri">app​URI</a></li><li class="variable"><a href="#tinklinkconfiguration.environment">environment</a></li><li class="variable"><a href="#tinklinkconfiguration.certificateurl">certificate​URL</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#tinklinkconfiguration.init(clientid:appuri:callbackuri:environment:certificateurl:)">init(client​ID:​app​URI:​callback​URI:​environment:​certificate​URL:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#tinklinkconfiguration.clientid">client​ID</a></li><li class="variable"><a href="#tinklinkconfiguration.appuri">app​URI</a></li><li class="variable"><a href="#tinklinkconfiguration.callbackuri">callback​URI</a></li><li class="variable"><a href="#tinklinkconfiguration.environment">environment</a></li><li class="variable"><a href="#tinklinkconfiguration.certificateurl">certificate​URL</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -90,11 +90,11 @@
     <section id="initializers">
         <h2>Initializers</h2>
 
-        <div role="article" class="initializer" id="tinklinkconfiguration.init(clientid:appuri:environment:certificateurl:)">
+        <div role="article" class="initializer" id="tinklinkconfiguration.init(clientid:appuri:callbackuri:environment:certificateurl:)">
     <h3>
-        <code>init(client​ID:​app​URI:​environment:​certificate​URL:​)</code>
+        <code>init(client​ID:​app​URI:​callback​URI:​environment:​certificate​URL:​)</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">clientID</span>: <span class="type">String</span>, <span class="variable">appURI</span>: <span class="type">URL</span>, <span class="variable">environment</span>: <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a>.<a href="https://tink-ab.github.io/tink-link-ios/Environment"><span class="type">Environment</span></a> = .<span class="variable">production</span>, <span class="variable">certificateURL</span>: <span class="type">URL</span>? = <span class="keyword">nil</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">clientID</span>: <span class="type">String</span>, <span class="variable">appURI</span>: <span class="type">URL</span>, <span class="variable">callbackURI</span>: <span class="type">URL</span>? = <span class="keyword">nil</span>, <span class="variable">environment</span>: <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a>.<a href="https://tink-ab.github.io/tink-link-ios/Environment"><span class="type">Environment</span></a> = .<span class="variable">production</span>, <span class="variable">certificateURL</span>: <span class="type">URL</span>? = <span class="keyword">nil</span>)</code></pre></body></html>
 </div>
     </section>
     <section id="properties">
@@ -117,6 +117,16 @@
     <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">appURI</span>: <span class="type">URL</span>?</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>The URI you've setup in Console.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="tinklinkconfiguration.callbackuri">
+    <h3>
+        <code>callback​URI</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">callbackURI</span>: <span class="type">URL</span>?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The URI for redirect call back.</p>
 
 </div>
 </div>
@@ -149,7 +159,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-02-26T14:22:16+0100">26 February 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2021-03-10T14:27:18+0100">10 March 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

@@ -162,8 +162,8 @@ public struct ProviderTree {
     public enum FinancialServicesNode: Comparable {
         public static func < (lhs: ProviderTree.FinancialServicesNode, rhs: ProviderTree.FinancialServicesNode) -> Bool {
             if lhs.financialServices.count == rhs.financialServices.count {
-                let lhsPersonalServices = lhs.financialServices.filter({ $0.segment == .personal })
-                let rhsPersonalServices = rhs.financialServices.filter({ $0.segment == .personal })
+                let lhsPersonalServices = lhs.financialServices.filter { $0.segment == .personal }
+                let rhsPersonalServices = rhs.financialServices.filter { $0.segment == .personal }
                 return lhsPersonalServices.count >= rhsPersonalServices.count
             } else {
                 return lhs.financialServices.count > rhs.financialServices.count
