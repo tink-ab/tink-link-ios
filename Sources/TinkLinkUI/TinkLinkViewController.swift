@@ -119,7 +119,7 @@ public class TinkLinkViewController: UIViewController {
     /// Strategy for different operations.
     public struct Operation {
         enum Value {
-            case create(providerPredicate: ProviderPredicate = .kinds(.default))
+            case create(providerPredicate: ProviderPredicate = .kinds(.default), refreshableItems: RefreshableItems = .all)
             case authenticate(credentialsID: Credentials.ID)
             case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
             case update(credentialsID: Credentials.ID)
@@ -130,8 +130,8 @@ public class TinkLinkViewController: UIViewController {
         /// Create credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to create.
-        public static func create(providerPredicate: ProviderPredicate = .kinds(.default)) -> Self {
-            .init(value: .create(providerPredicate: providerPredicate))
+        public static func create(providerPredicate: ProviderPredicate = .kinds(.default), refreshableItems: RefreshableItems = .all) -> Self {
+            .init(value: .create(providerPredicate: providerPredicate, refreshableItems: refreshableItems))
         }
 
         /// Authenticate credentials.
@@ -489,8 +489,8 @@ public class TinkLinkViewController: UIViewController {
 
     func operate() {
         switch operation.value {
-        case .create(providerPredicate: let providerPredicate):
-            fetchProviders(providerPredicate: providerPredicate)
+        case .create(providerPredicate: let providerPredicate, let refreshableItems):
+            fetchProviders(providerPredicate: providerPredicate, refreshableItems: refreshableItems)
         case .authenticate(let id):
             startCredentialCoordinator(with: .authenticate(credentialsID: id))
         case .refresh(let id, let forceAuthenticate):
@@ -500,7 +500,7 @@ public class TinkLinkViewController: UIViewController {
         }
     }
 
-    func fetchProviders(providerPredicate: ProviderPredicate) {
+    func fetchProviders(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems) {
         providerController.fetch(with: providerPredicate) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -508,13 +508,13 @@ public class TinkLinkViewController: UIViewController {
                     switch providerPredicate.value {
                     case .kinds:
                         self.tinkLinkTracker.track(applicationEvent: .initializedWithoutProvider)
-                        self.showProviderPicker()
+                        self.showProviderPicker(refreshableItems: refreshableItems)
                     case .name:
                         if let provider = providers.first {
                             // Set the provider to track `initializedWithProvider` application event
                             self.tinkLinkTracker.providerID = provider.id.value
                             self.tinkLinkTracker.track(applicationEvent: .initializedWithProvider)
-                            self.showAddCredentials(for: provider, animated: false)
+                            self.showAddCredentials(for: provider, refreshableItems: refreshableItems, animated: false)
                         }
                     }
                 case .failure(let error):
@@ -654,11 +654,11 @@ extension TinkLinkViewController {
 // MARK: - Navigation
 
 extension TinkLinkViewController {
-    func showProviderPicker() {
+    func showProviderPicker(refreshableItems: RefreshableItems) {
         providerPickerCoordinator.start { [weak self] result in
             do {
                 let provider = try result.get()
-                self?.showAddCredentials(for: provider)
+                self?.showAddCredentials(for: provider, refreshableItems: refreshableItems)
             } catch TinkLinkUIError.userCancelled {
                 self?.cancel()
             } catch {
@@ -667,7 +667,7 @@ extension TinkLinkViewController {
         }
     }
 
-    func showAddCredentials(for provider: Provider, animated: Bool = true) {
+    func showAddCredentials(for provider: Provider, refreshableItems: RefreshableItems, animated: Bool = true) {
         if let scopes = scopes {
             startCredentialCoordinator(with: .create(provider: provider, mode: .anonymous(scopes: scopes)))
         } else {
