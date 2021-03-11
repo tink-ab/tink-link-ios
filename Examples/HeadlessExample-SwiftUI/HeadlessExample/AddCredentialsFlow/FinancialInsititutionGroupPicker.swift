@@ -31,8 +31,8 @@ extension ProviderTree.FinancialInstitutionGroupNode {
             CredentialsKindPicker(credentialsKinds: credentialsKinds)
         case .accessTypes(let accessTypes):
             AccessTypePicker(accessTypes: accessTypes)
-        case .financialServicesTypes(let financialServicesNodes):
-            FinancialServicesNodePicker(financialServicesNodes: financialServicesNodes)
+        case .financialServices(let financialServicesNodes):
+            FinancialServicesPicker(financialServicesNodes: financialServicesNodes)
         case .financialInstitutions(let financialInstitutions):
             FinancialInsititutionPicker(financialInstitutions: financialInstitutions)
         }

@@ -1,20 +1,20 @@
 import SwiftUI
 import TinkLink
 
-struct FinancialServicesNodePicker: View {
+struct FinancialServicesPicker: View {
     var financialServicesNodes: [ProviderTree.FinancialServicesNode]
 
     var body: some View {
         List(financialServicesNodes, id: \.id) { financialServicesNode in
             NavigationLink(destination: financialServicesNode.makeDestinationView()) {
-                FinancialServicesNodeRow(financialServices: financialServicesNode.financialServices)
+                FinancialServicesRow(financialServices: financialServicesNode.financialServices)
             }
         }
         .navigationTitle("Choose Authentication Type")
     }
 }
 
-struct FinancialServicesNodeRow: View {
+struct FinancialServicesRow: View {
     var financialServices: [Provider.FinancialService]
 
     var body: some View {
