@@ -1,10 +1,10 @@
 # Migration Guide
 
 ## Tink Link 1.0 
-1.0 is the first stable release of Tink Link. This comes with a few changes to make sure it will work great with the [PFM SDK](https://docs.tink.com/resources/pfm-sdk-ios/overview) and support new features in the future. 
+1.0 is the first stable version of Tink Link. This comes with a few changes to make sure it will work great with the [Money Manager SDK](https://docs.tink.com/resources/pfm-sdk-ios) and support new features in the future. 
 
 - `TinkLinkViewController` has new initializers.
-    - If aggregating with a temporary user, pass a `Tink.Configuration` instead of a configured `Tink` instance:
+    - If aggregating with a temporary user, pass a `TinkLinkConfiguration` instead of a configured `Tink` instance:
         ```swift
         let scopes: [Scope] = [.transactions(.read), .accounts(.read)]
         let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes) { result in
@@ -39,6 +39,7 @@
         ```
 - The method for handling redirects is now a static method. Use `Tink.open(_:completion:)` instead of, for example `Tink.shared.open(_:completion:)`.
 - The Provider model's identifier property has been renamed from `id` to `name`. Other APIs referring to a provider has also been renamed, for example `providerID` on the Credentials model has been renamed to `providerName`.
+- The `authenticationUserType` property on the Provider model has been replace with the `financialServices` property. The `ProviderTree` has also been updated to include a `FinancialServicesNode` which replaces the `AuthenticationUserTypeNode`.
 - Handling authentication callbacks on the different methods in `CredentialsContext` have been moved from the `progressHandler` to the new closure parameter `authenticationHandler`. This works the same as authentication is handled in the `TransferContext` and allows you to use the same authentication handling for all credentials operations. 
     ```swift
     Tink.shared.credentialsContext.refresh(credentials, authenticationHandler: { authenticationTask in
