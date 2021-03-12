@@ -106,7 +106,7 @@ final class CredentialsCoordinator {
                     default: break
                     }
                 }
-                self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate) { [weak self] result in
+                self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate, refreshableItems: refreshableItems) { [weak self] result in
                     self?.handleCompletion(for: result.map { ($0, nil) })
                 }
             }
