@@ -747,6 +747,6 @@ extension TinkLinkViewController: CredentialsCoordinatorDelegate {
 
 extension TinkLinkViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        return !containedNavigationController.navigationBar.isHidden
     }
 }
