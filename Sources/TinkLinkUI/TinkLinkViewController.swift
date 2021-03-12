@@ -317,6 +317,7 @@ public class TinkLinkViewController: UIViewController {
         presentationController?.delegate = self
 
         containedNavigationController.delegate = navigationManager
+        containedNavigationController.interactivePopGestureRecognizer?.delegate = self
 
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
@@ -739,5 +740,13 @@ extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 extension TinkLinkViewController: CredentialsCoordinatorDelegate {
     func didFinishCredentialsForm() {
         userHasConnected = true
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension TinkLinkViewController: UIGestureRecognizerDelegate {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
