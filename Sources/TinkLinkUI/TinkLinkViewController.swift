@@ -119,9 +119,9 @@ public class TinkLinkViewController: UIViewController {
     /// Strategy for different operations.
     public struct Operation {
         enum Value {
-            case create(providerPredicate: ProviderPredicate = .kinds(.default), refreshableItems: RefreshableItems = .all)
+            case create(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems)
             case authenticate(credentialsID: Credentials.ID)
-            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false, refreshableItems: RefreshableItems = .all)
+            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool, refreshableItems: RefreshableItems)
             case update(credentialsID: Credentials.ID)
         }
 
