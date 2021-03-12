@@ -41,7 +41,7 @@ final class CredentialsController {
 
     func update(
         _ credentials: Credentials,
-        form: Form? = nil,
+        form: Form,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
         progressHandler: @escaping (_ status: UpdateCredentialsTask.Status) -> Void,
         authenticationHandler: @escaping AuthenticationTaskHandler,
