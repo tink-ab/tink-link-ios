@@ -242,6 +242,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
         if case .create(provider: _, mode: let mode) = action, case .anonymous(let scopes) = mode {
             scopeList = scopes
         } else {
+            // TODO: Get scopes based on provider and refreshable items.
             scopeList = []
         }
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scopes: scopeList)
