@@ -130,8 +130,12 @@ public class TinkLinkViewController: UIViewController {
         /// Create credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to create.
-        public static func create(providerPredicate: ProviderPredicate = .kinds(.default)) -> Self {
+        public static func create(providerPredicate: ProviderPredicate) -> Self {
             .init(value: .create(providerPredicate: providerPredicate))
+        }
+
+        public static var create: Self {
+            .init(value: .create(providerPredicate: .kinds(.default)))
         }
 
         /// Authenticate credentials.
