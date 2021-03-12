@@ -663,7 +663,7 @@ extension TinkLinkViewController {
         providerPickerCoordinator.start { [weak self] result in
             do {
                 let provider = try result.get()
-                self?.showAddCredentials(for: provider, refreshableItems: refreshableItems)
+                self?.showAddCredentials(for: provider, refreshableItems: refreshableItems, animated: true)
             } catch TinkLinkUIError.userCancelled {
                 self?.cancel()
             } catch {
@@ -672,7 +672,7 @@ extension TinkLinkViewController {
         }
     }
 
-    func showAddCredentials(for provider: Provider, refreshableItems: RefreshableItems, animated: Bool = true) {
+    func showAddCredentials(for provider: Provider, refreshableItems: RefreshableItems, animated: Bool) {
         if let scopes = scopes {
             startCredentialCoordinator(with: .create(provider: provider, mode: .anonymous(scopes: scopes)))
         } else {
