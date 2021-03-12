@@ -19,7 +19,7 @@ final class CredentialsController {
     func addCredentials(
         _ provider: Provider,
         form: Form,
-        refreshableItems: RefreshableItems = .all,
+        refreshableItems: RefreshableItems,
         progressHandler: @escaping (AddCredentialsTask.Status) -> Void,
         authenticationHandler: @escaping AuthenticationTaskHandler,
         completion: @escaping (_ result: Result<Credentials, Error>) -> Void
@@ -64,7 +64,7 @@ final class CredentialsController {
     func refresh(
         _ credentials: Credentials,
         authenticate: Bool,
-        refreshableItems: RefreshableItems = .all,
+        refreshableItems: RefreshableItems,
         shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool,
         progressHandler: @escaping (_ status: RefreshCredentialsTask.Status) -> Void,
         authenticationHandler: @escaping AuthenticationTaskHandler,
