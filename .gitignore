@@ -9,3 +9,4 @@ Pods/
 GRPC/plugins/
 .swiftpm/
 .tmp/
+TinkLink.xcodeproj

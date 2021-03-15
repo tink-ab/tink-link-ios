@@ -5,9 +5,9 @@ import XCTest
 extension Provider {
     init(capabilities: Capabilities) {
         self.init(
-            id: ID("test-provider"),
+            name: "test-provider",
             displayName: "Test",
-            authenticationUserType: .personal,
+            financialServices: [.init(segment: .personal, shortName: "")],
             kind: .bank,
             releaseStatus: nil,
             status: .enabled,

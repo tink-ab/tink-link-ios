@@ -48,31 +48,6 @@ Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) 
 
 > If you only need the headless SDK you don't need to include `pod "TinkLinkUI"` in your Podfile. 
 
-#### Using Carthage
-Refer to these [instructions](https://github.com/Carthage/Carthage#installing-carthage) for usage and installation details.
-
-1. Add `github "tink-ab/tink-link-ios"` to your project's Cartfile. 
-2. Run `carthage update` in your project directory.
-3. In your copy frameworks run script, add these paths to your input and output file lists respectivly.
-```
-$(SRCROOT)/Carthage/Build/iOS/TinkCore.framework
-$(SRCROOT)/Carthage/Build/iOS/TinkLink.framework
-$(SRCROOT)/Carthage/Build/iOS/TinkLinkUI.framework
-$(SRCROOT)/Carthage/Build/iOS/Down.framework
-$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework
-```
-```
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkCore.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLink.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TinkLinkUI.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Down.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Kingfisher.framework
-```
-
-When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` within your project.
-
-> If you only need the headless SDK you don't need to include `TinkLinkUI.framework`, `Down.framework` and `Kingfisher.framework`.
-
 #### Manual installation
 
 1. Download and unzip the `TinkCore.xcframework.zip` from the [latest Tink Core release](https://github.com/tink-ab/tink-core-ios/releases/latest).
@@ -90,13 +65,12 @@ When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` 
 
 ## How to display Tink Link
 
-1. Import the SDK and configure Tink with your client ID and redirect URI.
+1. Import the SDK and set up a configuration with your client ID and redirect URI.
     ```swift
     import TinkLink
     import TinkLinkUI
     
-    let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
-    Tink.configure(with: configuration)
+    let configuration = TinkLinkConfiguration(clientID: <#String#>, appURI: <#URL#>)
     ```
 
 2. Define the list of [scopes](https://docs.tink.com/api/#introduction-authentication-authorization-scopes) based on the type of data you want to fetch. For example, to retrieve accounts and transactions, define these scopes:
@@ -107,9 +81,9 @@ When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` 
     ]
     ```
 
-3. Create a `TinkLinkViewController` with the market and list of scopes to use.
+3. Create a `TinkLinkViewController` with your configuration, market, and list of scopes to use.
     ```swift
-    let tinkLinkViewController = TinkLinkViewController(market: "SE", scopes: scopes) { result in 
+    let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: "SE", scopes: scopes) { result in 
         // Handle result
     }
     ```
@@ -146,4 +120,10 @@ These examples shows how to build a complete aggregation flow using TinkLink or 
 
 ## Documentation
 For more detailed usage and full documentation, please refer to our Tink Link for iOS guide.
-- [Tink Link for iOS](https://docs.tink.com/resources/tink-link-ios/tink-link-ios-overview)
+- [Tink Link for iOS](https://docs.tink.com/resources/tink-link-ios)
+
+## [Tink](https://tink.com)
+Tink was founded in 2012 with the aim of changing the banking industry for the better. We have built Europe’s most robust open banking platform – with the broadest, deepest connectivity and powerful services that create value out of the financial data.
+
+## Support
+👋 We are continuously working on improving the developer experience of our API offering. [Contact us](https://support.tink.com) for support, questions or suggestions.

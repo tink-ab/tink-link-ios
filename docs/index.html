@@ -50,7 +50,7 @@
     </a>
 </dt>
 <dd>
-    <p>An object that you use to get user consent.</p>
+    <p>An object that you use to get data allowing you to make sure you have full consent from the end user.</p>
 
 </dd>
 <dt class="class">
@@ -59,7 +59,7 @@
     </a>
 </dt>
 <dd>
-    <p>An object that you use to access the user's credentials and supports the flow for adding credentials.</p>
+    <p>An object that you use to list, add or modify a user's <code>Credentials</code>.</p>
 
 </dd>
 <dt class="class">
@@ -165,12 +165,12 @@
         <h2>Structures</h2>
         <dl>
             <dt class="structure">
-    <a href="https://tink-ab.github.io/tink-link-ios/ProviderContext_Attributes" title="structure - ProviderContext.Attributes">
-        Provider​Context.​Attributes
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderContext_Filter" title="structure - ProviderContext.Filter">
+        Provider​Context.​Filter
     </a>
 </dt>
 <dd>
-    <p>Attributes representing which providers a context should access.</p>
+    <p>Filter representing which providers a context should access.</p>
 
 </dd>
 <dt class="structure">
@@ -295,7 +295,7 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
     </a>
 </dt>
 <dd>
-    <p>The credentials model represents users connected providers from where financial data is accessed.</p>
+    <p>The credentials model represents a user's connection to a specific provider from where financial data is accessed.</p>
 
 </dd>
 <dt class="structure">
@@ -322,7 +322,7 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
     </a>
 </dt>
 <dd>
-    <p>A <code>Form</code> is used to determine what a user needs to input in order to proceed. For example it could be a username and a password field.</p>
+    <p>A <code>Form</code> is used to determine what a user needs to input in order to proceed when creating or updating a credentials. For example it could be a username and a password field.</p>
 
 </dd>
 <dt class="structure">
@@ -362,6 +362,32 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 
 </dd>
 <dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form_Field_Attributes_InputType" title="structure - Form.Field.Attributes.InputType">
+        Form.​Field.​Attributes.​Input​Type
+    </a>
+</dt>
+<dd>
+    <p>Input type for a field.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form_Field_ValidationError" title="structure - Form.Field.ValidationError">
+        Form.​Field.​Validation​Error
+    </a>
+</dt>
+<dd>
+    <p>Describes a field validation error.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Form_Field_ValidationError_Code" title="structure - Form.Field.ValidationError.Code">
+        Form.​Field.​Validation​Error.​Code
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="structure">
     <a href="https://tink-ab.github.io/tink-link-ios/Form_ValidationError" title="structure - Form.ValidationError">
         Form.​Validation​Error
     </a>
@@ -377,15 +403,6 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 </dt>
 <dd>
     <p>A type representing the URI for making transfers.</p>
-
-</dd>
-<dt class="structure">
-    <a href="https://tink-ab.github.io/tink-link-ios/Beneficiary_URI" title="structure - Beneficiary.URI">
-        Beneficiary.​URI
-    </a>
-</dt>
-<dd>
-    <p>A type representing the URI for receiving transfers.</p>
 
 </dd>
 <dt class="structure">
@@ -412,16 +429,26 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
     </a>
 </dt>
 <dd>
-    <p>The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses the financial institution, metadata about the financialinstitution, and what financial information that can be accessed.</p>
+    <p>The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses the financial institution, metadata about the financial institution, and what financial information that can be accessed.</p>
 
 </dd>
 <dt class="structure">
-    <a href="https://tink-ab.github.io/tink-link-ios/Provider_FieldSpecification" title="structure - Provider.FieldSpecification">
-        Provider.​Field​Specification
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_FinancialService" title="structure - Provider.FinancialService">
+        Provider.​Financial​Service
     </a>
 </dt>
 <dd>
-    
+    <p>Information about financial services covered with this provider.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_Field" title="structure - Provider.Field">
+        Provider.​Field
+    </a>
+</dt>
+<dd>
+    <p>A <code>Field</code> is a representation of a specific user input field that the user will need to fill out.</p>
+
 </dd>
 <dt class="structure">
     <a href="https://tink-ab.github.io/tink-link-ios/Provider_Capabilities" title="structure - Provider.Capabilities">
@@ -451,48 +478,21 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 
 </dd>
 <dt class="structure">
-    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_CredentialsKindNode_ID" title="structure - ProviderTree.CredentialsKindNode.ID">
-        Provider​Tree.​Credentials​Kind​Node.​ID
-    </a>
-</dt>
-<dd>
-    <p>A unique identifier of a <code>CredentialsKindNode</code>.</p>
-
-</dd>
-<dt class="structure">
-    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_AccessTypeNode_ID" title="structure - ProviderTree.AccessTypeNode.ID">
-        Provider​Tree.​Access​Type​Node.​ID
-    </a>
-</dt>
-<dd>
-    <p>A unique identifier of a <code>AccessTypeNode</code>.</p>
-
-</dd>
-<dt class="structure">
-    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_FinancialInstitutionNode_ID" title="structure - ProviderTree.FinancialInstitutionNode.ID">
-        Provider​Tree.​Financial​Institution​Node.​ID
-    </a>
-</dt>
-<dd>
-    <p>A unique identifier of a <code>FinancialInstitutionNode</code>.</p>
-
-</dd>
-<dt class="structure">
-    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_FinancialInstitutionGroupNode_ID" title="structure - ProviderTree.FinancialInstitutionGroupNode.ID">
-        Provider​Tree.​Financial​Institution​Group​Node.​ID
-    </a>
-</dt>
-<dd>
-    <p>A unique identifier of a <code>FinancialInstitutionGroupNode</code>.</p>
-
-</dd>
-<dt class="structure">
     <a href="https://tink-ab.github.io/tink-link-ios/RefreshableItems" title="structure - RefreshableItems">
         Refreshable​Items
     </a>
 </dt>
 <dd>
     <p>Represents a set of data types that you can aggregate from a provider.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/SelectOption" title="structure - SelectOption">
+        Select​Option
+    </a>
+</dt>
+<dd>
+    <p>A list of options where the user should select one.</p>
 
 </dd>
 <dt class="structure">
@@ -525,6 +525,15 @@ The source account must belong to the authenticated user. Source and destination
 
 </dd>
 <dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask_CompletionPredicate_SuccessPredicate" title="structure - AddCredentialsTask.CompletionPredicate.SuccessPredicate">
+        Add​Credentials​Task.​Completion​Predicate.​Success​Predicate
+    </a>
+</dt>
+<dd>
+    <p>Determines when the add credentials task is considered done.</p>
+
+</dd>
+<dt class="structure">
     <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask_Receipt" title="structure - InitiateTransferTask.Receipt">
         Initiate​Transfer​Task.​Receipt
     </a>
@@ -550,35 +559,51 @@ The source account must belong to the authenticated user. Source and destination
 <dd>
     
 </dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/TinkLinkError" title="structure - TinkLinkError">
+        Tink​Link​Error
+    </a>
+</dt>
+<dd>
+    <p>Error that TinkLink can throw.</p>
+
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/TinkLinkError_Code" title="structure - TinkLinkError.Code">
+        Tink​Link​Error.​Code
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/TinkLinkError_ThirdPartyAppAuthenticationFailureReason" title="structure - TinkLinkError.ThirdPartyAppAuthenticationFailureReason">
+        Tink​Link​Error.​Third​Party​App​Authentication​Failure​Reason
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="structure">
+    <a href="https://tink-ab.github.io/tink-link-ios/TinkLinkError_ThirdPartyAppAuthenticationFailureReason_Code" title="structure - TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code">
+        Tink​Link​Error.​Third​Party​App​Authentication​Failure​Reason.​Code
+    </a>
+</dt>
+<dd>
+    
+</dd>
         </dl>
     </section>
     <section id="enumerations">
         <h2>Enumerations</h2>
         <dl>
             <dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/HTTPStatusCodeError" title="enumeration - HTTPStatusCodeError">
-        HTTPStatus​Code​Error
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_AuthenticationUserType" title="enumeration - Provider.AuthenticationUserType">
+        Provider.​Authentication​User​Type
     </a>
 </dt>
 <dd>
-    
-</dd>
-<dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/AuthorizationContext_Error" title="enumeration - AuthorizationContext.Error">
-        Authorization​Context.​Error
-    </a>
-</dt>
-<dd>
-    <p>Error that the <code>AuthorizationContext</code> can throw.</p>
-
-</dd>
-<dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/ConsentContext_Error" title="enumeration - ConsentContext.Error">
-        Consent​Context.​Error
-    </a>
-</dt>
-<dd>
-    <p>Error that the <code>ConsentContext</code> can throw.</p>
+    <p>Indicates if a user authenticates towards the provider as a person or business.</p>
 
 </dd>
 <dt class="enumeration">
@@ -679,34 +704,17 @@ The source account must belong to the authenticated user. Source and destination
     </a>
 </dt>
 <dd>
-    <p>The status indicates the state of a credentials.</p>
+    <p>The status indicates the current state of the <code>Credentials</code>.</p>
 
 </dd>
 <dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/Form_Field_Attributes_InputType" title="enumeration - Form.Field.Attributes.InputType">
-        Form.​Field.​Attributes.​Input​Type
+    <a href="https://tink-ab.github.io/tink-link-ios/Provider_FinancialService_Segment" title="enumeration - Provider.FinancialService.Segment">
+        Provider.​Financial​Service.​Segment
     </a>
 </dt>
 <dd>
-    <p>Input type for a field.</p>
+    <p>Indicates which segment the financial service belongs to.</p>
 
-</dd>
-<dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/Form_Field_ValidationError" title="enumeration - Form.Field.ValidationError">
-        Form.​Field.​Validation​Error
-    </a>
-</dt>
-<dd>
-    <p>Describes a field validation error.</p>
-
-</dd>
-<dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/Provider_AuthenticationUserType" title="enumeration - Provider.AuthenticationUserType">
-        Provider.​Authentication​User​Type
-    </a>
-</dt>
-<dd>
-    
 </dd>
 <dt class="enumeration">
     <a href="https://tink-ab.github.io/tink-link-ios/Provider_Kind" title="enumeration - Provider.Kind">
@@ -754,8 +762,8 @@ The source account must belong to the authenticated user. Source and destination
 
 </dd>
 <dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_AuthenticationUserTypeNode" title="enumeration - ProviderTree.AuthenticationUserTypeNode">
-        Provider​Tree.​Authentication​User​Type​Node
+    <a href="https://tink-ab.github.io/tink-link-ios/ProviderTree_FinancialServicesNode" title="enumeration - ProviderTree.FinancialServicesNode">
+        Provider​Tree.​Financial​Services​Node
     </a>
 </dt>
 <dd>
@@ -805,39 +813,12 @@ The source account must belong to the authenticated user. Source and destination
 
 </dd>
 <dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/AddBeneficiaryTask_Error" title="enumeration - AddBeneficiaryTask.Error">
-        Add​Beneficiary​Task.​Error
-    </a>
-</dt>
-<dd>
-    <p>Error that the <code>AddBeneficiaryTask</code> can throw.</p>
-
-</dd>
-<dt class="enumeration">
     <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask_Status" title="enumeration - AddCredentialsTask.Status">
         Add​Credentials​Task.​Status
     </a>
 </dt>
 <dd>
     <p>Indicates the state of a credentials being added.</p>
-
-</dd>
-<dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask_Error" title="enumeration - AddCredentialsTask.Error">
-        Add​Credentials​Task.​Error
-    </a>
-</dt>
-<dd>
-    <p>Error that the <code>AddCredentialsTask</code> can throw.</p>
-
-</dd>
-<dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/AddCredentialsTask_CompletionPredicate_SuccessPredicate" title="enumeration - AddCredentialsTask.CompletionPredicate.SuccessPredicate">
-        Add​Credentials​Task.​Completion​Predicate.​Success​Predicate
-    </a>
-</dt>
-<dd>
-    <p>Determines when the add credentials task is considered done.</p>
 
 </dd>
 <dt class="enumeration">
@@ -859,48 +840,12 @@ The source account must belong to the authenticated user. Source and destination
 
 </dd>
 <dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/InitiateTransferTask_Error" title="enumeration - InitiateTransferTask.Error">
-        Initiate​Transfer​Task.​Error
-    </a>
-</dt>
-<dd>
-    <p>Error that the <code>InitiateTransferTask</code> can throw.</p>
-
-</dd>
-<dt class="enumeration">
     <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask_Status" title="enumeration - RefreshCredentialsTask.Status">
         Refresh​Credentials​Task.​Status
     </a>
 </dt>
 <dd>
     <p>Indicates the state of a credentials being refreshed.</p>
-
-</dd>
-<dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/RefreshCredentialsTask_Error" title="enumeration - RefreshCredentialsTask.Error">
-        Refresh​Credentials​Task.​Error
-    </a>
-</dt>
-<dd>
-    <p>Error that the <code>RefreshCredentialsTask</code> can throw.</p>
-
-</dd>
-<dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/SupplementInformationTask_Error" title="enumeration - SupplementInformationTask.Error">
-        Supplement​Information​Task.​Error
-    </a>
-</dt>
-<dd>
-    <p>Error that the <code>SupplementInformationTask</code> can throw.</p>
-
-</dd>
-<dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/ThirdPartyAppAuthenticationTask_Error" title="enumeration - ThirdPartyAppAuthenticationTask.Error">
-        Third​Party​App​Authentication​Task.​Error
-    </a>
-</dt>
-<dd>
-    <p>Error associated with the <code>ThirdPartyAppAuthenticationTask</code>.</p>
 
 </dd>
 <dt class="enumeration">
@@ -920,14 +865,6 @@ The source account must belong to the authenticated user. Source and destination
 <dd>
     <p>Represents which endpoints Tink will use.</p>
 
-</dd>
-<dt class="enumeration">
-    <a href="https://tink-ab.github.io/tink-link-ios/Tink_UserError" title="enumeration - Tink.UserError">
-        Tink.​User​Error
-    </a>
-</dt>
-<dd>
-    
 </dd>
 <dt class="enumeration">
     <a href="https://tink-ab.github.io/tink-link-ios/UserSession" title="enumeration - UserSession">
@@ -1049,6 +986,14 @@ The source account must belong to the authenticated user. Source and destination
 
 </dd>
 <dt class="typealias">
+    <a href="https://tink-ab.github.io/tink-link-ios/AuthenticationTaskHandler" title="typealias - AuthenticationTaskHandler">
+        Authentication​Task​Handler
+    </a>
+</dt>
+<dd>
+    
+</dd>
+<dt class="typealias">
     <a href="https://tink-ab.github.io/tink-link-ios/AuthenticateCredentialsTask" title="typealias - AuthenticateCredentialsTask">
         Authenticate​Credentials​Task
     </a>
@@ -1074,14 +1019,6 @@ The source account must belong to the authenticated user. Source and destination
 <dd>
     
 </dd>
-<dt class="typealias">
-    <a href="https://tink-ab.github.io/tink-link-ios/SessionCredential" title="typealias - SessionCredential">
-        Session​Credential
-    </a>
-</dt>
-<dd>
-    
-</dd>
         </dl>
     </section>
         </article>
@@ -1089,7 +1026,7 @@ The source account must belong to the authenticated user. Source and destination
 
     <footer>
         <p>
-    Generated on <time datetime="2021-02-10T12:04:43+0100">10 February 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2021-03-10T14:27:14+0100">10 March 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

@@ -1,31 +1,29 @@
 import SwiftUI
 import TinkLink
 
-struct AuthenticationUserTypePicker: View {
-    var authenticationUserTypes: [ProviderTree.AuthenticationUserTypeNode]
+struct FinancialServicesPicker: View {
+    var financialServicesNodes: [ProviderTree.FinancialServicesNode]
 
     var body: some View {
-        List(authenticationUserTypes, id: \.id) { authenticationUserType in
-            NavigationLink(destination: authenticationUserType.makeDestinationView()) {
-                AuthenticationUserTypeRow(authenticationUserType: authenticationUserType.authenticationUserType)
+        List(financialServicesNodes, id: \.id) { financialServicesNode in
+            NavigationLink(destination: financialServicesNode.makeDestinationView()) {
+                FinancialServicesRow(financialServices: financialServicesNode.financialServices)
             }
         }
         .navigationTitle("Choose Authentication Type")
     }
 }
 
-struct AuthenticationUserTypeRow: View {
-    var authenticationUserType: Provider.AuthenticationUserType
+struct FinancialServicesRow: View {
+    var financialServices: [Provider.FinancialService]
 
     var body: some View {
-        switch authenticationUserType {
+        switch financialServices.first?.segment {
         case .personal:
             Text("Personal")
         case .business:
             Text("Business")
-        case .corporate:
-            Text("Corporate")
-        case .unknown:
+        case .unknown, .none:
             Text("Unknown")
         @unknown default:
             Text("Unknown")
@@ -33,13 +31,12 @@ struct AuthenticationUserTypeRow: View {
     }
 }
 
-extension ProviderTree.AuthenticationUserTypeNode {
+extension ProviderTree.FinancialServicesNode {
     @ViewBuilder
     func makeDestinationView() -> some View {
         switch self {
         case .provider(let provider):
             AddCredentialsView(provider: provider)
-                .navigationTitle(provider.displayName)
         case .credentialsKinds(let credentialsKinds):
             CredentialsKindPicker(credentialsKinds: credentialsKinds)
         case .accessTypes(let accessTypes):

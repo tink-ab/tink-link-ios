@@ -12,11 +12,11 @@ public final class InitiateTransferTask: Cancellable {
         /// The transfer request has been created.
         case created(Transfer.ID)
         /// The user needs to be authenticated.
-        case authenticating
-        /// The credentials are updating.
         ///
-        /// The payload from the backend can be found in the associated value.
-        case updating(status: String)
+        /// The payload from the backend can be found in the message property.
+        case authenticating(String?)
+        /// The credentials are updating.
+        case updating
         /// User has been successfully authenticated, the transfer initiation is now being executed.
         case executing(status: String)
     }
@@ -27,28 +27,7 @@ public final class InitiateTransferTask: Cancellable {
     public typealias AuthenticationTask = TinkLink.AuthenticationTask
 
     /// Error that the `InitiateTransferTask` can throw.
-    public enum Error: Swift.Error {
-        /// The authentication failed.
-        ///
-        /// The payload from the backend can be found in the associated value.
-        case authenticationFailed(String?)
-        /// The credentials are disabled.
-        ///
-        /// The payload from the backend can be found in the associated value.
-        case disabledCredentials(String?)
-        /// The credentials session was expired.
-        ///
-        /// The payload from the backend can be found in the associated value.
-        case credentialsSessionExpired(String?)
-        /// The transfer was cancelled.
-        ///
-        /// The payload from the backend can be found in the associated value.
-        case cancelled(String?)
-        /// The transfer failed.
-        ///
-        /// The payload from the backend can be found in the associated value.
-        case failed(String?)
-    }
+    public typealias Error = TinkLinkError
 
     /// Indicates the result of transfer initiation.
     public struct Receipt {
@@ -57,6 +36,9 @@ public final class InitiateTransferTask: Cancellable {
         /// Receipt message
         public let message: String?
     }
+
+    /// Determines how the task handles the case when a user doesn't have the required authentication app installed.
+    public let shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool
 
     var pollingStrategy: PollingStrategy = .linear(1, maxInterval: 10)
 
@@ -68,7 +50,7 @@ public final class InitiateTransferTask: Cancellable {
     private let credentialsService: CredentialsService
     private let appUri: URL
     private let progressHandler: (Status) -> Void
-    private let authenticationHandler: (AuthenticationTask) -> Void
+    private let authenticationHandler: AuthenticationTaskHandler
     private let completionHandler: (Result<Receipt, Swift.Error>) -> Void
 
     private var transferStatusPollingTask: TransferStatusPollingTask?
@@ -76,9 +58,10 @@ public final class InitiateTransferTask: Cancellable {
     private var thirdPartyAuthenticationTask: ThirdPartyAppAuthenticationTask?
     private var isCancelled = false
 
-    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, progressHandler: @escaping (Status) -> Void, authenticationHandler: @escaping (AuthenticationTask) -> Void, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
+    init(transferService: TransferService, credentialsService: CredentialsService, appUri: URL, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: Bool, progressHandler: @escaping (Status) -> Void, authenticationHandler: @escaping AuthenticationTaskHandler, completionHandler: @escaping (Result<Receipt, Swift.Error>) -> Void) {
         self.transferService = transferService
         self.credentialsService = credentialsService
+        self.shouldFailOnThirdPartyAppAuthenticationDownloadRequired = shouldFailOnThirdPartyAppAuthenticationDownloadRequired
         self.appUri = appUri
         self.progressHandler = progressHandler
         self.authenticationHandler = authenticationHandler
@@ -87,7 +70,7 @@ public final class InitiateTransferTask: Cancellable {
 
     func startObserving(_ signableOperation: SignableOperation) {
         guard let transferID = signableOperation.transferID else {
-            complete(with: .failure(Error.failed("Failed to get transfer ID.")))
+            complete(with: .failure(Error.transferFailed("Failed to get transfer ID.")))
             return
         }
 
@@ -117,14 +100,14 @@ public final class InitiateTransferTask: Cancellable {
             switch signableOperation.status {
             case .created:
                 guard let transferID = signableOperation.transferID else {
-                    throw Error.failed("Failed to get transfer ID.")
+                    throw Error.transferFailed("Failed to get transfer ID.")
                 }
                 progressHandler(.created(transferID))
             case .awaitingCredentials, .awaitingThirdPartyAppAuthentication:
                 transferStatusPollingTask?.stopPolling()
                 if credentialsStatusPollingTask == nil {
                     guard let credentialsID = signableOperation.credentialsID else {
-                        throw Error.failed("Failed to get credentials ID.")
+                        throw Error.transferFailed("Failed to get credentials ID.")
                     }
                     credentialsStatusPollingTask = CredentialsStatusPollingTask(
                         id: credentialsID,
@@ -154,7 +137,7 @@ public final class InitiateTransferTask: Cancellable {
             case .cancelled:
                 throw Error.cancelled(signableOperation.statusMessage)
             case .failed:
-                throw Error.failed(signableOperation.statusMessage)
+                throw Error.transferFailed(signableOperation.statusMessage)
             case .unknown:
                 assertionFailure("Unknown credentials status.")
             @unknown default:
@@ -172,7 +155,7 @@ public final class InitiateTransferTask: Cancellable {
             switch credentials.status {
             case .created: break
             case .authenticating:
-                progressHandler(.authenticating)
+                progressHandler(.authenticating(credentials.statusPayload))
             case .awaitingSupplementalInformation:
                 credentialsStatusPollingTask?.stopPolling()
                 let supplementInformationTask = SupplementInformationTask(credentialsService: credentialsService, credentials: credentials) { [weak self] result in
@@ -180,18 +163,17 @@ public final class InitiateTransferTask: Cancellable {
                     do {
                         try result.get()
                         self.credentialsStatusPollingTask?.startPolling()
+                    } catch SupplementInformationTask.Error.cancelled {
+                        self.complete(with: .failure(Error(code: .cancelled)))
                     } catch {
                         self.complete(with: .failure(error))
                     }
                 }
                 authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
-            case .awaitingThirdPartyAppAuthentication, .awaitingMobileBankIDAuthentication:
+            case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication), .awaitingMobileBankIDAuthentication(let thirdPartyAppAuthentication):
                 credentialsStatusPollingTask?.stopPolling()
-                guard let thirdPartyAppAuthentication = credentials.thirdPartyAppAuthentication else {
-                    throw Error.authenticationFailed("Missing third party app authentication information.")
-                }
 
-                let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false) { [weak self] result in
+                let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
                     guard let self = self else { return }
                     do {
                         try result.get()
@@ -205,27 +187,19 @@ public final class InitiateTransferTask: Cancellable {
                 authenticationHandler(.awaitingThirdPartyAppAuthentication(task))
             case .updating:
                 // Need to keep polling here, updated is the state when the authentication is done.
-                progressHandler(.updating(status: credentials.statusPayload))
+                progressHandler(.updating)
             case .updated:
                 // Stops polling when the credentials status is updating
                 credentialsStatusPollingTask?.stopPolling()
                 transferStatusPollingTask?.startPolling()
             case .permanentError:
-                throw Error.failed(credentials.statusPayload)
+                throw Error.permanentCredentialsFailure(credentials.statusPayload)
             case .temporaryError:
-                throw Error.failed(credentials.statusPayload)
+                throw Error.temporaryCredentialsFailure(credentials.statusPayload)
             case .authenticationError:
-                var payload: String
-                // Noticed that the frontend could get an unauthenticated error with an empty payload while trying to add the same third-party authentication credentials twice.
-                // Happens if the frontend makes the update credentials request before the backend stops waiting for the previously added credentials to finish authenticating or time-out.
-                if credentials.kind == .mobileBankID || credentials.kind == .thirdPartyAuthentication {
-                    payload = credentials.statusPayload.isEmpty ? "Please try again later" : credentials.statusPayload
-                } else {
-                    payload = credentials.statusPayload
-                }
-                throw Error.authenticationFailed(payload)
-            case .disabled:
-                throw Error.disabledCredentials(credentials.statusPayload)
+                throw Error.credentialsAuthenticationFailed(credentials.statusPayload)
+            case .deleted:
+                throw Error.credentialsDeleted(credentials.statusPayload)
             case .sessionExpired:
                 throw Error.credentialsSessionExpired(credentials.statusPayload)
             case .unknown:
@@ -244,7 +218,7 @@ public final class InitiateTransferTask: Cancellable {
         do {
             let signableOperation = try result.get()
             guard let transferID = signableOperation.transferID else {
-                completionHandler(.failure(Error.failed("Failed to get transfer ID.")))
+                completionHandler(.failure(Error.transferFailed("Failed to get transfer ID.")))
                 return
             }
 

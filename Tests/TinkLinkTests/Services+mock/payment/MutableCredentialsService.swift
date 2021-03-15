@@ -16,17 +16,15 @@ class MutableCredentialsService: CredentialsService {
         self.credentialsByID = Dictionary(grouping: credentialsList, by: \.id).compactMapValues(\.first)
     }
 
-    func modifyCredentials(id: Credentials.ID, status: Credentials.Status, supplementalInformationFields: [Provider.FieldSpecification]? = nil, thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil) {
+    func modifyCredentials(id: Credentials.ID, status: Credentials.Status) {
         let credentials = credentialsByID[id]!
 
         let modifiedCredentials = Credentials.makeTestCredentials(
             id: credentials.id,
-            providerID: credentials.providerID,
+            providerName: credentials.providerName,
             kind: credentials.kind,
             status: status,
-            fields: credentials.fields,
-            supplementalInformationFields: supplementalInformationFields ?? credentials.supplementalInformationFields,
-            thirdPartyAppAuthentication: thirdPartyAppAuthentication
+            fields: credentials.fields
         )
 
         credentialsByID[id] = modifiedCredentials
@@ -46,9 +44,9 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func create(providerID: Provider.ID, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func create(providerName: Provider.Name, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         let credentials = Credentials.makeTestCredentials(
-            providerID: providerID,
+            providerName: providerName,
             kind: createCredentialsKind,
             status: .created,
             fields: fields
@@ -68,14 +66,14 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
-    func update(id: Credentials.ID, providerID: Provider.ID, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+    func update(id: Credentials.ID, providerName: Provider.Name, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials.makeTestCredentials(
                 id: credentials.id,
-                providerID: credentials.providerID,
+                providerName: credentials.providerName,
                 kind: credentials.kind,
                 status: credentialsStatusAfterUpdate,
-                fields: credentials.fields
+                fields: fields
             )
             credentialsByID[id] = updatedCredentials
             completion(.success(updatedCredentials))
@@ -95,7 +93,7 @@ class MutableCredentialsService: CredentialsService {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials.makeTestCredentials(
                 id: credentials.id,
-                providerID: credentials.providerID,
+                providerName: credentials.providerName,
                 kind: credentials.kind,
                 status: credentialsStatusAfterSupplementalInformation,
                 fields: credentials.fields
@@ -112,7 +110,7 @@ class MutableCredentialsService: CredentialsService {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials.makeTestCredentials(
                 id: credentials.id,
-                providerID: credentials.providerID,
+                providerName: credentials.providerName,
                 kind: credentials.kind,
                 status: .authenticationError,
                 fields: credentials.fields
@@ -129,7 +127,7 @@ class MutableCredentialsService: CredentialsService {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials.makeTestCredentials(
                 id: credentials.id,
-                providerID: credentials.providerID,
+                providerName: credentials.providerName,
                 kind: credentials.kind,
                 status: .updated,
                 fields: credentials.fields
@@ -146,9 +144,9 @@ class MutableCredentialsService: CredentialsService {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials.makeTestCredentials(
                 id: credentials.id,
-                providerID: credentials.providerID,
+                providerName: credentials.providerName,
                 kind: credentials.kind,
-                status: .disabled,
+                status: .unknown,
                 fields: credentials.fields
             )
             credentialsByID[id] = updatedCredentials

@@ -4,15 +4,13 @@ import Foundation
 extension Credentials {
     static let testPasswordCredentials = Credentials(
         id: Credentials.ID("test"),
-        providerID: Provider.ID("test"),
+        providerName: Provider.Name("test"),
         kind: .password,
         status: .created,
         statusPayload: "",
         statusUpdated: nil,
         updated: Date(),
         fields: [:],
-        supplementalInformationFields: [],
-        thirdPartyAppAuthentication: nil,
         sessionExpiryDate: Date()
     )
 }
@@ -20,17 +18,7 @@ extension Credentials {
 extension Credentials {
     // Extension to update the status for test
     init(credentials: Credentials, status: Credentials.Status) {
-        var supplementalInformationFields = [Provider.FieldSpecification]()
-        var thirdPartyAppAuthentication: ThirdPartyAppAuthentication?
-        switch status {
-        case .awaitingSupplementalInformation:
-            supplementalInformationFields = [Provider.FieldSpecification(fieldDescription: "Code", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "code", initialValue: "", pattern: "", patternError: "", helpText: "")]
-        case .awaitingMobileBankIDAuthentication, .awaitingThirdPartyAppAuthentication:
-            thirdPartyAppAuthentication = ThirdPartyAppAuthentication(downloadTitle: "Test download title", downloadMessage: "Test download message", upgradeTitle: "Test upgrade title", upgradeMessage: "Test upgrade message", appStoreURL: nil, scheme: "app", deepLinkURL: URL(string: "testApp://callback"))
-        default:
-            break
-        }
-        self = Credentials(id: credentials.id, providerID: credentials.providerID, kind: credentials.kind, status: status, statusPayload: credentials.statusPayload, statusUpdated: Date(), updated: Date(), fields: credentials.fields, supplementalInformationFields: supplementalInformationFields, thirdPartyAppAuthentication: thirdPartyAppAuthentication, sessionExpiryDate: credentials.sessionExpiryDate)
+        self = Credentials(id: credentials.id, providerName: credentials.providerName, kind: credentials.kind, status: status, statusPayload: credentials.statusPayload ?? "", statusUpdated: Date(), updated: Date(), fields: credentials.fields, sessionExpiryDate: credentials.sessionExpiryDate)
     }
 
     func nextCredentialsStatus() -> Credentials.Status {
@@ -39,11 +27,11 @@ extension Credentials {
             case .created, .authenticating:
                 switch kind {
                 case .mobileBankID:
-                    return .awaitingMobileBankIDAuthentication
+                    return .awaitingMobileBankIDAuthentication(ThirdPartyAppAuthentication(downloadTitle: "Test download title", downloadMessage: "Test download message", upgradeTitle: "Test upgrade title", upgradeMessage: "Test upgrade message", appStoreURL: nil, scheme: "app", deepLinkURL: URL(string: "testApp://callback")))
                 case .thirdPartyAuthentication:
-                    return .awaitingThirdPartyAppAuthentication
-                case .password where self.providerID == "se-test-multi-supplemental":
-                    return .awaitingSupplementalInformation
+                    return .awaitingThirdPartyAppAuthentication(ThirdPartyAppAuthentication(downloadTitle: "Test download title", downloadMessage: "Test download message", upgradeTitle: "Test upgrade title", upgradeMessage: "Test upgrade message", appStoreURL: nil, scheme: "app", deepLinkURL: URL(string: "testApp://callback")))
+                case .password where self.providerName == "se-test-multi-supplemental":
+                    return .awaitingSupplementalInformation([Provider.Field(description: "Code", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "code", initialValue: "", pattern: "", patternError: "", helpText: "", selectOptions: [])])
                 default:
                     return .updating
                 }
@@ -62,24 +50,20 @@ extension Credentials {
 
     static func makeTestCredentials(
         id: Credentials.ID = Credentials.ID(UUID().uuidString),
-        providerID: Provider.ID,
+        providerName: Provider.Name,
         kind: Kind,
         status: Status,
-        fields: [String: String] = [:],
-        supplementalInformationFields: [Provider.FieldSpecification] = [],
-        thirdPartyAppAuthentication: Credentials.ThirdPartyAppAuthentication? = nil
+        fields: [String: String] = [:]
     ) -> Credentials {
         return Credentials(
             id: id,
-            providerID: providerID,
+            providerName: providerName,
             kind: kind,
             status: status,
             statusPayload: "",
             statusUpdated: Date(),
             updated: Date(),
             fields: fields,
-            supplementalInformationFields: supplementalInformationFields,
-            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
             sessionExpiryDate: nil
         )
     }
@@ -91,35 +75,30 @@ extension Credentials {
     ) {
         self = Credentials(
             id: id,
-            providerID: providerID,
+            providerName: providerName,
             kind: kind,
             status: status,
             statusPayload: statusPayload,
             statusUpdated: Date(),
             updated: updated,
             fields: fields,
-            supplementalInformationFields: supplementalInformationFields,
-            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
             sessionExpiryDate: sessionExpiryDate
         )
     }
 
     mutating func modify(
-        supplementalInformationFields: [Provider.FieldSpecification],
         status: Status,
         statusPayload: String = ""
     ) {
         self = Credentials(
             id: id,
-            providerID: providerID,
+            providerName: providerName,
             kind: kind,
             status: status,
             statusPayload: statusPayload,
             statusUpdated: Date(),
             updated: updated,
             fields: fields,
-            supplementalInformationFields: supplementalInformationFields,
-            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
             sessionExpiryDate: sessionExpiryDate
         )
     }
@@ -131,15 +110,13 @@ extension Credentials {
     ) {
         self = Credentials(
             id: id,
-            providerID: providerID,
+            providerName: providerName,
             kind: kind,
             status: status,
             statusPayload: statusPayload,
             statusUpdated: Date(),
             updated: updated,
             fields: fields,
-            supplementalInformationFields: supplementalInformationFields,
-            thirdPartyAppAuthentication: thirdPartyAppAuthentication,
             sessionExpiryDate: sessionExpiryDate
         )
     }

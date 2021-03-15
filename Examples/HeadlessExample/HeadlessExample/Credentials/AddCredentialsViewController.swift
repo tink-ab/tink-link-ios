@@ -16,7 +16,7 @@ final class AddCredentialsViewController: UITableViewController {
 
     private var credentials: Credentials?
 
-    private var addCredentialsTask: AddCredentialsTask?
+    private var addCredentialsTask: Cancellable?
     private var statusViewController: StatusViewController?
     private lazy var addBarButtonItem = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(addCredential))
     private var didFirstFieldBecomeFirstResponder = false
@@ -171,6 +171,11 @@ extension AddCredentialsViewController {
                     successPredicate: .updated,
                     shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false
                 ),
+                authenticationHandler: { [weak self] authentication in
+                    DispatchQueue.main.async {
+                        self?.handleAuthentication(authentication)
+                    }
+                },
                 progressHandler: { [weak self] status in
                     DispatchQueue.main.async {
                         self?.handleProgress(status)
@@ -212,6 +217,11 @@ extension AddCredentialsViewController {
             } else {
                 showUpdating(status: "Connecting…")
             }
+        }
+    }
+
+    private func handleAuthentication(_ authentication: AuthenticationTask) {
+        switch authentication {
         case .awaitingSupplementalInformation(let task):
             hideUpdatingView(animated: false) {
                 self.showSupplementalInformation(for: task)
@@ -244,6 +254,14 @@ extension AddCredentialsViewController {
             _ = try result.get()
             hideUpdatingView(animated: false) {
                 self.dismiss(animated: true)
+            }
+        } catch let error as TinkLinkError where error.code == .thirdPartyAppAuthenticationFailed {
+            hideUpdatingView(animated: false) {
+                if let reason = error.thirdPartyAppAuthenticationFailureReason, reason.code == .downloadRequired {
+                    self.showDownloadPrompt(for: reason)
+                } else {
+                    self.showAlert(for: error)
+                }
             }
         } catch {
             hideUpdatingView(animated: false) {
@@ -295,10 +313,10 @@ extension AddCredentialsViewController {
         statusViewController = nil
     }
 
-    private func showDownloadPrompt(for thirdPartyAppAuthenticationError: ThirdPartyAppAuthenticationTask.Error) {
-        let alertController = UIAlertController(title: thirdPartyAppAuthenticationError.errorDescription, message: thirdPartyAppAuthenticationError.failureReason, preferredStyle: .alert)
+    private func showDownloadPrompt(for thirdPartyAppAuthenticationFailureReason: TinkLinkError.ThirdPartyAppAuthenticationFailureReason) {
+        let alertController = UIAlertController(title: thirdPartyAppAuthenticationFailureReason.errorDescription, message: thirdPartyAppAuthenticationFailureReason.failureReason, preferredStyle: .alert)
 
-        if let appStoreURL = thirdPartyAppAuthenticationError.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
+        if let appStoreURL = thirdPartyAppAuthenticationFailureReason.appStoreURL, UIApplication.shared.canOpenURL(appStoreURL) {
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             let downloadAction = UIAlertAction(title: "Download", style: .default, handler: { _ in
                 UIApplication.shared.open(appStoreURL)

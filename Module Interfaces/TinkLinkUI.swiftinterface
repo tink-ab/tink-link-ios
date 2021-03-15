@@ -24,8 +24,6 @@ public struct AppearanceProvider : TinkLinkUI.AppearanceProviding {
   public var fonts: TinkLinkUI.FontProviding
   public init(colors: TinkLinkUI.ColorProvider? = nil, fonts: TinkLinkUI.FontProvider? = nil)
 }
-public enum Color {
-}
 public struct ColorProvider : TinkLinkUI.ColorProviding {
   public var accentBackground: UIKit.UIColor
   public var button: UIKit.UIColor
@@ -97,7 +95,7 @@ public struct FontProvider : TinkLinkUI.FontProviding {
 public protocol FontProviding {
   func font(for weight: TinkLinkUI.Font.Weight) -> TinkLinkUI.Font
 }
-extension ServiceError : Foundation.LocalizedError {
+extension TinkLinkError : Foundation.LocalizedError {
   public var errorDescription: Swift.String? {
     get
   }
@@ -105,7 +103,7 @@ extension ServiceError : Foundation.LocalizedError {
     get
   }
 }
-extension AddCredentialsTask.Error : Foundation.LocalizedError {
+extension TinkLinkError.ThirdPartyAppAuthenticationFailureReason : Foundation.LocalizedError {
   public var errorDescription: Swift.String? {
     get
   }
@@ -113,58 +111,76 @@ extension AddCredentialsTask.Error : Foundation.LocalizedError {
     get
   }
 }
-extension RefreshCredentialsTask.Error : Foundation.LocalizedError {
-  public var errorDescription: Swift.String? {
+public struct TinkLinkUIError : Swift.Error, Swift.CustomStringConvertible {
+  public struct Code : Swift.Hashable {
+    public static let userCancelled: TinkLinkUI.TinkLinkUIError.Code
+    public static let unableToFetchProviders: TinkLinkUI.TinkLinkUIError.Code
+    public static let missingInternetConnection: TinkLinkUI.TinkLinkUIError.Code
+    public static let credentialsNotFound: TinkLinkUI.TinkLinkUIError.Code
+    public static let providerNotFound: TinkLinkUI.TinkLinkUIError.Code
+    public static let unableToOpenThirdPartyApp: TinkLinkUI.TinkLinkUIError.Code
+    public static let failedToAddCredentials: TinkLinkUI.TinkLinkUIError.Code
+    public static let notAuthenticated: TinkLinkUI.TinkLinkUIError.Code
+    public static let internalError: TinkLinkUI.TinkLinkUIError.Code
+    public static func ~= (lhs: TinkLinkUI.TinkLinkUIError.Code, rhs: Swift.Error) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: TinkLinkUI.TinkLinkUIError.Code, b: TinkLinkUI.TinkLinkUIError.Code) -> Swift.Bool
+  }
+  public var code: TinkLinkUI.TinkLinkUIError.Code
+  public var errorsByCredentialsID: [TinkCore.Credentials.ID : Swift.Error]? {
     get
   }
-  public var failureReason: Swift.String? {
+  public var description: Swift.String {
     get
   }
-}
-extension ThirdPartyAppAuthenticationTask.Error : Foundation.LocalizedError {
-  public var errorDescription: Swift.String? {
-    get
-  }
-  public var failureReason: Swift.String? {
-    get
-  }
-}
-public enum TinkLinkError : Swift.Error {
-  case userCancelled
-  case unableToFetchProviders
-  case missingInternetConnection
-  case credentialsNotFound
-  case providerNotFound
-  case unableToOpenThirdPartyApp(TinkLink.ThirdPartyAppAuthenticationTask.Error)
-  case failedToAddCredentials([TinkCore.Credentials.ID : Swift.Error])
-  case unauthenticated
-  case internalError
+  public static let userCancelled: TinkLinkUI.TinkLinkUIError.Code
+  public static let unableToFetchProviders: TinkLinkUI.TinkLinkUIError.Code
+  public static let missingInternetConnection: TinkLinkUI.TinkLinkUIError.Code
+  public static let credentialsNotFound: TinkLinkUI.TinkLinkUIError.Code
+  public static let providerNotFound: TinkLinkUI.TinkLinkUIError.Code
+  public static let unableToOpenThirdPartyApp: TinkLinkUI.TinkLinkUIError.Code
+  public static let failedToAddCredentials: TinkLinkUI.TinkLinkUIError.Code
+  public static let notAuthenticated: TinkLinkUI.TinkLinkUIError.Code
+  public static let internalError: TinkLinkUI.TinkLinkUIError.Code
 }
 @objc @_hasMissingDesignatedInitializers public class TinkLinkViewController : UIKit.UIViewController {
-  public enum PrefillStrategy {
-    case none
-    case username(value: Swift.String, isEditable: Swift.Bool)
+  public struct PrefillStrategy {
+    public struct Field {
+      public let value: Swift.String
+      public let isEditable: Swift.Bool
+      public init(value: Swift.String, isEditable: Swift.Bool)
+    }
+    public static let none: TinkLinkUI.TinkLinkViewController.PrefillStrategy
+    public static func username(prefilledField: TinkLinkUI.TinkLinkViewController.PrefillStrategy.Field) -> TinkLinkUI.TinkLinkViewController.PrefillStrategy
+    public static func username(value: Swift.String, isEditable: Swift.Bool) -> TinkLinkUI.TinkLinkViewController.PrefillStrategy
+    public static func fields(_ values: [Swift.String : TinkLinkUI.TinkLinkViewController.PrefillStrategy.Field]) -> TinkLinkUI.TinkLinkViewController.PrefillStrategy
   }
-  public enum ProviderPredicate {
-    case kinds(Swift.Set<TinkCore.Provider.Kind>)
-    case name(TinkCore.Provider.ID)
+  public struct ProviderPredicate {
+    public static func kinds(_ kinds: Swift.Set<TinkCore.Provider.Kind>) -> TinkLinkUI.TinkLinkViewController.ProviderPredicate
+    public static func name(_ name: TinkCore.Provider.Name) -> TinkLinkUI.TinkLinkViewController.ProviderPredicate
   }
-  public enum Operation {
-    case create(providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default))
-    case authenticate(credentialsID: TinkCore.Credentials.ID)
-    case refresh(credentialsID: TinkCore.Credentials.ID, forceAuthenticate: Swift.Bool = false)
-    case update(credentialsID: TinkCore.Credentials.ID)
+  public struct Operation {
+    public static func create(providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default)) -> TinkLinkUI.TinkLinkViewController.Operation
+    public static func authenticate(credentialsID: TinkCore.Credentials.ID) -> TinkLinkUI.TinkLinkViewController.Operation
+    public static func refresh(credentialsID: TinkCore.Credentials.ID, forceAuthenticate: Swift.Bool = false) -> TinkLinkUI.TinkLinkViewController.Operation
+    public static func update(credentialsID: TinkCore.Credentials.ID) -> TinkLinkUI.TinkLinkViewController.Operation
   }
   public var errorsByCredentialsID: [TinkCore.Credentials.ID : Swift.Error] {
     get
   }
   public var prefill: TinkLinkUI.TinkLinkViewController.PrefillStrategy
   final public let scopes: [TinkCore.Scope]?
-  public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default), completion: @escaping (Swift.Result<(code: TinkCore.AuthorizationCode, credentials: TinkCore.Credentials), TinkLinkUI.TinkLinkError>) -> Swift.Void)
-  public init(tink: TinkCore.Tink = .shared, userSession: TinkCore.UserSession, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkError>) -> Swift.Void)
-  public init(tink: TinkCore.Tink = .shared, authorizationCode: TinkCore.AuthorizationCode, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkError>) -> Swift.Void)
-  @available(*, unavailable, renamed: "init(tink:market:scopes:providerPredicate:completion:)")
-  convenience public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerKinds: Swift.Set<TinkCore.Provider.Kind>, completion: @escaping (Swift.Result<TinkCore.AuthorizationCode, TinkLinkUI.TinkLinkError>) -> Swift.Void)
+  @available(*, deprecated, message: "Use init(configuration:market:scopes:providerPredicate:completion:) instead.")
+  convenience public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default), completion: @escaping (Swift.Result<(code: TinkCore.AuthorizationCode, credentials: TinkCore.Credentials), TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
+  public init(configuration: TinkCore.Configuration, market: TinkCore.Market, scopes: [TinkCore.Scope], providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default), completion: @escaping (Swift.Result<(code: TinkCore.AuthorizationCode, credentials: TinkCore.Credentials), TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
+  @available(*, deprecated, message: "Use init(tink:operation:completion:) with a Tink instance that has a user session set.")
+  convenience public init(tink: TinkCore.Tink = .shared, userSession: TinkCore.UserSession, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
+  public init(tink: TinkCore.Tink = .shared, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
+  @available(*, deprecated, message: "Authenticate a tink instance using `authenticateUser(authorizationCode:completion:)` and use init(tink:operation:completion:) instead.")
+  convenience public init(tink: TinkCore.Tink = .shared, authorizationCode: TinkCore.AuthorizationCode, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
   @objc override dynamic public func viewDidLoad()
   @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
     @objc get

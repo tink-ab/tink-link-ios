@@ -21,6 +21,13 @@ class ViewController: UIViewController {
 
     private let authorizationKind = AuthorizationKind()
 
+    private let configuration = TinkLinkConfiguration(
+        clientID: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_CLIENT_ID"] ?? "YOUR_CLIENT_ID",
+        appURI: URL(string: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_REDIRECT_URI"] ?? "tinklink://example")!,
+        callbackURI: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_CALLBACK_URI"].flatMap(URL.init(string:)),
+        environment: .production
+    )
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let color = Appearance.provider.colors
@@ -70,27 +77,41 @@ class ViewController: UIViewController {
     }
 
     private func showTinkLinkWithTemporaryUser() {
+        let market = Market(code: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_MARKET"] ?? "SE")
         let scopes: [Scope] = [
             .statistics(.read),
             .transactions(.read),
             .categories(.read),
             .accounts(.read)
         ]
-        let tinkLinkViewController = TinkLinkViewController(market: "SE", scopes: scopes, providerPredicate: .kinds(.all)) { result in
+        let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: market, scopes: scopes, providerPredicate: .kinds(.all)) { result in
             print(result)
         }
         present(tinkLinkViewController, animated: true)
     }
 
     private func showTinkLinkWithAuthorizationCode(_ authorizationCode: String) {
-        let tinkLinkViewController = TinkLinkViewController(authorizationCode: AuthorizationCode(authorizationCode)) { result in
-            print(result)
+        Tink.configure(with: configuration)
+        Tink.shared.authenticateUser(authorizationCode: AuthorizationCode(authorizationCode)) { result in
+            DispatchQueue.main.async {
+                do {
+                    let accessToken = try result.get()
+                    Tink.shared.userSession = .accessToken(accessToken.rawValue)
+                    let tinkLinkViewController = TinkLinkViewController { result in
+                        print(result)
+                    }
+                    self.present(tinkLinkViewController, animated: true)
+                } catch {
+                    // Handle error
+                }
+            }
         }
-        present(tinkLinkViewController, animated: true)
     }
 
     private func showTinkLinkWithUserSession(_ accessToken: String) {
-        let tinkLinkViewController = TinkLinkViewController(userSession: .accessToken(accessToken), operation: .create(providerPredicate: .kinds(.all))) { result in
+        Tink.configure(with: configuration)
+        Tink.shared.userSession = .accessToken(accessToken)
+        let tinkLinkViewController = TinkLinkViewController(operation: .create(providerPredicate: .kinds(.all))) { result in
             print(result)
         }
         present(tinkLinkViewController, animated: true)

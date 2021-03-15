@@ -6,30 +6,11 @@ public final class AuthorizationContext {
     private let appURI: URL
     private let service: AuthenticationService
 
-    /// Error that the `AuthorizationContext` can throw.
-    public enum Error: Swift.Error {
-        /// The scope or redirect URI was invalid.
-        ///
-        /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
-        ///
-        /// - Note: The payload from the backend can be found in the associated value.
-        case invalidScopeOrRedirectURI(String)
-
-        init?(_ error: Swift.Error) {
-            switch error {
-            case ServiceError.invalidArgument(let message):
-                self = .invalidScopeOrRedirectURI(message)
-            default:
-                return nil
-            }
-        }
-    }
-
     // MARK: - Creating a Context
 
-    /// Creates a context to authorize for an authorization code for a user with requested scopes.
+    /// Creates an `AuthorizationContext` bound to the provided Tink instance.
     ///
-    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
+    /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
         precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `appURI` configured.")
         self.appURI = tink.configuration.appURI!
@@ -51,11 +32,10 @@ public final class AuthorizationContext {
     @discardableResult
     public func _authorize(scopes: [Scope], completion: @escaping (_ result: Result<AuthorizationCode, Swift.Error>) -> Void) -> RetryCancellable? {
         return service.authorize(clientID: clientID, redirectURI: appURI, scopes: scopes) { result in
-            let mappedResult = result.mapError { Error($0) ?? $0 }
-            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
-                assertionFailure("Could not authorize: " + message)
+            if case .failure(ServiceError.invalidArgument(let message)) = result {
+                assertionFailure("Could not authorize: " + (message ?? ""))
             }
-            completion(mappedResult)
+            completion(result.mapError(\.tinkLinkError))
         }
     }
 
@@ -63,16 +43,23 @@ public final class AuthorizationContext {
 
     /// Get a description of the client.
     ///
+    /// This contains information about the name of the client, if it is an aggregator and what scopes the client has.
+    ///
+    /// Required scopes:
+    /// - authorization:read
+    ///
     /// - Parameter completion: The block to execute when the client description is received or if an error occurred.
+    /// - Parameter result: Represents either the client description or an error if the fetch failed.
     @discardableResult
-    public func fetchClientDescription(completion: @escaping (Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
+    public func fetchClientDescription(completion: @escaping (_ result: Result<ClientDescription, Swift.Error>) -> Void) -> RetryCancellable? {
         let scopes: [Scope] = []
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
-            let mappedResult = result.mapError { Error($0) ?? $0 }
-            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
-                assertionFailure("Could not get client description: " + message)
+            if case .failure(ServiceError.invalidArgument(let message)) = result {
+                assertionFailure("Could not get client description: " + (message ?? ""))
+            } else if case .failure(ServiceError.permissionDenied) = result {
+                assertionFailure("Could not get client description. The access token is missing the required scope: `authorization:read`.")
             }
-            completion(mappedResult)
+            completion(result.mapError(\.tinkLinkError))
         }
     }
 }

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035815424659C390075F1EA /* Error+LocalizedError.swift */; };
+		204D07E825A4645F001ADEFF /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204D07E725A4645F001ADEFF /* Failure.swift */; };
+		204D07EF25A46AD8001ADEFF /* FormField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204D07EE25A46AD8001ADEFF /* FormField.swift */; };
 		20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */; };
 		20FE0ABD24E5713C006977F4 /* TinkLink in Frameworks */ = {isa = PBXBuildFile; productRef = 20FE0ABC24E5713C006977F4 /* TinkLink */; };
 		6B0C22B725382510005B532F /* AuthenticationUserTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22B625382510005B532F /* AuthenticationUserTypePicker.swift */; };
@@ -16,7 +18,6 @@
 		6B0C22C02538259F005B532F /* FinancialInsititutionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22BF2538259F005B532F /* FinancialInsititutionPicker.swift */; };
 		6B0C22C3253825B1005B532F /* FinancialInsititutionGroupPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22C2253825B1005B532F /* FinancialInsititutionGroupPicker.swift */; };
 		6B0C22C725382914005B532F /* AddCredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0C22C625382914005B532F /* AddCredentialsView.swift */; };
-		6B275034253EBE1B004B8FB5 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B275033253EBE1B004B8FB5 /* ButtonTableViewCell.swift */; };
 		6B72CCFD25514E3E00DF9AA7 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B72CCFC25514E3E00DF9AA7 /* SDWebImageSwiftUI */; };
 		6B89772F253ECB6700474F52 /* TinkLinkUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B89772E253ECB6700474F52 /* TinkLinkUI */; };
 		8F3459BA2396ADEB007DCD75 /* HeadlessExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */; };
@@ -25,22 +26,19 @@
 		8F3459C32396ADED007DCD75 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459C22396ADED007DCD75 /* Preview Assets.xcassets */; };
 		8F3459C62396ADED007DCD75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F3459C42396ADED007DCD75 /* LaunchScreen.storyboard */; };
 		8F3459D02396B8C8007DCD75 /* CredentialsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3459CF2396B8C8007DCD75 /* CredentialsController.swift */; };
-		8F348AE8245AE380009B9973 /* UpdateCredentialsFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE7245AE380009B9973 /* UpdateCredentialsFlowView.swift */; };
-		8F348AEA245AE49C009B9973 /* UpdateCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE9245AE49C009B9973 /* UpdateCredentialsViewController.swift */; };
+		8F348AE8245AE380009B9973 /* UpdateCredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F348AE7245AE380009B9973 /* UpdateCredentialsView.swift */; };
 		8F45CAD223A2435A00CA0B9B /* SupplementalInformationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F45CAD123A2435A00CA0B9B /* SupplementalInformationForm.swift */; };
-		8F579BA1239E8CA400013FE1 /* AddCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F579B9C239E8CA300013FE1 /* AddCredentialsViewController.swift */; };
-		8F579BA3239E8CA400013FE1 /* AddCredentialsStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F579B9E239E8CA300013FE1 /* AddCredentialsStatusViewController.swift */; };
-		8F579BA5239E8CA400013FE1 /* SupplementalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F579BA0239E8CA400013FE1 /* SupplementalInformationViewController.swift */; };
 		8F8BD78C23A27DFD00CC890C /* CredentialsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78B23A27DFD00CC890C /* CredentialsList.swift */; };
 		8F8BD78E23A27EBF00CC890C /* AddCredentialsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BD78D23A27EBF00CC890C /* AddCredentialsRow.swift */; };
 		8FA5F37B23A3ACC200083430 /* CredentialsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5F37A23A3ACC200083430 /* CredentialsListRow.swift */; };
 		8FF1F388239E409300968AB9 /* ProviderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F387239E409300968AB9 /* ProviderController.swift */; };
-		8FF1F38F239E650600968AB9 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F38E239E650600968AB9 /* TextFieldCell.swift */; };
 		8FF1F392239E65D300968AB9 /* ProviderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF1F391239E65D300968AB9 /* ProviderPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2035815424659C390075F1EA /* Error+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+LocalizedError.swift"; sourceTree = "<group>"; };
+		204D07E725A4645F001ADEFF /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
+		204D07EE25A46AD8001ADEFF /* FormField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormField.swift; sourceTree = "<group>"; };
 		20DAF53024460C6200AF04D7 /* CredentialsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsDetailView.swift; sourceTree = "<group>"; };
 		20FE0ABA24E570D1006977F4 /* tink-link-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tink-link-ios"; path = ../..; sourceTree = "<group>"; };
 		6B0C22B625382510005B532F /* AuthenticationUserTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUserTypePicker.swift; sourceTree = "<group>"; };
@@ -49,7 +47,6 @@
 		6B0C22BF2538259F005B532F /* FinancialInsititutionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialInsititutionPicker.swift; sourceTree = "<group>"; };
 		6B0C22C2253825B1005B532F /* FinancialInsititutionGroupPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialInsititutionGroupPicker.swift; sourceTree = "<group>"; };
 		6B0C22C625382914005B532F /* AddCredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsView.swift; sourceTree = "<group>"; };
-		6B275033253EBE1B004B8FB5 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		8F3459B62396ADEB007DCD75 /* HeadlessExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeadlessExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3459B92396ADEB007DCD75 /* HeadlessExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlessExampleApp.swift; sourceTree = "<group>"; };
 		8F3459BD2396ADEB007DCD75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,17 +55,12 @@
 		8F3459C52396ADED007DCD75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F3459C72396ADED007DCD75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F3459CF2396B8C8007DCD75 /* CredentialsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsController.swift; sourceTree = "<group>"; };
-		8F348AE7245AE380009B9973 /* UpdateCredentialsFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsFlowView.swift; sourceTree = "<group>"; };
-		8F348AE9245AE49C009B9973 /* UpdateCredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsViewController.swift; sourceTree = "<group>"; };
+		8F348AE7245AE380009B9973 /* UpdateCredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsView.swift; sourceTree = "<group>"; };
 		8F45CAD123A2435A00CA0B9B /* SupplementalInformationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementalInformationForm.swift; sourceTree = "<group>"; };
-		8F579B9C239E8CA300013FE1 /* AddCredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialsViewController.swift; sourceTree = "<group>"; };
-		8F579B9E239E8CA300013FE1 /* AddCredentialsStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialsStatusViewController.swift; sourceTree = "<group>"; };
-		8F579BA0239E8CA400013FE1 /* SupplementalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementalInformationViewController.swift; sourceTree = "<group>"; };
 		8F8BD78B23A27DFD00CC890C /* CredentialsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsList.swift; sourceTree = "<group>"; };
 		8F8BD78D23A27EBF00CC890C /* AddCredentialsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCredentialsRow.swift; sourceTree = "<group>"; };
 		8FA5F37A23A3ACC200083430 /* CredentialsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsListRow.swift; sourceTree = "<group>"; };
 		8FF1F387239E409300968AB9 /* ProviderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderController.swift; sourceTree = "<group>"; };
-		8FF1F38E239E650600968AB9 /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		8FF1F391239E65D300968AB9 /* ProviderPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,19 +128,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		8F579B8F239E77E900013FE1 /* AddNewCredentials */ = {
-			isa = PBXGroup;
-			children = (
-				8FF1F38E239E650600968AB9 /* TextFieldCell.swift */,
-				6B275033253EBE1B004B8FB5 /* ButtonTableViewCell.swift */,
-				8F579B9E239E8CA300013FE1 /* AddCredentialsStatusViewController.swift */,
-				8F579B9C239E8CA300013FE1 /* AddCredentialsViewController.swift */,
-				8F348AE9245AE49C009B9973 /* UpdateCredentialsViewController.swift */,
-				8F579BA0239E8CA400013FE1 /* SupplementalInformationViewController.swift */,
-			);
-			path = AddNewCredentials;
-			sourceTree = "<group>";
-		};
 		8FC4980323AB9F1500A17945 /* CredentialsList */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,19 +157,12 @@
 				6B0C22B925382570005B532F /* AccessTypePicker.swift */,
 				6B0C22BC25382582005B532F /* CredentialsKindPicker.swift */,
 				6B0C22C625382914005B532F /* AddCredentialsView.swift */,
-				8F348AE7245AE380009B9973 /* UpdateCredentialsFlowView.swift */,
+				204D07EE25A46AD8001ADEFF /* FormField.swift */,
+				204D07E725A4645F001ADEFF /* Failure.swift */,
+				8F348AE7245AE380009B9973 /* UpdateCredentialsView.swift */,
 				8F45CAD123A2435A00CA0B9B /* SupplementalInformationForm.swift */,
-				8FF1F38B239E645B00968AB9 /* AddCredentials */,
 			);
 			path = AddCredentialsFlow;
-			sourceTree = "<group>";
-		};
-		8FF1F38B239E645B00968AB9 /* AddCredentials */ = {
-			isa = PBXGroup;
-			children = (
-				8F579B8F239E77E900013FE1 /* AddNewCredentials */,
-			);
-			path = AddCredentials;
 			sourceTree = "<group>";
 		};
 		8FF1F390239E65BF00968AB9 /* Controllers */ = {
@@ -281,10 +253,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F348AE8245AE380009B9973 /* UpdateCredentialsFlowView.swift in Sources */,
+				8F348AE8245AE380009B9973 /* UpdateCredentialsView.swift in Sources */,
 				6B0C22C725382914005B532F /* AddCredentialsView.swift in Sources */,
 				8F8BD78C23A27DFD00CC890C /* CredentialsList.swift in Sources */,
-				6B275034253EBE1B004B8FB5 /* ButtonTableViewCell.swift in Sources */,
 				2035815524659C390075F1EA /* Error+LocalizedError.swift in Sources */,
 				20DAF53124460C6200AF04D7 /* CredentialsDetailView.swift in Sources */,
 				8F3459D02396B8C8007DCD75 /* CredentialsController.swift in Sources */,
@@ -293,17 +264,14 @@
 				8FF1F392239E65D300968AB9 /* ProviderPicker.swift in Sources */,
 				8FA5F37B23A3ACC200083430 /* CredentialsListRow.swift in Sources */,
 				8FF1F388239E409300968AB9 /* ProviderController.swift in Sources */,
-				8F579BA5239E8CA400013FE1 /* SupplementalInformationViewController.swift in Sources */,
-				8F579BA3239E8CA400013FE1 /* AddCredentialsStatusViewController.swift in Sources */,
 				6B0C22C3253825B1005B532F /* FinancialInsititutionGroupPicker.swift in Sources */,
 				6B0C22BD25382582005B532F /* CredentialsKindPicker.swift in Sources */,
 				8F45CAD223A2435A00CA0B9B /* SupplementalInformationForm.swift in Sources */,
 				6B0C22C02538259F005B532F /* FinancialInsititutionPicker.swift in Sources */,
-				8F579BA1239E8CA400013FE1 /* AddCredentialsViewController.swift in Sources */,
+				204D07EF25A46AD8001ADEFF /* FormField.swift in Sources */,
 				6B0C22B725382510005B532F /* AuthenticationUserTypePicker.swift in Sources */,
+				204D07E825A4645F001ADEFF /* Failure.swift in Sources */,
 				8F3459BE2396ADEB007DCD75 /* ContentView.swift in Sources */,
-				8F348AEA245AE49C009B9973 /* UpdateCredentialsViewController.swift in Sources */,
-				8FF1F38F239E650600968AB9 /* TextFieldCell.swift in Sources */,
 				6B0C22BA25382570005B532F /* AccessTypePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

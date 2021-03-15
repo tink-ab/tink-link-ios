@@ -1,91 +1,71 @@
 import Foundation
 import TinkLink
 
-extension AddCredentialsTask.Error: LocalizedError {
+extension TinkLinkError: LocalizedError {
     public var errorDescription: String? {
-        switch self {
-        case .authenticationFailed:
+        switch code {
+        case .credentialsAuthenticationFailed:
             return "Authentication Failed"
         case .credentialsAlreadyExists:
             return "Credentials Already Exists"
-        case .permanentFailure:
+        case .permanentCredentialsFailure:
             return "Permanent Failure"
-        case .temporaryFailure:
+        case .temporaryCredentialsFailure:
             return "Temporary Failure"
+        case .credentialsDeleted:
+            return "Deleted"
         case .cancelled:
             return "Cancelled"
+        case .thirdPartyAppAuthenticationFailed:
+            return thirdPartyAppAuthenticationFailureReason?.errorDescription
+        default:
+            return "Error"
         }
     }
 
     public var failureReason: String? {
         switch self {
-        case .authenticationFailed(let payload),
-             .credentialsAlreadyExists(let payload),
-             .permanentFailure(let payload),
-             .temporaryFailure(let payload):
-            return payload
-        case .cancelled:
+        case .credentialsAuthenticationFailed,
+             .credentialsAlreadyExists,
+             .permanentCredentialsFailure,
+             .temporaryCredentialsFailure,
+             .credentialsDeleted:
+            return message
+        case .thirdPartyAppAuthenticationFailed:
+            return thirdPartyAppAuthenticationFailureReason?.failureReason
+        default:
             return nil
         }
     }
 }
 
-extension RefreshCredentialsTask.Error: LocalizedError {
+extension TinkLinkError.ThirdPartyAppAuthenticationFailureReason: LocalizedError {
     public var errorDescription: String? {
-        switch self {
-        case .authenticationFailed:
-            return "Authentication Failed"
-        case .permanentFailure:
-            return "Permanent Failure"
-        case .temporaryFailure:
-            return "Temporary Failure"
-        case .disabled:
-            return "Disabled"
-        case .cancelled:
-            return "Cancelled"
-        }
-    }
-
-    public var failureReason: String? {
-        switch self {
-        case .authenticationFailed(let payload),
-             .permanentFailure(let payload),
-             .temporaryFailure(let payload),
-             .disabled(let payload):
-            return payload
-        case .cancelled:
-            return nil
-        }
-    }
-}
-
-extension ThirdPartyAppAuthenticationTask.Error: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
+        switch code {
         case .deeplinkURLNotFound:
             return nil
-        case .downloadRequired(let title, _, _):
-            return title
+        case .downloadRequired:
+            return downloadTitle
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return "This bank does not support authenticating on another device."
         case .decodingQRCodeImageFailed:
             return "Failed to decode the QR code image."
-        case .cancelled:
-            return "Cancelled"
+        default:
+            return "Error"
         }
     }
 
     public var failureReason: String? {
-        switch self {
+        switch code {
         case .deeplinkURLNotFound:
             return nil
-        case .downloadRequired(_, let message, _):
-            return message
+        case .downloadRequired:
+            return downloadMessage
         case .doesNotSupportAuthenticatingOnAnotherDevice:
             return nil
         case .decodingQRCodeImageFailed:
             return nil
-        case .cancelled:
+        default:
             return nil
         }
     }

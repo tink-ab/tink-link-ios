@@ -31,7 +31,7 @@ final class ProviderController {
         isFetching = true
         NotificationCenter.default.post(name: .providerControllerWillFetchProviders, object: self)
 
-        switch providerPredicate {
+        switch providerPredicate.value {
         case .name(let id):
             fetchProvider(with: id) { result in
                 do {
@@ -50,8 +50,8 @@ final class ProviderController {
         tink._beginUITask()
         defer { tink._endUITask() }
 
-        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: kinds, accessTypes: .all)
-        providerContext.fetchProviders(attributes: attributes, completion: { [weak self] result in
+        let filter = ProviderContext.Filter(capabilities: .all, kinds: kinds, accessTypes: .all)
+        providerContext.fetchProviders(filter: filter, completion: { [weak self] result in
 
             self?.isFetching = false
             do {
@@ -73,11 +73,11 @@ final class ProviderController {
         })
     }
 
-    func fetchProvider(with id: Provider.ID, completion: @escaping ((Result<Provider, Swift.Error>) -> Void)) {
+    func fetchProvider(with name: Provider.Name, completion: @escaping ((Result<Provider, Swift.Error>) -> Void)) {
         tink._beginUITask()
         defer { tink._endUITask() }
 
-        providerContext.fetchProvider(with: id, completion: { [weak self] result in
+        providerContext.fetchProvider(with: name, completion: { [weak self] result in
 
             self?.isFetching = false
             do {
@@ -94,7 +94,7 @@ final class ProviderController {
         })
     }
 
-    func provider(providerID: Provider.ID) -> Provider? {
-        return providers.first { $0.id == providerID }
+    func provider(providerName: Provider.Name) -> Provider? {
+        return providers.first { $0.name == providerName }
     }
 }

@@ -33,8 +33,7 @@ extension FinancialInstitutionGroupPickerViewController {
 
         tableView.register(FixedImageSizeTableViewCell.self, forCellReuseIdentifier: "Cell")
 
-        let attributes = ProviderContext.Attributes(capabilities: .all, kinds: .all, accessTypes: .all)
-        providerContext.fetchProviders(attributes: attributes) { [weak self] result in
+        providerContext.fetchProviders { [weak self] result in
             do {
                 let providers = try result.get()
                 let tree = ProviderTree(providers: providers)
@@ -74,8 +73,8 @@ extension FinancialInstitutionGroupPickerViewController {
         switch financialInstitutionGroupNode {
         case .financialInstitutions(let financialInstitutionGroups):
             showFinancialInstitution(for: financialInstitutionGroups, title: financialInstitutionGroupNode.displayName)
-        case .authenticationUserTypes(let authenticationUserTypeNodes):
-            showAuthenticationUserTypePicker(for: authenticationUserTypeNodes, title: financialInstitutionGroupNode.displayName)
+        case .financialServices(let financialServicesGroups):
+            showFinancialServicesPicker(for: financialServicesGroups, title: financialInstitutionGroupNode.displayName)
         case .accessTypes(let accessTypeGroups):
             showAccessTypePicker(for: accessTypeGroups, title: financialInstitutionGroupNode.displayName)
         case .credentialsKinds(let groups):
@@ -96,9 +95,9 @@ extension FinancialInstitutionGroupPickerViewController {
         show(viewController, sender: nil)
     }
 
-    func showAuthenticationUserTypePicker(for authenticationUserTypeNodes: [ProviderTree.AuthenticationUserTypeNode], title: String?) {
-        let viewController = AuthenticationUserTypePickerViewController()
-        viewController.authenticationUserTypeNodes = authenticationUserTypeNodes
+    func showFinancialServicesPicker(for financialServicesNodes: [ProviderTree.FinancialServicesNode], title: String?) {
+        let viewController = FinancialServicesPickerViewController()
+        viewController.financialServicesNodes = financialServicesNodes
         viewController.title = title
         show(viewController, sender: nil)
     }

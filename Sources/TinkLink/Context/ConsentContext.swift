@@ -1,35 +1,20 @@
 import Foundation
 
-/// An object that you use to get user consent.
+/// An object that you use to get data allowing you to make sure you have full consent from the end user.
+///
+/// The `ConsentContext` is used to fetch descriptions of a set of scopes explaining what kind of data will be fetched for the user.
+/// You can also use the `ConsentContext` to fetch links to both Tink's terms and conditions and privacy policy.
+/// Both must be presented to the user if data is aggregated under Tink's license.
 public final class ConsentContext {
     private let clientID: String
     private let appURI: URL
     private let service: AuthenticationService
 
-    /// Error that the `ConsentContext` can throw.
-    public enum Error: Swift.Error {
-        /// The scope or redirect URI was invalid.
-        ///
-        /// If you get this error make sure that your client has the scopes you're requesting and that you've added a valid redirect URI in Tink Console.
-        ///
-        /// - Note: The payload from the backend can be found in the associated value.
-        case invalidScopeOrRedirectURI(String)
-
-        init?(_ error: Swift.Error) {
-            switch error {
-            case ServiceError.invalidArgument(let message):
-                self = .invalidScopeOrRedirectURI(message)
-            default:
-                return nil
-            }
-        }
-    }
-
     // MARK: - Creating a Context
 
-    /// Creates a context to authorize for an authorization code for a user with requested scopes.
+    /// Creates a `ConsentContext` that will be bound to the provided `Tink` instance.
     ///
-    /// - Parameter tink: Tink instance, will use the shared instance if nothing is provided.
+    /// - Parameter tink: The `Tink` instance to use. Will use the shared instance if nothing is provided.
     public init(tink: Tink = .shared) {
         precondition(tink.configuration.appURI != nil, "Configure Tink by calling `Tink.configure(with:)` with a `appURI` configured.")
         self.appURI = tink.configuration.appURI!
@@ -44,7 +29,7 @@ public final class ConsentContext {
     /// If aggregating under Tink's license the user must be informed and fully understand what kind of data will be aggregated before aggregating any data.
     ///
     /// ## Showing Scope Descriptions
-    /// Here's how you can list the scope descriptions for requesing access to accounts and transactions.
+    /// Here's how you can list the scope descriptions for requesting access to accounts and transactions.
     ///
     ///     class ScopeDescriptionCell: UITableViewCell {
     ///         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -59,12 +44,12 @@ public final class ConsentContext {
     ///     }
     ///
     ///     class ScopeDescriptionsViewController: UITableViewController {
-    ///         private let authorizationContext: AuthorizationContext
+    ///         private let consentContext: ConsentContext
     ///
     ///         private var scopeDescriptions: [ScopeDescription] = []
     ///
-    ///         init(user: User) {
-    ///             self.authorizationContext = AuthorizationContext(user: user)
+    ///         init() {
+    ///             self.consentContext = ConsentContext()
     ///             super.init(nibName: nil, bundle: nil)
     ///         }
     ///
@@ -82,7 +67,7 @@ public final class ConsentContext {
     ///                 .transactions(.read)
     ///             ]
     ///
-    ///             authorizationContext.fetchScopeDescriptions(scopes: scopes) { [weak self] result in
+    ///             consentContext.fetchScopeDescriptions(scopes: scopes) { [weak self] result in
     ///                 DispatchQueue.main.async {
     ///                     do {
     ///                         self?.scopeDescriptions = try result.get()
@@ -115,11 +100,11 @@ public final class ConsentContext {
     @discardableResult
     public func fetchScopeDescriptions(scopes: [Scope], completion: @escaping (Result<[ScopeDescription], Swift.Error>) -> Void) -> RetryCancellable? {
         return service.clientDescription(clientID: clientID, scopes: scopes, redirectURI: appURI) { result in
-            let mappedResult = result.map(\.scopes).mapError { Error($0) ?? $0 }
-            if case .failure(Error.invalidScopeOrRedirectURI(let message)) = mappedResult {
-                assertionFailure("Could not fetch scope descriptions: " + message)
+            let mappedResult = result.map(\.scopes)
+            if case .failure(ServiceError.invalidArgument(let message)) = mappedResult {
+                assertionFailure("Could not fetch scope descriptions: " + (message ?? ""))
             }
-            completion(mappedResult)
+            completion(mappedResult.mapError(\.tinkLinkError))
         }
     }
 

@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#provider.kind.unknown">unknown</a></li><li class="case"><a href="#provider.kind.bank">bank</a></li><li class="case"><a href="#provider.kind.creditcard">credit​Card</a></li><li class="case"><a href="#provider.kind.broker">broker</a></li><li class="case"><a href="#provider.kind.other">other</a></li><li class="case"><a href="#provider.kind.test">test</a></li><li class="case"><a href="#provider.kind.fraud">fraud</a></li><li class="case"><a href="#provider.kind.businessbank">business​Bank</a></li><li class="case"><a href="#provider.kind.firstparty">first​Party</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#provider.kind.`default`">`default`</a></li><li class="variable"><a href="#provider.kind.defaultkinds">default​Kinds</a></li><li class="variable"><a href="#provider.kind.onlytest">only​Test</a></li><li class="variable"><a href="#provider.kind.excludingtest">excluding​Test</a></li><li class="variable"><a href="#provider.kind.all">all</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Member Of</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#provider.kind.unknown">unknown</a></li><li class="case"><a href="#provider.kind.bank">bank</a></li><li class="case"><a href="#provider.kind.creditcard">credit​Card</a></li><li class="case"><a href="#provider.kind.broker">broker</a></li><li class="case"><a href="#provider.kind.other">other</a></li><li class="case"><a href="#provider.kind.test">test</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#provider.kind.`default`">`default`</a></li><li class="variable"><a href="#provider.kind.onlytest">only​Test</a></li><li class="variable"><a href="#provider.kind.all">all</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -48,7 +48,7 @@
         <h3>Member Of</h3>
 <dl>
     <dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/Provider">Provider</a></code></dt>
-<dd><p>The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses the financial institution, metadata about the financialinstitution, and what financial information that can be accessed.</p>
+<dd><p>The provider model represents financial institutions to where Tink can connect. It specifies how Tink accesses the financial institution, metadata about the financial institution, and what financial information that can be accessed.</p>
 </dd>
 </dl>
 </section>
@@ -111,28 +111,6 @@
 
 </div>
 </div>
-<div role="article" class="case" id="provider.kind.fraud">
-    <h3>
-        <code>fraud</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">fraud</span></code></pre></body></html>
-</div>
-<div role="article" class="case" id="provider.kind.businessbank">
-    <h3>
-        <code>business​Bank</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">businessBank</span></code></pre></body></html>
-<div class="summary" role="doc-abstract">
-    <p>The provider is a business bank.</p>
-
-</div>
-</div>
-<div role="article" class="case" id="provider.kind.firstparty">
-    <h3>
-        <code>first​Party</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">firstParty</span></code></pre></body></html>
-</div>
     </section>
     <section id="properties">
         <h2>Properties</h2>
@@ -142,12 +120,6 @@
         <code>`default`</code>
     </h3>
     <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">`default`</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">bank</span>, .<span class="variable">creditCard</span>, .<span class="variable">broker</span>, .<span class="variable">other</span>]</code></pre></body></html>
-</div>
-<div role="article" class="variable" id="provider.kind.defaultkinds">
-    <h3>
-        <code>default​Kinds</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">defaultKinds</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">bank</span>, .<span class="variable">creditCard</span>, .<span class="variable">broker</span>, .<span class="variable">other</span>]</code></pre></body></html>
 </div>
 <div role="article" class="variable" id="provider.kind.onlytest">
     <h3>
@@ -159,17 +131,11 @@
 
 </div>
 </div>
-<div role="article" class="variable" id="provider.kind.excludingtest">
-    <h3>
-        <code>excluding​Test</code>
-    </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">excludingTest</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">unknown</span>, .<span class="variable">bank</span>, .<span class="variable">creditCard</span>, .<span class="variable">broker</span>, .<span class="variable">other</span>, .<span class="variable">fraud</span>]</code></pre></body></html>
-</div>
 <div role="article" class="variable" id="provider.kind.all">
     <h3>
         <code>all</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">all</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">unknown</span>, .<span class="variable">bank</span>, .<span class="variable">creditCard</span>, .<span class="variable">broker</span>, .<span class="variable">other</span>, .<span class="variable">test</span>, .<span class="variable">fraud</span>]</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">all</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">unknown</span>, .<span class="variable">bank</span>, .<span class="variable">creditCard</span>, .<span class="variable">broker</span>, .<span class="variable">other</span>, .<span class="variable">test</span>]</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>A set of all providers kinds. Note that this also includes test providers.</p>
 
@@ -184,7 +150,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-02-10T12:04:42+0100">10 February 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2021-03-10T14:27:14+0100">10 March 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

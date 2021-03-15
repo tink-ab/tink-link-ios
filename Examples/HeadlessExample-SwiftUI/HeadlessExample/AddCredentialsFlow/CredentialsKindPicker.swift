@@ -6,7 +6,7 @@ struct CredentialsKindPicker: View {
 
     var body: some View {
         List(credentialsKinds, id: \.id) { credentialsKind in
-            NavigationLink(destination: AddCredentialsView(provider: credentialsKind.provider).navigationTitle(credentialsKind.provider.displayName)) {
+            NavigationLink(destination: AddCredentialsView(provider: credentialsKind.provider)) {
                 switch credentialsKind.credentialsKind {
                 case .password:
                     Text("Password")
@@ -16,8 +16,6 @@ struct CredentialsKindPicker: View {
                     Text("Third Party Authentication")
                 case .keyfob:
                     Text("Key Fob")
-                case .fraud:
-                    Text("Fraud")
                 case .unknown:
                     Text("Unknown")
                 @unknown default:

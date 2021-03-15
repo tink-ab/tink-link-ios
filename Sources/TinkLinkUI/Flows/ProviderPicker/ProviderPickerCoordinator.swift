@@ -4,7 +4,7 @@ import TinkLink
 protocol ProviderPickerCoordinating: AnyObject {
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?)
     func showFinancialInstitution(for financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode], name: String)
-    func showAuthenticationUserTypePicker(for authenticationUserNodes: [ProviderTree.AuthenticationUserTypeNode])
+    func showFinancialServicesPicker(for financialServicesNodes: [ProviderTree.FinancialServicesNode])
     func showAccessTypePicker(for accessTypeNodes: [ProviderTree.AccessTypeNode], name: String)
     func showCredentialsKindPicker(for credentialsKindNodes: [ProviderTree.CredentialsKindNode])
     func didSelectProvider(_ provider: Provider)
@@ -40,7 +40,7 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
     }
 
     @objc func cancel() {
-        completion?(.failure(TinkLinkError.userCancelled))
+        completion?(.failure(TinkLinkUIError(code: .userCancelled)))
     }
 
     func showFinancialInstitutionGroupNodes(for financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode], title: String?) {
@@ -64,9 +64,9 @@ class ProviderPickerCoordinator: ProviderPickerCoordinating {
         parentViewController?.show(viewController, sender: nil)
     }
 
-    func showAuthenticationUserTypePicker(for authenticationUserNodes: [ProviderTree.AuthenticationUserTypeNode]) {
+    func showFinancialServicesPicker(for financialServicesTypeNodes: [ProviderTree.FinancialServicesNode]) {
         tinkLinkTracker.providerID = nil
-        let viewController = AuthenticationUserTypePickerViewController(authenticationUserTypeNodes: authenticationUserNodes, tinkLinkTracker: tinkLinkTracker)
+        let viewController = FinancialServicesTypePickerViewController(financialServicesTypeNodes: financialServicesTypeNodes, tinkLinkTracker: tinkLinkTracker)
         let title = Strings.SelectAuthenticationUserType.title
         setupNavigationItem(for: viewController, title: title)
         viewController.providerPickerCoordinator = self
