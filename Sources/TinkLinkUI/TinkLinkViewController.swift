@@ -119,9 +119,9 @@ public class TinkLinkViewController: UIViewController {
     /// Strategy for different operations.
     public struct Operation {
         enum Value {
-            case create(providerPredicate: ProviderPredicate = .kinds(.default))
+            case create(providerPredicate: ProviderPredicate = .kinds(.default), refreshableItems: RefreshableItems = .all)
             case authenticate(credentialsID: Credentials.ID)
-            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
+            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false, refreshableItems: RefreshableItems = .all)
             case update(credentialsID: Credentials.ID)
         }
 
@@ -130,12 +130,12 @@ public class TinkLinkViewController: UIViewController {
         /// Create credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to create.
-        public static func create(providerPredicate: ProviderPredicate) -> Self {
-            .init(value: .create(providerPredicate: providerPredicate))
+        public static func create(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems = .all) -> Self {
+            .init(value: .create(providerPredicate: providerPredicate, refreshableItems: refreshableItems))
         }
 
         public static var create: Self {
-            .init(value: .create(providerPredicate: .kinds(.default)))
+            .init(value: .create(providerPredicate: .kinds(.default), refreshableItems: .all))
         }
 
         /// Authenticate credentials.
@@ -149,8 +149,8 @@ public class TinkLinkViewController: UIViewController {
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.
         ///   - forceAuthenticate: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
-        public static func refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false) -> Self {
-            .init(value: .refresh(credentialsID: credentialsID, forceAuthenticate: forceAuthenticate))
+        public static func refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false, refreshableItems: RefreshableItems = .all) -> Self {
+            .init(value: .refresh(credentialsID: credentialsID, forceAuthenticate: forceAuthenticate, refreshableItems: refreshableItems))
         }
 
         /// Update credentials.
@@ -494,18 +494,18 @@ public class TinkLinkViewController: UIViewController {
 
     func operate() {
         switch operation.value {
-        case .create(providerPredicate: let providerPredicate):
-            fetchProviders(providerPredicate: providerPredicate)
+        case .create(providerPredicate: let providerPredicate, let refreshableItems):
+            fetchProviders(providerPredicate: providerPredicate, refreshableItems: refreshableItems)
         case .authenticate(let id):
             startCredentialCoordinator(with: .authenticate(credentialsID: id))
-        case .refresh(let id, let forceAuthenticate):
-            startCredentialCoordinator(with: .refresh(credentialsID: id, forceAuthenticate: forceAuthenticate))
+        case .refresh(let id, let forceAuthenticate, let refreshableItems):
+            startCredentialCoordinator(with: .refresh(credentialsID: id, forceAuthenticate: forceAuthenticate, refreshableItems: refreshableItems))
         case .update(let id):
             startCredentialCoordinator(with: .update(credentialsID: id))
         }
     }
 
-    func fetchProviders(providerPredicate: ProviderPredicate) {
+    func fetchProviders(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems) {
         providerController.fetch(with: providerPredicate) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -513,13 +513,13 @@ public class TinkLinkViewController: UIViewController {
                     switch providerPredicate.value {
                     case .kinds:
                         self.tinkLinkTracker.track(applicationEvent: .initializedWithoutProvider)
-                        self.showProviderPicker()
+                        self.showProviderPicker(refreshableItems: refreshableItems)
                     case .name:
                         if let provider = providers.first {
                             // Set the provider to track `initializedWithProvider` application event
                             self.tinkLinkTracker.providerID = provider.id.value
                             self.tinkLinkTracker.track(applicationEvent: .initializedWithProvider)
-                            self.showAddCredentials(for: provider, animated: false)
+                            self.showAddCredentials(for: provider, refreshableItems: refreshableItems, animated: false)
                         }
                     }
                 case .failure(let error):
@@ -659,11 +659,11 @@ extension TinkLinkViewController {
 // MARK: - Navigation
 
 extension TinkLinkViewController {
-    func showProviderPicker() {
+    func showProviderPicker(refreshableItems: RefreshableItems) {
         providerPickerCoordinator.start { [weak self] result in
             do {
                 let provider = try result.get()
-                self?.showAddCredentials(for: provider)
+                self?.showAddCredentials(for: provider, refreshableItems: refreshableItems)
             } catch TinkLinkUIError.userCancelled {
                 self?.cancel()
             } catch {
@@ -672,11 +672,11 @@ extension TinkLinkViewController {
         }
     }
 
-    func showAddCredentials(for provider: Provider, animated: Bool = true) {
+    func showAddCredentials(for provider: Provider, refreshableItems: RefreshableItems, animated: Bool = true) {
         if let scopes = scopes {
             startCredentialCoordinator(with: .create(provider: provider, mode: .anonymous(scopes: scopes)))
         } else {
-            startCredentialCoordinator(with: .create(provider: provider, mode: .user))
+            startCredentialCoordinator(with: .create(provider: provider, mode: .user(refreshableItems: refreshableItems)))
         }
     }
 
