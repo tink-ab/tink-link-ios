@@ -2,7 +2,7 @@ import UIKit
 
 final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.4
+        return 0.6
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -22,17 +22,23 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
 
         let toViewBackgroundColor = toVC.view.backgroundColor
         toVC.view.backgroundColor = .clear
-        toVC.view.alpha = 0
+        for subview in toVC.view.subviews {
+            if subview is CheckmarkView { continue }
+            subview.alpha = 0
+        }
         let animator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
             for subview in fromVC.view.subviews {
                 if subview is ActivityIndicatorView { continue }
                 subview.alpha = 0
             }
 
-            toVC.view.alpha = 1
+            for subview in toVC.view.subviews {
+                if subview is CheckmarkView { continue }
+                subview.alpha = 1
+            }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration * 0.75) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration * 0.5) {
             toVC.iconView.setChecked(true, animated: true)
         }
 
