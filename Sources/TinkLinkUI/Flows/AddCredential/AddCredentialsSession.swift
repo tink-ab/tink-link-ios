@@ -364,12 +364,8 @@ extension AddCredentialsSession {
 
     private func hideProgress(animated: Bool, completion: (() -> Void)? = nil) {
         hideQRCodeViewIfNeeded(animated: animated)
-        guard statusViewController != nil, statusViewController?.presentingViewController != nil else {
-            completion?()
-            return
-        }
-        statusViewController = nil
-        presenter?.dismiss(animated: animated, completion: completion)
+        // FIXME: Pop back to form?
+        completion?()
     }
 
     private func showQRCodeView(qrImage: UIImage) {
