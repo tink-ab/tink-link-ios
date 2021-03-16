@@ -130,8 +130,12 @@ public class TinkLinkViewController: UIViewController {
         /// Create credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to create.
-        public static func create(providerPredicate: ProviderPredicate = .kinds(.default), refreshableItems: RefreshableItems = .all) -> Self {
+        public static func create(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems = .all) -> Self {
             .init(value: .create(providerPredicate: providerPredicate, refreshableItems: refreshableItems))
+        }
+
+        public static var create: Self {
+            .init(value: .create(providerPredicate: .kinds(.default), refreshableItems: .all))
         }
 
         /// Authenticate credentials.
@@ -317,6 +321,7 @@ public class TinkLinkViewController: UIViewController {
         presentationController?.delegate = self
 
         containedNavigationController.delegate = navigationManager
+        containedNavigationController.interactivePopGestureRecognizer?.delegate = self
 
         start(userSession: userSession, authorizationCode: authorizationCode)
     }
@@ -739,5 +744,13 @@ extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 extension TinkLinkViewController: CredentialsCoordinatorDelegate {
     func didFinishCredentialsForm() {
         userHasConnected = true
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension TinkLinkViewController: UIGestureRecognizerDelegate {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return !containedNavigationController.navigationBar.isHidden
     }
 }
