@@ -7,7 +7,7 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let fromVC = transitionContext.viewController(forKey: .from)!
-        let toVC = transitionContext.viewController(forKey: .to)!
+        let toVC = transitionContext.viewController(forKey: .to) as! CredentialsSuccessfullyAddedViewController
 
         fromVC.navigationController?.setNavigationBarHidden(true, animated: transitionContext.isAnimated)
 
@@ -30,6 +30,10 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
             }
 
             toVC.view.alpha = 1
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration * 0.75) {
+            toVC.iconView.setChecked(true, animated: true)
         }
 
         animator.addCompletion { position in
