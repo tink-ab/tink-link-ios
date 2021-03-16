@@ -112,7 +112,7 @@ final class AddCredentialsSession {
         addCredentialsMode = mode
 
         DispatchQueue.main.async {
-            self.showProgress(status: Strings.CredentialsStatus.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -137,7 +137,7 @@ final class AddCredentialsSession {
         providerName = credentials.providerName
 
         DispatchQueue.main.async {
-            self.showProgress(status: Strings.CredentialsStatus.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -168,7 +168,7 @@ final class AddCredentialsSession {
         providerName = credentials.providerName
 
         DispatchQueue.main.async {
-            self.showProgress(status: Strings.CredentialsStatus.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -192,7 +192,7 @@ final class AddCredentialsSession {
         providerName = credentials.providerName
 
         DispatchQueue.main.async {
-            self.showProgress(status: Strings.CredentialsStatus.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -252,7 +252,7 @@ final class AddCredentialsSession {
                 }
             case .awaitAuthenticationOnAnotherDevice:
                 DispatchQueue.main.async {
-                    self?.showProgress(status: Strings.CredentialsStatus.waitingForAuthenticationOnAnotherDevice)
+                    self?.showUpdating(status: Strings.CredentialsStatus.waitingForAuthenticationOnAnotherDevice)
                 }
             }
         }
@@ -405,14 +405,14 @@ extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
         presenter?.dismiss(animated: true) {
             self.tinkLinkTracker.track(interaction: .back, screen: .supplementalInformation)
             self.supplementInfoTask?.cancel()
-            self.showProgress(status: Strings.CredentialsStatus.cancelling)
+            self.showUpdating(status: Strings.CredentialsStatus.cancelling)
         }
     }
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
         presenter?.dismiss(animated: true) {
             self.supplementInfoTask?.submit(form)
-            self.showProgress(status: Strings.CredentialsStatus.sending)
+            self.showUpdating(status: Strings.CredentialsStatus.sending)
         }
     }
 }
