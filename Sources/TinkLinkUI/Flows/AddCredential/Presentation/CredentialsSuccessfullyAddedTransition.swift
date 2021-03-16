@@ -23,7 +23,7 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
         let toViewBackgroundColor = toVC.view.backgroundColor
         toVC.view.backgroundColor = .clear
         toVC.view.alpha = 0
-        let animator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1.0) {
+        let animator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
             for subview in fromVC.view.subviews {
                 if subview is ActivityIndicatorView { continue }
                 subview.alpha = 0
