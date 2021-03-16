@@ -99,11 +99,6 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
             doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             doneButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -32)
         ])
-
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        iconView.setChecked(false, animated: false)
-        CATransaction.commit()
     }
 
     override func viewDidAppear(_ animated: Bool) {
