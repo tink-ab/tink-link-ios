@@ -88,7 +88,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
             iconView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -36),
             iconView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            titleLabel.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 16),
+            titleLabel.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 24),
             titleLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 24),
             titleLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -24),
 
