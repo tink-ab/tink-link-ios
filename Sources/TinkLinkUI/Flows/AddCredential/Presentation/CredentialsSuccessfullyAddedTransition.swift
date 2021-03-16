@@ -37,6 +37,7 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
                 if subview is ActivityIndicatorView { continue }
                 subview.alpha = 1
             }
+            fromVC.view.removeFromSuperview()
             toVC.view.backgroundColor = toViewBackgroundColor
             transitionContext.completeTransition(position == .end)
         }
