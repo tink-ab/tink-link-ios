@@ -21,7 +21,7 @@ final class CredentialsCoordinator {
     enum Action {
         case create(provider: Provider, mode: AddCredentialsMode)
         case update(credentialsID: Credentials.ID)
-        case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false, refreshableItems: RefreshableItems)
+        case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool, refreshableItems: RefreshableItems)
         case authenticate(credentialsID: Credentials.ID)
     }
 

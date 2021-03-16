@@ -119,9 +119,9 @@ public class TinkLinkViewController: UIViewController {
     /// Strategy for different operations.
     public struct Operation {
         enum Value {
-            case create(providerPredicate: ProviderPredicate = .kinds(.default), refreshableItems: RefreshableItems = .all)
+            case create(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems)
             case authenticate(credentialsID: Credentials.ID)
-            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false, refreshableItems: RefreshableItems = .all)
+            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool, refreshableItems: RefreshableItems)
             case update(credentialsID: Credentials.ID)
         }
 
@@ -663,7 +663,7 @@ extension TinkLinkViewController {
         providerPickerCoordinator.start { [weak self] result in
             do {
                 let provider = try result.get()
-                self?.showAddCredentials(for: provider, refreshableItems: refreshableItems)
+                self?.showAddCredentials(for: provider, refreshableItems: refreshableItems, animated: true)
             } catch TinkLinkUIError.userCancelled {
                 self?.cancel()
             } catch {
@@ -672,7 +672,7 @@ extension TinkLinkViewController {
         }
     }
 
-    func showAddCredentials(for provider: Provider, refreshableItems: RefreshableItems, animated: Bool = true) {
+    func showAddCredentials(for provider: Provider, refreshableItems: RefreshableItems, animated: Bool) {
         if let scopes = scopes {
             startCredentialCoordinator(with: .create(provider: provider, mode: .anonymous(scopes: scopes)))
         } else {
