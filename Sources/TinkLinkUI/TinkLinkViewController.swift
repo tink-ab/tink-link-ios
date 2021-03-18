@@ -130,6 +130,7 @@ public class TinkLinkViewController: UIViewController {
         /// Create credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to create.
+        ///   - refreshableItems: The data types to aggregate from the Provider. Multiple items are allowed. If omitted, all data types are aggregated.
         public static func create(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems = .all) -> Self {
             .init(value: .create(providerPredicate: providerPredicate, refreshableItems: refreshableItems))
         }
@@ -149,6 +150,7 @@ public class TinkLinkViewController: UIViewController {
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.
         ///   - forceAuthenticate: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
+        ///   - refreshableItems: The data types to aggregate from the Provider. Multiple items are allowed. If omitted, all data types are aggregated.
         public static func refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false, refreshableItems: RefreshableItems = .all) -> Self {
             .init(value: .refresh(credentialsID: credentialsID, forceAuthenticate: forceAuthenticate, refreshableItems: refreshableItems))
         }
