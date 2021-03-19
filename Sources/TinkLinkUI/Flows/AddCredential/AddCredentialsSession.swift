@@ -323,33 +323,6 @@ extension AddCredentialsSession {
         }
     }
 
-    private func showProgress(status: String) {
-        hideQRCodeViewIfNeeded(animated: true) {
-            if self.isPresenterShowingStatusScreen {
-                self.presenter?.showLoadingIndicator(text: status) { [weak self] in
-                    self?.cancel()
-                }
-                return
-            }
-
-            if let statusViewController = self.statusViewController {
-                if statusViewController.presentingViewController == nil {
-                    self.presenter?.present(statusViewController, animated: true, completion: nil)
-                }
-            } else {
-                let statusViewController = AddCredentialsStatusViewController()
-                statusViewController.delegate = self
-                statusViewController.modalTransitionStyle = .crossDissolve
-                statusViewController.modalPresentationStyle = .custom
-                statusViewController.transitioningDelegate = self.statusPresentationManager
-                self.presenter?.present(statusViewController, animated: true, completion: nil)
-                self.statusViewController = statusViewController
-            }
-
-            self.statusViewController?.status = status
-        }
-    }
-
     private func showUpdating(status: String) {
         hideQRCodeViewIfNeeded(animated: true) {
             self.hideProgress(animated: true) {
