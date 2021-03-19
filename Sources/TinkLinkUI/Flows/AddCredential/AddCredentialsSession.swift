@@ -342,12 +342,10 @@ extension AddCredentialsSession {
     }
 
     private func showQRCodeView(qrImage: UIImage) {
-        hideProgress(animated: true) {
-            let qrImageViewController = QRImageViewController(qrImage: qrImage)
-            self.qrImageViewController = qrImageViewController
-            qrImageViewController.delegate = self
-            self.presenter?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true, completion: nil)
-        }
+        let qrImageViewController = QRImageViewController(qrImage: qrImage)
+        self.qrImageViewController = qrImageViewController
+        qrImageViewController.delegate = self
+        presenter?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true, completion: nil)
     }
 
     private func hideQRCodeViewIfNeeded(animated: Bool = false, completion: (() -> Void)? = nil) {
