@@ -88,9 +88,8 @@ final class AddCredentialsSession {
                     self?.handleAddCredentialStatus(status) {
                         [weak self] error in
                         DispatchQueue.main.async {
-                            self?.hideProgress(animated: true) {
-                                onCompletion(.failure(error))
-                            }
+                            // Will this trigger two onCompletion calls?
+                            onCompletion(.failure(error))
                             self?.task?.cancel()
                             self?.task = nil
                         }
@@ -264,24 +263,19 @@ final class AddCredentialsSession {
             credentialsController.newlyAddedFailedCredentialsID[credentials.id] = nil
             authorizeIfNeeded(onError: { [weak self] error in
                 DispatchQueue.main.async {
-                    self?.hideProgress(animated: true) {
-                        onCompletion(.failure(error))
-                    }
+                    // Will this trigger two onCompletion calls?
+                    onCompletion(.failure(error))
                 }
             })
             authorizationGroup.notify(queue: .main) { [weak self] in
-                self?.hideProgress(animated: true) {
-                    onCompletion(.success((credentials, self?.authorizationCode)))
-                }
+                onCompletion(.success((credentials, self?.authorizationCode)))
             }
         } catch {
             let addCredentialsTask = task as? AddCredentialsTask
             if let credentialsID = addCredentialsTask?.credentials?.id {
                 credentialsController.newlyAddedFailedCredentialsID[credentialsID] = error
             }
-            hideProgress(animated: true) {
-                onCompletion(.failure(error))
-            }
+            onCompletion(.failure(error))
         }
         task = nil
     }
@@ -306,7 +300,6 @@ final class AddCredentialsSession {
     }
 
     private func cancel() {
-        hideProgress(animated: true)
         task?.cancel()
     }
 }
@@ -325,20 +318,12 @@ extension AddCredentialsSession {
 
     private func showUpdating(status: String) {
         hideQRCodeViewIfNeeded(animated: true) {
-            self.hideProgress(animated: true) {
-                let loadingViewController = LoadingViewController()
-                loadingViewController.update(status, onCancel: { [weak self] in
-                    self?.cancel()
-                })
-                self.presenter?.show(loadingViewController)
-            }
+            let loadingViewController = LoadingViewController()
+            loadingViewController.update(status, onCancel: { [weak self] in
+                self?.cancel()
+            })
+            self.presenter?.show(loadingViewController)
         }
-    }
-
-    private func hideProgress(animated: Bool, completion: (() -> Void)? = nil) {
-        hideQRCodeViewIfNeeded(animated: animated)
-        // FIXME: Pop back to form?
-        completion?()
     }
 
     private func showQRCodeView(qrImage: UIImage) {
