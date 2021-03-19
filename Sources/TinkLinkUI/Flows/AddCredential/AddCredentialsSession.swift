@@ -314,7 +314,7 @@ final class AddCredentialsSession {
 extension AddCredentialsSession {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
         supplementInfoTask = supplementInformationTask
-        hideProgress(animated: true) {
+        hideQRCodeViewIfNeeded(animated: true) {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
