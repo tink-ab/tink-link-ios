@@ -281,7 +281,8 @@ final class AddCredentialsSession {
     }
 
     private func authorizeIfNeeded(onError: @escaping (Error) -> Void) {
-        if didCallAuthorize || !shouldAuthorize { return }
+        if didCallAuthorize { return }
+        guard shouldAuthorize else { return }
 
         guard case .anonymous(let scopes) = addCredentialsMode else { return }
 
