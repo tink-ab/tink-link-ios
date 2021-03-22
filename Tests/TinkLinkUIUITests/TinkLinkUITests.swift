@@ -368,11 +368,14 @@ class TinkLinkUITests: XCTestCase {
         let failedAlert = app.alerts.staticTexts["Authentication failed"]
         XCTAssertTrue(failedAlert.waitForExistence(timeout: 10))
 
+        XCTAssertFalse(numberField.isHittable)
+
         let failedAlertOKButton = app.alerts.buttons["OK"]
         XCTAssertTrue(failedAlertOKButton.exists)
         failedAlertOKButton.tap()
 
         XCTAssertFalse(failedAlert.exists)
+        XCTAssertTrue(numberField.isHittable)
 
         let cancelButton = app.buttons["Cancel"]
         XCTAssertTrue(cancelButton.isHittable)
