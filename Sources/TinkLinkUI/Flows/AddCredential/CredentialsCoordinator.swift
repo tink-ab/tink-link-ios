@@ -162,6 +162,9 @@ final class CredentialsCoordinator {
                 presenter?.show(credentialsViewController)
             }
         } catch {
+            if let credentialsViewController = credentialsViewController {
+                presenter?.show(credentialsViewController)
+            }
             showAlert(for: error)
             tinkLinkTracker.credentialsID = nil
             tinkLinkTracker.track(screen: .error)

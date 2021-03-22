@@ -344,4 +344,43 @@ class TinkLinkUITests: XCTestCase {
 
         XCTAssertTrue(viewDetailsLink.isHittable)
     }
+
+    func testAddingTestFailingBankIDCredentials() {
+        app.launch()
+
+        let getStartedButton = app.buttons["Get Started"]
+        XCTAssertTrue(getStartedButton.exists)
+        getStartedButton.tap()
+
+        let tablesQuery = app.tables
+        let bankIDCell = tablesQuery.cells.staticTexts["Test BankID"]
+        XCTAssertTrue(bankIDCell.waitForExistence(timeout: 3))
+        bankIDCell.tap()
+        tablesQuery.cells.staticTexts["Test BankID (failing) "].tap()
+        let numberField = tablesQuery.textFields["Social security number"]
+        XCTAssert(numberField.waitForExistence(timeout: 5))
+        numberField.tap()
+        XCTAssert(app.keyboards.firstMatch.waitForExistence(timeout: 5))
+        numberField.typeText("180012121212")
+
+        app.buttons["Open BankID"].tap()
+
+        let failedAlert = app.alerts.staticTexts["Authentication failed"]
+        XCTAssertTrue(failedAlert.waitForExistence(timeout: 10))
+
+        XCTAssertFalse(numberField.isHittable)
+
+        let failedAlertOKButton = app.alerts.buttons["OK"]
+        XCTAssertTrue(failedAlertOKButton.exists)
+        failedAlertOKButton.tap()
+
+        XCTAssertFalse(failedAlert.exists)
+        XCTAssertTrue(numberField.isHittable)
+
+        let cancelButton = app.buttons["Cancel"]
+        XCTAssertTrue(cancelButton.isHittable)
+        cancelButton.tap()
+
+        XCTAssertTrue(getStartedButton.isHittable)
+    }
 }
