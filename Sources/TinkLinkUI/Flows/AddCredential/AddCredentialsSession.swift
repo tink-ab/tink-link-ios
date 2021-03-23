@@ -88,7 +88,7 @@ final class AddCredentialsSession {
                     self?.handleAddCredentialStatus(status) {
                         [weak self] error in
                         DispatchQueue.main.async {
-                            // Will this trigger two onCompletion calls?
+                            // FIXME: This triggers two onCompletion calls.
                             onCompletion(.failure(error))
                             self?.task?.cancel()
                             self?.task = nil
@@ -263,7 +263,7 @@ final class AddCredentialsSession {
             credentialsController.newlyAddedFailedCredentialsID[credentials.id] = nil
             authorizeIfNeeded(onError: { [weak self] error in
                 DispatchQueue.main.async {
-                    // Will this trigger two onCompletion calls?
+                    // FIXME: This triggers two onCompletion calls.
                     onCompletion(.failure(error))
                 }
             })
