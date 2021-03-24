@@ -4,48 +4,27 @@ import TinkLink
 /// A view controller for aggregating credentials.
 ///
 /// A `TinkLinkViewController` displays adding bank credentials.
-/// To start using Tink Link UI, you need to first configure a `Tink` instance with your client ID and redirect URI.
-///
-/// Typically you do this in your app's `application(_:didFinishLaunchingWithOptions:)` method like this.
+/// Here's one way you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
+/// First create a configuration with your client ID and an app URI.
 ///
 /// ```swift
-/// import UIKit
-/// import TinkLink
-/// @UIApplicationMain
-/// class AppDelegate: UIResponder, UIApplicationDelegate {
-///
-///    var window: UIWindow?
-///
-///    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-///
-///        let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
-///        Tink.configure(with: configuration)
-///        ...
+/// let configuration = TinkLinkConfiguration(clientID: <#String#>, appURI: <#URL#>)
 /// ```
 ///
-/// Here's one way you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
-/// You need to define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes. Then create a `TinkLinkViewController` with a market and the scopes to use. And present the view controller.
+/// Then define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes.
 /// ```swift
-/// let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
-///
 /// let scopes: [Scope] = [
 ///     .accounts(.read),
 ///     .transactions(.read)
 /// ]
+/// ```
 ///
+/// Then create a `TinkLinkViewController` with the configuration, a market, and the scopes to use. And present the view controller.
+///
+/// ```swift
 /// let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: <#String#>, scopes: scopes) { result in
 ///    // Handle result
 /// }
-/// present(tinkLinkViewController, animated: true)
-/// ```
-///
-/// You can also start the aggregation flow if you have an access token:
-/// ```swift
-/// Tink.shared.userSession = .accessToken("YOUR_ACCESS_TOKEN")
-/// let tinkLinkViewController = TinkLinkViewController { result in
-///     // Handle result
-/// }
-///
 /// present(tinkLinkViewController, animated: true)
 /// ```
 ///
