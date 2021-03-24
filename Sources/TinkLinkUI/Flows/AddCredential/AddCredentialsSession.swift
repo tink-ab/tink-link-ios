@@ -13,9 +13,7 @@ final class AddCredentialsSession {
     private var task: Cancellable?
     private var supplementInfoTask: SupplementInformationTask?
 
-    private var statusViewController: AddCredentialsStatusViewController?
     private weak var qrImageViewController: QRImageViewController?
-    private var statusPresentationManager = AddCredentialsStatusPresentationManager()
 
     private var authorizationCode: AuthorizationCode?
     private var didCallAuthorize = false
@@ -340,14 +338,6 @@ extension AddCredentialsSession {
             return
         }
         presenter?.dismiss(animated: animated, completion: completion)
-    }
-}
-
-// MARK: - AddCredentialsStatusViewControllerDelegate
-
-extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
-    func addCredentialsStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
-        cancel()
     }
 }
 
