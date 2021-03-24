@@ -132,8 +132,8 @@ public struct ColorProvider: ColorProviding {
         separator: UIColor,
         warning: UIColor,
         critical: UIColor,
-        button: UIColor? = nil,
-        buttonText: UIColor? = nil
+        button: UIColor?,
+        buttonText: UIColor?
     ) {
         self.accent = accent
         self.accentBackground = accentBackground ?? accent.mixedWith(color: Color.background, factor: 0.95)
