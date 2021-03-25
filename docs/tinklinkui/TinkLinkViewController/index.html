@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinkLinkUI - TinkLinkViewController</title>
+    <link rel="stylesheet" type="text/css" href="https://tink-ab.github.io/tink-link-ios/tinklinkui/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/">
+            <strong>
+                TinkLinkUI
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#tinklinkviewcontroller.init(tink:market:scopes:providerpredicate:completion:)">init(tink:​market:​scopes:​provider​Predicate:​completion:​)</a></li><li class="initializer"><a href="#tinklinkviewcontroller.init(configuration:market:scopes:providerpredicate:completion:)">init(configuration:​market:​scopes:​provider​Predicate:​completion:​)</a></li><li class="initializer"><a href="#tinklinkviewcontroller.init(tink:usersession:operation:completion:)">init(tink:​user​Session:​operation:​completion:​)</a></li><li class="initializer"><a href="#tinklinkviewcontroller.init(tink:operation:completion:)">init(tink:​operation:​completion:​)</a></li><li class="initializer"><a href="#tinklinkviewcontroller.init(tink:authorizationcode:operation:completion:)">init(tink:​authorization​Code:​operation:​completion:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#tinklinkviewcontroller.errorsbycredentialsid">errors​ByCredentials​ID</a></li><li class="variable"><a href="#tinklinkviewcontroller.prefill">prefill</a></li><li class="variable"><a href="#tinklinkviewcontroller.scopes">scopes</a></li><li class="variable"><a href="#tinklinkviewcontroller.preferredstatusbarstyle">preferred​Status​Bar​Style</a></li><li class="variable"><a href="#tinklinkviewcontroller.childforstatusbarstyle">child​For​Status​Bar​Style</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#tinklinkviewcontroller.viewdidload()">view​Did​Load()</a></li><li class="function"><a href="#tinklinkviewcontroller.traitcollectiondidchange(_:)">trait​Collection​Did​Change(_:​)</a></li><li class="function"><a href="#tinklinkviewcontroller.show(_:sender:)">show(_:​sender:​)</a></li><li class="function"><a href="#tinklinkviewcontroller.presentationcontrollerdidattempttodismiss(_:)">presentation​Controller​Did​Attempt​ToDismiss(_:​)</a></li><li class="function"><a href="#tinklinkviewcontroller.presentationcontrollerdiddismiss(_:)">presentation​Controller​Did​Dismiss(_:​)</a></li><li class="function"><a href="#tinklinkviewcontroller.presentationcontrollershoulddismiss(_:)">presentation​Controller​Should​Dismiss(_:​)</a></li><li class="function"><a href="#tinklinkviewcontroller.gesturerecognizershouldbegin(_:)">gesture​Recognizer​Should​Begin(_:​)</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Class</small>
+    <code class="name">Tink​Link​View​Controller</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="type">TinkLinkViewController</span>: <span class="type">UIViewController</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>A view controller for aggregating credentials.</p>
+
+</div>
+<div class="discussion">
+    <p>A <code>TinkLinkViewController</code> displays adding bank credentials.
+Here's one way you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
+First create a configuration with your client ID and an app URI.</p>
+
+<html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">configuration</span> = <span class="variable">TinkLinkConfiguration</span>(<span class="variable">clientID</span>: <span class="placeholder">&lt;#String#&gt;</span>, <span class="variable">appURI</span>: <span class="placeholder">&lt;#URL#&gt;</span>)
+</code></pre></body></html>
+<p>Then define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes.</p>
+
+<html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">scopes</span>: [<span class="type">Scope</span>] = [
+    .<span class="variable">accounts</span>(.<span class="variable">read</span>),
+    .<span class="variable">transactions</span>(.<span class="variable">read</span>)
+]
+</code></pre></body></html>
+<p>Then create a <code>TinkLinkViewController</code> with the configuration, a market, and the scopes to use. And present the view controller.</p>
+
+<html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">tinkLinkViewController</span> = <span class="variable">TinkLinkViewController</span>(<span class="variable">configuration</span>: <span class="type">configuration</span>, <span class="variable">market</span>: <span class="placeholder">&lt;#String#&gt;</span>, <span class="variable">scopes</span>: <span class="type">scopes</span>) { <span class="variable">result</span> <span class="keyword">in</span>
+   <span class="comment">// Handle result</span>
+}
+<span class="variable">present</span>(<span class="variable">tinkLinkViewController</span>, <span class="variable">animated</span>: <span class="keyword">true</span>)
+</code></pre></body></html>
+<p>After the user has completed or cancelled the aggregation flow, the completion handler will be called with a result. On a successful authentication the result will contain an authorization code that you can <a href="https://docs.tink.com/resources/getting-started/retrieve-access-token">exchange</a> for an access token. If something went wrong the result will contain an error.</p>
+
+<html><body><pre class="highlight"><code><span class="keyword">do</span> {
+    <span class="keyword">let</span> <span class="variable">authorizationCode</span> = <span class="keyword">try</span> <span class="variable">result</span>.<span class="type">get</span>()
+    <span class="comment">// Exchange the authorization code for a access token.</span>
+} <span class="keyword">catch</span> {
+    <span class="comment">// Handle any errors</span>
+}
+</code></pre></body></html>
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        <figure>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.44.1 (20200629.0846)
+ -->
+<!-- Pages: 1 -->
+<svg width="1031pt" height="242pt"
+ viewBox="0.00 0.00 1030.81 241.73" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 237.73)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-237.73 1026.81,-237.73 1026.81,4 -4,4"/>
+<!-- TinkLinkViewController -->
+<g id="node1" class="node class current">
+<title>TinkLinkViewController</title>
+<g id="a_node1"><a xlink:href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkViewController" xlink:title="TinkLinkViewController">
+<path fill="none" stroke="black" stroke-width="3" d="M522.95,-143.64C522.95,-143.64 330.95,-143.64 330.95,-143.64 324.95,-143.64 318.95,-137.64 318.95,-131.64 318.95,-131.64 318.95,-119.64 318.95,-119.64 318.95,-113.64 324.95,-107.64 330.95,-107.64 330.95,-107.64 522.95,-107.64 522.95,-107.64 528.95,-107.64 534.95,-113.64 534.95,-119.64 534.95,-119.64 534.95,-131.64 534.95,-131.64 534.95,-137.64 528.95,-143.64 522.95,-143.64"/>
+<text text-anchor="middle" x="426.95" y="-121.94" font-family="Menlo" font-size="14.00">TinkLinkViewController</text>
+</a>
+</g>
+</g>
+<!-- UIViewController -->
+<g id="node2" class="node unknown">
+<title>UIViewController</title>
+<path fill="none" stroke="black" d="M1010.81,-161.31C1010.81,-161.31 818.81,-161.31 818.81,-161.31 812.81,-161.31 806.81,-155.31 806.81,-149.31 806.81,-149.31 806.81,-137.31 806.81,-137.31 806.81,-131.31 812.81,-125.31 818.81,-125.31 818.81,-125.31 1010.81,-125.31 1010.81,-125.31 1016.81,-125.31 1022.81,-131.31 1022.81,-137.31 1022.81,-137.31 1022.81,-149.31 1022.81,-149.31 1022.81,-155.31 1016.81,-161.31 1010.81,-161.31"/>
+<text text-anchor="middle" x="914.81" y="-139.61" font-family="Menlo" font-size="14.00">UIViewController</text>
+</g>
+<!-- TinkLinkViewController&#45;&gt;UIViewController -->
+<g id="edge2" class="edge conformsTo">
+<title>TinkLinkViewController&#45;&gt;UIViewController</title>
+<path fill="none" stroke="black" d="M535.22,-129.56C612.62,-132.36 716.73,-136.13 796.34,-139.02"/>
+<polygon fill="black" stroke="black" points="796.3,-142.52 806.42,-139.38 796.55,-135.52 796.3,-142.52"/>
+</g>
+<!-- UIAdaptivePresentationControllerDelegate -->
+<g id="node3" class="node unknown">
+<title>UIAdaptivePresentationControllerDelegate</title>
+<path fill="none" stroke="black" d="M413.16,-36C413.16,-36 90.16,-36 90.16,-36 84.16,-36 78.16,-30 78.16,-24 78.16,-24 78.16,-12 78.16,-12 78.16,-6 84.16,0 90.16,0 90.16,0 413.16,0 413.16,0 419.16,0 425.16,-6 425.16,-12 425.16,-12 425.16,-24 425.16,-24 425.16,-30 419.16,-36 413.16,-36"/>
+<text text-anchor="middle" x="251.66" y="-14.3" font-family="Menlo" font-size="14.00">UIAdaptivePresentationControllerDelegate</text>
+</g>
+<!-- TinkLinkViewController&#45;&gt;UIAdaptivePresentationControllerDelegate -->
+<g id="edge1" class="edge conformsTo">
+<title>TinkLinkViewController&#45;&gt;UIAdaptivePresentationControllerDelegate</title>
+<path fill="none" stroke="black" d="M397.61,-107.62C368.03,-89.46 322.24,-61.34 289.85,-41.45"/>
+<polygon fill="black" stroke="black" points="291.44,-38.33 281.09,-36.08 287.78,-44.29 291.44,-38.33"/>
+</g>
+<!-- UIGestureRecognizerDelegate -->
+<g id="node4" class="node unknown">
+<title>UIGestureRecognizerDelegate</title>
+<path fill="none" stroke="black" d="M227,-233.73C227,-233.73 12,-233.73 12,-233.73 6,-233.73 0,-227.73 0,-221.73 0,-221.73 0,-209.73 0,-209.73 0,-203.73 6,-197.73 12,-197.73 12,-197.73 227,-197.73 227,-197.73 233,-197.73 239,-203.73 239,-209.73 239,-209.73 239,-221.73 239,-221.73 239,-227.73 233,-233.73 227,-233.73"/>
+<text text-anchor="middle" x="119.5" y="-212.03" font-family="Menlo" font-size="14.00">UIGestureRecognizerDelegate</text>
+</g>
+<!-- TinkLinkViewController&#45;&gt;UIGestureRecognizerDelegate -->
+<g id="edge3" class="edge conformsTo">
+<title>TinkLinkViewController&#45;&gt;UIGestureRecognizerDelegate</title>
+<path fill="none" stroke="black" d="M365.47,-143.65C315.07,-158.42 243.68,-179.34 190.79,-194.84"/>
+<polygon fill="black" stroke="black" points="189.75,-191.5 181.13,-197.67 191.71,-198.22 189.75,-191.5"/>
+</g>
+</g>
+</svg>
+
+
+    <figcaption hidden>Inheritance graph for TinkLinkViewController.</figcaption>
+</figure>
+        <h3>Nested Types</h3>
+<dl>
+    <dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkViewController_PrefillStrategy">TinkLinkViewController.PrefillStrategy</a></code></dt>
+<dd><p>Strategy for different types of prefilling</p>
+</dd>
+<dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkViewController_ProviderPredicate">TinkLinkViewController.ProviderPredicate</a></code></dt>
+<dd><p>Strategy for what to fetch</p>
+</dd>
+<dt class="structure"><code><a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkViewController_Operation">TinkLinkViewController.Operation</a></code></dt>
+<dd><p>Strategy for different operations.</p>
+</dd>
+</dl>
+<h3>Conforms To</h3>
+<dl>
+    <dt class="unknown"><code>UIAdaptivePresentationControllerDelegate</code></dt>
+<dt class="unknown"><code>UIGestureRecognizerDelegate</code></dt>
+<dt class="unknown"><code>UIViewController</code></dt>
+</dl>
+</section>
+    <section id="initializers">
+        <h2>Initializers</h2>
+
+        <div role="article" class="initializer" id="tinklinkviewcontroller.init(tink:market:scopes:providerpredicate:completion:)">
+    <h3>
+        <code>init(tink:​market:​scopes:​provider​Predicate:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">message</span>: <span class="string literal">"Use init(configuration:market:scopes:providerPredicate:completion:) instead."</span>) <span class="keyword">public</span> <span class="attribute">convenience</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <span class="type">Tink</span> = .<span class="variable">shared</span>, <span class="variable">market</span>: <span class="type">Market</span>, <span class="variable">scopes</span>: [<span class="type">Scope</span>], <span class="variable">providerPredicate</span>: <span class="type">ProviderPredicate</span> = .<span class="variable">kinds</span>(.<span class="variable">default</span>), <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;(<span class="variable">code</span>: <span class="type">AuthorizationCode</span>, <span class="variable">credentials</span>: <span class="type">Credentials</span>), <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkUIError"><span class="type">TinkLinkUIError</span></a>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Initializes a new TinkLinkViewController.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>tink</th>
+    <td><code class="type">Tink</code></td>
+    <td><p>A configured <code>Tink</code> object.</p>
+</td>
+</tr>
+<tr>
+    <th>market</th>
+    <td><code class="type">Market</code></td>
+    <td><p>The market you wish to aggregate from. Will determine what providers are available to choose from.</p>
+</td>
+</tr>
+<tr>
+    <th>scope</th>
+    <td></td>
+    <td><p>A set of scopes that will be aggregated.</p>
+</td>
+</tr>
+<tr>
+    <th>provider​Kinds</th>
+    <td></td>
+    <td><p>The kind of providers that will be listed.</p>
+</td>
+</tr>
+<tr>
+    <th>provider​Predicate</th>
+    <td><code class="type">Provider​Predicate</code></td>
+    <td><p>The predicate of a provider. Either <code>kinds</code>or <code>name</code> depending on if the goal is to fetch all or just one specific provider.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (Result&lt;(code:​ Authorization​Code, credentials:​ Credentials), Tink​Link​UIError&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the aggregation finished or if an error occurred.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="tinklinkviewcontroller.init(configuration:market:scopes:providerpredicate:completion:)">
+    <h3>
+        <code>init(configuration:​market:​scopes:​provider​Predicate:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">configuration</span>: <span class="type">Configuration</span>, <span class="variable">market</span>: <span class="type">Market</span>, <span class="variable">scopes</span>: [<span class="type">Scope</span>], <span class="variable">providerPredicate</span>: <span class="type">ProviderPredicate</span> = .<span class="variable">kinds</span>(.<span class="variable">default</span>), <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;(<span class="variable">code</span>: <span class="type">AuthorizationCode</span>, <span class="variable">credentials</span>: <span class="type">Credentials</span>), <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkUIError"><span class="type">TinkLinkUIError</span></a>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Initializes a new TinkLinkViewController.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>configuration</th>
+    <td><code class="type">Configuration</code></td>
+    <td><p>A Tink configuration.</p>
+</td>
+</tr>
+<tr>
+    <th>market</th>
+    <td><code class="type">Market</code></td>
+    <td><p>The market you wish to aggregate from. Will determine what providers are available to choose from.</p>
+</td>
+</tr>
+<tr>
+    <th>scope</th>
+    <td></td>
+    <td><p>A set of scopes that will be aggregated.</p>
+</td>
+</tr>
+<tr>
+    <th>provider​Kinds</th>
+    <td></td>
+    <td><p>The kind of providers that will be listed.</p>
+</td>
+</tr>
+<tr>
+    <th>provider​Predicate</th>
+    <td><code class="type">Provider​Predicate</code></td>
+    <td><p>The predicate of a provider. Either <code>kinds</code>or <code>name</code> depending on if the goal is to fetch all or just one specific provider.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (Result&lt;(code:​ Authorization​Code, credentials:​ Credentials), Tink​Link​UIError&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the aggregation finished or if an error occurred.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="tinklinkviewcontroller.init(tink:usersession:operation:completion:)">
+    <h3>
+        <code>init(tink:​user​Session:​operation:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">message</span>: <span class="string literal">"Use init(tink:operation:completion:) with a Tink instance that has a user session set."</span>) <span class="keyword">public</span> <span class="attribute">convenience</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <span class="type">Tink</span> = .<span class="variable">shared</span>, <span class="variable">userSession</span>: <span class="type">UserSession</span>, <span class="variable">operation</span>: <span class="type">Operation</span> = .<span class="variable">create</span>(<span class="variable">providerPredicate</span>: .<span class="variable">kinds</span>(.<span class="variable">default</span>)), <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Credentials</span>, <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkUIError"><span class="type">TinkLinkUIError</span></a>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Initializes a new TinkLinkViewController with the current user session associated with this Tink object.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>authorization:read</p>
+</li>
+<li>
+<p>credentials:read</p>
+</li>
+<li>
+<p>credentials:write</p>
+</li>
+<li>
+<p>credentials:refresh</p>
+</li>
+<li>
+<p>providers:read</p>
+</li>
+<li>
+<p>user:read</p>
+</li>
+</ul>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>tink</th>
+    <td><code class="type">Tink</code></td>
+    <td><p>A configured <code>Tink</code> object.</p>
+</td>
+</tr>
+<tr>
+    <th>user​Session</th>
+    <td><code class="type">User​Session</code></td>
+    <td><p>The user session associated with the TinkLinkViewController.</p>
+</td>
+</tr>
+<tr>
+    <th>operation</th>
+    <td><code class="type">Operation</code></td>
+    <td><p>The operation to do. You can either <code>create</code>, <code>authenticate</code>, <code>refresh</code> or <code>update</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (Result&lt;Credentials, Tink​Link​UIError&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the aggregation finished or if an error occurred.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="tinklinkviewcontroller.init(tink:operation:completion:)">
+    <h3>
+        <code>init(tink:​operation:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <span class="type">Tink</span> = .<span class="variable">shared</span>, <span class="variable">operation</span>: <span class="type">Operation</span> = .<span class="variable">create</span>(<span class="variable">providerPredicate</span>: .<span class="variable">kinds</span>(.<span class="variable">default</span>)), <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Credentials</span>, <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkUIError"><span class="type">TinkLinkUIError</span></a>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Initializes a new TinkLinkViewController with the current user session associated with this Tink object.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>tink</th>
+    <td><code class="type">Tink</code></td>
+    <td><p>A configured <code>Tink</code> object.</p>
+</td>
+</tr>
+<tr>
+    <th>operation</th>
+    <td><code class="type">Operation</code></td>
+    <td><p>The operation to do. You can either <code>create</code>, <code>authenticate</code>, <code>refresh</code> or <code>update</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (Result&lt;Credentials, Tink​Link​UIError&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the aggregation finished or if an error occurred.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="tinklinkviewcontroller.init(tink:authorizationcode:operation:completion:)">
+    <h3>
+        <code>init(tink:​authorization​Code:​operation:​completion:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">message</span>: <span class="string literal">"Authenticate a tink instance using `authenticateUser(authorizationCode:completion:)` and use init(tink:operation:completion:) instead."</span>) <span class="keyword">public</span> <span class="attribute">convenience</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <span class="type">Tink</span> = .<span class="variable">shared</span>, <span class="variable">authorizationCode</span>: <span class="type">AuthorizationCode</span>, <span class="variable">operation</span>: <span class="type">Operation</span> = .<span class="variable">create</span>(<span class="variable">providerPredicate</span>: .<span class="variable">kinds</span>(.<span class="variable">default</span>)), <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<span class="type">Credentials</span>, <a href="https://tink-ab.github.io/tink-link-ios/tinklinkui/TinkLinkUIError"><span class="type">TinkLinkUIError</span></a>&gt;) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Initializes a new TinkLinkViewController with the <code>AuthorizationCode</code>.</p>
+
+</div>
+<div class="discussion">
+    <p>Required scopes:</p>
+
+<ul>
+<li>
+<p>authorization:read</p>
+</li>
+<li>
+<p>credentials:read</p>
+</li>
+<li>
+<p>credentials:write</p>
+</li>
+<li>
+<p>credentials:refresh</p>
+</li>
+<li>
+<p>providers:read</p>
+</li>
+<li>
+<p>user:read</p>
+</li>
+</ul>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>tink</th>
+    <td><code class="type">Tink</code></td>
+    <td><p>A configured <code>Tink</code> object.</p>
+</td>
+</tr>
+<tr>
+    <th>authorization​Code</th>
+    <td><code class="type">Authorization​Code</code></td>
+    <td><p>Authenticate with a <code>AuthorizationCode</code> that delegated from Tink to exchanged for a user object.</p>
+</td>
+</tr>
+<tr>
+    <th>operation</th>
+    <td><code class="type">Operation</code></td>
+    <td><p>The operation to do. You can either <code>create</code>, <code>authenticate</code>, <code>refresh</code> or <code>update</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>completion</th>
+    <td><code class="type">@escaping (Result&lt;Credentials, Tink​Link​UIError&gt;) -&gt; Void</code></td>
+    <td><p>The block to execute when the aggregation finished or if an error occurred.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+    </section>
+    <section id="properties">
+        <h2>Properties</h2>
+
+        <div role="article" class="variable" id="tinklinkviewcontroller.errorsbycredentialsid">
+    <h3>
+        <code>errors​ByCredentials​ID</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">errorsByCredentialsID</span>: [<span class="type">Credentials</span>.<span class="type">ID</span>: <span class="type">Error</span>]</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Errors for credentials that failed to be added with this view controller.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="tinklinkviewcontroller.prefill">
+    <h3>
+        <code>prefill</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">prefill</span>: <span class="type">PrefillStrategy</span> = .<span class="variable">none</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The prefilling strategy to use.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="tinklinkviewcontroller.scopes">
+    <h3>
+        <code>scopes</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">scopes</span>: [<span class="type">Scope</span>]?</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Scopes that grant access to Tink.</p>
+
+</div>
+</div>
+<div role="article" class="variable" id="tinklinkviewcontroller.preferredstatusbarstyle">
+    <h3>
+        <code>preferred​Status​Bar​Style</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">preferredStatusBarStyle</span>: <span class="type">UIStatusBarStyle</span></code></pre></body></html>
+</div>
+<div role="article" class="variable" id="tinklinkviewcontroller.childforstatusbarstyle">
+    <h3>
+        <code>child​For​Status​Bar​Style</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">childForStatusBarStyle</span>: <span class="type">UIViewController</span>?</code></pre></body></html>
+</div>
+    </section>
+    <section id="methods">
+        <h2>Methods</h2>
+
+        <div role="article" class="function" id="tinklinkviewcontroller.viewdidload()">
+    <h3>
+        <code>view​Did​Load()</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">override</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">viewDidLoad</span>()</code></pre></body></html>
+</div>
+<div role="article" class="function" id="tinklinkviewcontroller.traitcollectiondidchange(_:)">
+    <h3>
+        <code>trait​Collection​Did​Change(_:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">override</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">traitCollectionDidChange</span>(<span class="keyword">_</span> <span class="variable">previousTraitCollection</span>: <span class="type">UITraitCollection</span>?)</code></pre></body></html>
+</div>
+<div role="article" class="function" id="tinklinkviewcontroller.show(_:sender:)">
+    <h3>
+        <code>show(_:​sender:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="attribute">override</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">show</span>(<span class="keyword">_</span> <span class="variable">vc</span>: <span class="type">UIViewController</span>, <span class="variable">sender</span>: <span class="keyword">Any</span>?)</code></pre></body></html>
+</div>
+<div role="article" class="function" id="tinklinkviewcontroller.presentationcontrollerdidattempttodismiss(_:)">
+    <h3>
+        <code>presentation​Controller​Did​Attempt​ToDismiss(_:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">presentationControllerDidAttemptToDismiss</span>(<span class="keyword">_</span> <span class="variable">presentationController</span>: <span class="type">UIPresentationController</span>)</code></pre></body></html>
+</div>
+<div role="article" class="function" id="tinklinkviewcontroller.presentationcontrollerdiddismiss(_:)">
+    <h3>
+        <code>presentation​Controller​Did​Dismiss(_:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">presentationControllerDidDismiss</span>(<span class="keyword">_</span> <span class="variable">presentationController</span>: <span class="type">UIPresentationController</span>)</code></pre></body></html>
+</div>
+<div role="article" class="function" id="tinklinkviewcontroller.presentationcontrollershoulddismiss(_:)">
+    <h3>
+        <code>presentation​Controller​Should​Dismiss(_:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">presentationControllerShouldDismiss</span>(<span class="keyword">_</span> <span class="variable">presentationController</span>: <span class="type">UIPresentationController</span>) -&gt; <span class="type">Bool</span></code></pre></body></html>
+</div>
+<div role="article" class="function" id="tinklinkviewcontroller.gesturerecognizershouldbegin(_:)">
+    <h3>
+        <code>gesture​Recognizer​Should​Begin(_:​)</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">gestureRecognizerShouldBegin</span>(<span class="keyword">_</span> <span class="variable">gestureRecognizer</span>: <span class="type">UIGestureRecognizer</span>) -&gt; <span class="type">Bool</span></code></pre></body></html>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2021-03-24T16:30:57+0100">24 March 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+</p>
+    </footer>
+</body>
+</html>
