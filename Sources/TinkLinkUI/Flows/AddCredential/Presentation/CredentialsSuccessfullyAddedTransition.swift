@@ -2,12 +2,12 @@ import UIKit
 
 final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.4
+        return 0.6
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let fromVC = transitionContext.viewController(forKey: .from)!
-        let toVC = transitionContext.viewController(forKey: .to)!
+        let toVC = transitionContext.viewController(forKey: .to) as! CredentialsSuccessfullyAddedViewController
 
         fromVC.navigationController?.setNavigationBarHidden(true, animated: transitionContext.isAnimated)
 
@@ -22,14 +22,24 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
 
         let toViewBackgroundColor = toVC.view.backgroundColor
         toVC.view.backgroundColor = .clear
-        toVC.view.alpha = 0
-        let animator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1.0) {
+        for subview in toVC.view.subviews {
+            if subview is CheckmarkView { continue }
+            subview.alpha = 0
+        }
+        let animator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
             for subview in fromVC.view.subviews {
                 if subview is ActivityIndicatorView { continue }
                 subview.alpha = 0
             }
 
-            toVC.view.alpha = 1
+            for subview in toVC.view.subviews {
+                if subview is CheckmarkView { continue }
+                subview.alpha = 1
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration * 0.5) {
+            toVC.iconView.setChecked(true, animated: true)
         }
 
         animator.addCompletion { position in
@@ -37,6 +47,7 @@ final class CredentialsSuccessfullyAddedTransition: NSObject, UIViewControllerAn
                 if subview is ActivityIndicatorView { continue }
                 subview.alpha = 1
             }
+            fromVC.view.removeFromSuperview()
             toVC.view.backgroundColor = toViewBackgroundColor
             transitionContext.completeTransition(position == .end)
         }

@@ -30,7 +30,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
 
     private var operation: Operation
     private let tinkLinkTracker: TinkLinkTracker
-    private let iconView = CheckmarkView(style: .large)
+    let iconView = CheckmarkView(style: .large)
     private let titleLabel = UILabel()
     private let detailLabel = UILabel()
     private let doneButton = FloatingButton()
@@ -99,17 +99,6 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
             doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             doneButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -32)
         ])
-
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        iconView.setChecked(false, animated: false)
-        CATransaction.commit()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        iconView.setChecked(true, animated: true)
     }
 
     @objc func doneActionPressed() {

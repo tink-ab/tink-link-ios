@@ -4,48 +4,27 @@ import TinkLink
 /// A view controller for aggregating credentials.
 ///
 /// A `TinkLinkViewController` displays adding bank credentials.
-/// To start using Tink Link UI, you need to first configure a `Tink` instance with your client ID and redirect URI.
-///
-/// Typically you do this in your app's `application(_:didFinishLaunchingWithOptions:)` method like this.
+/// Here's one way you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
+/// First create a configuration with your client ID and an app URI.
 ///
 /// ```swift
-/// import UIKit
-/// import TinkLink
-/// @UIApplicationMain
-/// class AppDelegate: UIResponder, UIApplicationDelegate {
-///
-///    var window: UIWindow?
-///
-///    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-///
-///        let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
-///        Tink.configure(with: configuration)
-///        ...
+/// let configuration = TinkLinkConfiguration(clientID: <#String#>, appURI: <#URL#>)
 /// ```
 ///
-/// Here's one way you can start the aggregation flow via TinkLinkUI with the TinkLinkViewController:
-/// You need to define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes. Then create a `TinkLinkViewController` with a market and the scopes to use. And present the view controller.
+/// Then define scopes based on the type of data you want to fetch. For example, to fetch accounts and transactions, define these scopes.
 /// ```swift
-/// let configuration = try! Tink.Configuration(clientID: <#String#>, redirectURI: <#URL#>)
-///
 /// let scopes: [Scope] = [
 ///     .accounts(.read),
 ///     .transactions(.read)
 /// ]
+/// ```
 ///
+/// Then create a `TinkLinkViewController` with the configuration, a market, and the scopes to use. And present the view controller.
+///
+/// ```swift
 /// let tinkLinkViewController = TinkLinkViewController(configuration: configuration, market: <#String#>, scopes: scopes) { result in
 ///    // Handle result
 /// }
-/// present(tinkLinkViewController, animated: true)
-/// ```
-///
-/// You can also start the aggregation flow if you have an access token:
-/// ```swift
-/// Tink.shared.userSession = .accessToken("YOUR_ACCESS_TOKEN")
-/// let tinkLinkViewController = TinkLinkViewController { result in
-///     // Handle result
-/// }
-///
 /// present(tinkLinkViewController, animated: true)
 /// ```
 ///
@@ -119,9 +98,9 @@ public class TinkLinkViewController: UIViewController {
     /// Strategy for different operations.
     public struct Operation {
         enum Value {
-            case create(providerPredicate: ProviderPredicate = .kinds(.default))
+            case create(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems)
             case authenticate(credentialsID: Credentials.ID)
-            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
+            case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool, refreshableItems: RefreshableItems)
             case update(credentialsID: Credentials.ID)
         }
 
@@ -130,12 +109,13 @@ public class TinkLinkViewController: UIViewController {
         /// Create credentials.
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to create.
-        public static func create(providerPredicate: ProviderPredicate) -> Self {
-            .init(value: .create(providerPredicate: providerPredicate))
+        ///   - refreshableItems: The data types to aggregate from the Provider. Multiple items are allowed. If omitted, all data types are aggregated.
+        public static func create(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems = .all) -> Self {
+            .init(value: .create(providerPredicate: providerPredicate, refreshableItems: refreshableItems))
         }
 
         public static var create: Self {
-            .init(value: .create(providerPredicate: .kinds(.default)))
+            .init(value: .create(providerPredicate: .kinds(.default), refreshableItems: .all))
         }
 
         /// Authenticate credentials.
@@ -149,8 +129,9 @@ public class TinkLinkViewController: UIViewController {
         /// - Parameters:
         ///   - credentialsID: The ID of Credentials to refresh. If it is open banking credentials and the session has expired before refresh. An authentication will be triggered before refresh.
         ///   - forceAuthenticate: The flag to force an authentication before refresh. Used for open banking credentials. Default to false.
-        public static func refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false) -> Self {
-            .init(value: .refresh(credentialsID: credentialsID, forceAuthenticate: forceAuthenticate))
+        ///   - refreshableItems: The data types to aggregate from the Provider. Multiple items are allowed. If omitted, all data types are aggregated.
+        public static func refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false, refreshableItems: RefreshableItems = .all) -> Self {
+            .init(value: .refresh(credentialsID: credentialsID, forceAuthenticate: forceAuthenticate, refreshableItems: refreshableItems))
         }
 
         /// Update credentials.
@@ -494,18 +475,18 @@ public class TinkLinkViewController: UIViewController {
 
     func operate() {
         switch operation.value {
-        case .create(providerPredicate: let providerPredicate):
-            fetchProviders(providerPredicate: providerPredicate)
+        case .create(providerPredicate: let providerPredicate, let refreshableItems):
+            fetchProviders(providerPredicate: providerPredicate, refreshableItems: refreshableItems)
         case .authenticate(let id):
             startCredentialCoordinator(with: .authenticate(credentialsID: id))
-        case .refresh(let id, let forceAuthenticate):
-            startCredentialCoordinator(with: .refresh(credentialsID: id, forceAuthenticate: forceAuthenticate))
+        case .refresh(let id, let forceAuthenticate, let refreshableItems):
+            startCredentialCoordinator(with: .refresh(credentialsID: id, forceAuthenticate: forceAuthenticate, refreshableItems: refreshableItems))
         case .update(let id):
             startCredentialCoordinator(with: .update(credentialsID: id))
         }
     }
 
-    func fetchProviders(providerPredicate: ProviderPredicate) {
+    func fetchProviders(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems) {
         providerController.fetch(with: providerPredicate) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -513,13 +494,13 @@ public class TinkLinkViewController: UIViewController {
                     switch providerPredicate.value {
                     case .kinds:
                         self.tinkLinkTracker.track(applicationEvent: .initializedWithoutProvider)
-                        self.showProviderPicker()
+                        self.showProviderPicker(refreshableItems: refreshableItems)
                     case .name:
                         if let provider = providers.first {
                             // Set the provider to track `initializedWithProvider` application event
                             self.tinkLinkTracker.providerID = provider.id.value
                             self.tinkLinkTracker.track(applicationEvent: .initializedWithProvider)
-                            self.showAddCredentials(for: provider, animated: false)
+                            self.showAddCredentials(for: provider, refreshableItems: refreshableItems, animated: false)
                         }
                     }
                 case .failure(let error):
@@ -659,11 +640,11 @@ extension TinkLinkViewController {
 // MARK: - Navigation
 
 extension TinkLinkViewController {
-    func showProviderPicker() {
+    func showProviderPicker(refreshableItems: RefreshableItems) {
         providerPickerCoordinator.start { [weak self] result in
             do {
                 let provider = try result.get()
-                self?.showAddCredentials(for: provider)
+                self?.showAddCredentials(for: provider, refreshableItems: refreshableItems, animated: true)
             } catch TinkLinkUIError.userCancelled {
                 self?.cancel()
             } catch {
@@ -672,11 +653,11 @@ extension TinkLinkViewController {
         }
     }
 
-    func showAddCredentials(for provider: Provider, animated: Bool = true) {
+    func showAddCredentials(for provider: Provider, refreshableItems: RefreshableItems, animated: Bool) {
         if let scopes = scopes {
             startCredentialCoordinator(with: .create(provider: provider, mode: .anonymous(scopes: scopes)))
         } else {
-            startCredentialCoordinator(with: .create(provider: provider, mode: .user))
+            startCredentialCoordinator(with: .create(provider: provider, mode: .user(refreshableItems: refreshableItems)))
         }
     }
 

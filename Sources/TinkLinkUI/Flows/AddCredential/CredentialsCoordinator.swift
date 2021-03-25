@@ -15,13 +15,13 @@ protocol CredentialsCoordinatorDelegate: AnyObject {
 final class CredentialsCoordinator {
     enum AddCredentialsMode {
         case anonymous(scopes: [Scope])
-        case user
+        case user(refreshableItems: RefreshableItems)
     }
 
     enum Action {
         case create(provider: Provider, mode: AddCredentialsMode)
         case update(credentialsID: Credentials.ID)
-        case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool = false)
+        case refresh(credentialsID: Credentials.ID, forceAuthenticate: Bool, refreshableItems: RefreshableItems)
         case authenticate(credentialsID: Credentials.ID)
     }
 
@@ -90,7 +90,7 @@ final class CredentialsCoordinator {
             }
             presenter?.showLoadingIndicator(text: nil, onCancel: nil)
 
-        case .refresh(credentialsID: let id, let forceAuthenticate):
+        case .refresh(credentialsID: let id, let forceAuthenticate, let refreshableItems):
             tinkLinkTracker.credentialsID = id.value
             fetchCredentials(with: id) { [weak self] credentials in
                 guard let self = self else { return }
@@ -106,7 +106,7 @@ final class CredentialsCoordinator {
                     default: break
                     }
                 }
-                self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate) { [weak self] result in
+                self.addCredentialsSession.refreshCredentials(credentials: credentials, forceAuthenticate: forceAuthenticate, refreshableItems: refreshableItems) { [weak self] result in
                     self?.handleCompletion(for: result.map { ($0, nil) })
                 }
             }
@@ -162,6 +162,9 @@ final class CredentialsCoordinator {
                 presenter?.show(credentialsViewController)
             }
         } catch {
+            if let credentialsViewController = credentialsViewController {
+                presenter?.show(credentialsViewController)
+            }
             showAlert(for: error)
             tinkLinkTracker.credentialsID = nil
             tinkLinkTracker.track(screen: .error)
@@ -242,6 +245,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
         if case .create(provider: _, mode: let mode) = action, case .anonymous(let scopes) = mode {
             scopeList = scopes
         } else {
+            // TODO: Get scopes based on provider and refreshable items.
             scopeList = []
         }
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scopes: scopeList)

@@ -7,7 +7,7 @@ final class AddCredentialsSession {
     private let providerController: ProviderController
     private let credentialsController: CredentialsController
     private let authorizationController: AuthorizationController
-    private var addCredentialsMode: CredentialsCoordinator.AddCredentialsMode = .user
+    private var addCredentialsMode: CredentialsCoordinator.AddCredentialsMode?
     private let tinkLinkTracker: TinkLinkTracker
 
     private var task: Cancellable?
@@ -75,8 +75,8 @@ final class AddCredentialsSession {
         switch mode {
         case .anonymous(scopes: let scopes):
             refreshableItems = RefreshableItems.makeRefreshableItems(scopes: scopes, provider: provider)
-        case .user:
-            refreshableItems = .all
+        case .user(let items):
+            refreshableItems = items
         }
 
         task = credentialsController.addCredentials(
@@ -141,7 +141,7 @@ final class AddCredentialsSession {
         }
     }
 
-    func refreshCredentials(credentials: Credentials, forceAuthenticate: Bool, completion: @escaping (Result<Credentials, Error>) -> Void) {
+    func refreshCredentials(credentials: Credentials, forceAuthenticate: Bool, refreshableItems: RefreshableItems, completion: @escaping (Result<Credentials, Error>) -> Void) {
         var authenticate: Bool {
             if let sessionExpiryDate = credentials.sessionExpiryDate, sessionExpiryDate <= Date() {
                 return true
@@ -149,7 +149,7 @@ final class AddCredentialsSession {
             return forceAuthenticate
         }
 
-        task = credentialsController.refresh(credentials, authenticate: authenticate, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
+        task = credentialsController.refresh(credentials, authenticate: authenticate, refreshableItems: refreshableItems, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: false, progressHandler: { [weak self] status in
             DispatchQueue.main.async {
                 self?.handleUpdateTaskStatus(status)
             }

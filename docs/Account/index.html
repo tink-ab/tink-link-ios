@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#nested type aliases">Nested Type Aliases</a><ul><li class="typealias"><a href="#account.id">ID</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#account.init(id:credentialsid:name:accountnumber:kind:transfersourceidentifiers:holdername:isclosed:currencydenominatedbalance:refreshed:financialinstitutionid:)">init(id:​credentials​ID:​name:​account​Number:​kind:​transfer​Source​Identifiers:​holder​Name:​is​Closed:​currency​Denominated​Balance:​refreshed:​financial​Institution​ID:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#account.accountnumber">account​Number</a></li><li class="variable"><a href="#account.credentialsid">credentials​ID</a></li><li class="variable"><a href="#account.isfavorite">is​Favorite</a></li><li class="variable"><a href="#account.id">id</a></li><li class="variable"><a href="#account.name">name</a></li><li class="variable"><a href="#account.ownership">ownership</a></li><li class="variable"><a href="#account.kind">kind</a></li><li class="variable"><a href="#account.transfersourceidentifiers">transfer​Source​Identifiers</a></li><li class="variable"><a href="#account.holdername">holder​Name</a></li><li class="variable"><a href="#account.isclosed">is​Closed</a></li><li class="variable"><a href="#account.accountexclusion">account​Exclusion</a></li><li class="variable"><a href="#account.currencydenominatedbalance">currency​Denominated​Balance</a></li><li class="variable"><a href="#account.refreshed">refreshed</a></li><li class="variable"><a href="#account.financialinstitutionid">financial​Institution​ID</a></li><li class="variable"><a href="#account.transferaccountid">transfer​Account​ID</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#nested type aliases">Nested Type Aliases</a><ul><li class="typealias"><a href="#account.id">ID</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#account.init(id:credentialsid:name:accountnumber:kind:transfersourceidentifiers:holdername:isclosed:currencydenominatedbalance:refreshed:financialinstitutionid:isfavorite:ownership:accountexclusion:)">init(id:​credentials​ID:​name:​account​Number:​kind:​transfer​Source​Identifiers:​holder​Name:​is​Closed:​currency​Denominated​Balance:​refreshed:​financial​Institution​ID:​is​Favorite:​ownership:​account​Exclusion:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#account.accountnumber">account​Number</a></li><li class="variable"><a href="#account.credentialsid">credentials​ID</a></li><li class="variable"><a href="#account.isfavorite">is​Favorite</a></li><li class="variable"><a href="#account.id">id</a></li><li class="variable"><a href="#account.name">name</a></li><li class="variable"><a href="#account.ownership">ownership</a></li><li class="variable"><a href="#account.kind">kind</a></li><li class="variable"><a href="#account.transfersourceidentifiers">transfer​Source​Identifiers</a></li><li class="variable"><a href="#account.holdername">holder​Name</a></li><li class="variable"><a href="#account.isclosed">is​Closed</a></li><li class="variable"><a href="#account.accountexclusion">account​Exclusion</a></li><li class="variable"><a href="#account.currencydenominatedbalance">currency​Denominated​Balance</a></li><li class="variable"><a href="#account.refreshed">refreshed</a></li><li class="variable"><a href="#account.financialinstitutionid">financial​Institution​ID</a></li><li class="variable"><a href="#account.transferaccountid">transfer​Account​ID</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -121,11 +121,11 @@
     <section id="initializers">
         <h2>Initializers</h2>
 
-        <div role="article" class="initializer" id="account.init(id:credentialsid:name:accountnumber:kind:transfersourceidentifiers:holdername:isclosed:currencydenominatedbalance:refreshed:financialinstitutionid:)">
+        <div role="article" class="initializer" id="account.init(id:credentialsid:name:accountnumber:kind:transfersourceidentifiers:holdername:isclosed:currencydenominatedbalance:refreshed:financialinstitutionid:isfavorite:ownership:accountexclusion:)">
     <h3>
-        <code>init(id:​credentials​ID:​name:​account​Number:​kind:​transfer​Source​Identifiers:​holder​Name:​is​Closed:​currency​Denominated​Balance:​refreshed:​financial​Institution​ID:​)</code>
+        <code>init(id:​credentials​ID:​name:​account​Number:​kind:​transfer​Source​Identifiers:​holder​Name:​is​Closed:​currency​Denominated​Balance:​refreshed:​financial​Institution​ID:​is​Favorite:​ownership:​account​Exclusion:​)</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>.<span class="type">ID</span>, <span class="variable">credentialsID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">name</span>: <span class="type">String</span>, <span class="variable">accountNumber</span>: <span class="type">String</span>, <span class="variable">kind</span>: <a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>.<span class="type">Kind</span>, <span class="variable">transferSourceIdentifiers</span>: [<span class="type">URL</span>]?, <span class="variable">holderName</span>: <span class="type">String</span>?, <span class="variable">isClosed</span>: <span class="type">Bool</span>?, <span class="variable">currencyDenominatedBalance</span>: <a href="https://tink-ab.github.io/tink-link-ios/CurrencyDenominatedAmount"><span class="type">CurrencyDenominatedAmount</span></a>?, <span class="variable">refreshed</span>: <span class="type">Date</span>?, <span class="variable">financialInstitutionID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">FinancialInstitution</span>.<span class="type">ID</span>?)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">id</span>: <a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>.<span class="type">ID</span>, <span class="variable">credentialsID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ID</span>, <span class="variable">name</span>: <span class="type">String</span>, <span class="variable">accountNumber</span>: <span class="type">String</span>, <span class="variable">kind</span>: <a href="https://tink-ab.github.io/tink-link-ios/Account"><span class="type">Account</span></a>.<span class="type">Kind</span>, <span class="variable">transferSourceIdentifiers</span>: [<span class="type">URL</span>]?, <span class="variable">holderName</span>: <span class="type">String</span>?, <span class="variable">isClosed</span>: <span class="type">Bool</span>?, <span class="variable">currencyDenominatedBalance</span>: <a href="https://tink-ab.github.io/tink-link-ios/CurrencyDenominatedAmount"><span class="type">CurrencyDenominatedAmount</span></a>?, <span class="variable">refreshed</span>: <span class="type">Date</span>?, <span class="variable">financialInstitutionID</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">FinancialInstitution</span>.<span class="type">ID</span>?, <span class="variable">isFavorite</span>: <span class="type">Bool</span> = <span class="keyword">false</span>, <span class="variable">ownership</span>: <span class="type">Double</span> = <span class="number literal">1.0</span>, <span class="variable">accountExclusion</span>: <span class="type">AccountExclusion</span> = .<span class="variable">unknown</span>)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Creates an Account model.</p>
 
@@ -205,6 +205,24 @@
     <th>financial​Institution​ID</th>
     <td><code class="type">Provider.​Financial​Institution.​ID?</code></td>
     <td><p>A unique identifier to group accounts belonging the same financial institution.</p>
+</td>
+</tr>
+<tr>
+    <th>is​Favorite</th>
+    <td><code class="type">Bool</code></td>
+    <td><p>A boolean to indicate if the account is favorite. Default to <code>false</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>ownership</th>
+    <td><code class="type">Double</code></td>
+    <td><p>The ownership of the account. Default to <code>1.0</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>account​Exclusion</th>
+    <td><code class="type">Account​Exclusion</code></td>
+    <td><p>A way to exclude the account from statistics. Default to <code>unknown</code> to not exclude the account.</p>
 </td>
 </tr>
   </tbody>
@@ -383,7 +401,7 @@ The balance is represented as a scale and unscaled value together with the ISO 4
 
     <footer>
         <p>
-    Generated on <time datetime="2021-03-10T14:27:14+0100">10 March 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2021-03-24T16:30:55+0100">24 March 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

@@ -345,7 +345,7 @@ public struct ProviderTree {
     case provider(TinkCore.Provider)
     case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
     case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
-    case financialServicesTypes([TinkLink.ProviderTree.FinancialServicesNode])
+    case financialServices([TinkLink.ProviderTree.FinancialServicesNode])
     public var id: TinkLink.ProviderTree.FinancialInstitutionNode.ID {
       get
     }
@@ -365,7 +365,7 @@ public struct ProviderTree {
     case credentialsKinds([TinkLink.ProviderTree.CredentialsKindNode])
     case accessTypes([TinkLink.ProviderTree.AccessTypeNode])
     case financialInstitutions([TinkLink.ProviderTree.FinancialInstitutionNode])
-    case financialServicesTypes([TinkLink.ProviderTree.FinancialServicesNode])
+    case financialServices([TinkLink.ProviderTree.FinancialServicesNode])
     public var id: TinkLink.ProviderTree.FinancialInstitutionGroupNode.ID {
       get
     }

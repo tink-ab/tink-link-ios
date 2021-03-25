@@ -47,7 +47,7 @@ public struct ColorProvider : TinkLinkUI.ColorProviding {
   @available(*, deprecated, message: "Use init(accent:background:secondaryBackground:label:secondaryLabel:separator:warning:critical:) instead.")
   public init(background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, groupedBackground: UIKit.UIColor, secondaryGroupedBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, accent: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor)
   @available(*, deprecated, renamed: "init(accent:accentBackground:background:secondaryBackground:label:secondaryLabel:separator:warning:critical:button:buttonLabel:)")
-  public init(accent: UIKit.UIColor, accentBackground: UIKit.UIColor?, background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor, button: UIKit.UIColor? = nil, buttonText: UIKit.UIColor? = nil)
+  public init(accent: UIKit.UIColor, accentBackground: UIKit.UIColor?, background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor, button: UIKit.UIColor?, buttonText: UIKit.UIColor?)
   public init(accent: UIKit.UIColor, accentBackground: UIKit.UIColor?, background: UIKit.UIColor, secondaryBackground: UIKit.UIColor, label: UIKit.UIColor, secondaryLabel: UIKit.UIColor, separator: UIKit.UIColor, warning: UIKit.UIColor, critical: UIKit.UIColor, button: UIKit.UIColor? = nil, buttonLabel: UIKit.UIColor? = nil)
 }
 public protocol ColorProviding {
@@ -163,9 +163,12 @@ public struct TinkLinkUIError : Swift.Error, Swift.CustomStringConvertible {
     public static func name(_ name: TinkCore.Provider.Name) -> TinkLinkUI.TinkLinkViewController.ProviderPredicate
   }
   public struct Operation {
-    public static func create(providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default)) -> TinkLinkUI.TinkLinkViewController.Operation
+    public static func create(providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate, refreshableItems: TinkCore.RefreshableItems = .all) -> TinkLinkUI.TinkLinkViewController.Operation
+    public static var create: TinkLinkUI.TinkLinkViewController.Operation {
+      get
+    }
     public static func authenticate(credentialsID: TinkCore.Credentials.ID) -> TinkLinkUI.TinkLinkViewController.Operation
-    public static func refresh(credentialsID: TinkCore.Credentials.ID, forceAuthenticate: Swift.Bool = false) -> TinkLinkUI.TinkLinkViewController.Operation
+    public static func refresh(credentialsID: TinkCore.Credentials.ID, forceAuthenticate: Swift.Bool = false, refreshableItems: TinkCore.RefreshableItems = .all) -> TinkLinkUI.TinkLinkViewController.Operation
     public static func update(credentialsID: TinkCore.Credentials.ID) -> TinkLinkUI.TinkLinkViewController.Operation
   }
   public var errorsByCredentialsID: [TinkCore.Credentials.ID : Swift.Error] {
@@ -198,6 +201,9 @@ extension TinkLinkViewController : UIKit.UIAdaptivePresentationControllerDelegat
   @objc dynamic public func presentationControllerDidAttemptToDismiss(_ presentationController: UIKit.UIPresentationController)
   @objc dynamic public func presentationControllerDidDismiss(_ presentationController: UIKit.UIPresentationController)
   @objc dynamic public func presentationControllerShouldDismiss(_ presentationController: UIKit.UIPresentationController) -> Swift.Bool
+}
+extension TinkLinkViewController : UIKit.UIGestureRecognizerDelegate {
+  @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
 }
 extension Form.Field.ValidationError : Foundation.LocalizedError {
   public var errorDescription: Swift.String? {
