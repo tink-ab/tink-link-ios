@@ -4,7 +4,7 @@ import Kingfisher
 final class NavigationTitleImageView: UIView {
     private let navigationTitleLabel = UILabel()
     private let navigationTitleImageView = UIImageView()
-    private let betaLabel = ProviderTagView()
+    private let providerTagLabel = ProviderTagView()
 
     private var trailingTitleConstraint: NSLayoutConstraint!
     private var trailingBetaConstraint: NSLayoutConstraint!
@@ -38,15 +38,15 @@ final class NavigationTitleImageView: UIView {
         navigationTitleImageView.contentMode = .scaleAspectFit
         navigationTitleImageView.translatesAutoresizingMaskIntoConstraints = false
 
-        betaLabel.translatesAutoresizingMaskIntoConstraints = false
-        betaLabel.isHidden = true
+        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
+        providerTagLabel.isHidden = true
 
         addSubview(navigationTitleImageView)
         addSubview(navigationTitleLabel)
-        addSubview(betaLabel)
+        addSubview(providerTagLabel)
 
         trailingTitleConstraint = navigationTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
-        trailingBetaConstraint = betaLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+        trailingBetaConstraint = providerTagLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
 
         NSLayoutConstraint.activate([
             navigationTitleImageView.widthAnchor.constraint(equalToConstant: 20),
@@ -58,13 +58,14 @@ final class NavigationTitleImageView: UIView {
             navigationTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             trailingTitleConstraint,
 
-            betaLabel.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8),
-            betaLabel.firstBaselineAnchor.constraint(equalTo: navigationTitleLabel.firstBaselineAnchor)
+            providerTagLabel.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8),
+            providerTagLabel.firstBaselineAnchor.constraint(equalTo: navigationTitleLabel.firstBaselineAnchor)
         ])
     }
 
-    func setBetaLabelHidden(_ hidden: Bool) {
-        betaLabel.isHidden = hidden
+    func setProviderTagLabelHidden(kind: ProviderTag = .beta, _ hidden: Bool) {
+        providerTagLabel.isHidden = hidden
+        providerTagLabel.providerTag = kind
         trailingTitleConstraint.isActive = hidden
         trailingBetaConstraint.isActive = !hidden
     }

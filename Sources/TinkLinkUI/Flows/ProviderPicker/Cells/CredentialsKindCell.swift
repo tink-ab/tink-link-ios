@@ -84,7 +84,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         super.prepareForReuse()
 
         titleLabel.text = ""
-        setBetaLabelHidden(true)
+        setProviderTagLabelHidden(true)
     }
 
     override func layoutMarginsDidChange() {
@@ -117,8 +117,9 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         titleLabel.text = text
     }
 
-    func setBetaLabelHidden(_ hidden: Bool) {
+    func setProviderTagLabelHidden(kind: ProviderTag = .beta, _ hidden: Bool) {
         betaLabel.isHidden = hidden
+        betaLabel.providerTag = kind
         trailingTitleConstraint.isActive = hidden
         trailingBetaConstraint.isActive = !hidden
     }

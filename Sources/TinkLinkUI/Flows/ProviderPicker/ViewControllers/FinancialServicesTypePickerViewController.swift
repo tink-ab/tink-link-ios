@@ -77,8 +77,14 @@ extension FinancialServicesTypePickerViewController {
             cell.setTitle(text: formattedNames)
         }
 
-        let isBeta = node.providers.contains(where: { $0.releaseStatus == .beta })
-        cell.setBetaLabelHidden(!isBeta)
+        let isBeta = node.providers.contains(where: {
+            $0.releaseStatus == .beta
+        })
+        cell.setProviderTagLabelHidden(kind: .beta, !isBeta)
+        let isDemo = node.providers.contains(where: {
+            $0.kind == .test
+        })
+        cell.setProviderTagLabelHidden(kind: .demo, !isDemo)
 
         return cell
     }
