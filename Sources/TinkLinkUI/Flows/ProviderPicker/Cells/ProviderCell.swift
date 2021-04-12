@@ -22,7 +22,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let iconTitleSpacing: CGFloat = 16
 
     private var trailingTitleConstraint: NSLayoutConstraint!
-    private var trailingBetaConstraint: NSLayoutConstraint!
+    private var trailingTagConstraint: NSLayoutConstraint!
 
     private func setup() {
         selectionStyle = .none
@@ -58,7 +58,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
-        trailingBetaConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: providerTagLabel.trailingAnchor)
+        trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: providerTagLabel.trailingAnchor)
 
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: iconSize),
@@ -126,6 +126,6 @@ class ProviderCell: UITableViewCell, ReusableCell {
         providerTagLabel.isHidden = hidden
         providerTagLabel.providerTag = tag
         trailingTitleConstraint.isActive = hidden
-        trailingBetaConstraint.isActive = !hidden
+        trailingTagConstraint.isActive = !hidden
     }
 }
