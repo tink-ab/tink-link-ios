@@ -4,7 +4,7 @@ import Kingfisher
 final class NavigationTitleImageView: UIView {
     private let navigationTitleLabel = UILabel()
     private let navigationTitleImageView = UIImageView()
-    private let betaLabel = BetaTagView()
+    private let betaLabel = ProviderTagView()
 
     private var trailingTitleConstraint: NSLayoutConstraint!
     private var trailingBetaConstraint: NSLayoutConstraint!

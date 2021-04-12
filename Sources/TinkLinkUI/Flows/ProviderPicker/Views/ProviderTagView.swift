@@ -1,9 +1,28 @@
 import UIKit
 
-class BetaTagView: UIView {
+enum ProviderTag {
+    case beta
+    case demo
+
+    var kind: String {
+        switch self {
+        case .beta: return "BETA"
+        case .demo: return "DEMO"
+        }
+    }
+}
+
+class ProviderTagView: UIView {
     private let label = UILabel()
 
+    var providerTag: ProviderTag {
+        didSet {
+            label.attributedText = NSAttributedString(string: providerTag.kind, attributes: [.kern: 0.75])
+        }
+    }
+
     override init(frame: CGRect) {
+        self.providerTag = ProviderTag.beta
         super.init(frame: frame)
 
         layer.borderWidth = 1
@@ -12,7 +31,6 @@ class BetaTagView: UIView {
 
         layoutMargins = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
 
-        label.attributedText = NSAttributedString(string: "BETA", attributes: [.kern: 0.75])
         label.textColor = Color.label
         label.font = Font.beta
 
