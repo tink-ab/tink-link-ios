@@ -81,7 +81,7 @@ extension AccessTypePickerViewController {
 
         let isBeta = node.providers.contains(where: { $0.releaseStatus == .beta })
         let isDemo = node.providers.contains(where: { $0.kind == .test })
-        cell.setProviderTagLabelHidden(isBeta ? !isBeta : !isDemo, kind: isBeta ? .beta : .demo)
+        cell.setProviderTagLabelHidden(isBeta ? !isBeta : !isDemo, tag: isBeta ? .beta : .demo)
 
         return cell
     }

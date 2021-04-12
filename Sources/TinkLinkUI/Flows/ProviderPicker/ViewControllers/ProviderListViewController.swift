@@ -64,7 +64,7 @@ extension ProviderListViewController {
         }
         let isBeta = group.providers.contains(where: { $0.releaseStatus == .beta })
         let isDemo = group.providers.contains(where: { $0.kind == .test })
-        cell.setProviderTagLabelHidden(isBeta ? !isBeta : !isDemo, kind: isBeta ? .beta : .demo)
+        cell.setProviderTagLabelHidden(isBeta ? !isBeta : !isDemo, tag: isBeta ? .beta : .demo)
         return cell
     }
 

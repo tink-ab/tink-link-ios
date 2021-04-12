@@ -122,9 +122,9 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.text = text
     }
 
-    func setProviderTagLabelHidden(_ hidden: Bool, kind: ProviderTag = .beta) {
+    func setProviderTagLabelHidden(_ hidden: Bool, tag: ProviderTag = .beta) {
         providerTagLabel.isHidden = hidden
-        providerTagLabel.providerTag = kind
+        providerTagLabel.providerTag = tag
         trailingTitleConstraint.isActive = hidden
         trailingBetaConstraint.isActive = !hidden
     }
