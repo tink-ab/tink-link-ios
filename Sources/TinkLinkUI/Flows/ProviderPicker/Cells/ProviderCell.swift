@@ -5,7 +5,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let betaLabel = ProviderTagView()
+    private let providerTagLabel = ProviderTagView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,7 +36,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         iconView.contentMode = .scaleAspectFit
 
         contentView.addSubview(titleLabel)
-        contentView.addSubview(betaLabel)
+        contentView.addSubview(providerTagLabel)
         contentView.addSubview(descriptionLabel)
 
         titleLabel.numberOfLines = 0
@@ -47,18 +47,18 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.font = Font.body2
         descriptionLabel.textColor = Color.secondaryLabel
 
-        betaLabel.isHidden = true
+        providerTagLabel.isHidden = true
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
         iconView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        betaLabel.translatesAutoresizingMaskIntoConstraints = false
+        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
-        trailingBetaConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: betaLabel.trailingAnchor)
+        trailingBetaConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: providerTagLabel.trailingAnchor)
 
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: iconSize),
@@ -70,8 +70,8 @@ class ProviderCell: UITableViewCell, ReusableCell {
             titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: iconTitleSpacing),
             trailingTitleConstraint,
 
-            betaLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
-            betaLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            providerTagLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+            providerTagLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
 
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
@@ -123,8 +123,8 @@ class ProviderCell: UITableViewCell, ReusableCell {
     }
 
     func setProviderTagLabelHidden(kind: ProviderTag = .beta, _ hidden: Bool) {
-        betaLabel.isHidden = hidden
-        betaLabel.providerTag = kind
+        providerTagLabel.isHidden = hidden
+        providerTagLabel.providerTag = kind
         trailingTitleConstraint.isActive = hidden
         trailingBetaConstraint.isActive = !hidden
     }

@@ -4,7 +4,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     private let iconBackgroundView = UIView()
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
-    private let betaLabel = ProviderTagView()
+    private let providerTagLabel = ProviderTagView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,7 +32,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         contentView.addSubview(iconBackgroundView)
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(betaLabel)
+        contentView.addSubview(providerTagLabel)
 
         contentView.layoutMargins = .init(top: 32, left: 24, bottom: 32, right: 24)
 
@@ -50,14 +50,14 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         titleLabel.font = Font.body1
         titleLabel.textColor = Color.label
 
-        betaLabel.translatesAutoresizingMaskIntoConstraints = false
-        betaLabel.isHidden = true
+        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
+        providerTagLabel.isHidden = true
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
         trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
-        trailingBetaConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: betaLabel.trailingAnchor)
+        trailingBetaConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: providerTagLabel.trailingAnchor)
 
         NSLayoutConstraint.activate([
             iconBackgroundView.widthAnchor.constraint(equalToConstant: iconBackgroundSize),
@@ -75,8 +75,8 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
             titleLabel.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
             trailingTitleConstraint,
 
-            betaLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
-            betaLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8)
+            providerTagLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+            providerTagLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8)
         ])
     }
 
@@ -118,8 +118,8 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     }
 
     func setProviderTagLabelHidden(kind: ProviderTag = .beta, _ hidden: Bool) {
-        betaLabel.isHidden = hidden
-        betaLabel.providerTag = kind
+        providerTagLabel.isHidden = hidden
+        providerTagLabel.providerTag = kind
         trailingTitleConstraint.isActive = hidden
         trailingBetaConstraint.isActive = !hidden
     }
