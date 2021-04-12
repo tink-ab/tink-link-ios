@@ -80,7 +80,9 @@ extension AccessTypePickerViewController {
         cell.setTitle(text: node.accessType.description)
 
         let isBeta = node.providers.contains(where: { $0.releaseStatus == .beta })
-        cell.setBetaLabelHidden(!isBeta)
+        cell.setProviderTagLabelHidden(kind: .beta, !isBeta)
+        let isDemo = node.providers.contains(where: { $0.kind == .test })
+        cell.setProviderTagLabelHidden(kind: .demo, !isDemo)
 
         return cell
     }
