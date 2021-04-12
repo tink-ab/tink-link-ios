@@ -117,7 +117,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         titleLabel.text = text
     }
 
-    func setProviderTagLabelHidden(kind: ProviderTag = .beta, _ hidden: Bool) {
+    func setProviderTagLabelHidden(_ hidden: Bool, kind: ProviderTag = .beta) {
         providerTagLabel.isHidden = hidden
         providerTagLabel.providerTag = kind
         trailingTitleConstraint.isActive = hidden
