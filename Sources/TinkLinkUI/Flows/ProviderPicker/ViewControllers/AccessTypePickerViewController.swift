@@ -79,9 +79,9 @@ extension AccessTypePickerViewController {
         cell.setDescription(text: capabilityFormatter.string(for: capabilities))
         cell.setTitle(text: node.accessType.description)
 
-        if node.providers.contains(where: { $0.kind == .test }) {
+        if node.isDemo {
             cell.setProviderTagLabel(providerTag: .demo)
-        } else if node.providers.contains(where: { $0.releaseStatus == .beta }) {
+        } else if node.isBeta {
             cell.setProviderTagLabel(providerTag: .beta)
         }
 

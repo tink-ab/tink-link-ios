@@ -58,9 +58,9 @@ extension CredentialsKindPickerViewController {
         cell.setIcon(icon)
         cell.setTitle(text: node.displayDescription)
 
-        if node.provider.kind == .test {
+        if node.isDemo {
             cell.setProviderTagLabel(providerTag: .demo)
-        } else if node.provider.releaseStatus == .beta {
+        } else if node.isBeta {
             cell.setProviderTagLabel(providerTag: .beta)
         }
 
