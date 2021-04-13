@@ -63,10 +63,12 @@ final class NavigationTitleImageView: UIView {
         ])
     }
 
-    func setProviderTagLabel(tag: ProviderTag) {
-        providerTagLabel.isHidden = false
-        providerTagLabel.providerTag = tag
-        trailingTitleConstraint.isActive = false
-        trailingTagConstraint.isActive = true
+    func setProviderTagLabel(providerTag: ProviderTag? = nil) {
+        if let tag = providerTag {
+            providerTagLabel.providerTag = tag
+        }
+        providerTagLabel.isHidden = (providerTag != nil) ? false : true
+        trailingTitleConstraint.isActive = (providerTag != nil) ? false : true
+        trailingTagConstraint.isActive = (providerTag != nil) ? true : false
     }
 }

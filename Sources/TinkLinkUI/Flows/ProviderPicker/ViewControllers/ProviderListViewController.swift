@@ -62,9 +62,11 @@ extension ProviderListViewController {
         if let url = group.imageURL {
             cell.setImage(url: url)
         }
-        let isBeta = group.providers.contains(where: { $0.releaseStatus == .beta })
-        let isDemo = group.providers.contains(where: { $0.kind == .test })
-        cell.setProviderTagLabelHidden(isBeta ? !isBeta : !isDemo, tag: isBeta ? .beta : .demo)
+        if group.providers.contains(where: { $0.releaseStatus == .beta }) {
+            cell.setProviderTagLabel(providerTag: .beta)
+        } else if group.providers.contains(where: { $0.kind == .test }) {
+            cell.setProviderTagLabel(providerTag: .demo)
+        }
         return cell
     }
 

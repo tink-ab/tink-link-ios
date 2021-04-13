@@ -48,9 +48,11 @@ extension FinancialInstitutionSearchViewController {
         if let url = node.imageURL {
             cell.setImage(url: url)
         }
-        let isBeta = node.providers.contains(where: { $0.releaseStatus == .beta })
-        let isDemo = node.providers.contains(where: { $0.kind == .test })
-        cell.setProviderTagLabelHidden(isBeta ? !isBeta : !isDemo, tag: isBeta ? .beta : .demo)
+        if node.providers.contains(where: { $0.kind == .test }) {
+            cell.setProviderTagLabel(providerTag: .demo)
+        } else if node.providers.contains(where: { $0.releaseStatus == .beta }) {
+            cell.setProviderTagLabel(providerTag: .beta)
+        }
         return cell
     }
 

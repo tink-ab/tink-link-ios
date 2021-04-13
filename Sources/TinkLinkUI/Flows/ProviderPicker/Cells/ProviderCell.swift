@@ -85,7 +85,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
         titleLabel.text = ""
         descriptionLabel.text = ""
-        setProviderTagLabelHidden(true)
+        setProviderTagLabel()
     }
 
     override func layoutMarginsDidChange() {
@@ -122,10 +122,12 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.text = text
     }
 
-    func setProviderTagLabelHidden(_ hidden: Bool, tag: ProviderTag = .beta) {
-        providerTagLabel.isHidden = hidden
-        providerTagLabel.providerTag = tag
-        trailingTitleConstraint.isActive = hidden
-        trailingTagConstraint.isActive = !hidden
+    func setProviderTagLabel(providerTag: ProviderTag? = nil) {
+        if let tag = providerTag {
+            providerTagLabel.providerTag = tag
+        }
+        providerTagLabel.isHidden = (providerTag != nil) ? false : true
+        trailingTitleConstraint.isActive = (providerTag != nil) ? false : true
+        trailingTagConstraint.isActive = (providerTag != nil) ? true : false
     }
 }
