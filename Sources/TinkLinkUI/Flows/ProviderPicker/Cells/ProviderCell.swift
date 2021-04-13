@@ -126,8 +126,8 @@ class ProviderCell: UITableViewCell, ReusableCell {
         if let tag = providerTag {
             providerTagLabel.providerTag = tag
         }
-        providerTagLabel.isHidden = (providerTag != nil) ? false : true
-        trailingTitleConstraint.isActive = (providerTag != nil) ? false : true
-        trailingTagConstraint.isActive = (providerTag != nil) ? true : false
+        providerTagLabel.isHidden = providerTag != nil ? false : true
+        trailingTitleConstraint.isActive = providerTag != nil ? false : true
+        trailingTagConstraint.isActive = providerTag != nil ? true : false
     }
 }
