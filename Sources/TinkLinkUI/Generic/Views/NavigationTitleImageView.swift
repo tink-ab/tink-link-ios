@@ -63,7 +63,7 @@ final class NavigationTitleImageView: UIView {
         ])
     }
 
-    func setProviderTagLabelHidden(_ hidden: Bool, tag: ProviderTag = .beta) {
+    func setProviderTagLabel(tag: ProviderTag, hidden: Bool) {
         providerTagLabel.isHidden = hidden
         providerTagLabel.providerTag = tag
         trailingTitleConstraint.isActive = hidden

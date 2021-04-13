@@ -128,9 +128,12 @@ extension CredentialsFormViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
 
         navigationTitleView.translatesAutoresizingMaskIntoConstraints = false
-        let isBeta = provider.releaseStatus == .beta
-        let isDemo = provider.kind == .test
-        navigationTitleView.setProviderTagLabelHidden(isBeta ? !isBeta : !isDemo, tag: isBeta ? .beta : .demo)
+
+        if provider.kind == .test {
+            navigationTitleView.setProviderTagLabel(tag: .demo, hidden: false)
+        } else if provider.releaseStatus == .beta {
+            navigationTitleView.setProviderTagLabel(tag: .beta, hidden: false)
+        }
 
         view.addSubview(gradientView)
         view.addSubview(addCredentialFooterView)
