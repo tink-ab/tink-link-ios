@@ -4,7 +4,8 @@ import Kingfisher
 final class NavigationTitleImageView: UIView {
     private let navigationTitleLabel = UILabel()
     private let navigationTitleImageView = UIImageView()
-    private let providerTagLabel = ProviderTagView()
+    private let betaLabel = ProviderTagView()
+    private let demoLabel = ProviderTagView()
 
     private var trailingTitleConstraint: NSLayoutConstraint!
     private var trailingTagConstraint: NSLayoutConstraint!
@@ -38,15 +39,18 @@ final class NavigationTitleImageView: UIView {
         navigationTitleImageView.contentMode = .scaleAspectFit
         navigationTitleImageView.translatesAutoresizingMaskIntoConstraints = false
 
-        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
-        providerTagLabel.isHidden = true
+        let stackView = UIStackView(arrangedSubviews: [betaLabel, demoLabel])
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(navigationTitleImageView)
         addSubview(navigationTitleLabel)
-        addSubview(providerTagLabel)
+        addSubview(stackView)
 
         trailingTitleConstraint = navigationTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
-        trailingTagConstraint = providerTagLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+        trailingTagConstraint = stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
 
         NSLayoutConstraint.activate([
             navigationTitleImageView.widthAnchor.constraint(equalToConstant: 20),
@@ -58,17 +62,24 @@ final class NavigationTitleImageView: UIView {
             navigationTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             trailingTitleConstraint,
 
-            providerTagLabel.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8),
-            providerTagLabel.firstBaselineAnchor.constraint(equalTo: navigationTitleLabel.firstBaselineAnchor)
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stackView.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8),
+            stackView.firstBaselineAnchor.constraint(equalTo: navigationTitleLabel.firstBaselineAnchor),
+            trailingTagConstraint
         ])
     }
 
-    func setProviderTagLabel(providerTag: ProviderTag? = nil) {
-        if let tag = providerTag {
-            providerTagLabel.providerTag = tag
-        }
-        providerTagLabel.isHidden = providerTag != nil ? false : true
-        trailingTitleConstraint.isActive = providerTag != nil ? false : true
-        trailingTagConstraint.isActive = providerTag != nil ? true : false
+    func setBetaTagLabel(_ visible: Bool) {
+        betaLabel.providerTag = ProviderTag.beta
+        betaLabel.isHidden = !visible
+        trailingTitleConstraint.isActive = !visible
+        trailingTagConstraint.isActive = visible
+    }
+
+    func setDemoTagLabel(_ visible: Bool) {
+        demoLabel.providerTag = ProviderTag.demo
+        demoLabel.isHidden = !visible
+        trailingTitleConstraint.isActive = !visible
+        trailingTagConstraint.isActive = visible
     }
 }

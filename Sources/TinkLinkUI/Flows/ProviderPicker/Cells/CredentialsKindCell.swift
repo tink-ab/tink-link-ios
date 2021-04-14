@@ -4,7 +4,8 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     private let iconBackgroundView = UIView()
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
-    private let providerTagLabel = ProviderTagView()
+    private let betaLabel = ProviderTagView()
+    private let demoLabel = ProviderTagView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,10 +30,15 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         accessoryType = .disclosureIndicator
         backgroundColor = Color.background
 
+        let stackView = UIStackView(arrangedSubviews: [betaLabel, demoLabel])
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.spacing = 8
+
         contentView.addSubview(iconBackgroundView)
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(providerTagLabel)
+        contentView.addSubview(stackView)
 
         contentView.layoutMargins = .init(top: 32, left: 24, bottom: 32, right: 24)
 
@@ -50,14 +56,15 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         titleLabel.font = Font.body1
         titleLabel.textColor = Color.label
 
-        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
-        providerTagLabel.isHidden = true
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        betaLabel.isHidden = true
+        demoLabel.isHidden = true
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
         trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
-        trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: providerTagLabel.trailingAnchor)
+        trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: stackView.trailingAnchor)
 
         NSLayoutConstraint.activate([
             iconBackgroundView.widthAnchor.constraint(equalToConstant: iconBackgroundSize),
@@ -75,8 +82,9 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
             titleLabel.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
             trailingTitleConstraint,
 
-            providerTagLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
-            providerTagLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8)
+            stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            stackView.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+            stackView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
         ])
     }
 
@@ -84,7 +92,8 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         super.prepareForReuse()
 
         titleLabel.text = ""
-        setProviderTagLabel()
+        setDemoTagLabel(false)
+        setBetaTagLabel(false)
     }
 
     override func layoutMarginsDidChange() {
@@ -117,12 +126,17 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         titleLabel.text = text
     }
 
-    func setProviderTagLabel(providerTag: ProviderTag? = nil) {
-        if let tag = providerTag {
-            providerTagLabel.providerTag = tag
-        }
-        providerTagLabel.isHidden = providerTag != nil ? false : true
-        trailingTitleConstraint.isActive = providerTag != nil ? false : true
-        trailingTagConstraint.isActive = providerTag != nil ? true : false
+    func setBetaTagLabel(_ visible: Bool) {
+        betaLabel.providerTag = ProviderTag.beta
+        betaLabel.isHidden = !visible
+        trailingTitleConstraint.isActive = !visible
+        trailingTagConstraint.isActive = visible
+    }
+
+    func setDemoTagLabel(_ visible: Bool) {
+        demoLabel.providerTag = ProviderTag.demo
+        demoLabel.isHidden = !visible
+        trailingTitleConstraint.isActive = !visible
+        trailingTagConstraint.isActive = visible
     }
 }
