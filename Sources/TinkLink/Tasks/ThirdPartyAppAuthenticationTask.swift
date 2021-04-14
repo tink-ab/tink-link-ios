@@ -117,20 +117,31 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     if didOpenUniversalLink {
                         completion(.success)
                     } else {
-                        urlResourceOpener.open(deepLinkURL, options: [:], completionHandler: { didOpen in
-                            if didOpen {
-                                completion(.success)
-                            } else {
-                                let downloadRequiredReason = Error.ThirdPartyAppAuthenticationFailureReason.downloadRequired(
-                                    title: self.thirdPartyAppAuthentication.downloadTitle,
-                                    message: self.thirdPartyAppAuthentication.downloadMessage,
-                                    appStoreURL: self.thirdPartyAppAuthentication.appStoreURL
-                                )
-                                let downloadRequiredError = Error.thirdPartyAppAuthenticationFailed(reason: downloadRequiredReason)
+                        if case .mobileBankID = self.credentials.kind {
+                            let downloadRequiredReason = Error.ThirdPartyAppAuthenticationFailureReason.downloadRequired(
+                                title: self.thirdPartyAppAuthentication.downloadTitle,
+                                message: self.thirdPartyAppAuthentication.downloadMessage,
+                                appStoreURL: self.thirdPartyAppAuthentication.appStoreURL
+                            )
+                            let downloadRequiredError = Error.thirdPartyAppAuthenticationFailed(reason: downloadRequiredReason)
 
-                                completion(.failure(downloadRequiredError))
-                            }
-                        })
+                            completion(.failure(downloadRequiredError))
+                        } else {
+                            urlResourceOpener.open(deepLinkURL, options: [:], completionHandler: { didOpen in
+                                if didOpen {
+                                    completion(.success)
+                                } else {
+                                    let downloadRequiredReason = Error.ThirdPartyAppAuthenticationFailureReason.downloadRequired(
+                                        title: self.thirdPartyAppAuthentication.downloadTitle,
+                                        message: self.thirdPartyAppAuthentication.downloadMessage,
+                                        appStoreURL: self.thirdPartyAppAuthentication.appStoreURL
+                                    )
+                                    let downloadRequiredError = Error.thirdPartyAppAuthenticationFailed(reason: downloadRequiredReason)
+
+                                    completion(.failure(downloadRequiredError))
+                                }
+                            })
+                        }
                     }
                 }
             }
