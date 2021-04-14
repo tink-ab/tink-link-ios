@@ -117,6 +117,7 @@ public class ThirdPartyAppAuthenticationTask: Identifiable {
                     if didOpenUniversalLink {
                         completion(.success)
                     } else {
+                        // Don't open bankID universal link in Browser
                         if case .mobileBankID = self.credentials.kind {
                             let downloadRequiredReason = Error.ThirdPartyAppAuthenticationFailureReason.downloadRequired(
                                 title: self.thirdPartyAppAuthentication.downloadTitle,
