@@ -63,9 +63,8 @@ final class NavigationTitleImageView: UIView {
             trailingTitleConstraint,
 
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8),
             stackView.firstBaselineAnchor.constraint(equalTo: navigationTitleLabel.firstBaselineAnchor),
-            trailingTagConstraint
+            stackView.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8)
         ])
     }
 

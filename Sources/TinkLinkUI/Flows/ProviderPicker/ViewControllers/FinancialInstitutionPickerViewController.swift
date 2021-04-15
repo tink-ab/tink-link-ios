@@ -73,7 +73,7 @@ extension FinancialInstitutionPickerViewController {
             cell.setImage(url: url)
         }
         cell.setDemoTagLabel(node.isDemo)
-        cell.setBetaTagLabel(node.isBeta)
+        cell.setBetaTagLabel(!node.isBeta)
         return cell
     }
 
