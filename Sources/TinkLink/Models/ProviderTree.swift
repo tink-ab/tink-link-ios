@@ -82,10 +82,6 @@ public struct ProviderTree {
         public var displayDescription: String { provider.displayDescription }
 
         public var imageURL: URL? { provider.image }
-
-        public var isDemo: Bool { provider.kind == .test }
-
-        public var isBeta: Bool { provider.releaseStatus == .beta }
     }
 
     /// A parent node of the tree structure, with a list of either `CredentialsKindNode` children or a single `Provider`.
@@ -161,14 +157,6 @@ public struct ProviderTree {
         public var accessType: Provider.AccessType { firstProvider.accessType }
 
         public var imageURL: URL? { significantProvider.image }
-
-        public var isDemo: Bool {
-            return providers.contains(where: { $0.kind == .test })
-        }
-
-        public var isBeta: Bool {
-            return providers.contains(where: { $0.releaseStatus == .beta })
-        }
     }
 
     public enum FinancialServicesNode: Comparable {
@@ -252,14 +240,6 @@ public struct ProviderTree {
         }
 
         public var imageURL: URL? { significantProvider.image }
-
-        public var isDemo: Bool {
-            return providers.contains(where: { $0.kind == .test })
-        }
-
-        public var isBeta: Bool {
-            return providers.contains(where: { $0.releaseStatus == .beta })
-        }
 
         public var financialInstitution: Provider.FinancialInstitution { firstProvider.financialInstitution }
     }
@@ -364,14 +344,6 @@ public struct ProviderTree {
         public var financialInstitution: Provider.FinancialInstitution { firstProvider.financialInstitution }
 
         public var imageURL: URL? { significantProvider.image }
-
-        public var isDemo: Bool {
-            return providers.contains(where: { $0.kind == .test })
-        }
-
-        public var isBeta: Bool {
-            return providers.contains(where: { $0.releaseStatus == .beta })
-        }
     }
 
     /// A parent node of the tree structure, with a list of either `FinancialInstitutionNode`, `AccessTypeNode`, `CredentialsKindNode` children or a single `Provider`.
@@ -477,14 +449,6 @@ public struct ProviderTree {
         }
 
         public var imageURL: URL? { significantProvider.image }
-
-        public var isDemo: Bool {
-            return providers.contains(where: { $0.kind == .test })
-        }
-
-        public var isBeta: Bool {
-            return providers.contains(where: { $0.releaseStatus == .beta })
-        }
     }
 }
 

@@ -5,8 +5,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let betaLabel = ProviderTagView()
-    private let demoLabel = ProviderTagView()
+    private let providerTagLabel = ProviderTagView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,10 +28,6 @@ class ProviderCell: UITableViewCell, ReusableCell {
         selectionStyle = .none
         accessoryType = .disclosureIndicator
         backgroundColor = Color.background
-        let stackView = UIStackView(arrangedSubviews: [betaLabel, demoLabel])
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.spacing = 8
 
         contentView.addSubview(iconView)
 
@@ -41,7 +36,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         iconView.contentMode = .scaleAspectFit
 
         contentView.addSubview(titleLabel)
-        contentView.addSubview(stackView)
+        contentView.addSubview(providerTagLabel)
         contentView.addSubview(descriptionLabel)
 
         titleLabel.numberOfLines = 0
@@ -52,19 +47,18 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.font = Font.body2
         descriptionLabel.textColor = Color.secondaryLabel
 
-        betaLabel.isHidden = true
-        demoLabel.isHidden = true
+        providerTagLabel.isHidden = true
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
         iconView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
-        trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: stackView.trailingAnchor)
+        trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: providerTagLabel.trailingAnchor)
 
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: iconSize),
@@ -76,9 +70,9 @@ class ProviderCell: UITableViewCell, ReusableCell {
             titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: iconTitleSpacing),
             trailingTitleConstraint,
 
-            stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            stackView.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
-            stackView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            providerTagLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            providerTagLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+            providerTagLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
 
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
@@ -92,8 +86,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
         titleLabel.text = ""
         descriptionLabel.text = ""
-        setBetaTagLabel(false)
-        setDemoTagLabel(false)
+        setProviderTags(demo: false, beta: false)
     }
 
     override func layoutMarginsDidChange() {
@@ -130,17 +123,17 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.text = text
     }
 
-    func setBetaTagLabel(_ visible: Bool) {
-        betaLabel.providerTag = ProviderTag.beta
-        betaLabel.isHidden = !visible
-        trailingTitleConstraint.isActive = !visible
-        trailingTagConstraint.isActive = visible
-    }
+    func setProviderTags(demo: Bool, beta: Bool) {
+        if demo == true && beta == true {
+            providerTagLabel.providerTag = .demoAndBeta
+        } else if demo == true {
+            providerTagLabel.providerTag = .demo
+        } else if beta == true {
+            providerTagLabel.providerTag = .beta
+        }
 
-    func setDemoTagLabel(_ visible: Bool) {
-        demoLabel.providerTag = ProviderTag.demo
-        demoLabel.isHidden = !visible
-        trailingTitleConstraint.isActive = !visible
-        trailingTagConstraint.isActive = visible
+        providerTagLabel.isHidden = !(demo || beta)
+        trailingTitleConstraint.isActive = !(demo || beta)
+        trailingTagConstraint.isActive = (demo || beta)
     }
 }

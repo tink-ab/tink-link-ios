@@ -3,11 +3,13 @@ import UIKit
 enum ProviderTag {
     case beta
     case demo
+    case demoAndBeta
 
     var kind: String {
         switch self {
         case .beta: return "BETA"
         case .demo: return "DEMO"
+        case .demoAndBeta: return "DEMO BETA"
         }
     }
 }

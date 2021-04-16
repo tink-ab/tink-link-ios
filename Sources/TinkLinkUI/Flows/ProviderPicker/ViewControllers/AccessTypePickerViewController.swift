@@ -79,8 +79,10 @@ extension AccessTypePickerViewController {
         cell.setDescription(text: capabilityFormatter.string(for: capabilities))
         cell.setTitle(text: node.accessType.description)
 
-        cell.setDemoTagLabel(node.isDemo)
-        cell.setBetaTagLabel(node.isBeta)
+        if let demo = node.providers.first?.isDemo,
+           let beta = node.providers.first?.isBeta {
+            cell.setProviderTags(demo: demo, beta: beta)
+        }
 
         return cell
     }
