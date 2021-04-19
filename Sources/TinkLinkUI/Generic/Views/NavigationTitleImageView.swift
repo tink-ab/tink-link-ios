@@ -65,12 +65,15 @@ final class NavigationTitleImageView: UIView {
     }
 
     func setProviderTags(demo: Bool, beta: Bool) {
-        if demo == true && beta == true {
+        switch (demo, beta) {
+        case (true, true):
             providerTagLabel.providerTag = .demoAndBeta
-        } else if demo == true {
+        case (true, _):
             providerTagLabel.providerTag = .demo
-        } else if beta == true {
+        case (_, true):
             providerTagLabel.providerTag = .beta
+        default:
+            break
         }
 
         providerTagLabel.isHidden = !(demo || beta)
