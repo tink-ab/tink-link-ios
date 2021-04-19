@@ -1,16 +1,22 @@
 import UIKit
 
-enum ProviderTag {
-    case beta
-    case demo
-    case demoAndBeta
+struct ProviderTag: OptionSet, CustomStringConvertible {
+    let rawValue: Int
 
-    var kind: String {
-        switch self {
-        case .beta: return "BETA"
-        case .demo: return "DEMO"
-        case .demoAndBeta: return "DEMO BETA"
-        }
+    static let demo = ProviderTag(rawValue: 1 << 0)
+    static let beta = ProviderTag(rawValue: 1 << 1)
+    static let demoAndBeta: ProviderTag = [.demo, .beta]
+
+    public static var debugDescriptions: [(Self, String)] = [
+        (.demo, "DEMO"),
+        (.beta, "BETA")
+    ]
+
+    var description: String {
+        let strings: [String] = Self.debugDescriptions.filter { contains($0.0) }.map { $0.1 }
+        let result = strings.joined(separator: " ")
+
+        return result
     }
 }
 
@@ -19,7 +25,7 @@ class ProviderTagView: UIView {
 
     var providerTag: ProviderTag {
         didSet {
-            label.attributedText = NSAttributedString(string: providerTag.kind, attributes: [.kern: 0.75])
+            label.attributedText = NSAttributedString(string: providerTag.description, attributes: [.kern: 0.75])
         }
     }
 
