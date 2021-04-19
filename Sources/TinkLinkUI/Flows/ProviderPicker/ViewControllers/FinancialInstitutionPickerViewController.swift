@@ -72,10 +72,9 @@ extension FinancialInstitutionPickerViewController {
         if let url = node.imageURL {
             cell.setImage(url: url)
         }
-        if let demo = node.providers.first?.isDemo,
-           let beta = node.providers.first?.isBeta {
-            cell.setProviderTags(demo: demo, beta: beta)
-        }
+        let isDemo = node.providers.contains(where: { $0.isDemo })
+        let isBeta = node.providers.contains(where: { $0.isBeta })
+        cell.setProviderTags(demo: isDemo, beta: isBeta)
         return cell
     }
 
