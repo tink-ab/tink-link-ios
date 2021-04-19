@@ -23,6 +23,7 @@ final class NavigationTitleImageView: UIView {
         navigationTitleImageView.image = image
         navigationTitleLabel.text = text
         setup()
+        setProviderTags(demo: false, beta: false)
     }
 
     @available(*, unavailable)
@@ -38,11 +39,11 @@ final class NavigationTitleImageView: UIView {
         navigationTitleImageView.contentMode = .scaleAspectFit
         navigationTitleImageView.translatesAutoresizingMaskIntoConstraints = false
 
+        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
+
         addSubview(navigationTitleImageView)
         addSubview(navigationTitleLabel)
         addSubview(providerTagLabel)
-
-        providerTagLabel.isHidden = true
 
         trailingTitleConstraint = navigationTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         trailingTagConstraint = providerTagLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
