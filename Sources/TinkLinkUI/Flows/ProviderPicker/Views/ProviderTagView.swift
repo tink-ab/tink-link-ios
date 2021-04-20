@@ -7,11 +7,6 @@ struct ProviderTag: OptionSet {
     static let beta = ProviderTag(rawValue: 1 << 1)
     static let demoAndBeta: ProviderTag = [.demo, .beta]
 
-    public static var debugDescriptions: [(Self, String)] = [
-        (.demo, "DEMO"),
-        (.beta, "BETA")
-    ]
-
     var strings: [String] {
         var strings: [String] = []
         if contains(.demo) {
