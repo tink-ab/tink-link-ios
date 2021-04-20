@@ -1,6 +1,6 @@
 import UIKit
 
-struct ProviderTag: OptionSet, CustomStringConvertible {
+struct ProviderTag: OptionSet {
     let rawValue: Int
 
     static let demo = ProviderTag(rawValue: 1 << 0)
@@ -12,11 +12,15 @@ struct ProviderTag: OptionSet, CustomStringConvertible {
         (.beta, "BETA")
     ]
 
-    var description: String {
-        let strings: [String] = Self.debugDescriptions.filter { contains($0.0) }.map { $0.1 }
-        let result = strings.joined(separator: " ")
-
-        return result
+    var strings: [String] {
+        var strings: [String] = []
+        if contains(.demo) {
+            strings.append("DEMO")
+        }
+        if contains(.beta) {
+            strings.append("BETA")
+        }
+        return strings
     }
 }
 
@@ -25,7 +29,7 @@ class ProviderTagView: UIView {
 
     var providerTag: ProviderTag {
         didSet {
-            label.attributedText = NSAttributedString(string: providerTag.description, attributes: [.kern: 0.75])
+            label.attributedText = NSAttributedString(string: providerTag.strings.joined(separator: " "), attributes: [.kern: 0.75])
         }
     }
 
