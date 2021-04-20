@@ -22,7 +22,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     private let iconTitleSpacing: CGFloat = 16
 
     private var trailingTitleConstraint: NSLayoutConstraint!
-    private var trailingTagConstraint: NSLayoutConstraint!
+    private var trailingTagConstraint: NSLayoutConstraint?
 
     private func setup() {
         selectionStyle = .none
@@ -132,6 +132,6 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
 
         providerTagLabel.isHidden = !(demo || beta)
         trailingTitleConstraint.isActive = !(demo || beta)
-        trailingTagConstraint.isActive = (demo || beta)
+        trailingTagConstraint?.isActive = (demo || beta)
     }
 }
