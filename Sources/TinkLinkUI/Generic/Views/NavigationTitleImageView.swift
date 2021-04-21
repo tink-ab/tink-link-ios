@@ -6,7 +6,7 @@ final class NavigationTitleImageView: UIView {
     private let navigationTitleImageView = UIImageView()
     private let providerTagLabel = ProviderTagView()
 
-    private var trailingTitleConstraint: NSLayoutConstraint!
+    private var trailingTitleConstraint: NSLayoutConstraint?
     private var trailingTagConstraint: NSLayoutConstraint?
 
     init(imageURL: URL?, text: String) {
@@ -45,7 +45,9 @@ final class NavigationTitleImageView: UIView {
         addSubview(navigationTitleLabel)
         addSubview(providerTagLabel)
 
+        let trailingTitleConstraint: NSLayoutConstraint
         trailingTitleConstraint = navigationTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+        self.trailingTitleConstraint = trailingTitleConstraint
         trailingTagConstraint = providerTagLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
 
         NSLayoutConstraint.activate([
@@ -77,7 +79,7 @@ final class NavigationTitleImageView: UIView {
         }
 
         providerTagLabel.isHidden = !(demo || beta)
-        trailingTitleConstraint.isActive = !(demo || beta)
+        trailingTitleConstraint?.isActive = !(demo || beta)
         trailingTagConstraint?.isActive = (demo || beta)
     }
 }
