@@ -1,9 +1,35 @@
 import UIKit
 
-class BetaTagView: UIView {
+struct ProviderTag: OptionSet {
+    let rawValue: Int
+
+    static let demo = ProviderTag(rawValue: 1 << 0)
+    static let beta = ProviderTag(rawValue: 1 << 1)
+    static let demoAndBeta: ProviderTag = [.demo, .beta]
+
+    var strings: [String] {
+        var strings: [String] = []
+        if contains(.demo) {
+            strings.append("DEMO")
+        }
+        if contains(.beta) {
+            strings.append("BETA")
+        }
+        return strings
+    }
+}
+
+class ProviderTagView: UIView {
     private let label = UILabel()
 
+    var providerTag: ProviderTag {
+        didSet {
+            label.attributedText = NSAttributedString(string: providerTag.strings.joined(separator: " "), attributes: [.kern: 0.75])
+        }
+    }
+
     override init(frame: CGRect) {
+        self.providerTag = ProviderTag.beta
         super.init(frame: frame)
 
         layer.borderWidth = 1
@@ -12,7 +38,6 @@ class BetaTagView: UIView {
 
         layoutMargins = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
 
-        label.attributedText = NSAttributedString(string: "BETA", attributes: [.kern: 0.75])
         label.textColor = Color.label
         label.font = Font.beta
 
