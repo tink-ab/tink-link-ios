@@ -21,7 +21,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     private let iconSize: CGFloat = 24
     private let iconTitleSpacing: CGFloat = 16
 
-    private var trailingTitleConstraint: NSLayoutConstraint!
+    private var trailingTitleConstraint: NSLayoutConstraint?
     private var trailingTagConstraint: NSLayoutConstraint?
 
     private func setup() {
@@ -56,7 +56,9 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
+        let trailingTitleConstraint: NSLayoutConstraint
         trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
+        self.trailingTitleConstraint = trailingTitleConstraint
         trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: providerTagLabel.trailingAnchor)
 
         NSLayoutConstraint.activate([
@@ -131,7 +133,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         }
 
         providerTagLabel.isHidden = !(demo || beta)
-        trailingTitleConstraint.isActive = !(demo || beta)
+        trailingTitleConstraint?.isActive = !(demo || beta)
         trailingTagConstraint?.isActive = (demo || beta)
     }
 }
