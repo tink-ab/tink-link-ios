@@ -9,10 +9,9 @@ This directory contains example code that demonstrates the usage of `TinkLink` i
 
 ## TinkLinkUI
 
-[TinkLinkExample](https://github.com/tink-ab/tink-link-ios/tree/master/Examples/TinkLinkExample) is the example app for `TinkLink` SDK `TinkLinkUI` target.  
+[TinkLinkExample](TinkLinkExample) is an example app for `TinkLink` SDK `TinkLinkUI` target.  
 
-To run the example, you need to :
-
+To run the example, you need to:
 1. Follow the [getting started guide](https://docs.tink.com/resources/getting-started/set-up-your-account) to retrieve your `client_id`.
 2. Add a deep link to your app with scheme and host (`yourapp://host`) to the [list of redirect URIs under your app's settings](https://console.tink.com/overview).
 3. Update `TINK_LINK_EXAMPLE_CLIENT_ID` or update `YOUR_CLIENT_ID` in `ViewController.swift` to your `client_id`. 
