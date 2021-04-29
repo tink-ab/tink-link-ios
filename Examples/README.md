@@ -3,7 +3,7 @@
 
 # Tink Link iOS Examples
 
-This directory contains example code that demonstrates the usage of `TinkLink` iOS SDK with `TinkLink` and `TinkLinkUI` targets.
+This directory contains examples code that demonstrate the usage of  `TinkLink` and `TinkLinkUI` targets. int `TinkLink` iOS SDK. 
 
 ![Tink Link](https://images.ctfassets.net/tmqu5vj33f7w/4YdZUwzfmUjvNKO0tHvKVj/ec14ed052771e3ef10156c29ccf004f0/overview.png)
 
