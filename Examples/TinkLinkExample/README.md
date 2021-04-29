@@ -1,15 +1,11 @@
 ![Platform](https://img.shields.io/badge/platform-iOS-orange.svg)
 ![Languages](https://img.shields.io/badge/languages-swift-orange.svg)
 
-# Tink Link iOS Examples
+# TinkLinkExample
 
-This directory contains examples code that demonstrate the usage of `TinkLinkUI` target in `TinkLink` iOS SDK. 
+This directory contains example code that demonstrates the usage of `TinkLinkUI` target in `TinkLink` iOS SDK. 
 
 ![Tink Link](https://images.ctfassets.net/tmqu5vj33f7w/4YdZUwzfmUjvNKO0tHvKVj/ec14ed052771e3ef10156c29ccf004f0/overview.png)
-
-## TinkLinkUI
-
-[TinkLinkExample](TinkLinkExample) is an example for `TinkLinkUI` target in `TinkLink` SDK.
 
 To run the example, you need to:
 1. Follow the [getting started guide](https://docs.tink.com/resources/getting-started/set-up-your-account) to retrieve your `client_id`.
