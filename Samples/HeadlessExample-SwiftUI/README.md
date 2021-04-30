@@ -1,7 +1,7 @@
 ![Platform](https://img.shields.io/badge/platform-iOS-orange.svg)
 ![Languages](https://img.shields.io/badge/languages-swift-orange.svg)
 
-# Headless Example
+# Headless SwiftUI Sample
 
 ## Prerequisites
 1. Follow the [getting started guide](https://docs.tink.com/resources/getting-started/set-up-your-account) to retrieve your `client_id`.
