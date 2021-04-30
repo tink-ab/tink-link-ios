@@ -2,6 +2,6 @@
 
 |Example|Description|Temporary User|Existing User|
 |---|---|---|---|
-|**[TinkLinkExample](TinkLinkExample)**|Demonstrates the usage of `TinkLinkUI` target in `TinkLink` iOS SDK.|✅|✅|
-|**[HeadlessExample](HeadlessExample)**|Demonstrates the usage of `TinkLink` target in `TinkLink` iOS SDK with UIKit.||✅|
-|**[HeadlessExample-SwiftUI](HeadlessExample-SwiftUI)**|Demonstrates the usage of `TinkLink` target in `TinkLink` iOS SDK with SwiftUI.||✅|
+|**[TinkLinkExample](TinkLinkExample)**|Demonstrates the usage of `TinkLinkUI` target in `TinkLink` iOS SDK.|<img width="20" alt="icon-check-green" src="https://user-images.githubusercontent.com/14132621/116664333-9a132080-a998-11eb-92da-0de3116551be.png">|<img width="20" alt="icon-check-green" src="https://user-images.githubusercontent.com/14132621/116664333-9a132080-a998-11eb-92da-0de3116551be.png">|
+|**[HeadlessExample](HeadlessExample)**|Demonstrates the usage of `TinkLink` target in `TinkLink` iOS SDK with UIKit.||<img width="20" alt="icon-check-green" src="https://user-images.githubusercontent.com/14132621/116664333-9a132080-a998-11eb-92da-0de3116551be.png">|
+|**[HeadlessExample-SwiftUI](HeadlessExample-SwiftUI)**|Demonstrates the usage of `TinkLink` target in `TinkLink` iOS SDK with SwiftUI.||<img width="20" alt="icon-check-green" src="https://user-images.githubusercontent.com/14132621/116664333-9a132080-a998-11eb-92da-0de3116551be.png">|
