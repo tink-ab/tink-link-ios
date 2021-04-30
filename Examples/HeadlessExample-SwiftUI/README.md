@@ -1,3 +1,6 @@
+![Platform](https://img.shields.io/badge/platform-iOS-orange.svg)
+![Languages](https://img.shields.io/badge/languages-swift-orange.svg)
+
 # Headless Example
 
 ## Prerequisites
