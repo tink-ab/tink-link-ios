@@ -1,3 +1,6 @@
+![Platform](https://img.shields.io/badge/platform-iOS-orange.svg)
+![Languages](https://img.shields.io/badge/languages-swift-orange.svg)
+
 # Headless Example
 
 ## Prerequisites
@@ -21,4 +24,4 @@ Before running the example project open `AppDelegate.swift` and configure the fo
 
 ## Running the example app
 1. Open `HeadlessExample.xcodeproj` in Xcode.
-3. Press the run button. If all went well, this should launch a simulator with the sample app running.
+2. Press the run button. If all went well, this should launch a simulator with the example app running.
