@@ -25,3 +25,5 @@ Before running the example project open `AppDelegate.swift` and configure the fo
 ## Running the example app
 1. Open `HeadlessExample.xcodeproj` in Xcode.
 2. Press the run button. If all went well, this should launch a simulator with the example app running.
+
+Read more about TinkLink iOS in [here](https://docs.tink.com/resources/tink-link-ios).
