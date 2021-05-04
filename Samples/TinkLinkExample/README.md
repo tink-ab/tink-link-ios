@@ -24,3 +24,5 @@ Before running the sample project open `TinkLinkExample` and configure the follo
 `TinkLinkUI` also support using enterprise account with permanent user, to use that in `TinkLinkExample` you need to:
 1. Set a valid user access token. If you don't have one already, please follow our [guide](https://docs.tink.com/resources/getting-started/get-access-token) on how to generate a new API token. Note that these can expire, so make sure that you're using one that's currently active.
 2. Update `TINK_LINK_EXAMPLE_ACCESS_TOKEN` environment variables in `TinkLinkExample` scheme argument with a valid access token.
+
+Read more about TinkLink iOS in [here](https://docs.tink.com/resources/tink-link-ios).
