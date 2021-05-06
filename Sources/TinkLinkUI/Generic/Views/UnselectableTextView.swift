@@ -4,9 +4,7 @@ import UIKit
 // Make the text not selectable but also support voice over
 final class UnselectableTextView: UITextView {
     override public var selectedTextRange: UITextRange? {
-        get {
-            return nil
-        }
-        set { }
+        get { return nil }
+        set {}
     }
 }
