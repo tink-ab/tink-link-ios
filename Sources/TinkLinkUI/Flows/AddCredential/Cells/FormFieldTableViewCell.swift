@@ -31,6 +31,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.body2
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = Color.secondaryLabel
         label.numberOfLines = 0
         label.setLineHeight(lineHeight: 20)

@@ -55,6 +55,7 @@ final class EmptyFormView: UIView {
 
         instructionLabel.numberOfLines = 0
         instructionLabel.font = Font.body2
+        instructionLabel.adjustsFontForContentSizeCategory = true
         instructionLabel.textColor = Color.label
 
         let paragraphStyle = NSMutableParagraphStyle()
@@ -79,6 +80,7 @@ final class EmptyFormView: UIView {
         iconView.translatesAutoresizingMaskIntoConstraints = false
 
         textLabel.font = Font.subtitle1
+        textLabel.adjustsFontForContentSizeCategory = true
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 0
         textLabel.translatesAutoresizingMaskIntoConstraints = false
