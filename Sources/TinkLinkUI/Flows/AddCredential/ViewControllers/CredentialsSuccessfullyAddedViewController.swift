@@ -66,6 +66,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         titleLabel.text = titleText
         titleLabel.textAlignment = .center
         titleLabel.font = Font.subtitle1
+        titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.textColor = Color.label
 
         let paragraphStyle = NSMutableParagraphStyle()
@@ -74,6 +75,7 @@ class CredentialsSuccessfullyAddedViewController: UIViewController {
         detailLabel.textAlignment = .center
         detailLabel.numberOfLines = 0
         detailLabel.font = Font.body2
+        detailLabel.adjustsFontForContentSizeCategory = true
         detailLabel.textColor = Color.label
 
         doneButton.text = Strings.Generic.done
