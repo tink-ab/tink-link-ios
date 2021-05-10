@@ -92,6 +92,16 @@ final class FloatingButton: UIControl {
                       height: 52)
     }
 
+    // Need to do this so the button width applies to the title label
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        titleLabel.adjustsFontForContentSizeCategory = true
+        invalidateIntrinsicContentSize()
+        minimumWidthConstraint?.constant = minimumWidth
+        setNeedsLayout()
+    }
+
     private func setup() {
         backgroundColor = Color.button
 
