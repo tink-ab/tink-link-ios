@@ -73,7 +73,7 @@ final class EmptyFormView: UIView {
             }
         }
 
-        instructionLabel.attributedText = attributedString
+        instructionLabel.attributedText = attributedString.setFont(instructionLabel.font)
         instructionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         iconView.contentMode = .scaleAspectFit
