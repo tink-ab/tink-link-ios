@@ -219,6 +219,12 @@ extension CredentialsFormViewController {
             tinkLinkTracker.track(interaction: .back, screen: .submitCredentials)
         }
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        layoutHelpFootnote()
+    }
 }
 
 // MARK: - Help Footnote
