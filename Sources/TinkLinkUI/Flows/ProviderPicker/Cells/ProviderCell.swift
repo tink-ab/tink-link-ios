@@ -41,10 +41,12 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
         titleLabel.numberOfLines = 0
         titleLabel.font = Font.body1
+        titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.textColor = Color.label
 
         descriptionLabel.numberOfLines = 0
         descriptionLabel.font = Font.body2
+        descriptionLabel.adjustsFontForContentSizeCategory = true
         descriptionLabel.textColor = Color.secondaryLabel
 
         providerTagLabel.isHidden = true

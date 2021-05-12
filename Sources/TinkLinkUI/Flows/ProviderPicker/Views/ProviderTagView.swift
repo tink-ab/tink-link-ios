@@ -40,6 +40,7 @@ class ProviderTagView: UIView {
 
         label.textColor = Color.label
         label.font = Font.beta
+        label.adjustsFontForContentSizeCategory = true
 
         label.translatesAutoresizingMaskIntoConstraints = false
 

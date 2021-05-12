@@ -52,6 +52,7 @@ private final class TinkSearchBar: UISearchBar {
         textField?.backgroundColor = Color.accent.mixedWith(color: Color.navigationBarBackground, factor: 0.95)
         textField?.textColor = Color.navigationBarLabel
         textField?.font = Font.body1
+        textField?.adjustsFontForContentSizeCategory = true
     }
 
     override func layoutSubviews() {
