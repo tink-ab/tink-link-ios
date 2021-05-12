@@ -92,6 +92,13 @@ final class FloatingButton: UIControl {
                       height: 52)
     }
 
+    // Need update the button width after the dynamic type change
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        invalidateIntrinsicContentSize()
+    }
+
     private func setup() {
         backgroundColor = Color.button
 
