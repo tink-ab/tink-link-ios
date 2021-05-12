@@ -64,7 +64,7 @@ final class EmptyFormView: UIView {
 
         let instructionText = String(format: Strings.Credentials.instructions, providerName)
 
-        let attributedString = NSMutableAttributedString(string: instructionText, attributes: [.paragraphStyle: paragraphStyle])
+        let attributedString = NSMutableAttributedString(string: instructionText, attributes: [.paragraphStyle: paragraphStyle, .font: Font.body2])
         if let regex = try? NSRegularExpression(pattern: "[0-9].", options: []) {
             let range = NSRange(location: 0, length: attributedString.length)
             let matches = regex.matches(in: attributedString.string, options: [], range: range)
@@ -73,7 +73,7 @@ final class EmptyFormView: UIView {
             }
         }
 
-        instructionLabel.attributedText = attributedString.setFont(instructionLabel.font)
+        instructionLabel.attributedText = attributedString
         instructionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         iconView.contentMode = .scaleAspectFit
