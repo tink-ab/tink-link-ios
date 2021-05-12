@@ -96,7 +96,6 @@ final class FloatingButton: UIControl {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        titleLabel.adjustsFontForContentSizeCategory = true
         invalidateIntrinsicContentSize()
         minimumWidthConstraint?.constant = minimumWidth
         setNeedsLayout()
