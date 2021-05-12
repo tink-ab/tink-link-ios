@@ -223,6 +223,7 @@ extension CredentialsFormViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
+        setupHelpFootnote()
         layoutHelpFootnote()
     }
 }
