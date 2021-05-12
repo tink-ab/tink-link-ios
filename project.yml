@@ -111,6 +111,8 @@ targets:
     sources:
       - Samples/TinkLinkExample/TinkLinkExample
     scheme:
+      testTargets:
+        - target: TinkLinkUIUITestsHost_${platform}
       environmentVariables:
         TINK_LINK_EXAMPLE_CLIENT_ID: $TINK_CLIENT_ID
     dependencies:
