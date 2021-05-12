@@ -98,6 +98,23 @@ targets:
     dependencies:
       - package: TinkLink
       - package: TinkLinkUI
+  TinkLinkUIDevelopment:
+    type: application
+    platform: [iOS]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUIDevelopment"
+        IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      configs:
+        debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "DEBUG"
+    sources:
+      - Samples/TinkLinkExample/TinkLinkExample
+    scheme:
+      environmentVariables:
+        TINK_LINK_EXAMPLE_CLIENT_ID: $TINK_CLIENT_ID
+    dependencies:
+      - target: TinkLinkUI_${platform}
 packages:
   TinkLink:
     path: ./
