@@ -1,5 +1,4 @@
 import UIKit
-import Kingfisher
 
 class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()

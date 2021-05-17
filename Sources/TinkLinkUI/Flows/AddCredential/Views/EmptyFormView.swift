@@ -1,5 +1,4 @@
 import UIKit
-import Kingfisher
 
 final class EmptyFormView: UIView {
     private var formErrorView: FormTableViewErrorView?

@@ -1,5 +1,4 @@
 import UIKit
-import Kingfisher
 
 final class NavigationTitleImageView: UIView {
     private let navigationTitleLabel = UILabel()
