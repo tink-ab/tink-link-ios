@@ -89,6 +89,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
+        iconView.image = nil
         titleLabel.text = ""
         descriptionLabel.text = ""
         setProviderTags(demo: false, beta: false)
@@ -117,7 +118,6 @@ class ProviderCell: UITableViewCell, ReusableCell {
     }
 
     func setImage(url: URL) {
-        imageLoadingHandle?.cancel()
         imageLoadingHandle = ImageLoader.shared.loadImage(at: url) { [weak self] result in
             let image = try? result.get()
             self?.iconView.image = image
