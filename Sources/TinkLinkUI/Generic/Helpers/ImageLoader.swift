@@ -69,6 +69,7 @@ class ImageLoader {
 
     private var imageLoadingStateByUrl: [URL: State] = [:]
 
+    @discardableResult
     func loadImage(at url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) -> ImageLoadingTaskManager.Handle? {
         switch imageLoadingStateByUrl[url] {
         case .loading(let handler):
