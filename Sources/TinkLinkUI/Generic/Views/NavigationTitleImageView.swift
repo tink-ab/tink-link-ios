@@ -11,7 +11,13 @@ final class NavigationTitleImageView: UIView {
     init(imageURL: URL?, text: String) {
         super.init(frame: .zero)
 
-        navigationTitleImageView.kf.setImage(with: imageURL)
+        if let imageURL = imageURL {
+            ImageLoader.shared.loadImage(at: imageURL) { [weak self] result in
+                let image = try? result.get()
+                self?.navigationTitleImageView.image = image
+            }
+        }
+
         navigationTitleLabel.text = text
         setup()
     }
