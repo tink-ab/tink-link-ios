@@ -29,13 +29,13 @@ class ImageLoader {
             }
         }
 
-        private var completionHandlers: [Handle: (Result<ImageResult, Error>) -> Void] = [:]
+        private var completionHandlers: [Handle: (Result<UIImage, Error>) -> Void] = [:]
 
         fileprivate var task: URLSessionDataTask?
 
         fileprivate init() {}
 
-        fileprivate func addCompletionHandler(_ completion: @escaping (Result<ImageResult, Error>) -> Void) -> Handle {
+        fileprivate func addCompletionHandler(_ completion: @escaping (Result<UIImage, Error>) -> Void) -> Handle {
             let handle = Handle { [weak self] handle in
                 self?.removeCompletionHandler(for: handle)
             }
@@ -50,7 +50,7 @@ class ImageLoader {
             }
         }
 
-        fileprivate func complete(with result: Result<ImageResult, Error>) {
+        fileprivate func complete(with result: Result<UIImage, Error>) {
             for (_, observer) in completionHandlers {
                 observer(result)
             }
@@ -62,20 +62,15 @@ class ImageLoader {
         }
     }
 
-    struct ImageResult {
-        let image: UIImage
-        let imageUrl: URL
-    }
-
     private enum State {
         case loading(ImageLoadingTaskManager)
-        case loaded(Result<ImageResult, Error>)
+        case loaded(Result<UIImage, Error>)
     }
 
     private var imageLoadingStateByUrl: [URL: State] = [:]
 
     @discardableResult
-    func loadImage(at url: URL, completion: @escaping (Result<ImageResult, Error>) -> Void) -> ImageLoadingTaskManager.Handle? {
+    func loadImage(at url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) -> ImageLoadingTaskManager.Handle? {
         switch imageLoadingStateByUrl[url] {
         case .loading(let handler):
             let handle = handler.addCompletionHandler(completion)
@@ -92,7 +87,7 @@ class ImageLoader {
         }
     }
 
-    private func addImageLadingTask(with url: URL, _ completion: @escaping (Result<ImageLoader.ImageResult, Error>) -> Void) -> ImageLoader.ImageLoadingTaskManager.Handle? {
+    private func addImageLadingTask(with url: URL, _ completion: @escaping (Result<UIImage, Error>) -> Void) -> ImageLoader.ImageLoadingTaskManager.Handle? {
         let taskManager = ImageLoadingTaskManager()
         let handle = taskManager.addCompletionHandler(completion)
 
@@ -108,12 +103,12 @@ class ImageLoader {
         return handle
     }
 
-    private func fetchImage(with url: URL, completion: @escaping (Result<ImageResult, Error>) -> Void) -> URLSessionDataTask {
+    private func fetchImage(with url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) -> URLSessionDataTask {
         let task = URLSession.shared.dataTask(with: url) { [decodingQueue] data, response, error in
             if let data = data {
                 decodingQueue.async {
                     if let image = UIImage(data: data) {
-                        completion(.success(ImageResult(image: image, imageUrl: url)))
+                        completion(.success(image))
                     } else {
                         completion(.failure(CocoaError(.coderReadCorrupt)))
                     }
