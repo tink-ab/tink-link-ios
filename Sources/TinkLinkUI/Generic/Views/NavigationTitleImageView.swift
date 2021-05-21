@@ -13,8 +13,10 @@ final class NavigationTitleImageView: UIView {
 
         if let imageURL = imageURL {
             ImageLoader.shared.loadImage(at: imageURL) { [weak self] result in
-                let image = try? result.get()
-                self?.navigationTitleImageView.image = image
+                let imageResult = try? result.get()
+                if imageResult?.imageUrl == imageURL {
+                    self?.navigationTitleImageView.image = imageResult?.image
+                }
             }
         }
 
