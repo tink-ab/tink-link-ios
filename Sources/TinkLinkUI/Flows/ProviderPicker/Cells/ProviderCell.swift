@@ -118,6 +118,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     }
 
     func setImage(url: URL) {
+        imageLoadingHandle?.cancel()
         imageLoadingHandle = ImageLoader.shared.loadImage(at: url) { [weak self] result in
             let imageResult = try? result.get()
             if imageResult?.imageUrl == url {
