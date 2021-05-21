@@ -82,22 +82,30 @@ class ImageLoader {
             return handle
         case .loaded(let result):
             completion(result)
-            return nil
-        case .none:
-            let taskManager = ImageLoadingTaskManager()
-            let handle = taskManager.addCompletionHandler(completion)
-
-            taskManager.task = fetchImage(with: url) { [weak self] result in
-                DispatchQueue.main.async {
-                    taskManager.complete(with: result)
-                    self?.imageLoadingStateByUrl[url] = .loaded(result)
-                }
+            switch result {
+            case .success: return nil
+            case .failure:
+                return addImageLadingTask(with: url, completion)
             }
-
-            imageLoadingStateByUrl[url] = .loading(taskManager)
-
-            return handle
+        case .none:
+            return addImageLadingTask(with: url, completion)
         }
+    }
+
+    private func addImageLadingTask(with url: URL, _ completion: @escaping (Result<ImageLoader.ImageResult, Error>) -> Void) -> ImageLoader.ImageLoadingTaskManager.Handle? {
+        let taskManager = ImageLoadingTaskManager()
+        let handle = taskManager.addCompletionHandler(completion)
+
+        taskManager.task = fetchImage(with: url) { [weak self] result in
+            DispatchQueue.main.async {
+                taskManager.complete(with: result)
+                self?.imageLoadingStateByUrl[url] = .loaded(result)
+            }
+        }
+
+        imageLoadingStateByUrl[url] = .loading(taskManager)
+
+        return handle
     }
 
     private func fetchImage(with url: URL, completion: @escaping (Result<ImageResult, Error>) -> Void) -> URLSessionDataTask {
