@@ -1,5 +1,4 @@
 import UIKit
-import Kingfisher
 
 final class EmptyFormView: UIView {
     private var formErrorView: FormTableViewErrorView?
@@ -20,7 +19,12 @@ final class EmptyFormView: UIView {
         }
         super.init(frame: .zero)
 
-        iconView.kf.setImage(with: imageURL)
+        if let imageURL = imageURL {
+            ImageLoader.shared.loadImage(at: imageURL) { [weak self] result in
+                let image = try? result.get()
+                self?.iconView.image = image
+            }
+        }
         let format = Strings.Credentials.description
         textLabel.text = String(format: format, text)
 

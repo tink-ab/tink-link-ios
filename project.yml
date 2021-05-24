@@ -54,7 +54,6 @@ targets:
     dependencies:
       - target: TinkLink_${platform}
       - package: TinkCore
-      - package: Kingfisher
       - package: Down
   TinkLinkUITests:
     type: bundle.unit-test
@@ -67,7 +66,6 @@ targets:
     dependencies:
       - target: TinkLinkUI_${platform}
       - package: TinkCore
-      - package: Kingfisher
       - package: Down
   TinkLinkUIUITests:
     type: bundle.ui-testing
@@ -106,9 +104,6 @@ packages:
   TinkCore:
     url: https://github.com/tink-ab/tink-core-ios
     exactVersion: 1.0.0
-  Kingfisher:
-    url: https://github.com/onevcat/Kingfisher
-    minorVersion: 5.14.1
   Down:
     url: https://github.com/johnxnguyen/Down
     exactVersion: 0.9.3

@@ -1,7 +1,6 @@
 import Down
 import TinkLink
 import UIKit
-import Kingfisher
 
 protocol CredentialsFormViewControllerDelegate: AnyObject {
     func showScopeDescriptions()

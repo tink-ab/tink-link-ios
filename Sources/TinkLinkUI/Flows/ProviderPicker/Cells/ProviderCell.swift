@@ -1,11 +1,12 @@
 import UIKit
-import Kingfisher
 
 class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let providerTagLabel = ProviderTagView()
+
+    private var imageLoadingHandle: ImageLoader.ImageLoadingTaskManager.Handle?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -88,6 +89,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
+        iconView.image = nil
         titleLabel.text = ""
         descriptionLabel.text = ""
         setProviderTags(demo: false, beta: false)
@@ -116,7 +118,11 @@ class ProviderCell: UITableViewCell, ReusableCell {
     }
 
     func setImage(url: URL) {
-        iconView.kf.setImage(with: ImageResource(downloadURL: url))
+        imageLoadingHandle?.cancel()
+        imageLoadingHandle = ImageLoader.shared.loadImage(at: url) { [weak self] result in
+            let image = try? result.get()
+            self?.iconView.image = image
+        }
     }
 
     func setTitle(text: String) {
