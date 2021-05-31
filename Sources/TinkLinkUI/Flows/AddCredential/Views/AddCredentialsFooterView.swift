@@ -51,7 +51,7 @@ final class AddCredentialsFooterView: UIView {
 
         descriptionTextView.accessibilityIdentifier = "termsAndConsentText"
 
-        layoutMargins = .init(top: 12, left: 0, bottom: 12, right: 0)
+        layoutMargins = .init(top: 12, left: 24, bottom: 12, right: 24)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             descriptionTextView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
