@@ -133,8 +133,6 @@ extension CredentialsFormViewController {
         view.addSubview(addCredentialFooterView)
         view.addSubview(button)
 
-        view.layoutMargins = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-
         let buttonBottomConstraint: NSLayoutConstraint
         if isAggregator {
             buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 24)
@@ -149,13 +147,13 @@ extension CredentialsFormViewController {
             fieldsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             fieldsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             gradientView.topAnchor.constraint(equalTo: button.topAnchor, constant: -40),
-            gradientView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            gradientView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             gradientView.bottomAnchor.constraint(equalTo: addCredentialFooterView.topAnchor),
 
             buttonWidthConstraint,
