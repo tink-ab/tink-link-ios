@@ -23,6 +23,11 @@ final class CredentialsFormViewController: UIViewController {
         formTableViewController.form
     }
 
+    private var fieldsView: UIView = {
+        let view = UIView()
+        return view
+    }()
+
     private let clientName: String
     private let isAggregator: Bool
     private let isVerified: Bool
@@ -49,6 +54,9 @@ final class CredentialsFormViewController: UIViewController {
         return button
     }()
 
+    private var viewConstraints: [NSLayoutConstraint] = []
+    private var buttonPositionConstraint: NSLayoutConstraint?
+    private var credentialsFooterTrailingConstraint: NSLayoutConstraint?
     private var buttonBottomConstraint: NSLayoutConstraint?
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
@@ -95,7 +103,6 @@ extension CredentialsFormViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         view.backgroundColor = Color.background
 
-        let fieldsView: UIView
         if form.fields.isEmpty {
             emptyView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(emptyView)
@@ -133,34 +140,8 @@ extension CredentialsFormViewController {
         view.addSubview(addCredentialFooterView)
         view.addSubview(button)
 
-        let buttonBottomConstraint: NSLayoutConstraint
-        if isAggregator {
-            buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 24)
-        } else {
-            buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 24)
-        }
-        self.buttonBottomConstraint = buttonBottomConstraint
+        setupConstraints()
 
-        NSLayoutConstraint.activate([
-            fieldsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            fieldsView.topAnchor.constraint(equalTo: view.topAnchor),
-            fieldsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            fieldsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            gradientView.topAnchor.constraint(equalTo: button.topAnchor, constant: -40),
-            gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            gradientView.bottomAnchor.constraint(equalTo: addCredentialFooterView.topAnchor),
-
-            buttonWidthConstraint,
-            button.heightAnchor.constraint(equalToConstant: 48),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonBottomConstraint,
-        ])
         navigationItem.titleView = navigationTitleView
         navigationItem.largeTitleDisplayMode = .never
 
@@ -220,6 +201,7 @@ extension CredentialsFormViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
+        setupConstraints()
         setupHelpFootnote()
         layoutHelpFootnote()
     }
@@ -252,20 +234,36 @@ extension CredentialsFormViewController {
 
 extension CredentialsFormViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
-        updateButtonBottomConstraint(notification)
+        if screenWidth() > 500 {
+            updateHorizontalButtonBottomConstraint(notification)
+        } else {
+            updateVerticalButtonBottomConstraint(notification)
+        }
     }
 
     private func keyboardWillHide(_ notification: KeyboardNotification) {
         resetButtonBottomConstraint(notification)
     }
 
-    private func updateButtonBottomConstraint(_ notification: KeyboardNotification) {
+    private func updateVerticalButtonBottomConstraint(_ notification: KeyboardNotification) {
         if let window = view.window {
             // Need to calculate a different keyboard height if client is aggregator becase the footer view is hidden then.
             let keyboardFrameHeight = (isAggregator ? view.safeAreaLayoutGuide.layoutFrame.maxY : addCredentialFooterView.frame.minY) - window.convert(notification.frame, to: view).minY
             buttonBottomConstraint?.constant = max(24, keyboardFrameHeight)
             buttonWidthConstraint.constant = view.frame.size.width
             button.rounded = false
+            UIView.animate(withDuration: notification.duration) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    private func updateHorizontalButtonBottomConstraint(_ notification: KeyboardNotification) {
+        if let window = view.window {
+            // Need to calculate a different keyboard height if client is aggregator becase the footer view is hidden then.
+            let keyboardFrameHeight = (isAggregator ? view.safeAreaLayoutGuide.layoutFrame.maxY : addCredentialFooterView.frame.minY) - window.convert(notification.frame, to: view).minY
+            buttonBottomConstraint?.constant = max(24, keyboardFrameHeight + button.bounds.height + 16)
+            buttonWidthConstraint.constant = button.minimumWidth
             UIView.animate(withDuration: notification.duration) {
                 self.view.layoutIfNeeded()
             }
@@ -332,5 +330,69 @@ extension CredentialsFormViewController: AddCredentialsFooterViewDelegate {
 extension CredentialsFormViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return !button.frame.contains(gestureRecognizer.location(in: view))
+    }
+}
+
+// MARK: - Constraints
+
+extension CredentialsFormViewController {
+    private func screenWidth() -> CGFloat {
+        return UIScreen.main.bounds.width
+    }
+
+    private func setupConstraints() {
+        NSLayoutConstraint.deactivate(viewConstraints)
+        viewConstraints.removeAll()
+
+        let buttonBottomConstraint: NSLayoutConstraint
+        let buttonPositionConstraint: NSLayoutConstraint
+        let credentialsFooterTrailingConstraint: NSLayoutConstraint
+
+        if isAggregator {
+            buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 24)
+            if screenWidth() > 500 {
+                buttonPositionConstraint = button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+                credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -40)
+            } else {
+                buttonPositionConstraint = button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+                credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            }
+        } else {
+            if screenWidth() > 500 {
+                buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
+                buttonPositionConstraint = button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+                credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -40)
+            } else {
+                buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 24)
+                buttonPositionConstraint = button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+                credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            }
+        }
+        self.buttonBottomConstraint = buttonBottomConstraint
+        self.buttonPositionConstraint = buttonPositionConstraint
+        self.credentialsFooterTrailingConstraint = credentialsFooterTrailingConstraint
+
+        viewConstraints.append(contentsOf: [
+            fieldsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            fieldsView.topAnchor.constraint(equalTo: view.topAnchor),
+            fieldsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            fieldsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            credentialsFooterTrailingConstraint,
+            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            gradientView.topAnchor.constraint(equalTo: button.topAnchor, constant: -40),
+            gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            gradientView.bottomAnchor.constraint(equalTo: addCredentialFooterView.topAnchor),
+
+            buttonWidthConstraint,
+            button.heightAnchor.constraint(equalToConstant: 48),
+            buttonPositionConstraint,
+            buttonBottomConstraint
+        ])
+
+        NSLayoutConstraint.activate(viewConstraints)
     }
 }
