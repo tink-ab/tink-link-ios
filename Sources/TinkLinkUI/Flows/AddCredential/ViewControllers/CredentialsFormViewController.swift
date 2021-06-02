@@ -28,6 +28,14 @@ final class CredentialsFormViewController: UIViewController {
         return view
     }()
 
+    private var isIpad: Bool {
+        return UIDevice.current.userInterfaceIdiom == .pad ? true : false
+    }
+
+    private var isLandscape: Bool {
+        return UIDevice.current.orientation == .portrait ? false : true
+    }
+
     private let clientName: String
     private let isAggregator: Bool
     private let isVerified: Bool
@@ -234,7 +242,7 @@ extension CredentialsFormViewController {
 
 extension CredentialsFormViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
-        if screenWidth() > 500 {
+        if isIpad || isLandscape {
             updateHorizontalButtonBottomConstraint(notification)
         } else {
             updateVerticalButtonBottomConstraint(notification)
@@ -263,7 +271,11 @@ extension CredentialsFormViewController {
             setupConstraints()
             // Need to calculate a different keyboard height if client is aggregator becase the footer view is hidden then.
             let keyboardFrameHeight = (isAggregator ? view.safeAreaLayoutGuide.layoutFrame.maxY : addCredentialFooterView.frame.minY) - window.convert(notification.frame, to: view).minY
-            buttonBottomConstraint?.constant = max(24, keyboardFrameHeight + button.bounds.height + 16)
+            var buttonConstant: CGFloat = 16
+            if isIpad {
+                buttonConstant = 40
+            }
+            buttonBottomConstraint?.constant = max(24, keyboardFrameHeight + button.bounds.height + buttonConstant)
             buttonWidthConstraint.constant = button.minimumWidth
             UIView.animate(withDuration: notification.duration) {
                 self.view.layoutIfNeeded()
@@ -337,10 +349,6 @@ extension CredentialsFormViewController: UIGestureRecognizerDelegate {
 // MARK: - Constraints
 
 extension CredentialsFormViewController {
-    private func screenWidth() -> CGFloat {
-        return UIScreen.main.bounds.width
-    }
-
     private func setupConstraints() {
         NSLayoutConstraint.deactivate(viewConstraints)
         viewConstraints.removeAll()
@@ -351,7 +359,7 @@ extension CredentialsFormViewController {
 
         if isAggregator {
             buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 24)
-            if screenWidth() > 500 {
+            if isIpad || isLandscape {
                 buttonPositionConstraint = button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
                 credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -40)
             } else {
@@ -359,7 +367,7 @@ extension CredentialsFormViewController {
                 credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             }
         } else {
-            if screenWidth() > 500 {
+            if isIpad || isLandscape {
                 buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
                 buttonPositionConstraint = button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
                 credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -40)
@@ -367,6 +375,11 @@ extension CredentialsFormViewController {
                 buttonBottomConstraint = addCredentialFooterView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 24)
                 buttonPositionConstraint = button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
                 credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            }
+
+            if isIpad {
+                buttonPositionConstraint.constant = -24
+                buttonBottomConstraint.constant = 24
             }
         }
         self.buttonBottomConstraint = buttonBottomConstraint
