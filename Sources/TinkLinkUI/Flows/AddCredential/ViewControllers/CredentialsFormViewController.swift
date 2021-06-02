@@ -28,6 +28,13 @@ final class CredentialsFormViewController: UIViewController {
         return view
     }()
 
+    private let bottomContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Color.background
+        return view
+    }()
+
     private var isIpad: Bool {
         return UIDevice.current.userInterfaceIdiom == .pad ? true : false
     }
@@ -145,6 +152,7 @@ extension CredentialsFormViewController {
 
         navigationTitleView.setProviderTags(demo: provider.isDemo, beta: provider.isBeta)
         view.addSubview(gradientView)
+        view.addSubview(bottomContainer)
         view.addSubview(addCredentialFooterView)
         view.addSubview(button)
 
@@ -404,7 +412,12 @@ extension CredentialsFormViewController {
             buttonWidthConstraint,
             button.heightAnchor.constraint(equalToConstant: 48),
             buttonPositionConstraint,
-            buttonBottomConstraint
+            buttonBottomConstraint,
+
+            bottomContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
+            bottomContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
         NSLayoutConstraint.activate(viewConstraints)
