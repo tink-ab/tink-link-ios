@@ -285,7 +285,11 @@ extension CredentialsFormViewController {
     }
 
     private func resetButtonBottomConstraint(_ notification: KeyboardNotification) {
-        buttonBottomConstraint?.constant = 24
+        if device.isIpad || device.isLandscape {
+            buttonBottomConstraint?.constant = 0
+        } else {
+            buttonBottomConstraint?.constant = 24
+        }
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
         UIView.animate(withDuration: notification.duration) {
