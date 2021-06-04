@@ -25,7 +25,7 @@ final class CredentialsFormViewController: UIViewController {
 
     private var fieldsView = UIView()
 
-    private let bottomContainer: UIView = {
+    private let bottomBackgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Color.background
@@ -141,7 +141,7 @@ extension CredentialsFormViewController {
 
         navigationTitleView.setProviderTags(demo: provider.isDemo, beta: provider.isBeta)
         view.addSubview(gradientView)
-        view.addSubview(bottomContainer)
+        view.addSubview(bottomBackgroundView)
         view.addSubview(addCredentialFooterView)
         view.addSubview(button)
 
@@ -407,10 +407,10 @@ extension CredentialsFormViewController {
             buttonPositionConstraint,
             buttonBottomConstraint,
 
-            bottomContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
-            bottomContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomBackgroundView.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
+            bottomBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
         NSLayoutConstraint.activate(viewConstraints)
