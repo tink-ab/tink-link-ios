@@ -10,7 +10,6 @@ protocol CredentialsFormViewControllerDelegate: AnyObject {
 
 final class CredentialsFormViewController: UIViewController {
     let provider: Provider
-    let device = UIDevice()
 
     weak var delegate: CredentialsFormViewControllerDelegate?
 
@@ -243,7 +242,7 @@ extension CredentialsFormViewController {
 
 extension CredentialsFormViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
-        if device.isIpad || device.isLandscape {
+        if UIDevice.current.isPad || UIDevice.current.isLandscape {
             updateHorizontalButtonBottomConstraint(notification)
         } else {
             updateVerticalButtonBottomConstraint(notification)
@@ -273,7 +272,7 @@ extension CredentialsFormViewController {
             // Need to calculate a different keyboard height if client is aggregator becase the footer view is hidden then.
             let keyboardFrameHeight = (isAggregator ? view.safeAreaLayoutGuide.layoutFrame.maxY : addCredentialFooterView.frame.minY) - window.convert(notification.frame, to: view).minY
             var buttonConstant: CGFloat = 16
-            if device.isIpad {
+            if UIDevice.current.isPad {
                 buttonConstant = 40
             }
             buttonBottomConstraint?.constant = max(24, keyboardFrameHeight + button.bounds.height + buttonConstant)
@@ -285,7 +284,7 @@ extension CredentialsFormViewController {
     }
 
     private func resetButtonBottomConstraint(_ notification: KeyboardNotification) {
-        if device.isIpad || device.isLandscape {
+        if UIDevice.current.isPad || UIDevice.current.isLandscape {
             buttonBottomConstraint?.constant = 0
         } else {
             buttonBottomConstraint?.constant = 24
@@ -364,7 +363,7 @@ extension CredentialsFormViewController {
 
         if isAggregator {
             buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 24)
-            if device.isIpad || device.isLandscape {
+            if UIDevice.current.isPad || UIDevice.current.isLandscape {
                 buttonPositionConstraint = button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
                 credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -40)
             } else {
@@ -372,7 +371,7 @@ extension CredentialsFormViewController {
                 credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             }
         } else {
-            if device.isIpad || device.isLandscape {
+            if UIDevice.current.isPad || UIDevice.current.isLandscape {
                 buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
                 buttonPositionConstraint = button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
                 credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -40)
@@ -382,7 +381,7 @@ extension CredentialsFormViewController {
                 credentialsFooterTrailingConstraint = addCredentialFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             }
 
-            if device.isIpad {
+            if UIDevice.current.isPad {
                 buttonPositionConstraint.constant = -24
                 buttonBottomConstraint.constant = 24
             }
