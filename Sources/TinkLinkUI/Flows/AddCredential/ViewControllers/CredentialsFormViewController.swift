@@ -23,10 +23,7 @@ final class CredentialsFormViewController: UIViewController {
         formTableViewController.form
     }
 
-    private var fieldsView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private var fieldsView = UIView()
 
     private let bottomContainer: UIView = {
         let view = UIView()
