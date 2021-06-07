@@ -388,10 +388,10 @@ extension CredentialsFormViewController {
         self.credentialsFooterTrailingConstraint = credentialsFooterTrailingConstraint
 
         viewConstraints.append(contentsOf: [
-            fieldsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            fieldsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             fieldsView.topAnchor.constraint(equalTo: view.topAnchor),
             fieldsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            fieldsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            fieldsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             credentialsFooterTrailingConstraint,
