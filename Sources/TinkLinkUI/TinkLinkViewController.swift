@@ -673,10 +673,7 @@ extension TinkLinkViewController {
 
     private func showDiscardActionSheet() {
         let alertTitle = Strings.Credentials.Discard.title
-        var alertStyle = UIAlertController.Style.actionSheet
-        if UIDevice.current.isPad {
-            alertStyle = .alert
-        }
+        let alertStyle: UIAlertController.Style = UIDevice.current.isPad ? .alert : .actionSheet
         let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: alertStyle)
 
         let discardActionTitle = Strings.Credentials.Discard.primaryAction
