@@ -245,6 +245,8 @@ extension CredentialsFormViewController {
         } else {
             updateVerticalButtonBottomConstraint(notification)
         }
+
+        view.setNeedsLayout()
     }
 
     private func keyboardWillHide(_ notification: KeyboardNotification) {
