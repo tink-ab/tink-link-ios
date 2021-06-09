@@ -15,7 +15,7 @@ final class ProviderHelpTextView: UIView {
     }
 
     private func setup() {
-        directionalLayoutMargins = .init(top: 0, leading: 24, bottom: 12, trailing: 24)
+        directionalLayoutMargins = UIDevice.current.isPad ? .init(top: 0, leading: 80, bottom: 12, trailing: 80) : .init(top: 0, leading: 24, bottom: 12, trailing: 24)
 
         helpTextView.linkTextAttributes = [
             NSAttributedString.Key.font: Font.body2,
