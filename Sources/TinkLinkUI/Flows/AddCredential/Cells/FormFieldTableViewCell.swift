@@ -69,7 +69,7 @@ class FormFieldTableViewCell: UITableViewCell, ReusableCell {
         textField.autocorrectionType = .no
         textField.delegate = self
 
-        contentView.layoutMargins = .init(top: 20, left: 24, bottom: 0, right: 24)
+        contentView.layoutMargins = UIDevice.current.isPad ? .init(top: 0, left: 80, bottom: 12, right: 80) : .init(top: 0, left: 24, bottom: 12, right: 24)
         contentView.backgroundColor = Color.background
         contentView.addSubview(textField)
         contentView.addSubview(footerLabel)
