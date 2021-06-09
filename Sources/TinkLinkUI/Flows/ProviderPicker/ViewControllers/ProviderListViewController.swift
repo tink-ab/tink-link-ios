@@ -42,6 +42,10 @@ extension ProviderListViewController {
 
         tableView.registerReusableCell(ofType: ProviderCell.self)
 
+        if UIDevice.current.isPad {
+            tableView.layoutMargins = .init(top: 0, left: 44, bottom: 0, right: 44)
+        }
+
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
     }
