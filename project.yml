@@ -125,4 +125,4 @@ packages:
     exactVersion: 1.0.0
   Down:
     url: https://github.com/johnxnguyen/Down
-    exactVersion: 0.9.3
+    exactVersion: 0.11.0
