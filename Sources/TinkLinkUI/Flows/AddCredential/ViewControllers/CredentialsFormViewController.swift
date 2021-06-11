@@ -62,6 +62,7 @@ final class CredentialsFormViewController: UIViewController {
     private var buttonPositionConstraint: NSLayoutConstraint?
     private var credentialsFooterTrailingConstraint: NSLayoutConstraint?
     private var buttonBottomConstraint: NSLayoutConstraint?
+    private var buttonBottomConstant: CGFloat = UIDevice.current.isPad ? 80 : 0
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
     init(provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool, tinkLinkTracker: TinkLinkTracker) {
@@ -268,10 +269,7 @@ extension CredentialsFormViewController {
             setupConstraints()
             // Need to calculate a different keyboard height if client is aggregator becase the footer view is hidden then.
             let keyboardFrameHeight = (isAggregator ? view.safeAreaLayoutGuide.layoutFrame.maxY : addCredentialFooterView.frame.minY) - window.convert(notification.frame, to: view).minY
-            var buttonConstant: CGFloat = 16
-            if UIDevice.current.isPad {
-                buttonConstant = 40
-            }
+            let buttonConstant: CGFloat = UIDevice.current.isPad ? buttonBottomConstant * 1.5 : 16
             buttonBottomConstraint?.constant = max(24, keyboardFrameHeight + button.bounds.height + buttonConstant)
             buttonWidthConstraint.constant = button.minimumWidth
             UIView.animate(withDuration: notification.duration) {
@@ -281,7 +279,9 @@ extension CredentialsFormViewController {
     }
 
     private func resetButtonBottomConstraint(_ notification: KeyboardNotification) {
-        if UIDevice.current.isPad || UIDevice.current.isLandscape {
+        if UIDevice.current.isPad {
+            buttonBottomConstraint?.constant = buttonBottomConstant
+        } else if UIDevice.current.isLandscape {
             buttonBottomConstraint?.constant = 0
         } else {
             buttonBottomConstraint?.constant = 24
@@ -380,7 +380,8 @@ extension CredentialsFormViewController {
 
             if UIDevice.current.isPad {
                 buttonPositionConstraint.constant = -24
-                buttonBottomConstraint.constant = 24
+                view.layoutMargins = .init(top: 0, left: 72, bottom: 40, right: 72)
+                buttonBottomConstraint.constant = buttonBottomConstant
             }
         }
         self.buttonBottomConstraint = buttonBottomConstraint
@@ -395,7 +396,7 @@ extension CredentialsFormViewController {
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             credentialsFooterTrailingConstraint,
-            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addCredentialFooterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -buttonBottomConstant),
 
             gradientView.topAnchor.constraint(equalTo: button.topAnchor, constant: -40),
             gradientView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -407,10 +408,10 @@ extension CredentialsFormViewController {
             buttonPositionConstraint,
             buttonBottomConstraint,
 
-            bottomBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomBackgroundView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             bottomBackgroundView.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
-            bottomBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomBackgroundView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            bottomBackgroundView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
         ])
 
         NSLayoutConstraint.activate(viewConstraints)
