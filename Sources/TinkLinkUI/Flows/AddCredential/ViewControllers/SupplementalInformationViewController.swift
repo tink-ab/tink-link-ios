@@ -152,7 +152,12 @@ extension SupplementalInformationViewController {
 
     private func updateHorizontalButtonConstraint(_ notification: KeyboardNotification) {
         let keyboardHeight = notification.frame.height
-        buttonBottomConstraint.constant = keyboardHeight - view.safeAreaInsets.bottom
+        let constant: CGFloat = UIDevice.current.isPad ? 40 : 16
+        if UIDevice.current.isLandscape {
+            buttonBottomConstraint.constant = keyboardHeight - constant
+        } else {
+            buttonBottomConstraint.constant = keyboardHeight - 120
+        }
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
         UIView.animate(withDuration: notification.duration) {
