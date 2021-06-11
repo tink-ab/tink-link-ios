@@ -136,9 +136,11 @@ final class EmptyFormView: UIView {
             instructionLabel.trailingAnchor.constraint(equalTo: instructionView.trailingAnchor, constant: -24),
             instructionLabel.bottomAnchor.constraint(equalTo: instructionView.bottomAnchor, constant: -24),
 
-            instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 34),
+            instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 34).withPriority(.defaultHigh),
             instructionView.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 34),
-            instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -34),
+            instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -34).withPriority(.defaultHigh),
+            instructionView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            instructionView.widthAnchor.constraint(lessThanOrEqualToConstant: 460),
             contentViewCenterYConstraint,
             contentViewHeightConstraint
         ])
