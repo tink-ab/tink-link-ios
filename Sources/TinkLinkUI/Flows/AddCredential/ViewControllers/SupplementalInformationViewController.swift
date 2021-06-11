@@ -14,6 +14,7 @@ final class SupplementalInformationViewController: UIViewController {
     private let formTableViewController: FormTableViewController
     private let keyboardObserver = KeyboardObserver()
 
+    private var viewConstraints: [NSLayoutConstraint] = []
     private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
     private var buttonPositionConstraint: NSLayoutConstraint?
@@ -58,26 +59,7 @@ extension SupplementalInformationViewController {
 
         view.addSubview(button)
 
-        buttonBottomConstraint.constant = 24
-        let buttonPositionConstraint: NSLayoutConstraint
-
-        if UIDevice.current.isPad || UIDevice.current.isLandscape {
-            buttonPositionConstraint = button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24)
-        } else {
-            buttonPositionConstraint = button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        }
-
-        self.buttonPositionConstraint = buttonPositionConstraint
-
-        NSLayoutConstraint.activate([
-            formTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            formTableViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            formTableViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            formTableViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            buttonBottomConstraint,
-            buttonWidthConstraint,
-            buttonPositionConstraint,
-        ])
+        setupConstraints()
 
         formTableViewController.onSubmit = { [weak self] in
             self?.submit()
@@ -99,6 +81,11 @@ extension SupplementalInformationViewController {
         super.viewDidLayoutSubviews()
 
         formTableViewController.additionalSafeAreaInsets.bottom = button.rounded ? 0 : view.bounds.height - button.frame.minY - view.safeAreaInsets.bottom
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setupConstraints()
     }
 }
 
@@ -175,5 +162,37 @@ extension SupplementalInformationViewController {
 extension SupplementalInformationViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return !button.frame.contains(gestureRecognizer.location(in: view))
+    }
+}
+
+// MARK: - Constraints
+
+extension SupplementalInformationViewController {
+    private func setupConstraints() {
+        NSLayoutConstraint.deactivate(viewConstraints)
+        viewConstraints.removeAll()
+
+        buttonBottomConstraint.constant = 24
+        let buttonPositionConstraint: NSLayoutConstraint
+
+        if UIDevice.current.isPad || UIDevice.current.isLandscape {
+            buttonPositionConstraint = button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24)
+        } else {
+            buttonPositionConstraint = button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        }
+
+        self.buttonPositionConstraint = buttonPositionConstraint
+
+        viewConstraints.append(contentsOf: [
+            formTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            formTableViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            formTableViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            formTableViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            buttonBottomConstraint,
+            buttonWidthConstraint,
+            buttonPositionConstraint
+        ])
+
+        NSLayoutConstraint.activate(viewConstraints)
     }
 }
