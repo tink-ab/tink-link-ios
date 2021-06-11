@@ -114,6 +114,23 @@ extension SupplementalInformationViewController {
 
 extension SupplementalInformationViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
+        if UIDevice.current.isPad || UIDevice.current.isLandscape {
+            updateHorizontalButtonConstraint(notification)
+        } else {
+            updateVerticalButtonConstraint(notification)
+        }
+    }
+
+    private func keyboardWillHide(_ notification: KeyboardNotification) {
+        buttonBottomConstraint.constant = 24
+        buttonWidthConstraint.constant = button.minimumWidth
+        button.rounded = true
+        UIView.animate(withDuration: notification.duration) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func updateVerticalButtonConstraint(_ notification: KeyboardNotification) {
         let keyboardHeight = notification.frame.height
         buttonBottomConstraint.constant = keyboardHeight - view.safeAreaInsets.bottom
         buttonWidthConstraint.constant = view.frame.size.width
@@ -123,8 +140,9 @@ extension SupplementalInformationViewController {
         }
     }
 
-    private func keyboardWillHide(_ notification: KeyboardNotification) {
-        buttonBottomConstraint.constant = 24
+    private func updateHorizontalButtonConstraint(_ notification: KeyboardNotification) {
+        let keyboardHeight = notification.frame.height
+        buttonBottomConstraint.constant = keyboardHeight - view.safeAreaInsets.bottom
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
         UIView.animate(withDuration: notification.duration) {
