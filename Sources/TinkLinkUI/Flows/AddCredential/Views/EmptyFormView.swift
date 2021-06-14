@@ -11,6 +11,7 @@ final class EmptyFormView: UIView {
     private let textLabel = UILabel()
     private let instructionView = UIView()
     private let instructionLabel = UILabel()
+    private lazy var headerView = CredentialsHeaderView()
 
     private var contentViewHeightConstraint: NSLayoutConstraint?
 
@@ -98,6 +99,16 @@ final class EmptyFormView: UIView {
         contentView.addSubview(textLabel)
         contentView.addSubview(instructionView)
         instructionView.addSubview(instructionLabel)
+
+        if !isAggregator {
+            headerView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(headerView)
+            NSLayoutConstraint.activate([
+                headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            ])
+        }
 
         if let formErrorView = formErrorView {
             formErrorView.translatesAutoresizingMaskIntoConstraints = false
