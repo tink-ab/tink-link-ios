@@ -117,40 +117,28 @@ extension SupplementalInformationViewController {
 
 extension SupplementalInformationViewController {
     private func keyboardWillShow(_ notification: KeyboardNotification) {
-        if UIDevice.current.isPad || UIDevice.current.isLandscape {
-            updateHorizontalButtonConstraint(notification)
+        let keyboardHeight = notification.frame.height
+        let isIpadOrLandscape: Bool = UIDevice.current.isPad || UIDevice.current.isLandscape ? true : false
+        if isIpadOrLandscape {
+            let constant: CGFloat = UIDevice.current.isPad ? 40 : 16
+            if UIDevice.current.isLandscape {
+                buttonBottomConstraint.constant = keyboardHeight - constant
+            } else {
+                buttonBottomConstraint.constant = keyboardHeight - 120
+            }
+            buttonWidthConstraint.constant = button.minimumWidth
         } else {
-            updateVerticalButtonConstraint(notification)
+            buttonBottomConstraint.constant = keyboardHeight - view.safeAreaInsets.bottom
+            buttonWidthConstraint.constant = view.frame.size.width
+        }
+        button.rounded = isIpadOrLandscape
+        UIView.animate(withDuration: notification.duration) {
+            self.view.layoutIfNeeded()
         }
     }
 
     private func keyboardWillHide(_ notification: KeyboardNotification) {
         buttonBottomConstraint.constant = 24
-        buttonWidthConstraint.constant = button.minimumWidth
-        button.rounded = true
-        UIView.animate(withDuration: notification.duration) {
-            self.view.layoutIfNeeded()
-        }
-    }
-
-    private func updateVerticalButtonConstraint(_ notification: KeyboardNotification) {
-        let keyboardHeight = notification.frame.height
-        buttonBottomConstraint.constant = keyboardHeight - view.safeAreaInsets.bottom
-        buttonWidthConstraint.constant = view.frame.size.width
-        button.rounded = false
-        UIView.animate(withDuration: notification.duration) {
-            self.view.layoutIfNeeded()
-        }
-    }
-
-    private func updateHorizontalButtonConstraint(_ notification: KeyboardNotification) {
-        let keyboardHeight = notification.frame.height
-        let constant: CGFloat = UIDevice.current.isPad ? 40 : 16
-        if UIDevice.current.isLandscape {
-            buttonBottomConstraint.constant = keyboardHeight - constant
-        } else {
-            buttonBottomConstraint.constant = keyboardHeight - 120
-        }
         buttonWidthConstraint.constant = button.minimumWidth
         button.rounded = true
         UIView.animate(withDuration: notification.duration) {
