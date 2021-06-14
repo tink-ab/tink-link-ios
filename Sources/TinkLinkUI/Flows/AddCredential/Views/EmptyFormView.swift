@@ -1,6 +1,7 @@
 import UIKit
 
 final class EmptyFormView: UIView {
+    private let isAggregator: Bool
     private var formErrorView: FormTableViewErrorView?
 
     private let scrollView = UIScrollView()
@@ -10,10 +11,12 @@ final class EmptyFormView: UIView {
     private let textLabel = UILabel()
     private let instructionView = UIView()
     private let instructionLabel = UILabel()
+    private lazy var headerView = CredentialsHeaderView()
 
     private var contentViewHeightConstraint: NSLayoutConstraint?
 
-    init(imageURL: URL?, text: String, errorText: String? = nil) {
+    init(imageURL: URL?, text: String, isAggregator: Bool, errorText: String? = nil) {
+        self.isAggregator = isAggregator
         if let errorText = errorText {
             self.formErrorView = FormTableViewErrorView(errorText: errorText)
         }
@@ -31,7 +34,8 @@ final class EmptyFormView: UIView {
         setup(providerName: text)
     }
 
-    init(image: UIImage?, text: String, errorText: String? = nil) {
+    init(image: UIImage?, text: String, isAggregator: Bool, errorText: String? = nil) {
+        self.isAggregator = isAggregator
         if let errorText = errorText {
             self.formErrorView = FormTableViewErrorView(errorText: errorText)
         }
@@ -96,12 +100,22 @@ final class EmptyFormView: UIView {
         contentView.addSubview(instructionView)
         instructionView.addSubview(instructionLabel)
 
+        if !isAggregator {
+            headerView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(headerView)
+            NSLayoutConstraint.activate([
+                headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            ])
+        }
+
         if let formErrorView = formErrorView {
             formErrorView.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(formErrorView)
             NSLayoutConstraint.activate([
                 formErrorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                formErrorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+                formErrorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: isAggregator ? 16 : 48),
                 formErrorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
                 formErrorView.bottomAnchor.constraint(lessThanOrEqualTo: iconView.topAnchor, constant: -4)
             ])
