@@ -6,6 +6,6 @@ extension UIDevice {
     }
 
     var isLandscape: Bool {
-        return orientation != .portrait
+        return orientation == .landscapeLeft || orientation == .landscapeRight
     }
 }
