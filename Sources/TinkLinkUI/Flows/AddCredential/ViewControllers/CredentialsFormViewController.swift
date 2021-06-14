@@ -40,7 +40,7 @@ final class CredentialsFormViewController: UIViewController {
 
     private let formTableViewController: FormTableViewController
     private lazy var headerView = CredentialsHeaderView()
-    private lazy var emptyView = EmptyFormView(imageURL: provider.image, text: provider.displayName, errorText: errorText)
+    private lazy var emptyView = EmptyFormView(imageURL: provider.image, text: provider.displayName, isAggregator: isAggregator, errorText: errorText)
 
     private var errorText: String? {
         isVerified ? nil : Strings.Credentials.unverifiedClient
