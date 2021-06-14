@@ -58,7 +58,14 @@ extension SupplementalInformationViewController {
 
         view.addSubview(button)
 
-        setupConstraints()
+        NSLayoutConstraint.activate([
+            formTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            formTableViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            formTableViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            formTableViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
+        setupButtonConstraints()
 
         formTableViewController.onSubmit = { [weak self] in
             self?.submit()
@@ -84,7 +91,7 @@ extension SupplementalInformationViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        setupConstraints()
+        setupButtonConstraints()
     }
 }
 
@@ -167,7 +174,7 @@ extension SupplementalInformationViewController: UIGestureRecognizerDelegate {
 // MARK: - Constraints
 
 extension SupplementalInformationViewController {
-    private func setupConstraints() {
+    private func setupButtonConstraints() {
         NSLayoutConstraint.deactivate(viewConstraints)
         viewConstraints.removeAll()
 
@@ -181,10 +188,6 @@ extension SupplementalInformationViewController {
         }
 
         viewConstraints.append(contentsOf: [
-            formTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            formTableViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            formTableViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            formTableViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             buttonBottomConstraint,
             buttonWidthConstraint,
             buttonPositionConstraint
