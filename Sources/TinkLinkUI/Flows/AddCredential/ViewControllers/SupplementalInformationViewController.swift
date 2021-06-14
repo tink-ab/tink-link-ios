@@ -17,7 +17,6 @@ final class SupplementalInformationViewController: UIViewController {
     private var viewConstraints: [NSLayoutConstraint] = []
     private lazy var buttonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: button.bottomAnchor)
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
-    private var buttonPositionConstraint: NSLayoutConstraint?
 
     init(supplementInformationTask: SupplementInformationTask) {
         let form = Form(supplementInformationTask: supplementInformationTask)
@@ -180,8 +179,6 @@ extension SupplementalInformationViewController {
         } else {
             buttonPositionConstraint = button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         }
-
-        self.buttonPositionConstraint = buttonPositionConstraint
 
         viewConstraints.append(contentsOf: [
             formTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
