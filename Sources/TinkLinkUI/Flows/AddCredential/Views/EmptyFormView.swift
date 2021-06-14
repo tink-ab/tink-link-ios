@@ -115,7 +115,7 @@ final class EmptyFormView: UIView {
             contentView.addSubview(formErrorView)
             NSLayoutConstraint.activate([
                 formErrorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                formErrorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+                formErrorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: isAggregator ? 16 : 48),
                 formErrorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
                 formErrorView.bottomAnchor.constraint(lessThanOrEqualTo: iconView.topAnchor, constant: -4)
             ])
