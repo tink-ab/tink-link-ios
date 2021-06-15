@@ -348,7 +348,7 @@ extension CredentialsCoordinator {
         presenter?.present(alertController, animated: true, completion: nil)
     }
 
-    private func showAlert(for error: Error, okAction: (() -> Void)? = nil) {
+    private func showAlert(for error: Error, completion: (() -> Void)? = nil) {
         let title: String
         let message: String?
         if let error = error as? LocalizedError {
@@ -365,7 +365,7 @@ extension CredentialsCoordinator {
             if self.callCompletionOnError {
                 self.completion(.failure(TinkLinkUIError(code: .internalError)))
             } else {
-                okAction?()
+                completion?()
             }
         }
         alertController.addAction(okAction)
