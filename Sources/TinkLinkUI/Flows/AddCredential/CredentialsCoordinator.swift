@@ -162,10 +162,11 @@ final class CredentialsCoordinator {
                 presenter?.show(credentialsViewController)
             }
         } catch {
-            if let credentialsViewController = credentialsViewController {
-                presenter?.show(credentialsViewController)
+            showAlert(for: error) { [weak self] in
+                if let credentialsViewController = self?.credentialsViewController {
+                    self?.presenter?.show(credentialsViewController)
+                }
             }
-            showAlert(for: error)
             tinkLinkTracker.credentialsID = nil
             tinkLinkTracker.track(screen: .error)
         }
@@ -348,7 +349,7 @@ extension CredentialsCoordinator {
         presenter?.present(alertController, animated: true, completion: nil)
     }
 
-    private func showAlert(for error: Error) {
+    private func showAlert(for error: Error, completion: (() -> Void)? = nil) {
         let title: String
         let message: String?
         if let error = error as? LocalizedError {
@@ -364,6 +365,8 @@ extension CredentialsCoordinator {
         let okAction = UIAlertAction(title: Strings.Generic.ok, style: .default) { _ in
             if self.callCompletionOnError {
                 self.completion(.failure(TinkLinkUIError(code: .internalError)))
+            } else {
+                completion?()
             }
         }
         alertController.addAction(okAction)
