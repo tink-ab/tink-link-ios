@@ -364,6 +364,8 @@ public class TinkLinkViewController: UIViewController {
                     self.startOperation()
                 }
             }
+        } else {
+            assertionFailure("The current user is not authenticated")
         }
     }
 
