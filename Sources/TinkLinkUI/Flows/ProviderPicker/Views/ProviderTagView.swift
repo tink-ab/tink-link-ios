@@ -14,9 +14,20 @@ enum ProviderTag: CustomStringConvertible {
 class ProviderTagView: UIView {
     private let label = UILabel()
 
-    var providerTag: ProviderTag {
+    private var providerTag: ProviderTag {
         didSet {
             label.attributedText = NSAttributedString(string: providerTag.description, attributes: [.kern: 0.75])
+        }
+    }
+
+    func setTag(demo: Bool, beta: Bool) {
+        switch (demo, beta) {
+        case (true, _):
+            providerTag = .demo
+        case (_, true):
+            providerTag = .beta
+        default:
+            break
         }
     }
 
