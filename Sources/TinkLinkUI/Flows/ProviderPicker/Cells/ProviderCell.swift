@@ -1,4 +1,5 @@
 import UIKit
+import TinkLink
 
 class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
@@ -135,8 +136,6 @@ class ProviderCell: UITableViewCell, ReusableCell {
 
     func setProviderTags(demo: Bool, beta: Bool) {
         switch (demo, beta) {
-        case (true, true):
-            providerTagLabel.providerTag = .demo
         case (true, _):
             providerTagLabel.providerTag = .demo
         case (_, true):

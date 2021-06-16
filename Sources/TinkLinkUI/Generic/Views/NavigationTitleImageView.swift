@@ -74,8 +74,6 @@ final class NavigationTitleImageView: UIView {
 
     func setProviderTags(demo: Bool, beta: Bool) {
         switch (demo, beta) {
-        case (true, true):
-            providerTagLabel.providerTag = .demo
         case (true, _):
             providerTagLabel.providerTag = .demo
         case (_, true):
