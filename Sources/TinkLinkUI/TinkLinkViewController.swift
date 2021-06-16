@@ -297,6 +297,11 @@ public class TinkLinkViewController: UIViewController {
         view.backgroundColor = Color.background
 
         let loadingViewController = LoadingViewController()
+        loadingViewController.update(String()) { [weak self] in
+            self?.dismiss(animated: true) {
+                self?.completionHandler()
+            }
+        }
         containedNavigationController.setViewControllers([loadingViewController], animated: false)
 
         presentationController?.delegate = self
