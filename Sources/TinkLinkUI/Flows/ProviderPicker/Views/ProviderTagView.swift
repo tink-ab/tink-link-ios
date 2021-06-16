@@ -5,7 +5,6 @@ struct ProviderTag: OptionSet {
 
     static let demo = ProviderTag(rawValue: 1 << 0)
     static let beta = ProviderTag(rawValue: 1 << 1)
-    static let demoAndBeta: ProviderTag = [.demo, .beta]
 
     var strings: [String] {
         var strings: [String] = []

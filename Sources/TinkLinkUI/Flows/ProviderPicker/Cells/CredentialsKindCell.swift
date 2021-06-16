@@ -124,7 +124,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     func setProviderTags(demo: Bool, beta: Bool) {
         switch (demo, beta) {
         case (true, true):
-            providerTagLabel.providerTag = .demoAndBeta
+            providerTagLabel.providerTag = .demo
         case (true, _):
             providerTagLabel.providerTag = .demo
         case (_, true):
