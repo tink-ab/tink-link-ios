@@ -342,11 +342,6 @@ public class TinkLinkViewController: UIViewController {
     }
 
     private func start(userSession: UserSession?, authorizationCode: AuthorizationCode?) {
-        guard market != nil || userSession != nil else {
-            assertionFailure("The current user is not authenticated")
-            return
-        }
-        
         tink._beginUITask()
         defer { tink._endUITask() }
         if let userSession = userSession {
@@ -362,8 +357,8 @@ public class TinkLinkViewController: UIViewController {
                     self.startOperation()
                 }
             }
-        } else {
-            createTemporaryUser { [weak self] in
+        } else if let market = market {
+            createTemporaryUser(market: market) { [weak self] in
                 guard let self = self else { return }
                 self.getUser {
                     self.startOperation()
