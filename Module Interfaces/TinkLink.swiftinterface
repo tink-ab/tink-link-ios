@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
 // swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TinkLink
 import Foundation
 import Security
@@ -12,8 +12,8 @@ extension Account {
     public init(_ value: Swift.String)
     public init(stringLiteral value: Swift.String)
     public static func == (a: TinkCore.Account.URI, b: TinkCore.Account.URI) -> Swift.Bool
-    public typealias StringLiteralType = Swift.String
     public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+    public typealias StringLiteralType = Swift.String
     public typealias UnicodeScalarLiteralType = Swift.String
   }
 }
@@ -61,8 +61,8 @@ extension AddBeneficiaryTask {
   }
   final public let completionPredicate: TinkLink.AddCredentialsTask.CompletionPredicate
   final public func cancel()
-  @objc deinit
   public typealias ID = Swift.ObjectIdentifier
+  @objc deinit
 }
 public enum AuthenticationTask {
   case awaitingSupplementalInformation(TinkLink.SupplementInformationTask)
@@ -146,9 +146,9 @@ public struct Form {
     }
     public typealias Element = TinkLink.Form.Field
     public typealias Index = Swift.Int
-    public typealias SubSequence = Swift.Slice<TinkLink.Form.Fields>
     public typealias Indices = Swift.Range<TinkLink.Form.Fields.Index>
     public typealias Iterator = Swift.IndexingIterator<TinkLink.Form.Fields>
+    public typealias SubSequence = Swift.Slice<TinkLink.Form.Fields>
   }
   public var fields: TinkLink.Form.Fields
   public var areFieldsValid: Swift.Bool {
@@ -193,11 +193,11 @@ public struct Form {
         public static let minLengthLimit: TinkLink.Form.Field.ValidationError.Code
         public static let requiredFieldEmptyValue: TinkLink.Form.Field.ValidationError.Code
         public static func ~= (lhs: TinkLink.Form.Field.ValidationError.Code, rhs: Swift.Error) -> Swift.Bool
+        public func hash(into hasher: inout Swift.Hasher)
+        public static func == (a: TinkLink.Form.Field.ValidationError.Code, b: TinkLink.Form.Field.ValidationError.Code) -> Swift.Bool
         public var hashValue: Swift.Int {
           get
         }
-        public func hash(into hasher: inout Swift.Hasher)
-        public static func == (a: TinkLink.Form.Field.ValidationError.Code, b: TinkLink.Form.Field.ValidationError.Code) -> Swift.Bool
       }
       public let code: TinkLink.Form.Field.ValidationError.Code
       public var description: Swift.String {
@@ -261,11 +261,11 @@ extension ProviderContext {
     public let accessTypes: Swift.Set<TinkCore.Provider.AccessType>
     public init(capabilities: TinkCore.Provider.Capabilities, kinds: Swift.Set<TinkCore.Provider.Kind>, accessTypes: Swift.Set<TinkCore.Provider.AccessType>)
     public static let `default`: TinkLink.ProviderContext.Filter
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: TinkLink.ProviderContext.Filter, b: TinkLink.ProviderContext.Filter) -> Swift.Bool
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
-    public static func == (a: TinkLink.ProviderContext.Filter, b: TinkLink.ProviderContext.Filter) -> Swift.Bool
   }
   convenience public init(tink: TinkCore.Tink = .shared)
   @discardableResult
@@ -396,15 +396,15 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
     get
   }
   final public func cancel()
-  @objc deinit
   public typealias ID = Swift.ObjectIdentifier
+  @objc deinit
 }
 @_hasMissingDesignatedInitializers final public class SupplementInformationTask : Swift.Identifiable {
   final public let credentials: TinkCore.Credentials
   final public func submit(_ form: TinkLink.Form)
   final public func cancel()
-  @objc deinit
   public typealias ID = Swift.ObjectIdentifier
+  @objc deinit
 }
 @_hasMissingDesignatedInitializers public class ThirdPartyAppAuthenticationTask : Swift.Identifiable {
   public typealias Error = TinkLink.TinkLinkError
@@ -421,8 +421,8 @@ public typealias UpdateCredentialsTask = TinkLink.RefreshCredentialsTask
   public func handle()
   public func handle(statusHandler: @escaping (TinkLink.ThirdPartyAppAuthenticationTask.Status) -> Swift.Void)
   public func cancel()
-  @objc deinit
   public typealias ID = Swift.ObjectIdentifier
+  @objc deinit
 }
 extension Tink {
   @available(iOS 9.0, *)
@@ -460,11 +460,11 @@ public struct TinkLinkError : Swift.Error, Swift.CustomStringConvertible {
     public static let networkFailure: TinkLink.TinkLinkError.Code
     public static let thirdPartyAppAuthenticationFailed: TinkLink.TinkLinkError.Code
     public static func ~= (lhs: TinkLink.TinkLinkError.Code, rhs: Swift.Error) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: TinkLink.TinkLinkError.Code, b: TinkLink.TinkLinkError.Code) -> Swift.Bool
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
-    public static func == (a: TinkLink.TinkLinkError.Code, b: TinkLink.TinkLinkError.Code) -> Swift.Bool
   }
   public struct ThirdPartyAppAuthenticationFailureReason : Swift.CustomStringConvertible {
     public struct Code : Swift.Hashable {
@@ -472,11 +472,11 @@ public struct TinkLinkError : Swift.Error, Swift.CustomStringConvertible {
       public static let downloadRequired: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
       public static let doesNotSupportAuthenticatingOnAnotherDevice: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
       public static let decodingQRCodeImageFailed: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
+      public func hash(into hasher: inout Swift.Hasher)
+      public static func == (a: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code, b: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code) -> Swift.Bool
       public var hashValue: Swift.Int {
         get
       }
-      public func hash(into hasher: inout Swift.Hasher)
-      public static func == (a: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code, b: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code) -> Swift.Bool
     }
     public let code: TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason.Code
     public var description: Swift.String {
