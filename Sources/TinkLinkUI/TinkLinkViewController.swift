@@ -365,7 +365,7 @@ public class TinkLinkViewController: UIViewController {
                 }
             }
         } else {
-            assertionFailure("The current user is not authenticated")
+            assertionFailure("Make sure you set the user session of the Tink instance before you present the view controller or Authenticate a tink instance using `authenticateUser(authorizationCode:completion:)` and use init(tink:operation:completion:) instead.")
         }
     }
 
