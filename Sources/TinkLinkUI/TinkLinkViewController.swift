@@ -395,8 +395,7 @@ public class TinkLinkViewController: UIViewController {
         }
     }
 
-    private func createTemporaryUser(completion: @escaping () -> Void) {
-        guard let market = market else { return }
+    private func createTemporaryUser(market: Market, completion: @escaping () -> Void) {
         tinkLinkTracker.market = market.rawValue
         tink._createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
