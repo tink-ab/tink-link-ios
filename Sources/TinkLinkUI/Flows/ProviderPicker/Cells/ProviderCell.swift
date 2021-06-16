@@ -1,4 +1,5 @@
 import UIKit
+import TinkLink
 
 class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
@@ -134,17 +135,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     }
 
     func setProviderTags(demo: Bool, beta: Bool) {
-        switch (demo, beta) {
-        case (true, true):
-            providerTagLabel.providerTag = .demoAndBeta
-        case (true, _):
-            providerTagLabel.providerTag = .demo
-        case (_, true):
-            providerTagLabel.providerTag = .beta
-        default:
-            break
-        }
-
+        providerTagLabel.setTag(demo: demo, beta: beta)
         providerTagLabel.isHidden = !(demo || beta)
         trailingTitleConstraint?.isActive = !(demo || beta)
         trailingTagConstraint?.isActive = (demo || beta)
