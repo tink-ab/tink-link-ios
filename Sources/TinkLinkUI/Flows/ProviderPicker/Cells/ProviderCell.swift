@@ -1,11 +1,13 @@
 import UIKit
-import Kingfisher
+import TinkLink
 
 class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let betaLabel = BetaTagView()
+    private let providerTagLabel = ProviderTagView()
+
+    private var imageLoadingHandle: ImageLoader.ImageLoadingTaskManager.Handle?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,8 +23,8 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let iconSize: CGFloat = 40
     private let iconTitleSpacing: CGFloat = 16
 
-    private var trailingTitleConstraint: NSLayoutConstraint!
-    private var trailingBetaConstraint: NSLayoutConstraint!
+    private var trailingTitleConstraint: NSLayoutConstraint?
+    private var trailingTagConstraint: NSLayoutConstraint?
 
     private func setup() {
         selectionStyle = .none
@@ -36,29 +38,33 @@ class ProviderCell: UITableViewCell, ReusableCell {
         iconView.contentMode = .scaleAspectFit
 
         contentView.addSubview(titleLabel)
-        contentView.addSubview(betaLabel)
+        contentView.addSubview(providerTagLabel)
         contentView.addSubview(descriptionLabel)
 
         titleLabel.numberOfLines = 0
         titleLabel.font = Font.body1
+        titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.textColor = Color.label
 
         descriptionLabel.numberOfLines = 0
         descriptionLabel.font = Font.body2
+        descriptionLabel.adjustsFontForContentSizeCategory = true
         descriptionLabel.textColor = Color.secondaryLabel
 
-        betaLabel.isHidden = true
+        providerTagLabel.isHidden = true
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
         iconView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        betaLabel.translatesAutoresizingMaskIntoConstraints = false
+        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
+        let trailingTitleConstraint: NSLayoutConstraint
         trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
-        trailingBetaConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: betaLabel.trailingAnchor)
+        self.trailingTitleConstraint = trailingTitleConstraint
+        trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: providerTagLabel.trailingAnchor)
 
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: iconSize),
@@ -70,8 +76,9 @@ class ProviderCell: UITableViewCell, ReusableCell {
             titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: iconTitleSpacing),
             trailingTitleConstraint,
 
-            betaLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
-            betaLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            providerTagLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            providerTagLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+            providerTagLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
 
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
@@ -83,9 +90,10 @@ class ProviderCell: UITableViewCell, ReusableCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
+        iconView.image = nil
         titleLabel.text = ""
         descriptionLabel.text = ""
-        setBetaLabelHidden(true)
+        setProviderTags(demo: false, beta: false)
     }
 
     override func layoutMarginsDidChange() {
@@ -111,7 +119,11 @@ class ProviderCell: UITableViewCell, ReusableCell {
     }
 
     func setImage(url: URL) {
-        iconView.kf.setImage(with: ImageResource(downloadURL: url))
+        imageLoadingHandle?.cancel()
+        imageLoadingHandle = ImageLoader.shared.loadImage(at: url) { [weak self] result in
+            let image = try? result.get()
+            self?.iconView.image = image
+        }
     }
 
     func setTitle(text: String) {
@@ -122,9 +134,10 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.text = text
     }
 
-    func setBetaLabelHidden(_ hidden: Bool) {
-        betaLabel.isHidden = hidden
-        trailingTitleConstraint.isActive = hidden
-        trailingBetaConstraint.isActive = !hidden
+    func setProviderTags(demo: Bool, beta: Bool) {
+        providerTagLabel.setTag(demo: demo, beta: beta)
+        providerTagLabel.isHidden = !(demo || beta)
+        trailingTitleConstraint?.isActive = !(demo || beta)
+        trailingTagConstraint?.isActive = (demo || beta)
     }
 }

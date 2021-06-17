@@ -43,12 +43,14 @@ final class QRImageViewController: UIViewController {
 
         imageView.contentMode = .scaleAspectFit
         imageView.layer.magnificationFilter = .nearest
+        imageView.tintColor = Color.label
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        borderedCornersView.tintColor = Color.accent
+        borderedCornersView.tintColor = Color.label
         borderedCornersView.translatesAutoresizingMaskIntoConstraints = false
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
 
         subtitleLabel.font = Font.subtitle1
+        subtitleLabel.adjustsFontForContentSizeCategory = true
         subtitleLabel.textColor = Color.label
         subtitleLabel.numberOfLines = 0
         subtitleLabel.textAlignment = .center
@@ -56,6 +58,7 @@ final class QRImageViewController: UIViewController {
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         descriptionLabel.font = Font.body2
+        descriptionLabel.adjustsFontForContentSizeCategory = true
         descriptionLabel.textColor = Color.label
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center

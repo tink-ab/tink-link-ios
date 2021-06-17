@@ -12,7 +12,7 @@ final class FloatingButton: UIControl {
     private var imageTrailingConstraint: NSLayoutConstraint?
     private var minimumWidthConstraint: NSLayoutConstraint?
 
-    var minimumWidth: CGFloat = 150 {
+    var minimumWidth: CGFloat = UIDevice.current.isPad ? 200 : 150 {
         didSet {
             invalidateIntrinsicContentSize()
             minimumWidthConstraint?.constant = minimumWidth
@@ -92,6 +92,13 @@ final class FloatingButton: UIControl {
                       height: 52)
     }
 
+    // Need update the button width after the dynamic type change
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        invalidateIntrinsicContentSize()
+    }
+
     private func setup() {
         backgroundColor = Color.button
 
@@ -104,9 +111,11 @@ final class FloatingButton: UIControl {
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = Font.button
+        titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.textColor = Color.buttonLabel
         titleLabel.textAlignment = .center
         titleLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        titleLabel.adjustsFontForContentSizeCategory = true
         contentView.addSubview(titleLabel)
 
         imageView.translatesAutoresizingMaskIntoConstraints = false

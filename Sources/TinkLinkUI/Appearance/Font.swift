@@ -152,7 +152,7 @@ extension Font {
 
     private static func scaledFont(weight: UIFont.Weight, size: Size) -> UIFont {
         let lotaGrotesque = font(weight: weight, size: size)
-        return UIFontMetrics(forTextStyle: size.textStyle).scaledFont(for: lotaGrotesque, maximumPointSize: size.pointSize * 1.5)
+        return UIFontMetrics(forTextStyle: size.textStyle).scaledFont(for: lotaGrotesque, maximumPointSize: size.pointSize * 2.0)
     }
 }
 

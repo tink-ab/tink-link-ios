@@ -1,4 +1,9 @@
-# Headless Example
+![Platform](https://img.shields.io/badge/platform-iOS-orange.svg)
+![Languages](https://img.shields.io/badge/languages-swift-orange.svg)
+
+# TinkLink Headless Sample
+
+This directory contains sample code that demonstrates the usage of `TinkLink` target in `TinkLink` iOS SDK.
 
 ## Prerequisites
 1. Follow the [getting started guide](https://docs.tink.com/resources/getting-started/set-up-your-account) to retrieve your `client_id`.
@@ -6,7 +11,7 @@
 3. Add a `link-demo://tink`) to the [list of redirect URIs under your app's settings](https://console.tink.com/overview).
 
 ## Configuration
-Before running the example project open `AppDelegate.swift` and configure the following:
+Before running the sample project open `AppDelegate.swift` and configure the following:
 
 1. Configure `Tink` with your client ID.
     ```swift
@@ -19,6 +24,8 @@ Before running the example project open `AppDelegate.swift` and configure the fo
     Tink.shared.userSession = .accessToken(<#String#>)
     ```
 
-## Running the example app
+## Running the sample app
 1. Open `HeadlessExample.xcodeproj` in Xcode.
 2. Press the run button. If all went well, this should launch a simulator with the sample app running.
+
+Read more about TinkLink iOS in [here](https://docs.tink.com/resources/tink-link-ios).

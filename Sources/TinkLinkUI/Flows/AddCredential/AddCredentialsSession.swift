@@ -13,9 +13,7 @@ final class AddCredentialsSession {
     private var task: Cancellable?
     private var supplementInfoTask: SupplementInformationTask?
 
-    private var statusViewController: AddCredentialsStatusViewController?
     private weak var qrImageViewController: QRImageViewController?
-    private var statusPresentationManager = AddCredentialsStatusPresentationManager()
 
     private var authorizationCode: AuthorizationCode?
     private var didCallAuthorize = false
@@ -88,9 +86,8 @@ final class AddCredentialsSession {
                     self?.handleAddCredentialStatus(status) {
                         [weak self] error in
                         DispatchQueue.main.async {
-                            self?.hideProgress(animated: true) {
-                                onCompletion(.failure(error))
-                            }
+                            // FIXME: This triggers two onCompletion calls.
+                            onCompletion(.failure(error))
                             self?.task?.cancel()
                             self?.task = nil
                         }
@@ -112,7 +109,7 @@ final class AddCredentialsSession {
         addCredentialsMode = mode
 
         DispatchQueue.main.async {
-            self.showProgress(status: Strings.CredentialsStatus.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -137,7 +134,7 @@ final class AddCredentialsSession {
         providerName = credentials.providerName
 
         DispatchQueue.main.async {
-            self.showProgress(status: Strings.CredentialsStatus.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -168,7 +165,7 @@ final class AddCredentialsSession {
         providerName = credentials.providerName
 
         DispatchQueue.main.async {
-            self.showProgress(status: Strings.CredentialsStatus.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -192,7 +189,7 @@ final class AddCredentialsSession {
         providerName = credentials.providerName
 
         DispatchQueue.main.async {
-            self.showProgress(status: Strings.CredentialsStatus.authorizing)
+            self.showUpdating(status: Strings.CredentialsStatus.authorizing)
         }
     }
 
@@ -252,7 +249,7 @@ final class AddCredentialsSession {
                 }
             case .awaitAuthenticationOnAnotherDevice:
                 DispatchQueue.main.async {
-                    self?.showProgress(status: Strings.CredentialsStatus.waitingForAuthenticationOnAnotherDevice)
+                    self?.showUpdating(status: Strings.CredentialsStatus.waitingForAuthenticationOnAnotherDevice)
                 }
             }
         }
@@ -264,30 +261,26 @@ final class AddCredentialsSession {
             credentialsController.newlyAddedFailedCredentialsID[credentials.id] = nil
             authorizeIfNeeded(onError: { [weak self] error in
                 DispatchQueue.main.async {
-                    self?.hideProgress(animated: true) {
-                        onCompletion(.failure(error))
-                    }
+                    // FIXME: This triggers two onCompletion calls.
+                    onCompletion(.failure(error))
                 }
             })
             authorizationGroup.notify(queue: .main) { [weak self] in
-                self?.hideProgress(animated: true) {
-                    onCompletion(.success((credentials, self?.authorizationCode)))
-                }
+                onCompletion(.success((credentials, self?.authorizationCode)))
             }
         } catch {
             let addCredentialsTask = task as? AddCredentialsTask
             if let credentialsID = addCredentialsTask?.credentials?.id {
                 credentialsController.newlyAddedFailedCredentialsID[credentialsID] = error
             }
-            hideProgress(animated: true) {
-                onCompletion(.failure(error))
-            }
+            onCompletion(.failure(error))
         }
         task = nil
     }
 
     private func authorizeIfNeeded(onError: @escaping (Error) -> Void) {
-        if didCallAuthorize || !shouldAuthorize { return }
+        if didCallAuthorize { return }
+        guard shouldAuthorize else { return }
 
         guard case .anonymous(let scopes) = addCredentialsMode else { return }
 
@@ -306,7 +299,6 @@ final class AddCredentialsSession {
     }
 
     private func cancel() {
-        hideProgress(animated: true)
         task?.cancel()
     }
 }
@@ -314,7 +306,7 @@ final class AddCredentialsSession {
 extension AddCredentialsSession {
     private func showSupplementalInformation(for supplementInformationTask: SupplementInformationTask) {
         supplementInfoTask = supplementInformationTask
-        hideProgress(animated: true) {
+        hideQRCodeViewIfNeeded(animated: true) {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
@@ -323,62 +315,21 @@ extension AddCredentialsSession {
         }
     }
 
-    private func showProgress(status: String) {
-        hideQRCodeViewIfNeeded(animated: true) {
-            if self.isPresenterShowingStatusScreen {
-                self.presenter?.showLoadingIndicator(text: status) { [weak self] in
-                    self?.cancel()
-                }
-                return
-            }
-
-            if let statusViewController = self.statusViewController {
-                if statusViewController.presentingViewController == nil {
-                    self.presenter?.present(statusViewController, animated: true, completion: nil)
-                }
-            } else {
-                let statusViewController = AddCredentialsStatusViewController()
-                statusViewController.delegate = self
-                statusViewController.modalTransitionStyle = .crossDissolve
-                statusViewController.modalPresentationStyle = .custom
-                statusViewController.transitioningDelegate = self.statusPresentationManager
-                self.presenter?.present(statusViewController, animated: true, completion: nil)
-                self.statusViewController = statusViewController
-            }
-
-            self.statusViewController?.status = status
-        }
-    }
-
     private func showUpdating(status: String) {
         hideQRCodeViewIfNeeded(animated: true) {
-            self.hideProgress(animated: true) {
-                let loadingViewController = LoadingViewController()
-                loadingViewController.update(status, onCancel: { [weak self] in
-                    self?.cancel()
-                })
-                self.presenter?.show(loadingViewController)
-            }
+            let loadingViewController = LoadingViewController()
+            loadingViewController.update(status, onCancel: { [weak self] in
+                self?.cancel()
+            })
+            self.presenter?.show(loadingViewController)
         }
-    }
-
-    private func hideProgress(animated: Bool, completion: (() -> Void)? = nil) {
-        hideQRCodeViewIfNeeded(animated: animated)
-        guard statusViewController != nil, statusViewController?.presentingViewController != nil else {
-            completion?()
-            return
-        }
-        statusViewController = nil
-        presenter?.dismiss(animated: animated, completion: completion)
     }
 
     private func showQRCodeView(qrImage: UIImage) {
-        hideProgress(animated: true) {
-            let qrImageViewController = QRImageViewController(qrImage: qrImage)
-            self.qrImageViewController = qrImageViewController
-            qrImageViewController.delegate = self
-            self.presenter?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true, completion: nil)
-        }
+        let qrImageViewController = QRImageViewController(qrImage: qrImage)
+        self.qrImageViewController = qrImageViewController
+        qrImageViewController.delegate = self
+        presenter?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true, completion: nil)
     }
 
     private func hideQRCodeViewIfNeeded(animated: Bool = false, completion: (() -> Void)? = nil) {
@@ -390,14 +341,6 @@ extension AddCredentialsSession {
     }
 }
 
-// MARK: - AddCredentialsStatusViewControllerDelegate
-
-extension AddCredentialsSession: AddCredentialsStatusViewControllerDelegate {
-    func addCredentialsStatusViewControllerDidCancel(_ viewController: AddCredentialsStatusViewController) {
-        cancel()
-    }
-}
-
 // MARK: - SupplementalInformationViewControllerDelegate
 
 extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
@@ -405,14 +348,14 @@ extension AddCredentialsSession: SupplementalInformationViewControllerDelegate {
         presenter?.dismiss(animated: true) {
             self.tinkLinkTracker.track(interaction: .back, screen: .supplementalInformation)
             self.supplementInfoTask?.cancel()
-            self.showProgress(status: Strings.CredentialsStatus.cancelling)
+            self.showUpdating(status: Strings.CredentialsStatus.cancelling)
         }
     }
 
     func supplementalInformationViewController(_ viewController: SupplementalInformationViewController, didPressSubmitWithForm form: Form) {
         presenter?.dismiss(animated: true) {
             self.supplementInfoTask?.submit(form)
-            self.showProgress(status: Strings.CredentialsStatus.sending)
+            self.showUpdating(status: Strings.CredentialsStatus.sending)
         }
     }
 }

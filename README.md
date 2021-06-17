@@ -112,11 +112,11 @@ Follow the instructions in one of these links to learn how to set this up:
 - [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app)
 - [Allowing Apps and Websites to Link to Your Content](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content)
 
-## Examples
+## Samples
 These examples shows how to build a complete aggregation flow using TinkLink or TinkLinkUI.
-- [Tink Link](Examples/TinkLinkExample)
-- [Headless](Examples/HeadlessExample) 
-- [Headless (SwiftUI)](Examples/HeadlessExample-SwiftUI)
+- [Tink Link](Samples/TinkLinkExample)
+- [Headless](Samples/HeadlessExample) 
+- [Headless (SwiftUI)](Samples/HeadlessExample-SwiftUI)
 
 ## Documentation
 For more detailed usage and full documentation, please refer to our Tink Link for iOS guide.

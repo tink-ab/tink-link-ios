@@ -1,5 +1,4 @@
 import UIKit
-import Kingfisher
 
 class FixedImageSizeTableViewCell: UITableViewCell {
     private let iconView = UIImageView()

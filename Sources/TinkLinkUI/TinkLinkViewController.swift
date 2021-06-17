@@ -297,6 +297,11 @@ public class TinkLinkViewController: UIViewController {
         view.backgroundColor = Color.background
 
         let loadingViewController = LoadingViewController()
+        loadingViewController.update(String()) { [weak self] in
+            self?.dismiss(animated: true) {
+                self?.completionHandler()
+            }
+        }
         containedNavigationController.setViewControllers([loadingViewController], animated: false)
 
         presentationController?.delegate = self
@@ -357,13 +362,15 @@ public class TinkLinkViewController: UIViewController {
                     self.startOperation()
                 }
             }
-        } else {
-            createTemporaryUser { [weak self] in
+        } else if let market = market {
+            createTemporaryUser(market: market) { [weak self] in
                 guard let self = self else { return }
                 self.getUser {
                     self.startOperation()
                 }
             }
+        } else {
+            assertionFailure("Make sure you set the user session of the Tink instance before you present the view controller or Authenticate a tink instance using `authenticateUser(authorizationCode:completion:)` and use init(tink:operation:completion:) instead.")
         }
     }
 
@@ -390,8 +397,7 @@ public class TinkLinkViewController: UIViewController {
         }
     }
 
-    private func createTemporaryUser(completion: @escaping () -> Void) {
-        guard let market = market else { return }
+    private func createTemporaryUser(market: Market, completion: @escaping () -> Void) {
         tinkLinkTracker.market = market.rawValue
         tink._createTemporaryUser(for: market) { [weak self] result in
             guard let self = self else { return }
@@ -673,7 +679,8 @@ extension TinkLinkViewController {
 
     private func showDiscardActionSheet() {
         let alertTitle = Strings.Credentials.Discard.title
-        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .actionSheet)
+        let alertStyle: UIAlertController.Style = UIDevice.current.isPad ? .alert : .actionSheet
+        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: alertStyle)
 
         let discardActionTitle = Strings.Credentials.Discard.primaryAction
         let discardAction = UIAlertAction(title: discardActionTitle, style: .destructive) { _ in

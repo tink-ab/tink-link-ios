@@ -1,18 +1,23 @@
 import UIKit
-import Kingfisher
 
 final class NavigationTitleImageView: UIView {
     private let navigationTitleLabel = UILabel()
     private let navigationTitleImageView = UIImageView()
-    private let betaLabel = BetaTagView()
+    private let providerTagLabel = ProviderTagView()
 
-    private var trailingTitleConstraint: NSLayoutConstraint!
-    private var trailingBetaConstraint: NSLayoutConstraint!
+    private var trailingTitleConstraint: NSLayoutConstraint?
+    private var trailingTagConstraint: NSLayoutConstraint?
 
     init(imageURL: URL?, text: String) {
         super.init(frame: .zero)
 
-        navigationTitleImageView.kf.setImage(with: imageURL)
+        if let imageURL = imageURL {
+            ImageLoader.shared.loadImage(at: imageURL) { [weak self] result in
+                let image = try? result.get()
+                self?.navigationTitleImageView.image = image
+            }
+        }
+
         navigationTitleLabel.text = text
         setup()
     }
@@ -23,6 +28,7 @@ final class NavigationTitleImageView: UIView {
         navigationTitleImageView.image = image
         navigationTitleLabel.text = text
         setup()
+        setProviderTags(demo: false, beta: false)
     }
 
     @available(*, unavailable)
@@ -33,20 +39,22 @@ final class NavigationTitleImageView: UIView {
     private func setup() {
         navigationTitleLabel.textColor = Color.navigationBarLabel
         navigationTitleLabel.font = Font.subtitle1
+        navigationTitleLabel.adjustsFontForContentSizeCategory = true
         navigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         navigationTitleImageView.contentMode = .scaleAspectFit
         navigationTitleImageView.translatesAutoresizingMaskIntoConstraints = false
 
-        betaLabel.translatesAutoresizingMaskIntoConstraints = false
-        betaLabel.isHidden = true
+        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(navigationTitleImageView)
         addSubview(navigationTitleLabel)
-        addSubview(betaLabel)
+        addSubview(providerTagLabel)
 
+        let trailingTitleConstraint: NSLayoutConstraint
         trailingTitleConstraint = navigationTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
-        trailingBetaConstraint = betaLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+        self.trailingTitleConstraint = trailingTitleConstraint
+        trailingTagConstraint = providerTagLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
 
         NSLayoutConstraint.activate([
             navigationTitleImageView.widthAnchor.constraint(equalToConstant: 20),
@@ -58,14 +66,16 @@ final class NavigationTitleImageView: UIView {
             navigationTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             trailingTitleConstraint,
 
-            betaLabel.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8),
-            betaLabel.firstBaselineAnchor.constraint(equalTo: navigationTitleLabel.firstBaselineAnchor)
+            providerTagLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            providerTagLabel.firstBaselineAnchor.constraint(equalTo: navigationTitleLabel.firstBaselineAnchor),
+            providerTagLabel.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8),
         ])
     }
 
-    func setBetaLabelHidden(_ hidden: Bool) {
-        betaLabel.isHidden = hidden
-        trailingTitleConstraint.isActive = hidden
-        trailingBetaConstraint.isActive = !hidden
+    func setProviderTags(demo: Bool, beta: Bool) {
+        providerTagLabel.setTag(demo: demo, beta: beta)
+        providerTagLabel.isHidden = !(demo || beta)
+        trailingTitleConstraint?.isActive = !(demo || beta)
+        trailingTagConstraint?.isActive = (demo || beta)
     }
 }

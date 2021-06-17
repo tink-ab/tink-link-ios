@@ -45,12 +45,14 @@ final class LoadingErrorView: UIView {
         iconBackgroundView.layer.backgroundColor = Color.warningBackground.cgColor
 
         textLabel.font = Font.subtitle1
+        textLabel.adjustsFontForContentSizeCategory = true
         textLabel.textColor = Color.label
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 0
         textLabel.setLineHeight(lineHeight: 20)
 
         descriptionLabel.font = Font.body2
+        descriptionLabel.adjustsFontForContentSizeCategory = true
         descriptionLabel.textColor = Color.secondaryLabel
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 0
@@ -58,6 +60,7 @@ final class LoadingErrorView: UIView {
 
         cancelButton.setTitleColor(Color.button, for: .normal)
         cancelButton.titleLabel?.font = Font.subtitle1
+        cancelButton.titleLabel?.adjustsFontForContentSizeCategory = true
         cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         cancelButton.setTitle(Strings.Generic.cancel, for: .normal)
 

@@ -12,7 +12,7 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLink"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
       MACOSX_DEPLOYMENT_TARGET: 10.13
-      MARKETING_VERSION: 1.1.0
+      MARKETING_VERSION: 1.2.0
       CURRENT_PROJECT_VERSION: 4
     scheme:
       testTargets:
@@ -44,7 +44,7 @@ targets:
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUI"
       IPHONEOS_DEPLOYMENT_TARGET: 11.0
-      MARKETING_VERSION: 1.1.0
+      MARKETING_VERSION: 1.2.0
       CURRENT_PROJECT_VERSION: 4
     scheme:
       testTargets:
@@ -54,7 +54,6 @@ targets:
     dependencies:
       - target: TinkLink_${platform}
       - package: TinkCore
-      - package: Kingfisher
       - package: Down
   TinkLinkUITests:
     type: bundle.unit-test
@@ -67,7 +66,6 @@ targets:
     dependencies:
       - target: TinkLinkUI_${platform}
       - package: TinkCore
-      - package: Kingfisher
       - package: Down
   TinkLinkUIUITests:
     type: bundle.ui-testing
@@ -98,6 +96,25 @@ targets:
     dependencies:
       - package: TinkLink
       - package: TinkLinkUI
+  TinkLinkUIDevelopment:
+    type: application
+    platform: [iOS]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: "com.tink.TinkLinkUIDevelopment"
+        IPHONEOS_DEPLOYMENT_TARGET: 11.0
+      configs:
+        debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "DEBUG"
+    sources:
+      - Samples/TinkLinkExample/TinkLinkExample
+    scheme:
+      testTargets:
+        - name: TinkLinkUIUITests_${platform}
+      environmentVariables:
+        TINK_LINK_EXAMPLE_CLIENT_ID: $TINK_CLIENT_ID
+    dependencies:
+      - target: TinkLinkUI_${platform}
 packages:
   TinkLink:
     path: ./
@@ -105,10 +122,7 @@ packages:
     path: ./
   TinkCore:
     url: https://github.com/tink-ab/tink-core-ios
-    exactVersion: 1.0.0
-  Kingfisher:
-    url: https://github.com/onevcat/Kingfisher
-    minorVersion: 5.14.1
+    exactVersion: 1.4.0
   Down:
     url: https://github.com/johnxnguyen/Down
-    exactVersion: 0.9.3
+    exactVersion: 0.11.0

@@ -28,6 +28,7 @@ final class LoadingViewController: UIViewController {
 
         cancelButton.setTitleColor(Color.button, for: .normal)
         cancelButton.titleLabel?.font = Font.subtitle1
+        cancelButton.titleLabel?.adjustsFontForContentSizeCategory = true
         cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         cancelButton.setTitle(Strings.Generic.cancel, for: .normal)
 

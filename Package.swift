@@ -20,8 +20,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "TinkCore", url: "https://github.com/tink-ab/tink-core-ios", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/johnxnguyen/Down", .upToNextMajor(from: "0.9.3")),
-        .package(url: "https://github.com/onevcat/Kingfisher", .upToNextMajor(from: "5.14.1"))
+        .package(url: "https://github.com/johnxnguyen/Down", .upToNextMajor(from: "0.11.0"))
     ],
     targets: [
         .target(
@@ -36,7 +35,7 @@ let package = Package(
         ),
         .target(
             name: "TinkLinkUI",
-            dependencies: [.product(name: "TinkCore", package: "TinkCore"), "TinkLink", "Down", "Kingfisher"],
+            dependencies: [.product(name: "TinkCore", package: "TinkCore"), "TinkLink", "Down"],
             exclude: ["Generic/Extensions/Bundle+Module.swift", "Info.plist"],
             resources: [.process("Assets.xcassets"), .process("Translations.bundle")]
         ),

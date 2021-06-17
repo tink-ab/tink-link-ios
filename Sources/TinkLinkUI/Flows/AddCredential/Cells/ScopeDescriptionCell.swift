@@ -11,9 +11,11 @@ class ScopeDescriptionCell: UITableViewCell, ReusableCell {
         contentView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
 
         titleLabel.textColor = Color.label
+        titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.numberOfLines = 0
 
+        descriptionLabel.adjustsFontForContentSizeCategory = true
         descriptionLabel.textColor = Color.label
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.numberOfLines = 0
