@@ -63,6 +63,29 @@ public final class ProviderContext {
         }
     }
 
+    // MARK: - Fetching providers for market
+
+    /// Fetches providers for a market.
+    ///
+    /// Required scopes:
+    /// - credentials:read
+    ///
+    /// - Parameter market: The ISO 3166-1 alpha-2 market code.
+    /// - Parameter filter: Filter for providers to fetch.
+    /// - Parameter completion: A result representing either a list of providers or an error.
+    @discardableResult
+    public func fetchProviders(for market: Market, filter: Filter = .default, completion: @escaping (Result<[Provider], Error>) -> Void) -> RetryCancellable? {
+        service.providers(market: market, capabilities: filter.capabilities, includeTestProviders: filter.kinds.contains(.test), excludeNonTestProviders: filter.kinds == [.test]) { result in
+            do {
+                let fetchedProviders = try result.get()
+                let filteredProviders = fetchedProviders.filter { filter.accessTypes.contains($0.accessType) && filter.kinds.contains($0.kind) }
+                completion(.success(filteredProviders))
+            } catch {
+                completion(.failure(error.tinkLinkError))
+            }
+        }
+    }
+
     // MARK: - Fetching one specific provider
 
     /// Fetches a specific provider matching the provided name.
