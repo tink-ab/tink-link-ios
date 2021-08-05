@@ -30,6 +30,7 @@ final class CredentialsCoordinator {
     private let authorizationController: AuthorizationController
     private let credentialsController: CredentialsController
     private let providerController: ProviderController
+    private let market: Market?
 
     private weak var credentialsViewController: CredentialsFormViewController?
 
@@ -53,7 +54,8 @@ final class CredentialsCoordinator {
         }
     }
 
-    init(authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, tinkLinkTracker: TinkLinkTracker, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkUIError>) -> Void) {
+    init(market: Market?, authorizationController: AuthorizationController, credentialsController: CredentialsController, providerController: ProviderController, presenter: CredentialsCoordinatorPresenting, delegate: CredentialsCoordinatorDelegate, clientDescription: ClientDescription, action: Action, tinkLinkTracker: TinkLinkTracker, completion: @escaping (Result<(Credentials, AuthorizationCode?), TinkLinkUIError>) -> Void) {
+        self.market = market
         self.authorizationController = authorizationController
         self.credentialsController = credentialsController
         self.providerController = providerController
@@ -96,7 +98,7 @@ final class CredentialsCoordinator {
                 guard let self = self else { return }
                 self.fetchedCredentials = credentials
                 self.tinkLinkTracker.providerID = credentials.providerName.value
-                self.fetchProviderIgnoringErrors(with: credentials.providerName) { [weak self] provider in
+                self.fetchProviderIgnoringErrors(with: credentials.providerName, for: self.market) { [weak self] provider in
                     guard let self = self else { return }
                     switch provider.accessType {
                     case .openBanking:
@@ -117,7 +119,7 @@ final class CredentialsCoordinator {
             fetchCredentials(with: id) { [weak self] credentials in
                 guard let self = self else { return }
                 self.fetchedCredentials = credentials
-                self.fetchProvider(with: credentials.providerName) { [weak self] provider in
+                self.fetchProvider(with: credentials.providerName, for: self.market) { [weak self] provider in
                     guard let self = self else { return }
                     let credentialsViewController = CredentialsFormViewController(credentials: credentials, provider: provider, credentialsController: self.credentialsController, clientName: self.clientDescription.name, isAggregator: self.clientDescription.isAggregator, isVerified: self.clientDescription.isVerified, tinkLinkTracker: self.tinkLinkTracker)
                     credentialsViewController.delegate = self
@@ -182,7 +184,7 @@ final class CredentialsCoordinator {
                 self.tinkLinkTracker.track(screen: .success)
                 self.presenter?.show(viewController)
             default:
-                self.fetchProvider(with: credentials.providerName) { [weak self] provider in
+                self.fetchProvider(with: credentials.providerName, for: self.market) { [weak self] provider in
                     guard let self = self else { return }
                     let viewController = CredentialsSuccessfullyAddedViewController(companyName: provider.displayName, operation: .other, tinkLinkTracker: self.tinkLinkTracker) { [weak self] in
                         self?.completion(.success((credentials, authorizationCode)))
@@ -212,8 +214,8 @@ extension CredentialsCoordinator {
         }
     }
 
-    private func fetchProvider(with name: Provider.Name, then: @escaping (Provider) -> Void) {
-        providerController.fetchProvider(with: name) { [weak self] result in
+    private func fetchProvider(with name: Provider.Name, for market: Market?, then: @escaping (Provider) -> Void) {
+        providerController.fetchProvider(with: name, for: market) { [weak self] result in
             do {
                 let provider = try result.get()
                 then(provider)
@@ -227,11 +229,11 @@ extension CredentialsCoordinator {
     }
 
     // Fetch provider but ignore the error
-    private func fetchProviderIgnoringErrors(with name: Provider.Name, then: @escaping (Provider) -> Void) {
+    private func fetchProviderIgnoringErrors(with name: Provider.Name, for market: Market?, then: @escaping (Provider) -> Void) {
         if let provider = providerController.provider(providerName: name) {
             then(provider)
         } else {
-            providerController.fetchProvider(with: name) { result in
+            providerController.fetchProvider(with: name, for: market) { result in
                 if let provider = try? result.get() {
                     then(provider)
                 }
@@ -281,7 +283,7 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
             }
             assert(id == fetchedCredentials.id)
 
-            fetchProviderIgnoringErrors(with: fetchedCredentials.providerName) { [weak self] provider in
+            fetchProviderIgnoringErrors(with: fetchedCredentials.providerName, for: market) { [weak self] provider in
                 switch provider.accessType {
                 case .openBanking:
                     self?.tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)

@@ -10,3 +10,6 @@ GRPC/plugins/
 .swiftpm/
 .tmp/
 TinkLink.xcodeproj
+Package.resolved
+buildkite.yml
+.secrets.baseline

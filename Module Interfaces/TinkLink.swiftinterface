@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
+// swift-compiler-version: Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)
 // swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TinkLink
 import Foundation
 import Security
@@ -270,6 +270,8 @@ extension ProviderContext {
   convenience public init(tink: TinkCore.Tink = .shared)
   @discardableResult
   final public func fetchProviders(filter: TinkLink.ProviderContext.Filter = .default, completion: @escaping (Swift.Result<[TinkCore.Provider], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
+  @discardableResult
+  final public func fetchProviders(for market: TinkCore.Market, filter: TinkLink.ProviderContext.Filter = .default, completion: @escaping (Swift.Result<[TinkCore.Provider], Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @discardableResult
   final public func fetchProvider(with name: TinkCore.Provider.Name, completion: @escaping (Swift.Result<TinkCore.Provider, Swift.Error>) -> Swift.Void) -> TinkCore.RetryCancellable?
   @objc deinit

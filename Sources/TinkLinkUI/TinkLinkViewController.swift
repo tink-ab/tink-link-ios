@@ -237,14 +237,15 @@ public class TinkLinkViewController: UIViewController {
     /// Initializes a new TinkLinkViewController with the current user session associated with this Tink object.
     /// - Parameters:
     ///   - tink: A configured `Tink` object.
+    ///   - market: The ISO 3166-1 alpha-2 market code.
     ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
     ///   - completion: The block to execute when the aggregation finished or if an error occurred.
-    public init(tink: Tink = .shared, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkUIError>) -> Void) {
+    public init(tink: Tink = .shared, market: Market? = nil, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkUIError>) -> Void) {
         self.tink = tink
         self.userSession = tink.userSession
         self.operation = operation
         self.scopes = nil
-        self.market = nil
+        self.market = market
         self.permanentCompletion = completion
         self.temporaryCompletion = nil
 
@@ -493,7 +494,7 @@ public class TinkLinkViewController: UIViewController {
     }
 
     func fetchProviders(providerPredicate: ProviderPredicate, refreshableItems: RefreshableItems) {
-        providerController.fetch(with: providerPredicate) { result in
+        providerController.fetch(with: providerPredicate, for: market) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let providers):
@@ -535,7 +536,7 @@ public class TinkLinkViewController: UIViewController {
             return
         }
 
-        credentialsCoordinator = CredentialsCoordinator(authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, delegate: self, clientDescription: clientDescription, action: operation, tinkLinkTracker: tinkLinkTracker, completion: { [weak self] result in
+        credentialsCoordinator = CredentialsCoordinator(market: market, authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, delegate: self, clientDescription: clientDescription, action: operation, tinkLinkTracker: tinkLinkTracker, completion: { [weak self] result in
             DispatchQueue.main.async {
                 let mappedResult = result.map { (credentials, code) -> ResultType in
                     if let code = code {
