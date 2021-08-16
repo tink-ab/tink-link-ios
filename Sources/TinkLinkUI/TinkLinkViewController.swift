@@ -338,13 +338,13 @@ public class TinkLinkViewController: UIViewController {
         if let currentLoadingViewController = containedNavigationController.topViewController as? LoadingViewController,
            let newLoadingViewController = vc as? LoadingViewController {
             currentLoadingViewController.update(newLoadingViewController.text, onCancel: newLoadingViewController.onCancel)
-            return
-        }
-        if containedNavigationController.viewControllers.contains(where: { $0 === vc }) {
+        } else if containedNavigationController.viewControllers.contains(where: { $0 === vc }) {
             containedNavigationController.popToViewController(vc, animated: true)
-            return
+        } else if vc is CredentialsFormViewController, containedNavigationController.topViewController is LoadingViewController, containedNavigationController.viewControllers.count == 1 {
+            containedNavigationController.setViewControllers([vc], animated: false)
+        } else {
+            containedNavigationController.show(vc, sender: sender)
         }
-        containedNavigationController.show(vc, sender: sender)
     }
 
     private func start(userSession: UserSession?, authorizationCode: AuthorizationCode?) {
@@ -667,8 +667,6 @@ extension TinkLinkViewController {
             startCredentialCoordinator(with: .create(provider: provider, mode: .user(refreshableItems: refreshableItems)))
         }
     }
-
-    func showLoadingOverlay(withText text: String?, animated: Bool = true, onCancel: (() -> Void)?) {}
 }
 
 // MARK: - Helpers
