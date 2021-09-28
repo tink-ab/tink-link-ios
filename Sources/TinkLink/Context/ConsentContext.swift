@@ -130,7 +130,8 @@ public final class ConsentContext {
     ///         The link will display the page in English if the requested language is not available.
     public func termsAndConditions(for locale: Locale = .current) -> URL {
         let languageCode = locale.languageCode ?? ""
-        return URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
+        let localeIdentifier = locale.identifier
+        return URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)?locale=\(localeIdentifier)&chromeless=true")!
     }
 
     /// Get a link to the Privacy Policy for TinkLink.
@@ -153,6 +154,7 @@ public final class ConsentContext {
     ///         The link will display the page in English if the requested language is not available.
     public func privacyPolicy(for locale: Locale = .current) -> URL {
         let languageCode = locale.languageCode ?? ""
-        return URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
+        let localeIdentifier = locale.identifier
+        return URL(string: "https://link.tink.com/privacy-policy/\(languageCode)?locale=\(localeIdentifier)&chromeless=true")!
     }
 }

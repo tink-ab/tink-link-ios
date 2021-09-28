@@ -57,9 +57,7 @@ extension CredentialsKindPickerViewController {
         let cell = tableView.dequeueReusableCell(ofType: CredentialsKindCell.self, for: indexPath)
         cell.setIcon(icon)
         cell.setTitle(text: node.displayDescription)
-
-        cell.setProviderTags(demo: node.provider.isDemo, beta: node.provider.isBeta)
-
+        cell.setDemoTagHidden(!node.provider.isDemo)
         return cell
     }
 

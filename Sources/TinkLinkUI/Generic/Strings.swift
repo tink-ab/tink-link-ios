@@ -104,6 +104,9 @@ enum Strings {
         /// Title for cancelling an action or event.
         static let cancel = NSLocalizedString("Generic.Cancel", tableName: tableName, bundle: bundle, value: "Cancel", comment: "Text shown for Cancel button.")
 
+        /// Title for generic close button.
+        static let close = NSLocalizedString("Generic.Close", tableName: tableName, bundle: bundle, value: "Close", comment: "Title for generic close button.")
+
         /// Title for button to start authenticating credentials.
         static let `continue` = NSLocalizedString("Generic.Continue", tableName: tableName, bundle: bundle, value: "Continue", comment: "Title for generic button to continue an action.")
 
@@ -175,6 +178,9 @@ enum Strings {
 
         /// Title for list of all providers.
         static let title = NSLocalizedString("ProviderList.Title", tableName: tableName, bundle: bundle, value: "Choose bank", comment: "Title for list of all providers.")
+
+        /// Description for when provider list is empty.
+        static let emptyList = NSLocalizedString("ProviderList.EmptyList", tableName: tableName, bundle: bundle, value: "No banks found", comment: "Description for when provider list is empty.")
 
         enum Error {
             /// Description for error when providers could not be loaded.

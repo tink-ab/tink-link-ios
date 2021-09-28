@@ -19,7 +19,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: "TinkCore", url: "https://github.com/tink-ab/tink-core-ios", .upToNextMajor(from: "1.0.0")),
+        .package(name: "TinkCore", url: "https://github.com/tink-ab/tink-core-ios", .upToNextMajor(from: "1.5.2")),
         .package(url: "https://github.com/johnxnguyen/Down", .upToNextMajor(from: "0.11.0"))
     ],
     targets: [

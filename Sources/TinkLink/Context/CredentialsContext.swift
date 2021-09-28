@@ -259,15 +259,23 @@ public final class CredentialsContext {
         cancellables[id] = task
         task.pollingStrategy = pollingStrategy
 
-        task.callCanceller = service.refresh(id: credentials.id, authenticate: authenticate, refreshableItems: refreshableItems, optIn: false, completion: { [weak task] result in
-            switch result {
-            case .success:
-                task?.startObserving()
-            case .failure(let error):
-                completion(.failure(error.tinkLinkError))
+        task.callCanceller = service.refresh(
+            id: credentials.id,
+            authenticate: authenticate,
+            refreshableItems: refreshableItems,
+            appURI: appURI,
+            callbackURI: callbackURI,
+            optIn: false,
+            completion: { [weak task] result in
+                switch result {
+                case .success:
+                    task?.startObserving()
+                case .failure(let error):
+                    completion(.failure(error.tinkLinkError))
+                }
+                task?.callCanceller = nil
             }
-            task?.callCanceller = nil
-        })
+        )
 
         return task
     }
@@ -399,15 +407,20 @@ public final class CredentialsContext {
         task.pollingStrategy = pollingStrategy
         cancellables[id] = task
 
-        task.callCanceller = service.authenticate(id: credentials.id, completion: { [weak task] result in
-            switch result {
-            case .success:
-                task?.startObserving()
-            case .failure(let error):
-                completion(.failure(error.tinkLinkError))
+        task.callCanceller = service.authenticate(
+            id: credentials.id,
+            appURI: appURI,
+            callbackURI: callbackURI,
+            completion: { [weak task] result in
+                switch result {
+                case .success:
+                    task?.startObserving()
+                case .failure(let error):
+                    completion(.failure(error.tinkLinkError))
+                }
+                task?.callCanceller = nil
             }
-            task?.callCanceller = nil
-        })
+        )
 
         return task
     }

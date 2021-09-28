@@ -1,4 +1,5 @@
 import TinkLink
+import Foundation
 
 final class AuthorizationController {
     let tink: Tink
@@ -29,5 +30,13 @@ final class AuthorizationController {
         tink._beginUITask()
         defer { tink._endUITask() }
         return ConsentContext(tink: tink).fetchScopeDescriptions(scopes: scopes, completion: completion)
+    }
+
+    func privacyPolicy(for locale: Locale = .current) -> URL {
+        return ConsentContext(tink: tink).privacyPolicy(for: locale)
+    }
+
+    func termsAndConditions(for locale: Locale = .current) -> URL {
+        return ConsentContext(tink: tink).termsAndConditions(for: locale)
     }
 }

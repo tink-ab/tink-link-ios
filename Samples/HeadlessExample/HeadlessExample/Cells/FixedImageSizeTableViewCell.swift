@@ -73,7 +73,17 @@ class FixedImageSizeTableViewCell: UITableViewCell {
 
     var imageURL: URL? {
         didSet {
-            iconView.kf.setImage(with: imageURL)
+            guard let url = imageURL else {
+                iconView.image = nil
+                return
+            }
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self.iconView.image = image
+                    }
+                }
+            }
         }
     }
 

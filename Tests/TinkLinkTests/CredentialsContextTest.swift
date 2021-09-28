@@ -158,7 +158,7 @@ class CredentialsContextTests: XCTestCase {
         context.pollingStrategy = .constant(.leastNonzeroMagnitude)
 
         let completionCalled = expectation(description: "Refresh credentials completion should be called with success")
-        let task = context.refresh(credentials) { status in
+        task = context.refresh(credentials) { status in
 
         } completion: { result in
             do {
@@ -188,11 +188,11 @@ class CredentialsContextTests: XCTestCase {
         let completionCalled = expectation(description: "Refresh credentials completion should be called with success")
         let awaitingSupplementalInfoCalled = expectation(description: "Awaiting supplemental task status callback called")
 
-        let task = context.refresh(credentials) { status in
+        task = context.refresh(credentials) { status in
             switch status {
             case .awaitingSupplementalInformation(let task):
                 awaitingSupplementalInfoCalled.fulfill()
-                var form = Form(credentials: task.credentials)
+                var form = Form(supplementInformationTask: task)
                 form.fields[0].text = "test"
                 task.submit(form)
             default:

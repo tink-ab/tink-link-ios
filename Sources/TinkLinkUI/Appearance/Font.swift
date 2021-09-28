@@ -62,7 +62,7 @@ extension Font {
         case nano = 11
 
         /// 10
-        case beta = 10
+        case demo = 10
 
         fileprivate var textStyle: UIFont.TextStyle {
             switch self {
@@ -80,7 +80,7 @@ extension Font {
                 return UIFont.TextStyle.footnote
             case .nano:
                 return UIFont.TextStyle.caption2
-            case .beta:
+            case .demo:
                 return UIFont.TextStyle.caption2
             }
         }
@@ -105,7 +105,7 @@ extension Font {
                 return 20
             case .nano:
                 return 16
-            case .beta:
+            case .demo:
                 return 16
             }
         }
@@ -179,6 +179,6 @@ extension Font {
     static var caption: UIFont { regular(.nano) }
     /// Bold 10
     ///
-    /// - Note: Only for use with provider beta tag.
-    static var beta: UIFont { semibold(.beta) }
+    /// - Note: Only for use with provider demo tag.
+    static var demo: UIFont { semibold(.demo) }
 }

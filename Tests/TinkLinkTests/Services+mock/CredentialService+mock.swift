@@ -59,6 +59,16 @@ class MockedSuccessCredentialsService: CredentialsService {
         return nil
     }
 
+    func refresh(id: Credentials.ID, authenticate: Bool, refreshableItems: RefreshableItems, appURI: URL?, callbackURI: URL?, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        completion(.success)
+        return nil
+    }
+
+    func refresh(id: Credentials.ID, authenticate: Bool, appURI: URL?, callbackURI: URL?, refreshableItems: RefreshableItems, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        completion(.success)
+        return nil
+    }
+
     @discardableResult
     func addSupplementalInformation(id: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         if let index = credentials.firstIndex(where: { $0.id == id }) {
@@ -95,6 +105,11 @@ class MockedSuccessCredentialsService: CredentialsService {
     }
 
     func authenticate(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        completion(.success)
+        return nil
+    }
+
+    func authenticate(id: Credentials.ID, appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.success)
         return nil
     }
@@ -148,6 +163,10 @@ class MockedUnauthenticatedErrorCredentialsService: CredentialsService {
         return nil
     }
 
+    func refresh(id: Credentials.ID, authenticate: Bool, refreshableItems: RefreshableItems, appURI: URL?, callbackURI: URL?, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        return nil
+    }
+
     func addSupplementalInformation(id: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
@@ -174,6 +193,10 @@ class MockedUnauthenticatedErrorCredentialsService: CredentialsService {
     }
 
     func authenticate(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        return nil
+    }
+
+    func authenticate(id: Credentials.ID, appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         completion(.failure(ServiceError.unauthenticatedError))
         return nil
     }

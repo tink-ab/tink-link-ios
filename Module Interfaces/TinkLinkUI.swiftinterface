@@ -113,6 +113,7 @@ extension TinkLinkError.ThirdPartyAppAuthenticationFailureReason : Foundation.Lo
 public struct TinkLinkUIError : Swift.Error, Swift.CustomStringConvertible {
   public struct Code : Swift.Hashable {
     public static let userCancelled: TinkLinkUI.TinkLinkUIError.Code
+    @available(*, deprecated, message: "unableToFetchProviders is deprecated.")
     public static let unableToFetchProviders: TinkLinkUI.TinkLinkUIError.Code
     public static let missingInternetConnection: TinkLinkUI.TinkLinkUIError.Code
     public static let credentialsNotFound: TinkLinkUI.TinkLinkUIError.Code
@@ -136,6 +137,7 @@ public struct TinkLinkUIError : Swift.Error, Swift.CustomStringConvertible {
     get
   }
   public static let userCancelled: TinkLinkUI.TinkLinkUIError.Code
+  @available(*, deprecated, message: "unableToFetchProviders is deprecated.")
   public static let unableToFetchProviders: TinkLinkUI.TinkLinkUIError.Code
   public static let missingInternetConnection: TinkLinkUI.TinkLinkUIError.Code
   public static let credentialsNotFound: TinkLinkUI.TinkLinkUIError.Code

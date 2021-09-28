@@ -5,7 +5,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let providerTagLabel = ProviderTagView()
+    private let demoTagLabel = DemoTagView()
 
     private var imageLoadingHandle: ImageLoader.ImageLoadingTaskManager.Handle?
 
@@ -38,7 +38,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         iconView.contentMode = .scaleAspectFit
 
         contentView.addSubview(titleLabel)
-        contentView.addSubview(providerTagLabel)
+        contentView.addSubview(demoTagLabel)
         contentView.addSubview(descriptionLabel)
 
         titleLabel.numberOfLines = 0
@@ -51,20 +51,20 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.adjustsFontForContentSizeCategory = true
         descriptionLabel.textColor = Color.secondaryLabel
 
-        providerTagLabel.isHidden = true
+        demoTagLabel.isHidden = true
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
 
         iconView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
+        demoTagLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let trailingTitleConstraint: NSLayoutConstraint
         trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
         self.trailingTitleConstraint = trailingTitleConstraint
-        trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: providerTagLabel.trailingAnchor)
+        trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: demoTagLabel.trailingAnchor)
 
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: iconSize),
@@ -76,9 +76,9 @@ class ProviderCell: UITableViewCell, ReusableCell {
             titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: iconTitleSpacing),
             trailingTitleConstraint,
 
-            providerTagLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            providerTagLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
-            providerTagLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            demoTagLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            demoTagLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+            demoTagLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
 
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
@@ -93,7 +93,7 @@ class ProviderCell: UITableViewCell, ReusableCell {
         iconView.image = nil
         titleLabel.text = ""
         descriptionLabel.text = ""
-        setProviderTags(demo: false, beta: false)
+        setDemoTagHidden(true)
     }
 
     override func layoutMarginsDidChange() {
@@ -134,10 +134,9 @@ class ProviderCell: UITableViewCell, ReusableCell {
         descriptionLabel.text = text
     }
 
-    func setProviderTags(demo: Bool, beta: Bool) {
-        providerTagLabel.setTag(demo: demo, beta: beta)
-        providerTagLabel.isHidden = !(demo || beta)
-        trailingTitleConstraint?.isActive = !(demo || beta)
-        trailingTagConstraint?.isActive = (demo || beta)
+    func setDemoTagHidden(_ hidden: Bool) {
+        demoTagLabel.isHidden = hidden
+        trailingTitleConstraint?.isActive = hidden
+        trailingTagConstraint?.isActive = !hidden
     }
 }

@@ -36,6 +36,8 @@ final class LegalViewController: UIViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.Generic.close, style: .plain, target: self, action: #selector(webViewDidClose(_:)))
+
         let request = URLRequest(url: url)
 
         webView.uiDelegate = self
@@ -47,7 +49,7 @@ final class LegalViewController: UIViewController {
 }
 
 extension LegalViewController: WKUIDelegate {
-    func webViewDidClose(_ webView: WKWebView) {
+    @objc func webViewDidClose(_ webView: WKWebView) {
         dismiss(animated: true)
     }
 }
@@ -55,23 +57,5 @@ extension LegalViewController: WKUIDelegate {
 extension LegalViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
-        setupCloseButtonHandler()
-    }
-}
-
-extension LegalViewController {
-    private func setupCloseButtonHandler() {
-        let js = """
-        document.querySelector("button").addEventListener("click", function() { window.close() }, null);
-        """
-        webView.evaluateJavaScript(js, completionHandler: { [weak self, retryDelay] a, error in
-            if case WKError.javaScriptExceptionOccurred? = error {
-                DispatchQueue.main.asyncAfter(deadline: .now() + retryDelay) {
-                    self?.setupCloseButtonHandler()
-                }
-            }
-        })
-
-        retryDelay *= 2
     }
 }
