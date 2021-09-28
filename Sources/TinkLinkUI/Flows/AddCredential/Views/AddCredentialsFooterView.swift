@@ -31,11 +31,13 @@ final class AddCredentialsFooterView: UIView {
     private var termsAndConditionsRange: NSRange?
     private var viewDetailsRange: NSRange?
 
-    convenience init() {
-        self.init(frame: .zero)
-    }
+    private let privacyPolicyUrl: URL
+    private let termsAndConditionsUrl: URL
 
-    override init(frame: CGRect) {
+    init(privacyPolicyUrl: URL, termsAndConditionsUrl: URL) {
+        self.privacyPolicyUrl = privacyPolicyUrl
+        self.termsAndConditionsUrl = termsAndConditionsUrl
+
         super.init(frame: .zero)
 
         setup()
@@ -71,14 +73,11 @@ final class AddCredentialsFooterView: UIView {
             string: text,
             attributes: [.foregroundColor: Color.secondaryLabel, .font: Font.body2]
         )
-        let languageCode = Locale.current.languageCode ?? ""
-        let privacyPolicyUrl = URL(string: "https://link.tink.com/privacy-policy/\(languageCode)")!
         let privacyPolicyText = Strings.Credentials.privacyPolicy
         let privacyPolicyRange = attributeText.mutableString.range(of: privacyPolicyText)
         self.privacyPolicyRange = privacyPolicyRange
         attributeText.addAttributes([.link: privacyPolicyUrl], range: privacyPolicyRange)
         let termsAndConditionsText = Strings.Credentials.termsAndConditions
-        let termsAndConditionsUrl = URL(string: "https://link.tink.com/terms-and-conditions/\(languageCode)")!
         let termsAndConditionsRange = attributeText.mutableString.range(of: termsAndConditionsText)
         self.termsAndConditionsRange = termsAndConditionsRange
         attributeText.addAttributes([.link: termsAndConditionsUrl], range: termsAndConditionsRange)

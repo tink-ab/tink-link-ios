@@ -5,6 +5,8 @@ public struct TinkLinkUIError: Error, CustomStringConvertible {
     public struct Code: Hashable {
         enum Value {
             case userCancelled
+            // Deprecation: 1.3.1
+            @available(*, deprecated, message: "unableToFetchProviders is deprecated.")
             case unableToFetchProviders
             case missingInternetConnection
             case credentialsNotFound
@@ -18,6 +20,7 @@ public struct TinkLinkUIError: Error, CustomStringConvertible {
         var value: Value
 
         public static let userCancelled = Self(value: .userCancelled)
+        @available(*, deprecated, message: "unableToFetchProviders is deprecated.")
         public static let unableToFetchProviders = Self(value: .unableToFetchProviders)
         public static let missingInternetConnection = Self(value: .missingInternetConnection)
         public static let credentialsNotFound = Self(value: .credentialsNotFound)
@@ -47,6 +50,7 @@ public struct TinkLinkUIError: Error, CustomStringConvertible {
     /// User cancelled the flow.
     public static let userCancelled: Code = .userCancelled
     /// Unable to fetch providers.
+    @available(*, deprecated, message: "unableToFetchProviders is deprecated.")
     public static let unableToFetchProviders: Code = .unableToFetchProviders
     /// Missing internet connection.
     public static let missingInternetConnection: Code = .missingInternetConnection
@@ -63,8 +67,6 @@ public struct TinkLinkUIError: Error, CustomStringConvertible {
     init?(error: Error) {
         if let error = error as? ProviderController.Error {
             switch error {
-            case .emptyProviderList:
-                self = .init(code: .unableToFetchProviders)
             case .providerNotFound:
                 self = .init(code: .providerNotFound)
             }

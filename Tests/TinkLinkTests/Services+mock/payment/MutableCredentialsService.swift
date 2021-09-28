@@ -89,6 +89,12 @@ class MutableCredentialsService: CredentialsService {
         return nil
     }
 
+    func refresh(id: Credentials.ID, authenticate: Bool, refreshableItems: RefreshableItems, appURI: URL?, callbackURI: URL?, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        modifyCredentials(id: id, status: credentialsStatusAfterRefresh)
+        completion(.success(()))
+        return nil
+    }
+
     func addSupplementalInformation(id: Credentials.ID, fields: [String: String], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials.makeTestCredentials(
@@ -161,6 +167,11 @@ class MutableCredentialsService: CredentialsService {
         for id in credentialsByID.keys {
             modifyCredentials(id: id, status: credentialsStatusAfterThirdPartyCallback)
         }
+        return nil
+    }
+
+    func authenticate(id: Credentials.ID, appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        modifyCredentials(id: id, status: credentialsStatusAfterManualAuthentication)
         return nil
     }
 

@@ -4,7 +4,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
     private let iconBackgroundView = UIView()
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
-    private let providerTagLabel = ProviderTagView()
+    private let demoTagLabel = DemoTagView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,7 +32,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         contentView.addSubview(iconBackgroundView)
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(providerTagLabel)
+        contentView.addSubview(demoTagLabel)
 
         contentView.layoutMargins = .init(top: 32, left: 24, bottom: 32, right: 24)
 
@@ -51,8 +51,8 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.textColor = Color.label
 
-        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
-        providerTagLabel.isHidden = true
+        demoTagLabel.translatesAutoresizingMaskIntoConstraints = false
+        demoTagLabel.isHidden = true
 
         separatorInset.left = contentView.layoutMargins.left + iconSize + iconTitleSpacing
         separatorInset.right = contentView.layoutMargins.right
@@ -60,7 +60,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         let trailingTitleConstraint: NSLayoutConstraint
         trailingTitleConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor)
         self.trailingTitleConstraint = trailingTitleConstraint
-        trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: providerTagLabel.trailingAnchor)
+        trailingTagConstraint = contentView.layoutMarginsGuide.trailingAnchor.constraint(greaterThanOrEqualTo: demoTagLabel.trailingAnchor)
 
         NSLayoutConstraint.activate([
             iconBackgroundView.widthAnchor.constraint(equalToConstant: iconBackgroundSize),
@@ -78,9 +78,9 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
             titleLabel.lastBaselineAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
             trailingTitleConstraint,
 
-            providerTagLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            providerTagLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
-            providerTagLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            demoTagLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            demoTagLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+            demoTagLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
         ])
     }
 
@@ -88,7 +88,7 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         super.prepareForReuse()
 
         titleLabel.text = ""
-        setProviderTags(demo: false, beta: false)
+        setDemoTagHidden(true)
     }
 
     override func layoutMarginsDidChange() {
@@ -121,10 +121,9 @@ class CredentialsKindCell: UITableViewCell, ReusableCell {
         titleLabel.text = text
     }
 
-    func setProviderTags(demo: Bool, beta: Bool) {
-        providerTagLabel.setTag(demo: demo, beta: beta)
-        providerTagLabel.isHidden = !(demo || beta)
-        trailingTitleConstraint?.isActive = !(demo || beta)
-        trailingTagConstraint?.isActive = (demo || beta)
+    func setDemoTagHidden(_ hidden: Bool) {
+        demoTagLabel.isHidden = hidden
+        trailingTitleConstraint?.isActive = hidden
+        trailingTagConstraint?.isActive = !hidden
     }
 }

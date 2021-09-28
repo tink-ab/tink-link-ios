@@ -49,13 +49,34 @@ extension ProviderListViewController {
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
     }
+
+    private func makeEmptyProvidersLabel() -> UILabel {
+        let label = UILabel()
+        label.adjustsFontForContentSizeCategory = true
+        label.backgroundColor = Color.background
+        label.font = Font.body1
+        label.frame = tableView.bounds
+        label.numberOfLines = 0
+        label.text = Strings.ProviderList.emptyList
+        label.textColor = Color.secondaryLabel
+        label.textAlignment = .center
+        return label
+    }
 }
 
 // MARK: - UITableViewDataSource
 
 extension ProviderListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return financialInstitutionGroupNodes.count
+        if financialInstitutionGroupNodes.isEmpty {
+            tableView.backgroundView = makeEmptyProvidersLabel()
+            tableView.separatorStyle = .none
+            return 0
+        } else {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+            return financialInstitutionGroupNodes.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,9 +88,7 @@ extension ProviderListViewController {
             cell.setImage(url: url)
         }
         let isDemo = group.providers.contains(where: { $0.isDemo })
-        let isBeta = group.providers.contains(where: { $0.isBeta })
-        cell.setProviderTags(demo: isDemo, beta: isBeta)
-
+        cell.setDemoTagHidden(!isDemo)
         return cell
     }
 

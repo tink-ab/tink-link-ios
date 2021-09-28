@@ -70,7 +70,7 @@ final class CredentialsCoordinator {
     func start() {
         switch action {
         case .create(provider: let provider, _):
-            let credentialsViewController = CredentialsFormViewController(provider: provider, credentialsController: credentialsController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified, tinkLinkTracker: tinkLinkTracker)
+            let credentialsViewController = CredentialsFormViewController(provider: provider, credentialsController: credentialsController, authorizationController: authorizationController, clientName: clientDescription.name, isAggregator: clientDescription.isAggregator, isVerified: clientDescription.isVerified, tinkLinkTracker: tinkLinkTracker)
             credentialsViewController.delegate = self
             credentialsViewController.prefillStrategy = prefillStrategy
             credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
@@ -121,7 +121,7 @@ final class CredentialsCoordinator {
                 self.fetchedCredentials = credentials
                 self.fetchProvider(with: credentials.providerName, for: self.market) { [weak self] provider in
                     guard let self = self else { return }
-                    let credentialsViewController = CredentialsFormViewController(credentials: credentials, provider: provider, credentialsController: self.credentialsController, clientName: self.clientDescription.name, isAggregator: self.clientDescription.isAggregator, isVerified: self.clientDescription.isVerified, tinkLinkTracker: self.tinkLinkTracker)
+                    let credentialsViewController = CredentialsFormViewController(credentials: credentials, provider: provider, credentialsController: self.credentialsController, authorizationController: self.authorizationController, clientName: self.clientDescription.name, isAggregator: self.clientDescription.isAggregator, isVerified: self.clientDescription.isVerified, tinkLinkTracker: self.tinkLinkTracker)
                     credentialsViewController.delegate = self
                     credentialsViewController.prefillStrategy = self.prefillStrategy
                     credentialsViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancel))
@@ -253,14 +253,15 @@ extension CredentialsCoordinator: CredentialsFormViewControllerDelegate {
         }
         let viewController = ScopeDescriptionListViewController(authorizationController: authorizationController, scopes: scopeList)
         viewController.delegate = self
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.Generic.done, style: .plain, target: self, action: #selector(closeMoreInfo))
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.Generic.close, style: .plain, target: self, action: #selector(closeMoreInfo))
         let navigationController = TinkNavigationController(rootViewController: viewController)
         presenter?.present(navigationController, animated: true, completion: nil)
     }
 
     func showWebContent(with url: URL) {
         let viewController = LegalViewController(url: url)
-        presenter?.present(viewController, animated: true, completion: nil)
+        let navigationController = TinkNavigationController(rootViewController: viewController)
+        presenter?.present(navigationController, animated: true, completion: nil)
     }
 
     func submit(form: Form) {

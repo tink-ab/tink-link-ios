@@ -19,6 +19,7 @@ final class CredentialsFormViewController: UIViewController {
     }
 
     private let credentialsController: CredentialsController
+    private let authorizationController: AuthorizationController
     private var form: Form {
         formTableViewController.form
     }
@@ -50,7 +51,7 @@ final class CredentialsFormViewController: UIViewController {
 
     private lazy var navigationTitleView = NavigationTitleImageView(imageURL: provider.image, text: provider.displayName)
     private lazy var helpLabel = ProviderHelpTextView()
-    private lazy var addCredentialFooterView = AddCredentialsFooterView()
+    private lazy var addCredentialFooterView = AddCredentialsFooterView(privacyPolicyUrl: authorizationController.privacyPolicy(), termsAndConditionsUrl: authorizationController.termsAndConditions())
     private lazy var gradientView = GradientView(colors: [Color.background.withAlphaComponent(0.0), Color.background])
     private lazy var button: FloatingButton = {
         let button = FloatingButton()
@@ -65,11 +66,12 @@ final class CredentialsFormViewController: UIViewController {
     private var buttonBottomConstant: CGFloat = UIDevice.current.isPad ? 80 : 0
     private lazy var buttonWidthConstraint = button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.minimumWidth)
 
-    init(provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool, tinkLinkTracker: TinkLinkTracker) {
+    init(provider: Provider, credentialsController: CredentialsController, authorizationController: AuthorizationController, clientName: String, isAggregator: Bool, isVerified: Bool, tinkLinkTracker: TinkLinkTracker) {
         self.provider = provider
         let form = Form(provider: provider)
         self.formTableViewController = FormTableViewController(form: form)
         self.credentialsController = credentialsController
+        self.authorizationController = authorizationController
         self.clientName = clientName
         self.isAggregator = isAggregator
         self.isVerified = isVerified
@@ -78,11 +80,12 @@ final class CredentialsFormViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    init(credentials: Credentials, provider: Provider, credentialsController: CredentialsController, clientName: String, isAggregator: Bool, isVerified: Bool, tinkLinkTracker: TinkLinkTracker) {
+    init(credentials: Credentials, provider: Provider, credentialsController: CredentialsController, authorizationController: AuthorizationController, clientName: String, isAggregator: Bool, isVerified: Bool, tinkLinkTracker: TinkLinkTracker) {
         self.provider = provider
         let form = Form(updatingCredentials: credentials, provider: provider)
         self.formTableViewController = FormTableViewController(form: form)
         self.credentialsController = credentialsController
+        self.authorizationController = authorizationController
         self.clientName = clientName
         self.isAggregator = isAggregator
         self.isVerified = isVerified
@@ -140,7 +143,7 @@ extension CredentialsFormViewController {
 
         navigationTitleView.translatesAutoresizingMaskIntoConstraints = false
 
-        navigationTitleView.setProviderTags(demo: provider.isDemo, beta: provider.isBeta)
+        navigationTitleView.setDemoTagHidden(!provider.isDemo)
         view.addSubview(gradientView)
         view.addSubview(bottomBackgroundView)
         view.addSubview(addCredentialFooterView)
@@ -318,11 +321,7 @@ extension CredentialsFormViewController {
         delegate?.showScopeDescriptions()
     }
 
-    private func showTermsAndConditions(_ url: URL) {
-        delegate?.showWebContent(with: url)
-    }
-
-    private func showPrivacyPolicy(_ url: URL) {
+    private func showTermsAndPrivacyPolicy(_ url: URL) {
         delegate?.showWebContent(with: url)
     }
 }
@@ -331,7 +330,7 @@ extension CredentialsFormViewController {
 
 extension CredentialsFormViewController: AddCredentialsFooterViewDelegate {
     func addCredentialsFooterViewDidTapLink(_ addCredentialsFooterView: AddCredentialsFooterView, url: URL) {
-        showPrivacyPolicy(url)
+        showTermsAndPrivacyPolicy(url)
     }
 
     func addCredentialsFooterViewDidTapConsentReadMoreLink(_ addCredentialsFooterView: AddCredentialsFooterView) {
@@ -391,7 +390,7 @@ extension CredentialsFormViewController {
         viewConstraints.append(contentsOf: [
             fieldsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             fieldsView.topAnchor.constraint(equalTo: view.topAnchor),
-            fieldsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            fieldsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             fieldsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 
             addCredentialFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

@@ -3,7 +3,7 @@ import UIKit
 final class NavigationTitleImageView: UIView {
     private let navigationTitleLabel = UILabel()
     private let navigationTitleImageView = UIImageView()
-    private let providerTagLabel = ProviderTagView()
+    private let demoTagLabel = DemoTagView()
 
     private var trailingTitleConstraint: NSLayoutConstraint?
     private var trailingTagConstraint: NSLayoutConstraint?
@@ -28,7 +28,7 @@ final class NavigationTitleImageView: UIView {
         navigationTitleImageView.image = image
         navigationTitleLabel.text = text
         setup()
-        setProviderTags(demo: false, beta: false)
+        setDemoTagHidden(true)
     }
 
     @available(*, unavailable)
@@ -45,16 +45,16 @@ final class NavigationTitleImageView: UIView {
         navigationTitleImageView.contentMode = .scaleAspectFit
         navigationTitleImageView.translatesAutoresizingMaskIntoConstraints = false
 
-        providerTagLabel.translatesAutoresizingMaskIntoConstraints = false
+        demoTagLabel.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(navigationTitleImageView)
         addSubview(navigationTitleLabel)
-        addSubview(providerTagLabel)
+        addSubview(demoTagLabel)
 
         let trailingTitleConstraint: NSLayoutConstraint
         trailingTitleConstraint = navigationTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         self.trailingTitleConstraint = trailingTitleConstraint
-        trailingTagConstraint = providerTagLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+        trailingTagConstraint = demoTagLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
 
         NSLayoutConstraint.activate([
             navigationTitleImageView.widthAnchor.constraint(equalToConstant: 20),
@@ -66,16 +66,15 @@ final class NavigationTitleImageView: UIView {
             navigationTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             trailingTitleConstraint,
 
-            providerTagLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            providerTagLabel.firstBaselineAnchor.constraint(equalTo: navigationTitleLabel.firstBaselineAnchor),
-            providerTagLabel.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8),
+            demoTagLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            demoTagLabel.firstBaselineAnchor.constraint(equalTo: navigationTitleLabel.firstBaselineAnchor),
+            demoTagLabel.leadingAnchor.constraint(equalTo: navigationTitleLabel.trailingAnchor, constant: 8),
         ])
     }
 
-    func setProviderTags(demo: Bool, beta: Bool) {
-        providerTagLabel.setTag(demo: demo, beta: beta)
-        providerTagLabel.isHidden = !(demo || beta)
-        trailingTitleConstraint?.isActive = !(demo || beta)
-        trailingTagConstraint?.isActive = (demo || beta)
+    func setDemoTagHidden(_ hidden: Bool) {
+        demoTagLabel.isHidden = hidden
+        trailingTitleConstraint?.isActive = hidden
+        trailingTagConstraint?.isActive = !hidden
     }
 }

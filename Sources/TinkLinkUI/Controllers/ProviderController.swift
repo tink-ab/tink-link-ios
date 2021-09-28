@@ -10,7 +10,6 @@ extension Notification.Name {
 
 final class ProviderController {
     enum Error: Swift.Error, LocalizedError {
-        case emptyProviderList
         case providerNotFound
     }
 
@@ -55,7 +54,6 @@ final class ProviderController {
             self?.isFetching = false
             do {
                 let providers = try result.get().filter { $0.status == .enabled }
-                guard !providers.isEmpty else { throw Error.emptyProviderList }
                 NotificationCenter.default.post(name: .providerControllerDidFetchProviders, object: self)
                 let tree = ProviderTree(providers: providers)
                 DispatchQueue.main.async {
