@@ -57,9 +57,8 @@ Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) 
 5. Drag all files except Info.plist from `Sources/TinkLink` folder into the new target.
 6. Add a new iOS Framework target with the name `TinkLinkUI` to your app.
 7. Drag all files except Info.plist from `Sources/TinkLinkUI` folder into the new target.
-8. [Install Kingfisher](https://github.com/onevcat/Kingfisher/wiki/Installation-Guide#manually)
-9. [Install Down](https://github.com/johnxnguyen/Down#or-manually-install)
-10. Add Kingfisher and Down to the TinkLinkUI target.
+8. [Install Down](https://github.com/johnxnguyen/Down#or-manually-install)
+9. Add Down to the TinkLinkUI target.
 
 When finished, you should be able to `import TinkLink`  and `import TinkLinkUI` within your project.
 
