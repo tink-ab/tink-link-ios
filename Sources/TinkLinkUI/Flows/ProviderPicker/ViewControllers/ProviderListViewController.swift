@@ -12,7 +12,7 @@ final class ProviderListViewController: UITableViewController {
     private var financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode]
 
     init(financialInstitutionGroupNodes: [ProviderTree.FinancialInstitutionGroupNode]) {
-        self.financialInstitutionGroupNodes = financialInstitutionGroupNodes
+        self.financialInstitutionGroupNodes = financialInstitutionGroupNodes.filter { $0.isEnabled }
         searchViewController.originalFinancialInstitutionNodes = financialInstitutionGroupNodes.makeFinancialInstitutions()
         super.init(style: .plain)
     }

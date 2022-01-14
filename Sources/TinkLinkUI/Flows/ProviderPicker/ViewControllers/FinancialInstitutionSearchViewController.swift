@@ -8,8 +8,28 @@ final class FinancialInstitutionSearchViewController: UITableViewController {
 
     private var financialInstitutionNodes: [ProviderTree.FinancialInstitutionNode] = [] {
         didSet {
+            if financialInstitutionNodes.isEmpty {
+                tableView.backgroundView = makeEmptyProvidersLabel()
+                tableView.separatorStyle = .none
+            } else {
+                tableView.backgroundView = nil
+                tableView.separatorStyle = .singleLine
+            }
             tableView.reloadData()
         }
+    }
+
+    private func makeEmptyProvidersLabel() -> UILabel {
+        let label = UILabel()
+        label.adjustsFontForContentSizeCategory = true
+        label.backgroundColor = Color.background
+        label.font = Font.body1
+        label.frame = tableView.bounds
+        label.numberOfLines = 0
+        label.text = Strings.ProviderList.emptyList
+        label.textColor = Color.secondaryLabel
+        label.textAlignment = .center
+        return label
     }
 
     init() {

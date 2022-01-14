@@ -66,7 +66,7 @@ public final class RefreshCredentialsTask: Identifiable, Cancellable {
             id: credentials.id,
             initialValue: nil, // We always want to catch the first status change
             request: credentialsService.credentials,
-            predicate: { (old, new) -> Bool in
+            predicate: { old, new -> Bool in
                 old.statusUpdated != new.statusUpdated || old.status != new.status
             }
         ) { [weak self] result in

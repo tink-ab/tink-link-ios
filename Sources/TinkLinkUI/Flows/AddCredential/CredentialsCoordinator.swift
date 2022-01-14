@@ -85,6 +85,7 @@ final class CredentialsCoordinator {
                 guard let self = self else { return }
                 self.fetchedCredentials = credentials
                 self.tinkLinkTracker.providerID = credentials.providerName.value
+                self.tinkLinkTracker.track(applicationEvent: .initializedWithoutProvider)
                 self.tinkLinkTracker.track(applicationEvent: .providerAuthenticationInitialized)
                 self.addCredentialsSession.authenticateCredentials(credentials: credentials) { [weak self] result in
                     self?.handleCompletion(for: result.map { ($0, nil) })
@@ -98,6 +99,7 @@ final class CredentialsCoordinator {
                 guard let self = self else { return }
                 self.fetchedCredentials = credentials
                 self.tinkLinkTracker.providerID = credentials.providerName.value
+                self.tinkLinkTracker.track(applicationEvent: .initializedWithoutProvider)
                 self.fetchProviderIgnoringErrors(with: credentials.providerName, for: self.market) { [weak self] provider in
                     guard let self = self else { return }
                     switch provider.accessType {
@@ -128,6 +130,7 @@ final class CredentialsCoordinator {
                     self.credentialsViewController = credentialsViewController
                     self.presenter?.show(credentialsViewController)
                     self.tinkLinkTracker.providerID = credentials.providerName.value
+                    self.tinkLinkTracker.track(applicationEvent: .initializedWithoutProvider)
                     self.tinkLinkTracker.track(screen: .submitCredentials)
                 }
             }

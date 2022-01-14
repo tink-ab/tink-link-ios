@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)
+// swift-compiler-version: Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
 // swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TinkLinkUI
 import CoreGraphics
 import Down
@@ -8,6 +8,10 @@ import Swift
 import TinkLink
 import UIKit
 import WebKit
+import _Concurrency
+extension Foundation.NSNotification.Name {
+  public static let credentialsCreatedNotification: Foundation.Notification.Name
+}
 public enum Appearance {
   public static var provider: TinkLinkUI.AppearanceProviding {
     get
@@ -73,7 +77,7 @@ public enum Font {
   case custom(Swift.String)
   case systemDefault
 }
-extension Font {
+extension TinkLinkUI.Font {
   public enum Weight {
     case regular
     case bold
@@ -94,7 +98,7 @@ public struct FontProvider : TinkLinkUI.FontProviding {
 public protocol FontProviding {
   func font(for weight: TinkLinkUI.Font.Weight) -> TinkLinkUI.Font
 }
-extension TinkLinkError : Foundation.LocalizedError {
+extension TinkLink.TinkLinkError : Foundation.LocalizedError {
   public var errorDescription: Swift.String? {
     get
   }
@@ -102,7 +106,7 @@ extension TinkLinkError : Foundation.LocalizedError {
     get
   }
 }
-extension TinkLinkError.ThirdPartyAppAuthenticationFailureReason : Foundation.LocalizedError {
+extension TinkLink.TinkLinkError.ThirdPartyAppAuthenticationFailureReason : Foundation.LocalizedError {
   public var errorDescription: Swift.String? {
     get
   }
@@ -147,7 +151,7 @@ public struct TinkLinkUIError : Swift.Error, Swift.CustomStringConvertible {
   public static let notAuthenticated: TinkLinkUI.TinkLinkUIError.Code
   public static let internalError: TinkLinkUI.TinkLinkUIError.Code
 }
-@objc @_hasMissingDesignatedInitializers public class TinkLinkViewController : UIKit.UIViewController {
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class TinkLinkViewController : UIKit.UIViewController {
   public struct PrefillStrategy {
     public struct Field {
       public let value: Swift.String
@@ -172,41 +176,40 @@ public struct TinkLinkUIError : Swift.Error, Swift.CustomStringConvertible {
     public static func refresh(credentialsID: TinkCore.Credentials.ID, forceAuthenticate: Swift.Bool = false, refreshableItems: TinkCore.RefreshableItems = .all) -> TinkLinkUI.TinkLinkViewController.Operation
     public static func update(credentialsID: TinkCore.Credentials.ID) -> TinkLinkUI.TinkLinkViewController.Operation
   }
-  public var errorsByCredentialsID: [TinkCore.Credentials.ID : Swift.Error] {
+  @_Concurrency.MainActor(unsafe) public var errorsByCredentialsID: [TinkCore.Credentials.ID : Swift.Error] {
     get
   }
-  public var prefill: TinkLinkUI.TinkLinkViewController.PrefillStrategy
-  final public let scopes: [TinkCore.Scope]?
+  @_Concurrency.MainActor(unsafe) public var prefill: TinkLinkUI.TinkLinkViewController.PrefillStrategy
+  @_Concurrency.MainActor(unsafe) final public let scopes: [TinkCore.Scope]?
   @available(*, deprecated, message: "Use init(configuration:market:scopes:providerPredicate:completion:) instead.")
-  convenience public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default), completion: @escaping (Swift.Result<(code: TinkCore.AuthorizationCode, credentials: TinkCore.Credentials), TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
-  public init(configuration: TinkCore.Configuration, market: TinkCore.Market, scopes: [TinkCore.Scope], providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default), completion: @escaping (Swift.Result<(code: TinkCore.AuthorizationCode, credentials: TinkCore.Credentials), TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) convenience public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default), completion: @escaping (Swift.Result<(code: TinkCore.AuthorizationCode, credentials: TinkCore.Credentials), TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) public init(configuration: TinkCore.Configuration, market: TinkCore.Market, scopes: [TinkCore.Scope], providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default), completion: @escaping (Swift.Result<(code: TinkCore.AuthorizationCode, credentials: TinkCore.Credentials), TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
   @available(*, deprecated, message: "Use init(tink:operation:completion:) with a Tink instance that has a user session set.")
-  convenience public init(tink: TinkCore.Tink = .shared, userSession: TinkCore.UserSession, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
-  public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market? = nil, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) convenience public init(tink: TinkCore.Tink = .shared, userSession: TinkCore.UserSession, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market? = nil, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
   @available(*, deprecated, message: "Authenticate a tink instance using `authenticateUser(authorizationCode:completion:)` and use init(tink:operation:completion:) instead.")
-  convenience public init(tink: TinkCore.Tink = .shared, authorizationCode: TinkCore.AuthorizationCode, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
-  @objc override dynamic public func viewDidLoad()
-  @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
-    @objc get
+  @_Concurrency.MainActor(unsafe) convenience public init(tink: TinkCore.Tink = .shared, authorizationCode: TinkCore.AuthorizationCode, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @_Concurrency.MainActor(unsafe) @objc get
   }
-  @objc override dynamic public var childForStatusBarStyle: UIKit.UIViewController? {
-    @objc get
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var childForStatusBarStyle: UIKit.UIViewController? {
+    @_Concurrency.MainActor(unsafe) @objc get
   }
-  @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
-  @objc override dynamic public func show(_ vc: UIKit.UIViewController, sender: Any?)
-  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func show(_ vc: UIKit.UIViewController, sender: Any?)
   @objc deinit
 }
 @available(iOS 13.0, *)
-extension TinkLinkViewController : UIKit.UIAdaptivePresentationControllerDelegate {
-  @objc dynamic public func presentationControllerDidAttemptToDismiss(_ presentationController: UIKit.UIPresentationController)
-  @objc dynamic public func presentationControllerDidDismiss(_ presentationController: UIKit.UIPresentationController)
-  @objc dynamic public func presentationControllerShouldDismiss(_ presentationController: UIKit.UIPresentationController) -> Swift.Bool
+extension TinkLinkUI.TinkLinkViewController : UIKit.UIAdaptivePresentationControllerDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func presentationControllerDidAttemptToDismiss(_ presentationController: UIKit.UIPresentationController)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func presentationControllerDidDismiss(_ presentationController: UIKit.UIPresentationController)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func presentationControllerShouldDismiss(_ presentationController: UIKit.UIPresentationController) -> Swift.Bool
 }
-extension TinkLinkViewController : UIKit.UIGestureRecognizerDelegate {
-  @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
+extension TinkLinkUI.TinkLinkViewController : UIKit.UIGestureRecognizerDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
 }
-extension Form.Field.ValidationError : Foundation.LocalizedError {
+extension TinkLink.Form.Field.ValidationError : Foundation.LocalizedError {
   public var errorDescription: Swift.String? {
     get
   }

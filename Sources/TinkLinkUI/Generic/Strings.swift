@@ -23,7 +23,7 @@ enum Strings {
     }
 
     enum ConsentInformation {
-        static let description = NSLocalizedString("ConsentInformation.Description", tableName: tableName, bundle: bundle, value: "By following through this service, we'll collect financial data from you. These are the data points we will collect from you", comment: "Description shown in the concent information screen.")
+        static let description = NSLocalizedString("ConsentInformation.Description", tableName: tableName, bundle: bundle, value: "By following through this service, we'll collect financial data from you. These are the data points we will collect from you:", comment: "Description shown in the concent information screen.")
 
         static let title = NSLocalizedString("ConsentInformation.Title", tableName: tableName, bundle: bundle, value: "We'll collect the following data from you", comment: "Title shown in the concent information screen.")
     }

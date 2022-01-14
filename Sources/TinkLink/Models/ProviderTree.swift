@@ -448,6 +448,10 @@ public struct ProviderTree {
             }
         }
 
+        public var isEnabled: Bool {
+            return significantProvider.status == .enabled
+        }
+
         public var imageURL: URL? { significantProvider.image }
     }
 }
