@@ -19,7 +19,7 @@ class ApplicationObserver {
                 self?.willResignActive?()
             }
 
-            observers = [didBecomeActiveObserver, willResignActiveObserver]
+            self.observers = [didBecomeActiveObserver, willResignActiveObserver]
         #endif
     }
 

@@ -34,11 +34,12 @@ class ScopeDescriptionCell: UITableViewCell, ReusableCell {
         ])
     }
 
-    func configure(title: String, titleFont: UIFont = Font.subtitle1, description: String, descriptionFont: UIFont = Font.body1) {
+    func configure(title: String? = nil, titleFont: UIFont = Font.subtitle1, description: String? = nil, descriptionFont: UIFont = Font.body1) {
         titleLabel.text = title
         titleLabel.font = titleFont
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
+        guard let description = description else { return }
         let attributedText = NSAttributedString(string: description, attributes: [.paragraphStyle: paragraphStyle])
         descriptionLabel.attributedText = attributedText
         descriptionLabel.font = descriptionFont

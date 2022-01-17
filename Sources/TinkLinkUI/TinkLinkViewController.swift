@@ -538,7 +538,7 @@ public class TinkLinkViewController: UIViewController {
 
         credentialsCoordinator = CredentialsCoordinator(market: market, authorizationController: authorizationController, credentialsController: credentialsController, providerController: providerController, presenter: self, delegate: self, clientDescription: clientDescription, action: operation, tinkLinkTracker: tinkLinkTracker, completion: { [weak self] result in
             DispatchQueue.main.async {
-                let mappedResult = result.map { (credentials, code) -> ResultType in
+                let mappedResult = result.map { credentials, code -> ResultType in
                     if let code = code {
                         return .authorizationCode(code, credentials)
                     } else {

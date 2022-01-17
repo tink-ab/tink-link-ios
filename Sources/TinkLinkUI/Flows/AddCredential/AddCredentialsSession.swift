@@ -9,6 +9,7 @@ final class AddCredentialsSession {
     private let authorizationController: AuthorizationController
     private var addCredentialsMode: CredentialsCoordinator.AddCredentialsMode?
     private let tinkLinkTracker: TinkLinkTracker
+    private let notificationCenter: NotificationCenter
 
     private var task: Cancellable?
     private var supplementInfoTask: SupplementInformationTask?
@@ -45,7 +46,7 @@ final class AddCredentialsSession {
 
     private var updateCredentialsTaskStatus: UpdateCredentialsTask.Status? {
         didSet {
-            switch (oldValue, addCredentialsTaskStatus) {
+            switch (oldValue, updateCredentialsTaskStatus) {
             case (.updating, _):
                 break
             case (_, .updating):
@@ -62,6 +63,7 @@ final class AddCredentialsSession {
         self.credentialsController = credentialsController
         self.authorizationController = authorizationController
         self.tinkLinkTracker = tinkLinkTracker
+        self.notificationCenter = NotificationCenter.default
     }
 
     deinit {
@@ -85,12 +87,12 @@ final class AddCredentialsSession {
                 DispatchQueue.main.async {
                     self?.handleAddCredentialStatus(status) {
                         [weak self] error in
-                        DispatchQueue.main.async {
-                            // FIXME: This triggers two onCompletion calls.
-                            onCompletion(.failure(error))
-                            self?.task?.cancel()
-                            self?.task = nil
-                        }
+                            DispatchQueue.main.async {
+                                // FIXME: This triggers two onCompletion calls.
+                                onCompletion(.failure(error))
+                                self?.task?.cancel()
+                                self?.task = nil
+                            }
                     }
                 }
             }, authenticationHandler: { [weak self] authentication in
@@ -198,7 +200,7 @@ final class AddCredentialsSession {
         addCredentialsTaskStatus = status
         switch status {
         case .created:
-            break
+            notificationCenter.post(name: .credentialsCreatedNotification, object: (task as? AddCredentialsTask)?.credentials?.id)
         case .authenticating(let payload):
             showUpdating(status: payload ?? Strings.CredentialsStatus.authorizing)
         case .updating:
@@ -366,4 +368,11 @@ extension AddCredentialsSession: QRImageViewControllerDelegate {
             self.task?.cancel()
         }
     }
+}
+
+extension Notification.Name {
+    /// This notification is posted when a Credentials is created.
+    ///
+    /// The notification object is the optional `Credentials.ID` object that’s been created. This notification doesn’t contain a `userInfo` dictionary.
+    public static let credentialsCreatedNotification = Notification.Name("TinkCore.AIS.Credentials.CreatedNotification")
 }

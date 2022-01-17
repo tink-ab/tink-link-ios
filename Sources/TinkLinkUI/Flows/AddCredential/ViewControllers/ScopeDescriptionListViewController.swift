@@ -14,7 +14,7 @@ final class ScopeDescriptionListViewController: UITableViewController {
     private lazy var activityIndicatorView = ActivityIndicatorView()
 
     private enum Section {
-        case intro(title: String, description: String)
+        case intro(title: String, description: String? = nil)
         case scopeDescriptions([ScopeDescription])
     }
 
@@ -29,8 +29,7 @@ final class ScopeDescriptionListViewController: UITableViewController {
         self.scopes = scopes
         self.sections = [
             .intro(
-                title: Strings.ConsentInformation.title,
-                description: Strings.ConsentInformation.description
+                title: Strings.ConsentInformation.description
             )
         ]
         super.init(nibName: nil, bundle: nil)
@@ -116,11 +115,11 @@ extension ScopeDescriptionListViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(ofType: ScopeDescriptionCell.self, for: indexPath)
         switch sections[indexPath.section] {
-        case .intro(let title, let description):
-            cell.configure(title: title, titleFont: Font.header6, description: description)
+        case .intro(let description, _):
+            cell.configure(description: description)
         case .scopeDescriptions(let scopeDescriptions):
             let scopeDescription = scopeDescriptions[indexPath.row]
-            cell.configure(title: scopeDescription.title, description: scopeDescription.description)
+            cell.configure(title: scopeDescription.title, titleFont: Font.header6, description: scopeDescription.description)
         }
         return cell
     }

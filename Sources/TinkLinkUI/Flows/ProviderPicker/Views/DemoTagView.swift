@@ -20,10 +20,9 @@ class DemoTagView: UIView {
         addSubview(label)
 
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor),
             label.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            label.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+            label.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
         ])
     }
 

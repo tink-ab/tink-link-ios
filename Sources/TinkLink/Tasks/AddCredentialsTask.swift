@@ -102,7 +102,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
             id: credentials.id,
             initialValue: credentials,
             request: credentialsService.credentials,
-            predicate: { (old, new) -> Bool in
+            predicate: { old, new -> Bool in
                 old.statusUpdated != new.statusUpdated || old.status != new.status
             }
         ) { [weak self] result in

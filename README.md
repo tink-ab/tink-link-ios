@@ -31,8 +31,6 @@ Follow these instructions to [link a target to a package product](https://help.a
 
 When finished, you should be able to `import TinkLink` and  `import TinkLinkUI` within your project.
 
-> If you only need the headless SDK you don't need to import `TinkLinkUI` within your project.
-
 #### Using CocoaPods
 Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) for usage and installation instructions.
 
@@ -45,8 +43,6 @@ Refer to their [guide](https://guides.cocoapods.org/using/using-cocoapods.html) 
 2. Run `pod install` in your project directory.
 
 3. Open your `.xcworkspace` file to see the project in Xcode.
-
-> If you only need the headless SDK you don't need to include `pod "TinkLinkUI"` in your Podfile. 
 
 #### Manual installation
 
@@ -112,10 +108,8 @@ Follow the instructions in one of these links to learn how to set this up:
 - [Allowing Apps and Websites to Link to Your Content](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content)
 
 ## Samples
-These examples shows how to build a complete aggregation flow using TinkLink or TinkLinkUI.
+This example shows how to build a complete aggregation flow using TinkLink.
 - [Tink Link](Samples/TinkLinkExample)
-- [Headless](Samples/HeadlessExample) 
-- [Headless (SwiftUI)](Samples/HeadlessExample-SwiftUI)
 
 ## Documentation
 For more detailed usage and full documentation, please refer to our Tink Link for iOS guide.

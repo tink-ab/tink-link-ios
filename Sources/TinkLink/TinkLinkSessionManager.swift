@@ -5,7 +5,6 @@ public final class TinkLinkSessionManager: SessionManager {
     let consentContext: ConsentContext
     let credentialsContext: CredentialsContext
     let providerContext: ProviderContext
-    let transferContext: TransferContext
 
     fileprivate var uiTaskCount = 0
 
@@ -14,7 +13,6 @@ public final class TinkLinkSessionManager: SessionManager {
         self.consentContext = ConsentContext(tink: tink)
         self.credentialsContext = CredentialsContext(tink: tink)
         self.providerContext = ProviderContext(tink: tink)
-        self.transferContext = TransferContext(tink: tink)
     }
 }
 
@@ -45,10 +43,6 @@ extension Tink {
 
     public var providerContext: ProviderContext {
         return tinkLinkSessionManager.providerContext
-    }
-
-    public var transferContext: TransferContext {
-        return tinkLinkSessionManager.transferContext
     }
 }
 
