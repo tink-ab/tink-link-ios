@@ -1,4 +1,5 @@
 import UIKit
+import TinkLink
 
 class TinkLinkTracker {
     private struct AppInfo {
@@ -16,15 +17,6 @@ class TinkLinkTracker {
     private let flow: AnalyticsFlow
     private let sessionID = UUID().uuidString
     private let isTest: Bool
-
-    private let version: String = {
-        if let infoDictionary = Bundle(for: TinkLinkTracker.self).infoDictionary,
-           let shortVersion = infoDictionary["CFBundleShortVersionString"] as? String {
-            return shortVersion
-        } else {
-            return "-"
-        }
-    }()
 
     private let appInfo: AppInfo = {
         let bundleIdentifier = Bundle.main.bundleIdentifier
@@ -129,7 +121,7 @@ class TinkLinkTracker {
             sessionId: sessionID,
             isTest: isTest,
             product: product,
-            version: version,
+            version: TinkLink.version,
             platform: platform,
             device: device,
             userId: userID,
@@ -157,7 +149,7 @@ class TinkLinkTracker {
                 sessionId: sessionID,
                 isTest: isTest,
                 product: product,
-                version: version,
+                version: TinkLink.version,
                 platform: platform,
                 device: device,
                 userId: userID,

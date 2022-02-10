@@ -160,6 +160,7 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
                 self.supplementInformationTask = supplementInformationTask
                 authenticationHandler(.awaitingSupplementalInformation(supplementInformationTask))
             case .awaitingThirdPartyAppAuthentication(let thirdPartyAppAuthentication), .awaitingMobileBankIDAuthentication(let thirdPartyAppAuthentication):
+                guard !thirdPartyAppAuthentication.isEmpty else { break }
                 credentialsStatusPollingTask?.stopPolling()
 
                 let task = ThirdPartyAppAuthenticationTask(credentials: credentials, thirdPartyAppAuthentication: thirdPartyAppAuthentication, appUri: appUri, credentialsService: credentialsService, shouldFailOnThirdPartyAppAuthenticationDownloadRequired: completionPredicate.shouldFailOnThirdPartyAppAuthenticationDownloadRequired) { [weak self] result in
@@ -206,5 +207,11 @@ public final class AddCredentialsTask: Identifiable, Cancellable {
         } catch {
             complete(with: .failure(error))
         }
+    }
+}
+
+extension Credentials.ThirdPartyAppAuthentication {
+    fileprivate var isEmpty: Bool {
+        downloadTitle == nil && downloadMessage == nil && upgradeTitle == nil && upgradeMessage == nil && appStoreURL == nil && scheme == nil && deepLinkURL == nil
     }
 }

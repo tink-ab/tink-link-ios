@@ -1,6 +1,9 @@
 import TinkCore
 import Foundation
 
+/// Current TinkLink version.
+public let version = "1.6.0"
+
 public struct TinkLinkConfiguration: Configuration {
     /// The client id for your app.
     public var clientID: String

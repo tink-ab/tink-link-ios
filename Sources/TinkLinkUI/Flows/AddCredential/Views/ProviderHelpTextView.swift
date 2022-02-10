@@ -35,7 +35,7 @@ final class ProviderHelpTextView: UIView {
         NSLayoutConstraint.activate([
             helpTextView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             helpTextView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-            helpTextView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            helpTextView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor).withPriority(UILayoutPriority(999)),
             helpTextView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
     }

@@ -384,6 +384,7 @@ extension TinkCore.Tink {
   @available(iOS 9.0, *)
   public static func open(_ url: Foundation.URL, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)? = nil) -> Swift.Bool
 }
+public let version: Swift.String
 public struct TinkLinkConfiguration : TinkCore.Configuration {
   public var clientID: Swift.String
   public var appURI: Foundation.URL?
