@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -26,7 +25,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#scope.accounts(_:)">accounts(_:​)</a></li><li class="function"><a href="#scope.activities(_:)">activities(_:​)</a></li><li class="function"><a href="#scope.authorization(_:)">authorization(_:​)</a></li><li class="function"><a href="#scope.beneficiaries(_:)">beneficiaries(_:​)</a></li><li class="function"><a href="#scope.budgets(_:)">budgets(_:​)</a></li><li class="function"><a href="#scope.calendar(_:)">calendar(_:​)</a></li><li class="function"><a href="#scope.categories(_:)">categories(_:​)</a></li><li class="function"><a href="#scope.contacts(_:)">contacts(_:​)</a></li><li class="function"><a href="#scope.credentials(_:)">credentials(_:​)</a></li><li class="function"><a href="#scope.dataexports(_:)">data​Exports(_:​)</a></li><li class="function"><a href="#scope.documents(_:)">documents(_:​)</a></li><li class="function"><a href="#scope.follow(_:)">follow(_:​)</a></li><li class="function"><a href="#scope.identity(_:)">identity(_:​)</a></li><li class="function"><a href="#scope.insights(_:)">insights(_:​)</a></li><li class="function"><a href="#scope.investments(_:)">investments(_:​)</a></li><li class="function"><a href="#scope.properties(_:)">properties(_:​)</a></li><li class="function"><a href="#scope.providers(_:)">providers(_:​)</a></li><li class="function"><a href="#scope.statistics(_:)">statistics(_:​)</a></li><li class="function"><a href="#scope.suggestions(_:)">suggestions(_:​)</a></li><li class="function"><a href="#scope.transactions(_:)">transactions(_:​)</a></li><li class="function"><a href="#scope.transfer(_:)">transfer(_:​)</a></li><li class="function"><a href="#scope.user(_:)">user(_:​)</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#scope.accounts(_:)">accounts(_:​)</a></li><li class="function"><a href="#scope.activities(_:)">activities(_:​)</a></li><li class="function"><a href="#scope.authorization(_:)">authorization(_:​)</a></li><li class="function"><a href="#scope.balances(_:)">balances(_:​)</a></li><li class="function"><a href="#scope.beneficiaries(_:)">beneficiaries(_:​)</a></li><li class="function"><a href="#scope.budgets(_:)">budgets(_:​)</a></li><li class="function"><a href="#scope.calendar(_:)">calendar(_:​)</a></li><li class="function"><a href="#scope.categories(_:)">categories(_:​)</a></li><li class="function"><a href="#scope.contacts(_:)">contacts(_:​)</a></li><li class="function"><a href="#scope.credentials(_:)">credentials(_:​)</a></li><li class="function"><a href="#scope.dataexports(_:)">data​Exports(_:​)</a></li><li class="function"><a href="#scope.documents(_:)">documents(_:​)</a></li><li class="function"><a href="#scope.follow(_:)">follow(_:​)</a></li><li class="function"><a href="#scope.identity(_:)">identity(_:​)</a></li><li class="function"><a href="#scope.insights(_:)">insights(_:​)</a></li><li class="function"><a href="#scope.investments(_:)">investments(_:​)</a></li><li class="function"><a href="#scope.properties(_:)">properties(_:​)</a></li><li class="function"><a href="#scope.providers(_:)">providers(_:​)</a></li><li class="function"><a href="#scope.statistics(_:)">statistics(_:​)</a></li><li class="function"><a href="#scope.suggestions(_:)">suggestions(_:​)</a></li><li class="function"><a href="#scope.transactions(_:)">transactions(_:​)</a></li><li class="function"><a href="#scope.transfer(_:)">transfer(_:​)</a></li><li class="function"><a href="#scope.user(_:)">user(_:​)</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -37,7 +36,9 @@
     <code class="name">Scope</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">Scope</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">Scope</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Access to Tink is divided into scopes which grant access to different API endpoints.
 Each API customer has a set of scopes which control the maximum permitted data access.
@@ -70,61 +71,91 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 
         <div role="article" class="function" id="scope.accounts(_:)">
     <h3>
-        <code>accounts(_:​)</code>
+        <code><a href="#scope.accounts(_:)">accounts(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">accounts</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">accounts</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
-    <p>Access to all the user's account information, including balances.</p>
+    <p>Access to all the user's account information.</p>
 
 </div>
 </div>
 <div role="article" class="function" id="scope.activities(_:)">
     <h3>
-        <code>activities(_:​)</code>
+        <code><a href="#scope.activities(_:)">activities(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">activities</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">activities</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.authorization(_:)">
     <h3>
-        <code>authorization(_:​)</code>
+        <code><a href="#scope.authorization(_:)">authorization(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">authorization</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">AuthorizationAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">authorization</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">AuthorizationAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
+</div>
+<div role="article" class="function" id="scope.balances(_:)">
+    <h3>
+        <code><a href="#scope.balances(_:)">balances(_:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">balances</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Access to accounts' balances data.</p>
+
+</div>
 </div>
 <div role="article" class="function" id="scope.beneficiaries(_:)">
     <h3>
-        <code>beneficiaries(_:​)</code>
+        <code><a href="#scope.beneficiaries(_:)">beneficiaries(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">beneficiaries</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">beneficiaries</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.budgets(_:)">
     <h3>
-        <code>budgets(_:​)</code>
+        <code><a href="#scope.budgets(_:)">budgets(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">budgets</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">budgets</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.calendar(_:)">
     <h3>
-        <code>calendar(_:​)</code>
+        <code><a href="#scope.calendar(_:)">calendar(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">calendar</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">calendar</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.categories(_:)">
     <h3>
-        <code>categories(_:​)</code>
+        <code><a href="#scope.categories(_:)">categories(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">categories</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">categories</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.contacts(_:)">
     <h3>
-        <code>contacts(_:​)</code>
+        <code><a href="#scope.contacts(_:)">contacts(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">contacts</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">contacts</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.credentials(_:)">
     <h3>
-        <code>credentials(_:​)</code>
+        <code><a href="#scope.credentials(_:)">credentials(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">credentials</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">CredentialsAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">credentials</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">CredentialsAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Access to the information describing the user's different bank credentials connected to Tink.</p>
 
@@ -132,27 +163,35 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 </div>
 <div role="article" class="function" id="scope.dataexports(_:)">
     <h3>
-        <code>data​Exports(_:​)</code>
+        <code><a href="#scope.dataexports(_:)">data​Exports(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">dataExports</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">dataExports</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.documents(_:)">
     <h3>
-        <code>documents(_:​)</code>
+        <code><a href="#scope.documents(_:)">documents(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">documents</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">documents</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.follow(_:)">
     <h3>
-        <code>follow(_:​)</code>
+        <code><a href="#scope.follow(_:)">follow(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">follow</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">follow</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.identity(_:)">
     <h3>
-        <code>identity(_:​)</code>
+        <code><a href="#scope.identity(_:)">identity(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">identity</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">identity</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Access to the user's personal information that can be used for identification purposes.</p>
 
@@ -160,15 +199,19 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 </div>
 <div role="article" class="function" id="scope.insights(_:)">
     <h3>
-        <code>insights(_:​)</code>
+        <code><a href="#scope.insights(_:)">insights(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">insights</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">insights</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.investments(_:)">
     <h3>
-        <code>investments(_:​)</code>
+        <code><a href="#scope.investments(_:)">investments(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">investments</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">investments</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Access to the user's portfolios and underlying financial instruments.</p>
 
@@ -176,21 +219,27 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 </div>
 <div role="article" class="function" id="scope.properties(_:)">
     <h3>
-        <code>properties(_:​)</code>
+        <code><a href="#scope.properties(_:)">properties(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">properties</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">properties</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadWriteAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.providers(_:)">
     <h3>
-        <code>providers(_:​)</code>
+        <code><a href="#scope.providers(_:)">providers(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">providers</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">providers</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.statistics(_:)">
     <h3>
-        <code>statistics(_:​)</code>
+        <code><a href="#scope.statistics(_:)">statistics(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">statistics</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">statistics</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Access to all the user's statistics, which can include filters on statistic.type.</p>
 
@@ -198,15 +247,19 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 </div>
 <div role="article" class="function" id="scope.suggestions(_:)">
     <h3>
-        <code>suggestions(_:​)</code>
+        <code><a href="#scope.suggestions(_:)">suggestions(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">suggestions</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">suggestions</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">ReadAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.transactions(_:)">
     <h3>
-        <code>transactions(_:​)</code>
+        <code><a href="#scope.transactions(_:)">transactions(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">transactions</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">TransactionAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">transactions</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">TransactionAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Access to all the user's transactional data.</p>
 
@@ -214,15 +267,19 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 </div>
 <div role="article" class="function" id="scope.transfer(_:)">
     <h3>
-        <code>transfer(_:​)</code>
+        <code><a href="#scope.transfer(_:)">transfer(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">transfer</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">TransferAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">transfer</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">TransferAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="function" id="scope.user(_:)">
     <h3>
-        <code>user(_:​)</code>
+        <code><a href="#scope.user(_:)">user(_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">user</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">UserAccess</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">user</span>(<span class="keyword">_</span> <span class="variable">access</span>: <span class="type">UserAccess</span>...) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Access to user profile data such as e-mail, date of birth, etc.</p>
 
@@ -237,7 +294,7 @@ To see the total set of scopes that you can use, go to app settings in the Tink 
 
     <footer>
         <p>
-    Generated on <time datetime="2021-08-16T10:34:25+0200">16 August 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2022-04-26T17:15:06+0200">April 26, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

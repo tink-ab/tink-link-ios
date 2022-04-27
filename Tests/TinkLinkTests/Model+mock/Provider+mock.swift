@@ -180,4 +180,24 @@ extension Provider {
         marketCode: "SE",
         financialInstitution: .init(id: "3590cce61e1256dd9cb2c32bfacb713b", name: "Test Multi-Supplemental")
     )
+
+    static let testPassword = Provider(
+        name: "se-test-password",
+        displayName: "Test Password",
+        financialServices: [Provider.FinancialService(segment: .personal, shortName: "")],
+        kind: .bank,
+        releaseStatus: nil,
+        status: .enabled,
+        credentialsKind: .password,
+        helpText: "",
+        isPopular: true,
+        fields: [Field(description: "Username", hint: "", maxLength: nil, minLength: nil, isMasked: false, isNumeric: false, isImmutable: false, isOptional: false, name: "username", initialValue: "", pattern: "", patternError: "", helpText: "", selectOptions: [])],
+        groupDisplayName: "Test Password",
+        image: nil,
+        displayDescription: "Password",
+        capabilities: .init(rawValue: 1266),
+        accessType: .other,
+        marketCode: "SE",
+        financialInstitution: .init(id: "4d0c65519a5e5a0d80e218a92f9ae1d6", name: "Test Password")
+    )
 }

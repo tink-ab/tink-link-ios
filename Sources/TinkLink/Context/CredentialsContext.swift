@@ -92,33 +92,65 @@ public final class CredentialsContext {
                 self?.cancellables[id] = nil
             }
         )
-
-        task.pollingStrategy = pollingStrategy
-        cancellables[id] = task
-
-        if let newlyAddedCredentials = newlyAddedCredentials[providerName] {
-            task.callCanceller = service.update(id: newlyAddedCredentials.id, providerName: newlyAddedCredentials.providerName, appURI: appURI, callbackURI: callbackURI, fields: fields) { [weak task] result in
-                do {
-                    let credentials = try result.get()
-                    task?.startObserving(credentials)
-                } catch {
-                    completion(.failure(error.tinkLinkError))
-                }
-                task?.callCanceller = nil
-            }
-        } else {
-            task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: fields, appURI: appURI, callbackURI: callbackURI) { [weak task, weak self] result in
+        func createNewCredentials() {
+            task.callCanceller = service.create(providerName: providerName, refreshableItems: refreshableItems, fields: fields, appURI: appURI, callbackURI: callbackURI, products: [.accountAggregation]) { [weak self] result in
                 do {
                     let credential = try result.get()
                     self?.newlyAddedCredentials[providerName] = credential
-                    task?.startObserving(credential)
+                    task.startObserving(credential)
                 } catch ServiceError.alreadyExists(let message) {
                     completion(.failure(TinkLinkError.credentialsAlreadyExists(message)))
                 } catch {
                     completion(.failure(error.tinkLinkError))
                 }
-                task?.callCanceller = nil
+                task.callCanceller = nil
             }
+        }
+
+        func updateExistingCredentials(credentials: Credentials) {
+            task.callCanceller = service.update(id: credentials.id, providerName: credentials.providerName, appURI: appURI, callbackURI: callbackURI, fields: fields, products: [.accountAggregation]) { result in
+                do {
+                    let credentials = try result.get()
+                    task.startObserving(credentials)
+                } catch {
+                    completion(.failure(error.tinkLinkError))
+                }
+                task.callCanceller = nil
+            }
+        }
+
+        func refreshExistingCredentials(credentials: Credentials) {
+            task.callCanceller = service.refresh(id: credentials.id, authenticate: true, refreshableItems: refreshableItems, appURI: appURI, callbackURI: callbackURI, optIn: true, products: [.accountAggregation]) { result in
+                switch result {
+                case .success:
+                    task.startObserving(credentials)
+                case .failure(let error):
+                    completion(.failure(error.tinkLinkError))
+                }
+                task.callCanceller = nil
+            }
+        }
+
+        task.pollingStrategy = pollingStrategy
+        cancellables[id] = task
+
+        /*  First we need to check if the credentials exist, i.e. has it been created already (for this provider)?
+         Then we check if the fields have changed, if not we only need to make a refresh,
+         typically this happens during a third party authentication or similar.
+         If the fields are not matching, meaning for example: the username input changed,
+         we need to update the credentials with the new fields. In all other cases we will create a new credentials. */
+        if let credentials = newlyAddedCredentials[providerName] {
+            alreadyExistingCredentialsStatus(credentials: credentials, fields: fields, completion: { hasError, hasMatchingFields in
+                if hasError && !hasMatchingFields {
+                    updateExistingCredentials(credentials: credentials)
+                } else if hasMatchingFields {
+                    refreshExistingCredentials(credentials: credentials)
+                } else {
+                    createNewCredentials()
+                }
+            })
+        } else {
+            createNewCredentials()
         }
         return task
     }
@@ -266,6 +298,7 @@ public final class CredentialsContext {
             appURI: appURI,
             callbackURI: callbackURI,
             optIn: false,
+            products: [.accountAggregation],
             completion: { [weak task] result in
                 switch result {
                 case .success:
@@ -331,6 +364,7 @@ public final class CredentialsContext {
             appURI: appURI,
             callbackURI: callbackURI,
             fields: form?.makeFields() ?? [:],
+            products: [.accountAggregation],
             completion: { [weak task] result in
                 switch result {
                 case .success:
@@ -411,6 +445,7 @@ public final class CredentialsContext {
             id: credentials.id,
             appURI: appURI,
             callbackURI: callbackURI,
+            products: [.accountAggregation],
             completion: { [weak task] result in
                 switch result {
                 case .success:
@@ -423,5 +458,23 @@ public final class CredentialsContext {
         )
 
         return task
+    }
+}
+
+// MARK: Finding existings Credentials
+
+extension CredentialsContext {
+    private func alreadyExistingCredentialsStatus(credentials: Credentials, fields: [String: String], completion: @escaping (Bool, Bool) -> Void) {
+        /* Since we save the newly created credentials with the status `CREATED`,
+         we need to fetch it again to check if the status has changed to some error instead.
+         This can happen if the username or password is incorrect. */
+        fetchCredentials(withID: credentials.id) { result in
+            switch result {
+            case .success(let fetchedCredentials):
+                completion(fetchedCredentials.hasError, fetchedCredentials.fields == fields)
+            case .failure:
+                completion(false, false)
+            }
+        }
     }
 }

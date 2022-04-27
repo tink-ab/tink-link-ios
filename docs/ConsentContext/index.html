@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -37,7 +36,9 @@
     <code class="name">Consent​Context</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="attribute">final</span> <span class="keyword">class</span> <span class="type">ConsentContext</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="attribute">final</span> <span class="keyword">class</span> <span class="type">ConsentContext</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>An object that you use to get data allowing you to make sure you have full consent from the end user.</p>
 
@@ -54,9 +55,11 @@ Both must be presented to the user if data is aggregated under Tink's license.</
 
         <div role="article" class="initializer" id="consentcontext.init(tink:)">
     <h3>
-        <code>init(tink:​)</code>
+        <code><a href="#consentcontext.init(tink:)">init(tink:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a> = .<span class="variable">shared</span>)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a> = .<span class="variable">shared</span>)  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Creates a <code>ConsentContext</code> that will be bound to the provided <code>Tink</code> instance.</p>
 
@@ -87,9 +90,12 @@ Both must be presented to the user if data is aggregated under Tink's license.</
 
         <div role="article" class="function" id="consentcontext.fetchscopedescriptions(scopes:completion:)">
     <h3>
-        <code>fetch​Scope​Descriptions(scopes:​completion:​)</code>
+        <code><a href="#consentcontext.fetchscopedescriptions(scopes:completion:)">fetch​Scope​Descriptions(scopes:​completion:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchScopeDescriptions</span>(<span class="variable">scopes</span>: [<a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/ScopeDescription"><span class="type">ScopeDescription</span></a>], <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="attribute">discardableResult</span>
+    <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchScopeDescriptions</span>(<span class="variable">scopes</span>: [<a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/ScopeDescription"><span class="type">ScopeDescription</span></a>], <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <span class="type">RetryCancellable</span>?  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Lists scope descriptions for the provided scopes.</p>
 
@@ -103,9 +109,9 @@ Both must be presented to the user if data is aggregated under Tink's license.</
 
 <html><body><pre class="highlight"><code><span class="keyword">class</span> <span class="type">ScopeDescriptionCell</span>: <span class="type">UITableViewCell</span> {
     <span class="attribute">override</span> <span class="keyword">init</span>(<span class="variable">style</span>: <span class="type">UITableViewCell</span>.<span class="type">CellStyle</span>, <span class="variable">reuseIdentifier</span>: <span class="type">String</span>?) {
-        <span class="keyword">super</span>.<span class="type">init</span>(<span class="variable">style</span>: .<span class="variable">subtitle</span>, <span class="variable">reuseIdentifier</span>: <span class="type">reuseIdentifier</span>)
-        <span class="variable">textLabel</span>?.<span class="type">numberOfLines</span> = <span class="number literal">0</span>
-        <span class="variable">detailTextLabel</span>?.<span class="type">numberOfLines</span> = <span class="number literal">0</span>
+        <span class="keyword">super</span>.<span class="variable">init</span>(<span class="variable">style</span>: .<span class="variable">subtitle</span>, <span class="variable">reuseIdentifier</span>: <span class="type">reuseIdentifier</span>)
+        <span class="variable">textLabel</span>?.<span class="variable">numberOfLines</span> = <span class="number literal">0</span>
+        <span class="variable">detailTextLabel</span>?.<span class="variable">numberOfLines</span> = <span class="number literal">0</span>
     }
 
     <span class="attribute">required</span> <span class="keyword">init</span>?(<span class="variable">coder</span>: <span class="type">NSCoder</span>) {
@@ -119,8 +125,8 @@ Both must be presented to the user if data is aggregated under Tink's license.</
     <span class="keyword">private</span> <span class="keyword">var</span> <span class="variable">scopeDescriptions</span>: [<a href="https://tink-ab.github.io/tink-link-ios/ScopeDescription"><span class="type">ScopeDescription</span></a>] = []
 
     <span class="keyword">init</span>() {
-        <span class="keyword">self</span>.<span class="type">consentContext</span> = <span class="variable">ConsentContext</span>()
-        <span class="keyword">super</span>.<span class="type">init</span>(<span class="variable">nibName</span>: <span class="keyword">nil</span>, <span class="variable">bundle</span>: <span class="keyword">nil</span>)
+        <span class="keyword">self</span>.<span class="variable">consentContext</span> = <span class="variable">ConsentContext</span>()
+        <span class="keyword">super</span>.<span class="variable">init</span>(<span class="variable">nibName</span>: <span class="keyword">nil</span>, <span class="variable">bundle</span>: <span class="keyword">nil</span>)
     }
 
     <span class="attribute">required</span> <span class="keyword">init</span>?(<span class="variable">coder</span> <span class="variable">aDecoder</span>: <span class="type">NSCoder</span>) {
@@ -128,20 +134,20 @@ Both must be presented to the user if data is aggregated under Tink's license.</
     }
 
     <span class="attribute">override</span> <span class="keyword">func</span> <span class="function">viewDidLoad</span>() {
-        <span class="keyword">super</span>.<span class="type">viewDidLoad</span>()
+        <span class="keyword">super</span>.<span class="variable">viewDidLoad</span>()
 
-        <span class="variable">tableView</span>.<span class="type">register</span>(<span class="variable">ScopeDescriptionCell</span>.<span class="keyword">self</span>, <span class="variable">forCellReuseIdentifier</span>: <span class="string literal">"</span><span class="string literal">Cell</span><span class="string literal">"</span>)
+        <span class="variable">tableView</span>.<span class="variable">register</span>(<span class="variable">ScopeDescriptionCell</span>.<span class="keyword">self</span>, <span class="variable">forCellReuseIdentifier</span>: <span class="string literal">"</span><span class="string literal">Cell</span><span class="string literal">"</span>)
 
         <span class="keyword">let</span> <span class="variable">scopes</span> [<a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>] = [
             .<span class="variable">accounts</span>(.<span class="variable">read</span>),
             .<span class="variable">transactions</span>(.<span class="variable">read</span>)
         ]
 
-        <span class="variable">consentContext</span>.<span class="type">fetchScopeDescriptions</span>(<span class="variable">scopes</span>: <span class="type">scopes</span>) { [<span class="variable">weak</span> <span class="keyword">self</span>] <span class="variable">result</span> <span class="keyword">in</span>
-            <span class="variable">DispatchQueue</span>.<span class="type">main</span>.<span class="type">async</span> {
+        <span class="variable">consentContext</span>.<span class="variable">fetchScopeDescriptions</span>(<span class="variable">scopes</span>: <span class="type">scopes</span>) { [<span class="variable">weak</span> <span class="keyword">self</span>] <span class="variable">result</span> <span class="keyword">in</span>
+            <span class="variable">DispatchQueue</span>.<span class="variable">main</span>.<span class="variable">async</span> {
                 <span class="keyword">do</span> {
-                    <span class="keyword">self</span>?.<span class="type">scopeDescriptions</span> = <span class="keyword">try</span> <span class="variable">result</span>.<span class="type">get</span>()
-                    <span class="keyword">self</span>?.<span class="type">tableView</span>.<span class="type">reloadData</span>()
+                    <span class="keyword">self</span>?.<span class="variable">scopeDescriptions</span> = <span class="keyword">try</span> <span class="variable">result</span>.<span class="variable">get</span>()
+                    <span class="keyword">self</span>?.<span class="variable">tableView</span>.<span class="variable">reloadData</span>()
                 } <span class="keyword">catch</span> {
                     <span class="placeholder">&lt;#Error Handling#&gt;</span>
                 }
@@ -150,14 +156,14 @@ Both must be presented to the user if data is aggregated under Tink's license.</
     }
 
     <span class="attribute">override</span> <span class="keyword">func</span> <span class="function">tableView</span>(<span class="keyword">_</span> <span class="variable">tableView</span>: <span class="type">UITableView</span>, <span class="variable">numberOfRowsInSection</span> <span class="variable">section</span>: <span class="type">Int</span>) -&gt; <span class="type">Int</span> {
-        <span class="keyword">return</span> <span class="variable">scopeDescriptions</span>.<span class="type">count</span>
+        <span class="keyword">return</span> <span class="variable">scopeDescriptions</span>.<span class="variable">count</span>
     }
 
     <span class="attribute">override</span> <span class="keyword">func</span> <span class="function">tableView</span>(<span class="keyword">_</span> <span class="variable">tableView</span>: <span class="type">UITableView</span>, <span class="variable">cellForRowAt</span> <span class="variable">indexPath</span>: <span class="type">IndexPath</span>) -&gt; <span class="type">UITableViewCell</span> {
-        <span class="keyword">let</span> <span class="variable">cell</span> = <span class="variable">tableView</span>.<span class="type">dequeueReusableCell</span>(<span class="variable">withIdentifier</span>: <span class="string literal">"</span><span class="string literal">Cell</span><span class="string literal">"</span>, <span class="variable">for</span>: <span class="type">indexPath</span>)
-        <span class="keyword">let</span> <span class="variable">scopeDescription</span> = <span class="variable">scopeDescriptions</span>[<span class="variable">indexPath</span>.<span class="type">row</span>]
-        <span class="variable">cell</span>.<span class="type">textLabel</span>?.<span class="type">text</span> = <span class="variable">scopeDescription</span>.<span class="type">title</span>
-        <span class="variable">cell</span>.<span class="type">detailTextLabel</span>?.<span class="type">text</span> = <span class="variable">scopeDescription</span>.<span class="type">description</span>
+        <span class="keyword">let</span> <span class="variable">cell</span> = <span class="variable">tableView</span>.<span class="variable">dequeueReusableCell</span>(<span class="variable">withIdentifier</span>: <span class="string literal">"</span><span class="string literal">Cell</span><span class="string literal">"</span>, <span class="variable">for</span>: <span class="type">indexPath</span>)
+        <span class="keyword">let</span> <span class="variable">scopeDescription</span> = <span class="variable">scopeDescriptions</span>[<span class="variable">indexPath</span>.<span class="variable">row</span>]
+        <span class="variable">cell</span>.<span class="variable">textLabel</span>?.<span class="variable">text</span> = <span class="variable">scopeDescription</span>.<span class="variable">title</span>
+        <span class="variable">cell</span>.<span class="variable">detailTextLabel</span>?.<span class="variable">text</span> = <span class="variable">scopeDescription</span>.<span class="variable">description</span>
         <span class="keyword">return</span> <span class="variable">cell</span>
     }
 }
@@ -194,9 +200,11 @@ Both must be presented to the user if data is aggregated under Tink's license.</
 </div>
 <div role="article" class="function" id="consentcontext.termsandconditions(for:)">
     <h3>
-        <code>terms​And​Conditions(for:​)</code>
+        <code><a href="#consentcontext.termsandconditions(for:)">terms​And​Conditions(for:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">termsAndConditions</span>(<span class="variable">for</span> <span class="variable">locale</span>: <span class="type">Locale</span> = .<span class="variable">current</span>) -&gt; <span class="type">URL</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">termsAndConditions</span>(<span class="variable">for</span> <span class="variable">locale</span>: <span class="type">Locale</span> = .<span class="variable">current</span>) -&gt; <span class="type">URL</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Get a link to the Terms &amp; Conditions for TinkLink.</p>
 
@@ -209,12 +217,12 @@ Both must be presented to the user if data is aggregated under Tink's license.</
 <p>Here's how you can get the url for the Terms and Conditions and present it with the <code>SFSafariViewController</code>.</p>
 
 <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">showTermsAndConditions</span>() {
-    <span class="keyword">let</span> <span class="variable">url</span> = <span class="variable">consentContext</span>.<span class="type">termsAndConditions</span>(<span class="variable">locale</span>: <span class="placeholder">&lt;#appLocale#&gt;</span>)
+    <span class="keyword">let</span> <span class="variable">url</span> = <span class="variable">consentContext</span>.<span class="variable">termsAndConditions</span>(<span class="variable">locale</span>: <span class="placeholder">&lt;#appLocale#&gt;</span>)
     <span class="keyword">let</span> <span class="variable">safariViewController</span> = <span class="variable">SFSafariViewController</span>(<span class="variable">url</span>: <span class="type">url</span>)
     <span class="variable">present</span>(<span class="variable">safariViewController</span>, <span class="variable">animated</span>: <span class="keyword">true</span>)
 }
 </code></pre></body></html>
-<aside class="note">
+<aside class="note" title="Note">
     <p>Not all languages are supported. The link will display the page in English if the requested language is not available.</p>
 
 </aside>
@@ -244,9 +252,11 @@ Both must be presented to the user if data is aggregated under Tink's license.</
 </div>
 <div role="article" class="function" id="consentcontext.privacypolicy(for:)">
     <h3>
-        <code>privacy​Policy(for:​)</code>
+        <code><a href="#consentcontext.privacypolicy(for:)">privacy​Policy(for:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">privacyPolicy</span>(<span class="variable">for</span> <span class="variable">locale</span>: <span class="type">Locale</span> = .<span class="variable">current</span>) -&gt; <span class="type">URL</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">privacyPolicy</span>(<span class="variable">for</span> <span class="variable">locale</span>: <span class="type">Locale</span> = .<span class="variable">current</span>) -&gt; <span class="type">URL</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Get a link to the Privacy Policy for TinkLink.</p>
 
@@ -259,12 +269,12 @@ Both must be presented to the user if data is aggregated under Tink's license.</
 <p>Here's how you can get the url for the Privacy Policy and present it with the <code>SFSafariViewController</code>.</p>
 
 <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">showPrivacyPolicy</span>() {
-    <span class="keyword">let</span> <span class="variable">url</span> = <span class="variable">consentContext</span>.<span class="type">privacyPolicy</span>(<span class="variable">locale</span>: <span class="placeholder">&lt;#appLocale#&gt;</span>)
+    <span class="keyword">let</span> <span class="variable">url</span> = <span class="variable">consentContext</span>.<span class="variable">privacyPolicy</span>(<span class="variable">locale</span>: <span class="placeholder">&lt;#appLocale#&gt;</span>)
     <span class="keyword">let</span> <span class="variable">safariViewController</span> = <span class="variable">SFSafariViewController</span>(<span class="variable">url</span>: <span class="type">url</span>)
     <span class="variable">present</span>(<span class="variable">safariViewController</span>, <span class="variable">animated</span>: <span class="keyword">true</span>)
 }
 </code></pre></body></html>
-<aside class="note">
+<aside class="note" title="Note">
     <p>Not all languages are supported. The link will display the page in English if the requested language is not available.</p>
 
 </aside>
@@ -301,7 +311,7 @@ Both must be presented to the user if data is aggregated under Tink's license.</
 
     <footer>
         <p>
-    Generated on <time datetime="2021-08-16T10:34:25+0200">16 August 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2022-04-26T17:15:06+0200">April 26, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

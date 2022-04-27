@@ -14,12 +14,14 @@ final class QRImageViewController: UIViewController {
 
     weak var delegate: QRImageViewControllerDelegate?
 
-    init(qrImage: UIImage) {
-        if let image = qrImage.cgImage?.withMaskedWhiteChannel {
-            imageView.image = UIImage(cgImage: image).withRenderingMode(.alwaysTemplate)
-        } else {
-            imageView.image = qrImage
+    var qrImage: UIImage {
+        didSet {
+            setQRCodeImage(qrImage: qrImage)
         }
+    }
+
+    init(qrImage: UIImage) {
+        self.qrImage = qrImage
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -35,8 +37,6 @@ final class QRImageViewController: UIViewController {
     }
 
     private func setup() {
-        navigationItem.title = Strings.SupplementalInformation.title
-        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
 
         view.backgroundColor = Color.background
@@ -93,6 +93,14 @@ final class QRImageViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -40)
         ])
+    }
+
+    private func setQRCodeImage(qrImage: UIImage) {
+        if let image = qrImage.cgImage?.withMaskedWhiteChannel {
+            imageView.image = UIImage(cgImage: image).withRenderingMode(.alwaysTemplate)
+        } else {
+            imageView.image = qrImage
+        }
     }
 
     @objc private func cancelButtonPressed() {

@@ -5,6 +5,7 @@ protocol CredentialsCoordinatorPresenting: AnyObject {
     func showLoadingIndicator(text: String?, onCancel: (() -> Void)?)
     func show(_ viewController: UIViewController)
     func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
+    func forcePresent(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
     func dismiss(animated: Bool, completion: (() -> Void)?)
 }
 
@@ -377,6 +378,6 @@ extension CredentialsCoordinator {
         }
         alertController.addAction(okAction)
 
-        presenter?.present(alertController, animated: true, completion: nil)
+        presenter?.forcePresent(alertController, animated: true, completion: nil)
     }
 }

@@ -215,7 +215,9 @@ class TinkLinkUITests: XCTestCase {
         app.keys["3"].tap()
         app.keys["4"].tap()
 
-        app.buttons["Open BankID"].tap()
+        let openBankIDButton = app.buttons["Open BankID"]
+        XCTAssertTrue(openBankIDButton.waitForExistence(timeout: 2))
+        openBankIDButton.tap()
 
         XCTAssertTrue(tablesQuery.staticTexts["This field must be at least 12 characters."].exists)
     }
@@ -250,6 +252,12 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(statusText.waitForExistence(timeout: 10))
         app.buttons["Cancel"].firstMatch.tap()
 
+        let cancelButton = app.buttons["Yes, cancel"]
+        XCTAssertTrue(cancelButton.waitForExistence(timeout: 2))
+        cancelButton.firstMatch.tap()
+
+        XCTAssertTrue(app.buttons["Log in"].waitForExistence(timeout: 10))
+
         XCTAssertFalse(statusText.exists)
     }
 
@@ -267,36 +275,9 @@ class TinkLinkUITests: XCTestCase {
         providerCell.tap()
         tablesQuery.staticTexts["Personal"].tap()
         tablesQuery.staticTexts["Mortgage Aggregation, Checking Accounts, Savings Accounts, Credit Cards, Investments, Loans & Identity Data"].tap()
-        tablesQuery.staticTexts["Mobile BankID"].tap()
 
         let numberField = tablesQuery.textFields["Social security number"]
         XCTAssertTrue(numberField.waitForExistence(timeout: 5))
-    }
-
-    func testQRCodePresenting() {
-        app.launch()
-
-        let getStartedButton = app.buttons["Get Started"]
-        XCTAssertTrue(getStartedButton.exists)
-        getStartedButton.tap()
-
-        let tablesQuery = app.tables
-
-        let bankIDCell = tablesQuery.cells.staticTexts["Test BankID"]
-        XCTAssert(bankIDCell.waitForExistence(timeout: 5))
-        bankIDCell.tap()
-
-        tablesQuery.staticTexts["Test BankID with QR code (successful)"].tap()
-
-        let socialSecurityNumberTextField = tablesQuery.textFields["Social security number"]
-        XCTAssert(socialSecurityNumberTextField.waitForExistence(timeout: 5))
-        socialSecurityNumberTextField.tap()
-        socialSecurityNumberTextField.typeText("180012121212")
-
-        app.buttons["Open BankID"].tap()
-
-        let qrCodeLabel = app.staticTexts["Open the BankID app and scan this QR code to authenticate."]
-        XCTAssertTrue(qrCodeLabel.waitForExistence(timeout: 10))
     }
 
     func testShowingPrivacyPolicy() {
@@ -338,9 +319,9 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(viewDetailsLink.isHittable)
         viewDetailsLink.tap()
 
-        XCTAssertTrue(app.tables.staticTexts["We'll collect the following data from you"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.tables.staticTexts["By following through this service, we'll collect financial data from you. These are the data points we will collect from you"].waitForExistence(timeout: 5))
         XCTAssertFalse(viewDetailsLink.isHittable)
-        app.navigationBars["TinkLinkUI.ScopeDescriptionListView"].buttons["Done"].tap()
+        app.navigationBars["TinkLinkUI.ScopeDescriptionListView"].buttons["Close"].tap()
 
         XCTAssertTrue(viewDetailsLink.isHittable)
     }
@@ -378,9 +359,11 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(numberField.isHittable)
 
         let cancelButton = app.buttons["Cancel"]
+        XCTAssertTrue(cancelButton.waitForExistence(timeout: 5))
         XCTAssertTrue(cancelButton.isHittable)
         cancelButton.tap()
 
+        XCTAssertTrue(getStartedButton.waitForExistence(timeout: 5))
         XCTAssertTrue(getStartedButton.isHittable)
     }
 }

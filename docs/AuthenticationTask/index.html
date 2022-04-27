@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -37,13 +36,15 @@
     <code class="name">Authentication​Task</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">AuthenticationTask</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">AuthenticationTask</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Represents an authentication that needs to be completed by the user.</p>
 
 </div>
 <div class="discussion">
-    <aside class="note">
+    <aside class="note" title="Note">
     <p>Each case have an associated task which need to be completed by the user to continue the process.</p>
 
 </aside>
@@ -54,9 +55,11 @@
 
         <div role="article" class="case" id="authenticationtask.awaitingsupplementalinformation">
     <h3>
-        <code>awaiting​Supplemental​Information</code>
+        <code><a href="#authenticationtask.awaitingsupplementalinformation">awaiting​Supplemental​Information</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">awaitingSupplementalInformation</span>(: <a href="https://tink-ab.github.io/tink-link-ios/SupplementInformationTask"><span class="type">SupplementInformationTask</span></a>)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">case</span> <span class="variable">awaitingSupplementalInformation</span>(<a href="https://tink-ab.github.io/tink-link-ios/SupplementInformationTask"><span class="type">SupplementInformationTask</span></a>) </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Indicates that there is additional information required from the user to proceed.</p>
 
@@ -68,9 +71,11 @@
 </div>
 <div role="article" class="case" id="authenticationtask.awaitingthirdpartyappauthentication">
     <h3>
-        <code>awaiting​Third​Party​App​Authentication</code>
+        <code><a href="#authenticationtask.awaitingthirdpartyappauthentication">awaiting​Third​Party​App​Authentication</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">awaitingThirdPartyAppAuthentication</span>(: <a href="https://tink-ab.github.io/tink-link-ios/ThirdPartyAppAuthenticationTask"><span class="type">ThirdPartyAppAuthenticationTask</span></a>)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">case</span> <span class="variable">awaitingThirdPartyAppAuthentication</span>(<a href="https://tink-ab.github.io/tink-link-ios/ThirdPartyAppAuthenticationTask"><span class="type">ThirdPartyAppAuthenticationTask</span></a>) </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Indicates that there is an authentication in a third party app necessary to proceed with the authentication.</p>
 
@@ -85,7 +90,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-08-16T10:34:22+0200">16 August 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2022-04-26T17:15:06+0200">April 26, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

@@ -45,6 +45,10 @@ class MutableCredentialsService: CredentialsService {
     }
 
     func create(providerName: Provider.Name, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        create(providerName: providerName, refreshableItems: refreshableItems, fields: fields, appURI: appURI, callbackURI: callbackURI, products: [], completion: completion)
+    }
+
+    func create(providerName: Provider.Name, refreshableItems: RefreshableItems, fields: [String: String], appURI: URL?, callbackURI: URL?, products: [Product], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         let credentials = Credentials.makeTestCredentials(
             providerName: providerName,
             kind: createCredentialsKind,
@@ -67,6 +71,10 @@ class MutableCredentialsService: CredentialsService {
     }
 
     func update(id: Credentials.ID, providerName: Provider.Name, appURI: URL?, callbackURI: URL?, fields: [String: String], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
+        update(id: id, providerName: providerName, appURI: appURI, callbackURI: callbackURI, fields: fields, products: [], completion: completion)
+    }
+
+    func update(id: Credentials.ID, providerName: Provider.Name, appURI: URL?, callbackURI: URL?, fields: [String: String], products: [Product], completion: @escaping (Result<Credentials, Error>) -> Void) -> RetryCancellable? {
         if let credentials = credentialsByID[id] {
             let updatedCredentials = Credentials.makeTestCredentials(
                 id: credentials.id,
@@ -90,6 +98,12 @@ class MutableCredentialsService: CredentialsService {
     }
 
     func refresh(id: Credentials.ID, authenticate: Bool, refreshableItems: RefreshableItems, appURI: URL?, callbackURI: URL?, optIn: Bool, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        modifyCredentials(id: id, status: credentialsStatusAfterRefresh)
+        completion(.success(()))
+        return nil
+    }
+
+    func refresh(id: Credentials.ID, authenticate: Bool, refreshableItems: RefreshableItems, appURI: URL?, callbackURI: URL?, optIn: Bool, products: [Product], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         modifyCredentials(id: id, status: credentialsStatusAfterRefresh)
         completion(.success(()))
         return nil
@@ -176,6 +190,11 @@ class MutableCredentialsService: CredentialsService {
     }
 
     func authenticate(id: Credentials.ID, completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
+        modifyCredentials(id: id, status: credentialsStatusAfterManualAuthentication)
+        return nil
+    }
+
+    func authenticate(id: Credentials.ID, appURI: URL?, callbackURI: URL?, products: [Product], completion: @escaping (Result<Void, Error>) -> Void) -> RetryCancellable? {
         modifyCredentials(id: id, status: credentialsStatusAfterManualAuthentication)
         return nil
     }
