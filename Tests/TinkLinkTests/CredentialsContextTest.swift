@@ -244,4 +244,105 @@ class CredentialsContextTests: XCTestCase {
             }
         }
     }
+
+    func testUpdatingCreatedCredentialsWithError() {
+        let credentialsCreated = expectation(description: "credentials created with error")
+        let addCredentialsFailed = expectation(description: "add credentials should fail because of wrong fields")
+
+        let credentialsService = MockedCreatedCredentialsWithErrorService()
+
+        let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: credentialsService)
+        credentialsContextUnderTest.pollingStrategy = .constant(.leastNonzeroMagnitude)
+
+        var form = Form(provider: Provider.testPassword)
+        form.fields[name: "username"]?.text = "tonk"
+
+        credentialsContextUnderTest.add(for: Provider.testPassword, form: form, authenticationHandler: { task in
+        }, progressHandler: { status in
+            switch status {
+            case .created:
+                credentialsCreated.fulfill()
+            case .authenticating:
+                XCTFail("Something went wrong")
+            case .updating:
+                XCTFail("Something went wrong")
+            }
+        }, completion: { result in
+            switch result {
+            case .failure:
+                addCredentialsFailed.fulfill()
+            case .success:
+                XCTFail("Something went wrong. Credentials should not have succeeded.")
+            }
+        })
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }
+        let credentialsIsUpdated = expectation(description: "already created credentials with error is successfully updated")
+
+        form.fields[name: "username"]?.text = "tink"
+        credentialsContextUnderTest.add(for: Provider.testPassword, form: form, authenticationHandler: { task in
+        }, completion: { _ in
+            credentialsIsUpdated.fulfill()
+        })
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            } else {
+                XCTAssertTrue(credentialsService.updateIsCalled)
+            }
+        }
+    }
+
+    func testRefreshingAlreadyCreatedCredentials() {
+        let credentialsCreated = expectation(description: "credentials created with error")
+        let addCredentialsFailed = expectation(description: "add credentials should fail because of wrong fields")
+
+        let credentialsService = MockedCreatedCredentialsAwaithingThirdPartyService()
+
+        let credentialsContextUnderTest = CredentialsContext(tink: .shared, credentialsService: credentialsService)
+        credentialsContextUnderTest.pollingStrategy = .constant(.leastNonzeroMagnitude)
+
+        credentialsContextUnderTest.add(for: Provider.testThirdPartyAuthentication, form: Form(provider: Provider.testThirdPartyAuthentication), authenticationHandler: { task in
+        }, progressHandler: { status in
+            switch status {
+            case .created:
+                credentialsCreated.fulfill()
+            case .authenticating:
+                XCTFail("Something went wrong")
+            case .updating:
+                XCTFail("Something went wrong")
+            }
+        }, completion: { result in
+            switch result {
+            case .failure:
+                addCredentialsFailed.fulfill()
+            case .success:
+                XCTFail("Something went wrong. Credentials should not have succeeded.")
+            }
+        })
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            }
+        }
+        let credentialsIsRefreshed = expectation(description: "already created credentials is successfully refreshed")
+
+        credentialsContextUnderTest.add(for: Provider.testThirdPartyAuthentication, form: Form(provider: Provider.testThirdPartyAuthentication), authenticationHandler: { task in
+        }, completion: { _ in
+            credentialsIsRefreshed.fulfill()
+        })
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectations timeout with error: \(error)")
+            } else {
+                XCTAssertTrue(credentialsService.refreshIsCalled)
+            }
+        }
+    }
 }

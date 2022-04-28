@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -37,7 +36,9 @@
     <code class="name">Refresh​Credentials​Task.​Status</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Status</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Status</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Indicates the state of a credentials being refreshed.</p>
 
@@ -57,9 +58,11 @@
 
         <div role="article" class="case" id="refreshcredentialstask.status.authenticating">
     <h3>
-        <code>authenticating</code>
+        <code><a href="#refreshcredentialstask.status.authenticating">authenticating</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">authenticating</span>(: <span class="type">String</span>?)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">case</span> <span class="variable">authenticating</span>(<span class="type">String</span>?) </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>The user needs to be authenticated. The payload from the backend can be found in the message property.</p>
 
@@ -67,9 +70,11 @@
 </div>
 <div role="article" class="case" id="refreshcredentialstask.status.updating">
     <h3>
-        <code>updating</code>
+        <code><a href="#refreshcredentialstask.status.updating">updating</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">updating</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">case</span> <span class="variable">updating</span></body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>User has been successfully authenticated, now downloading data.</p>
 
@@ -84,7 +89,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-08-16T10:34:25+0200">16 August 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2022-04-26T17:15:06+0200">April 26, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

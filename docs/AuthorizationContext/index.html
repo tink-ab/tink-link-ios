@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -37,7 +36,9 @@
     <code class="name">Authorization​Context</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="attribute">final</span> <span class="keyword">class</span> <span class="type">AuthorizationContext</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="attribute">final</span> <span class="keyword">class</span> <span class="type">AuthorizationContext</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>An object that you use to authorize for a user with requested scopes.</p>
 
@@ -48,9 +49,11 @@
 
         <div role="article" class="initializer" id="authorizationcontext.init(tink:)">
     <h3>
-        <code>init(tink:​)</code>
+        <code><a href="#authorizationcontext.init(tink:)">init(tink:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a> = .<span class="variable">shared</span>)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a> = .<span class="variable">shared</span>)  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Creates an <code>AuthorizationContext</code> bound to the provided Tink instance.</p>
 
@@ -81,9 +84,12 @@
 
         <div role="article" class="function" id="authorizationcontext._authorize(scopes:completion:)">
     <h3>
-        <code>_authorize(scopes:​completion:​)</code>
+        <code><a href="#authorizationcontext._authorize(scopes:completion:)">_authorize(scopes:​completion:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">_authorize</span>(<span class="variable">scopes</span>: [<a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/AuthorizationCode"><span class="type">AuthorizationCode</span></a>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="attribute">discardableResult</span>
+    <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">_authorize</span>(<span class="variable">scopes</span>: [<a href="https://tink-ab.github.io/tink-link-ios/Scope"><span class="type">Scope</span></a>], <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/AuthorizationCode"><span class="type">AuthorizationCode</span></a>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <span class="type">RetryCancellable</span>?  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Creates an authorization code with the requested scopes for the current user</p>
 
@@ -127,9 +133,12 @@ Exchanging the authorization code for an access token requires the use of the cl
 </div>
 <div role="article" class="function" id="authorizationcontext.fetchclientdescription(completion:)">
     <h3>
-        <code>fetch​Client​Description(completion:​)</code>
+        <code><a href="#authorizationcontext.fetchclientdescription(completion:)">fetch​Client​Description(completion:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchClientDescription</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/ClientDescription"><span class="type">ClientDescription</span></a>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="attribute">discardableResult</span>
+    <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchClientDescription</span>(<span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">result</span>: <span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/ClientDescription"><span class="type">ClientDescription</span></a>, <span class="type">Swift</span>.<span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <span class="type">RetryCancellable</span>?  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Get a description of the client.</p>
 
@@ -181,7 +190,7 @@ Exchanging the authorization code for an access token requires the use of the cl
 
     <footer>
         <p>
-    Generated on <time datetime="2021-08-16T10:34:22+0200">16 August 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2022-04-26T17:15:06+0200">April 26, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

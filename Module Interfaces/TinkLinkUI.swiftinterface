@@ -27,6 +27,10 @@ public struct AppearanceProvider : TinkLinkUI.AppearanceProviding {
   public var fonts: TinkLinkUI.FontProviding
   public init(colors: TinkLinkUI.ColorProvider? = nil, fonts: TinkLinkUI.FontProvider? = nil)
 }
+public enum AuthenticationStrategy {
+  case accessToken(Swift.String)
+  case authorizationCode(Swift.String)
+}
 public struct ColorProvider : TinkLinkUI.ColorProviding {
   public var accentBackground: UIKit.UIColor
   public var button: UIKit.UIColor
@@ -184,6 +188,7 @@ public struct TinkLinkUIError : Swift.Error, Swift.CustomStringConvertible {
   @available(*, deprecated, message: "Use init(configuration:market:scopes:providerPredicate:completion:) instead.")
   @_Concurrency.MainActor(unsafe) convenience public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market, scopes: [TinkCore.Scope], providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default), completion: @escaping (Swift.Result<(code: TinkCore.AuthorizationCode, credentials: TinkCore.Credentials), TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
   @_Concurrency.MainActor(unsafe) public init(configuration: TinkCore.Configuration, market: TinkCore.Market, scopes: [TinkCore.Scope], providerPredicate: TinkLinkUI.TinkLinkViewController.ProviderPredicate = .kinds(.default), completion: @escaping (Swift.Result<(code: TinkCore.AuthorizationCode, credentials: TinkCore.Credentials), TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) public init(configuration: TinkCore.Configuration, market: TinkCore.Market, authenticationStrategy: TinkLinkUI.AuthenticationStrategy, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
   @available(*, deprecated, message: "Use init(tink:operation:completion:) with a Tink instance that has a user session set.")
   @_Concurrency.MainActor(unsafe) convenience public init(tink: TinkCore.Tink = .shared, userSession: TinkCore.UserSession, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)
   @_Concurrency.MainActor(unsafe) public init(tink: TinkCore.Tink = .shared, market: TinkCore.Market? = nil, operation: TinkLinkUI.TinkLinkViewController.Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Swift.Result<TinkCore.Credentials, TinkLinkUI.TinkLinkUIError>) -> Swift.Void)

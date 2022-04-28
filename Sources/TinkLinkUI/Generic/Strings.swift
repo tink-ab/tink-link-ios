@@ -51,13 +51,16 @@ enum Strings {
 
         enum Discard {
             /// Title for action to continue adding credentials.
-            static let continueAction = NSLocalizedString("Credentials.Discard.ContinueAction", tableName: tableName, bundle: bundle, value: "Continue Editing", comment: "Title for action to continue adding credentials.")
+            static let continueAction = NSLocalizedString("Credentials.Discard.ContinueAction", tableName: tableName, bundle: bundle, value: "No, continue", comment: "Title for action to continue adding credentials.")
 
             /// Title for action to discard adding credentials.
-            static let primaryAction = NSLocalizedString("Credentials.Discard.PrimaryAction", tableName: tableName, bundle: bundle, value: "Discard Changes", comment: "Title for action to discard adding credentials.")
+            static let primaryAction = NSLocalizedString("Credentials.Discard.PrimaryAction", tableName: tableName, bundle: bundle, value: "Yes, cancel", comment: "Title for action to discard adding credentials.")
 
             /// Title for action sheet presented when user tries to dismiss modal while adding credentials.
-            static let title = NSLocalizedString("Credentials.Discard.Title", tableName: tableName, bundle: bundle, value: "Are you sure you want to discard this new credential?", comment: "Title for action sheet presented when user tries to dismiss modal while adding credentials.")
+            static let title = NSLocalizedString("Credentials.Discard.Title", tableName: tableName, bundle: bundle, value: "Are you sure you want to cancel?", comment: "Title for action sheet presented when user tries to dismiss modal while adding credentials.")
+
+            /// Message for action sheet presented when user tries to dismiss modal while adding credentials.
+            static let message = NSLocalizedString("Credentials.Discard.Message", tableName: tableName, bundle: bundle, value: "Connecting to your bank is fully secure and only takes a minute.", comment: "Message for action sheet presented when user tries to dismiss modal while adding credentials.")
         }
 
         enum Error {

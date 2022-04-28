@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -37,7 +36,9 @@
     <code class="name">Provider.​Kind</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Kind</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">Kind</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Indicates what kind of financial institution the provider represents.</p>
 
@@ -57,9 +58,11 @@
 
         <div role="article" class="case" id="provider.kind.unknown">
     <h3>
-        <code>unknown</code>
+        <code><a href="#provider.kind.unknown">unknown</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">unknown</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">case</span> <span class="variable">unknown</span></body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>The kind of the provider is unknown.</p>
 
@@ -67,9 +70,11 @@
 </div>
 <div role="article" class="case" id="provider.kind.bank">
     <h3>
-        <code>bank</code>
+        <code><a href="#provider.kind.bank">bank</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">bank</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">case</span> <span class="variable">bank</span></body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>The provider is a bank.</p>
 
@@ -77,9 +82,11 @@
 </div>
 <div role="article" class="case" id="provider.kind.creditcard">
     <h3>
-        <code>credit​Card</code>
+        <code><a href="#provider.kind.creditcard">credit​Card</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">creditCard</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">case</span> <span class="variable">creditCard</span></body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>The provider is a credit card.</p>
 
@@ -87,9 +94,11 @@
 </div>
 <div role="article" class="case" id="provider.kind.broker">
     <h3>
-        <code>broker</code>
+        <code><a href="#provider.kind.broker">broker</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">broker</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">case</span> <span class="variable">broker</span></body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>The provider is a broker.</p>
 
@@ -97,15 +106,19 @@
 </div>
 <div role="article" class="case" id="provider.kind.other">
     <h3>
-        <code>other</code>
+        <code><a href="#provider.kind.other">other</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">other</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">case</span> <span class="variable">other</span></body></html></code></pre>
+</div>
 </div>
 <div role="article" class="case" id="provider.kind.test">
     <h3>
-        <code>test</code>
+        <code><a href="#provider.kind.test">test</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">test</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">case</span> <span class="variable">test</span></body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Indicates a test provider.</p>
 
@@ -117,15 +130,19 @@
 
         <div role="article" class="variable" id="provider.kind.`default`">
     <h3>
-        <code>`default`</code>
+        <code><a href="#provider.kind.`default`">`default`</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">`default`</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">bank</span>, .<span class="variable">creditCard</span>, .<span class="variable">broker</span>, .<span class="variable">other</span>]</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">var</span> <span class="variable">`default`</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">bank</span>, .<span class="variable">creditCard</span>, .<span class="variable">broker</span>, .<span class="variable">other</span>] </body></html></code></pre>
+</div>
 </div>
 <div role="article" class="variable" id="provider.kind.onlytest">
     <h3>
-        <code>only​Test</code>
+        <code><a href="#provider.kind.onlytest">only​Test</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">onlyTest</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">test</span>]</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">var</span> <span class="variable">onlyTest</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">test</span>] </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>A set for the test providers kind.</p>
 
@@ -133,9 +150,11 @@
 </div>
 <div role="article" class="variable" id="provider.kind.all">
     <h3>
-        <code>all</code>
+        <code><a href="#provider.kind.all">all</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">all</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">unknown</span>, .<span class="variable">bank</span>, .<span class="variable">creditCard</span>, .<span class="variable">broker</span>, .<span class="variable">other</span>, .<span class="variable">test</span>]</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">var</span> <span class="variable">all</span>: <span class="type">Set</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Kind</span>&gt; = [.<span class="variable">unknown</span>, .<span class="variable">bank</span>, .<span class="variable">creditCard</span>, .<span class="variable">broker</span>, .<span class="variable">other</span>, .<span class="variable">test</span>] </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>A set of all providers kinds. Note that this also includes test providers.</p>
 
@@ -150,7 +169,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-08-16T10:34:27+0200">16 August 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2022-04-26T17:15:06+0200">April 26, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

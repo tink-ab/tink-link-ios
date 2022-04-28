@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -37,7 +36,9 @@
     <code class="name">Third​Party​App​Authentication​Task</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="type">ThirdPartyAppAuthenticationTask</span>: <span class="type">Identifiable</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">class</span> <span class="type">ThirdPartyAppAuthenticationTask</span>: <span class="type">Identifiable</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>A task that handles opening third party apps.</p>
 
@@ -49,24 +50,24 @@
 
 <p>When you receive a <code>awaitingThirdPartyAppAuthentication</code> status, you should let the <code>ThirdPartyAppAuthenticationTask</code> object to handle the updates like this:</p>
 
-<html><body><pre class="highlight"><code><span class="variable">thirdPartyAppAuthenticationTask</span>.<span class="type">handle</span>()
+<html><body><pre class="highlight"><code><span class="variable">thirdPartyAppAuthenticationTask</span>.<span class="variable">handle</span>()
 </code></pre></body></html>
 <p>If the third party authentication couldn't be handled by the <code>ThirdPartyAppAuthenticationTask</code>, you need to handle the <code>AddCredentialsTask</code> completion result and check for a <code>ThirdPartyAppAuthenticationTask.Error</code>. This error can tell you if the user needs to download the thirdparty authentication app.</p>
 
 <p>Here's how you can ask the user to download the third party app via an alert:</p>
 
-<html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">alertController</span> = <span class="variable">UIAlertController</span>(<span class="variable">title</span>: <span class="type">thirdPartyAppAuthentication</span>.<span class="type">downloadTitle</span>, <span class="variable">message</span>: <span class="type">thirdPartyAppAuthentication</span>.<span class="type">downloadMessage</span>, <span class="variable">preferredStyle</span>: .<span class="variable">alert</span>)
+<html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">alertController</span> = <span class="variable">UIAlertController</span>(<span class="variable">title</span>: <span class="type">thirdPartyAppAuthentication</span>.<span class="variable">downloadTitle</span>, <span class="variable">message</span>: <span class="type">thirdPartyAppAuthentication</span>.<span class="variable">downloadMessage</span>, <span class="variable">preferredStyle</span>: .<span class="variable">alert</span>)
 
-<span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">appStoreURL</span> = <span class="variable">thirdPartyAppAuthentication</span>.<span class="type">appStoreURL</span>, <span class="variable">UIApplication</span>.<span class="type">shared</span>.<span class="type">canOpenURL</span>(<span class="variable">appStoreURL</span>) {
+<span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">appStoreURL</span> = <span class="variable">thirdPartyAppAuthentication</span>.<span class="variable">appStoreURL</span>, <span class="variable">UIApplication</span>.<span class="variable">shared</span>.<span class="variable">canOpenURL</span>(<span class="variable">appStoreURL</span>) {
     <span class="keyword">let</span> <span class="variable">cancelAction</span> = <span class="variable">UIAlertAction</span>(<span class="variable">title</span>: <span class="string literal">"</span><span class="string literal">Cancel</span><span class="string literal">"</span>, <span class="variable">style</span>: .<span class="variable">cancel</span>)
     <span class="keyword">let</span> <span class="variable">downloadAction</span> = <span class="variable">UIAlertAction</span>(<span class="variable">title</span>: <span class="string literal">"</span><span class="string literal">Download</span><span class="string literal">"</span>, <span class="variable">style</span>: .<span class="variable">default</span>, <span class="variable">handler</span>: { <span class="keyword">_</span> <span class="keyword">in</span>
-        <span class="variable">UIApplication</span>.<span class="type">shared</span>.<span class="type">open</span>(<span class="variable">appStoreURL</span>)
+        <span class="variable">UIApplication</span>.<span class="variable">shared</span>.<span class="variable">open</span>(<span class="variable">appStoreURL</span>)
     })
-    <span class="variable">alertController</span>.<span class="type">addAction</span>(<span class="variable">cancelAction</span>)
-    <span class="variable">alertController</span>.<span class="type">addAction</span>(<span class="variable">downloadAction</span>)
+    <span class="variable">alertController</span>.<span class="variable">addAction</span>(<span class="variable">cancelAction</span>)
+    <span class="variable">alertController</span>.<span class="variable">addAction</span>(<span class="variable">downloadAction</span>)
 } <span class="keyword">else</span> {
     <span class="keyword">let</span> <span class="variable">okAction</span> = <span class="variable">UIAlertAction</span>(<span class="variable">title</span>: <span class="string literal">"</span><span class="string literal">OK</span><span class="string literal">"</span>, <span class="variable">style</span>: .<span class="variable">default</span>)
-    <span class="variable">alertController</span>.<span class="type">addAction</span>(<span class="variable">okAction</span>)
+    <span class="variable">alertController</span>.<span class="variable">addAction</span>(<span class="variable">okAction</span>)
 }
 
 <span class="variable">present</span>(<span class="variable">alertController</span>, <span class="variable">animated</span>: <span class="keyword">true</span>)
@@ -74,10 +75,10 @@
 <p>After the redirect to the third party app, some providers requires additional information to be sent to Tink after the user authenticates with the third party app for the credential to be added successfully. This information is passed to your app via the redirect URI. Use the open method in your <code>UIApplicationDelegate</code> to let TinkLink send the information to Tink if needed.</p>
 
 <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">application</span>(<span class="keyword">_</span> <span class="variable">application</span>: <span class="type">UIApplication</span>, <span class="variable">open</span> <span class="variable">url</span>: <span class="type">URL</span>, <span class="variable">options</span>: [<span class="type">UIApplication</span>.<span class="type">OpenURLOptionsKey</span> : <span class="keyword">Any</span>] = [:]) -&gt; <span class="type">Bool</span> {
-    <span class="keyword">return</span> <span class="variable">TinkLink</span>.<span class="type">shared</span>.<span class="type">open</span>(<span class="variable">url</span>)
+    <span class="keyword">return</span> <span class="variable">TinkLink</span>.<span class="variable">shared</span>.<span class="variable">open</span>(<span class="variable">url</span>)
 }
 </code></pre></body></html>
-<aside class="note">
+<aside class="note" title="Note">
     <p>If the app couldn't be opened you need to handle the <code>AddCredentialsTask</code> completion result and check for a <code>ThirdPartyAppAuthenticationTask.Error</code>. This error can tell you if the user needs to download the app.</p>
 
 </aside>
@@ -88,7 +89,7 @@
     <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.44.1 (20200629.0846)
+<!-- Generated by graphviz version 3.0.0 (20220226.1711)
  -->
 <!-- Pages: 1 -->
 <svg width="872pt" height="116pt"
@@ -138,9 +139,11 @@
 
         <div role="article" class="typealias" id="thirdpartyappauthenticationtask.error">
     <h3>
-        <code>Error</code>
+        <code><a href="#thirdpartyappauthenticationtask.error">Error</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">typealias</span> <span class="variable">Error</span> = <a href="https://tink-ab.github.io/tink-link-ios/TinkLinkError"><span class="type">TinkLinkError</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">typealias</span> <span class="variable">Error</span> = <a href="https://tink-ab.github.io/tink-link-ios/TinkLinkError"><span class="type">TinkLinkError</span></a></body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Error associated with the <code>ThirdPartyAppAuthenticationTask</code>.</p>
 
@@ -152,9 +155,11 @@
 
         <div role="article" class="variable" id="thirdpartyappauthenticationtask.thirdpartyappauthentication">
     <h3>
-        <code>third​Party​App​Authentication</code>
+        <code><a href="#thirdpartyappauthenticationtask.thirdpartyappauthentication">third​Party​App​Authentication</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">thirdPartyAppAuthentication</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ThirdPartyAppAuthentication</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">private</span>(<span class="variable">set</span>) <span class="keyword">var</span> <span class="variable">thirdPartyAppAuthentication</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>.<span class="type">ThirdPartyAppAuthentication</span></body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Information about how to open or download the third party application app.</p>
 
@@ -162,9 +167,11 @@
 </div>
 <div role="article" class="variable" id="thirdpartyappauthenticationtask.shouldfailonthirdpartyappauthenticationdownloadrequired">
     <h3>
-        <code>should​Fail​OnThird​Party​App​Authentication​Download​Required</code>
+        <code><a href="#thirdpartyappauthenticationtask.shouldfailonthirdpartyappauthenticationdownloadrequired">should​Fail​OnThird​Party​App​Authentication​Download​Required</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span>: <span class="type">Bool</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">private</span>(<span class="variable">set</span>) <span class="keyword">var</span> <span class="variable">shouldFailOnThirdPartyAppAuthenticationDownloadRequired</span>: <span class="type">Bool</span></body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Indicates whether the task should fail if a third party app could not be opened for authentication.</p>
 
@@ -176,9 +183,11 @@
 
         <div role="article" class="function" id="thirdpartyappauthenticationtask.handle()">
     <h3>
-        <code>handle()</code>
+        <code><a href="#thirdpartyappauthenticationtask.handle()">handle()</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">handle</span>()</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">handle</span>()  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Will try to open the third party app. If it fails then the add credentials task will be aborted.</p>
 
@@ -186,9 +195,11 @@
 </div>
 <div role="article" class="function" id="thirdpartyappauthenticationtask.handle(statushandler:)">
     <h3>
-        <code>handle(status​Handler:​)</code>
+        <code><a href="#thirdpartyappauthenticationtask.handle(statushandler:)">handle(status​Handler:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">handle</span>(<span class="variable">statusHandler</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <span class="type">Status</span>) -&gt; <span class="type">Void</span>)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">handle</span>(<span class="variable">statusHandler</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="keyword">_</span> <span class="variable">status</span>: <span class="type">Status</span>) -&gt; <span class="type">Void</span>)  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Will try to open the third party app.</p>
 
@@ -221,9 +232,11 @@
 </div>
 <div role="article" class="function" id="thirdpartyappauthenticationtask.cancel()">
     <h3>
-        <code>cancel()</code>
+        <code><a href="#thirdpartyappauthenticationtask.cancel()">cancel()</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">cancel</span>()</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">cancel</span>()  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Tells the task to stop waiting for third party app authentication.</p>
 
@@ -242,7 +255,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-08-16T10:34:27+0200">16 August 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2022-04-26T17:15:06+0200">April 26, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

@@ -261,7 +261,7 @@ final class AddCredentialsSession {
         do {
             let credentials = try result.get()
             credentialsController.newlyAddedFailedCredentialsID[credentials.id] = nil
-            authorizeIfNeeded(onError: { [weak self] error in
+            authorizeIfNeeded(onError: { error in
                 DispatchQueue.main.async {
                     // FIXME: This triggers two onCompletion calls.
                     onCompletion(.failure(error))
@@ -312,7 +312,7 @@ extension AddCredentialsSession {
             let supplementalInformationViewController = SupplementalInformationViewController(supplementInformationTask: supplementInformationTask)
             supplementalInformationViewController.delegate = self
             let navigationController = TinkNavigationController(rootViewController: supplementalInformationViewController)
-            self.presenter?.present(navigationController, animated: true, completion: nil)
+            self.presenter?.forcePresent(navigationController, animated: true, completion: nil)
             self.tinkLinkTracker.track(screen: .supplementalInformation)
         }
     }
@@ -321,17 +321,22 @@ extension AddCredentialsSession {
         hideQRCodeViewIfNeeded(animated: true) {
             let loadingViewController = LoadingViewController()
             loadingViewController.update(status, onCancel: { [weak self] in
-                self?.cancel()
+                self?.showActionSheet()
             })
             self.presenter?.show(loadingViewController)
         }
     }
 
     private func showQRCodeView(qrImage: UIImage) {
-        let qrImageViewController = QRImageViewController(qrImage: qrImage)
-        self.qrImageViewController = qrImageViewController
-        qrImageViewController.delegate = self
-        presenter?.present(TinkNavigationController(rootViewController: qrImageViewController), animated: true, completion: nil)
+        if qrImageViewController != nil {
+            qrImageViewController?.qrImage = qrImage
+        } else {
+            let qrImageViewController = QRImageViewController(qrImage: qrImage)
+            self.qrImageViewController = qrImageViewController
+            qrImageViewController.delegate = self
+            qrImageViewController.qrImage = qrImage
+            presenter?.forcePresent(TinkNavigationController(rootViewController: qrImageViewController), animated: true, completion: nil)
+        }
     }
 
     private func hideQRCodeViewIfNeeded(animated: Bool = false, completion: (() -> Void)? = nil) {
@@ -340,6 +345,25 @@ extension AddCredentialsSession {
             return
         }
         presenter?.dismiss(animated: animated, completion: completion)
+    }
+
+    private func showActionSheet() {
+        let alertTitle = Strings.Credentials.Discard.title
+        let alertMessage = Strings.Credentials.Discard.message
+        let alertStyle: UIAlertController.Style = UIDevice.current.isPad ? .alert : .actionSheet
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: alertStyle)
+
+        let discardActionTitle = Strings.Credentials.Discard.primaryAction
+        let discardAction = UIAlertAction(title: discardActionTitle, style: .destructive) { _ in
+            self.cancel()
+        }
+        alert.addAction(discardAction)
+
+        let continueActionTitle = Strings.Credentials.Discard.continueAction
+        let continueAction = UIAlertAction(title: continueActionTitle, style: .cancel)
+        alert.addAction(continueAction)
+
+        presenter?.forcePresent(alert, animated: true, completion: nil)
     }
 }
 

@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -37,7 +36,9 @@
     <code class="name">Form</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">Form</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">Form</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>A <code>Form</code> is used to determine what a user needs to input in order to proceed when creating or updating a credentials. For example it could be a username and a password field.</p>
 
@@ -46,20 +47,20 @@
     <p>Here's how to create a form for a provider with a username and password field and how to update the fields.</p>
 
 <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">form</span> = <span class="variable">Form</span>(<span class="variable">provider</span>: <span class="placeholder">&lt;#Provider#&gt;</span>)
-<span class="variable">form</span>.<span class="type">fields</span>[<span class="variable">name</span>: <span class="string literal">"</span><span class="string literal">username</span><span class="string literal">"</span>]?.<span class="type">text</span> = <span class="placeholder">&lt;#String#&gt;</span>
-<span class="variable">form</span>.<span class="type">fields</span>[<span class="variable">name</span>: <span class="string literal">"</span><span class="string literal">password</span><span class="string literal">"</span>]?.<span class="type">text</span> = <span class="placeholder">&lt;#String#&gt;</span>
+<span class="variable">form</span>.<span class="variable">fields</span>[<span class="variable">name</span>: <span class="string literal">"</span><span class="string literal">username</span><span class="string literal">"</span>]?.<span class="variable">text</span> = <span class="placeholder">&lt;#String#&gt;</span>
+<span class="variable">form</span>.<span class="variable">fields</span>[<span class="variable">name</span>: <span class="string literal">"</span><span class="string literal">password</span><span class="string literal">"</span>]?.<span class="variable">text</span> = <span class="placeholder">&lt;#String#&gt;</span>
 ...
 </code></pre></body></html>
 <h3>Configuring UITextFields from form fields</h3>
 
 <p>The <code>Field</code> within a <code>Form</code> contains attributes that map well to <code>UITextField</code>.</p>
 
-<html><body><pre class="highlight"><code><span class="keyword">for</span> <span class="variable">field</span> <span class="keyword">in</span> <span class="variable">form</span>.<span class="type">fields</span> {
+<html><body><pre class="highlight"><code><span class="keyword">for</span> <span class="variable">field</span> <span class="keyword">in</span> <span class="variable">form</span>.<span class="variable">fields</span> {
     <span class="keyword">let</span> <span class="variable">textField</span> = <span class="variable">UITextField</span>()
-    <span class="variable">textField</span>.<span class="type">placeholder</span> = <span class="variable">field</span>.<span class="type">attributes</span>.<span class="type">placeholder</span>
-    <span class="variable">textField</span>.<span class="type">isSecureTextEntry</span> = <span class="variable">field</span>.<span class="type">attributes</span>.<span class="type">isSecureTextEntry</span>
-    <span class="variable">textField</span>.<span class="type">isEnabled</span> = <span class="variable">field</span>.<span class="type">attributes</span>.<span class="type">isEditable</span>
-    <span class="variable">textField</span>.<span class="type">text</span> = <span class="variable">field</span>.<span class="type">text</span>
+    <span class="variable">textField</span>.<span class="variable">placeholder</span> = <span class="variable">field</span>.<span class="variable">attributes</span>.<span class="variable">placeholder</span>
+    <span class="variable">textField</span>.<span class="variable">isSecureTextEntry</span> = <span class="variable">field</span>.<span class="variable">attributes</span>.<span class="variable">isSecureTextEntry</span>
+    <span class="variable">textField</span>.<span class="variable">isEnabled</span> = <span class="variable">field</span>.<span class="variable">attributes</span>.<span class="variable">isEditable</span>
+    <span class="variable">textField</span>.<span class="variable">text</span> = <span class="variable">field</span>.<span class="variable">text</span>
     <span class="placeholder">&lt;#Add to view#&gt;</span>
 }
 </code></pre></body></html>
@@ -70,16 +71,16 @@
 <p>Use <code>areFieldsValid</code> to check if all form fields are valid. For example, you can use this to enable a submit button when text fields change.</p>
 
 <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">objc</span> <span class="keyword">func</span> <span class="function">textFieldDidChange</span>(<span class="keyword">_</span> <span class="variable">notification</span>: <span class="type">Notification</span>) {
-    <span class="variable">submitButton</span>.<span class="type">isEnabled</span> = <span class="variable">form</span>.<span class="type">areFieldsValid</span>
+    <span class="variable">submitButton</span>.<span class="variable">isEnabled</span> = <span class="variable">form</span>.<span class="variable">areFieldsValid</span>
 }
 </code></pre></body></html>
 <p>Use validateFields() to validate all fields. If not valid, it will throw an error that contains more information about which fields are not valid and why.</p>
 
 <html><body><pre class="highlight"><code><span class="keyword">do</span> {
-    <span class="keyword">try</span> <span class="variable">form</span>.<span class="type">validateFields</span>()
+    <span class="keyword">try</span> <span class="variable">form</span>.<span class="variable">validateFields</span>()
 } <span class="keyword">catch</span> <span class="keyword">let</span> <span class="variable">error</span> <span class="keyword">as</span> <span class="type">Form</span>.<span class="type">Fields</span>.<span class="type">ValidationError</span> {
     <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">usernameFieldError</span> = <span class="variable">error</span>[<span class="variable">fieldName</span>: <span class="string literal">"</span><span class="string literal">username</span><span class="string literal">"</span>] {
-        <span class="variable">usernameValidationErrorLabel</span>.<span class="type">text</span> = <span class="variable">usernameFieldError</span>.<span class="type">errorDescription</span>
+        <span class="variable">usernameValidationErrorLabel</span>.<span class="variable">text</span> = <span class="variable">usernameFieldError</span>.<span class="variable">errorDescription</span>
     }
 }
 </code></pre></body></html>
@@ -105,9 +106,11 @@
 
         <div role="article" class="initializer" id="form.init(provider:)">
     <h3>
-        <code>init(provider:​)</code>
+        <code><a href="#form.init(provider:)">init(provider:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">provider</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">provider</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>)  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Creates a form for the given provider.</p>
 
@@ -138,9 +141,12 @@
 </div>
 <div role="article" class="initializer" id="form.init(credentials:)">
     <h3>
-        <code>init(credentials:​)</code>
+        <code><a href="#form.init(credentials:)">init(credentials:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">message</span>: <span class="string literal">"Use init(supplementInformationTask:) instead."</span>) <span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">message</span>: <span class="string literal">"Use init(supplementInformationTask:) instead."</span>)
+    <span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">credentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>)  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Creates a form for the given credentials.</p>
 
@@ -171,9 +177,11 @@
 </div>
 <div role="article" class="initializer" id="form.init(updatingcredentials:provider:)">
     <h3>
-        <code>init(updating​Credentials:​provider:​)</code>
+        <code><a href="#form.init(updatingcredentials:provider:)">init(updating​Credentials:​provider:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">updatingCredentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="variable">provider</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">updatingCredentials</span>: <a href="https://tink-ab.github.io/tink-link-ios/Credentials"><span class="type">Credentials</span></a>, <span class="variable">provider</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>)  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Creates a form for updating the given credentials.</p>
 
@@ -206,9 +214,11 @@
 </div>
 <div role="article" class="initializer" id="form.init(supplementinformationtask:)">
     <h3>
-        <code>init(supplement​Information​Task:​)</code>
+        <code><a href="#form.init(supplementinformationtask:)">init(supplement​Information​Task:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">supplementInformationTask</span>: <a href="https://tink-ab.github.io/tink-link-ios/SupplementInformationTask"><span class="type">SupplementInformationTask</span></a>)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">supplementInformationTask</span>: <a href="https://tink-ab.github.io/tink-link-ios/SupplementInformationTask"><span class="type">SupplementInformationTask</span></a>)  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Creates a form for the given task.</p>
 
@@ -243,9 +253,11 @@
 
         <div role="article" class="variable" id="form.fields">
     <h3>
-        <code>fields</code>
+        <code><a href="#form.fields">fields</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">fields</span>: <span class="type">Fields</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">var</span> <span class="variable">fields</span>: <span class="type">Fields</span></body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>The fields associated with this form.</p>
 
@@ -253,9 +265,11 @@
 </div>
 <div role="article" class="variable" id="form.arefieldsvalid">
     <h3>
-        <code>are​Fields​Valid</code>
+        <code><a href="#form.arefieldsvalid">are​Fields​Valid</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">var</span> <span class="variable">areFieldsValid</span>: <span class="type">Bool</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">var</span> <span class="variable">areFieldsValid</span>: <span class="type">Bool</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Returns a Boolean value indicating whether every field in the form are valid.</p>
 
@@ -270,9 +284,11 @@
 
         <div role="article" class="function" id="form.validatefields()">
     <h3>
-        <code>validate​Fields()</code>
+        <code><a href="#form.validatefields()">validate​Fields()</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">validateFields</span>() <span class="keyword">throws</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">validateFields</span>() <span class="keyword">throws</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Validate all fields.</p>
 
@@ -297,7 +313,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-08-16T10:34:24+0200">16 August 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2022-04-26T17:15:06+0200">April 26, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

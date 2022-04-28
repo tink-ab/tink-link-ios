@@ -36,7 +36,7 @@ public struct ProviderTree {
 
     /// Creates a `ProviderTree` that groups the provided providers by their properties.
     public init(providers: [Provider]) {
-        self.financialInstitutionGroups = Dictionary(grouping: providers, by: { $0.groupDisplayName.isEmpty ? $0.financialInstitution.id.value : $0.groupDisplayName })
+        self.financialInstitutionGroups = Dictionary(grouping: providers, by: { $0.groupDisplayName.isEmpty ? $0.financialInstitution.name : $0.groupDisplayName })
             .sorted(by: { $0.key < $1.key })
             .map { FinancialInstitutionGroupNode(providers: $0.value) }
     }

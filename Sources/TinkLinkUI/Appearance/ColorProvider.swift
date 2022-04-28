@@ -176,7 +176,5 @@ public struct ColorProvider: ColorProviding {
         self.critical = critical
         self.button = button ?? accent
         self.buttonLabel = buttonLabel ?? background
-        self.groupedBackground = background
-        self.secondaryGroupedBackground = secondaryBackground
     }
 }

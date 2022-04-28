@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -37,7 +36,9 @@
     <code class="name">Provider​Tree</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">ProviderTree</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">ProviderTree</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Use the <code>ProviderTree</code> to group providers by financial institution, access type and credentials kind.</p>
 
@@ -50,7 +51,7 @@
 <p>Handle selection of a provider group by switching on the group to decide which screen should be shown next.</p>
 
 <html><body><pre class="highlight"><code><span class="attribute">override</span> <span class="keyword">func</span> <span class="function">tableView</span>(<span class="keyword">_</span> <span class="variable">tableView</span>: <span class="type">UITableView</span>, <span class="variable">didSelectRowAt</span> <span class="variable">indexPath</span>: <span class="type">IndexPath</span>) {
-    <span class="keyword">let</span> <span class="variable">financialInstitutionGroupNode</span> = <span class="variable">financialInstitutionGroupNodes</span>[<span class="variable">indexPath</span>.<span class="type">row</span>]
+    <span class="keyword">let</span> <span class="variable">financialInstitutionGroupNode</span> = <span class="variable">financialInstitutionGroupNodes</span>[<span class="variable">indexPath</span>.<span class="variable">row</span>]
     <span class="keyword">switch</span> <span class="variable">financialInstitutionGroupNode</span> {
     <span class="keyword">case</span> .<span class="variable">financialInstitutions</span>(<span class="keyword">let</span> <span class="variable">financialInstitutionGroups</span>):
         <span class="type">showFinancialInstitution</span>(<span class="variable">for</span>: <span class="type">financialInstitutionGroups</span>)
@@ -92,9 +93,11 @@
 
         <div role="article" class="initializer" id="providertree.init(providers:)">
     <h3>
-        <code>init(providers:​)</code>
+        <code><a href="#providertree.init(providers:)">init(providers:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">providers</span>: [<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>])</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">providers</span>: [<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>])  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Creates a <code>ProviderTree</code> that groups the provided providers by their properties.</p>
 
@@ -106,9 +109,11 @@
 
         <div role="article" class="variable" id="providertree.financialinstitutiongroups">
     <h3>
-        <code>financial​Institution​Groups</code>
+        <code><a href="#providertree.financialinstitutiongroups">financial​Institution​Groups</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">let</span> <span class="variable">financialInstitutionGroups</span>: [<span class="type">FinancialInstitutionGroupNode</span>]</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">let</span> <span class="variable">financialInstitutionGroups</span>: [<span class="type">FinancialInstitutionGroupNode</span>] </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>The financial institution groups.</p>
 
@@ -124,9 +129,11 @@
 
         <div role="article" class="function" id="providertree.makefinancialinstitutions()">
     <h3>
-        <code>make​Financial​Institutions()</code>
+        <code><a href="#providertree.makefinancialinstitutions()">make​Financial​Institutions()</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">makeFinancialInstitutions</span>() -&gt; [<span class="type">FinancialInstitutionNode</span>]</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">makeFinancialInstitutions</span>() -&gt; [<span class="type">FinancialInstitutionNode</span>]  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Creates a list of all financial institutions that is currently in the tree structure.</p>
 
@@ -141,7 +148,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-08-16T10:34:23+0200">16 August 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2022-04-26T17:15:06+0200">April 26, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

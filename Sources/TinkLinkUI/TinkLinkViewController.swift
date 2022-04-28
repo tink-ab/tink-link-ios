@@ -213,6 +213,32 @@ public class TinkLinkViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    /// Initializes a new TinkLinkViewController with the `AuthenticationStrategy` which will be used to authenticate the user towards Tink Link.
+    /// - Parameters:
+    ///   - configuration: A Tink configuration.
+    ///   - market: The market you wish to aggregate from. Will determine what providers are available to choose from.
+    ///   - authenticationStrategy: The instance of `AuthenticationStrategy` which will be used when authenticating the user towards Tink Link.
+    ///   - operation: The operation to do. You can either `create`, `authenticate`, `refresh` or `update`.
+    ///   - completion: The block to execute when the aggregation finished or if an error occurred.
+    public init(configuration: Configuration, market: Market, authenticationStrategy: AuthenticationStrategy, operation: Operation = .create(providerPredicate: .kinds(.default)), completion: @escaping (Result<Credentials, TinkLinkUIError>) -> Void) {
+        self.tink = Tink(configuration: configuration)
+        switch authenticationStrategy {
+        case .accessToken(let token):
+            self.userSession = .accessToken(token)
+            self.authorizationCode = nil
+        case .authorizationCode(let code):
+            self.userSession = nil
+            self.authorizationCode = AuthorizationCode(code)
+        }
+        self.operation = operation
+        self.scopes = nil
+        self.market = market
+        self.permanentCompletion = completion
+        self.temporaryCompletion = nil
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
     /// Initializes a new TinkLinkViewController with the current user session associated with this Tink object.
     ///
     /// Required scopes:
@@ -678,8 +704,9 @@ extension TinkLinkViewController {
 
     private func showDiscardActionSheet() {
         let alertTitle = Strings.Credentials.Discard.title
+        let alertMessage = Strings.Credentials.Discard.message
         let alertStyle: UIAlertController.Style = UIDevice.current.isPad ? .alert : .actionSheet
-        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: alertStyle)
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: alertStyle)
 
         let discardActionTitle = Strings.Credentials.Discard.primaryAction
         let discardAction = UIAlertAction(title: discardActionTitle, style: .destructive) { _ in
@@ -723,6 +750,16 @@ extension TinkLinkViewController: CredentialsCoordinatorPresenting {
 
     func show(_ viewController: UIViewController) {
         show(viewController, sender: self)
+    }
+
+    func forcePresent(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        if let presented = presentedViewController {
+            presented.dismiss(animated: true) {
+                self.present(viewController, animated: animated, completion: completion)
+            }
+        } else {
+            present(viewController, animated: animated, completion: completion)
+        }
     }
 }
 

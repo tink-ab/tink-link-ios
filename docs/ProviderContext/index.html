@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -37,7 +36,9 @@
     <code class="name">Provider​Context</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="attribute">final</span> <span class="keyword">class</span> <span class="type">ProviderContext</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="attribute">final</span> <span class="keyword">class</span> <span class="type">ProviderContext</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>An object that accesses providers for a specific market and supports the grouping of providers.</p>
 
@@ -57,9 +58,12 @@
 
         <div role="article" class="typealias" id="providercontext.attributes">
     <h3>
-        <code>Attributes</code>
+        <code><a href="#providercontext.attributes">Attributes</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">renamed</span>: <span class="string literal">"Filter"</span>) <span class="keyword">public</span> <span class="keyword">typealias</span> <span class="variable">Attributes</span> = <span class="type">Filter</span></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">renamed</span>: <span class="string literal">"Filter"</span>)
+    <span class="keyword">public</span> <span class="keyword">typealias</span> <span class="variable">Attributes</span> = <span class="type">Filter</span></body></html></code></pre>
+</div>
 </div>
     </section>
     <section id="initializers">
@@ -67,9 +71,11 @@
 
         <div role="article" class="initializer" id="providercontext.init(tink:)">
     <h3>
-        <code>init(tink:​)</code>
+        <code><a href="#providercontext.init(tink:)">init(tink:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="attribute">convenience</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a> = .<span class="variable">shared</span>)</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="attribute">convenience</span> <span class="keyword">init</span>(<span class="variable">tink</span>: <a href="https://tink-ab.github.io/tink-link-ios/Tink"><span class="type">Tink</span></a> = .<span class="variable">shared</span>)  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Creates a <code>ProviderContext</code> bound to the provided <code>Tink</code> instance.</p>
 
@@ -100,9 +106,12 @@
 
         <div role="article" class="function" id="providercontext.fetchproviders(filter:completion:)">
     <h3>
-        <code>fetch​Providers(filter:​completion:​)</code>
+        <code><a href="#providercontext.fetchproviders(filter:completion:)">fetch​Providers(filter:​completion:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchProviders</span>(<span class="variable">filter</span>: <span class="type">Filter</span> = .<span class="variable">default</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="attribute">discardableResult</span>
+    <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchProviders</span>(<span class="variable">filter</span>: <span class="type">Filter</span> = .<span class="variable">default</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <span class="type">RetryCancellable</span>?  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Fetches providers matching the provided filter.</p>
 
@@ -145,9 +154,12 @@
 </div>
 <div role="article" class="function" id="providercontext.fetchproviders(for:filter:completion:)">
     <h3>
-        <code>fetch​Providers(for:​filter:​completion:​)</code>
+        <code><a href="#providercontext.fetchproviders(for:filter:completion:)">fetch​Providers(for:​filter:​completion:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchProviders</span>(<span class="variable">for</span> <span class="variable">market</span>: <a href="https://tink-ab.github.io/tink-link-ios/Market"><span class="type">Market</span></a>, <span class="variable">filter</span>: <span class="type">Filter</span> = .<span class="variable">default</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="attribute">discardableResult</span>
+    <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchProviders</span>(<span class="variable">for</span> <span class="variable">market</span>: <a href="https://tink-ab.github.io/tink-link-ios/Market"><span class="type">Market</span></a>, <span class="variable">filter</span>: <span class="type">Filter</span> = .<span class="variable">default</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <span class="type">RetryCancellable</span>?  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Fetches providers for a market.</p>
 
@@ -196,9 +208,12 @@
 </div>
 <div role="article" class="function" id="providercontext.fetchprovider(with:completion:)">
     <h3>
-        <code>fetch​Provider(with:​completion:​)</code>
+        <code><a href="#providercontext.fetchprovider(with:completion:)">fetch​Provider(with:​completion:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">discardableResult</span> <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchProvider</span>(<span class="variable">with</span> <span class="variable">name</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Name</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="attribute">discardableResult</span>
+    <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchProvider</span>(<span class="variable">with</span> <span class="variable">name</span>: <a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>.<span class="type">Name</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>, <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <span class="type">RetryCancellable</span>?  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Fetches a specific provider matching the provided name.</p>
 
@@ -241,9 +256,12 @@
 </div>
 <div role="article" class="function" id="providercontext.fetchproviders(attributes:completion:)">
     <h3>
-        <code>fetch​Providers(attributes:​completion:​)</code>
+        <code><a href="#providercontext.fetchproviders(attributes:completion:)">fetch​Providers(attributes:​completion:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">renamed</span>: <span class="string literal">"fetchProviders(filter:completion:)"</span>) <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchProviders</span>(<span class="variable">attributes</span>: <span class="type">Filter</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <a href="https://tink-ab.github.io/tink-link-ios/RetryCancellable"><span class="type">RetryCancellable</span></a>?</code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="attribute">available</span>(*, <span class="variable">deprecated</span>, <span class="variable">renamed</span>: <span class="string literal">"fetchProviders(filter:completion:)"</span>)
+    <span class="keyword">public</span> <span class="keyword">func</span> <span class="function">fetchProviders</span>(<span class="variable">attributes</span>: <span class="type">Filter</span>, <span class="variable">completion</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">Result</span>&lt;[<a href="https://tink-ab.github.io/tink-link-ios/Provider"><span class="type">Provider</span></a>], <span class="type">Error</span>&gt;) -&gt; <span class="type">Void</span>) -&gt; <span class="type">RetryCancellable</span>?  </body></html></code></pre>
+</div>
 </div>
     </section>
 
@@ -254,7 +272,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-08-16T10:34:22+0200">16 August 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2022-04-26T17:15:06+0200">April 26, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

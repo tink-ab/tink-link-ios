@@ -94,30 +94,25 @@ class ViewController: UIViewController {
     }
 
     private func showTinkLinkWithAuthorizationCode(_ authorizationCode: String) {
-        Tink.configure(with: configuration)
-        Tink.shared.authenticateUser(authorizationCode: AuthorizationCode(authorizationCode)) { result in
-            DispatchQueue.main.async {
-                do {
-                    let accessToken = try result.get()
-                    Tink.shared.userSession = .accessToken(accessToken.rawValue)
-                    let tinkLinkViewController = TinkLinkViewController { result in
-                        print(result)
-                    }
-                    if UIDevice.current.userInterfaceIdiom == .pad {
-                        tinkLinkViewController.modalPresentationStyle = .fullScreen
-                    }
-                    self.present(tinkLinkViewController, animated: true)
-                } catch {
-                    // Handle error
-                }
-            }
+        let market = Market(code: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_MARKET"] ?? "SE")
+        let tinkLinkViewController = TinkLinkViewController(configuration: configuration,
+                                                            market: market,
+                                                            authenticationStrategy: .authorizationCode(authorizationCode),
+                                                            operation: .create(providerPredicate: .kinds(.all))) { result in
+            print(result)
         }
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            tinkLinkViewController.modalPresentationStyle = .fullScreen
+        }
+        present(tinkLinkViewController, animated: true)
     }
 
     private func showTinkLinkWithUserSession(_ accessToken: String) {
-        Tink.configure(with: configuration)
-        Tink.shared.userSession = .accessToken(accessToken)
-        let tinkLinkViewController = TinkLinkViewController(operation: .create(providerPredicate: .kinds(.all))) { result in
+        let market = Market(code: ProcessInfo.processInfo.environment["TINK_LINK_EXAMPLE_MARKET"] ?? "SE")
+        let tinkLinkViewController = TinkLinkViewController(configuration: configuration,
+                                                            market: market,
+                                                            authenticationStrategy: .accessToken(accessToken),
+                                                            operation: .create(providerPredicate: .kinds(.all))) { result in
             print(result)
         }
         if UIDevice.current.userInterfaceIdiom == .pad {
