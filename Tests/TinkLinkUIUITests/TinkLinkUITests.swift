@@ -165,7 +165,7 @@ class TinkLinkUITests: XCTestCase {
         XCTAssertTrue(getStartedButton.exists)
         getStartedButton.tap()
 
-        let chooseBankNavigationBar = app.navigationBars["Choose bank"]
+        let chooseBankNavigationBar = app.navigationBars["Choose your bank"]
         XCTAssertTrue(chooseBankNavigationBar.waitForExistence(timeout: 10))
 
         let searchField = app.searchFields["Search for a bank or card"]

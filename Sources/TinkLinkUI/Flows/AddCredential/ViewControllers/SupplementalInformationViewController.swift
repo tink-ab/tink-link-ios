@@ -23,6 +23,10 @@ final class SupplementalInformationViewController: UIViewController {
         self.formTableViewController = FormTableViewController(form: form)
 
         super.init(nibName: nil, bundle: nil)
+
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = true
+        }
     }
 
     @available(*, unavailable)

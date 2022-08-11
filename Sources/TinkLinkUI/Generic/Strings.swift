@@ -180,20 +180,20 @@ enum Strings {
         static let searchHint = NSLocalizedString("ProviderList.SearchHint", tableName: tableName, bundle: bundle, value: "Search for a bank or card", comment: "Placeholder in search field shown in provider list.")
 
         /// Title for list of all providers.
-        static let title = NSLocalizedString("ProviderList.Title", tableName: tableName, bundle: bundle, value: "Choose bank", comment: "Title for list of all providers.")
+        static let title = NSLocalizedString("ProviderList.Title", tableName: tableName, bundle: bundle, value: "Choose your bank", comment: "Title for list of all providers.")
 
         /// Description for when provider list is empty.
         static let emptyList = NSLocalizedString("ProviderList.EmptyList", tableName: tableName, bundle: bundle, value: "No banks found", comment: "Description for when provider list is empty.")
 
         enum Error {
             /// Description for error when providers could not be loaded.
-            static let description = NSLocalizedString("ProviderList.Error.Description", tableName: tableName, bundle: bundle, value: "We are informed of this error and are working hard to resolve it. Bear with us, and try again a bit later.", comment: "Description for error when providers could not be loaded.")
+            static let description = NSLocalizedString("ProviderList.Error.Description", tableName: tableName, bundle: bundle, value: "There was an error while connecting to the banks, please try again or come back later.", comment: "Description for error when providers could not be loaded.")
 
             /// Description for error when providers could not be loaded and it is likely it's a temporary error.
             static let temporary = NSLocalizedString("ProviderList.Error.Temporary", tableName: tableName, bundle: bundle, value: "This could be a temporary error, please try again and see if the problem persists.", comment: "Description for error when providers could not be loaded and it is likely it's a temporary error.")
 
             /// Title for when providers could not be loaded.
-            static let title = NSLocalizedString("ProviderList.Error.Title", tableName: tableName, bundle: bundle, value: "We’re sorry, but we couldn't load any banks at the moment", comment: "Title for when providers could not be loaded.")
+            static let title = NSLocalizedString("ProviderList.Error.Title", tableName: tableName, bundle: bundle, value: "Couldn’t load any banks", comment: "Title for when providers could not be loaded.")
         }
     }
 
