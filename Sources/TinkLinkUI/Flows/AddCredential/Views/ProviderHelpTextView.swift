@@ -41,23 +41,25 @@ final class ProviderHelpTextView: UIView {
     }
 
     func configure(markdownString: String) {
-        let markdown = Down(markdownString: markdownString)
-        guard let attributedString = try? markdown.toAttributedString() else {
-            helpTextView.text = markdownString
-            return
+        DispatchQueue.main.async {
+            let markdown = Down(markdownString: markdownString)
+            guard let attributedString = try? markdown.toAttributedString() else {
+                self.helpTextView.text = markdownString
+                return
+            }
+
+            let mutableAttributedString = NSMutableAttributedString(attributedString: attributedString)
+
+            mutableAttributedString.addAttributes([.font: Font.body2, .foregroundColor: Color.secondaryLabel], range: NSRange(location: 0, length: attributedString.length))
+
+            // There can be an extra newline in the end of the
+            // string (Down doing this?) so we need to remove it.
+            let lastCharRange = NSRange(location: mutableAttributedString.length - 1, length: 1)
+            if mutableAttributedString.string.hasSuffix("\n") {
+                mutableAttributedString.deleteCharacters(in: lastCharRange)
+            }
+            self.helpTextView.attributedText = mutableAttributedString
+            self.helpTextView.setLineHeight(lineHeight: 20)
         }
-
-        let mutableAttributedString = NSMutableAttributedString(attributedString: attributedString)
-
-        mutableAttributedString.addAttributes([.font: Font.body2, .foregroundColor: Color.secondaryLabel], range: NSRange(location: 0, length: attributedString.length))
-
-        // There can be an extra newline in the end of the
-        // string (Down doing this?) so we need to remove it.
-        let lastCharRange = NSRange(location: mutableAttributedString.length - 1, length: 1)
-        if mutableAttributedString.string.hasSuffix("\n") {
-            mutableAttributedString.deleteCharacters(in: lastCharRange)
-        }
-        helpTextView.attributedText = mutableAttributedString
-        helpTextView.setLineHeight(lineHeight: 20)
     }
 }
