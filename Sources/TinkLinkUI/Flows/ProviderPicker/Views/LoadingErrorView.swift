@@ -51,7 +51,7 @@ final class LoadingErrorView: UIView {
         textLabel.numberOfLines = 0
         textLabel.setLineHeight(lineHeight: 20)
 
-        descriptionLabel.font = Font.body2
+        descriptionLabel.font = Font.body1
         descriptionLabel.adjustsFontForContentSizeCategory = true
         descriptionLabel.textColor = Color.secondaryLabel
         descriptionLabel.textAlignment = .center
