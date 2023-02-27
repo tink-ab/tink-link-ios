@@ -1,0 +1,4 @@
+framework module TinkLink {
+  header "TinkLink-Swift.h"
+  requires objc
+}
