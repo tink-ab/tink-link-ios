@@ -16,11 +16,16 @@
 
 ## Installation
 
+### Via Swift Package Manager
+1. Add `https://github.com/tink-ab/tink-link-ios` in you project dependencies.
+2. Set `Dependency Rule` into `Branch` option and set `release/2.0.0` as a value.
+3. Make sure your target now has `TinkLink` linked as a dependency.
+
 ### Via manual installation
 
 1. Download and unzip the repository.
 2. Drag and drop `TinkLink.xcframework` into yout projects `Frameworks` section.
-3. Make sure yout target now has `TinkLink.xcframework` linked as a dependency with `Embed & Sign` enabled.
+3. Make sure your target now has `TinkLink.xcframework` linked as a dependency with `Embed & Sign` enabled.
 4. When finished, import `TinkLink` in your project.
 
 ## How to display Tink Link
