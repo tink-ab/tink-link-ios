@@ -21,6 +21,16 @@
 2. Set `Dependency Rule` into `Branch` option and set `release/2.0.0` as a value.
 3. Make sure your target now has `TinkLink` linked as a dependency.
 
+### Via CocoaPods
+1. Refer to `CocoaPods` [guide](https://guides.cocoapods.org/using/using-cocoapods.html) for usage and installation instructions.
+2. Add `TinkLink` to your Podfile.
+    ```
+    pod 'TinkLink'
+    ```
+3. Run `pod install` in your project directory.
+
+4. Open your `.xcworkspace` file to see the project in Xcode.
+
 ### Via manual installation
 
 1. Download and unzip the repository.
