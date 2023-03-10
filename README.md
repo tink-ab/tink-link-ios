@@ -40,6 +40,65 @@
 
 ## How to display Tink Link
 
+### How to initiate Transactions with continuous access:
+
+1. `import TinkLink` inside your ViewContoller and set up a configuration with your client ID and redirect URI:
+
+```swift
+import TinkLink
+
+let configuration = Configuration(clientID: <#String#>, redirectURI: <#String#>)
+```
+
+2. Set up a market:
+
+```swift
+let market = Market(<#String#>)
+```
+
+3. Set up your authorization code (see [generating a user authorization code](https://docs.tink.com/resources/tink-link-web/tink-link-web-permanent-users#generate-a-user-authorization-code)):
+
+```swift
+let authorizationCode = AuthorizationCode(<#String#>)
+```
+
+4. Initiate an instance of `UINavigationController` by calling TinkLink API with your configuration and market to use:
+
+```swift
+let tinkViewController = Tink.Transactions.connectAccountsForContinuousAccess(configuration: configuration, market: market, authorizationCode: authorizationCode) { result in
+    // Handle result
+}
+```
+
+5. Present the view controller by calling `present(_:animated:)` on the presenting view controller:
+
+```swift
+present(tinkViewController, animated: true)
+```
+
+6. After the user has completed or canceled the flow, the completion handler will be called with a result. A successful authentication will return a result of type `Credentials.ID`. If something went wrong, the result will contain an error of type `TinkError`:
+
+```swift
+switch result {
+    case .success(let connection):
+        // Handle successful connection
+    case .failure(let error):
+        // Handle any errors
+}
+```
+
+Remember that you are responsible for dismissing the `tinkViewController` by calling `dismiss(_:animated)` inside the completion handler:
+
+```swift
+let tinkViewController = Tink.Transactions.connectAccountsForContinuousAccess(configuration: configuration, market: market, authorizationCode: authorizationCode) { result in
+    tinkViewController.dismiss(animated: true)
+    // Handle result
+}
+present(tinkViewController, animated: true)
+```
+
+### How to initiate Transactions with one-time access:
+
 1. `import TinkLink` inside your ViewContoller and set up a configuration with your client ID and redirect URI:
 
 ```swift
@@ -62,7 +121,7 @@ let tinkViewController = Tink.Transactions.connectAccountsForOneTimeAccess(confi
 }
 ```
 
-4. Tink Link is designed to be presented either modally or within the navigation stack. Present the view controller by calling `present(_:animated:)` on the presenting view controller:
+4. Present the view controller by calling `present(_:animated:)` on the presenting view controller:
 
 ```swift
 present(tinkViewController, animated: true)
@@ -79,14 +138,14 @@ switch result {
 }
 ```
 
-Remember that you are responsible for dismissing the `tinkViewController` by either calling `dismiss(_:animated)` or pop to the desired view controller inside the completion handler:
+Remember that you are responsible for dismissing the `tinkViewController` by calling `dismiss(_:animated)` inside the completion handler:
 
 ```swift
 let tinkViewController = Tink.Transactions.connectAccountsForOneTimeAccess(configuration: configuration, market: market) { result in
-    navigationController.popViewController(animated: true)
+    tinkViewController.dismiss(animated: true)
     // Handle result
 }
-navigationController.pushViewController(tinkViewController, animated: true)
+present(tinkViewController, animated: true)
 ```
 
 ## Redirect handling
