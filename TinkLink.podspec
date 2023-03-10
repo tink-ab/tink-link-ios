@@ -7,7 +7,7 @@ Pod::Spec.new do |spec|
     spec.version      = "2.0.0-rc.1"
     spec.license      = { :type => "MIT", :file => "LICENSE" }
     spec.authors      = { "Tink AB" => "mobile@tink.se" }
-    spec.homepage     = "https://tink.com"
+    spec.homepage     = "https://github.com/tink-ab/tink-link-ios"
     spec.source       = { :git => "https://github.com/tink-ab/tink-link-ios.git", :tag => spec.version }
   
     spec.ios.deployment_target = "13.0"
