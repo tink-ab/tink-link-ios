@@ -256,13 +256,14 @@ using UInt = size_t;
 @class NSBundle;
 
 /// An universal view controller used for displaying the desired flow for selected product.
-/// <code>TinkViewController</code> is not intended to be initialized manually, please use the global enum <code>TinkLink</code> with the appropriate extension for the product you want to utilize to get an instance of this controller for later presentation in your app.
+/// <code>TinkViewController</code> is not intended to be initialized manually, please use the global enum <code>Tink</code> with the appropriate extension for the product you want to utilize to get an instance of this controller for later presentation in your app.
 SWIFT_CLASS("_TtC8TinkLink18TinkViewController")
 @interface TinkViewController : UIViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
+- (void)viewDidDisappear:(BOOL)animated;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
@@ -533,13 +534,14 @@ using UInt = size_t;
 @class NSBundle;
 
 /// An universal view controller used for displaying the desired flow for selected product.
-/// <code>TinkViewController</code> is not intended to be initialized manually, please use the global enum <code>TinkLink</code> with the appropriate extension for the product you want to utilize to get an instance of this controller for later presentation in your app.
+/// <code>TinkViewController</code> is not intended to be initialized manually, please use the global enum <code>Tink</code> with the appropriate extension for the product you want to utilize to get an instance of this controller for later presentation in your app.
 SWIFT_CLASS("_TtC8TinkLink18TinkViewController")
 @interface TinkViewController : UIViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
+- (void)viewDidDisappear:(BOOL)animated;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
