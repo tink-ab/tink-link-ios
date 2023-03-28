@@ -20,6 +20,141 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "RiskInsightsReport",
+        "printedName": "RiskInsightsReport",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "id",
+            "printedName": "id",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Identifier",
+                "printedName": "TinkLink.Identifier<TinkLink.RiskInsightsReport>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "RiskInsightsReport",
+                    "printedName": "TinkLink.RiskInsightsReport",
+                    "usr": "s:8TinkLink18RiskInsightsReportV"
+                  }
+                ],
+                "usr": "s:8TinkLink10IdentifierV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8TinkLink18RiskInsightsReportV2idAA10IdentifierVyACGvp",
+            "mangledName": "$s8TinkLink18RiskInsightsReportV2idAA10IdentifierVyACGvp",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.RiskInsightsReport>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RiskInsightsReport",
+                        "printedName": "TinkLink.RiskInsightsReport",
+                        "usr": "s:8TinkLink18RiskInsightsReportV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8TinkLink18RiskInsightsReportV2idAA10IdentifierVyACGvg",
+                "mangledName": "$s8TinkLink18RiskInsightsReportV2idAA10IdentifierVyACGvg",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:8TinkLink18RiskInsightsReportV",
+        "mangledName": "$s8TinkLink18RiskInsightsReportV",
+        "moduleName": "TinkLink",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Identifiable",
+            "printedName": "Identifiable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "ID",
+                "printedName": "ID",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.RiskInsightsReport>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RiskInsightsReport",
+                        "printedName": "TinkLink.RiskInsightsReport",
+                        "usr": "s:8TinkLink18RiskInsightsReportV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s12IdentifiableP",
+            "mangledName": "$ss12IdentifiableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Report",
+        "printedName": "Report",
+        "declKind": "Struct",
+        "usr": "s:8TinkLink6ReportV",
+        "mangledName": "$s8TinkLink6ReportV",
+        "moduleName": "TinkLink",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
+        "kind": "TypeDecl",
         "name": "AuthorizationCode",
         "printedName": "AuthorizationCode",
         "children": [
@@ -332,7 +467,7 @@
               {
                 "kind": "Function",
                 "name": "createReport",
-                "printedName": "createReport(configuration:market:locale:state:sessionID:inputProvider:inputUsername:completion:)",
+                "printedName": "createReport(configuration:market:locale:sessionID:inputProvider:inputUsername:completion:)",
                 "children": [
                   {
                     "kind": "TypeNominal",
@@ -350,7 +485,6 @@
                     "kind": "TypeNominal",
                     "name": "Market",
                     "printedName": "TinkLink.Market",
-                    "hasDefaultArg": true,
                     "usr": "s:8TinkLink6MarketV"
                   },
                   {
@@ -359,21 +493,6 @@
                     "printedName": "Foundation.Locale",
                     "hasDefaultArg": true,
                     "usr": "s:10Foundation6LocaleV"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "Swift.String?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
-                      }
-                    ],
-                    "hasDefaultArg": true,
-                    "usr": "s:Sq"
                   },
                   {
                     "kind": "TypeNominal",
@@ -462,10 +581,13 @@
                   }
                 ],
                 "declKind": "Func",
-                "usr": "s:8TinkLink0A0O12AccountCheckO12createReport13configuration6market6locale5state9sessionID13inputProvider0M8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVSSSgA3Xys6ResultOyAA10IdentifierVyAA0C12VerificationVGAA0A5ErrorVGctFZ",
-                "mangledName": "$s8TinkLink0A0O12AccountCheckO12createReport13configuration6market6locale5state9sessionID13inputProvider0M8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVSSSgA3Xys6ResultOyAA10IdentifierVyAA0C12VerificationVGAA0A5ErrorVGctFZ",
+                "usr": "s:8TinkLink0A0O12AccountCheckO12createReport13configuration6market6locale9sessionID13inputProvider0L8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVSSSgA2Wys6ResultOyAA10IdentifierVyAA0C12VerificationVGAA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O12AccountCheckO12createReport13configuration6market6locale9sessionID13inputProvider0L8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVSSSgA2Wys6ResultOyAA10IdentifierVyAA0C12VerificationVGAA0A5ErrorVGctFZ",
                 "moduleName": "TinkLink",
                 "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
                 "isFromExtension": true,
                 "funcSelfKind": "NonMutating"
               }
@@ -474,6 +596,118 @@
             "usr": "s:8TinkLink0A0O12AccountCheckO",
             "mangledName": "$s8TinkLink0A0O12AccountCheckO",
             "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "isFromExtension": true
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "Reports",
+            "printedName": "Reports",
+            "children": [
+              {
+                "kind": "Function",
+                "name": "createReport",
+                "printedName": "createReport(configuration:reportTypes:refreshableItems:accountDialogType:inputProvider:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReportTypes",
+                    "printedName": "TinkLink.ReportTypes",
+                    "usr": "s:8TinkLink11ReportTypesV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "RefreshableItems",
+                    "printedName": "TinkLink.RefreshableItems",
+                    "usr": "s:8TinkLink16RefreshableItemsV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AccountDialogType",
+                    "printedName": "TinkLink.AccountDialogType",
+                    "usr": "s:8TinkLink17AccountDialogTypeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Report, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Report, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Report",
+                            "printedName": "TinkLink.Report",
+                            "usr": "s:8TinkLink6ReportV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O7ReportsO12createReport13configuration11reportTypes16refreshableItems17accountDialogType13inputProvider10completionSo22UINavigationControllerCAA13ConfigurationV_AA0eH0VAA011RefreshableJ0VAA07AccountlM0OSSSgys6ResultOyAA0E0VAA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O7ReportsO12createReport13configuration11reportTypes16refreshableItems17accountDialogType13inputProvider10completionSo22UINavigationControllerCAA13ConfigurationV_AA0eH0VAA011RefreshableJ0VAA07AccountlM0OSSSgys6ResultOyAA0E0VAA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink0A0O7ReportsO",
+            "mangledName": "$s8TinkLink0A0O7ReportsO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true
           },
           {
@@ -484,7 +718,7 @@
               {
                 "kind": "Function",
                 "name": "connectAccountsForContinuousAccess",
-                "printedName": "connectAccountsForContinuousAccess(configuration:market:locale:authorizationCode:refreshableItems:financialServicesSegments:financialInstitutionId:state:sessionID:inputProvider:inputUsername:completion:)",
+                "printedName": "connectAccountsForContinuousAccess(configuration:market:locale:authorizationCode:refreshableItems:financialServicesSegments:financialInstitutionID:sessionID:inputProvider:inputUsername:completion:)",
                 "children": [
                   {
                     "kind": "TypeNominal",
@@ -608,21 +842,6 @@
                     "usr": "s:Sq"
                   },
                   {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "Swift.String?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
-                      }
-                    ],
-                    "hasDefaultArg": true,
-                    "usr": "s:Sq"
-                  },
-                  {
                     "kind": "TypeFunc",
                     "name": "Function",
                     "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>) -> ()",
@@ -664,8 +883,8 @@
                   }
                 ],
                 "declKind": "Func",
-                "usr": "s:8TinkLink0A0O12TransactionsO34connectAccountsForContinuousAccess13configuration6market6locale17authorizationCode16refreshableItems25financialServicesSegments0P13InstitutionId5state9sessionID13inputProvider0X8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA013AuthorizationM0VAA011RefreshableO0VSgAA09FinancialQ7SegmentOSgSSSgA8_A8_A8_A8_ys6ResultOyAA10IdentifierVyAA11CredentialsVGAA0A5ErrorVGctFZ",
-                "mangledName": "$s8TinkLink0A0O12TransactionsO34connectAccountsForContinuousAccess13configuration6market6locale17authorizationCode16refreshableItems25financialServicesSegments0P13InstitutionId5state9sessionID13inputProvider0X8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA013AuthorizationM0VAA011RefreshableO0VSgAA09FinancialQ7SegmentOSgSSSgA8_A8_A8_A8_ys6ResultOyAA10IdentifierVyAA11CredentialsVGAA0A5ErrorVGctFZ",
+                "usr": "s:8TinkLink0A0O12TransactionsO34connectAccountsForContinuousAccess13configuration6market6locale17authorizationCode16refreshableItems25financialServicesSegments0P13InstitutionID07sessionT013inputProvider0V8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA013AuthorizationM0VAA011RefreshableO0VSgAA09FinancialQ7SegmentOSgSSSgA7_A7_A7_ys6ResultOyAA10IdentifierVyAA11CredentialsVGAA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O12TransactionsO34connectAccountsForContinuousAccess13configuration6market6locale17authorizationCode16refreshableItems25financialServicesSegments0P13InstitutionID07sessionT013inputProvider0V8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA013AuthorizationM0VAA011RefreshableO0VSgAA09FinancialQ7SegmentOSgSSSgA7_A7_A7_ys6ResultOyAA10IdentifierVyAA11CredentialsVGAA0A5ErrorVGctFZ",
                 "moduleName": "TinkLink",
                 "static": true,
                 "declAttributes": [
@@ -677,7 +896,7 @@
               {
                 "kind": "Function",
                 "name": "connectAccountsForOneTimeAccess",
-                "printedName": "connectAccountsForOneTimeAccess(configuration:market:locale:refreshableItems:financialServicesSegments:financialInstitutionId:state:sessionID:inputProvider:inputUsername:completion:)",
+                "printedName": "connectAccountsForOneTimeAccess(configuration:market:locale:refreshableItems:financialServicesSegments:financialInstitutionID:sessionID:inputProvider:inputUsername:completion:)",
                 "children": [
                   {
                     "kind": "TypeNominal",
@@ -729,21 +948,6 @@
                         "name": "FinancialServicesSegment",
                         "printedName": "TinkLink.FinancialServicesSegment",
                         "usr": "s:8TinkLink24FinancialServicesSegmentO"
-                      }
-                    ],
-                    "hasDefaultArg": true,
-                    "usr": "s:Sq"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "Swift.String?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
                       }
                     ],
                     "hasDefaultArg": true,
@@ -843,8 +1047,8 @@
                   }
                 ],
                 "declKind": "Func",
-                "usr": "s:8TinkLink0A0O12TransactionsO31connectAccountsForOneTimeAccess13configuration6market6locale16refreshableItems25financialServicesSegments0O13InstitutionId5state9sessionID13inputProvider0W8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA011RefreshableN0VSgAA09FinancialP7SegmentOSgSSSgA5_A5_A5_A5_ys6ResultOyAA0gH10ConnectionVAA0A5ErrorVGctFZ",
-                "mangledName": "$s8TinkLink0A0O12TransactionsO31connectAccountsForOneTimeAccess13configuration6market6locale16refreshableItems25financialServicesSegments0O13InstitutionId5state9sessionID13inputProvider0W8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA011RefreshableN0VSgAA09FinancialP7SegmentOSgSSSgA5_A5_A5_A5_ys6ResultOyAA0gH10ConnectionVAA0A5ErrorVGctFZ",
+                "usr": "s:8TinkLink0A0O12TransactionsO31connectAccountsForOneTimeAccess13configuration6market6locale16refreshableItems25financialServicesSegments0O13InstitutionID07sessionS013inputProvider0U8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA011RefreshableN0VSgAA09FinancialP7SegmentOSgSSSgA4_A4_A4_ys6ResultOyAA0gH10ConnectionVAA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O12TransactionsO31connectAccountsForOneTimeAccess13configuration6market6locale16refreshableItems25financialServicesSegments0O13InstitutionID07sessionS013inputProvider0U8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA011RefreshableN0VSgAA09FinancialP7SegmentOSgSSSgA4_A4_A4_ys6ResultOyAA0gH10ConnectionVAA0A5ErrorVGctFZ",
                 "moduleName": "TinkLink",
                 "static": true,
                 "declAttributes": [
@@ -856,7 +1060,7 @@
               {
                 "kind": "Function",
                 "name": "updateConsent",
-                "printedName": "updateConsent(configuration:authorizationCode:credentialsID:state:completion:)",
+                "printedName": "updateConsent(configuration:authorizationCode:credentialsID:completion:)",
                 "children": [
                   {
                     "kind": "TypeNominal",
@@ -889,21 +1093,6 @@
                       }
                     ],
                     "usr": "s:8TinkLink10IdentifierV"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "Swift.String?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
-                      }
-                    ],
-                    "hasDefaultArg": true,
-                    "usr": "s:Sq"
                   },
                   {
                     "kind": "TypeFunc",
@@ -947,8 +1136,8 @@
                   }
                 ],
                 "declKind": "Func",
-                "usr": "s:8TinkLink0A0O12TransactionsO13updateConsent13configuration17authorizationCode13credentialsID5state10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationH0VAA10IdentifierVyAA11CredentialsVGSSSgys6ResultOyAvA0A5ErrorVGctFZ",
-                "mangledName": "$s8TinkLink0A0O12TransactionsO13updateConsent13configuration17authorizationCode13credentialsID5state10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationH0VAA10IdentifierVyAA11CredentialsVGSSSgys6ResultOyAvA0A5ErrorVGctFZ",
+                "usr": "s:8TinkLink0A0O12TransactionsO13updateConsent13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationH0VAA10IdentifierVyAA11CredentialsVGys6ResultOyAuA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O12TransactionsO13updateConsent13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationH0VAA10IdentifierVyAA11CredentialsVGys6ResultOyAuA0A5ErrorVGctFZ",
                 "moduleName": "TinkLink",
                 "static": true,
                 "declAttributes": [
@@ -960,7 +1149,7 @@
               {
                 "kind": "Function",
                 "name": "extendConsent",
-                "printedName": "extendConsent(configuration:authorizationCode:credentialsID:state:completion:)",
+                "printedName": "extendConsent(configuration:authorizationCode:credentialsID:completion:)",
                 "children": [
                   {
                     "kind": "TypeNominal",
@@ -993,21 +1182,6 @@
                       }
                     ],
                     "usr": "s:8TinkLink10IdentifierV"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "Swift.String?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
-                      }
-                    ],
-                    "hasDefaultArg": true,
-                    "usr": "s:Sq"
                   },
                   {
                     "kind": "TypeFunc",
@@ -1051,8 +1225,8 @@
                   }
                 ],
                 "declKind": "Func",
-                "usr": "s:8TinkLink0A0O12TransactionsO13extendConsent13configuration17authorizationCode13credentialsID5state10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationH0VAA10IdentifierVyAA11CredentialsVGSSSgys6ResultOyAvA0A5ErrorVGctFZ",
-                "mangledName": "$s8TinkLink0A0O12TransactionsO13extendConsent13configuration17authorizationCode13credentialsID5state10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationH0VAA10IdentifierVyAA11CredentialsVGSSSgys6ResultOyAvA0A5ErrorVGctFZ",
+                "usr": "s:8TinkLink0A0O12TransactionsO13extendConsent13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationH0VAA10IdentifierVyAA11CredentialsVGys6ResultOyAuA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O12TransactionsO13extendConsent13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationH0VAA10IdentifierVyAA11CredentialsVGys6ResultOyAuA0A5ErrorVGctFZ",
                 "moduleName": "TinkLink",
                 "static": true,
                 "declAttributes": [
@@ -1066,17 +1240,20 @@
             "usr": "s:8TinkLink0A0O12TransactionsO",
             "mangledName": "$s8TinkLink0A0O12TransactionsO",
             "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true
           },
           {
             "kind": "TypeDecl",
-            "name": "Payment",
-            "printedName": "Payment",
+            "name": "Payments",
+            "printedName": "Payments",
             "children": [
               {
                 "kind": "Function",
-                "name": "initiate",
-                "printedName": "initiate(configuration:market:locale:paymentRequestID:state:sessionID:inputProvider:inputUsername:completion:)",
+                "name": "initiateOneTimePayment",
+                "printedName": "initiateOneTimePayment(configuration:market:locale:paymentRequestID:sessionID:inputProvider:inputUsername:completion:)",
                 "children": [
                   {
                     "kind": "TypeNominal",
@@ -1116,21 +1293,6 @@
                       }
                     ],
                     "usr": "s:8TinkLink10IdentifierV"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "Swift.String?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
-                      }
-                    ],
-                    "hasDefaultArg": true,
-                    "usr": "s:Sq"
                   },
                   {
                     "kind": "TypeNominal",
@@ -1219,8 +1381,8 @@
                   }
                 ],
                 "declKind": "Func",
-                "usr": "s:8TinkLink0A0O7PaymentO8initiate13configuration6market6locale16paymentRequestID5state07sessionJ013inputProvider0M8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA10IdentifierVyAA0cI0VGSSSgA2_A2_A2_ys6ResultOyA1_AA0A5ErrorVGctFZ",
-                "mangledName": "$s8TinkLink0A0O7PaymentO8initiate13configuration6market6locale16paymentRequestID5state07sessionJ013inputProvider0M8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA10IdentifierVyAA0cI0VGSSSgA2_A2_A2_ys6ResultOyA1_AA0A5ErrorVGctFZ",
+                "usr": "s:8TinkLink0A0O8PaymentsO22initiateOneTimePayment13configuration6market6locale16paymentRequestID07sessionM013inputProvider0O8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA10IdentifierVyAA0gL0VGSSSgA1_A1_ys6ResultOyA0_AA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O8PaymentsO22initiateOneTimePayment13configuration6market6locale16paymentRequestID07sessionM013inputProvider0O8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA10IdentifierVyAA0gL0VGSSSgA1_A1_ys6ResultOyA0_AA0A5ErrorVGctFZ",
                 "moduleName": "TinkLink",
                 "static": true,
                 "declAttributes": [
@@ -1231,9 +1393,169 @@
               }
             ],
             "declKind": "Enum",
-            "usr": "s:8TinkLink0A0O7PaymentO",
-            "mangledName": "$s8TinkLink0A0O7PaymentO",
+            "usr": "s:8TinkLink0A0O8PaymentsO",
+            "mangledName": "$s8TinkLink0A0O8PaymentsO",
             "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "isFromExtension": true
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "RiskInsights",
+            "printedName": "RiskInsights",
+            "children": [
+              {
+                "kind": "Function",
+                "name": "createReport",
+                "printedName": "createReport(configuration:market:locale:externalReference:sessionID:inputProvider:inputUsername:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Market",
+                    "printedName": "TinkLink.Market",
+                    "usr": "s:8TinkLink6MarketV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Locale",
+                    "printedName": "Foundation.Locale",
+                    "hasDefaultArg": true,
+                    "usr": "s:10Foundation6LocaleV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.RiskInsightsReport>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.RiskInsightsReport>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.RiskInsightsReport>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "RiskInsightsReport",
+                                "printedName": "TinkLink.RiskInsightsReport",
+                                "usr": "s:8TinkLink18RiskInsightsReportV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O12RiskInsightsO12createReport13configuration6market6locale17externalReference9sessionID13inputProvider0N8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVSSSgA3Xys6ResultOyAA10IdentifierVyAA0cdF0VGAA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O12RiskInsightsO12createReport13configuration6market6locale17externalReference9sessionID13inputProvider0N8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVSSSgA3Xys6ResultOyAA10IdentifierVyAA0cdF0VGAA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink0A0O12RiskInsightsO",
+            "mangledName": "$s8TinkLink0A0O12RiskInsightsO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true
           },
           {
@@ -1262,7 +1584,6 @@
                     "kind": "TypeNominal",
                     "name": "Market",
                     "printedName": "TinkLink.Market",
-                    "hasDefaultArg": true,
                     "usr": "s:8TinkLink6MarketV"
                   },
                   {
@@ -1378,6 +1699,9 @@
                 "mangledName": "$s8TinkLink0A0O12ExpenseCheckO12createReport13configuration6market6locale17externalReference9sessionID13inputProvider0N8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVSSSgA3Xys6ResultOyAA10IdentifierVyAA0cdF0VGAA0A5ErrorVGctFZ",
                 "moduleName": "TinkLink",
                 "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
                 "isFromExtension": true,
                 "funcSelfKind": "NonMutating"
               }
@@ -1386,6 +1710,9 @@
             "usr": "s:8TinkLink0A0O12ExpenseCheckO",
             "mangledName": "$s8TinkLink0A0O12ExpenseCheckO",
             "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true
           },
           {
@@ -1414,7 +1741,6 @@
                     "kind": "TypeNominal",
                     "name": "Market",
                     "printedName": "TinkLink.Market",
-                    "hasDefaultArg": true,
                     "usr": "s:8TinkLink6MarketV"
                   },
                   {
@@ -1545,6 +1871,9 @@
                 "mangledName": "$s8TinkLink0A0O11IncomeCheckO12createReport13configuration6market6locale17externalReference13engineVersion9sessionID13inputProvider0P8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVSSSgA4Yys6ResultOyAA10IdentifierVyAA0C12VerificationVGAA0A5ErrorVGctFZ",
                 "moduleName": "TinkLink",
                 "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
                 "isFromExtension": true,
                 "funcSelfKind": "NonMutating"
               }
@@ -1553,6 +1882,9 @@
             "usr": "s:8TinkLink0A0O11IncomeCheckO",
             "mangledName": "$s8TinkLink0A0O11IncomeCheckO",
             "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true
           }
         ],
@@ -1682,6 +2014,121 @@
                         "name": "ExpenseCheckReport",
                         "printedName": "TinkLink.ExpenseCheckReport",
                         "usr": "s:8TinkLink18ExpenseCheckReportV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s12IdentifiableP",
+            "mangledName": "$ss12IdentifiableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BusinessAccountCheckReport",
+        "printedName": "BusinessAccountCheckReport",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "id",
+            "printedName": "id",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Identifier",
+                "printedName": "TinkLink.Identifier<TinkLink.BusinessAccountCheckReport>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BusinessAccountCheckReport",
+                    "printedName": "TinkLink.BusinessAccountCheckReport",
+                    "usr": "s:8TinkLink26BusinessAccountCheckReportV"
+                  }
+                ],
+                "usr": "s:8TinkLink10IdentifierV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8TinkLink26BusinessAccountCheckReportV2idAA10IdentifierVyACGvp",
+            "mangledName": "$s8TinkLink26BusinessAccountCheckReportV2idAA10IdentifierVyACGvp",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.BusinessAccountCheckReport>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BusinessAccountCheckReport",
+                        "printedName": "TinkLink.BusinessAccountCheckReport",
+                        "usr": "s:8TinkLink26BusinessAccountCheckReportV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8TinkLink26BusinessAccountCheckReportV2idAA10IdentifierVyACGvg",
+                "mangledName": "$s8TinkLink26BusinessAccountCheckReportV2idAA10IdentifierVyACGvg",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:8TinkLink26BusinessAccountCheckReportV",
+        "mangledName": "$s8TinkLink26BusinessAccountCheckReportV",
+        "moduleName": "TinkLink",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Identifiable",
+            "printedName": "Identifiable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "ID",
+                "printedName": "ID",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.BusinessAccountCheckReport>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BusinessAccountCheckReport",
+                        "printedName": "TinkLink.BusinessAccountCheckReport",
+                        "usr": "s:8TinkLink26BusinessAccountCheckReportV"
                       }
                     ],
                     "usr": "s:8TinkLink10IdentifierV"
@@ -1930,6 +2377,13 @@
             "mangledName": "$ss12IdentifiableP"
           }
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
       },
       {
         "kind": "Import",
@@ -6313,6 +6767,347 @@
         "moduleName": "TinkLink"
       },
       {
+        "kind": "TypeDecl",
+        "name": "ReportTypes",
+        "printedName": "ReportTypes",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8TinkLink11ReportTypesV8rawValueSivp",
+            "mangledName": "$s8TinkLink11ReportTypesV8rawValueSivp",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8TinkLink11ReportTypesV8rawValueSivg",
+                "mangledName": "$s8TinkLink11ReportTypesV8rawValueSivg",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ReportTypes",
+                "printedName": "TinkLink.ReportTypes",
+                "usr": "s:8TinkLink11ReportTypesV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:8TinkLink11ReportTypesV8rawValueACSi_tcfc",
+            "mangledName": "$s8TinkLink11ReportTypesV8rawValueACSi_tcfc",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "transactionReport",
+            "printedName": "transactionReport",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ReportTypes",
+                "printedName": "TinkLink.ReportTypes",
+                "usr": "s:8TinkLink11ReportTypesV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8TinkLink11ReportTypesV011transactionC0ACvpZ",
+            "mangledName": "$s8TinkLink11ReportTypesV011transactionC0ACvpZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReportTypes",
+                    "printedName": "TinkLink.ReportTypes",
+                    "usr": "s:8TinkLink11ReportTypesV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8TinkLink11ReportTypesV011transactionC0ACvgZ",
+                "mangledName": "$s8TinkLink11ReportTypesV011transactionC0ACvgZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "accountVereficationReport",
+            "printedName": "accountVereficationReport",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ReportTypes",
+                "printedName": "TinkLink.ReportTypes",
+                "usr": "s:8TinkLink11ReportTypesV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8TinkLink11ReportTypesV019accountVereficationC0ACvpZ",
+            "mangledName": "$s8TinkLink11ReportTypesV019accountVereficationC0ACvpZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReportTypes",
+                    "printedName": "TinkLink.ReportTypes",
+                    "usr": "s:8TinkLink11ReportTypesV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8TinkLink11ReportTypesV019accountVereficationC0ACvgZ",
+                "mangledName": "$s8TinkLink11ReportTypesV019accountVereficationC0ACvgZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "all",
+            "printedName": "all",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ReportTypes",
+                "printedName": "TinkLink.ReportTypes",
+                "usr": "s:8TinkLink11ReportTypesV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8TinkLink11ReportTypesV3allACvpZ",
+            "mangledName": "$s8TinkLink11ReportTypesV3allACvpZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReportTypes",
+                    "printedName": "TinkLink.ReportTypes",
+                    "usr": "s:8TinkLink11ReportTypesV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8TinkLink11ReportTypesV3allACvgZ",
+                "mangledName": "$s8TinkLink11ReportTypesV3allACvgZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:8TinkLink11ReportTypesV",
+        "mangledName": "$s8TinkLink11ReportTypesV",
+        "moduleName": "TinkLink",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "OptionSet",
+            "printedName": "OptionSet",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "Element",
+                "printedName": "Element",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReportTypes",
+                    "printedName": "TinkLink.ReportTypes",
+                    "usr": "s:8TinkLink11ReportTypesV"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s9OptionSetP",
+            "mangledName": "$ss9OptionSetP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SetAlgebra",
+            "printedName": "SetAlgebra",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "Element",
+                "printedName": "Element",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReportTypes",
+                    "printedName": "TinkLink.ReportTypes",
+                    "usr": "s:8TinkLink11ReportTypesV"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s10SetAlgebraP",
+            "mangledName": "$ss10SetAlgebraP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "ExpressibleByArrayLiteral",
+            "printedName": "ExpressibleByArrayLiteral",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "ArrayLiteralElement",
+                "printedName": "ArrayLiteralElement",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReportTypes",
+                    "printedName": "TinkLink.ReportTypes",
+                    "usr": "s:8TinkLink11ReportTypesV"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s25ExpressibleByArrayLiteralP",
+            "mangledName": "$ss25ExpressibleByArrayLiteralP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
         "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
@@ -6426,6 +7221,38 @@
             "moduleName": "TinkLink",
             "overriding": true,
             "objc_name": "viewWillDisappear:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "viewDidDisappear",
+            "printedName": "viewDidDisappear(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@TinkLink@objc(cs)TinkViewController(im)viewDidDisappear:",
+            "mangledName": "$s8TinkLink0A14ViewControllerC16viewDidDisappearyySbF",
+            "moduleName": "TinkLink",
+            "overriding": true,
+            "objc_name": "viewDidDisappear:",
             "declAttributes": [
               "Final",
               "ObjC",
@@ -6565,6 +7392,121 @@
             "printedName": "Sendable",
             "usr": "s:s8SendableP",
             "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "TransactionReport",
+        "printedName": "TransactionReport",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "id",
+            "printedName": "id",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Identifier",
+                "printedName": "TinkLink.Identifier<TinkLink.TransactionReport>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "TransactionReport",
+                    "printedName": "TinkLink.TransactionReport",
+                    "usr": "s:8TinkLink17TransactionReportV"
+                  }
+                ],
+                "usr": "s:8TinkLink10IdentifierV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8TinkLink17TransactionReportV2idAA10IdentifierVyACGvp",
+            "mangledName": "$s8TinkLink17TransactionReportV2idAA10IdentifierVyACGvp",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.TransactionReport>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "TransactionReport",
+                        "printedName": "TinkLink.TransactionReport",
+                        "usr": "s:8TinkLink17TransactionReportV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8TinkLink17TransactionReportV2idAA10IdentifierVyACGvg",
+                "mangledName": "$s8TinkLink17TransactionReportV2idAA10IdentifierVyACGvg",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:8TinkLink17TransactionReportV",
+        "mangledName": "$s8TinkLink17TransactionReportV",
+        "moduleName": "TinkLink",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Identifiable",
+            "printedName": "Identifiable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "ID",
+                "printedName": "ID",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.TransactionReport>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "TransactionReport",
+                        "printedName": "TinkLink.TransactionReport",
+                        "usr": "s:8TinkLink17TransactionReportV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s12IdentifiableP",
+            "mangledName": "$ss12IdentifiableP"
           }
         ]
       },
@@ -9768,6 +10710,259 @@
         "moduleName": "TinkLink"
       },
       {
+        "kind": "TypeDecl",
+        "name": "AccountDialogType",
+        "printedName": "AccountDialogType",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "single",
+            "printedName": "single",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(TinkLink.AccountDialogType.Type) -> TinkLink.AccountDialogType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AccountDialogType",
+                    "printedName": "TinkLink.AccountDialogType",
+                    "usr": "s:8TinkLink17AccountDialogTypeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "TinkLink.AccountDialogType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AccountDialogType",
+                        "printedName": "TinkLink.AccountDialogType",
+                        "usr": "s:8TinkLink17AccountDialogTypeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:8TinkLink17AccountDialogTypeO6singleyA2CmF",
+            "mangledName": "$s8TinkLink17AccountDialogTypeO6singleyA2CmF",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "multi",
+            "printedName": "multi",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(TinkLink.AccountDialogType.Type) -> TinkLink.AccountDialogType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AccountDialogType",
+                    "printedName": "TinkLink.AccountDialogType",
+                    "usr": "s:8TinkLink17AccountDialogTypeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "TinkLink.AccountDialogType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AccountDialogType",
+                        "printedName": "TinkLink.AccountDialogType",
+                        "usr": "s:8TinkLink17AccountDialogTypeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:8TinkLink17AccountDialogTypeO5multiyA2CmF",
+            "mangledName": "$s8TinkLink17AccountDialogTypeO5multiyA2CmF",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "none",
+            "printedName": "none",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(TinkLink.AccountDialogType.Type) -> TinkLink.AccountDialogType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AccountDialogType",
+                    "printedName": "TinkLink.AccountDialogType",
+                    "usr": "s:8TinkLink17AccountDialogTypeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "TinkLink.AccountDialogType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AccountDialogType",
+                        "printedName": "TinkLink.AccountDialogType",
+                        "usr": "s:8TinkLink17AccountDialogTypeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:8TinkLink17AccountDialogTypeO4noneyA2CmF",
+            "mangledName": "$s8TinkLink17AccountDialogTypeO4noneyA2CmF",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "TinkLink.AccountDialogType?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AccountDialogType",
+                    "printedName": "TinkLink.AccountDialogType",
+                    "usr": "s:8TinkLink17AccountDialogTypeO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:8TinkLink17AccountDialogTypeO8rawValueACSgSS_tcfc",
+            "mangledName": "$s8TinkLink17AccountDialogTypeO8rawValueACSgSS_tcfc",
+            "moduleName": "TinkLink",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8TinkLink17AccountDialogTypeO8rawValueSSvp",
+            "mangledName": "$s8TinkLink17AccountDialogTypeO8rawValueSSvp",
+            "moduleName": "TinkLink",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8TinkLink17AccountDialogTypeO8rawValueSSvg",
+                "mangledName": "$s8TinkLink17AccountDialogTypeO8rawValueSSvg",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:8TinkLink17AccountDialogTypeO",
+        "mangledName": "$s8TinkLink17AccountDialogTypeO",
+        "moduleName": "TinkLink",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "enumRawTypeName": "String",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
         "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
@@ -9917,25 +11112,18 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountCheck.swift",
-      "kind": "StringLiteral",
-      "offset": 217,
-      "length": 4,
-      "value": "\"SE\""
-    },
-    {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountCheck.swift",
-      "kind": "StringLiteral",
-      "offset": 268,
-      "length": 7,
-      "value": "\"en_US\""
-    },
-    {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
       "kind": "StringLiteral",
       "offset": 241,
       "length": 18,
       "value": "\"Tink-Mobile-SDK\/\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
+      "kind": "BooleanLiteral",
+      "offset": 422,
+      "length": 5,
+      "value": "false"
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
@@ -9952,67 +11140,32 @@
       "value": "\"link.tink.com\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 115,
-      "length": 16,
-      "value": "\"credentials_id\""
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "kind": "IntegerLiteral",
+      "offset": 352,
+      "length": 1,
+      "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 224,
-      "length": 14,
-      "value": "\"error_reason\""
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "kind": "IntegerLiteral",
+      "offset": 357,
+      "length": 1,
+      "value": "0"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 264,
-      "length": 12,
-      "value": "\"error_type\""
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "kind": "IntegerLiteral",
+      "offset": 484,
+      "length": 1,
+      "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 305,
-      "length": 15,
-      "value": "\"provider_name\""
-    },
-    {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 347,
-      "length": 13,
-      "value": "\"tracking_id\""
-    },
-    {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 393,
-      "length": 20,
-      "value": "\"payment_request_id\""
-    },
-    {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 457,
-      "length": 32,
-      "value": "\"account_verification_report_id\""
-    },
-    {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 520,
-      "length": 18,
-      "value": "\"expense_check_id\""
-    },
-    {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 568,
-      "length": 17,
-      "value": "\"income_check_id\""
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "kind": "IntegerLiteral",
+      "offset": 489,
+      "length": 1,
+      "value": "1"
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
@@ -10078,46 +11231,130 @@
       "value": "\"income_check_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/ExpenseCheck.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
-      "offset": 220,
-      "length": 4,
-      "value": "\"SE\""
+      "offset": 622,
+      "length": 18,
+      "value": "\"risk_insights_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/ExpenseCheck.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
-      "offset": 271,
-      "length": 7,
-      "value": "\"en_US\""
+      "offset": 676,
+      "length": 23,
+      "value": "\"transaction_report_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 751,
+      "length": 41,
+      "value": "\"business_account_verification_report_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 115,
+      "length": 16,
+      "value": "\"credentials_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 224,
+      "length": 14,
+      "value": "\"error_reason\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 264,
+      "length": 12,
+      "value": "\"error_type\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 305,
+      "length": 15,
+      "value": "\"provider_name\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 347,
+      "length": 13,
+      "value": "\"tracking_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 393,
+      "length": 20,
+      "value": "\"payment_request_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 457,
+      "length": 32,
+      "value": "\"account_verification_report_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 520,
+      "length": 18,
+      "value": "\"expense_check_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 568,
+      "length": 17,
+      "value": "\"income_check_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 622,
+      "length": 18,
+      "value": "\"risk_insights_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 676,
+      "length": 23,
+      "value": "\"transaction_report_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 751,
+      "length": 41,
+      "value": "\"business_account_verification_report_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 1377,
+      "length": 66,
+      "value": "\"tink:\/\/callback?error=USER_CANCELLED&error_reason=USER_CANCELLED\""
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "StringLiteral",
-      "offset": 1375,
+      "offset": 1371,
       "length": 14,
       "value": "\"chevron.left\""
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "StringLiteral",
-      "offset": 391,
+      "offset": 387,
       "length": 18,
       "value": "\"TinkLink.TinkViewController\""
-    },
-    {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/IncomeCheck.swift",
-      "kind": "StringLiteral",
-      "offset": 218,
-      "length": 4,
-      "value": "\"SE\""
-    },
-    {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/IncomeCheck.swift",
-      "kind": "StringLiteral",
-      "offset": 269,
-      "length": 7,
-      "value": "\"en_US\""
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
@@ -10440,6 +11677,90 @@
       "offset": 976,
       "length": 33,
       "value": "\"\/1.0\/income-check\/create-report\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1099,
+      "length": 34,
+      "value": "\"\/1.0\/risk-insights\/create-report\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1099,
+      "length": 34,
+      "value": "\"\/1.0\/risk-insights\/create-report\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1218,
+      "length": 28,
+      "value": "\"\/1.0\/reports\/create-report\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1218,
+      "length": 28,
+      "value": "\"\/1.0\/reports\/create-report\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1344,
+      "length": 43,
+      "value": "\"\/1.0\/business-account-check\/create-report\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1344,
+      "length": 43,
+      "value": "\"\/1.0\/business-account-check\/create-report\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "kind": "StringLiteral",
+      "offset": 246,
+      "length": 8,
+      "value": "\"SINGLE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "kind": "StringLiteral",
+      "offset": 307,
+      "length": 7,
+      "value": "\"MULTI\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "kind": "StringLiteral",
+      "offset": 361,
+      "length": 6,
+      "value": "\"NONE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "kind": "StringLiteral",
+      "offset": 246,
+      "length": 8,
+      "value": "\"SINGLE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "kind": "StringLiteral",
+      "offset": 307,
+      "length": 7,
+      "value": "\"MULTI\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "kind": "StringLiteral",
+      "offset": 361,
+      "length": 6,
+      "value": "\"NONE\""
     }
   ]
 }
