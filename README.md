@@ -11,7 +11,7 @@
 ## Prerequisites
 
 1. Go to [Set up your Tink Console account](https://docs.tink.com/resources/getting-started/set-up-your-account) and follow the steps to create a Console account and an app. Make a note of your `client_id`.
-2. In Console, go to **App settings** > API client. In the Redirect URIs section, select **Add new redirect URI**. Add a redirect URI to your app. Your redirect URI needs a scheme and host, for example: `awesomeApp://callback`.
+2. In Console, go to **App settings** > API client. In the Redirect URIs section, select **Add new redirect URI**. Add a redirect URI to your app. Your redirect URI requires a scheme and host, for example: `awesomeApp://callback`.
 
 ## Requirements
 
@@ -25,12 +25,12 @@
 Add a [package dependency](https://help.apple.com/xcode/mac/current/#/devb83d64851) in Xcode to your app target.
 
 1. In Xcode, select _File > Add Packages..._
-2. Enter `https://github.com/tink-ab/tink-link-ios` as the repository URL
-3. Add the `TinkLink` product to the [target of your app](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app)
+2. Enter `https://github.com/tink-ab/tink-link-ios` as the repository URL.
+3. Add the `TinkLink` product to the [target of your app](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app).
 
 #### Using CocoaPods
 
-Add `TinkLink` to your `Podfile`.
+Add `TinkLink` to your `Podfile`:
 
 ```ruby
 pod "TinkLink"
