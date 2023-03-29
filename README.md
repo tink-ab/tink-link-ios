@@ -45,7 +45,7 @@ pod "TinkLink"
 
 To launch the SDK in your iOS app, please see the product specific documentation.
 
-
+|                       |                                                                                                                    |                                                                                                                                           |                                                                                                   |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | **Account Check**     | [Getting started](https://docs.tink.com/resources/account-check/verify-your-first-account)                         | [Setup and integrate](https://docs.tink.com/resources/account-check/setup-and-integrate-account-check#tink-link-for-ios)                  | [SDK reference](https://tink-ab.github.io/tink-link-ios/documentation/tinklink/tink/accountcheck) |
 | **Expense Check**     | [Getting started](https://docs.tink.com/resources/expense-check/fetch-your-first-expense-check-report)             | [Setup and integrate](https://docs.tink.com/resources/expense-check/setup-and-integrate-expense-check#tink-link-for-ios)                  | [SDK reference](https://tink-ab.github.io/tink-link-ios/documentation/tinklink/tink/expensecheck) |
