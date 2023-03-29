@@ -10,8 +10,8 @@
 
 ## Prerequisites
 
-1. Go to [Set up your Tink Console account](https://docs.tink.com/resources/getting-started/set-up-your-account) and follow the steps to create a Console account and an app. Make a note of your `client_id`.
-2. In Console, go to **App settings** > API client. In the Redirect URIs section, select **Add new redirect URI**. Add a redirect URI to your app. Your redirect URI requires a scheme and host, for example: `awesomeApp://callback`.
+1. [Set up your Tink Console account](https://docs.tink.com/resources/console/set-up-your-tink-account) and retrieve the `client ID` for your app.
+2. Add a universal link (or deep link) to your app in the list of redirect URIs under _App settings > API client_ (eg. `myapp://callback`).
 
 ## Requirements
 
