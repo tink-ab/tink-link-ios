@@ -1,26 +1,18 @@
 Pod::Spec.new do |spec|
-  spec.name         = "TinkLink"
-  spec.summary      = "Tink Link iOS SDK"
-  spec.description  = <<-DESC
-                    With TinkLink you can connect to banks across Europe and easily access a wide range of financial data.
-                    DESC
-  spec.version      = "1.7.1"
-  spec.license      = { :type => "MIT", :file => "LICENSE" }
-  spec.authors      = { "Tink AB" => "mobile@tink.se" }
-  spec.homepage     = "https://tink.com"
-  spec.source       = { :git => "https://github.com/tink-ab/tink-link-ios.git", :tag => spec.version }
+    spec.name         = "TinkLink"
+    spec.summary      = "Tink Link iOS SDK"
+    spec.description  = <<-DESC
+                      With TinkLink you can connect to banks across Europe and easily access a wide range of financial data.
+                      DESC
+    spec.version      = "2.0.0"
+    spec.license      = { :type => "MIT", :file => "LICENSE" }
+    spec.authors      = { "Tink AB" => "mobile@tink.se" }
+    spec.homepage     = "https://github.com/tink-ab/tink-link-ios"
+    spec.source       = { :git => "https://github.com/tink-ab/tink-link-ios.git", :tag => spec.version }
+  
+    spec.ios.deployment_target = "13.0"
 
-  spec.platform     = :ios, "11.0"
+    spec.vendored_frameworks = "TinkLink.xcframework"
 
-  spec.source_files = "Sources/TinkLink/**/*.swift"
-
-  spec.swift_version = ["5.1", "5.2", "5.3"]
-
-  spec.test_spec 'TinkLinkTests' do |test_spec|
-      test_spec.source_files = "Tests/TinkLinkTests/**/*.swift"
+    spec.swift_version = ["5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "5.7"]
   end
-
-  spec.dependency "TinkCore", "~> 1.7"
-
-  spec.static_framework = true
-end

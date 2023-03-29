@@ -1,0 +1,355 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TinkLink
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Foundation
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+extension TinkLink.Tink {
+  public enum AccountCheck {
+  }
+}
+extension TinkLink.Tink.AccountCheck {
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.AccountVerification.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+}
+public struct RiskInsightsReport : Swift.Identifiable {
+  public typealias ID = TinkLink.Identifier<TinkLink.RiskInsightsReport>
+  public let id: TinkLink.RiskInsightsReport.ID
+}
+public struct Report {
+}
+public struct AuthorizationCode : Swift.Hashable, Swift.RawRepresentable, Swift.ExpressibleByStringLiteral {
+  public let rawValue: Swift.String
+  public init?(rawValue: Swift.String)
+  public init(stringLiteral value: Swift.String)
+  public init(_ value: Swift.String)
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias RawValue = Swift.String
+  public typealias StringLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+}
+public var version: Swift.String {
+  get
+}
+public enum Tink {
+}
+public struct ExpenseCheckReport : Swift.Identifiable {
+  public typealias ID = TinkLink.Identifier<TinkLink.ExpenseCheckReport>
+  public let id: TinkLink.ExpenseCheckReport.ID
+}
+public struct BusinessAccountCheckReport : Swift.Identifiable {
+  public typealias ID = TinkLink.Identifier<TinkLink.BusinessAccountCheckReport>
+  public let id: TinkLink.BusinessAccountCheckReport.ID
+}
+public struct IncomeVerification : Swift.Identifiable {
+  public typealias ID = TinkLink.Identifier<TinkLink.IncomeVerification>
+  public let id: TinkLink.IncomeVerification.ID
+}
+public struct AccountVerification : Swift.Identifiable {
+  public typealias ID = TinkLink.Identifier<TinkLink.AccountVerification>
+  public let id: TinkLink.AccountVerification.ID
+}
+extension TinkLink.Tink {
+  public enum Reports {
+  }
+}
+extension TinkLink.Tink.Reports {
+  public static func createReport(configuration: TinkLink.Configuration, reportTypes: TinkLink.ReportTypes, refreshableItems: TinkLink.RefreshableItems, accountDialogType: TinkLink.AccountDialogType, inputProvider: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Report, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+}
+public struct Credentials : Swift.Identifiable {
+  public typealias ID = TinkLink.Identifier<TinkLink.Credentials>
+  public let id: TinkLink.Credentials.ID
+}
+extension TinkLink.Tink {
+  public enum Transactions {
+  }
+}
+extension TinkLink.Tink.Transactions {
+  public static func connectAccountsForContinuousAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, authorizationCode: TinkLink.AuthorizationCode, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func connectAccountsForOneTimeAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func updateConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func extendConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+}
+extension TinkLink.Tink {
+  public enum Payments {
+  }
+}
+extension TinkLink.Tink.Payments {
+  public static func initiateOneTimePayment(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+}
+public enum TinkErrorReason {
+  public enum BadRequest : Swift.Equatable {
+    case invalidParameterAccountDialogType
+    case invalidParameterAuthorizationCode
+    case invalidParameterClientID
+    case invalidParameterCredentialsID
+    case invalidParameterFinancialServicesSegments
+    case invalidParameterInputProvider
+    case invalidParameterInputUsername
+    case invalidParameterPaymentRequestID
+    case invalidParameterRedirectURI
+    case invalidParameterRefreshableItems
+    case invalidParameterReportTypes
+    case invalidParameterScope
+    case invalidStateAccessToken
+    case invalidStateAuthentication
+    case invalidStateCredentials
+    case invalidStateCredentialsIsAwaitingThirdParty
+    case invalidStateEmbedNotAllowed
+    case invalidStateNonOpenBankingProvider
+    case invalidStatePaymentRetryNotAllowed
+    case invalidStatePermanentUserFlag
+    case invalidStateProvider
+    case invalidStateProviderDoesNotRecognizeUser
+    case invalidStateRedirectedAuthorizationToken
+    case invalidStateRedirectedCredentialsID
+    case invalidStateRefreshCredentialsRateLimited
+    case invalidStateRedirectUri
+    case invalidStateScope
+    case undefined(Swift.String)
+    public static func == (a: TinkLink.TinkErrorReason.BadRequest, b: TinkLink.TinkErrorReason.BadRequest) -> Swift.Bool
+  }
+  public enum AuthenticationErrorType : Swift.Equatable {
+    case tinkSideError(TinkLink.TinkErrorReason.AuthenticationErrorType.TinkSideError)
+    case providerError(TinkLink.TinkErrorReason.AuthenticationErrorType.ProviderError)
+    case userLoginError(TinkLink.TinkErrorReason.AuthenticationErrorType.UserLoginError)
+    case authorizationError(TinkLink.TinkErrorReason.AuthenticationErrorType.AuthorizationError)
+    case accountInformationError(TinkLink.TinkErrorReason.AuthenticationErrorType.AccountInformationError)
+    case undefined(Swift.String)
+    public enum TinkSideError : Swift.Equatable {
+      case unknownError
+      case tinkInternalServerError
+      case authenticationMethodNotSupported
+      case undefined(Swift.String)
+      public static func == (a: TinkLink.TinkErrorReason.AuthenticationErrorType.TinkSideError, b: TinkLink.TinkErrorReason.AuthenticationErrorType.TinkSideError) -> Swift.Bool
+    }
+    public enum ProviderError : Swift.Equatable {
+      case providerUnavailable
+      case licensedPartyRejected
+      case undefined(Swift.String)
+      public static func == (a: TinkLink.TinkErrorReason.AuthenticationErrorType.ProviderError, b: TinkLink.TinkErrorReason.AuthenticationErrorType.ProviderError) -> Swift.Bool
+    }
+    public enum UserLoginError : Swift.Equatable {
+      case thirdPartyAuthenticationUnavailable
+      case staticCredentialsIncorrect
+      case dynamicCredentialsIncorrect
+      case dynamicCredentialsFlowCancelled
+      case dynamicCredentialsFlowTimeout
+      case userNotACustomer
+      case userBlocked
+      case userConcurrentLogins
+      case undefined(Swift.String)
+      public static func == (a: TinkLink.TinkErrorReason.AuthenticationErrorType.UserLoginError, b: TinkLink.TinkErrorReason.AuthenticationErrorType.UserLoginError) -> Swift.Bool
+    }
+    public enum AuthorizationError : Swift.Equatable {
+      case actionNotPermitted
+      case sessionExpired
+      case userActionRequired
+      case undefined(Swift.String)
+      public static func == (a: TinkLink.TinkErrorReason.AuthenticationErrorType.AuthorizationError, b: TinkLink.TinkErrorReason.AuthenticationErrorType.AuthorizationError) -> Swift.Bool
+    }
+    public enum AccountInformationError : Swift.Equatable {
+      case noAccounts
+      case undefined(Swift.String)
+      public static func == (a: TinkLink.TinkErrorReason.AuthenticationErrorType.AccountInformationError, b: TinkLink.TinkErrorReason.AuthenticationErrorType.AccountInformationError) -> Swift.Bool
+    }
+    public static func == (a: TinkLink.TinkErrorReason.AuthenticationErrorType, b: TinkLink.TinkErrorReason.AuthenticationErrorType) -> Swift.Bool
+  }
+  public enum TemporaryError : Swift.Equatable {
+    case requestFailedCreateResetCredentials
+    case requestFailedFetchAccounts
+    case requestFailedFetchProvider
+    case requestFailedOauthDescribe
+    case undefined(Swift.String)
+    public static func == (a: TinkLink.TinkErrorReason.TemporaryError, b: TinkLink.TinkErrorReason.TemporaryError) -> Swift.Bool
+  }
+  public enum InternalError : Swift.Equatable {
+    case requestFailedConsumeHandoffSession
+    case requestFailedCreateAccountCheckReport
+    case requestFailedCreateAnonymousUser
+    case requestFailedCreateBulkPayment
+    case requestFailedCreateCredentials
+    case requestFailedCreateHandoffSession
+    case requestFailedCreateIncomeCheckReport
+    case requestFailedCreateRecurringPayment
+    case requestFailedCreateReport
+    case requestFailedCreateRiskInsightsReport
+    case requestFailedCreateTransfer
+    case requestFailedFetchBulkPayment
+    case requestFailedFetchBulkPaymentStatus
+    case requestFailedFetchCredentials
+    case requestFailedFetchExistingUser
+    case requestFailedFetchHandoffSession
+    case requestFailedFetchLegalText
+    case requestFailedFetchPaymentInfo
+    case requestFailedFetchPaymentTransferInfo
+    case requestFailedFetchProviderPaymentConditions
+    case requestFailedFetchProviders
+    case requestFailedFetchRecurringPaymentInfo
+    case requestFailedFetchReportsDescribe
+    case requestFailedFetchSession
+    case requestFailedFetchTransferAccounts
+    case requestFailedFetchUserWithExistingToken
+    case requestFailedRefreshCredentials
+    case undefined(Swift.String)
+    public static func == (a: TinkLink.TinkErrorReason.InternalError, b: TinkLink.TinkErrorReason.InternalError) -> Swift.Bool
+  }
+}
+public struct ReportTypes : Swift.OptionSet {
+  public let rawValue: Swift.Int
+  public init(rawValue: Swift.Int)
+  public static let transactionReport: TinkLink.ReportTypes
+  public static let accountVereficationReport: TinkLink.ReportTypes
+  public static let all: TinkLink.ReportTypes
+  public typealias ArrayLiteralElement = TinkLink.ReportTypes
+  public typealias Element = TinkLink.ReportTypes
+  public typealias RawValue = Swift.Int
+}
+extension TinkLink.Tink {
+  public enum RiskInsights {
+  }
+}
+extension TinkLink.Tink.RiskInsights {
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.RiskInsightsReport.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+}
+extension TinkLink.Tink {
+  public enum ExpenseCheck {
+  }
+}
+extension TinkLink.Tink.ExpenseCheck {
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.ExpenseCheckReport.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) final public class TinkViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) @objc override final public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override final public func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override final public func viewWillDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override final public func viewDidDisappear(_ animated: Swift.Bool)
+  @objc deinit
+}
+public struct TransactionReport : Swift.Identifiable {
+  public typealias ID = TinkLink.Identifier<TinkLink.TransactionReport>
+  public let id: TinkLink.TransactionReport.ID
+}
+extension TinkLink.Tink {
+  public enum IncomeCheck {
+  }
+}
+extension TinkLink.Tink.IncomeCheck {
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, engineVersion: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.IncomeVerification.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+}
+public struct PaymentRequest : Swift.Identifiable {
+  public typealias ID = TinkLink.Identifier<TinkLink.PaymentRequest>
+  public let id: TinkLink.PaymentRequest.ID
+}
+public enum FinancialServicesSegment : Swift.String {
+  case personal
+  case business
+  case all
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct OneTimeConnection {
+  public let code: TinkLink.AuthorizationCode?
+  public let credentialsID: TinkLink.Credentials.ID
+}
+public struct Market : Swift.Hashable, Swift.RawRepresentable, Swift.ExpressibleByStringLiteral {
+  public let rawValue: Swift.String
+  public init?(rawValue: Swift.String)
+  public init(stringLiteral value: Swift.String)
+  public init(code value: Swift.String)
+  public var code: Swift.String {
+    get
+  }
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias RawValue = Swift.String
+  public typealias StringLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+}
+extension TinkLink.Market : Swift.Comparable {
+  public static func < (lhs: TinkLink.Market, rhs: TinkLink.Market) -> Swift.Bool
+}
+public struct RefreshableItems : Swift.OptionSet {
+  public let rawValue: Swift.Int
+  public init(rawValue: Swift.Int)
+  public static let checkingAccounts: TinkLink.RefreshableItems
+  public static let checkingTransactions: TinkLink.RefreshableItems
+  public static let savingAccounts: TinkLink.RefreshableItems
+  public static let savingTransactions: TinkLink.RefreshableItems
+  public static let creditCardAccounts: TinkLink.RefreshableItems
+  public static let creditCardTransactions: TinkLink.RefreshableItems
+  public static let loanAccounts: TinkLink.RefreshableItems
+  public static let loanTransactions: TinkLink.RefreshableItems
+  public static let investmentAccounts: TinkLink.RefreshableItems
+  public static let investmentTransactions: TinkLink.RefreshableItems
+  public static let eInvoices: TinkLink.RefreshableItems
+  public static let transferDestinations: TinkLink.RefreshableItems
+  public static let identityData: TinkLink.RefreshableItems
+  public static let accounts: TinkLink.RefreshableItems
+  public static let transactions: TinkLink.RefreshableItems
+  public static let connectAccounts: TinkLink.RefreshableItems
+  public static let all: TinkLink.RefreshableItems
+  public typealias ArrayLiteralElement = TinkLink.RefreshableItems
+  public typealias Element = TinkLink.RefreshableItems
+  public typealias RawValue = Swift.Int
+}
+public struct TinkError : Swift.Error, Foundation.LocalizedError {
+  public enum ErrorStatus : Swift.Equatable {
+    case userCancelled
+    case badRequest(TinkLink.TinkErrorReason.BadRequest)
+    case authenticationError(TinkLink.TinkErrorReason.AuthenticationErrorType)
+    case temporaryError(TinkLink.TinkErrorReason.TemporaryError)
+    case internalError(TinkLink.TinkErrorReason.InternalError)
+    case undefined(Swift.String?)
+    public static func == (a: TinkLink.TinkError.ErrorStatus, b: TinkLink.TinkError.ErrorStatus) -> Swift.Bool
+  }
+  public let code: TinkLink.TinkError.ErrorStatus
+  public let trackingID: Swift.String?
+  public var credentials: Swift.String?
+  public var providerName: Swift.String?
+  public var paymentRequestID: Swift.String?
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public struct Identifier<Type> : Swift.Hashable, Swift.ExpressibleByStringLiteral {
+  public let value: Swift.String
+  public init(_ value: Swift.String)
+  public init(stringLiteral value: Swift.String)
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: TinkLink.Identifier<Type>, b: TinkLink.Identifier<Type>) -> Swift.Bool
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias StringLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum AccountDialogType : Swift.String {
+  case single
+  case multi
+  case none
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct Configuration {
+  public let clientID: Swift.String
+  public let redirectURI: Swift.String
+  public init(clientID: Swift.String, redirectURI: Swift.String)
+}
+extension TinkLink.FinancialServicesSegment : Swift.Equatable {}
+extension TinkLink.FinancialServicesSegment : Swift.Hashable {}
+extension TinkLink.FinancialServicesSegment : Swift.RawRepresentable {}
+extension TinkLink.AccountDialogType : Swift.Equatable {}
+extension TinkLink.AccountDialogType : Swift.Hashable {}
+extension TinkLink.AccountDialogType : Swift.RawRepresentable {}
