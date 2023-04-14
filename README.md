@@ -17,6 +17,7 @@
 
 1. iOS 13.0
 2. Xcode 13.0
+3. Swift 5.7
 
 ## Installation
 
