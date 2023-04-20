@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: tink-link-ios
+  description: Tink Link iOS Public
+  tags: []
+  annotations:
+    github.com/project-slug: tink-ab/tink-link-ios
+  links: []
+spec:
+  owner: ios
+  type: library
+  lifecycle: production
