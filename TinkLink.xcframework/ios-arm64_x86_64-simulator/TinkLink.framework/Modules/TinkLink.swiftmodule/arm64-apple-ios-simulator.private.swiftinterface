@@ -79,6 +79,7 @@ extension TinkLink.Tink {
 }
 extension TinkLink.Tink.Payments {
   public static func initiateOneTimePayment(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func initiateOneTimePayment(configuration: TinkLink.Configuration, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, authorizationCode: TinkLink.AuthorizationCode, market: TinkLink.Market? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public enum TinkErrorReason {
   public enum BadRequest : Swift.Equatable {

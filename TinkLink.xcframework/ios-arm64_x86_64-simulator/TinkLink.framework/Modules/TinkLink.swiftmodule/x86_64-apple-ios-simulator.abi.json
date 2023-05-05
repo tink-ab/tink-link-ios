@@ -1390,6 +1390,162 @@
                 ],
                 "isFromExtension": true,
                 "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Function",
+                "name": "initiateOneTimePayment",
+                "printedName": "initiateOneTimePayment(configuration:locale:paymentRequestID:authorizationCode:market:sessionID:inputProvider:inputUsername:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Locale",
+                    "printedName": "Foundation.Locale",
+                    "hasDefaultArg": true,
+                    "usr": "s:10Foundation6LocaleV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.PaymentRequest>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PaymentRequest",
+                        "printedName": "TinkLink.PaymentRequest",
+                        "usr": "s:8TinkLink14PaymentRequestV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AuthorizationCode",
+                    "printedName": "TinkLink.AuthorizationCode",
+                    "usr": "s:8TinkLink17AuthorizationCodeV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.Market?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Market",
+                        "printedName": "TinkLink.Market",
+                        "usr": "s:8TinkLink6MarketV"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.PaymentRequest>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.PaymentRequest>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.PaymentRequest>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "PaymentRequest",
+                                "printedName": "TinkLink.PaymentRequest",
+                                "usr": "s:8TinkLink14PaymentRequestV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O8PaymentsO22initiateOneTimePayment13configuration6locale16paymentRequestID17authorizationCode6market07sessionL013inputProvider0Q8Username10completionSo22UINavigationControllerCAA13ConfigurationV_10Foundation6LocaleVAA10IdentifierVyAA0gK0VGAA013AuthorizationN0VAA6MarketVSgSSSgA5_A5_ys6ResultOyA_AA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O8PaymentsO22initiateOneTimePayment13configuration6locale16paymentRequestID17authorizationCode6market07sessionL013inputProvider0Q8Username10completionSo22UINavigationControllerCAA13ConfigurationV_10Foundation6LocaleVAA10IdentifierVyAA0gK0VGAA013AuthorizationN0VAA6MarketVSgSSSgA5_A5_ys6ResultOyA_AA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
               }
             ],
             "declKind": "Enum",
@@ -11112,644 +11268,686 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
       "kind": "StringLiteral",
       "offset": 241,
       "length": 18,
       "value": "\"Tink-Mobile-SDK\/\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
       "kind": "StringLiteral",
       "offset": 118,
       "length": 7,
       "value": "\"https\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
       "kind": "StringLiteral",
       "offset": 156,
       "length": 15,
       "value": "\"link.tink.com\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
       "kind": "IntegerLiteral",
       "offset": 352,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
       "kind": "IntegerLiteral",
       "offset": 357,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
       "kind": "IntegerLiteral",
       "offset": 484,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
       "kind": "IntegerLiteral",
       "offset": 489,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 115,
       "length": 16,
       "value": "\"credentials_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 224,
       "length": 14,
       "value": "\"error_reason\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 264,
       "length": 12,
       "value": "\"error_type\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 305,
       "length": 15,
       "value": "\"provider_name\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 347,
       "length": 13,
       "value": "\"tracking_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 393,
       "length": 20,
       "value": "\"payment_request_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 457,
       "length": 32,
       "value": "\"account_verification_report_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 520,
       "length": 18,
       "value": "\"expense_check_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 568,
       "length": 17,
       "value": "\"income_check_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 622,
       "length": 18,
       "value": "\"risk_insights_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 676,
       "length": 23,
       "value": "\"transaction_report_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 751,
       "length": 41,
       "value": "\"business_account_verification_report_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 115,
       "length": 16,
       "value": "\"credentials_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 224,
       "length": 14,
       "value": "\"error_reason\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 264,
       "length": 12,
       "value": "\"error_type\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 305,
       "length": 15,
       "value": "\"provider_name\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 347,
       "length": 13,
       "value": "\"tracking_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 393,
       "length": 20,
       "value": "\"payment_request_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 457,
       "length": 32,
       "value": "\"account_verification_report_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 520,
       "length": 18,
       "value": "\"expense_check_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 568,
       "length": 17,
       "value": "\"income_check_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 622,
       "length": 18,
       "value": "\"risk_insights_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 676,
       "length": 23,
       "value": "\"transaction_report_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 751,
       "length": 41,
       "value": "\"business_account_verification_report_id\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 1377,
       "length": 66,
       "value": "\"tink:\/\/callback?error=USER_CANCELLED&error_reason=USER_CANCELLED\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "StringLiteral",
       "offset": 1374,
       "length": 14,
       "value": "\"chevron.left\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "StringLiteral",
       "offset": 387,
       "length": 18,
       "value": "\"TinkLink.TinkViewController\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 203,
       "length": 10,
       "value": "\"PERSONAL\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 362,
       "length": 10,
       "value": "\"BUSINESS\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 453,
       "length": 19,
       "value": "\"PERSONAL,BUSINESS\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 203,
       "length": 10,
       "value": "\"PERSONAL\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 362,
       "length": 10,
       "value": "\"BUSINESS\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 453,
       "length": 19,
       "value": "\"PERSONAL,BUSINESS\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 360,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 365,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 495,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 500,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 618,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 623,
       "length": 1,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 749,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 754,
       "length": 1,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 881,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 886,
       "length": 1,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1021,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1026,
       "length": 1,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1140,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1145,
       "length": 1,
       "value": "6"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1267,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1272,
       "length": 1,
       "value": "7"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1398,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1403,
       "length": 1,
       "value": "8"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1537,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1542,
       "length": 1,
       "value": "9"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1649,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1654,
       "length": 2,
       "value": "10"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1772,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1777,
       "length": 2,
       "value": "11"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1887,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1892,
       "length": 2,
       "value": "12"
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 387,
       "length": 36,
       "value": "\"\/1.0\/transactions\/connect-accounts\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 449,
       "length": 34,
       "value": "\"\/1.0\/transactions\/update-consent\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 509,
       "length": 34,
       "value": "\"\/1.0\/transactions\/extend-consent\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 387,
       "length": 36,
       "value": "\"\/1.0\/transactions\/connect-accounts\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 449,
       "length": 34,
       "value": "\"\/1.0\/transactions\/update-consent\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 509,
       "length": 34,
       "value": "\"\/1.0\/transactions\/extend-consent\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 629,
       "length": 10,
       "value": "\"\/1.0\/pay\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 629,
       "length": 10,
       "value": "\"\/1.0\/pay\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 729,
       "length": 34,
       "value": "\"\/1.0\/account-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 729,
       "length": 34,
       "value": "\"\/1.0\/account-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 853,
       "length": 34,
       "value": "\"\/1.0\/expense-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 853,
       "length": 34,
       "value": "\"\/1.0\/expense-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 976,
       "length": 33,
       "value": "\"\/1.0\/income-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 976,
       "length": 33,
       "value": "\"\/1.0\/income-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1099,
       "length": 34,
       "value": "\"\/1.0\/risk-insights\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1099,
       "length": 34,
       "value": "\"\/1.0\/risk-insights\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1218,
       "length": 28,
       "value": "\"\/1.0\/reports\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1218,
       "length": 28,
       "value": "\"\/1.0\/reports\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1344,
+      "offset": 1347,
+      "length": 45,
+      "value": "\"\/1.0\/business-transactions\/connect-accounts\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1418,
+      "length": 43,
+      "value": "\"\/1.0\/business-transactions\/update-consent\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1487,
+      "length": 43,
+      "value": "\"\/1.0\/business-transactions\/extend-consent\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1347,
+      "length": 45,
+      "value": "\"\/1.0\/business-transactions\/connect-accounts\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1418,
+      "length": 43,
+      "value": "\"\/1.0\/business-transactions\/update-consent\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1487,
+      "length": 43,
+      "value": "\"\/1.0\/business-transactions\/extend-consent\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1628,
       "length": 43,
       "value": "\"\/1.0\/business-account-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1344,
+      "offset": 1628,
       "length": 43,
       "value": "\"\/1.0\/business-account-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 246,
       "length": 8,
       "value": "\"SINGLE\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 307,
       "length": 7,
       "value": "\"MULTI\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 361,
       "length": 6,
       "value": "\"NONE\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 246,
       "length": 8,
       "value": "\"SINGLE\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 307,
       "length": 7,
       "value": "\"MULTI\""
     },
     {
-      "filePath": "\/Users\/sergei.belous\/Developer\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 361,
       "length": 6,
