@@ -603,6 +603,178 @@
           },
           {
             "kind": "TypeDecl",
+            "name": "BusinessAccountCheck",
+            "printedName": "BusinessAccountCheck",
+            "children": [
+              {
+                "kind": "Function",
+                "name": "createReport",
+                "printedName": "createReport(configuration:market:locale:financialServicesSegments:financialInstitutionID:sessionID:inputProvider:inputUsername:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Market",
+                    "printedName": "TinkLink.Market",
+                    "usr": "s:8TinkLink6MarketV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Locale",
+                    "printedName": "Foundation.Locale",
+                    "hasDefaultArg": true,
+                    "usr": "s:10Foundation6LocaleV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.FinancialServicesSegment?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "FinancialServicesSegment",
+                        "printedName": "TinkLink.FinancialServicesSegment",
+                        "usr": "s:8TinkLink24FinancialServicesSegmentO"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.BusinessAccountCheckReport>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.BusinessAccountCheckReport>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.BusinessAccountCheckReport>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "BusinessAccountCheckReport",
+                                "printedName": "TinkLink.BusinessAccountCheckReport",
+                                "usr": "s:8TinkLink26BusinessAccountCheckReportV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O20BusinessAccountCheckO12createReport13configuration6market6locale25financialServicesSegments0K13InstitutionID07sessionO013inputProvider0Q8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA09FinancialL7SegmentOSgSSSgA0_A0_A0_ys6ResultOyAA10IdentifierVyAA0cdeG0VGAA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O20BusinessAccountCheckO12createReport13configuration6market6locale25financialServicesSegments0K13InstitutionID07sessionO013inputProvider0Q8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA09FinancialL7SegmentOSgSSSgA0_A0_A0_ys6ResultOyAA10IdentifierVyAA0cdeG0VGAA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink0A0O20BusinessAccountCheckO",
+            "mangledName": "$s8TinkLink0A0O20BusinessAccountCheckO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "isFromExtension": true
+          },
+          {
+            "kind": "TypeDecl",
             "name": "Reports",
             "printedName": "Reports",
             "children": [
@@ -2042,6 +2214,541 @@
               "RawDocComment"
             ],
             "isFromExtension": true
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "BusinessTransactions",
+            "printedName": "BusinessTransactions",
+            "children": [
+              {
+                "kind": "Function",
+                "name": "connectAccountsForOneTimeAccess",
+                "printedName": "connectAccountsForOneTimeAccess(configuration:market:locale:refreshableItems:financialServicesSegments:financialInstitutionID:sessionID:inputProvider:inputUsername:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Market",
+                    "printedName": "TinkLink.Market",
+                    "usr": "s:8TinkLink6MarketV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Locale",
+                    "printedName": "Foundation.Locale",
+                    "hasDefaultArg": true,
+                    "usr": "s:10Foundation6LocaleV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.RefreshableItems?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RefreshableItems",
+                        "printedName": "TinkLink.RefreshableItems",
+                        "usr": "s:8TinkLink16RefreshableItemsV"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.FinancialServicesSegment?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "FinancialServicesSegment",
+                        "printedName": "TinkLink.FinancialServicesSegment",
+                        "usr": "s:8TinkLink24FinancialServicesSegmentO"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "OneTimeConnection",
+                            "printedName": "TinkLink.OneTimeConnection",
+                            "usr": "s:8TinkLink17OneTimeConnectionV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O20BusinessTransactionsO31connectAccountsForOneTimeAccess13configuration6market6locale16refreshableItems25financialServicesSegments0P13InstitutionID07sessionT013inputProvider0V8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA011RefreshableO0VSgAA09FinancialQ7SegmentOSgSSSgA4_A4_A4_ys6ResultOyAA0hI10ConnectionVAA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O20BusinessTransactionsO31connectAccountsForOneTimeAccess13configuration6market6locale16refreshableItems25financialServicesSegments0P13InstitutionID07sessionT013inputProvider0V8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA011RefreshableO0VSgAA09FinancialQ7SegmentOSgSSSgA4_A4_A4_ys6ResultOyAA0hI10ConnectionVAA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Function",
+                "name": "connectAccountsForContinuousAccess",
+                "printedName": "connectAccountsForContinuousAccess(configuration:market:locale:authorizationCode:refreshableItems:financialServicesSegments:financialInstitutionID:sessionID:inputProvider:inputUsername:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Market",
+                    "printedName": "TinkLink.Market",
+                    "usr": "s:8TinkLink6MarketV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Locale",
+                    "printedName": "Foundation.Locale",
+                    "hasDefaultArg": true,
+                    "usr": "s:10Foundation6LocaleV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AuthorizationCode",
+                    "printedName": "TinkLink.AuthorizationCode",
+                    "usr": "s:8TinkLink17AuthorizationCodeV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.RefreshableItems?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RefreshableItems",
+                        "printedName": "TinkLink.RefreshableItems",
+                        "usr": "s:8TinkLink16RefreshableItemsV"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.FinancialServicesSegment?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "FinancialServicesSegment",
+                        "printedName": "TinkLink.FinancialServicesSegment",
+                        "usr": "s:8TinkLink24FinancialServicesSegmentO"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Credentials",
+                                "printedName": "TinkLink.Credentials",
+                                "usr": "s:8TinkLink11CredentialsV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O20BusinessTransactionsO34connectAccountsForContinuousAccess13configuration6market6locale17authorizationCode16refreshableItems25financialServicesSegments0Q13InstitutionID07sessionU013inputProvider0W8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA013AuthorizationN0VAA011RefreshableP0VSgAA09FinancialR7SegmentOSgSSSgA7_A7_A7_ys6ResultOyAA10IdentifierVyAA11CredentialsVGAA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O20BusinessTransactionsO34connectAccountsForContinuousAccess13configuration6market6locale17authorizationCode16refreshableItems25financialServicesSegments0Q13InstitutionID07sessionU013inputProvider0W8Username10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketV10Foundation6LocaleVAA013AuthorizationN0VAA011RefreshableP0VSgAA09FinancialR7SegmentOSgSSSgA7_A7_A7_ys6ResultOyAA10IdentifierVyAA11CredentialsVGAA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Function",
+                "name": "updateConsent",
+                "printedName": "updateConsent(configuration:authorizationCode:credentialsID:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AuthorizationCode",
+                    "printedName": "TinkLink.AuthorizationCode",
+                    "usr": "s:8TinkLink17AuthorizationCodeV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Credentials",
+                        "printedName": "TinkLink.Credentials",
+                        "usr": "s:8TinkLink11CredentialsV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Credentials",
+                                "printedName": "TinkLink.Credentials",
+                                "usr": "s:8TinkLink11CredentialsV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O20BusinessTransactionsO13updateConsent13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA11CredentialsVGys6ResultOyAuA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O20BusinessTransactionsO13updateConsent13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA11CredentialsVGys6ResultOyAuA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Function",
+                "name": "extendConsent",
+                "printedName": "extendConsent(configuration:authorizationCode:credentialsID:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AuthorizationCode",
+                    "printedName": "TinkLink.AuthorizationCode",
+                    "usr": "s:8TinkLink17AuthorizationCodeV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Credentials",
+                        "printedName": "TinkLink.Credentials",
+                        "usr": "s:8TinkLink11CredentialsV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Credentials",
+                                "printedName": "TinkLink.Credentials",
+                                "usr": "s:8TinkLink11CredentialsV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O20BusinessTransactionsO13extendConsent13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA11CredentialsVGys6ResultOyAuA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O20BusinessTransactionsO13extendConsent13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA11CredentialsVGys6ResultOyAuA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink0A0O20BusinessTransactionsO",
+            "mangledName": "$s8TinkLink0A0O20BusinessTransactionsO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "isFromExtension": true
           }
         ],
         "declKind": "Enum",
@@ -2296,6 +3003,13 @@
             "mangledName": "$ss12IdentifiableP"
           }
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
       },
       {
         "kind": "Import",
@@ -11110,6 +11824,13 @@
             "mangledName": "$sSY"
           }
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
       },
       {
         "kind": "Import",
