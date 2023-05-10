@@ -44,6 +44,13 @@ public struct BusinessAccountCheckReport : Swift.Identifiable {
   public typealias ID = TinkLink.Identifier<TinkLink.BusinessAccountCheckReport>
   public let id: TinkLink.BusinessAccountCheckReport.ID
 }
+extension TinkLink.Tink {
+  public enum BusinessAccountCheck {
+  }
+}
+extension TinkLink.Tink.BusinessAccountCheck {
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BusinessAccountCheckReport.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+}
 public struct IncomeVerification : Swift.Identifiable {
   public typealias ID = TinkLink.Identifier<TinkLink.IncomeVerification>
   public let id: TinkLink.IncomeVerification.ID
@@ -79,6 +86,7 @@ extension TinkLink.Tink {
 }
 extension TinkLink.Tink.Payments {
   public static func initiateOneTimePayment(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func initiateOneTimePayment(configuration: TinkLink.Configuration, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, authorizationCode: TinkLink.AuthorizationCode, market: TinkLink.Market? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public enum TinkErrorReason {
   public enum BadRequest : Swift.Equatable {
@@ -341,6 +349,16 @@ public enum AccountDialogType : Swift.String {
   public var rawValue: Swift.String {
     get
   }
+}
+extension TinkLink.Tink {
+  public enum BusinessTransactions {
+  }
+}
+extension TinkLink.Tink.BusinessTransactions {
+  public static func connectAccountsForOneTimeAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func connectAccountsForContinuousAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, authorizationCode: TinkLink.AuthorizationCode, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func updateConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func extendConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public struct Configuration {
   public let clientID: Swift.String

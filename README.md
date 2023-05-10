@@ -6,7 +6,7 @@
 
 # Tink Link iOS
 
-![Tink Link iOS](https://user-images.githubusercontent.com/3734694/228249248-b40cb9dd-eab1-41b6-af65-20d90040caca.png)
+![Tink Link iOS](https://user-images.githubusercontent.com/5173226/236459362-a33cd65c-241f-4bae-a73c-f08e7806f17e.png)
 
 ## Prerequisites
 
@@ -16,7 +16,7 @@
 ## Requirements
 
 1. iOS 13.0
-2. Xcode 13.0
+2. Xcode 14.0
 3. Swift 5.7
 
 ## Installation
@@ -55,6 +55,23 @@ To launch the SDK in your iOS app, please see the product specific documentation
 | **Risk Insights**     | [Getting started](https://docs.tink.com/resources/risk-insights/fetch-your-first-risk-insights-report)             | [Setup and integrate](https://docs.tink.com/resources/risk-insights/setup-and-integrate-risk-insights#tink-link-for-ios)                  | [SDK reference](https://tink-ab.github.io/tink-link-ios/documentation/tinklink/tink/riskinsights) |
 | **Transactions**      | [Getting started](https://docs.tink.com/resources/transactions/connect-to-a-bank-account)                          | [Setup and integrate](https://docs.tink.com/resources/transactions/setup-and-integrate-transactions#tink-link-for-ios)                    | [SDK reference](https://tink-ab.github.io/tink-link-ios/documentation/tinklink/tink/transactions) |
 | **Report bundling**   | -                                                                                                                  | -                                                                                                                                         | [SDK reference](https://tink-ab.github.io/tink-link-ios/documentation/tinklink/tink/reports)      |
+
+## Preselecting a provider
+
+You can also optimize your integration in different ways, such as [preselecting a provider](https://docs.tink.com/resources/account-check/optimize-your-account-check-integration#preselecting-a-bank). To preselect a provider, simply specify your provider name as a value to the `inputProvider` argument for the API calls where it's available, like in this example:
+
+```swift
+let viewController = Tink.Transactions.connectAccountsForOneTimeAccess(
+    configuration: config,
+    market: market,
+    inputProvider: "sbab-bankid",
+    completion: handler
+)
+```
+
+Parameter `inputProvider` gives the option to use the data to skip the provider-selection screen and preselect the user's provider (in this example, SBAB is preselected).
+
+To get the list of all providers available for an authenticated user, please refer to [list-providers](https://docs.tink.com/api#connectivity/provider/list-provider-identifiers). To get the list of all providers on a specified market, please refer to [list-providers-for-a-market](https://docs.tink.com/api#connectivity/provider/list-providers-for-a-market).
 
 ## Example app
 
