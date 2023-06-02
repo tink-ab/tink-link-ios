@@ -13,6 +13,13 @@
       },
       {
         "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -459,6 +466,592 @@
         "name": "Tink",
         "printedName": "Tink",
         "children": [
+          {
+            "kind": "TypeDecl",
+            "name": "AccountAggregation",
+            "printedName": "AccountAggregation",
+            "children": [
+              {
+                "kind": "Function",
+                "name": "authorizeForOneTimeAccess",
+                "printedName": "authorizeForOneTimeAccess(configuration:market:scope:locale:sessionID:inputUsername:inputProvider:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Market",
+                    "printedName": "TinkLink.Market",
+                    "usr": "s:8TinkLink6MarketV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[TinkLink.Scope]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Scope",
+                        "printedName": "TinkLink.Scope",
+                        "usr": "s:8TinkLink5ScopeV"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Locale",
+                    "printedName": "Foundation.Locale",
+                    "hasDefaultArg": true,
+                    "usr": "s:10Foundation6LocaleV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "OneTimeConnection",
+                            "printedName": "TinkLink.OneTimeConnection",
+                            "usr": "s:8TinkLink17OneTimeConnectionV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O18AccountAggregationO25authorizeForOneTimeAccess13configuration6market5scope6locale9sessionID13inputUsername0P8Provider10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketVSayAA5ScopeVG10Foundation6LocaleVSSSgA_A_ys6ResultOyAA0gH10ConnectionVAA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O18AccountAggregationO25authorizeForOneTimeAccess13configuration6market5scope6locale9sessionID13inputUsername0P8Provider10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketVSayAA5ScopeVG10Foundation6LocaleVSSSgA_A_ys6ResultOyAA0gH10ConnectionVAA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Function",
+                "name": "addCredentials",
+                "printedName": "addCredentials(configuration:market:authorizationCode:locale:scope:sessionID:inputUsername:inputProvider:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Market",
+                    "printedName": "TinkLink.Market",
+                    "usr": "s:8TinkLink6MarketV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AuthorizationCode",
+                    "printedName": "TinkLink.AuthorizationCode",
+                    "usr": "s:8TinkLink17AuthorizationCodeV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Locale",
+                    "printedName": "Foundation.Locale",
+                    "hasDefaultArg": true,
+                    "usr": "s:10Foundation6LocaleV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[TinkLink.Scope]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[TinkLink.Scope]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Scope",
+                            "printedName": "TinkLink.Scope",
+                            "usr": "s:8TinkLink5ScopeV"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Credentials",
+                                "printedName": "TinkLink.Credentials",
+                                "usr": "s:8TinkLink11CredentialsV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O18AccountAggregationO14addCredentials13configuration6market17authorizationCode6locale5scope9sessionID13inputUsername0O8Provider10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketVAA013AuthorizationJ0V10Foundation6LocaleVSayAA5ScopeVGSgSSSgA3_A3_ys6ResultOyAA10IdentifierVyAA0F0VGAA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O18AccountAggregationO14addCredentials13configuration6market17authorizationCode6locale5scope9sessionID13inputUsername0O8Provider10completionSo22UINavigationControllerCAA13ConfigurationV_AA6MarketVAA013AuthorizationJ0V10Foundation6LocaleVSayAA5ScopeVGSgSSSgA3_A3_ys6ResultOyAA10IdentifierVyAA0F0VGAA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Function",
+                "name": "refreshCredentials",
+                "printedName": "refreshCredentials(configuration:authorizationCode:credentialsID:authenticate:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AuthorizationCode",
+                    "printedName": "TinkLink.AuthorizationCode",
+                    "usr": "s:8TinkLink17AuthorizationCodeV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Credentials",
+                        "printedName": "TinkLink.Credentials",
+                        "usr": "s:8TinkLink11CredentialsV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.Bool?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Bool",
+                        "printedName": "Swift.Bool",
+                        "usr": "s:Sb"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Credentials",
+                                "printedName": "TinkLink.Credentials",
+                                "usr": "s:8TinkLink11CredentialsV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O18AccountAggregationO18refreshCredentials13configuration17authorizationCode13credentialsID12authenticate10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA0F0VGSbSgys6ResultOyAvA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O18AccountAggregationO18refreshCredentials13configuration17authorizationCode13credentialsID12authenticate10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA0F0VGSbSgys6ResultOyAvA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Function",
+                "name": "extendConsent",
+                "printedName": "extendConsent(configuration:authorizationCode:credentialsID:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AuthorizationCode",
+                    "printedName": "TinkLink.AuthorizationCode",
+                    "usr": "s:8TinkLink17AuthorizationCodeV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Credentials",
+                        "printedName": "TinkLink.Credentials",
+                        "usr": "s:8TinkLink11CredentialsV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Credentials",
+                                "printedName": "TinkLink.Credentials",
+                                "usr": "s:8TinkLink11CredentialsV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O18AccountAggregationO13extendConsent13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA11CredentialsVGys6ResultOyAuA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O18AccountAggregationO13extendConsent13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA11CredentialsVGys6ResultOyAuA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Function",
+                "name": "authenticateCredentials",
+                "printedName": "authenticateCredentials(configuration:authorizationCode:credentialsID:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AuthorizationCode",
+                    "printedName": "TinkLink.AuthorizationCode",
+                    "usr": "s:8TinkLink17AuthorizationCodeV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Credentials",
+                        "printedName": "TinkLink.Credentials",
+                        "usr": "s:8TinkLink11CredentialsV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.Credentials>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Credentials",
+                                "printedName": "TinkLink.Credentials",
+                                "usr": "s:8TinkLink11CredentialsV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O18AccountAggregationO23authenticateCredentials13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA0F0VGys6ResultOyAuA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O18AccountAggregationO23authenticateCredentials13configuration17authorizationCode13credentialsID10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA0F0VGys6ResultOyAuA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink0A0O18AccountAggregationO",
+            "mangledName": "$s8TinkLink0A0O18AccountAggregationO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "isFromExtension": true
+          },
           {
             "kind": "TypeDecl",
             "name": "AccountCheck",
@@ -7993,6 +8586,2514 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Scope",
+        "printedName": "Scope",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV2eeoiySbAC_ACtFZ",
+            "mangledName": "$s8TinkLink5ScopeV2eeoiySbAC_ACtFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "implicit": true,
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "ReadAccess",
+            "printedName": "ReadAccess",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "read",
+                "printedName": "read",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.ReadAccess.Type) -> TinkLink.Scope.ReadAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ReadAccess",
+                        "printedName": "TinkLink.Scope.ReadAccess",
+                        "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.ReadAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "ReadAccess",
+                            "printedName": "TinkLink.Scope.ReadAccess",
+                            "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV10ReadAccessO4readyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV10ReadAccessO4readyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.Scope.ReadAccess?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ReadAccess",
+                        "printedName": "TinkLink.Scope.ReadAccess",
+                        "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:8TinkLink5ScopeV10ReadAccessO8rawValueAESgSS_tcfc",
+                "mangledName": "$s8TinkLink5ScopeV10ReadAccessO8rawValueAESgSS_tcfc",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:8TinkLink5ScopeV10ReadAccessO8rawValueSSvp",
+                "mangledName": "$s8TinkLink5ScopeV10ReadAccessO8rawValueSSvp",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:8TinkLink5ScopeV10ReadAccessO8rawValueSSvg",
+                    "mangledName": "$s8TinkLink5ScopeV10ReadAccessO8rawValueSSvg",
+                    "moduleName": "TinkLink",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink5ScopeV10ReadAccessO",
+            "mangledName": "$s8TinkLink5ScopeV10ReadAccessO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "enumRawTypeName": "String",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "ReadWriteAccess",
+            "printedName": "ReadWriteAccess",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "read",
+                "printedName": "read",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.ReadWriteAccess.Type) -> TinkLink.Scope.ReadWriteAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ReadWriteAccess",
+                        "printedName": "TinkLink.Scope.ReadWriteAccess",
+                        "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.ReadWriteAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "ReadWriteAccess",
+                            "printedName": "TinkLink.Scope.ReadWriteAccess",
+                            "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO4readyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV15ReadWriteAccessO4readyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "write",
+                "printedName": "write",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.ReadWriteAccess.Type) -> TinkLink.Scope.ReadWriteAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ReadWriteAccess",
+                        "printedName": "TinkLink.Scope.ReadWriteAccess",
+                        "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.ReadWriteAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "ReadWriteAccess",
+                            "printedName": "TinkLink.Scope.ReadWriteAccess",
+                            "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO5writeyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV15ReadWriteAccessO5writeyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.Scope.ReadWriteAccess?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ReadWriteAccess",
+                        "printedName": "TinkLink.Scope.ReadWriteAccess",
+                        "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO8rawValueAESgSS_tcfc",
+                "mangledName": "$s8TinkLink5ScopeV15ReadWriteAccessO8rawValueAESgSS_tcfc",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO8rawValueSSvp",
+                "mangledName": "$s8TinkLink5ScopeV15ReadWriteAccessO8rawValueSSvp",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO8rawValueSSvg",
+                    "mangledName": "$s8TinkLink5ScopeV15ReadWriteAccessO8rawValueSSvg",
+                    "moduleName": "TinkLink",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO",
+            "mangledName": "$s8TinkLink5ScopeV15ReadWriteAccessO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "enumRawTypeName": "String",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "AuthorizationAccess",
+            "printedName": "AuthorizationAccess",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "grant",
+                "printedName": "grant",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.AuthorizationAccess.Type) -> TinkLink.Scope.AuthorizationAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AuthorizationAccess",
+                        "printedName": "TinkLink.Scope.AuthorizationAccess",
+                        "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.AuthorizationAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "AuthorizationAccess",
+                            "printedName": "TinkLink.Scope.AuthorizationAccess",
+                            "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO5grantyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV19AuthorizationAccessO5grantyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "read",
+                "printedName": "read",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.AuthorizationAccess.Type) -> TinkLink.Scope.AuthorizationAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AuthorizationAccess",
+                        "printedName": "TinkLink.Scope.AuthorizationAccess",
+                        "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.AuthorizationAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "AuthorizationAccess",
+                            "printedName": "TinkLink.Scope.AuthorizationAccess",
+                            "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO4readyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV19AuthorizationAccessO4readyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "revoke",
+                "printedName": "revoke",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.AuthorizationAccess.Type) -> TinkLink.Scope.AuthorizationAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AuthorizationAccess",
+                        "printedName": "TinkLink.Scope.AuthorizationAccess",
+                        "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.AuthorizationAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "AuthorizationAccess",
+                            "printedName": "TinkLink.Scope.AuthorizationAccess",
+                            "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO6revokeyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV19AuthorizationAccessO6revokeyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.Scope.AuthorizationAccess?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AuthorizationAccess",
+                        "printedName": "TinkLink.Scope.AuthorizationAccess",
+                        "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO8rawValueAESgSS_tcfc",
+                "mangledName": "$s8TinkLink5ScopeV19AuthorizationAccessO8rawValueAESgSS_tcfc",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO8rawValueSSvp",
+                "mangledName": "$s8TinkLink5ScopeV19AuthorizationAccessO8rawValueSSvp",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO8rawValueSSvg",
+                    "mangledName": "$s8TinkLink5ScopeV19AuthorizationAccessO8rawValueSSvg",
+                    "moduleName": "TinkLink",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO",
+            "mangledName": "$s8TinkLink5ScopeV19AuthorizationAccessO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "enumRawTypeName": "String",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "CredentialsAccess",
+            "printedName": "CredentialsAccess",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "read",
+                "printedName": "read",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.CredentialsAccess.Type) -> TinkLink.Scope.CredentialsAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CredentialsAccess",
+                        "printedName": "TinkLink.Scope.CredentialsAccess",
+                        "usr": "s:8TinkLink5ScopeV17CredentialsAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.CredentialsAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "CredentialsAccess",
+                            "printedName": "TinkLink.Scope.CredentialsAccess",
+                            "usr": "s:8TinkLink5ScopeV17CredentialsAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV17CredentialsAccessO4readyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV17CredentialsAccessO4readyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "write",
+                "printedName": "write",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.CredentialsAccess.Type) -> TinkLink.Scope.CredentialsAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CredentialsAccess",
+                        "printedName": "TinkLink.Scope.CredentialsAccess",
+                        "usr": "s:8TinkLink5ScopeV17CredentialsAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.CredentialsAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "CredentialsAccess",
+                            "printedName": "TinkLink.Scope.CredentialsAccess",
+                            "usr": "s:8TinkLink5ScopeV17CredentialsAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV17CredentialsAccessO5writeyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV17CredentialsAccessO5writeyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "refresh",
+                "printedName": "refresh",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.CredentialsAccess.Type) -> TinkLink.Scope.CredentialsAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CredentialsAccess",
+                        "printedName": "TinkLink.Scope.CredentialsAccess",
+                        "usr": "s:8TinkLink5ScopeV17CredentialsAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.CredentialsAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "CredentialsAccess",
+                            "printedName": "TinkLink.Scope.CredentialsAccess",
+                            "usr": "s:8TinkLink5ScopeV17CredentialsAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV17CredentialsAccessO7refreshyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV17CredentialsAccessO7refreshyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.Scope.CredentialsAccess?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CredentialsAccess",
+                        "printedName": "TinkLink.Scope.CredentialsAccess",
+                        "usr": "s:8TinkLink5ScopeV17CredentialsAccessO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:8TinkLink5ScopeV17CredentialsAccessO8rawValueAESgSS_tcfc",
+                "mangledName": "$s8TinkLink5ScopeV17CredentialsAccessO8rawValueAESgSS_tcfc",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:8TinkLink5ScopeV17CredentialsAccessO8rawValueSSvp",
+                "mangledName": "$s8TinkLink5ScopeV17CredentialsAccessO8rawValueSSvp",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:8TinkLink5ScopeV17CredentialsAccessO8rawValueSSvg",
+                    "mangledName": "$s8TinkLink5ScopeV17CredentialsAccessO8rawValueSSvg",
+                    "moduleName": "TinkLink",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink5ScopeV17CredentialsAccessO",
+            "mangledName": "$s8TinkLink5ScopeV17CredentialsAccessO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "enumRawTypeName": "String",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "TransactionAccess",
+            "printedName": "TransactionAccess",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "read",
+                "printedName": "read",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.TransactionAccess.Type) -> TinkLink.Scope.TransactionAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "TransactionAccess",
+                        "printedName": "TinkLink.Scope.TransactionAccess",
+                        "usr": "s:8TinkLink5ScopeV17TransactionAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.TransactionAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TransactionAccess",
+                            "printedName": "TinkLink.Scope.TransactionAccess",
+                            "usr": "s:8TinkLink5ScopeV17TransactionAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV17TransactionAccessO4readyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV17TransactionAccessO4readyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "write",
+                "printedName": "write",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.TransactionAccess.Type) -> TinkLink.Scope.TransactionAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "TransactionAccess",
+                        "printedName": "TinkLink.Scope.TransactionAccess",
+                        "usr": "s:8TinkLink5ScopeV17TransactionAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.TransactionAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TransactionAccess",
+                            "printedName": "TinkLink.Scope.TransactionAccess",
+                            "usr": "s:8TinkLink5ScopeV17TransactionAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV17TransactionAccessO5writeyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV17TransactionAccessO5writeyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "categorize",
+                "printedName": "categorize",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.TransactionAccess.Type) -> TinkLink.Scope.TransactionAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "TransactionAccess",
+                        "printedName": "TinkLink.Scope.TransactionAccess",
+                        "usr": "s:8TinkLink5ScopeV17TransactionAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.TransactionAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TransactionAccess",
+                            "printedName": "TinkLink.Scope.TransactionAccess",
+                            "usr": "s:8TinkLink5ScopeV17TransactionAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV17TransactionAccessO10categorizeyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV17TransactionAccessO10categorizeyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.Scope.TransactionAccess?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "TransactionAccess",
+                        "printedName": "TinkLink.Scope.TransactionAccess",
+                        "usr": "s:8TinkLink5ScopeV17TransactionAccessO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:8TinkLink5ScopeV17TransactionAccessO8rawValueAESgSS_tcfc",
+                "mangledName": "$s8TinkLink5ScopeV17TransactionAccessO8rawValueAESgSS_tcfc",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:8TinkLink5ScopeV17TransactionAccessO8rawValueSSvp",
+                "mangledName": "$s8TinkLink5ScopeV17TransactionAccessO8rawValueSSvp",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:8TinkLink5ScopeV17TransactionAccessO8rawValueSSvg",
+                    "mangledName": "$s8TinkLink5ScopeV17TransactionAccessO8rawValueSSvg",
+                    "moduleName": "TinkLink",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink5ScopeV17TransactionAccessO",
+            "mangledName": "$s8TinkLink5ScopeV17TransactionAccessO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "enumRawTypeName": "String",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "TransferAccess",
+            "printedName": "TransferAccess",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "read",
+                "printedName": "read",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.TransferAccess.Type) -> TinkLink.Scope.TransferAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "TransferAccess",
+                        "printedName": "TinkLink.Scope.TransferAccess",
+                        "usr": "s:8TinkLink5ScopeV14TransferAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.TransferAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TransferAccess",
+                            "printedName": "TinkLink.Scope.TransferAccess",
+                            "usr": "s:8TinkLink5ScopeV14TransferAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV14TransferAccessO4readyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV14TransferAccessO4readyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "execute",
+                "printedName": "execute",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.TransferAccess.Type) -> TinkLink.Scope.TransferAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "TransferAccess",
+                        "printedName": "TinkLink.Scope.TransferAccess",
+                        "usr": "s:8TinkLink5ScopeV14TransferAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.TransferAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TransferAccess",
+                            "printedName": "TinkLink.Scope.TransferAccess",
+                            "usr": "s:8TinkLink5ScopeV14TransferAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV14TransferAccessO7executeyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV14TransferAccessO7executeyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.Scope.TransferAccess?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "TransferAccess",
+                        "printedName": "TinkLink.Scope.TransferAccess",
+                        "usr": "s:8TinkLink5ScopeV14TransferAccessO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:8TinkLink5ScopeV14TransferAccessO8rawValueAESgSS_tcfc",
+                "mangledName": "$s8TinkLink5ScopeV14TransferAccessO8rawValueAESgSS_tcfc",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:8TinkLink5ScopeV14TransferAccessO8rawValueSSvp",
+                "mangledName": "$s8TinkLink5ScopeV14TransferAccessO8rawValueSSvp",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:8TinkLink5ScopeV14TransferAccessO8rawValueSSvg",
+                    "mangledName": "$s8TinkLink5ScopeV14TransferAccessO8rawValueSSvg",
+                    "moduleName": "TinkLink",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink5ScopeV14TransferAccessO",
+            "mangledName": "$s8TinkLink5ScopeV14TransferAccessO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "enumRawTypeName": "String",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "UserAccess",
+            "printedName": "UserAccess",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "create",
+                "printedName": "create",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.UserAccess.Type) -> TinkLink.Scope.UserAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UserAccess",
+                        "printedName": "TinkLink.Scope.UserAccess",
+                        "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.UserAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "UserAccess",
+                            "printedName": "TinkLink.Scope.UserAccess",
+                            "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV10UserAccessO6createyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV10UserAccessO6createyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "delete",
+                "printedName": "delete",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.UserAccess.Type) -> TinkLink.Scope.UserAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UserAccess",
+                        "printedName": "TinkLink.Scope.UserAccess",
+                        "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.UserAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "UserAccess",
+                            "printedName": "TinkLink.Scope.UserAccess",
+                            "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV10UserAccessO6deleteyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV10UserAccessO6deleteyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "read",
+                "printedName": "read",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.UserAccess.Type) -> TinkLink.Scope.UserAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UserAccess",
+                        "printedName": "TinkLink.Scope.UserAccess",
+                        "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.UserAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "UserAccess",
+                            "printedName": "TinkLink.Scope.UserAccess",
+                            "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV10UserAccessO4readyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV10UserAccessO4readyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "webHooks",
+                "printedName": "webHooks",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.UserAccess.Type) -> TinkLink.Scope.UserAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UserAccess",
+                        "printedName": "TinkLink.Scope.UserAccess",
+                        "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.UserAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "UserAccess",
+                            "printedName": "TinkLink.Scope.UserAccess",
+                            "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV10UserAccessO8webHooksyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV10UserAccessO8webHooksyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Var",
+                "name": "write",
+                "printedName": "write",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(TinkLink.Scope.UserAccess.Type) -> TinkLink.Scope.UserAccess",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UserAccess",
+                        "printedName": "TinkLink.Scope.UserAccess",
+                        "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "TinkLink.Scope.UserAccess.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "UserAccess",
+                            "printedName": "TinkLink.Scope.UserAccess",
+                            "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:8TinkLink5ScopeV10UserAccessO5writeyA2EmF",
+                "mangledName": "$s8TinkLink5ScopeV10UserAccessO5writeyA2EmF",
+                "moduleName": "TinkLink"
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.Scope.UserAccess?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UserAccess",
+                        "printedName": "TinkLink.Scope.UserAccess",
+                        "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:8TinkLink5ScopeV10UserAccessO8rawValueAESgSS_tcfc",
+                "mangledName": "$s8TinkLink5ScopeV10UserAccessO8rawValueAESgSS_tcfc",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:8TinkLink5ScopeV10UserAccessO8rawValueSSvp",
+                "mangledName": "$s8TinkLink5ScopeV10UserAccessO8rawValueSSvp",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:8TinkLink5ScopeV10UserAccessO8rawValueSSvg",
+                    "mangledName": "$s8TinkLink5ScopeV10UserAccessO8rawValueSSvg",
+                    "moduleName": "TinkLink",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:8TinkLink5ScopeV10UserAccessO",
+            "mangledName": "$s8TinkLink5ScopeV10UserAccessO",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "enumRawTypeName": "String",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "accounts",
+            "printedName": "accounts(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadWriteAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadWriteAccess",
+                    "printedName": "TinkLink.Scope.ReadWriteAccess",
+                    "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV8accountsyA2C15ReadWriteAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV8accountsyA2C15ReadWriteAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "activities",
+            "printedName": "activities(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadAccess",
+                    "printedName": "TinkLink.Scope.ReadAccess",
+                    "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV10activitiesyA2C10ReadAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV10activitiesyA2C10ReadAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "authorization",
+            "printedName": "authorization(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.AuthorizationAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AuthorizationAccess",
+                    "printedName": "TinkLink.Scope.AuthorizationAccess",
+                    "usr": "s:8TinkLink5ScopeV19AuthorizationAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV13authorizationyA2C19AuthorizationAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV13authorizationyA2C19AuthorizationAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "balances",
+            "printedName": "balances(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadAccess",
+                    "printedName": "TinkLink.Scope.ReadAccess",
+                    "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV8balancesyA2C10ReadAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV8balancesyA2C10ReadAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "beneficiaries",
+            "printedName": "beneficiaries(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadWriteAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadWriteAccess",
+                    "printedName": "TinkLink.Scope.ReadWriteAccess",
+                    "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV13beneficiariesyA2C15ReadWriteAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV13beneficiariesyA2C15ReadWriteAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "budgets",
+            "printedName": "budgets(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadWriteAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadWriteAccess",
+                    "printedName": "TinkLink.Scope.ReadWriteAccess",
+                    "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV7budgetsyA2C15ReadWriteAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV7budgetsyA2C15ReadWriteAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "calendar",
+            "printedName": "calendar(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadAccess",
+                    "printedName": "TinkLink.Scope.ReadAccess",
+                    "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV8calendaryA2C10ReadAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV8calendaryA2C10ReadAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "categories",
+            "printedName": "categories(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadAccess",
+                    "printedName": "TinkLink.Scope.ReadAccess",
+                    "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV10categoriesyA2C10ReadAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV10categoriesyA2C10ReadAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "contacts",
+            "printedName": "contacts(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadAccess",
+                    "printedName": "TinkLink.Scope.ReadAccess",
+                    "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV8contactsyA2C10ReadAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV8contactsyA2C10ReadAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "credentials",
+            "printedName": "credentials(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.CredentialsAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CredentialsAccess",
+                    "printedName": "TinkLink.Scope.CredentialsAccess",
+                    "usr": "s:8TinkLink5ScopeV17CredentialsAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV11credentialsyA2C17CredentialsAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV11credentialsyA2C17CredentialsAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "dataExports",
+            "printedName": "dataExports(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadWriteAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadWriteAccess",
+                    "printedName": "TinkLink.Scope.ReadWriteAccess",
+                    "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV11dataExportsyA2C15ReadWriteAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV11dataExportsyA2C15ReadWriteAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "documents",
+            "printedName": "documents(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadWriteAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadWriteAccess",
+                    "printedName": "TinkLink.Scope.ReadWriteAccess",
+                    "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV9documentsyA2C15ReadWriteAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV9documentsyA2C15ReadWriteAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "follow",
+            "printedName": "follow(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadWriteAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadWriteAccess",
+                    "printedName": "TinkLink.Scope.ReadWriteAccess",
+                    "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV6followyA2C15ReadWriteAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV6followyA2C15ReadWriteAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "identity",
+            "printedName": "identity(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadWriteAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadWriteAccess",
+                    "printedName": "TinkLink.Scope.ReadWriteAccess",
+                    "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV8identityyA2C15ReadWriteAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV8identityyA2C15ReadWriteAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "insights",
+            "printedName": "insights(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadWriteAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadWriteAccess",
+                    "printedName": "TinkLink.Scope.ReadWriteAccess",
+                    "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV8insightsyA2C15ReadWriteAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV8insightsyA2C15ReadWriteAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "investments",
+            "printedName": "investments(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadAccess",
+                    "printedName": "TinkLink.Scope.ReadAccess",
+                    "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV11investmentsyA2C10ReadAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV11investmentsyA2C10ReadAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "properties",
+            "printedName": "properties(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadWriteAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadWriteAccess",
+                    "printedName": "TinkLink.Scope.ReadWriteAccess",
+                    "usr": "s:8TinkLink5ScopeV15ReadWriteAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV10propertiesyA2C15ReadWriteAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV10propertiesyA2C15ReadWriteAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "providers",
+            "printedName": "providers(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadAccess",
+                    "printedName": "TinkLink.Scope.ReadAccess",
+                    "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV9providersyA2C10ReadAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV9providersyA2C10ReadAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "statistics",
+            "printedName": "statistics(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadAccess",
+                    "printedName": "TinkLink.Scope.ReadAccess",
+                    "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV10statisticsyA2C10ReadAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV10statisticsyA2C10ReadAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "suggestions",
+            "printedName": "suggestions(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.ReadAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReadAccess",
+                    "printedName": "TinkLink.Scope.ReadAccess",
+                    "usr": "s:8TinkLink5ScopeV10ReadAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV11suggestionsyA2C10ReadAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV11suggestionsyA2C10ReadAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "transactions",
+            "printedName": "transactions(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.TransactionAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "TransactionAccess",
+                    "printedName": "TinkLink.Scope.TransactionAccess",
+                    "usr": "s:8TinkLink5ScopeV17TransactionAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV12transactionsyA2C17TransactionAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV12transactionsyA2C17TransactionAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "transfer",
+            "printedName": "transfer(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.TransferAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "TransferAccess",
+                    "printedName": "TinkLink.Scope.TransferAccess",
+                    "usr": "s:8TinkLink5ScopeV14TransferAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV8transferyA2C14TransferAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV8transferyA2C14TransferAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "user",
+            "printedName": "user(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Scope",
+                "printedName": "TinkLink.Scope",
+                "usr": "s:8TinkLink5ScopeV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[TinkLink.Scope.UserAccess]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UserAccess",
+                    "printedName": "TinkLink.Scope.UserAccess",
+                    "usr": "s:8TinkLink5ScopeV10UserAccessO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink5ScopeV4useryA2C10UserAccessOd_tFZ",
+            "mangledName": "$s8TinkLink5ScopeV4useryA2C10UserAccessOd_tFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:8TinkLink5ScopeV",
+        "mangledName": "$s8TinkLink5ScopeV",
+        "moduleName": "TinkLink",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
         "declKind": "Import",
@@ -11989,686 +15090,777 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountAggregation.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6432,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
       "kind": "StringLiteral",
       "offset": 241,
       "length": 18,
       "value": "\"Tink-Mobile-SDK\/\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
       "kind": "StringLiteral",
       "offset": 118,
       "length": 7,
       "value": "\"https\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
       "kind": "StringLiteral",
       "offset": 156,
       "length": 15,
       "value": "\"link.tink.com\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
       "kind": "IntegerLiteral",
       "offset": 352,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
       "kind": "IntegerLiteral",
       "offset": 357,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
       "kind": "IntegerLiteral",
       "offset": 484,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
       "kind": "IntegerLiteral",
       "offset": 489,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 115,
       "length": 16,
       "value": "\"credentials_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 224,
       "length": 14,
       "value": "\"error_reason\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 264,
       "length": 12,
       "value": "\"error_type\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 305,
       "length": 15,
       "value": "\"provider_name\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 347,
       "length": 13,
       "value": "\"tracking_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 393,
       "length": 20,
       "value": "\"payment_request_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 457,
       "length": 32,
       "value": "\"account_verification_report_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 520,
       "length": 18,
       "value": "\"expense_check_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 568,
       "length": 17,
       "value": "\"income_check_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 622,
       "length": 18,
       "value": "\"risk_insights_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 676,
       "length": 23,
       "value": "\"transaction_report_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 751,
       "length": 41,
       "value": "\"business_account_verification_report_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 115,
       "length": 16,
       "value": "\"credentials_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 224,
       "length": 14,
       "value": "\"error_reason\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 264,
       "length": 12,
       "value": "\"error_type\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 305,
       "length": 15,
       "value": "\"provider_name\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 347,
       "length": 13,
       "value": "\"tracking_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 393,
       "length": 20,
       "value": "\"payment_request_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 457,
       "length": 32,
       "value": "\"account_verification_report_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 520,
       "length": 18,
       "value": "\"expense_check_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 568,
       "length": 17,
       "value": "\"income_check_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 622,
       "length": 18,
       "value": "\"risk_insights_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 676,
       "length": 23,
       "value": "\"transaction_report_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 751,
       "length": 41,
       "value": "\"business_account_verification_report_id\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 1377,
       "length": 66,
       "value": "\"tink:\/\/callback?error=USER_CANCELLED&error_reason=USER_CANCELLED\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 1349,
+      "length": 11,
+      "value": "\"web_hooks\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 1349,
+      "length": 11,
+      "value": "\"web_hooks\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "StringLiteral",
       "offset": 1374,
       "length": 14,
       "value": "\"chevron.left\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "StringLiteral",
       "offset": 387,
       "length": 18,
       "value": "\"TinkLink.TinkViewController\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 203,
       "length": 10,
       "value": "\"PERSONAL\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 362,
       "length": 10,
       "value": "\"BUSINESS\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 453,
       "length": 19,
       "value": "\"PERSONAL,BUSINESS\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 203,
       "length": 10,
       "value": "\"PERSONAL\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 362,
       "length": 10,
       "value": "\"BUSINESS\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
       "kind": "StringLiteral",
       "offset": 453,
       "length": 19,
       "value": "\"PERSONAL,BUSINESS\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 360,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 365,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 495,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 500,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 618,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 623,
       "length": 1,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 749,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 754,
       "length": 1,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 881,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 886,
       "length": 1,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1021,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1026,
       "length": 1,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1140,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1145,
       "length": 1,
       "value": "6"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1267,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1272,
       "length": 1,
       "value": "7"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1398,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1403,
       "length": 1,
       "value": "8"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1537,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1542,
       "length": 1,
       "value": "9"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1649,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1654,
       "length": 2,
       "value": "10"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1772,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1777,
       "length": 2,
       "value": "11"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1887,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
       "kind": "IntegerLiteral",
       "offset": 1892,
       "length": 2,
       "value": "12"
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 387,
       "length": 36,
       "value": "\"\/1.0\/transactions\/connect-accounts\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 449,
       "length": 34,
       "value": "\"\/1.0\/transactions\/update-consent\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 509,
       "length": 34,
       "value": "\"\/1.0\/transactions\/extend-consent\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 387,
       "length": 36,
       "value": "\"\/1.0\/transactions\/connect-accounts\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 449,
       "length": 34,
       "value": "\"\/1.0\/transactions\/update-consent\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 509,
       "length": 34,
       "value": "\"\/1.0\/transactions\/extend-consent\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 629,
       "length": 10,
       "value": "\"\/1.0\/pay\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 629,
       "length": 10,
       "value": "\"\/1.0\/pay\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 729,
       "length": 34,
       "value": "\"\/1.0\/account-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 729,
       "length": 34,
       "value": "\"\/1.0\/account-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 853,
       "length": 34,
       "value": "\"\/1.0\/expense-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 853,
       "length": 34,
       "value": "\"\/1.0\/expense-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 976,
       "length": 33,
       "value": "\"\/1.0\/income-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 976,
       "length": 33,
       "value": "\"\/1.0\/income-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1099,
       "length": 34,
       "value": "\"\/1.0\/risk-insights\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1099,
       "length": 34,
       "value": "\"\/1.0\/risk-insights\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1218,
       "length": 28,
       "value": "\"\/1.0\/reports\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1218,
       "length": 28,
       "value": "\"\/1.0\/reports\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1347,
       "length": 45,
       "value": "\"\/1.0\/business-transactions\/connect-accounts\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1418,
       "length": 43,
       "value": "\"\/1.0\/business-transactions\/update-consent\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1487,
       "length": 43,
       "value": "\"\/1.0\/business-transactions\/extend-consent\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1347,
       "length": 45,
       "value": "\"\/1.0\/business-transactions\/connect-accounts\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1418,
       "length": 43,
       "value": "\"\/1.0\/business-transactions\/update-consent\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1487,
       "length": 43,
       "value": "\"\/1.0\/business-transactions\/extend-consent\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1628,
       "length": 43,
       "value": "\"\/1.0\/business-account-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 1628,
       "length": 43,
       "value": "\"\/1.0\/business-account-check\/create-report\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1764,
+      "length": 16,
+      "value": "\"\/1.0\/authorize\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1807,
+      "length": 22,
+      "value": "\"\/1.0\/credentials\/add\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1860,
+      "length": 26,
+      "value": "\"\/1.0\/credentials\/refresh\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1922,
+      "length": 31,
+      "value": "\"\/1.0\/credentials\/authenticate\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1979,
+      "length": 33,
+      "value": "\"\/1.0\/credentials\/extend-consent\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1764,
+      "length": 16,
+      "value": "\"\/1.0\/authorize\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1807,
+      "length": 22,
+      "value": "\"\/1.0\/credentials\/add\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1860,
+      "length": 26,
+      "value": "\"\/1.0\/credentials\/refresh\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1922,
+      "length": 31,
+      "value": "\"\/1.0\/credentials\/authenticate\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 1979,
+      "length": 33,
+      "value": "\"\/1.0\/credentials\/extend-consent\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 246,
       "length": 8,
       "value": "\"SINGLE\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 307,
       "length": 7,
       "value": "\"MULTI\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 361,
       "length": 6,
       "value": "\"NONE\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 246,
       "length": 8,
       "value": "\"SINGLE\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 307,
       "length": 7,
       "value": "\"MULTI\""
     },
     {
-      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-sdk-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
       "kind": "StringLiteral",
       "offset": 361,
       "length": 6,

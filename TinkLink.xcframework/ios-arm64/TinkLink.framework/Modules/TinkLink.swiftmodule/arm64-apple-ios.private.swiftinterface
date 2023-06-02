@@ -9,6 +9,17 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 extension TinkLink.Tink {
+  public enum AccountAggregation {
+  }
+}
+extension TinkLink.Tink.AccountAggregation {
+  public static func authorizeForOneTimeAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, scope: [TinkLink.Scope], locale: Foundation.Locale = .current, sessionID: Swift.String? = nil, inputUsername: Swift.String? = nil, inputProvider: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func addCredentials(configuration: TinkLink.Configuration, market: TinkLink.Market, authorizationCode: TinkLink.AuthorizationCode, locale: Foundation.Locale = .current, scope: [TinkLink.Scope]? = nil, sessionID: Swift.String? = nil, inputUsername: Swift.String? = nil, inputProvider: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func refreshCredentials(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, authenticate: Swift.Bool? = false, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func extendConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func authenticateCredentials(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+}
+extension TinkLink.Tink {
   public enum AccountCheck {
   }
 }
@@ -230,6 +241,92 @@ extension TinkLink.Tink {
 extension TinkLink.Tink.ExpenseCheck {
   public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.ExpenseCheckReport.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
+public struct Scope {
+}
+extension TinkLink.Scope : Swift.Equatable {
+  public static func == (a: TinkLink.Scope, b: TinkLink.Scope) -> Swift.Bool
+}
+extension TinkLink.Scope {
+  public enum ReadAccess : Swift.String {
+    case read
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public enum ReadWriteAccess : Swift.String {
+    case read, write
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public enum AuthorizationAccess : Swift.String {
+    case grant, read, revoke
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public enum CredentialsAccess : Swift.String {
+    case read, write, refresh
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public enum TransactionAccess : Swift.String {
+    case read, write, categorize
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public enum TransferAccess : Swift.String {
+    case read, execute
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public enum UserAccess : Swift.String {
+    case create, delete, read, webHooks, write
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public static func accounts(_ access: TinkLink.Scope.ReadWriteAccess...) -> TinkLink.Scope
+  public static func activities(_ access: TinkLink.Scope.ReadAccess...) -> TinkLink.Scope
+  public static func authorization(_ access: TinkLink.Scope.AuthorizationAccess...) -> TinkLink.Scope
+  public static func balances(_ access: TinkLink.Scope.ReadAccess...) -> TinkLink.Scope
+  public static func beneficiaries(_ access: TinkLink.Scope.ReadWriteAccess...) -> TinkLink.Scope
+  public static func budgets(_ access: TinkLink.Scope.ReadWriteAccess...) -> TinkLink.Scope
+  public static func calendar(_ access: TinkLink.Scope.ReadAccess...) -> TinkLink.Scope
+  public static func categories(_ access: TinkLink.Scope.ReadAccess...) -> TinkLink.Scope
+  public static func contacts(_ access: TinkLink.Scope.ReadAccess...) -> TinkLink.Scope
+  public static func credentials(_ access: TinkLink.Scope.CredentialsAccess...) -> TinkLink.Scope
+  public static func dataExports(_ access: TinkLink.Scope.ReadWriteAccess...) -> TinkLink.Scope
+  public static func documents(_ access: TinkLink.Scope.ReadWriteAccess...) -> TinkLink.Scope
+  public static func follow(_ access: TinkLink.Scope.ReadWriteAccess...) -> TinkLink.Scope
+  public static func identity(_ access: TinkLink.Scope.ReadWriteAccess...) -> TinkLink.Scope
+  public static func insights(_ access: TinkLink.Scope.ReadWriteAccess...) -> TinkLink.Scope
+  public static func investments(_ access: TinkLink.Scope.ReadAccess...) -> TinkLink.Scope
+  public static func properties(_ access: TinkLink.Scope.ReadWriteAccess...) -> TinkLink.Scope
+  public static func providers(_ access: TinkLink.Scope.ReadAccess...) -> TinkLink.Scope
+  public static func statistics(_ access: TinkLink.Scope.ReadAccess...) -> TinkLink.Scope
+  public static func suggestions(_ access: TinkLink.Scope.ReadAccess...) -> TinkLink.Scope
+  public static func transactions(_ access: TinkLink.Scope.TransactionAccess...) -> TinkLink.Scope
+  public static func transfer(_ access: TinkLink.Scope.TransferAccess...) -> TinkLink.Scope
+  public static func user(_ access: TinkLink.Scope.UserAccess...) -> TinkLink.Scope
+}
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) final public class TinkViewController : UIKit.UIViewController {
   @_Concurrency.MainActor(unsafe) @objc override final public func viewDidLoad()
   @_Concurrency.MainActor(unsafe) @objc override final public func viewDidAppear(_ animated: Swift.Bool)
@@ -365,6 +462,27 @@ public struct Configuration {
   public let redirectURI: Swift.String
   public init(clientID: Swift.String, redirectURI: Swift.String)
 }
+extension TinkLink.Scope.ReadAccess : Swift.Equatable {}
+extension TinkLink.Scope.ReadAccess : Swift.Hashable {}
+extension TinkLink.Scope.ReadAccess : Swift.RawRepresentable {}
+extension TinkLink.Scope.ReadWriteAccess : Swift.Equatable {}
+extension TinkLink.Scope.ReadWriteAccess : Swift.Hashable {}
+extension TinkLink.Scope.ReadWriteAccess : Swift.RawRepresentable {}
+extension TinkLink.Scope.AuthorizationAccess : Swift.Equatable {}
+extension TinkLink.Scope.AuthorizationAccess : Swift.Hashable {}
+extension TinkLink.Scope.AuthorizationAccess : Swift.RawRepresentable {}
+extension TinkLink.Scope.CredentialsAccess : Swift.Equatable {}
+extension TinkLink.Scope.CredentialsAccess : Swift.Hashable {}
+extension TinkLink.Scope.CredentialsAccess : Swift.RawRepresentable {}
+extension TinkLink.Scope.TransactionAccess : Swift.Equatable {}
+extension TinkLink.Scope.TransactionAccess : Swift.Hashable {}
+extension TinkLink.Scope.TransactionAccess : Swift.RawRepresentable {}
+extension TinkLink.Scope.TransferAccess : Swift.Equatable {}
+extension TinkLink.Scope.TransferAccess : Swift.Hashable {}
+extension TinkLink.Scope.TransferAccess : Swift.RawRepresentable {}
+extension TinkLink.Scope.UserAccess : Swift.Equatable {}
+extension TinkLink.Scope.UserAccess : Swift.Hashable {}
+extension TinkLink.Scope.UserAccess : Swift.RawRepresentable {}
 extension TinkLink.FinancialServicesSegment : Swift.Equatable {}
 extension TinkLink.FinancialServicesSegment : Swift.Hashable {}
 extension TinkLink.FinancialServicesSegment : Swift.RawRepresentable {}
