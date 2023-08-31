@@ -31,6 +31,8 @@ public struct RiskInsightsReport : Swift.Identifiable {
   public let id: TinkLink.RiskInsightsReport.ID
 }
 public struct Report {
+  public let accountVerificationReportID: TinkLink.AccountVerification.ID?
+  public let transactionReportID: TinkLink.TransactionReport.ID?
 }
 public struct AuthorizationCode : Swift.Hashable, Swift.RawRepresentable, Swift.ExpressibleByStringLiteral {
   public let rawValue: Swift.String
@@ -457,10 +459,20 @@ extension TinkLink.Tink.BusinessTransactions {
   public static func updateConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func extendConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
+public enum BaseDomain {
+  case eu
+  case custom(Swift.String)
+}
+extension TinkLink.BaseDomain : Swift.Equatable {
+  public static func == (a: TinkLink.BaseDomain, b: TinkLink.BaseDomain) -> Swift.Bool
+}
 public struct Configuration {
   public let clientID: Swift.String
   public let redirectURI: Swift.String
+  public let baseDomain: TinkLink.BaseDomain
+  @available(*, deprecated, message: "Due to the introduction of a new initializer utilizing the mandatory 'BaseDomain' parameter. This initializer falls back to the '.eu' case.")
   public init(clientID: Swift.String, redirectURI: Swift.String)
+  public init(clientID: Swift.String, redirectURI: Swift.String, baseDomain: TinkLink.BaseDomain)
 }
 extension TinkLink.Scope.ReadAccess : Swift.Equatable {}
 extension TinkLink.Scope.ReadAccess : Swift.Hashable {}
