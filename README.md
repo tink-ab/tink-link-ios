@@ -6,7 +6,8 @@
 
 # Tink Link iOS
 
-![Tink Link iOS](https://user-images.githubusercontent.com/5173226/236459362-a33cd65c-241f-4bae-a73c-f08e7806f17e.png)
+![Tink Link iOS](https://github.com/tink-ab/tink-link-ios/assets/3734694/0f6d4b38-c433-48e9-85a3-374bff7498d6)
+
 
 ## Prerequisites
 
