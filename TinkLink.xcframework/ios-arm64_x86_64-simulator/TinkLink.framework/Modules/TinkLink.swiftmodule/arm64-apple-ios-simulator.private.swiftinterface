@@ -24,7 +24,7 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.AccountCheck {
-  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.AccountVerification.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, refreshableItems: TinkLink.RefreshableItems? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.AccountVerification.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public struct RiskInsightsReport : Swift.Identifiable {
   public typealias ID = TinkLink.Identifier<TinkLink.RiskInsightsReport>
@@ -100,6 +100,8 @@ extension TinkLink.Tink {
 extension TinkLink.Tink.Payments {
   public static func initiateOneTimePayment(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func initiateOneTimePayment(configuration: TinkLink.Configuration, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, authorizationCode: TinkLink.AuthorizationCode, market: TinkLink.Market? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func initiateBulkPayment(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.BulkPaymentRequest.ID, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BulkPaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func initiateBulkPayment(configuration: TinkLink.Configuration, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.BulkPaymentRequest.ID, authorizationCode: TinkLink.AuthorizationCode, market: TinkLink.Market? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BulkPaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public enum TinkErrorReason {
   public enum BadRequest : Swift.Equatable {
@@ -336,6 +338,9 @@ extension TinkLink.Scope {
   @_Concurrency.MainActor(unsafe) @objc override final public func viewDidDisappear(_ animated: Swift.Bool)
   @objc deinit
 }
+extension TinkLink.TinkViewController : WebKit.WKScriptMessageHandler {
+  @_Concurrency.MainActor(unsafe) @objc final public func userContentController(_ userContentController: WebKit.WKUserContentController, didReceive message: WebKit.WKScriptMessage)
+}
 public struct TransactionReport : Swift.Identifiable {
   public typealias ID = TinkLink.Identifier<TinkLink.TransactionReport>
   public let id: TinkLink.TransactionReport.ID
@@ -351,6 +356,7 @@ public struct PaymentRequest : Swift.Identifiable {
   public typealias ID = TinkLink.Identifier<TinkLink.PaymentRequest>
   public let id: TinkLink.PaymentRequest.ID
 }
+public typealias BulkPaymentRequest = TinkLink.PaymentRequest
 public enum FinancialServicesSegment : Swift.String {
   case personal
   case business
