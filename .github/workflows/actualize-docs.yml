@@ -17,10 +17,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Select Xcode 14.2
         run: sudo xcode-select -s /Applications/Xcode_14.2.app/Contents/Developer/
-      - name: Extract actual version from TinkLink.swift
-        id: vars
-        run: |
-          echo "actualVersion=$(perl -pe '($_)=/([0-9]+([.][0-9]+)+)/' ./Sources/TinkLink/Public/TinkLink.swift)" >> $GITHUB_OUTPUT
       - name: Generate docs
         run: |
           mkdir doc_archives
@@ -35,12 +31,12 @@ jobs:
           mv -r ./build/docs ./docs
       - name: Create commit with updated documentation
         run: |
-          git checkout -b docs-BANKX-${{ github.event.inputs.jiraID }}-${{ steps.vars.outputs.actualVersion }}
+          git checkout -b docs-BANKX-${{ github.event.inputs.jiraID }}
           git add ./docs
           git commit -m "Update docs"
       - name: Create pre-release PR
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git push --set-upstream origin docs-BANKX-${{ github.event.inputs.jiraID }}-${{ steps.vars.outputs.actualVersion }}
+          git push --set-upstream origin docs-BANKX-${{ github.event.inputs.jiraID }}
           gh pr create --repo tink-ab/tink-link-ios --title "Update code reference docs" --body "BANKX-${{ github.event.inputs.jiraID }}: Update code reference documentation for Tink Link ${{ steps.vars.outputs.actualVersion }}"
