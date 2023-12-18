@@ -1,0 +1,46 @@
+name: Actualize-docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      jiraID:
+        description: 'Jira BANKX-ID:'
+        required: true
+
+jobs:
+  pre-release:
+    name: Build actual code reference documentation with usings docc
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Select Xcode 14.2
+        run: sudo xcode-select -s /Applications/Xcode_14.2.app/Contents/Developer/
+      - name: Extract actual version from TinkLink.swift
+        id: vars
+        run: |
+          echo "actualVersion=$(perl -pe '($_)=/([0-9]+([.][0-9]+)+)/' ./Sources/TinkLink/Public/TinkLink.swift)" >> $GITHUB_OUTPUT
+      - name: Generate docs
+        run: |
+          mkdir doc_archives
+          mkdir -p ./build/docs
+          xcodebuild build -sdk iphoneos -scheme TinkLink -destination 'generic/platform=iOS Simulator' -derivedDataPath docsData -parallelizeTargets docbuild
+          cp -R `find docsData -type d -name "*.doccarchive"` doc_archives
+          /Applications/Xcode_14.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/docc process-archive \
+              transform-for-static-hosting doc_archives/TinkLink.doccarchive \
+              --hosting-base-path tink-link-ios \
+              --output-path ./build/docs
+          rm -rf ./docs
+          mv -r ./build/docs ./docs
+      - name: Create commit with updated documentation
+        run: |
+          git checkout -b docs-BANKX-${{ github.event.inputs.jiraID }}-${{ steps.vars.outputs.actualVersion }}
+          git add ./docs
+          git commit -m "Update docs"
+      - name: Create pre-release PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git push --set-upstream origin docs-BANKX-${{ github.event.inputs.jiraID }}-${{ steps.vars.outputs.actualVersion }}
+          gh pr create --repo tink-ab/tink-link-ios --title "Update code reference docs" --body "BANKX-${{ github.event.inputs.jiraID }}: Update code reference documentation for Tink Link ${{ steps.vars.outputs.actualVersion }}"
