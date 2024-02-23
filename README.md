@@ -13,6 +13,13 @@
 
 1. [Set up your Tink Console account](https://docs.tink.com/resources/console/set-up-your-tink-account) and retrieve the `client ID` for your app.
 2. Add a universal link (or deep link) to your app in the list of redirect URIs under _App settings > API client_ (eg. `myapp://callback`).
+3. Add a universal link (or deep link) scheme into supported URL Types of your app:
+    * Open your iOS project (xcodeproj file).
+    * Select your app in the list `Targets`.
+    * Open `Info` section.
+    * Navigate down and expand `URL Types` section.
+    * Press plus (`+`) button.
+    * Add your universal link (or deep link) scheme into `URL Schemes` field (eg. `myapp`).
 
 ## Requirements
 
