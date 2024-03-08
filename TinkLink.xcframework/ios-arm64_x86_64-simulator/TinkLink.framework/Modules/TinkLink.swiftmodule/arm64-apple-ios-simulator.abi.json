@@ -919,7 +919,7 @@
               {
                 "kind": "Function",
                 "name": "refreshCredentials",
-                "printedName": "refreshCredentials(configuration:authorizationCode:credentialsID:authenticate:completion:)",
+                "printedName": "refreshCredentials(configuration:authorizationCode:credentialsID:authenticate:locale:completion:)",
                 "children": [
                   {
                     "kind": "TypeNominal",
@@ -969,6 +969,13 @@
                     "usr": "s:Sq"
                   },
                   {
+                    "kind": "TypeNominal",
+                    "name": "Locale",
+                    "printedName": "Foundation.Locale",
+                    "hasDefaultArg": true,
+                    "usr": "s:10Foundation6LocaleV"
+                  },
+                  {
                     "kind": "TypeFunc",
                     "name": "Function",
                     "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.Credentials>, TinkLink.TinkError>) -> ()",
@@ -1010,8 +1017,8 @@
                   }
                 ],
                 "declKind": "Func",
-                "usr": "s:8TinkLink0A0O18AccountAggregationO18refreshCredentials13configuration17authorizationCode13credentialsID12authenticate10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA0F0VGSbSgys6ResultOyAvA0A5ErrorVGctFZ",
-                "mangledName": "$s8TinkLink0A0O18AccountAggregationO18refreshCredentials13configuration17authorizationCode13credentialsID12authenticate10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA0F0VGSbSgys6ResultOyAvA0A5ErrorVGctFZ",
+                "usr": "s:8TinkLink0A0O18AccountAggregationO18refreshCredentials13configuration17authorizationCode13credentialsID12authenticate6locale10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA0F0VGSbSg10Foundation6LocaleVys6ResultOyAwA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O18AccountAggregationO18refreshCredentials13configuration17authorizationCode13credentialsID12authenticate6locale10completionSo22UINavigationControllerCAA13ConfigurationV_AA013AuthorizationI0VAA10IdentifierVyAA0F0VGSbSg10Foundation6LocaleVys6ResultOyAwA0A5ErrorVGctFZ",
                 "moduleName": "TinkLink",
                 "static": true,
                 "declAttributes": [
@@ -2787,6 +2794,117 @@
                 "declKind": "Func",
                 "usr": "s:8TinkLink0A0O8PaymentsO19initiateBulkPayment13configuration6locale16paymentRequestID17authorizationCode6market07sessionK013inputProvider0P8Username10completionSo22UINavigationControllerCAA13ConfigurationV_10Foundation6LocaleVAA10IdentifierVyAA0fJ0VGAA013AuthorizationM0VAA6MarketVSgSSSgA5_A5_ys6ResultOyA_AA0A5ErrorVGctFZ",
                 "mangledName": "$s8TinkLink0A0O8PaymentsO19initiateBulkPayment13configuration6locale16paymentRequestID17authorizationCode6market07sessionK013inputProvider0P8Username10completionSo22UINavigationControllerCAA13ConfigurationV_10Foundation6LocaleVAA10IdentifierVyAA0fJ0VGAA013AuthorizationM0VAA6MarketVSgSSSgA5_A5_ys6ResultOyA_AA0A5ErrorVGctFZ",
+                "moduleName": "TinkLink",
+                "static": true,
+                "declAttributes": [
+                  "RawDocComment"
+                ],
+                "isFromExtension": true,
+                "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Function",
+                "name": "authorizeVariableRecurringPaymentsMandate",
+                "printedName": "authorizeVariableRecurringPaymentsMandate(configuration:consentID:authorizationCode:locale:market:completion:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UINavigationController",
+                    "printedName": "UIKit.UINavigationController",
+                    "usr": "c:objc(cs)UINavigationController"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Configuration",
+                    "printedName": "TinkLink.Configuration",
+                    "usr": "s:8TinkLink13ConfigurationV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.Consent>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Consent",
+                        "printedName": "TinkLink.Consent",
+                        "usr": "s:8TinkLink7ConsentV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AuthorizationCode",
+                    "printedName": "TinkLink.AuthorizationCode",
+                    "usr": "s:8TinkLink17AuthorizationCodeV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Locale",
+                    "printedName": "Foundation.Locale",
+                    "hasDefaultArg": true,
+                    "usr": "s:10Foundation6LocaleV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "TinkLink.Market?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Market",
+                        "printedName": "TinkLink.Market",
+                        "usr": "s:8TinkLink6MarketV"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Result<TinkLink.Identifier<TinkLink.Consent>, TinkLink.TinkError>) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Result",
+                        "printedName": "Swift.Result<TinkLink.Identifier<TinkLink.Consent>, TinkLink.TinkError>",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Identifier",
+                            "printedName": "TinkLink.Identifier<TinkLink.Consent>",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Consent",
+                                "printedName": "TinkLink.Consent",
+                                "usr": "s:8TinkLink7ConsentV"
+                              }
+                            ],
+                            "usr": "s:8TinkLink10IdentifierV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "TinkError",
+                            "printedName": "TinkLink.TinkError",
+                            "usr": "s:8TinkLink0A5ErrorV"
+                          }
+                        ],
+                        "usr": "s:s6ResultO"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:8TinkLink0A0O8PaymentsO026authorizeVariableRecurringC7Mandate13configuration9consentID17authorizationCode6locale6market10completionSo22UINavigationControllerCAA13ConfigurationV_AA10IdentifierVyAA7ConsentVGAA013AuthorizationL0V10Foundation6LocaleVAA6MarketVSgys6ResultOyAuA0A5ErrorVGctFZ",
+                "mangledName": "$s8TinkLink0A0O8PaymentsO026authorizeVariableRecurringC7Mandate13configuration9consentID17authorizationCode6locale6market10completionSo22UINavigationControllerCAA13ConfigurationV_AA10IdentifierVyAA7ConsentVGAA013AuthorizationL0V10Foundation6LocaleVAA6MarketVSgys6ResultOyAuA0A5ErrorVGctFZ",
                 "moduleName": "TinkLink",
                 "static": true,
                 "declAttributes": [
@@ -12529,6 +12647,120 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "Consent",
+        "printedName": "Consent",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "id",
+            "printedName": "id",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Identifier",
+                "printedName": "TinkLink.Identifier<TinkLink.Consent>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Consent",
+                    "printedName": "TinkLink.Consent",
+                    "usr": "s:8TinkLink7ConsentV"
+                  }
+                ],
+                "usr": "s:8TinkLink10IdentifierV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8TinkLink7ConsentV2idAA10IdentifierVyACGvp",
+            "mangledName": "$s8TinkLink7ConsentV2idAA10IdentifierVyACGvp",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.Consent>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Consent",
+                        "printedName": "TinkLink.Consent",
+                        "usr": "s:8TinkLink7ConsentV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8TinkLink7ConsentV2idAA10IdentifierVyACGvg",
+                "mangledName": "$s8TinkLink7ConsentV2idAA10IdentifierVyACGvg",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:8TinkLink7ConsentV",
+        "mangledName": "$s8TinkLink7ConsentV",
+        "moduleName": "TinkLink",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Identifiable",
+            "printedName": "Identifiable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "ID",
+                "printedName": "ID",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Identifier",
+                    "printedName": "TinkLink.Identifier<TinkLink.Consent>",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Consent",
+                        "printedName": "TinkLink.Consent",
+                        "usr": "s:8TinkLink7ConsentV"
+                      }
+                    ],
+                    "usr": "s:8TinkLink10IdentifierV"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s12IdentifiableP",
+            "mangledName": "$ss12IdentifiableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
+        "kind": "TypeDecl",
         "name": "Market",
         "printedName": "Market",
         "children": [
@@ -15869,7 +16101,7 @@
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountAggregation.swift",
       "kind": "BooleanLiteral",
-      "offset": 6584,
+      "offset": 6695,
       "length": 5,
       "value": "false"
     },
@@ -16016,6 +16248,13 @@
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
+      "offset": 872,
+      "length": 12,
+      "value": "\"consent_id\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
       "offset": 115,
       "length": 16,
       "value": "\"credentials_id\""
@@ -16107,7 +16346,14 @@
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
-      "offset": 1431,
+      "offset": 872,
+      "length": 12,
+      "value": "\"consent_id\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 1469,
       "length": 66,
       "value": "\"tink:\/\/callback?error=USER_CANCELLED&error_reason=USER_CANCELLED\""
     },
@@ -16471,6 +16717,13 @@
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
+      "offset": 712,
+      "length": 22,
+      "value": "\"\/1.0\/pay\/vrp-mandate\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
       "offset": 629,
       "length": 10,
       "value": "\"\/1.0\/pay\""
@@ -16485,196 +16738,203 @@
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 764,
+      "offset": 712,
+      "length": 22,
+      "value": "\"\/1.0\/pay\/vrp-mandate\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
+      "kind": "StringLiteral",
+      "offset": 824,
       "length": 34,
       "value": "\"\/1.0\/account-check\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 764,
+      "offset": 824,
       "length": 34,
       "value": "\"\/1.0\/account-check\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 888,
+      "offset": 948,
       "length": 34,
       "value": "\"\/1.0\/expense-check\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 888,
+      "offset": 948,
       "length": 34,
       "value": "\"\/1.0\/expense-check\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1011,
+      "offset": 1071,
       "length": 33,
       "value": "\"\/1.0\/income-check\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1011,
+      "offset": 1071,
       "length": 33,
       "value": "\"\/1.0\/income-check\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1134,
+      "offset": 1194,
       "length": 34,
       "value": "\"\/1.0\/risk-insights\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1134,
+      "offset": 1194,
       "length": 34,
       "value": "\"\/1.0\/risk-insights\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1253,
+      "offset": 1313,
       "length": 28,
       "value": "\"\/1.0\/reports\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1253,
+      "offset": 1313,
       "length": 28,
       "value": "\"\/1.0\/reports\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1382,
+      "offset": 1442,
       "length": 45,
       "value": "\"\/1.0\/business-transactions\/connect-accounts\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1453,
+      "offset": 1513,
       "length": 43,
       "value": "\"\/1.0\/business-transactions\/update-consent\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1522,
+      "offset": 1582,
       "length": 43,
       "value": "\"\/1.0\/business-transactions\/extend-consent\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1382,
+      "offset": 1442,
       "length": 45,
       "value": "\"\/1.0\/business-transactions\/connect-accounts\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1453,
+      "offset": 1513,
       "length": 43,
       "value": "\"\/1.0\/business-transactions\/update-consent\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1522,
+      "offset": 1582,
       "length": 43,
       "value": "\"\/1.0\/business-transactions\/extend-consent\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1663,
+      "offset": 1723,
       "length": 43,
       "value": "\"\/1.0\/business-account-check\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1663,
+      "offset": 1723,
       "length": 43,
       "value": "\"\/1.0\/business-account-check\/create-report\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1799,
+      "offset": 1859,
       "length": 16,
       "value": "\"\/1.0\/authorize\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1842,
+      "offset": 1902,
       "length": 22,
       "value": "\"\/1.0\/credentials\/add\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1895,
+      "offset": 1955,
       "length": 26,
       "value": "\"\/1.0\/credentials\/refresh\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1957,
+      "offset": 2017,
       "length": 31,
       "value": "\"\/1.0\/credentials\/authenticate\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 2014,
+      "offset": 2074,
       "length": 33,
       "value": "\"\/1.0\/credentials\/extend-consent\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1799,
+      "offset": 1859,
       "length": 16,
       "value": "\"\/1.0\/authorize\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1842,
+      "offset": 1902,
       "length": 22,
       "value": "\"\/1.0\/credentials\/add\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1895,
+      "offset": 1955,
       "length": 26,
       "value": "\"\/1.0\/credentials\/refresh\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1957,
+      "offset": 2017,
       "length": 31,
       "value": "\"\/1.0\/credentials\/authenticate\""
     },
     {
       "filePath": "\/Users\/runner\/work\/tink-link-ios-private\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 2014,
+      "offset": 2074,
       "length": 33,
       "value": "\"\/1.0\/credentials\/extend-consent\""
     },
