@@ -102,6 +102,7 @@ extension TinkLink.Tink.Payments {
   public static func initiateOneTimePayment(configuration: TinkLink.Configuration, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, authorizationCode: TinkLink.AuthorizationCode, market: TinkLink.Market? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func initiateBulkPayment(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.BulkPaymentRequest.ID, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BulkPaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func initiateBulkPayment(configuration: TinkLink.Configuration, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.BulkPaymentRequest.ID, authorizationCode: TinkLink.AuthorizationCode, market: TinkLink.Market? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BulkPaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func authorizeVariableRecurringPaymentsMandate(configuration: TinkLink.Configuration, consentID: TinkLink.Consent.ID, authorizationCode: TinkLink.AuthorizationCode, locale: Foundation.Locale = Locale.current, market: TinkLink.Market? = nil, completion: @escaping (Swift.Result<TinkLink.Consent.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public enum TinkErrorReason {
   public enum BadRequest : Swift.Equatable {
@@ -370,6 +371,10 @@ public enum FinancialServicesSegment : Swift.String {
 public struct OneTimeConnection {
   public let code: TinkLink.AuthorizationCode?
   public let credentialsID: TinkLink.Credentials.ID
+}
+public struct Consent : Swift.Identifiable {
+  public typealias ID = TinkLink.Identifier<TinkLink.Consent>
+  public let id: TinkLink.Consent.ID
 }
 public struct Market : Swift.Hashable, Swift.RawRepresentable, Swift.ExpressibleByStringLiteral {
   public let rawValue: Swift.String
