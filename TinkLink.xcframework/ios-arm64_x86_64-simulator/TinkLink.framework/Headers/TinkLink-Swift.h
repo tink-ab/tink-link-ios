@@ -231,7 +231,6 @@ using UInt = size_t;
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import UIKit;
-@import WebKit;
 #endif
 
 #endif
@@ -268,12 +267,6 @@ SWIFT_CLASS("_TtC8TinkLink18TinkViewController")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
-@class WKUserContentController;
-@class WKScriptMessage;
-
-@interface TinkViewController (SWIFT_EXTENSION(TinkLink)) <WKScriptMessageHandler>
-- (void)userContentController:(WKUserContentController * _Nonnull)userContentController didReceiveScriptMessage:(WKScriptMessage * _Nonnull)message;
-@end
 
 
 #endif
@@ -517,7 +510,6 @@ using UInt = size_t;
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import UIKit;
-@import WebKit;
 #endif
 
 #endif
@@ -554,12 +546,6 @@ SWIFT_CLASS("_TtC8TinkLink18TinkViewController")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
-@class WKUserContentController;
-@class WKScriptMessage;
-
-@interface TinkViewController (SWIFT_EXTENSION(TinkLink)) <WKScriptMessageHandler>
-- (void)userContentController:(WKUserContentController * _Nonnull)userContentController didReceiveScriptMessage:(WKScriptMessage * _Nonnull)message;
-@end
 
 
 #endif

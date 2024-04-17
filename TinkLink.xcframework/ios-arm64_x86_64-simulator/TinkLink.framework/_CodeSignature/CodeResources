@@ -6,19 +6,19 @@
 	<dict>
 		<key>Headers/TinkLink-Swift.h</key>
 		<data>
-		H8wigDQGotAiKIbVUdPE2itTgrY=
+		rermsFzzRTIKl08G4Zx6rOGTzEM=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		lEXHA+lbp7u/lZCvmzw35/rr8Zs=
+		fibSViS6Gcp2c4DTl/mm5SK1U08=
 		</data>
 		<key>Modules/TinkLink.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		yMl3V3te9r6i9MUrvSpsTR/Xb7A=
+		Dqa9Iyh7KPBD9WjEhgHyCq+SkTc=
 		</data>
 		<key>Modules/TinkLink.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		y6L3o4vomWtuUJAVWMeF4o+WAbs=
+		ow3x7WXu3HkfN3NAS1GKegnqsB4=
 		</data>
 		<key>Modules/TinkLink.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -26,19 +26,19 @@
 		</data>
 		<key>Modules/TinkLink.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		y6L3o4vomWtuUJAVWMeF4o+WAbs=
+		ow3x7WXu3HkfN3NAS1GKegnqsB4=
 		</data>
 		<key>Modules/TinkLink.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		L9BHWy2Cw4QDY2Zc/9SZrnahaLY=
+		N+TsIKWLHnI3oOxecpxX+fgeLgY=
 		</data>
 		<key>Modules/TinkLink.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		yMl3V3te9r6i9MUrvSpsTR/Xb7A=
+		Dqa9Iyh7KPBD9WjEhgHyCq+SkTc=
 		</data>
 		<key>Modules/TinkLink.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		xPWWhoF2fjNY4IkX+7GWgRPn8lY=
+		a+ssLCI8djEniwSRJz1QmcGQpnc=
 		</data>
 		<key>Modules/TinkLink.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -46,11 +46,11 @@
 		</data>
 		<key>Modules/TinkLink.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		xPWWhoF2fjNY4IkX+7GWgRPn8lY=
+		a+ssLCI8djEniwSRJz1QmcGQpnc=
 		</data>
 		<key>Modules/TinkLink.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		qLGryIHuYwlJTYBIDxCSpxnSugs=
+		/3y62dbY+G9M+VxNDnpaLkhsguo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -63,21 +63,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TShbGl3wlZpyhaXw4CR+vMxZByZLlN/wgiuXfBfuACg=
+			6UNOrPd6kQJ6wV88JMYT1kAcdkJ66R93zyo/GK+xL7U=
 			</data>
 		</dict>
 		<key>Modules/TinkLink.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1GEZW2Xo/lXoj3hlpMQRE046Snz+G+AwHz2CuVv5D+4=
+			LJF0qPDL0qOG4+EnDTh9eieVfLKBdik/o4JRkLAhv/A=
 			</data>
 		</dict>
 		<key>Modules/TinkLink.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			r8OmeU6LqeHEcRemaGIoxemZw4OxgoOTsjDvbrvuhf8=
+			JOGdGGp7jz0Cs+dglL9CmrsAgpWK+GYTV0epraog3Qc=
 			</data>
 		</dict>
 		<key>Modules/TinkLink.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -91,28 +91,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			r8OmeU6LqeHEcRemaGIoxemZw4OxgoOTsjDvbrvuhf8=
+			JOGdGGp7jz0Cs+dglL9CmrsAgpWK+GYTV0epraog3Qc=
 			</data>
 		</dict>
 		<key>Modules/TinkLink.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			XEtfUbPahhg1z5ECDVcTD5mKjx5QJepmVmH2VqDqXvo=
+			7k6gY5S8tae0iPSzOjYqHx4odcbYJ1uHyGNy9h1tehc=
 			</data>
 		</dict>
 		<key>Modules/TinkLink.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1GEZW2Xo/lXoj3hlpMQRE046Snz+G+AwHz2CuVv5D+4=
+			LJF0qPDL0qOG4+EnDTh9eieVfLKBdik/o4JRkLAhv/A=
 			</data>
 		</dict>
 		<key>Modules/TinkLink.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qyjOrSGk0J1SZW/CWRxQtGuB6LWRVbbElr/lvKH42I8=
+			Tl6m+AZhM1AVSFgqgIudXhucQTGbUvkNzN6HsD2GKRk=
 			</data>
 		</dict>
 		<key>Modules/TinkLink.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -126,14 +126,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qyjOrSGk0J1SZW/CWRxQtGuB6LWRVbbElr/lvKH42I8=
+			Tl6m+AZhM1AVSFgqgIudXhucQTGbUvkNzN6HsD2GKRk=
 			</data>
 		</dict>
 		<key>Modules/TinkLink.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Cp9yJSn9pkhR3frCDEst3zAqXqHQBz8cgma/DgF5Tz0=
+			9XyexrvOsCZqhibSOdQS9WzMuRcZwP/9EqODum2s/AM=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
