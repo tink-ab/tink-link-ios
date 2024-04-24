@@ -11967,10 +11967,10 @@
           },
           {
             "kind": "Conformance",
-            "name": "Sendable",
-            "printedName": "Sendable",
-            "usr": "s:s8SendableP",
-            "mangledName": "$ss8SendableP"
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
           }
         ]
       },
@@ -16057,9 +16057,58 @@
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountAggregation.swift",
       "kind": "BooleanLiteral",
+      "offset": 2766,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountAggregation.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5632,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountAggregation.swift",
+      "kind": "BooleanLiteral",
       "offset": 6753,
       "length": 5,
       "value": "false"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountAggregation.swift",
+      "kind": "BooleanLiteral",
+      "offset": 7735,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountAggregation.swift",
+      "kind": "BooleanLiteral",
+      "offset": 9423,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountAggregation.swift",
+      "kind": "BooleanLiteral",
+      "offset": 11147,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountCheck.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4853,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkLink.swift",
+      "kind": "StringLiteral",
+      "offset": 80,
+      "length": 7,
+      "value": "\"3.0.0\""
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
@@ -16070,10 +16119,45 @@
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
+      "kind": "Dictionary",
+      "offset": 691,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
       "kind": "StringLiteral",
       "offset": 40,
       "length": 12,
       "value": "\"TinkLink.WebKitHelper\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
+      "kind": "StringLiteral",
+      "offset": 1667,
+      "length": 6,
+      "value": "\"http\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
+      "kind": "StringLiteral",
+      "offset": 1691,
+      "length": 7,
+      "value": "\"https\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
+      "kind": "StringLiteral",
+      "offset": 1716,
+      "length": 7,
+      "value": "\"about\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/BusinessAccountCheck.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4808,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
@@ -16081,6 +16165,160 @@
       "offset": 118,
       "length": 7,
       "value": "\"https\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 528,
+      "length": 97,
+      "value": "\"It is not possible to build Tink Link's URL with the given set of URL components: \""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 624,
+      "length": 4,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "BooleanLiteral",
+      "offset": 841,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 883,
+      "length": 58,
+      "value": "\"Instance of TinkURLRequest is expected to have url value\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "Array",
+      "offset": 1005,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1226,
+      "length": 97,
+      "value": "\"It is not possible to build Tink Link's URL with the given set of URL components: \""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1322,
+      "length": 4,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1545,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1598,
+      "length": 22,
+      "value": "\"auto_redirect_mobile\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1629,
+      "length": 6,
+      "value": "\"true\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1673,
+      "length": 15,
+      "value": "\"is_mobile_sdk\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 1697,
+      "length": 6,
+      "value": "\"true\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/Reports.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4981,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Transactions.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5481,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Transactions.swift",
+      "kind": "BooleanLiteral",
+      "offset": 10340,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Transactions.swift",
+      "kind": "BooleanLiteral",
+      "offset": 13730,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Transactions.swift",
+      "kind": "BooleanLiteral",
+      "offset": 17128,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/PaymentInitiation.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4432,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/PaymentInitiation.swift",
+      "kind": "BooleanLiteral",
+      "offset": 9029,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/PaymentInitiation.swift",
+      "kind": "BooleanLiteral",
+      "offset": 13542,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/PaymentInitiation.swift",
+      "kind": "BooleanLiteral",
+      "offset": 18371,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/PaymentInitiation.swift",
+      "kind": "BooleanLiteral",
+      "offset": 23357,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
@@ -16111,6 +16349,27 @@
       "value": "1"
     },
     {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "kind": "Array",
+      "offset": 718,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "kind": "StringLiteral",
+      "offset": 791,
+      "length": 20,
+      "value": "\"TRANSACTION_REPORT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/ReportTypes.swift",
+      "kind": "StringLiteral",
+      "offset": 901,
+      "length": 29,
+      "value": "\"ACCOUNT_VERIFICATION_REPORT\""
+    },
+    {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
       "offset": 115,
@@ -16305,6 +16564,20 @@
       "offset": 872,
       "length": 12,
       "value": "\"consent_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 1297,
+      "length": 44,
+      "value": "\"Can't find the value for the '\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "StringLiteral",
+      "offset": 1334,
+      "length": 9,
+      "value": "\"' key.\""
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
@@ -16314,6 +16587,62 @@
       "value": "\"tink:\/\/callback?error=USER_CANCELLED&error_reason=USER_CANCELLED\""
     },
     {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1645,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/RiskInsights.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4469,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/ExpenseCheck.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4377,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 568,
+      "length": 15,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 576,
+      "length": 1,
+      "value": "\":\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 582,
+      "length": 23,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 604,
+      "length": 3,
+      "value": "\",\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 768,
+      "length": 3,
+      "value": "\",\""
+    },
+    {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
       "kind": "StringLiteral",
       "offset": 1349,
@@ -16326,6 +16655,195 @@
       "offset": 1349,
       "length": 11,
       "value": "\"web_hooks\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 1529,
+      "length": 10,
+      "value": "\"accounts\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 1677,
+      "length": 12,
+      "value": "\"activities\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 1839,
+      "length": 15,
+      "value": "\"authorization\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 2033,
+      "length": 10,
+      "value": "\"balances\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 2189,
+      "length": 15,
+      "value": "\"beneficiaries\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 2344,
+      "length": 9,
+      "value": "\"budgets\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 2489,
+      "length": 10,
+      "value": "\"calendar\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 2637,
+      "length": 12,
+      "value": "\"categories\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 2785,
+      "length": 10,
+      "value": "\"contacts\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 3043,
+      "length": 13,
+      "value": "\"credentials\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 3200,
+      "length": 14,
+      "value": "\"data-exports\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 3356,
+      "length": 11,
+      "value": "\"documents\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 3506,
+      "length": 8,
+      "value": "\"follow\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 3751,
+      "length": 10,
+      "value": "\"identity\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 3902,
+      "length": 10,
+      "value": "\"insights\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 4129,
+      "length": 13,
+      "value": "\"investments\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 4285,
+      "length": 12,
+      "value": "\"properties\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 4434,
+      "length": 11,
+      "value": "\"providers\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 4673,
+      "length": 12,
+      "value": "\"statistics\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 4824,
+      "length": 13,
+      "value": "\"suggestions\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 5037,
+      "length": 14,
+      "value": "\"transactions\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 5191,
+      "length": 10,
+      "value": "\"transfer\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
+      "kind": "StringLiteral",
+      "offset": 5405,
+      "length": 6,
+      "value": "\"user\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 1795,
+      "length": 39,
+      "value": "\"init(coder:) has not been implemented\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2162,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2604,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 2884,
+      "length": 4,
+      "value": "0.01"
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
@@ -16333,6 +16851,13 @@
       "offset": 387,
       "length": 18,
       "value": "\"TinkLink.TinkViewController\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/IncomeCheck.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4537,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
@@ -16559,6 +17084,699 @@
       "value": "12"
     },
     {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "Array",
+      "offset": 3251,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 3323,
+      "length": 19,
+      "value": "\"CHECKING_ACCOUNTS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 3426,
+      "length": 23,
+      "value": "\"CHECKING_TRANSACTIONS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 3527,
+      "length": 17,
+      "value": "\"SAVING_ACCOUNTS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 3626,
+      "length": 21,
+      "value": "\"SAVING_TRANSACTIONS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 3729,
+      "length": 21,
+      "value": "\"CREDITCARD_ACCOUNTS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 3836,
+      "length": 25,
+      "value": "\"CREDITCARD_TRANSACTIONS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 3937,
+      "length": 15,
+      "value": "\"LOAN_ACCOUNTS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 4032,
+      "length": 19,
+      "value": "\"LOAN_TRANSACTIONS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 4133,
+      "length": 21,
+      "value": "\"INVESTMENT_ACCOUNTS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 4240,
+      "length": 25,
+      "value": "\"INVESTMENT_TRANSACTIONS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 4338,
+      "length": 11,
+      "value": "\"EINVOICES\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 4433,
+      "length": 23,
+      "value": "\"TRANSFER_DESTINATIONS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/RefreshableItems.swift",
+      "kind": "StringLiteral",
+      "offset": 4532,
+      "length": 15,
+      "value": "\"IDENTITY_DATA\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 3183,
+      "length": 13,
+      "value": "\"BAD_REQUEST\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 3265,
+      "length": 22,
+      "value": "\"AUTHENTICATION_ERROR\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 3377,
+      "length": 16,
+      "value": "\"INTERNAL_ERROR\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 3465,
+      "length": 17,
+      "value": "\"TEMPORARY_ERROR\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 3555,
+      "length": 16,
+      "value": "\"USER_CANCELLED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 3796,
+      "length": 39,
+      "value": "\"INVALID_PARAMETER_ACCOUNT_DIALOG_TYPE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 3904,
+      "length": 38,
+      "value": "\"INVALID_PARAMETER_AUTHORIZATION_CODE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 4011,
+      "length": 29,
+      "value": "\"INVALID_PARAMETER_CLIENT_ID\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 4100,
+      "length": 34,
+      "value": "\"INVALID_PARAMETER_CREDENTIALS_ID\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 4199,
+      "length": 47,
+      "value": "\"INVALID_PARAMETER_FINANCIAL_SERVICES_SEGMENTS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 4323,
+      "length": 34,
+      "value": "\"INVALID_PARAMETER_INPUT_PROVIDER\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 4422,
+      "length": 34,
+      "value": "\"INVALID_PARAMETER_INPUT_USERNAME\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 4521,
+      "length": 38,
+      "value": "\"INVALID_PARAMETER_PAYMENT_REQUEST_ID\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 4627,
+      "length": 32,
+      "value": "\"INVALID_PARAMETER_REDIRECT_URI\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 4722,
+      "length": 37,
+      "value": "\"INVALID_PARAMETER_REFRESHABLE_ITEMS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 4827,
+      "length": 32,
+      "value": "\"INVALID_PARAMETER_REPORT_TYPES\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 4922,
+      "length": 25,
+      "value": "\"INVALID_PARAMETER_SCOPE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 5004,
+      "length": 28,
+      "value": "\"INVALID_STATE_ACCESS_TOKEN\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 5091,
+      "length": 30,
+      "value": "\"INVALID_STATE_AUTHENTICATION\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 5183,
+      "length": 27,
+      "value": "\"INVALID_STATE_CREDENTIALS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 5269,
+      "length": 51,
+      "value": "\"INVALID_STATE_CREDENTIALS_IS_AWAITING_THIRD_PARTY\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 5399,
+      "length": 33,
+      "value": "\"INVALID_STATE_EMBED_NOT_ALLOWED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 5495,
+      "length": 41,
+      "value": "\"INVALID_STATE_NON_OPEN_BANKING_PROVIDER\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 5606,
+      "length": 41,
+      "value": "\"INVALID_STATE_PAYMENT_RETRY_NOT_ALLOWED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 5717,
+      "length": 35,
+      "value": "\"INVALID_STATE_PERMANENT_USER_FLAG\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 5817,
+      "length": 24,
+      "value": "\"INVALID_STATE_PROVIDER\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 5897,
+      "length": 48,
+      "value": "\"INVALID_STATE_PROVIDER_DOES_NOT_RECOGNIZE_USER\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 6021,
+      "length": 46,
+      "value": "\"INVALID_STATE_REDIRECTED_AUTHORIZATION_TOKEN\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 6143,
+      "length": 41,
+      "value": "\"INVALID_STATE_REDIRECTED_CREDENTIALS_ID\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 6255,
+      "length": 48,
+      "value": "\"INVALID_STATE_REFRESH_CREDENTIALS_RATE_LIMITED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 6380,
+      "length": 28,
+      "value": "\"INVALID_STATE_REDIRECT_URI\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 6467,
+      "length": 21,
+      "value": "\"INVALID_STATE_SCOPE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 6743,
+      "length": 17,
+      "value": "\"TINK_SIDE_ERROR\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 6832,
+      "length": 16,
+      "value": "\"PROVIDER_ERROR\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 6920,
+      "length": 18,
+      "value": "\"USER_LOGIN_ERROR\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 7011,
+      "length": 21,
+      "value": "\"AUTHORIZATION_ERROR\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 7109,
+      "length": 27,
+      "value": "\"ACCOUNT_INFORMATION_ERROR\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 7421,
+      "length": 15,
+      "value": "\"UNKNOWN_ERROR\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 7484,
+      "length": 28,
+      "value": "\"TINK_INTERNAL_SERVER_ERROR\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 7571,
+      "length": 37,
+      "value": "\"AUTHENTICATION_METHOD_NOT_SUPPORTED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 7879,
+      "length": 22,
+      "value": "\"PROVIDER_UNAVAILABLE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 7956,
+      "length": 25,
+      "value": "\"LICENSED_PARTY_REJECTED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 8242,
+      "length": 40,
+      "value": "\"THIRD_PARTY_AUTHENTICATION_UNAVAILABLE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 8353,
+      "length": 30,
+      "value": "\"STATIC_CREDENTIALS_INCORRECT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 8445,
+      "length": 31,
+      "value": "\"DYNAMIC_CREDENTIALS_INCORRECT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 8539,
+      "length": 36,
+      "value": "\"DYNAMIC_CREDENTIALS_FLOW_CANCELLED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 8642,
+      "length": 34,
+      "value": "\"DYNAMIC_CREDENTIALS_FLOW_TIMEOUT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 8741,
+      "length": 21,
+      "value": "\"USER_NOT_A_CUSTOMER\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 8814,
+      "length": 14,
+      "value": "\"USER_BLOCKED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 8875,
+      "length": 24,
+      "value": "\"USER_CONCURRENT_LOGINS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 9163,
+      "length": 22,
+      "value": "\"ACTION_NOT_PERMITTED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 9239,
+      "length": 17,
+      "value": "\"SESSION_EXPIRED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 9306,
+      "length": 22,
+      "value": "\"USER_ACTION_REQUIRED\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 9595,
+      "length": 13,
+      "value": "\"NO_ACCOUNTS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 9834,
+      "length": 41,
+      "value": "\"REQUEST_FAILED_CREATE_RESET_CREDENTIALS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 9946,
+      "length": 31,
+      "value": "\"REQUEST_FAILED_FETCH_ACCOUNTS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 10039,
+      "length": 31,
+      "value": "\"REQUEST_FAILED_FETCH_PROVIDER\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 10132,
+      "length": 31,
+      "value": "\"REQUEST_FAILED_OAUTH_DESCRIBE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 10404,
+      "length": 40,
+      "value": "\"REQUEST_FAILED_CONSUME_HANDOFF_SESSION\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 10514,
+      "length": 44,
+      "value": "\"REQUEST_FAILED_CREATE_ACCOUNT_CHECK_REPORT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 10631,
+      "length": 38,
+      "value": "\"REQUEST_FAILED_CREATE_ANONYMOUS_USER\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 10737,
+      "length": 36,
+      "value": "\"REQUEST_FAILED_CREATE_BULK_PAYMENT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 10839,
+      "length": 35,
+      "value": "\"REQUEST_FAILED_CREATE_CREDENTIALS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 10940,
+      "length": 39,
+      "value": "\"REQUEST_FAILED_CREATE_HANDOFF_SESSION\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 11048,
+      "length": 43,
+      "value": "\"REQUEST_FAILED_CREATE_INCOME_CHECK_REPORT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 11163,
+      "length": 41,
+      "value": "\"REQUEST_FAILED_CREATE_RECURRING_PAYMENT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 11275,
+      "length": 30,
+      "value": "\"REQUEST_FAILED_CREATE_REPORT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 11366,
+      "length": 44,
+      "value": "\"REQUEST_FAILED_CREATE_RISK_INSIGHTS_REPORT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 11483,
+      "length": 32,
+      "value": "\"REQUEST_FAILED_CREATE_TRANSFER\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 11578,
+      "length": 35,
+      "value": "\"REQUEST_FAILED_FETCH_BULK_PAYMENT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 11678,
+      "length": 42,
+      "value": "\"REQUEST_FAILED_FETCH_BULK_PAYMENT_STATUS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 11791,
+      "length": 34,
+      "value": "\"REQUEST_FAILED_FETCH_CREDENTIALS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 11890,
+      "length": 36,
+      "value": "\"REQUEST_FAILED_FETCH_EXISTING_USER\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 11992,
+      "length": 38,
+      "value": "\"REQUEST_FAILED_FETCH_HANDOFF_SESSION\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 12098,
+      "length": 33,
+      "value": "\"REQUEST_FAILED_FETCH_LEGAL_TEXT\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 12194,
+      "length": 35,
+      "value": "\"REQUEST_FAILED_FETCH_PAYMENT_INFO\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 12294,
+      "length": 44,
+      "value": "\"REQUEST_FAILED_FETCH_PAYMENT_TRANSFER_INFO\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 12411,
+      "length": 50,
+      "value": "\"REQUEST_FAILED_FETCH_PROVIDER_PAYMENT_CONDITIONS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 12540,
+      "length": 32,
+      "value": "\"REQUEST_FAILED_FETCH_PROVIDERS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 12635,
+      "length": 45,
+      "value": "\"REQUEST_FAILED_FETCH_RECURRING_PAYMENT_INFO\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 12754,
+      "length": 39,
+      "value": "\"REQUEST_FAILED_FETCH_REPORTS_DESCRIBE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 12862,
+      "length": 30,
+      "value": "\"REQUEST_FAILED_FETCH_SESSION\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 12953,
+      "length": 40,
+      "value": "\"REQUEST_FAILED_FETCH_TRANSFER_ACCOUNTS\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 13063,
+      "length": 47,
+      "value": "\"REQUEST_FAILED_FETCH_USER_WITH_EXISTING_TOKEN\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkError.swift",
+      "kind": "StringLiteral",
+      "offset": 13185,
+      "length": 36,
+      "value": "\"REQUEST_FAILED_REFRESH_CREDENTIALS\""
+    },
+    {
       "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
       "offset": 387,
@@ -16879,6 +18097,216 @@
       "offset": 361,
       "length": 6,
       "value": "\"NONE\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/BusinessTransactions.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5113,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/BusinessTransactions.swift",
+      "kind": "BooleanLiteral",
+      "offset": 10438,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/BusinessTransactions.swift",
+      "kind": "BooleanLiteral",
+      "offset": 13861,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/BusinessTransactions.swift",
+      "kind": "BooleanLiteral",
+      "offset": 17379,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1027,
+      "length": 9,
+      "value": "\"app_uri\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1089,
+      "length": 20,
+      "value": "\"authorization_code\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1153,
+      "length": 11,
+      "value": "\"client_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1213,
+      "length": 16,
+      "value": "\"credentials_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1287,
+      "length": 26,
+      "value": "\"financial_institution_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1374,
+      "length": 29,
+      "value": "\"financial_services_segments\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1452,
+      "length": 16,
+      "value": "\"input_provider\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1517,
+      "length": 16,
+      "value": "\"input_username\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1575,
+      "length": 8,
+      "value": "\"locale\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1625,
+      "length": 8,
+      "value": "\"market\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1680,
+      "length": 14,
+      "value": "\"redirect_uri\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1746,
+      "length": 19,
+      "value": "\"refreshable_items\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1810,
+      "length": 12,
+      "value": "\"session_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1874,
+      "length": 20,
+      "value": "\"payment_request_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 1947,
+      "length": 20,
+      "value": "\"external_reference\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 2016,
+      "length": 16,
+      "value": "\"engine_version\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 2079,
+      "length": 14,
+      "value": "\"report_types\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 2146,
+      "length": 21,
+      "value": "\"account_dialog_type\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 2208,
+      "length": 7,
+      "value": "\"scope\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 2263,
+      "length": 14,
+      "value": "\"authenticate\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 2322,
+      "length": 12,
+      "value": "\"consent_id\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 3862,
+      "length": 3,
+      "value": "\",\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 4477,
+      "length": 3,
+      "value": "\",\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 4858,
+      "length": 6,
+      "value": "\"true\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLParameter.swift",
+      "kind": "StringLiteral",
+      "offset": 4867,
+      "length": 7,
+      "value": "\"false\""
+    },
+    {
+      "filePath": "\/Users\/vitalii.kuznetsov\/Documents\/tink-link-ios-private\/Sources\/TinkLink\/Public\/BaseDomain.swift",
+      "kind": "StringLiteral",
+      "offset": 446,
+      "length": 15,
+      "value": "\"link.tink.com\""
     }
   ]
 }
