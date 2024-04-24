@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
 // swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name TinkLink
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import Foundation
@@ -8,6 +8,7 @@ import UIKit
 import WebKit
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 extension TinkLink.Tink {
   public enum AccountAggregation {
   }
@@ -436,8 +437,8 @@ public struct Identifier<Type> : Swift.Hashable, Swift.ExpressibleByStringLitera
   public let value: Swift.String
   public init(_ value: Swift.String)
   public init(stringLiteral value: Swift.String)
-  public init(from decoder: Swift.Decoder) throws
-  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: TinkLink.Identifier<Type>, b: TinkLink.Identifier<Type>) -> Swift.Bool
   public typealias ExtendedGraphemeClusterLiteralType = Swift.String
