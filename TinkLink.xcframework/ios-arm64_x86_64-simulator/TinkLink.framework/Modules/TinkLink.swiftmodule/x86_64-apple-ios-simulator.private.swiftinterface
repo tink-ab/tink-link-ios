@@ -25,7 +25,8 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.AccountCheck {
-  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, refreshableItems: TinkLink.RefreshableItems? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.AccountVerification.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, refreshableItems: TinkLink.RefreshableItems? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, authorizationCode: TinkLink.AuthorizationCode? = nil, completion: @escaping (Swift.Result<TinkLink.AccountVerification.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func updateConsent(configuration: TinkLink.Configuration, market: TinkLink.Market, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public struct RiskInsightsReport : Swift.Identifiable {
   public typealias ID = TinkLink.Identifier<TinkLink.RiskInsightsReport>
