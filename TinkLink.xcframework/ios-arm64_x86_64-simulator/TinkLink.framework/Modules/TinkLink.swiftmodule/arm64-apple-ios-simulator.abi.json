@@ -16225,7 +16225,7 @@
       "kind": "StringLiteral",
       "offset": 80,
       "length": 7,
-      "value": "\"3.1.0\""
+      "value": "\"3.1.1\""
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
@@ -16268,6 +16268,20 @@
       "offset": 1716,
       "length": 7,
       "value": "\"about\""
+    },
+    {
+      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2316,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
+      "kind": "FloatLiteral",
+      "offset": 2421,
+      "length": 3,
+      "value": "1.0"
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/BusinessAccountCheck.swift",
@@ -16936,29 +16950,50 @@
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1205,
+      "length": 3,
+      "value": "1.0"
+    },
+    {
+      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1252,
+      "length": 3,
+      "value": "1.0"
+    },
+    {
+      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1292,
+      "length": 3,
+      "value": "1.0"
+    },
+    {
+      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "StringLiteral",
-      "offset": 1795,
+      "offset": 1977,
       "length": 39,
       "value": "\"init(coder:) has not been implemented\""
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2162,
+      "offset": 2344,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2604,
+      "offset": 2786,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 2884,
+      "offset": 3066,
       "length": 4,
       "value": "0.01"
     },
