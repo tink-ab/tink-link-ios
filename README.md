@@ -89,3 +89,7 @@ To get the list of all providers available for an authenticated user, please ref
 ## SDK reference
 
 For the full API reference, please see the [Tink Link iOS SDK Reference](https://tink-ab.github.io/tink-link-ios/documentation/tinklink/).
+
+## Support
+
+For any questions and/or support, please contact us directly here: https://docs.tink.com/resources/support.
