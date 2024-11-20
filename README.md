@@ -1,5 +1,5 @@
-![Platforms](https://img.shields.io/badge/Platforms-iOS_13_14_15_16_17-brightgreen)
-![Swift](https://img.shields.io/badge/Swift-5.9-blue)
+![Platforms](https://img.shields.io/badge/Platforms-iOS_14_15_16_17_18-brightgreen)
+![Swift](https://img.shields.io/badge/Swift-5.10-blue)
 ![Xcode](https://img.shields.io/badge/Xcode-15-yellowgreen)
 ![CocoaPods](https://img.shields.io/cocoapods/v/TinkLink.svg)
 ![SPM](https://img.shields.io/badge/SPM-compatible-orange)
@@ -23,9 +23,9 @@
 
 ## Requirements
 
-1. iOS 13.0
+1. iOS 14.0
 2. Xcode 15.0
-3. Swift 5.9
+3. Swift 5.10
 
 ## Installation
 
