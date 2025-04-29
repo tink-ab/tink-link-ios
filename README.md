@@ -1,13 +1,12 @@
 ![Platforms](https://img.shields.io/badge/Platforms-iOS_14_15_16_17_18-brightgreen)
 ![Swift](https://img.shields.io/badge/Swift-5.10-blue)
-![Xcode](https://img.shields.io/badge/Xcode-15-yellowgreen)
+![Xcode](https://img.shields.io/badge/Xcode-15_16-yellowgreen)
 ![CocoaPods](https://img.shields.io/cocoapods/v/TinkLink.svg)
 ![SPM](https://img.shields.io/badge/SPM-compatible-orange)
 
 # Tink Link iOS
 
 ![Tink Link iOS](https://github.com/tink-ab/tink-link-ios/assets/3734694/6d579562-14ec-4e89-a5d0-55b7ee0abb8a)
-
 
 ## Prerequisites
 
@@ -20,6 +19,19 @@
     * Navigate down and expand `URL Types` section.
     * Press plus (`+`) button.
     * Add your universal link (or deep link) scheme into `URL Schemes` field (eg. `myapp`).
+4. Add url handling in your app `SceneDelegate`:
+```
+import UIKit
+import TinkLink
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
+        
+        Tink.openUrl(url)
+    }
+}
+```
 
 ## Requirements
 
@@ -49,6 +61,41 @@ pod "TinkLink"
 
 1. Download and extract the `TinkLink.xcframework` from the [releases page on GitHub](https://github.com/tink-ab/tink-link-ios/releases).
 2. Drag `TinkLink.xcframework` to the _Frameworks, Libraries, and Embedded Content_ section of the _General_ settings tab for your application target in your Xcode project. Make sure to select Copy items if needed.
+
+## Configuring the SDK
+
+### Configuration
+1. Define `clientID`:
+```
+let clientID: String = YOUR_CLIENT_ID
+```
+Your client ID (retrieved from [Console](https://console.tink.com)).
+
+2. Define `redirectURI`:
+```
+let redirectURI: String = YOUR_REDIRECT_URI
+```
+The app uri the end-user is redirected to after completing the flow together with the response parameters (configured in [Console](https://console.tink.com)).
+
+3. Define `baseDomain`:
+```
+let baseDomain: BaseDomain = .eu
+```
+It determines the API base domain for Tink Link. EU, US or custom.
+
+4. Define `enableSafariViewController`:
+```
+let enableSafariViewController: Bool = false/true
+```
+`enableSafariViewController` parameter defines SDK behaviour in case of 3rd party authentiation redirect.
+* Set `false` if it is preferred to redicrect to default iOS browser.
+In such case user being redirected into browser for authentication and back into clients app.
+* Set `true` if it is preferred to present 3rd party authentiation resource within clients app via [SFSafariViewController](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller).
+
+5. Initialize `configuration`:
+```
+let configuration = Configuration(clientID: clientID, redirectURI: redirectURI, baseDomain: baseDomain, enableSafariViewController: enableSafariViewController)
+```
 
 ## Launching the SDK
 

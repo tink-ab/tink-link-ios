@@ -1,8 +1,8 @@
 {
   "ABIRoot": {
     "kind": "Root",
-    "name": "TopLevel",
-    "printedName": "TopLevel",
+    "name": "TinkLink",
+    "printedName": "TinkLink",
     "children": [
       {
         "kind": "Import",
@@ -101,6 +101,20 @@
           "RawDocComment"
         ],
         "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
           {
             "kind": "Conformance",
             "name": "Identifiable",
@@ -307,6 +321,22 @@
         "declAttributes": [
           "AccessControl",
           "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
         ]
       },
       {
@@ -467,6 +497,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Hashable",
             "printedName": "Hashable",
             "usr": "s:SH",
@@ -571,8 +615,15 @@
       },
       {
         "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
+        "kind": "Import",
+        "name": "SafariServices.SFSafariViewController",
+        "printedName": "SafariServices.SFSafariViewController",
         "declKind": "Import",
         "moduleName": "TinkLink"
       },
@@ -1213,7 +1264,23 @@
             "declAttributes": [
               "RawDocComment"
             ],
-            "isFromExtension": true
+            "isFromExtension": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              }
+            ]
           },
           {
             "kind": "TypeDecl",
@@ -1495,7 +1562,48 @@
             "declAttributes": [
               "RawDocComment"
             ],
-            "isFromExtension": true
+            "isFromExtension": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "openUrl",
+            "printedName": "openUrl(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8TinkLink0A0O7openUrlyy10Foundation3URLVFZ",
+            "mangledName": "$s8TinkLink0A0O7openUrlyy10Foundation3URLVFZ",
+            "moduleName": "TinkLink",
+            "static": true,
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
           },
           {
             "kind": "TypeDecl",
@@ -1667,7 +1775,23 @@
             "declAttributes": [
               "RawDocComment"
             ],
-            "isFromExtension": true
+            "isFromExtension": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              }
+            ]
           },
           {
             "kind": "TypeDecl",
@@ -1776,7 +1900,23 @@
             "declAttributes": [
               "RawDocComment"
             ],
-            "isFromExtension": true
+            "isFromExtension": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              }
+            ]
           },
           {
             "kind": "TypeDecl",
@@ -2311,7 +2451,23 @@
             "declAttributes": [
               "RawDocComment"
             ],
-            "isFromExtension": true
+            "isFromExtension": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              }
+            ]
           },
           {
             "kind": "TypeDecl",
@@ -3031,7 +3187,23 @@
             "declAttributes": [
               "RawDocComment"
             ],
-            "isFromExtension": true
+            "isFromExtension": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              }
+            ]
           },
           {
             "kind": "TypeDecl",
@@ -3188,7 +3360,23 @@
             "declAttributes": [
               "RawDocComment"
             ],
-            "isFromExtension": true
+            "isFromExtension": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              }
+            ]
           },
           {
             "kind": "TypeDecl",
@@ -3345,7 +3533,23 @@
             "declAttributes": [
               "RawDocComment"
             ],
-            "isFromExtension": true
+            "isFromExtension": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              }
+            ]
           },
           {
             "kind": "TypeDecl",
@@ -3517,7 +3721,23 @@
             "declAttributes": [
               "RawDocComment"
             ],
-            "isFromExtension": true
+            "isFromExtension": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              }
+            ]
           },
           {
             "kind": "TypeDecl",
@@ -4052,7 +4272,23 @@
             "declAttributes": [
               "RawDocComment"
             ],
-            "isFromExtension": true
+            "isFromExtension": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              }
+            ]
           }
         ],
         "declKind": "Enum",
@@ -4062,6 +4298,22 @@
         "declAttributes": [
           "AccessControl",
           "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
         ]
       },
       {
@@ -4075,6 +4327,13 @@
         "kind": "Import",
         "name": "WebKit",
         "printedName": "WebKit",
+        "declKind": "Import",
+        "moduleName": "TinkLink"
+      },
+      {
+        "kind": "Import",
+        "name": "SafariServices",
+        "printedName": "SafariServices",
         "declKind": "Import",
         "moduleName": "TinkLink"
       },
@@ -4161,6 +4420,20 @@
           "RawDocComment"
         ],
         "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
           {
             "kind": "Conformance",
             "name": "Identifiable",
@@ -4276,6 +4549,20 @@
           "RawDocComment"
         ],
         "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
           {
             "kind": "Conformance",
             "name": "Identifiable",
@@ -4407,6 +4694,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Identifiable",
             "printedName": "Identifiable",
             "children": [
@@ -4520,6 +4821,20 @@
           "RawDocComment"
         ],
         "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
           {
             "kind": "Conformance",
             "name": "Identifiable",
@@ -4649,6 +4964,20 @@
           "RawDocComment"
         ],
         "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
           {
             "kind": "Conformance",
             "name": "Identifiable",
@@ -5889,6 +6218,20 @@
             "conformances": [
               {
                 "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
+              {
+                "kind": "Conformance",
                 "name": "Equatable",
                 "printedName": "Equatable",
                 "usr": "s:SQ",
@@ -6422,6 +6765,20 @@
                 "conformances": [
                   {
                     "kind": "Conformance",
+                    "name": "Copyable",
+                    "printedName": "Copyable",
+                    "usr": "s:s8CopyableP",
+                    "mangledName": "$ss8CopyableP"
+                  },
+                  {
+                    "kind": "Conformance",
+                    "name": "Escapable",
+                    "printedName": "Escapable",
+                    "usr": "s:s9EscapableP",
+                    "mangledName": "$ss9EscapableP"
+                  },
+                  {
+                    "kind": "Conformance",
                     "name": "Equatable",
                     "printedName": "Equatable",
                     "usr": "s:SQ",
@@ -6608,6 +6965,20 @@
                   "AccessControl"
                 ],
                 "conformances": [
+                  {
+                    "kind": "Conformance",
+                    "name": "Copyable",
+                    "printedName": "Copyable",
+                    "usr": "s:s8CopyableP",
+                    "mangledName": "$ss8CopyableP"
+                  },
+                  {
+                    "kind": "Conformance",
+                    "name": "Escapable",
+                    "printedName": "Escapable",
+                    "usr": "s:s9EscapableP",
+                    "mangledName": "$ss9EscapableP"
+                  },
                   {
                     "kind": "Conformance",
                     "name": "Equatable",
@@ -7038,6 +7409,20 @@
                 "conformances": [
                   {
                     "kind": "Conformance",
+                    "name": "Copyable",
+                    "printedName": "Copyable",
+                    "usr": "s:s8CopyableP",
+                    "mangledName": "$ss8CopyableP"
+                  },
+                  {
+                    "kind": "Conformance",
+                    "name": "Escapable",
+                    "printedName": "Escapable",
+                    "usr": "s:s9EscapableP",
+                    "mangledName": "$ss9EscapableP"
+                  },
+                  {
+                    "kind": "Conformance",
                     "name": "Equatable",
                     "printedName": "Equatable",
                     "usr": "s:SQ",
@@ -7266,6 +7651,20 @@
                 "conformances": [
                   {
                     "kind": "Conformance",
+                    "name": "Copyable",
+                    "printedName": "Copyable",
+                    "usr": "s:s8CopyableP",
+                    "mangledName": "$ss8CopyableP"
+                  },
+                  {
+                    "kind": "Conformance",
+                    "name": "Escapable",
+                    "printedName": "Escapable",
+                    "usr": "s:s9EscapableP",
+                    "mangledName": "$ss9EscapableP"
+                  },
+                  {
+                    "kind": "Conformance",
                     "name": "Equatable",
                     "printedName": "Equatable",
                     "usr": "s:SQ",
@@ -7414,6 +7813,20 @@
                 "conformances": [
                   {
                     "kind": "Conformance",
+                    "name": "Copyable",
+                    "printedName": "Copyable",
+                    "usr": "s:s8CopyableP",
+                    "mangledName": "$ss8CopyableP"
+                  },
+                  {
+                    "kind": "Conformance",
+                    "name": "Escapable",
+                    "printedName": "Escapable",
+                    "usr": "s:s9EscapableP",
+                    "mangledName": "$ss9EscapableP"
+                  },
+                  {
+                    "kind": "Conformance",
                     "name": "Equatable",
                     "printedName": "Equatable",
                     "usr": "s:SQ",
@@ -7463,6 +7876,20 @@
               "RawDocComment"
             ],
             "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
               {
                 "kind": "Conformance",
                 "name": "Equatable",
@@ -7732,6 +8159,20 @@
               "RawDocComment"
             ],
             "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
               {
                 "kind": "Conformance",
                 "name": "Equatable",
@@ -8923,6 +9364,20 @@
             "conformances": [
               {
                 "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
+              {
+                "kind": "Conformance",
                 "name": "Equatable",
                 "printedName": "Equatable",
                 "usr": "s:SQ",
@@ -8938,6 +9393,22 @@
         "declAttributes": [
           "AccessControl",
           "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
         ]
       },
       {
@@ -9177,6 +9648,20 @@
           "RawDocComment"
         ],
         "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
           {
             "kind": "Conformance",
             "name": "OptionSet",
@@ -9474,6 +9959,20 @@
             "conformances": [
               {
                 "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
+              {
+                "kind": "Conformance",
                 "name": "Equatable",
                 "printedName": "Equatable",
                 "usr": "s:SQ",
@@ -9672,6 +10171,20 @@
             "isFromExtension": true,
             "enumRawTypeName": "String",
             "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
               {
                 "kind": "Conformance",
                 "name": "Equatable",
@@ -9911,6 +10424,20 @@
             "conformances": [
               {
                 "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
+              {
+                "kind": "Conformance",
                 "name": "Equatable",
                 "printedName": "Equatable",
                 "usr": "s:SQ",
@@ -10146,6 +10673,20 @@
             "isFromExtension": true,
             "enumRawTypeName": "String",
             "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
               {
                 "kind": "Conformance",
                 "name": "Equatable",
@@ -10385,6 +10926,20 @@
             "conformances": [
               {
                 "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
+              {
+                "kind": "Conformance",
                 "name": "Equatable",
                 "printedName": "Equatable",
                 "usr": "s:SQ",
@@ -10583,6 +11138,20 @@
             "isFromExtension": true,
             "enumRawTypeName": "String",
             "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
               {
                 "kind": "Conformance",
                 "name": "Equatable",
@@ -10894,6 +11463,20 @@
             "isFromExtension": true,
             "enumRawTypeName": "String",
             "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
               {
                 "kind": "Conformance",
                 "name": "Equatable",
@@ -11803,6 +12386,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Equatable",
             "printedName": "Equatable",
             "usr": "s:SQ",
@@ -11849,6 +12446,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
+              "Preconcurrency",
               "Custom",
               "Override",
               "AccessControl"
@@ -11881,6 +12479,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
+              "Preconcurrency",
               "Custom",
               "Override",
               "AccessControl"
@@ -11913,6 +12512,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
+              "Preconcurrency",
               "Custom",
               "Override",
               "AccessControl"
@@ -11945,6 +12545,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
+              "Preconcurrency",
               "Custom",
               "Override",
               "AccessControl"
@@ -12001,6 +12602,7 @@
             "declAttributes": [
               "Dynamic",
               "ObjC",
+              "Preconcurrency",
               "Custom",
               "Override"
             ],
@@ -12012,6 +12614,7 @@
         "mangledName": "$s8TinkLink0A14ViewControllerC",
         "moduleName": "TinkLink",
         "declAttributes": [
+          "Preconcurrency",
           "Custom",
           "Final",
           "AccessControl",
@@ -12026,6 +12629,20 @@
           "ObjectiveC.NSObject"
         ],
         "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
           {
             "kind": "Conformance",
             "name": "Equatable",
@@ -12176,6 +12793,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Identifiable",
             "printedName": "Identifiable",
             "children": [
@@ -12296,6 +12927,20 @@
           "RawDocComment"
         ],
         "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
           {
             "kind": "Conformance",
             "name": "Identifiable",
@@ -12545,6 +13190,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Equatable",
             "printedName": "Equatable",
             "usr": "s:SQ",
@@ -12723,6 +13382,22 @@
         "declAttributes": [
           "AccessControl",
           "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
         ]
       },
       {
@@ -12807,6 +13482,20 @@
           "RawDocComment"
         ],
         "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
           {
             "kind": "Conformance",
             "name": "Identifiable",
@@ -13071,6 +13760,20 @@
           "RawDocComment"
         ],
         "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
           {
             "kind": "Conformance",
             "name": "Hashable",
@@ -14093,6 +14796,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "OptionSet",
             "printedName": "OptionSet",
             "children": [
@@ -14560,6 +15277,20 @@
               "RawDocComment"
             ],
             "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
               {
                 "kind": "Conformance",
                 "name": "Equatable",
@@ -15077,6 +15808,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Error",
             "printedName": "Error",
             "usr": "s:s5ErrorP",
@@ -15432,6 +16177,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Hashable",
             "printedName": "Hashable",
             "usr": "s:SH",
@@ -15729,6 +16488,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Equatable",
             "printedName": "Equatable",
             "usr": "s:SQ",
@@ -15969,6 +16742,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Equatable",
             "printedName": "Equatable",
             "usr": "s:SQ",
@@ -16124,6 +16911,51 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "enableSafariViewController",
+            "printedName": "enableSafariViewController",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8TinkLink13ConfigurationV26enableSafariViewControllerSbvp",
+            "mangledName": "$s8TinkLink13ConfigurationV26enableSafariViewControllerSbvp",
+            "moduleName": "TinkLink",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8TinkLink13ConfigurationV26enableSafariViewControllerSbvg",
+                "mangledName": "$s8TinkLink13ConfigurationV26enableSafariViewControllerSbvg",
+                "moduleName": "TinkLink",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init(clientID:redirectURI:)",
@@ -16161,7 +16993,7 @@
           {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(clientID:redirectURI:baseDomain:)",
+            "printedName": "init(clientID:redirectURI:baseDomain:enableSafariViewController:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -16186,11 +17018,18 @@
                 "name": "BaseDomain",
                 "printedName": "TinkLink.BaseDomain",
                 "usr": "s:8TinkLink10BaseDomainO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "hasDefaultArg": true,
+                "usr": "s:Sb"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:8TinkLink13ConfigurationV8clientID11redirectURI10baseDomainACSS_SSAA04BaseI0Otcfc",
-            "mangledName": "$s8TinkLink13ConfigurationV8clientID11redirectURI10baseDomainACSS_SSAA04BaseI0Otcfc",
+            "usr": "s:8TinkLink13ConfigurationV8clientID11redirectURI10baseDomain26enableSafariViewControllerACSS_SSAA04BaseI0OSbtcfc",
+            "mangledName": "$s8TinkLink13ConfigurationV8clientID11redirectURI10baseDomain26enableSafariViewControllerACSS_SSAA04BaseI0OSbtcfc",
             "moduleName": "TinkLink",
             "declAttributes": [
               "AccessControl"
@@ -16205,6 +17044,22 @@
         "declAttributes": [
           "AccessControl",
           "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
         ]
       }
     ],
@@ -16214,23 +17069,16 @@
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/AccountAggregation.swift",
       "kind": "BooleanLiteral",
-      "offset": 6753,
+      "offset": 7241,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
       "kind": "StringLiteral",
-      "offset": 241,
+      "offset": 263,
       "length": 18,
       "value": "\"Tink-Mobile-SDK\/\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/WebKitHelper.swift",
-      "kind": "StringLiteral",
-      "offset": 40,
-      "length": 12,
-      "value": "\"TinkLink.WebKitHelper\""
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkURLRequest.swift",
@@ -16368,104 +17216,6 @@
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
       "kind": "StringLiteral",
-      "offset": 115,
-      "length": 16,
-      "value": "\"credentials_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 224,
-      "length": 14,
-      "value": "\"error_reason\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 264,
-      "length": 12,
-      "value": "\"error_type\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 305,
-      "length": 15,
-      "value": "\"provider_name\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 347,
-      "length": 13,
-      "value": "\"tracking_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 393,
-      "length": 20,
-      "value": "\"payment_request_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 457,
-      "length": 32,
-      "value": "\"account_verification_report_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 520,
-      "length": 18,
-      "value": "\"expense_check_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 568,
-      "length": 17,
-      "value": "\"income_check_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 622,
-      "length": 18,
-      "value": "\"risk_insights_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 676,
-      "length": 23,
-      "value": "\"transaction_report_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 751,
-      "length": 41,
-      "value": "\"business_account_verification_report_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 829,
-      "length": 17,
-      "value": "\"bulk_payment_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
-      "offset": 872,
-      "length": 12,
-      "value": "\"consent_id\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/URL+Extension.swift",
-      "kind": "StringLiteral",
       "offset": 1469,
       "length": 66,
       "value": "\"tink:\/\/callback?error=USER_CANCELLED&error_reason=USER_CANCELLED\""
@@ -16478,60 +17228,39 @@
       "value": "\"web_hooks\""
     },
     {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Scope.swift",
-      "kind": "StringLiteral",
-      "offset": 1349,
-      "length": 11,
-      "value": "\"web_hooks\""
+      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1250,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1375,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 1205,
+      "offset": 1658,
       "length": 3,
       "value": "1.0"
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 1252,
+      "offset": 1705,
       "length": 3,
       "value": "1.0"
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 1292,
+      "offset": 1745,
       "length": 3,
       "value": "1.0"
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/TinkViewController.swift",
-      "kind": "StringLiteral",
-      "offset": 387,
-      "length": 18,
-      "value": "\"TinkLink.TinkViewController\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
-      "kind": "StringLiteral",
-      "offset": 203,
-      "length": 10,
-      "value": "\"PERSONAL\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
-      "kind": "StringLiteral",
-      "offset": 362,
-      "length": 10,
-      "value": "\"BUSINESS\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
-      "kind": "StringLiteral",
-      "offset": 453,
-      "length": 19,
-      "value": "\"PERSONAL,BUSINESS\""
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/FinancialServicesSegment.swift",
@@ -16760,48 +17489,6 @@
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 387,
-      "length": 36,
-      "value": "\"\/1.0\/transactions\/connect-accounts\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 449,
-      "length": 34,
-      "value": "\"\/1.0\/transactions\/update-consent\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 509,
-      "length": 34,
-      "value": "\"\/1.0\/transactions\/extend-consent\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 629,
-      "length": 10,
-      "value": "\"\/1.0\/pay\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 659,
-      "length": 15,
-      "value": "\"\/1.0\/pay\/bulk\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 712,
-      "length": 22,
-      "value": "\"\/1.0\/pay\/vrp-mandate\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
       "offset": 629,
       "length": 10,
       "value": "\"\/1.0\/pay\""
@@ -16837,27 +17524,6 @@
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 824,
-      "length": 34,
-      "value": "\"\/1.0\/account-check\/create-report\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 884,
-      "length": 35,
-      "value": "\"\/1.0\/account-check\/update-consent\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 1009,
-      "length": 34,
-      "value": "\"\/1.0\/expense-check\/create-report\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
       "offset": 1009,
       "length": 34,
       "value": "\"\/1.0\/expense-check\/create-report\""
@@ -16872,30 +17538,9 @@
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1132,
-      "length": 33,
-      "value": "\"\/1.0\/income-check\/create-report\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
       "offset": 1255,
       "length": 34,
       "value": "\"\/1.0\/risk-insights\/create-report\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 1255,
-      "length": 34,
-      "value": "\"\/1.0\/risk-insights\/create-report\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 1374,
-      "length": 28,
-      "value": "\"\/1.0\/reports\/create-report\""
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
@@ -16928,72 +17573,9 @@
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
       "kind": "StringLiteral",
-      "offset": 1503,
-      "length": 45,
-      "value": "\"\/1.0\/business-transactions\/connect-accounts\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 1574,
-      "length": 43,
-      "value": "\"\/1.0\/business-transactions\/update-consent\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 1643,
-      "length": 43,
-      "value": "\"\/1.0\/business-transactions\/extend-consent\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
       "offset": 1784,
       "length": 43,
       "value": "\"\/1.0\/business-account-check\/create-report\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 1784,
-      "length": 43,
-      "value": "\"\/1.0\/business-account-check\/create-report\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 1920,
-      "length": 16,
-      "value": "\"\/1.0\/authorize\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 1963,
-      "length": 22,
-      "value": "\"\/1.0\/credentials\/add\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 2016,
-      "length": 26,
-      "value": "\"\/1.0\/credentials\/refresh\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 2078,
-      "length": 31,
-      "value": "\"\/1.0\/credentials\/authenticate\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
-      "kind": "StringLiteral",
-      "offset": 2135,
-      "length": 33,
-      "value": "\"\/1.0\/credentials\/extend-consent\""
     },
     {
       "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Internal\/TinkProductPathProvidable.swift",
@@ -17052,25 +17634,11 @@
       "value": "\"NONE\""
     },
     {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
-      "kind": "StringLiteral",
-      "offset": 246,
-      "length": 8,
-      "value": "\"SINGLE\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
-      "kind": "StringLiteral",
-      "offset": 307,
-      "length": 7,
-      "value": "\"MULTI\""
-    },
-    {
-      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Products\/Reports\/AccountDialogType.swift",
-      "kind": "StringLiteral",
-      "offset": 361,
-      "length": 6,
-      "value": "\"NONE\""
+      "filePath": "\/Users\/vkuznets\/Documents\/Tink\/tink-link-ios-private\/Sources\/TinkLink\/Public\/Configuration.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1276,
+      "length": 5,
+      "value": "false"
     }
   ]
 }
