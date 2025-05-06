@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EF8FA79A29ACFF4D00197781 /* TinkLink.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF8FA79929ACFF4D00197781 /* TinkLink.xcframework */; };
-		EF8FA79B29ACFF4D00197781 /* TinkLink.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF8FA79929ACFF4D00197781 /* TinkLink.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EF8FA79B29ACFF4D00197781 /* TinkLink.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF8FA79929ACFF4D00197781 /* TinkLink.xcframework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EFA84D2629645A7A00EB9E67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA84D2529645A7A00EB9E67 /* AppDelegate.swift */; };
 		EFA84D2829645A7A00EB9E67 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA84D2729645A7A00EB9E67 /* SceneDelegate.swift */; };
 		EFA84D2A29645A7A00EB9E67 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA84D2929645A7A00EB9E67 /* ViewController.swift */; };
