@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1540"
+   LastUpgradeVersion = "1420"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EFA84D2129645A7A00EB9E67"
+               BlueprintIdentifier = "0"
                BuildableName = "TinkLinkSimpleSample.app"
                BlueprintName = "TinkLinkSimpleSample"
                ReferencedContainer = "container:TinkLinkSimpleSample.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EFA84D2129645A7A00EB9E67"
+            BlueprintIdentifier = "0"
             BuildableName = "TinkLinkSimpleSample.app"
             BlueprintName = "TinkLinkSimpleSample"
             ReferencedContainer = "container:TinkLinkSimpleSample.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EFA84D2129645A7A00EB9E67"
+            BlueprintIdentifier = "0"
             BuildableName = "TinkLinkSimpleSample.app"
             BlueprintName = "TinkLinkSimpleSample"
             ReferencedContainer = "container:TinkLinkSimpleSample.xcodeproj">

@@ -1,5 +1,5 @@
 ![Platforms](https://img.shields.io/badge/Platforms-iOS_14_15_16_17_18-brightgreen)
-![Swift](https://img.shields.io/badge/Swift-5.10-blue)
+![Swift](https://img.shields.io/badge/Swift-5.7-blue)
 ![Xcode](https://img.shields.io/badge/Xcode-15_16-yellowgreen)
 ![CocoaPods](https://img.shields.io/cocoapods/v/TinkLink.svg)
 ![SPM](https://img.shields.io/badge/SPM-compatible-orange)
@@ -7,6 +7,7 @@
 # Tink Link iOS
 
 ![Tink Link iOS](https://github.com/tink-ab/tink-link-ios/assets/3734694/6d579562-14ec-4e89-a5d0-55b7ee0abb8a)
+
 
 ## Prerequisites
 
@@ -23,6 +24,7 @@
 ```
 import UIKit
 import TinkLink
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -36,8 +38,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 ## Requirements
 
 1. iOS 14.0
-2. Xcode 15.0
-3. Swift 5.10
+2. Xcode 14.0
+3. Swift 5.7
 
 ## Installation
 
@@ -136,7 +138,3 @@ To get the list of all providers available for an authenticated user, please ref
 ## SDK reference
 
 For the full API reference, please see the [Tink Link iOS SDK Reference](https://tink-ab.github.io/tink-link-ios/documentation/tinklink/).
-
-## Support
-
-For any questions and/or support, please contact us directly here: https://docs.tink.com/resources/support.
