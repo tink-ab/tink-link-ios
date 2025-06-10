@@ -3,6 +3,7 @@ kind: Component
 metadata:
   name: tink-link-ios
   description: Tink Link iOS Public
+  area: "Customer Experience"
   tags: []
   annotations:
     github.com/project-slug: tink-ab/tink-link-ios
