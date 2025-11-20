@@ -4,6 +4,24 @@
 ![CocoaPods](https://img.shields.io/cocoapods/v/TinkLink.svg)
 ![SPM](https://img.shields.io/badge/SPM-compatible-orange)
 
+# ⚠️ Important Notice
+
+**This mobile SDK is no longer recommended for new integrations.**  
+We now provide a simpler, more reliable integration approach.
+
+➡️ **Please follow our latest integration guide here:**  
+* [Integrate One-Time Payments in iOS apps](https://docs.tink.com/resources/payments/one-time-payments/integrate-one-time-payments-in-ios-apps)
+* [Integrate Account Check in iOS apps](https://docs.tink.com/resources/account-check/integrate-account-check-in-ios-apps)
+* [Integrate Business Account Check in iOS apps](https://docs.tink.com/resources/business-account-check/integrate-business-account-check-in-ios-apps)
+* [Integrate Transactions in iOS apps](https://docs.tink.com/resources/transactions/integrate-transactions-in-ios-apps)
+* [Integrate Business Transactions in iOS apps](https://docs.tink.com/resources/business-transactions/integrate-business-transactions-in-ios-apps)
+* [Integrate Income Check in iOS apps](https://docs.tink.com/resources/income-check/integrate-income-check-in-ios-apps)
+* [Integrate Expense Check in iOS apps](https://docs.tink.com/resources/expense-check/integrate-expense-check-in-ios-apps)
+* [Integrate Risk Insights in iOS apps](https://docs.tink.com/resources/risk-insights/integrate-risk-insights-in-ios-apps)
+
+This repository remains available for legacy use, it will not receive new features but only bug fixes.
+For the best experience, use the integration guide linked above.
+
 # Tink Link iOS
 
 ![Tink Link iOS](https://github.com/tink-ab/tink-link-ios/assets/3734694/6d579562-14ec-4e89-a5d0-55b7ee0abb8a)
