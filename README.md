@@ -7,9 +7,8 @@
 # ⚠️ Important Notice
 
 **This mobile SDK is no longer recommended for new integrations.**  
-We now provide a simpler, more reliable integration approach.
 
-➡️ **Please follow our latest integration guide here:**  
+Please refer to one of our latest integration guides instead:
 * [Integrate One-Time Payments in iOS apps](https://docs.tink.com/resources/payments/one-time-payments/integrate-one-time-payments-in-ios-apps)
 * [Integrate Account Check in iOS apps](https://docs.tink.com/resources/account-check/integrate-account-check-in-ios-apps)
 * [Integrate Business Account Check in iOS apps](https://docs.tink.com/resources/business-account-check/integrate-business-account-check-in-ios-apps)
@@ -19,8 +18,7 @@ We now provide a simpler, more reliable integration approach.
 * [Integrate Expense Check in iOS apps](https://docs.tink.com/resources/expense-check/integrate-expense-check-in-ios-apps)
 * [Integrate Risk Insights in iOS apps](https://docs.tink.com/resources/risk-insights/integrate-risk-insights-in-ios-apps)
 
-This repository remains available for legacy use, it will not receive new features but only bug fixes.
-For the best experience, use the integration guide linked above.
+This repository will remain available for legacy integrations and will only receive security and bug-fix updates going forward.
 
 # Tink Link iOS
 
