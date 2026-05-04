@@ -1,6 +1,6 @@
-![Platforms](https://img.shields.io/badge/Platforms-iOS_13_14_15_16-brightgreen)
-![Swift](https://img.shields.io/badge/Swift-5.7-blue)
-![Xcode](https://img.shields.io/badge/Xcode-13_14-yellowgreen)
+![Platforms](https://img.shields.io/badge/Platforms-iOS_14_15_16_17_18_26-brightgreen)
+![Swift](https://img.shields.io/badge/Swift-5.10-blue)
+![Xcode](https://img.shields.io/badge/Xcode-14_15-yellowgreen)
 
 # Simple Sample
 An iOS app designed to demonstrate a simple use case of the `TinkLink` for iOS.
