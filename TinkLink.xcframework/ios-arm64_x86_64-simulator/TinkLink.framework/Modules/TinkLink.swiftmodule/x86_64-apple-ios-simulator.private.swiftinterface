@@ -16,8 +16,8 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.AccountAggregation {
-  public static func authorizeForOneTimeAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, scope: [TinkLink.Scope], locale: Foundation.Locale = .current, sessionID: Swift.String? = nil, inputUsername: Swift.String? = nil, inputProvider: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
-  public static func addCredentials(configuration: TinkLink.Configuration, market: TinkLink.Market, authorizationCode: TinkLink.AuthorizationCode, locale: Foundation.Locale = .current, scope: [TinkLink.Scope]? = nil, sessionID: Swift.String? = nil, inputUsername: Swift.String? = nil, inputProvider: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func authorizeForOneTimeAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, scope: [TinkLink.Scope], locale: Foundation.Locale = .current, sessionID: Swift.String? = nil, inputUsername: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func addCredentials(configuration: TinkLink.Configuration, market: TinkLink.Market, authorizationCode: TinkLink.AuthorizationCode, locale: Foundation.Locale = .current, scope: [TinkLink.Scope]? = nil, sessionID: Swift.String? = nil, inputUsername: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func refreshCredentials(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, authenticate: Swift.Bool? = false, locale: Foundation.Locale = .current, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func extendConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func authenticateCredentials(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
@@ -27,7 +27,7 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.AccountCheck {
-  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, refreshableItems: TinkLink.RefreshableItems? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, authorizationCode: TinkLink.AuthorizationCode? = nil, completion: @escaping (Swift.Result<TinkLink.AccountVerification.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, refreshableItems: TinkLink.RefreshableItems? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, authorizationCode: TinkLink.AuthorizationCode? = nil, completion: @escaping (Swift.Result<TinkLink.AccountVerification.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func updateConsent(configuration: TinkLink.Configuration, market: TinkLink.Market, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public struct RiskInsightsReport : Swift.Identifiable {
@@ -69,7 +69,7 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.BusinessAccountCheck {
-  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BusinessAccountCheckReport.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BusinessAccountCheckReport.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public struct IncomeVerification : Swift.Identifiable {
   public typealias ID = TinkLink.Identifier<TinkLink.IncomeVerification>
@@ -84,7 +84,7 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.Reports {
-  public static func createReport(configuration: TinkLink.Configuration, reportTypes: TinkLink.ReportTypes, refreshableItems: TinkLink.RefreshableItems, accountDialogType: TinkLink.AccountDialogType, inputProvider: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Report, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func createReport(configuration: TinkLink.Configuration, reportTypes: TinkLink.ReportTypes, refreshableItems: TinkLink.RefreshableItems, accountDialogType: TinkLink.AccountDialogType, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Report, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public struct Credentials : Swift.Identifiable {
   public typealias ID = TinkLink.Identifier<TinkLink.Credentials>
@@ -95,8 +95,8 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.Transactions {
-  public static func connectAccountsForContinuousAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, authorizationCode: TinkLink.AuthorizationCode, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
-  public static func connectAccountsForOneTimeAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func connectAccountsForContinuousAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, authorizationCode: TinkLink.AuthorizationCode, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func connectAccountsForOneTimeAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func updateConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func extendConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
@@ -105,10 +105,10 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.Payments {
-  public static func initiateOneTimePayment(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
-  public static func initiateOneTimePayment(configuration: TinkLink.Configuration, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, authorizationCode: TinkLink.AuthorizationCode, market: TinkLink.Market? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
-  public static func initiateBulkPayment(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.BulkPaymentRequest.ID, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BulkPaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
-  public static func initiateBulkPayment(configuration: TinkLink.Configuration, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.BulkPaymentRequest.ID, authorizationCode: TinkLink.AuthorizationCode, market: TinkLink.Market? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BulkPaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func initiateOneTimePayment(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func initiateOneTimePayment(configuration: TinkLink.Configuration, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.PaymentRequest.ID, authorizationCode: TinkLink.AuthorizationCode, market: TinkLink.Market? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.PaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func initiateBulkPayment(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.BulkPaymentRequest.ID, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BulkPaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func initiateBulkPayment(configuration: TinkLink.Configuration, locale: Foundation.Locale = Locale.current, paymentRequestID: TinkLink.BulkPaymentRequest.ID, authorizationCode: TinkLink.AuthorizationCode, market: TinkLink.Market? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.BulkPaymentRequest.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func authorizeVariableRecurringPaymentsMandate(configuration: TinkLink.Configuration, consentID: TinkLink.Consent.ID, authorizationCode: TinkLink.AuthorizationCode, locale: Foundation.Locale = Locale.current, market: TinkLink.Market? = nil, completion: @escaping (Swift.Result<TinkLink.Consent.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public enum TinkErrorReason {
@@ -119,6 +119,7 @@ public enum TinkErrorReason {
     case invalidParameterCredentialsID
     case invalidParameterFinancialServicesSegments
     case invalidParameterInputProvider
+    case invalidParameterInputGroup
     case invalidParameterInputUsername
     case invalidParameterPaymentRequestID
     case invalidParameterRedirectURI
@@ -244,14 +245,14 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.RiskInsights {
-  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.RiskInsightsReport.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.RiskInsightsReport.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 extension TinkLink.Tink {
   public enum ExpenseCheck {
   }
 }
 extension TinkLink.Tink.ExpenseCheck {
-  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.ExpenseCheckReport.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.ExpenseCheckReport.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public struct Scope {
 }
@@ -357,7 +358,7 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.IncomeCheck {
-  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, engineVersion: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.IncomeVerification.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func createReport(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, externalReference: Swift.String? = nil, engineVersion: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.IncomeVerification.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
 public struct PaymentRequest : Swift.Identifiable {
   public typealias ID = TinkLink.Identifier<TinkLink.PaymentRequest>
@@ -471,8 +472,8 @@ extension TinkLink.Tink {
   }
 }
 extension TinkLink.Tink.BusinessTransactions {
-  public static func connectAccountsForOneTimeAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
-  public static func connectAccountsForContinuousAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, authorizationCode: TinkLink.AuthorizationCode, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func connectAccountsForOneTimeAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.OneTimeConnection, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
+  public static func connectAccountsForContinuousAccess(configuration: TinkLink.Configuration, market: TinkLink.Market, locale: Foundation.Locale = Locale.current, authorizationCode: TinkLink.AuthorizationCode, refreshableItems: TinkLink.RefreshableItems? = nil, financialServicesSegments: TinkLink.FinancialServicesSegment? = nil, financialInstitutionID: Swift.String? = nil, sessionID: Swift.String? = nil, inputProvider: Swift.String? = nil, inputGroup: Swift.String? = nil, inputUsername: Swift.String? = nil, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func updateConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
   public static func extendConsent(configuration: TinkLink.Configuration, authorizationCode: TinkLink.AuthorizationCode, credentialsID: TinkLink.Credentials.ID, completion: @escaping (Swift.Result<TinkLink.Credentials.ID, TinkLink.TinkError>) -> Swift.Void) -> UIKit.UINavigationController
 }
